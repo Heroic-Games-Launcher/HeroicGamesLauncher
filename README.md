@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# Heroic Games Launcher
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app is a native alternative to the Epic Games Launcher for Linux.
+It uses the features implemented on [Legendary](https://github.com/derrod/legendary) but providing a GUI for it.
 
-## Available Scripts
+## Dependencies:
+- [Legendary](https://github.com/derrod/legendary)
 
-In the project directory, you can run:
+## Feature availables right now
+- Login with an existing Epic Games account
+- See the whole library
+- Check basic information about your Games
+- Install/Uninstall Games
+- Play games using the default wine and default prefix
 
-### `npm start`
+## Planned features
+- Customized instalation options
+- Play game with custom wine (Proton maybe but can be bugs)
+- Sync saves with the cloud
+- Sync installed games with an existing Epic Games instalation folder
+- Open game page on Epic Store
+- Get the Free game of the week
+- Search for the game on ProtonDB
+- Logout (why not?)
+- Put the Legendary binnary along with the Heroic one (Not 100% sure about this one)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Binaries supported right now
+- AppImage
+- Snap
+- Will release DEBs, RPMs and put on AUR as well as soon as possible.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## How to build and run locally
 
-### `npm test`
+This app uses web technologies like Electron, React and Typescript.
+To be able to run you will need to have nodeJs installed locally.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Steps:
+  - Clone the Repository
+  - On the project folder run `npm install`
+  - Run `npm start`
+  - To build the binaries run `npm run dist`
