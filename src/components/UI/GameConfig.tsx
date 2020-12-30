@@ -62,10 +62,11 @@ export default function GameConfig({ location }: Card) {
             </div>
             <div className="buttonsWrapper">
               {isInstalled && (
+                <>
                 <div
                 onClick={async () => {
                   setPlaying(true);
-                  await legendary(['launch', appName]);
+                  await legendary(`launch ${appName}`);
                   setPlaying(false);
                 }}
                 className="button"
@@ -73,14 +74,16 @@ export default function GameConfig({ location }: Card) {
                 >
                   {playing ? "Playing" : "Play"}
                 </div>
+              <div onClick={() => legendary(`sync-saves ${appName}`)} className="button">Sync Saves</div>
+              </>
               )}
               <div
                 onClick={async () => {
                   setInstalling(true)
                   await legendary(
                     isInstalled
-                    ? ['uninstall', appName, '-y']
-                    : ['install', appName, '-y']
+                    ? `uninstall ${appName}`
+                    : `install ${appName}`
                     )
                   setInstalling(false)
                   }
@@ -90,6 +93,7 @@ export default function GameConfig({ location }: Card) {
               >
                 {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
               </div>
+              <div className="button">Winetricks</div>
               <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button">Epic Store</div>
               <div onClick={() => createNewWindow(protonDBurl)} className="button">ProtonDB</div>
             </div>
