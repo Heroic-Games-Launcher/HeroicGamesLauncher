@@ -38,3 +38,7 @@ export const getGameInfo = async(appName: string) => {
 }
 
 export const createNewWindow = (url: string) => new BrowserWindow().loadURL(url)
+const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
+const specialCharactersRegex = /[^((0-9)|(a-z)|(A-Z)|\s)]/g
+export const formatStoreUrl = (title: string) => 
+  `${storeUrl}${title.replaceAll(specialCharactersRegex, '').replaceAll(' ', '-')}`.toLowerCase()

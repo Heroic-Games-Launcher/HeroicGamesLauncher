@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { createNewWindow, Game, getGameInfo, legendary } from "../../helper";
+import { createNewWindow, formatStoreUrl, Game, getGameInfo, legendary } from "../../helper";
 
 interface Card {
   location: any;
@@ -47,27 +47,29 @@ export default function GameConfig({ location }: Card) {
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
-            <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
-            <div>Developer: {developer}</div>
-            {isInstalled && (
-              <>
-                <div>Executable: {executable}</div>
-                <div>Installed on: {install_path}</div>
-                <div>Install Size: {sizeInMB}MB</div>
-                <div>Version: {version}</div>
-                <br />
-              </>
-            )}
+            <div className="infoWrapper">
+              <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
+              <div>Developer: {developer}</div>
+              {isInstalled && (
+                <>
+                  <div>Executable: {executable}</div>
+                  <div>Installed on: {install_path}</div>
+                  <div>Install Size: {sizeInMB}MB</div>
+                  <div>Version: {version}</div>
+                  <br />
+                </>
+              )}
+            </div>
             <div className="buttonsWrapper">
               {isInstalled && (
                 <div
-                  onClick={async () => {
-                    setPlaying(true);
-                    await legendary(['launch', appName]);
-                    setPlaying(false);
-                  }}
-                  className="button"
-                  style={{ backgroundColor: "#0078F2" }}
+                onClick={async () => {
+                  setPlaying(true);
+                  await legendary(['launch', appName]);
+                  setPlaying(false);
+                }}
+                className="button"
+                style={{ backgroundColor: "#0078F2" }}
                 >
                   {playing ? "Playing" : "Play"}
                 </div>
@@ -88,6 +90,7 @@ export default function GameConfig({ location }: Card) {
               >
                 {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
               </div>
+              <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button">Epic Store</div>
               <div onClick={() => createNewWindow(protonDBurl)} className="button">ProtonDB</div>
             </div>
           </div>
