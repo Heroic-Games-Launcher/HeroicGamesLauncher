@@ -1,7 +1,7 @@
 const { ipcRenderer, remote } = window.require('electron')
 const { BrowserWindow } = remote
 
-export const legendary = async (args: Array<string>): Promise<string> => await ipcRenderer.invoke('legendary', args)
+export const legendary = async (args: string): Promise<string> => await ipcRenderer.invoke('legendary', args)
   .then((res: string) => console.log(`${res}`))
   .catch((err: string) => console.error({err}))
 

@@ -1,15 +1,15 @@
-// import fetch from 'electron-fetch';
 const { exec, spawn } = require("child_process");
 const { homedir } = require("os");
 const path = require("path");
 const fs = require("fs");
-const promosify = require("util").promisify;
-const stat = promosify(fs.stat);
+const promisify = require("util").promisify;
+const execAsync = promisify(exec);
+const stat = promisify(fs.stat);
 const {
   app,
   BrowserWindow,
   ipcMain,
-  dialog: { showMessageBox, showErrorBox },
+  dialog: { showMessageBox, showErrorBox, showOpenDialog },
 } = require("electron");
 
 function createWindow() {
@@ -17,33 +17,30 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
     height: 720,
+    minHeight: 600,
+    minWidth: 1000,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
     },
   });
-
+  win.setMenu(null);
   //load the index.html from a url
-  win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-  // win.loadURL("http://localhost:3000");
+  // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+  win.loadURL("http://localhost:3000");
   // Open the DevTools.
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 }
 
 //Checks if legendary is installed
 let legendaryBin = null;
-const findLegendary = () =>
-  new Promise((res, rej) => {
-    exec("which legendary", (error, stdout, stderr) => {
-      if (error) {
-        rej(null);
-      }
-      if (stdout) {
-        const legendaryPath = stdout.split("\n")[0];
-        res(legendaryPath);
-      }
-    });
-  });
+const findLegendary = async() =>{
+  const { stdout } = await execAsync("which legendary")
+  if (stdout) {
+    const legendaryPath = stdout.split("\n")[0];
+    return legendaryPath;
+  }
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -60,9 +57,14 @@ const home = homedir();
 const configPath = `${home}/.config/legendary`;
 const userInfo = `${configPath}/user.json`;
 
-//Checks if the user have logged in with Legendary already
+ipcMain.handle("winetricks", (event, prefix) => {
+  return new Promise((resolve, reject) => {
+    const child = spawn([prefix], "winetricks");
+    child.on("close", () => "done");
+  });
+});
 
-ipcMain.handle("legendary", (event, args) => {
+ipcMain.handle("legendary", async (event, args) => {
   if (!legendaryBin) {
     showErrorBox(
       "Legendary not Found",
@@ -72,51 +74,70 @@ ipcMain.handle("legendary", (event, args) => {
   }
 
   const isUninstall = args.includes("uninstall");
-  const isLaunch = args[0].includes("launch");
+  const isLaunch = args.includes("launch");
   const isAuth = args.includes("auth");
 
-  return new Promise((resolve, reject) => {
-    if (!isLaunch && !isAuth) {
-      return showMessageBox({
-        type: "warning",
-        title: isUninstall ? "Uninstall" : "Install",
-        message: isUninstall
-          ? "Do you want to Uninstall this game?"
-          : "Do you want to install this game?",
-        buttons: ["Yes", "No"],
-      }).then(({ response }) => {
-        if (response === 1) {
-          resolve(response);
-        }
+  if (isLaunch) {
+    await execAsync(`legendary ${args}`).then(
+      async () => await execAsync(`legendary sync-saves ${args}`)
+    );
+  }
 
-        if (response === 0) {
-          const child = spawn("xterm", ["-e", "legendary", ...args]);
-          child.on("close", () => resolve("done"));
-        }
-      });
+  if (!isLaunch && !isAuth) {
+    const { response } = await showMessageBox({
+      type: "warning",
+      title: isUninstall ? "Uninstall" : "Install",
+      message: isUninstall
+        ? "Do you want to Uninstall this game?"
+        : "Do you want to install this game?",
+      buttons: ["Yes", "No"],
+    });
+    if (response === 1) {
+      return response;
     }
-
-    const child = spawn("legendary", [...args]);
-    child.on("close", () => resolve("done"));
-  });
+    if (response === 0) {
+      if (!isUninstall) {
+        await showOpenDialog({
+          title: "Choose Install Path",
+          buttonLabel: "Choose",
+          properties: ["openDirectory"],
+        }).then(async ({ canceled, filePaths }) => {
+          if (canceled) {
+            return "Canceled";
+          }
+          if (filePaths[0]) {
+            await execAsync(
+              `xterm -hold -e legendary ${args} --base-path ${filePaths[0]}`
+            ).then(() => "done");
+          }
+        });
+      }
+      if (isUninstall) {
+        await execAsync(`xterm -hold -e legendary ${args}`).then(() => "done");
+      }
+    }
+  } else {
+    await execAsync(`xterm -hold -e legendary ${args}`).then(() => "done");
+  }
 });
 
 ipcMain.handle("readFile", (event, file) => {
+  //Checks if the user have logged in with Legendary already
   return stat(userInfo)
-    .then(async() => {
-      const installed = `${configPath}/installed.json`
+    .then(async () => {
+      const installed = `${configPath}/installed.json`;
       const files = {
         user: require(userInfo),
         library: `${configPath}/metadata/`,
         installed: await stat(installed)
-                          .then(() => require(installed))
-                          .catch(() => [])
+          .then(() => require(installed))
+          .catch(() => []),
       };
 
       if (file === "user") {
         return files[file].displayName;
       }
-    
+
       if (file === "library") {
         return fs
           .readdirSync(files.library)
@@ -144,7 +165,7 @@ ipcMain.handle("readFile", (event, file) => {
               install_size = null,
               install_path = null,
             } = info;
-    
+
             return {
               isInstalled,
               info,
@@ -168,39 +189,29 @@ ipcMain.handle("readFile", (event, file) => {
           })
           .sort((a, b) => b.isInstalled - a.isInstalled);
       }
-    
-      return files[file];
 
+      return files[file];
     })
-    .catch(() => {
-      showMessageBox({
+    .catch(async () => {
+      const { response } = await showMessageBox({
         type: "warning",
         title: "Logged out",
         message: "Do you want to login with legendary now?",
         buttons: ["Yes", "No"],
-      })
-        .then(({ response }) => {
-          if (response === 1) {
-            app.quit();
-          }
-
-          if (response === 0) {
-            const child = spawn("xterm", ["-e", "legendary", "auth"]);
-            child.on("close", () =>
-              showMessageBox({
-                title: "Legendary",
-                message: "Updating Game List",
-              }).then(() => {
-                const child = spawn("legendary", ["list-games"]);
-                child.on("close", () => app.relaunch());
-              })
-            );
-          }
-        })
-        .then(() => {
-          const child = spawn("legendary", ["list-games"]);
-          child.on("close", () => app.relaunch());
+      });
+      if (response === 1) {
+        app.quit();
+      }
+      if (response === 0) {
+        await execAsync(`xterm -e legendary auth`);
+        await showMessageBox({
+          title: "Legendary",
+          message: "Updating Game List",
         });
+        await execAsync(`xterm -e legendary list-games`);
+        app.relaunch();
+        app.exit()
+      }
     });
 });
 
