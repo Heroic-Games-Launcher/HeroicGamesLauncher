@@ -12,21 +12,21 @@ It uses the features implemented on [Legendary](https://github.com/derrod/legend
 - Check basic information about your Games
 - Install/Uninstall Games
 - Play games using the default wine and default prefix
+- Sync saves with the cloud (kind of bugged)
+- Open game page on Epic Store
+- Search for the game on ProtonDB
+
 
 ## Planned features
 - Customized instalation options
 - Play game with custom wine (Proton maybe but can be bugs)
-- Sync saves with the cloud
 - Sync installed games with an existing Epic Games instalation folder
-- Open game page on Epic Store
 - Get the Free game of the week
-- Search for the game on ProtonDB
 - Logout (why not?)
 - Put the Legendary binnary along with the Heroic one (Not 100% sure about this one)
 
 ## Binaries supported right now
 - AppImage
-- Snap
 - Will release DEBs, RPMs and put on AUR as well as soon as possible.
 
 ## How to build and run locally
