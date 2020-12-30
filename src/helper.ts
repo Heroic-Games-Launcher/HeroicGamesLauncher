@@ -1,4 +1,5 @@
-const { ipcRenderer } = window.require('electron')
+const { ipcRenderer, remote } = window.require('electron')
+const { BrowserWindow } = remote
 
 export const legendary = async (args: Array<string>): Promise<string> => await ipcRenderer.invoke('legendary', args)
   .then((res: string) => console.log(`${res}`))
@@ -35,3 +36,5 @@ export const getGameInfo = async(appName: string) => {
   const library: Array<Game> = await readFile('library')
   return library.filter(game => game.app_name === appName)[0]
 }
+
+export const createNewWindow = (url: string) => new BrowserWindow().loadURL(url)

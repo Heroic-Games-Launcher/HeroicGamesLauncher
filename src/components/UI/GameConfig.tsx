@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Game, getGameInfo, legendary } from "../../helper";
+import { createNewWindow, Game, getGameInfo, legendary } from "../../helper";
 
 interface Card {
   location: any;
@@ -10,7 +10,6 @@ export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = React.useState({} as any);
   const [playing, setPlaying] = React.useState(false);
   const [installing, setInstalling] = React.useState(false);
-  
   const { appName } = location.state;
   
   React.useEffect(() => {
@@ -35,8 +34,10 @@ export default function GameConfig({ location }: Card) {
       isInstalled,
       executable,
       version,
+      developer
     }: Game = gameInfo;
     const sizeInMB = Math.floor(install_size / 1024 / 1024);
+    const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
     return (
       <>
@@ -47,6 +48,7 @@ export default function GameConfig({ location }: Card) {
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
             <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
+            <div>Developer: {developer}</div>
             {isInstalled && (
               <>
                 <div>Executable: {executable}</div>
@@ -82,10 +84,11 @@ export default function GameConfig({ location }: Card) {
                   }
                 }
                 className="button"
-                style={{ backgroundColor: isInstalled ? "red" : "#0078F2" }}
+                style={{ backgroundColor: isInstalled ? "#F0183C" : "#0078F2" }}
               >
                 {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
               </div>
+              <div onClick={() => createNewWindow(protonDBurl)} className="button">ProtonDB</div>
             </div>
           </div>
         </div>
