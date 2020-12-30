@@ -1,38 +1,68 @@
 .App {
   text-align: center;
+  color: #929292;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.gameList {
+  color: #F5F5F5;
+  display: grid;
+  grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 4%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.gameCard {
+  margin: 0 4px;
+  background-color: #2B2B2B;
+  text-align: left;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  width: 195px;
+  height: 300px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+}
+
+.gameImg {
+  max-height: 230px;
+  width: 180px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 4px;
+  height: 225px;
+}
+
+.gameTitle {
+  text-align: center;
+  margin: auto 4px;
+  font-size: 14px;
+}
+
+.gameCard:hover {
+  background-color: #0078F2;
+}
+
+.gameConfig {
+  display: flex;
+}
+
+.gameInfo {
+  text-align: initial;
+  margin-left: 16px;
+  font-size: 22px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.button {
+    width: fit-content;
+    padding: 0 12px;
+    border-radius: 5px;
+    text-transform: uppercase;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button :hover {
+  background-color: black;
 }
