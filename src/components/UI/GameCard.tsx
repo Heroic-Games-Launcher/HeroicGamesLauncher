@@ -12,7 +12,7 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
   return (
     <Link
       className="gameCard"
-      style={{ backgroundColor: isInstalled ? "red" : "#2B2B2B" }}
+      style={{ backgroundColor: isInstalled ? "#F0183C" : "#2B2B2B" }}
       to={{
         pathname: "/gameconfig",
         state: { appName },

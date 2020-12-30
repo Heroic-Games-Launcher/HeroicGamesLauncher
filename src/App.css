@@ -16,20 +16,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   width: 195px;
   height: 300px;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-bottom: 6px;
 }
 
 .gameImg {
-  max-height: 230px;
-  width: 180px;
+  width: 195px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 4px;
-  height: 225px;
+  margin: 0;
+  height: 240px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 .gameTitle {
@@ -44,11 +46,16 @@
 
 .gameConfig {
   display: flex;
+  margin: 16px;
+  border: 2px solid;
+  border-radius: 5px;
+  align-items: center;
+  padding-left: 16px;
 }
 
 .gameInfo {
   text-align: initial;
-  margin-left: 16px;
+  margin: 16px;
   font-size: 22px;
   color: white;
   display: flex;
@@ -56,11 +63,17 @@
   justify-content: space-between;
 }
 
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .button {
-    width: fit-content;
-    padding: 0 12px;
-    border-radius: 5px;
-    text-transform: uppercase;
+  width: fit-content;
+  padding: 0 12px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background-color: #202630;
 }
 
 .button :hover {
