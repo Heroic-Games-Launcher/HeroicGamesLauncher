@@ -12,7 +12,7 @@ This app is GUI for the tool [Legendary](https://github.com/derrod/legendary), a
 ## How to use it:
 - Download the Deb, tar.xz, pacman or the AppImage file on the Releases Page
 - install xterm
-- Install or run the AppImage or the heroic binary inside the TAR file.
+- Install the package for your distro (pacman -U heroic-xxx.pacman for Arch Based like Manjaro) or run the AppImage or the heroic binary inside the TAR file.
 - If you neved used Legendary before, it will ask you to login first. So, two windows will be opened, a browser window will be opened on Epic Games Store for you to login there and get the SID code, and also a Xterm window will be opened and there you will paste the SID code.
 - After the login, the app will refresh the game list and should relaunch showing your library. Sometime it won't then just close it and open it again.
 - If you think is easier, before launching the app, run `legendary auth` on a terminal and after login run `legendary list-games`. Then the app will identify the configuration and will open your library.
