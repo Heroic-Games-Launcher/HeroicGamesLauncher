@@ -7,7 +7,7 @@ This app is GUI for the tool [Legendary](https://github.com/derrod/legendary), a
 
 ## Dependencies:
 - Xterm (installed in most distros. I'll check the default terminal in the future)
-- As of version 0.3.0 is not need to have Legendary installed.
+- As of version 0.3.0 is not needed to have Legendary installed.
 
 ## How to use it:
 - Download the Deb, tar.xz, pacman or the AppImage file on the Releases Page
