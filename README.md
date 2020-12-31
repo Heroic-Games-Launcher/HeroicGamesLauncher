@@ -51,8 +51,6 @@ To be able to run you will need to have NodeJs installed locally and follow the 
   - Clone the Repository.
   - Install foreman with `npm i -g foreman`.
   - On the project folder run `npm install`.
-  - For now, go to the `main.js` file in `/public` manually comment the `win.loadURL(file://...)` and uncoment `win.loadURL(http://localhost:3000)`. I'll add a env to check that soon as well.
-  - Uncomment `win.webContents.openDevTools()` to be able to check the result logs of the app.
   - Run `npm run build` to build the React Assets.
   - Run `npm start`.
   - To build the binaries run `npm run dist`.
