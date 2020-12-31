@@ -1,6 +1,7 @@
 const { exec, spawn } = require("child_process");
 const { homedir } = require("os");
 const path = require("path");
+const isDev = require('electron-is-dev');
 const fs = require("fs");
 const promisify = require("util").promisify;
 const execAsync = promisify(exec);
@@ -24,12 +25,14 @@ function createWindow() {
       enableRemoteModule: true,
     },
   });
-  // win.setMenu(null);
   //load the index.html from a url
-  win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-  // win.loadURL("http://localhost:3000");
+  if(isDev){
+  win.loadURL("http://localhost:3000");
   // Open the DevTools.
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
+  } else {
+    win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+  }
 }
 
 //Checks if legendary is installed

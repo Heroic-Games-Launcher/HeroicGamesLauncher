@@ -22,6 +22,7 @@
     "@types/node": "^12.19.11",
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
+    "electron-is-dev": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -31,7 +32,7 @@
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
     "electron": "electron .",
-    "electron-start": "node public/start-react",
+    "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
