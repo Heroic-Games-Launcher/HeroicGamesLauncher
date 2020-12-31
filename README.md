@@ -10,11 +10,10 @@ This app is GUI for the tool [Legendary](https://github.com/derrod/legendary), a
 - Xterm (installed in most distros. I'll check the default terminal in the future)
 
 ## How to use it:
-- Download the AppImage on the Releases Page
-- Install legendary
+* Download the Deb, tar.xz, pacman or the AppImage file on the Releases Page
+* Legendary now is built inside the app.
 - install xterm
-- chmod +x heroic-xxx.AppImage
-- ./heroic-xxx.AppImage
+* Install or run the AppImage or the heroic binary inside the TAR file.
 - If you neved used Legendary before, it will ask you to login first. So, two windows will be opened, a browser window will be opened on Epic Games Store for you to login there and get the SID code, and also a Xterm window will be opened and there you will paste the SID code.
 - After the login, the app will refresh the game list and should relaunch showing your library. Sometime it won't then just close it and open it again.
 - If you think is easier, before launching the app, run `legendary auth` on a terminal and after login run `legendary list-games`. Then the app will identify the configuration and will open your library.
@@ -36,11 +35,11 @@ This app is GUI for the tool [Legendary](https://github.com/derrod/legendary), a
 - Sync installed games with an existing Epic Games instalation folder
 - Get the Free game of the week
 - Logout (why not?)
-- Put the Legendary binnary along with the Heroic one (Not 100% sure about this one)
 
 ## Binaries supported right now
-- AppImage
-- Will release DEBs, RPMs and put on AUR as well as soon as possible.
+- AppImage, DEB, Pacman and TAR.XZ (with the heroic binary and all dependecies)
+- Will release RPMs and maybe FlatPak put on AUR as well as soon as possible.
+- There is a AUR version right now for the AppImage: https://aur.archlinux.org/packages/heroic-games-launcher-appimage/
 
 ## How to build and run locally
 
