@@ -63,9 +63,7 @@ ipcMain.handle("legendary", async (event, args) => {
   const isAuth = args.includes("auth");
 
   if (isLaunch) {
-    await execAsync(`${legendaryBin} ${args}`).then(
-      async () => await execAsync(`${legendaryBin} sync-saves ${args.split(' ')[1]}`)
-    );
+    await execAsync(`${legendaryBin} ${args}`)
   }
 
   if (!isLaunch && !isAuth) {

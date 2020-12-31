@@ -49,7 +49,7 @@ export default function GameConfig({ location }: Card) {
           <div className="gameInfo">
             <div className="infoWrapper">
               <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
-              <span>appName: {appName}</span>
+              <div>appName: {appName}</div>
               <div>Developer: {developer}</div>
               {isInstalled && (
                 <>
@@ -75,7 +75,6 @@ export default function GameConfig({ location }: Card) {
                 >
                   {playing ? "Playing" : "Play"}
                 </div>
-              <div onClick={() => legendary(`sync-saves ${appName}`)} className="button">Sync Saves</div>
               </>
               )}
               <div
@@ -94,7 +93,6 @@ export default function GameConfig({ location }: Card) {
               >
                 {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
               </div>
-              <div className="button">Winetricks</div>
               <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button">Epic Store</div>
               <div onClick={() => createNewWindow(protonDBurl)} className="button">ProtonDB</div>
             </div>
