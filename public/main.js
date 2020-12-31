@@ -24,12 +24,12 @@ function createWindow() {
       enableRemoteModule: true,
     },
   });
-  win.setMenu(null);
+  // win.setMenu(null);
   //load the index.html from a url
-  // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-  win.loadURL("http://localhost:3000");
+  win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+  // win.loadURL("http://localhost:3000");
   // Open the DevTools.
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 //Checks if legendary is installed
