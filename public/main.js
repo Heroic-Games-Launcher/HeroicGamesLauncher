@@ -1,4 +1,5 @@
-const { exec, spawn } = require("child_process");
+const { spawn, exec } = require("child_process");
+const { fixPathForAsarUnpack } = require('electron-util')
 const { homedir } = require("os");
 const path = require("path");
 const isDev = require('electron-is-dev');
@@ -10,7 +11,7 @@ const {
   app,
   BrowserWindow,
   ipcMain,
-  dialog: { showMessageBox, showErrorBox, showOpenDialog },
+  dialog: { showMessageBox, showOpenDialog },
 } = require("electron");
 
 function createWindow() {
@@ -35,15 +36,7 @@ function createWindow() {
   }
 }
 
-//Checks if legendary is installed
-let legendaryBin = null;
-const findLegendary = async() =>{
-  const { stdout } = await execAsync("which legendary")
-  if (stdout) {
-    const legendaryPath = stdout.split("\n")[0];
-    return legendaryPath;
-  }
-}
+let legendaryBin = fixPathForAsarUnpack(path.join(__dirname, '/bin/legendary'));
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -51,9 +44,6 @@ const findLegendary = async() =>{
 app
   .whenReady()
   .then(createWindow)
-  .then(async () => {
-    legendaryBin = await findLegendary();
-  });
 
 // Define basic paths
 const home = homedir();
@@ -68,21 +58,13 @@ ipcMain.handle("winetricks", (event, prefix) => {
 });
 
 ipcMain.handle("legendary", async (event, args) => {
-  if (!legendaryBin) {
-    showErrorBox(
-      "Legendary not Found",
-      "Legendary could not be found, please install it first!"
-    );
-    app.quit();
-  }
-
   const isUninstall = args.includes("uninstall");
   const isLaunch = args.includes("launch");
   const isAuth = args.includes("auth");
 
   if (isLaunch) {
-    await execAsync(`legendary ${args}`).then(
-      async () => await execAsync(`legendary sync-saves ${args}`)
+    await execAsync(`${legendaryBin} ${args}`).then(
+      async () => await execAsync(`${legendaryBin} sync-saves ${args.split(' ')[1]}`)
     );
   }
 
@@ -110,19 +92,19 @@ ipcMain.handle("legendary", async (event, args) => {
           }
           if (filePaths[0]) {
             await execAsync(
-              `xterm -hold -e legendary ${args} --base-path ${filePaths[0]}`
+              `xterm -hold -e ${legendaryBin} ${args} --base-path ${filePaths[0]}`
             ).then(() => "done");
           }
         });
       }
       if (isUninstall) {
-        await execAsync(`xterm -hold -e legendary ${args}`).then(() => "done");
+        await execAsync(`xterm -hold -e ${legendaryBin} ${args}`).then(() => "done");
       }
     }
   } else {
-    await execAsync(`xterm -hold -e legendary ${args}`).then(() => "done");
+    await execAsync(`xterm -hold -e ${legendaryBin} ${args}`).then(() => "done");
   }
-});
+})
 
 ipcMain.handle("readFile", (event, file) => {
   //Checks if the user have logged in with Legendary already
@@ -206,12 +188,12 @@ ipcMain.handle("readFile", (event, file) => {
         app.quit();
       }
       if (response === 0) {
-        await execAsync(`xterm -e legendary auth`);
+        await execAsync(`xterm -e ${legendaryBin} auth`);
         await showMessageBox({
           title: "Legendary",
           message: "Updating Game List",
         });
-        await execAsync(`xterm -e legendary list-games`);
+        await execAsync(`xterm -e ${legendaryBin} list-games`);
         app.relaunch();
         app.exit()
       }
