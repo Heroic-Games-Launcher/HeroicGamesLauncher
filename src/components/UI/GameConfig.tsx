@@ -42,13 +42,14 @@ export default function GameConfig({ location }: Card) {
     return (
       <>
         <h1>
-          {title} (appName: {appName})
+          {title}
         </h1>
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
             <div className="infoWrapper">
               <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
+              <span>appName: {appName}</span>
               <div>Developer: {developer}</div>
               {isInstalled && (
                 <>
