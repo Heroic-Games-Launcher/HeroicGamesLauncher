@@ -17,31 +17,22 @@ function App() {
     updateConfig();
   }, []);
 
-  if (Object.keys(config).length) {
     const { user, library } = config;
-
-    if (!user) {
-      return null;
-    }
 
     return (
       <HashRouter>
-        {/* TODO: move rel below to proper location */}
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
         <div className="App">
           <Switch>
             <Route
               exact
               path="/"
               children={<Library library={library} user={user} />}
-            />
+              />
             <Route exact path="/gameconfig" component={GameConfig} />
           </Switch>
         </div>
       </HashRouter>
     );
   }
-  return <div className={"noConfigText"}>No Config Found</div>;
-}
 
 export default App;

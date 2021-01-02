@@ -25,11 +25,6 @@ export interface Game {
 
 export const getLegendaryConfig = async() => {
   const user: string = await readFile('user')
-
-  if (!user) {
-    return null
-
-  }
   const library: Array<Game> = await readFile('library')
   return {user, library}
 }
