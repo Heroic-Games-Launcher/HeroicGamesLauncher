@@ -1,37 +1,53 @@
 import React from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
+import NavBar from './components/UI/NavBar'
 import { Library } from "./components/Library";
-import GameConfig from "./components/UI/GameConfig";
-import { getLegendaryConfig } from "./helper";
+import { Game, getLegendaryConfig } from "./helper";
+import Login from './components/UI/Login';
+
+interface State {
+  user: string;
+  library: Array<Game>;
+}
 
 function App() {
-  const [config, setConfig] = React.useState({} as any);
+  const [config, setConfig] = React.useState({} as State);
+  const [showLogin, setShowLogin] = React.useState(false)
+  const handleOnClick = () => setShowLogin(!showLogin)
 
   React.useEffect(() => {
     const updateConfig = async () => {
+      console.log('useEffect');
+      
       const newConfig = await getLegendaryConfig();
       newConfig && setConfig(newConfig);
     };
     updateConfig();
   }, []);
 
-    const { user, library } = config;
+  if (!Object.entries(config).length) {
+    return null
+  }
+   
+  console.log(config);
+
+  const { user, library } = config;
+  const hasGames = Boolean(library.length);
 
     return (
-      <HashRouter>
-        <div className="App">
-          <Switch>
-            <Route
-              exact
-              path="/"
-              children={<Library library={library} user={user} />}
-              />
-            <Route exact path="/gameconfig" component={GameConfig} />
-          </Switch>
-        </div>
-      </HashRouter>
+      <div className="App">
+      <NavBar 
+        hasGames={hasGames} 
+        user={user ? user : 'LogIn'} 
+        handleOnClick={handleOnClick}
+      />
+      {showLogin && <Login />}
+      <Library 
+        library={library}
+        user={user}
+      />
+      </div>
     );
   }
 
