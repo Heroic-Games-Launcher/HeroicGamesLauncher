@@ -52,14 +52,10 @@
 }
 
 .gameImg {
-  width: 195px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  height: 240px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  width: 15rem;
+  height: auto;
+  border-radius: $border-radius;
+  object-fit: cover;
 }
 
 .gameTitle {
@@ -68,9 +64,10 @@
   font-size: 14px;
 }
 
-.gameCard:hover {
-  background-color: #0078F2;
-}
+// unused
+// .gameCard:hover {
+//   background-color: #0078F2;
+// }
 
 .gameConfig {
   display: flex;
@@ -91,11 +88,20 @@
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
-
+  
+  .title  {
+    font-weight: bold;
+  }
+  
   *:not(.title) {
     margin-left: 1rem;
     color: $light;
     margin-bottom: 0.5rem;
+  }
+
+  .developer {
+    padding: 1rem 0 1rem 0;
+    color: $lighter;
   }
 
 }
@@ -116,11 +122,11 @@
   padding: 0 12px;
   border-radius: 5px;
   text-transform: uppercase;
-  background-color: #202630;
+  background: $dark;
   margin: 6px 8px;
   font-size: 18px;
-}
 
-.button :hover {
-  background-color: black;
+  &:hover {
+    background: $dark-hover;
+  }
 }

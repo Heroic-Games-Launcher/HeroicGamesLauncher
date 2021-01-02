@@ -59,14 +59,15 @@ export default function GameConfig({ location }: Card) {
               {title}
             </div>
             <div className="infoWrapper">
-              <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
+              {/* removed as it is redundant. if it is installed, it will have a play button */}
+              {/* <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span> */}
+              <div className="developer">{developer}</div>
               <div>appName: {appName}</div>
-              <div>Developer: {developer}</div>
               {isInstalled && (
                 <>
                   <div>Executable: {executable}</div>
-                  <div>Installed on: {install_path}</div>
-                  <div>Install Size: {sizeInMB}MB</div>
+                  <div>Location: {install_path}</div>
+                  <div>Size: {sizeInMB}MB</div>
                   <div>Version: {version}</div>
                   <br />
                 </>
@@ -99,8 +100,7 @@ export default function GameConfig({ location }: Card) {
                   setInstalling(false)
                   }
                 }
-                className="button"
-                style={{ backgroundColor: isInstalled ? "#F0183C" : "#0078F2" }}
+                className={`button ${isInstalled ? 'installed' : ''}`}
               >
                 {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
               </div>

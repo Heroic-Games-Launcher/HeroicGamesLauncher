@@ -5,3 +5,27 @@ $dark   : #49454D;
 $mid    : #7D7881;
 $light  : #B0ABB6;
 $lighter: #E4DEEA;
+
+$darker-hover : lighten($darker, 15%);
+$dark-hover   : lighten($dark, 15%);
+$mid-hover    : lighten($mid, 15%);
+$light-hover  : lighten($light, 15%);
+$lighter-hover: lighten($lighter, 15%);
+//moar colors
+$primary: #734bd1;
+
+// auto-color cat-culations
+// pulled from @octoshrimpy https://codepen.io/octoshrimpy/pen/WmPVBb
+$num : 50%;
+
+$primary-dark : darken($primary, 15%);;
+$primary-light: lighten($primary, 15%);;
+
+$success: mix($primary, $green, $num);
+$warning: mix($primary, $yellow, $num);
+$danger : mix($primary, $red, $num);
+$info   : mix($primary, $teal, $num);
+
+
+// values
+$border-radius: 0.5rem;

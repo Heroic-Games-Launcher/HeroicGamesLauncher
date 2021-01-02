@@ -48,14 +48,10 @@
 }
 
 .gameImg {
-  width: 195px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  height: 240px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  width: 15rem;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: cover;
 }
 
 .gameTitle {
@@ -90,10 +86,19 @@
   justify-content: space-between;
 }
 
+.gameInfo .title {
+  font-weight: bold;
+}
+
 .gameInfo *:not(.title) {
   margin-left: 1rem;
   color: #B0ABB6;
   margin-bottom: 0.5rem;
+}
+
+.gameInfo .developer {
+  padding: 1rem 0 1rem 0;
+  color: #E4DEEA;
 }
 
 .infoWrapper {
