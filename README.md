@@ -2,8 +2,9 @@
 
 This app is GUI for the tool [Legendary](https://github.com/derrod/legendary), a native alternative to the Epic Games Launcher for Linux.
 
-![heroic-library](https://user-images.githubusercontent.com/26871415/103409170-c68f6b00-4b65-11eb-8d79-ba5ae1a58e74.png)
-![heroic-game](https://user-images.githubusercontent.com/26871415/103409190-e3c43980-4b65-11eb-8980-dd675420e867.png)
+![heroic-library](https://user-images.githubusercontent.com/26871415/103456736-384bee00-4cf9-11eb-8674-e6fe3b71be61.png)
+![heroic-game](https://user-images.githubusercontent.com/26871415/103456735-37b35780-4cf9-11eb-8f07-667a86b96c6c.png)
+![heroic-game-install](https://user-images.githubusercontent.com/26871415/103456734-371ac100-4cf9-11eb-8ab3-584e2b097a72.png)
 
 ## Dependencies:
 - Xterm (installed in most distros. I'll check the default terminal in the future)
