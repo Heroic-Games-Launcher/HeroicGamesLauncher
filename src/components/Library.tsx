@@ -29,11 +29,11 @@ export const Library = ({ library, user }: GameList) => {
      {
        library.map(({title, art_square, app_name, isInstalled}: Game) => 
        <GameCard 
-        key={app_name}
-        cover={art_square}
-        title={title}
-        appName={app_name}
-        isInstalled={isInstalled}
+          key={app_name}
+          cover={art_square}
+          title={title}
+          appName={app_name}
+          isInstalled={isInstalled}
        />
        )
       }

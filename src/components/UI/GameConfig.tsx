@@ -10,7 +10,7 @@ export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = React.useState({} as any);
   const [playing, setPlaying] = React.useState(false);
   const [installing, setInstalling] = React.useState(false);
-  const { appName } = location.state;
+  const { appName } = location.state || {};
   
   React.useEffect(() => {
     const updateConfig = async () => {
@@ -18,11 +18,11 @@ export default function GameConfig({ location }: Card) {
       setGameInfo(newInfo);
     };
     updateConfig();
-  }, [appName, installing]);
+  }, [location, appName]);
   
   
-  if (!location) {
-    return null;
+  if (!appName) {
+    return <div><Link to={"/"}>Back to Library</Link></div>;
   }
 
   if (gameInfo) {
