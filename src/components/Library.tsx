@@ -1,6 +1,7 @@
 import React from 'react'
 import { Game } from '../helper'
 import GameCard from './UI/GameCard'
+import NavBar from './UI/NavBar'
 
 interface GameList {
   library: Array<Game>,
@@ -8,23 +9,9 @@ interface GameList {
 }
 
 export const Library = ({ library, user }: GameList) => {
-  if (!user) {
-    return null
-  }
-
   return (
     <>
-
-    {/* extract this into its own nav module, with optional args on what the left cluster would do (nothing, nav to /library, etc) */}
-    <div className="pageTitle">Library</div>
-    <div className="topBar">
-      <div className="leftCluster"></div>
-      <div className="rightCluster">
-        <div className="username">{user}</div>
-        <div className="settings"></div>
-      </div>
-    </div>
-
+    <NavBar hasGames={Boolean(library.length)} user={user ? user : 'LogIn'} />
     <div className="gameList">
      {
        library.map(({title, art_square, app_name, isInstalled}: Game) => 
