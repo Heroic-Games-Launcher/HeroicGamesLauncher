@@ -56,15 +56,11 @@ ipcMain.handle("winetricks", (event, prefix) => {
 });
 
 ipcMain.handle("legendary", async (event, args) => {
-  const isUninstall = args.includes("uninstall");
-  const isLaunch = args.includes("launch");
-  const isAuth = args.includes("auth");
+  const isUninstall = args.startsWith("uninstall");
+  const isInstall = args.startsWith("install");
+  const isAddOrRemove = isUninstall || isInstall
 
-  if (isLaunch) {
-    return execAsync(`${legendaryBin} ${args}`);
-  }
-
-  if (!isLaunch && !isAuth) {
+  if (isAddOrRemove) {
     const { response } = await showMessageBox({
       type: "warning",
       title: isUninstall ? "Uninstall" : "Install",
@@ -87,7 +83,9 @@ ipcMain.handle("legendary", async (event, args) => {
           return "Canceled";
         }
         if (filePaths[0]) {
-          return execAsync(`xterm -hold -e ${legendaryBin} ${args} --base-path ${filePaths[0]}`);
+          return execAsync(
+            `xterm -hold -e ${legendaryBin} ${args} --base-path ${filePaths[0]}`
+          );
         }
       }
       if (isUninstall) {
@@ -95,107 +93,98 @@ ipcMain.handle("legendary", async (event, args) => {
       }
     }
   } else {
-    return execAsync(`xterm -hold -e ${legendaryBin} ${args}`);
+    return execAsync(`${legendaryBin} ${args}`);
   }
 });
 
-const isLoggedIn = async () => await stat(userInfo)
-  .then(() => true)
-  .catch(() => false)
+const isLoggedIn = async () =>
+  await stat(userInfo)
+    .then(() => true)
+    .catch(() => false);
 
-ipcMain.handle('isLoggedIn', () => isLoggedIn())
+//Checks if the user have logged in with Legendary already
+ipcMain.handle("isLoggedIn", () => isLoggedIn());
 
-ipcMain.handle("readFile", (event, file) => {
-  //Checks if the user have logged in with Legendary already
-  return stat(userInfo)
-  .then(async () => {
-      const installed = `${configPath}/installed.json`;
-      const files = {
-        user: require(userInfo),
-        library: `${configPath}/metadata/`,
-        installed: await stat(installed)
-          .then(() => require(installed))
-          .catch(() => []),
-      };
+ipcMain.handle("readFile", async (event, file) => {
+  const loggedIn = await isLoggedIn();
 
-      if (file === "user") {
-        return files[file].displayName;
-      }
+  if (!isLoggedIn) {
+    return { user:{ displayName: null }, library: [] }
+  }
 
-      if (file === "library") {
-        return fs
-          .readdirSync(files.library)
-          .map((file) => `${files.library}/${file}`)
-          .map((file) => require(file))
-          .map(({ app_name, metadata }) => {
-            const { description, keyImages, title, developer } = metadata;
-            const art_cover = keyImages.filter(
-              ({ type }) => type === "DieselGameBox"
-            )[0].url;
-            const art_square = keyImages.filter(
-              ({ type }) => type === "DieselGameBoxTall"
-            )[0].url;
-            const installedGames = Object.values(files.installed);
-            const isInstalled = Boolean(
-              installedGames.filter((game) => game.app_name === app_name).length
-            );
-            const info = isInstalled
-              ? installedGames.filter((game) => game.app_name === app_name)[0]
-              : {};
-            const {
-              executable = null,
-              version = null,
-              save_path = null,
-              install_size = null,
-              install_path = null,
-            } = info;
+  const installed = `${configPath}/installed.json`;
+  const files = {
+    user: loggedIn ? require(userInfo) : { displayName: null },
+    library: `${configPath}/metadata/`,
+    installed: await stat(installed)
+      .then(() => require(installed))
+      .catch(() => []),
+  };
 
-            return {
-              isInstalled,
-              info,
-              title,
-              executable,
-              version,
-              save_path,
-              install_size,
-              install_path,
-              app_name,
-              developer,
-              description,
-              art_cover: art_cover || art_square,
-              art_square: art_square || art_cover,
-            };
-          })
-          .sort((a, b) => {
-            const gameA = a.title.toUpperCase();
-            const gameB = b.title.toUpperCase();
-            return gameA < gameB ? -1 : 1;
-          })
-          .sort((a, b) => b.isInstalled - a.isInstalled);
-      }
+  if (file === "user") {
+    if (loggedIn) {
+      return files[file].displayName;
+    }
+    return null;
+  }
 
-      return files[file];
-    })
-    .catch(async () => {
-      const { response } = await showMessageBox({
-        type: "warning",
-        title: "Logged out",
-        message: "Do you want to login with legendary now?",
-        buttons: ["Yes", "No"],
-      });
-      if (response === 1) {
-        app.quit();
-      }
-      if (response === 0) {
-        await execAsync(`xterm -e ${legendaryBin} auth`);
-        await execAsync(`xterm -e ${legendaryBin} list-games`);
-        await showMessageBox({
-          title: "Restart",
-          message: "The app will quit now, please restart it to load your library!",
-        });
-        return app.quit();
-      }
-    });
+  if (file === "library") {
+    const library = fs.existsSync(files.library)
+
+    if (library) {
+      return fs
+        .readdirSync(files.library)
+        .map((file) => `${files.library}/${file}`)
+        .map((file) => require(file))
+        .map(({ app_name, metadata }) => {
+          const { description, keyImages, title, developer } = metadata;
+          const art_cover = keyImages.filter(
+            ({ type }) => type === "DieselGameBox"
+          )[0].url;
+          const art_square = keyImages.filter(
+            ({ type }) => type === "DieselGameBoxTall"
+          )[0].url;
+          const installedGames = Object.values(files.installed);
+          const isInstalled = Boolean(
+            installedGames.filter((game) => game.app_name === app_name).length
+          );
+          const info = isInstalled
+            ? installedGames.filter((game) => game.app_name === app_name)[0]
+            : {};
+          const {
+            executable = null,
+            version = null,
+            save_path = null,
+            install_size = null,
+            install_path = null,
+          } = info;
+
+          return {
+            isInstalled,
+            info,
+            title,
+            executable,
+            version,
+            save_path,
+            install_size,
+            install_path,
+            app_name,
+            developer,
+            description,
+            art_cover: art_cover || art_square,
+            art_square: art_square || art_cover,
+          };
+        })
+        .sort((a, b) => {
+          const gameA = a.title.toUpperCase();
+          const gameB = b.title.toUpperCase();
+          return gameA < gameB ? -1 : 1;
+        })
+        .sort((a, b) => b.isInstalled - a.isInstalled);
+    }
+    return [];
+  }
+  return files[file];
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

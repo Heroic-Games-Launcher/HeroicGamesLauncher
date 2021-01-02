@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "0.3.2-beta",
+  "version": "0.4.0-beta",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -20,13 +20,19 @@
       "build/**/*",
       "node_modules/**/*"
     ],
-    "asarUnpack": "build/bin/legendary",
+    "asarUnpack": ["build/bin/legendary"],
     "directories": {
       "buildResources": "public"
     },
+    "icon": "build/icon.icns",
     "linux": {
       "category": "Game",
-      "description": "Native Epic Games Launcher alternative for Linux based on Legendary"
+      "icon": "build/icon.icns",
+      "description": "Native Epic Games Launcher alternative for Linux based on Legendary",
+      "desktop": "[Desktop Entry] Name=Heroic Exec=heroic Icon=heroic Type=Application Categories=games",
+      "target": [
+        "AppImage", "deb", "pacman", "tar.xz", "rpm"
+      ]
     },
     "deb": {
       "depends": [
@@ -65,7 +71,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb pacan AppImage tar.xz rpm"
+    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb rpm tar.xz AppImage pacman"
   },
   "eslintConfig": {
     "extends": [

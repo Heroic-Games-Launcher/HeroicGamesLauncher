@@ -1,14 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
+
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import GameConfig from "./components/UI/GameConfig";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <div className="App">
+    <HashRouter>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route exact path="/gameconfig" component={GameConfig} />
+      </Switch>
+    </HashRouter>
+    </div>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

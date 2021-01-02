@@ -74,6 +74,28 @@
   object-fit: cover;
 }
 
+.Login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  width: fit-content;
+}
+
+.Login input {
+  height: 36px;
+  width: 100%;
+  margin: 16px auto;
+}
+
+.Login p {
+  font-size: 16px;
+}
+
+.Login li {
+  text-align: left;
+}
+
 .gameConfig {
   display: flex;
   align-self: center;
