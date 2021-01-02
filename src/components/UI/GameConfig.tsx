@@ -82,8 +82,7 @@ export default function GameConfig({ location }: Card) {
                   await legendary(`launch ${appName}`);
                   setPlaying(false);
                 }}
-                className="button"
-                style={{ backgroundColor: "#0078F2" }}
+                className="button is-primary"
                 >
                   {playing ? "Playing" : "Play"}
                 </div>
@@ -100,16 +99,15 @@ export default function GameConfig({ location }: Card) {
                   setInstalling(false)
                   }
                 }
-                className={`button ${isInstalled ? 'installed' : ''}`}
+                className={`button ${isInstalled ? 'uninstall is-danger' : 'is-success install'}`}
               >
                 {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
               </div>
-              <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button">Epic Store</div>
-              <div onClick={() => createNewWindow(protonDBurl)} className="button">ProtonDB</div>
+              <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button is-empty">Epic Store</div>
+              <div onClick={() => createNewWindow(protonDBurl)} className="button is-empty">ProtonDB</div>
             </div>
           </div>
         </div>
-        <Link to={"/"}>Back to Library</Link>
       </>
     );
   }

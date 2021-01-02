@@ -19,7 +19,12 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
       }}
     >
       <img alt="cover-art" src={cover} className="gameImg" />
-      <span className="gameTitle">{title}</span>
+      <div className="gameTitle">
+        <span>{title}</span>
+        <i 
+        className={`material-icons ${isInstalled ? 'is-primary' : 'is-success'}`}>
+          {isInstalled ? "check_circle" : "get_app"}</i>
+      </div>
     </Link>
   );
 };

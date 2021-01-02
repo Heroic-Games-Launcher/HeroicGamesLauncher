@@ -26,6 +26,8 @@ function App() {
 
     return (
       <HashRouter>
+        {/* TODO: move rel below to proper location */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
         <div className="App">
           <Switch>
             <Route exact path="/" children={<Library library={library} user={user}/>} />

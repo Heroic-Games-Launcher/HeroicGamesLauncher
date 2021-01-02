@@ -1,7 +1,7 @@
 // colors
 // initial gradient, non-final
 $darker : #151218;
-$dark   : #49454D;
+$dark   : #3a373d;
 $mid    : #7D7881;
 $light  : #B0ABB6;
 $lighter: #E4DEEA;
@@ -12,11 +12,21 @@ $mid-hover    : lighten($mid, 15%);
 $light-hover  : lighten($light, 15%);
 $lighter-hover: lighten($lighter, 15%);
 //moar colors
-$primary: #734bd1;
+$primary: #50368d;
 
 // auto-color cat-culations
 // pulled from @octoshrimpy https://codepen.io/octoshrimpy/pen/WmPVBb
 $num : 50%;
+
+@function pure($hue) {
+  @return hsl($hue, 100%, 50%);
+}
+
+$red:    pure(0);
+$yellow: pure(60);
+$green:  pure(120);
+$teal:   pure(180);
+$blue:   pure(240);
 
 $primary-dark : darken($primary, 15%);;
 $primary-light: lighten($primary, 15%);;
@@ -29,3 +39,4 @@ $info   : mix($primary, $teal, $num);
 
 // values
 $border-radius: 0.5rem;
+$border-radius-big: 1rem;

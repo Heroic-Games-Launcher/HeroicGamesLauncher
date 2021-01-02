@@ -2,6 +2,10 @@
 
 @import "_lib.scss";
 
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
   color: $light;
@@ -11,34 +15,37 @@
   .topBar {
     display: flex;
     padding: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     justify-content: space-between;
 
-    .title {
-      position: absolute;
-      text-align: center;
-      flex-grow: 1;
-      font-size: 2rem;
-      font-weight: bold;
-      width: 100%;
-      z-index: -1;
-    }
+
     
     .leftCluster, .rightCluster {
       display: flex;
       cursor: pointer;
     }
   }
+
+  .pageTitle {
+    position: absolute;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    width: 100%;
+    z-index: -1;
+    margin-top: 2rem;
+  }
 }
 
 .gameList {
   color: $lighter;
   display: grid;
-  grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 4%;
+  grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
+  grid-gap: 1rem;
+  padding: 0 4rem 0 4rem;
 }
 
 .gameCard {
-  margin: 0 4px;
   background-color: $dark;
   text-align: left;
   display: flex;
@@ -47,27 +54,37 @@
   align-items: center;
   width: 195px;
   height: 300px;
-  border-radius: 8px;
-  margin-bottom: 6px;
+  border-radius: $border-radius-big;
+  overflow: hidden;
+  position: relative;
+
+  .gameImg {
+    
+  }
+
+  .gameTitle {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    background: $dark;
+    color: $lighter;
+    display:flex;
+
+    span {
+      flex-grow: 1;
+    }
+  }
 }
 
 .gameImg {
   width: 15rem;
-  height: auto;
+  height: 20rem;
   border-radius: $border-radius;
   object-fit: cover;
 }
 
-.gameTitle {
-  text-align: center;
-  margin: auto 4px;
-  font-size: 14px;
-}
 
-// unused
-// .gameCard:hover {
-//   background-color: #0078F2;
-// }
 
 .gameConfig {
   display: flex;
@@ -93,10 +110,14 @@
     font-weight: bold;
   }
   
-  *:not(.title) {
+   .infoWrapper {
     margin-left: 1rem;
     color: $light;
-    margin-bottom: 0.5rem;
+    flex-grow: 1;
+    
+    * {
+      margin-bottom: 0.5rem;
+    }
   }
 
   .developer {
@@ -105,10 +126,10 @@
   }
 
 }
-
-.infoWrapper {
-  min-height: 210px;
-}
+// not needed
+// .infoWrapper {
+//   // min-height: 210px;
+// }
 
 .buttonsWrapper {
   display: flex;
@@ -118,15 +139,32 @@
 }
 
 .button {
-  width: fit-content;
-  padding: 0 12px;
-  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: $border-radius;
   text-transform: uppercase;
   background: $dark;
-  margin: 6px 8px;
-  font-size: 18px;
+  color: $lighter;
+  font-size: 1rem;
 
   &:hover {
     background: $dark-hover;
+  }
+
+  &.is-primary {
+    background: $primary; 
+  }
+
+  &.is-empty {
+    background: transparent;
+    text-decoration: underline;
+  }
+
+  &.is-success {
+    background: $success;
+  }
+
+  &.is-danger {
+    background: $danger;
   }
 }
