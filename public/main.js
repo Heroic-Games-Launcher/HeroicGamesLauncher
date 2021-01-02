@@ -56,15 +56,11 @@ ipcMain.handle("winetricks", (event, prefix) => {
 });
 
 ipcMain.handle("legendary", async (event, args) => {
-  const isUninstall = args.includes("uninstall");
-  const isLaunch = args.includes("launch");
-  const isAuth = args.includes("auth");
+  const isUninstall = args.startsWith("uninstall");
+  const isInstall = args.startsWith("install");
+  const isAddOrRemove = isUninstall || isInstall
 
-  if (isLaunch) {
-    return execAsync(`${legendaryBin} ${args}`);
-  }
-
-  if (!isLaunch && !isAuth) {
+  if (isAddOrRemove) {
     const { response } = await showMessageBox({
       type: "warning",
       title: isUninstall ? "Uninstall" : "Install",
@@ -97,7 +93,7 @@ ipcMain.handle("legendary", async (event, args) => {
       }
     }
   } else {
-    return execAsync(`xterm -hold -e ${legendaryBin} ${args}`);
+    return execAsync(`${legendaryBin} ${args}`);
   }
 });
 
@@ -110,8 +106,13 @@ const isLoggedIn = async () =>
 ipcMain.handle("isLoggedIn", () => isLoggedIn());
 
 ipcMain.handle("readFile", async (event, file) => {
-  const installed = `${configPath}/installed.json`;
   const loggedIn = await isLoggedIn();
+
+  if (!isLoggedIn) {
+    return { user:{ displayName: null }, library: [] }
+  }
+
+  const installed = `${configPath}/installed.json`;
   const files = {
     user: loggedIn ? require(userInfo) : { displayName: null },
     library: `${configPath}/metadata/`,
@@ -121,14 +122,16 @@ ipcMain.handle("readFile", async (event, file) => {
   };
 
   if (file === "user") {
-    if (isLoggedIn()) {
+    if (loggedIn) {
       return files[file].displayName;
     }
     return null;
   }
 
   if (file === "library") {
-    if (fs.existsSync(files.library)) {
+    const library = fs.existsSync(files.library)
+
+    if (library) {
       return fs
         .readdirSync(files.library)
         .map((file) => `${files.library}/${file}`)
