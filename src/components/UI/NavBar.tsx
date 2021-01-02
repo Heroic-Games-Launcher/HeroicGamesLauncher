@@ -1,18 +1,25 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
+import { Link } from "react-router-dom";
 
 interface Props {
-  hasGames: boolean;
   user: string;
+  handleOnClick: (action: string) => void;
+  children?: ReactNode;
+  title?: string;
+  renderBackButton: boolean;
 }
 
-export default function NavBar({ hasGames, user}: Props) {
+export default function NavBar({ title, children, user, handleOnClick, renderBackButton }: Props) {
   return (
     <>
-    <div className="pageTitle">{hasGames ? 'Library' : 'No Games Found'}</div>
+    {title && <div className="pageTitle">{title}</div>}
     <div className="topBar">
-      <div className="leftCluster"></div>
+      <div className="leftCluster">
+      {renderBackButton && <Link to={"/"}>Back to Library</Link>}
+      </div>
       <div className="rightCluster">
-        <div className="username">{user}</div>
+        {!user ? <div onClick={() => handleOnClick('login')} className="username">Login</div>
+        : <div onClick={() => handleOnClick('logout')} className="username">{user} (logout)</div>}
         <div className="settings"></div>
       </div>
     </div>

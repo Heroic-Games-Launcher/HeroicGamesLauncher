@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import "./App.css";
 import NavBar from './components/UI/NavBar'
@@ -12,42 +12,48 @@ interface State {
 }
 
 function App() {
-  const [config, setConfig] = React.useState({} as State);
-  const [showLogin, setShowLogin] = React.useState(false)
-  const handleOnClick = () => setShowLogin(!showLogin)
+  const [config, setConfig] = useState({} as State);
+  const [refreshing, setRefreshing] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  
+  const handleOnClick = (action: string) => {
+    setShowLogin(!showLogin)
+  }
 
   React.useEffect(() => {
     const updateConfig = async () => {
-      console.log('useEffect');
-      
       const newConfig = await getLegendaryConfig();
       newConfig && setConfig(newConfig);
     };
     updateConfig();
-  }, []);
+  }, [refreshing]);
 
   if (!Object.entries(config).length) {
     return null
   }
-   
-  console.log(config);
 
   const { user, library } = config;
   const hasGames = Boolean(library.length);
-
+  const navTitle = showLogin ? 'Login' : hasGames ? 'Library' : 'No Games Found'
+  
     return (
-      <div className="App">
-      <NavBar 
-        hasGames={hasGames} 
-        user={user ? user : 'LogIn'} 
-        handleOnClick={handleOnClick}
-      />
-      {showLogin && <Login />}
-      <Library 
-        library={library}
-        user={user}
-      />
-      </div>
+      <>
+        <NavBar 
+          title={navTitle} 
+          user={user} 
+          handleOnClick={handleOnClick}
+          renderBackButton={false}
+        />
+        {
+        showLogin ? 
+        <Login user={user} refresh={setRefreshing} /> :
+        <Library 
+          library={library}
+          user={user}
+          refresh={setRefreshing}
+        />
+        }
+        </>
     );
   }
 
