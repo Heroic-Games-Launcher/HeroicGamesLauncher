@@ -41,12 +41,23 @@ export default function GameConfig({ location }: Card) {
 
     return (
       <>
-        <h1>
-          {title}
-        </h1>
+          {/* extract this into its own nav module, with optional args on what the left cluster/title/right cluster would do (nothing, nav to /library, etc) */}
+        <div className="topBar">
+          <div className="leftCluster">
+          <Link to={"/"}>Back to Library</Link>
+          </div>
+          <div className="rightCluster">
+            {/* import user into div below */}
+            <div className="username">username</div>
+            <div className="settings"></div>
+          </div>
+        </div>
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
+            <div className="title">
+              {title}
+            </div>
             <div className="infoWrapper">
               <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
               <div>appName: {appName}</div>

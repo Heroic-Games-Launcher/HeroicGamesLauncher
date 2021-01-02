@@ -14,6 +14,7 @@ export const Library = ({ library, user }: GameList) => {
 
   return (
     <>
+    {/* extract this into its own nav module, with optional args on what the left cluster would do (nothing, nav to /library, etc) */}
     <div className="topBar">
       <div className="leftCluster"></div>
       <div className="title">Library</div>

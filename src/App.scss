@@ -1,37 +1,45 @@
 // out: ./App.css
 
+@import "_lib.scss";
+
 .App {
   text-align: center;
-  color: #929292;
+  color: $light;
   display: flex;
   flex-direction: column;
 
   .topBar {
     display: flex;
     padding: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
+    justify-content: space-between;
 
     .title {
+      position: absolute;
       text-align: center;
       flex-grow: 1;
       font-size: 2rem;
+      font-weight: bold;
+      width: 100%;
+      z-index: -1;
     }
     
-    .rightCluster {
+    .leftCluster, .rightCluster {
       display: flex;
+      cursor: pointer;
     }
   }
 }
 
 .gameList {
-  color: #F5F5F5;
+  color: $lighter;
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 4%;
 }
 
 .gameCard {
   margin: 0 4px;
-  background-color: #2B2B2B;
+  background-color: $dark;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -66,25 +74,30 @@
 
 .gameConfig {
   display: flex;
-  margin: 16px;
-  border: 2px solid;
-  border-radius: 5px;
-  align-items: center;
   align-self: center;
-  padding-left: 16px;
   min-width: 780px;
   max-width: 800px;
+  .title {
+    font-size: 2rem;
+  }
 }
 
 .gameInfo {
   text-align: initial;
-  margin: 16px;
-  font-size: 22px;
-  color: white;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  color: $lighter;
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
+
+  *:not(.title) {
+    margin-left: 1rem;
+    color: $light;
+    margin-bottom: 0.5rem;
+  }
+
 }
 
 .infoWrapper {

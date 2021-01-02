@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  color: #929292;
+  color: #B0ABB6;
   display: flex;
   flex-direction: column;
 }
@@ -8,28 +8,34 @@
 .App .topBar {
   display: flex;
   padding: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
+  justify-content: space-between;
 }
 
 .App .topBar .title {
+  position: absolute;
   text-align: center;
   flex-grow: 1;
   font-size: 2rem;
+  font-weight: bold;
+  width: 100%;
+  z-index: -1;
 }
 
-.App .topBar .rightCluster {
+.App .topBar .leftCluster, .App .topBar .rightCluster {
   display: flex;
+  cursor: pointer;
 }
 
 .gameList {
-  color: #F5F5F5;
+  color: #E4DEEA;
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 4%;
 }
 
 .gameCard {
   margin: 0 4px;
-  background-color: #2B2B2B;
+  background-color: #49454D;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -64,25 +70,30 @@
 
 .gameConfig {
   display: flex;
-  margin: 16px;
-  border: 2px solid;
-  border-radius: 5px;
-  align-items: center;
   align-self: center;
-  padding-left: 16px;
   min-width: 780px;
   max-width: 800px;
 }
 
+.gameConfig .title {
+  font-size: 2rem;
+}
+
 .gameInfo {
   text-align: initial;
-  margin: 16px;
-  font-size: 22px;
-  color: white;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  color: #E4DEEA;
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
+}
+
+.gameInfo *:not(.title) {
+  margin-left: 1rem;
+  color: #B0ABB6;
+  margin-bottom: 0.5rem;
 }
 
 .infoWrapper {
