@@ -14,7 +14,17 @@ export const Library = ({ library, user }: GameList) => {
 
   return (
     <>
-    <h1>{user}'s Library</h1>
+
+    {/* extract this into its own nav module, with optional args on what the left cluster would do (nothing, nav to /library, etc) */}
+    <div className="pageTitle">Library</div>
+    <div className="topBar">
+      <div className="leftCluster"></div>
+      <div className="rightCluster">
+        <div className="username">{user}</div>
+        <div className="settings"></div>
+      </div>
+    </div>
+
     <div className="gameList">
      {
        library.map(({title, art_square, app_name, isInstalled}: Game) => 

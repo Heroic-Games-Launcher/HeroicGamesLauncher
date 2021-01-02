@@ -41,21 +41,33 @@ export default function GameConfig({ location }: Card) {
 
     return (
       <>
-        <h1>
-          {title}
-        </h1>
+          {/* extract this into its own nav module, with optional args on what the left cluster/title/right cluster would do (nothing, nav to /library, etc) */}
+        <div className="topBar">
+          <div className="leftCluster">
+          <Link to={"/"}>Back to Library</Link>
+          </div>
+          <div className="rightCluster">
+            {/* import user into div below */}
+            <div className="username">username</div>
+            <div className="settings"></div>
+          </div>
+        </div>
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
+            <div className="title">
+              {title}
+            </div>
             <div className="infoWrapper">
-              <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span>
+              {/* removed as it is redundant. if it is installed, it will have a play button */}
+              {/* <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span> */}
+              <div className="developer">{developer}</div>
               <div>appName: {appName}</div>
-              <div>Developer: {developer}</div>
               {isInstalled && (
                 <>
                   <div>Executable: {executable}</div>
-                  <div>Installed on: {install_path}</div>
-                  <div>Install Size: {sizeInMB}MB</div>
+                  <div>Location: {install_path}</div>
+                  <div>Size: {sizeInMB}MB</div>
                   <div>Version: {version}</div>
                   <br />
                 </>
@@ -70,8 +82,7 @@ export default function GameConfig({ location }: Card) {
                   await legendary(`launch ${appName}`);
                   setPlaying(false);
                 }}
-                className="button"
-                style={{ backgroundColor: "#0078F2" }}
+                className="button is-primary"
                 >
                   {playing ? "Playing" : "Play"}
                 </div>
@@ -88,17 +99,15 @@ export default function GameConfig({ location }: Card) {
                   setInstalling(false)
                   }
                 }
-                className="button"
-                style={{ backgroundColor: isInstalled ? "#F0183C" : "#0078F2" }}
+                className={`button ${isInstalled ? 'uninstall is-danger' : 'is-success install'}`}
               >
                 {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
               </div>
-              <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button">Epic Store</div>
-              <div onClick={() => createNewWindow(protonDBurl)} className="button">ProtonDB</div>
+              <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button is-empty">Epic Store</div>
+              <div onClick={() => createNewWindow(protonDBurl)} className="button is-empty">ProtonDB</div>
             </div>
           </div>
         </div>
-        <Link to={"/"}>Back to Library</Link>
       </>
     );
   }

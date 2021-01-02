@@ -11,7 +11,7 @@ interface Card {
 const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
   return (
     <Link
-      className="gameCard"
+      className="gameCard "
       style={{ backgroundColor: isInstalled ? "#F0183C" : "#2B2B2B" }}
       to={{
         pathname: "/gameconfig",
@@ -19,7 +19,12 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
       }}
     >
       <img alt="cover-art" src={cover} className="gameImg" />
-      <span className="gameTitle">{title}</span>
+      <div className="gameTitle">
+        <span>{title}</span>
+        <i 
+        className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'}`}>
+          {isInstalled ? "check_circle" : "get_app"}</i>
+      </div>
     </Link>
   );
 };

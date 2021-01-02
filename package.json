@@ -29,11 +29,15 @@
       "description": "Native Epic Games Launcher alternative for Linux based on Legendary"
     },
     "deb": {
-      "depends": ["xterm"],
+      "depends": [
+        "xterm"
+      ],
       "packageCategory": "games"
     },
     "pacman": {
-      "depends": ["xterm"],
+      "depends": [
+        "xterm"
+      ],
       "packageCategory": "games"
     }
   },
