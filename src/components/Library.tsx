@@ -14,7 +14,14 @@ export const Library = ({ library, user }: GameList) => {
 
   return (
     <>
-    <h1>{user}'s Library</h1>
+    <div className="topBar">
+      <div className="leftCluster"></div>
+      <div className="title">Library</div>
+      <div className="rightCluster">
+        <div className="username">{user}</div>
+        <div className="settings"></div>
+      </div>
+    </div>
     <div className="gameList">
      {
        library.map(({title, art_square, app_name, isInstalled}: Game) => 

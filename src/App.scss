@@ -1,24 +1,26 @@
+// out: ./App.css
+
 .App {
   text-align: center;
   color: #929292;
   display: flex;
   flex-direction: column;
-}
 
-.App .topBar {
-  display: flex;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-}
+  .topBar {
+    display: flex;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
 
-.App .topBar .title {
-  text-align: center;
-  flex-grow: 1;
-  font-size: 2rem;
-}
-
-.App .topBar .rightCluster {
-  display: flex;
+    .title {
+      text-align: center;
+      flex-grow: 1;
+      font-size: 2rem;
+    }
+    
+    .rightCluster {
+      display: flex;
+    }
+  }
 }
 
 .gameList {

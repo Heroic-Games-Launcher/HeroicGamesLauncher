@@ -11,7 +11,7 @@ interface Card {
 const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
   return (
     <Link
-      className="gameCard"
+      className="gameCard "
       style={{ backgroundColor: isInstalled ? "#F0183C" : "#2B2B2B" }}
       to={{
         pathname: "/gameconfig",
