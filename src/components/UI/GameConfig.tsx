@@ -10,7 +10,7 @@ export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = React.useState({} as any);
   const [playing, setPlaying] = React.useState(false);
   const [installing, setInstalling] = React.useState(false);
-  const { appName } = location.state || {};
+  const { appName, userName } = location.state || {};
   
   React.useEffect(() => {
     const updateConfig = async () => {
@@ -48,7 +48,7 @@ export default function GameConfig({ location }: Card) {
           </div>
           <div className="rightCluster">
             {/* import user into div below */}
-            <div className="username">username</div>
+            <div className="username">{userName}</div>
             <div className="settings"></div>
           </div>
         </div>

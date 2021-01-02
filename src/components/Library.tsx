@@ -34,6 +34,7 @@ export const Library = ({ library, user }: GameList) => {
           title={title}
           appName={app_name}
           isInstalled={isInstalled}
+          userName={user}
        />
        )
       }
