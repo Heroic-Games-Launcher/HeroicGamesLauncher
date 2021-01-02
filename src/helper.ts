@@ -26,6 +26,10 @@ export const getLegendaryConfig = async() => {
   const user: string = await readFile('user')
   const library: Array<Game> = await readFile('library')
   
+  if (!user) {
+    return {user: '', library: []}
+  }
+
   return {user, library}
 }
 
