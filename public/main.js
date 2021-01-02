@@ -1,8 +1,8 @@
 const { spawn, exec } = require("child_process");
-const { fixPathForAsarUnpack } = require('electron-util')
+const { fixPathForAsarUnpack } = require("electron-util");
 const { homedir } = require("os");
 const path = require("path");
-const isDev = require('electron-is-dev');
+const isDev = require("electron-is-dev");
 const fs = require("fs");
 const promisify = require("util").promisify;
 const execAsync = promisify(exec);
@@ -27,23 +27,21 @@ function createWindow() {
     },
   });
   //load the index.html from a url
-  if(isDev){
-  win.loadURL("http://localhost:3000");
-  // Open the DevTools.
-  win.webContents.openDevTools();
+  if (isDev) {
+    win.loadURL("http://localhost:3000");
+    // Open the DevTools.
+    win.webContents.openDevTools();
   } else {
-    win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+    win.loadURL(`file://${path.join(__dirname, "../build/index.html")}`);
   }
 }
 
-let legendaryBin = fixPathForAsarUnpack(path.join(__dirname, '/bin/legendary'));
+let legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app
-  .whenReady()
-  .then(createWindow)
+app.whenReady().then(createWindow);
 
 // Define basic paths
 const home = homedir();
@@ -63,7 +61,7 @@ ipcMain.handle("legendary", async (event, args) => {
   const isAuth = args.includes("auth");
 
   if (isLaunch) {
-    await execAsync(`${legendaryBin} ${args}`)
+    return execAsync(`${legendaryBin} ${args}`);
   }
 
   if (!isLaunch && !isAuth) {
@@ -80,34 +78,37 @@ ipcMain.handle("legendary", async (event, args) => {
     }
     if (response === 0) {
       if (!isUninstall) {
-        await showOpenDialog({
+        const { canceled, filePaths } = await showOpenDialog({
           title: "Choose Install Path",
           buttonLabel: "Choose",
           properties: ["openDirectory"],
-        }).then(async ({ canceled, filePaths }) => {
-          if (canceled) {
-            return "Canceled";
-          }
-          if (filePaths[0]) {
-            await execAsync(
-              `xterm -hold -e ${legendaryBin} ${args} --base-path ${filePaths[0]}`
-            ).then(() => "done");
-          }
         });
+        if (canceled) {
+          return "Canceled";
+        }
+        if (filePaths[0]) {
+          return execAsync(`xterm -hold -e ${legendaryBin} ${args} --base-path ${filePaths[0]}`);
+        }
       }
       if (isUninstall) {
-        await execAsync(`xterm -hold -e ${legendaryBin} ${args}`).then(() => "done");
+        return execAsync(`xterm -hold -e ${legendaryBin} ${args}`);
       }
     }
   } else {
-    await execAsync(`xterm -hold -e ${legendaryBin} ${args}`).then(() => "done");
+    return execAsync(`xterm -hold -e ${legendaryBin} ${args}`);
   }
-})
+});
+
+const isLoggedIn = async () => await stat(userInfo)
+  .then(() => true)
+  .catch(() => false)
+
+ipcMain.handle('isLoggedIn', () => isLoggedIn())
 
 ipcMain.handle("readFile", (event, file) => {
   //Checks if the user have logged in with Legendary already
   return stat(userInfo)
-    .then(async () => {
+  .then(async () => {
       const installed = `${configPath}/installed.json`;
       const files = {
         user: require(userInfo),
@@ -187,13 +188,12 @@ ipcMain.handle("readFile", (event, file) => {
       }
       if (response === 0) {
         await execAsync(`xterm -e ${legendaryBin} auth`);
-        await showMessageBox({
-          title: "Legendary",
-          message: "Updating Game List",
-        });
         await execAsync(`xterm -e ${legendaryBin} list-games`);
-        app.relaunch();
-        app.exit()
+        await showMessageBox({
+          title: "Restart",
+          message: "The app will quit now, please restart it to load your library!",
+        });
+        return app.quit();
       }
     });
 });
