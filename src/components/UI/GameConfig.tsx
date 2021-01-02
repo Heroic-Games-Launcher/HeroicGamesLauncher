@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createNewWindow, formatStoreUrl, Game, getGameInfo, legendary } from "../../helper";
+import NavBar from './NavBar';
+import "../../App.css";
 
 interface Card {
   location: any;
 }
 
 export default function GameConfig({ location }: Card) {
-  const [gameInfo, setGameInfo] = React.useState({} as any);
-  const [playing, setPlaying] = React.useState(false);
-  const [installing, setInstalling] = React.useState(false);
+  const [gameInfo, setGameInfo] = useState({} as any);
+  const [playing, setPlaying] = useState(false);
+  const [installing, setInstalling] = useState(false);
+
   const { appName, userName } = location.state || {};
+
   
   React.useEffect(() => {
     const updateConfig = async () => {
@@ -41,17 +45,7 @@ export default function GameConfig({ location }: Card) {
 
     return (
       <>
-          {/* extract this into its own nav module, with optional args on what the left cluster/title/right cluster would do (nothing, nav to /library, etc) */}
-        <div className="topBar">
-          <div className="leftCluster">
-          <Link to={"/"}>Back to Library</Link>
-          </div>
-          <div className="rightCluster">
-            {/* import user into div below */}
-            <div className="username">{userName}</div>
-            <div className="settings"></div>
-          </div>
-        </div>
+        <NavBar handleOnClick={() => null} user={userName} renderBackButton />
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
@@ -59,8 +53,6 @@ export default function GameConfig({ location }: Card) {
               {title}
             </div>
             <div className="infoWrapper">
-              {/* removed as it is redundant. if it is installed, it will have a play button */}
-              {/* <span>Installed: {`${isInstalled ? "Yes" : "No"}`}</span> */}
               <div className="developer">{developer}</div>
               <div>appName: {appName}</div>
               {isInstalled && (
