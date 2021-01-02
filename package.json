@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "0.3.0-beta",
+  "version": "0.3.2-beta",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -65,7 +65,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux  pacman deb tar.xz AppImage"
+    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb pacan AppImage tar.xz rpm"
   },
   "eslintConfig": {
     "extends": [
