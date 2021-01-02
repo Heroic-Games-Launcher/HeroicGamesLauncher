@@ -9,13 +9,14 @@ import GameConfig from "./components/UI/GameConfig";
 
 ReactDOM.render(
   <React.StrictMode>
+    <div className="App">
     <HashRouter>
       <Switch>
         <Route exact path="/" component={App} />
         <Route exact path="/gameconfig" component={GameConfig} />
       </Switch>
     </HashRouter>
-    <App />
+    </div>
   </React.StrictMode>,
   document.getElementById("root")
 );
