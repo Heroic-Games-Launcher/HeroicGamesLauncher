@@ -40,7 +40,7 @@
 }
 
 .gameCard {
-  background-color: #3a373d;
+  background-color: #323035;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
   bottom: 0;
   width: 100%;
   padding: 1rem;
-  background: #3a373d;
+  background: #323035;
   color: #E4DEEA;
   display: flex;
 }
@@ -127,17 +127,17 @@
   padding: 0.75rem;
   border-radius: 0.5rem;
   text-transform: uppercase;
-  background: #3a373d;
+  background: #323035;
   color: #E4DEEA;
   font-size: 1rem;
 }
 
 .button:hover {
-  background: #605b65;
+  background: #58545d;
 }
 
 .button.is-primary {
-  background: #50368d;
+  background: #5c32be;
 }
 
 .button.is-empty {
@@ -146,9 +146,17 @@
 }
 
 .button.is-success {
-  background: #289b47;
+  background: #2e995f;
 }
 
 .button.is-danger {
-  background: #a81b47;
+  background: #ae195f;
+}
+
+.material-icons.is-primary {
+  color: #8866d7;
+}
+
+.material-icons.is-success {
+  color: #4bc984;
 }

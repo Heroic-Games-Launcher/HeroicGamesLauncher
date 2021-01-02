@@ -1,7 +1,7 @@
 // colors
 // initial gradient, non-final
 $darker : #151218;
-$dark   : #3a373d;
+$dark   : #323035;
 $mid    : #7D7881;
 $light  : #B0ABB6;
 $lighter: #E4DEEA;
@@ -12,7 +12,7 @@ $mid-hover    : lighten($mid, 15%);
 $light-hover  : lighten($light, 15%);
 $lighter-hover: lighten($lighter, 15%);
 //moar colors
-$primary: #50368d;
+$primary: #5c32be;
 
 // auto-color cat-culations
 // pulled from @octoshrimpy https://codepen.io/octoshrimpy/pen/WmPVBb
@@ -36,6 +36,11 @@ $warning: mix($primary, $yellow, $num);
 $danger : mix($primary, $red, $num);
 $info   : mix($primary, $teal, $num);
 
+
+$success-light: lighten($success, 15%);
+$warning-light: lighten($warning, 15%);
+$danger-light : lighten($danger, 15% );
+$info-light   : lighten($info, 15%   );
 
 // values
 $border-radius: 0.5rem;

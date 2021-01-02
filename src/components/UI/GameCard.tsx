@@ -22,7 +22,7 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
       <div className="gameTitle">
         <span>{title}</span>
         <i 
-        className={`material-icons ${isInstalled ? 'is-primary' : 'is-success'}`}>
+        className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'}`}>
           {isInstalled ? "check_circle" : "get_app"}</i>
       </div>
     </Link>

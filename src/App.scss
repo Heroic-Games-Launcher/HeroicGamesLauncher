@@ -58,9 +58,6 @@
   overflow: hidden;
   position: relative;
 
-  .gameImg {
-    
-  }
 
   .gameTitle {
     position: absolute;
@@ -166,5 +163,16 @@
 
   &.is-danger {
     background: $danger;
+  }
+}
+
+.material-icons {
+
+  &.is-primary {
+    color: $primary-light; 
+  }
+
+  &.is-success {
+    color: $success-light;
   }
 }
