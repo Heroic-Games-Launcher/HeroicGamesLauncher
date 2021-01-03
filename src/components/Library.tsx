@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Game, legendary } from '../helper'
 import GameCard from './UI/GameCard'
+import Header from './UI/Header';
 
 interface Props {
   library: Array<Game>
@@ -9,8 +10,15 @@ interface Props {
 }
 
 export const Library = ({ library, user, refresh }: Props) => {
+  const hasGames = Boolean(library.length);
+  const navTitle = hasGames ? 'Library' : 'No Games Found'
+
   return (
     <>
+    <Header
+      title={navTitle} 
+      renderBackButton={false}
+    />
     <div className="gameList">
      {library.length ?
        library.map(({title, art_square, app_name, isInstalled}: Game) => 

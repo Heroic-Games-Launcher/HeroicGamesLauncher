@@ -7,28 +7,92 @@
   color: #B0ABB6;
   display: flex;
   flex-direction: column;
+  font-family: 'Rubik', sans-serif;
 }
 
-.App .topBar {
+.App .header {
   display: flex;
   padding: 1rem;
-  margin-bottom: 4rem;
   justify-content: space-between;
 }
 
-.App .topBar .leftCluster, .App .topBar .rightCluster {
+.App .header .leftCluster, .App .header .rightCluster {
   display: flex;
   cursor: pointer;
 }
 
 .App .pageTitle {
-  position: absolute;
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
   width: 100%;
   z-index: -1;
   margin-top: 2rem;
+}
+
+.NavBar {
+  height: 77px;
+  position: sticky;
+  top: 0;
+  background-color: #424546;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 5fr 1fr;
+  grid-template-areas: "links search user";
+  z-index: 99;
+}
+
+.NavBar  .Links {
+  grid-area: links;
+  position: absolute;
+  font-size: 20px;
+  line-height: 23.7px;
+  font-weight: 400;
+  width: 282px;
+  height: 25px;
+  left: 43px;
+  top: 26px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.NavBar .SearchBar {
+  grid-area: search;
+  margin: auto;
+}
+
+.NavBar .UserSelector {
+  grid-area: user;
+}
+
+.SearchBar .searchInput {
+  width: 388px;
+  height: 39px;
+  background: #1a1b1c;
+  border-radius: 10px 0px 0px 10px;
+  border: none;
+  color: #F69707;
+  text-indent: 24px;
+  font-size: 14px;
+  outline: none;
+}
+
+.SearchBar .searchButton {
+  width: 123px;
+  height: 39px;
+  background: #F79707;
+  border-radius: 0px 10px 10px 0px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  border: none;
+  outline: none;
+}
+
+.searchButton:hover {
+  background-color: #f69607e7;
 }
 
 .gameList {

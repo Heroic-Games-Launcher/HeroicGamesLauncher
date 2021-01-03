@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 
 import "./App.css";
-import NavBar from './components/UI/NavBar'
 import { Library } from "./components/Library";
 import { Game, getLegendaryConfig } from "./helper";
 import Login from './components/UI/Login';
@@ -33,17 +32,9 @@ function App() {
   }
 
   const { user, library } = config;
-  const hasGames = Boolean(library.length);
-  const navTitle = showLogin ? 'Login' : hasGames ? 'Library' : 'No Games Found'
   
     return (
       <>
-        <NavBar 
-          title={navTitle} 
-          user={user} 
-          handleOnClick={handleOnClick}
-          renderBackButton={false}
-        />
         {
         showLogin ? 
         <Login user={user} refresh={setRefreshing} /> :

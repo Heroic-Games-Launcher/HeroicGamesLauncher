@@ -6,14 +6,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import GameConfig from "./components/UI/GameConfig";
+import Settings from './components/Settings';
+import NavBar from './components/NavBar';
+import Installed from './components/Installed';
 
 ReactDOM.render(
   <React.StrictMode>
     <div className="App">
     <HashRouter>
+      <NavBar />
       <Switch>
         <Route exact path="/" component={App} />
         <Route exact path="/gameconfig" component={GameConfig} />
+        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/installed" component={Installed} />
       </Switch>
     </HashRouter>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createNewWindow, formatStoreUrl, Game, getGameInfo, legendary } from "../../helper";
-import NavBar from './NavBar';
+import Header from './Header';
 import "../../App.css";
 
 interface Card {
@@ -45,7 +45,7 @@ export default function GameConfig({ location }: Card) {
 
     return (
       <>
-        <NavBar handleOnClick={() => null} user={userName} renderBackButton />
+        <Header renderBackButton />
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
