@@ -13,7 +13,7 @@ export default function GameConfig({ location }: Card) {
   const [playing, setPlaying] = useState(false);
   const [installing, setInstalling] = useState(false);
 
-  const { appName, userName } = location.state || {};
+  const { appName } = location.state || {};
 
   
   React.useEffect(() => {

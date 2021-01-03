@@ -146,18 +146,90 @@
   width: fit-content;
 }
 
-.Login input {
-  height: 36px;
-  width: 100%;
-  margin: 16px auto;
+.loginFormWrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 826px;
+  height: 440px;
+  left: 227px;
+  top: 189px;
+  background: rgba(29, 31, 31, 0.8);
+  border-radius: 10px;
 }
 
-.Login p {
+.loginInstructions {
+  margin: 22px;
+  height: 219px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  color: white;
+}
+
+.loginInstructions strong {
+  color: #E00D0D;
+}
+
+.loginInstructions .epicLink {
+  color: #F69707;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.loginInstructions .sid {
+  color:#07C5EF
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 400px;
+  height: 150px;
+  align-self: center;
+}
+
+.loginInput {
+  width: 388px;
+  height: 63px;
+  background: #424546;
+  border-radius: 10px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
   font-size: 16px;
+  line-height: 19px;
+  outline: none;
+  color: #EAE8E5;
+  text-align: center;
+  border: none;
 }
 
-.Login li {
-  text-align: left;
+.loginInput::placeholder {
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #EAE8E5;
+}
+
+.loginButton {
+  outline: none;
+  width: 184px;
+  height: 39px;
+  background: #07C5EF;
+  border-radius: 10px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  border: none;
 }
 
 .gameConfig {

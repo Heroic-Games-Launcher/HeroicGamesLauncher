@@ -7,7 +7,7 @@ export default function SearchBar() {
         <input 
           className="searchInput" 
           onChange={(event) => console.log(event.target.value)} 
-          placeholder={'Search for Games'}
+          placeholder={'Enter the game name here...'}
         />
           <button className="searchButton">Search Games</button>
         </span>

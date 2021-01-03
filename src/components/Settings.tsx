@@ -1,9 +1,11 @@
 import React from 'react'
+import Header from './UI/Header'
 
 export default function Settings() {
   return (
-    <div>
-      Settings
-    </div>
+    <Header
+      title={'Settings'} 
+      renderBackButton={false}
+    />
   )
 }

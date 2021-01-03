@@ -1,9 +1,11 @@
 import React from 'react'
+import Header from './UI/Header'
 
 export default function Installed() {
   return (
-    <div>
-      Installed Games
-    </div>
+    <Header
+      title={'Installed Games'} 
+      renderBackButton={false}
+    />
   )
 }
