@@ -14,7 +14,11 @@ export interface Game {
   isInstalled: boolean
 }
 
-const readFile = async (file: string) => await ipcRenderer.invoke('readFile', file).then((res: string) => res)
+const readFile = async (file: string) => 
+  await ipcRenderer.invoke('readFile', file)
+
+export const writeConfig = async(data: any) => 
+  await ipcRenderer.invoke('writeFile', data)
 
 export const legendary = async (args: string): Promise<string> => await ipcRenderer.invoke('legendary', args)
   .then((res: string) => console.log(`${res}`))
@@ -25,7 +29,7 @@ export const isLoggedIn = async() => await ipcRenderer.invoke('isLoggedIn')
 export const getLegendaryConfig = async() => {
   const user: string = await readFile('user')
   const library: Array<Game> = await readFile('library')
-  
+
   if (!user) {
     return {user: '', library: []}
   }
