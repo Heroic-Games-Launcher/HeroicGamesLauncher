@@ -14,13 +14,12 @@ This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary),
 - Download the Deb, tar.xz, pacman or the AppImage file on the Releases Page
 - install xterm
 - Install the package for your distro (pacman -U heroic-xxx.pacman for Arch Based like Manjaro) or run the AppImage or the heroic binary inside the TAR file.
-- If you neved used Legendary before, it will ask you to login first. So, two windows will be opened, a browser window will be opened on Epic Games Store for you to login there and get the SID code, and also a Xterm window will be opened and there you will paste the SID code.
-- After the login, the app will refresh the game list and should relaunch showing your library. Sometime it won't then just close it and open it again.
-- If you think is easier, before launching the app, run `legendary auth` on a terminal and after login run `legendary list-games`. Then the app will identify the configuration and will open your library.
+- If you used Legendary before, it will ask you for Login First. Just follow the instructions.
 
 ## Feature availables right now
 - Login with an existing Epic Games account
-- See the whole library
+- Logout
+- See the your personal Game library
 - Check basic information about your Games
 - Install/Uninstall Games
 - Play games using the default wine and default prefix
@@ -29,16 +28,15 @@ This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary),
 - Search for the game on ProtonDB
 
 ## Planned features
-- Customized instalation options
-- Play game with custom wine (Proton maybe but can be bugs)
+- Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
 - Sync installed games with an existing Epic Games instalation folder
+- Import a already installed game
 - Get the Free game of the week
-- Logout (why not?)
 
 ## Binaries supported right now
-- AppImage, DEB, Pacman and TAR.XZ (with the heroic binary and all dependecies)
-- Will release RPMs and maybe FlatPak put on AUR as well as soon as possible.
-- There is a AUR version right now for the AppImage: https://aur.archlinux.org/packages/heroic-games-launcher-appimage/
+- DEB, RPM, Pacman, AppImage and TAR.XZ (with the heroic binary and all dependecies)
+- Might think about Flatpak in the future as well
+- There is a AUR version right now: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
 
 ## How to build and run locally
 
