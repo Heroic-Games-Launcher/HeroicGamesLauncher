@@ -3,7 +3,11 @@ import { NavLink } from 'react-router-dom'
 import SearchBar from './UI/SearchBar'
 import UserSelector from './UI/UserSelector'
 
-export default function NavBar() {
+interface Props {
+  handleSearch: (input: string) => void
+}
+
+export default function NavBar({handleSearch}: Props) {
   return (
     <div className="NavBar">
       <div className="Links">
@@ -11,7 +15,7 @@ export default function NavBar() {
         <NavLink activeStyle={{ color: '#FFA800', fontWeight: 500 }} strict to='/installed'>Installed</NavLink>
         <NavLink activeStyle={{ color: '#FFA800', fontWeight: 500 }} strict to='/settings'>Settings</NavLink>
       </div>
-      <SearchBar />
+      <SearchBar handleSearch={handleSearch} />
       <UserSelector user={'unknown'} handleOnClick={() => null} />
     </div>
   )

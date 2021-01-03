@@ -7,7 +7,7 @@
   color: #B0ABB6;
   display: flex;
   flex-direction: column;
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Cabin', sans-serif;
 }
 
 .App .header {
@@ -54,6 +54,7 @@
   top: 26px;
   display: flex;
   justify-content: space-between;
+  font-family: 'Rubik', sans-serif;
 }
 
 .NavBar .SearchBar {
@@ -139,11 +140,24 @@
 }
 
 .Login {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   align-self: center;
-  width: fit-content;
+  background: url('./assets/login-background-1536x864.jpg')
+}
+
+.heroicLogo {
+  width: 205px;
+  height: 48px;
+}
+
+.logo {
+  background: url('./assets/heroic-icon.png');
+  background-size: contain;
+  position: absolute;
+  width: 46px;
+  height: 46px;
 }
 
 .loginFormWrapper {
@@ -154,7 +168,7 @@
   height: 440px;
   left: 227px;
   top: 189px;
-  background: rgba(29, 31, 31, 0.8);
+  background: rgba(29, 31, 31, 0.95);
   border-radius: 10px;
 }
 
@@ -230,6 +244,10 @@
   font-size: 20px;
   line-height: 24px;
   border: none;
+}
+
+.loginButton:disabled {
+  background-color:  #178ea8;
 }
 
 .gameConfig {

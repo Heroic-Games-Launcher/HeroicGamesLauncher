@@ -9,6 +9,7 @@ import Installed from './components/Installed';
 import NavBar from './components/NavBar';
 import Settings from './components/Settings';
 import GameConfig from './components/UI/GameConfig';
+import Header from './components/UI/Header';
 
 interface State {
   user: string;
@@ -18,7 +19,8 @@ interface State {
 function App() {
   const [config, setConfig] = useState({} as State);
   const [refreshing, setRefreshing] = useState(false);
-  
+  const [filterText, setFilterText] = useState('');
+
   React.useEffect(() => {
     const updateConfig = async () => {
       const newConfig = await getLegendaryConfig();
@@ -33,25 +35,48 @@ function App() {
 
   const { user, library } = config;
 
-  if (!user) {
+  if (!user && !library.length) {
     return <Login user={user} refresh={setRefreshing} />
   }
 
+  const handleSearch = (input: string) => setFilterText(input)
+
+  const filterRegex: RegExp = new RegExp(String(filterText), 'i')
+  const textFilter = ({ title }: Game) => filterRegex.test(title)
+  library.filter(textFilter)
+
+  const hasGames = Boolean(library.length)
+  const installedGames = library.filter(game => game.isInstalled).filter(textFilter)
+  const libraryTitle = hasGames ? `Library (${library.filter(textFilter).length} Games)` : 'No Games Found'
+  const installedTitle = hasGames ? `Installed (${installedGames.length} Games)` : 'No Games Found'
+  
   return (
     <div className="App">
     <HashRouter>
-      <NavBar />
+      <NavBar handleSearch={handleSearch} />
       <Switch>
         <Route exact path="/">
+          <Header
+            title={libraryTitle} 
+            renderBackButton={false}
+           />
           <Library 
-            library={library}
+            library={library.filter(textFilter)}
             user={user}
-            refresh={setRefreshing}
           />
         </Route>
         <Route exact path="/gameconfig" component={GameConfig} />
         <Route exact path="/settings" component={Settings} />
-        <Route exact path="/installed" component={Installed} />
+        <Route exact path="/installed" component={Installed}>
+        <Header
+            title={installedTitle} 
+            renderBackButton={false}
+           />
+          <Library 
+            library={installedGames.filter(textFilter)}
+            user={user}
+          />
+        </Route>
       </Switch>
     </HashRouter>
     </div>
