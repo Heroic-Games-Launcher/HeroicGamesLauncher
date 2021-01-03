@@ -92,7 +92,7 @@ ipcMain.handle("legendary", async (event, args) => {
         }
         if (filePaths[0]) {
           return execAsync(
-            `xterm -hold -e ${legendaryBin} ${args} --base-path ${filePaths[0]}`
+            `xterm -hold -e ${legendaryBin} ${args} --base-path '${filePaths[0]}'`
           );
         }
       }
