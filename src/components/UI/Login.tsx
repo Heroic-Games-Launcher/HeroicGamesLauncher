@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { createNewWindow, legendary } from "../../helper";
 
+const logo = "../../assets/heroic-icon.png";
+
 interface Props {
   user: string;
   refresh: Dispatch<SetStateAction<boolean>>;
@@ -12,43 +14,61 @@ export default function Login({ user, refresh }: Props) {
     loading: false,
     message: "",
   });
-  const {loading, message} = status;
+  const { loading, message } = status;
 
-  const loginUrl = "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect"
+  const loginUrl =
+    "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect";
 
   const handleLogin = async (sid: string) => {
     setStatus({
       loading: true,
       message: "Logging In...",
     });
-    
-    await legendary(`auth --sid ${sid}`)
-      .then(async (res) => {
-        if (res !== 'error') {
-          setStatus({ loading: true, message: "Loading Game list" })
-          await legendary(`list-games`);
-          refresh(true);
-          refresh(false);
-        }
 
-        setStatus({loading: true, message: 'Error'})
-          setTimeout(() => {
-            setStatus({...status, loading: false})
-          }, 2500);
-      })
+    await legendary(`auth --sid ${sid}`).then(async (res) => {
+      if (res !== "error") {
+        setStatus({ loading: true, message: "Loading Game list" });
+        await legendary(`list-games`);
+        refresh(true);
+        refresh(false);
+      }
+
+      setStatus({ loading: true, message: "Error" });
+      setTimeout(() => {
+        setStatus({ ...status, loading: false });
+      }, 2500);
+    });
   };
 
   return (
     <div className="Login">
+      <div className="loginWrapper">
+        {/* <div className="heroicLogo">
+          <span className="logo" />
+        </div> */}
         <div className="loginFormWrapper">
           <span className="loginInstructions">
             <strong>Important!</strong>
             <p>
-              In order for you to be able to log in and install your games, we first need you to follow the steps below:
+              In order for you to be able to log in and install your games, we
+              first need you to follow the steps below:
             </p>
             <ol>
-              <li>Open <span className="epicLink" onClick={() => createNewWindow(loginUrl)}>Epic Store here</span>, log in your account and copy your <span className="sid">SID information number</span>.</li>
-              <li>Paste the <span className="sid">SID number</span> in the input box below, click on the login button and wait.</li>
+              <li>
+                Open{" "}
+                <span
+                  className="epicLink"
+                  onClick={() => createNewWindow(loginUrl)}
+                >
+                  Epic Store here
+                </span>
+                , log in your account and copy your{" "}
+                <span className="sid">SID information number</span>.
+              </li>
+              <li>
+                Paste the <span className="sid">SID number</span> in the input
+                box below, click on the login button and wait.
+              </li>
             </ol>
           </span>
           <div className="loginForm">
@@ -63,10 +83,11 @@ export default function Login({ user, refresh }: Props) {
               className="loginButton"
               disabled={loading}
             >
-              {loading ? message : 'Login'}
+              {loading ? message : "Login"}
             </button>
           </div>
         </div>
+      </div>
     </div>
   );
 }
