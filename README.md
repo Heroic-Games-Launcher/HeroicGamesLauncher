@@ -11,10 +11,9 @@ This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary),
 - As of version 0.3.0 is not needed to have Legendary installed.
 
 ## How to use it:
-- Download the Deb, tar.xz, pacman or the AppImage file on the Releases Page
+- Download and install the binary for your distro or the universal AppImage file on the Releases Page;
 - install xterm
-- Install the package for your distro (pacman -U heroic-xxx.pacman for Arch Based like Manjaro) or run the AppImage or the heroic binary inside the TAR file.
-- If you used Legendary before, it will ask you for Login First. Just follow the instructions.
+- If you used Legendary before, it load your library and installed games. If not, it will ask you for Login First. Just follow the instructions.
 
 ## Feature availables right now
 - Login with an existing Epic Games account
