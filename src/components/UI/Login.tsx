@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function Login({ user, refresh }: Props) {
-  const [input, setInput] = useState("Input here the SID value");
+  const [input, setInput] = useState("Paste the SID number here");
   const [status, setStatus] = useState({
     loading: false,
     message: "",
@@ -55,36 +55,32 @@ if (loading) {
           </button>
         </>
       ) : (
-        <>
-          <input
-            id="sidInput"
-            onChange={(event) => setInput(event.target.value)}
-            placeholder={input}
-          />
-          <div className="buttonsWrapper">
-            <button
-              onClick={() => createNewWindow(loginUrl)}
-              className="button is-secondary"
-            >
-              Epic Store
-            </button>
+        <div className="loginFormWrapper">
+          <span className="loginInstructions">
+            <strong>Important!</strong>
+            <p>
+              In order for you to be able to log in and install your games, we first need you to follow the steps below:
+            </p>
+            <ol>
+              <li>Open <span className="epicLink" onClick={() => createNewWindow(loginUrl)}>Epic Store here</span>, log in your account and copy your <span className="sid">SID information number</span>.</li>
+              <li>Paste the <span className="sid">SID number</span> in the input box below, click on the login button and wait.</li>
+            </ol>
+          </span>
+          <div className="loginForm">
+            <input
+              className="loginInput"
+              id="sidInput"
+              onChange={(event) => setInput(event.target.value)}
+              placeholder={input}
+            />
             <button
               onClick={() => handleLogin(input)}
-              className="button is-primary"
+              className="loginButton"
             >
               Login
             </button>
           </div>
-          <p>
-            <strong>Instructions </strong>
-            <ol>
-              <li>Open Epic Store clicking on the button above</li>
-              <li>Login</li>
-              <li>Copy the SID information</li>
-              <li>Paste the code inside the input field and click Login</li>
-            </ol>
-          </p>
-        </>
+        </div>
       )}
     </div>
   );
