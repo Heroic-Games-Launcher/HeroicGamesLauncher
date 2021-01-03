@@ -53,7 +53,7 @@ function App() {
   return (
     <div className="App">
     <HashRouter>
-      <NavBar handleSearch={handleSearch} />
+      <NavBar handleSearch={handleSearch} user={user} handleRefresh={setRefreshing} />
       <Switch>
         <Route exact path="/">
           <Header
