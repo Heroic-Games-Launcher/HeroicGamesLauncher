@@ -22,39 +22,24 @@ export default function Login({ user, refresh }: Props) {
       message: "Logging In...",
     });
     
-    await legendary(`auth --sid ${sid}`);
-    setStatus({ loading: true, message: "Loading Game list" });
-    refresh(true);
-    await legendary(`list-games`);
-    refresh(false);
-    setStatus({ loading: false, message: "Games Loaded!" });
-  };
+    await legendary(`auth --sid ${sid}`)
+      .then(async (res) => {
+        if (res !== 'error') {
+          setStatus({ loading: true, message: "Loading Game list" })
+          await legendary(`list-games`);
+          refresh(true);
+          refresh(false);
+        }
 
-  const handleLogout = async () => {
-    setStatus({
-      loading: true,
-      message: "Logging Out...",
-    });
-    await legendary(`auth --delete`);
-    refresh(true);
-    setStatus({ loading: false, message: "'You're Logged out!" });
-    refresh(false);
+        setStatus({loading: true, message: 'Error'})
+          setTimeout(() => {
+            setStatus({...status, loading: false})
+          }, 2500);
+      })
   };
-
-if (loading) {
-  return <div>{message}</div>
-}
 
   return (
     <div className="Login">
-      {user ? (
-        <>
-          <p>You're logged in as: {user}</p>
-          <button onClick={() => handleLogout()} className="button ">
-            Logout
-          </button>
-        </>
-      ) : (
         <div className="loginFormWrapper">
           <span className="loginInstructions">
             <strong>Important!</strong>
@@ -76,12 +61,12 @@ if (loading) {
             <button
               onClick={() => handleLogin(input)}
               className="loginButton"
+              disabled={loading}
             >
-              Login
+              {loading ? message : 'Login'}
             </button>
           </div>
         </div>
-      )}
     </div>
   );
 }

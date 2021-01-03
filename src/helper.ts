@@ -21,8 +21,11 @@ export const writeConfig = async(data: any) =>
   await ipcRenderer.invoke('writeFile', data)
 
 export const legendary = async (args: string): Promise<string> => await ipcRenderer.invoke('legendary', args)
-  .then((res: string) => console.log(`${res}`))
-  .catch((err: string) => console.error({err}))
+  .then(async(res: string) => {
+    const isError = res.includes('ERROR')
+    return isError ? 'error' : 'done'
+  })
+  .catch((err: string) => Error(err))
 
 export const isLoggedIn = async() => await ipcRenderer.invoke('isLoggedIn')
 
