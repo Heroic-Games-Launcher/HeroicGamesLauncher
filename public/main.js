@@ -17,15 +17,16 @@ const {
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 1280,
-    height: 720,
+    width: isDev ? 1800 : 1280,
+    height: isDev ? 1200 : 720,
     minHeight: 600,
-    minWidth: 1000,
+    minWidth: 1280,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
     },
   });
+  
   //load the index.html from a url
   if (isDev) {
     win.loadURL("http://localhost:3000");
@@ -45,8 +46,15 @@ app.whenReady().then(createWindow);
 
 // Define basic paths
 const home = homedir();
-const configPath = `${home}/.config/legendary`;
-const userInfo = `${configPath}/user.json`;
+const legendaryConfigPath = `${home}/.config/legendary`;
+const heroicConfigPath = `${home}/.config/heroic/config.json`;
+const userInfo = `${legendaryConfigPath}/user.json`;
+
+ipcMain.handle("writeFile", (event, args) => {
+  fs.writeFile(heroicConfigPath, JSON.stringify(args, null, 2), () => {
+    return 'done'
+  })
+})
 
 ipcMain.handle("winetricks", (event, prefix) => {
   return new Promise((resolve, reject) => {
@@ -93,7 +101,17 @@ ipcMain.handle("legendary", async (event, args) => {
       }
     }
   } else {
-    return execAsync(`${legendaryBin} ${args}`);
+    return await execAsync(`${legendaryBin} ${args}`)
+      .then(({stdout, stderr}) => {
+        if (stdout){
+          return stdout
+        } else if (stderr) {
+          return stderr
+        } else {
+          return 'done'
+        }
+      })
+      .catch(({stderr}) => Error(stderr))
   }
 });
 
@@ -112,10 +130,11 @@ ipcMain.handle("readFile", async (event, file) => {
     return { user:{ displayName: null }, library: [] }
   }
 
-  const installed = `${configPath}/installed.json`;
+  const installed = `${legendaryConfigPath}/installed.json`;
   const files = {
     user: loggedIn ? require(userInfo) : { displayName: null },
-    library: `${configPath}/metadata/`,
+    library: `${legendaryConfigPath}/metadata/`,
+    config: heroicConfigPath,
     installed: await stat(installed)
       .then(() => require(installed))
       .catch(() => []),
@@ -130,20 +149,27 @@ ipcMain.handle("readFile", async (event, file) => {
 
   if (file === "library") {
     const library = fs.existsSync(files.library)
+    const fallBackImage = "https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg"
 
     if (library) {
       return fs
         .readdirSync(files.library)
         .map((file) => `${files.library}/${file}`)
-        .map((file) => require(file))
+        .map((file) => JSON.parse(fs.readFileSync(file)))
         .map(({ app_name, metadata }) => {
           const { description, keyImages, title, developer } = metadata;
-          const art_cover = keyImages.filter(
+          
+          const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
-          )[0].url;
-          const art_square = keyImages.filter(
+          )[0];
+          
+          const gameBoxTall = keyImages.filter(
             ({ type }) => type === "DieselGameBoxTall"
-          )[0].url;
+          )[0];
+
+          const art_cover = gameBox ? gameBox.url : null;
+          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+
           const installedGames = Object.values(files.installed);
           const isInstalled = Boolean(
             installedGames.filter((game) => game.app_name === app_name).length
@@ -180,7 +206,6 @@ ipcMain.handle("readFile", async (event, file) => {
           const gameB = b.title.toUpperCase();
           return gameA < gameB ? -1 : 1;
         })
-        .sort((a, b) => b.isInstalled - a.isInstalled);
     }
     return [];
   }
