@@ -7,7 +7,8 @@ import {
   getGameInfo,
   legendary,
   install,
-  getLegendaryConfig
+  getLegendaryConfig,
+  sendKill
 } from "../../helper";
 import Header from "./Header";
 import "../../App.css";
@@ -21,17 +22,16 @@ export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = useState({} as any);
   const [playing, setPlaying] = useState(false);
   const [installing, setInstalling] = useState(false);
-  const [progress, setProgress] = useState('');
+  const [progress, setProgress] = useState('0');
 
   const { appName } = location.state || {};
 
   React.useEffect(() => {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName);
-      getLegendaryConfig()
       setGameInfo(newInfo);
     };
-    updateConfig();
+    updateConfig()
   }, [installing, appName]);
 
   if (!appName) {
@@ -43,7 +43,7 @@ export default function GameConfig({ location }: Card) {
   }
 
   if (installing) {
-    console.log(progress.split('\n')[0]);
+    console.log(progress.split('\n')[0].replace('%', ''));
     if (progress === 'end') {
       setInstalling(false)
       getLegendaryConfig()
@@ -90,6 +90,10 @@ export default function GameConfig({ location }: Card) {
                 <>
                   <div
                     onClick={async () => {
+                      if (playing) {
+                        return sendKill()
+                      }
+
                       setPlaying(true);
                       await legendary(`launch ${appName}`);
                       setPlaying(false);
@@ -102,14 +106,18 @@ export default function GameConfig({ location }: Card) {
               )}
               <div
                 onClick={async () => {
+                  if (installing) {
+                    return sendKill()
+                  }
+
                   if (isInstalled){
                     setInstalling(true)
                     await legendary(`uninstall ${appName}`)
-                    setInstalling(false)
-                  } else {
-                    setInstalling(true)
-                    await install(`install ${appName}`)
+                    return setInstalling(false)
                   }
+                  
+                  setInstalling(true)
+                  return await install(appName)
                 }}
                 className={`button ${
                   isInstalled ? "uninstall is-danger" : "is-success install"
@@ -119,7 +127,7 @@ export default function GameConfig({ location }: Card) {
                   isInstalled
                     ? "Uninstall"
                     : installing
-                    ? `Progress: ${progress.split('\n')[0]}`
+                    ? `${progress.split('\n')[0].replace('%', '')}% (Stop)`
                     : "Install"
                 }`}
               </div>

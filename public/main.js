@@ -208,7 +208,7 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("install", async (event, args) => {
+ipcMain.on("install", async (event, game) => {
   const { canceled, filePaths } = await showOpenDialog({
     title: "Choose Install Path",
     buttonLabel: "Choose",
@@ -221,20 +221,25 @@ ipcMain.on("install", async (event, args) => {
 
   if (filePaths[0]) {
     const path = filePaths[0]
-    const game = args.split(' ')[1]
     const logPath = `${legendaryConfigPath}/${game}.log`
-    
+    const command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
     const progress = setInterval(() => {
       exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
-        event.reply("requestedOutput", stdout, stderr, error)
+        event.reply("requestedOutput", stdout)
       })
-    }, 3000);
+    }, 2500);
+    
+    const proc = execAsync(command)
 
-    return execAsync(`${legendaryBin} ${args} --base-path '${path}' -y &> ${logPath}`)
-      .then(() => {
-        event.reply("requestedOutput", 'end')
-        clearInterval(progress)
-      })
+    ipcMain.on('kill', () => {
+      event.reply("requestedOutput", 'killing')
+      exec(`killall -r ${game}`)
+    })
+
+    proc.child.on('exit', () => {
+      event.reply("requestedOutput", 'end')
+      clearInterval(progress)
+    })
   }
 })
 
