@@ -48,7 +48,7 @@ export default function Login({ user, refresh }: Props) {
         </div> */}
         <div className="loginFormWrapper">
           <span className="loginInstructions">
-            <strong>Important!</strong>
+            <strong>Welcome!</strong>
             <p>
               In order for you to be able to log in and install your games, we
               first need you to follow the steps below:
@@ -57,8 +57,8 @@ export default function Login({ user, refresh }: Props) {
               <li>
                 Open{" "}
                 <span
-                  className="epicLink"
                   onClick={() => createNewWindow(loginUrl)}
+                  className="epicLink"
                 >
                   Epic Store here
                 </span>
@@ -78,12 +78,13 @@ export default function Login({ user, refresh }: Props) {
               onChange={(event) => setInput(event.target.value)}
               placeholder={input}
             />
+            {<p className="message">{message}</p>}
             <button
               onClick={() => handleLogin(input)}
               className="loginButton"
               disabled={loading}
             >
-              {loading ? message : "Login"}
+               Login
             </button>
           </div>
         </div>
