@@ -113,7 +113,7 @@
   top: 8px;
 }
 
-.SearchBar .searchInput {
+.searchInput {
   width: 388px;
   height: 39px;
   background: #1a1b1c;
@@ -173,6 +173,43 @@
   height: 20rem;
   border-radius: 0.5rem;
   object-fit: cover;
+}
+
+.Settings {
+  display: flex;
+  justify-content: center;
+}
+
+.settingsWrapper {
+  width: fit-content;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.settingsWrapper > * {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: baseline;
+}
+
+.settingsText {
+  margin-right: 16px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  color: #EAE8E5;
+}
+
+.settingsButton {
+  font-size: 14px;
+  margin-left: 6px;
+  width: 130px;
 }
 
 .Login {
@@ -243,6 +280,7 @@
   align-self: center;
 }
 
+
 .loginInput {
   width: 388px;
   height: 63px;
@@ -268,6 +306,15 @@
   color: #EAE8E5;
 }
 
+.loginForm > .message {
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #07C5EF;
+}
+
 .loginButton {
   outline: none;
   width: 184px;
@@ -282,8 +329,13 @@
   border: none;
 }
 
+.loginButton:hover{
+  background: #36D1F3;
+}
+
 .loginButton:disabled {
-  background-color:  #178ea8;
+  color: #DADADA;
+  background: #5A5E5F;
 }
 
 .gameConfig {
