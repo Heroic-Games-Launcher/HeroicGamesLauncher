@@ -67,7 +67,7 @@
 .NavBar .UserSelector {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-start;
   grid-area: user;
   position: absolute;
   right: 16px;
@@ -117,30 +117,19 @@
   width: 388px;
   height: 39px;
   background: #1a1b1c;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 10px;
   border: none;
   color: #F69707;
-  text-indent: 24px;
+  text-indent: 38px;
   font-size: 14px;
   outline: none;
 }
 
-.SearchBar .searchButton {
-  width: 123px;
-  height: 39px;
-  background: #F79707;
-  border-radius: 0px 10px 10px 0px;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  border: none;
-  outline: none;
-}
-
-.searchButton:hover {
-  background-color: #f69607e7;
+.SearchBar > .material-icons {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  color: #F69707;
 }
 
 .gameList {
