@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { createNewWindow, formatStoreUrl, Game, getGameInfo, legendary } from "../../helper";
-import Header from './Header';
+import {
+  createNewWindow,
+  formatStoreUrl,
+  Game,
+  getGameInfo,
+  legendary,
+  install,
+  getLegendaryConfig
+} from "../../helper";
+import Header from "./Header";
 import "../../App.css";
+const { ipcRenderer } = window.require('electron')
 
 interface Card {
   location: any;
@@ -12,21 +21,34 @@ export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = useState({} as any);
   const [playing, setPlaying] = useState(false);
   const [installing, setInstalling] = useState(false);
+  const [progress, setProgress] = useState('');
 
   const { appName } = location.state || {};
 
-  
   React.useEffect(() => {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName);
+      getLegendaryConfig()
       setGameInfo(newInfo);
     };
     updateConfig();
-  }, [location, appName]);
-  
-  
+  }, [installing, appName]);
+
   if (!appName) {
-    return <div><Link to={"/"}>Back to Library</Link></div>;
+    return (
+      <div>
+        <Link to={"/"}>Back to Library</Link>
+      </div>
+    );
+  }
+
+  if (installing) {
+    console.log(progress.split('\n')[0]);
+    if (progress === 'end') {
+      setInstalling(false)
+      getLegendaryConfig()
+    }
+    ipcRenderer.on('requestedOutput', (event: any, arg: string) => setProgress(arg) )
   }
 
   if (gameInfo) {
@@ -38,10 +60,10 @@ export default function GameConfig({ location }: Card) {
       isInstalled,
       executable,
       version,
-      developer
+      developer,
     }: Game = gameInfo;
     const sizeInMB = Math.floor(install_size / 1024 / 1024);
-    const protonDBurl = `https://www.protondb.com/search?q=${title}`
+    const protonDBurl = `https://www.protondb.com/search?q=${title}`;
 
     return (
       <>
@@ -49,9 +71,7 @@ export default function GameConfig({ location }: Card) {
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
-            <div className="title">
-              {title}
-            </div>
+            <div className="title">{title}</div>
             <div className="infoWrapper">
               <div className="developer">{developer}</div>
               <div>appName: {appName}</div>
@@ -68,35 +88,53 @@ export default function GameConfig({ location }: Card) {
             <div className="buttonsWrapper">
               {isInstalled && (
                 <>
-                <div
-                onClick={async () => {
-                  setPlaying(true);
-                  await legendary(`launch ${appName}`);
-                  setPlaying(false);
-                }}
-                className="button is-primary"
-                >
-                  {playing ? "Playing" : "Play"}
-                </div>
-              </>
+                  <div
+                    onClick={async () => {
+                      setPlaying(true);
+                      await legendary(`launch ${appName}`);
+                      setPlaying(false);
+                    }}
+                    className="button is-primary"
+                  >
+                    {playing ? "Playing" : "Play"}
+                  </div>
+                </>
               )}
               <div
                 onClick={async () => {
-                  setInstalling(true)
-                  await legendary(
-                    isInstalled
-                    ? `uninstall ${appName}`
-                    : `install ${appName}`
-                    )
-                  setInstalling(false)
+                  if (isInstalled){
+                    setInstalling(true)
+                    await legendary(`uninstall ${appName}`)
+                    setInstalling(false)
+                  } else {
+                    setInstalling(true)
+                    await install(`install ${appName}`)
                   }
-                }
-                className={`button ${isInstalled ? 'uninstall is-danger' : 'is-success install'}`}
+                }}
+                className={`button ${
+                  isInstalled ? "uninstall is-danger" : "is-success install"
+                }`}
               >
-                {`${isInstalled ? "Uninstall" : installing ? "Installing" : "Install"}`}
+                {`${
+                  isInstalled
+                    ? "Uninstall"
+                    : installing
+                    ? `Progress: ${progress.split('\n')[0]}`
+                    : "Install"
+                }`}
               </div>
-              <div onClick={() => createNewWindow(formatStoreUrl(title))} className="button is-empty">Epic Store</div>
-              <div onClick={() => createNewWindow(protonDBurl)} className="button is-empty">ProtonDB</div>
+              <div
+                onClick={() => createNewWindow(formatStoreUrl(title))}
+                className="button is-empty"
+              >
+                Epic Store
+              </div>
+              <div
+                onClick={() => createNewWindow(protonDBurl)}
+                className="button is-empty"
+              >
+                ProtonDB
+              </div>
             </div>
           </div>
         </div>

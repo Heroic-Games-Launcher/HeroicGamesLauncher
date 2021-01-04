@@ -26,7 +26,6 @@ function createWindow() {
       enableRemoteModule: true,
     },
   });
-  
   //load the index.html from a url
   if (isDev) {
     win.loadURL("http://localhost:3000");
@@ -65,40 +64,19 @@ ipcMain.handle("winetricks", (event, prefix) => {
 
 ipcMain.handle("legendary", async (event, args) => {
   const isUninstall = args.startsWith("uninstall");
-  const isInstall = args.startsWith("install");
-  const isAddOrRemove = isUninstall || isInstall
 
-  if (isAddOrRemove) {
+  if (isUninstall) {
     const { response } = await showMessageBox({
       type: "warning",
-      title: isUninstall ? "Uninstall" : "Install",
-      message: isUninstall
-        ? "Do you want to Uninstall this game?"
-        : "Do you want to install this game?",
+      title: "Uninstall",
+      message: "Do you want to Uninstall this game?",
       buttons: ["Yes", "No"],
     });
     if (response === 1) {
       return response;
     }
     if (response === 0) {
-      if (!isUninstall) {
-        const { canceled, filePaths } = await showOpenDialog({
-          title: "Choose Install Path",
-          buttonLabel: "Choose",
-          properties: ["openDirectory"],
-        });
-        if (canceled) {
-          return "Canceled";
-        }
-        if (filePaths[0]) {
-          return execAsync(
-            `xterm -hold -e ${legendaryBin} ${args} --base-path '${filePaths[0]}'`
-          );
-        }
-      }
-      if (isUninstall) {
-        return execAsync(`xterm -hold -e ${legendaryBin} ${args}`);
-      }
+      return execAsync(`${legendaryBin} ${args} -y`);
     }
   } else {
     return await execAsync(`${legendaryBin} ${args}`)
@@ -136,7 +114,7 @@ ipcMain.handle("readFile", async (event, file) => {
     library: `${legendaryConfigPath}/metadata/`,
     config: heroicConfigPath,
     installed: await stat(installed)
-      .then(() => require(installed))
+      .then(() => JSON.parse(fs.readFileSync(installed)))
       .catch(() => []),
   };
 
@@ -229,6 +207,36 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+ipcMain.on("install", async (event, args) => {
+  const { canceled, filePaths } = await showOpenDialog({
+    title: "Choose Install Path",
+    buttonLabel: "Choose",
+    properties: ["openDirectory"],
+  });
+
+  if (canceled) {
+    return event.reply("requestedOutput", 'end')
+  }
+
+  if (filePaths[0]) {
+    const path = filePaths[0]
+    const game = args.split(' ')[1]
+    const logPath = `${legendaryConfigPath}/${game}.log`
+    
+    const progress = setInterval(() => {
+      exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
+        event.reply("requestedOutput", stdout, stderr, error)
+      })
+    }, 3000);
+
+    return execAsync(`${legendaryBin} ${args} --base-path '${path}' -y &> ${logPath}`)
+      .then(() => {
+        event.reply("requestedOutput", 'end')
+        clearInterval(progress)
+      })
+  }
+})
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

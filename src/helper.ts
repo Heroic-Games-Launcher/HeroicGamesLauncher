@@ -1,5 +1,6 @@
 const { ipcRenderer, remote } = window.require('electron')
 const { BrowserWindow } = remote
+
 export interface Game {
   art_cover: string,
   art_square: string,
@@ -20,8 +21,15 @@ const readFile = async (file: string) =>
 export const writeConfig = async(data: any) => 
   await ipcRenderer.invoke('writeFile', data)
 
-export const legendary = async (args: string): Promise<string> => await ipcRenderer.invoke('legendary', args)
-  .then(async(res: string) => {
+export const install = (args: string) => 
+  ipcRenderer.send('install', args)
+
+export let progress: string;
+
+export const returnedOutput = () => ipcRenderer.on('requestedOutput', (event: any, arg: string) => progress = arg )
+
+export const legendary = async (args: string): Promise<any> => await ipcRenderer.invoke('legendary', args)
+  .then(async(res: string) => {    
     const isError = res.includes('ERROR')
     return isError ? 'error' : 'done'
   })
@@ -32,7 +40,7 @@ export const isLoggedIn = async() => await ipcRenderer.invoke('isLoggedIn')
 export const getLegendaryConfig = async() => {
   const user: string = await readFile('user')
   const library: Array<Game> = await readFile('library')
-
+  
   if (!user) {
     return {user: '', library: []}
   }

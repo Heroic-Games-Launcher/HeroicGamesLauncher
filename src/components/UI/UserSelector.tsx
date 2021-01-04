@@ -23,28 +23,16 @@ export default function UserSelector({ user, handleRefresh }: Props) {
         {user}
         <span className="material-icons">arrow_drop_down</span>
       </span>
-      <div onClick={() => handleLogout()} className="userName hidden">
-        Logout
-      </div>
       <div
-        onClick={() => refreshGameList(handleRefresh)}
+        onClick={() => handleRefresh(true)}
         className="userName hidden"
       >
         Refresh Library
       </div>
       <div className="userName hidden">About</div>
+      <div onClick={() => handleLogout()} className="userName hidden">
+        Logout
+      </div>
     </div>
   );
-}
-
-function refreshGameList(
-  refresh: React.Dispatch<React.SetStateAction<boolean>>
-):
-  | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
-  | undefined {
-  return async () => {
-    refresh(true);
-    await legendary("list-games");
-    refresh(false);
-  };
 }
