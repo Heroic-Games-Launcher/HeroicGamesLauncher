@@ -7,7 +7,7 @@ interface Props {
   user: string
 }
 
-export const Library = ({ library, user }: Props) => {
+export const Library = ({ library }: Props) => {
   return (
     <>
     <div className="gameList">
@@ -19,7 +19,6 @@ export const Library = ({ library, user }: Props) => {
           title={title}
           appName={app_name}
           isInstalled={isInstalled}
-          userName={user}
           />
         )
        }

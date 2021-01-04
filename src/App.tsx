@@ -49,7 +49,7 @@ function App() {
   const installedGames = library.filter(game => game.isInstalled).filter(textFilter)
   const libraryTitle = hasGames ? `Library (${library.filter(textFilter).length} Games)` : 'No Games Found'
   const installedTitle = hasGames ? `Installed (${installedGames.length} Games)` : 'No Games Found'
-  
+   
   return (
     <div className="App">
     <HashRouter>
