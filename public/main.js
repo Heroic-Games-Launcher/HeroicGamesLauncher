@@ -28,6 +28,15 @@ function createWindow() {
   });
   //load the index.html from a url
   if (isDev) {
+    const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+
+    installExtension(REACT_DEVELOPER_TOOLS).then((name) => {
+        console.log(`Added Extension:  ${name}`);
+    })
+    .catch((err) => {
+        console.log('An error occurred: ', err);
+    });
+
     win.loadURL("http://localhost:3000");
     // Open the DevTools.
     win.webContents.openDevTools();
@@ -42,6 +51,7 @@ let legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow);
+
 
 // Define basic paths
 const home = homedir();
@@ -128,7 +138,7 @@ ipcMain.handle("readFile", async (event, file) => {
   if (file === "library") {
     const library = fs.existsSync(files.library)
     const fallBackImage = "https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg"
-
+    
     if (library) {
       return fs
         .readdirSync(files.library)
