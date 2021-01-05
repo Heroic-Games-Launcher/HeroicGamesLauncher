@@ -233,14 +233,8 @@ ipcMain.on("install", async (event, game) => {
     const path = filePaths[0]
     const logPath = `${legendaryConfigPath}/${game}.log`
     const command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
-    const progress = setInterval(() => {
-      exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
-        event.reply("requestedOutput", stdout)
-      })
-    }, 2500);
     
     const proc = execAsync(command)
-
     ipcMain.on('kill', () => {
       event.reply("requestedOutput", 'killing')
       exec(`killall -r ${game}`)
@@ -248,9 +242,28 @@ ipcMain.on("install", async (event, game) => {
 
     proc.child.on('exit', () => {
       event.reply("requestedOutput", 'end')
-      clearInterval(progress)
     })
   }
+})
+
+ipcMain.on('requestGameProgress', (event, game) => {
+  const logPath = `${legendaryConfigPath}/${game}.log`
+  setInterval(() => {
+    exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
+      const progress = stdout.split('\n')[0].replace('%', '')
+      console.log('from main', {game, progress})
+
+      if (progress === '100'){
+        return event.reply("requestedOutput", '100')
+      }
+      event.reply("requestedOutput", progress)
+    })
+  }, 2500)
+})
+
+ipcMain.on('kill', (event, game) => {
+  event.reply("requestedOutput", 'killing')
+  exec(`killall -r ${game}`)
 })
 
 // In this file you can include the rest of your app's specific main process

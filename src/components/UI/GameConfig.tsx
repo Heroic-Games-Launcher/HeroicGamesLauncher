@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   createNewWindow,
   formatStoreUrl,
@@ -104,15 +103,16 @@ export default function GameConfig({ location }: Card) {
               )}
               <div
                 onClick={async () => {
-                  if (installing) {
+                  if (isInstalling) {
                     handleInstalling(appName)
-                    return sendKill()
+                    return sendKill(appName)
                   }
 
                   if (isInstalled){
                     return await legendary(`uninstall ${appName}`)
                   }
                   
+                  handleInstalling(appName)                  
                   return await install(appName)
                 }}
                 className={`button ${

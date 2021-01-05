@@ -47,14 +47,20 @@ export class GlobalState extends Component<Props> {
       const updatedInstalling = installing.filter(({ game }) => value !== game)
       this.setState({ installing: updatedInstalling })
     }
-    this.setState({ installing: [...installing, { game: value, progress: '0' }] })
+  
+    this.setState({ installing: [...installing, { game: value, progress: '' }] })
+    this.updateProgress(value)
   }
 
-  updateProgress = (gameName: string) => {
+  updateProgress = (game: string) => {
     const { installing } = this.state
-    const gameToUpdate = installing.filter(({ game }) => game === gameName )[0]
-    ipcRenderer.send('requestGameProgress', (gameName))
-    ipcRenderer.on('requestedOutput', (event: any, progress: string) => gameToUpdate.progress = progress )
+    ipcRenderer.send('requestGameProgress', (game))
+    ipcRenderer.on('requestedOutput', (event: any, progress: Installing) => {
+      return this.setState({
+        installing: [ ...installing, {game, progress }]
+      })
+    })
+ 
   }
 
   componentDidMount(){
