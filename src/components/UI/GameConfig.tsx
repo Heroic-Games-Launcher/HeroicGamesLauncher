@@ -3,16 +3,15 @@ import { Link } from "react-router-dom";
 import {
   createNewWindow,
   formatStoreUrl,
-  Game,
   getGameInfo,
   legendary,
   install,
-  getLegendaryConfig,
   sendKill
 } from "../../helper";
 import Header from "./Header";
 import "../../App.css";
-const { ipcRenderer } = window.require('electron')
+import { Game } from '../../types';
+import ContextProvider from '../../state/ContextProvider';
 
 interface Card {
   location: any;
@@ -21,10 +20,11 @@ interface Card {
 export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = useState({} as any);
   const [playing, setPlaying] = useState(false);
-  const [installing, setInstalling] = useState(false);
-  const [progress, setProgress] = useState('0');
-
+  const { handleInstalling, refresh, installing } = React.useContext(ContextProvider)
+  
   const { appName } = location.state || {};
+  const isInstalling = installing.filter(game => game.game === appName).length;
+  // const { progress } = installing.filter(game => game.game === appName)[0];
 
   React.useEffect(() => {
     const updateConfig = async () => {
@@ -32,24 +32,21 @@ export default function GameConfig({ location }: Card) {
       setGameInfo(newInfo);
     };
     updateConfig()
-  }, [installing, appName]);
+  }, [isInstalling, appName]);
 
   if (!appName) {
     return (
-      <div>
-        <Link to={"/"}>Back to Library</Link>
-      </div>
+      <Header renderBackButton />
     );
   }
 
-  if (installing) {
-    console.log(progress.split('\n')[0].replace('%', ''));
-    if (progress === 'end') {
-      setInstalling(false)
-      getLegendaryConfig()
-    }
-    ipcRenderer.on('requestedOutput', (event: any, arg: string) => setProgress(arg) )
-  }
+  // if (isInstalling) {
+  //   console.log(progress.split('\n')[0].replace('%', ''));
+  //   if (progress === 'end') {
+  //     handleInstalling(appName);
+  //     refresh()
+  //   }
+  // }
 
   if (gameInfo) {
     const {
@@ -68,6 +65,7 @@ export default function GameConfig({ location }: Card) {
     return (
       <>
         <Header renderBackButton />
+        <div className="gameConfigContainer">
         <div className="gameConfig">
           <img alt="cover-art" src={art_square} className="gameImg" />
           <div className="gameInfo">
@@ -107,16 +105,14 @@ export default function GameConfig({ location }: Card) {
               <div
                 onClick={async () => {
                   if (installing) {
+                    handleInstalling(appName)
                     return sendKill()
                   }
 
                   if (isInstalled){
-                    setInstalling(true)
-                    await legendary(`uninstall ${appName}`)
-                    return setInstalling(false)
+                    return await legendary(`uninstall ${appName}`)
                   }
                   
-                  setInstalling(true)
                   return await install(appName)
                 }}
                 className={`button ${
@@ -126,8 +122,8 @@ export default function GameConfig({ location }: Card) {
                 {`${
                   isInstalled
                     ? "Uninstall"
-                    : installing
-                    ? `${progress.split('\n')[0].replace('%', '')}% (Stop)`
+                    : isInstalling
+                    ? `0% (Stop)`
                     : "Install"
                 }`}
               </div>
@@ -146,6 +142,8 @@ export default function GameConfig({ location }: Card) {
             </div>
           </div>
         </div>
+        </div>
+
       </>
     );
   }

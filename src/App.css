@@ -417,6 +417,17 @@
   background: #5A5E5F;
 }
 
+.gameConfigContainer {
+  width: 1194px;
+  height: 395px;
+  background: rgba(13, 14, 14, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin: auto;
+  display: grid;
+  place-content: center;
+}
+
 .gameConfig {
   display: flex;
   align-self: center;
@@ -430,7 +441,7 @@
 
 .gameInfo {
   text-align: initial;
-  padding-left: 1.5rem;
+  padding-left: 3.5rem;
   font-size: 1rem;
   color: #E4DEEA;
   display: flex;
@@ -444,7 +455,6 @@
 }
 
 .gameInfo .infoWrapper {
-  margin-left: 1rem;
   color: #B0ABB6;
   flex-grow: 1;
 }
@@ -502,4 +512,12 @@
 
 .material-icons.is-success {
   color: #4bc984;
+}
+
+.returnLink {
+  display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr;
+    width: 100px;
+    margin: 61px 0 65px 25px;
 }

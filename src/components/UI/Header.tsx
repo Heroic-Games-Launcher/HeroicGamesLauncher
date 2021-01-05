@@ -12,7 +12,12 @@ export default function Header({ title, renderBackButton }: Props) {
     {title && <div className="pageTitle">{title}</div>}
     <div className="header">
       <div className="leftCluster">
-      {renderBackButton && <Link to={"/"}>Back to Library</Link>}
+      {renderBackButton &&         <Link className="returnLink" to={"/"}>
+          <span className="material-icons" >
+            arrow_back
+          </span>
+          Return
+          </Link>}
       </div>
     </div>
     </>
