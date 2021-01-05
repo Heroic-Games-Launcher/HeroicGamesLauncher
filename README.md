@@ -2,7 +2,7 @@
 
 This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary), a Linux native alternative to the Epic Games Launcher.
 
-### [Next Design iteration based on the UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
+### [Next Design iteration based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
 ## Current Version Screenshots
 ![heroic-library](https://user-images.githubusercontent.com/26871415/103456736-384bee00-4cf9-11eb-8674-e6fe3b71be61.png)
@@ -31,9 +31,13 @@ This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary),
 
 ## Planned features
 - Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
+- Run games on custom wine prefix
 - Sync installed games with an existing Epic Games instalation folder
 - Import a already installed game
 - Get the Free game of the week
+- Multiple installations at the same time
+- Add Games outside Epic Games
+- Integration with other stores
 
 ## Binaries supported right now
 - DEB, RPM, Pacman, AppImage and TAR.XZ (with the heroic binary and all dependecies)
