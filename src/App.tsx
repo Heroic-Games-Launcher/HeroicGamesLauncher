@@ -1,42 +1,24 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import "./App.css";
 import { Library } from "./components/Library";
-import { Game, getLegendaryConfig } from "./helper";
 import Login from './components/UI/Login';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-import Installed from './components/Installed';
 import NavBar from './components/NavBar';
 import Settings from './components/Settings';
 import GameConfig from './components/UI/GameConfig';
 import Header from './components/UI/Header';
-
-interface State {
-  user: string;
-  library: Array<Game>;
-}
+import { Game } from './types';
+import ContextProvider from './state/ContextProvider';
 
 function App() {
-  const [config, setConfig] = useState({} as State);
-  const [refreshing, setRefreshing] = useState(false);
   const [filterText, setFilterText] = useState('');
+  const context = useContext(ContextProvider);
 
-  React.useEffect(() => {
-    const updateConfig = async () => {
-      const newConfig = await getLegendaryConfig();
-      newConfig && setConfig(newConfig);
-    };
-    updateConfig();
-  }, [refreshing]);
-
-  if (!Object.entries(config).length) {
-    return null
-  }
-
-  const { user, library } = config;
+  const { user, data: library, refresh } = context;
 
   if (!user && !library.length) {
-    return <Login user={user} refresh={setRefreshing} />
+    return <Login refresh={refresh} />
   }
 
   const handleSearch = (input: string) => setFilterText(input)
@@ -53,7 +35,7 @@ function App() {
   return (
     <div className="App">
     <HashRouter>
-      <NavBar handleSearch={handleSearch} user={user} handleRefresh={setRefreshing} />
+      <NavBar handleSearch={handleSearch} />
       <Switch>
         <Route exact path="/">
           <Header
@@ -62,21 +44,10 @@ function App() {
            />
           <Library 
             library={library.filter(textFilter)}
-            user={user}
           />
         </Route>
         <Route exact path="/gameconfig" component={GameConfig} />
         <Route exact path="/settings" component={Settings} />
-        <Route exact path="/installed" component={Installed}>
-        <Header
-            title={installedTitle} 
-            renderBackButton={false}
-           />
-          <Library 
-            library={installedGames.filter(textFilter)}
-            user={user}
-          />
-        </Route>
       </Switch>
     </HashRouter>
     </div>

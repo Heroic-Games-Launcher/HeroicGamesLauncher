@@ -1,10 +1,9 @@
 import React from 'react'
-import { Game } from '../helper'
+import { Game } from '../types'
 import GameCard from './UI/GameCard'
 
 interface Props {
   library: Array<Game>
-  user: string
 }
 
 export const Library = ({ library }: Props) => {

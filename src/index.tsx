@@ -4,10 +4,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import GlobalState from './state/GlobalState';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalState>
+      <App />
+    </GlobalState>
   </React.StrictMode>,
   document.getElementById("root")
 );

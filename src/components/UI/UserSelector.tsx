@@ -1,19 +1,15 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { legendary } from "../../helper";
+import ContextProvider from '../../state/ContextProvider';
 
-interface Props {
-  user: string;
-  handleRefresh: Dispatch<SetStateAction<boolean>>;
-}
-
-export default function UserSelector({ user, handleRefresh }: Props) {
+export default function UserSelector() {
+  const { user, refresh } = React.useContext(ContextProvider)
   const handleLogout = async () => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm("are you sure?")) {
       await legendary(`auth --delete`);
-      handleRefresh(true);
       await legendary(`cleanup`);
-      handleRefresh(false);
+      refresh();
     }
   };
 
@@ -24,7 +20,7 @@ export default function UserSelector({ user, handleRefresh }: Props) {
         <span className="material-icons">arrow_drop_down</span>
       </span>
       <div
-        onClick={() => handleRefresh(true)}
+        onClick={() => refresh()}
         className="userName hidden"
       >
         Refresh Library
