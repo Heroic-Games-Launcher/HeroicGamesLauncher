@@ -7,21 +7,21 @@ export default function Settings() {
       <Header title={"Settings"} renderBackButton={false} />
       <div className="Settings">
         <div className="settingsWrapper">
-          <span className="defaultWine">
-            <span className="settingsText">Default Wine Version</span>
-            <select name="wineVersion" id="wineVersion">
+          <span className="setting">
+            <span className="settingText">Default Wine Version</span>
+            <select className="settingSelect" name="wineVersion" id="wineVersion">
               <option>Wine Staging</option>
             </select>
           </span>
-          <span className="defaultWinePrefix">
-            <span className="settingsText">Default WinePrefix</span>
+          <span className="setting">
+            <span className="settingText">Default WinePrefix</span>
             <span>
               <input
                 type="text"
                 placeholder={"~/.wine"}
-                className="searchInput settingsInput"
+                className="settingSelect"
               />
-              <button className="loginButton settingsButton">Choose</button>
+              <button className="settingButton">Choose</button>
             </span>
           </span>
         </div>
