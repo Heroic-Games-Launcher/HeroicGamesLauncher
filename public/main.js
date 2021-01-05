@@ -84,7 +84,7 @@ ipcMain.handle("legendary", async (event, args) => {
         }
         if (filePaths[0]) {
           return execAsync(
-            `xterm -hold -e ${legendaryBin} ${args} --base-path ${filePaths[0]}`
+            `xterm -hold -e ${legendaryBin} ${args} --base-path '${filePaths[0]}'`
           );
         }
       }
@@ -130,6 +130,7 @@ ipcMain.handle("readFile", async (event, file) => {
 
   if (file === "library") {
     const library = fs.existsSync(files.library)
+    const fallBackImage = "https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg"
 
     if (library) {
       return fs
@@ -138,12 +139,18 @@ ipcMain.handle("readFile", async (event, file) => {
         .map((file) => require(file))
         .map(({ app_name, metadata }) => {
           const { description, keyImages, title, developer } = metadata;
-          const art_cover = keyImages.filter(
+
+          const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
-          )[0].url;
-          const art_square = keyImages.filter(
+          )[0];
+          
+          const gameBoxTall = keyImages.filter(
             ({ type }) => type === "DieselGameBoxTall"
-          )[0].url;
+          )[0];
+
+          const art_cover = gameBox ? gameBox.url : null;
+          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+
           const installedGames = Object.values(files.installed);
           const isInstalled = Boolean(
             installedGames.filter((game) => game.app_name === app_name).length
