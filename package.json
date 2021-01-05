@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "0.4.0-beta",
+  "version": "0.4.1-beta",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -20,7 +20,9 @@
       "build/**/*",
       "node_modules/**/*"
     ],
-    "asarUnpack": ["build/bin/legendary"],
+    "asarUnpack": [
+      "build/bin/legendary"
+    ],
     "directories": {
       "buildResources": "public"
     },
@@ -31,7 +33,11 @@
       "description": "Native Epic Games Launcher alternative for Linux based on Legendary",
       "desktop": "[Desktop Entry] Name=Heroic Exec=heroic Icon=heroic Type=Application Categories=games",
       "target": [
-        "AppImage", "deb", "pacman", "tar.xz", "rpm"
+        "AppImage",
+        "deb",
+        "pacman",
+        "tar.xz",
+        "rpm"
       ]
     },
     "deb": {
