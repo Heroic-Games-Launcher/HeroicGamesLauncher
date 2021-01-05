@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { createNewWindow, legendary } from "../../helper";
 
-const logo = "../../assets/heroic-icon.png";
-
 interface Props {
   refresh: () => void;
 }
