@@ -1,7 +1,10 @@
 # Heroic Games Launcher
 
-This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary), a native alternative to the Epic Games Launcher for Linux.
+This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary), a Linux native alternative to the Epic Games Launcher.
 
+### [Next Design iteration based on the UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
+
+## Current Version Screenshots
 ![heroic-library](https://user-images.githubusercontent.com/26871415/103456736-384bee00-4cf9-11eb-8674-e6fe3b71be61.png)
 ![heroic-game](https://user-images.githubusercontent.com/26871415/103456735-37b35780-4cf9-11eb-8f07-667a86b96c6c.png)
 ![heroic-game-install](https://user-images.githubusercontent.com/26871415/103456734-371ac100-4cf9-11eb-8ab3-584e2b097a72.png)
