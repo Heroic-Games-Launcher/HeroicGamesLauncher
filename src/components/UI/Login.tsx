@@ -1,14 +1,13 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { createNewWindow, legendary } from "../../helper";
 
 const logo = "../../assets/heroic-icon.png";
 
 interface Props {
-  user: string;
-  refresh: Dispatch<SetStateAction<boolean>>;
+  refresh: () => void;
 }
 
-export default function Login({ user, refresh }: Props) {
+export default function Login({ refresh }: Props) {
   const [input, setInput] = useState("Paste the SID number here");
   const [status, setStatus] = useState({
     loading: false,
@@ -29,8 +28,7 @@ export default function Login({ user, refresh }: Props) {
       if (res !== "error") {
         setStatus({ loading: true, message: "Loading Game list" });
         await legendary(`list-games`);
-        refresh(true);
-        refresh(false);
+        refresh();
       }
 
       setStatus({ loading: true, message: "Error" });
@@ -43,9 +41,13 @@ export default function Login({ user, refresh }: Props) {
   return (
     <div className="Login">
       <div className="loginWrapper">
-        {/* <div className="heroicLogo">
+        <div className="heroicLogo">
           <span className="logo" />
-        </div> */}
+          <div className="heroicText">
+            <span className="heroicTitle">Heroic</span>
+            <span className="heroicSubTitle">Game Launcher</span>
+          </div>
+        </div>
         <div className="loginFormWrapper">
           <span className="loginInstructions">
             <strong>Welcome!</strong>
@@ -89,6 +91,7 @@ export default function Login({ user, refresh }: Props) {
           </div>
         </div>
       </div>
+          <span className="loginBackground"></span>
     </div>
   );
 }

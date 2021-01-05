@@ -34,7 +34,8 @@
   height: 77px;
   position: sticky;
   top: 0;
-  background-color: #424546;
+  background: #424546;
+  box-shadow: 0px 4.00313px 10.0078px #161616;
   width: 100%;
   display: grid;
   grid-template-columns: 3fr 5fr 1fr;
@@ -52,8 +53,8 @@
   height: 25px;
   left: 43px;
   top: 26px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   font-family: 'Rubik', sans-serif;
 }
 
@@ -188,41 +189,121 @@
   align-items: flex-start;
 }
 
-.settingsWrapper > * {
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: baseline;
+.setting {
+  display: grid;
+  place-items: baseline;
+  margin: 16px;
 }
 
-.settingsText {
-  margin-right: 16px;
+.settingText {
+  margin-bottom: 14px;
   font-family: Cabin;
   font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 27px;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
   color: #EAE8E5;
 }
 
-.settingsButton {
+.settingSelect {
+  width: 513px;
+  height: 40px;
+  background: #424546;
+  border-radius: 10px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #C1C4C3;
+  text-indent: 22px;
+  outline: none;
+  border: none;
+}
+
+.settingSelect > option {
+  background: #424546;
+}
+
+
+.settingButton {
+  width: 161px;
+  height: 40px;
+  margin-left: 12px;
+  background: #C1C4C3;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
   font-size: 14px;
-  margin-left: 6px;
-  width: 130px;
+  line-height: 17px;
+  color: #161616;
+  border: none;
+  outline: none;
+  transition: 500ms;
+}
+
+.settingButton:hover {
+  background: #e0e6e4;
+}
+
+.settingsSaveButton {
+  background: #0BD58C;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 
 .Login {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.loginBackground {
   position: absolute;
   height: 100%;
   width: 100%;
   align-self: center;
-  background: url('./assets/login-background-1536x864.jpg')
+  background: url('./assets/login-background-1536x864.jpg');
+  z-index: -1;
+  opacity: 0.4;
 }
 
 .heroicLogo {
   width: 205px;
   height: 48px;
+  place-self: baseline;
+  margin-bottom: 31px;
+}
+
+.heroicText {
+  width: 150px;
+  height: 47px;
+  margin-left: 57px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroicTitle {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  color: #FFA800;
+}
+
+.heroicSubTitle {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 24.3px;
+  color: #EAE8E5;
 }
 
 .logo {
@@ -234,13 +315,11 @@
 }
 
 .loginFormWrapper {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
+  display: grid;
+  place-items: center;
+  place-content: center;
   width: 826px;
-  height: 440px;
-  left: 227px;
-  top: 189px;
+  height: 475px;
   background: rgba(29, 31, 31, 0.95);
   border-radius: 10px;
 }
