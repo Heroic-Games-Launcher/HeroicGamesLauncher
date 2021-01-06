@@ -90,7 +90,27 @@ ipcMain.handle("legendary", async (event, args) => {
       return execAsync(`${legendaryBin} ${args} -y`);
     }
   } else {
-    return await execAsync(`${legendaryBin} ${args}`)
+    let envVars = '';
+    let altWine;
+    let altWinePrefix;
+
+    if (fs.existsSync(heroicConfigPath)) {
+      const { wineVersion, winePrefix, otherOptions} = JSON.parse(fs.readFileSync(heroicConfigPath))
+
+      envVars = otherOptions;
+
+      if (winePrefix !== '~/.wine'){
+        altWinePrefix = winePrefix
+      }
+
+      if (wineVersion !== 'Wine Default'){
+        altWine = wineVersion
+      }
+    }
+
+    const wine = altWine ? `--wine ${altWine}` : '';
+    const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : '';
+    return await execAsync(`${envVars} ${legendaryBin} ${args} ${wine} ${prefix}`)
       .then(({stdout, stderr}) => {
         if (stdout){
           return stdout
@@ -250,6 +270,34 @@ ipcMain.on('kill', async(event, game) => {
 })
 
 ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
+
+ipcMain.on('getAlternativeWine', (event, args) => event.reply('alternativeWine', getAlternativeWine()))
+
+// check other wine versions installed
+const getAlternativeWine = () => {
+  const steamPath = `${home}/.steam/`
+  const steamCompatPath = `${steamPath}root/compatibilitytools.d/`
+  const lutrisPath = `${home}/.local/share/lutris`
+  const lutrisCompatPath = `${lutrisPath}/runners/wine/`
+  let steamWine = []
+  let lutrisWine = []
+  
+  if (fs.existsSync(steamCompatPath)){
+    steamWine = fs.readdirSync(steamCompatPath)
+    .map(version => {
+      return { name: `(steam)${version}`, bin: `${steamCompatPath}${version}/dist/bin/wine64`} 
+    })
+  }
+  
+  if(fs.existsSync(lutrisCompatPath)) {
+    lutrisWine = fs.readdirSync(lutrisCompatPath)
+    .map(version => {
+      return { name: `(lutris)${version}`, bin: `${lutrisCompatPath}${version}/bin/wine64`} 
+    })
+  }
+
+  return steamWine.concat(lutrisWine)
+}
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
