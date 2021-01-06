@@ -14,7 +14,7 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
       className="gameCard "
       style={{ backgroundColor: isInstalled ? "#F0183C" : "#2B2B2B" }}
       to={{
-        pathname: "/gameconfig",
+        pathname: "/gameconfig", 
         state: { appName },
       }}
     >
@@ -23,10 +23,10 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
         <span>{title}</span>
         <i
           className={`material-icons ${
-            isInstalled ? "is-success" : "is-primary"
+            isInstalled ? "is-primary" : "is-success"
           }`}
         >
-          {isInstalled ? "check_circle" : "get_app"}
+          {isInstalled ? "play_circle" : "get_app"}
         </i>
       </div>
     </Link>

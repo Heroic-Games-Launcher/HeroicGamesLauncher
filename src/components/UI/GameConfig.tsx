@@ -84,13 +84,12 @@ export default function GameConfig({ location }: Card) {
             <div className="title">{title}</div>
             <div className="infoWrapper">
               <div className="developer">{developer}</div>
-              <div>appName: {appName}</div>
               {isInstalled && (
                 <>
                   <div>Executable: {executable}</div>
-                  <div onClick={() => ipcRenderer.send('openFolder', install_path)} >Location: {install_path}</div>
                   <div>Size: {sizeInMB}MB</div>
                   <div>Version: {version}</div>
+                  <div className="clickable" onClick={() => ipcRenderer.send('openFolder', install_path)} >Location: {install_path} (Click to Open Location)</div>
                   <br />
                 </>
               )}
@@ -110,7 +109,7 @@ export default function GameConfig({ location }: Card) {
                     }}
                     className="button is-primary"
                   >
-                    {playing ? "Playing (Stop)" : "Play"}
+                    {playing ? "Playing (Stop)" : "Play Now"}
                   </div>
                 </>
               )}
@@ -129,7 +128,7 @@ export default function GameConfig({ location }: Card) {
                   return await install(appName)
                 }}
                 className={`button ${
-                  isInstalled ? "uninstall is-danger" : "is-success install"
+                  isInstalled ? "is-danger" : "is-success"
                 }`}
               >
                 {`${
@@ -140,7 +139,7 @@ export default function GameConfig({ location }: Card) {
                     : "Install"
                 }`}
               </div>
-              <div
+              {/* <div
                 onClick={() => createNewWindow(formatStoreUrl(title))}
                 className="button is-empty"
               >
@@ -151,7 +150,7 @@ export default function GameConfig({ location }: Card) {
                 className="button is-empty"
               >
                 ProtonDB
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

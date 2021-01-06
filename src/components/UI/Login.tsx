@@ -81,7 +81,7 @@ export default function Login({ refresh }: Props) {
             {<p className="message">{message}</p>}
             <button
               onClick={() => handleLogin(input)}
-              className="loginButton"
+              className="button login"
               disabled={loading}
             >
                Login

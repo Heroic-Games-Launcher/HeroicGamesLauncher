@@ -12,6 +12,7 @@
 
 .App .header {
   display: flex;
+  height: 125px;
   padding: 1rem;
   justify-content: space-between;
 }
@@ -79,7 +80,7 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
   border-radius: 10px;
   margin: auto;
-  transition: 100ms;
+  transition: 150ms;
   text-align: center;
 }
 
@@ -96,9 +97,11 @@
 }
 
 .UserSelector .hidden {
-  display: none;
+  display: block;
   color: #EAE8E5;
   cursor: pointer;
+  transition: 75ms;
+  opacity: 0;
 }
 
 .UserSelector:hover {
@@ -107,6 +110,7 @@
 
 .UserSelector:hover  > .hidden {
   display: block;
+  opacity: 1;
 }
 
 .userName > .material-icons {
@@ -155,14 +159,25 @@
   position: relative;
 }
 
-.gameCard .gameTitle {
+.gameTitle {
   position: absolute;
-  bottom: 0;
+  bottom: -92px;
+  height: 92px;
   width: 100%;
   padding: 1rem;
-  background: #323035;
   color: #E4DEEA;
   display: flex;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
+  border-radius: 0px 0px 10px 10px;
+  transition: 200ms;
+}
+
+.gameTitle > i {
+  font-size: 32px;
+}
+
+.gameCard:hover > .gameTitle {
+  bottom: 0;
 }
 
 .gameCard .gameTitle span {
@@ -174,6 +189,13 @@
   height: 20rem;
   border-radius: 0.5rem;
   object-fit: cover;
+}
+
+.gameConfig > .gameImg {
+  width: 188px;
+  height: 269px;
+  border-radius: 10px;
+  margin: auto;
 }
 
 .Settings {
@@ -223,35 +245,6 @@
 
 .settingSelect > option {
   background: #424546;
-}
-
-
-.settingButton {
-  width: 161px;
-  height: 40px;
-  margin-left: 12px;
-  background: #C1C4C3;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 17px;
-  color: #161616;
-  border: none;
-  outline: none;
-  transition: 500ms;
-}
-
-.settingButton:hover {
-  background: #e0e6e4;
-}
-
-.settingsSaveButton {
-  background: #0BD58C;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
 }
 
 .Login {
@@ -394,29 +387,6 @@
   color: #07C5EF;
 }
 
-.loginButton {
-  outline: none;
-  width: 184px;
-  height: 39px;
-  background: #07C5EF;
-  border-radius: 10px;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
-  border: none;
-}
-
-.loginButton:hover{
-  background: #36D1F3;
-}
-
-.loginButton:disabled {
-  color: #DADADA;
-  background: #5A5E5F;
-}
-
 .gameConfigContainer {
   width: 1194px;
   height: 395px;
@@ -436,7 +406,10 @@
 }
 
 .gameConfig .title {
-  font-size: 2rem;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 30px;
+  color: #F79707;
 }
 
 .gameInfo {
@@ -469,20 +442,31 @@
 }
 
 .buttonsWrapper {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  flex-wrap: wrap;
+  width: 300px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: baseline;
 }
 
 .button {
   cursor: pointer;
   padding: 0.75rem;
-  border-radius: 0.5rem;
-  text-transform: uppercase;
+  border-radius: 10px;
   background: #323035;
-  color: #E4DEEA;
-  font-size: 1rem;
+  color: #1A1B1C;
+  text-transform: uppercase;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #161616;
+  border: none;
+  outline: none;
+  min-width: 120px;
+  text-align: center;
+  transition: 500ms;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .button:hover {
@@ -490,7 +474,7 @@
 }
 
 .button.is-primary {
-  background: #5c32be;
+  background: #07C5EF;
 }
 
 .button.is-empty {
@@ -499,11 +483,16 @@
 }
 
 .button.is-success {
-  background: #2e995f;
+  background: #0BD58C;
+}
+
+.button.button.is-success:hover{
+  background: #e0e6e4;
 }
 
 .button.is-danger {
-  background: #ae195f;
+  background: #1D1F1F;
+  color: #BD0A0A;
 }
 
 .material-icons.is-primary {
@@ -514,10 +503,39 @@
   color: #4bc984;
 }
 
+.button.settings {
+  margin-left: 12px;
+}
+
+.button.save {
+  align-self: center;
+  margin-top: 48px;
+  background: #0BD58C;
+}
+
+.button.login{
+  background: #07C5EF;
+  font-size: 14px ;
+}
+
+.button.login:hover{
+  background: #36D1F3;
+}
+
+.button.login:disabled {
+  color: #DADADA;
+  background: #5A5E5F;
+}
+
 .returnLink {
   display: grid;
     place-items: center;
     grid-template-columns: 1fr 1fr;
     width: 100px;
     margin: 61px 0 65px 25px;
+}
+
+.clickable {
+  cursor: pointer;
+  color: #F79707;
 }

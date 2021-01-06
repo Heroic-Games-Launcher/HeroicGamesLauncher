@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -9,17 +9,17 @@ interface Props {
 export default function Header({ title, renderBackButton }: Props) {
   return (
     <>
-    {title && <div className="pageTitle">{title}</div>}
-    <div className="header">
-      <div className="leftCluster">
-      {renderBackButton &&         <Link className="returnLink" to={"/"}>
-          <span className="material-icons" >
-            arrow_back
-          </span>
-          Return
-          </Link>}
+      <div className="header">
+      {title && <div className="pageTitle">{title}</div>}
+      {renderBackButton && (
+          <div className="leftCluster">
+            <Link className="returnLink" to={"/"}>
+              <span className="material-icons">arrow_back</span>
+              Return
+            </Link>
+          </div>
+      )}
       </div>
-    </div>
     </>
-  )
+  );
 }
