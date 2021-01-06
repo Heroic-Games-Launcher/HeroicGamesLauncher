@@ -243,8 +243,17 @@
   border: none;
 }
 
+.settingSelect.small {
+  width: 360px;
+}
+
 .settingSelect > option {
   background: #424546;
+  height: 40px;
+  color: #C1C4C3;
+  text-indent: 22px;
+  font-size: 16px;
+  border-radius: 10px;
 }
 
 .Login {
@@ -395,7 +404,7 @@
   border-radius: 20px;
   margin: auto;
   display: grid;
-  place-content: center;
+  place-items: flex-start;
 }
 
 .gameConfig {
@@ -403,6 +412,7 @@
   align-self: center;
   min-width: 780px;
   max-width: 800px;
+  margin-left: 69px;
 }
 
 .gameConfig .title {
@@ -421,10 +431,6 @@
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
-}
-
-.gameInfo .title {
-  font-weight: bold;
 }
 
 .gameInfo .infoWrapper {
@@ -487,7 +493,7 @@
 }
 
 .button.button.is-success:hover{
-  background: #e0e6e4;
+  background: #30ECA8;
 }
 
 .button.is-danger {
