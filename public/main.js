@@ -7,6 +7,7 @@ const fs = require("fs");
 const promisify = require("util").promisify;
 const execAsync = promisify(exec);
 const stat = promisify(fs.stat);
+
 const {
   app,
   BrowserWindow,
@@ -200,6 +201,58 @@ ipcMain.handle("readFile", async (event, file) => {
   return files[file];
 });
 
+ipcMain.on("install", async (event, game) => {
+  const { canceled, filePaths } = await showOpenDialog({
+    title: "Choose Install Path",
+    buttonLabel: "Choose",
+    properties: ["openDirectory"],
+  });
+
+  
+  if (canceled) {
+    return event.reply("requestedOutput", 'end')
+  }
+  
+  if (filePaths[0]) {
+    const path = filePaths[0]
+    const logPath = `${legendaryConfigPath}/${game}.log`
+    const command = `${legendaryBin} install ${game} --base-path '${path}' &> ${logPath}`
+    
+    const proc = execAsync(command)
+    ipcMain.on('kill', () => {
+      event.reply("requestedOutput", 'killing')
+      exec(`pkill -f ${game}`)
+    })
+
+    proc.child.on('exit', () => {
+      event.reply("requestedOutput", 'end')
+    })
+  }
+})
+
+ipcMain.on('requestGameProgress', (event, game) => {
+  const logPath = `${legendaryConfigPath}/${game}.log`
+    exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
+      const progress = stdout.split('\n')[0].replace('%', '')
+      
+      if (progress === '100'){
+        return event.reply("requestedOutput", '100')
+      }
+      event.reply("requestedOutput", progress)
+    })
+})
+
+ipcMain.on('kill', async(event, game) => {
+  console.log('killing', game);
+  return execAsync(`pkill -f ${game}`)
+    .then(() => `killed ${game}`)
+    .catch((err) => err)
+})
+
+ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
+
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
@@ -217,54 +270,3 @@ app.on("activate", () => {
     createWindow();
   }
 });
-
-ipcMain.on("install", async (event, game) => {
-  const { canceled, filePaths } = await showOpenDialog({
-    title: "Choose Install Path",
-    buttonLabel: "Choose",
-    properties: ["openDirectory"],
-  });
-
-  if (canceled) {
-    return event.reply("requestedOutput", 'end')
-  }
-
-  if (filePaths[0]) {
-    const path = filePaths[0]
-    const logPath = `${legendaryConfigPath}/${game}.log`
-    const command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
-    
-    const proc = execAsync(command)
-    ipcMain.on('kill', () => {
-      event.reply("requestedOutput", 'killing')
-      exec(`killall -r ${game}`)
-    })
-
-    proc.child.on('exit', () => {
-      event.reply("requestedOutput", 'end')
-    })
-  }
-})
-
-ipcMain.on('requestGameProgress', (event, game) => {
-  const logPath = `${legendaryConfigPath}/${game}.log`
-  setInterval(() => {
-    exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
-      const progress = stdout.split('\n')[0].replace('%', '')
-      console.log('from main', {game, progress})
-
-      if (progress === '100'){
-        return event.reply("requestedOutput", '100')
-      }
-      event.reply("requestedOutput", progress)
-    })
-  }, 2500)
-})
-
-ipcMain.on('kill', (event, game) => {
-  event.reply("requestedOutput", 'killing')
-  exec(`killall -r ${game}`)
-})
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
