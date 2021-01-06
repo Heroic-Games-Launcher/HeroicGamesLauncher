@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   createNewWindow,
   formatStoreUrl,
@@ -11,6 +11,8 @@ import Header from "./Header";
 import "../../App.css";
 import { Game } from '../../types';
 import ContextProvider from '../../state/ContextProvider';
+import { ipcMain } from 'electron';
+const { ipcRenderer } = window.require('electron')
 
 interface Card {
   location: any;
@@ -19,19 +21,31 @@ interface Card {
 export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = useState({} as any);
   const [playing, setPlaying] = useState(false);
-  const { handleInstalling, refresh, installing } = React.useContext(ContextProvider)
-  
-  const { appName } = location.state || {};
-  const isInstalling = installing.filter(game => game.game === appName).length;
-  // const { progress } = installing.filter(game => game.game === appName)[0];
+  const [progress, setProgress] = useState('0')
 
-  React.useEffect(() => {
+  const { handleInstalling, refresh, installing } = React.useContext(ContextProvider)
+
+  const { appName } = location.state || {};
+  const currentApp = installing.filter(game => game === appName)
+  const isInstalling = currentApp.length;
+
+  useEffect(() => {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName);
       setGameInfo(newInfo);
-    };
+    }
     updateConfig()
   }, [isInstalling, appName]);
+
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      if (isInstalling) {
+        ipcRenderer.send('requestGameProgress', (appName))
+        ipcRenderer.on('requestedOutput', (event: any, progress: string) => setProgress(progress))
+      }
+    }, 2000)
+    return () => clearInterval(progressInterval)
+  }, [isInstalling, appName, progress])
 
   if (!appName) {
     return (
@@ -39,13 +53,12 @@ export default function GameConfig({ location }: Card) {
     );
   }
 
-  // if (isInstalling) {
-  //   console.log(progress.split('\n')[0].replace('%', ''));
-  //   if (progress === 'end') {
-  //     handleInstalling(appName);
-  //     refresh()
-  //   }
-  // }
+  if (isInstalling) {
+    if (progress === '100') {
+      handleInstalling(appName);
+      refresh()
+    }
+  }
 
   if (gameInfo) {
     const {
@@ -75,7 +88,7 @@ export default function GameConfig({ location }: Card) {
               {isInstalled && (
                 <>
                   <div>Executable: {executable}</div>
-                  <div>Location: {install_path}</div>
+                  <div onClick={() => ipcRenderer.send('openFolder', install_path)} >Location: {install_path}</div>
                   <div>Size: {sizeInMB}MB</div>
                   <div>Version: {version}</div>
                   <br />
@@ -88,7 +101,7 @@ export default function GameConfig({ location }: Card) {
                   <div
                     onClick={async () => {
                       if (playing) {
-                        return sendKill()
+                        return sendKill(appName)
                       }
 
                       setPlaying(true);
@@ -97,7 +110,7 @@ export default function GameConfig({ location }: Card) {
                     }}
                     className="button is-primary"
                   >
-                    {playing ? "Playing" : "Play"}
+                    {playing ? "Playing (Stop)" : "Play"}
                   </div>
                 </>
               )}
@@ -123,7 +136,7 @@ export default function GameConfig({ location }: Card) {
                   isInstalled
                     ? "Uninstall"
                     : isInstalling
-                    ? `0% (Stop)`
+                    ? `${progress}% (Stop)`
                     : "Install"
                 }`}
               </div>

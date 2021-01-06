@@ -12,16 +12,10 @@ export interface Game {
   isInstalled: boolean
 }
 
-export interface Installing {
-  game: string
-  progress: string
-}
-
-
 export interface ContextType {
   user: string
   data: Game[]
-  installing: Installing[]
+  installing: string[]
   playing: string[]
   refreshing: boolean
   error: boolean

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { getLegendaryConfig } from '../helper';
-import { Game, Installing } from '../types';
+import { Game } from '../types';
 import ContextProvider from './ContextProvider';
-const { ipcRenderer } = window.require('electron')
 
 interface Props {
   children: React.ReactNode
@@ -11,7 +10,7 @@ interface Props {
 interface StateProps {
   user: string
   data: Game[]
-  installing: Installing[]
+  installing: string[]
   playing: string[]
   refreshing: boolean
   error: boolean
@@ -42,25 +41,14 @@ export class GlobalState extends Component<Props> {
 
   handleInstalling = (value: string) => {
     const { installing } = this.state
-    const isInstalling = installing.filter(({ game }) => game === value).length
+    const isInstalling = installing.includes(value)
+  
     if (isInstalling) {
-      const updatedInstalling = installing.filter(({ game }) => value !== game)
-      this.setState({ installing: updatedInstalling })
+      const updatedInstalling = installing.filter(game => game !== value)
+      return this.setState({ installing: updatedInstalling })
     }
   
-    this.setState({ installing: [...installing, { game: value, progress: '' }] })
-    this.updateProgress(value)
-  }
-
-  updateProgress = (game: string) => {
-    const { installing } = this.state
-    ipcRenderer.send('requestGameProgress', (game))
-    ipcRenderer.on('requestedOutput', (event: any, progress: Installing) => {
-      return this.setState({
-        installing: [ ...installing, {game, progress }]
-      })
-    })
- 
+    return this.setState({ installing: [...installing, value] })
   }
 
   componentDidMount(){
