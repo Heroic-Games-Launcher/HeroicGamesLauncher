@@ -38,6 +38,20 @@ function createWindow() {
         console.log('An error occurred: ', err);
     });
 
+    win.on('close', async (e) => {
+      e.preventDefault()
+
+      const {response} = await showMessageBox({
+        title: 'Games Downloading',
+        message: 'Do you really want to quit? Downloads will be canceled',
+        buttons: ['NO', 'YES']
+      })
+
+        if (response === 1){
+          win.destroy()
+        } 
+    })
+
     win.loadURL("http://localhost:3000");
     // Open the DevTools.
     win.webContents.openDevTools();
@@ -103,8 +117,8 @@ ipcMain.handle("legendary", async (event, args) => {
         altWinePrefix = winePrefix
       }
 
-      if (wineVersion !== 'Wine Default'){
-        altWine = wineVersion
+      if (wineVersion.name !== 'Wine Default'){
+        altWine = wineVersion.bin
       }
     }
 
@@ -273,6 +287,19 @@ ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
 
 ipcMain.on('getAlternativeWine', (event, args) => event.reply('alternativeWine', getAlternativeWine()))
 
+// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
+ipcMain.on('callTool', (event, {tool, wine, prefix}) => 
+  exec(`WINE=${wine} WINEPREFIX=${prefix} ${tool === 'winecfg' ? `${wine} ${tool}` : tool } `))
+
+ipcMain.on('requestSettings', (event, args) => {
+  let settings;
+  if(fs.existsSync(heroicConfigPath)){
+    settings = JSON.parse(fs.readFileSync(heroicConfigPath)) 
+  }
+
+  event.reply('currentSettings', settings)
+})
+
 // check other wine versions installed
 const getAlternativeWine = () => {
   const steamPath = `${home}/.steam/`
@@ -298,6 +325,8 @@ const getAlternativeWine = () => {
 
   return steamWine.concat(lutrisWine)
 }
+
+//Send a warning if user want to close the window while some gaming is installing on background
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
