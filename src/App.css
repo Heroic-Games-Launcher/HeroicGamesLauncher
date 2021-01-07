@@ -11,10 +11,11 @@
 }
 
 .App .header {
-  display: flex;
+  display: grid;
+  width: 1194px;
+  place-self: center;
   height: 125px;
   padding: 1rem;
-  justify-content: space-between;
 }
 
 .App .header .leftCluster, .App .header .rightCluster {
@@ -196,6 +197,17 @@
   height: 269px;
   border-radius: 10px;
   margin: auto;
+}
+
+.installProgress[value] {
+  appearance: none;
+  width: 169px;
+  height: 5px;
+}
+
+.installProgress[value]::-webkit-progress-value {
+  color: #0BD58C;
+  animation: animate-stripes 5s linear infinite;
 }
 
 .Settings {
@@ -408,6 +420,7 @@
   border-radius: 20px;
   margin: auto;
   display: grid;
+  position: relative;
   place-items: flex-start;
 }
 
@@ -501,12 +514,20 @@
 }
 
 .button.is-danger {
-  background: #1D1F1F;
+  background: #252121;
   color: #BD0A0A;
+}
+
+.button.is-danger:hover {
+  background: #322B2B;
 }
 
 .material-icons.is-primary {
   color: #8866d7;
+}
+
+.material-icons.is-secondary {
+  color: #FFA800;
 }
 
 .material-icons.is-success {
@@ -544,13 +565,77 @@
 
 .returnLink {
   display: grid;
-    place-items: center;
-    grid-template-columns: 1fr 1fr;
-    width: 100px;
-    margin: 61px 0 65px 25px;
+  place-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: 100px;
+  margin: 61px 0 65px -25px;
+  height: fit-content;
 }
 
 .clickable {
   cursor: pointer;
   color: #F79707;
+}
+
+.more {
+  position: absolute;
+  top: 64px;
+  right: 72px;
+  color: #FFA800;
+  font-size: 25px;
+  width: 170px;
+  height: 108px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  border-radius: 10px;
+  margin: auto;
+  transition: 150ms;
+  text-align: center;
+  padding: 10px;
+}
+
+.dots {
+  position: absolute;
+  right: 70px;
+  top: 75px;
+  width: 25px;
+  z-index: 1;
+}
+
+.link {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+}
+
+.linkTitle {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #07C5EF;
+
+}
+.more .hidden {
+  opacity: 0;
+}
+
+.more:hover {
+  background: #1A1B1C;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
+}
+
+.more:hover > .hidden {
+  opacity: 1;
+  cursor: pointer;
+}
+
+@keyframes animate-stripes {
+  100% { background-position: -100px 0px; }
 }
