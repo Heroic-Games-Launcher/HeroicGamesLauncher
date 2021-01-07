@@ -72,6 +72,7 @@ const home = homedir();
 const legendaryConfigPath = `${home}/.config/legendary`;
 const heroicConfigPath = `${home}/.config/heroic/config.json`;
 const userInfo = `${legendaryConfigPath}/user.json`;
+const heroicInstallPath = `${home}/Games/Heroic`;
 
 ipcMain.handle("writeFile", (event, args) => {
   fs.writeFile(heroicConfigPath, JSON.stringify(args, null, 2), () => {
@@ -121,6 +122,8 @@ ipcMain.handle("legendary", async (event, args) => {
       }
     }
 
+    console.log('playing');
+
     const wine = altWine ? `--wine ${altWine}` : '';
     const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : '';
     return await execAsync(`${envVars} ${legendaryBin} ${args} ${wine} ${prefix}`)
@@ -136,6 +139,98 @@ ipcMain.handle("legendary", async (event, args) => {
       .catch(({stderr}) => Error(stderr))
   }
 });
+
+ipcMain.handle("install", async (event, args) => {
+  const { appName: game, path } = args
+  const logPath = `${legendaryConfigPath}/${game}.log`
+  let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
+  
+  if (path === 'default'){
+    let defaultPath = heroicInstallPath;
+    if (fs.existsSync(heroicConfigPath)){
+      const { defaultInstallPath } =  JSON.parse(fs.readFileSync(heroicConfigPath))
+      defaultPath = Boolean(defaultInstallPath) ? defaultInstallPath : defaultPath
+    }
+    command = `${legendaryBin} install ${game} --base-path '${defaultPath}' -y &> ${logPath}`
+  }
+  
+  ipcMain.on('kill', () => {
+    event.reply("requestedOutput", 'killing')
+    exec(`pkill -f ${game}`)
+  })
+
+  await execAsync(command)
+})
+
+ipcMain.handle("importGame", async (event, args) => {
+  const { appName: game, path } = args
+  const command = `${legendaryBin} import-game ${game} '${path}'`
+  
+  await execAsync(command)
+})
+
+ipcMain.on('requestGameProgress', (event, game) => {
+  const logPath = `${legendaryConfigPath}/${game}.log`
+    exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
+      const progress = stdout.split('\n')[0].replace('%', '')
+      
+      if (progress === '100'){
+        return event.reply("requestedOutput", '100')
+      }
+      event.reply("requestedOutput", progress)
+    })
+})
+
+ipcMain.on('kill', async(event, game) => {
+  console.log('killing', game);
+  return execAsync(`pkill -f ${game}`)
+    .then(() => `killed ${game}`)
+    .catch((err) => err)
+})
+
+ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
+
+ipcMain.on('getAlternativeWine', (event, args) => event.reply('alternativeWine', getAlternativeWine()))
+
+// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
+ipcMain.on('callTool', (event, {tool, wine, prefix}) => 
+  exec(`WINE=${wine} WINEPREFIX=${prefix} ${tool === 'winecfg' ? `${wine} ${tool}` : tool } `))
+
+ipcMain.on('requestSettings', (event, args) => {
+  let settings;
+  if(fs.existsSync(heroicConfigPath)){
+    settings = JSON.parse(fs.readFileSync(heroicConfigPath)) 
+  }
+
+  event.reply('currentSettings', settings)
+})
+
+// check other wine versions installed
+const getAlternativeWine = () => {
+  const steamPath = `${home}/.steam/`
+  const steamCompatPath = `${steamPath}root/compatibilitytools.d/`
+  const lutrisPath = `${home}/.local/share/lutris`
+  const lutrisCompatPath = `${lutrisPath}/runners/wine/`
+  let steamWine = []
+  let lutrisWine = []
+  
+  if (fs.existsSync(steamCompatPath)){
+    steamWine = fs.readdirSync(steamCompatPath)
+    .map(version => {
+      return { name: `(steam)${version}`, bin: `${steamCompatPath}${version}/dist/bin/wine64`} 
+    })
+  }
+  
+  if(fs.existsSync(lutrisCompatPath)) {
+    lutrisWine = fs.readdirSync(lutrisCompatPath)
+    .map(version => {
+      return { name: `(lutris)${version}`, bin: `${lutrisCompatPath}${version}/bin/wine64`} 
+    })
+  }
+
+  return steamWine.concat(lutrisWine)
+}
+
 
 const isLoggedIn = async () =>
   await stat(userInfo)
@@ -233,98 +328,6 @@ ipcMain.handle("readFile", async (event, file) => {
   }
   return files[file];
 });
-
-ipcMain.handle("install", async (event, args) => {
-  const { appName: game, path } = args
-  const logPath = `${legendaryConfigPath}/${game}.log`
-  let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
-
-  if (path === 'default'){
-    let defaultPath = `${home}/Heroic`
-
-    if(fs.existsSync(heroicConfigPath)){
-      const { defaultInstallPath } =  JSON.parse(fs.readFileSync(heroicConfigPath))
-      defaultPath = defaultInstallPath ? defaultInstallPath : defaultPath
-    }
-    command = `${legendaryBin} install ${game} --base-path '${defaultPath}' -y &> ${logPath}`
-  }
-  
-  ipcMain.on('kill', () => {
-    event.reply("requestedOutput", 'killing')
-    exec(`pkill -f ${game}`)
-  })
-
-  await execAsync(command)
-})
-
-ipcMain.handle("importGame", async (event, args) => {
-  const { appName: game, path } = args
-  const command = `${legendaryBin} import-game ${game} '${path}'`
-  
-  await execAsync(command)
-})
-
-ipcMain.on('requestGameProgress', (event, game) => {
-  const logPath = `${legendaryConfigPath}/${game}.log`
-    exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
-      const progress = stdout.split('\n')[0].replace('%', '')
-      
-      if (progress === '100'){
-        return event.reply("requestedOutput", '100')
-      }
-      event.reply("requestedOutput", progress)
-    })
-})
-
-ipcMain.on('kill', async(event, game) => {
-  console.log('killing', game);
-  return execAsync(`pkill -f ${game}`)
-    .then(() => `killed ${game}`)
-    .catch((err) => err)
-})
-
-ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
-
-ipcMain.on('getAlternativeWine', (event, args) => event.reply('alternativeWine', getAlternativeWine()))
-
-// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.on('callTool', (event, {tool, wine, prefix}) => 
-  exec(`WINE=${wine} WINEPREFIX=${prefix} ${tool === 'winecfg' ? `${wine} ${tool}` : tool } `))
-
-ipcMain.on('requestSettings', (event, args) => {
-  let settings;
-  if(fs.existsSync(heroicConfigPath)){
-    settings = JSON.parse(fs.readFileSync(heroicConfigPath)) 
-  }
-
-  event.reply('currentSettings', settings)
-})
-
-// check other wine versions installed
-const getAlternativeWine = () => {
-  const steamPath = `${home}/.steam/`
-  const steamCompatPath = `${steamPath}root/compatibilitytools.d/`
-  const lutrisPath = `${home}/.local/share/lutris`
-  const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-  let steamWine = []
-  let lutrisWine = []
-  
-  if (fs.existsSync(steamCompatPath)){
-    steamWine = fs.readdirSync(steamCompatPath)
-    .map(version => {
-      return { name: `(steam)${version}`, bin: `${steamCompatPath}${version}/dist/bin/wine64`} 
-    })
-  }
-  
-  if(fs.existsSync(lutrisCompatPath)) {
-    lutrisWine = fs.readdirSync(lutrisCompatPath)
-    .map(version => {
-      return { name: `(lutris)${version}`, bin: `${lutrisCompatPath}${version}/bin/wine64`} 
-    })
-  }
-
-  return steamWine.concat(lutrisWine)
-}
 
 //Send a warning if user want to close the window while some gaming is installing on background
 

@@ -14,6 +14,7 @@ interface AltSettings {
   wineVersion: WineProps
   winePrefix: string
   otherOptions: string
+  defaultInstallPath: string
 }
 
 interface Path {
@@ -23,12 +24,14 @@ interface Path {
 export default function Settings() {
   const [wineVersion, setWineversion] = useState({name: 'Wine Default', bin: '/usr/bin/wine'} as WineProps)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
+  const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [altWine, setAltWine] = useState([] as WineProps[])
 
   useEffect(() => {
     ipcRenderer.send('requestSettings')
     ipcRenderer.on('currentSettings', (event: IpcRendererEvent, config: AltSettings) => {
+      setDefaultInstallPath(config.defaultInstallPath)
       setWineversion(config.wineVersion)
       setWinePrefix(config.winePrefix)
       setOtherOptions(config.otherOptions)
@@ -41,9 +44,29 @@ export default function Settings() {
   
   return (
     <>
-      <Header title={"Settings"} renderBackButton={false} />
+      <Header renderBackButton={false} />
       <div className="Settings">
         <div className="settingsWrapper">
+        <span className="setting">
+            <span className="settingText">Default Installation Path</span>
+            <span>
+              <input
+                type="text"
+                value={defaultInstallPath}
+                className="settingSelect small"
+                placeholder={"~/Games/Heroic"}
+                onChange={(event) => setDefaultInstallPath(event.target.value)} 
+              />
+              <button 
+                className="button settings"
+                onClick={() => dialog.showOpenDialog({
+                  title: "Choose WinePrefix",
+                  buttonLabel: "Choose",
+                  properties: ["openDirectory"],
+                }).then(({ filePaths }: Path) => setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '') ) }
+                >Choose Folder</button>
+            </span>
+          </span>
           <span className="setting">
             <span className="settingText">Default Wine Version</span>
             <select 
@@ -95,7 +118,9 @@ export default function Settings() {
                 <button className="button settings" onClick={() => callTools('winetricks')}>Winetricks</button>
             </div>
           </div>
-          <button className="button is-success save" onClick={() => writeConfig({wineVersion, winePrefix, otherOptions})} >Save Settings</button>
+          <button 
+            className="button is-success save" 
+            onClick={() => writeConfig({ defaultInstallPath, wineVersion, winePrefix, otherOptions })} >Save Settings</button>
         </div>
       </div>
     </>
