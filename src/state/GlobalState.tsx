@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { getLegendaryConfig } from '../helper';
+import Update from '../components/UI/Update';
+import { getLegendaryConfig, legendary } from '../helper';
 import { Game } from '../types';
 import ContextProvider from './ContextProvider';
 
@@ -41,6 +42,11 @@ export class GlobalState extends Component<Props> {
     })
   }
 
+  refreshLibrary = async(): Promise<void> => {
+    this.setState({refreshing: true})
+    await legendary('list-games')
+    this.refresh()
+  }
 
   handleSearch = (input: string) => this.setState({filterText: input})
   handleOnlyInstalled = () => this.setState({onlyInstalled: !this.state.onlyInstalled})
@@ -75,10 +81,10 @@ export class GlobalState extends Component<Props> {
 
   render() {
     const { children } = this.props;
-    const { data, filterText, onlyInstalled } = this.state
+    const { data, filterText, onlyInstalled, refreshing } = this.state
 
-    if (this.state.refreshing){
-      return null
+    if (refreshing){
+      return <Update />
     }
 
     const filterRegex: RegExp = new RegExp(String(filterText), 'i')
@@ -92,10 +98,11 @@ export class GlobalState extends Component<Props> {
               ...this.state,
               data: filteredLibrary,
               refresh: this.refresh,
+              refreshLibrary: this.refreshLibrary,
               handleInstalling: this.handleInstalling,
               handlePlaying: this.handlePlaying,
               handleOnlyInstalled: this.handleOnlyInstalled,
-              handleSearch: this.handleSearch
+              handleSearch: this.handleSearch,
             }}
           >
           {children}    

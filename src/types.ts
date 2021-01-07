@@ -20,6 +20,7 @@ export interface ContextType {
   refreshing: boolean
   error: boolean
   refresh: () => void
+  refreshLibrary: () => void
   handleInstalling: (game: string) => void
   handlePlaying: (game: string) => void
   handleOnlyInstalled: () => void

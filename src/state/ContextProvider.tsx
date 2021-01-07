@@ -9,6 +9,7 @@ const initialContext: ContextType = {
   refreshing: false,
   error: false,
   refresh: () => null,
+  refreshLibrary: () => null,
   handleInstalling: () => null,
   handlePlaying: () => null,
   handleSearch: () => null,

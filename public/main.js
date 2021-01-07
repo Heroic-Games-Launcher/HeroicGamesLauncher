@@ -108,25 +108,29 @@ ipcMain.handle("legendary", async (event, args) => {
     let altWine;
     let altWinePrefix;
 
-    if (fs.existsSync(heroicConfigPath)) {
-      const { wineVersion, winePrefix, otherOptions} = JSON.parse(fs.readFileSync(heroicConfigPath))
-
-      envVars = otherOptions;
-
-      if (winePrefix !== '~/.wine'){
-        altWinePrefix = winePrefix
-      }
-
-      if (wineVersion.name !== 'Wine Default'){
-        altWine = wineVersion.bin
+    if (args.includes('launch')) {
+      if (fs.existsSync(heroicConfigPath)) {
+        const { wineVersion, winePrefix, otherOptions} = JSON.parse(fs.readFileSync(heroicConfigPath))
+        
+        envVars = otherOptions;
+        
+        if (winePrefix !== '~/.wine'){
+          altWinePrefix = winePrefix
+        }
+        
+        if (wineVersion.name !== 'Wine Default'){
+          altWine = wineVersion.bin
+        }
       }
     }
-
+      
     console.log('playing');
 
     const wine = altWine ? `--wine ${altWine}` : '';
     const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : '';
-    return await execAsync(`${envVars} ${legendaryBin} ${args} ${wine} ${prefix}`)
+    const command = `${envVars} ${legendaryBin} ${args} ${wine} ${prefix}`
+    console.log(command);
+    return await execAsync(command)
       .then(({stdout, stderr}) => {
         if (stdout){
           return stdout
@@ -141,6 +145,7 @@ ipcMain.handle("legendary", async (event, args) => {
 });
 
 ipcMain.handle("install", async (event, args) => {
+  console.log('install');
   const { appName: game, path } = args
   const logPath = `${legendaryConfigPath}/${game}.log`
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;

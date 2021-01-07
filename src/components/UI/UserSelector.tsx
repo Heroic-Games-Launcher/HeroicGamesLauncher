@@ -3,7 +3,7 @@ import { legendary } from "../../helper";
 import ContextProvider from '../../state/ContextProvider';
 
 export default function UserSelector() {
-  const { user, refresh } = React.useContext(ContextProvider)
+  const { user, refresh, refreshLibrary } = React.useContext(ContextProvider)
   const handleLogout = async () => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm("are you sure?")) {
@@ -20,7 +20,7 @@ export default function UserSelector() {
         <span className="material-icons">arrow_drop_down</span>
       </span>
       <div
-        onClick={() => refresh()}
+        onClick={() => refreshLibrary()}
         className="userName hidden"
       >
         Refresh Library
