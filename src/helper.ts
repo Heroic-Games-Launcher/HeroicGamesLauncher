@@ -9,8 +9,8 @@ const readFile = async (file: string) =>
 export const writeConfig = async(data: any) => 
   await ipcRenderer.invoke('writeFile', data)
 
-export const install = (args: string) => 
-  ipcRenderer.send('install', args)
+export const install = async (args: any) => 
+  await ipcRenderer.invoke('install', args)
 
 export let progress: string;
 

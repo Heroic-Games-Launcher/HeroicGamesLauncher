@@ -12,7 +12,7 @@ const {
   app,
   BrowserWindow,
   ipcMain,
-  dialog: { showMessageBox, showOpenDialog },
+  dialog: { showMessageBox },
 } = require("electron");
 
 function createWindow() {
@@ -38,6 +38,10 @@ function createWindow() {
         console.log('An error occurred: ', err);
     });
 
+    win.loadURL("http://localhost:3000");
+    // Open the DevTools.
+    win.webContents.openDevTools();
+  } else {
     win.on('close', async (e) => {
       e.preventDefault()
 
@@ -51,11 +55,6 @@ function createWindow() {
           win.destroy()
         } 
     })
-
-    win.loadURL("http://localhost:3000");
-    // Open the DevTools.
-    win.webContents.openDevTools();
-  } else {
     win.loadURL(`file://${path.join(__dirname, "../build/index.html")}`);
   }
 }
@@ -235,33 +234,17 @@ ipcMain.handle("readFile", async (event, file) => {
   return files[file];
 });
 
-ipcMain.on("install", async (event, game) => {
-  const { canceled, filePaths } = await showOpenDialog({
-    title: "Choose Install Path",
-    buttonLabel: "Choose",
-    properties: ["openDirectory"],
-  });
-
+ipcMain.handle("install", async (event, args) => {
+  const { appName: game, path } = args
+  const logPath = `${legendaryConfigPath}/${game}.log`
+  const command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
   
-  if (canceled) {
-    return event.reply("requestedOutput", 'end')
-  }
-  
-  if (filePaths[0]) {
-    const path = filePaths[0]
-    const logPath = `${legendaryConfigPath}/${game}.log`
-    const command = `${legendaryBin} install ${game} --base-path '${path}' &> ${logPath}`
-    
-    const proc = execAsync(command)
-    ipcMain.on('kill', () => {
-      event.reply("requestedOutput", 'killing')
-      exec(`pkill -f ${game}`)
-    })
+  ipcMain.on('kill', () => {
+    event.reply("requestedOutput", 'killing')
+    exec(`pkill -f ${game}`)
+  })
 
-    proc.child.on('exit', () => {
-      event.reply("requestedOutput", 'end')
-    })
-  }
+  await execAsync(command)
 })
 
 ipcMain.on('requestGameProgress', (event, game) => {
