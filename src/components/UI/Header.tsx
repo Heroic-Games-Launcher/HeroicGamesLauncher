@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ToggleSwitch from './ToggleSwitch';
 
 interface Props {
   renderBackButton: boolean;
@@ -11,13 +12,15 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
   return (
     <>
       <div className="header">
-      {handleOnlyInstalled && <span>
+      {
+      handleOnlyInstalled && 
+        <span className="installedSwitch" >
           <span>Installed Only</span>
-          <input onChange={() => handleOnlyInstalled()}  type="checkbox" className="toggleSwitch"/>
-      </span>}
-      {Boolean(numberOfGames) && <span>
-          <span>Total Games: {numberOfGames}</span>
-      </span>}
+          <ToggleSwitch handleChange={() => handleOnlyInstalled()} />
+        </span>
+      }
+      {Boolean(numberOfGames) && 
+          <span className="totalGamesText">Total Games: {numberOfGames}</span>}
       {renderBackButton && (
           <div className="leftCluster">
             <Link className="returnLink" to={"/"}>
