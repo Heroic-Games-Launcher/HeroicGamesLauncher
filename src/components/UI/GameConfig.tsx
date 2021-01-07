@@ -5,7 +5,8 @@ import {
   getGameInfo,
   legendary,
   install,
-  sendKill
+  sendKill,
+  importGame
 } from "../../helper";
 import Header from "./Header";
 import "../../App.css";
@@ -14,17 +15,17 @@ import ContextProvider from '../../state/ContextProvider';
 const { ipcRenderer, remote } = window.require('electron');
 const {dialog: { showOpenDialog }} = remote
 
+// This component is becoming really complex and it needs to be refactored in smaller ones
 interface Card {
   location: any;
 }
-
-// This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GameConfig({ location }: Card) {
   const [gameInfo, setGameInfo] = useState({} as any);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState('0.00')
   const [uninstalling, setUninstalling] = useState(false)
+  const [installPath, setInstallPath] = useState('default')
 
   const { handleInstalling, refresh, installing } = React.useContext(ContextProvider)
 
@@ -112,6 +113,15 @@ export default function GameConfig({ location }: Card) {
                 isInstalling ? `Installing ${progress}%` : isInstalled ? "Installed" : "This game is not installed"
               }</p>
             </div>
+            {!isInstalled && <select 
+              onChange={(event) => setInstallPath(event.target.value)} 
+              value={installPath}
+              className="settingSelect" 
+            >
+              <option value={'default'}>Install on default Path</option>
+              <option value={'another'} >Install on another Path</option>
+              <option value={'import'}>Import Game</option>
+            </select>}
             <div className="buttonsWrapper">
               {isInstalled && (
                 <>
@@ -171,17 +181,41 @@ export default function GameConfig({ location }: Card) {
         return setUninstalling(false);
       }
 
-      const { filePaths } = await showOpenDialog({
-        title: "Choose Install Path",
-        buttonLabel: "Choose",
-        properties: ["openDirectory"],
-      });
-
-      if (filePaths[0]) {
-        const path = filePaths[0];
+      if (installPath === 'default') {
+        const path = 'default';
         handleInstalling(appName);
         await install({ appName, path });
-        handleInstalling(appName);
+        return handleInstalling(appName);
+      }
+
+      if (installPath === 'import') {
+        const { filePaths } = await showOpenDialog({
+          title: "Choose Game Folder to import",
+          buttonLabel: "Choose",
+          properties: ["openDirectory"],
+        });
+        
+        if (filePaths[0]) {
+          const path = filePaths[0];
+          handleInstalling(appName);
+          await importGame({ appName, path });
+          return handleInstalling(appName);
+        }
+      }
+      
+      if(installPath === 'another'){
+        const { filePaths } = await showOpenDialog({
+          title: "Choose Install Path",
+          buttonLabel: "Choose",
+          properties: ["openDirectory"],
+        });
+        
+        if (filePaths[0]) {
+          const path = filePaths[0];
+          handleInstalling(appName);
+          await install({ appName, path });
+          handleInstalling(appName);
+        }
       }
     };
   }

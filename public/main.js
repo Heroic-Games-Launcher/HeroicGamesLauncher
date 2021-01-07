@@ -237,13 +237,30 @@ ipcMain.handle("readFile", async (event, file) => {
 ipcMain.handle("install", async (event, args) => {
   const { appName: game, path } = args
   const logPath = `${legendaryConfigPath}/${game}.log`
-  const command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
+  let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
+
+  if (path === 'default'){
+    let defaultPath = `${home}/Heroic`
+
+    if(fs.existsSync(heroicConfigPath)){
+      const { defaultInstallPath } =  JSON.parse(fs.readFileSync(heroicConfigPath))
+      defaultPath = defaultInstallPath ? defaultInstallPath : defaultPath
+    }
+    command = `${legendaryBin} install ${game} --base-path '${defaultPath}' -y &> ${logPath}`
+  }
   
   ipcMain.on('kill', () => {
     event.reply("requestedOutput", 'killing')
     exec(`pkill -f ${game}`)
   })
 
+  await execAsync(command)
+})
+
+ipcMain.handle("importGame", async (event, args) => {
+  const { appName: game, path } = args
+  const command = `${legendaryBin} import-game ${game} '${path}'`
+  
   await execAsync(command)
 })
 

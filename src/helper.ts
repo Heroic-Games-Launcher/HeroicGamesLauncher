@@ -12,6 +12,9 @@ export const writeConfig = async(data: any) =>
 export const install = async (args: any) => 
   await ipcRenderer.invoke('install', args)
 
+export const importGame = async (args: any) => 
+  await ipcRenderer.invoke('importGame', args)
+
 export let progress: string;
 
 export const returnedOutput = () => ipcRenderer.on('requestedOutput', (event: any, arg: string) => progress = arg )

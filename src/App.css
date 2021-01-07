@@ -450,6 +450,11 @@
   justify-content: space-between;
 }
 
+.gameInfo > .settingSelect {
+  width: 270px;
+  margin-bottom: 12px;
+}
+
 .gameInfo .infoWrapper {
   color: #B0ABB6;
   flex-grow: 1;
