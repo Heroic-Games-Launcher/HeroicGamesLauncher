@@ -6,7 +6,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color:  #1D1F1F;
-  ;
+  
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 a {
