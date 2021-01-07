@@ -21,5 +21,7 @@ export interface ContextType {
   error: boolean
   refresh: () => void
   handleInstalling: (game: string) => void
-  handlePlaying?: (game: string) => void
+  handlePlaying: (game: string) => void
+  handleOnlyInstalled: () => void
+  handleSearch: (input: string) => void
 }

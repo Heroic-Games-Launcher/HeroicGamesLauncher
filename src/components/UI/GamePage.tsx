@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   createNewWindow,
   formatStoreUrl,
@@ -20,18 +20,17 @@ interface Card {
   location: any;
 }
 
-export default function GameConfig({ location }: Card) {
+export default function GamePage({ location }: Card) {
   const [gameInfo, setGameInfo] = useState({} as any);
-  const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState('0.00')
   const [uninstalling, setUninstalling] = useState(false)
   const [installPath, setInstallPath] = useState('default')
 
-  const { handleInstalling, refresh, installing } = React.useContext(ContextProvider)
+  const { handleInstalling, handlePlaying, refresh, installing, playing } = useContext(ContextProvider)
 
   const { appName } = location.state || {};
-  const currentApp = installing.filter(game => game === appName)
-  const isInstalling = Boolean(currentApp.length);
+  const isInstalling = Boolean(installing.filter(game => game === appName).length);
+  const isPlaying = Boolean(playing.filter(game => game === appName).length);
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -39,7 +38,7 @@ export default function GameConfig({ location }: Card) {
       setGameInfo(newInfo);
     }
     updateConfig()
-  }, [isInstalling, appName, uninstalling]);
+  }, [isInstalling, isPlaying, appName, uninstalling]);
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -127,9 +126,9 @@ export default function GameConfig({ location }: Card) {
                 <>
                   <div
                     onClick={handlePlay()}
-                    className="button is-success"
+                    className={`button ${isPlaying ? 'is-tertiary' : 'is-success'}`}
                   >
-                    {playing ? "Playing (Stop)" : "Play Now"}
+                    {isPlaying ? "Playing (Stop)" : "Play Now"}
                   </div>
                 </>
               )}
@@ -158,13 +157,14 @@ export default function GameConfig({ location }: Card) {
 
   function handlePlay(): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined {
     return async () => {
-      if (playing) {
+      if (isPlaying) {
         return sendKill(appName);
       }
 
-      setPlaying(true);
+      handlePlaying(appName);
       await legendary(`launch ${appName}`);
-      setPlaying(false);
+      handlePlaying(appName);
+
     };
   }
 

@@ -9,7 +9,10 @@ const initialContext: ContextType = {
   refreshing: false,
   error: false,
   refresh: () => null,
-  handleInstalling: () => null
+  handleInstalling: () => null,
+  handlePlaying: () => null,
+  handleSearch: () => null,
+  handleOnlyInstalled: () => null
 }
 
 export default React.createContext(initialContext)

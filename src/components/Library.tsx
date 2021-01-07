@@ -10,7 +10,7 @@ export const Library = ({ library }: Props) => {
   return (
     <>
     <div className="gameList">
-     {library.length &&
+     {Boolean(library.length) &&
        library.map(({title, art_square, app_name, isInstalled}: Game) => 
        <GameCard 
           key={app_name}

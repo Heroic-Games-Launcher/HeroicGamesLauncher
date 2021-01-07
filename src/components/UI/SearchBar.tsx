@@ -1,9 +1,8 @@
-import React from "react";
-interface Props {
-  handleSearch: (input: string) => void;
-}
+import React, { useContext } from "react";
+import ContextProvider from '../../state/ContextProvider';
 
-export default function SearchBar({ handleSearch }: Props) {
+export default function SearchBar() {
+  const { handleSearch } = useContext(ContextProvider)
   return (
     <div className="SearchBar">
       <span className="material-icons">search</span>
