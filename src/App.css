@@ -543,6 +543,11 @@
   background: #322B2B;
 }
 
+.button.is-danger:disabled {
+  background:#424546;
+  color: #B0ABB6;
+}
+
 .material-icons.is-primary {
   color: #8866d7;
 }
@@ -589,7 +594,7 @@
   place-items: center;
   grid-template-columns: 1fr 1fr;
   width: 100px;
-  margin: 14px 0 65px -25px;
+  margin: 85px 0 65px -25px;
   height: fit-content;
 }
 
@@ -674,6 +679,23 @@
   top: 108px;
 }
 
+.updateIcon {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  font-size: 24px;
+  justify-content: center;
+  flex-direction: column;
+  color: #EAE8E5;
+}
+
+.updateIcon .material-icons {
+  font-size: 40px;
+  animation: refreshing 1.5s infinite;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -719,6 +741,10 @@ input:checked + .slider {
   border-color: #FFA800;
 }
 
+input:checked  span {
+  color: #FFA800;
+}
+
 input:focus + .slider {
   box-shadow: 0 0 1px #FFA800;
 }
@@ -738,4 +764,12 @@ input:checked + .slider:before {
 
 @keyframes animate-stripes {
   100% { background-position: -100px 0px; }
+}
+
+@keyframes refreshing {
+  from {
+    transform: rotate(0deg);
+  } to {
+    transform: rotate(360deg);
+  }
 }

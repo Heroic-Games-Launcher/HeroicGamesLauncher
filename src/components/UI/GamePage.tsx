@@ -132,8 +132,9 @@ export default function GamePage({ location }: Card) {
                   </div>
                 </>
               )}
-              <div
+              <button
                 onClick={handleInstall(isInstalled)}
+                disabled={isPlaying}
                 className={`button ${
                   isInstalled ? "is-danger" : isInstalling ? "is-danger" : "is-primary"
                 }`}
@@ -145,7 +146,7 @@ export default function GamePage({ location }: Card) {
                     ? `Cancel`
                     : "Install"
                 }`}
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -168,7 +169,7 @@ export default function GamePage({ location }: Card) {
     };
   }
 
-  function handleInstall(isInstalled: boolean): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined {
+  function handleInstall(isInstalled: boolean): any {
     return async () => {
       if (isInstalling) {
         handleInstalling(appName);
