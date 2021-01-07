@@ -14,8 +14,9 @@
   display: grid;
   width: 1194px;
   place-self: center;
-  height: 125px;
+  height: 84px;
   padding: 1rem;
+  grid-template-columns: 1fr 1fr;
 }
 
 .App .header .leftCluster, .App .header .rightCluster {
@@ -505,6 +506,14 @@
   background: #07C5EF;
 }
 
+.button.is-tertiary {
+  background: #FFA800;
+}
+
+.button.is-tertiary:hover {
+  background: #FEBA36;
+}
+
 .button.is-empty {
   background: transparent;
   text-decoration: underline;
@@ -573,7 +582,7 @@
   place-items: center;
   grid-template-columns: 1fr 1fr;
   width: 100px;
-  margin: 61px 0 65px -25px;
+  margin: 14px 0 65px -25px;
   height: fit-content;
 }
 

@@ -2,15 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
-  title?: string;
   renderBackButton: boolean;
+  numberOfGames?: number;
+  handleOnlyInstalled?: () => void;
 }
 
-export default function Header({ title, renderBackButton }: Props) {
+export default function Header({ renderBackButton, numberOfGames, handleOnlyInstalled }: Props) {
   return (
     <>
       <div className="header">
-      {title && <div className="pageTitle">{title}</div>}
+      {handleOnlyInstalled && <span>
+          <span>Installed Only</span>
+          <input onChange={() => handleOnlyInstalled()}  type="checkbox" className="toggleSwitch"/>
+      </span>}
+      {Boolean(numberOfGames) && <span>
+          <span>Total Games: {numberOfGames}</span>
+      </span>}
       {renderBackButton && (
           <div className="leftCluster">
             <Link className="returnLink" to={"/"}>
