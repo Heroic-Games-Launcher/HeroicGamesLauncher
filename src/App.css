@@ -429,7 +429,6 @@
 
 .gameConfigContainer {
   width: 1194px;
-  height: 395px;
   background: rgba(13, 14, 14, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -444,7 +443,7 @@
   align-self: center;
   min-width: 780px;
   max-width: 800px;
-  margin-left: 69px;
+  margin: 32px 64px;
 }
 
 .gameConfig .title {
