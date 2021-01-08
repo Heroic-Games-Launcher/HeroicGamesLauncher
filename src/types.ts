@@ -1,3 +1,9 @@
+interface ExtraInfo {
+  summary: string,
+  releaseData: number,
+  ratings: number
+}
+
 export interface Game {
   art_cover: string,
   art_square: string,
@@ -7,6 +13,7 @@ export interface Game {
   version: string, 
   save_path: string, 
   install_size: number, 
+  extraInfo: ExtraInfo,
   install_path: string,
   developer: string,
   isInstalled: boolean

@@ -418,6 +418,13 @@
   font-size: 14px;
   line-height: 17px;
   color: #07C5EF;
+  display: flex;
+}
+
+.message > .material-icons {
+  font-size: 16px;
+  margin-left: 4px;
+  animation: refreshing 1.5s infinite;
 }
 
 .gameConfigContainer {
@@ -475,6 +482,20 @@
 .gameInfo .developer {
   padding: 1rem 0 1rem 0;
   color: #E4DEEA;
+}
+
+.gameInfo .summary {
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  color: #EAE8E5;
 }
 
 .buttonsWrapper {
@@ -767,9 +788,10 @@ input:checked + .slider:before {
 }
 
 @keyframes refreshing {
-  from {
+  0% {
     transform: rotate(0deg);
-  } to {
+  }
+  100% {
     transform: rotate(360deg);
   }
 }

@@ -15,6 +15,8 @@ export const install = async (args: any) =>
 export const launch = async (args: any) => 
   await ipcRenderer.invoke('launch', args)
 
+export const loginPage = () => ipcRenderer.send('openLoginPage')
+
 export const importGame = async (args: any) => 
   await ipcRenderer.invoke('importGame', args)
 
@@ -46,12 +48,13 @@ export const getLegendaryConfig = async() => {
 
 export const getGameInfo = async(appName: string) => { 
   const library: Array<Game> = await readFile('library')
-  return library.filter(game => game.app_name === appName)[0]
+  const game = library.filter(game => game.app_name === appName)[0]
+  const extraInfo = await ipcRenderer.invoke('getGameInfo', game.title.replace('®', ''))
+  return {...game, extraInfo}
 }
 
 export const createNewWindow = (url: string) => new BrowserWindow()
   .loadURL(url)
-
 const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
 const specialCharactersRegex = /[^((0-9)|(a-z)|(A-Z)|\s)]/g
 

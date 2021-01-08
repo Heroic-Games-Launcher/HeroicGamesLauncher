@@ -7,6 +7,7 @@ const fs = require("fs");
 const promisify = require("util").promisify;
 const execAsync = promisify(exec);
 const stat = promisify(fs.stat);
+const axios = require('axios')
 
 const {
   app,
@@ -27,6 +28,9 @@ function createWindow() {
       enableRemoteModule: true,
     },
   });
+
+  writeDefaultconfig()
+
   //load the index.html from a url
   if (isDev) {
     const {
@@ -68,7 +72,8 @@ let legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow);
+app.whenReady()
+.then(createWindow);
 
 // Define basic paths
 const home = homedir();
@@ -83,11 +88,21 @@ ipcMain.handle("writeFile", (event, args) => {
   });
 });
 
-ipcMain.handle("winetricks", (event, prefix) => {
-  return new Promise((resolve, reject) => {
-    const child = spawn([prefix], "winetricks");
-    child.on("close", () => "done");
-  });
+ipcMain.handle("getGameInfo", async(event, game) => {
+  const { id, auth } = require('./secrets')
+  
+  const response = await axios({
+    url: "https://api.igdb.com/v4/games",
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Client-ID': id,
+        'Authorization': auth,
+    },
+    data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`
+  })
+
+  return(response.data[0]);
 });
 
 ipcMain.handle("launch", async (event, appName) => {
@@ -98,7 +113,7 @@ ipcMain.handle("launch", async (event, appName) => {
   if (fs.existsSync(heroicConfigPath)) {
     const { wineVersion, winePrefix, otherOptions } = JSON.parse(
       fs.readFileSync(heroicConfigPath)
-    );
+    ).defaultSettings ;
 
     envVars = otherOptions;
 
@@ -236,11 +251,12 @@ ipcMain.on("callTool", (event, { tool, wine, prefix }) =>
 
 ipcMain.on("requestSettings", (event, args) => {
   let settings;
-  if (fs.existsSync(heroicConfigPath)) {
-    settings = JSON.parse(fs.readFileSync(heroicConfigPath));
+  if (args === 'default'){
+    if (fs.existsSync(heroicConfigPath)) {
+      settings = JSON.parse(fs.readFileSync(heroicConfigPath));
+      event.reply("defaultSettings", settings.defaultSettings);
+    }
   }
-
-  event.reply("currentSettings", settings);
 });
 
 // check other wine versions installed
@@ -252,10 +268,12 @@ const getAlternativeWine = () => {
   let steamWine = [];
   let lutrisWine = [];
 
+  const defaultWine = {name: 'Wine Default', bin: '/usr/bin/wine'}
+
   if (fs.existsSync(steamCompatPath)) {
     steamWine = fs.readdirSync(steamCompatPath).map((version) => {
       return {
-        name: `(steam)${version}`,
+        name: `Steam - ${version}`,
         bin: `${steamCompatPath}${version}/dist/bin/wine64`,
       };
     });
@@ -264,13 +282,13 @@ const getAlternativeWine = () => {
   if (fs.existsSync(lutrisCompatPath)) {
     lutrisWine = fs.readdirSync(lutrisCompatPath).map((version) => {
       return {
-        name: `(lutris)${version}`,
+        name: `Lutris - ${version}`,
         bin: `${lutrisCompatPath}${version}/bin/wine64`,
       };
     });
   }
 
-  return steamWine.concat(lutrisWine);
+  return [...steamWine, ...lutrisWine, defaultWine];
 };
 
 const isLoggedIn = async () =>
@@ -280,6 +298,9 @@ const isLoggedIn = async () =>
 
 //Checks if the user have logged in with Legendary already
 ipcMain.handle("isLoggedIn", () => isLoggedIn());
+
+const loginUrl = "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect";
+ipcMain.on("openLoginPage", () => spawn('xdg-open', [loginUrl]))
 
 ipcMain.handle("readFile", async (event, file) => {
   const loggedIn = await isLoggedIn();
@@ -392,3 +413,24 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+
+const writeDefaultconfig = () => {
+  const config = {
+    defaultSettings: {
+      defaultInstallPath: "~/Games/Heroic",
+      wineVersion: {
+        name: "Wine Default",
+        bin: "/usr/bin/wine"
+      },
+      winePrefix: "~/.wine",
+      otherOptions: ""
+    }
+  }
+
+  if (!fs.existsSync(heroicConfigPath)) {
+    fs.writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => {
+      return "done";
+    });
+  }
+}
