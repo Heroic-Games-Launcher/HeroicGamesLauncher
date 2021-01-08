@@ -12,6 +12,9 @@ export const writeConfig = async(data: any) =>
 export const install = async (args: any) => 
   await ipcRenderer.invoke('install', args)
 
+export const launch = async (args: any) => 
+  await ipcRenderer.invoke('launch', args)
+
 export const importGame = async (args: any) => 
   await ipcRenderer.invoke('importGame', args)
 

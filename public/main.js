@@ -29,32 +29,36 @@ function createWindow() {
   });
   //load the index.html from a url
   if (isDev) {
-    const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS,
+    } = require("electron-devtools-installer");
 
-    installExtension(REACT_DEVELOPER_TOOLS).then((name) => {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => {
         console.log(`Added Extension:  ${name}`);
-    })
-    .catch((err) => {
-        console.log('An error occurred: ', err);
-    });
+      })
+      .catch((err) => {
+        console.log("An error occurred: ", err);
+      });
 
     win.loadURL("http://localhost:3000");
     // Open the DevTools.
     win.webContents.openDevTools();
   } else {
-    win.on('close', async (e) => {
-      e.preventDefault()
+    win.on("close", async (e) => {
+      e.preventDefault();
 
-      const {response} = await showMessageBox({
-        title: 'Games Downloading',
-        message: 'Do you really want to quit? Downloads will be canceled',
-        buttons: ['NO', 'YES']
-      })
+      const { response } = await showMessageBox({
+        title: "Games Downloading",
+        message: "Do you really want to quit? Downloads will be canceled",
+        buttons: ["NO", "YES"],
+      });
 
-        if (response === 1){
-          win.destroy()
-        } 
-    })
+      if (response === 1) {
+        win.destroy();
+      }
+    });
     win.loadURL(`file://${path.join(__dirname, "../build/index.html")}`);
   }
 }
@@ -66,7 +70,6 @@ let legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow);
 
-
 // Define basic paths
 const home = homedir();
 const legendaryConfigPath = `${home}/.config/legendary`;
@@ -76,15 +79,55 @@ const heroicInstallPath = `${home}/Games/Heroic`;
 
 ipcMain.handle("writeFile", (event, args) => {
   fs.writeFile(heroicConfigPath, JSON.stringify(args, null, 2), () => {
-    return 'done'
-  })
-})
+    return "done";
+  });
+});
 
 ipcMain.handle("winetricks", (event, prefix) => {
   return new Promise((resolve, reject) => {
     const child = spawn([prefix], "winetricks");
     child.on("close", () => "done");
   });
+});
+
+ipcMain.handle("launch", async (event, appName) => {
+  let envVars = "";
+  let altWine;
+  let altWinePrefix;
+
+  if (fs.existsSync(heroicConfigPath)) {
+    const { wineVersion, winePrefix, otherOptions } = JSON.parse(
+      fs.readFileSync(heroicConfigPath)
+    );
+
+    envVars = otherOptions;
+
+    if (winePrefix !== "~/.wine") {
+      altWinePrefix = winePrefix;
+    }
+
+    if (wineVersion.name !== "Wine Default") {
+      altWine = wineVersion.bin;
+    }
+  }
+
+  console.log("playing");
+
+  const wine = altWine ? `--wine ${altWine}` : "";
+  const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : "";
+  const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`;
+  console.log(command);
+  return await execAsync(command)
+    .then(({ stdout, stderr }) => {
+      if (stdout) {
+        return stdout;
+      } else if (stderr) {
+        return stderr;
+      } else {
+        return "done";
+      }
+    })
+    .catch(({ stderr }) => Error(stderr));
 });
 
 ipcMain.handle("legendary", async (event, args) => {
@@ -104,138 +147,131 @@ ipcMain.handle("legendary", async (event, args) => {
       return execAsync(`${legendaryBin} ${args} -y`);
     }
   } else {
-    let envVars = '';
-    let altWine;
-    let altWinePrefix;
-
-    if (args.includes('launch')) {
-      if (fs.existsSync(heroicConfigPath)) {
-        const { wineVersion, winePrefix, otherOptions} = JSON.parse(fs.readFileSync(heroicConfigPath))
-        
-        envVars = otherOptions;
-        
-        if (winePrefix !== '~/.wine'){
-          altWinePrefix = winePrefix
-        }
-        
-        if (wineVersion.name !== 'Wine Default'){
-          altWine = wineVersion.bin
-        }
-      }
-    }
-      
-    console.log('playing');
-
-    const wine = altWine ? `--wine ${altWine}` : '';
-    const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : '';
-    const command = `${envVars} ${legendaryBin} ${args} ${wine} ${prefix}`
+    const command = `${legendaryBin} ${args}`;
     console.log(command);
     return await execAsync(command)
-      .then(({stdout, stderr}) => {
-        if (stdout){
-          return stdout
+      .then(({ stdout, stderr }) => {
+        if (stdout) {
+          return stdout;
         } else if (stderr) {
-          return stderr
+          return stderr;
         } else {
-          return 'done'
+          return "done";
         }
       })
-      .catch(({stderr}) => Error(stderr))
+      .catch(({ stderr }) => Error(stderr));
   }
 });
 
 ipcMain.handle("install", async (event, args) => {
-  console.log('install');
-  const { appName: game, path } = args
-  const logPath = `${legendaryConfigPath}/${game}.log`
+  console.log("install");
+  const { appName: game, path } = args;
+  const logPath = `${legendaryConfigPath}/${game}.log`;
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
-  
-  if (path === 'default'){
-    let defaultPath = heroicInstallPath;
-    if (fs.existsSync(heroicConfigPath)){
-      const { defaultInstallPath } =  JSON.parse(fs.readFileSync(heroicConfigPath))
-      defaultPath = Boolean(defaultInstallPath) ? defaultInstallPath : defaultPath
-    }
-    command = `${legendaryBin} install ${game} --base-path '${defaultPath}' -y &> ${logPath}`
-  }
-  
-  ipcMain.on('kill', () => {
-    event.reply("requestedOutput", 'killing')
-    exec(`pkill -f ${game}`)
-  })
 
-  await execAsync(command)
-})
+  if (path === "default") {
+    let defaultPath = heroicInstallPath;
+    if (fs.existsSync(heroicConfigPath)) {
+      const { defaultInstallPath } = JSON.parse(
+        fs.readFileSync(heroicConfigPath)
+      );
+      defaultPath = Boolean(defaultInstallPath)
+        ? defaultInstallPath
+        : defaultPath;
+    }
+    command = `${legendaryBin} install ${game} --base-path '${defaultPath}' -y &> ${logPath}`;
+  }
+
+  ipcMain.on("kill", () => {
+    event.reply("requestedOutput", "killing");
+    exec(`pkill -f ${game}`);
+  });
+
+  await execAsync(command);
+});
 
 ipcMain.handle("importGame", async (event, args) => {
-  const { appName: game, path } = args
-  const command = `${legendaryBin} import-game ${game} '${path}'`
-  
-  await execAsync(command)
-})
+  const { appName: game, path } = args;
+  const command = `${legendaryBin} import-game ${game} '${path}'`;
 
-ipcMain.on('requestGameProgress', (event, game) => {
-  const logPath = `${legendaryConfigPath}/${game}.log`
-    exec(`tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`, (error, stdout, stderr) => {
-      const progress = stdout.split('\n')[0].replace('%', '')
-      
-      if (progress === '100'){
-        return event.reply("requestedOutput", '100')
+  await execAsync(command);
+});
+
+ipcMain.on("requestGameProgress", (event, game) => {
+  const logPath = `${legendaryConfigPath}/${game}.log`;
+  exec(
+    `tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`,
+    (error, stdout, stderr) => {
+      const progress = stdout.split("\n")[0].replace("%", "");
+
+      if (progress === "100") {
+        return event.reply("requestedOutput", "100");
       }
-      event.reply("requestedOutput", progress)
-    })
-})
+      event.reply("requestedOutput", progress);
+    }
+  );
+});
 
-ipcMain.on('kill', async(event, game) => {
-  console.log('killing', game);
+ipcMain.on("kill", async (event, game) => {
+  console.log("killing", game);
   return execAsync(`pkill -f ${game}`)
     .then(() => `killed ${game}`)
-    .catch((err) => err)
-})
+    .catch((err) => err);
+});
 
-ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
+ipcMain.on("openFolder", (event, folder) => spawn("xdg-open", [folder]));
 
-ipcMain.on('getAlternativeWine', (event, args) => event.reply('alternativeWine', getAlternativeWine()))
+ipcMain.on("getAlternativeWine", (event, args) =>
+  event.reply("alternativeWine", getAlternativeWine())
+);
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.on('callTool', (event, {tool, wine, prefix}) => 
-  exec(`WINE=${wine} WINEPREFIX=${prefix} ${tool === 'winecfg' ? `${wine} ${tool}` : tool } `))
+ipcMain.on("callTool", (event, { tool, wine, prefix }) =>
+  exec(
+    `WINE=${wine} WINEPREFIX=${prefix} ${
+      tool === "winecfg" ? `${wine} ${tool}` : tool
+    } `
+  )
+);
 
-ipcMain.on('requestSettings', (event, args) => {
+ipcMain.on("requestSettings", (event, args) => {
   let settings;
-  if(fs.existsSync(heroicConfigPath)){
-    settings = JSON.parse(fs.readFileSync(heroicConfigPath)) 
+  if (fs.existsSync(heroicConfigPath)) {
+    settings = JSON.parse(fs.readFileSync(heroicConfigPath));
   }
 
-  event.reply('currentSettings', settings)
-})
+  event.reply("currentSettings", settings);
+});
 
 // check other wine versions installed
 const getAlternativeWine = () => {
-  const steamPath = `${home}/.steam/`
-  const steamCompatPath = `${steamPath}root/compatibilitytools.d/`
-  const lutrisPath = `${home}/.local/share/lutris`
-  const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-  let steamWine = []
-  let lutrisWine = []
-  
-  if (fs.existsSync(steamCompatPath)){
-    steamWine = fs.readdirSync(steamCompatPath)
-    .map(version => {
-      return { name: `(steam)${version}`, bin: `${steamCompatPath}${version}/dist/bin/wine64`} 
-    })
-  }
-  
-  if(fs.existsSync(lutrisCompatPath)) {
-    lutrisWine = fs.readdirSync(lutrisCompatPath)
-    .map(version => {
-      return { name: `(lutris)${version}`, bin: `${lutrisCompatPath}${version}/bin/wine64`} 
-    })
+  const steamPath = `${home}/.steam/`;
+  const steamCompatPath = `${steamPath}root/compatibilitytools.d/`;
+  const lutrisPath = `${home}/.local/share/lutris`;
+  const lutrisCompatPath = `${lutrisPath}/runners/wine/`;
+  let steamWine = [];
+  let lutrisWine = [];
+
+  if (fs.existsSync(steamCompatPath)) {
+    steamWine = fs.readdirSync(steamCompatPath).map((version) => {
+      return {
+        name: `(steam)${version}`,
+        bin: `${steamCompatPath}${version}/dist/bin/wine64`,
+      };
+    });
   }
 
-  return steamWine.concat(lutrisWine)
-}
+  if (fs.existsSync(lutrisCompatPath)) {
+    lutrisWine = fs.readdirSync(lutrisCompatPath).map((version) => {
+      return {
+        name: `(lutris)${version}`,
+        bin: `${lutrisCompatPath}${version}/bin/wine64`,
+      };
+    });
+  }
 
+  return steamWine.concat(lutrisWine);
+};
 
 const isLoggedIn = async () =>
   await stat(userInfo)
@@ -249,7 +285,7 @@ ipcMain.handle("readFile", async (event, file) => {
   const loggedIn = await isLoggedIn();
 
   if (!isLoggedIn) {
-    return { user:{ displayName: null }, library: [] }
+    return { user: { displayName: null }, library: [] };
   }
 
   const installed = `${legendaryConfigPath}/installed.json`;
@@ -270,9 +306,10 @@ ipcMain.handle("readFile", async (event, file) => {
   }
 
   if (file === "library") {
-    const library = fs.existsSync(files.library)
-    const fallBackImage = "https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg"
-    
+    const library = fs.existsSync(files.library);
+    const fallBackImage =
+      "https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg";
+
     if (library) {
       return fs
         .readdirSync(files.library)
@@ -280,17 +317,17 @@ ipcMain.handle("readFile", async (event, file) => {
         .map((file) => JSON.parse(fs.readFileSync(file)))
         .map(({ app_name, metadata }) => {
           const { description, keyImages, title, developer } = metadata;
-          
+
           const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
           )[0];
-          
+
           const gameBoxTall = keyImages.filter(
             ({ type }) => type === "DieselGameBoxTall"
           )[0];
 
           const art_cover = gameBox ? gameBox.url : null;
-          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage;
 
           const installedGames = Object.values(files.installed);
           const isInstalled = Boolean(
@@ -327,7 +364,7 @@ ipcMain.handle("readFile", async (event, file) => {
           const gameA = a.title.toUpperCase();
           const gameB = b.title.toUpperCase();
           return gameA < gameB ? -1 : 1;
-        })
+        });
     }
     return [];
   }

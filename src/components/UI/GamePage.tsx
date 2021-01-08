@@ -6,18 +6,24 @@ import {
   legendary,
   install,
   sendKill,
-  importGame
+  importGame,
+  launch
 } from "../../helper";
 import Header from "./Header";
 import "../../App.css";
 import { Game } from '../../types';
 import ContextProvider from '../../state/ContextProvider';
+import { useParams } from 'react-router-dom';
 const { ipcRenderer, remote } = window.require('electron');
 const {dialog: { showOpenDialog }} = remote
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 interface Card {
   location: any;
+}
+
+interface RouteParams {
+  appName: string
 }
 
 export default function GamePage({ location }: Card) {
@@ -28,7 +34,8 @@ export default function GamePage({ location }: Card) {
 
   const { handleInstalling, handlePlaying, refresh, installing, playing } = useContext(ContextProvider)
 
-  const { appName } = location.state || {};
+  const { appName } = useParams() as RouteParams
+  
   const isInstalling = Boolean(installing.filter(game => game === appName).length);
   const isPlaying = Boolean(playing.filter(game => game === appName).length);
 
@@ -163,7 +170,7 @@ export default function GamePage({ location }: Card) {
       }
 
       handlePlaying(appName);
-      await legendary(`launch ${appName}`);
+      await launch(appName);
       handlePlaying(appName);
 
     };

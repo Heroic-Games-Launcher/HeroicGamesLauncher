@@ -14,8 +14,7 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
       className="gameCard "
       style={{ backgroundColor: isInstalled ? "#F0183C" : "#2B2B2B" }}
       to={{
-        pathname: "/gameconfig", 
-        state: { appName },
+        pathname: `/gameconfig/${appName}`
       }}
     >
       <img alt="cover-art" src={cover} className="gameImg" />

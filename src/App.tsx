@@ -36,7 +36,7 @@ function App() {
             library={library}
           />
         </Route>
-        <Route exact path="/gameconfig" component={GamePage} />
+        <Route exact path="/gameconfig/:appName" component={GamePage} />
         <Route exact path="/settings" component={Settings} />
       </Switch>
     </HashRouter>
