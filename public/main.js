@@ -90,7 +90,7 @@ ipcMain.handle("writeFile", (event, args) => {
   if (args[0] === 'default') {
     return fs.writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => 'done');
   }
-  return fs.writeFile(`${heroicGamesConfigPath}/${app}.json`, JSON.stringify(config, null, 2), (res) => console.log(res));
+  return fs.writeFile(`${heroicGamesConfigPath}/${app}.json`, JSON.stringify(config, null, 2), () => 'done');
 });
 
 ipcMain.handle("getGameInfo", async(event, game) => {
@@ -140,21 +140,12 @@ ipcMain.handle("launch", async (event, appName) => {
 
   const wine = altWine ? `--wine ${altWine}` : "";
   const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : "";
-  const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix} &> ${heroicFolder}lastPlay.log`;
+  const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`;
   
   console.log(command);
 
   return await execAsync(command)
-    .then(({ stdout, stderr }) => {
-      if (stdout) {
-        return stdout;
-      } else if (stderr) {
-        return stderr;
-      } else {
-        return "done";
-      }
-    })
-    .catch(({ stderr }) => Error(stderr));
+    .then(({stderr}) => fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done'))
 });
 
 ipcMain.handle("legendary", async (event, args) => {
