@@ -89,7 +89,7 @@ export default function Settings() {
   
     return (
     <>
-      <Header renderBackButton={false} />
+      <Header renderBackButton />
       <div className="Settings">
         <div className="settingsWrapper">
           {isDefault && <span className="setting">

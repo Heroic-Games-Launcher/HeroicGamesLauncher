@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ToggleSwitch from './ToggleSwitch';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default function Header({ renderBackButton, numberOfGames, handleOnlyInstalled }: Props) {
+  const history = useHistory()
   return (
     <>
       <div className="header">
@@ -23,10 +24,10 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
           <span className="totalGamesText">Total Games: {numberOfGames}</span>}
       {renderBackButton && (
           <div className="leftCluster">
-            <Link className="returnLink" to={"/"}>
+            <span className="returnLink" onClick={() => history.goBack()}>
               <span className="material-icons">arrow_back</span>
               Return
-            </Link>
+            </span>
           </div>
       )}
       </div>
