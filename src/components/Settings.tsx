@@ -1,5 +1,6 @@
 import { IpcRendererEvent } from "electron";
 import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import { writeConfig } from "../helper";
 import Header from "./UI/Header";
 
@@ -11,6 +12,10 @@ const {
 interface WineProps {
   name: string;
   bin: string;
+}
+
+interface RouteParams {
+  appName: string;
 }
 
 interface AltSettings {
@@ -34,10 +39,14 @@ export default function Settings() {
   const [otherOptions, setOtherOptions] = useState("");
   const [altWine, setAltWine] = useState([] as WineProps[]);
 
+  const { appName } = useParams() as RouteParams;
+  const isDefault = appName === 'default'
+  const settings = isDefault ? 'defaultSettings' : appName
+
   useEffect(() => {
-    ipcRenderer.send("requestSettings", 'default');
+    ipcRenderer.send("requestSettings", appName);
     ipcRenderer.on(
-      "defaultSettings",
+      settings,
       (event: IpcRendererEvent, config: AltSettings) => {
         setDefaultInstallPath(config.defaultInstallPath);
         setWineversion(config.wineVersion);
@@ -50,7 +59,7 @@ export default function Settings() {
         );
       }
     );
-  }, []);
+  }, [settings, appName]);
 
   const callTools = (tool: string) =>
     ipcRenderer.send("callTool", {
@@ -59,12 +68,31 @@ export default function Settings() {
       prefix: winePrefix,
     });
 
-  return (
+    const GlobalSettings = {
+        defaultSettings: {
+          defaultInstallPath,
+          wineVersion,
+          winePrefix,
+          otherOptions,
+        },
+    }
+
+    const GameSettings = {
+      [appName]: {
+        wineVersion,
+        winePrefix,
+        otherOptions,
+      },
+    }
+
+    const settingsToSave = isDefault ? GlobalSettings : GameSettings
+  
+    return (
     <>
       <Header renderBackButton={false} />
       <div className="Settings">
         <div className="settingsWrapper">
-          <span className="setting">
+          {isDefault && <span className="setting">
             <span className="settingText">Default Installation Path</span>
             <span>
               <input
@@ -79,7 +107,7 @@ export default function Settings() {
                 onClick={() =>
                   dialog
                     .showOpenDialog({
-                      title: "Choose WinePrefix",
+                      title: "Choose Default Instalation Folder",
                       buttonLabel: "Choose",
                       properties: ["openDirectory"],
                     })
@@ -93,7 +121,7 @@ export default function Settings() {
                 Choose Folder
               </button>
             </span>
-          </span>
+          </span>}
           <span className="setting">
             <span className="settingText">Default Wine Version</span>
             <select
@@ -173,14 +201,7 @@ export default function Settings() {
           <button
             className="button is-success save"
             onClick={() =>
-              writeConfig({
-                defaultSettings: {
-                  defaultInstallPath,
-                  wineVersion,
-                  winePrefix,
-                  otherOptions,
-                },
-              })
+              writeConfig([appName, settingsToSave])
             }
           >
             Save Settings

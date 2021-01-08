@@ -79,13 +79,17 @@ app.whenReady()
 const home = homedir();
 const legendaryConfigPath = `${home}/.config/legendary`;
 const heroicConfigPath = `${home}/.config/heroic/config.json`;
+const heroicGamesConfigPath = `${home}/.config/heroic/GamesConfig/`
 const userInfo = `${legendaryConfigPath}/user.json`;
 const heroicInstallPath = `${home}/Games/Heroic`;
 
 ipcMain.handle("writeFile", (event, args) => {
-  fs.writeFile(heroicConfigPath, JSON.stringify(args, null, 2), () => {
-    return "done";
-  });
+  const app = args[0]
+  const config = args[1]
+  if (args[0] === 'default') {
+    return fs.writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => 'done');
+  }
+  return fs.writeFile(`${heroicGamesConfigPath}/${app}.json`, JSON.stringify(config, null, 2), (res) => console.log(res));
 });
 
 ipcMain.handle("getGameInfo", async(event, game) => {
@@ -109,29 +113,36 @@ ipcMain.handle("launch", async (event, appName) => {
   let envVars = "";
   let altWine;
   let altWinePrefix;
+  const gameConfig = `${heroicGamesConfigPath}${appName}.json`
+  const globalConfig = heroicConfigPath
+  let settingsPath = gameConfig
+  let settingsName = appName
 
-  if (fs.existsSync(heroicConfigPath)) {
-    const { wineVersion, winePrefix, otherOptions } = JSON.parse(
-      fs.readFileSync(heroicConfigPath)
-    ).defaultSettings ;
-
-    envVars = otherOptions;
-
-    if (winePrefix !== "~/.wine") {
-      altWinePrefix = winePrefix;
-    }
-
-    if (wineVersion.name !== "Wine Default") {
-      altWine = wineVersion.bin;
-    }
+  if (!fs.existsSync(gameConfig)){
+    settingsPath = globalConfig
+    settingsName = 'defaultSettings'
   }
 
-  console.log("playing");
+  
+  const settings = JSON.parse(fs.readFileSync(settingsPath));
+  const {winePrefix, wineVersion, otherOptions} = settings[settingsName]
+  
+  envVars = otherOptions;
+
+  if (winePrefix !== "~/.wine") {
+    altWinePrefix = winePrefix;
+  }
+
+  if (wineVersion.name !== "Wine Default") {
+    altWine = wineVersion.bin;
+  }
 
   const wine = altWine ? `--wine ${altWine}` : "";
   const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : "";
   const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`;
+  
   console.log(command);
+
   return await execAsync(command)
     .then(({ stdout, stderr }) => {
       if (stdout) {
@@ -202,6 +213,7 @@ ipcMain.handle("install", async (event, args) => {
     exec(`pkill -f ${game}`);
   });
 
+
   await execAsync(command);
 });
 
@@ -249,14 +261,23 @@ ipcMain.on("callTool", (event, { tool, wine, prefix }) =>
   )
 );
 
-ipcMain.on("requestSettings", (event, args) => {
+ipcMain.on("requestSettings", (event, appName) => {
   let settings;
-  if (args === 'default'){
-    if (fs.existsSync(heroicConfigPath)) {
-      settings = JSON.parse(fs.readFileSync(heroicConfigPath));
-      event.reply("defaultSettings", settings.defaultSettings);
-    }
+  if (appName !== 'default') {
+    writeGameconfig(appName)
   }
+  const defaultSettings = JSON.parse(fs.readFileSync(heroicConfigPath))
+  if (appName === 'default'){
+    console.log('default settings');
+    return event.reply("defaultSettings", defaultSettings.defaultSettings);
+  } 
+  if (fs.existsSync(`${heroicGamesConfigPath}${appName}.json`)){
+    console.log('settings', appName);
+    settings = JSON.parse(fs.readFileSync(`${heroicGamesConfigPath}${appName}.json`))
+    return event.reply(appName, settings[appName]);
+  }
+  console.log('game settings not found')
+  return event.reply(appName, defaultSettings.defaultSettings);
 });
 
 // check other wine versions installed
@@ -427,10 +448,33 @@ const writeDefaultconfig = () => {
       otherOptions: ""
     }
   }
-
   if (!fs.existsSync(heroicConfigPath)) {
     fs.writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => {
       return "done";
     });
+  }
+
+  if (!fs.existsSync(heroicGamesConfigPath)) {
+    fs.mkdir(heroicGamesConfigPath, () => {
+      return "done";
+    })
+  }
+}
+
+const writeGameconfig = async (game) => {
+  const { wineVersion, winePrefix, otherOptions } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
+
+  const config = {
+    [game]: {
+      wineVersion,
+      winePrefix,
+      otherOptions
+    }
+  }
+
+  if (!fs.existsSync(`${heroicGamesConfigPath}${game}.json`)) {
+    await Promise.resolve(fs.writeFileSync(`${heroicGamesConfigPath}${game}.json`, JSON.stringify(config, null, 2), () => {
+      return "done";
+    }));
   }
 }

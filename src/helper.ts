@@ -6,7 +6,7 @@ const { BrowserWindow } = remote
 const readFile = async (file: string) => 
   await ipcRenderer.invoke('readFile', file)
 
-export const writeConfig = async(data: any) => 
+export const writeConfig = async(data: any[]) => 
   await ipcRenderer.invoke('writeFile', data)
 
 export const install = async (args: any) => 
@@ -49,7 +49,7 @@ export const getLegendaryConfig = async() => {
 export const getGameInfo = async(appName: string) => { 
   const library: Array<Game> = await readFile('library')
   const game = library.filter(game => game.app_name === appName)[0]
-  const extraInfo = await ipcRenderer.invoke('getGameInfo', game.title.replace('®', ''))
+  const extraInfo = await ipcRenderer.invoke('getGameInfo', game.title.replace('®', '').split('-')[0])
   return {...game, extraInfo}
 }
 

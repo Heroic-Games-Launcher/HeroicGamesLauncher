@@ -13,7 +13,7 @@ import Header from "./Header";
 import "../../App.css";
 import { Game } from "../../types";
 import ContextProvider from "../../state/ContextProvider";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Update from "./Update";
 const { ipcRenderer, remote } = window.require("electron");
 const {
@@ -70,10 +70,6 @@ export default function GamePage({ location }: Card) {
     return () => clearInterval(progressInterval);
   }, [isInstalling, appName]);
 
-  if (!appName) {
-    return <Header renderBackButton />;
-  }
-
   if (isInstalling) {
     if (progress === "100") {
       handleInstalling(appName);
@@ -108,7 +104,11 @@ export default function GamePage({ location }: Card) {
             more_vertical
           </span>
           <div className="more">
-            <span className="hidden linkTitle">External Links</span>
+            {isInstalled && <Link className="hidden link" to={{
+               pathname: `/settings/${appName}`
+            }}>
+              Settings
+            </Link>}
             <span
               onClick={() => createNewWindow(formatStoreUrl(title))}
               className="hidden link"
