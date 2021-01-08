@@ -25,7 +25,6 @@ export default function UserSelector() {
       >
         Refresh Library
       </div>
-      <div className="userName hidden">About</div>
       <div onClick={() => handleLogout()} className="userName hidden">
         Logout
       </div>
