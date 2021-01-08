@@ -40,7 +40,7 @@ export default function Login({ refresh }: Props) {
           <span className="logo" />
           <div className="heroicText">
             <span className="heroicTitle">Heroic</span>
-            <span className="heroicSubTitle">Game Launcher</span>
+            <span className="heroicSubTitle">Games Launcher</span>
           </div>
         </div>
         <div className="loginFormWrapper">

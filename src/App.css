@@ -280,6 +280,19 @@
   border-radius: 10px;
 }
 
+.save {
+  align-self: center;
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 166px;
+}
+
+.save > .material-icons {
+  font-size: 28px;
+}
+
 .Login {
   display: grid;
   place-items: center;
@@ -587,12 +600,6 @@
 
 .button.settings:hover {
   background: #EAE8E5
-}
-
-.button.save {
-  align-self: center;
-  margin-top: 48px;
-  background: #0BD58C;
 }
 
 .button.login{

@@ -38,6 +38,7 @@ export default function Settings() {
   const [defaultInstallPath, setDefaultInstallPath] = useState("");
   const [otherOptions, setOtherOptions] = useState("");
   const [altWine, setAltWine] = useState([] as WineProps[]);
+  const [saved, setSaved] = useState(false)
 
   const { appName } = useParams() as RouteParams;
   const isDefault = appName === 'default'
@@ -60,6 +61,10 @@ export default function Settings() {
       }
     );
   }, [settings, appName]);
+
+  useEffect(() => {
+    setSaved(false)
+  }, [altWine, otherOptions, defaultInstallPath, wineVersion])
 
   const callTools = (tool: string) =>
     ipcRenderer.send("callTool", {
@@ -198,14 +203,21 @@ export default function Settings() {
               </button>
             </div>
           </div>
+          <div className="save">
           <button
-            className="button is-success save"
-            onClick={() =>
+            className="button is-success"
+            onClick={() => {
               writeConfig([appName, settingsToSave])
+              return setSaved(true)
             }
-          >
+            }
+            >
             Save Settings
           </button>
+          <span className="material-icons" style={ saved ? {color: '#0BD58C', opacity: 1 } : {color: '#0BD58C', opacity: 0.4 }}>
+              check_circle_outline
+          </span>
+          </div>
         </div>
       </div>
     </>
