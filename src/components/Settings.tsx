@@ -45,7 +45,7 @@ export default function Settings() {
 
   useEffect(() => {
     ipcRenderer.send("requestSettings", appName);
-    ipcRenderer.on(
+    ipcRenderer.once(
       settings,
       (event: IpcRendererEvent, config: AltSettings) => {
         setDefaultInstallPath(config.defaultInstallPath);

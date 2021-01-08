@@ -78,8 +78,9 @@ app.whenReady()
 // Define basic paths
 const home = homedir();
 const legendaryConfigPath = `${home}/.config/legendary`;
-const heroicConfigPath = `${home}/.config/heroic/config.json`;
-const heroicGamesConfigPath = `${home}/.config/heroic/GamesConfig/`
+const heroicFolder = `${home}/.config/heroic/`;
+const heroicConfigPath = `${heroicFolder}config.json`;
+const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const userInfo = `${legendaryConfigPath}/user.json`;
 const heroicInstallPath = `${home}/Games/Heroic`;
 
@@ -139,7 +140,7 @@ ipcMain.handle("launch", async (event, appName) => {
 
   const wine = altWine ? `--wine ${altWine}` : "";
   const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : "";
-  const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`;
+  const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix} &> ${heroicFolder}lastPlay.log`;
   
   console.log(command);
 
@@ -221,7 +222,7 @@ ipcMain.handle("importGame", async (event, args) => {
   const { appName: game, path } = args;
   const command = `${legendaryBin} import-game ${game} '${path}'`;
 
-  await execAsync(command);
+  await execAsync(command)
 });
 
 ipcMain.on("requestGameProgress", (event, game) => {
