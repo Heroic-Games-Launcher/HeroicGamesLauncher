@@ -355,7 +355,6 @@ ipcMain.handle("readFile", async (event, file) => {
           const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
           )[0];
-
           const gameBoxTall = keyImages.filter(
             ({ type }) => type === "DieselGameBoxTall"
           )[0];
