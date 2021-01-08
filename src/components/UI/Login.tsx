@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createNewWindow, legendary } from "../../helper";
+import { legendary, loginPage } from "../../helper";
 
 interface Props {
   refresh: () => void;
@@ -13,9 +13,6 @@ export default function Login({ refresh }: Props) {
   });
   const { loading, message } = status;
 
-  const loginUrl =
-    "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect";
-
   const handleLogin = async (sid: string) => {
     setStatus({
       loading: true,
@@ -24,7 +21,7 @@ export default function Login({ refresh }: Props) {
 
     await legendary(`auth --sid ${sid}`).then(async (res) => {
       if (res !== "error") {
-        setStatus({ loading: true, message: "Loading Game list" });
+        setStatus({ loading: true, message: "Loading Game list, please wait" });
         await legendary(`list-games`);
         refresh();
       }
@@ -57,7 +54,7 @@ export default function Login({ refresh }: Props) {
               <li>
                 Open{" "}
                 <span
-                  onClick={() => createNewWindow(loginUrl)}
+                  onClick={() => loginPage()}
                   className="epicLink"
                 >
                   Epic Store here
@@ -78,7 +75,7 @@ export default function Login({ refresh }: Props) {
               onChange={(event) => setInput(event.target.value)}
               placeholder={input}
             />
-            {<p className="message">{message}</p>}
+            {loading && <p className="message">{message}<span className="material-icons">autorenew</span> </p>}
             <button
               onClick={() => handleLogin(input)}
               className="button login"
