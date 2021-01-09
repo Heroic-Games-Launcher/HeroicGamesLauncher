@@ -1,5 +1,5 @@
 const { spawn, exec } = require("child_process");
-const { fixPathForAsarUnpack } = require("electron-util");
+const { fixPathForAsarUnpack, showAboutWindow } = require("electron-util");
 const { homedir } = require("os");
 const path = require("path");
 const isDev = require("electron-is-dev");
@@ -52,7 +52,7 @@ function createWindow() {
   } else {
     win.on("close", async (e) => {
       e.preventDefault();
-
+//Send a warning if user want to close the window while some gaming is installing on background 
       const { response } = await showMessageBox({
         title: "Games Downloading",
         message: "Do you really want to quit? Downloads will be canceled",
@@ -66,8 +66,11 @@ function createWindow() {
     win.loadURL(`file://${path.join(__dirname, "../build/index.html")}`);
   }
 }
+// TODO: Check the best way to Sync saves to implement soon
 
-let legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
+// TODO: Update Legendary to latest version
+const legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
+const icon = fixPathForAsarUnpack(path.join(__dirname, "/icon.png"));
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -404,7 +407,15 @@ ipcMain.handle("readFile", async (event, file) => {
   return files[file];
 });
 
-//Send a warning if user want to close the window while some gaming is installing on background
+ipcMain.on('showAboutWindow', () => {
+  app.setAboutPanelOptions({
+    applicationName: 'Heroic Games Launcher',  
+    copyright: 'GPL V3', 
+    applicationVersion: "1.0 'Enel'",
+    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
+    iconPath: icon})
+  return app.showAboutPanel()
+})
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

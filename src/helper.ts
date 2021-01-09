@@ -20,6 +20,8 @@ export const loginPage = () => ipcRenderer.send('openLoginPage')
 export const importGame = async (args: any) => 
   await ipcRenderer.invoke('importGame', args)
 
+export const openAboutWindow = () => ipcRenderer.send('showAboutWindow')
+
 export let progress: string;
 
 export const returnedOutput = () => ipcRenderer.on('requestedOutput', (event: any, arg: string) => progress = arg )
