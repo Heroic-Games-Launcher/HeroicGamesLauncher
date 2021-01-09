@@ -12,7 +12,7 @@
 
 .App .header {
   display: grid;
-  width: 1194px;
+  width: 100%;
   place-self: center;
   place-content: center;
   height: 84px;
@@ -144,6 +144,11 @@
   top: 8px;
   left: 10px;
   color: #F69707;
+}
+
+.SearchBar > .close {
+  position: relative;
+  left: -30px;
 }
 
 .gameList {
@@ -686,16 +691,12 @@
 .installedSwitch {
   display: flex;
   align-items: center;
-  place-self: flex-start;
+  place-self: center;
   justify-content: space-evenly;
   width: 140px;
-  position: absolute;
-  left: 55px;
-  top: 108px;
 }
 
 .totalGamesText {
-  position: absolute;
   right: 55px;
   top: 108px;
 }
