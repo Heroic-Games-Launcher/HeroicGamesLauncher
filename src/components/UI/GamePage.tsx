@@ -21,15 +21,12 @@ const {
 } = remote;
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
-interface Card {
-  location: any;
-}
 
 interface RouteParams {
   appName: string;
 }
 
-export default function GamePage({ location }: Card) {
+export default function GamePage() {
   const { appName } = useParams() as RouteParams;
 
   const {
@@ -47,7 +44,6 @@ export default function GamePage({ location }: Card) {
   const [isInstalling, setIsInstalling] = useState(Boolean(
     installing.filter((game) => game === appName).length
   ))
-
 
   const isPlaying = Boolean(playing.filter((game) => game === appName).length);
 
@@ -239,14 +235,15 @@ export default function GamePage({ location }: Card) {
     return async () => {
       if (isInstalling) {
         handleInstalling(appName);
-        sendKill(appName);
-        return setIsInstalling(false)
+        setIsInstalling(false)
+        return sendKill(appName);
       }
 
       if (isInstalled) {
         setUninstalling(true);
         await legendary(`uninstall ${appName}`);
-        return setUninstalling(false);
+        setUninstalling(false);
+        return refresh()
       }
 
       if (installPath === "default") {
