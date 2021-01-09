@@ -1,41 +1,36 @@
 # Heroic Games Launcher
 
-This app is a GUI for the tool [Legendary](https://github.com/derrod/legendary), a Linux native alternative to the Epic Games Launcher.
+This app is a Linux GUI for the tool [Legendary](https://github.com/derrod/legendary), a Linux native alternative to the Epic Games Launcher.
 
-### [Next Design iteration based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
+### [Design based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
 ## Current Version Screenshots
 ![heroic-library](https://user-images.githubusercontent.com/26871415/103456736-384bee00-4cf9-11eb-8674-e6fe3b71be61.png)
 ![heroic-game](https://user-images.githubusercontent.com/26871415/103456735-37b35780-4cf9-11eb-8f07-667a86b96c6c.png)
 ![heroic-game-install](https://user-images.githubusercontent.com/26871415/103456734-371ac100-4cf9-11eb-8ab3-584e2b097a72.png)
 
-## Dependencies:
-- Xterm (installed in most distros. I'll check the default terminal in the future)
-- As of version 0.3.0 is not needed to have Legendary installed.
-
 ## How to use it:
-- Download and install the binary for your distro or the universal AppImage file on the Releases Page;
-- install xterm
+- Download and install the package for your distro or the universal AppImage file on the Releases Page;
 - If you used Legendary before, it load your library and installed games. If not, it will ask you for Login First. Just follow the instructions.
 
 ## Feature availables right now
 - Login with an existing Epic Games account
 - Logout
 - See the your personal Game library
-- Check basic information about your Games
 - Install/Uninstall Games
+- Import a already installed game
+- Multiple installations at the same time
 - Play games using the default wine and default prefix
-- Sync saves with the cloud (kind of bugged)
+- Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
+- Run games on custom wine prefix
+- Check basic information about your Games
 - Open game page on Epic Store
 - Search for the game on ProtonDB
 
 ## Planned features
-- Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
-- Run games on custom wine prefix
 - Sync installed games with an existing Epic Games instalation folder
-- Import a already installed game
+- Sync saves with the cloud
 - Get the Free game of the week
-- Multiple installations at the same time
 - Add Games outside Epic Games
 - Integration with other stores
 

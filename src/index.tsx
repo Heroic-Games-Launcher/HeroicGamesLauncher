@@ -1,22 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { HashRouter, Route, Switch } from "react-router-dom";
 
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import GameConfig from "./components/UI/GameConfig";
+import GlobalState from './state/GlobalState';
 
 ReactDOM.render(
   <React.StrictMode>
-    <div className="App">
-    <HashRouter>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route exact path="/gameconfig" component={GameConfig} />
-      </Switch>
-    </HashRouter>
-    </div>
+    <GlobalState>
+      <App />
+    </GlobalState>
   </React.StrictMode>,
   document.getElementById("root")
 );
