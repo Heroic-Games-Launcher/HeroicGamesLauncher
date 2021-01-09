@@ -21,6 +21,7 @@ const loginUrl = "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fw
 const getAlternativeWine = () => {
   // TODO: Get all Proton versions
   const steamPath = `${home}/.steam/`;
+  const steamInstallFolder = `${steamPath}root/steamapps/common/`
   const steamCompatPath = `${steamPath}root/compatibilitytools.d/`;
   const lutrisPath = `${home}/.local/share/lutris`;
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`;
@@ -33,8 +34,20 @@ const getAlternativeWine = () => {
     steamWine = fs.readdirSync(steamCompatPath).map((version) => {
       return {
         name: `Steam - ${version}`,
-        bin: `${steamCompatPath}${version}/dist/bin/wine64`,
+        bin: `'${steamCompatPath}${version}/dist/bin/wine64'`,
       };
+    });
+  }
+
+
+  if (fs.existsSync(steamInstallFolder)) {
+    fs.readdirSync(steamInstallFolder).forEach((version) => {
+      if (version.startsWith('Proton')) {
+        steamWine.push({
+          name: `Steam - ${version}`,
+          bin: `'${steamInstallFolder}${version}/dist/bin/wine64'`,
+        });
+      }
     });
   }
 
@@ -42,7 +55,7 @@ const getAlternativeWine = () => {
     lutrisWine = fs.readdirSync(lutrisCompatPath).map((version) => {
       return {
         name: `Lutris - ${version}`,
-        bin: `${lutrisCompatPath}${version}/bin/wine64`,
+        bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
       };
     });
   }
@@ -73,7 +86,7 @@ const launchGame = async (appName) => {
       envVars = otherOptions
     
       if (winePrefix !== "~/.wine") {
-        altWinePrefix = winePrefix
+        altWinePrefix = `${winePrefix}`
       }
     
       if (wineVersion.name !== "Wine Default") {
