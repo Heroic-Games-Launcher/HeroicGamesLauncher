@@ -161,8 +161,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 195px;
-  height: 300px;
+  width: 210px;
+  height: 280px;
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
@@ -194,17 +194,10 @@
 }
 
 .gameImg {
-  width: 15rem;
-  height: 20rem;
+  width: 210px;
+  height: 280px;
   border-radius: 0.5rem;
   object-fit: cover;
-}
-
-.gameConfig > .gameImg {
-  width: 188px;
-  height: 269px;
-  border-radius: 10px;
-  margin: auto;
 }
 
 .installProgress[value] {
@@ -286,11 +279,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 166px;
 }
 
 .save > .material-icons {
   font-size: 28px;
+  margin-left: 6px;
 }
 
 .Login {
@@ -511,7 +504,7 @@
 }
 
 .buttonsWrapper {
-  width: 300px;
+  width: 380px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: baseline;
@@ -532,7 +525,7 @@
   color: #161616;
   border: none;
   outline: none;
-  min-width: 120px;
+  min-width: 170px;
   text-align: center;
   transition: 500ms;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
