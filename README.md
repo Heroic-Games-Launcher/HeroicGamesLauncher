@@ -5,9 +5,9 @@ This app is a Linux GUI for the tool [Legendary](https://github.com/derrod/legen
 ### [Design based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
 ## Current Version Screenshots
-![heroic-library](https://user-images.githubusercontent.com/26871415/103456736-384bee00-4cf9-11eb-8674-e6fe3b71be61.png)
-![heroic-game](https://user-images.githubusercontent.com/26871415/103456735-37b35780-4cf9-11eb-8f07-667a86b96c6c.png)
-![heroic-game-install](https://user-images.githubusercontent.com/26871415/103456734-371ac100-4cf9-11eb-8ab3-584e2b097a72.png)
+![login](https://user-images.githubusercontent.com/26871415/104103415-49b96b00-52a2-11eb-83bf-ac6aaab2ff55.png)
+![library](https://user-images.githubusercontent.com/26871415/104103422-4cb45b80-52a2-11eb-922e-b708279e9abf.png)
+![gamepage](https://user-images.githubusercontent.com/26871415/104103424-53db6980-52a2-11eb-8bef-03d233222810.png)
 
 ## How to use it:
 - Download and install the package for your distro or the universal AppImage file on the Releases Page;
