@@ -150,7 +150,7 @@
   color: #E4DEEA;
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
-  grid-gap: 1rem;
+  grid-gap: 30px 34px;
   padding: 0 4rem 0 4rem;
 }
 
@@ -183,6 +183,7 @@
 
 .gameTitle > i {
   font-size: 32px;
+  align-self: flex-end;
 }
 
 .gameCard:hover > .gameTitle {
@@ -575,7 +576,7 @@
 }
 
 .material-icons.is-primary {
-  color: #8866d7;
+  color: #07C5EF;
 }
 
 .material-icons.is-secondary {

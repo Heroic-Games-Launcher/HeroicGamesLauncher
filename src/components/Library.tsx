@@ -6,6 +6,7 @@ interface Props {
   library: Array<Game>
 }
 
+// TODO: Add a list options instead of Grid only
 export const Library = ({ library }: Props) => {
   return (
     <>

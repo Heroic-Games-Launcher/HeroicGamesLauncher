@@ -20,7 +20,7 @@ const {
   dialog: { showOpenDialog },
 } = remote;
 
-// This component is becoming really complex and it needs to be refactored in smaller ones
+// TODO: This component is becoming really complex and it needs to be refactored in smaller ones
 interface Card {
   location: any;
 }

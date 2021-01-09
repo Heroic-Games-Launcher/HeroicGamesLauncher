@@ -29,6 +29,8 @@ interface Path {
   filePaths: string[];
 }
 
+// TODO: Refactor this component in smaller components
+
 export default function Settings() {
   const [wineVersion, setWineversion] = useState({
     name: "Wine Default",
@@ -63,6 +65,7 @@ export default function Settings() {
   }, [settings, appName]);
 
   useEffect(() => {
+    // TODO: Save settings automatically
     setSaved(false)
   }, [altWine, otherOptions, defaultInstallPath, wineVersion])
 
@@ -128,22 +131,6 @@ export default function Settings() {
             </span>
           </span>}
           <span className="setting">
-            <span className="settingText">Default Wine Version</span>
-            <select
-              onChange={(event) =>
-                setWineversion(
-                  altWine.filter(({ name }) => name === event.target.value)[0]
-                )
-              }
-              value={wineVersion.name}
-              className="settingSelect"
-            >
-              {altWine.map(({ name }) => (
-                <option key={name}>{name}</option>
-              ))}
-            </select>
-          </span>
-          <span className="setting">
             <span className="settingText">Default WinePrefix</span>
             <span>
               <input
@@ -173,8 +160,24 @@ export default function Settings() {
             </span>
           </span>
           <span className="setting">
+            <span className="settingText">Default Wine Version</span>
+            <select
+              onChange={(event) =>
+                setWineversion(
+                  altWine.filter(({ name }) => name === event.target.value)[0]
+                )
+              }
+              value={wineVersion.name}
+              className="settingSelect"
+            >
+              {altWine.map(({ name }) => (
+                <option key={name}>{name}</option>
+              ))}
+            </select>
+          </span>
+          <span className="setting">
             <span className="settingText">
-              Other Launch Options (MANGOHUD, PULSE_LATENCY_MSEC, etc.)
+              Other Launch Options (e.g: MANGOHUD=1 PULSE_LATENCY_MSEC=60)
             </span>
             <span>
               <input
