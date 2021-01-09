@@ -30,10 +30,7 @@ interface RouteParams {
 }
 
 export default function GamePage({ location }: Card) {
-  const [gameInfo, setGameInfo] = useState({} as Game);
-  const [progress, setProgress] = useState("0.00");
-  const [uninstalling, setUninstalling] = useState(false);
-  const [installPath, setInstallPath] = useState("default");
+  const { appName } = useParams() as RouteParams;
 
   const {
     handleInstalling,
@@ -43,11 +40,15 @@ export default function GamePage({ location }: Card) {
     playing,
   } = useContext(ContextProvider);
 
-  const { appName } = useParams() as RouteParams;
-
-  const isInstalling = Boolean(
+  const [gameInfo, setGameInfo] = useState({} as Game);
+  const [progress, setProgress] = useState("0.00");
+  const [uninstalling, setUninstalling] = useState(false);
+  const [installPath, setInstallPath] = useState("default");
+  const [isInstalling, setIsInstalling] = useState(Boolean(
     installing.filter((game) => game === appName).length
-  );
+  ))
+
+
   const isPlaying = Boolean(playing.filter((game) => game === appName).length);
 
   useEffect(() => {
@@ -238,7 +239,8 @@ export default function GamePage({ location }: Card) {
     return async () => {
       if (isInstalling) {
         handleInstalling(appName);
-        return sendKill(appName);
+        sendKill(appName);
+        return setIsInstalling(false)
       }
 
       if (isInstalled) {
@@ -250,7 +252,9 @@ export default function GamePage({ location }: Card) {
       if (installPath === "default") {
         const path = "default";
         handleInstalling(appName);
+        setIsInstalling(true)
         await install({ appName, path });
+        setIsInstalling(false)
         return handleInstalling(appName);
       }
 
@@ -264,7 +268,9 @@ export default function GamePage({ location }: Card) {
         if (filePaths[0]) {
           const path = filePaths[0];
           handleInstalling(appName);
+          setIsInstalling(true)
           await importGame({ appName, path });
+          setIsInstalling(false)
           return handleInstalling(appName);
         }
       }
@@ -279,7 +285,9 @@ export default function GamePage({ location }: Card) {
         if (filePaths[0]) {
           const path = filePaths[0];
           handleInstalling(appName);
+          setIsInstalling(true)
           await install({ appName, path });
+          setIsInstalling(false)
           handleInstalling(appName);
         }
       }

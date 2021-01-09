@@ -54,9 +54,10 @@ export class GlobalState extends Component<Props> {
   handleInstalling = (value: string) => {
     const { installing } = this.state
     const isInstalling = installing.includes(value)
-  
+    
     if (isInstalling) {
       const updatedInstalling = installing.filter(game => game !== value)
+
       return this.setState({ installing: updatedInstalling })
     }
   

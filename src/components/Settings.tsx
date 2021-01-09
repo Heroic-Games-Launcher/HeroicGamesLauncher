@@ -30,6 +30,7 @@ interface Path {
 }
 
 // TODO: Refactor this component in smaller components
+// TODO: add option to add Custom wine
 
 export default function Settings() {
   const [wineVersion, setWineversion] = useState({

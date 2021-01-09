@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ContextProvider from '../../state/ContextProvider';
 import ToggleSwitch from './ToggleSwitch';
 

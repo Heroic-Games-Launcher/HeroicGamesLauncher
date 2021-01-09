@@ -1,5 +1,5 @@
 const { spawn, exec } = require("child_process");
-const { fixPathForAsarUnpack, showAboutWindow } = require("electron-util");
+const { fixPathForAsarUnpack } = require("electron-util");
 const { homedir } = require("os");
 const path = require("path");
 const isDev = require("electron-is-dev");
@@ -49,6 +49,7 @@ function createWindow() {
     win.loadURL("http://localhost:3000");
     // Open the DevTools.
     win.webContents.openDevTools();
+
   } else {
     win.on("close", async (e) => {
       e.preventDefault();
@@ -64,6 +65,7 @@ function createWindow() {
       }
     });
     win.loadURL(`file://${path.join(__dirname, "../build/index.html")}`);
+    win.setMenu(null)
   }
 }
 // TODO: Check the best way to Sync saves to implement soon
@@ -180,7 +182,7 @@ ipcMain.handle("legendary", async (event, args) => {
           return "done";
         }
       })
-      .catch(({ stderr }) => Error(stderr));
+      .catch((err) => console.log(err));
   }
 });
 
@@ -204,12 +206,10 @@ ipcMain.handle("install", async (event, args) => {
   }
 
   ipcMain.on("kill", () => {
-    event.reply("requestedOutput", "killing");
     exec(`pkill -f ${game}`);
   });
 
-
-  await execAsync(command);
+  await execAsync(command).catch(() => 'error')
 });
 
 ipcMain.handle("importGame", async (event, args) => {
@@ -277,6 +277,7 @@ ipcMain.on("requestSettings", (event, appName) => {
 
 // check other wine versions installed
 const getAlternativeWine = () => {
+  // TODO: Get all Proton versions
   const steamPath = `${home}/.steam/`;
   const steamCompatPath = `${steamPath}root/compatibilitytools.d/`;
   const lutrisPath = `${home}/.local/share/lutris`;
