@@ -433,7 +433,7 @@ app.on("activate", () => {
 const writeDefaultconfig = () => {
   const config = {
     defaultSettings: {
-      defaultInstallPath: "~/Games/Heroic",
+      defaultInstallPath: heroicInstallPath,
       wineVersion: {
         name: "Wine Default",
         bin: "/usr/bin/wine"
