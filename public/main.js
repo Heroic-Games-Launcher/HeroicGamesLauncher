@@ -193,22 +193,13 @@ ipcMain.handle("install", async (event, args) => {
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
 
   if (path === "default") {
-    let defaultPath = heroicInstallPath;
-    if (fs.existsSync(heroicConfigPath)) {
-      const { defaultInstallPath } = JSON.parse(
-        fs.readFileSync(heroicConfigPath)
-      );
-      defaultPath = Boolean(defaultInstallPath)
-        ? defaultInstallPath
-        : defaultPath;
-    }
-    command = `${legendaryBin} install ${game} --base-path '${defaultPath}' -y &> ${logPath}`;
+      const { defaultInstallPath } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings ;
+    command = `${legendaryBin} install ${game} --base-path '${defaultInstallPath}' -y &> ${logPath}`;
   }
 
   ipcMain.on("kill", () => {
     exec(`pkill -f ${game}`);
   });
-
   await execAsync(command).catch(() => 'error')
 });
 
