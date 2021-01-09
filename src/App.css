@@ -12,7 +12,7 @@
 
 .App .header {
   display: grid;
-  width: 100%;
+  width: 1194px;
   place-self: center;
   place-content: center;
   height: 84px;

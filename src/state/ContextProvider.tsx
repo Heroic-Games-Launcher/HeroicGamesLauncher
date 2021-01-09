@@ -7,6 +7,7 @@ const initialContext: ContextType = {
   installing: [],
   playing: [],
   refreshing: false,
+  onlyInstalled: false,
   error: false,
   refresh: () => null,
   refreshLibrary: () => null,

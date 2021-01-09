@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import ContextProvider from '../../state/ContextProvider';
 import ToggleSwitch from './ToggleSwitch';
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 
 export default function Header({ renderBackButton, numberOfGames, handleOnlyInstalled }: Props) {
   const history = useHistory()
+  const { onlyInstalled } = useContext(ContextProvider)
   return (
     <>
       <div className="header">
@@ -17,7 +19,7 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
       handleOnlyInstalled && 
         <span className="installedSwitch" >
           <span>Installed Only</span>
-          <ToggleSwitch handleChange={() => handleOnlyInstalled()} />
+          <ToggleSwitch value={onlyInstalled} handleChange={() => handleOnlyInstalled()} />
         </span>
       }
       {Boolean(numberOfGames) && 
