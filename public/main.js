@@ -1,13 +1,26 @@
+const {
+  heroicConfigPath,
+  heroicGamesConfigPath,
+  launchGame,
+  legendaryBin,
+  loginUrl,
+  getAlternativeWine,
+  isLoggedIn,
+  icon,
+  legendaryConfigPath,
+  userInfo,
+  writeDefaultconfig,
+  writeGameconfig,
+} = require("./utils");
+
 const { spawn, exec } = require("child_process");
-const { fixPathForAsarUnpack } = require("electron-util");
-const { homedir } = require("os");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const fs = require("fs");
 const promisify = require("util").promisify;
 const execAsync = promisify(exec);
 const stat = promisify(fs.stat);
-const axios = require('axios')
+const axios = require("axios");
 
 const {
   app,
@@ -29,7 +42,7 @@ function createWindow() {
     },
   });
 
-  writeDefaultconfig()
+  writeDefaultconfig();
 
   //load the index.html from a url
   if (isDev) {
@@ -49,11 +62,10 @@ function createWindow() {
     win.loadURL("http://localhost:3000");
     // Open the DevTools.
     win.webContents.openDevTools();
-
   } else {
     win.on("close", async (e) => {
       e.preventDefault();
-//Send a warning if user want to close the window while some gaming is installing on background 
+      //Send a warning if user want to close the window while some gaming is installing on background
       const { response } = await showMessageBox({
         title: "Games Downloading",
         message: "Do you really want to quit? Downloads will be canceled",
@@ -65,92 +77,56 @@ function createWindow() {
       }
     });
     win.loadURL(`file://${path.join(__dirname, "../build/index.html")}`);
-    win.setMenu(null)
+    win.setMenu(null);
   }
 }
 // TODO: Check the best way to Sync saves to implement soon
 
 // TODO: Update Legendary to latest version
-const legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
-const icon = fixPathForAsarUnpack(path.join(__dirname, "/icon.png"));
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady()
-.then(createWindow);
+app.whenReady().then(createWindow);
 
 // Define basic paths
-const home = homedir();
-const legendaryConfigPath = `${home}/.config/legendary`;
-const heroicFolder = `${home}/.config/heroic/`;
-const heroicConfigPath = `${heroicFolder}config.json`;
-const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
-const userInfo = `${legendaryConfigPath}/user.json`;
-const heroicInstallPath = `${home}/Games/Heroic`;
 
 ipcMain.handle("writeFile", (event, args) => {
-  const app = args[0]
-  const config = args[1]
-  if (args[0] === 'default') {
-    return fs.writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => 'done');
+  const app = args[0];
+  const config = args[1];
+  if (args[0] === "default") {
+    return fs.writeFile(
+      heroicConfigPath,
+      JSON.stringify(config, null, 2),
+      () => "done"
+    );
   }
-  return fs.writeFile(`${heroicGamesConfigPath}/${app}.json`, JSON.stringify(config, null, 2), () => 'done');
+  return fs.writeFile(
+    `${heroicGamesConfigPath}/${app}.json`,
+    JSON.stringify(config, null, 2),
+    () => "done"
+  );
 });
 
-ipcMain.handle("getGameInfo", async(event, game) => {
-  const { id, auth } = require('./secrets')
-  
+ipcMain.handle("getGameInfo", async (event, game) => {
+  const { id, auth } = require("./secrets");
+
   const response = await axios({
     url: "https://api.igdb.com/v4/games",
-    method: 'POST',
+    method: "POST",
     headers: {
-        'Accept': 'application/json',
-        'Client-ID': id,
-        'Authorization': auth,
+      Accept: "application/json",
+      "Client-ID": id,
+      Authorization: auth,
     },
-    data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`
-  })
+    data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`,
+  });
 
-  return(response.data[0]);
+  return response.data[0];
 });
 
 ipcMain.handle("launch", async (event, appName) => {
-  let envVars = "";
-  let altWine;
-  let altWinePrefix;
-  const gameConfig = `${heroicGamesConfigPath}${appName}.json`
-  const globalConfig = heroicConfigPath
-  let settingsPath = gameConfig
-  let settingsName = appName
-
-  if (!fs.existsSync(gameConfig)){
-    settingsPath = globalConfig
-    settingsName = 'defaultSettings'
-  }
-
-  
-  const settings = JSON.parse(fs.readFileSync(settingsPath));
-  const {winePrefix, wineVersion, otherOptions} = settings[settingsName]
-  
-  envVars = otherOptions;
-
-  if (winePrefix !== "~/.wine") {
-    altWinePrefix = winePrefix;
-  }
-
-  if (wineVersion.name !== "Wine Default") {
-    altWine = wineVersion.bin;
-  }
-
-  const wine = altWine ? `--wine ${altWine}` : "";
-  const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : "";
-  const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`;
-  
-  console.log(command);
-
-  return await execAsync(command)
-    .then(({stderr}) => fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done'))
+  return launchGame(appName);
 });
 
 ipcMain.handle("legendary", async (event, args) => {
@@ -193,21 +169,23 @@ ipcMain.handle("install", async (event, args) => {
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
 
   if (path === "default") {
-      const { defaultInstallPath } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings ;
+    const { defaultInstallPath } = JSON.parse(
+      fs.readFileSync(heroicConfigPath)
+    ).defaultSettings;
     command = `${legendaryBin} install ${game} --base-path '${defaultInstallPath}' -y &> ${logPath}`;
   }
 
   ipcMain.on("kill", () => {
     exec(`pkill -f ${game}`);
   });
-  await execAsync(command).catch(() => 'error')
+  await execAsync(command).catch(() => "error");
 });
 
 ipcMain.handle("importGame", async (event, args) => {
   const { appName: game, path } = args;
   const command = `${legendaryBin} import-game ${game} '${path}'`;
 
-  await execAsync(command)
+  await execAsync(command);
 });
 
 ipcMain.on("requestGameProgress", (event, game) => {
@@ -249,69 +227,32 @@ ipcMain.on("callTool", (event, { tool, wine, prefix }) =>
 
 ipcMain.on("requestSettings", (event, appName) => {
   let settings;
-  if (appName !== 'default') {
-    writeGameconfig(appName)
+  if (appName !== "default") {
+    writeGameconfig(appName);
   }
-  const defaultSettings = JSON.parse(fs.readFileSync(heroicConfigPath))
-  if (appName === 'default'){
-    console.log('default settings');
+  const defaultSettings = JSON.parse(fs.readFileSync(heroicConfigPath));
+  if (appName === "default") {
+    console.log("default settings");
     return event.reply("defaultSettings", defaultSettings.defaultSettings);
-  } 
-  if (fs.existsSync(`${heroicGamesConfigPath}${appName}.json`)){
-    console.log('settings', appName);
-    settings = JSON.parse(fs.readFileSync(`${heroicGamesConfigPath}${appName}.json`))
+  }
+  if (fs.existsSync(`${heroicGamesConfigPath}${appName}.json`)) {
+    console.log("settings", appName);
+    settings = JSON.parse(
+      fs.readFileSync(`${heroicGamesConfigPath}${appName}.json`)
+    );
     return event.reply(appName, settings[appName]);
   }
-  console.log('game settings not found')
+  console.log("game settings not found");
   return event.reply(appName, defaultSettings.defaultSettings);
 });
-
-// check other wine versions installed
-const getAlternativeWine = () => {
-  // TODO: Get all Proton versions
-  const steamPath = `${home}/.steam/`;
-  const steamCompatPath = `${steamPath}root/compatibilitytools.d/`;
-  const lutrisPath = `${home}/.local/share/lutris`;
-  const lutrisCompatPath = `${lutrisPath}/runners/wine/`;
-  let steamWine = [];
-  let lutrisWine = [];
-
-  const defaultWine = {name: 'Wine Default', bin: '/usr/bin/wine'}
-
-  if (fs.existsSync(steamCompatPath)) {
-    steamWine = fs.readdirSync(steamCompatPath).map((version) => {
-      return {
-        name: `Steam - ${version}`,
-        bin: `${steamCompatPath}${version}/dist/bin/wine64`,
-      };
-    });
-  }
-
-  if (fs.existsSync(lutrisCompatPath)) {
-    lutrisWine = fs.readdirSync(lutrisCompatPath).map((version) => {
-      return {
-        name: `Lutris - ${version}`,
-        bin: `${lutrisCompatPath}${version}/bin/wine64`,
-      };
-    });
-  }
-
-  return [...steamWine, ...lutrisWine, defaultWine];
-};
-
-const isLoggedIn = async () =>
-  await stat(userInfo)
-    .then(() => true)
-    .catch(() => false);
 
 //Checks if the user have logged in with Legendary already
 ipcMain.handle("isLoggedIn", () => isLoggedIn());
 
-const loginUrl = "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect";
-ipcMain.on("openLoginPage", () => spawn('xdg-open', [loginUrl]))
+ipcMain.on("openLoginPage", () => spawn("xdg-open", [loginUrl]));
 
 ipcMain.handle("readFile", async (event, file) => {
-  const loggedIn = await isLoggedIn();
+  const loggedIn = isLoggedIn();
 
   if (!isLoggedIn) {
     return { user: { displayName: null }, library: [] };
@@ -364,6 +305,7 @@ ipcMain.handle("readFile", async (event, file) => {
           const info = isInstalled
             ? installedGames.filter((game) => game.app_name === app_name)[0]
             : {};
+
           const {
             executable = null,
             version = null,
@@ -399,15 +341,16 @@ ipcMain.handle("readFile", async (event, file) => {
   return files[file];
 });
 
-ipcMain.on('showAboutWindow', () => {
+ipcMain.on("showAboutWindow", () => {
   app.setAboutPanelOptions({
-    applicationName: 'Heroic Games Launcher',  
-    copyright: 'GPL V3', 
+    applicationName: "Heroic Games Launcher",
+    copyright: "GPL V3",
     applicationVersion: "1.0 'Enel'",
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
-    iconPath: icon})
-  return app.showAboutPanel()
-})
+    website: "https://github.com/flavioislima/HeroicGamesLauncher",
+    iconPath: icon,
+  });
+  return app.showAboutPanel();
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
@@ -428,47 +371,3 @@ app.on("activate", () => {
     createWindow();
   }
 });
-
-
-const writeDefaultconfig = () => {
-  const config = {
-    defaultSettings: {
-      defaultInstallPath: heroicInstallPath,
-      wineVersion: {
-        name: "Wine Default",
-        bin: "/usr/bin/wine"
-      },
-      winePrefix: "~/.wine",
-      otherOptions: ""
-    }
-  }
-  if (!fs.existsSync(heroicConfigPath)) {
-    fs.writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => {
-      return "done";
-    });
-  }
-
-  if (!fs.existsSync(heroicGamesConfigPath)) {
-    fs.mkdir(heroicGamesConfigPath, () => {
-      return "done";
-    })
-  }
-}
-
-const writeGameconfig = async (game) => {
-  const { wineVersion, winePrefix, otherOptions } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
-
-  const config = {
-    [game]: {
-      wineVersion,
-      winePrefix,
-      otherOptions
-    }
-  }
-
-  if (!fs.existsSync(`${heroicGamesConfigPath}${game}.json`)) {
-    await Promise.resolve(fs.writeFileSync(`${heroicGamesConfigPath}${game}.json`, JSON.stringify(config, null, 2), () => {
-      return "done";
-    }));
-  }
-}
