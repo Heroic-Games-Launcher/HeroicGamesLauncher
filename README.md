@@ -46,6 +46,7 @@ This app uses web technologies like Electron, React and Typescript.
 To be able to run you will need to have NodeJs installed locally and follow the instructions below:
 
 ### Steps:
+  - Since version 1.0 a account on [IGDB](https://api-docs.igdb.com/?javascript#account-creation) is necessary since we are using its API, and add a secrets.js file on the public folder with your client-id and secret.
   - Clone the Repository.
   - Install foreman with `npm i -g foreman`.
   - On the project folder run `npm install`.
