@@ -11,12 +11,16 @@ interface Card {
 const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
   return (
     <Link
-      className="gameCard "
+      className="gameCard"
       to={{
         pathname: `/gameconfig/${appName}`
       }}
     >
-      <img alt="cover-art" src={cover} className="gameImg" />
+      <img 
+        alt="cover-art" 
+        src={cover} 
+        style={{ filter: isInstalled ? 'none' : 'grayscale(0.9)'}}
+        className="gameImg" />
       <div className="gameTitle">
         <span>{title}</span>
         <i
