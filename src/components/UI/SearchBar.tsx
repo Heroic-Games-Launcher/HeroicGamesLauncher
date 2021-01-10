@@ -4,7 +4,7 @@ import ContextProvider from '../../state/ContextProvider';
 export default function SearchBar() {
   const { handleSearch } = useContext(ContextProvider)
   const [textValue, setTextValue] = useState('')
-  
+
   return (
     <div className="SearchBar">
       <span 
@@ -19,12 +19,12 @@ export default function SearchBar() {
         }}
         placeholder={"Enter the game name here..."}
       />
-      <span 
+      {textValue.length > 0 && <span 
         onClick={() => {
           setTextValue('')
           handleSearch('')
         }}
-        className="material-icons close">close</span>
+        className="material-icons close">close</span>}
     </div>
   );
 }
