@@ -10,7 +10,6 @@ import {
   launch,
 } from "../../helper";
 import Header from "./Header";
-import "../../App.css";
 import { Game } from "../../types";
 import ContextProvider from "../../state/ContextProvider";
 import { Link, useParams } from "react-router-dom";

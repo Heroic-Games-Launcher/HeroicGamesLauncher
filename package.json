@@ -66,14 +66,23 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "nf start -p 3000 && electron-start",
+    "start": "npm-run-all --parallel css-watch old-start",
+    "old-start": "nf start -p 3000 && electron-start",
     "electron": "electron .",
     "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage rpm deb pacman tar.xz"
+    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage rpm deb pacman tar.xz",
+    "css-deploy": "npm run css-build && npm run css-postcss",
+    "css-build": "node-sass src/_sass/main.scss src/css/main.css",
+    "css-postcss": "postcss --use autoprefixer --output css/main.css css/main.css",
+    "css-watch": "npm run css-build -- --watch",
+    "deploy": "npm run css-deploy && npm run js-build",
+    "js-build": "babel _javascript --out-dir lib",
+    "js-watch": "npm run js-build -- --watch",
+    "bulma-start": "npm-run-all --parallel css-watch js-watch"
   },
   "eslintConfig": {
     "extends": [
@@ -98,6 +107,14 @@
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "autoprefixer": "^9.7.6",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015-ie": "^6.7.0",
+    "bulma": "^0.8.2",
+    "node-sass": "^4.13.1",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^7.1.0"
   }
 }

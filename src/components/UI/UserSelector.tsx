@@ -15,7 +15,26 @@ export default function UserSelector() {
 
   return (
     <div className="UserSelector">
-      <span className="userName">
+
+      <div className="navbar-link">
+        {user}
+      </div>
+      <div className="navbar-dropdown">
+        <a className="navbar-item"
+          onClick={() => refreshLibrary()}
+        >Refresh library</a>
+        <a className="navbar-item"
+          onClick={() => openAboutWindow()}
+        >About</a>
+        <a className="navbar-item"
+          onClick={() => handleLogout()}
+        >Logout</a>
+      </div>
+
+
+
+
+      {/* <span className="userName">
         {user}
         <span className="material-icons">arrow_drop_down</span>
       </span>
@@ -29,7 +48,7 @@ export default function UserSelector() {
         About
       </div>      <div onClick={() => handleLogout()} className="userName hidden">
         Logout
-      </div>
+      </div> */}
     </div>
   );
 }

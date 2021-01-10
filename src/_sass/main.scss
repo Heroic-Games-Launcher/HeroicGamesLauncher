@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
+// edit bulma variables here
+
+//main
+$primary              : #D49E11;
+// $text                 : #F0F1F3;
+
+// $body-background-color: #17191C;
+
+
+// input
+$input-background-color: transparent;
+// $input-color: $text;
+
+// end edit variables
+
+@import "../..//node_modules/bulma/bulma";
+
+.force-center{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+body {
+  margin: 0; 
+}
