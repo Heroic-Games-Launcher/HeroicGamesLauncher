@@ -14,7 +14,6 @@ export const Library = ({ library }: Props) => {
      {Boolean(library.length) &&
        library.map(({title, art_square, app_name, isInstalled}: Game) => 
        <GameCard 
-          key={app_name}
           cover={art_square}
           title={title}
           appName={app_name}

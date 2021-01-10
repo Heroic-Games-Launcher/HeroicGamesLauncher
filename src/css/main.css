@@ -7118,5 +7118,7 @@ label.panel-block {
   left: 50%;
   transform: translateX(-50%); }
 
-body {
-  margin: 0; }
+.gameList {
+  grid-template-columns: repeat(1rem);
+  grid-gap: 1rem;
+  padding: 0 4rem 0 4rem; }
