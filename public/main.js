@@ -52,9 +52,6 @@ function createWindow() {
     } = require("electron-devtools-installer");
 
     installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => {
-        console.log(`Added Extension:  ${name}`);
-      })
       .catch((err) => {
         console.log("An error occurred: ", err);
       });
@@ -147,7 +144,6 @@ ipcMain.handle("legendary", async (event, args) => {
     }
   } else {
     const command = `${legendaryBin} ${args}`;
-    console.log(command);
     return await execAsync(command)
       .then(({ stdout, stderr }) => {
         if (stdout) {
@@ -163,7 +159,6 @@ ipcMain.handle("legendary", async (event, args) => {
 });
 
 ipcMain.handle("install", async (event, args) => {
-  console.log("install");
   const { appName: game, path } = args;
   const logPath = `${legendaryConfigPath}/${game}.log`;
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
@@ -232,17 +227,14 @@ ipcMain.on("requestSettings", (event, appName) => {
   }
   const defaultSettings = JSON.parse(fs.readFileSync(heroicConfigPath));
   if (appName === "default") {
-    console.log("default settings");
     return event.reply("defaultSettings", defaultSettings.defaultSettings);
   }
   if (fs.existsSync(`${heroicGamesConfigPath}${appName}.json`)) {
-    console.log("settings", appName);
     settings = JSON.parse(
       fs.readFileSync(`${heroicGamesConfigPath}${appName}.json`)
     );
     return event.reply(appName, settings[appName]);
   }
-  console.log("game settings not found");
   return event.reply(appName, defaultSettings.defaultSettings);
 });
 

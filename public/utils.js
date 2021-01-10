@@ -97,8 +97,6 @@ const launchGame = async (appName) => {
       const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : ""
       const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
     
-      console.log(command)
-    
       return await execAsync(command)
         .then(({ stderr }) => fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done'))
 }
