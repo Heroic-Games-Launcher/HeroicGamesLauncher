@@ -170,9 +170,6 @@ ipcMain.handle("install", async (event, args) => {
     command = `${legendaryBin} install ${game} --base-path '${defaultInstallPath}' -y &> ${logPath}`;
   }
 
-  ipcMain.on("kill", () => {
-    exec(`pkill -f ${game}`);
-  });
   await execAsync(command).catch(() => "error");
 });
 
@@ -198,11 +195,9 @@ ipcMain.on("requestGameProgress", (event, game) => {
   );
 });
 
-ipcMain.on("kill", async (event, game) => {
+ipcMain.on("kill", (event, game) => {
   console.log("killing", game);
-  return execAsync(`pkill -f ${game}`)
-    .then(() => `killed ${game}`)
-    .catch((err) => err);
+  return spawn('pkill', ['-f', game])
 });
 
 ipcMain.on("openFolder", (event, folder) => spawn("xdg-open", [folder]));
