@@ -4,17 +4,6 @@ interface ExtraInfo {
   ratings: number
 }
 
-interface StateProps {
-  user: string
-  data: Game[]
-  installing: string[]
-  playing: string[]
-  refreshing: boolean
-  error: boolean
-  onlyInstalled: boolean
-  filterText: string
-}
-
 export interface Game {
   art_cover: string,
   art_square: string,

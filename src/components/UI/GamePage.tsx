@@ -21,19 +21,13 @@ const {
 } = remote;
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
-interface Card {
-  location: any;
-}
 
 interface RouteParams {
   appName: string;
 }
 
-export default function GamePage({ location }: Card) {
-  const [gameInfo, setGameInfo] = useState({} as Game);
-  const [progress, setProgress] = useState("0.00");
-  const [uninstalling, setUninstalling] = useState(false);
-  const [installPath, setInstallPath] = useState("default");
+export default function GamePage() {
+  const { appName } = useParams() as RouteParams;
 
   const {
     handleInstalling,
@@ -43,11 +37,13 @@ export default function GamePage({ location }: Card) {
     playing,
   } = useContext(ContextProvider);
 
-  const { appName } = useParams() as RouteParams;
+  const [gameInfo, setGameInfo] = useState({} as Game);
+  const [progress, setProgress] = useState("0.00");
+  const [uninstalling, setUninstalling] = useState(false);
+  const [installPath, setInstallPath] = useState("default");
 
-  const isInstalling = Boolean(
-    installing.filter((game) => game === appName).length
-  );
+  const isInstalling = Boolean(installing.filter((game) => game === appName).length)
+
   const isPlaying = Boolean(playing.filter((game) => game === appName).length);
 
   useEffect(() => {
@@ -62,11 +58,11 @@ export default function GamePage({ location }: Card) {
     const progressInterval = setInterval(() => {
       if (isInstalling) {
         ipcRenderer.send("requestGameProgress", appName);
-        ipcRenderer.on("requestedOutput", (event: any, progress: string) =>
-          setProgress(progress)
+        ipcRenderer.on("requestedOutput", (event: any, out: string) =>
+          setProgress(out)
         );
       }
-    }, 2000);
+    }, 1000);
     return () => clearInterval(progressInterval);
   }, [isInstalling, appName]);
 
@@ -244,7 +240,8 @@ export default function GamePage({ location }: Card) {
       if (isInstalled) {
         setUninstalling(true);
         await legendary(`uninstall ${appName}`);
-        return setUninstalling(false);
+        setUninstalling(false);
+        return refresh()
       }
 
       if (installPath === "default") {
