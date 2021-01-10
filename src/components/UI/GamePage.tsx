@@ -41,9 +41,8 @@ export default function GamePage() {
   const [progress, setProgress] = useState("0.00");
   const [uninstalling, setUninstalling] = useState(false);
   const [installPath, setInstallPath] = useState("default");
-  const [isInstalling, setIsInstalling] = useState(Boolean(
-    installing.filter((game) => game === appName).length
-  ))
+
+  const isInstalling = Boolean(installing.filter((game) => game === appName).length)
 
   const isPlaying = Boolean(playing.filter((game) => game === appName).length);
 
@@ -59,11 +58,11 @@ export default function GamePage() {
     const progressInterval = setInterval(() => {
       if (isInstalling) {
         ipcRenderer.send("requestGameProgress", appName);
-        ipcRenderer.on("requestedOutput", (event: any, progress: string) =>
-          setProgress(progress)
+        ipcRenderer.on("requestedOutput", (event: any, out: string) =>
+          setProgress(out)
         );
       }
-    }, 2000);
+    }, 1000);
     return () => clearInterval(progressInterval);
   }, [isInstalling, appName]);
 
@@ -235,7 +234,6 @@ export default function GamePage() {
     return async () => {
       if (isInstalling) {
         handleInstalling(appName);
-        setIsInstalling(false)
         return sendKill(appName);
       }
 
@@ -249,9 +247,7 @@ export default function GamePage() {
       if (installPath === "default") {
         const path = "default";
         handleInstalling(appName);
-        setIsInstalling(true)
         await install({ appName, path });
-        setIsInstalling(false)
         return handleInstalling(appName);
       }
 
@@ -265,9 +261,7 @@ export default function GamePage() {
         if (filePaths[0]) {
           const path = filePaths[0];
           handleInstalling(appName);
-          setIsInstalling(true)
           await importGame({ appName, path });
-          setIsInstalling(false)
           return handleInstalling(appName);
         }
       }
@@ -282,9 +276,7 @@ export default function GamePage() {
         if (filePaths[0]) {
           const path = filePaths[0];
           handleInstalling(appName);
-          setIsInstalling(true)
           await install({ appName, path });
-          setIsInstalling(false)
           handleInstalling(appName);
         }
       }
