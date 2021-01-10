@@ -592,6 +592,13 @@
   color: #4bc984;
 }
 
+.material-icons.settings.folder {
+  position: relative;
+  right: 42px;
+  top: 5px;
+  cursor: pointer;
+}
+
 .button.settings {
   margin-left: 12px;
   background: #C1C4C3

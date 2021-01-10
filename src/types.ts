@@ -19,6 +19,14 @@ export interface Game {
   isInstalled: boolean
 }
 
+export interface Path {
+  filePaths: string[];
+}
+export interface WineProps {
+  name: string;
+  bin: string;
+}
+
 export interface ContextType {
   user: string
   data: Game[]
