@@ -127,9 +127,8 @@ const writeDefaultconfig = () => {
   }
 }
 
-const writeGameconfig = async (game) => {
+const writeGameconfig = (game) => {
   const { wineVersion, winePrefix, otherOptions } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
-
   const config = {
     [game]: {
       wineVersion,
@@ -139,9 +138,9 @@ const writeGameconfig = async (game) => {
   }
 
   if (!fs.existsSync(`${heroicGamesConfigPath}${game}.json`)) {
-    await Promise.resolve(fs.writeFileSync(`${heroicGamesConfigPath}${game}.json`, JSON.stringify(config, null, 2), () => {
+    fs.writeFileSync(`${heroicGamesConfigPath}${game}.json`, JSON.stringify(config, null, 2), () => {
       return "done";
-    }));
+    });
   }
 }
     
