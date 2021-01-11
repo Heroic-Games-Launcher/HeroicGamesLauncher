@@ -9,20 +9,26 @@ interface Props {
   handleOnlyInstalled?: () => void;
 }
 
+// TODO: pass in a list of total games, to show how many are hidden
 export default function Header({ renderBackButton, numberOfGames, handleOnlyInstalled }: Props) {
   const history = useHistory()
   const { onlyInstalled } = useContext(ContextProvider)
   return (
-    <>
-      <div className="header">
+      <div className="header level">
       {
       handleOnlyInstalled && 
-        <span className="installedSwitch" >
-          <ToggleSwitch description="Downloaded Only" value={onlyInstalled} handleChange={() => handleOnlyInstalled()} />
+        <span className="installedSwitch level-left" >
+          <div className="level-item">
+            <ToggleSwitch description="Downloaded Only" value={onlyInstalled} handleChange={() => handleOnlyInstalled()} />
+          </div>
         </span>
       }
       {Boolean(numberOfGames) && 
-          <span className="totalGamesText">Total Games: {numberOfGames}</span>}
+          <span className="totalGamesText level-right">
+            <div className="level-item">
+              Total Games: {numberOfGames}
+            </div>
+          </span>}
       {renderBackButton && (
           <div className="leftCluster">
             <span className="returnLink" onClick={() => history.goBack()}>
@@ -32,6 +38,5 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
           </div>
       )}
       </div>
-    </>
   );
 }

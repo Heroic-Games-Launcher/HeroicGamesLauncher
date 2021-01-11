@@ -2141,7 +2141,7 @@ a.tag:hover {
 
 /* Bulma Form */
 .input, .textarea, .select select {
-  background-color: transparent;
+  background-color: white;
   border-color: #dbdbdb;
   border-radius: 4px;
   color: #363636; }
@@ -7730,15 +7730,17 @@ label.checkbox {
   label.checkbox input {
     display: none; }
   label.checkbox .checkbox-switch {
+    transition: all 0.15s ease-in-out;
     display: inline-flex;
     vertical-align: middle;
     align-items: center;
     margin-left: 0.5rem;
     width: 2em;
     height: 1em;
-    border: 1px solid #4a4a4a;
+    border: 1px solid #b5b5b5;
     border-radius: 4px;
-    position: relative; }
+    position: relative;
+    background: #b5b5b5; }
     label.checkbox .checkbox-switch:after {
       position: absolute;
       transition: all 0.15s ease-in-out;
@@ -7746,15 +7748,21 @@ label.checkbox {
       display: flex;
       height: 0.75em;
       width: 0.75em;
-      background: #4a4a4a;
+      background: whitesmoke;
       margin: 0 0.125em;
       border-radius: 4px;
       left: 0; }
-  label.checkbox input:checked + .checkbox-switch:after {
-    left: calc(1em - 0.125em); }
+  label.checkbox input:checked + .checkbox-switch {
+    border-color: #D49E11;
+    background: #D49E11; }
+    label.checkbox input:checked + .checkbox-switch:after {
+      left: calc(1em - 0.125em); }
 
 .navbar {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+
+.header.level {
+  padding: 1rem; }
 
 .gameList {
   display: grid;

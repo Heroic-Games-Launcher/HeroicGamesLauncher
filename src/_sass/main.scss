@@ -30,7 +30,7 @@ is to be extracted to its own file
 
 
 $primary               : #D49E11;
-$input-background-color: transparent;
+// $input-background-color: transparent;
 
 $card-radius: 0.5rem;
 $card-shadow: $shadow-border;
@@ -60,15 +60,18 @@ label.checkbox {
     display: none;
   }
   .checkbox-switch {
+    @include animate;
+
     display: inline-flex;
     vertical-align: middle;
     align-items: center;
     margin-left: 0.5rem;
     width: 2em;
     height: 1em;
-    border: 1px solid $text;
+    border: 1px solid $grey-light;
     border-radius: $radius;
     position: relative;
+    background: $grey-light;
 
     &:after {
       position: absolute;
@@ -77,15 +80,20 @@ label.checkbox {
       display: flex;
       height: 0.75em;
       width: 0.75em;
-      background: $text;
+      background: $white-ter;
       margin: 0 0.125em;
       border-radius: $radius;
       left: 0;
     }
   }
 
-  input:checked + .checkbox-switch:after {
-    left: calc(1em - 0.125em);
+  input:checked + .checkbox-switch {
+    border-color: $primary;
+    background: $primary;
+
+    &:after {
+      left: calc(1em - 0.125em);
+    }
   }
 }
 
@@ -106,8 +114,10 @@ label.checkbox {
 
 /////////////////////////////////////////////////////////////
 
-
-// TODO: extract below into  "launcher page" files
+// downloaded filter level header thing
+.header.level {
+  padding: 1rem;
+}
 
 // set library as a grid
 .gameList {
