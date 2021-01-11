@@ -79,7 +79,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage deb tar.xz"
+    "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage deb pacman rpm tar.xz"
   },
   "eslintConfig": {
     "extends": [

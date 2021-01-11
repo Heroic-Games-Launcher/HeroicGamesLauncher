@@ -30,6 +30,7 @@ const getAlternativeWine = () => {
 
   const defaultWine = {name: 'Wine Default', bin: '/usr/bin/wine'}
 
+  // Change Proton to be of type Wrapper and use wrapper instead of wine binary
   if (fs.existsSync(steamCompatPath)) {
     steamWine = fs.readdirSync(steamCompatPath).map((version) => {
       return {
@@ -79,7 +80,8 @@ const launchGame = (appName) => {
         settingsName = 'defaultSettings'
       }
     
-    
+      // TODO: use wrapper for proton instead of wine binary
+      // TODO: set wineprefix to be STEAM_COMPAT_DATA_PATH instead of wineprefix
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions } = settings[settingsName]
     
