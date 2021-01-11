@@ -11,14 +11,14 @@ interface Card {
 const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
   return (
     <div className="gameCard card">
-      <Link 
+      <div 
         className="card-image"
-        to={{  pathname: `/gameconfig/${appName}` }}
+        // to={{  pathname: `/gameconfig/${appName}` }}
       >
         <figure className="image is-3by4">
           <img src={cover} alt={title}/>
         </figure>
-      </Link>
+      </div>
     </div>
 
 

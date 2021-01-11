@@ -1,12 +1,18 @@
 @charset "utf-8";
 
+
+@import "./octostyling";
+
+
+
 @import "../../node_modules/bulma/sass/utilities/initial-variables";
 // edit bulma variables here
 
 $primary               : #D49E11;
 $input-background-color: transparent;
 
-
+$card-radius: 0.5rem;
+$card-shadow: $shadow-2;
 
 // end edit variables
 
@@ -19,17 +25,21 @@ $input-background-color: transparent;
   transform: translateX(-50%);
 }
 
+
 //
 
 // main styling
 
+.navbar {
+  box-shadow: $shadow-1;
+}
 
-
-
-//game card 
+// library
 
 .gameList {
-  grid-template-columns: repeat(1rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 15rem);
   grid-gap: 1rem;
-  padding: 0 4rem 0 4rem;
+  padding: 2rem 4rem;
+
 }
