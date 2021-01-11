@@ -23,13 +23,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.4
-        with: 
-          node-version: 15
-      - uses: opspresso/action-version@v0.2.5
       - run: npm install
       - run: npm run dist
+      - run: apt-get install --no-install-recommends -y bsdtar libopenjp2-tools rpm
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.WORKFLOW_TOKEN }}"
-          prerelease: false
+          prerelease: true
           files: /heroic-*
