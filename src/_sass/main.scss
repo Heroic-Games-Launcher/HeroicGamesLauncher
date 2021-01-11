@@ -1,12 +1,30 @@
 @charset "utf-8";
 
+/*
 
-@import "./octostyling";
+// TODO: each 
 
-$dark-transparent: transparentize(#000, 0.25);
+/////////////
+thing
+/////////////
 
+is to be extracted to its own file
+
+
+*/
+
+
+
+
+// import bulma variables
 @import "../../node_modules/bulma/sass/utilities/initial-variables";
+
+
+/////////////////////////////////////////////////////////////
+
 // edit bulma variables here
+
+/////////////////////////////////////////////////////////////
 
 $primary               : #D49E11;
 $input-background-color: transparent;
@@ -15,11 +33,20 @@ $card-radius: 0.5rem;
 $card-shadow: $shadow-border;
 
 
-// end edit variables
+// import custom libraries of variables
+@import "./octostyling";
 
+
+// import rest of bulma
 @import "../..//node_modules/bulma/bulma";
 
+
+/////////////////////////////////////////////////////////////
+
 // bulma modifiers
+
+/////////////////////////////////////////////////////////////
+
 .force-center{
   position: absolute;
   left: 50%;
@@ -27,24 +54,34 @@ $card-shadow: $shadow-border;
 }
 
 
-//
+/////////////////////////////////////////////////////////////
 
-// main styling
+// body
+
+/////////////////////////////////////////////////////////////
 
 .navbar {
   box-shadow: $shadow-1;
 }
 
+
+/////////////////////////////////////////////////////////////
+
 // library
 
-// set library as grid
+/////////////////////////////////////////////////////////////
+
+
+// TODO: extract below into  "launcher page" files
+
+// set library as a grid
 .gameList {
   display: grid;
   grid-template-columns: repeat(auto-fill, 15rem);
   grid-gap: 1rem;
   padding: 2rem 4rem;
 
-  // animate gameCard to grow
+  // animate gameCard to grow on hover, and trigger all other other hover shenanigans
   .gameCard {
     @include animate;
     @include hover-grow;
