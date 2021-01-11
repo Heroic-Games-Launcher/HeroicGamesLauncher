@@ -4,7 +4,7 @@ import ContextProvider from '../../state/ContextProvider';
 export default function SearchBar() {
   const { handleSearch } = useContext(ContextProvider)
   const [textValue, setTextValue] = useState('')
-  
+
   return (
 
       <p className="control has-icons-left ">

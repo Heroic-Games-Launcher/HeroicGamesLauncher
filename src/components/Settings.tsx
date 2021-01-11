@@ -30,6 +30,8 @@ interface Path {
 }
 
 // TODO: Refactor this component in smaller components
+// TODO: add option to add Custom wine
+// TODO: add feedback when launching winecfg and winetricks
 
 export default function Settings() {
   const [wineVersion, setWineversion] = useState({
@@ -40,7 +42,6 @@ export default function Settings() {
   const [defaultInstallPath, setDefaultInstallPath] = useState("");
   const [otherOptions, setOtherOptions] = useState("");
   const [altWine, setAltWine] = useState([] as WineProps[]);
-  const [saved, setSaved] = useState(false)
 
   const { appName } = useParams() as RouteParams;
   const isDefault = appName === 'default'
@@ -63,11 +64,6 @@ export default function Settings() {
       }
     );
   }, [settings, appName]);
-
-  useEffect(() => {
-    // TODO: Save settings automatically
-    setSaved(false)
-  }, [altWine, otherOptions, defaultInstallPath, wineVersion])
 
   const callTools = (tool: string) =>
     ipcRenderer.send("callTool", {
@@ -94,6 +90,11 @@ export default function Settings() {
     }
 
     const settingsToSave = isDefault ? GlobalSettings : GameSettings
+
+    useEffect(() => {
+      // TODO: Save settings automatically
+      writeConfig([appName, settingsToSave])
+    }, [winePrefix, defaultInstallPath, altWine, otherOptions, appName, settingsToSave])
   
     return (
     <>
@@ -207,18 +208,8 @@ export default function Settings() {
             </div>
           </div>
           <div className="save">
-          <button
-            className="button is-success"
-            onClick={() => {
-              writeConfig([appName, settingsToSave])
-              return setSaved(true)
-            }
-            }
-            >
-            Save Settings
-          </button>
-          <span className="material-icons" style={ saved ? {color: '#0BD58C', opacity: 1 } : {color: '#0BD58C', opacity: 0.4 }}>
-              check_circle_outline
+          <span style={ {color: '#0BD58C', opacity: 1 }}>
+              Settings are saved automatically
           </span>
           </div>
         </div>

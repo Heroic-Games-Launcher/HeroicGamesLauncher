@@ -1,10 +1,10 @@
 {
   "name": "heroic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
-  "license": "GPL v3",
+  "license": "GPL-3.0-only",
   "description": "A native launcher for Epic Games for Linux based on Legendary",
   "repository": {
     "type": "Github",
