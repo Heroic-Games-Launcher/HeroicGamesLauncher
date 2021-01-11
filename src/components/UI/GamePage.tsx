@@ -95,9 +95,6 @@ export default function GamePage() {
           {
             title ? 
             <>
-            <span className="icon is-left">
-              <span className="mdi mdi-24px mdi-arrow-left"></span>
-            </span>
             <span className="material-icons is-secondary dots">
             more_vertical
           </span>
