@@ -12,12 +12,12 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
 
   let gameCardInfo = {
     iconColor: "has-text-primary",
-    iconName: "get_app"
+    iconName: "mdi-cloud-download"
   };
 
   if( isInstalled ) {
     gameCardInfo.iconColor = "has-text-success";
-    gameCardInfo.iconName = "play_circle";
+    gameCardInfo.iconName = "mdi-play-circle";
   }
 
   return (
@@ -33,7 +33,7 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
       <div className="card-content gameInfo">
         <span>{title}</span>
         <i className={`icon is-medium ${gameCardInfo.iconColor}`}>
-          <span className="material-icons">{gameCardInfo.iconName}</span>
+          <span className={`mdi mdi-24px ${gameCardInfo.iconName}`}></span>
         </i>
       </div>
     </div>

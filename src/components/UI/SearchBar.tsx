@@ -19,7 +19,7 @@ export default function SearchBar() {
         />
 
         <span className="icon is-left">
-          <span className="material-icons">search</span>
+          <span className="mdi mdi-24px mdi-magnify"></span>
         </span>
 
           {/* commented because it really isn't necessary for now. candy to do later */}
