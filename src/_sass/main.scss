@@ -19,7 +19,6 @@ is to be extracted to its own file
 // import bulma variables
 @import "../../node_modules/bulma/sass/utilities/initial-variables";
 
-
 /////////////////////////////////////////////////////////////
 
 // edit bulma variables here
@@ -53,6 +52,42 @@ $card-shadow: $shadow-border;
   transform: translateX(-50%);
 }
 
+// prettier switches from checkboxes
+// TODO: add function here to create modifiers from bulma colors. is- and is-hollow
+label.checkbox {
+  user-select: none;
+  input {
+    display: none;
+  }
+  .checkbox-switch {
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    margin-left: 0.5rem;
+    width: 2em;
+    height: 1em;
+    border: 1px solid $text;
+    border-radius: $radius;
+    position: relative;
+
+    &:after {
+      position: absolute;
+      @include animate;
+      content: "";
+      display: flex;
+      height: 0.75em;
+      width: 0.75em;
+      background: $text;
+      margin: 0 0.125em;
+      border-radius: $radius;
+      left: 0;
+    }
+  }
+
+  input:checked + .checkbox-switch:after {
+    left: calc(1em - 0.125em);
+  }
+}
 
 /////////////////////////////////////////////////////////////
 

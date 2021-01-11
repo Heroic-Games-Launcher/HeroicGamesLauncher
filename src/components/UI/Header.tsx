@@ -18,8 +18,7 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
       {
       handleOnlyInstalled && 
         <span className="installedSwitch" >
-          <span>Installed Only</span>
-          <ToggleSwitch value={onlyInstalled} handleChange={() => handleOnlyInstalled()} />
+          <ToggleSwitch description="Downloaded Only" value={onlyInstalled} handleChange={() => handleOnlyInstalled()} />
         </span>
       }
       {Boolean(numberOfGames) && 
