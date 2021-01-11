@@ -3,7 +3,7 @@
 
 @import "./octostyling";
 
-
+$dark-transparent: transparentize(#000, 0.25);
 
 @import "../../node_modules/bulma/sass/utilities/initial-variables";
 // edit bulma variables here
@@ -45,10 +45,33 @@ $card-shadow: $shadow-border;
 
   .gameCard {
     @include animate;
+    @include hover-grow;
+    position: relative;
 
     &:hover {
       box-shadow: $shadow-5;
-      transform: scale(1.01); 
+
+      .gameInfo {
+        opacity: 1;
+      }
+    }
+
+    .gameInfo {
+      @include animate;
+
+      position: absolute;
+      bottom: 0;
+      opacity: 0;
+      background: $dark-transparent;
+      color: $white-bis;
+      width: 100%;
+
+      i {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+        cursor: pointer;
+      }
     }
   }
 }

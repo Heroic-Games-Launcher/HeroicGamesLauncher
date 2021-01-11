@@ -9,6 +9,17 @@ interface Card {
 }
 
 const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
+
+  let gameCardInfo = {
+    iconColor: "has-text-primary",
+    iconName: "get_app"
+  };
+
+  if( isInstalled ) {
+    gameCardInfo.iconColor = "has-text-success";
+    gameCardInfo.iconName = "play_circle";
+  }
+
   return (
     <div className="gameCard card">
       <Link
@@ -19,13 +30,13 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
           <img src={cover} alt={title}/>
         </figure>
       </Link>
+      <div className="card-content gameInfo">
+        <span>{title}</span>
+        <i className={`icon is-medium ${gameCardInfo.iconColor}`}>
+          <span className="material-icons">{gameCardInfo.iconName}</span>
+        </i>
+      </div>
     </div>
-
-
-
-
-
-
 
 
 

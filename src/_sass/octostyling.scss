@@ -12,3 +12,11 @@ $shadow-border: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
 @mixin animate {
   transition: all 0.15s ease-in-out;
 }
+
+@mixin hover-grow {
+  @include animate;
+
+  &:hover {
+    transform: scale(1.01); 
+  }
+}

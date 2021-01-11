@@ -7716,7 +7716,25 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   grid-gap: 1rem;
   padding: 2rem 4rem; }
   .gameList .gameCard {
-    transition: all 0.15s ease-in-out; }
+    transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    position: relative; }
     .gameList .gameCard:hover {
-      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
       transform: scale(1.01); }
+    .gameList .gameCard:hover {
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); }
+      .gameList .gameCard:hover .gameInfo {
+        opacity: 1; }
+    .gameList .gameCard .gameInfo {
+      transition: all 0.15s ease-in-out;
+      position: absolute;
+      bottom: 0;
+      opacity: 0;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fafafa;
+      width: 100%; }
+      .gameList .gameCard .gameInfo i {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+        cursor: pointer; }
