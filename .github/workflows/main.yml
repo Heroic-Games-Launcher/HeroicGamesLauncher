@@ -23,7 +23,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.4
-      - run: apt-get install --no-install-recommends -y bsdtar libopenjp2-tools rpm
+      - run: sudo apt-get install --no-install-recommends -y bsdtar libopenjp2-tools rpm
       - run: npm install
       - run: npm run dist
       - uses: "marvinpinto/action-automatic-releases@latest"
