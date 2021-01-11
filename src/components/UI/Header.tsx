@@ -30,11 +30,14 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
             </div>
           </span>}
       {renderBackButton && (
-          <div className="leftCluster">
-            <span className="returnLink" onClick={() => history.goBack()}>
-              <span className="material-icons">arrow_back</span>
+          <div className="level-left">
+            <a className="level-item" onClick={() => history.goBack()}>
+              <span className="icon is-left">
+                <span className="mdi mdi-24px mdi-arrow-left"></span>
+              </span>
+
               Return
-            </span>
+            </a>
           </div>
       )}
       </div>

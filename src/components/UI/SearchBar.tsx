@@ -10,7 +10,6 @@ export default function SearchBar() {
       <p className="control has-icons-left ">
 
         <input type="search" className="input is-primary is-rounded"
-          value={textValue}
           onChange={(event) => {
             setTextValue(event.target.value)
             handleSearch(event.target.value)
