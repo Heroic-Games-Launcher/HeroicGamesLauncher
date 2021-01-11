@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+const { spawn, exec } = require("child_process");
 const promisify = require("util").promisify;
 const fs = require('fs')
 const {homedir} = require('os')
