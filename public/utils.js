@@ -65,7 +65,7 @@ const getAlternativeWine = () => {
 
 const isLoggedIn = () => fs.readFileSync(userInfo);
 
-const launchGame = async (appName) => {
+const launchGame = (appName) => {
       let envVars = ""
       let altWine
       let altWinePrefix
@@ -97,8 +97,9 @@ const launchGame = async (appName) => {
       const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : ""
       const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
     
-      return await execAsync(command)
+      return execAsync(command)
         .then(({ stderr }) => fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done'))
+        .catch(console.log)
 }
 
 const writeDefaultconfig = () => {
