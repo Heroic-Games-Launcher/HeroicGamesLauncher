@@ -7761,4 +7761,4 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       right: 0rem;
       padding: 1.5rem;
       background: rgba(0, 0, 0, 0.75);
-      border-radius: 100%; }
+      border-radius: 1.5rem 0 0 0; }
