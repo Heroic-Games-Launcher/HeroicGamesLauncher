@@ -26,15 +26,15 @@ is to be extracted to its own file
 
 /////////////////////////////////////////////////////////////
 
+// import custom libraries of variables
+@import "./octostyling";
+
+
 $primary               : #D49E11;
 $input-background-color: transparent;
 
 $card-radius: 0.5rem;
 $card-shadow: $shadow-border;
-
-
-// import custom libraries of variables
-@import "./octostyling";
 
 
 // import rest of bulma

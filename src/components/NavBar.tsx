@@ -4,17 +4,17 @@ import SearchBar from './UI/SearchBar'
 import UserSelector from './UI/UserSelector'
 
 export default function NavBar() {
+
+
   return (
     <div className="navbar is-fixed-top">
       
       <div className="navbar-start">
         <div className="navbar-item">
-          <NavLink activeStyle={{ color: '#FFA800', fontWeight: 500 }} exact to='/'>Library</NavLink>
+          <NavLink activeClassName="has-text-primary" exact to='/'>Library</NavLink>
         </div>
         <div className="navbar-item">
-        <NavLink activeStyle={{ color: '#FFA800', fontWeight: 500 }} to={{  
-              pathname: '/settings/default'
-            }}>Settings</NavLink>
+        <NavLink activeClassName="has-text-primary" exact to='/settings/default'>Settings</NavLink>
         </div>
       </div>
 
