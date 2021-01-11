@@ -31,5 +31,5 @@ jobs:
           repo_token: "${{ secrets.WORKFLOW_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          files: |
-            /heroic-*
+          draft: true
+          files: heroic-*
