@@ -20,3 +20,13 @@ $shadow-border: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
     transform: scale(1.01); 
   }
 }
+
+.is-hidden {
+  display: none;
+}
+
+.image {
+  &.is-grayscale {
+    filter: grayscale(75%);
+  }
+}

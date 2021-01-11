@@ -12,12 +12,14 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
 
   let gameCardInfo = {
     iconColor: "has-text-primary",
-    iconName: "mdi-cloud-download"
+    iconName: "mdi-cloud-download",
+    cardClass: "is-grayscale"
   };
 
   if( isInstalled ) {
     gameCardInfo.iconColor = "has-text-success";
     gameCardInfo.iconName = "mdi-play-circle";
+    gameCardInfo.cardClass = "";
   }
 
   return (
@@ -26,7 +28,7 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
         className="card-image"
         to={{  pathname: `/gameconfig/${appName}` }}
       >
-        <figure className="image is-3by4">
+        <figure className={`image is-3by4 ${gameCardInfo.cardClass}`}>
           <img src={cover} alt={title}/>
         </figure>
       </Link>
@@ -36,28 +38,10 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
           <span className={`mdi mdi-24px ${gameCardInfo.iconName}`}></span>
         </i>
       </div>
+      <i className={`${!isInstalled ? "icon glanceStatus" : "is-hidden"} is-medium ${gameCardInfo.iconColor}`}>
+          <span className={`mdi mdi-24px ${gameCardInfo.iconName}`}></span>
+        </i>
     </div>
-
-
-
-    // <Link
-    //   className="gameCard"
-    //   to={{
-    //     pathname: `/gameconfig/${appName}`
-    //   }}
-    // >
-    //   <img alt="cover-art" src={cover} className="gameImg" />
-    //   <div className="gameTitle">
-    //     <span>{title}</span>
-    //     <i
-    //       className={`material-icons ${
-    //         isInstalled ? "is-success" : "is-primary"
-    //       }`}
-    //     >
-    //       {isInstalled ? "play_circle" : "get_app"}
-    //     </i>
-    //   </div>
-    // </Link>
   );
 };
 

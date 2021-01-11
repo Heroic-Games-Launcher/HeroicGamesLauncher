@@ -37,12 +37,14 @@ $card-shadow: $shadow-border;
 
 // library
 
+// set library as grid
 .gameList {
   display: grid;
   grid-template-columns: repeat(auto-fill, 15rem);
   grid-gap: 1rem;
   padding: 2rem 4rem;
 
+  // animate gameCard to grow
   .gameCard {
     @include animate;
     @include hover-grow;
@@ -54,8 +56,14 @@ $card-shadow: $shadow-border;
       .gameInfo {
         opacity: 1;
       }
+
+      .glanceStatus {
+        opacity: 0;
+        pointer-events: none;
+      }
     }
 
+    // float and animate the game info
     .gameInfo {
       @include animate;
 
@@ -72,6 +80,31 @@ $card-shadow: $shadow-border;
         right: 0.5rem;
         cursor: pointer;
       }
+    }
+
+    // set up card content to not grow if game name is long
+    .card-content {
+      padding: 0;
+      height: 5rem;
+      display: flex;
+
+      > span {
+        padding: 1rem 3rem 1rem 1rem;
+        width: 100%;
+      }
+    }
+
+    // setting up the download icon to always show for easy visibility
+    .glanceStatus{
+      @include animate;
+
+      position: absolute;
+      bottom: 0rem;
+      right: 0rem;
+      padding: 1.5rem;
+
+      background: $dark-transparent;
+      border-radius: 100%;
     }
   }
 }
