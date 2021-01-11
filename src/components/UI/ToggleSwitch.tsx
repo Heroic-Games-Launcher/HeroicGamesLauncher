@@ -7,6 +7,8 @@ interface Props {
 }
 
 export default function ToggleSwitch({handleChange, value, description}: Props) {
+
+  // random number so the for can work correctly each time a new switch is generated
   let forCount = Math.floor((Math.random() * 9999) + 1).toString();
 
   return (
