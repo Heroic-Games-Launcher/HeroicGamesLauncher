@@ -23,7 +23,7 @@ export default function NavBar() {
       </div>
       
       <div className="navbar-end">
-        <div className="navbar-item has-dropdown is-hoverable">
+        <div className="navbar-item has-dropdown is-hoverable is-right">
           <UserSelector />
         </div>
       </div>
