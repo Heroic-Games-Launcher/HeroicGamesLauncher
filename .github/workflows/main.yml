@@ -26,7 +26,7 @@ jobs:
         with: node-version: 15
       - uses: opspresso/action-version@v0.2.5
       - run: npm install
-      - run: npm run dist
+      - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" npm run dist
       - uses: "marvinpinto/action-automatic-releases@latest"
           with:
             repo_token: "${{ secrets.WORKFLOW_TOKEN }}"
