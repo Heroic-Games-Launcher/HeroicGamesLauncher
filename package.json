@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -42,10 +42,16 @@
       ]
     },
     "deb": {
-      "packageCategory": "games"
+      "packageCategory": "games",
+      "depends": ["gawk"]
     },
     "pacman": {
-      "packageCategory": "games"
+      "packageCategory": "games",
+      "depends": ["gawk"]
+    },
+    "rpm": {
+      "packageCategory": "games",
+      "depends": ["gawk"]
     }
   },
   "dependencies": {
