@@ -12,7 +12,8 @@ $primary               : #D49E11;
 $input-background-color: transparent;
 
 $card-radius: 0.5rem;
-$card-shadow: $shadow-2;
+$card-shadow: $shadow-border;
+
 
 // end edit variables
 
@@ -42,4 +43,12 @@ $card-shadow: $shadow-2;
   grid-gap: 1rem;
   padding: 2rem 4rem;
 
+  .gameCard {
+    @include animate;
+
+    &:hover {
+      box-shadow: $shadow-5;
+      transform: scale(1.01); 
+    }
+  }
 }

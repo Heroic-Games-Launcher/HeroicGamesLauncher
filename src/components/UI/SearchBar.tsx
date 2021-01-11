@@ -7,10 +7,7 @@ export default function SearchBar() {
   
   return (
 
-
-    <div className="field">
       <p className="control has-icons-left ">
-
 
         <input type="text" className="input is-primary is-rounded"
           value={textValue}
@@ -35,7 +32,6 @@ export default function SearchBar() {
           <span className="material-icons">close</span>
         </span> */}
       </p>
-    </div>
 
 
 

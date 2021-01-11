@@ -2985,7 +2985,7 @@ a.tag:hover {
 .card {
   background-color: white;
   border-radius: 0.5rem;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   color: #4a4a4a;
   max-width: 100%;
   overflow: hidden;
@@ -7715,3 +7715,8 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   grid-template-columns: repeat(auto-fill, 15rem);
   grid-gap: 1rem;
   padding: 2rem 4rem; }
+  .gameList .gameCard {
+    transition: all 0.15s ease-in-out; }
+    .gameList .gameCard:hover {
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+      transform: scale(1.01); }

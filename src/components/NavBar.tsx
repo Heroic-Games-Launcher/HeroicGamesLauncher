@@ -18,7 +18,7 @@ export default function NavBar() {
         </div>
       </div>
 
-      <div className="navbar-item force-center">
+      <div className="navbar-item field force-center">
         <SearchBar />
       </div>
       
