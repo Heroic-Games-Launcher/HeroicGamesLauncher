@@ -1,6 +1,6 @@
 import { IpcRendererEvent } from "electron";
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { writeConfig } from "../../helper";
 import { WineProps } from '../../types';
 import Header from "../UI/Header";
@@ -13,10 +13,9 @@ const {
   ipcRenderer,
 } = window.require("electron");
 
-
-
 interface RouteParams {
   appName: string;
+  type: string;
 }
 
 interface AltSettings {
@@ -42,9 +41,11 @@ export default function Settings() {
   const [egsPath, setEgsPath] = useState("");
   const [altWine, setAltWine] = useState([] as WineProps[]);
 
-  const { appName } = useParams() as RouteParams;
-  const isDefault = appName === 'default'
+  const { appName, type } = useParams() as RouteParams;
+  const isDefault = type === 'default'
   const settings = isDefault ? 'defaultSettings' : appName
+  console.log(useParams());
+  
 
   useEffect(() => {
     ipcRenderer.send("requestSettings", appName);
@@ -62,7 +63,10 @@ export default function Settings() {
         );
       }
     );
-  }, [settings, appName]);
+  }, [settings, type]);
+
+  console.log(type, appName);
+  
 
     const GlobalSettings = {
         defaultSettings: {
@@ -91,6 +95,20 @@ export default function Settings() {
     <>
       <Header renderBackButton />
       <div className="Settings">
+        <div className='settingsNavbar'>
+          <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
+              pathname: '/settings/default/general'
+            }}>General
+          </NavLink>
+          <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
+              pathname: '/settings/default/wine'
+            }}>Wine
+          </NavLink>
+          <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
+              pathname: '/settings/default/other'
+            }}>Other
+          </NavLink>
+        </div>
         <div className="settingsWrapper">
           {isDefault && 
             <GeneralSettings 

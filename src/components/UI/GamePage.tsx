@@ -101,7 +101,7 @@ export default function GamePage() {
           </span>
           <div className="more">
             {isInstalled && <Link className="hidden link" to={{
-               pathname: `/settings/${appName}`
+               pathname: `/settings/game/${appName}`
             }}>
               Settings
             </Link>}

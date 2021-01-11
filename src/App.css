@@ -222,6 +222,23 @@
   justify-content: center;
 }
 
+.settingsNavbar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  margin-right: 82px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #EAE8E5;
+}
+
+.settingsNavbar > a {
+  padding-bottom: 18px;
+}
+
 .settingsWrapper {
   width: fit-content;
   align-self: center;
