@@ -5,6 +5,7 @@ const {homedir} = require('os')
 const execAsync = promisify(exec);
 const { fixPathForAsarUnpack } = require("electron-util");
 const path = require('path')
+const { showErrorBox } = require('electron').dialog
 
 const home = homedir();
 const legendaryConfigPath = `${home}/.config/legendary`;
@@ -106,7 +107,15 @@ const launchGame = (appName) => {
       console.log('Launch Command: ', command);
     
       return execAsync(command)
-        .then(({ stderr }) => {fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done')})
+      .then(({ stderr }) => {
+          fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done')
+          if (stderr.includes('Errno')){
+            showErrorBox(
+              "Something Went Wrong",
+              "Error when launching the game, check the logs!"
+            )
+          }
+        })
         .catch(console.log)
 }
 

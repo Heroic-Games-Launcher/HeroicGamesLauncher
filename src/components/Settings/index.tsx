@@ -66,9 +66,6 @@ export default function Settings() {
     );
   }, [appName, settings, type]);
 
-  console.log(type, appName);
-  
-
     const GlobalSettings = {
         defaultSettings: {
           defaultInstallPath,
