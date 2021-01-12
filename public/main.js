@@ -106,15 +106,13 @@ ipcMain.handle("writeFile", (event, args) => {
 });
 
 ipcMain.handle("getGameInfo", async (event, game) => {
-  const { id, auth } = require("./secrets");
-
   const response = await axios({
     url: "https://api.igdb.com/v4/games",
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Client-ID": id,
-      Authorization: auth,
+      "Client-ID": "h52yjk7lp1afrxg3asmpskskmb9b20",
+      Authorization: "Bearer ziczr915gqt610c9429w12lwkiqber",
     },
     data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`,
   });
