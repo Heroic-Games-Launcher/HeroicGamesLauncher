@@ -178,7 +178,7 @@ export default function GamePage() {
                         : "This game is not installed"}
                     </p>
                   </div>
-                  {!isInstalled && (
+                  {(!isInstalled && !isInstalling) && (
                     <select
                       onChange={(event) => setInstallPath(event.target.value)}
                       value={installPath}
