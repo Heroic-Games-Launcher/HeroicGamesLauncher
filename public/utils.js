@@ -35,7 +35,7 @@ const getAlternativeWine = () => {
     steamWine = fs.readdirSync(steamCompatPath).map((version) => {
       return {
         name: `Steam - ${version}`,
-        bin: `'${steamCompatPath}${version}/dist/bin/wine64'`,
+        bin: `'${steamCompatPath}${version}/proton'`,
       };
     });
   }
@@ -46,7 +46,7 @@ const getAlternativeWine = () => {
       if (version.startsWith('Proton')) {
         steamWine.push({
           name: `Steam - ${version}`,
-          bin: `'${steamInstallFolder}${version}/dist/bin/wine64'`,
+          bin: `'${steamInstallFolder}${version}/proton'`,
         });
       }
     });
@@ -70,6 +70,7 @@ const launchGame = (appName) => {
       let envVars = ""
       let altWine
       let altWinePrefix
+
       const gameConfig = `${heroicGamesConfigPath}${appName}.json`
       const globalConfig = heroicConfigPath
       let settingsPath = gameConfig
@@ -80,27 +81,32 @@ const launchGame = (appName) => {
         settingsName = 'defaultSettings'
       }
     
-      // TODO: use wrapper for proton instead of wine binary
-      // TODO: set wineprefix to be STEAM_COMPAT_DATA_PATH instead of wineprefix
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions } = settings[settingsName]
     
       envVars = otherOptions
-    
+      const isProton = wineVersion.name.startsWith('Steam')
+      if (isProton){
+        console.log('You are using Proton, this can lead to some bugs, please do not open issues with bugs related with games', wineVersion.name);
+      }
+
       if (winePrefix !== "~/.wine") {
-        altWinePrefix = `${winePrefix}`
+        if (isProton){
+          envVars = `${otherOptions} STEAM_COMPAT_DATA_PATH=${winePrefix}`
+        }
+        altWinePrefix = isProton ? "" : `--wine-prefix ${winePrefix}`
       }
     
       if (wineVersion.name !== "Wine Default") {
-        altWine = wineVersion.bin
+        const { bin } = wineVersion
+        altWine = isProton ?  `--no-wine --wrapper "${bin} run"` : `--wine ${bin}`
       }
-    
-      const wine = altWine ? `--wine ${altWine}` : ""
-      const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : ""
-      const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
+
+      const command = `${envVars} ${legendaryBin} launch ${appName} ${altWine} ${altWinePrefix}`
+      console.log('Launch Command: ', command);
     
       return execAsync(command)
-        .then(({ stderr }) => fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done'))
+        .then(({ stderr }) => {fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done')})
         .catch(console.log)
 }
 
