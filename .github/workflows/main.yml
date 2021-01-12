@@ -32,4 +32,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           draft: true
-          files: ./dist/heroic-*
+          files: ./dist/heroic*
