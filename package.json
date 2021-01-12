@@ -43,7 +43,7 @@
     },
     "deb": {
       "packageCategory": "games",
-      "depends": ["gawk"]
+      "depends": ["gawk", "gconf2", "gconf-service", "libnotify4", "libappindicator1", "libxtst6", "libnss3"]
     },
     "pacman": {
       "packageCategory": "games",

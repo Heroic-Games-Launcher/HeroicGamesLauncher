@@ -64,7 +64,7 @@ const getAlternativeWine = () => {
   return [...steamWine, ...lutrisWine, defaultWine];
 };
 
-const isLoggedIn = () => fs.readFileSync(userInfo);
+const isLoggedIn = () => fs.existsSync(userInfo);
 
 const launchGame = (appName) => {
       let envVars = ""
