@@ -25,7 +25,6 @@ interface AltSettings {
   defaultInstallPath: string;
 }
 
-// TODO: Refactor this component in smaller components
 // TODO: add option to add Custom wine
 // TODO: add feedback when launching winecfg and winetricks
 // TODO: Sync saves with installed EGS
@@ -42,10 +41,12 @@ export default function Settings() {
   const [altWine, setAltWine] = useState([] as WineProps[]);
 
   const { appName, type } = useParams() as RouteParams;
-  const isDefault = type === 'default'
+  const isDefault = appName === 'default'
+  const isGeneralSettings = type === 'general'
+  const isWineSettings = type === 'wine'
+  const isOtherSettings = type === 'other'
+
   const settings = isDefault ? 'defaultSettings' : appName
-  console.log(useParams());
-  
 
   useEffect(() => {
     ipcRenderer.send("requestSettings", appName);
@@ -63,7 +64,7 @@ export default function Settings() {
         );
       }
     );
-  }, [settings, type]);
+  }, [appName, settings, type]);
 
   console.log(type, appName);
   
@@ -96,43 +97,47 @@ export default function Settings() {
       <Header renderBackButton />
       <div className="Settings">
         <div className='settingsNavbar'>
-          <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
+          {isDefault && 
+            <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
               pathname: '/settings/default/general'
             }}>General
-          </NavLink>
+          </NavLink>}
           <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
-              pathname: '/settings/default/wine'
+              pathname: `/settings/${appName}/wine`
             }}>Wine
           </NavLink>
           <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
-              pathname: '/settings/default/other'
+              pathname: `/settings/${appName}/other`
             }}>Other
           </NavLink>
         </div>
         <div className="settingsWrapper">
-          {isDefault && 
+          {isGeneralSettings &&
             <GeneralSettings 
+              egsPath={egsPath} 
+              setEgsPath={setEgsPath} 
               defaultInstallPath={defaultInstallPath} 
               setDefaultInstallPath={setDefaultInstallPath}
             />          
           }
+          {isWineSettings && 
           <WineSettings 
             altWine={altWine}
             wineVersion={wineVersion}
             winePrefix={winePrefix}
             setWineversion={setWineversion}
             setWinePrefix={setWinePrefix}
-          />
+          />}
+          {isOtherSettings && 
           <OtherSettings 
-            egsPath={egsPath} 
-            setEgsPath={setEgsPath} 
             otherOptions={otherOptions} 
             setOtherOptions={setOtherOptions} 
-          />
+          />}
+          {isWineSettings && 
           <Tools 
             winePrefix={winePrefix}
             wineVersion={wineVersion}
-          />
+          />}
           <div className="save">
           <span style={ {color: '#0BD58C', opacity: 1 }}>
               Settings are saved automatically

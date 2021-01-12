@@ -105,7 +105,7 @@ export default function GamePage() {
                   <Link
                     className="hidden link"
                     to={{
-                      pathname: `/settings/${appName}`,
+                      pathname: `/settings/${appName}/wine`,
                     }}
                   >
                     Settings
