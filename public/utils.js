@@ -1,4 +1,4 @@
-const { spawn, exec } = require("child_process");
+const { exec } = require("child_process");
 const promisify = require("util").promisify;
 const fs = require('fs')
 const {homedir} = require('os')
@@ -30,6 +30,7 @@ const getAlternativeWine = () => {
 
   const defaultWine = {name: 'Wine Default', bin: '/usr/bin/wine'}
 
+  // Change Proton to be of type Wrapper and use wrapper instead of wine binary
   if (fs.existsSync(steamCompatPath)) {
     steamWine = fs.readdirSync(steamCompatPath).map((version) => {
       return {
@@ -63,9 +64,9 @@ const getAlternativeWine = () => {
   return [...steamWine, ...lutrisWine, defaultWine];
 };
 
-const isLoggedIn = () => fs.readFileSync(userInfo);
+const isLoggedIn = () => fs.existsSync(userInfo);
 
-const launchGame = async (appName) => {
+const launchGame = (appName) => {
       let envVars = ""
       let altWine
       let altWinePrefix
@@ -79,7 +80,8 @@ const launchGame = async (appName) => {
         settingsName = 'defaultSettings'
       }
     
-    
+      // TODO: use wrapper for proton instead of wine binary
+      // TODO: set wineprefix to be STEAM_COMPAT_DATA_PATH instead of wineprefix
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions } = settings[settingsName]
     
@@ -97,8 +99,9 @@ const launchGame = async (appName) => {
       const prefix = altWinePrefix ? `--wine-prefix ${altWinePrefix}` : ""
       const command = `${envVars} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
     
-      return await execAsync(command)
+      return execAsync(command)
         .then(({ stderr }) => fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done'))
+        .catch(console.log)
 }
 
 const writeDefaultconfig = () => {
@@ -126,9 +129,8 @@ const writeDefaultconfig = () => {
   }
 }
 
-const writeGameconfig = async (game) => {
+const writeGameconfig = (game) => {
   const { wineVersion, winePrefix, otherOptions } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
-
   const config = {
     [game]: {
       wineVersion,
@@ -138,9 +140,9 @@ const writeGameconfig = async (game) => {
   }
 
   if (!fs.existsSync(`${heroicGamesConfigPath}${game}.json`)) {
-    await Promise.resolve(fs.writeFileSync(`${heroicGamesConfigPath}${game}.json`, JSON.stringify(config, null, 2), () => {
+    fs.writeFileSync(`${heroicGamesConfigPath}${game}.json`, JSON.stringify(config, null, 2), () => {
       return "done";
-    }));
+    });
   }
 }
     

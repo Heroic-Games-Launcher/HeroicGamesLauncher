@@ -636,7 +636,7 @@
   color: #FFA800;
   font-size: 25px;
   width: 170px;
-  height: 108px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -663,6 +663,7 @@
   font-size: 14px;
   line-height: 17px;
   color: #FFFFFF;
+  margin: 4px;
 }
 
 .linkTitle {

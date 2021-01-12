@@ -42,7 +42,9 @@ export default function GamePage() {
   const [uninstalling, setUninstalling] = useState(false);
   const [installPath, setInstallPath] = useState("default");
 
-  const isInstalling = Boolean(installing.filter((game) => game === appName).length)
+  const isInstalling = Boolean(
+    installing.filter((game) => game === appName).length
+  );
 
   const isPlaying = Boolean(playing.filter((game) => game === appName).length);
 
@@ -52,7 +54,7 @@ export default function GamePage() {
       setGameInfo(newInfo);
     };
     updateConfig();
-  }, [isInstalling, isPlaying, appName, uninstalling]);
+  }, [isInstalling, isPlaying, appName, uninstalling, playing]);
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -85,7 +87,7 @@ export default function GamePage() {
       extraInfo,
       developer,
     }: Game = gameInfo;
-    
+
     const sizeInMB = Math.floor(install_size / 1024 / 1024);
     const protonDBurl = `https://www.protondb.com/search?q=${title}`;
 
@@ -93,131 +95,147 @@ export default function GamePage() {
       <>
         <Header renderBackButton />
         <div className="gameConfigContainer">
-          {
-            title ? 
+          {title ? (
             <>
-            <span className="material-icons is-secondary dots">
-            more_vertical
-          </span>
-          <div className="more">
-            {isInstalled && <Link className="hidden link" to={{
-               pathname: `/settings/${appName}`
-            }}>
-              Settings
-            </Link>}
-            <span
-              onClick={() => createNewWindow(formatStoreUrl(title))}
-              className="hidden link"
-              >
-              Epic Games
-            </span>
-            <span
-              onClick={() => createNewWindow(protonDBurl)}
-              className="hidden link"
-              >
-              Check Compatibility
-            </span>
-          </div>
-          <div className="gameConfig">
-            <img alt="cover-art" src={art_square} className="gameImg" />
-            <div className="gameInfo">
-              <div className="title">{title}</div>
-              <div className="infoWrapper">
-                <div className="developer">{developer}</div>
-                <div className="summary">{ extraInfo ? extraInfo.summary : ''}</div>
+              <span className="material-icons is-secondary dots">
+                more_vertical
+              </span>
+              <div className="more">
                 {isInstalled && (
-                  <>
-                    <div>Executable: {executable}</div>
-                    <div>Size: {sizeInMB}MB</div>
-                    <div>Version: {version}</div>
-                    <div
-                      className="clickable"
-                      onClick={() =>
-                        ipcRenderer.send("openFolder", install_path)
-                      }
-                      >
-                      Location: {install_path} (Click to Open Location)
-                    </div>
-                    <br />
-                  </>
-                )}
-              </div>
-              <div className="gameStatus">
-                {isInstalling && (
-                  <progress
-                  className="installProgress"
-                  max={100}
-                  value={progress}
-                  />
-                  )}
-                <p
-                  style={{
-                    fontStyle: "italic",
-                    color: isInstalled || isInstalling ? "#0BD58C" : "#BD0A0A",
-                  }}
+                  <Link
+                    className="hidden link"
+                    to={{
+                      pathname: `/settings/${appName}`,
+                    }}
                   >
-                  {isInstalling
-                    ? `Installing ${progress}%`
-                    : isInstalled
-                    ? "Installed"
-                    : "This game is not installed"}
-                </p>
-              </div>
-              {!isInstalled && (
-                <select
-                onChange={(event) => setInstallPath(event.target.value)}
-                value={installPath}
-                className="settingSelect"
+                    Settings
+                  </Link>
+                )}
+                <span
+                  onClick={() => createNewWindow(formatStoreUrl(title))}
+                  className="hidden link"
                 >
-                  <option value={"default"}>Install on default Path</option>
-                  <option value={"another"}>Install on another Path</option>
-                  <option value={"import"}>Import Game</option>
-                </select>
-              )}
-              <div className="buttonsWrapper">
-                {isInstalled && (
-                  <>
-                    <div
-                      onClick={handlePlay()}
-                      className={`button ${
-                        isPlaying ? "is-tertiary" : "is-success"
-                      }`}
-                      >
-                      {isPlaying ? "Playing (Stop)" : "Play Now"}
-                    </div>
-                  </>
-                )}
-                <button
-                  onClick={handleInstall(isInstalled)}
-                  disabled={isPlaying}
-                  className={`button ${
-                    isInstalled
-                    ? "is-danger"
-                    : isInstalling
-                    ? "is-danger"
-                    : "is-primary"
-                  }`}
-                  >
-                  {`${
-                    isInstalled
-                    ? "Uninstall"
-                    : isInstalling
-                    ? `Cancel`
-                    : "Install"
-                  }`}
-                </button>
+                  Epic Games
+                </span>
+                <span
+                  onClick={() => createNewWindow(protonDBurl)}
+                  className="hidden link"
+                >
+                  Check Compatibility
+                </span>
+              {isInstalled && <span
+                  onClick={() => ipcRenderer.send('getLog', appName)}
+                  className="hidden link"
+                >
+                  Latest Log
+                </span>}
               </div>
-            </div>
-            </div> </>: <Update />
-      }
-          </div>
-        </>
-        );
-      }
-      return null;
-      
-      function handlePlay():
-      | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
+              <div className="gameConfig">
+                <img alt="cover-art" src={art_square} className="gameImg" />
+                <div className="gameInfo">
+                  <div className="title">{title}</div>
+                  <div className="infoWrapper">
+                    <div className="developer">{developer}</div>
+                    <div className="summary">
+                      {extraInfo ? extraInfo.summary : ""}
+                    </div>
+                    {isInstalled && (
+                      <>
+                        <div>Executable: {executable}</div>
+                        <div>Size: {sizeInMB}MB</div>
+                        <div>Version: {version}</div>
+                        <div
+                          className="clickable"
+                          onClick={() =>
+                            ipcRenderer.send("openFolder", install_path)
+                          }
+                        >
+                          Location: {install_path} (Click to Open Location)
+                        </div>
+                        <br />
+                      </>
+                    )}
+                  </div>
+                  <div className="gameStatus">
+                    {isInstalling && (
+                      <progress
+                        className="installProgress"
+                        max={100}
+                        value={progress}
+                      />
+                    )}
+                    <p
+                      style={{
+                        fontStyle: "italic",
+                        color:
+                          isInstalled || isInstalling ? "#0BD58C" : "#BD0A0A",
+                      }}
+                    >
+                      {isInstalling
+                        ? progress !== '100' && `Installing ${progress}%`
+                        : isInstalled
+                        ? "Installed"
+                        : "This game is not installed"}
+                    </p>
+                  </div>
+                  {!isInstalled && (
+                    <select
+                      onChange={(event) => setInstallPath(event.target.value)}
+                      value={installPath}
+                      className="settingSelect"
+                    >
+                      <option value={"default"}>Install on default Path</option>
+                      <option value={"another"}>Install on another Path</option>
+                      <option value={"import"}>Import Game</option>
+                    </select>
+                  )}
+                  <div className="buttonsWrapper">
+                    {isInstalled && (
+                      <>
+                        <div
+                          onClick={handlePlay()}
+                          className={`button ${
+                            isPlaying ? "is-tertiary" : "is-success"
+                          }`}
+                        >
+                          {isPlaying ? "Playing (Stop)" : "Play Now"}
+                        </div>
+                      </>
+                    )}
+                    <button
+                      onClick={handleInstall(isInstalled)}
+                      disabled={isPlaying}
+                      className={`button ${
+                        isInstalled
+                          ? "is-danger"
+                          : isInstalling
+                          ? "is-danger"
+                          : "is-primary"
+                      }`}
+                    >
+                      {`${
+                        isInstalled
+                          ? "Uninstall"
+                          : isInstalling
+                          ? `Cancel`
+                          : "Install"
+                      }`}
+                    </button>
+                  </div>
+                </div>
+              </div>{" "}
+            </>
+          ) : (
+            <Update />
+          )}
+        </div>
+      </>
+    );
+  }
+  return null;
+
+  function handlePlay():
+    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
     | undefined {
     return async () => {
       if (isPlaying) {
@@ -225,15 +243,14 @@ export default function GamePage() {
       }
 
       handlePlaying(appName);
-      await launch(appName);
-      handlePlaying(appName);
+      await launch(appName)
+      return handlePlaying(appName);
     };
   }
 
   function handleInstall(isInstalled: boolean): any {
     return async () => {
       if (isInstalling) {
-        handleInstalling(appName);
         return sendKill(appName);
       }
 
@@ -241,7 +258,7 @@ export default function GamePage() {
         setUninstalling(true);
         await legendary(`uninstall ${appName}`);
         setUninstalling(false);
-        return refresh()
+        return refresh();
       }
 
       if (installPath === "default") {

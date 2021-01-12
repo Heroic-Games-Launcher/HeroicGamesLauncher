@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -42,10 +42,16 @@
       ]
     },
     "deb": {
-      "packageCategory": "games"
+      "packageCategory": "games",
+      "depends": ["gawk", "gconf2", "gconf-service", "libnotify4", "libappindicator1", "libxtst6", "libnss3"]
     },
     "pacman": {
-      "packageCategory": "games"
+      "packageCategory": "games",
+      "depends": ["gawk"]
+    },
+    "rpm": {
+      "packageCategory": "games",
+      "depends": ["gawk"]
     }
   },
   "dependencies": {
@@ -73,7 +79,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage rpm deb pacman tar.xz"
+    "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage deb pacman rpm tar.xz"
   },
   "eslintConfig": {
     "extends": [

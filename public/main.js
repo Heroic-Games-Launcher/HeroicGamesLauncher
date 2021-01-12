@@ -122,8 +122,8 @@ ipcMain.handle("getGameInfo", async (event, game) => {
   return response.data[0];
 });
 
-ipcMain.handle("launch", async (event, appName) => {
-  return launchGame(appName);
+ipcMain.handle("launch", (event, appName) => {
+  return launchGame(appName).catch(console.log)
 });
 
 ipcMain.handle("legendary", async (event, args) => {
@@ -237,6 +237,8 @@ ipcMain.on("requestSettings", (event, appName) => {
 ipcMain.handle("isLoggedIn", () => isLoggedIn());
 
 ipcMain.on("openLoginPage", () => spawn("xdg-open", [loginUrl]));
+
+ipcMain.on("getLog", (event, appName) => spawn("xdg-open", [`${heroicGamesConfigPath}/${appName}-lastPlay.log`]));
 
 ipcMain.handle("readFile", async (event, file) => {
   const loggedIn = isLoggedIn();
