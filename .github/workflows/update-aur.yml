@@ -1,0 +1,19 @@
+name: AUR Publish
+
+on:
+  push:
+    branches: [main]
+  
+  workflow_dispatch:
+
+jobs:
+  aur-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish AUR package
+        uses: ATiltedTree/create-aur-release@v1
+        with:
+          package_name: heroic-games-launcher-bin
+          commit_username: "flaviofearn"
+          commit_email: flavioislima@gmail.com
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
