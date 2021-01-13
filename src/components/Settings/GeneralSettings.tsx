@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Path } from "../../types";
 const {
+  ipcRenderer,
   remote: { dialog },
 } = window.require("electron");
 
@@ -17,6 +18,18 @@ export default function GeneralSettings({
   egsPath,
   setEgsPath,
 }: Props) {
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  async function handleSync() {
+    setIsSyncing(true);
+    await ipcRenderer
+      .invoke("egsSync", egsPath)
+      .then((res: string) =>
+        dialog.showMessageBox({ title: "EGS Sync", message: res })
+      );
+    setIsSyncing(false);
+  }
+
   return (
     <>
       <span className="setting">
@@ -46,25 +59,24 @@ export default function GeneralSettings({
             create_new_folder
           </span>
         </span>
-        </span>
-        <span className="setting">
-          <span className="settingText">
-            Sync with Installed Epic Games
-          </span>
-          <span>
-            <input
-              type="text"
-              placeholder={"Choose the Epic Games Folder"}
-              className="settingSelect small"
-              value={egsPath}
-              onChange={(event) => setEgsPath(event.target.value)}
-            />
+      </span>
+      <span className="setting">
+        <span className="settingText">Sync with Installed Epic Games</span>
+        <span>
+          <input
+            type="text"
+            placeholder={"Prefix where EGS is installed"}
+            className="settingSelect small"
+            value={egsPath}
+            onChange={(event) => setEgsPath(event.target.value)}
+          />
+          {!Boolean(egsPath.length) ? (
             <span
               className="material-icons settings folder"
               onClick={() =>
                 dialog
                   .showOpenDialog({
-                    title: "Choose EGS Path",
+                    title: "Choose Prefix where EGS is installed",
                     buttonLabel: "Choose",
                     properties: ["openDirectory"],
                   })
@@ -75,8 +87,26 @@ export default function GeneralSettings({
             >
               folder_open
             </span>
-          </span>
+          ) : (
+            <span
+              className="material-icons settings folder"
+              onClick={() => setEgsPath("")}
+              style={{ color: "#1D1F1F" }}
+            >
+              backspace
+            </span>
+          )}
+          <button
+            onClick={() => handleSync()}
+            disabled={isSyncing || !Boolean(egsPath.length)}
+            className={`button is-small ${
+              isSyncing ? "is-primary" : "settings"
+            }`}
+          >
+            {`${isSyncing ? "Syncing" : "Sync"}`}
+          </button>
         </span>
+      </span>
     </>
   );
 }

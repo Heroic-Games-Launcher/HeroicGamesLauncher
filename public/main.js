@@ -329,6 +329,12 @@ ipcMain.handle("readFile", async (event, file) => {
   return files[file];
 });
 
+ipcMain.handle('egsSync', async (event, args) => {
+  const { stderr, stdout } = await execAsync(`${legendaryBin} egl-sync --enable-sync --egl-wine-prefix ${args} -y`)
+  console.log(`${stdout} - ${stderr}`)
+  return `${stdout} - ${stderr}`
+})
+
 ipcMain.on("showAboutWindow", () => {
   app.setAboutPanelOptions({
     applicationName: "Heroic Games Launcher",

@@ -284,7 +284,7 @@
 }
 
 .settingSelect.small {
-  width: 360px;
+  width: 372px;
 }
 
 .settingSelect > option {
@@ -549,9 +549,14 @@
   border: none;
   outline: none;
   min-width: 170px;
+  max-height: 40px;
   text-align: center;
   transition: 500ms;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.button.is-small {
+  min-width: 130px;
 }
 
 .button:hover {
@@ -617,12 +622,17 @@
 }
 
 .button.settings {
-  margin-left: 12px;
+  margin-left: -12px;
   background: #C1C4C3
 }
 
 .button.settings:hover {
-  background: #EAE8E5
+  background: #7c7c7c
+}
+
+.button.settings:disabled:hover,
+.button.settings:disabled {
+  background: #7c7c7c;
 }
 
 .button.login{
