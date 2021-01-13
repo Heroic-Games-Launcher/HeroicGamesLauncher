@@ -159,28 +159,30 @@ ipcMain.handle("legendary", async (event, args) => {
 
 ipcMain.handle("install", async (event, args) => {
   const { appName: game, path } = args;
-  const logPath = `${legendaryConfigPath}/${game}.log`;
+  const logPath = `${heroicGamesConfigPath}${game}.log`;
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
-
   if (path === "default") {
     const { defaultInstallPath } = JSON.parse(
       fs.readFileSync(heroicConfigPath)
     ).defaultSettings;
-    command = `${legendaryBin} install ${game} --base-path '${defaultInstallPath}' -y &> ${logPath}`;
+    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y &> ${logPath}`;
   }
-
-  await execAsync(command).catch(() => "error");
+  console.log(`Installing ${game} with:`, command);
+  await execAsync(command)
+    .then(console.log)
+    .catch(console.log);
 });
 
 ipcMain.handle("importGame", async (event, args) => {
   const { appName: game, path } = args;
   const command = `${legendaryBin} import-game ${game} '${path}'`;
-
-  await execAsync(command);
+  const {stderr, stdout} =  await execAsync(command);
+  console.log(`${stdout} - ${stderr}`);
+  return
 });
 
 ipcMain.on("requestGameProgress", (event, game) => {
-  const logPath = `${legendaryConfigPath}/${game}.log`;
+  const logPath = `${heroicGamesConfigPath}${game}.log`;
   exec(
     `tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`,
     (error, stdout, stderr) => {
@@ -189,6 +191,7 @@ ipcMain.on("requestGameProgress", (event, game) => {
       if (progress === "100") {
         return event.reply("requestedOutput", "100");
       }
+      console.log(`Install Progress: ${progress}%`);
       event.reply("requestedOutput", progress);
     }
   );
