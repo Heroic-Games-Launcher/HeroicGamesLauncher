@@ -102,13 +102,18 @@ const launchGame = async (appName) => {
         dxvkPrefix = winePrefix
         altWinePrefix = isProton ? "" : `--wine-prefix ${winePrefix}`
       }
+      
+      // Install DXVK for non Proton Prefixes
+      if (!isProton) {
+        await installDxvk(dxvkPrefix)
+      }
     
       if (wineVersion.name !== "Wine Default") {
         const { bin } = wineVersion
         altWine = isProton ?  `--no-wine --wrapper "${bin} run"` : `--wine ${bin}`
       }
 
-      await installDxvk(dxvkPrefix)
+      
 
       // check if Gamemode is installed
       await execAsync(`which gamemoderun`)
@@ -215,13 +220,13 @@ async function getLatestDxvk() {
     .catch(() =>  console.log('Error when downloading DXVK'))
 }
 
-async function installDxvk(prefix, wine) {
+async function installDxvk(prefix) {
   if (!prefix){
     return
   }
 
   const globalVersion = fs.readFileSync(`${heroicToolsPath}/latest_dxvk`).toString().split('\n')[0].replace('.tar.gz', '')
-  const currentVersionCheck = `${prefix}/current_dxvk`
+  const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
   let currentVersion = ""
 
   if (fs.existsSync(currentVersionCheck)){
@@ -234,12 +239,11 @@ async function installDxvk(prefix, wine) {
 
   const dxvkPath = `${heroicToolsPath}/${globalVersion}/`
   const installCommand = `WINEPREFIX=${prefix} sh ${dxvkPath}setup_dxvk.sh install`
-  const echoCommand = `echo ${currentVersion} > ${prefix}/current_dxvk`
-  
+  const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${prefix}`, installCommand);
+  await execAsync(`WINEPREFIX=${prefix} wineboot`)
   await execAsync(installCommand)
     .then(() => exec(echoCommand))
-
 }
 
 module.exports = {
