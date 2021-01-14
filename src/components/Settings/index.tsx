@@ -2,7 +2,7 @@ import { IpcRendererEvent } from "electron";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from 'react-router-dom';
 import { writeConfig } from "../../helper";
-import { WineProps } from '../../types';
+import { AppSettings, WineProps } from '../../types';
 import Header from "../UI/Header";
 import GeneralSettings from './GeneralSettings';
 import OtherSettings from './OtherSettings';
@@ -18,13 +18,6 @@ interface RouteParams {
   type: string;
 }
 
-interface AltSettings {
-  wineVersion: WineProps;
-  winePrefix: string;
-  otherOptions: string;
-  defaultInstallPath: string;
-}
-
 // TODO: add option to add Custom wine
 // TODO: add feedback when launching winecfg and winetricks
 // TODO: Sync saves with installed EGS
@@ -37,7 +30,10 @@ export default function Settings() {
   const [winePrefix, setWinePrefix] = useState("~/.wine");
   const [defaultInstallPath, setDefaultInstallPath] = useState("");
   const [otherOptions, setOtherOptions] = useState("");
-  const [egsPath, setEgsPath] = useState("");
+  const [egsLinkedPath, setEgsLinkedPath] = useState("")
+  const [egsPath, setEgsPath] = useState(egsLinkedPath);
+  const [useGameMode, setUseGameMode] = useState(false);
+  const [showFps, setShowFps] = useState(false);
   const [altWine, setAltWine] = useState([] as WineProps[]);
 
   const { appName, type } = useParams() as RouteParams;
@@ -52,11 +48,16 @@ export default function Settings() {
     ipcRenderer.send("requestSettings", appName);
     ipcRenderer.once(
       settings,
-      (event: IpcRendererEvent, config: AltSettings) => {
+      (event: IpcRendererEvent, config: AppSettings) => {
+        setUseGameMode(config.useGameMode || false);
+        setShowFps(config.showFps || false);
         setDefaultInstallPath(config.defaultInstallPath);
         setWineversion(config.wineVersion);
         setWinePrefix(config.winePrefix);
         setOtherOptions(config.otherOptions);
+        setEgsLinkedPath(config.egsLinkedPath || "")
+        setEgsPath(config.egsLinkedPath || "")
+        
         ipcRenderer.send("getAlternativeWine");
         ipcRenderer.on(
           "alternativeWine",
@@ -72,6 +73,9 @@ export default function Settings() {
           wineVersion,
           winePrefix,
           otherOptions,
+          useGameMode,
+          egsLinkedPath,
+          showFps
         },
     }
 
@@ -80,6 +84,8 @@ export default function Settings() {
         wineVersion,
         winePrefix,
         otherOptions,
+        useGameMode,
+        showFps
       },
     }
 
@@ -87,7 +93,8 @@ export default function Settings() {
 
     useEffect(() => {
       writeConfig([appName, settingsToSave])
-    }, [winePrefix, defaultInstallPath, altWine, otherOptions, appName, settingsToSave])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [GlobalSettings, GameSettings, appName])
   
     return (
     <>
@@ -95,17 +102,14 @@ export default function Settings() {
       <div className="Settings">
         <div className='settingsNavbar'>
           {isDefault && 
-            <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
-              pathname: '/settings/default/general'
-            }}>General
+          <NavLink to={{ pathname: '/settings/default/general' }}>
+              General
           </NavLink>}
-          <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
-              pathname: `/settings/${appName}/wine`
-            }}>Wine
+          <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
+            Wine
           </NavLink>
-          <NavLink activeStyle={{ color: '#07C5EF', fontWeight: 500 }} to={{  
-              pathname: `/settings/${appName}/other`
-            }}>Other
+          <NavLink to={{ pathname: `/settings/${appName}/other`}}>
+            Other
           </NavLink>
         </div>
         <div className="settingsWrapper">
@@ -113,6 +117,8 @@ export default function Settings() {
             <GeneralSettings 
               egsPath={egsPath} 
               setEgsPath={setEgsPath} 
+              egsLinkedPath={egsLinkedPath}
+              setEgsLinkedPath={setEgsLinkedPath}
               defaultInstallPath={defaultInstallPath} 
               setDefaultInstallPath={setDefaultInstallPath}
             />          
@@ -129,17 +135,19 @@ export default function Settings() {
           <OtherSettings 
             otherOptions={otherOptions} 
             setOtherOptions={setOtherOptions} 
+            useGameMode={useGameMode}
+            setUseGameMode={setUseGameMode}
+            showFps={showFps}
+            setShowFps={setShowFps}
           />}
           {isWineSettings && 
           <Tools 
             winePrefix={winePrefix}
             wineVersion={wineVersion}
           />}
-          <div className="save">
-          <span style={ {color: '#0BD58C', opacity: 1 }}>
+          <span className="save">
               Settings are saved automatically
           </span>
-          </div>
         </div>
       </div>
     </>

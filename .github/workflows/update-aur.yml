@@ -2,7 +2,8 @@ name: AUR Publish
 
 on:
   push:
-    branches: [main]
+    tags:
+      - "v*"
   
   workflow_dispatch:
 

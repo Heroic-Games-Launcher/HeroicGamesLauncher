@@ -1,21 +1,34 @@
 import React from "react";
-import { Path } from '../../types';
-
-const {
-  remote: { dialog }
-} = window.require("electron");
+import ToggleSwitch from '../UI/ToggleSwitch';
 
 interface Props {
   otherOptions: string
   setOtherOptions: (value: string) => void
+  useGameMode: boolean
+  setUseGameMode: (value: boolean) => void
+  showFps: boolean
+  setShowFps: (value: boolean) => void
 }
 
-export default function OtherSettings({otherOptions, setOtherOptions}: Props) {
+export default function OtherSettings({otherOptions, setOtherOptions, useGameMode, setUseGameMode, showFps, setShowFps}: Props) {
+  
   return (
     <>
       <span className="setting">
+        <span className="toggleWrapper">
+          Show FPS (DXVK_HUD=fps)
+          <ToggleSwitch value={showFps} handleChange={() => setShowFps(!showFps)} /> 
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          Use GameMode (Feral Game Mode needs to be installed)
+          <ToggleSwitch value={useGameMode} handleChange={() => setUseGameMode(!useGameMode)} /> 
+        </span>
+      </span>
+      <span className="setting">
         <span className="settingText">
-          Other Launch Options (e.g: MANGOHUD=1 PULSE_LATENCY_MSEC=60)
+          Advanced Options (Enviroment Variables):
         </span>
         <span>
           <input

@@ -11,6 +11,7 @@ const {
   userInfo,
   writeDefaultconfig,
   writeGameconfig,
+  getLatestDxvk,
 } = require("./utils");
 
 const { spawn, exec } = require("child_process");
@@ -50,6 +51,8 @@ function createWindow() {
       default: installExtension,
       REACT_DEVELOPER_TOOLS,
     } = require("electron-devtools-installer");
+
+    getLatestDxvk()
 
     installExtension(REACT_DEVELOPER_TOOLS)
       .catch((err) => {
@@ -107,18 +110,21 @@ ipcMain.handle("writeFile", (event, args) => {
 
 ipcMain.handle("getGameInfo", async (event, game) => {
   const auth = require("./secrets");
-  const response = await axios({
-    url: "https://api.igdb.com/v4/games",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Client-ID": "h52yjk7lp1afrxg3asmpskskmb9b20",
-      Authorization: auth,
-    },
-    data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`,
-  });
-
-  return response.data[0];
+  try { 
+    const response = await axios({
+      url: "https://api.igdb.com/v4/games",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Client-ID": "h52yjk7lp1afrxg3asmpskskmb9b20",
+        Authorization: auth,
+      },
+      data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`,
+    });
+    return response.data[0];
+  } catch (error) {
+    return {}
+  }
 });
 
 ipcMain.handle("launch", (event, appName) => {
@@ -187,10 +193,6 @@ ipcMain.on("requestGameProgress", (event, game) => {
     `tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`,
     (error, stdout, stderr) => {
       const progress = stdout.split("\n")[0].replace("%", "");
-
-      if (progress === "100") {
-        return event.reply("requestedOutput", "100");
-      }
       console.log(`Install Progress: ${progress}%`);
       event.reply("requestedOutput", progress);
     }
@@ -333,7 +335,12 @@ ipcMain.handle("readFile", async (event, file) => {
 });
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const { stderr, stdout } = await execAsync(`${legendaryBin} egl-sync --enable-sync --egl-wine-prefix ${args} -y`)
+  const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
+  const unlinkArgs = `--unlink`
+  const isLink = args !== 'unlink'
+  const command = isLink ? linkArgs : unlinkArgs
+
+  const { stderr, stdout } = await execAsync(`${legendaryBin} egl-sync ${command} -y`)
   console.log(`${stdout} - ${stderr}`)
   return `${stdout} - ${stderr}`
 })

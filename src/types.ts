@@ -4,6 +4,16 @@ interface ExtraInfo {
   ratings: number
 }
 
+export interface AppSettings {
+  wineVersion: WineProps;
+  winePrefix: string;
+  otherOptions: string;
+  useGameMode: boolean;
+  showFps: boolean;
+  egsLinkedPath: string;
+  defaultInstallPath: string;
+}
+
 export interface Game {
   art_cover: string,
   art_square: string,

@@ -10,6 +10,8 @@ interface Props {
   setDefaultInstallPath: (value: string) => void;
   egsPath: string;
   setEgsPath: (value: string) => void;
+  egsLinkedPath: string;
+  setEgsLinkedPath: (value: string) => void
 }
 
 export default function GeneralSettings({
@@ -17,16 +19,32 @@ export default function GeneralSettings({
   setDefaultInstallPath,
   egsPath,
   setEgsPath,
+  egsLinkedPath,
+  setEgsLinkedPath
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false);
 
+  const isLinked = Boolean(egsLinkedPath.length)
+  
   async function handleSync() {
     setIsSyncing(true);
+    if (isLinked){
+      await ipcRenderer
+      .invoke("egsSync", 'unlink')
+      .then((res: string) =>
+        dialog.showMessageBox({ title: "EGS Sync", message: res })
+      );
+      setEgsLinkedPath("")
+      setEgsPath("")
+      return setIsSyncing(false);  
+    }
+    
     await ipcRenderer
       .invoke("egsSync", egsPath)
       .then((res: string) =>
         dialog.showMessageBox({ title: "EGS Sync", message: res })
       );
+    setEgsLinkedPath(egsPath)
     setIsSyncing(false);
   }
 
@@ -67,13 +85,15 @@ export default function GeneralSettings({
             type="text"
             placeholder={"Prefix where EGS is installed"}
             className="settingSelect small"
-            value={egsPath}
+            value={egsPath || egsLinkedPath}
+            disabled={isLinked}
             onChange={(event) => setEgsPath(event.target.value)}
           />
           {!Boolean(egsPath.length) ? (
             <span
               className="material-icons settings folder"
-              onClick={() =>
+              style={{color: isLinked ? 'transparent' : '#B0ABB6' }}
+              onClick={() => isLinked ? "" :
                 dialog
                   .showOpenDialog({
                     title: "Choose Prefix where EGS is installed",
@@ -85,13 +105,13 @@ export default function GeneralSettings({
                   )
               }
             >
-              folder_open
+              create_new_folder
             </span>
           ) : (
             <span
               className="material-icons settings folder"
-              onClick={() => setEgsPath("")}
-              style={{ color: "#1D1F1F" }}
+              onClick={() => isLinked ? "" : setEgsPath("")}
+              style={ isLinked ? { pointerEvents: 'none', color: 'transparent' } : {color: '#B0ABB6' }}
             >
               backspace
             </span>
@@ -100,10 +120,10 @@ export default function GeneralSettings({
             onClick={() => handleSync()}
             disabled={isSyncing || !Boolean(egsPath.length)}
             className={`button is-small ${
-              isSyncing ? "is-primary" : "settings"
+              isLinked ? 'is-danger' : isSyncing ? "is-primary" : "settings"
             }`}
           >
-            {`${isSyncing ? "Syncing" : "Sync"}`}
+            {`${ isLinked ? "Unsync" : isSyncing ? "Syncing" : "Sync"}`}
           </button>
         </span>
       </span>

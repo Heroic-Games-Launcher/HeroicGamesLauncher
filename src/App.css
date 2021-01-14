@@ -85,11 +85,9 @@
   top: 17px;
   width: 174px;
   height: 39px;
-  background: #1A1B1C;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
   border-radius: 10px;
   margin: auto;
-  transition: 150ms;
+  transition: 250ms;
   text-align: center;
 }
 
@@ -109,12 +107,14 @@
   display: block;
   color: #EAE8E5;
   cursor: pointer;
-  transition: 75ms;
+  transition: 150ms;
   opacity: 0;
 }
 
 .UserSelector:hover {
   height: 112px;
+  background: #1A1B1C;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
 }
 
 .UserSelector:hover  > .hidden {
@@ -239,8 +239,15 @@
   padding-bottom: 18px;
 }
 
+.settingsNavbar > a.active {
+  transition: all 350ms ease-out 0s;
+  transform: scale(1.2);
+  color: #07C5EF;
+  font-weight: 500;
+}
+
 .settingsWrapper {
-  width: fit-content;
+  width: 575px;
   align-self: center;
   display: flex;
   flex-direction: column;
@@ -255,6 +262,22 @@
   display: grid;
   place-items: baseline;
   margin: 16px;
+}
+
+.setting > .toggleWrapper {
+  display: grid;
+  grid-template-columns: 95% 5%;
+  place-self: center;
+  width: 512px;
+  justify-items: baseline;
+  align-items: center;
+  font-size: 16px;
+  line-height: 19px;
+  color: #EAE8E5;
+}
+
+.toggleWrapper > .switch {
+  transform: scale(1.5);
 }
 
 .settingText {
@@ -297,11 +320,18 @@
 }
 
 .save {
-  align-self: center;
-  margin-top: 48px;
+  margin: 48px 0 0 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #5A5E5F;
+
 }
 
 .save > .material-icons {

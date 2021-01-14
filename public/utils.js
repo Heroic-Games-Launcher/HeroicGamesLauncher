@@ -6,12 +6,14 @@ const execAsync = promisify(exec);
 const { fixPathForAsarUnpack } = require("electron-util");
 const path = require('path')
 const { showErrorBox } = require('electron').dialog
+const axios = require('axios')
 
 const home = homedir();
 const legendaryConfigPath = `${home}/.config/legendary`;
 const heroicFolder = `${home}/.config/heroic/`;
 const heroicConfigPath = `${heroicFolder}config.json`;
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
+const heroicToolsPath = `${heroicFolder}Tools/DXVK`
 const userInfo = `${legendaryConfigPath}/user.json`;
 const heroicInstallPath = `${home}/Games/Heroic`;
 const legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
@@ -67,10 +69,12 @@ const getAlternativeWine = () => {
 
 const isLoggedIn = () => fs.existsSync(userInfo);
 
-const launchGame = (appName) => {
+const launchGame = async (appName) => {
       let envVars = ""
       let altWine
       let altWinePrefix
+      let gameMode
+      let dxvkPrefix = `${home}/.wine`
 
       const gameConfig = `${heroicGamesConfigPath}${appName}.json`
       const globalConfig = heroicConfigPath
@@ -83,7 +87,7 @@ const launchGame = (appName) => {
       }
     
       const settings = JSON.parse(fs.readFileSync(settingsPath))
-      const { winePrefix, wineVersion, otherOptions } = settings[settingsName]
+      const { winePrefix, wineVersion, otherOptions, useGameMode, showFps } = settings[settingsName]
     
       envVars = otherOptions
       const isProton = wineVersion.name.startsWith('Steam')
@@ -95,6 +99,7 @@ const launchGame = (appName) => {
         if (isProton){
           envVars = `${otherOptions} STEAM_COMPAT_DATA_PATH=${winePrefix}`
         }
+        dxvkPrefix = winePrefix
         altWinePrefix = isProton ? "" : `--wine-prefix ${winePrefix}`
       }
     
@@ -103,7 +108,17 @@ const launchGame = (appName) => {
         altWine = isProton ?  `--no-wine --wrapper "${bin} run"` : `--wine ${bin}`
       }
 
-      const command = `${envVars} ${legendaryBin} launch ${appName} ${altWine} ${altWinePrefix}`
+      await installDxvk(dxvkPrefix)
+
+      // check if Gamemode is installed
+      await execAsync(`which gamemoderun`)
+        .then(({stdout}) => gameMode = stdout.split('\n')[0])
+        .catch(() => console.log('GameMode not installed'))
+      
+      const runWithGameMode = (useGameMode && gameMode) ? gameMode : ''
+      const dxvkFps = showFps ? 'DXVK_HUD=fps'  : ''
+
+      const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${altWine} ${altWinePrefix}`
       console.log('Launch Command: ', command);
     
       return execAsync(command)
@@ -128,7 +143,8 @@ const writeDefaultconfig = () => {
         bin: "/usr/bin/wine"
       },
       winePrefix: "~/.wine",
-      otherOptions: ""
+      otherOptions: "",
+      useGameMode: false
     }
   }
   if (!fs.existsSync(heroicConfigPath)) {
@@ -145,12 +161,13 @@ const writeDefaultconfig = () => {
 }
 
 const writeGameconfig = (game) => {
-  const { wineVersion, winePrefix, otherOptions } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
+  const { wineVersion, winePrefix, otherOptions, useGameMode } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
   const config = {
     [game]: {
       wineVersion,
       winePrefix,
-      otherOptions
+      otherOptions,
+      useGameMode
     }
   }
 
@@ -161,6 +178,69 @@ const writeGameconfig = (game) => {
   }
 }
     
+async function getLatestDxvk() {
+  const { data: { assets } } = await axios.get("https://api.github.com/repos/lutris/dxvk/releases/latest")
+  const current = assets[0]
+  const name = current.name
+  const downloadUrl = current.browser_download_url
+
+  const dxvkLatest = `${heroicToolsPath}/${name}`
+  const pastVersionCheck = `${heroicToolsPath}/latest_dxvk`
+  let pastVersion = ""
+
+  if (fs.existsSync(pastVersionCheck)){
+    pastVersion = fs.readFileSync(pastVersionCheck).toString().split('\n')[0]
+  }
+
+  if (pastVersion === name) {
+    return
+  }
+  
+  const downloadCommand = `curl -L ${downloadUrl} -o ${dxvkLatest} --create-dirs`
+  const extractCommand = `tar -zxf ${dxvkLatest} -C ${heroicToolsPath}`
+  const echoCommand = `echo ${name} > ${heroicToolsPath}/latest_dxvk`
+  const cleanCommand = `rm ${dxvkLatest}`
+
+  console.log('Updating DXVK to:', name);
+
+  return execAsync(downloadCommand)
+    .then(async () => {
+      console.log('downloaded DXVK');
+      console.log('extracting DXVK');
+      exec(echoCommand)
+      await execAsync(extractCommand)
+      console.log('DXVK updated!');
+      exec(cleanCommand)
+    })
+    .catch(() =>  console.log('Error when downloading DXVK'))
+}
+
+async function installDxvk(prefix, wine) {
+  if (!prefix){
+    return
+  }
+
+  const globalVersion = fs.readFileSync(`${heroicToolsPath}/latest_dxvk`).toString().split('\n')[0].replace('.tar.gz', '')
+  const currentVersionCheck = `${prefix}/current_dxvk`
+  let currentVersion = ""
+
+  if (fs.existsSync(currentVersionCheck)){
+    currentVersion = fs.readFileSync(currentVersionCheck).toString().split('\n')[0]
+  }
+
+  if (currentVersion === globalVersion) {
+    return
+  }
+
+  const dxvkPath = `${heroicToolsPath}/${globalVersion}/`
+  const installCommand = `WINEPREFIX=${prefix} sh ${dxvkPath}setup_dxvk.sh install`
+  const echoCommand = `echo ${currentVersion} > ${prefix}/current_dxvk`
+  
+  console.log(`installing DXVK on ${prefix}`, installCommand);
+  await execAsync(installCommand)
+    .then(() => exec(echoCommand))
+
+}
 
 module.exports = {
   getAlternativeWine,
@@ -169,6 +249,8 @@ module.exports = {
   writeDefaultconfig,
   writeGameconfig,
   userInfo,
+  getLatestDxvk,
+  installDxvk,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
