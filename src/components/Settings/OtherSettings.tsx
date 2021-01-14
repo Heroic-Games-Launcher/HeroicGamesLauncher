@@ -1,6 +1,7 @@
 import React from "react";
 import ToggleSwitch from '../UI/ToggleSwitch';
 
+
 interface Props {
   otherOptions: string
   setOtherOptions: (value: string) => void
@@ -10,8 +11,15 @@ interface Props {
   setShowFps: (value: boolean) => void
 }
 
-export default function OtherSettings({otherOptions, setOtherOptions, useGameMode, setUseGameMode, showFps, setShowFps}: Props) {
-  
+export default function OtherSettings({
+  otherOptions, 
+  setOtherOptions, 
+  useGameMode, 
+  setUseGameMode, 
+  showFps, 
+  setShowFps
+}: Props) {
+
   return (
     <>
       <span className="setting">

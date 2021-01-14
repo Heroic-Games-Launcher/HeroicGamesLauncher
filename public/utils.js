@@ -261,5 +261,6 @@ module.exports = {
   legendaryConfigPath,
   legendaryBin,
   icon,
+  home,
   loginUrl
 }

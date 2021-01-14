@@ -6,6 +6,7 @@ import { AppSettings, WineProps } from '../../types';
 import Header from "../UI/Header";
 import GeneralSettings from './GeneralSettings';
 import OtherSettings from './OtherSettings';
+import SyncSaves from './SyncSaves';
 import Tools from './Tools';
 import WineSettings from './WineSettings';
 
@@ -32,6 +33,7 @@ export default function Settings() {
   const [otherOptions, setOtherOptions] = useState("");
   const [egsLinkedPath, setEgsLinkedPath] = useState("")
   const [egsPath, setEgsPath] = useState(egsLinkedPath);
+  const [savesPath, setSavesPath] = useState('');
   const [useGameMode, setUseGameMode] = useState(false);
   const [showFps, setShowFps] = useState(false);
   const [altWine, setAltWine] = useState([] as WineProps[]);
@@ -40,6 +42,7 @@ export default function Settings() {
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
   const isWineSettings = type === 'wine'
+  const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
 
   const settings = isDefault ? 'defaultSettings' : appName
@@ -57,6 +60,7 @@ export default function Settings() {
         setOtherOptions(config.otherOptions);
         setEgsLinkedPath(config.egsLinkedPath || "")
         setEgsPath(config.egsLinkedPath || "")
+        setSavesPath(config.savesPath || "")
         
         ipcRenderer.send("getAlternativeWine");
         ipcRenderer.on(
@@ -85,6 +89,7 @@ export default function Settings() {
         winePrefix,
         otherOptions,
         useGameMode,
+        savesPath,
         showFps
       },
     }
@@ -108,6 +113,10 @@ export default function Settings() {
           <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
             Wine
           </NavLink>
+          {!isDefault && 
+          <NavLink to={{ pathname: `/settings/${appName}/sync`}}>
+            Sync
+          </NavLink>}
           <NavLink to={{ pathname: `/settings/${appName}/other`}}>
             Other
           </NavLink>
@@ -140,6 +149,13 @@ export default function Settings() {
             showFps={showFps}
             setShowFps={setShowFps}
           />}
+          {isSyncSettings &&
+            <SyncSaves 
+              savesPath={savesPath}
+              setSavesPath={setSavesPath}
+              appName={appName}
+            />
+          }
           {isWineSettings && 
           <Tools 
             winePrefix={winePrefix}

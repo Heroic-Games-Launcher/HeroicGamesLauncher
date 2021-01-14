@@ -11,6 +11,7 @@ export interface AppSettings {
   useGameMode: boolean;
   showFps: boolean;
   egsLinkedPath: string;
+  savesPath: string;
   defaultInstallPath: string;
 }
 

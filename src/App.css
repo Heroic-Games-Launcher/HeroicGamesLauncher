@@ -264,6 +264,12 @@
   margin: 16px;
 }
 
+.setting.double {
+  margin: 0 16px;
+  align-content: space-between;
+  height: 156px;
+}
+
 .setting > .toggleWrapper {
   display: grid;
   grid-template-columns: 95% 5%;

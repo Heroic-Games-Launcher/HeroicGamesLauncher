@@ -12,6 +12,7 @@ const {
   writeDefaultconfig,
   writeGameconfig,
   getLatestDxvk,
+  home,
 } = require("./utils");
 
 const { spawn, exec } = require("child_process");
@@ -80,7 +81,6 @@ function createWindow() {
     win.setMenu(null);
   }
 }
-// TODO: Check the best way to Sync saves to implement soon
 
 // TODO: Update Legendary to latest version
 
@@ -341,6 +341,22 @@ ipcMain.handle('egsSync', async (event, args) => {
   const command = isLink ? linkArgs : unlinkArgs
 
   const { stderr, stdout } = await execAsync(`${legendaryBin} egl-sync ${command} -y`)
+  console.log(`${stdout} - ${stderr}`)
+  return `${stdout} - ${stderr}`
+})
+
+// TODO: Check the best way to Sync saves to implement soon
+ipcMain.handle('syncSaves', async (event, args) => {
+  const [arg, path, appName] = args
+  const command = `${legendaryBin} sync-saves --save-path ${path} ${arg} ${appName} -y`
+  const legendarySavesPath = `${home}/legendary/.saves`
+  
+  //workaround error when no .saves folder exists
+  if (!fs.existsSync(legendarySavesPath)){
+    fs.mkdirSync(legendarySavesPath, { recursive: true })
+  }
+
+  const { stderr, stdout } = await execAsync(command)
   console.log(`${stdout} - ${stderr}`)
   return `${stdout} - ${stderr}`
 })
