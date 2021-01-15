@@ -10,10 +10,6 @@ body {
   
 }
 
-body::-webkit-scrollbar {
-  display: none;
-}
-
 a {
   color: #E4DEEA;
   text-decoration: none;
