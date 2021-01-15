@@ -28,6 +28,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Header
+            goTo={""}
             renderBackButton={false}
             handleOnlyInstalled={handleOnlyInstalled}
             numberOfGames={numberOfGames}
