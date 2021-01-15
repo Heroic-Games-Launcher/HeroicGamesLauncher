@@ -25,7 +25,7 @@ const getAlternativeWine = () => {
   // Just add a new string here in case another path is found on another distro
   const steamPaths = [
     `${home}/.local/share/Steam`,
-    `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam/`,
+    `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
   ]
   const protonPaths = []
   const foundPaths = steamPaths.filter(path => fs.existsSync(path))
@@ -74,28 +74,37 @@ const isLoggedIn = () => fs.existsSync(userInfo);
 
 const launchGame = async (appName) => {
       let envVars = ""
+      let dxvkPrefix = ""
       let altWine
       let altWinePrefix
       let gameMode
-      let dxvkPrefix = `${home}/.wine`
-
+      
       const gameConfig = `${heroicGamesConfigPath}${appName}.json`
       const globalConfig = heroicConfigPath
       let settingsPath = gameConfig
       let settingsName = appName
-    
+      
       if (!fs.existsSync(gameConfig)) {
         settingsPath = globalConfig
         settingsName = 'defaultSettings'
       }
-    
+      
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions, useGameMode, showFps } = settings[settingsName]
-    
+      
+      const isDefaultPrefix = winePrefix === `'${home}/.wine'` || winePrefix === "'~/.wine'"
+
       envVars = otherOptions
       const isProton = wineVersion.name.startsWith('Steam')
       if (isProton){
         console.log('You are using Proton, this can lead to some bugs, please do not open issues with bugs related with games', wineVersion.name);
+      }
+
+      if (isDefaultPrefix && isProton){
+        return showErrorBox(
+          "Proton on default Wine Prefix",
+          "Using proton with default wine prefix is not supported"
+        )
       }
 
       if (winePrefix !== "~/.wine") {
