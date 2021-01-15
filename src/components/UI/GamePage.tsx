@@ -172,7 +172,7 @@ export default function GamePage() {
                       }}
                     >
                       {isInstalling
-                        ? progress !== '100' && `Installing ${progress}%`
+                        ? progress !== '100' && `Installing ${progress ? progress : '...'}`
                         : isInstalled
                         ? "Installed"
                         : "This game is not installed"}

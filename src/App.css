@@ -423,11 +423,11 @@
   font-weight: 500;
   font-size: 22px;
   line-height: 27px;
-  color: white;
+  color: #EAE8E5;
 }
 
 .loginInstructions strong {
-  color: #E00D0D;
+  color: #EAE8E5;
 }
 
 .loginInstructions .epicLink {

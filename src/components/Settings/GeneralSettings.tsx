@@ -57,7 +57,7 @@ export default function GeneralSettings({
             type="text"
             value={defaultInstallPath}
             className="settingSelect"
-            placeholder={"~/Games/Heroic"}
+            placeholder={defaultInstallPath}
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
           <span

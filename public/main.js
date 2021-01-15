@@ -186,9 +186,9 @@ ipcMain.on("requestGameProgress", (event, game) => {
   exec(
     `tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`,
     (error, stdout, stderr) => {
-      const progress = stdout.split("\n")[0].replace("%", "");
-      console.log(`Install Progress: ${progress}%`);
-      event.reply("requestedOutput", progress);
+      const progress = `${stdout.split("\n")[0]}`;
+      console.log(`Install Progress: ${progress}`);
+      event.reply("requestedOutput", `${progress}`);
     }
   );
 });
