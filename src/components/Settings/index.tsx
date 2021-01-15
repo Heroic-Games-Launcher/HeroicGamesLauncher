@@ -37,6 +37,7 @@ export default function Settings() {
   const [useGameMode, setUseGameMode] = useState(false);
   const [showFps, setShowFps] = useState(false);
   const [haveCloudSaving, setHaveCloudSaving] = useState(false);
+  const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineProps[]);
 
   const { appName, type } = useParams() as RouteParams;
@@ -62,6 +63,7 @@ export default function Settings() {
         setEgsLinkedPath(config.egsLinkedPath || "")
         setEgsPath(config.egsLinkedPath || "")
         setSavesPath(config.savesPath || "")
+        setAutoSyncSaves(config.autoSyncSaves)
         if (!isDefault){
           const {cloudSaveEnabled} = await getGameInfo(appName)
           setHaveCloudSaving(cloudSaveEnabled)
@@ -95,7 +97,8 @@ export default function Settings() {
         otherOptions,
         useGameMode,
         savesPath,
-        showFps
+        showFps,
+        autoSyncSaves
       },
     }
 
@@ -160,6 +163,8 @@ export default function Settings() {
               savesPath={savesPath}
               setSavesPath={setSavesPath}
               appName={appName}
+              autoSyncSaves={autoSyncSaves}
+              setAutoSyncSaves={setAutoSyncSaves}
             />
           }
           {isWineSettings && 

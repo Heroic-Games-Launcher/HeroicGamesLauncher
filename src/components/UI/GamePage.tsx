@@ -11,7 +11,7 @@ import {
 } from "../../helper";
 import Header from "./Header";
 import "../../App.css";
-import { Game } from "../../types";
+import { AppSettings, Game } from "../../types";
 import ContextProvider from "../../state/ContextProvider";
 import { Link, useParams } from "react-router-dom";
 import Update from "./Update";
@@ -41,6 +41,8 @@ export default function GamePage() {
   const [progress, setProgress] = useState("0.00");
   const [uninstalling, setUninstalling] = useState(false);
   const [installPath, setInstallPath] = useState("default");
+  const [autoSyncSaves, setAutoSyncSaves] = useState(false)
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const isInstalling = Boolean(
     installing.filter((game) => game === appName).length
@@ -52,6 +54,10 @@ export default function GamePage() {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName);
       setGameInfo(newInfo);
+      if (newInfo.cloudSaveEnabled) {
+        ipcRenderer.send("requestSettings", appName);
+        ipcRenderer.once(appName, (event, {autoSyncSaves}: AppSettings) => setAutoSyncSaves(autoSyncSaves))
+      }
     };
     updateConfig();
   }, [isInstalling, isPlaying, appName, uninstalling, playing]);
@@ -75,6 +81,8 @@ export default function GamePage() {
     }
   }
 
+  console.log(autoSyncSaves);
+  
   if (gameInfo) {
     const {
       title,
@@ -86,6 +94,8 @@ export default function GamePage() {
       version,
       extraInfo,
       developer,
+      cloudSaveEnabled,
+      saveFolder
     }: Game = gameInfo;
 
     const sizeInMB = Math.floor(install_size / 1024 / 1024);
@@ -139,6 +149,13 @@ export default function GamePage() {
                     <div className="summary">
                       {extraInfo ? extraInfo.shortDescription : ""}
                     </div>
+                    <div style={{color: cloudSaveEnabled ? '#07C5EF' : '#5A5E5F'}}>
+                      Cloud Save Sync: {cloudSaveEnabled ? `Supports (${autoSyncSaves ? 'Auto Sync Enabled' : 'Auto Sync Disabled'})` :  'Does not support'}
+                    </div>
+                    {cloudSaveEnabled && 
+                    <div>
+                      Cloud Sync Folder: {saveFolder}
+                    </div>}
                     {isInstalled && (
                       <>
                         <div>Executable: {executable}</div>

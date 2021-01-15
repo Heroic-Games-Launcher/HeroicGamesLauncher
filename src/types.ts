@@ -11,6 +11,7 @@ export interface AppSettings {
   showFps: boolean;
   egsLinkedPath: string;
   savesPath: string;
+  autoSyncSaves: boolean;
   defaultInstallPath: string;
 }
 

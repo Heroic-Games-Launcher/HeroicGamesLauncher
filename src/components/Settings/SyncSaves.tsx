@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Path } from "../../types";
+import ToggleSwitch from '../UI/ToggleSwitch';
 
 const {
   ipcRenderer,
@@ -10,28 +11,30 @@ interface Props {
   savesPath: string;
   setSavesPath: (value: string) => void;
   appName: string
+  autoSyncSaves: boolean
+  setAutoSyncSaves: (value: boolean) => void
 }
 
-type SyncType = "download" | "upload" | "force-download" | "force-upload";
+type SyncType = "Download" | "Upload" | "Force download" | "Force upload";
 
-export default function SyncSaves({ savesPath, setSavesPath, appName }: Props) {
+export default function SyncSaves({ savesPath, setSavesPath, appName, autoSyncSaves, setAutoSyncSaves }: Props) {
   const [isSyncing, setIsSyncing] = useState(false);
-  const [syncType, setSyncType] = useState("download" as SyncType);
+  const [syncType, setSyncType] = useState("Download" as SyncType);
   const isLinked = Boolean(savesPath.length);
   const syncTypes: SyncType[] = [
-    "download",
-    "upload",
-    "force-download",
-    "force-upload",
+    "Download",
+    "Upload",
+    "Force download",
+    "Force upload",
   ];
 
   async function handleSync() {
     setIsSyncing(true);
     const command = {
-      download: '--skip-upload',
-      upload: '--skip-download',
-      'force-download': '--force-download',
-      'force-upload': '--force-upload'
+      Download: '--skip-upload',
+      Upload: '--skip-download',
+      'Force download': '--force-download',
+      'Force upload': '--force-upload'
     }
 
     ipcRenderer.invoke('syncSaves', [command[syncType], savesPath, appName])
@@ -44,7 +47,7 @@ export default function SyncSaves({ savesPath, setSavesPath, appName }: Props) {
   return (
     <>
       <span className="setting double">
-        <span className="settingText">Sync Save Games</span>
+        <span className="settingText">Select the Correct <b>Cloud Sync Folder</b> (check game description) on the Prefix where the game is Installed</span>
         <span>
           <input
             type="text"
@@ -111,6 +114,12 @@ export default function SyncSaves({ savesPath, setSavesPath, appName }: Props) {
           >
             {`${isSyncing ? "Syncing" : "Sync"}`}
           </button>
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          Sync Saves Automatically
+          <ToggleSwitch value={autoSyncSaves} handleChange={() => setAutoSyncSaves(!autoSyncSaves)} /> 
         </span>
       </span>
     </>

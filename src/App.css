@@ -508,7 +508,7 @@
   align-self: center;
   min-width: 780px;
   max-width: 800px;
-  margin: 32px 64px;
+  margin: 64px 70px;
 }
 
 .gameConfig .title {
@@ -552,6 +552,7 @@
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
+  margin-bottom: 24px;
   font-size: 16px;
   line-height: 19px;
   text-overflow: ellipsis;
@@ -721,7 +722,7 @@
 .dots {
   position: absolute;
   right: 70px;
-  top: 75px;
+  top: 64px;
   width: 25px;
   z-index: 1;
 }
