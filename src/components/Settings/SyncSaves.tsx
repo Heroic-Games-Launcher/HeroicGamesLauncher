@@ -48,7 +48,7 @@ export default function SyncSaves({ savesPath, setSavesPath, appName }: Props) {
         <span>
           <input
             type="text"
-            placeholder={"Folder to Store the Saves"}
+            placeholder={"Select the exact save games folder"}
             className="settingSelect"
             value={savesPath}
             disabled={isSyncing}

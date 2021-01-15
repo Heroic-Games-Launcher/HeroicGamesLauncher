@@ -1,7 +1,7 @@
 import { IpcRendererEvent } from "electron";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from 'react-router-dom';
-import { writeConfig } from "../../helper";
+import { getGameInfo, writeConfig } from "../../helper";
 import { AppSettings, WineProps } from '../../types';
 import Header from "../UI/Header";
 import GeneralSettings from './GeneralSettings';
@@ -36,6 +36,7 @@ export default function Settings() {
   const [savesPath, setSavesPath] = useState('');
   const [useGameMode, setUseGameMode] = useState(false);
   const [showFps, setShowFps] = useState(false);
+  const [haveCloudSaving, setHaveCloudSaving] = useState(false);
   const [altWine, setAltWine] = useState([] as WineProps[]);
 
   const { appName, type } = useParams() as RouteParams;
@@ -51,7 +52,7 @@ export default function Settings() {
     ipcRenderer.send("requestSettings", appName);
     ipcRenderer.once(
       settings,
-      (event: IpcRendererEvent, config: AppSettings) => {
+      async (event: IpcRendererEvent, config: AppSettings) => {
         setUseGameMode(config.useGameMode || false);
         setShowFps(config.showFps || false);
         setDefaultInstallPath(config.defaultInstallPath);
@@ -61,6 +62,10 @@ export default function Settings() {
         setEgsLinkedPath(config.egsLinkedPath || "")
         setEgsPath(config.egsLinkedPath || "")
         setSavesPath(config.savesPath || "")
+        if (!isDefault){
+          const {cloudSaveEnabled} = await getGameInfo(appName)
+          setHaveCloudSaving(cloudSaveEnabled)
+        }
         
         ipcRenderer.send("getAlternativeWine");
         ipcRenderer.on(
@@ -69,7 +74,7 @@ export default function Settings() {
         );
       }
     );
-  }, [appName, settings, type]);
+  }, [appName, settings, type, isDefault]);
 
     const GlobalSettings = {
         defaultSettings: {
@@ -113,7 +118,7 @@ export default function Settings() {
           <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
             Wine
           </NavLink>
-          {!isDefault && 
+          {(!isDefault && haveCloudSaving) && 
           <NavLink to={{ pathname: `/settings/${appName}/sync`}}>
             Sync
           </NavLink>}
