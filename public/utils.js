@@ -22,10 +22,20 @@ const loginUrl = "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fw
 
 // check other wine versions installed
 const getAlternativeWine = () => {
-  // TODO: Get all Proton versions
-  const steamPath = `${home}/.steam/`;
-  const steamInstallFolder = `${steamPath}root/steamapps/common/`
-  const steamCompatPath = `${steamPath}root/compatibilitytools.d/`;
+  // Just add a new string here in case another path is found on another distro
+  const steamPaths = [
+    `${home}/.local/share/Steam`,
+    `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
+  ]
+  const protonPaths = []
+  const foundPaths = steamPaths.filter(path => fs.existsSync(path))
+
+  foundPaths.forEach(path => {
+    protonPaths.push(`${path}/steamapps/common/`)
+    protonPaths.push(`${path}/compatibilitytools.d/`)
+    return
+  });
+
   const lutrisPath = `${home}/.local/share/lutris`;
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`;
   let steamWine = [];
@@ -33,35 +43,28 @@ const getAlternativeWine = () => {
 
   const defaultWine = {name: 'Wine Default', bin: '/usr/bin/wine'}
 
-  // Change Proton to be of type Wrapper and use wrapper instead of wine binary
-  if (fs.existsSync(steamCompatPath)) {
-    steamWine = fs.readdirSync(steamCompatPath).map((version) => {
-      return {
-        name: `Steam - ${version}`,
-        bin: `'${steamCompatPath}${version}/proton'`,
-      };
-    });
-  }
-
-
-  if (fs.existsSync(steamInstallFolder)) {
-    fs.readdirSync(steamInstallFolder).forEach((version) => {
-      if (version.startsWith('Proton')) {
-        steamWine.push({
-          name: `Steam - ${version}`,
-          bin: `'${steamInstallFolder}${version}/proton'`,
-        });
-      }
-    });
-  }
+  protonPaths.forEach(path => {
+    if (fs.existsSync(path)) {
+      fs.readdirSync(path)
+        .forEach(version => {
+          if (version.toLowerCase().includes('proton')) {
+            steamWine.push({
+              name: `Steam - ${version}`,
+              bin: `'${path}${version}/proton'`,
+            });
+          };
+      })
+    }
+  })
 
   if (fs.existsSync(lutrisCompatPath)) {
-    lutrisWine = fs.readdirSync(lutrisCompatPath).map((version) => {
-      return {
-        name: `Lutris - ${version}`,
-        bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-      };
-    });
+    lutrisWine = fs.readdirSync(lutrisCompatPath)
+      .map((version) => {
+        return {
+          name: `Lutris - ${version}`,
+          bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
+        };
+      });
   }
 
   return [...steamWine, ...lutrisWine, defaultWine];
@@ -71,28 +74,37 @@ const isLoggedIn = () => fs.existsSync(userInfo);
 
 const launchGame = async (appName) => {
       let envVars = ""
+      let dxvkPrefix = ""
       let altWine
       let altWinePrefix
       let gameMode
-      let dxvkPrefix = `${home}/.wine`
-
+      
       const gameConfig = `${heroicGamesConfigPath}${appName}.json`
       const globalConfig = heroicConfigPath
       let settingsPath = gameConfig
       let settingsName = appName
-    
+      
       if (!fs.existsSync(gameConfig)) {
         settingsPath = globalConfig
         settingsName = 'defaultSettings'
       }
-    
+      
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions, useGameMode, showFps } = settings[settingsName]
-    
+      
+      const isDefaultPrefix = winePrefix === `'${home}/.wine'` || winePrefix === "'~/.wine'"
+
       envVars = otherOptions
       const isProton = wineVersion.name.startsWith('Steam')
       if (isProton){
         console.log('You are using Proton, this can lead to some bugs, please do not open issues with bugs related with games', wineVersion.name);
+      }
+
+      if (isDefaultPrefix && isProton){
+        return showErrorBox(
+          "Proton on default Wine Prefix",
+          "Using proton with default wine prefix is not supported"
+        )
       }
 
       if (winePrefix !== "~/.wine") {

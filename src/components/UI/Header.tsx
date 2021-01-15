@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ContextProvider from '../../state/ContextProvider';
 import ToggleSwitch from './ToggleSwitch';
 
 interface Props {
   renderBackButton: boolean;
   numberOfGames?: number;
+  goTo: string;
   handleOnlyInstalled?: () => void;
 }
 
-export default function Header({ renderBackButton, numberOfGames, handleOnlyInstalled }: Props) {
-  const history = useHistory()
+export default function Header({ renderBackButton, numberOfGames, handleOnlyInstalled, goTo }: Props) {
   const { onlyInstalled } = useContext(ContextProvider)
+  
   return (
     <>
       <div className="header">
@@ -26,10 +27,10 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
           <span className="totalGamesText">Total Games: {numberOfGames}</span>}
       {renderBackButton && (
           <div className="leftCluster">
-            <span className="returnLink" onClick={() => history.goBack()}>
+            <Link className="returnLink" to={goTo}>
               <span className="material-icons">arrow_back</span>
               Return
-            </span>
+            </Link>
           </div>
       )}
       </div>

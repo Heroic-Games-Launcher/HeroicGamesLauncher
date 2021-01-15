@@ -43,15 +43,30 @@
     },
     "deb": {
       "packageCategory": "games",
-      "depends": ["gawk", "curl", "gconf2", "gconf-service", "libnotify4", "libappindicator1", "libxtst6", "libnss3"]
+      "depends": [
+        "gawk",
+        "curl",
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3"
+      ]
     },
     "pacman": {
       "packageCategory": "games",
-      "depends": ["gawk", "curl"]
+      "depends": [
+        "gawk",
+        "curl"
+      ]
     },
     "rpm": {
       "packageCategory": "games",
-      "depends": ["gawk", "curl"]
+      "depends": [
+        "gawk",
+        "curl"
+      ]
     }
   },
   "dependencies": {
