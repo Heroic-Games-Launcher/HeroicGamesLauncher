@@ -137,7 +137,7 @@ export default function GamePage() {
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     <div className="summary">
-                      {extraInfo ? extraInfo.summary : ""}
+                      {extraInfo ? extraInfo.shortDescription : ""}
                     </div>
                     {isInstalled && (
                       <>

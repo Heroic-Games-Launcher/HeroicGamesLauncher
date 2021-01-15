@@ -109,19 +109,13 @@ ipcMain.handle("writeFile", (event, args) => {
 });
 
 ipcMain.handle("getGameInfo", async (event, game) => {
-  const auth = require("./secrets");
+  const epicUrl = `https://store-content.ak.epicgames.com/api/en-US/content/products/${game}`
   try { 
     const response = await axios({
-      url: "https://api.igdb.com/v4/games",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Client-ID": "h52yjk7lp1afrxg3asmpskskmb9b20",
-        Authorization: auth,
-      },
-      data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`,
+      url: epicUrl,
+      method: "GET",
     });
-    return response.data[0];
+    return response.data.pages[0].data.about;
   } catch (error) {
     return {}
   }
@@ -279,7 +273,9 @@ ipcMain.handle("readFile", async (event, file) => {
         .map((file) => `${files.library}/${file}`)
         .map((file) => JSON.parse(fs.readFileSync(file)))
         .map(({ app_name, metadata }) => {
-          const { description, keyImages, title, developer } = metadata;
+          const { description, keyImages, title, developer, customAttributes: { CloudSaveFolder } } = metadata;
+          const cloudSaveEnabled = Boolean(CloudSaveFolder)
+          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ""
 
           const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
@@ -302,7 +298,6 @@ ipcMain.handle("readFile", async (event, file) => {
           const {
             executable = null,
             version = null,
-            save_path = null,
             install_size = null,
             install_path = null,
           } = info;
@@ -313,12 +308,13 @@ ipcMain.handle("readFile", async (event, file) => {
             title,
             executable,
             version,
-            save_path,
             install_size,
             install_path,
             app_name,
             developer,
             description,
+            cloudSaveEnabled,
+            saveFolder,
             art_cover: art_cover || art_square,
             art_square: art_square || art_cover,
           };

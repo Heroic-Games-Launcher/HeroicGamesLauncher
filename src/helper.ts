@@ -48,17 +48,24 @@ export const getLegendaryConfig = async() => {
   return {user, library}
 }
 
+const specialCharactersRegex = /[^((0-9)|(a-z)|(A-Z)|\s)]/g
+const cleanTitle = (title: string) => title.replaceAll(specialCharactersRegex, '').replaceAll(' ', '-').toLowerCase().split('--definitive')[0]
+
 export const getGameInfo = async(appName: string) => { 
   const library: Array<Game> = await readFile('library')
   const game = library.filter(game => game.app_name === appName)[0]
-  const extraInfo = await ipcRenderer.invoke('getGameInfo', game.title.replace('®', '').split('-')[0])
+  const extraInfo = await ipcRenderer.invoke('getGameInfo', cleanTitle(game.title))
   return {...game, extraInfo}
+}
+
+export const handleSavePath = async  (game: string, prefix: string) => {
+  const { cloudSaveEnabled, saveFolder } = await getGameInfo(game)
+  
+  return {cloudSaveEnabled, saveFolder}
 }
 
 export const createNewWindow = (url: string) => new BrowserWindow()
   .loadURL(url)
 const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
-const specialCharactersRegex = /[^((0-9)|(a-z)|(A-Z)|\s)]/g
 
-export const formatStoreUrl = (title: string) => 
-  `${storeUrl}${title.replaceAll(specialCharactersRegex, '').replaceAll(' ', '-')}`.toLowerCase()
+export const formatStoreUrl = (title: string) => `${storeUrl}${cleanTitle(title)}`
