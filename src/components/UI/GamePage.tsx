@@ -93,7 +93,7 @@ export default function GamePage() {
 
     return (
       <>
-        <Header renderBackButton />
+        <Header goTo={'/'} renderBackButton />
         <div className="gameConfigContainer">
           {title ? (
             <>

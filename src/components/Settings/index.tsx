@@ -100,6 +100,7 @@ export default function Settings() {
     }
 
     const settingsToSave = isDefault ? GlobalSettings : GameSettings
+    const returnPath = isDefault ? '/' : `/gameconfig/${appName}`
 
     useEffect(() => {
       writeConfig([appName, settingsToSave])
@@ -108,7 +109,7 @@ export default function Settings() {
   
     return (
     <>
-      <Header renderBackButton />
+      <Header goTo={returnPath} renderBackButton />
       <div className="Settings">
         <div className='settingsNavbar'>
           {isDefault && 
