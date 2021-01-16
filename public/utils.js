@@ -19,6 +19,7 @@ const heroicInstallPath = `${home}/Games/Heroic`;
 const legendaryBin = fixPathForAsarUnpack(path.join(__dirname, "/bin/legendary"));
 const icon = fixPathForAsarUnpack(path.join(__dirname, "/icon.png"));
 const loginUrl = "https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect";
+const sidInfoUrl = "https://github.com/flavioislima/HeroicGamesLauncher/issues/42"
 
 // check other wine versions installed
 const getAlternativeWine = () => {
@@ -95,7 +96,7 @@ const launchGame = async (appName) => {
       const isDefaultPrefix = winePrefix === `'${home}/.wine'` || winePrefix === "'~/.wine'"
 
       envVars = otherOptions
-      const isProton = wineVersion.name.startsWith('Steam')
+      const isProton = wineVersion.name.endsWith('proton')
       if (isProton){
         console.log('You are using Proton, this can lead to some bugs, please do not open issues with bugs related with games', wineVersion.name);
       }
@@ -161,7 +162,8 @@ const writeDefaultconfig = () => {
       },
       winePrefix: "~/.wine",
       otherOptions: "",
-      useGameMode: false
+      useGameMode: false,
+      showFps: false
     }
   }
   if (!fs.existsSync(heroicConfigPath)) {
@@ -178,13 +180,14 @@ const writeDefaultconfig = () => {
 }
 
 const writeGameconfig = (game) => {
-  const { wineVersion, winePrefix, otherOptions, useGameMode } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
+  const { wineVersion, winePrefix, otherOptions, useGameMode, showFps } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
   const config = {
     [game]: {
       wineVersion,
       winePrefix,
       otherOptions,
-      useGameMode
+      useGameMode,
+      showFps
     }
   }
 
@@ -274,5 +277,6 @@ module.exports = {
   legendaryBin,
   icon,
   home,
-  loginUrl
+  loginUrl,
+  sidInfoUrl
 }
