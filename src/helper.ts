@@ -17,6 +17,8 @@ export const launch = (args: any) =>
 
 export const loginPage = () => ipcRenderer.send('openLoginPage')
 
+export const sidInfoPage = () => ipcRenderer.send('openSidInfoPage')
+
 export const importGame = async (args: any) => 
   await ipcRenderer.invoke('importGame', args)
 

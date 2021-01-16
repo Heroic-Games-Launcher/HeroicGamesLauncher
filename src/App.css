@@ -443,7 +443,9 @@
 }
 
 .loginInstructions .sid {
-  color:#07C5EF
+  color:#07C5EF;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .loginForm {

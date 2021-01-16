@@ -13,6 +13,7 @@ const {
   writeGameconfig,
   getLatestDxvk,
   home,
+  sidInfoUrl
 } = require("./utils");
 
 const { spawn, exec } = require("child_process");
@@ -205,12 +206,20 @@ ipcMain.on("getAlternativeWine", (event, args) =>
 );
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.on("callTool", (event, { tool, wine, prefix }) =>
-  exec(
-    `WINE=${wine} WINEPREFIX=${prefix} ${
-      tool === "winecfg" ? `${wine} ${tool}` : tool
-    } `
-  )
+ipcMain.on("callTool", async (event, { tool, wine, prefix }) => {
+  let wineBin = wine.replace('proton', 'dist/bin/wine64');
+
+  if (wine.endsWith('proton')){
+    wineBin = wine.replace('proton', 'dist/bin/wine64')
+  }
+
+  const command = `WINE=${wineBin} WINEPREFIX=${prefix} ${
+      tool === "winecfg" ? `${wineBin} ${tool}` : tool
+    }`
+
+  console.log({command});
+  return exec(command)
+}
 );
 
 ipcMain.on("requestSettings", (event, appName) => {
@@ -235,6 +244,7 @@ ipcMain.on("requestSettings", (event, appName) => {
 ipcMain.handle("isLoggedIn", () => isLoggedIn());
 
 ipcMain.on("openLoginPage", () => spawn("xdg-open", [loginUrl]));
+ipcMain.on("openSidInfoPage", () => spawn("xdg-open", [sidInfoUrl]));
 
 ipcMain.on("getLog", (event, appName) => spawn("xdg-open", [`${heroicGamesConfigPath}/${appName}-lastPlay.log`]));
 
