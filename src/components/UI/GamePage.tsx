@@ -234,6 +234,8 @@ export default function GamePage() {
                       }`}
                     >
                       {`${
+                        installPath === 'import' ?
+                        'Import' :
                         isInstalled
                           ? "Uninstall"
                           : isInstalling

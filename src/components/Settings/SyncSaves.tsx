@@ -81,7 +81,7 @@ export default function SyncSaves({ savesPath, setSavesPath, appName, autoSyncSa
           ) : (
             <span
               className="material-icons settings folder"
-              onClick={() => (isLinked ? "" : setSavesPath(""))}
+              onClick={() => setSavesPath("")}
               style={{ color: "#B0ABB6" }}
             >
               backspace

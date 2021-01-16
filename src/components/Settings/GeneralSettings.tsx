@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import ContextProvider from '../../state/ContextProvider';
 import { Path } from "../../types";
 const {
   ipcRenderer,
@@ -23,29 +24,31 @@ export default function GeneralSettings({
   setEgsLinkedPath
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false);
-
+  const { refreshLibrary } = useContext(ContextProvider)
   const isLinked = Boolean(egsLinkedPath.length)
   
   async function handleSync() {
     setIsSyncing(true);
     if (isLinked){
-      await ipcRenderer
+      return await ipcRenderer
       .invoke("egsSync", 'unlink')
-      .then((res: string) =>
-        dialog.showMessageBox({ title: "EGS Sync", message: res })
-      );
-      setEgsLinkedPath("")
-      setEgsPath("")
-      return setIsSyncing(false);  
+      .then(async (res: string) => {
+        await dialog.showMessageBox({ title: "EGS Sync", message: 'Unsync Complete' })
+        setEgsLinkedPath("")
+        setEgsPath("")
+        setIsSyncing(false);  
+        refreshLibrary()
+      });
     }
     
-    await ipcRenderer
+    return await ipcRenderer
       .invoke("egsSync", egsPath)
-      .then((res: string) =>
-        dialog.showMessageBox({ title: "EGS Sync", message: res })
-      );
-    setEgsLinkedPath(egsPath)
-    setIsSyncing(false);
+      .then(async(res: string) => {
+        await dialog.showMessageBox({ title: "EGS Sync", message: 'Sync Complete' })
+        setIsSyncing(false);
+        setEgsLinkedPath(egsPath)
+        refreshLibrary()
+      });
   }
 
   return (
