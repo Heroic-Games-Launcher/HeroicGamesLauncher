@@ -343,7 +343,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 
 // TODO: Check the best way to Sync saves to implement soon
 ipcMain.handle('syncSaves', async (event, args) => {
-  const [arg, path, appName] = args
+  const [arg = "", path, appName] = args
   const command = `${legendaryBin} sync-saves --save-path ${path} ${arg} ${appName} -y`
   const legendarySavesPath = `${home}/legendary/.saves`
   
@@ -352,9 +352,10 @@ ipcMain.handle('syncSaves', async (event, args) => {
     fs.mkdirSync(legendarySavesPath, { recursive: true })
   }
 
+  console.log('\n syncing saves for ', appName);
   const { stderr, stdout } = await execAsync(command)
   console.log(`${stdout} - ${stderr}`)
-  return `${stdout} - ${stderr}`
+  return `\n ${stdout} - ${stderr}`
 })
 
 ipcMain.on("showAboutWindow", () => {

@@ -15,6 +15,8 @@ export interface AppSettings {
   defaultInstallPath: string;
 }
 
+export type SyncType = "Download" | "Upload" | "Force download" | "Force upload";
+
 export interface Game {
   art_cover: string
   art_square: string

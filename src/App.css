@@ -267,7 +267,13 @@
 .setting.double {
   margin: 0 16px;
   align-content: space-between;
-  height: 156px;
+  text-align: left;
+}
+
+.setting.double > span > button,
+.setting.double > span > .small,
+.setting.double > span > input {
+  margin: 16px 0;
 }
 
 .setting > .toggleWrapper {

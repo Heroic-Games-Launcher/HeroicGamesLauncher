@@ -37,6 +37,11 @@ export const legendary = async (args: string): Promise<any> => await ipcRenderer
 
 export const isLoggedIn = async() => await ipcRenderer.invoke('isLoggedIn')
 
+export const syncSaves = async (savesPath: string, appName: string, arg?: string, ) => {
+  const response: string = await ipcRenderer.invoke('syncSaves', [arg, savesPath, appName])
+  return response
+}
+
 export const getLegendaryConfig = async() => {
   const user: string = await readFile('user')
   const library: Array<Game> = await readFile('library')

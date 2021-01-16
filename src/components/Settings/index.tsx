@@ -21,7 +21,6 @@ interface RouteParams {
 
 // TODO: add option to add Custom wine
 // TODO: add feedback when launching winecfg and winetricks
-// TODO: Sync saves with installed EGS
 
 export default function Settings() {
   const [wineVersion, setWineversion] = useState({
@@ -36,7 +35,7 @@ export default function Settings() {
   const [savesPath, setSavesPath] = useState('');
   const [useGameMode, setUseGameMode] = useState(false);
   const [showFps, setShowFps] = useState(false);
-  const [haveCloudSaving, setHaveCloudSaving] = useState(false);
+  const [haveCloudSaving, setHaveCloudSaving] = useState({cloudSaveEnabled: false, saveFolder: ""});
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineProps[]);
 
@@ -65,8 +64,8 @@ export default function Settings() {
         setSavesPath(config.savesPath || "")
         setAutoSyncSaves(config.autoSyncSaves)
         if (!isDefault){
-          const {cloudSaveEnabled} = await getGameInfo(appName)
-          setHaveCloudSaving(cloudSaveEnabled)
+          const {cloudSaveEnabled, saveFolder} = await getGameInfo(appName)
+          setHaveCloudSaving({cloudSaveEnabled, saveFolder})
         }
         
         ipcRenderer.send("getAlternativeWine");
@@ -122,7 +121,7 @@ export default function Settings() {
           <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
             Wine
           </NavLink>
-          {(!isDefault && haveCloudSaving) && 
+          {(!isDefault && haveCloudSaving.cloudSaveEnabled) && 
           <NavLink to={{ pathname: `/settings/${appName}/sync`}}>
             Sync
           </NavLink>}
@@ -163,6 +162,7 @@ export default function Settings() {
               savesPath={savesPath}
               setSavesPath={setSavesPath}
               appName={appName}
+              saveFolder={haveCloudSaving.saveFolder}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
             />

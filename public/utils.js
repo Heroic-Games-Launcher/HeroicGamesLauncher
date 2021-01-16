@@ -136,7 +136,7 @@ const launchGame = async (appName) => {
       const dxvkFps = showFps ? 'DXVK_HUD=fps'  : ''
 
       const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${altWine} ${altWinePrefix}`
-      console.log('Launch Command: ', command);
+      console.log('\n Launch Command: ', command);
     
       return execAsync(command)
       .then(({ stderr }) => {

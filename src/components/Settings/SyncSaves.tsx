@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Path } from "../../types";
+import { syncSaves } from '../../helper';
+import { Path, SyncType } from "../../types";
 import ToggleSwitch from '../UI/ToggleSwitch';
 
 const {
-  ipcRenderer,
   remote: { dialog },
 } = window.require("electron");
 
@@ -12,12 +12,11 @@ interface Props {
   setSavesPath: (value: string) => void;
   appName: string
   autoSyncSaves: boolean
+  saveFolder: string
   setAutoSyncSaves: (value: boolean) => void
 }
 
-type SyncType = "Download" | "Upload" | "Force download" | "Force upload";
-
-export default function SyncSaves({ savesPath, setSavesPath, appName, autoSyncSaves, setAutoSyncSaves }: Props) {
+export default function SyncSaves({ savesPath, setSavesPath, appName, autoSyncSaves, setAutoSyncSaves, saveFolder }: Props) {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncType, setSyncType] = useState("Download" as SyncType);
   const isLinked = Boolean(savesPath.length);
@@ -37,17 +36,19 @@ export default function SyncSaves({ savesPath, setSavesPath, appName, autoSyncSa
       'Force upload': '--force-upload'
     }
 
-    ipcRenderer.invoke('syncSaves', [command[syncType], savesPath, appName])
-    .then((res: string) =>
-      dialog.showMessageBox({ title: "Saves Sync", message: res })
-    );
+    await syncSaves(savesPath, appName, command[syncType])
+      .then((res: string) =>
+        dialog.showMessageBox({ title: "Saves Sync", message: res })
+      );
     setIsSyncing(false);
   }
 
   return (
     <>
       <span className="setting double">
-        <span className="settingText">Select the Correct <b>Cloud Sync Folder</b> (check game description) on the Prefix where the game is Installed</span>
+        <span 
+          className="settingText">
+            Search or create the folder <b>{saveFolder}</b> on the GamePrefix where the game is Installed</span>
         <span>
           <input
             type="text"
@@ -60,13 +61,13 @@ export default function SyncSaves({ savesPath, setSavesPath, appName, autoSyncSa
           {!Boolean(savesPath.length) ? (
             <span
               className="material-icons settings folder"
-              style={{ color: isLinked ? "transparent" : "#B0ABB6" }}
+              style={{ color: "#B0ABB6" }}
               onClick={() =>
                 isLinked
                   ? ""
                   : dialog
                       .showOpenDialog({
-                        title: "Choose where to store your saves",
+                        title: "Choose the saves directory",
                         buttonLabel: "Choose",
                         properties: ["openDirectory"],
                       })
@@ -81,11 +82,7 @@ export default function SyncSaves({ savesPath, setSavesPath, appName, autoSyncSa
             <span
               className="material-icons settings folder"
               onClick={() => (isLinked ? "" : setSavesPath(""))}
-              style={
-                isLinked
-                  ? { pointerEvents: "none", color: "transparent" }
-                  : { color: "#B0ABB6" }
-              }
+              style={{ color: "#B0ABB6" }}
             >
               backspace
             </span>

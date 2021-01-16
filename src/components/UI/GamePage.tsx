@@ -8,6 +8,7 @@ import {
   sendKill,
   importGame,
   launch,
+  syncSaves,
 } from "../../helper";
 import Header from "./Header";
 import "../../App.css";
@@ -42,6 +43,7 @@ export default function GamePage() {
   const [uninstalling, setUninstalling] = useState(false);
   const [installPath, setInstallPath] = useState("default");
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
+  const [savesPath, setSavesPath] = useState("")
   const [isSyncing, setIsSyncing] = useState(false);
 
   const isInstalling = Boolean(
@@ -56,7 +58,10 @@ export default function GamePage() {
       setGameInfo(newInfo);
       if (newInfo.cloudSaveEnabled) {
         ipcRenderer.send("requestSettings", appName);
-        ipcRenderer.once(appName, (event, {autoSyncSaves}: AppSettings) => setAutoSyncSaves(autoSyncSaves))
+        ipcRenderer.once(appName, (event, {autoSyncSaves, savesPath}: AppSettings) => {
+          setAutoSyncSaves(autoSyncSaves)
+          setSavesPath(savesPath)
+        })
       }
     };
     updateConfig();
@@ -80,8 +85,6 @@ export default function GamePage() {
       refresh();
     }
   }
-
-  console.log(autoSyncSaves);
   
   if (gameInfo) {
     const {
@@ -154,7 +157,7 @@ export default function GamePage() {
                     </div>
                     {cloudSaveEnabled && 
                     <div>
-                      Cloud Sync Folder: {saveFolder}
+                      {`Cloud Sync Folder: ${saveFolder}`}
                     </div>}
                     {isInstalled && (
                       <>
@@ -212,10 +215,10 @@ export default function GamePage() {
                         <div
                           onClick={handlePlay()}
                           className={`button ${
-                            isPlaying ? "is-tertiary" : "is-success"
+                            isSyncing ? "is-primary" : isPlaying ? "is-tertiary" : "is-success"
                           }`}
                         >
-                          {isPlaying ? "Playing (Stop)" : "Play Now"}
+                          {isSyncing ? "Syncinc Saves" : isPlaying ? "Playing (Stop)" : "Play Now"}
                         </div>
                       </>
                     )}
@@ -259,8 +262,21 @@ export default function GamePage() {
         return sendKill(appName);
       }
 
+      if (autoSyncSaves){
+        setIsSyncing(true)
+        await syncSaves(savesPath, appName)
+        setIsSyncing(false)
+      }
+
       handlePlaying(appName);
       await launch(appName)
+      
+      if (autoSyncSaves){
+        setIsSyncing(true)
+        await syncSaves(savesPath, appName)
+        setIsSyncing(false)
+      }
+      
       return handlePlaying(appName);
     };
   }
