@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Update from '../components/UI/Update';
 import { getLegendaryConfig, legendary } from '../helper';
 import { Game } from '../types';
@@ -19,7 +19,7 @@ interface StateProps {
   filterText: string
 }
 
-export class GlobalState extends Component<Props> {
+export class GlobalState extends PureComponent<Props> {
   state: StateProps = {
     user: '',
     filterText: '',
@@ -38,6 +38,7 @@ export class GlobalState extends Component<Props> {
     this.setState({
       user,
       refreshing: false,
+      filterText: "",
       data: library
     })
   }
@@ -57,7 +58,8 @@ export class GlobalState extends Component<Props> {
     
     if (isInstalling) {
       const updatedInstalling = installing.filter(game => game !== value)
-      return this.setState({ installing: updatedInstalling })
+      this.setState({ installing: updatedInstalling })
+      return this.refresh()
     }
   
     return this.setState({ installing: [...installing, value] })

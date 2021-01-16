@@ -11,6 +11,9 @@ const {
   userInfo,
   writeDefaultconfig,
   writeGameconfig,
+  getLatestDxvk,
+  home,
+  sidInfoUrl
 } = require("./utils");
 
 const { spawn, exec } = require("child_process");
@@ -51,6 +54,8 @@ function createWindow() {
       REACT_DEVELOPER_TOOLS,
     } = require("electron-devtools-installer");
 
+    getLatestDxvk()
+
     installExtension(REACT_DEVELOPER_TOOLS)
       .catch((err) => {
         console.log("An error occurred: ", err);
@@ -77,7 +82,6 @@ function createWindow() {
     win.setMenu(null);
   }
 }
-// TODO: Check the best way to Sync saves to implement soon
 
 // TODO: Update Legendary to latest version
 
@@ -106,19 +110,16 @@ ipcMain.handle("writeFile", (event, args) => {
 });
 
 ipcMain.handle("getGameInfo", async (event, game) => {
-  const auth = require("./secrets");
-  const response = await axios({
-    url: "https://api.igdb.com/v4/games",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Client-ID": "h52yjk7lp1afrxg3asmpskskmb9b20",
-      Authorization: auth,
-    },
-    data: `fields name, summary, aggregated_rating, first_release_date; search "${game}"; where aggregated_rating != null;`,
-  });
-
-  return response.data[0];
+  const epicUrl = `https://store-content.ak.epicgames.com/api/en-US/content/products/${game}`
+  try { 
+    const response = await axios({
+      url: epicUrl,
+      method: "GET",
+    });
+    return response.data.pages[0].data.about;
+  } catch (error) {
+    return {}
+  }
 });
 
 ipcMain.handle("launch", (event, appName) => {
@@ -159,37 +160,36 @@ ipcMain.handle("legendary", async (event, args) => {
 
 ipcMain.handle("install", async (event, args) => {
   const { appName: game, path } = args;
-  const logPath = `${legendaryConfigPath}/${game}.log`;
+  const logPath = `${heroicGamesConfigPath}${game}.log`;
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`;
-
   if (path === "default") {
     const { defaultInstallPath } = JSON.parse(
       fs.readFileSync(heroicConfigPath)
     ).defaultSettings;
-    command = `${legendaryBin} install ${game} --base-path '${defaultInstallPath}' -y &> ${logPath}`;
+    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y &> ${logPath}`;
   }
-
-  await execAsync(command).catch(() => "error");
+  console.log(`Installing ${game} with:`, command);
+  await execAsync(command)
+    .then(console.log)
+    .catch(console.log);
 });
 
 ipcMain.handle("importGame", async (event, args) => {
   const { appName: game, path } = args;
   const command = `${legendaryBin} import-game ${game} '${path}'`;
-
-  await execAsync(command);
+  const {stderr, stdout} =  await execAsync(command);
+  console.log(`${stdout} - ${stderr}`);
+  return
 });
 
 ipcMain.on("requestGameProgress", (event, game) => {
-  const logPath = `${legendaryConfigPath}/${game}.log`;
+  const logPath = `${heroicGamesConfigPath}${game}.log`;
   exec(
     `tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`,
     (error, stdout, stderr) => {
-      const progress = stdout.split("\n")[0].replace("%", "");
-
-      if (progress === "100") {
-        return event.reply("requestedOutput", "100");
-      }
-      event.reply("requestedOutput", progress);
+      const progress = `${stdout.split("\n")[0]}`;
+      console.log(`Install Progress: ${progress}`);
+      event.reply("requestedOutput", `${progress}`);
     }
   );
 });
@@ -206,12 +206,20 @@ ipcMain.on("getAlternativeWine", (event, args) =>
 );
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.on("callTool", (event, { tool, wine, prefix }) =>
-  exec(
-    `WINE=${wine} WINEPREFIX=${prefix} ${
-      tool === "winecfg" ? `${wine} ${tool}` : tool
-    } `
-  )
+ipcMain.on("callTool", async (event, { tool, wine, prefix }) => {
+  let wineBin = wine.replace('proton', 'dist/bin/wine64');
+
+  if (wine.endsWith('proton')){
+    wineBin = wine.replace('proton', 'dist/bin/wine64')
+  }
+
+  const command = `WINE=${wineBin} WINEPREFIX=${prefix} ${
+      tool === "winecfg" ? `${wineBin} ${tool}` : tool
+    }`
+
+  console.log({command});
+  return exec(command)
+}
 );
 
 ipcMain.on("requestSettings", (event, appName) => {
@@ -236,6 +244,7 @@ ipcMain.on("requestSettings", (event, appName) => {
 ipcMain.handle("isLoggedIn", () => isLoggedIn());
 
 ipcMain.on("openLoginPage", () => spawn("xdg-open", [loginUrl]));
+ipcMain.on("openSidInfoPage", () => spawn("xdg-open", [sidInfoUrl]));
 
 ipcMain.on("getLog", (event, appName) => spawn("xdg-open", [`${heroicGamesConfigPath}/${appName}-lastPlay.log`]));
 
@@ -274,7 +283,9 @@ ipcMain.handle("readFile", async (event, file) => {
         .map((file) => `${files.library}/${file}`)
         .map((file) => JSON.parse(fs.readFileSync(file)))
         .map(({ app_name, metadata }) => {
-          const { description, keyImages, title, developer } = metadata;
+          const { description, keyImages, title, developer, customAttributes: { CloudSaveFolder } } = metadata;
+          const cloudSaveEnabled = Boolean(CloudSaveFolder)
+          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ""
 
           const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
@@ -297,7 +308,6 @@ ipcMain.handle("readFile", async (event, file) => {
           const {
             executable = null,
             version = null,
-            save_path = null,
             install_size = null,
             install_path = null,
           } = info;
@@ -308,12 +318,13 @@ ipcMain.handle("readFile", async (event, file) => {
             title,
             executable,
             version,
-            save_path,
             install_size,
             install_path,
             app_name,
             developer,
             description,
+            cloudSaveEnabled,
+            saveFolder,
             art_cover: art_cover || art_square,
             art_square: art_square || art_cover,
           };
@@ -329,11 +340,39 @@ ipcMain.handle("readFile", async (event, file) => {
   return files[file];
 });
 
+ipcMain.handle('egsSync', async (event, args) => {
+  const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
+  const unlinkArgs = `--unlink`
+  const isLink = args !== 'unlink'
+  const command = isLink ? linkArgs : unlinkArgs
+
+  const { stderr, stdout } = await execAsync(`${legendaryBin} egl-sync ${command} -y`)
+  console.log(`${stdout} - ${stderr}`)
+  return `${stdout} - ${stderr}`
+})
+
+// TODO: Check the best way to Sync saves to implement soon
+ipcMain.handle('syncSaves', async (event, args) => {
+  const [arg = "", path, appName] = args
+  const command = `${legendaryBin} sync-saves --save-path ${path} ${arg} ${appName} -y`
+  const legendarySavesPath = `${home}/legendary/.saves`
+  
+  //workaround error when no .saves folder exists
+  if (!fs.existsSync(legendarySavesPath)){
+    fs.mkdirSync(legendarySavesPath, { recursive: true })
+  }
+
+  console.log('\n syncing saves for ', appName);
+  const { stderr, stdout } = await execAsync(command)
+  console.log(`${stdout} - ${stderr}`)
+  return `\n ${stdout} - ${stderr}`
+})
+
 ipcMain.on("showAboutWindow", () => {
   app.setAboutPanelOptions({
     applicationName: "Heroic Games Launcher",
     copyright: "GPL V3",
-    applicationVersion: "1.0 'Enel'",
+    applicationVersion: "1.1 'Crocodile'",
     website: "https://github.com/flavioislima/HeroicGamesLauncher",
     iconPath: icon,
   });

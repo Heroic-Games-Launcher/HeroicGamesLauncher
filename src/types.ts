@@ -1,22 +1,44 @@
 interface ExtraInfo {
-  summary: string,
-  releaseData: number,
-  ratings: number
+  description: string
+  shortDescription: string
 }
 
+export interface AppSettings {
+  wineVersion: WineProps;
+  winePrefix: string;
+  otherOptions: string;
+  useGameMode: boolean;
+  showFps: boolean;
+  egsLinkedPath: string;
+  savesPath: string;
+  autoSyncSaves: boolean;
+  defaultInstallPath: string;
+}
+
+export type SyncType = "Download" | "Upload" | "Force download" | "Force upload";
+
 export interface Game {
-  art_cover: string,
-  art_square: string,
-  app_name: string, 
-  executable: string, 
-  title: string, 
-  version: string, 
-  save_path: string, 
-  install_size: number, 
-  extraInfo: ExtraInfo,
-  install_path: string,
-  developer: string,
+  art_cover: string
+  art_square: string
+  app_name: string
+  executable: string
+  title: string
+  version: string
+  install_size: number 
+  install_path: string
+  developer: string
   isInstalled: boolean
+  cloudSaveEnabled: boolean
+  saveFolder: string
+  extraInfo: ExtraInfo
+}
+
+export interface Path {
+  filePaths: string[];
+}
+export interface WineProps {
+  name: string;
+  bin: string;
 }
 
 export interface ContextType {

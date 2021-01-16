@@ -8,10 +8,11 @@ import {
   sendKill,
   importGame,
   launch,
+  syncSaves,
 } from "../../helper";
 import Header from "./Header";
 import "../../App.css";
-import { Game } from "../../types";
+import { AppSettings, Game } from "../../types";
 import ContextProvider from "../../state/ContextProvider";
 import { Link, useParams } from "react-router-dom";
 import Update from "./Update";
@@ -41,6 +42,9 @@ export default function GamePage() {
   const [progress, setProgress] = useState("0.00");
   const [uninstalling, setUninstalling] = useState(false);
   const [installPath, setInstallPath] = useState("default");
+  const [autoSyncSaves, setAutoSyncSaves] = useState(false)
+  const [savesPath, setSavesPath] = useState("")
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const isInstalling = Boolean(
     installing.filter((game) => game === appName).length
@@ -52,6 +56,13 @@ export default function GamePage() {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName);
       setGameInfo(newInfo);
+      if (newInfo.cloudSaveEnabled) {
+        ipcRenderer.send("requestSettings", appName);
+        ipcRenderer.once(appName, (event, {autoSyncSaves, savesPath}: AppSettings) => {
+          setAutoSyncSaves(autoSyncSaves)
+          setSavesPath(savesPath)
+        })
+      }
     };
     updateConfig();
   }, [isInstalling, isPlaying, appName, uninstalling, playing]);
@@ -74,7 +85,7 @@ export default function GamePage() {
       refresh();
     }
   }
-
+  
   if (gameInfo) {
     const {
       title,
@@ -86,6 +97,8 @@ export default function GamePage() {
       version,
       extraInfo,
       developer,
+      cloudSaveEnabled,
+      saveFolder
     }: Game = gameInfo;
 
     const sizeInMB = Math.floor(install_size / 1024 / 1024);
@@ -93,7 +106,7 @@ export default function GamePage() {
 
     return (
       <>
-        <Header renderBackButton />
+        <Header goTo={'/'} renderBackButton />
         <div className="gameConfigContainer">
           {title ? (
             <>
@@ -105,7 +118,7 @@ export default function GamePage() {
                   <Link
                     className="hidden link"
                     to={{
-                      pathname: `/settings/${appName}`,
+                      pathname: `/settings/${appName}/wine`,
                     }}
                   >
                     Settings
@@ -137,8 +150,15 @@ export default function GamePage() {
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     <div className="summary">
-                      {extraInfo ? extraInfo.summary : ""}
+                      {extraInfo ? extraInfo.shortDescription : ""}
                     </div>
+                    <div style={{color: cloudSaveEnabled ? '#07C5EF' : '#5A5E5F'}}>
+                      Cloud Save Sync: {cloudSaveEnabled ? `Supports (${autoSyncSaves ? 'Auto Sync Enabled' : 'Auto Sync Disabled'})` :  'Does not support'}
+                    </div>
+                    {cloudSaveEnabled && 
+                    <div>
+                      {`Cloud Sync Folder: ${saveFolder}`}
+                    </div>}
                     {isInstalled && (
                       <>
                         <div>Executable: {executable}</div>
@@ -172,13 +192,13 @@ export default function GamePage() {
                       }}
                     >
                       {isInstalling
-                        ? progress !== '100' && `Installing ${progress}%`
+                        ? progress !== '100' && `Installing ${progress ? progress : '...'}`
                         : isInstalled
                         ? "Installed"
                         : "This game is not installed"}
                     </p>
                   </div>
-                  {!isInstalled && (
+                  {(!isInstalled && !isInstalling) && (
                     <select
                       onChange={(event) => setInstallPath(event.target.value)}
                       value={installPath}
@@ -195,10 +215,10 @@ export default function GamePage() {
                         <div
                           onClick={handlePlay()}
                           className={`button ${
-                            isPlaying ? "is-tertiary" : "is-success"
+                            isSyncing ? "is-primary" : isPlaying ? "is-tertiary" : "is-success"
                           }`}
                         >
-                          {isPlaying ? "Playing (Stop)" : "Play Now"}
+                          {isSyncing ? "Syncinc Saves" : isPlaying ? "Playing (Stop)" : "Play Now"}
                         </div>
                       </>
                     )}
@@ -214,6 +234,8 @@ export default function GamePage() {
                       }`}
                     >
                       {`${
+                        installPath === 'import' ?
+                        'Import' :
                         isInstalled
                           ? "Uninstall"
                           : isInstalling
@@ -242,8 +264,21 @@ export default function GamePage() {
         return sendKill(appName);
       }
 
+      if (autoSyncSaves){
+        setIsSyncing(true)
+        await syncSaves(savesPath, appName)
+        setIsSyncing(false)
+      }
+
       handlePlaying(appName);
       await launch(appName)
+      
+      if (autoSyncSaves){
+        setIsSyncing(true)
+        await syncSaves(savesPath, appName)
+        setIsSyncing(false)
+      }
+      
       return handlePlaying(appName);
     };
   }

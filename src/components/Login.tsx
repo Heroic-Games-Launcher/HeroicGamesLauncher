@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { legendary, loginPage } from "../../helper";
+import { legendary, loginPage, sidInfoPage } from "../helper";
 
 interface Props {
   refresh: () => void;
 }
 
 export default function Login({ refresh }: Props) {
-  const [input, setInput] = useState("Paste the SID number here");
+  const [input, setInput] = useState("");
   const [status, setStatus] = useState({
     loading: false,
     message: "",
@@ -60,10 +60,19 @@ export default function Login({ refresh }: Props) {
                   Epic Store here
                 </span>
                 , log in your account and copy your{" "}
-                <span className="sid">SID information number</span>.
+                <span 
+                  onClick={() => sidInfoPage()}
+                  className="sid">
+                  SID information number
+                  <i style={{marginLeft: '4px'}} className="material-icons">
+                    info
+                  </i>
+                </span>.
               </li>
               <li>
-                Paste the <span className="sid">SID number</span> in the input
+                Paste the <span  
+                onClick={() => sidInfoPage()}
+                className="sid">SID number</span> in the input
                 box below, click on the login button and wait.
               </li>
             </ol>
@@ -73,13 +82,13 @@ export default function Login({ refresh }: Props) {
               className="loginInput"
               id="sidInput"
               onChange={(event) => setInput(event.target.value)}
-              placeholder={input}
+              placeholder={"Paste the SID number here"}
             />
             {loading && <p className="message">{message}<span className="material-icons">autorenew</span> </p>}
             <button
               onClick={() => handleLogin(input)}
               className="button login"
-              disabled={loading}
+              disabled={(loading || input.length < 30)}
             >
                Login
             </button>

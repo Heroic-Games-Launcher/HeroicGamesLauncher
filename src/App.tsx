@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 
 import "./App.css";
 import { Library } from "./components/Library";
-import Login from './components/UI/Login';
+import Login from './components/Login';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Settings from './components/Settings';
@@ -28,6 +28,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Header
+            goTo={""}
             renderBackButton={false}
             handleOnlyInstalled={handleOnlyInstalled}
             numberOfGames={numberOfGames}
@@ -37,7 +38,7 @@ function App() {
           />
         </Route>
         <Route exact path="/gameconfig/:appName" component={GamePage} />
-        <Route exact path="/settings/:appName" component={Settings} />
+        <Route path="/settings/:appName/:type" component={Settings} />
       </Switch>
     </HashRouter>
     </div>
