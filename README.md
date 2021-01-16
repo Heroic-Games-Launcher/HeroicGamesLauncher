@@ -27,10 +27,12 @@ This app is a Linux GUI for the tool [Legendary](https://github.com/derrod/legen
 - Check basic information about your Games
 - Open game page on Epic Store
 - Search for the game on ProtonDB
-
-## Planned features
 - Sync installed games with an existing Epic Games instalation folder
 - Sync saves with the cloud
+
+## Planned features
+- Verify installed Games
+- Update installed Games
 - Get the Free game of the week
 - Add Games outside Epic Games
 - Integration with other stores
@@ -46,7 +48,6 @@ This app uses web technologies like Electron, React and Typescript.
 To be able to run you will need to have NodeJs installed locally and follow the instructions below:
 
 ### Steps:
-  - Since version 1.0 a account on [IGDB](https://api-docs.igdb.com/?javascript#account-creation) is necessary since we are using its API, and add a secrets.js file on the public folder with your client-id and secret.
   - Clone the Repository.
   - Install foreman with `npm i -g foreman`.
   - On the project folder run `npm install`.
