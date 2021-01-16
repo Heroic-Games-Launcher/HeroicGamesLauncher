@@ -76,8 +76,6 @@ const isLoggedIn = () => fs.existsSync(userInfo);
 const launchGame = async (appName) => {
       let envVars = ""
       let dxvkPrefix = ""
-      let altWine
-      let altWinePrefix
       let gameMode
       
       const gameConfig = `${heroicGamesConfigPath}${appName}.json`
@@ -93,13 +91,13 @@ const launchGame = async (appName) => {
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions, useGameMode, showFps } = settings[settingsName]
       
-      const isDefaultPrefix = winePrefix === `'${home}/.wine'` || winePrefix === "'~/.wine'"
+      let wine = wineVersion.bin
+      let prefix = `--wine-prefix ${winePrefix}`
+
+      const isDefaultPrefix = winePrefix === `'${home}/.wine'` || winePrefix === "~/.wine"
 
       envVars = otherOptions
-      const isProton = wineVersion.name.endsWith('proton')
-      if (isProton){
-        console.log('You are using Proton, this can lead to some bugs, please do not open issues with bugs related with games', wineVersion.name);
-      }
+      const isProton = wineVersion.name.startsWith('Steam')
 
       if (isDefaultPrefix && isProton){
         return showErrorBox(
@@ -108,12 +106,15 @@ const launchGame = async (appName) => {
         )
       }
 
-      if (winePrefix !== "~/.wine") {
+      if (!isDefaultPrefix) {
         if (isProton){
           envVars = `${otherOptions} STEAM_COMPAT_DATA_PATH=${winePrefix}`
+          console.log(`\n You are using Proton, this can lead to some bugs, 
+            please do not open issues with bugs related with games`,
+             wineVersion.name);
         }
         dxvkPrefix = winePrefix
-        altWinePrefix = isProton ? "" : `--wine-prefix ${winePrefix}`
+        prefix = isProton ? "" : `--wine-prefix ${winePrefix}`
       }
       
       // Install DXVK for non Proton Prefixes
@@ -123,10 +124,8 @@ const launchGame = async (appName) => {
     
       if (wineVersion.name !== "Wine Default") {
         const { bin } = wineVersion
-        altWine = isProton ?  `--no-wine --wrapper "${bin} run"` : `--wine ${bin}`
+        wine = isProton ?  `--no-wine --wrapper "${bin} run"` : `--wine ${bin}`
       }
-
-      
 
       // check if Gamemode is installed
       await execAsync(`which gamemoderun`)
@@ -136,8 +135,8 @@ const launchGame = async (appName) => {
       const runWithGameMode = (useGameMode && gameMode) ? gameMode : ''
       const dxvkFps = showFps ? 'DXVK_HUD=fps'  : ''
 
-      const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${altWine} ${altWinePrefix}`
-      console.log('\n Launch Command: ', command);
+      const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
+      console.log('\n Launch Command:', command);
     
       return execAsync(command)
       .then(({ stderr }) => {
