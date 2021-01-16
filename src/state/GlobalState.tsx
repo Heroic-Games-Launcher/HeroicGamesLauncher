@@ -38,6 +38,7 @@ export class GlobalState extends Component<Props> {
     this.setState({
       user,
       refreshing: false,
+      filterText: "",
       data: library
     })
   }
