@@ -181,7 +181,7 @@ export default function GamePage() {
                       <progress
                         className="installProgress"
                         max={100}
-                        value={progress}
+                        value={Number(progress.replace('%', ''))}
                       />
                     )}
                     <p
