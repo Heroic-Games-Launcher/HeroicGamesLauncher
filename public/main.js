@@ -372,7 +372,7 @@ ipcMain.on("showAboutWindow", () => {
   app.setAboutPanelOptions({
     applicationName: "Heroic Games Launcher",
     copyright: "GPL V3",
-    applicationVersion: "1.0 'Enel'",
+    applicationVersion: "1.1 'Crocodile'",
     website: "https://github.com/flavioislima/HeroicGamesLauncher",
     iconPath: icon,
   });
