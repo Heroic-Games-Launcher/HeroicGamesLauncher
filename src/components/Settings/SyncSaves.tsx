@@ -110,6 +110,7 @@ export default function SyncSaves({
             <select
               onChange={(event) => setSyncType(event.target.value as SyncType)}
               value={syncType}
+              disabled={!Boolean(savesPath.length)}
               className="settingSelect small"
             >
               {syncTypes.map((name: SyncType) => (
