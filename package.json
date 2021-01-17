@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -94,7 +94,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage deb pacman rpm tar.xz"
+    "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage deb rpm pacman tar.xz"
   },
   "eslintConfig": {
     "extends": [

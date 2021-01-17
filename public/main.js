@@ -166,10 +166,10 @@ ipcMain.handle("install", async (event, args) => {
     const { defaultInstallPath } = JSON.parse(
       fs.readFileSync(heroicConfigPath)
     ).defaultSettings;
-    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y &> ${logPath}`;
+    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y |& tee ${logPath}`;
   }
   console.log(`Installing ${game} with:`, command);
-  await execAsync(command)
+  await execAsync(command, {shell: '/bin/bash'})
     .then(console.log)
     .catch(console.log);
 });
