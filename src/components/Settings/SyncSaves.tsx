@@ -110,6 +110,7 @@ export default function SyncSaves({
             <select
               onChange={(event) => setSyncType(event.target.value as SyncType)}
               value={syncType}
+              disabled={!Boolean(savesPath.length)}
               className="settingSelect small"
             >
               {syncTypes.map((name: SyncType) => (
@@ -132,6 +133,7 @@ export default function SyncSaves({
           Sync Saves Automatically
           <ToggleSwitch
             value={autoSyncSaves}
+            disabled={!Boolean(savesPath.length)}
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
           />
         </span>
