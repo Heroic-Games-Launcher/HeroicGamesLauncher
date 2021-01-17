@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 
 interface Card {
   cover: string;
+  logo: string
   title: string;
   appName: string;
   isInstalled: boolean;
 }
 
-const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
+const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   return (
     <Link
       className="gameCard"
@@ -16,6 +17,13 @@ const GameCard = ({ cover, title, appName, isInstalled }: Card) => {
         pathname: `/gameconfig/${appName}`
       }}
     >
+      {logo &&
+        <img 
+        alt="logo" 
+        src={logo} 
+        style={{ filter: isInstalled ? 'none' : 'grayscale(0.9)'}}
+        className="gameLogo" />
+      }
       <img 
         alt="cover-art" 
         src={cover} 

@@ -293,8 +293,12 @@ ipcMain.handle("readFile", async (event, file) => {
           const gameBoxTall = keyImages.filter(
             ({ type }) => type === "DieselGameBoxTall"
           )[0];
+          const logo = keyImages.filter(
+            ({ type }) => type === "DieselGameBoxLogo"
+          )[0];
 
           const art_cover = gameBox ? gameBox.url : null;
+          const art_logo = logo ? logo.url : null;
           const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage;
 
           const installedGames = Object.values(files.installed);
@@ -327,6 +331,7 @@ ipcMain.handle("readFile", async (event, file) => {
             saveFolder,
             art_cover: art_cover || art_square,
             art_square: art_square || art_cover,
+            art_logo
           };
         })
         .sort((a, b) => {
