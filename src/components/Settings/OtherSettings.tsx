@@ -1,4 +1,5 @@
 import React from "react";
+import InfoBox from '../UI/InfoBox';
 import ToggleSwitch from '../UI/ToggleSwitch';
 
 
@@ -49,6 +50,9 @@ export default function OtherSettings({
           />
         </span>
       </span>
+      <InfoBox>
+      Type bellow any advanced options to launch the game if want, like: <strong>MANGOHUD=1</strong> to show Mangohud or <strong>PULSE_LATENCY_MSEC=60</strong> to fix audio in some games, etc.
+      </InfoBox>
     </>
   );
 }

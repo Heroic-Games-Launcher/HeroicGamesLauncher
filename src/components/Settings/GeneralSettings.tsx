@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import ContextProvider from '../../state/ContextProvider';
 import { Path } from "../../types";
+import InfoBox from '../UI/InfoBox';
 const {
   ipcRenderer,
   remote: { dialog },
@@ -130,6 +131,9 @@ export default function GeneralSettings({
           </button>
         </span>
       </span>
+      <InfoBox>
+        Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.
+      </InfoBox>
     </>
   );
 }

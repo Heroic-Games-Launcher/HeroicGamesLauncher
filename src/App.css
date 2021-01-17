@@ -898,6 +898,35 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.infoBox {
+  background: #1A1B1C;
+  width: 100%;
+  padding: 20px 44px;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.helpLink {
+  color: #F69707;
+  cursor: pointer;
+  width: 100px;
+  display: grid;
+  height: 40px;
+  position: relative;
+  left: 40%;
+  bottom: 8px;
+  grid-template-columns: 32px 32px;
+  align-items: center;
+}
+
+.infoBox > ul {
+  text-align: left;
+}
+
+.infoBox > strong {
+  color:#07C5EF;
+}
+
 @keyframes animate-stripes {
   100% { background-position: -100px 0px; }
 }
