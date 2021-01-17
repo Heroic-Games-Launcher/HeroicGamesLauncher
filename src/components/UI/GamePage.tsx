@@ -90,6 +90,7 @@ export default function GamePage() {
     const {
       title,
       art_square,
+      art_logo,
       install_path,
       install_size,
       isInstalled,
@@ -144,7 +145,10 @@ export default function GamePage() {
                 </span>}
               </div>
               <div className="gameConfig">
-                <img alt="cover-art" src={art_square} className="gameImg" />
+                <div className="gamePicture">
+                  <img alt="cover-art" src={art_square} className="gameImg" />
+                  {art_logo && <img alt="cover-art" src={art_logo} className="gameLogo" />}
+                </div>
                 <div className="gameInfo">
                   <div className="title">{title}</div>
                   <div className="infoWrapper">
@@ -181,7 +185,7 @@ export default function GamePage() {
                       <progress
                         className="installProgress"
                         max={100}
-                        value={progress}
+                        value={Number(progress.replace('%', ''))}
                       />
                     )}
                     <p

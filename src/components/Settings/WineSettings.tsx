@@ -1,5 +1,6 @@
 import React from 'react'
 import { Path, WineProps } from '../../types'
+import InfoBox from '../UI/InfoBox';
 const {
   remote: { dialog }
 } = window.require("electron");
@@ -65,6 +66,18 @@ export default function WineSettings({
               ))}
             </select>
           </span>
+          <InfoBox>
+            <span>Heroic searchs for versions of Wine and Proton on the following folders:</span>
+            <ul>
+              <i>
+                <li>$HOME/.local/share/Steam/compatibilitytools.d</li>
+                <li>$HOME/.local/share/Steam/steamapps/common</li>
+                <li>$HOME/.local/share/lutris/runners/wine</li>
+                <li>$HOME/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+              </i>
+            </ul>
+            <span>For other places, use a symbolic link to one of these folders</span>
+          </InfoBox>
     </>
   )
 }
