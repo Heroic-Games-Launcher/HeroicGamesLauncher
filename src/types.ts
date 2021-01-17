@@ -21,6 +21,7 @@ export interface Game {
   art_cover: string
   art_square: string
   app_name: string
+  art_logo: string
   executable: string
   title: string
   version: string

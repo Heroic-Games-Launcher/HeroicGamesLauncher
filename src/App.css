@@ -163,14 +163,31 @@
   background-color: #323035;
   text-align: left;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 210px;
   height: 280px;
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
+}
+
+.gameCard > .gameImg {
+  width: 210px;
+  height: 280px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.gameCard > .gameLogo {
+  width: 70%;
+  min-width: 140px;
+  position: relative;
+  bottom: -85px;
+  z-index: 2;
 }
 
 .gameTitle {
@@ -193,6 +210,7 @@
 
 .gameCard:hover > .gameTitle {
   bottom: 0;
+  z-index: 3;
 }
 
 .gameCard .gameTitle span {
@@ -524,6 +542,22 @@
   font-size: 25px;
   line-height: 30px;
   color: #F79707;
+}
+
+.gameConfig > .gamePicture {
+  max-width: 210px;
+  max-height: 280px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+}
+
+.gamePicture > .gameLogo {
+  position: absolute;
+  bottom: 0;
+  width: 70%;
+  min-width: 140px;
 }
 
 .gameInfo {
@@ -862,6 +896,35 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.infoBox {
+  background: #1A1B1C;
+  width: 100%;
+  padding: 20px 44px;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.helpLink {
+  color: #F69707;
+  cursor: pointer;
+  width: 100px;
+  display: grid;
+  height: 40px;
+  position: relative;
+  left: 40%;
+  bottom: 8px;
+  grid-template-columns: 32px 32px;
+  align-items: center;
+}
+
+.infoBox > ul {
+  text-align: left;
+}
+
+.infoBox > strong {
+  color:#07C5EF;
 }
 
 @keyframes animate-stripes {
