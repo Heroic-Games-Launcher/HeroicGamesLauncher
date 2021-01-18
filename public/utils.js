@@ -239,9 +239,16 @@ async function installDxvk(prefix) {
     return
   }
 
+  if (!fs.existsSync(`${heroicToolsPath}/latest_dxvk`)) {
+    console.log('dxvk not found!');
+    await getLatestDxvk()
+  }
+  
   const globalVersion = fs.readFileSync(`${heroicToolsPath}/latest_dxvk`).toString().split('\n')[0].replace('.tar.gz', '')
+  const dxvkPath = `${heroicToolsPath}/${globalVersion}/`
   const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
   let currentVersion = ""
+
 
   if (fs.existsSync(currentVersionCheck)){
     currentVersion = fs.readFileSync(currentVersionCheck).toString().split('\n')[0]
@@ -251,7 +258,7 @@ async function installDxvk(prefix) {
     return
   }
 
-  const dxvkPath = `${heroicToolsPath}/${globalVersion}/`
+  
   const installCommand = `WINEPREFIX=${prefix} sh ${dxvkPath}setup_dxvk.sh install`
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${prefix}`, installCommand);
