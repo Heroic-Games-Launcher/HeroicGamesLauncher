@@ -182,14 +182,17 @@ ipcMain.handle("importGame", async (event, args) => {
   return
 });
 
-ipcMain.on("requestGameProgress", (event, game) => {
-  const logPath = `${heroicGamesConfigPath}${game}.log`;
+ipcMain.on("requestGameProgress", (event, appName) => {
+  const logPath = `${heroicGamesConfigPath}${appName}.log`;
   exec(
-    `tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`,
+    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6}'`,
     (error, stdout, stderr) => {
-      const progress = `${stdout.split("\n")[0]}`;
-      console.log(`Install Progress: ${progress}`);
-      event.reply("requestedOutput", `${progress}`);
+      const status = `${stdout.split("\n")[0]}`.split('(');
+      const percent = status[0]
+      const bytes = status[1] && status[1].replace('),', 'MB')
+      const progress = { percent, bytes }
+      console.log(`Install Progress: ${appName} ${progress.percent}/${progress.bytes}/`);
+      event.reply(`${appName}-progress`, progress);
     }
   );
 });

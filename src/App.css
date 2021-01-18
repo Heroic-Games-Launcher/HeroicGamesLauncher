@@ -59,7 +59,7 @@
   font-size: 20px;
   line-height: 23.7px;
   font-weight: 400;
-  width: 282px;
+  width: fit-content;
   height: 25px;
   left: 43px;
   top: 26px;
@@ -155,7 +155,7 @@
   color: #E4DEEA;
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
-  grid-gap: 30px 34px;
+  grid-gap: 34px;
   padding: 0 4rem 0 4rem;
 }
 
@@ -165,16 +165,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 210px;
-  height: 280px;
+  width: 200px;
+  height: 266px;
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
 }
 
+.gameCard > .progress {
+  position: absolute;
+  z-index: 5;
+  top: 15px;
+  left: 13px;
+  font-weight: 600;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #0BD58C;
+}
+
 .gameCard > .gameImg {
-  width: 210px;
-  height: 280px;
+  width: 200px;
+  height: 266px;
   border-radius: 0.5rem;
   object-fit: cover;
   position: absolute;
@@ -201,6 +213,9 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
   border-radius: 0px 0px 10px 10px;
   transition: 200ms;
+  font-family: Rubik;
+  line-height: 17px;
+  color: #EAE8E5;
 }
 
 .gameTitle > i {
