@@ -44,6 +44,8 @@
     "deb": {
       "packageCategory": "games",
       "depends": [
+        "wine",
+        "winetricks",
         "gawk",
         "curl",
         "gconf2",
@@ -57,15 +59,31 @@
     "pacman": {
       "packageCategory": "games",
       "depends": [
+        "wine",
+        "winetricks",
         "gawk",
-        "curl"
+        "curl",
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
+        "wine",
+        "winetricks",
         "gawk",
-        "curl"
+        "curl",
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3"
       ]
     }
   },
