@@ -95,9 +95,9 @@ export default function GamePage() {
           {
             title ? 
             <>
-            <span className="material-icons is-secondary dots">
-            more_vertical
-          </span>
+            <span className="icon">
+                <span className="mdi mdi-24px mdi-dots-vertical"></span>
+              </span>
           <div className="more">
             {isInstalled && <Link className="hidden link" to={{
                pathname: `/settings/${appName}`

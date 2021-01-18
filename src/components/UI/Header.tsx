@@ -25,9 +25,9 @@ export default function Header({ renderBackButton, numberOfGames, handleOnlyInst
       }
       {Boolean(numberOfGames) && 
           <span className="totalGamesText level-right">
-            <div className="level-item">
+            {/* <div className="level-item">
               Total Games: {numberOfGames}
-            </div>
+            </div> */}
           </span>}
       {renderBackButton && (
           <div className="level-left">
