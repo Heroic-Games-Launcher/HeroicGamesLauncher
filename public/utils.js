@@ -91,34 +91,23 @@ const launchGame = async (appName) => {
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions, useGameMode, showFps } = settings[settingsName]
       
-      let wine = wineVersion.bin
+      let wine = `--wine ${wineVersion.bin}`
       let prefix = `--wine-prefix ${winePrefix}`
-
-      const isDefaultPrefix = winePrefix === `'${home}/.wine'` || winePrefix === "~/.wine"
 
       envVars = otherOptions
       const isProton = wineVersion.name.startsWith('Steam')
+      prefix = isProton ? "" : `--wine-prefix ${winePrefix}`
 
-      if (isDefaultPrefix && isProton){
-        return showErrorBox(
-          "Proton on default Wine Prefix",
-          "Using proton with default wine prefix is not supported"
-        )
-      }
-
-      if (!isDefaultPrefix) {
         if (isProton){
           envVars = `${otherOptions} STEAM_COMPAT_DATA_PATH=${winePrefix}`
           console.log(`\n You are using Proton, this can lead to some bugs, 
             please do not open issues with bugs related with games`,
              wineVersion.name);
         }
+        
+        // Install DXVK for non Proton Prefixes
+        if (!isProton) {
         dxvkPrefix = winePrefix
-        prefix = isProton ? "" : `--wine-prefix ${winePrefix}`
-      }
-      
-      // Install DXVK for non Proton Prefixes
-      if (!isProton) {
         await installDxvk(dxvkPrefix)
       }
     
@@ -243,7 +232,7 @@ async function installDxvk(prefix) {
     console.log('dxvk not found!');
     await getLatestDxvk()
   }
-  
+
   const globalVersion = fs.readFileSync(`${heroicToolsPath}/latest_dxvk`).toString().split('\n')[0].replace('.tar.gz', '')
   const dxvkPath = `${heroicToolsPath}/${globalVersion}/`
   const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
