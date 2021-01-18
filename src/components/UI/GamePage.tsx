@@ -27,6 +27,11 @@ interface RouteParams {
   appName: string;
 }
 
+interface InstallProgress {
+  percent: string
+  bytes: string
+}
+
 export default function GamePage() {
   const { appName } = useParams() as RouteParams;
 
@@ -39,7 +44,7 @@ export default function GamePage() {
   } = useContext(ContextProvider);
 
   const [gameInfo, setGameInfo] = useState({} as Game);
-  const [progress, setProgress] = useState("0.00");
+  const [progress, setProgress] = useState({ percent: '0.00%', bytes: '0/0MB' } as InstallProgress);
   const [uninstalling, setUninstalling] = useState(false);
   const [installPath, setInstallPath] = useState("default");
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
@@ -71,20 +76,13 @@ export default function GamePage() {
     const progressInterval = setInterval(() => {
       if (isInstalling) {
         ipcRenderer.send("requestGameProgress", appName);
-        ipcRenderer.on("requestedOutput", (event: any, out: string) =>
-          setProgress(out)
+        ipcRenderer.on(`${appName}-progress`, (event: any, progress: InstallProgress) =>
+          setProgress(progress)
         );
       }
     }, 1000);
     return () => clearInterval(progressInterval);
   }, [isInstalling, appName]);
-
-  if (isInstalling) {
-    if (progress === "100") {
-      handleInstalling(appName);
-      refresh();
-    }
-  }
   
   if (gameInfo) {
     const {
@@ -185,7 +183,7 @@ export default function GamePage() {
                       <progress
                         className="installProgress"
                         max={100}
-                        value={Number(progress.replace('%', ''))}
+                        value={Number(progress.percent.replace('%', ''))}
                       />
                     )}
                     <p
@@ -196,7 +194,7 @@ export default function GamePage() {
                       }}
                     >
                       {isInstalling
-                        ? progress !== '100' && `Installing ${progress ? progress : '...'}`
+                        ? `Installing ${progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'}`
                         : isInstalled
                         ? "Installed"
                         : "This game is not installed"}

@@ -2,7 +2,8 @@ name: Draft Release
 
 on:	
   push:	
-    branches: [ main ]	
+    tags: 
+      - "v*"
 
   # Allows you to run this workflow manually from the Actions tab	
   workflow_dispatch:	
@@ -15,10 +16,6 @@ jobs:
       - uses: actions/setup-node@v2.1.4	
       - run: sudo apt-get install --no-install-recommends -y bsdtar libopenjp2-tools rpm	
       - run: npm install	
-      - run: echo $IGDB_TOKEN > public/secrets.js	
-        shell: bash	
-        env:	
-          IGDB_TOKEN: ${{ secrets.IGDB_TOKEN}}	
       - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" npm run dist	
       - uses: "marvinpinto/action-automatic-releases@latest"	
         with:	
