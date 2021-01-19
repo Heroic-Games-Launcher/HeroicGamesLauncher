@@ -21,7 +21,7 @@
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: clamp(18px, 1vw, 25px);
   line-height: 17px;  
   color: #C1C4C3;
 }
@@ -822,7 +822,7 @@
   align-items: center;
   place-self: center;
   justify-content: space-evenly;
-  width: 140px;
+  width: auto;
 }
 
 .totalGamesText {
@@ -849,10 +849,11 @@
 
 /* The switch - the box around the slider */
 .switch {
+  margin-inline-start: clamp(10px, 0.5vw, 20px);
   position: relative;
   display: inline-block;
-  width: 22px;
-  height: 11px;
+  width: clamp(30px, 1.65vw, 40px) ;
+  height: clamp(15px, 1.5vh, 20px);
 }
 
 /* Hide default HTML checkbox */
@@ -860,6 +861,7 @@
   opacity: 0;
   width: 0;
   height: 0;
+  margin: 0 0 0 0;
 }
 
 /* The slider */
@@ -868,7 +870,7 @@
   cursor: pointer;
   top: 0;
   left: 0;
-  right: 0;
+  right: 1px;
   bottom: 0;
   background: none;
   border: 2px solid;
@@ -879,10 +881,9 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 6px;
-  width: 6px;
-  left: 2px;
-  bottom: 1px;
+  height: -webkit-fill-available;
+  width: clamp(9px, 0.5vw, 20px);
+  left: 1px;
   background-color: #DADADA;;
   -webkit-transition: .4s;
   transition: .4s;
@@ -902,11 +903,11 @@ input:focus + .slider {
 
 input:checked + .slider:before {
   background-color: #FFA800;
-  transform: translateX(9px);
+  transform: translateX(clamp(14px, 0.775vw, 20px));
 }
 
 .slider.round {
-  border-radius: 34px;
+  border-radius: 60px;
 }
 
 .slider.round:before {
