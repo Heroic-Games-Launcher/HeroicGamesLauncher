@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import { useToggle } from "../../hooks";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function InfoBox({ children }: Props) {
-  const [isHidden, setIsHidden] = useState(true);
+  const {on: isHidden, toggle: toggleIsHidden} = useToggle(true)
   return (
     <>
-      <span className="helpLink" onClick={() => setIsHidden(!isHidden)}>
+      <span className="helpLink" onClick={toggleIsHidden}>
         <p>Help</p>
         <i className="material-icons">info</i>
       </span>
