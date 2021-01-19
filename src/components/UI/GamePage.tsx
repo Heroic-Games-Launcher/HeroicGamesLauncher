@@ -100,7 +100,6 @@ export default function GamePage() {
       saveFolder
     }: Game = gameInfo;
 
-    const sizeInMB = Math.floor(install_size / 1024 / 1024);
     const protonDBurl = `https://www.protondb.com/search?q=${title}`;
 
     return (
@@ -164,7 +163,7 @@ export default function GamePage() {
                     {isInstalled && (
                       <>
                         <div>Executable: {executable}</div>
-                        <div>Size: {sizeInMB}MB</div>
+                        <div>Size: {install_size}</div>
                         <div>Version: {version}</div>
                         <div
                           className="clickable"

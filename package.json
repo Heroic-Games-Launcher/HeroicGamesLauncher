@@ -38,7 +38,8 @@
         "deb",
         "pacman",
         "tar.xz",
-        "rpm"
+        "rpm",
+        "snap"
       ]
     },
     "deb": {
@@ -85,6 +86,21 @@
         "libxtst6",
         "libnss3"
       ]
+    },
+    "snap": {
+      "confinement": "devmode",
+      "stagePackages": [
+        "default",
+        "wine",
+        "winetricks",
+        "gawk",
+        "curl",
+        "gconf2",
+        "gconf-service",
+        "python-requests",
+        "python-wheel-common",
+        "python-setuptools"
+      ]
     }
   },
   "dependencies": {
@@ -96,6 +112,7 @@
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
     "axios": "^0.21.1",
+    "byte-size": "^7.0.0",
     "electron-is-dev": "^1.2.0",
     "electron-util": "^0.14.2",
     "react": "^17.0.1",
@@ -112,7 +129,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage deb rpm pacman tar.xz"
+    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux snap"
   },
   "eslintConfig": {
     "extends": [
