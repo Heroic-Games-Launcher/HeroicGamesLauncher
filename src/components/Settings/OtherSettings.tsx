@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import InfoBox from '../UI/InfoBox';
 import ToggleSwitch from '../UI/ToggleSwitch';
 
@@ -7,32 +7,34 @@ interface Props {
   otherOptions: string
   setOtherOptions: (value: string) => void
   useGameMode: boolean
-  setUseGameMode: (value: boolean) => void
+  toggleUseGameMode: () => void
   showFps: boolean
-  setShowFps: (value: boolean) => void
+  toggleFps: () => void
 }
 
 export default function OtherSettings({
   otherOptions, 
   setOtherOptions, 
   useGameMode, 
-  setUseGameMode, 
+  toggleUseGameMode, 
   showFps, 
-  setShowFps
+  toggleFps
 }: Props) {
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setOtherOptions(event.currentTarget.value)
 
   return (
     <>
       <span className="setting">
         <span className="toggleWrapper">
           Show FPS (DXVK_HUD=fps)
-          <ToggleSwitch value={showFps} handleChange={() => setShowFps(!showFps)} /> 
+          <ToggleSwitch value={showFps} handleChange={toggleFps} /> 
         </span>
       </span>
       <span className="setting">
         <span className="toggleWrapper">
           Use GameMode (Feral Game Mode needs to be installed)
-          <ToggleSwitch value={useGameMode} handleChange={() => setUseGameMode(!useGameMode)} /> 
+          <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} /> 
         </span>
       </span>
       <span className="setting">
@@ -46,7 +48,7 @@ export default function OtherSettings({
             placeholder={"Put here other launch options"}
             className="settingSelect"
             value={otherOptions}
-            onChange={(event) => setOtherOptions(event.currentTarget.value)}
+            onChange={handleInputChange}
           />
         </span>
       </span>
