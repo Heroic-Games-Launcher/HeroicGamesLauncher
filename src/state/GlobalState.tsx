@@ -34,6 +34,14 @@ export class GlobalState extends PureComponent<Props> {
   refresh = async (): Promise<void> => {
     this.setState({refreshing: true})
     const { user, library } = await getLegendaryConfig()
+
+    // Show in alphabetical order but with installed games first
+    library.sort((a, b) => {
+      if (a.isInstalled !== b.isInstalled) {
+        return a.isInstalled ? -1 : 1;
+      }
+      return a.title.localeCompare(b.title);
+    });
     
     this.setState({
       user,
