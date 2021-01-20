@@ -73,6 +73,14 @@ const getAlternativeWine = () => {
 
 const isLoggedIn = () => fs.existsSync(userInfo);
 
+const updateGame = (game) => {
+  const logPath = `${heroicGamesConfigPath}${game}.log`;
+  let command = `${legendaryBin} update ${game} -y &> ${logPath}`;
+  return execAsync(command, {shell: '/bin/bash'})
+    .then(console.log)
+    .catch(console.log);
+}
+
 const launchGame = async (appName) => {
       let envVars = ""
       let dxvkPrefix = ""
@@ -91,34 +99,23 @@ const launchGame = async (appName) => {
       const settings = JSON.parse(fs.readFileSync(settingsPath))
       const { winePrefix, wineVersion, otherOptions, useGameMode, showFps } = settings[settingsName]
       
-      let wine = wineVersion.bin
+      let wine = `--wine ${wineVersion.bin}`
       let prefix = `--wine-prefix ${winePrefix}`
-
-      const isDefaultPrefix = winePrefix === `'${home}/.wine'` || winePrefix === "~/.wine"
 
       envVars = otherOptions
       const isProton = wineVersion.name.startsWith('Steam')
+      prefix = isProton ? "" : `--wine-prefix ${winePrefix}`
 
-      if (isDefaultPrefix && isProton){
-        return showErrorBox(
-          "Proton on default Wine Prefix",
-          "Using proton with default wine prefix is not supported"
-        )
-      }
-
-      if (!isDefaultPrefix) {
         if (isProton){
           envVars = `${otherOptions} STEAM_COMPAT_DATA_PATH=${winePrefix}`
           console.log(`\n You are using Proton, this can lead to some bugs, 
             please do not open issues with bugs related with games`,
              wineVersion.name);
         }
+        
+        // Install DXVK for non Proton Prefixes
+        if (!isProton) {
         dxvkPrefix = winePrefix
-        prefix = isProton ? "" : `--wine-prefix ${winePrefix}`
-      }
-      
-      // Install DXVK for non Proton Prefixes
-      if (!isProton) {
         await installDxvk(dxvkPrefix)
       }
     
@@ -148,7 +145,10 @@ const launchGame = async (appName) => {
             )
           }
         })
-        .catch(console.log)
+        .catch(async ({stderr}) => {
+          fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done')
+          return stderr
+        })
 }
 
 const writeDefaultconfig = () => {
@@ -239,9 +239,16 @@ async function installDxvk(prefix) {
     return
   }
 
+  if (!fs.existsSync(`${heroicToolsPath}/latest_dxvk`)) {
+    console.log('dxvk not found!');
+    await getLatestDxvk()
+  }
+
   const globalVersion = fs.readFileSync(`${heroicToolsPath}/latest_dxvk`).toString().split('\n')[0].replace('.tar.gz', '')
+  const dxvkPath = `${heroicToolsPath}/${globalVersion}/`
   const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
   let currentVersion = ""
+
 
   if (fs.existsSync(currentVersionCheck)){
     currentVersion = fs.readFileSync(currentVersionCheck).toString().split('\n')[0]
@@ -251,12 +258,12 @@ async function installDxvk(prefix) {
     return
   }
 
-  const dxvkPath = `${heroicToolsPath}/${globalVersion}/`
-  const installCommand = `WINEPREFIX=${prefix} sh ${dxvkPath}setup_dxvk.sh install`
+  
+  const installCommand = `WINEPREFIX=${prefix} bash ${dxvkPath}setup_dxvk.sh install`
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${prefix}`, installCommand);
   await execAsync(`WINEPREFIX=${prefix} wineboot`)
-  await execAsync(installCommand)
+  await execAsync(installCommand, {shell: '/bin/bash'})
     .then(() => exec(echoCommand))
 }
 
@@ -277,5 +284,6 @@ module.exports = {
   icon,
   home,
   loginUrl,
-  sidInfoUrl
+  sidInfoUrl,
+  updateGame
 }

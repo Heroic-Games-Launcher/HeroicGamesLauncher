@@ -167,6 +167,7 @@ export default function Settings() {
               saveFolder={haveCloudSaving.saveFolder}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
+              defaultFolder={winePrefix}
             />
           }
           {isWineSettings && 

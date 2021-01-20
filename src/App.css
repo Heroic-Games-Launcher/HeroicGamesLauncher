@@ -31,6 +31,23 @@
   cursor: pointer;
 }
 
+.selectFilter {
+  display: flex;
+  width: 250px;
+  justify-self: center;
+  justify-content: space-evenly;
+}
+
+.selectFilter > .selected {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFA800;
+}
+
+.selectFilter > :not(:first-child) {
+  cursor: pointer;
+}
+
 .App .pageTitle {
   text-align: center;
   font-size: 2rem;
@@ -59,7 +76,7 @@
   font-size: 20px;
   line-height: 23.7px;
   font-weight: 400;
-  width: fit-content;
+  width: 282px;
   height: 25px;
   left: 43px;
   top: 26px;

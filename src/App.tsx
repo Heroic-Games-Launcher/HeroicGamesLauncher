@@ -6,22 +6,20 @@ import Login from './components/Login';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Settings from './components/Settings';
-import GamePage from './components/UI/GamePage';
+import GamePage from './components/GamePage/GamePage';
 import Header from './components/UI/Header';
 import ContextProvider from './state/ContextProvider';
 
 function App() {
   const context = useContext(ContextProvider);
 
-  const { user, data: library, refresh, handleOnlyInstalled, installing } = context;
+  const { user, data: library, refresh, handleFilter } = context;
 
   if (!user && !library.length) {
     return <Login refresh={refresh} />
   }
 
   const numberOfGames = library.length
-  const downloading = library.filter(({app_name}) => installing.includes(app_name)) 
-  const downloadingAmount = downloading.length
 
   return (
     <div className="App">
@@ -32,7 +30,7 @@ function App() {
           <Header
             goTo={""}
             renderBackButton={false}
-            handleOnlyInstalled={handleOnlyInstalled}
+            handleFilter={handleFilter}
             numberOfGames={numberOfGames}
            />
           <Library 
@@ -40,16 +38,6 @@ function App() {
           />
         </Route>
         <Route exact path="/gameconfig/:appName" component={GamePage} />
-        <Route exact path="/downloads" >
-        <Header
-            goTo={""}
-            renderBackButton={false}
-            numberOfGames={downloadingAmount}
-        />
-        <Library 
-            library={downloading}
-          />
-        </Route>
         <Route path="/settings/:appName/:type" component={Settings} />
       </Switch>
     </HashRouter>

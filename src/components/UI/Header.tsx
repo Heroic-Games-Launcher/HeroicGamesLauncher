@@ -1,38 +1,59 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import ContextProvider from '../../state/ContextProvider';
-import ToggleSwitch from './ToggleSwitch';
+import ContextProvider from "../../state/ContextProvider";
 
 interface Props {
   renderBackButton: boolean;
   numberOfGames?: number;
   goTo: string;
-  handleOnlyInstalled?: () => void;
+  handleFilter?: (value: string) => void;
 }
 
-export default function Header({ renderBackButton, numberOfGames, handleOnlyInstalled, goTo }: Props) {
-  const { onlyInstalled } = useContext(ContextProvider)
-  
+export default function Header({
+  renderBackButton,
+  numberOfGames,
+  handleFilter,
+  goTo,
+}: Props) {
+  const { filter } = useContext(ContextProvider);
+
   return (
     <>
       <div className="header">
-      {
-      handleOnlyInstalled && 
-        <span className="installedSwitch" >
-          <span>Installed Only</span>
-          <ToggleSwitch value={onlyInstalled} handleChange={() => handleOnlyInstalled()} />
-        </span>
-      }
-      {Boolean(numberOfGames) && 
-          <span className="totalGamesText">Total Games: {numberOfGames}</span>}
-      {renderBackButton && (
+        {handleFilter && (
+          <span className="selectFilter">
+            <span>Filter:</span>
+            <span
+              className={filter === "all" ? "selected" : ""}
+              onClick={() => handleFilter("all")}
+            >
+              All
+            </span>
+            <span
+              className={filter === "installed" ? "selected" : ""}
+              onClick={() => handleFilter("installed")}
+            >
+              Installed
+            </span>
+            <span
+              className={filter === "downloading" ? "selected" : ""}
+              onClick={() => handleFilter("downloading")}
+            >
+              Downloading
+            </span>
+          </span>
+        )}
+        {Boolean(numberOfGames) && (
+          <span className="totalGamesText">Total Games: {numberOfGames}</span>
+        )}
+        {renderBackButton && (
           <div className="leftCluster">
             <Link className="returnLink" to={goTo}>
               <span className="material-icons">arrow_back</span>
               Return
             </Link>
           </div>
-      )}
+        )}
       </div>
     </>
   );

@@ -13,9 +13,11 @@ const {
   writeGameconfig,
   getLatestDxvk,
   home,
-  sidInfoUrl
+  sidInfoUrl,
+  updateGame
 } = require("./utils");
 
+const byteSize = require('byte-size')
 const { spawn, exec } = require("child_process");
 const path = require("path");
 const isDev = require("electron-is-dev");
@@ -41,6 +43,7 @@ function createWindow() {
     minWidth: 1280,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: true,
     },
   });
@@ -182,6 +185,8 @@ ipcMain.handle("importGame", async (event, args) => {
   return
 });
 
+ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
+
 ipcMain.on("requestGameProgress", (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`;
   exec(
@@ -289,35 +294,36 @@ ipcMain.handle("readFile", async (event, file) => {
           const { description, keyImages, title, developer, customAttributes: { CloudSaveFolder } } = metadata;
           const cloudSaveEnabled = Boolean(CloudSaveFolder)
           const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ""
-
           const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
-          )[0];
-          const gameBoxTall = keyImages.filter(
-            ({ type }) => type === "DieselGameBoxTall"
-          )[0];
-          const logo = keyImages.filter(
-            ({ type }) => type === "DieselGameBoxLogo"
-          )[0];
-
-          const art_cover = gameBox ? gameBox.url : null;
-          const art_logo = logo ? logo.url : null;
-          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage;
-
-          const installedGames = Object.values(files.installed);
-          const isInstalled = Boolean(
-            installedGames.filter((game) => game.app_name === app_name).length
-          );
-          const info = isInstalled
-            ? installedGames.filter((game) => game.app_name === app_name)[0]
-            : {};
-
-          const {
-            executable = null,
-            version = null,
-            install_size = null,
-            install_path = null,
+            )[0];
+            const gameBoxTall = keyImages.filter(
+              ({ type }) => type === "DieselGameBoxTall"
+              )[0];
+              const logo = keyImages.filter(
+                ({ type }) => type === "DieselGameBoxLogo"
+                )[0];
+                
+                const art_cover = gameBox ? gameBox.url : null;
+                const art_logo = logo ? logo.url : null;
+                const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage;
+                
+                const installedGames = Object.values(files.installed);
+                const isInstalled = Boolean(
+                  installedGames.filter((game) => game.app_name === app_name).length
+                  );
+                  const info = isInstalled
+                  ? installedGames.filter((game) => game.app_name === app_name)[0]
+                  : {};
+                  
+                  const {
+                    executable = null,
+                    version = null,
+                    install_size = null,
+                    install_path = null,
           } = info;
+          
+          const convertedSize = `${byteSize(install_size).value}${byteSize(install_size).unit}`;
 
           return {
             isInstalled,
@@ -325,7 +331,7 @@ ipcMain.handle("readFile", async (event, file) => {
             title,
             executable,
             version,
-            install_size,
+            install_size: convertedSize,
             install_path,
             app_name,
             developer,
