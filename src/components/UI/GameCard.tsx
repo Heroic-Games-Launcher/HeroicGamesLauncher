@@ -38,7 +38,7 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   }, [isInstalling, appName]);
 
   const { percent } = progress
-  const effectPercent = isInstalling ? `${100 - Number(percent.replace('%', ''))}%` : '100%'
+  const effectPercent = isInstalling ? `${150 - Number(percent.replace('%', ''))}%` : '100%'
   
   return (
     <Link

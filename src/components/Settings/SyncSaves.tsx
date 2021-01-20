@@ -15,6 +15,7 @@ interface Props {
   autoSyncSaves: boolean;
   saveFolder: string;
   setAutoSyncSaves: (value: boolean) => void;
+  defaultFolder: string;
 }
 
 export default function SyncSaves({
@@ -24,6 +25,7 @@ export default function SyncSaves({
   autoSyncSaves,
   setAutoSyncSaves,
   saveFolder,
+  defaultFolder
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncType, setSyncType] = useState("Download" as SyncType);
@@ -76,6 +78,7 @@ export default function SyncSaves({
                       .showOpenDialog({
                         title: "Choose the saves directory",
                         buttonLabel: "Choose",
+                        defaultPath: defaultFolder,
                         properties: ["openDirectory"],
                       })
                       .then(({ filePaths }: Path) =>
