@@ -77,7 +77,7 @@ export default function Settings() {
         );
       }
     );
-  }, [appName, settings, type, isDefault]);
+  }, [appName, settings, type, isDefault, setUseGameMode, setShowFps]);
 
     const GlobalSettings = {
         defaultSettings: {
