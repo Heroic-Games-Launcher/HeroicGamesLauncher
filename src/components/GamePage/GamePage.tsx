@@ -9,22 +9,28 @@ import {
   importGame,
   launch,
   syncSaves,
+  updateGame,
 } from "../../helper";
-import Header from "./Header";
+import Header from "../UI/Header";
 import "../../App.css";
 import { AppSettings, Game } from "../../types";
 import ContextProvider from "../../state/ContextProvider";
 import { Link, useParams } from "react-router-dom";
-import Update from "./Update";
+import Update from "../UI/Update";
 const { ipcRenderer, remote } = window.require("electron");
 const {
-  dialog: { showOpenDialog },
+  dialog: { showOpenDialog, showMessageBox },
 } = remote;
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 interface RouteParams {
   appName: string;
+}
+
+interface InstallProgress {
+  percent: string
+  bytes: string
 }
 
 export default function GamePage() {
@@ -39,18 +45,19 @@ export default function GamePage() {
   } = useContext(ContextProvider);
 
   const [gameInfo, setGameInfo] = useState({} as Game);
-  const [progress, setProgress] = useState("0.00");
+  const [progress, setProgress] = useState({ percent: '0.00%', bytes: '0/0MB' } as InstallProgress);
   const [uninstalling, setUninstalling] = useState(false);
   const [installPath, setInstallPath] = useState("default");
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState("")
   const [isSyncing, setIsSyncing] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const isInstalling = Boolean(
     installing.filter((game) => game === appName).length
   );
 
-  const isPlaying = Boolean(playing.filter((game) => game === appName).length);
+  const isPlaying = playing.filter((game) => game.appName === appName)[0]?.status;
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -69,22 +76,15 @@ export default function GamePage() {
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
-      if (isInstalling) {
+      if (isInstalling || isUpdating) {
         ipcRenderer.send("requestGameProgress", appName);
-        ipcRenderer.on("requestedOutput", (event: any, out: string) =>
-          setProgress(out)
+        ipcRenderer.on(`${appName}-progress`, (event: any, progress: InstallProgress) =>
+          setProgress(progress)
         );
       }
     }, 1000);
     return () => clearInterval(progressInterval);
-  }, [isInstalling, appName]);
-
-  if (isInstalling) {
-    if (progress === "100") {
-      handleInstalling(appName);
-      refresh();
-    }
-  }
+  }, [isInstalling, appName, isUpdating]);
   
   if (gameInfo) {
     const {
@@ -102,7 +102,6 @@ export default function GamePage() {
       saveFolder
     }: Game = gameInfo;
 
-    const sizeInMB = Math.floor(install_size / 1024 / 1024);
     const protonDBurl = `https://www.protondb.com/search?q=${title}`;
 
     return (
@@ -166,7 +165,7 @@ export default function GamePage() {
                     {isInstalled && (
                       <>
                         <div>Executable: {executable}</div>
-                        <div>Size: {sizeInMB}MB</div>
+                        <div>Size: {install_size}</div>
                         <div>Version: {version}</div>
                         <div
                           className="clickable"
@@ -185,7 +184,7 @@ export default function GamePage() {
                       <progress
                         className="installProgress"
                         max={100}
-                        value={Number(progress.replace('%', ''))}
+                        value={Number(progress.percent.replace('%', ''))}
                       />
                     )}
                     <p
@@ -195,11 +194,7 @@ export default function GamePage() {
                           isInstalled || isInstalling ? "#0BD58C" : "#BD0A0A",
                       }}
                     >
-                      {isInstalling
-                        ? progress !== '100' && `Installing ${progress ? progress : '...'}`
-                        : isInstalled
-                        ? "Installed"
-                        : "This game is not installed"}
+                      {getInstallLabel(isInstalled, isUpdating)}
                     </p>
                   </div>
                   {(!isInstalled && !isInstalling) && (
@@ -219,33 +214,19 @@ export default function GamePage() {
                         <div
                           onClick={handlePlay()}
                           className={`button ${
-                            isSyncing ? "is-primary" : isPlaying ? "is-tertiary" : "is-success"
+                            getPlayBtnClass()
                           }`}
                         >
-                          {isSyncing ? "Syncinc Saves" : isPlaying ? "Playing (Stop)" : "Play Now"}
+                          {getPlayLabel()}
                         </div>
                       </>
                     )}
                     <button
                       onClick={handleInstall(isInstalled)}
-                      disabled={isPlaying}
-                      className={`button ${
-                        isInstalled
-                          ? "is-danger"
-                          : isInstalling
-                          ? "is-danger"
-                          : "is-primary"
-                      }`}
+                      disabled={isPlaying || isUpdating}
+                      className={`button ${getButtonClass(isInstalled)}`}
                     >
-                      {`${
-                        installPath === 'import' ?
-                        'Import' :
-                        isInstalled
-                          ? "Uninstall"
-                          : isInstalling
-                          ? `Cancel`
-                          : "Install"
-                      }`}
+                      {`${getButtonLabel(isInstalled)}`}
                     </button>
                   </div>
                 </div>
@@ -260,11 +241,69 @@ export default function GamePage() {
   }
   return null;
 
+  function getPlayBtnClass() {
+    if (isUpdating){
+      return 'is-danger'
+    }
+    if (isSyncing){
+      return "is-primary"
+    }
+    return isPlaying ? "is-tertiary" : "is-success";
+  }
+
+  function getPlayLabel(): React.ReactNode {
+    if (isUpdating){
+      return 'Cancel Update'
+    }
+    if (isSyncing){
+      return "Syncinc Saves"
+    }
+
+    return isPlaying ? "Playing (Stop)" : "Play Now";
+  }
+
+  function getInstallLabel(isInstalled: boolean, isUpdating: boolean): React.ReactNode {
+    if (isUpdating) {
+      return `Updating ${progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'}`
+    }
+
+    if (isInstalling) {
+      return `Installing ${progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'}`
+    }
+
+    if (isInstalled){
+      return 'Installed'
+    }
+
+    return "This game is not installed";
+  }
+
+  function getButtonClass(isInstalled: boolean) {
+    if (isInstalled || isInstalling){
+      return 'is-danger'
+    }
+    return 'is-primary'
+  }
+
+  function getButtonLabel(isInstalled: boolean) {
+    if (installPath === 'import') {
+      return 'Import'
+    }
+    if (isInstalled){
+      return "Uninstall"
+    }
+    if (isInstalling) {
+      return 'Cancel'
+    }
+    return 'Install'
+  }
+
   function handlePlay():
     | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
     | undefined {
     return async () => {
-      if (isPlaying) {
+      if (isPlaying || isUpdating) {
+        handlePlaying({appName, status: false})
         return sendKill(appName);
       }
 
@@ -273,9 +312,43 @@ export default function GamePage() {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-
-      handlePlaying(appName);
+      
+      handlePlaying({appName, status: true})
       await launch(appName)
+        .then(async (err) => {
+          if (!err){
+            return
+          }
+          if (err.includes('ERROR: Game is out of date')) {
+            const { response } = await showMessageBox({
+              title: "Game Needs Update",
+              message: "This game has an update, do you wish to update now?",
+              buttons: ["YES", "NO" ],
+            });
+
+            if (response === 0){
+              console.log('Updating Game...');
+              setIsUpdating(true)
+              await updateGame(appName)
+              setIsUpdating(false)
+
+              const { response } = await showMessageBox({
+                title: "Game Updated!",
+                message: "Continuing launching?",
+                buttons: ["YES", "NO"],
+              });
+              if (response === 0){
+                handlePlaying({appName, status: true})
+                await launch(appName)
+                return handlePlaying({appName, status: false})
+              }
+              return
+            }
+            handlePlaying({appName, status: true})
+            await launch(`${appName} --skip-version-check`)
+            handlePlaying({appName, status: false})
+          }
+        })
       
       if (autoSyncSaves){
         setIsSyncing(true)
@@ -283,7 +356,7 @@ export default function GamePage() {
         setIsSyncing(false)
       }
       
-      return handlePlaying(appName);
+      return handlePlaying({appName, status: false})
     };
   }
 

@@ -7,14 +7,14 @@ const initialContext: ContextType = {
   installing: [],
   playing: [],
   refreshing: false,
-  onlyInstalled: false,
+  filter: 'all',
   error: false,
   refresh: () => null,
   refreshLibrary: () => null,
   handleInstalling: () => null,
   handlePlaying: () => null,
   handleSearch: () => null,
-  handleOnlyInstalled: () => null
+  handleFilter: () => null
 }
 
 export default React.createContext(initialContext)

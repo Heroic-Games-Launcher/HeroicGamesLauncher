@@ -21,13 +21,30 @@
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: clamp(18px, 1vw, 25px);
   line-height: 17px;  
   color: #C1C4C3;
 }
 
 .App .header .leftCluster, .App .header .rightCluster {
   display: flex;
+  cursor: pointer;
+}
+
+.selectFilter {
+  display: flex;
+  width: 250px;
+  justify-self: center;
+  justify-content: space-evenly;
+}
+
+.selectFilter > .selected {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFA800;
+}
+
+.selectFilter > :not(:first-child) {
   cursor: pointer;
 }
 
@@ -155,7 +172,7 @@
   color: #E4DEEA;
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
-  grid-gap: 30px 34px;
+  grid-gap: 34px;
   padding: 0 4rem 0 4rem;
 }
 
@@ -165,16 +182,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 210px;
-  height: 280px;
+  width: 200px;
+  height: 266px;
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
 }
 
+.gameCard > .progress {
+  position: absolute;
+  z-index: 5;
+  top: 15px;
+  left: 13px;
+  font-weight: 600;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #0BD58C;
+}
+
 .gameCard > .gameImg {
-  width: 210px;
-  height: 280px;
+  width: 200px;
+  height: 266px;
   border-radius: 0.5rem;
   object-fit: cover;
   position: absolute;
@@ -201,6 +230,9 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
   border-radius: 0px 0px 10px 10px;
   transition: 200ms;
+  font-family: Rubik;
+  line-height: 17px;
+  color: #EAE8E5;
 }
 
 .gameTitle > i {
@@ -807,7 +839,7 @@
   align-items: center;
   place-self: center;
   justify-content: space-evenly;
-  width: 140px;
+  width: auto;
 }
 
 .totalGamesText {
@@ -834,10 +866,11 @@
 
 /* The switch - the box around the slider */
 .switch {
+  margin-inline-start: clamp(10px, 0.5vw, 20px);
   position: relative;
   display: inline-block;
-  width: 22px;
-  height: 11px;
+  width: clamp(30px, 1.65vw, 40px) ;
+  height: clamp(15px, 1.5vh, 20px);
 }
 
 /* Hide default HTML checkbox */
@@ -845,6 +878,7 @@
   opacity: 0;
   width: 0;
   height: 0;
+  margin: 0 0 0 0;
 }
 
 /* The slider */
@@ -853,7 +887,7 @@
   cursor: pointer;
   top: 0;
   left: 0;
-  right: 0;
+  right: 1px;
   bottom: 0;
   background: none;
   border: 2px solid;
@@ -864,10 +898,9 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 6px;
-  width: 6px;
-  left: 2px;
-  bottom: 1px;
+  height: -webkit-fill-available;
+  width: clamp(9px, 0.5vw, 20px);
+  left: 1px;
   background-color: #DADADA;;
   -webkit-transition: .4s;
   transition: .4s;
@@ -887,11 +920,11 @@ input:focus + .slider {
 
 input:checked + .slider:before {
   background-color: #FFA800;
-  transform: translateX(9px);
+  transform: translateX(clamp(14px, 0.775vw, 20px));
 }
 
 .slider.round {
-  border-radius: 34px;
+  border-radius: 60px;
 }
 
 .slider.round:before {

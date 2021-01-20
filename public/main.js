@@ -13,9 +13,11 @@ const {
   writeGameconfig,
   getLatestDxvk,
   home,
-  sidInfoUrl
+  sidInfoUrl,
+  updateGame
 } = require("./utils");
 
+const byteSize = require('byte-size')
 const { spawn, exec } = require("child_process");
 const path = require("path");
 const isDev = require("electron-is-dev");
@@ -41,6 +43,7 @@ function createWindow() {
     minWidth: 1280,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: true,
     },
   });
@@ -182,14 +185,19 @@ ipcMain.handle("importGame", async (event, args) => {
   return
 });
 
-ipcMain.on("requestGameProgress", (event, game) => {
-  const logPath = `${heroicGamesConfigPath}${game}.log`;
+ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
+
+ipcMain.on("requestGameProgress", (event, appName) => {
+  const logPath = `${heroicGamesConfigPath}${appName}.log`;
   exec(
-    `tail ${logPath} | grep 'Progress: ' | awk '{print $5}'`,
+    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6}'`,
     (error, stdout, stderr) => {
-      const progress = `${stdout.split("\n")[0]}`;
-      console.log(`Install Progress: ${progress}`);
-      event.reply("requestedOutput", `${progress}`);
+      const status = `${stdout.split("\n")[0]}`.split('(');
+      const percent = status[0]
+      const bytes = status[1] && status[1].replace('),', 'MB')
+      const progress = { percent, bytes }
+      console.log(`Install Progress: ${appName} ${progress.percent}/${progress.bytes}/`);
+      event.reply(`${appName}-progress`, progress);
     }
   );
 });
@@ -286,35 +294,36 @@ ipcMain.handle("readFile", async (event, file) => {
           const { description, keyImages, title, developer, customAttributes: { CloudSaveFolder } } = metadata;
           const cloudSaveEnabled = Boolean(CloudSaveFolder)
           const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ""
-
           const gameBox = keyImages.filter(
             ({ type }) => type === "DieselGameBox"
-          )[0];
-          const gameBoxTall = keyImages.filter(
-            ({ type }) => type === "DieselGameBoxTall"
-          )[0];
-          const logo = keyImages.filter(
-            ({ type }) => type === "DieselGameBoxLogo"
-          )[0];
-
-          const art_cover = gameBox ? gameBox.url : null;
-          const art_logo = logo ? logo.url : null;
-          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage;
-
-          const installedGames = Object.values(files.installed);
-          const isInstalled = Boolean(
-            installedGames.filter((game) => game.app_name === app_name).length
-          );
-          const info = isInstalled
-            ? installedGames.filter((game) => game.app_name === app_name)[0]
-            : {};
-
-          const {
-            executable = null,
-            version = null,
-            install_size = null,
-            install_path = null,
+            )[0];
+            const gameBoxTall = keyImages.filter(
+              ({ type }) => type === "DieselGameBoxTall"
+              )[0];
+              const logo = keyImages.filter(
+                ({ type }) => type === "DieselGameBoxLogo"
+                )[0];
+                
+                const art_cover = gameBox ? gameBox.url : null;
+                const art_logo = logo ? logo.url : null;
+                const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage;
+                
+                const installedGames = Object.values(files.installed);
+                const isInstalled = Boolean(
+                  installedGames.filter((game) => game.app_name === app_name).length
+                  );
+                  const info = isInstalled
+                  ? installedGames.filter((game) => game.app_name === app_name)[0]
+                  : {};
+                  
+                  const {
+                    executable = null,
+                    version = null,
+                    install_size = null,
+                    install_path = null,
           } = info;
+          
+          const convertedSize = `${byteSize(install_size).value}${byteSize(install_size).unit}`;
 
           return {
             isInstalled,
@@ -322,7 +331,7 @@ ipcMain.handle("readFile", async (event, file) => {
             title,
             executable,
             version,
-            install_size,
+            install_size: convertedSize,
             install_path,
             app_name,
             developer,
