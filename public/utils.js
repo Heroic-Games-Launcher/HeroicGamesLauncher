@@ -259,11 +259,11 @@ async function installDxvk(prefix) {
   }
 
   
-  const installCommand = `WINEPREFIX=${prefix} sh ${dxvkPath}setup_dxvk.sh install`
+  const installCommand = `WINEPREFIX=${prefix} bash ${dxvkPath}setup_dxvk.sh install`
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${prefix}`, installCommand);
   await execAsync(`WINEPREFIX=${prefix} wineboot`)
-  await execAsync(installCommand)
+  await execAsync(installCommand, {shell: '/bin/bash'})
     .then(() => exec(echoCommand))
 }
 
