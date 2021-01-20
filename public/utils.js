@@ -73,6 +73,14 @@ const getAlternativeWine = () => {
 
 const isLoggedIn = () => fs.existsSync(userInfo);
 
+const updateGame = (game) => {
+  const logPath = `${heroicGamesConfigPath}${game}.log`;
+  let command = `${legendaryBin} update ${game} -y &> ${logPath}`;
+  return execAsync(command, {shell: '/bin/bash'})
+    .then(console.log)
+    .catch(console.log);
+}
+
 const launchGame = async (appName) => {
       let envVars = ""
       let dxvkPrefix = ""
@@ -137,7 +145,10 @@ const launchGame = async (appName) => {
             )
           }
         })
-        .catch(console.log)
+        .catch(async ({stderr}) => {
+          fs.writeFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`, stderr, () => 'done')
+          return stderr
+        })
 }
 
 const writeDefaultconfig = () => {
@@ -273,5 +284,6 @@ module.exports = {
   icon,
   home,
   loginUrl,
-  sidInfoUrl
+  sidInfoUrl,
+  updateGame
 }

@@ -13,7 +13,8 @@ const {
   writeGameconfig,
   getLatestDxvk,
   home,
-  sidInfoUrl
+  sidInfoUrl,
+  updateGame
 } = require("./utils");
 
 const byteSize = require('byte-size')
@@ -42,6 +43,7 @@ function createWindow() {
     minWidth: 1280,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: true,
     },
   });
@@ -182,6 +184,8 @@ ipcMain.handle("importGame", async (event, args) => {
   console.log(`${stdout} - ${stderr}`);
   return
 });
+
+ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
 
 ipcMain.on("requestGameProgress", (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`;
