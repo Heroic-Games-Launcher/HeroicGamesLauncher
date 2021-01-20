@@ -2,6 +2,7 @@ import { IpcRendererEvent } from "electron";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from 'react-router-dom';
 import { getGameInfo, writeConfig } from "../../helper";
+import { useToggle } from "../../hooks";
 import { AppSettings, WineProps } from '../../types';
 import Header from "../UI/Header";
 import GeneralSettings from './GeneralSettings';
@@ -33,8 +34,9 @@ export default function Settings() {
   const [egsLinkedPath, setEgsLinkedPath] = useState("")
   const [egsPath, setEgsPath] = useState(egsLinkedPath);
   const [savesPath, setSavesPath] = useState('');
-  const [useGameMode, setUseGameMode] = useState(false);
-  const [showFps, setShowFps] = useState(false);
+  const { on: useGameMode, toggle: toggleUseGameMode, setOn: setUseGameMode } = useToggle(false);
+  const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false);
+
   const [haveCloudSaving, setHaveCloudSaving] = useState({cloudSaveEnabled: false, saveFolder: ""});
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineProps[]);
@@ -153,9 +155,9 @@ export default function Settings() {
             otherOptions={otherOptions} 
             setOtherOptions={setOtherOptions} 
             useGameMode={useGameMode}
-            setUseGameMode={setUseGameMode}
+            toggleUseGameMode={toggleUseGameMode}
             showFps={showFps}
-            setShowFps={setShowFps}
+            toggleFps={toggleFps}
           />}
           {isSyncSettings &&
             <SyncSaves 
