@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Update from '../components/UI/Update';
 import { getLegendaryConfig, legendary } from '../helper';
-import { Game } from '../types';
+import { Game, PlayStatus } from '../types';
 import ContextProvider from './ContextProvider';
 
 interface Props {
@@ -12,10 +12,10 @@ interface StateProps {
   user: string
   data: Game[]
   installing: string[]
-  playing: string[]
+  playing: PlayStatus[]
   refreshing: boolean
   error: boolean
-  onlyInstalled: boolean
+  filter: string
   filterText: string
 }
 
@@ -28,7 +28,7 @@ export class GlobalState extends PureComponent<Props> {
     playing: [],
     refreshing: false,
     error: false,
-    onlyInstalled: false
+    filter: 'all'
   }
   
   refresh = async (): Promise<void> => {
@@ -50,7 +50,18 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   handleSearch = (input: string) => this.setState({filterText: input})
-  handleOnlyInstalled = () => this.setState({onlyInstalled: !this.state.onlyInstalled})
+  handleFilter = (filter: string) =>  this.setState({filter})
+
+  filterLibrary = (library: Game[], filter:string) => {
+    switch (filter) {
+      case 'installed':
+        return library.filter(game => game.isInstalled)
+      case 'downloading':
+        return library.filter(game => this.state.installing.includes(game.app_name))
+      default:
+        return library
+    }
+  }
 
   handleInstalling = (value: string) => {
     const { installing } = this.state
@@ -65,16 +76,21 @@ export class GlobalState extends PureComponent<Props> {
     return this.setState({ installing: [...installing, value] })
   }
 
-  handlePlaying = (value: string) => {
+  handlePlaying = ({appName, status}: PlayStatus) => {
     const { playing } = this.state
-    const isPlaying = playing.includes(value)
-  
-    if (isPlaying) {
-      const updatedPlaying = playing.filter(game => game !== value)
+
+    if (status === false) {
+      const updatedPlaying = playing.filter(game => game.appName !== appName)
       return this.setState({ playing: updatedPlaying })
     }
+
+    const currentStatus = playing.filter(game => game.appName === appName)[0]?.status
+
+    if(currentStatus === status){
+      return
+    }
   
-    return this.setState({ playing: [...playing, value] })
+    return this.setState({ playing: [...playing, {appName, status}] })
   }
 
   componentDidMount(){
@@ -83,7 +99,7 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props;
-    const { data, filterText, onlyInstalled, refreshing } = this.state
+    const { data, filterText, filter, refreshing } = this.state
 
     if (refreshing){
       return <Update />
@@ -91,8 +107,7 @@ export class GlobalState extends PureComponent<Props> {
 
     const filterRegex: RegExp = new RegExp(String(filterText), 'i')
     const textFilter = ({ title }: Game) => filterRegex.test(title)
-    const installedFilter = (game: Game) => onlyInstalled ? game.isInstalled : true
-    const filteredLibrary =  data.filter(installedFilter).filter(textFilter)
+    const filteredLibrary =  this.filterLibrary(data, filter).filter(textFilter)
     
     return (
         <ContextProvider.Provider
@@ -103,7 +118,7 @@ export class GlobalState extends PureComponent<Props> {
               refreshLibrary: this.refreshLibrary,
               handleInstalling: this.handleInstalling,
               handlePlaying: this.handlePlaying,
-              handleOnlyInstalled: this.handleOnlyInstalled,
+              handleFilter: this.handleFilter,
               handleSearch: this.handleSearch,
             }}
           >
