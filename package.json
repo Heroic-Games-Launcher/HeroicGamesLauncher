@@ -1,9 +1,9 @@
 {
   "name": "heroic",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": true,
   "main": "public/main.js",
-  "homepage": "./",
+  "homepage": "https://github.com/flavioislima/HeroicGamesLauncher",
   "license": "GPL-3.0-only",
   "description": "A native launcher for Epic Games for Linux based on Legendary",
   "repository": {
@@ -32,15 +32,7 @@
       "category": "Game",
       "icon": "build/icon.icns",
       "description": "Native Epic Games Launcher alternative for Linux based on Legendary",
-      "desktop": "[Desktop Entry] Name=Heroic Exec=heroic Icon=heroic Type=Application Categories=games",
-      "target": [
-        "AppImage",
-        "deb",
-        "pacman",
-        "tar.xz",
-        "rpm",
-        "snap"
-      ]
+      "desktop": "[Desktop Entry] Name=Heroic Exec=heroic Icon=heroic Type=Application Categories=games"
     },
     "deb": {
       "packageCategory": "games",
@@ -129,7 +121,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux snap"
+    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage"
   },
   "eslintConfig": {
     "extends": [

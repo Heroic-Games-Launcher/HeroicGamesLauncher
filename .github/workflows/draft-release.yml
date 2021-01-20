@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v2.1.4	
       - run: sudo apt-get install --no-install-recommends -y bsdtar libopenjp2-tools rpm	
       - run: npm install	
-      - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" npm run dist	
+      - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz	
       - uses: "marvinpinto/action-automatic-releases@latest"	
         with:	
           repo_token: "${{ secrets.WORKFLOW_TOKEN }}"	
