@@ -14,6 +14,9 @@ export const install = async (args: any) =>
 
 export const launch = (args: any) => 
   ipcRenderer.invoke('launch', args)
+    .then((res) => res)
+
+export const updateGame = (appName: string) => ipcRenderer.invoke('updateGame', appName)
 
 export const loginPage = () => ipcRenderer.send('openLoginPage')
 
