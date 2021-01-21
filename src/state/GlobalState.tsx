@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Update from '../components/UI/Update'
-import { getLegendaryConfig, legendary } from '../helper'
+import { getGameInfo, getLegendaryConfig, legendary, notify } from '../helper'
 import { Game, PlayStatus } from '../types'
 import ContextProvider from './ContextProvider'
 
@@ -65,13 +65,15 @@ export class GlobalState extends PureComponent<Props> {
     }
   }
 
-  handleInstalling = (value: string) => {
+  handleInstalling = async (value: string) => {
     const { installing } = this.state
     const isInstalling = installing.includes(value)
 
     if (isInstalling) {
       const updatedInstalling = installing.filter((game) => game !== value)
       this.setState({ installing: updatedInstalling })
+      const { title } = await getGameInfo(value)
+      notify([title, 'Has finished installing'])
       return this.refresh()
     }
 
