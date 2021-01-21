@@ -1,6 +1,6 @@
 // out: ./App.css
 
-@import "_lib.scss";
+@import '_lib.scss';
 
 * {
   box-sizing: border-box;
@@ -18,9 +18,8 @@
     margin-bottom: 4rem;
     justify-content: space-between;
 
-
-    
-    .leftCluster, .rightCluster {
+    .leftCluster,
+    .rightCluster {
       display: flex;
       cursor: pointer;
     }
@@ -58,7 +57,6 @@
   overflow: hidden;
   position: relative;
 
-
   .gameTitle {
     position: absolute;
     bottom: 0;
@@ -66,7 +64,7 @@
     padding: 1rem;
     background: $dark;
     color: $lighter;
-    display:flex;
+    display: flex;
 
     span {
       flex-grow: 1;
@@ -80,8 +78,6 @@
   border-radius: $border-radius;
   object-fit: cover;
 }
-
-
 
 .gameConfig {
   display: flex;
@@ -102,16 +98,16 @@
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
-  
-  .title  {
+
+  .title {
     font-weight: bold;
   }
-  
-   .infoWrapper {
+
+  .infoWrapper {
     margin-left: 1rem;
     color: $light;
     flex-grow: 1;
-    
+
     * {
       margin-bottom: 0.5rem;
     }
@@ -121,7 +117,6 @@
     padding: 1rem 0 1rem 0;
     color: $lighter;
   }
-
 }
 // not needed
 // .infoWrapper {
@@ -149,7 +144,7 @@
   }
 
   &.is-primary {
-    background: $primary; 
+    background: $primary;
   }
 
   &.is-empty {
@@ -167,9 +162,8 @@
 }
 
 .material-icons {
-
   &.is-primary {
-    color: $primary-light; 
+    color: $primary-light;
   }
 
   &.is-success {

@@ -14,7 +14,7 @@ const initialContext: ContextType = {
   handleInstalling: () => null,
   handlePlaying: () => null,
   handleSearch: () => null,
-  handleFilter: () => null
+  handleFilter: () => null,
 }
 
 export default React.createContext(initialContext)

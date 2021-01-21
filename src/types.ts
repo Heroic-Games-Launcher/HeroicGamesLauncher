@@ -4,18 +4,18 @@ interface ExtraInfo {
 }
 
 export interface AppSettings {
-  wineVersion: WineProps;
-  winePrefix: string;
-  otherOptions: string;
-  useGameMode: boolean;
-  showFps: boolean;
-  egsLinkedPath: string;
-  savesPath: string;
-  autoSyncSaves: boolean;
-  defaultInstallPath: string;
+  wineVersion: WineProps
+  winePrefix: string
+  otherOptions: string
+  useGameMode: boolean
+  showFps: boolean
+  egsLinkedPath: string
+  savesPath: string
+  autoSyncSaves: boolean
+  defaultInstallPath: string
 }
 
-export type SyncType = "Download" | "Upload" | "Force download" | "Force upload";
+export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 export interface Game {
   art_cover: string
@@ -25,7 +25,7 @@ export interface Game {
   executable: string
   title: string
   version: string
-  install_size: number 
+  install_size: number
   install_path: string
   developer: string
   isInstalled: boolean
@@ -35,11 +35,11 @@ export interface Game {
 }
 
 export interface Path {
-  filePaths: string[];
+  filePaths: string[]
 }
 export interface WineProps {
-  name: string;
-  bin: string;
+  name: string
+  bin: string
 }
 
 export interface PlayStatus {

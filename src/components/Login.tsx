@@ -1,37 +1,37 @@
-import React, { useState } from "react";
-import { legendary, loginPage, sidInfoPage } from "../helper";
+import React, { useState } from 'react'
+import { legendary, loginPage, sidInfoPage } from '../helper'
 
 interface Props {
-  refresh: () => void;
+  refresh: () => void
 }
 
 export default function Login({ refresh }: Props) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('')
   const [status, setStatus] = useState({
     loading: false,
-    message: "",
-  });
-  const { loading, message } = status;
+    message: '',
+  })
+  const { loading, message } = status
 
   const handleLogin = async (sid: string) => {
     setStatus({
       loading: true,
-      message: "Logging In...",
-    });
+      message: 'Logging In...',
+    })
 
     await legendary(`auth --sid ${sid}`).then(async (res) => {
-      if (res !== "error") {
-        setStatus({ loading: true, message: "Loading Game list, please wait" });
-        await legendary(`list-games`);
-        refresh();
+      if (res !== 'error') {
+        setStatus({ loading: true, message: 'Loading Game list, please wait' })
+        await legendary(`list-games`)
+        refresh()
       }
 
-      setStatus({ loading: true, message: "Error" });
+      setStatus({ loading: true, message: 'Error' })
       setTimeout(() => {
-        setStatus({ ...status, loading: false });
-      }, 2500);
-    });
-  };
+        setStatus({ ...status, loading: false })
+      }, 2500)
+    })
+  }
 
   return (
     <div className="Login">
@@ -52,28 +52,25 @@ export default function Login({ refresh }: Props) {
             </p>
             <ol>
               <li>
-                Open{" "}
-                <span
-                  onClick={() => loginPage()}
-                  className="epicLink"
-                >
+                Open{' '}
+                <span onClick={() => loginPage()} className="epicLink">
                   Epic Store here
                 </span>
-                , log in your account and copy your{" "}
-                <span 
-                  onClick={() => sidInfoPage()}
-                  className="sid">
+                , log in your account and copy your{' '}
+                <span onClick={() => sidInfoPage()} className="sid">
                   SID information number
-                  <i style={{marginLeft: '4px'}} className="material-icons">
+                  <i style={{ marginLeft: '4px' }} className="material-icons">
                     info
                   </i>
-                </span>.
+                </span>
+                .
               </li>
               <li>
-                Paste the <span  
-                onClick={() => sidInfoPage()}
-                className="sid">SID number</span> in the input
-                box below, click on the login button and wait.
+                Paste the{' '}
+                <span onClick={() => sidInfoPage()} className="sid">
+                  SID number
+                </span>{' '}
+                in the input box below, click on the login button and wait.
               </li>
             </ol>
           </span>
@@ -82,20 +79,25 @@ export default function Login({ refresh }: Props) {
               className="loginInput"
               id="sidInput"
               onChange={(event) => setInput(event.target.value)}
-              placeholder={"Paste the SID number here"}
+              placeholder={'Paste the SID number here'}
             />
-            {loading && <p className="message">{message}<span className="material-icons">autorenew</span> </p>}
+            {loading && (
+              <p className="message">
+                {message}
+                <span className="material-icons">autorenew</span>{' '}
+              </p>
+            )}
             <button
               onClick={() => handleLogin(input)}
               className="button login"
-              disabled={(loading || input.length < 30)}
+              disabled={loading || input.length < 30}
             >
-               Login
+              Login
             </button>
           </div>
         </div>
       </div>
-          <span className="loginBackground"></span>
+      <span className="loginBackground"></span>
     </div>
-  );
+  )
 }
