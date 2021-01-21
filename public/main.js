@@ -15,6 +15,7 @@ const {
   home,
   sidInfoUrl,
   updateGame,
+  checkForUpdates
 } = require('./utils')
 
 const byteSize = require('byte-size')
@@ -49,6 +50,11 @@ function createWindow() {
   })
 
   writeDefaultconfig()
+  getLatestDxvk()
+
+  setTimeout(() => {
+    checkForUpdates()
+  }, 3500);
 
   //load the index.html from a url
   if (isDev) {
@@ -57,7 +63,6 @@ function createWindow() {
       REACT_DEVELOPER_TOOLS,
     } = require('electron-devtools-installer')
 
-    getLatestDxvk()
 
     installExtension(REACT_DEVELOPER_TOOLS).catch((err) => {
       console.log('An error occurred: ', err)
@@ -90,7 +95,8 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow)
+app.whenReady()
+  .then(createWindow)
 
 // Define basic paths
 

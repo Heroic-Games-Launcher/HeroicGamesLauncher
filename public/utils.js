@@ -5,7 +5,10 @@ const { homedir } = require('os')
 const execAsync = promisify(exec)
 const { fixPathForAsarUnpack } = require('electron-util')
 const path = require('path')
-const { showErrorBox } = require('electron').dialog
+const {
+  app,
+  dialog: { showErrorBox, showMessageBox },
+} = require('electron')
 const axios = require('axios')
 
 const home = homedir()
@@ -24,6 +27,8 @@ const loginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
 const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
+const heroicGithubURL = 'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
+
 
 // check other wine versions installed
 const getAlternativeWine = () => {
@@ -225,6 +230,29 @@ const writeGameconfig = (game) => {
   }
 }
 
+async function checkForUpdates() {
+  const { data: { tag_name } } = await axios.get(
+    'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
+  )
+  
+  const newVersion = tag_name.replace('v', '').replaceAll('.', '')
+  const currentVersion =  app.getVersion().replaceAll('.', '')
+
+  if (newVersion > currentVersion) {
+    const { response } = await showMessageBox({
+      title: 'Update Available',
+      message: 'There is a new version of Heroic Available, do you want to update now?',
+      buttons: ['YES', 'NO']
+    })
+
+    if (response === 0) {
+      return exec(`xdg-open ${heroicGithubURL}`)
+    }
+    return
+  }
+
+}
+
 async function getLatestDxvk() {
   const {
     data: { assets },
@@ -311,6 +339,7 @@ module.exports = {
   launchGame,
   writeDefaultconfig,
   writeGameconfig,
+  checkForUpdates,
   userInfo,
   getLatestDxvk,
   installDxvk,

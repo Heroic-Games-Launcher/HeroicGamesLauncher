@@ -102,7 +102,9 @@
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
     "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "deb": "npm run dist deb",
-    "snap": "npm run dist snap"
+    "snap": "npm run dist snap",
+    "build-any": "npm run dist"
+
   },
   "eslintConfig": {
     "extends": [
