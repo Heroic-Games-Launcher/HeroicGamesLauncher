@@ -27,6 +27,8 @@ const promisify = require('util').promisify
 const execAsync = promisify(exec)
 const stat = promisify(fs.stat)
 const axios = require('axios')
+var heroicversion = require('.././package.json').version // If this is a var maybe we count implement live-patching or updates to an extent...
+
 
 const {
   app,
@@ -401,10 +403,11 @@ ipcMain.handle('syncSaves', async (event, args) => {
 })
 
 ipcMain.on('showAboutWindow', () => {
+
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
     copyright: 'GPL V3',
-    applicationVersion: "1.1 'Crocodile'",
+    applicationVersion: "Version " + heroicversion,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher',
     iconPath: icon,
   })
