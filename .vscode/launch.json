@@ -14,7 +14,7 @@
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ],
-      "args" : ["."],
+      "args": ["."],
       "outputCapture": "std"
     }
   ]

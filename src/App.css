@@ -4,7 +4,7 @@
 
 .App {
   text-align: center;
-  color: #B0ABB6;
+  color: #b0abb6;
   display: flex;
   flex-direction: column;
   font-family: 'Cabin', sans-serif;
@@ -22,11 +22,12 @@
   font-style: normal;
   font-weight: normal;
   font-size: 1.2rem;
-  line-height: 17px;  
-  color: #C1C4C3;
+  line-height: 17px;
+  color: #c1c4c3;
 }
 
-.App .header .leftCluster, .App .header .rightCluster {
+.App .header .leftCluster,
+.App .header .rightCluster {
   display: flex;
   cursor: pointer;
 }
@@ -41,7 +42,7 @@
 .selectFilter > .selected {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #FFA800;
+  color: #ffa800;
 }
 
 .selectFilter > :not(:first-child) {
@@ -66,11 +67,11 @@
   width: 100%;
   display: grid;
   grid-template-columns: 3fr 5fr 1fr;
-  grid-template-areas: "links search user";
+  grid-template-areas: 'links search user';
   z-index: 99;
 }
 
-.NavBar  .Links {
+.NavBar .Links {
   grid-area: links;
   position: absolute;
   font-size: 20px;
@@ -88,7 +89,7 @@
 .NavBar .SearchBar {
   grid-area: search;
   margin: auto;
-  position:absolute;
+  position: absolute;
   top: 16px;
 }
 
@@ -115,14 +116,14 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #07C5EF;
+  color: #07c5ef;
   margin-bottom: 8px;
   margin-left: 25%;
 }
 
 .UserSelector .hidden {
   display: block;
-  color: #EAE8E5;
+  color: #eae8e5;
   cursor: pointer;
   transition: 150ms;
   opacity: 0;
@@ -130,11 +131,11 @@
 
 .UserSelector:hover {
   height: 112px;
-  background: #1A1B1C;
+  background: #1a1b1c;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
 }
 
-.UserSelector:hover  > .hidden {
+.UserSelector:hover > .hidden {
   display: block;
   opacity: 1;
 }
@@ -150,7 +151,7 @@
   background: #1a1b1c;
   border-radius: 10px;
   border: none;
-  color: #F69707;
+  color: #f69707;
   text-indent: 38px;
   font-size: 14px;
   outline: none;
@@ -160,7 +161,7 @@
   position: absolute;
   top: 8px;
   left: 10px;
-  color: #F69707;
+  color: #f69707;
 }
 
 .SearchBar > .close {
@@ -169,7 +170,7 @@
 }
 
 .gameList {
-  color: #E4DEEA;
+  color: #e4deea;
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
   grid-gap: 34px;
@@ -195,10 +196,14 @@
   top: 15px;
   left: 13px;
   font-weight: 600;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    rgba(20, 21, 21, 0.863) 30%
+  );
   padding: 2px 5px;
   border-radius: 4px;
-  color: #0BD58C;
+  color: #0bd58c;
 }
 
 .gameCard > .gameImg {
@@ -225,14 +230,18 @@
   height: 92px;
   width: 100%;
   padding: 1rem;
-  color: #E4DEEA;
+  color: #e4deea;
   display: flex;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    rgba(20, 21, 21, 0.863) 30%
+  );
   border-radius: 0px 0px 10px 10px;
   transition: 200ms;
   font-family: Rubik;
   line-height: 17px;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .gameTitle > i {
@@ -263,7 +272,7 @@
 }
 
 .installProgress[value]::-webkit-progress-value {
-  color: #0BD58C;
+  color: #0bd58c;
   animation: animate-stripes 5s linear infinite;
 }
 
@@ -282,7 +291,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .settingsNavbar > a {
@@ -292,7 +301,7 @@
 .settingsNavbar > a.active {
   transition: all 350ms ease-out 0s;
   transform: scale(1.2);
-  color: #07C5EF;
+  color: #07c5ef;
   font-weight: 500;
 }
 
@@ -335,7 +344,7 @@
   align-items: center;
   font-size: 16px;
   line-height: 19px;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .toggleWrapper > .switch {
@@ -349,7 +358,7 @@
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .settingSelect {
@@ -362,7 +371,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
-  color: #C1C4C3;
+  color: #c1c4c3;
   text-indent: 22px;
   outline: none;
   border: none;
@@ -375,7 +384,7 @@
 .settingSelect > option {
   background: #424546;
   height: 40px;
-  color: #C1C4C3;
+  color: #c1c4c3;
   text-indent: 22px;
   font-size: 16px;
   border-radius: 10px;
@@ -392,8 +401,7 @@
   font-size: 14px;
   line-height: 17px;
   /* identical to box height */
-  color: #5A5E5F;
-
+  color: #5a5e5f;
 }
 
 .save > .material-icons {
@@ -441,7 +449,7 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 30px;
-  color: #FFA800;
+  color: #ffa800;
 }
 
 .heroicSubTitle {
@@ -450,7 +458,7 @@
   font-weight: 400;
   font-size: 19px;
   line-height: 24.3px;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .logo {
@@ -479,21 +487,21 @@
   font-weight: 500;
   font-size: 22px;
   line-height: 27px;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .loginInstructions strong {
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .loginInstructions .epicLink {
-  color: #F69707;
+  color: #f69707;
   cursor: pointer;
   text-decoration: underline;
 }
 
 .loginInstructions .sid {
-  color:#07C5EF;
+  color: #07c5ef;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -508,7 +516,6 @@
   align-self: center;
 }
 
-
 .loginInput {
   width: 388px;
   height: 63px;
@@ -520,7 +527,7 @@
   font-size: 16px;
   line-height: 19px;
   outline: none;
-  color: #EAE8E5;
+  color: #eae8e5;
   text-align: center;
   border: none;
 }
@@ -531,7 +538,7 @@
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .loginForm > .message {
@@ -540,7 +547,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: #07C5EF;
+  color: #07c5ef;
   display: flex;
 }
 
@@ -573,7 +580,7 @@
   font-weight: 500;
   font-size: 25px;
   line-height: 30px;
-  color: #F79707;
+  color: #f79707;
 }
 
 .gameConfig > .gamePicture {
@@ -596,7 +603,7 @@
   text-align: initial;
   padding-left: 3.5rem;
   font-size: 1rem;
-  color: #E4DEEA;
+  color: #e4deea;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -609,7 +616,7 @@
 }
 
 .gameInfo .infoWrapper {
-  color: #B0ABB6;
+  color: #b0abb6;
   flex-grow: 1;
 }
 
@@ -619,7 +626,7 @@
 
 .gameInfo .developer {
   padding: 1rem 0 1rem 0;
-  color: #E4DEEA;
+  color: #e4deea;
 }
 
 .gameInfo .summary {
@@ -634,7 +641,7 @@
   overflow: hidden;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .buttonsWrapper {
@@ -649,7 +656,7 @@
   padding: 0.75rem;
   border-radius: 10px;
   background: #323035;
-  color: #1A1B1C;
+  color: #1a1b1c;
   text-transform: uppercase;
   font-family: Rubik;
   font-style: normal;
@@ -675,15 +682,15 @@
 }
 
 .button.is-primary {
-  background: #07C5EF;
+  background: #07c5ef;
 }
 
 .button.is-tertiary {
-  background: #FFA800;
+  background: #ffa800;
 }
 
 .button.is-tertiary:hover {
-  background: #FEBA36;
+  background: #feba36;
 }
 
 .button.is-empty {
@@ -692,33 +699,33 @@
 }
 
 .button.is-success {
-  background: #0BD58C;
+  background: #0bd58c;
 }
 
-.button.button.is-success:hover{
-  background: #30ECA8;
+.button.button.is-success:hover {
+  background: #30eca8;
 }
 
 .button.is-danger {
   background: #252121;
-  color: #BD0A0A;
+  color: #bd0a0a;
 }
 
 .button.is-danger:hover {
-  background: #322B2B;
+  background: #322b2b;
 }
 
 .button.is-danger:disabled {
-  background:#424546;
-  color: #B0ABB6;
+  background: #424546;
+  color: #b0abb6;
 }
 
 .material-icons.is-primary {
-  color: #07C5EF;
+  color: #07c5ef;
 }
 
 .material-icons.is-secondary {
-  color: #FFA800;
+  color: #ffa800;
 }
 
 .material-icons.is-success {
@@ -734,11 +741,11 @@
 
 .button.settings {
   margin-left: -12px;
-  background: #C1C4C3
+  background: #c1c4c3;
 }
 
 .button.settings:hover {
-  background: #7c7c7c
+  background: #7c7c7c;
 }
 
 .button.settings:disabled:hover,
@@ -746,18 +753,18 @@
   background: #7c7c7c;
 }
 
-.button.login{
-  background: #07C5EF;
-  font-size: 14px ;
+.button.login {
+  background: #07c5ef;
+  font-size: 14px;
 }
 
-.button.login:hover{
-  background: #36D1F3;
+.button.login:hover {
+  background: #36d1f3;
 }
 
 .button.login:disabled {
-  color: #DADADA;
-  background: #5A5E5F;
+  color: #dadada;
+  background: #5a5e5f;
 }
 
 .returnLink {
@@ -771,14 +778,14 @@
 
 .clickable {
   cursor: pointer;
-  color: #F79707;
+  color: #f79707;
 }
 
 .more {
   position: absolute;
   top: 64px;
   right: 72px;
-  color: #FFA800;
+  color: #ffa800;
   font-size: 25px;
   width: 170px;
   height: fit-content;
@@ -807,7 +814,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 4px;
 }
 
@@ -817,15 +824,14 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: #07C5EF;
-
+  color: #07c5ef;
 }
 .more .hidden {
   opacity: 0;
 }
 
 .more:hover {
-  background: #1A1B1C;
+  background: #1a1b1c;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
 }
 
@@ -856,7 +862,7 @@
   font-size: 24px;
   justify-content: center;
   flex-direction: column;
-  color: #EAE8E5;
+  color: #eae8e5;
 }
 
 .updateIcon .material-icons {
@@ -869,7 +875,7 @@
   margin-inline-start: clamp(10px, 0.5vw, 20px);
   position: relative;
   display: inline-block;
-  width: clamp(30px, 1.65vw, 40px) ;
+  width: clamp(30px, 1.65vw, 40px);
   height: clamp(15px, 1.5vh, 20px);
 }
 
@@ -891,35 +897,35 @@
   bottom: 0;
   background: none;
   border: 2px solid;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: -webkit-fill-available;
   width: clamp(9px, 0.5vw, 20px);
   left: 1px;
-  background-color: #DADADA;;
-  -webkit-transition: .4s;
-  transition: .4s;
+  background-color: #dadada;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  border-color: #FFA800;
+  border-color: #ffa800;
 }
 
-input:checked  span {
-  color: #FFA800;
+input:checked span {
+  color: #ffa800;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #FFA800;
+  box-shadow: 0 0 1px #ffa800;
 }
 
 input:checked + .slider:before {
-  background-color: #FFA800;
+  background-color: #ffa800;
   transform: translateX(clamp(14px, 0.775vw, 20px));
 }
 
@@ -932,7 +938,7 @@ input:checked + .slider:before {
 }
 
 .infoBox {
-  background: #1A1B1C;
+  background: #1a1b1c;
   width: 100%;
   padding: 20px 44px;
   font-size: 16px;
@@ -940,7 +946,7 @@ input:checked + .slider:before {
 }
 
 .helpLink {
-  color: #F69707;
+  color: #f69707;
   cursor: pointer;
   width: 100px;
   display: grid;
@@ -957,11 +963,13 @@ input:checked + .slider:before {
 }
 
 .infoBox > strong {
-  color:#07C5EF;
+  color: #07c5ef;
 }
 
 @keyframes animate-stripes {
-  100% { background-position: -100px 0px; }
+  100% {
+    background-position: -100px 0px;
+  }
 }
 
 @keyframes refreshing {

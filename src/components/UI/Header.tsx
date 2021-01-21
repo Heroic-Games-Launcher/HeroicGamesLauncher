@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import ContextProvider from "../../state/ContextProvider";
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import ContextProvider from '../../state/ContextProvider'
 
 interface Props {
-  renderBackButton: boolean;
-  numberOfGames?: number;
-  goTo: string;
-  handleFilter?: (value: string) => void;
+  renderBackButton: boolean
+  numberOfGames?: number
+  goTo: string
+  handleFilter?: (value: string) => void
 }
 
 export default function Header({
@@ -15,7 +15,7 @@ export default function Header({
   handleFilter,
   goTo,
 }: Props) {
-  const { filter } = useContext(ContextProvider);
+  const { filter } = useContext(ContextProvider)
 
   return (
     <>
@@ -24,20 +24,20 @@ export default function Header({
           <span className="selectFilter">
             <span>Filter:</span>
             <span
-              className={filter === "all" ? "selected" : ""}
-              onClick={() => handleFilter("all")}
+              className={filter === 'all' ? 'selected' : ''}
+              onClick={() => handleFilter('all')}
             >
               All
             </span>
             <span
-              className={filter === "installed" ? "selected" : ""}
-              onClick={() => handleFilter("installed")}
+              className={filter === 'installed' ? 'selected' : ''}
+              onClick={() => handleFilter('installed')}
             >
               Installed
             </span>
             <span
-              className={filter === "downloading" ? "selected" : ""}
-              onClick={() => handleFilter("downloading")}
+              className={filter === 'downloading' ? 'selected' : ''}
+              onClick={() => handleFilter('downloading')}
             >
               Downloading
             </span>
@@ -56,5 +56,5 @@ export default function Header({
         )}
       </div>
     </>
-  );
+  )
 }

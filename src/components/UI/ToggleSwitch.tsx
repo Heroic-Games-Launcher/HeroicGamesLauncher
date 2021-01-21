@@ -6,11 +6,16 @@ interface Props {
   disabled?: boolean
 }
 
-export default function ToggleSwitch({handleChange, value, disabled}: Props) {
+export default function ToggleSwitch({ handleChange, value, disabled }: Props) {
   return (
     <label className="switch">
-      <input disabled={disabled} checked={value} type="checkbox" onChange={handleChange} />
+      <input
+        disabled={disabled}
+        checked={value}
+        type="checkbox"
+        onChange={handleChange}
+      />
       <span className="slider round" />
     </label>
-    )
+  )
 }
