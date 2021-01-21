@@ -15,7 +15,10 @@ const {
   home,
   sidInfoUrl,
   updateGame,
-  checkForUpdates
+  checkForUpdates,
+  showAboutWindow,
+  kofiURL,
+  heroicGithubURL,
 } = require('./utils')
 
 const byteSize = require('byte-size')
@@ -32,6 +35,9 @@ const {
   app,
   BrowserWindow,
   ipcMain,
+  Notification,
+  Menu,
+  Tray,
   dialog: { showMessageBox },
 } = require('electron')
 
@@ -54,7 +60,7 @@ function createWindow() {
 
   setTimeout(() => {
     checkForUpdates()
-  }, 3500);
+  }, 3500)
 
   //load the index.html from a url
   if (isDev) {
@@ -62,7 +68,6 @@ function createWindow() {
       default: installExtension,
       REACT_DEVELOPER_TOOLS,
     } = require('electron-devtools-installer')
-
 
     installExtension(REACT_DEVELOPER_TOOLS).catch((err) => {
       console.log('An error occurred: ', err)
@@ -95,10 +100,53 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady()
-  .then(createWindow)
+let appIcon = null
+app.whenReady().then(() => {
+  appIcon = new Tray(icon)
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'About',
+      click: function () {
+        showAboutWindow()
+      },
+    },
+    {
+      label: 'Github',
+      click: function () {
+        exec(`xdg-open ${heroicGithubURL}`)
+      },
+    },
+    {
+      label: 'Support Us',
+      click: function () {
+        exec(`xdg-open ${kofiURL}`)
+      },
+    },
+    {
+      label: 'Quit',
+      click: function () {
+        app.quit()
+      },
+    },
+  ])
 
+  appIcon.setToolTip('Heroic')
+  appIcon.setContextMenu(contextMenu)
+
+  return createWindow()
+})
+
+app.on('ready', () => {})
 // Define basic paths
+
+ipcMain.on('Notify', (event, args) => {
+  const notify = new Notification({
+    title: args[0],
+    body: args[1],
+  })
+
+  notify.show()
+})
 
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
@@ -400,16 +448,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
   return `\n ${stdout} - ${stderr}`
 })
 
-ipcMain.on('showAboutWindow', () => {
-  app.setAboutPanelOptions({
-    applicationName: 'Heroic Games Launcher',
-    copyright: 'GPL V3',
-    applicationVersion: "1.1 'Crocodile'",
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
-    iconPath: icon,
-  })
-  return app.showAboutPanel()
-})
+ipcMain.on('showAboutWindow', () => showAboutWindow())
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
@@ -419,14 +458,5 @@ ipcMain.on('showAboutWindow', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
-  }
-})
-
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
   }
 })
