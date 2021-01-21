@@ -51,7 +51,7 @@ const getAlternativeWine = () => {
   protonPaths.forEach((path) => {
     if (fs.existsSync(path)) {
       fs.readdirSync(path).forEach((version) => {
-        if (version.toLowerCase().includes('proton')) {
+        if (version.toLowerCase().startsWith('proton')) {
           steamWine.push({
             name: `Steam - ${version}`,
             bin: `'${path}${version}/proton'`,
