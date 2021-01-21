@@ -18,6 +18,9 @@ export const launch = (args: any) =>
 export const updateGame = (appName: string) =>
   ipcRenderer.invoke('updateGame', appName)
 
+export const notify = ([title, message]: [title: string, message: string]) =>
+  ipcRenderer.send('Notify', [title, message])
+
 export const loginPage = () => ipcRenderer.send('openLoginPage')
 
 export const sidInfoPage = () => ipcRenderer.send('openSidInfoPage')

@@ -32,6 +32,9 @@ const {
   app,
   BrowserWindow,
   ipcMain,
+  Notification,
+  Menu,
+  Tray,
   dialog: { showMessageBox },
 } = require('electron')
 
@@ -51,6 +54,12 @@ function createWindow() {
 
   writeDefaultconfig()
   getLatestDxvk()
+  // const notify = new Notification({
+  //   title: 'Heroic Notification',
+  //   body: 'Marvelous body!'
+  // })
+
+  // notify.show()
 
   setTimeout(() => {
     checkForUpdates()
@@ -98,7 +107,28 @@ function createWindow() {
 app.whenReady()
   .then(createWindow)
 
+  let tray = null
+  app.whenReady(() => {
+    tray = new Tray('icon.png')
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Item1', type: 'radio' },
+      { label: 'Item2', type: 'radio' },
+      { label: 'Item3', type: 'radio', checked: true },
+      { label: 'Item4', type: 'radio' }
+    ])
+    tray.setToolTip('This is my application.')
+    tray.setContextMenu(contextMenu)
+  })
 // Define basic paths
+
+ipcMain.on('Notify', (event, args) => {
+  const notify = new Notification({
+    title: args[0],
+    body: args[1]
+  })
+
+  notify.show()
+})
 
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
