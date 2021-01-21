@@ -27,8 +27,9 @@ const loginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
 const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
-const heroicGithubURL = 'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
-
+const heroicGithubURL =
+  'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
+const kofiURL = 'https://ko-fi.com/flavioislima'
 
 // check other wine versions installed
 const getAlternativeWine = () => {
@@ -231,18 +232,21 @@ const writeGameconfig = (game) => {
 }
 
 async function checkForUpdates() {
-  const { data: { tag_name } } = await axios.get(
+  const {
+    data: { tag_name },
+  } = await axios.get(
     'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
   )
-  
+
   const newVersion = tag_name.replace('v', '').replaceAll('.', '')
-  const currentVersion =  app.getVersion().replaceAll('.', '')
+  const currentVersion = app.getVersion().replaceAll('.', '')
 
   if (newVersion > currentVersion) {
     const { response } = await showMessageBox({
       title: 'Update Available',
-      message: 'There is a new version of Heroic Available, do you want to update now?',
-      buttons: ['YES', 'NO']
+      message:
+        'There is a new version of Heroic Available, do you want to update now?',
+      buttons: ['YES', 'NO'],
     })
 
     if (response === 0) {
@@ -250,7 +254,6 @@ async function checkForUpdates() {
     }
     return
   }
-
 }
 
 async function getLatestDxvk() {
@@ -333,6 +336,17 @@ async function installDxvk(prefix) {
   )
 }
 
+const showAboutWindow = () => {
+  app.setAboutPanelOptions({
+    applicationName: 'Heroic Games Launcher',
+    copyright: 'GPL V3',
+    applicationVersion: "1.1 'Crocodile'",
+    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
+    iconPath: icon,
+  })
+  return app.showAboutPanel()
+}
+
 module.exports = {
   getAlternativeWine,
   isLoggedIn,
@@ -348,9 +362,12 @@ module.exports = {
   heroicGamesConfigPath,
   legendaryConfigPath,
   legendaryBin,
+  showAboutWindow,
   icon,
   home,
   loginUrl,
   sidInfoUrl,
   updateGame,
+  kofiURL,
+  heroicGithubURL,
 }

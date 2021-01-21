@@ -47,6 +47,7 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ refreshing: true })
     await legendary('list-games')
     this.refresh()
+    notify(['Refreshing', 'Library was refreshed'])
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
