@@ -121,7 +121,7 @@
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
-    "hysky": "^1.0.1",
+    "husky": "^4.3.8",
     "prettier": "2.2.1",
     "pretty-quick": "^3.1.0",
     "typescript": "^4.1.3"
