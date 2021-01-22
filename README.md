@@ -23,8 +23,8 @@ It is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
 - Login with an existing Epic Games account
 - Install/Uninstall Games of your Library
 - Update installed Games
-- Import a already installed game
-- Multiple installations at the same time
+- Import an already installed game
+- Multiple downloads at the same time
 - Play games using the default wine and default prefix
 - Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
 - Run games on custom wine prefix
