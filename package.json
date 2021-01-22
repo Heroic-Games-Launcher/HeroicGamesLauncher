@@ -65,7 +65,7 @@
         "curl",
         "gconf2",
         "gconf-service",
-        "python-requests",
+        "python3-requests",
         "python-wheel-common",
         "python-setuptools"
       ]
