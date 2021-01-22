@@ -47,7 +47,7 @@ export const legendary = async (args: string): Promise<any> =>
       const isError = res.includes('ERROR')
       return isError ? 'error' : 'done'
     })
-    .catch((err: string) => Error(err))
+    .catch((err: any) => String(err))
 
 export const isLoggedIn = async () => await ipcRenderer.invoke('isLoggedIn')
 

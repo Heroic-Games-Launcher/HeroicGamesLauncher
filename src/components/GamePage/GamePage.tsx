@@ -9,7 +9,7 @@ import {
   importGame,
   launch,
   syncSaves,
-  updateGame
+  updateGame,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
@@ -19,7 +19,7 @@ import { Link, useParams } from 'react-router-dom'
 import Update from '../UI/Update'
 const { ipcRenderer, remote } = window.require('electron')
 const {
-  dialog: { showOpenDialog, showMessageBox },
+  dialog: { showOpenDialog, showMessageBox, showErrorBox },
 } = remote
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
@@ -398,7 +398,14 @@ export default function GamePage() {
 
       if (isInstalled) {
         setUninstalling(true)
-        await legendary(`uninstall ${appName}`)
+        await legendary(`uninstall ${appName}`).then((res) => {
+          if (res.includes('Error')) {
+            showErrorBox(
+              'Error',
+              'There was an error! Try deleting the files manually!'
+            )
+          }
+        })
         setUninstalling(false)
         return refresh()
       }
