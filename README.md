@@ -1,6 +1,7 @@
 # Heroic Games Launcher
 
 This app is a Linux GUI for the tool [Legendary](https://github.com/derrod/legendary), a Linux native alternative to the Epic Games Launcher.
+It is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
 
 ### [Design based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
@@ -20,9 +21,8 @@ This app is a Linux GUI for the tool [Legendary](https://github.com/derrod/legen
 ## Feature availables right now
 
 - Login with an existing Epic Games account
-- Logout
-- See the your personal Game library
-- Install/Uninstall Games
+- Install/Uninstall Games of your Library
+- Update installed Games
 - Import a already installed game
 - Multiple installations at the same time
 - Play games using the default wine and default prefix
@@ -36,17 +36,17 @@ This app is a Linux GUI for the tool [Legendary](https://github.com/derrod/legen
 
 ## Planned features
 
-- Verify installed Games
-- Update installed Games
+- Better Login System
+- Repair installed Games
 - Get the Free game of the week
 - Add Games outside Epic Games
-- Integration with other stores
+- Integration with other stores (GOG, ITCH.IO, Humble Bundle)
 
 ## Binaries supported right now
 
 - DEB, RPM, Pacman, AppImage and TAR.XZ (with the heroic binary and all dependecies)
-- Might think about Flatpak in the future as well
-- There is a AUR version right now: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
+- Recommended AUR version right now: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
+- Might think about Flatpak And/Or SNAP in the future as well
 
 ## How to build and run locally
 
