@@ -28,7 +28,6 @@ const execAsync = promisify(exec)
 const stat = promisify(fs.stat)
 const axios = require('axios')
 
-
 const {
   app,
   BrowserWindow,
