@@ -65,20 +65,12 @@
         "curl",
         "gconf2",
         "gconf-service",
-        "python-requests",
         "python-wheel-common",
         "python-setuptools"
       ]
     }
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.6.0",
-    "@types/jest": "^26.0.19",
-    "@types/node": "^12.19.11",
-    "@types/react": "^16.14.2",
-    "@types/react-dom": "^16.9.10",
     "axios": "^0.21.1",
     "byte-size": "^7.0.0",
     "electron-is-dev": "^1.2.0",
@@ -91,7 +83,7 @@
   },
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
-    "electron": "electron .",
+    "electron": "npm run build-electron && electron .",
     "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
@@ -99,12 +91,12 @@
     "eject": "react-scripts eject",
     "pretitier": "prettier --check",
     "format-files": "prettier --write .",
-    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
-    "dist": "npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux",
-    "deb": "npm run dist deb",
-    "snap": "npm run dist snap",
-    "build-any": "npm run dist"
-
+    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && npm run build-electron && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
+    "dist": "npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux",
+    "build-any": "npm run dist",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "build-electron": "tsc --project electron/tsconfig.json",
+    "watch-electron": "tsc --watch --project electron/tsconfig.json"
   },
   "eslintConfig": {
     "extends": [
@@ -113,10 +105,22 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.2",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.22",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.6",
-    "electron": "^11.1.1",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "electron": "^11.2.0",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-react": "^7.22.0",
     "prettier": "2.2.1",
     "typescript": "^4.1.3"
   },
