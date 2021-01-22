@@ -121,8 +121,17 @@
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
+    "hysky": "^1.0.1",
     "prettier": "2.2.1",
+    "pretty-quick": "^3.1.0",
     "typescript": "^4.1.3"
+  },
+  "husky": {
+    "hooks": {
+      "post-checkout": "npm install",
+      "post-merge": "npm install",
+      "pre-push": "npm run lint && pretty-quick --staged lint-staged"
+    }
   },
   "browserslist": {
     "production": [
