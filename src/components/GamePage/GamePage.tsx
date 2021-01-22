@@ -9,7 +9,7 @@ import {
   importGame,
   launch,
   syncSaves,
-  updateGame
+  updateGame,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
@@ -55,6 +55,7 @@ export default function GamePage() {
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [clicked, setClicked] = useState(false)
 
   const isInstalling = Boolean(
     installing.filter((game) => game === appName).length
@@ -71,7 +72,7 @@ export default function GamePage() {
         ipcRenderer.send('requestSettings', appName)
         ipcRenderer.once(
           appName,
-          (event, { autoSyncSaves, savesPath }: AppSettings) => {
+          (event: any, { autoSyncSaves, savesPath }: AppSettings) => {
             setAutoSyncSaves(autoSyncSaves)
             setSavesPath(savesPath)
           }
@@ -118,10 +119,13 @@ export default function GamePage() {
         <div className="gameConfigContainer">
           {title ? (
             <>
-              <span className="material-icons is-secondary dots">
+              <span
+                onClick={() => setClicked(!clicked)}
+                className="material-icons is-secondary dots"
+              >
                 more_vertical
               </span>
-              <div className="more">
+              <div className={`more ${clicked ? 'clicked' : ''}`}>
                 {isInstalled && (
                   <Link
                     className="hidden link"
@@ -341,7 +345,7 @@ export default function GamePage() {
       }
 
       handlePlaying({ appName, status: true })
-      await launch(appName).then(async (err) => {
+      await launch(appName).then(async (err: string | string[]) => {
         if (!err) {
           return
         }
