@@ -9,7 +9,7 @@ import {
   importGame,
   launch,
   syncSaves,
-  updateGame,
+  updateGame
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'

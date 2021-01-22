@@ -245,7 +245,7 @@ async function checkForUpdates() {
   )
 
   const newVersion = tag_name.replace('v', '').replaceAll('.', '')
-  const currentVersion = app.getVersion().split(' ')[0].replaceAll('.', '')
+  const currentVersion = app.getVersion().replaceAll('.', '')
 
   if (newVersion > currentVersion) {
     const { response } = await showMessageBox({

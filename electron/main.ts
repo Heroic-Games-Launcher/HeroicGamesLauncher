@@ -144,8 +144,6 @@ app.whenReady().then(() => {
   return
 })
 
-// Define basic paths
-
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
     title: args[0],
