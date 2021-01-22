@@ -1,15 +1,21 @@
-const { exec } = require('child_process')
-const promisify = require('util').promisify
-const fs = require('fs')
-const { homedir } = require('os')
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { exec } from 'child_process'
+import { promisify } from 'util'
+import {
+  existsSync,
+  readdirSync,
+  readFileSync,
+  writeFile,
+  mkdir,
+  writeFileSync,
+} from 'fs'
+import { homedir } from 'os'
 const execAsync = promisify(exec)
-const { fixPathForAsarUnpack } = require('electron-util')
-const path = require('path')
-const {
-  app,
-  dialog: { showErrorBox, showMessageBox },
-} = require('electron')
-const axios = require('axios')
+import { fixPathForAsarUnpack } from 'electron-util'
+import { join } from 'path'
+import { app, dialog } from 'electron'
+import * as axios from 'axios'
+const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
@@ -19,10 +25,8 @@ const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}Tools/DXVK`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(
-  path.join(__dirname, '/bin/legendary')
-)
-const icon = fixPathForAsarUnpack(path.join(__dirname, '/icon.png'))
+const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/legendary'))
+const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const loginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
 const sidInfoUrl =
@@ -34,12 +38,13 @@ const kofiURL = 'https://ko-fi.com/flavioislima'
 // check other wine versions installed
 const getAlternativeWine = () => {
   // Just add a new string here in case another path is found on another distro
-  const steamPaths = [
+  const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
+    '/usr/share/steam/',
   ]
-  const protonPaths = []
-  const foundPaths = steamPaths.filter((path) => fs.existsSync(path))
+  const protonPaths: string[] = []
+  const foundPaths = steamPaths.filter((path) => existsSync(path))
 
   foundPaths.forEach((path) => {
     protonPaths.push(`${path}/steamapps/common/`)
@@ -49,14 +54,14 @@ const getAlternativeWine = () => {
 
   const lutrisPath = `${home}/.local/share/lutris`
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-  let steamWine = []
-  let lutrisWine = []
+  const steamWine: { name: string; bin: string }[] = []
+  let lutrisWine: { name: string; bin: string }[] = []
 
   const defaultWine = { name: 'Wine Default', bin: '/usr/bin/wine' }
 
   protonPaths.forEach((path) => {
-    if (fs.existsSync(path)) {
-      fs.readdirSync(path).forEach((version) => {
+    if (existsSync(path)) {
+      readdirSync(path).forEach((version) => {
         if (version.toLowerCase().startsWith('proton')) {
           steamWine.push({
             name: `Steam - ${version}`,
@@ -67,8 +72,8 @@ const getAlternativeWine = () => {
     }
   })
 
-  if (fs.existsSync(lutrisCompatPath)) {
-    lutrisWine = fs.readdirSync(lutrisCompatPath).map((version) => {
+  if (existsSync(lutrisCompatPath)) {
+    lutrisWine = readdirSync(lutrisCompatPath).map((version) => {
       return {
         name: `Lutris - ${version}`,
         bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
@@ -79,17 +84,17 @@ const getAlternativeWine = () => {
   return [...steamWine, ...lutrisWine, defaultWine]
 }
 
-const isLoggedIn = () => fs.existsSync(userInfo)
+const isLoggedIn = () => existsSync(userInfo)
 
-const updateGame = (game) => {
+const updateGame = (game: any) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
-  let command = `${legendaryBin} update ${game} -y &> ${logPath}`
+  const command = `${legendaryBin} update ${game} -y &> ${logPath}`
   return execAsync(command, { shell: '/bin/bash' })
     .then(console.log)
     .catch(console.log)
 }
 
-const launchGame = async (appName) => {
+const launchGame = async (appName: any) => {
   let envVars = ''
   let dxvkPrefix = ''
   let gameMode
@@ -99,12 +104,13 @@ const launchGame = async (appName) => {
   let settingsPath = gameConfig
   let settingsName = appName
 
-  if (!fs.existsSync(gameConfig)) {
+  if (!existsSync(gameConfig)) {
     settingsPath = globalConfig
     settingsName = 'defaultSettings'
   }
 
-  const settings = JSON.parse(fs.readFileSync(settingsPath))
+  //@ts-ignore
+  const settings = JSON.parse(readFileSync(settingsPath))
   const {
     winePrefix,
     wineVersion,
@@ -153,7 +159,7 @@ const launchGame = async (appName) => {
 
   return execAsync(command)
     .then(({ stderr }) => {
-      fs.writeFile(
+      writeFile(
         `${heroicGamesConfigPath}${appName}-lastPlay.log`,
         stderr,
         () => 'done'
@@ -166,7 +172,7 @@ const launchGame = async (appName) => {
       }
     })
     .catch(async ({ stderr }) => {
-      fs.writeFile(
+      writeFile(
         `${heroicGamesConfigPath}${appName}-lastPlay.log`,
         stderr,
         () => 'done'
@@ -189,27 +195,28 @@ const writeDefaultconfig = () => {
       showFps: false,
     },
   }
-  if (!fs.existsSync(heroicConfigPath)) {
-    fs.writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => {
+  if (!existsSync(heroicConfigPath)) {
+    writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => {
       return 'done'
     })
   }
 
-  if (!fs.existsSync(heroicGamesConfigPath)) {
-    fs.mkdir(heroicGamesConfigPath, () => {
+  if (!existsSync(heroicGamesConfigPath)) {
+    mkdir(heroicGamesConfigPath, () => {
       return 'done'
     })
   }
 }
 
-const writeGameconfig = (game) => {
+const writeGameconfig = (game: any) => {
   const {
     wineVersion,
     winePrefix,
     otherOptions,
     useGameMode,
     showFps,
-  } = JSON.parse(fs.readFileSync(heroicConfigPath)).defaultSettings
+    //@ts-ignore
+  } = JSON.parse(readFileSync(heroicConfigPath)).defaultSettings
   const config = {
     [game]: {
       wineVersion,
@@ -220,13 +227,12 @@ const writeGameconfig = (game) => {
     },
   }
 
-  if (!fs.existsSync(`${heroicGamesConfigPath}${game}.json`)) {
-    fs.writeFileSync(
+  if (!existsSync(`${heroicGamesConfigPath}${game}.json`)) {
+    writeFileSync(
       `${heroicGamesConfigPath}${game}.json`,
       JSON.stringify(config, null, 2),
-      () => {
-        return 'done'
-      }
+      //@ts-ignore
+      () => 'done'
     )
   }
 }
@@ -234,7 +240,7 @@ const writeGameconfig = (game) => {
 async function checkForUpdates() {
   const {
     data: { tag_name },
-  } = await axios.get(
+  } = await axios.default.get(
     'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
   )
 
@@ -259,7 +265,7 @@ async function checkForUpdates() {
 async function getLatestDxvk() {
   const {
     data: { assets },
-  } = await axios.get(
+  } = await axios.default.get(
     'https://api.github.com/repos/lutris/dxvk/releases/latest'
   )
   const current = assets[0]
@@ -270,8 +276,8 @@ async function getLatestDxvk() {
   const pastVersionCheck = `${heroicToolsPath}/latest_dxvk`
   let pastVersion = ''
 
-  if (fs.existsSync(pastVersionCheck)) {
-    pastVersion = fs.readFileSync(pastVersionCheck).toString().split('\n')[0]
+  if (existsSync(pastVersionCheck)) {
+    pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
   }
 
   if (pastVersion === name) {
@@ -297,18 +303,17 @@ async function getLatestDxvk() {
     .catch(() => console.log('Error when downloading DXVK'))
 }
 
-async function installDxvk(prefix) {
+async function installDxvk(prefix: string) {
   if (!prefix) {
     return
   }
 
-  if (!fs.existsSync(`${heroicToolsPath}/latest_dxvk`)) {
+  if (!existsSync(`${heroicToolsPath}/latest_dxvk`)) {
     console.log('dxvk not found!')
     await getLatestDxvk()
   }
 
-  const globalVersion = fs
-    .readFileSync(`${heroicToolsPath}/latest_dxvk`)
+  const globalVersion = readFileSync(`${heroicToolsPath}/latest_dxvk`)
     .toString()
     .split('\n')[0]
     .replace('.tar.gz', '')
@@ -316,11 +321,8 @@ async function installDxvk(prefix) {
   const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
   let currentVersion = ''
 
-  if (fs.existsSync(currentVersionCheck)) {
-    currentVersion = fs
-      .readFileSync(currentVersionCheck)
-      .toString()
-      .split('\n')[0]
+  if (existsSync(currentVersionCheck)) {
+    currentVersion = readFileSync(currentVersionCheck).toString().split('\n')[0]
   }
 
   if (currentVersion === globalVersion) {
@@ -340,14 +342,14 @@ const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
     copyright: 'GPL V3',
-    applicationVersion: "1.1 'Crocodile'",
+    applicationVersion: app.getVersion(),
     website: 'https://github.com/flavioislima/HeroicGamesLauncher',
     iconPath: icon,
   })
   return app.showAboutPanel()
 }
 
-module.exports = {
+export {
   getAlternativeWine,
   isLoggedIn,
   launchGame,

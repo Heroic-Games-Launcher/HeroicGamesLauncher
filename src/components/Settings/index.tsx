@@ -113,7 +113,6 @@ export default function Settings() {
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [GlobalSettings, GameSettings, appName])
 
   return (

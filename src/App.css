@@ -783,8 +783,8 @@
 
 .more {
   position: absolute;
-  top: 64px;
-  right: 72px;
+  top: 56px;
+  right: 68px;
   color: #ffa800;
   font-size: 25px;
   width: 170px;
@@ -806,6 +806,7 @@
   top: 64px;
   width: 25px;
   z-index: 1;
+  cursor: pointer;
 }
 
 .link {
@@ -828,14 +829,15 @@
 }
 .more .hidden {
   opacity: 0;
+  cursor: default;
 }
 
-.more:hover {
+.more.clicked {
   background: #1a1b1c;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
 }
 
-.more:hover > .hidden {
+.more.clicked > .hidden {
   opacity: 1;
   cursor: pointer;
 }

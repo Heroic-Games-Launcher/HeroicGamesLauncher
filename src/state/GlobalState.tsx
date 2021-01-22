@@ -111,7 +111,7 @@ export class GlobalState extends PureComponent<Props> {
       return <Update />
     }
 
-    const filterRegex: RegExp = new RegExp(String(filterText), 'i')
+    const filterRegex = new RegExp(String(filterText), 'i')
     const textFilter = ({ title }: Game) => filterRegex.test(title)
     const filteredLibrary = this.filterLibrary(data, filter).filter(textFilter)
 

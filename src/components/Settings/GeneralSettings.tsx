@@ -31,31 +31,27 @@ export default function GeneralSettings({
   async function handleSync() {
     setIsSyncing(true)
     if (isLinked) {
-      return await ipcRenderer
-        .invoke('egsSync', 'unlink')
-        .then(async (res: string) => {
-          await dialog.showMessageBox({
-            title: 'EGS Sync',
-            message: 'Unsync Complete',
-          })
-          setEgsLinkedPath('')
-          setEgsPath('')
-          setIsSyncing(false)
-          refreshLibrary()
-        })
-    }
-
-    return await ipcRenderer
-      .invoke('egsSync', egsPath)
-      .then(async (res: string) => {
+      return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await dialog.showMessageBox({
           title: 'EGS Sync',
-          message: 'Sync Complete',
+          message: 'Unsync Complete',
         })
+        setEgsLinkedPath('')
+        setEgsPath('')
         setIsSyncing(false)
-        setEgsLinkedPath(egsPath)
         refreshLibrary()
       })
+    }
+
+    return await ipcRenderer.invoke('egsSync', egsPath).then(async () => {
+      await dialog.showMessageBox({
+        title: 'EGS Sync',
+        message: 'Sync Complete',
+      })
+      setIsSyncing(false)
+      setEgsLinkedPath(egsPath)
+      refreshLibrary()
+    })
   }
 
   return (
@@ -99,7 +95,7 @@ export default function GeneralSettings({
             disabled={isLinked}
             onChange={(event) => setEgsPath(event.target.value)}
           />
-          {!Boolean(egsPath.length) ? (
+          {!egsPath.length ? (
             <span
               className="material-icons settings folder"
               style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
@@ -134,7 +130,7 @@ export default function GeneralSettings({
           )}
           <button
             onClick={() => handleSync()}
-            disabled={isSyncing || !Boolean(egsPath.length)}
+            disabled={isSyncing || !egsPath.length}
             className={`button is-small ${
               isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
             }`}
