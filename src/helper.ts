@@ -13,7 +13,7 @@ export const install = async (args: any) =>
   await ipcRenderer.invoke('install', args)
 
 export const launch = (args: any) =>
-  ipcRenderer.invoke('launch', args).then((res) => res)
+  ipcRenderer.invoke('launch', args).then((res: any) => res)
 
 export const updateGame = (appName: string) =>
   ipcRenderer.invoke('updateGame', appName)
@@ -35,7 +35,7 @@ export let progress: string
 export const returnedOutput = () =>
   ipcRenderer.on(
     'requestedOutput',
-    (event: any, arg: string) => (progress = arg)
+    (_event: any, arg: string) => (progress = arg)
   )
 
 export const sendKill = (appName: string) => ipcRenderer.send('kill', appName)
@@ -93,7 +93,7 @@ export const getGameInfo = async (appName: string) => {
   return { ...game, extraInfo }
 }
 
-export const handleSavePath = async (game: string, prefix: string) => {
+export const handleSavePath = async (game: string) => {
   const { cloudSaveEnabled, saveFolder } = await getGameInfo(game)
 
   return { cloudSaveEnabled, saveFolder }

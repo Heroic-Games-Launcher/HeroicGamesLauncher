@@ -67,7 +67,7 @@ export default function SyncSaves({
             disabled={isSyncing}
             onChange={(event) => setSavesPath(event.target.value)}
           />
-          {!Boolean(savesPath.length) ? (
+          {!savesPath.length ? (
             <span
               className="material-icons settings folder"
               style={{ color: '#B0ABB6' }}
@@ -111,7 +111,7 @@ export default function SyncSaves({
           <select
             onChange={(event) => setSyncType(event.target.value as SyncType)}
             value={syncType}
-            disabled={!Boolean(savesPath.length)}
+            disabled={!savesPath.length}
             className="settingSelect small"
           >
             {syncTypes.map((name: SyncType) => (
@@ -120,7 +120,7 @@ export default function SyncSaves({
           </select>
           <button
             onClick={() => handleSync()}
-            disabled={isSyncing || !Boolean(savesPath.length)}
+            disabled={isSyncing || !savesPath.length}
             className={`button is-small ${
               isSyncing ? 'is-primary' : 'settings'
             }`}
@@ -134,7 +134,7 @@ export default function SyncSaves({
           Sync Saves Automatically
           <ToggleSwitch
             value={autoSyncSaves}
-            disabled={!Boolean(savesPath.length)}
+            disabled={!savesPath.length}
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
           />
         </span>
