@@ -84,7 +84,7 @@ export default function GamePage() {
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
-      if (isInstalling || isUpdating) {
+      if (isInstalling) {
         ipcRenderer.send('requestGameProgress', appName)
         ipcRenderer.on(
           `${appName}-progress`,
@@ -93,7 +93,7 @@ export default function GamePage() {
       }
     }, 1000)
     return () => clearInterval(progressInterval)
-  }, [isInstalling, appName, isUpdating])
+  }, [isInstalling, appName])
 
   if (gameInfo) {
     const {
@@ -290,13 +290,13 @@ export default function GamePage() {
     isInstalled: boolean,
     isUpdating: boolean
   ): React.ReactNode {
-    if (isUpdating) {
+    if (isUpdating && isInstalling) {
       return `Updating ${
         progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
       }`
     }
 
-    if (isInstalling) {
+    if (!isUpdating && isInstalling) {
       return `Installing ${
         progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
       }`
@@ -357,26 +357,15 @@ export default function GamePage() {
           })
 
           if (response === 0) {
-            console.log('Updating Game...')
             setIsUpdating(true)
+            handleInstalling(appName)
             await updateGame(appName)
-            setIsUpdating(false)
-
-            const { response } = await showMessageBox({
-              title: 'Game Updated!',
-              message: 'Continuing launching?',
-              buttons: ['YES', 'NO'],
-            })
-            if (response === 0) {
-              handlePlaying({ appName, status: true })
-              await launch(appName)
-              return handlePlaying({ appName, status: false })
-            }
-            return
+            handleInstalling(appName)
+            return setIsUpdating(false)
           }
           handlePlaying({ appName, status: true })
           await launch(`${appName} --skip-version-check`)
-          handlePlaying({ appName, status: false })
+          return handlePlaying({ appName, status: false })
         }
       })
 
