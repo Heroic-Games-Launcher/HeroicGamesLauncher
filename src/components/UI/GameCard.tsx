@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ContextProvider from '../../state/ContextProvider'
+import { GameStatus } from '../../types'
 const { ipcRenderer } = window.require('electron')
 interface Card {
   cover: string
@@ -21,11 +22,14 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
     bytes: '0/0MB',
   } as InstallProgress)
 
-  const { installing } = useContext(ContextProvider)
+  const { libraryStatus } = useContext(ContextProvider)
 
-  const isInstalling = Boolean(
-    installing.filter((game) => game === appName).length
-  )
+  const gameStatus: GameStatus = libraryStatus.filter(
+    (game) => game.appName === appName
+  )[0]
+
+  const { status } = gameStatus || {}
+  const isInstalling = status === 'installing' || status === 'updating'
 
   useEffect(() => {
     const progressInterval = setInterval(() => {

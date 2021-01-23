@@ -4,15 +4,13 @@ import { ContextType } from '../types'
 const initialContext: ContextType = {
   user: '',
   data: [],
-  installing: [],
-  playing: [],
+  libraryStatus: [],
   refreshing: false,
   filter: 'all',
   error: false,
   refresh: () => null,
   refreshLibrary: () => null,
-  handleInstalling: () => null,
-  handlePlaying: () => null,
+  handleGameStatus: () => null,
   handleSearch: () => null,
   handleFilter: () => null,
 }

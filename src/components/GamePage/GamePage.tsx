@@ -13,13 +13,13 @@ import {
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
-import { AppSettings, Game } from '../../types'
+import { AppSettings, Game, GameStatus } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { Link, useParams } from 'react-router-dom'
 import Update from '../UI/Update'
 const { ipcRenderer, remote } = window.require('electron')
 const {
-  dialog: { showOpenDialog, showMessageBox, showErrorBox },
+  dialog: { showOpenDialog, showMessageBox },
 } = remote
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
@@ -36,33 +36,30 @@ interface InstallProgress {
 export default function GamePage() {
   const { appName } = useParams() as RouteParams
 
-  const {
-    handleInstalling,
-    handlePlaying,
-    refresh,
-    installing,
-    playing,
-  } = useContext(ContextProvider)
+  const { refresh, libraryStatus, handleGameStatus } = useContext(
+    ContextProvider
+  )
+
+  const gameStatus: GameStatus = libraryStatus.filter(
+    (game) => game.appName === appName
+  )[0]
+
+  const { status } = gameStatus || {}
 
   const [gameInfo, setGameInfo] = useState({} as Game)
   const [progress, setProgress] = useState({
     percent: '0.00%',
     bytes: '0/0MB',
   } as InstallProgress)
-  const [uninstalling, setUninstalling] = useState(false)
   const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
-  const [isUpdating, setIsUpdating] = useState(false)
   const [clicked, setClicked] = useState(false)
 
-  const isInstalling = Boolean(
-    installing.filter((game) => game === appName).length
-  )
-
-  const isPlaying = playing.filter((game) => game.appName === appName)[0]
-    ?.status
+  const isInstalling = status === 'installing'
+  const isPlaying = status === 'playing'
+  const isUpdating = status === 'updating'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -80,11 +77,11 @@ export default function GamePage() {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, uninstalling, playing])
+  }, [isInstalling, isPlaying, appName])
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
-      if (isInstalling) {
+      if (isInstalling || isUpdating) {
         ipcRenderer.send('requestGameProgress', appName)
         ipcRenderer.on(
           `${appName}-progress`,
@@ -93,7 +90,7 @@ export default function GamePage() {
       }
     }, 1000)
     return () => clearInterval(progressInterval)
-  }, [isInstalling, appName])
+  }, [isInstalling, isUpdating, appName])
 
   if (gameInfo) {
     const {
@@ -333,8 +330,8 @@ export default function GamePage() {
     | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
     | undefined {
     return async () => {
-      if (isPlaying || isUpdating) {
-        handlePlaying({ appName, status: false })
+      if (status === 'playing' || status === 'updating') {
+        handleGameStatus({ appName, status: 'done' })
         return sendKill(appName)
       }
 
@@ -344,7 +341,7 @@ export default function GamePage() {
         setIsSyncing(false)
       }
 
-      handlePlaying({ appName, status: true })
+      handleGameStatus({ appName, status: 'playing' })
       await launch(appName).then(async (err: string | string[]) => {
         if (!err) {
           return
@@ -357,15 +354,13 @@ export default function GamePage() {
           })
 
           if (response === 0) {
-            setIsUpdating(true)
-            handleInstalling(appName)
+            handleGameStatus({ appName, status: 'updating' })
             await updateGame(appName)
-            handleInstalling(appName)
-            return setIsUpdating(false)
+            handleGameStatus({ appName, status: 'done' })
           }
-          handlePlaying({ appName, status: true })
+          handleGameStatus({ appName, status: 'playing' })
           await launch(`${appName} --skip-version-check`)
-          return handlePlaying({ appName, status: false })
+          return handleGameStatus({ appName, status: 'done' })
         }
       })
 
@@ -375,7 +370,7 @@ export default function GamePage() {
         setIsSyncing(false)
       }
 
-      return handlePlaying({ appName, status: false })
+      return handleGameStatus({ appName, status: 'done' })
     }
   }
 
@@ -386,24 +381,17 @@ export default function GamePage() {
       }
 
       if (isInstalled) {
-        setUninstalling(true)
-        await legendary(`uninstall ${appName}`).then((res) => {
-          if (res.includes('Error')) {
-            showErrorBox(
-              'Error',
-              'There was an error! Try deleting the files manually!'
-            )
-          }
-        })
-        setUninstalling(false)
+        handleGameStatus({ appName, status: 'uninstalling' })
+        await legendary(`uninstall ${appName}`)
+        handleGameStatus({ appName, status: 'uninstalling' })
         return refresh()
       }
 
       if (installPath === 'default') {
         const path = 'default'
-        handleInstalling(appName)
+        handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
-        return handleInstalling(appName)
+        return handleGameStatus({ appName, status: 'done' })
       }
 
       if (installPath === 'import') {
@@ -415,9 +403,9 @@ export default function GamePage() {
 
         if (filePaths[0]) {
           const path = filePaths[0]
-          handleInstalling(appName)
+          handleGameStatus({ appName, status: 'installing' })
           await importGame({ appName, path })
-          return handleInstalling(appName)
+          return handleGameStatus({ appName, status: 'done' })
         }
       }
 
@@ -430,9 +418,9 @@ export default function GamePage() {
 
         if (filePaths[0]) {
           const path = filePaths[0]
-          handleInstalling(appName)
+          handleGameStatus({ appName, status: 'installing' })
           await install({ appName, path })
-          handleInstalling(appName)
+          return handleGameStatus({ appName, status: 'done' })
         }
       }
     }
