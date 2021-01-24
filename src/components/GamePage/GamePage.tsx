@@ -137,7 +137,7 @@ export default function GamePage() {
                   onClick={() => createNewWindow(formatStoreUrl(title))}
                   className="hidden link"
                 >
-                  Epic Games
+                  Store Page
                 </span>
                 <span
                   onClick={() => createNewWindow(protonDBurl)}
