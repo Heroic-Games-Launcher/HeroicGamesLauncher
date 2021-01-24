@@ -87,10 +87,18 @@ export default function GamePage() {
         ipcRenderer.send('requestGameProgress', appName)
         ipcRenderer.on(
           `${appName}-progress`,
-          (event: any, progress: InstallProgress) => setProgress(progress)
+          (event: any, progress: InstallProgress) => {
+            setProgress(progress)
+
+            handleGameStatus({
+              appName,
+              status,
+              progress: getProgress(progress),
+            })
+          }
         )
       }
-    }, 1000)
+    }, 500)
     return () => clearInterval(progressInterval)
   }, [isInstalling, isUpdating, appName, isReparing])
 
@@ -215,7 +223,7 @@ export default function GamePage() {
                       <progress
                         className="installProgress"
                         max={100}
-                        value={Number(progress.percent.replace('%', ''))}
+                        value={getProgress(progress)}
                       />
                     )}
                     <p
@@ -392,7 +400,7 @@ export default function GamePage() {
       if (isInstalled) {
         handleGameStatus({ appName, status: 'uninstalling' })
         await legendary(`uninstall ${appName}`)
-        handleGameStatus({ appName, status: 'uninstalling' })
+        handleGameStatus({ appName, status: 'done' })
         return refresh()
       }
 
@@ -400,7 +408,10 @@ export default function GamePage() {
         const path = 'default'
         handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
-        return handleGameStatus({ appName, status: 'done' })
+        // Wait to be 100% finished
+        return setTimeout(() => {
+          handleGameStatus({ appName, status: 'done' })
+        }, 1000)
       }
 
       if (installPath === 'import') {
@@ -429,7 +440,10 @@ export default function GamePage() {
           const path = filePaths[0]
           handleGameStatus({ appName, status: 'installing' })
           await install({ appName, path })
-          return handleGameStatus({ appName, status: 'done' })
+          // Wait to be 100% finished
+          return setTimeout(() => {
+            handleGameStatus({ appName, status: 'done' })
+          }, 1000)
         }
       }
     }
@@ -451,4 +465,7 @@ export default function GamePage() {
     await repair(appName)
     return handleGameStatus({ appName, status: 'done' })
   }
+}
+function getProgress(progress: InstallProgress): number {
+  return Number(progress.percent.replace('%', ''))
 }

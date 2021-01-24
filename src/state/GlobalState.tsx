@@ -26,7 +26,7 @@ export class GlobalState extends PureComponent<Props> {
     libraryStatus: [],
     refreshing: false,
     error: false,
-    filter: 'all',
+    filter: 'installed',
   }
 
   refresh = async (): Promise<void> => {
@@ -74,22 +74,33 @@ export class GlobalState extends PureComponent<Props> {
     }
   }
 
-  handleGameStatus = async ({
-    appName,
-    status,
-    progress = null,
-  }: GameStatus) => {
+  handleGameStatus = async ({ appName, status, progress }: GameStatus) => {
     const { libraryStatus } = this.state
-    const currentApp = libraryStatus.filter(
-      (game) => game.appName === appName
-    )[0]
+    const currentApp =
+      libraryStatus.filter((game) => game.appName === appName)[0] || {}
+    const currentProgress = currentApp?.progress ? currentApp.progress : 0
+
+    if (currentApp && currentApp.status === status) {
+      const updatedLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      return this.setState({
+        libraryStatus: [...updatedLibraryStatus, { ...currentApp, progress }],
+      })
+    }
 
     if (currentApp && currentApp.status === 'installing' && status === 'done') {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
-
       this.setState({ libraryStatus: updatedLibraryStatus })
+
+      if (currentProgress < 95) {
+        const { title } = await getGameInfo(appName)
+        notify([title, 'Installation Canceled'])
+        return this.refresh()
+      }
+
       const { title } = await getGameInfo(appName)
       notify([title, 'Has finished installing'])
       return this.refresh()
@@ -100,6 +111,13 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
+
+      if (currentProgress < 95) {
+        const { title } = await getGameInfo(appName)
+        notify([title, 'Updating Canceled'])
+        return this.refresh()
+      }
+
       const { title } = await getGameInfo(appName)
       notify([title, 'Has finished Updating'])
       return this.refresh()
@@ -112,6 +130,20 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ libraryStatus: updatedLibraryStatus })
       const { title } = await getGameInfo(appName)
       notify([title, 'Has finished Repairing'])
+      return this.refresh()
+    }
+
+    if (
+      currentApp &&
+      currentApp.status === 'uninstalling' &&
+      status === 'done'
+    ) {
+      const updatedLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      this.setState({ libraryStatus: updatedLibraryStatus })
+      const { title } = await getGameInfo(appName)
+      notify([title, 'Was uninstalled'])
       return this.refresh()
     }
 

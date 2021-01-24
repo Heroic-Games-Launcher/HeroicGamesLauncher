@@ -41,7 +41,7 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
           (event: any, progress: InstallProgress) => setProgress(progress)
         )
       }
-    }, 1000)
+    }, 500)
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 

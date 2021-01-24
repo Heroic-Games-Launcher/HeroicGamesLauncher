@@ -51,7 +51,8 @@ export interface GameStatus {
     | 'uninstalling'
     | 'repairing'
     | 'done'
-  progress?: string | null
+    | 'canceled'
+  progress?: number | null
 }
 
 export interface ContextType {
