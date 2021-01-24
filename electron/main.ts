@@ -64,6 +64,7 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
+      partition: 'persist:heroic',
     },
   })
 
