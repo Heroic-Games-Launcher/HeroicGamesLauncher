@@ -49,7 +49,7 @@ import {
   Tray,
   dialog,
 } from 'electron'
-import { Game, InstalledInfo, KeyImage } from './types.js'
+import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
 const showMessageBox = dialog.showMessageBox
 
@@ -86,6 +86,10 @@ function createWindow() {
     win.loadURL('http://localhost:3000')
     // Open the DevTools.
     win.webContents.openDevTools()
+    win.on('close', async (e) => {
+      e.preventDefault()
+      win.hide()
+    })
   } else {
     win.on('close', async (e) => {
       e.preventDefault()
@@ -145,11 +149,14 @@ app.whenReady().then(() => {
 })
 
 ipcMain.on('Notify', (event, args) => {
+  const currentWindow: BrowserWindow = BrowserWindow.getAllWindows()[0]
+
   const notify = new Notification({
     title: args[0],
     body: args[1],
   })
 
+  notify.on('click', () => currentWindow.show())
   notify.show()
 })
 
@@ -238,6 +245,16 @@ ipcMain.handle('install', async (event, args) => {
     .catch(console.log)
 })
 
+ipcMain.handle('repair', async (event, game) => {
+  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const command = `${legendaryBin} repair ${game} -y &> ${logPath}`
+
+  console.log(`Repairing ${game} with:`, command)
+  await execAsync(command, { shell: '/bin/bash' })
+    .then(console.log)
+    .catch(console.log)
+})
+
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const command = `${legendaryBin} import-game ${game} '${path}'`
@@ -255,11 +272,9 @@ ipcMain.on('requestGameProgress', (event, appName) => {
     (error, stdout) => {
       const status = `${stdout.split('\n')[0]}`.split('(')
       const percent = status[0]
-      const bytes = status[1] && status[1].replace('),', 'MB')
+      const bytes = status[1] ? status[1].replace('),', 'MB') : ''
       const progress = { percent, bytes }
-      console.log(
-        `Install Progress: ${appName} ${progress.percent}/${progress.bytes}/`
-      )
+      console.log(`Progress: ${appName} ${progress.percent}/${progress.bytes}/`)
       event.reply(`${appName}-progress`, progress)
     }
   )
@@ -280,8 +295,13 @@ ipcMain.on('getAlternativeWine', (event) =>
 ipcMain.on('callTool', async (event, { tool, wine, prefix }) => {
   const wineBin = wine.replace("/proton'", "/dist/bin/wine64'")
   console.log({ wine, wineBin }, wine.endsWith("/proton'"))
+  let winePrefix: string = prefix
+  if (wine.includes('proton')) {
+    const protonPrefix = winePrefix.replaceAll("'", '')
+    winePrefix = `'${protonPrefix}/pfx'`
+  }
 
-  const command = `WINE=${wineBin} WINEPREFIX=${prefix} ${
+  const command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
     tool === 'winecfg' ? `${wineBin} ${tool}` : tool
   }`
 
@@ -290,7 +310,7 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix }) => {
 })
 
 ipcMain.on('requestSettings', (event, appName) => {
-  let settings
+  let settings: AppSettings
   if (appName !== 'default') {
     writeGameconfig(appName)
   }

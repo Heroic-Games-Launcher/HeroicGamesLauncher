@@ -9,8 +9,11 @@ const readFile = async (file: string) =>
 export const writeConfig = async (data: any[]) =>
   await ipcRenderer.invoke('writeFile', data)
 
-export const install = async (args: any) =>
+export const install = async (args: { appName: string; path: string }) =>
   await ipcRenderer.invoke('install', args)
+
+export const repair = async (appName: string) =>
+  await ipcRenderer.invoke('repair', appName)
 
 export const launch = (args: any) =>
   ipcRenderer.invoke('launch', args).then((res: any) => res)
@@ -47,7 +50,7 @@ export const legendary = async (args: string): Promise<any> =>
       const isError = res.includes('ERROR')
       return isError ? 'error' : 'done'
     })
-    .catch((err: string) => Error(err))
+    .catch((err: any) => String(err))
 
 export const isLoggedIn = async () => await ipcRenderer.invoke('isLoggedIn')
 

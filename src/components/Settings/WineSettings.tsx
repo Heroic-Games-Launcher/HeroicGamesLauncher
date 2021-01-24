@@ -72,10 +72,13 @@ export default function WineSettings({
         </span>
         <ul>
           <i>
-            <li>$HOME/.local/share/Steam/compatibilitytools.d</li>
-            <li>$HOME/.local/share/Steam/steamapps/common</li>
-            <li>$HOME/.local/share/lutris/runners/wine</li>
-            <li>$HOME/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+            <li>.config/heroic/Tools/wine</li>
+            <li>.config/heroic/Tools/proton</li>
+            <li>.local/share/Steam/compatibilitytools.d</li>
+            <li>.local/share/Steam/steamapps/common</li>
+            <li>.local/share/lutris/runners/wine</li>
+            <li>.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+            <li>/usr/share/steam</li>
           </i>
         </ul>
         <span>

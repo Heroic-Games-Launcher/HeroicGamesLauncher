@@ -21,7 +21,7 @@
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 17px;
   color: #c1c4c3;
 }
@@ -34,19 +34,20 @@
 
 .selectFilter {
   display: flex;
-  width: 300px;
+  width: fit-content;
   justify-self: center;
   justify-content: space-evenly;
 }
 
 .selectFilter > .selected {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #ffa800;
 }
 
 .selectFilter > :not(:first-child) {
   cursor: pointer;
+  padding: 0 8px;
 }
 
 .App .pageTitle {
@@ -174,7 +175,13 @@
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
   grid-gap: 34px;
-  padding: 0 4rem 0 4rem;
+  padding: 0 4rem 1rem 4rem;
+}
+
+.noGames {
+  position: absolute;
+  top: 25%;
+  left: 50%;
 }
 
 .gameCard {
@@ -311,6 +318,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  background: rgba(13, 14, 14, 0.58);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: grid;
+  position: relative;
+  place-items: flex-start;
+  padding-bottom: 25px;
 }
 
 .settingsTools {
@@ -706,6 +720,12 @@
   background: #30eca8;
 }
 
+.button.is-success:hover:disabled,
+.button.is-success:disabled {
+  background: #424546;
+  color: #b0abb6;
+}
+
 .button.is-danger {
   background: #252121;
   color: #bd0a0a;
@@ -877,8 +897,8 @@
   margin-inline-start: clamp(10px, 0.5vw, 20px);
   position: relative;
   display: inline-block;
-  width: clamp(30px, 1.65vw, 40px);
-  height: clamp(15px, 1.5vh, 20px);
+  width: 22px;
+  height: 11px;
 }
 
 /* Hide default HTML checkbox */
@@ -886,7 +906,6 @@
   opacity: 0;
   width: 0;
   height: 0;
-  margin: 0 0 0 0;
 }
 
 /* The slider */
@@ -895,7 +914,7 @@
   cursor: pointer;
   top: 0;
   left: 0;
-  right: 1px;
+  right: 0;
   bottom: 0;
   background: none;
   border: 2px solid;
@@ -906,9 +925,10 @@
 .slider:before {
   position: absolute;
   content: '';
-  height: -webkit-fill-available;
-  width: clamp(9px, 0.5vw, 20px);
-  left: 1px;
+  height: 6px;
+  width: 6px;
+  left: 2px;
+  bottom: 1px;
   background-color: #dadada;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -928,7 +948,7 @@ input:focus + .slider {
 
 input:checked + .slider:before {
   background-color: #ffa800;
-  transform: translateX(clamp(14px, 0.775vw, 20px));
+  transform: translateX(9px);
 }
 
 .slider.round {
@@ -940,7 +960,6 @@ input:checked + .slider:before {
 }
 
 .infoBox {
-  background: #1a1b1c;
   width: 100%;
   padding: 20px 44px;
   font-size: 16px;

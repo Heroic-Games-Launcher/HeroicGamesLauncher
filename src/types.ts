@@ -42,23 +42,29 @@ export interface WineProps {
   bin: string
 }
 
-export interface PlayStatus {
+export interface GameStatus {
   appName: string
-  status: boolean
+  status:
+    | 'installing'
+    | 'updating'
+    | 'playing'
+    | 'uninstalling'
+    | 'repairing'
+    | 'done'
+    | 'canceled'
+  progress?: number | null
 }
 
 export interface ContextType {
   user: string
   data: Game[]
-  installing: string[]
   filter: string
-  playing: PlayStatus[]
   refreshing: boolean
   error: boolean
+  libraryStatus: GameStatus[]
   refresh: () => void
   refreshLibrary: () => void
-  handleInstalling: (game: string) => void
-  handlePlaying: (game: PlayStatus) => void
+  handleGameStatus: (game: GameStatus) => void
   handleFilter: (value: string) => void
   handleSearch: (input: string) => void
 }

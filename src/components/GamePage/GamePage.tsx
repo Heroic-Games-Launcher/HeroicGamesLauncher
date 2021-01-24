@@ -9,11 +9,12 @@ import {
   importGame,
   launch,
   syncSaves,
-  updateGame
+  updateGame,
+  repair,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
-import { AppSettings, Game } from '../../types'
+import { AppSettings, Game, GameStatus } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { Link, useParams } from 'react-router-dom'
 import Update from '../UI/Update'
@@ -36,33 +37,31 @@ interface InstallProgress {
 export default function GamePage() {
   const { appName } = useParams() as RouteParams
 
-  const {
-    handleInstalling,
-    handlePlaying,
-    refresh,
-    installing,
-    playing,
-  } = useContext(ContextProvider)
+  const { refresh, libraryStatus, handleGameStatus } = useContext(
+    ContextProvider
+  )
+
+  const gameStatus: GameStatus = libraryStatus.filter(
+    (game) => game.appName === appName
+  )[0]
+
+  const { status } = gameStatus || {}
 
   const [gameInfo, setGameInfo] = useState({} as Game)
   const [progress, setProgress] = useState({
     percent: '0.00%',
     bytes: '0/0MB',
   } as InstallProgress)
-  const [uninstalling, setUninstalling] = useState(false)
   const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
-  const [isUpdating, setIsUpdating] = useState(false)
   const [clicked, setClicked] = useState(false)
 
-  const isInstalling = Boolean(
-    installing.filter((game) => game === appName).length
-  )
-
-  const isPlaying = playing.filter((game) => game.appName === appName)[0]
-    ?.status
+  const isInstalling = status === 'installing'
+  const isPlaying = status === 'playing'
+  const isUpdating = status === 'updating'
+  const isReparing = status === 'repairing'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -80,20 +79,28 @@ export default function GamePage() {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, uninstalling, playing])
+  }, [isInstalling, isPlaying, appName])
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
-      if (isInstalling || isUpdating) {
+      if (isInstalling || isUpdating || isReparing) {
         ipcRenderer.send('requestGameProgress', appName)
         ipcRenderer.on(
           `${appName}-progress`,
-          (event: any, progress: InstallProgress) => setProgress(progress)
+          (event: any, progress: InstallProgress) => {
+            setProgress(progress)
+
+            handleGameStatus({
+              appName,
+              status,
+              progress: getProgress(progress),
+            })
+          }
         )
       }
-    }, 1000)
+    }, 500)
     return () => clearInterval(progressInterval)
-  }, [isInstalling, appName, isUpdating])
+  }, [isInstalling, isUpdating, appName, isReparing])
 
   if (gameInfo) {
     const {
@@ -126,21 +133,11 @@ export default function GamePage() {
                 more_vertical
               </span>
               <div className={`more ${clicked ? 'clicked' : ''}`}>
-                {isInstalled && (
-                  <Link
-                    className="hidden link"
-                    to={{
-                      pathname: `/settings/${appName}/wine`,
-                    }}
-                  >
-                    Settings
-                  </Link>
-                )}
                 <span
                   onClick={() => createNewWindow(formatStoreUrl(title))}
                   className="hidden link"
                 >
-                  Epic Games
+                  Store Page
                 </span>
                 <span
                   onClick={() => createNewWindow(protonDBurl)}
@@ -149,12 +146,28 @@ export default function GamePage() {
                   Check Compatibility
                 </span>
                 {isInstalled && (
-                  <span
-                    onClick={() => ipcRenderer.send('getLog', appName)}
-                    className="hidden link"
-                  >
-                    Latest Log
-                  </span>
+                  <>
+                    <Link
+                      className="hidden link"
+                      to={{
+                        pathname: `/settings/${appName}/wine`,
+                      }}
+                    >
+                      Settings
+                    </Link>
+                    <span
+                      onClick={() => handleRepair(appName)}
+                      className="hidden link"
+                    >
+                      Verify and Repair
+                    </span>{' '}
+                    <span
+                      onClick={() => ipcRenderer.send('getLog', appName)}
+                      className="hidden link"
+                    >
+                      Latest Log
+                    </span>
+                  </>
                 )}
               </div>
               <div className="gameConfig">
@@ -210,7 +223,7 @@ export default function GamePage() {
                       <progress
                         className="installProgress"
                         max={100}
-                        value={Number(progress.percent.replace('%', ''))}
+                        value={getProgress(progress)}
                       />
                     )}
                     <p
@@ -237,17 +250,18 @@ export default function GamePage() {
                   <div className="buttonsWrapper">
                     {isInstalled && (
                       <>
-                        <div
+                        <button
+                          disabled={isReparing}
                           onClick={handlePlay()}
                           className={`button ${getPlayBtnClass()}`}
                         >
                           {getPlayLabel()}
-                        </div>
+                        </button>
                       </>
                     )}
                     <button
                       onClick={handleInstall(isInstalled)}
-                      disabled={isPlaying || isUpdating}
+                      disabled={isPlaying || isUpdating || isReparing}
                       className={`button ${getButtonClass(isInstalled)}`}
                     >
                       {`${getButtonLabel(isInstalled)}`}
@@ -290,16 +304,18 @@ export default function GamePage() {
     isInstalled: boolean,
     isUpdating: boolean
   ): React.ReactNode {
-    if (isUpdating) {
-      return `Updating ${
-        progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
+    if (isReparing) {
+      return `Repairing Game ${
+        progress.percent ? `${progress.percent}` : '...'
       }`
     }
 
-    if (isInstalling) {
-      return `Installing ${
-        progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
-      }`
+    if (isUpdating && isInstalling) {
+      return `Updating ${progress.percent ? `${progress.percent}` : '...'}`
+    }
+
+    if (!isUpdating && isInstalling) {
+      return `Installing ${progress.percent ? `${progress.percent}` : '...'}`
     }
 
     if (isInstalled) {
@@ -329,12 +345,10 @@ export default function GamePage() {
     return 'Install'
   }
 
-  function handlePlay():
-    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
-    | undefined {
+  function handlePlay() {
     return async () => {
-      if (isPlaying || isUpdating) {
-        handlePlaying({ appName, status: false })
+      if (status === 'playing' || status === 'updating') {
+        handleGameStatus({ appName, status: 'done' })
         return sendKill(appName)
       }
 
@@ -344,7 +358,7 @@ export default function GamePage() {
         setIsSyncing(false)
       }
 
-      handlePlaying({ appName, status: true })
+      handleGameStatus({ appName, status: 'playing' })
       await launch(appName).then(async (err: string | string[]) => {
         if (!err) {
           return
@@ -357,26 +371,13 @@ export default function GamePage() {
           })
 
           if (response === 0) {
-            console.log('Updating Game...')
-            setIsUpdating(true)
+            handleGameStatus({ appName, status: 'updating' })
             await updateGame(appName)
-            setIsUpdating(false)
-
-            const { response } = await showMessageBox({
-              title: 'Game Updated!',
-              message: 'Continuing launching?',
-              buttons: ['YES', 'NO'],
-            })
-            if (response === 0) {
-              handlePlaying({ appName, status: true })
-              await launch(appName)
-              return handlePlaying({ appName, status: false })
-            }
-            return
+            handleGameStatus({ appName, status: 'done' })
           }
-          handlePlaying({ appName, status: true })
+          handleGameStatus({ appName, status: 'playing' })
           await launch(`${appName} --skip-version-check`)
-          handlePlaying({ appName, status: false })
+          return handleGameStatus({ appName, status: 'done' })
         }
       })
 
@@ -386,7 +387,7 @@ export default function GamePage() {
         setIsSyncing(false)
       }
 
-      return handlePlaying({ appName, status: false })
+      return handleGameStatus({ appName, status: 'done' })
     }
   }
 
@@ -397,17 +398,20 @@ export default function GamePage() {
       }
 
       if (isInstalled) {
-        setUninstalling(true)
+        handleGameStatus({ appName, status: 'uninstalling' })
         await legendary(`uninstall ${appName}`)
-        setUninstalling(false)
+        handleGameStatus({ appName, status: 'done' })
         return refresh()
       }
 
       if (installPath === 'default') {
         const path = 'default'
-        handleInstalling(appName)
+        handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
-        return handleInstalling(appName)
+        // Wait to be 100% finished
+        return setTimeout(() => {
+          handleGameStatus({ appName, status: 'done' })
+        }, 1000)
       }
 
       if (installPath === 'import') {
@@ -419,9 +423,9 @@ export default function GamePage() {
 
         if (filePaths[0]) {
           const path = filePaths[0]
-          handleInstalling(appName)
+          handleGameStatus({ appName, status: 'installing' })
           await importGame({ appName, path })
-          return handleInstalling(appName)
+          return handleGameStatus({ appName, status: 'done' })
         }
       }
 
@@ -434,11 +438,34 @@ export default function GamePage() {
 
         if (filePaths[0]) {
           const path = filePaths[0]
-          handleInstalling(appName)
+          handleGameStatus({ appName, status: 'installing' })
           await install({ appName, path })
-          handleInstalling(appName)
+          // Wait to be 100% finished
+          return setTimeout(() => {
+            handleGameStatus({ appName, status: 'done' })
+          }, 1000)
         }
       }
     }
   }
+
+  async function handleRepair(appName: string) {
+    const { response } = await showMessageBox({
+      title: 'Verify and Repair',
+      message:
+        'Do you want to try to repair this game. It can take a long time?',
+      buttons: ['YES', 'NO'],
+    })
+
+    if (response === 1) {
+      return
+    }
+
+    handleGameStatus({ appName, status: 'repairing' })
+    await repair(appName)
+    return handleGameStatus({ appName, status: 'done' })
+  }
+}
+function getProgress(progress: InstallProgress): number {
+  return Number(progress.percent.replace('%', ''))
 }

@@ -1,7 +1,8 @@
 # Heroic Games Launcher
 
-This app is a Linux GUI for the tool [Legendary](https://github.com/derrod/legendary), a Linux native alternative to the Epic Games Launcher.
-It is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
+Heroic is an Open Source Game Launcher for Linux.
+Right now it supports launching game from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), a Linux CLI alternative to launch epic games.
+Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
 
 ### [Design based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
@@ -21,9 +22,10 @@ It is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
 ## Feature availables right now
 
 - Login with an existing Epic Games account
-- Install/Uninstall Games of your Library
-- Update installed Games
+- Install/Uninstall Games
 - Import an already installed game
+- Update installed Games
+- Repair installed Games
 - Multiple downloads at the same time
 - Play games using the default wine and default prefix
 - Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
@@ -37,7 +39,6 @@ It is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
 ## Planned features
 
 - Better Login System
-- Repair installed Games
 - Get the Free game of the week
 - Add Games outside Epic Games
 - Integration with other stores (GOG, ITCH.IO, Humble Bundle)
@@ -45,12 +46,11 @@ It is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
 ## Binaries supported right now
 
 - DEB, RPM, Pacman, AppImage and TAR.XZ (with the heroic binary and all dependecies)
-- Recommended AUR version right now: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
+- Recommended AUR version: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
 - Might think about Flatpak And/Or SNAP in the future as well
 
 ## How to build and run locally
 
-This app uses web technologies like Electron, React and Typescript.
 To be able to run you will need to have NodeJs installed locally and follow the instructions below:
 
 ### Steps:
