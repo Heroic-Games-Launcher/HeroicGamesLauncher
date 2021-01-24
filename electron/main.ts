@@ -280,8 +280,12 @@ ipcMain.on('getAlternativeWine', (event) =>
 ipcMain.on('callTool', async (event, { tool, wine, prefix }) => {
   const wineBin = wine.replace("/proton'", "/dist/bin/wine64'")
   console.log({ wine, wineBin }, wine.endsWith("/proton'"))
+  let winePrefix = prefix
+  if (wine.includes('proton')) {
+    winePrefix = `${prefix}/pfx`
+  }
 
-  const command = `WINE=${wineBin} WINEPREFIX=${prefix} ${
+  const command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
     tool === 'winecfg' ? `${wineBin} ${tool}` : tool
   }`
 
