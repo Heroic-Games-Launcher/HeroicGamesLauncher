@@ -267,9 +267,7 @@ ipcMain.on('requestGameProgress', (event, appName) => {
       const percent = status[0]
       const bytes = status[1] && status[1].replace('),', 'MB')
       const progress = { percent, bytes }
-      console.log(
-        `Install Progress: ${appName} ${progress.percent}/${progress.bytes}/`
-      )
+      console.log(`Progress: ${appName} ${progress.percent}/${progress.bytes}/`)
       event.reply(`${appName}-progress`, progress)
     }
   )

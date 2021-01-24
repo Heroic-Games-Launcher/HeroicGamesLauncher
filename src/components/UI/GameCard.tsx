@@ -29,7 +29,8 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   )[0]
 
   const { status } = gameStatus || {}
-  const isInstalling = status === 'installing' || status === 'updating'
+  const isInstalling =
+    status === 'installing' || status === 'updating' || status === 'repairing'
 
   useEffect(() => {
     const progressInterval = setInterval(() => {

@@ -298,20 +298,16 @@ export default function GamePage() {
   ): React.ReactNode {
     if (isReparing) {
       return `Repairing Game ${
-        progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
+        progress.percent ? `${progress.percent}` : '...'
       }`
     }
 
     if (isUpdating && isInstalling) {
-      return `Updating ${
-        progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
-      }`
+      return `Updating ${progress.percent ? `${progress.percent}` : '...'}`
     }
 
     if (!isUpdating && isInstalling) {
-      return `Installing ${
-        progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
-      }`
+      return `Installing ${progress.percent ? `${progress.percent}` : '...'}`
     }
 
     if (isInstalled) {

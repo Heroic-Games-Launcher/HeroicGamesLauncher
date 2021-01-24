@@ -65,6 +65,7 @@ export class GlobalState extends PureComponent<Props> {
           }
           return (
             currentApp.status === 'installing' ||
+            currentApp.status === 'repairing' ||
             currentApp.status === 'updating'
           )
         })
