@@ -3,6 +3,7 @@ import Update from '../components/UI/Update'
 import { getGameInfo, getLegendaryConfig, legendary, notify } from '../helper'
 import { Game, GameStatus } from '../types'
 import ContextProvider from './ContextProvider'
+const storage: Storage = window.localStorage
 const { remote } = window.require('electron')
 const { BrowserWindow } = remote
 
@@ -28,7 +29,7 @@ export class GlobalState extends PureComponent<Props> {
     libraryStatus: [],
     refreshing: false,
     error: false,
-    filter: 'installed',
+    filter: 'all',
   }
 
   refresh = async (): Promise<void> => {
@@ -186,7 +187,13 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidMount() {
+    const filter = storage.getItem('filter') || 'all'
+    this.setState({ filter })
     this.refresh()
+  }
+
+  componentDidUpdate() {
+    storage.setItem('filter', this.state.filter)
   }
 
   render() {
