@@ -86,6 +86,10 @@ function createWindow() {
     win.loadURL('http://localhost:3000')
     // Open the DevTools.
     win.webContents.openDevTools()
+    win.on('close', async (e) => {
+      e.preventDefault()
+      win.hide()
+    })
   } else {
     win.on('close', async (e) => {
       e.preventDefault()
@@ -145,11 +149,14 @@ app.whenReady().then(() => {
 })
 
 ipcMain.on('Notify', (event, args) => {
+  const currentWindow: BrowserWindow = BrowserWindow.getAllWindows()[0]
+
   const notify = new Notification({
     title: args[0],
     body: args[1],
   })
 
+  notify.on('click', () => currentWindow.show())
   notify.show()
 })
 
