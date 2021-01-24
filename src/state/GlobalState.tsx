@@ -83,7 +83,6 @@ export class GlobalState extends PureComponent<Props> {
     const currentProgress = currentApp?.progress ? currentApp.progress : 0
     const currentWindow = BrowserWindow.getAllWindows()[0]
     const windowIsVisible = currentWindow.isVisible()
-    console.log(windowIsVisible)
 
     if (currentApp && currentApp.status === status) {
       const updatedLibraryStatus = libraryStatus.filter(
