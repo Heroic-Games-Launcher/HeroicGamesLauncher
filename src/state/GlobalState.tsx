@@ -3,6 +3,8 @@ import Update from '../components/UI/Update'
 import { getGameInfo, getLegendaryConfig, legendary, notify } from '../helper'
 import { Game, GameStatus } from '../types'
 import ContextProvider from './ContextProvider'
+const { remote } = window.require('electron')
+const { BrowserWindow } = remote
 
 interface Props {
   children: React.ReactNode
@@ -79,6 +81,9 @@ export class GlobalState extends PureComponent<Props> {
     const currentApp =
       libraryStatus.filter((game) => game.appName === appName)[0] || {}
     const currentProgress = currentApp?.progress ? currentApp.progress : 0
+    const currentWindow = BrowserWindow.getAllWindows()[0]
+    const windowIsVisible = currentWindow.isVisible()
+    console.log(windowIsVisible)
 
     if (currentApp && currentApp.status === status) {
       const updatedLibraryStatus = libraryStatus.filter(
@@ -93,16 +98,23 @@ export class GlobalState extends PureComponent<Props> {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
+
       this.setState({ libraryStatus: updatedLibraryStatus })
 
       if (currentProgress < 95) {
         const { title } = await getGameInfo(appName)
         notify([title, 'Installation Canceled'])
-        return this.refresh()
+
+        if (windowIsVisible) {
+          return this.refresh()
+        }
+
+        return currentWindow.reload()
       }
 
       const { title } = await getGameInfo(appName)
       notify([title, 'Has finished installing'])
+      currentWindow.reload()
       return this.refresh()
     }
 
@@ -115,7 +127,12 @@ export class GlobalState extends PureComponent<Props> {
       if (currentProgress < 95) {
         const { title } = await getGameInfo(appName)
         notify([title, 'Updating Canceled'])
-        return this.refresh()
+
+        if (windowIsVisible) {
+          return this.refresh()
+        }
+
+        return currentWindow.reload()
       }
 
       const { title } = await getGameInfo(appName)
@@ -130,7 +147,12 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ libraryStatus: updatedLibraryStatus })
       const { title } = await getGameInfo(appName)
       notify([title, 'Has finished Repairing'])
-      return this.refresh()
+
+      if (windowIsVisible) {
+        return this.refresh()
+      }
+
+      return currentWindow.reload()
     }
 
     if (
@@ -144,7 +166,12 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ libraryStatus: updatedLibraryStatus })
       const { title } = await getGameInfo(appName)
       notify([title, 'Was uninstalled'])
-      return this.refresh()
+
+      if (windowIsVisible) {
+        return this.refresh()
+      }
+
+      return currentWindow.reload()
     }
 
     if (status === 'done') {
