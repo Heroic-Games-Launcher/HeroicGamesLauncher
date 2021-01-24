@@ -34,7 +34,7 @@
 
 .selectFilter {
   display: flex;
-  width: 260px;
+  width: fit-content;
   justify-self: center;
   justify-content: space-evenly;
 }
@@ -47,6 +47,7 @@
 
 .selectFilter > :not(:first-child) {
   cursor: pointer;
+  padding: 0 8px;
 }
 
 .App .pageTitle {
@@ -175,6 +176,12 @@
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
   grid-gap: 34px;
   padding: 0 4rem 0 4rem;
+}
+
+.noGames {
+  position: absolute;
+  top: 25%;
+  left: 50%;
 }
 
 .gameCard {

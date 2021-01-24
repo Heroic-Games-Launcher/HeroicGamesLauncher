@@ -11,7 +11,7 @@ export const Library = ({ library }: Props) => {
   return (
     <>
       <div className="gameList">
-        {Boolean(library.length) &&
+        {library.length ? (
           library.map(
             ({ title, art_square, art_logo, app_name, isInstalled }: Game) => (
               <GameCard
@@ -23,7 +23,10 @@ export const Library = ({ library }: Props) => {
                 isInstalled={isInstalled}
               />
             )
-          )}
+          )
+        ) : (
+          <div className="noGames">No Games Found</div>
+        )}
       </div>
     </>
   )

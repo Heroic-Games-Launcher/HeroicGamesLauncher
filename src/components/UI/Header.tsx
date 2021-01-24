@@ -15,7 +15,10 @@ export default function Header({
   handleFilter,
   goTo,
 }: Props) {
-  const { filter } = useContext(ContextProvider)
+  const { filter, libraryStatus } = useContext(ContextProvider)
+  const haveDownloads = libraryStatus.filter(
+    (game) => game.status === 'installing' || game.status === 'updating'
+  ).length
 
   return (
     <>
@@ -24,22 +27,22 @@ export default function Header({
           <span className="selectFilter">
             <span>Filter:</span>
             <span
-              className={filter === 'all' ? 'selected' : ''}
-              onClick={() => handleFilter('all')}
-            >
-              All
-            </span>
-            <span
               className={filter === 'installed' ? 'selected' : ''}
               onClick={() => handleFilter('installed')}
             >
               Installed
             </span>
             <span
+              className={filter === 'all' ? 'selected' : ''}
+              onClick={() => handleFilter('all')}
+            >
+              All
+            </span>
+            <span
               className={filter === 'downloading' ? 'selected' : ''}
               onClick={() => handleFilter('downloading')}
             >
-              Downloading
+              {`Downloading ${haveDownloads > 0 ? `(${haveDownloads})` : ''}`}
             </span>
           </span>
         )}
