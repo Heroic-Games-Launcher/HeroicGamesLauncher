@@ -10,6 +10,7 @@ import {
   launch,
   syncSaves,
   updateGame,
+  repair,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
@@ -60,6 +61,7 @@ export default function GamePage() {
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
+  const isReparing = status === 'repairing'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -81,7 +83,7 @@ export default function GamePage() {
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
-      if (isInstalling || isUpdating) {
+      if (isInstalling || isUpdating || isReparing) {
         ipcRenderer.send('requestGameProgress', appName)
         ipcRenderer.on(
           `${appName}-progress`,
@@ -90,7 +92,7 @@ export default function GamePage() {
       }
     }, 1000)
     return () => clearInterval(progressInterval)
-  }, [isInstalling, isUpdating, appName])
+  }, [isInstalling, isUpdating, appName, isReparing])
 
   if (gameInfo) {
     const {
@@ -123,16 +125,6 @@ export default function GamePage() {
                 more_vertical
               </span>
               <div className={`more ${clicked ? 'clicked' : ''}`}>
-                {isInstalled && (
-                  <Link
-                    className="hidden link"
-                    to={{
-                      pathname: `/settings/${appName}/wine`,
-                    }}
-                  >
-                    Settings
-                  </Link>
-                )}
                 <span
                   onClick={() => createNewWindow(formatStoreUrl(title))}
                   className="hidden link"
@@ -146,12 +138,28 @@ export default function GamePage() {
                   Check Compatibility
                 </span>
                 {isInstalled && (
-                  <span
-                    onClick={() => ipcRenderer.send('getLog', appName)}
-                    className="hidden link"
-                  >
-                    Latest Log
-                  </span>
+                  <>
+                    <Link
+                      className="hidden link"
+                      to={{
+                        pathname: `/settings/${appName}/wine`,
+                      }}
+                    >
+                      Settings
+                    </Link>
+                    <span
+                      onClick={() => handleRepair(appName)}
+                      className="hidden link"
+                    >
+                      Verify and Repair
+                    </span>{' '}
+                    <span
+                      onClick={() => ipcRenderer.send('getLog', appName)}
+                      className="hidden link"
+                    >
+                      Latest Log
+                    </span>
+                  </>
                 )}
               </div>
               <div className="gameConfig">
@@ -234,17 +242,18 @@ export default function GamePage() {
                   <div className="buttonsWrapper">
                     {isInstalled && (
                       <>
-                        <div
+                        <button
+                          disabled={isReparing}
                           onClick={handlePlay()}
                           className={`button ${getPlayBtnClass()}`}
                         >
                           {getPlayLabel()}
-                        </div>
+                        </button>
                       </>
                     )}
                     <button
                       onClick={handleInstall(isInstalled)}
-                      disabled={isPlaying || isUpdating}
+                      disabled={isPlaying || isUpdating || isReparing}
                       className={`button ${getButtonClass(isInstalled)}`}
                     >
                       {`${getButtonLabel(isInstalled)}`}
@@ -287,6 +296,12 @@ export default function GamePage() {
     isInstalled: boolean,
     isUpdating: boolean
   ): React.ReactNode {
+    if (isReparing) {
+      return `Repairing Game ${
+        progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
+      }`
+    }
+
     if (isUpdating && isInstalling) {
       return `Updating ${
         progress.percent ? `${progress.percent} - ${progress.bytes}` : '...'
@@ -326,9 +341,7 @@ export default function GamePage() {
     return 'Install'
   }
 
-  function handlePlay():
-    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
-    | undefined {
+  function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
         handleGameStatus({ appName, status: 'done' })
@@ -424,5 +437,22 @@ export default function GamePage() {
         }
       }
     }
+  }
+
+  async function handleRepair(appName: string) {
+    const { response } = await showMessageBox({
+      title: 'Verify and Repair',
+      message:
+        'Do you want to try to repair this game. It can take a long time?',
+      buttons: ['YES', 'NO'],
+    })
+
+    if (response === 1) {
+      return
+    }
+
+    handleGameStatus({ appName, status: 'repairing' })
+    await repair(appName)
+    return handleGameStatus({ appName, status: 'done' })
   }
 }

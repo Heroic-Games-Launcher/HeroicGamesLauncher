@@ -706,6 +706,12 @@
   background: #30eca8;
 }
 
+.button.is-success:hover:disabled,
+.button.is-success:disabled {
+  background: #424546;
+  color: #b0abb6;
+}
+
 .button.is-danger {
   background: #252121;
   color: #bd0a0a;

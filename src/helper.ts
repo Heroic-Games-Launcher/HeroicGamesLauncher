@@ -9,8 +9,11 @@ const readFile = async (file: string) =>
 export const writeConfig = async (data: any[]) =>
   await ipcRenderer.invoke('writeFile', data)
 
-export const install = async (args: any) =>
+export const install = async (args: { appName: string; path: string }) =>
   await ipcRenderer.invoke('install', args)
+
+export const repair = async (appName: string) =>
+  await ipcRenderer.invoke('repair', appName)
 
 export const launch = (args: any) =>
   ipcRenderer.invoke('launch', args).then((res: any) => res)

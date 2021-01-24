@@ -49,7 +49,7 @@ import {
   Tray,
   dialog,
 } from 'electron'
-import { Game, InstalledInfo, KeyImage } from './types.js'
+import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
 const showMessageBox = dialog.showMessageBox
 
@@ -238,6 +238,16 @@ ipcMain.handle('install', async (event, args) => {
     .catch(console.log)
 })
 
+ipcMain.handle('repair', async (event, game) => {
+  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const command = `${legendaryBin} repair ${game} -y &> ${logPath}`
+
+  console.log(`Repairing ${game} with:`, command)
+  await execAsync(command, { shell: '/bin/bash' })
+    .then(console.log)
+    .catch(console.log)
+})
+
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const command = `${legendaryBin} import-game ${game} '${path}'`
@@ -294,7 +304,7 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix }) => {
 })
 
 ipcMain.on('requestSettings', (event, appName) => {
-  let settings
+  let settings: AppSettings
   if (appName !== 'default') {
     writeGameconfig(appName)
   }

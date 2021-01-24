@@ -104,6 +104,16 @@ export class GlobalState extends PureComponent<Props> {
       return this.refresh()
     }
 
+    if (currentApp && currentApp.status === 'repairing' && status === 'done') {
+      const updatedLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      this.setState({ libraryStatus: updatedLibraryStatus })
+      const { title } = await getGameInfo(appName)
+      notify([title, 'Has finished Repairing'])
+      return this.refresh()
+    }
+
     if (status === 'done') {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
