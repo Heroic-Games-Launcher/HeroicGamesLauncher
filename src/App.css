@@ -175,7 +175,7 @@
   display: grid;
   grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
   grid-gap: 34px;
-  padding: 0 4rem 0 4rem;
+  padding: 0 4rem 1rem 4rem;
 }
 
 .noGames {
