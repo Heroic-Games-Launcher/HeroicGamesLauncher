@@ -1,5 +1,5 @@
 import React from 'react'
-import { legendary, openAboutWindow } from '../../helper'
+import { legendary, openAboutWindow, handleQuit } from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
 
 export default function UserSelector() {
@@ -27,6 +27,9 @@ export default function UserSelector() {
       </div>{' '}
       <div onClick={() => handleLogout()} className="userName hidden">
         Logout
+      </div>
+      <div onClick={() => handleQuit()} className="userName hidden">
+        Quit
       </div>
     </div>
   )
