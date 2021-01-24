@@ -130,7 +130,7 @@ const launchGame = async (appName: any) => {
   let prefix = `--wine-prefix ${winePrefix}`
 
   envVars = otherOptions
-  const isProton = wineVersion.name.startsWith('Steam')
+  const isProton = wineVersion.name.startsWith('Proton')
   prefix = isProton ? '' : `--wine-prefix ${winePrefix}`
 
   if (isProton) {
@@ -161,7 +161,7 @@ const launchGame = async (appName: any) => {
   const runWithGameMode = useGameMode && gameMode ? gameMode : ''
   const dxvkFps = showFps ? 'DXVK_HUD=fps' : ''
 
-  const command = `${envVars} ${dxvkFps}${runWithGameMode} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
+  const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
   console.log('\n Launch Command:', command)
 
   if (isProton && !existsSync(`'${winePrefix}'`)) {
