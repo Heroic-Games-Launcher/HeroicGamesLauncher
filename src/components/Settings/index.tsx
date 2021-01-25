@@ -38,6 +38,11 @@ export default function Settings() {
     setOn: setUseGameMode,
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
+  const {
+    on: exitToTray,
+    toggle: toggleTray,
+    setOn: setExitToTray,
+  } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -70,6 +75,7 @@ export default function Settings() {
         setEgsPath(config.egsLinkedPath || '')
         setSavesPath(config.savesPath || '')
         setAutoSyncSaves(config.autoSyncSaves)
+        setExitToTray(config.exitToTray || false)
         if (!isDefault) {
           const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
           setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
@@ -82,7 +88,7 @@ export default function Settings() {
         )
       }
     )
-  }, [appName, settings, type, isDefault, setUseGameMode, setShowFps])
+  }, [appName, settings, type, isDefault])
 
   const GlobalSettings = {
     defaultSettings: {
@@ -93,6 +99,7 @@ export default function Settings() {
       useGameMode,
       egsLinkedPath,
       showFps,
+      exitToTray,
     },
   }
 
@@ -144,6 +151,8 @@ export default function Settings() {
               setEgsLinkedPath={setEgsLinkedPath}
               defaultInstallPath={defaultInstallPath}
               setDefaultInstallPath={setDefaultInstallPath}
+              exitToTray={exitToTray}
+              toggleTray={toggleTray}
             />
           )}
           {isWineSettings && (

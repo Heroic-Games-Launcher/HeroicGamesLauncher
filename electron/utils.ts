@@ -27,6 +27,8 @@ const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
 const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/legendary'))
 const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
+const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
+const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
 const loginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
 const sidInfoUrl =
@@ -372,6 +374,22 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
+const handleExit = async () => {
+  if (existsSync(`${heroicGamesConfigPath}/lock`)) {
+    const { response } = await showMessageBox({
+      title: 'Exit',
+      message: 'Games are being download, are you sure?',
+      buttons: ['NO', 'YES'],
+    })
+
+    if (response === 0) {
+      return
+    }
+    return app.exit()
+  }
+  app.exit()
+}
+
 export {
   getAlternativeWine,
   isLoggedIn,
@@ -379,6 +397,7 @@ export {
   writeDefaultconfig,
   writeGameconfig,
   checkForUpdates,
+  handleExit,
   userInfo,
   getLatestDxvk,
   installDxvk,
@@ -389,6 +408,8 @@ export {
   legendaryBin,
   showAboutWindow,
   icon,
+  iconDark,
+  iconLight,
   home,
   loginUrl,
   sidInfoUrl,

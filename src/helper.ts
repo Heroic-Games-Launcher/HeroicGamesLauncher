@@ -1,7 +1,7 @@
 import { Game } from './types'
 
 const { ipcRenderer, remote } = window.require('electron')
-const { BrowserWindow, app } = remote
+const { BrowserWindow } = remote
 
 const readFile = async (file: string) =>
   await ipcRenderer.invoke('readFile', file)
@@ -28,7 +28,9 @@ export const loginPage = () => ipcRenderer.send('openLoginPage')
 
 export const sidInfoPage = () => ipcRenderer.send('openSidInfoPage')
 
-export const handleQuit = () => app.exit()
+export const handleKofi = () => ipcRenderer.send('openSupportPage')
+
+export const handleQuit = () => ipcRenderer.send('quit')
 
 export const importGame = async (args: any) =>
   await ipcRenderer.invoke('importGame', args)

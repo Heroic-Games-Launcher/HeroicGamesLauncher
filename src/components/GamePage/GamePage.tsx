@@ -133,18 +133,6 @@ export default function GamePage() {
                 more_vertical
               </span>
               <div className={`more ${clicked ? 'clicked' : ''}`}>
-                <span
-                  onClick={() => createNewWindow(formatStoreUrl(title))}
-                  className="hidden link"
-                >
-                  Store Page
-                </span>
-                <span
-                  onClick={() => createNewWindow(protonDBurl)}
-                  className="hidden link"
-                >
-                  Check Compatibility
-                </span>
                 {isInstalled && (
                   <>
                     <Link
@@ -169,6 +157,18 @@ export default function GamePage() {
                     </span>
                   </>
                 )}
+                <span
+                  onClick={() => createNewWindow(formatStoreUrl(title))}
+                  className="hidden link"
+                >
+                  Store Page
+                </span>
+                <span
+                  onClick={() => createNewWindow(protonDBurl)}
+                  className="hidden link"
+                >
+                  Check Compatibility
+                </span>
               </div>
               <div className="gameConfig">
                 <div className="gamePicture">

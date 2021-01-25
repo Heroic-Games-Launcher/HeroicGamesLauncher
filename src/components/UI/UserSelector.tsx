@@ -1,5 +1,10 @@
 import React from 'react'
-import { legendary, openAboutWindow, handleQuit } from '../../helper'
+import {
+  legendary,
+  openAboutWindow,
+  handleQuit,
+  handleKofi,
+} from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
 
 export default function UserSelector() {
@@ -22,9 +27,12 @@ export default function UserSelector() {
       <div onClick={() => refreshLibrary()} className="userName hidden">
         Refresh Library
       </div>
+      <div onClick={() => handleKofi()} className="userName hidden">
+        Buy a Ko-fi
+      </div>
       <div onClick={() => openAboutWindow()} className="userName hidden">
         About
-      </div>{' '}
+      </div>
       <div onClick={() => handleLogout()} className="userName hidden">
         Logout
       </div>

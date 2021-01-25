@@ -12,6 +12,7 @@ export interface AppSettings {
   egsLinkedPath: string
   savesPath: string
   autoSyncSaves: boolean
+  exitToTray: boolean
   defaultInstallPath: string
 }
 
