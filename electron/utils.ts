@@ -41,7 +41,7 @@ const getAlternativeWine = () => {
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-    `${home}/.steam/root/compatibilitytools.d`,
+    `${home}/.steam/root`,
     '/usr/share/steam/',
   ]
   const protonPaths: string[] = [`${heroicToolsPath}/proton`]
