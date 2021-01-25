@@ -7,7 +7,6 @@ import {
   loginUrl,
   getAlternativeWine,
   isLoggedIn,
-  icon,
   legendaryConfigPath,
   userInfo,
   writeDefaultconfig,
@@ -19,7 +18,10 @@ import {
   checkForUpdates,
   showAboutWindow,
   kofiURL,
+  handleExit,
   heroicGithubURL,
+  iconDark,
+  iconLight,
 } from './utils'
 
 import byteSize from 'byte-size'
@@ -33,6 +35,7 @@ import {
   writeFile,
   existsSync,
   mkdirSync,
+  unlinkSync,
 } from 'fs'
 import { promisify } from 'util'
 import axios from 'axios'
@@ -47,15 +50,17 @@ import {
   Notification,
   Menu,
   Tray,
+  nativeTheme,
   dialog,
 } from 'electron'
 import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
 const showMessageBox = dialog.showMessageBox
+let mainWindow: BrowserWindow = null
 
 function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: isDev ? 1800 : 1280,
     height: isDev ? 1200 : 720,
     minHeight: 600,
@@ -83,20 +88,36 @@ function createWindow() {
         console.log('An error occurred: ', err)
       })
     })
-    win.loadURL('http://localhost:3000')
+    mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
-    win.webContents.openDevTools()
-    win.on('close', async (e) => {
+    mainWindow.webContents.openDevTools()
+    mainWindow.on('close', async (e) => {
       e.preventDefault()
-      win.hide()
+      const { exitToTray } = JSON.parse(
+        // @ts-ignore
+        readFileSync(heroicConfigPath)
+      ).defaultSettings as AppSettings
+
+      if (exitToTray) {
+        return mainWindow.hide()
+      }
+      return handleExit()
     })
   } else {
-    win.on('close', async (e) => {
+    mainWindow.on('close', async (e) => {
       e.preventDefault()
-      win.hide()
+      const { exitToTray } = JSON.parse(
+        // @ts-ignore
+        readFileSync(heroicConfigPath)
+      ).defaultSettings as AppSettings
+
+      if (exitToTray) {
+        return mainWindow.hide()
+      }
+      return handleExit()
     })
-    win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-    win.setMenu(null)
+    mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+    mainWindow.setMenu(null)
   }
 }
 
@@ -104,61 +125,76 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 let appIcon: Tray = null
-app.whenReady().then(() => {
-  createWindow()
+let window = null
+const gotTheLock = app.requestSingleInstanceLock()
 
-  appIcon = new Tray(icon)
-  const currentWindow: BrowserWindow = BrowserWindow.getAllWindows()[0]
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (window) {
+      if (window.isMinimized()) {
+        window.restore()
+        window.focus()
+      }
+    }
+  })
+  app.whenReady().then(() => {
+    window = createWindow()
+    const trayIcon = nativeTheme.shouldUseDarkColors ? iconDark : iconLight
+    appIcon = new Tray(trayIcon)
 
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Show Heroic',
-      click: function () {
-        currentWindow.show()
+    const contextMenu = Menu.buildFromTemplate([
+      {
+        label: 'Show Heroic',
+        click: function () {
+          mainWindow.show()
+        },
       },
-    },
-    {
-      label: 'About',
-      click: function () {
-        showAboutWindow()
+      {
+        label: 'About',
+        click: function () {
+          showAboutWindow()
+        },
       },
-    },
-    {
-      label: 'Github',
-      click: function () {
-        exec(`xdg-open ${heroicGithubURL}`)
+      {
+        label: 'Github',
+        click: function () {
+          exec(`xdg-open ${heroicGithubURL}`)
+        },
       },
-    },
-    {
-      label: 'Support Us',
-      click: function () {
-        exec(`xdg-open ${kofiURL}`)
+      {
+        label: 'Support Us',
+        click: function () {
+          exec(`xdg-open ${kofiURL}`)
+        },
       },
-    },
-    {
-      label: 'Quit',
-      click: function () {
-        app.exit()
+      {
+        label: 'Quit',
+        click: function () {
+          handleExit()
+        },
       },
-    },
-  ])
+    ])
 
-  appIcon.setContextMenu(contextMenu)
-  appIcon.setToolTip('Heroic')
-  return
-})
+    appIcon.setContextMenu(contextMenu)
+    appIcon.setToolTip('Heroic')
+    return
+  })
+}
 
 ipcMain.on('Notify', (event, args) => {
-  const currentWindow: BrowserWindow = BrowserWindow.getAllWindows()[0]
-
   const notify = new Notification({
     title: args[0],
     body: args[1],
   })
 
-  notify.on('click', () => currentWindow.show())
+  notify.on('click', () => mainWindow.show())
   notify.show()
 })
+
+ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
 
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
@@ -176,6 +212,18 @@ ipcMain.handle('writeFile', (event, args) => {
     () => 'done'
   )
 })
+
+ipcMain.on('lock', () =>
+  writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
+)
+
+ipcMain.on('unlock', () => {
+  if (existsSync(`${heroicGamesConfigPath}/lock`)) {
+    unlinkSync(`${heroicGamesConfigPath}/lock`)
+  }
+})
+
+ipcMain.on('quit', () => handleExit())
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   const epicUrl = `https://store-content.ak.epicgames.com/api/en-US/content/products/${game}`
@@ -258,7 +306,7 @@ ipcMain.handle('repair', async (event, game) => {
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const command = `${legendaryBin} import-game ${game} '${path}'`
-  const { stderr, stdout } = await execAsync(command)
+  const { stderr, stdout } = await execAsync(command, { shell: '/bin/bash' })
   console.log(`${stdout} - ${stderr}`)
   return
 })
@@ -268,13 +316,16 @@ ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
 ipcMain.on('requestGameProgress', (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
   exec(
-    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6}'`,
+    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`,
     (error, stdout) => {
       const status = `${stdout.split('\n')[0]}`.split('(')
       const percent = status[0]
-      const bytes = status[1] ? status[1].replace('),', 'MB') : ''
-      const progress = { percent, bytes }
-      console.log(`Progress: ${appName} ${progress.percent}/${progress.bytes}/`)
+      const eta = status[1] ? status[1].split(',')[1] : ''
+      const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
+      const progress = { percent, bytes, eta }
+      console.log(
+        `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+      )
       event.reply(`${appName}-progress`, progress)
     }
   )
@@ -333,6 +384,7 @@ ipcMain.on('requestSettings', (event, appName) => {
 ipcMain.handle('isLoggedIn', () => isLoggedIn())
 
 ipcMain.on('openLoginPage', () => spawn('xdg-open', [loginUrl]))
+
 ipcMain.on('openSidInfoPage', () => spawn('xdg-open', [sidInfoUrl]))
 
 ipcMain.on('getLog', (event, appName) =>

@@ -1,3 +1,7 @@
+html {
+  overflow-y: overlay;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, Cabin, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
