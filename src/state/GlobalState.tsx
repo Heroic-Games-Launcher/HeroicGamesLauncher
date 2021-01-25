@@ -4,7 +4,8 @@ import { getGameInfo, getLegendaryConfig, legendary, notify } from '../helper'
 import { Game, GameStatus } from '../types'
 import ContextProvider from './ContextProvider'
 const storage: Storage = window.localStorage
-const { remote } = window.require('electron')
+const { remote, ipcRenderer } = window.require('electron')
+
 const { BrowserWindow } = remote
 
 interface Props {
@@ -58,6 +59,8 @@ export class GlobalState extends PureComponent<Props> {
     switch (filter) {
       case 'installed':
         return library.filter((game) => game.isInstalled)
+      case 'uninstalled':
+        return library.filter((game) => !game.isInstalled)
       case 'downloading':
         return library.filter((game) => {
           const currentApp = this.state.libraryStatus.filter(
@@ -193,7 +196,14 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    storage.setItem('filter', this.state.filter)
+    const { filter, libraryStatus } = this.state
+
+    storage.setItem('filter', filter)
+    if (libraryStatus.length) {
+      ipcRenderer.send('lock')
+    } else {
+      ipcRenderer.send('unlock')
+    }
   }
 
   render() {
