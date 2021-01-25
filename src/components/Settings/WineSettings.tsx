@@ -78,6 +78,7 @@ export default function WineSettings({
             <li>.local/share/Steam/steamapps/common</li>
             <li>.local/share/lutris/runners/wine</li>
             <li>.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+            <li>.steam/root/compatibilitytools.d</li>
             <li>/usr/share/steam</li>
           </i>
         </ul>
