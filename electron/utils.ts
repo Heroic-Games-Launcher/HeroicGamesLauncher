@@ -294,7 +294,7 @@ async function getLatestDxvk() {
     'https://api.github.com/repos/lutris/dxvk/releases/latest'
   )
   const current = assets[0]
-  const name = current.name
+  const name = current.name.replace('.tar.gz', '')
   const downloadUrl = current.browser_download_url
 
   const dxvkLatest = `${heroicToolsPath}/DXVK/${name}`
@@ -341,7 +341,6 @@ async function installDxvk(prefix: string) {
   const globalVersion = readFileSync(`${heroicToolsPath}/DXVK/latest_dxvk`)
     .toString()
     .split('\n')[0]
-    .replace('.tar.gz', '')
   const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
   const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
   let currentVersion = ''
