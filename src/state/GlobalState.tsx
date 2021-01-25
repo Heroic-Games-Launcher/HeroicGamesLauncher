@@ -90,7 +90,6 @@ export class GlobalState extends PureComponent<Props> {
     const { libraryStatus } = this.state
     const currentApp =
       libraryStatus.filter((game) => game.appName === appName)[0] || {}
-    const currentProgress = currentApp?.progress ? currentApp.progress : 0
     const currentWindow = BrowserWindow.getAllWindows()[0]
     const windowIsVisible = currentWindow.isVisible()
     const { title } = await getGameInfo(appName)
@@ -139,15 +138,22 @@ export class GlobalState extends PureComponent<Props> {
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
 
-      if (currentProgress < 95) {
-        notify([title, 'Updating Canceled'])
+      ipcRenderer.send('requestGameProgress', appName)
+      ipcRenderer.on(
+        `${appName}-progress`,
+        (event: any, progress: InstallProgress) => {
+          const percent = getProgress(progress)
+          if (percent < 95) {
+            notify([title, 'Updated Canceled'])
 
-        if (windowIsVisible) {
-          return this.refresh()
+            if (windowIsVisible) {
+              return this.refresh()
+            }
+
+            return currentWindow.reload()
+          }
         }
-
-        return currentWindow.reload()
-      }
+      )
 
       notify([title, 'Has finished Updating'])
       return this.refresh()
