@@ -27,16 +27,22 @@ export default function Header({
           <span className="selectFilter">
             <span>Filter:</span>
             <span
-              className={filter === 'installed' ? 'selected' : ''}
-              onClick={() => handleFilter('installed')}
-            >
-              Installed
-            </span>
-            <span
               className={filter === 'all' ? 'selected' : ''}
               onClick={() => handleFilter('all')}
             >
               All
+            </span>
+            <span
+              className={filter === 'installed' ? 'selected' : ''}
+              onClick={() => handleFilter('installed')}
+            >
+              Ready
+            </span>
+            <span
+              className={filter === 'uninstalled' ? 'selected' : ''}
+              onClick={() => handleFilter('uninstalled')}
+            >
+              Not Ready
             </span>
             <span
               className={filter === 'downloading' ? 'selected' : ''}

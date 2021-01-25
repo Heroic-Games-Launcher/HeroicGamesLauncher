@@ -11,10 +11,11 @@ import {
   syncSaves,
   updateGame,
   repair,
+  getProgress,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
-import { AppSettings, Game, GameStatus } from '../../types'
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { Link, useParams } from 'react-router-dom'
 import Update from '../UI/Update'
@@ -27,11 +28,6 @@ const {
 
 interface RouteParams {
   appName: string
-}
-
-interface InstallProgress {
-  percent: string
-  bytes: string
 }
 
 export default function GamePage() {
@@ -133,18 +129,6 @@ export default function GamePage() {
                 more_vertical
               </span>
               <div className={`more ${clicked ? 'clicked' : ''}`}>
-                <span
-                  onClick={() => createNewWindow(formatStoreUrl(title))}
-                  className="hidden link"
-                >
-                  Store Page
-                </span>
-                <span
-                  onClick={() => createNewWindow(protonDBurl)}
-                  className="hidden link"
-                >
-                  Check Compatibility
-                </span>
                 {isInstalled && (
                   <>
                     <Link
@@ -169,6 +153,18 @@ export default function GamePage() {
                     </span>
                   </>
                 )}
+                <span
+                  onClick={() => createNewWindow(formatStoreUrl(title))}
+                  className="hidden link"
+                >
+                  Store Page
+                </span>
+                <span
+                  onClick={() => createNewWindow(protonDBurl)}
+                  className="hidden link"
+                >
+                  Check Compatibility
+                </span>
               </div>
               <div className="gameConfig">
                 <div className="gamePicture">
@@ -304,18 +300,17 @@ export default function GamePage() {
     isInstalled: boolean,
     isUpdating: boolean
   ): React.ReactNode {
+    const { eta, percent } = progress
     if (isReparing) {
-      return `Repairing Game ${
-        progress.percent ? `${progress.percent}` : '...'
-      }`
+      return `Repairing Game ${percent ? `${percent}` : '...'}`
     }
 
     if (isUpdating && isInstalling) {
-      return `Updating ${progress.percent ? `${progress.percent}` : '...'}`
+      return `Updating ${percent ? `${percent} | ETA: ${eta}` : '...'}`
     }
 
     if (!isUpdating && isInstalling) {
-      return `Installing ${progress.percent ? `${progress.percent}` : '...'}`
+      return `Installing ${percent ? `${percent} | ETA: ${eta}` : '...'}`
     }
 
     if (isInstalled) {
@@ -373,7 +368,7 @@ export default function GamePage() {
           if (response === 0) {
             handleGameStatus({ appName, status: 'updating' })
             await updateGame(appName)
-            handleGameStatus({ appName, status: 'done' })
+            return handleGameStatus({ appName, status: 'done' })
           }
           handleGameStatus({ appName, status: 'playing' })
           await launch(`${appName} --skip-version-check`)
@@ -465,7 +460,4 @@ export default function GamePage() {
     await repair(appName)
     return handleGameStatus({ appName, status: 'done' })
   }
-}
-function getProgress(progress: InstallProgress): number {
-  return Number(progress.percent.replace('%', ''))
 }

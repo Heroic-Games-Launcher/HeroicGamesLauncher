@@ -9,6 +9,12 @@ export default function NavBar() {
       <div className="Links">
         <NavLink
           activeStyle={{ color: '#FFA800', fontWeight: 500 }}
+          isActive={(match, location) => {
+            if (match) {
+              return true
+            }
+            return location.pathname.includes('gameconfig')
+          }}
           exact
           to="/"
         >
@@ -16,6 +22,7 @@ export default function NavBar() {
         </NavLink>
         <NavLink
           activeStyle={{ color: '#FFA800', fontWeight: 500 }}
+          isActive={(match, location) => location.pathname.includes('settings')}
           to={{
             pathname: '/settings/default/general',
           }}

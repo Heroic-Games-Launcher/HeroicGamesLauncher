@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import ContextProvider from '../../state/ContextProvider'
 import { Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
+import ToggleSwitch from '../UI/ToggleSwitch'
 const {
   ipcRenderer,
   remote: { dialog },
@@ -14,6 +15,8 @@ interface Props {
   setEgsPath: (value: string) => void
   egsLinkedPath: string
   setEgsLinkedPath: (value: string) => void
+  exitToTray: boolean
+  toggleTray: () => void
 }
 
 export default function GeneralSettings({
@@ -23,6 +26,8 @@ export default function GeneralSettings({
   setEgsPath,
   egsLinkedPath,
   setEgsLinkedPath,
+  exitToTray,
+  toggleTray,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const { refreshLibrary } = useContext(ContextProvider)
@@ -137,6 +142,12 @@ export default function GeneralSettings({
           >
             {`${isLinked ? 'Unsync' : isSyncing ? 'Syncing' : 'Sync'}`}
           </button>
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          Exit to System Tray
+          <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
         </span>
       </span>
       <InfoBox>
