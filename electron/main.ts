@@ -7,7 +7,6 @@ import {
   loginUrl,
   getAlternativeWine,
   isLoggedIn,
-  icon,
   legendaryConfigPath,
   userInfo,
   writeDefaultconfig,
@@ -307,7 +306,7 @@ ipcMain.handle('repair', async (event, game) => {
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const command = `${legendaryBin} import-game ${game} '${path}'`
-  const { stderr, stdout } = await execAsync(command)
+  const { stderr, stdout } = await execAsync(command, { shell: '/bin/bash' })
   console.log(`${stdout} - ${stderr}`)
   return
 })
@@ -317,13 +316,16 @@ ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
 ipcMain.on('requestGameProgress', (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
   exec(
-    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6}'`,
+    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`,
     (error, stdout) => {
       const status = `${stdout.split('\n')[0]}`.split('(')
       const percent = status[0]
-      const bytes = status[1] ? status[1].replace('),', 'MB') : ''
-      const progress = { percent, bytes }
-      console.log(`Progress: ${appName} ${progress.percent}/${progress.bytes}/`)
+      const eta = status[1] ? status[1].split(',')[1] : ''
+      const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
+      const progress = { percent, bytes, eta }
+      console.log(
+        `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+      )
       event.reply(`${appName}-progress`, progress)
     }
   )

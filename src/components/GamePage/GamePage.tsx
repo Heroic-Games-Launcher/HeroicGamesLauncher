@@ -32,6 +32,7 @@ interface RouteParams {
 interface InstallProgress {
   percent: string
   bytes: string
+  eta: string
 }
 
 export default function GamePage() {
@@ -304,18 +305,17 @@ export default function GamePage() {
     isInstalled: boolean,
     isUpdating: boolean
   ): React.ReactNode {
+    const { eta, percent } = progress
     if (isReparing) {
-      return `Repairing Game ${
-        progress.percent ? `${progress.percent}` : '...'
-      }`
+      return `Repairing Game ${percent ? `${percent}` : '...'}`
     }
 
     if (isUpdating && isInstalling) {
-      return `Updating ${progress.percent ? `${progress.percent}` : '...'}`
+      return `Updating ${percent ? `${percent} | ETA: ${eta}` : '...'}`
     }
 
     if (!isUpdating && isInstalling) {
-      return `Installing ${progress.percent ? `${progress.percent}` : '...'}`
+      return `Installing ${percent ? `${percent} | ETA: ${eta}` : '...'}`
     }
 
     if (isInstalled) {
