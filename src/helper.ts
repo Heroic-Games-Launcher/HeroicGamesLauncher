@@ -1,4 +1,4 @@
-import { Game } from './types'
+import { Game, InstallProgress } from './types'
 
 const { ipcRenderer, remote } = window.require('electron')
 const { BrowserWindow } = remote
@@ -111,3 +111,7 @@ const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
 
 export const formatStoreUrl = (title: string) =>
   `${storeUrl}${cleanTitle(title)}`
+
+export function getProgress(progress: InstallProgress): number {
+  return Number(progress.percent.replace('%', ''))
+}

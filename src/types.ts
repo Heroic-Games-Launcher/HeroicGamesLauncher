@@ -17,7 +17,11 @@ export interface AppSettings {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
-
+export interface InstallProgress {
+  percent: string
+  bytes: string
+  eta: string
+}
 export interface Game {
   art_cover: string
   art_square: string

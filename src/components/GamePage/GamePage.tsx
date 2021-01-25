@@ -11,10 +11,11 @@ import {
   syncSaves,
   updateGame,
   repair,
+  getProgress,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
-import { AppSettings, Game, GameStatus } from '../../types'
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { Link, useParams } from 'react-router-dom'
 import Update from '../UI/Update'
@@ -27,12 +28,6 @@ const {
 
 interface RouteParams {
   appName: string
-}
-
-interface InstallProgress {
-  percent: string
-  bytes: string
-  eta: string
 }
 
 export default function GamePage() {
@@ -465,7 +460,4 @@ export default function GamePage() {
     await repair(appName)
     return handleGameStatus({ appName, status: 'done' })
   }
-}
-function getProgress(progress: InstallProgress): number {
-  return Number(progress.percent.replace('%', ''))
 }
