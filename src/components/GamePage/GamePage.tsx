@@ -373,7 +373,7 @@ export default function GamePage() {
           if (response === 0) {
             handleGameStatus({ appName, status: 'updating' })
             await updateGame(appName)
-            handleGameStatus({ appName, status: 'done' })
+            return handleGameStatus({ appName, status: 'done' })
           }
           handleGameStatus({ appName, status: 'playing' })
           await launch(`${appName} --skip-version-check`)
