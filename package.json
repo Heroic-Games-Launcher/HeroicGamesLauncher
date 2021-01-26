@@ -3,7 +3,7 @@
   "version": "1.2.1",
   "private": true,
   "main": "public/main.js",
-  "homepage": "./",
+  "homepage": "https://github.com/flavioislima/HeroicGamesLauncher",
   "license": "GPL-3.0-only",
   "description": "A Native Epic Games Launcher for Linux",
   "repository": {
@@ -98,7 +98,9 @@
     "build-any": "npm run dist",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "build-electron": "tsc --project electron/tsconfig.json",
-    "watch-electron": "tsc --watch --project electron/tsconfig.json"
+    "watch-electron": "tsc --watch --project electron/tsconfig.json",
+    "build:linux:x64": "electron-packager . --platform linux --arch x64 --out dist/",
+    "build:flatpak:x64": "electron-installer-flatpak --src dist/heroic-linux-x64/ --dest dist/installers/ --arch x64 --config flatpak.json"
   },
   "eslintConfig": {
     "extends": [
@@ -107,6 +109,7 @@
     ]
   },
   "devDependencies": {
+    "@malept/electron-installer-flatpak": "^0.11.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
@@ -120,6 +123,7 @@
     "electron": "^11.2.0",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
+    "electron-packager": "^15.2.0",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
