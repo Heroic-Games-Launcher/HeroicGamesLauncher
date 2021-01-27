@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "outDir": "../public",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "skipLibCheck":true
+  },
+  "include": [
+    ".",
+  ]
+}

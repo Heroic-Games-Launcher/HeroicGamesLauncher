@@ -1,11 +1,11 @@
 {
   "name": "heroic",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
   "license": "GPL-3.0-only",
-  "description": "A native launcher for Epic Games for Linux based on Legendary",
+  "description": "A Native Epic Games Launcher for Linux",
   "repository": {
     "type": "Github",
     "url": "https://github.com/flavioislima/HeroicGamesLauncher"
@@ -22,7 +22,9 @@
     ],
     "asarUnpack": [
       "build/bin/legendary",
-      "build/icon.png"
+      "build/icon.png",
+      "build/icon-dark.png",
+      "build/icon-light.png"
     ],
     "directories": {
       "buildResources": "public"
@@ -31,27 +33,14 @@
     "linux": {
       "category": "Game",
       "icon": "build/icon.icns",
-      "description": "Native Epic Games Launcher alternative for Linux based on Legendary",
-      "desktop": "[Desktop Entry] Name=Heroic Exec=heroic Icon=heroic Type=Application Categories=games",
-      "target": [
-        "AppImage",
-        "deb",
-        "pacman",
-        "tar.xz",
-        "rpm"
-      ]
+      "description": "A Native Epic Games Launcher for Linux",
+      "desktop": "Name=Heroic Exec=heroic Icon=heroic Type=Application Categories=games"
     },
     "deb": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "gconf2",
-        "gconf-service",
-        "libnotify4",
-        "libappindicator1",
-        "libxtst6",
-        "libnss3"
+        "curl"
       ]
     },
     "pacman": {
@@ -67,17 +56,25 @@
         "gawk",
         "curl"
       ]
+    },
+    "snap": {
+      "confinement": "devmode",
+      "stagePackages": [
+        "default",
+        "wine",
+        "winetricks",
+        "gawk",
+        "curl",
+        "gconf2",
+        "gconf-service",
+        "python-wheel-common",
+        "python-setuptools"
+      ]
     }
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.6.0",
-    "@types/jest": "^26.0.19",
-    "@types/node": "^12.19.11",
-    "@types/react": "^16.14.2",
-    "@types/react-dom": "^16.9.10",
     "axios": "^0.21.1",
+    "byte-size": "^7.0.0",
     "electron-is-dev": "^1.2.0",
     "electron-util": "^0.14.2",
     "react": "^17.0.1",
@@ -88,19 +85,55 @@
   },
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
-    "electron": "electron .",
+    "electron": "npm run build-electron && electron .",
     "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux AppImage deb rpm pacman tar.xz"
+    "pretitier": "prettier --check",
+    "format-files": "prettier --write .",
+    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
+    "dist": "npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux",
+    "build-any": "npm run dist",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "build-electron": "tsc --project electron/tsconfig.json",
+    "watch-electron": "tsc --watch --project electron/tsconfig.json"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.2",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.22",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.6",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "electron": "^11.2.0",
+    "electron-builder": "^22.9.1",
+    "electron-devtools-installer": "^3.1.1",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-react": "^7.22.0",
+    "husky": "^4.3.8",
+    "prettier": "2.2.1",
+    "pretty-quick": "^3.1.0",
+    "typescript": "^4.1.3"
+  },
+  "husky": {
+    "hooks": {
+      "post-checkout": "npm install",
+      "post-merge": "npm install",
+      "pre-push": "npm run lint && pretty-quick --staged lint-staged"
+    }
   },
   "browserslist": {
     "production": [
@@ -109,16 +142,7 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 chrome version"
     ]
-  },
-  "devDependencies": {
-    "@types/react-router-dom": "^5.1.6",
-    "electron": "^11.1.1",
-    "electron-builder": "^22.9.1",
-    "electron-devtools-installer": "^3.1.1",
-    "typescript": "^4.1.3"
   }
 }

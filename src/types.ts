@@ -4,19 +4,24 @@ interface ExtraInfo {
 }
 
 export interface AppSettings {
-  wineVersion: WineProps;
-  winePrefix: string;
-  otherOptions: string;
-  useGameMode: boolean;
-  showFps: boolean;
-  egsLinkedPath: string;
-  savesPath: string;
-  autoSyncSaves: boolean;
-  defaultInstallPath: string;
+  wineVersion: WineProps
+  winePrefix: string
+  otherOptions: string
+  useGameMode: boolean
+  showFps: boolean
+  egsLinkedPath: string
+  savesPath: string
+  autoSyncSaves: boolean
+  exitToTray: boolean
+  defaultInstallPath: string
 }
 
-export type SyncType = "Download" | "Upload" | "Force download" | "Force upload";
-
+export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
+export interface InstallProgress {
+  percent: string
+  bytes: string
+  eta: string
+}
 export interface Game {
   art_cover: string
   art_square: string
@@ -25,7 +30,7 @@ export interface Game {
   executable: string
   title: string
   version: string
-  install_size: number 
+  install_size: number
   install_path: string
   developer: string
   isInstalled: boolean
@@ -35,25 +40,36 @@ export interface Game {
 }
 
 export interface Path {
-  filePaths: string[];
+  filePaths: string[]
 }
 export interface WineProps {
-  name: string;
-  bin: string;
+  name: string
+  bin: string
+}
+
+export interface GameStatus {
+  appName: string
+  status:
+    | 'installing'
+    | 'updating'
+    | 'playing'
+    | 'uninstalling'
+    | 'repairing'
+    | 'done'
+    | 'canceled'
+  progress?: number | null
 }
 
 export interface ContextType {
   user: string
   data: Game[]
-  installing: string[]
-  onlyInstalled: boolean
-  playing: string[]
+  filter: string
   refreshing: boolean
   error: boolean
+  libraryStatus: GameStatus[]
   refresh: () => void
   refreshLibrary: () => void
-  handleInstalling: (game: string) => void
-  handlePlaying: (game: string) => void
-  handleOnlyInstalled: () => void
+  handleGameStatus: (game: GameStatus) => void
+  handleFilter: (value: string) => void
   handleSearch: (input: string) => void
 }

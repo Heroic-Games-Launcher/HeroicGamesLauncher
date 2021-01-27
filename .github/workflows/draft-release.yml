@@ -1,0 +1,26 @@
+name: Draft Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  draft-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.4
+      - run: sudo apt-get install --no-install-recommends -y bsdtar libopenjp2-tools rpm
+      - run: npm install
+      - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" npm run ci-build
+      - uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: '${{ secrets.WORKFLOW_TOKEN }}'
+          automatic_release_tag: 'latest'
+          prerelease: false
+          draft: true
+          files: ./dist/heroic*

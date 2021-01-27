@@ -1,17 +1,20 @@
+html {
+  overflow-y: overlay;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, Cabin, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, Cabin, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color:  #1D1F1F;
-  
+  background-color: #1d1f1f;
 }
 
 a {
-  color: #E4DEEA;
+  color: #e4deea;
   text-decoration: none;
 }
 

@@ -23,5 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .eslintcache
-secrets.js
-public/secrets.js
+
+public/main.js
+public/types.js
+public/utils.js

@@ -1,19 +1,22 @@
-import React, { useContext, useState } from "react";
-import ContextProvider from '../../state/ContextProvider';
-import { Path } from "../../types";
-import InfoBox from '../UI/InfoBox';
+import React, { useContext, useState } from 'react'
+import ContextProvider from '../../state/ContextProvider'
+import { Path } from '../../types'
+import InfoBox from '../UI/InfoBox'
+import ToggleSwitch from '../UI/ToggleSwitch'
 const {
   ipcRenderer,
   remote: { dialog },
-} = window.require("electron");
+} = window.require('electron')
 
 interface Props {
-  defaultInstallPath: string;
-  setDefaultInstallPath: (value: string) => void;
-  egsPath: string;
-  setEgsPath: (value: string) => void;
-  egsLinkedPath: string;
+  defaultInstallPath: string
+  setDefaultInstallPath: (value: string) => void
+  egsPath: string
+  setEgsPath: (value: string) => void
+  egsLinkedPath: string
   setEgsLinkedPath: (value: string) => void
+  exitToTray: boolean
+  toggleTray: () => void
 }
 
 export default function GeneralSettings({
@@ -22,34 +25,38 @@ export default function GeneralSettings({
   egsPath,
   setEgsPath,
   egsLinkedPath,
-  setEgsLinkedPath
+  setEgsLinkedPath,
+  exitToTray,
+  toggleTray,
 }: Props) {
-  const [isSyncing, setIsSyncing] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false)
   const { refreshLibrary } = useContext(ContextProvider)
   const isLinked = Boolean(egsLinkedPath.length)
-  
+
   async function handleSync() {
-    setIsSyncing(true);
-    if (isLinked){
-      return await ipcRenderer
-      .invoke("egsSync", 'unlink')
-      .then(async (res: string) => {
-        await dialog.showMessageBox({ title: "EGS Sync", message: 'Unsync Complete' })
-        setEgsLinkedPath("")
-        setEgsPath("")
-        setIsSyncing(false);  
+    setIsSyncing(true)
+    if (isLinked) {
+      return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
+        await dialog.showMessageBox({
+          title: 'EGS Sync',
+          message: 'Unsync Complete',
+        })
+        setEgsLinkedPath('')
+        setEgsPath('')
+        setIsSyncing(false)
         refreshLibrary()
-      });
+      })
     }
-    
-    return await ipcRenderer
-      .invoke("egsSync", egsPath)
-      .then(async(res: string) => {
-        await dialog.showMessageBox({ title: "EGS Sync", message: 'Sync Complete' })
-        setIsSyncing(false);
-        setEgsLinkedPath(egsPath)
-        refreshLibrary()
-      });
+
+    return await ipcRenderer.invoke('egsSync', egsPath).then(async () => {
+      await dialog.showMessageBox({
+        title: 'EGS Sync',
+        message: 'Sync Complete',
+      })
+      setIsSyncing(false)
+      setEgsLinkedPath(egsPath)
+      refreshLibrary()
+    })
   }
 
   return (
@@ -69,12 +76,12 @@ export default function GeneralSettings({
             onClick={() =>
               dialog
                 .showOpenDialog({
-                  title: "Choose Default Instalation Folder",
-                  buttonLabel: "Choose",
-                  properties: ["openDirectory"],
+                  title: 'Choose Default Instalation Folder',
+                  buttonLabel: 'Choose',
+                  properties: ['openDirectory'],
                 })
                 .then(({ filePaths }: Path) =>
-                  setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : "")
+                  setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
                 )
             }
           >
@@ -87,26 +94,28 @@ export default function GeneralSettings({
         <span>
           <input
             type="text"
-            placeholder={"Prefix where EGS is installed"}
+            placeholder={'Prefix where EGS is installed'}
             className="settingSelect small"
             value={egsPath || egsLinkedPath}
             disabled={isLinked}
             onChange={(event) => setEgsPath(event.target.value)}
           />
-          {!Boolean(egsPath.length) ? (
+          {!egsPath.length ? (
             <span
               className="material-icons settings folder"
-              style={{color: isLinked ? 'transparent' : '#B0ABB6' }}
-              onClick={() => isLinked ? "" :
-                dialog
-                  .showOpenDialog({
-                    title: "Choose Prefix where EGS is installed",
-                    buttonLabel: "Choose",
-                    properties: ["openDirectory"],
-                  })
-                  .then(({ filePaths }: Path) =>
-                    setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : "")
-                  )
+              style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
+              onClick={() =>
+                isLinked
+                  ? ''
+                  : dialog
+                      .showOpenDialog({
+                        title: 'Choose Prefix where EGS is installed',
+                        buttonLabel: 'Choose',
+                        properties: ['openDirectory'],
+                      })
+                      .then(({ filePaths }: Path) =>
+                        setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                      )
               }
             >
               create_new_folder
@@ -114,26 +123,38 @@ export default function GeneralSettings({
           ) : (
             <span
               className="material-icons settings folder"
-              onClick={() => isLinked ? "" : setEgsPath("")}
-              style={ isLinked ? { pointerEvents: 'none', color: 'transparent' } : {color: '#B0ABB6' }}
+              onClick={() => (isLinked ? '' : setEgsPath(''))}
+              style={
+                isLinked
+                  ? { pointerEvents: 'none', color: 'transparent' }
+                  : { color: '#B0ABB6' }
+              }
             >
               backspace
             </span>
           )}
           <button
             onClick={() => handleSync()}
-            disabled={isSyncing || !Boolean(egsPath.length)}
+            disabled={isSyncing || !egsPath.length}
             className={`button is-small ${
-              isLinked ? 'is-danger' : isSyncing ? "is-primary" : "settings"
+              isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${ isLinked ? "Unsync" : isSyncing ? "Syncing" : "Sync"}`}
+            {`${isLinked ? 'Unsync' : isSyncing ? 'Syncing' : 'Sync'}`}
           </button>
         </span>
       </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          Exit to System Tray
+          <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
+        </span>
+      </span>
       <InfoBox>
-        Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.
+        Sync with EGS in case you have a working installation of the Epic Games
+        Store elsewhere and want to import your games to avoid downloading them
+        again.
       </InfoBox>
     </>
-  );
+  )
 }
