@@ -15,6 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
+import { AppSettings } from 'types'
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
@@ -43,7 +44,7 @@ const getAlternativeWine = () => {
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-    '/usr/share/steam/',
+    '/usr/share/steam',
   ]
   const protonPaths: string[] = [`${heroicToolsPath}/proton`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
@@ -126,17 +127,28 @@ const launchGame = async (appName: any) => {
     otherOptions,
     useGameMode,
     showFps,
-  } = settings[settingsName]
+    launcherArgs = '',
+    showMangohud,
+    audioFix,
+  } = settings[settingsName] as AppSettings
 
   let wine = `--wine ${wineVersion.bin}`
   let prefix = `--wine-prefix ${winePrefix}`
 
-  envVars = otherOptions
   const isProton = wineVersion.name.startsWith('Proton')
   prefix = isProton ? '' : `--wine-prefix ${winePrefix}`
 
+  const options = {
+    fps: showFps ? ` DXVK_HUD=fps` : '',
+    audio: audioFix ? ` PULSE_LATENCY_MSEC=60` : '',
+    showMangohud: showMangohud ? ` MANGOHUD=1` : '',
+    proton: isProton ? ` STEAM_COMPAT_DATA_PATH=${winePrefix}` : '',
+  }
+
+  envVars = otherOptions
+    .concat(Object.values(options).join(''))
+    .replace(' ', '')
   if (isProton) {
-    envVars = `${otherOptions} STEAM_COMPAT_DATA_PATH=${winePrefix}`
     console.log(
       `\n You are using Proton, this can lead to some bugs, 
             please do not open issues with bugs related with games`,
@@ -161,9 +173,8 @@ const launchGame = async (appName: any) => {
     .catch(() => console.log('GameMode not installed'))
 
   const runWithGameMode = useGameMode && gameMode ? gameMode : ''
-  const dxvkFps = showFps ? 'DXVK_HUD=fps' : ''
 
-  const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
+  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${appName}  ${wine} ${prefix} ${launcherArgs}`
   console.log('\n Launch Command:', command)
 
   if (isProton && !existsSync(`'${winePrefix}'`)) {
