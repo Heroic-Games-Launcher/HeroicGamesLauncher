@@ -11,6 +11,10 @@ interface Props {
   toggleFps: () => void
   launcherArgs: string
   setLauncherArgs: (value: string) => void
+  audioFix: boolean
+  toggleAudioFix: () => void
+  showMangohud: boolean
+  toggleMangoHud: () => void
 }
 
 export default function OtherSettings({
@@ -22,6 +26,10 @@ export default function OtherSettings({
   toggleFps,
   launcherArgs,
   setLauncherArgs,
+  audioFix,
+  toggleAudioFix,
+  showMangohud,
+  toggleMangoHud,
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -40,6 +48,18 @@ export default function OtherSettings({
         <span className="toggleWrapper">
           Use GameMode (Feral Game Mode needs to be installed)
           <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          Audio Fix (Pulse Audio Latency)
+          <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          Enable Mangohud (Mangohud needs to be installed)
+          <ToggleSwitch value={showMangohud} handleChange={toggleMangoHud} />
         </span>
       </span>
       <span className="setting">
@@ -74,11 +94,10 @@ export default function OtherSettings({
       </span>
       <InfoBox>
         Use the <strong>Advanced Options</strong> to be called before launching
-        the game if want, like: <strong>MANGOHUD=1</strong> to show Mangohud or{' '}
-        <strong>PULSE_LATENCY_MSEC=60</strong> to fix audio in some games, etc.
+        the game; <br />
         Use the <strong>Game Arguments</strong> to be called after the launch
-        command, for instance: <br />
-        <strong> -nolauncher </strong> to skip the launcher in some games, etc.
+        command, for instance: <strong> -nolauncher </strong> to skip the
+        launcher in some games, etc.
       </InfoBox>
     </>
   )

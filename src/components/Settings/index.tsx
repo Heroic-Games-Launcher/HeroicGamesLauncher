@@ -40,6 +40,16 @@ export default function Settings() {
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
   const {
+    on: audioFix,
+    toggle: toggleAudioFix,
+    setOn: setAudioFix,
+  } = useToggle(false)
+  const {
+    on: showMangohud,
+    toggle: toggleMangoHud,
+    setOn: setShowMangoHud,
+  } = useToggle(false)
+  const {
     on: exitToTray,
     toggle: toggleTray,
     setOn: setExitToTray,
@@ -68,6 +78,8 @@ export default function Settings() {
       async (event: IpcRendererEvent, config: AppSettings) => {
         setUseGameMode(config.useGameMode || false)
         setShowFps(config.showFps || false)
+        setAudioFix(config.audioFix || false)
+        setShowMangoHud(config.showMangohud || false)
         setDefaultInstallPath(config.defaultInstallPath)
         setWineversion(config.wineVersion)
         setWinePrefix(config.winePrefix)
@@ -102,6 +114,8 @@ export default function Settings() {
       egsLinkedPath,
       showFps,
       exitToTray,
+      audioFix,
+      showMangohud,
     },
   }
 
@@ -115,6 +129,8 @@ export default function Settings() {
       savesPath,
       showFps,
       autoSyncSaves,
+      audioFix,
+      showMangohud,
     },
   }
 
@@ -180,6 +196,10 @@ export default function Settings() {
               toggleUseGameMode={toggleUseGameMode}
               showFps={showFps}
               toggleFps={toggleFps}
+              audioFix={audioFix}
+              toggleAudioFix={toggleAudioFix}
+              showMangohud={showMangohud}
+              toggleMangoHud={toggleMangoHud}
             />
           )}
           {isSyncSettings && (

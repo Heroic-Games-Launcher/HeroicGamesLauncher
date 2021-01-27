@@ -30,6 +30,8 @@ export interface AppSettings {
   autoSyncSaves: boolean
   exitToTray: boolean
   launcherArgs: string
+  audioFix: boolean
+  showMangohud: boolean
   defaultInstallPath: string
 }
 

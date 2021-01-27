@@ -14,6 +14,8 @@ export interface AppSettings {
   savesPath: string
   autoSyncSaves: boolean
   exitToTray: boolean
+  audioFix: boolean
+  showMangohud: boolean
   defaultInstallPath: string
 }
 
