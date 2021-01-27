@@ -347,18 +347,29 @@ ipcMain.on('getAlternativeWine', (event) =>
 )
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.on('callTool', async (event, { tool, wine, prefix }) => {
-  const wineBin = wine.replace("/proton'", "/dist/bin/wine64'")
-  console.log({ wine, wineBin }, wine.endsWith("/proton'"))
+interface Tools {
+  tool: string
+  wine: string
+  prefix: string
+  exe: string
+}
+
+ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
+  const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
   let winePrefix: string = prefix
+
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  const command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
     tool === 'winecfg' ? `${wineBin} ${tool}` : tool
   }`
+
+  if (tool === 'runExe') {
+    command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
+  }
 
   console.log({ command })
   return exec(command)
