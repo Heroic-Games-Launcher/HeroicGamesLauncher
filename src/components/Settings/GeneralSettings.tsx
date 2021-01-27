@@ -48,15 +48,24 @@ export default function GeneralSettings({
       })
     }
 
-    return await ipcRenderer.invoke('egsSync', egsPath).then(async () => {
-      await dialog.showMessageBox({
-        title: 'EGS Sync',
-        message: 'Sync Complete',
+    return await ipcRenderer
+      .invoke('egsSync', egsPath)
+      .then(async (res: string) => {
+        if (res === 'Error') {
+          setIsSyncing(false)
+          setEgsLinkedPath('')
+          setEgsPath('')
+          return
+        }
+        await dialog.showMessageBox({
+          title: 'EGS Sync',
+          message: 'Sync Complete',
+        })
+
+        setIsSyncing(false)
+        setEgsLinkedPath(egsPath)
+        refreshLibrary()
       })
-      setIsSyncing(false)
-      setEgsLinkedPath(egsPath)
-      refreshLibrary()
-    })
   }
 
   return (

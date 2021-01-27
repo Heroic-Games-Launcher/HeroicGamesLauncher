@@ -29,6 +29,7 @@ export default function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
+  const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [savesPath, setSavesPath] = useState('')
@@ -38,6 +39,16 @@ export default function Settings() {
     setOn: setUseGameMode,
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
+  const {
+    on: audioFix,
+    toggle: toggleAudioFix,
+    setOn: setAudioFix,
+  } = useToggle(false)
+  const {
+    on: showMangohud,
+    toggle: toggleMangoHud,
+    setOn: setShowMangoHud,
+  } = useToggle(false)
   const {
     on: exitToTray,
     toggle: toggleTray,
@@ -67,10 +78,13 @@ export default function Settings() {
       async (event: IpcRendererEvent, config: AppSettings) => {
         setUseGameMode(config.useGameMode || false)
         setShowFps(config.showFps || false)
+        setAudioFix(config.audioFix || false)
+        setShowMangoHud(config.showMangohud || false)
         setDefaultInstallPath(config.defaultInstallPath)
         setWineversion(config.wineVersion)
         setWinePrefix(config.winePrefix)
         setOtherOptions(config.otherOptions)
+        setLauncherArgs(config.launcherArgs)
         setEgsLinkedPath(config.egsLinkedPath || '')
         setEgsPath(config.egsLinkedPath || '')
         setSavesPath(config.savesPath || '')
@@ -100,6 +114,8 @@ export default function Settings() {
       egsLinkedPath,
       showFps,
       exitToTray,
+      audioFix,
+      showMangohud,
     },
   }
 
@@ -108,10 +124,13 @@ export default function Settings() {
       wineVersion,
       winePrefix,
       otherOptions,
+      launcherArgs,
       useGameMode,
       savesPath,
       showFps,
       autoSyncSaves,
+      audioFix,
+      showMangohud,
     },
   }
 
@@ -164,14 +183,23 @@ export default function Settings() {
               setWinePrefix={setWinePrefix}
             />
           )}
+          {isWineSettings && (
+            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
+          )}
           {isOtherSettings && (
             <OtherSettings
               otherOptions={otherOptions}
               setOtherOptions={setOtherOptions}
+              launcherArgs={launcherArgs}
+              setLauncherArgs={setLauncherArgs}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
               showFps={showFps}
               toggleFps={toggleFps}
+              audioFix={audioFix}
+              toggleAudioFix={toggleAudioFix}
+              showMangohud={showMangohud}
+              toggleMangoHud={toggleMangoHud}
             />
           )}
           {isSyncSettings && (
@@ -184,9 +212,6 @@ export default function Settings() {
               setAutoSyncSaves={setAutoSyncSaves}
               defaultFolder={winePrefix}
             />
-          )}
-          {isWineSettings && (
-            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
           )}
           <span className="save">Settings are saved automatically</span>
         </div>
