@@ -29,6 +29,7 @@ export interface AppSettings {
   savesPath: string
   autoSyncSaves: boolean
   exitToTray: boolean
+  launcherArgs: string
   defaultInstallPath: string
 }
 

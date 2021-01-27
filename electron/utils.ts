@@ -15,6 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
+import { AppSettings } from 'types'
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
@@ -126,7 +127,8 @@ const launchGame = async (appName: any) => {
     otherOptions,
     useGameMode,
     showFps,
-  } = settings[settingsName]
+    launcherArgs,
+  } = settings[settingsName] as AppSettings
 
   let wine = `--wine ${wineVersion.bin}`
   let prefix = `--wine-prefix ${winePrefix}`
@@ -163,7 +165,7 @@ const launchGame = async (appName: any) => {
   const runWithGameMode = useGameMode && gameMode ? gameMode : ''
   const dxvkFps = showFps ? 'DXVK_HUD=fps' : ''
 
-  const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${wine} ${prefix}`
+  const command = `${envVars} ${dxvkFps} ${runWithGameMode} ${legendaryBin} launch ${appName} ${wine} ${prefix} ${launcherArgs}`
   console.log('\n Launch Command:', command)
 
   if (isProton && !existsSync(`'${winePrefix}'`)) {

@@ -29,6 +29,7 @@ export default function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
+  const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [savesPath, setSavesPath] = useState('')
@@ -71,6 +72,7 @@ export default function Settings() {
         setWineversion(config.wineVersion)
         setWinePrefix(config.winePrefix)
         setOtherOptions(config.otherOptions)
+        setLauncherArgs(config.launcherArgs)
         setEgsLinkedPath(config.egsLinkedPath || '')
         setEgsPath(config.egsLinkedPath || '')
         setSavesPath(config.savesPath || '')
@@ -108,6 +110,7 @@ export default function Settings() {
       wineVersion,
       winePrefix,
       otherOptions,
+      launcherArgs,
       useGameMode,
       savesPath,
       showFps,
@@ -164,10 +167,15 @@ export default function Settings() {
               setWinePrefix={setWinePrefix}
             />
           )}
+          {isWineSettings && (
+            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
+          )}
           {isOtherSettings && (
             <OtherSettings
               otherOptions={otherOptions}
               setOtherOptions={setOtherOptions}
+              launcherArgs={launcherArgs}
+              setLauncherArgs={setLauncherArgs}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
               showFps={showFps}
@@ -184,9 +192,6 @@ export default function Settings() {
               setAutoSyncSaves={setAutoSyncSaves}
               defaultFolder={winePrefix}
             />
-          )}
-          {isWineSettings && (
-            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
           )}
           <span className="save">Settings are saved automatically</span>
         </div>

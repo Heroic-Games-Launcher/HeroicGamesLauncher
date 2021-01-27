@@ -7,6 +7,7 @@ export interface AppSettings {
   wineVersion: WineProps
   winePrefix: string
   otherOptions: string
+  launcherArgs: string
   useGameMode: boolean
   showFps: boolean
   egsLinkedPath: string
