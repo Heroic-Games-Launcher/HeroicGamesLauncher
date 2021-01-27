@@ -24,6 +24,7 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 - Login with an existing Epic Games account
 - Install/Uninstall Games
 - Import an already installed game
+- Play online (EAC not supported)
 - Update installed Games
 - Repair installed Games
 - Multiple downloads at the same time
@@ -45,7 +46,7 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 
 ## Binaries supported right now
 
-- DEB, RPM, Pacman, AppImage and TAR.XZ (with the heroic binary and all dependecies)
+- DEB, RPM and AppImage
 - Recommended AUR version: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
 - Might think about Flatpak And/Or SNAP in the future as well
 
@@ -60,4 +61,4 @@ To be able to run you will need to have NodeJs installed locally and follow the 
 - On the project folder run `npm install`.
 - Run `npm run build` to build the React Assets.
 - Run `npm start`.
-- To build the binaries run `npm run dist`.
+- To build the binaries run `npm run dist {package to create}`.
