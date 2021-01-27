@@ -52,10 +52,11 @@ import {
   Tray,
   nativeTheme,
   dialog,
+  powerSaveBlocker,
 } from 'electron'
 import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
-const showMessageBox = dialog.showMessageBox
+const { showMessageBox, showErrorBox } = dialog
 let mainWindow: BrowserWindow = null
 
 function createWindow() {
@@ -213,13 +214,16 @@ ipcMain.handle('writeFile', (event, args) => {
   )
 })
 
-ipcMain.on('lock', () =>
+let powerId = null
+ipcMain.on('lock', () => {
   writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
-)
+  powerId = powerSaveBlocker.start('prevent-app-suspension')
+})
 
 ipcMain.on('unlock', () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     unlinkSync(`${heroicGamesConfigPath}/lock`)
+    powerSaveBlocker.stop(powerId)
   }
 })
 
@@ -343,18 +347,29 @@ ipcMain.on('getAlternativeWine', (event) =>
 )
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.on('callTool', async (event, { tool, wine, prefix }) => {
-  const wineBin = wine.replace("/proton'", "/dist/bin/wine64'")
-  console.log({ wine, wineBin }, wine.endsWith("/proton'"))
+interface Tools {
+  tool: string
+  wine: string
+  prefix: string
+  exe: string
+}
+
+ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
+  const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
   let winePrefix: string = prefix
+
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  const command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
     tool === 'winecfg' ? `${wineBin} ${tool}` : tool
   }`
+
+  if (tool === 'runExe') {
+    command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
+  }
 
   console.log({ command })
   return exec(command)
@@ -507,11 +522,16 @@ ipcMain.handle('egsSync', async (event, args) => {
   const isLink = args !== 'unlink'
   const command = isLink ? linkArgs : unlinkArgs
 
-  const { stderr, stdout } = await execAsync(
-    `${legendaryBin} egl-sync ${command} -y`
-  )
-  console.log(`${stdout} - ${stderr}`)
-  return `${stdout} - ${stderr}`
+  try {
+    const { stderr, stdout } = await execAsync(
+      `${legendaryBin} egl-sync ${command} -y`
+    )
+    console.log(`${stdout} - ${stderr}`)
+    return `${stdout} - ${stderr}`
+  } catch (error) {
+    showErrorBox('Error', 'Invalid Path')
+    return 'Error'
+  }
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {

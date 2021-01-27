@@ -43,32 +43,11 @@
         "curl"
       ]
     },
-    "pacman": {
-      "packageCategory": "games",
-      "depends": [
-        "gawk",
-        "curl"
-      ]
-    },
     "rpm": {
       "packageCategory": "games",
       "depends": [
         "gawk",
         "curl"
-      ]
-    },
-    "snap": {
-      "confinement": "devmode",
-      "stagePackages": [
-        "default",
-        "wine",
-        "winetricks",
-        "gawk",
-        "curl",
-        "gconf2",
-        "gconf-service",
-        "python-wheel-common",
-        "python-setuptools"
       ]
     }
   },
@@ -93,7 +72,7 @@
     "eject": "react-scripts eject",
     "pretitier": "prettier --check",
     "format-files": "prettier --write .",
-    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
+    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm",
     "dist": "npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "build-any": "npm run dist",
     "lint": "eslint -c .eslintrc --ext .ts ./src",

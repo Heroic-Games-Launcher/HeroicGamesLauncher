@@ -7,12 +7,15 @@ export interface AppSettings {
   wineVersion: WineProps
   winePrefix: string
   otherOptions: string
+  launcherArgs: string
   useGameMode: boolean
   showFps: boolean
   egsLinkedPath: string
   savesPath: string
   autoSyncSaves: boolean
   exitToTray: boolean
+  audioFix: boolean
+  showMangohud: boolean
   defaultInstallPath: string
 }
 
