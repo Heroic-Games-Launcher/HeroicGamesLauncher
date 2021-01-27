@@ -56,7 +56,7 @@ import {
 } from 'electron'
 import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
-const showMessageBox = dialog.showMessageBox
+const { showMessageBox, showErrorBox } = dialog
 let mainWindow: BrowserWindow = null
 
 function createWindow() {
@@ -522,11 +522,16 @@ ipcMain.handle('egsSync', async (event, args) => {
   const isLink = args !== 'unlink'
   const command = isLink ? linkArgs : unlinkArgs
 
-  const { stderr, stdout } = await execAsync(
-    `${legendaryBin} egl-sync ${command} -y`
-  )
-  console.log(`${stdout} - ${stderr}`)
-  return `${stdout} - ${stderr}`
+  try {
+    const { stderr, stdout } = await execAsync(
+      `${legendaryBin} egl-sync ${command} -y`
+    )
+    console.log(`${stdout} - ${stderr}`)
+    return `${stdout} - ${stderr}`
+  } catch (error) {
+    showErrorBox('Error', 'Invalid Path')
+    return 'Error'
+  }
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
