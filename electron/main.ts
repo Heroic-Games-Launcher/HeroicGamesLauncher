@@ -52,6 +52,7 @@ import {
   Tray,
   nativeTheme,
   dialog,
+  powerSaveBlocker,
 } from 'electron'
 import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
@@ -213,13 +214,16 @@ ipcMain.handle('writeFile', (event, args) => {
   )
 })
 
-ipcMain.on('lock', () =>
+let powerId = null
+ipcMain.on('lock', () => {
   writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
-)
+  powerId = powerSaveBlocker.start('prevent-app-suspension')
+})
 
 ipcMain.on('unlock', () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     unlinkSync(`${heroicGamesConfigPath}/lock`)
+    powerSaveBlocker.stop(powerId)
   }
 })
 

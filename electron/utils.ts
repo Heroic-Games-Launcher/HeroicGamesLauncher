@@ -43,7 +43,7 @@ const getAlternativeWine = () => {
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-    '/usr/share/steam/',
+    '/usr/share/steam',
   ]
   const protonPaths: string[] = [`${heroicToolsPath}/proton`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
