@@ -58,6 +58,7 @@ export default function GamePage() {
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
+  const isMoving = status === 'moving'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -146,6 +147,12 @@ export default function GamePage() {
                       Verify and Repair
                     </span>{' '}
                     <span
+                      onClick={() => handleMoveInstall()}
+                      className="hidden link"
+                    >
+                      Move Game
+                    </span>{' '}
+                    <span
                       onClick={() => ipcRenderer.send('getLog', appName)}
                       className="hidden link"
                     >
@@ -229,7 +236,7 @@ export default function GamePage() {
                           isInstalled || isInstalling ? '#0BD58C' : '#BD0A0A',
                       }}
                     >
-                      {getInstallLabel(isInstalled, isUpdating)}
+                      {getInstallLabel(isInstalled)}
                     </p>
                   </div>
                   {!isInstalled && !isInstalling && (
@@ -247,7 +254,7 @@ export default function GamePage() {
                     {isInstalled && (
                       <>
                         <button
-                          disabled={isReparing}
+                          disabled={isReparing || isMoving}
                           onClick={handlePlay()}
                           className={`button ${getPlayBtnClass()}`}
                         >
@@ -257,7 +264,9 @@ export default function GamePage() {
                     )}
                     <button
                       onClick={handleInstall(isInstalled)}
-                      disabled={isPlaying || isUpdating || isReparing}
+                      disabled={
+                        isPlaying || isUpdating || isReparing || isMoving
+                      }
                       className={`button ${getButtonClass(isInstalled)}`}
                     >
                       {`${getButtonLabel(isInstalled)}`}
@@ -296,13 +305,14 @@ export default function GamePage() {
     return isPlaying ? 'Playing (Stop)' : 'Play Now'
   }
 
-  function getInstallLabel(
-    isInstalled: boolean,
-    isUpdating: boolean
-  ): React.ReactNode {
+  function getInstallLabel(isInstalled: boolean): React.ReactNode {
     const { eta, percent } = progress
     if (isReparing) {
       return `Repairing Game ${percent ? `${percent}` : '...'}`
+    }
+
+    if (isMoving) {
+      return `Moving Installation, please wait.`
     }
 
     if (isUpdating && isInstalling) {
@@ -442,6 +452,20 @@ export default function GamePage() {
         }
       }
     }
+  }
+
+  async function handleMoveInstall() {
+    const { response } = await showMessageBox({
+      title: 'Move Game Installation',
+      message: 'This can take a long time, are you sure?',
+      buttons: ['YES', 'NO'],
+    })
+    if (response === 0) {
+      handleGameStatus({ appName, status: 'moving' })
+      await ipcRenderer.invoke('moveInstall', appName)
+      handleGameStatus({ appName, status: 'done' })
+    }
+    return
   }
 
   async function handleRepair(appName: string) {
