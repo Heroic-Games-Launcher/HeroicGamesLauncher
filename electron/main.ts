@@ -56,7 +56,7 @@ import {
 } from 'electron'
 import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
-const { showMessageBox, showErrorBox } = dialog
+const { showMessageBox, showErrorBox, showOpenDialog } = dialog
 let mainWindow: BrowserWindow = null
 
 function createWindow() {
@@ -406,6 +406,40 @@ ipcMain.on('getLog', (event, appName) =>
   spawn('xdg-open', [`${heroicGamesConfigPath}/${appName}-lastPlay.log`])
 )
 
+const installed = `${legendaryConfigPath}/installed.json`
+
+ipcMain.handle('moveInstall', async (event, appName: string) => {
+  const { filePaths } = await showOpenDialog({
+    title: 'Choose where you want to move',
+    buttonLabel: 'Choose',
+    properties: ['openDirectory'],
+  })
+
+  if (filePaths[0]) {
+    // @ts-ignore
+    const file = JSON.parse(readFileSync(installed))
+    const installedGames: Game[] = Object.values(file)
+    const { install_path } = installedGames.filter(
+      (game) => game.app_name === appName
+    )[0]
+
+    const splitPath = install_path.split('/')
+    const installFolder = splitPath[splitPath.length - 1]
+    const newPath = `${filePaths[0]}/${installFolder}`
+    const game: Game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    return await execAsync(`mv -f ${install_path} ${newPath}`)
+      .then(() => {
+        console.log('moved')
+        writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
+          console.log('file updated')
+        )
+      })
+      .catch(console.log)
+  }
+  return
+})
+
 ipcMain.handle('readFile', async (event, file) => {
   const loggedIn = isLoggedIn()
 
@@ -413,7 +447,6 @@ ipcMain.handle('readFile', async (event, file) => {
     return { user: { displayName: null }, library: [] }
   }
 
-  const installed = `${legendaryConfigPath}/installed.json`
   const files: any = {
     // @ts-ignore
     user: loggedIn ? JSON.parse(readFileSync(userInfo)) : { displayName: null },
@@ -468,6 +501,7 @@ ipcMain.handle('readFile', async (event, file) => {
             const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
             const installedGames: Game[] = Object.values(files.installed)
+
             const isInstalled = Boolean(
               installedGames.filter((game) => game.app_name === app_name).length
             )

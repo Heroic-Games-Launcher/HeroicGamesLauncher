@@ -139,15 +139,14 @@ const launchGame = async (appName: any) => {
   prefix = isProton ? '' : `--wine-prefix ${winePrefix}`
 
   const options = {
-    fps: showFps ? ` DXVK_HUD=fps` : '',
-    audio: audioFix ? ` PULSE_LATENCY_MSEC=60` : '',
-    showMangohud: showMangohud ? ` MANGOHUD=1` : '',
-    proton: isProton ? ` STEAM_COMPAT_DATA_PATH=${winePrefix}` : '',
+    other: otherOptions ? otherOptions : '',
+    fps: showFps ? `DXVK_HUD=fps` : '',
+    audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
+    showMangohud: showMangohud ? `MANGOHUD=1` : '',
+    proton: isProton ? `STEAM_COMPAT_DATA_PATH=${winePrefix}` : '',
   }
 
-  envVars = otherOptions
-    .concat(Object.values(options).join(''))
-    .replace(' ', '')
+  envVars = Object.values(options).join(' ')
   if (isProton) {
     console.log(
       `\n You are using Proton, this can lead to some bugs, 
@@ -305,10 +304,11 @@ async function getLatestDxvk() {
     'https://api.github.com/repos/lutris/dxvk/releases/latest'
   )
   const current = assets[0]
-  const name = current.name.replace('.tar.gz', '')
+  const pkg = current.name
+  const name = pkg.replace('.tar.gz', '')
   const downloadUrl = current.browser_download_url
 
-  const dxvkLatest = `${heroicToolsPath}/DXVK/${name}`
+  const dxvkLatest = `${heroicToolsPath}/DXVK/${pkg}`
   const pastVersionCheck = `${heroicToolsPath}/DXVK/latest_dxvk`
   let pastVersion = ''
 
@@ -388,7 +388,7 @@ const handleExit = async () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     const { response } = await showMessageBox({
       title: 'Exit',
-      message: 'Games are being download, are you sure?',
+      message: 'There are pending operations, are you sure?',
       buttons: ['NO', 'YES'],
     })
 

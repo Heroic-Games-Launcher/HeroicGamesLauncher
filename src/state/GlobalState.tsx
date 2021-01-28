@@ -78,7 +78,8 @@ export class GlobalState extends PureComponent<Props> {
           return (
             currentApp.status === 'installing' ||
             currentApp.status === 'repairing' ||
-            currentApp.status === 'updating'
+            currentApp.status === 'updating' ||
+            currentApp.status === 'moving'
           )
         })
       default:
@@ -183,6 +184,20 @@ export class GlobalState extends PureComponent<Props> {
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
       notify([title, 'Was uninstalled'])
+
+      if (windowIsVisible) {
+        return this.refresh()
+      }
+
+      return currentWindow.reload()
+    }
+
+    if (currentApp && currentApp.status === 'moving' && status === 'done') {
+      const updatedLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      this.setState({ libraryStatus: updatedLibraryStatus })
+      notify([title, 'Finished Moving Installation'])
 
       if (windowIsVisible) {
         return this.refresh()
