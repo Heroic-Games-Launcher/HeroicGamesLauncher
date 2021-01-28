@@ -55,9 +55,7 @@ export default function SyncSaves({
   return (
     <>
       <span className="setting">
-        <span className="settingText">
-          Search or create the folder with the save games on the GamePrefix
-        </span>
+        <span className="settingText">Override Cloud Sync Save folder</span>
         <span>
           <input
             type="text"

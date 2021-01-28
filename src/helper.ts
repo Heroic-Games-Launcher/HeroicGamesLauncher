@@ -127,6 +127,7 @@ export async function fixSaveFolder(
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
 
   folder = folder.replace('{EpicID}', epicId)
+  folder = folder.replace('{EpicId}', epicId)
 
   if (folder.includes('locallow')) {
     return folder.replace(
@@ -173,7 +174,7 @@ export async function fixSaveFolder(
   if (folder.includes('{UserDir}')) {
     return folder.replace(
       '{UserDir}',
-      `${winePrefix}/drive_c/users/${username}/`
+      `${winePrefix}/drive_c/users/${username}`
     )
   }
 

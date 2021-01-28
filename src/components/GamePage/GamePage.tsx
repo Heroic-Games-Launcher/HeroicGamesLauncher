@@ -124,6 +124,9 @@ export default function GamePage() {
       cloudSaveEnabled,
     }: Game = gameInfo
 
+    if (savesPath.includes('{InstallDir}')) {
+      setSavesPath(savesPath.replace('{InstallDir}', install_path))
+    }
     const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
     return (

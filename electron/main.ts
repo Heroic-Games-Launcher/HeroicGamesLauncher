@@ -577,7 +577,8 @@ ipcMain.handle('getUserInfo', () => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
-  const command = `${legendaryBin} sync-saves --save-path '${path}' ${arg} ${appName} -y`
+
+  const command = `${legendaryBin} sync-saves --save-path "${path}" ${arg} ${appName} -y`
   const legendarySavesPath = `${home}/legendary/.saves`
 
   //workaround error when no .saves folder exists
