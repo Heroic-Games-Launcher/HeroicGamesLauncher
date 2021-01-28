@@ -39,6 +39,7 @@ import {
 } from 'fs'
 import { promisify } from 'util'
 import axios from 'axios'
+import { userInfo as user } from 'os'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -568,9 +569,15 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
+ipcMain.handle('getUserInfo', () => {
+  // @ts-ignore
+  const { account_id } = JSON.parse(readFileSync(userInfo))
+  return { user: user().username, epicId: account_id }
+})
+
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
-  const command = `${legendaryBin} sync-saves --save-path ${path} ${arg} ${appName} -y`
+  const command = `${legendaryBin} sync-saves --save-path '${path}' ${arg} ${appName} -y`
   const legendarySavesPath = `${home}/legendary/.saves`
 
   //workaround error when no .saves folder exists

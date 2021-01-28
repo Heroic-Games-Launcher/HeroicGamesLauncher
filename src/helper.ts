@@ -115,3 +115,67 @@ export const formatStoreUrl = (title: string) =>
 export function getProgress(progress: InstallProgress): number {
   return Number(progress.percent.replace('%', ''))
 }
+
+export async function fixSaveFolder(
+  folder: string,
+  prefix: string,
+  isProton: boolean
+) {
+  const { user, epicId } = await ipcRenderer.invoke('getUserInfo')
+  const username = isProton ? 'steamuser' : user
+  let winePrefix = prefix.replaceAll("'", '')
+  winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
+
+  folder = folder.replace('{EpicID}', epicId)
+
+  if (folder.includes('locallow')) {
+    return folder.replace(
+      '{appdata}/../locallow',
+      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow/`
+    )
+  }
+
+  if (folder.includes('LocalLow')) {
+    return folder.replace(
+      '{AppData}/../LocalLow',
+      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow/`
+    )
+  }
+
+  if (folder.includes('{UserSavedGames}')) {
+    return folder.replace(
+      '{UserSavedGames}',
+      `${winePrefix}/drive_c/users/${username}/Saved Games`
+    )
+  }
+
+  if (folder.includes('roaming')) {
+    return folder.replace(
+      '{appdata}/../roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('Roaming')) {
+    return folder.replace(
+      '{AppData}/../Roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('{AppData}')) {
+    return folder.replace(
+      '{AppData}',
+      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data/`
+    )
+  }
+
+  if (folder.includes('{UserDir}')) {
+    return folder.replace(
+      '{UserDir}',
+      `${winePrefix}/drive_c/users/${username}/`
+    )
+  }
+
+  return folder
+}

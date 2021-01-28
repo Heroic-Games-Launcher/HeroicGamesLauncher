@@ -9,7 +9,7 @@ import {
   mkdir,
   writeFileSync,
 } from 'fs'
-import { homedir } from 'os'
+import { homedir, userInfo as user } from 'os'
 const execAsync = promisify(exec)
 import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
@@ -205,6 +205,8 @@ const launchGame = async (appName: any) => {
 }
 
 const writeDefaultconfig = () => {
+  // @ts-ignore
+  const { account_id } = JSON.parse(readFileSync(userInfo))
   const config = {
     defaultSettings: {
       defaultInstallPath: heroicInstallPath,
@@ -216,6 +218,10 @@ const writeDefaultconfig = () => {
       otherOptions: '',
       useGameMode: false,
       showFps: false,
+      userInfo: {
+        name: user,
+        epicId: account_id,
+      },
     },
   }
   if (!existsSync(heroicConfigPath)) {
@@ -252,6 +258,8 @@ const writeGameconfig = (game: any) => {
     showFps,
     //@ts-ignore
   } = JSON.parse(readFileSync(heroicConfigPath)).defaultSettings
+  // @ts-ignore
+  const { account_id } = JSON.parse(readFileSync(userInfo))
   const config = {
     [game]: {
       wineVersion,
@@ -259,6 +267,10 @@ const writeGameconfig = (game: any) => {
       otherOptions,
       useGameMode,
       showFps,
+      userInfo: {
+        name: user,
+        epicId: account_id,
+      },
     },
   }
 

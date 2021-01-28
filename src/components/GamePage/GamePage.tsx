@@ -12,6 +12,7 @@ import {
   updateGame,
   repair,
   getProgress,
+  fixSaveFolder,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
@@ -68,9 +69,18 @@ export default function GamePage() {
         ipcRenderer.send('requestSettings', appName)
         ipcRenderer.once(
           appName,
-          (event: any, { autoSyncSaves, savesPath }: AppSettings) => {
+          async (
+            event: any,
+            { autoSyncSaves, winePrefix, wineVersion }: AppSettings
+          ) => {
+            const isProton = wineVersion.name.includes('Proton')
             setAutoSyncSaves(autoSyncSaves)
-            setSavesPath(savesPath)
+            const folder = await fixSaveFolder(
+              newInfo.saveFolder,
+              winePrefix,
+              isProton
+            )
+            setSavesPath(folder)
           }
         )
       }
@@ -112,7 +122,6 @@ export default function GamePage() {
       extraInfo,
       developer,
       cloudSaveEnabled,
-      saveFolder,
     }: Game = gameInfo
 
     const protonDBurl = `https://www.protondb.com/search?q=${title}`
@@ -202,7 +211,7 @@ export default function GamePage() {
                         : 'Does not support'}
                     </div>
                     {cloudSaveEnabled && (
-                      <div>{`Cloud Sync Folder: ${saveFolder}`}</div>
+                      <div>{`Cloud Sync Folder: ${savesPath}`}</div>
                     )}
                     {isInstalled && (
                       <>

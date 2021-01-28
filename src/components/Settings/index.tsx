@@ -1,7 +1,7 @@
 import { IpcRendererEvent } from 'electron'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { getGameInfo, writeConfig } from '../../helper'
+import { fixSaveFolder, getGameInfo, writeConfig } from '../../helper'
 import { useToggle } from '../../hooks'
 import { AppSettings, WineProps } from '../../types'
 import Header from '../UI/Header'
@@ -87,13 +87,20 @@ export default function Settings() {
         setLauncherArgs(config.launcherArgs)
         setEgsLinkedPath(config.egsLinkedPath || '')
         setEgsPath(config.egsLinkedPath || '')
-        setSavesPath(config.savesPath || '')
         setAutoSyncSaves(config.autoSyncSaves)
         setExitToTray(config.exitToTray || false)
         if (!isDefault) {
           const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
           setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
         }
+        const { saveFolder } = await getGameInfo(appName)
+
+        const isProton = wineVersion.name.includes('Proton')
+        setAutoSyncSaves(autoSyncSaves)
+        const folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
+        console.log(config.savesPath)
+
+        setSavesPath(config.savesPath || folder)
 
         ipcRenderer.send('getAlternativeWine')
         ipcRenderer.on(
