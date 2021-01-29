@@ -13,7 +13,6 @@ interface Props {
   setSavesPath: (value: string) => void
   appName: string
   autoSyncSaves: boolean
-  saveFolder: string
   setAutoSyncSaves: (value: boolean) => void
   defaultFolder: string
 }
@@ -24,7 +23,6 @@ export default function SyncSaves({
   appName,
   autoSyncSaves,
   setAutoSyncSaves,
-  saveFolder,
   defaultFolder,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
@@ -140,9 +138,17 @@ export default function SyncSaves({
       <InfoBox>
         <ul>
           <li>
-            The folder where the saves for this game is stored is{' '}
-            <strong>{saveFolder}</strong>. Find it or create it inside the wine
-            prefix.
+            Heroic try to guess the right save folder and this will work on the
+            majority of cases. In case the folder is wrong, use the override box
+            to change it.
+          </li>
+          <li>
+            In case you change the prefix folder or Wine for Proton and
+            vice-versa, you will need to check the path again since proton uses
+            a different prefix (/pfx) and username (steamuser). So you can
+            simple erase the current path, get out of the sync settings page and
+            get back again for Heroic to guess the folder one more time with the
+            right prefix.
           </li>
           <li>
             Manual Sync: Choose Download to download the games saves stored on

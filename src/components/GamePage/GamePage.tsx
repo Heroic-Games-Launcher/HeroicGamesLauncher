@@ -13,6 +13,7 @@ import {
   repair,
   getProgress,
   fixSaveFolder,
+  handleStopInstallation,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
@@ -213,9 +214,6 @@ export default function GamePage() {
                           })`
                         : 'Does not support'}
                     </div>
-                    {cloudSaveEnabled && (
-                      <div>{`Cloud Sync Folder: ${savesPath}`}</div>
-                    )}
                     {isInstalled && (
                       <>
                         <div>Executable: {executable}</div>
@@ -411,7 +409,8 @@ export default function GamePage() {
   function handleInstall(isInstalled: boolean): any {
     return async () => {
       if (isInstalling) {
-        return sendKill(appName)
+        const { folderName } = await getGameInfo(appName)
+        return handleStopInstallation(appName, [installPath, folderName])
       }
 
       if (isInstalled) {
@@ -456,6 +455,7 @@ export default function GamePage() {
         if (filePaths[0]) {
           const path = filePaths[0]
           handleGameStatus({ appName, status: 'installing' })
+          setInstallPath(path)
           await install({ appName, path })
           // Wait to be 100% finished
           return setTimeout(() => {

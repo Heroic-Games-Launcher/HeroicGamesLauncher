@@ -483,7 +483,7 @@ ipcMain.handle('readFile', async (event, file) => {
               keyImages,
               title,
               developer,
-              customAttributes: { CloudSaveFolder },
+              customAttributes: { CloudSaveFolder, FolderName },
             } = metadata
             const cloudSaveEnabled = Boolean(CloudSaveFolder)
             const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
@@ -515,6 +515,7 @@ ipcMain.handle('readFile', async (event, file) => {
               version = null,
               install_size = null,
               install_path = null,
+              is_dlc = null
             } = info as InstalledInfo
 
             const convertedSize = `${byteSize(install_size).value}${
@@ -534,9 +535,11 @@ ipcMain.handle('readFile', async (event, file) => {
               description,
               cloudSaveEnabled,
               saveFolder,
+              folderName: FolderName.value,
               art_cover: art_cover || art_square,
               art_square: art_square || art_cover,
               art_logo,
+              is_dlc
             }
           })
           .sort((a, b) => {
@@ -573,6 +576,26 @@ ipcMain.handle('getUserInfo', () => {
   // @ts-ignore
   const { account_id } = JSON.parse(readFileSync(userInfo))
   return { user: user().username, epicId: account_id }
+})
+
+ipcMain.on('removeFolder', (e, args: string[]) => {
+  const [path, folderName] = args
+
+  if (path === 'default') {
+    // @ts-ignore
+    let { defaultInstallPath } = JSON.parse(readFileSync(heroicConfigPath))
+      .defaultSettings as AppSettings
+    defaultInstallPath = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${defaultInstallPath}/${folderName}`
+    return setTimeout(() => {
+      exec(`rm -Rf ${folderToDelete}`)
+    }, 2000)
+  }
+
+  const folderToDelete = `${path}/${folderName}`
+  return setTimeout(() => {
+    exec(`rm -Rf ${folderToDelete}`)
+  }, 2000)
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {

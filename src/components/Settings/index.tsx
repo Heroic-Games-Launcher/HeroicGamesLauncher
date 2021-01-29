@@ -100,7 +100,6 @@ export default function Settings() {
           setAutoSyncSaves(autoSyncSaves)
           let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
           folder = folder.replace('{InstallDir}', install_path)
-          console.log(config.savesPath)
 
           setSavesPath(config.savesPath || folder)
         }
@@ -217,7 +216,6 @@ export default function Settings() {
               savesPath={savesPath}
               setSavesPath={setSavesPath}
               appName={appName}
-              saveFolder={haveCloudSaving.saveFolder}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
               defaultFolder={winePrefix}
