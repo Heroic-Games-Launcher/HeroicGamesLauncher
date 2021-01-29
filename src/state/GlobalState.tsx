@@ -116,21 +116,13 @@ export class GlobalState extends PureComponent<Props> {
         `${appName}-progress`,
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
-          if (percent < 95) {
-            notify([title, 'Installation Canceled'])
-
-            if (windowIsVisible) {
-              return this.refresh()
-            }
-
-            return currentWindow.reload()
-          }
+          const message =
+            percent < 95 ? 'Installation Canceled' : 'Has finished installing'
+          notify([title, message])
         }
       )
 
-      notify([title, 'Has finished installing'])
-      currentWindow.reload()
-      return this.refresh()
+      return currentWindow.reload()
     }
 
     if (currentApp && currentApp.status === 'updating' && status === 'done') {
@@ -144,20 +136,13 @@ export class GlobalState extends PureComponent<Props> {
         `${appName}-progress`,
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
-          if (percent < 95) {
-            notify([title, 'Updated Canceled'])
-
-            if (windowIsVisible) {
-              return this.refresh()
-            }
-
-            return currentWindow.reload()
-          }
+          const message =
+            percent < 95 ? 'Update Canceled' : 'Has finished updating'
+          notify([title, message])
         }
       )
 
-      notify([title, 'Has finished Updating'])
-      return this.refresh()
+      return currentWindow.reload()
     }
 
     if (currentApp && currentApp.status === 'repairing' && status === 'done') {

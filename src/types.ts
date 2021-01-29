@@ -39,6 +39,8 @@ export interface Game {
   isInstalled: boolean
   cloudSaveEnabled: boolean
   saveFolder: string
+  folderName: string
+  is_dlc: boolean
   extraInfo: ExtraInfo
 }
 

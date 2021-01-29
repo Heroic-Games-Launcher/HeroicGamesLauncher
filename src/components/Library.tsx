@@ -13,7 +13,11 @@ export const Library = ({ library }: Props) => {
       <div className="gameList">
         {library.length ? (
           library.map(
-            ({ title, art_square, art_logo, app_name, isInstalled }: Game) => (
+            ({ title, art_square,is_dlc, art_logo, app_name, isInstalled }: Game) => {
+              if (is_dlc){
+                return null
+              }
+              return (
               <GameCard
                 key={app_name}
                 cover={art_square}
@@ -22,7 +26,7 @@ export const Library = ({ library }: Props) => {
                 appName={app_name}
                 isInstalled={isInstalled}
               />
-            )
+            )}
           )
         ) : (
           <div className="noGames">No Games Found</div>
