@@ -41,7 +41,7 @@ export default function WineSettings({
                   properties: ['openDirectory'],
                 })
                 .then(({ filePaths }: Path) =>
-                  setWinePrefix(filePaths[0] ? `'${filePaths[0]}'` : '~/.wine')
+                  setWinePrefix(filePaths[0] ? `'${filePaths[0]}'` : '')
                 )
             }
           >

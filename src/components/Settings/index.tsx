@@ -26,7 +26,7 @@ export default function Settings() {
     name: 'Wine Default',
     bin: '/usr/bin/wine',
   } as WineProps)
-  const [winePrefix, setWinePrefix] = useState('~/.wine')
+  const [winePrefix, setWinePrefix] = useState('')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
@@ -89,20 +89,10 @@ export default function Settings() {
         setEgsPath(config.egsLinkedPath || '')
         setAutoSyncSaves(config.autoSyncSaves)
         setExitToTray(config.exitToTray || false)
-        if (!isDefault) {
-          const {
-            cloudSaveEnabled,
-            saveFolder,
-            install_path,
-          } = await getGameInfo(appName)
-          setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
-          const isProton = wineVersion.name.includes('Proton')
-          setAutoSyncSaves(autoSyncSaves)
-          let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
-          folder = folder.replace('{InstallDir}', install_path)
+        setSavesPath(config.savesPath || '')
+        const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
 
-          setSavesPath(config.savesPath || folder)
-        }
+        setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
 
         ipcRenderer.send('getAlternativeWine')
         ipcRenderer.on(
@@ -219,6 +209,8 @@ export default function Settings() {
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
               defaultFolder={winePrefix}
+              isProton={wineVersion.name.includes('Proton')}
+              winePrefix={winePrefix}
             />
           )}
           <span className="save">Settings are saved automatically</span>

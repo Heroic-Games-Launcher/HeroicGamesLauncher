@@ -431,9 +431,8 @@ ipcMain.handle('moveInstall', async (event, appName: string) => {
     const modifiedInstall = { ...file, [appName]: game }
     return await execAsync(`mv -f ${install_path} ${newPath}`)
       .then(() => {
-        console.log('moved')
         writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
-          console.log('file updated')
+          console.log(`Finished moving ${appName} to ${newPath}`)
         )
       })
       .catch(console.log)

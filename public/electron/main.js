@@ -345,8 +345,7 @@ electron_1.ipcMain.handle('moveInstall', (event, appName) => __awaiter(void 0, v
         const modifiedInstall = Object.assign(Object.assign({}, file), { [appName]: game });
         return yield execAsync(`mv -f ${install_path} ${newPath}`)
             .then(() => {
-            console.log('moved');
-            fs_1.writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () => console.log('file updated'));
+            fs_1.writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () => console.log(`Finished moving ${appName} to ${newPath}`));
         })
             .catch(console.log);
     }

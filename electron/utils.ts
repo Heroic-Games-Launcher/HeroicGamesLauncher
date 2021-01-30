@@ -214,7 +214,7 @@ const writeDefaultconfig = () => {
         name: 'Wine Default',
         bin: '/usr/bin/wine',
       },
-      winePrefix: '~/.wine',
+      winePrefix: `${home}/.wine`,
       otherOptions: '',
       useGameMode: false,
       showFps: false,
