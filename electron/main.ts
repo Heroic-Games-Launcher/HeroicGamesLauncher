@@ -486,6 +486,7 @@ ipcMain.handle('readFile', async (event, file) => {
             } = metadata
             const cloudSaveEnabled = Boolean(CloudSaveFolder)
             const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+            const installFolder = FolderName ? FolderName.value : ''
             const gameBox = keyImages.filter(
               ({ type }: KeyImage) => type === 'DieselGameBox'
             )[0]
@@ -534,7 +535,7 @@ ipcMain.handle('readFile', async (event, file) => {
               description,
               cloudSaveEnabled,
               saveFolder,
-              folderName: FolderName.value,
+              folderName: installFolder,
               art_cover: art_cover || art_square,
               art_square: art_square || art_cover,
               art_logo,
