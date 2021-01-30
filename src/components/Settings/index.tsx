@@ -90,9 +90,10 @@ export default function Settings() {
         setAutoSyncSaves(config.autoSyncSaves)
         setExitToTray(config.exitToTray || false)
         setSavesPath(config.savesPath || '')
-        const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
-
-        setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
+        if (!isDefault) {
+          const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
+          setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
+        }
 
         ipcRenderer.send('getAlternativeWine')
         ipcRenderer.on(

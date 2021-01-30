@@ -119,10 +119,9 @@ export class GlobalState extends PureComponent<Props> {
           const message =
             percent < 95 ? 'Installation Canceled' : 'Has finished installing'
           notify([title, message])
+          return currentWindow.reload()
         }
       )
-
-      return currentWindow.reload()
     }
 
     if (currentApp && currentApp.status === 'updating' && status === 'done') {
@@ -139,10 +138,9 @@ export class GlobalState extends PureComponent<Props> {
           const message =
             percent < 95 ? 'Update Canceled' : 'Has finished updating'
           notify([title, message])
+          return currentWindow.reload()
         }
       )
-
-      return currentWindow.reload()
     }
 
     if (currentApp && currentApp.status === 'repairing' && status === 'done') {
