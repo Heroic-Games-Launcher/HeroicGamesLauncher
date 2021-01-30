@@ -515,12 +515,12 @@ ipcMain.handle('readFile', async (event, file) => {
               version = null,
               install_size = null,
               install_path = null,
-              is_dlc = null
+              is_dlc = null,
             } = info as InstalledInfo
 
-            const convertedSize = `${byteSize(install_size).value}${
-              byteSize(install_size).unit
-            }`
+            const convertedSize =
+              install_size &&
+              `${byteSize(install_size).value}${byteSize(install_size).unit}`
 
             return {
               isInstalled,
@@ -539,7 +539,7 @@ ipcMain.handle('readFile', async (event, file) => {
               art_cover: art_cover || art_square,
               art_square: art_square || art_cover,
               art_logo,
-              is_dlc
+              is_dlc,
             }
           })
           .sort((a, b) => {
