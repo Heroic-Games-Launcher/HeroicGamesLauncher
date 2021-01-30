@@ -55,7 +55,7 @@ import {
   dialog,
   powerSaveBlocker,
 } from 'electron'
-import { AppSettings, Game, InstalledInfo, KeyImage } from '../types.js'
+import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
 const { showMessageBox, showErrorBox, showOpenDialog } = dialog
 let mainWindow: BrowserWindow = null

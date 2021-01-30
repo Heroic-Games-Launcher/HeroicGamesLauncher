@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ContextProvider from '../../state/ContextProvider'
-import { GameStatus } from '../../../types'
+import { GameStatus } from '../../types'
 const { ipcRenderer } = window.require('electron')
 interface Card {
   cover: string

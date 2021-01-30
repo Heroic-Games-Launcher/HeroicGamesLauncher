@@ -1,5 +1,5 @@
 import React from 'react'
-import { Game } from '../../types'
+import { Game } from '../types'
 import GameCard from './UI/GameCard'
 
 interface Props {

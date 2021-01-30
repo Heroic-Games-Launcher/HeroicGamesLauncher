@@ -7,7 +7,7 @@ import {
   legendary,
   notify,
 } from '../helper'
-import { Game, GameStatus, InstallProgress } from '../../types'
+import { Game, GameStatus, InstallProgress } from '../types'
 import ContextProvider from './ContextProvider'
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')

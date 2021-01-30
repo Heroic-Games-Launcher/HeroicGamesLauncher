@@ -17,7 +17,7 @@ import {
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
-import { AppSettings, Game, GameStatus, InstallProgress } from '../../../types'
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { Link, useParams } from 'react-router-dom'
 import Update from '../UI/Update'
@@ -40,7 +40,7 @@ export default function GamePage() {
   )
 
   const gameStatus: GameStatus = libraryStatus.filter(
-    (game) => game.appName === appName
+    (game: GameStatus) => game.appName === appName
   )[0]
 
   const { status } = gameStatus || {}
@@ -118,7 +118,6 @@ export default function GamePage() {
       install_path,
       install_size,
       isInstalled,
-      executable,
       version,
       extraInfo,
       developer,

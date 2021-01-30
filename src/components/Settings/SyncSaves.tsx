@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
-import { Path, SyncType } from '../../../types'
+import { Path, SyncType } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 

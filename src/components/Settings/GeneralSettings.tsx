@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import ContextProvider from '../../state/ContextProvider'
-import { Path } from '../../../types'
+import { Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 const {

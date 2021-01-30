@@ -144,16 +144,19 @@ const launchGame = (appName) => __awaiter(void 0, void 0, void 0, function* () {
     //@ts-ignore
     const settings = JSON.parse(fs_1.readFileSync(settingsPath));
     const { winePrefix, wineVersion, otherOptions, useGameMode, showFps, launcherArgs = '', showMangohud, audioFix, } = settings[settingsName];
+    console.log();
     let wine = `--wine ${wineVersion.bin}`;
-    let prefix = `--wine-prefix ${winePrefix}`;
+    let prefix = `--wine-prefix ${winePrefix.replace('~', home)}`;
     const isProton = wineVersion.name.startsWith('Proton');
-    prefix = isProton ? '' : `--wine-prefix ${winePrefix}`;
+    prefix = isProton ? '' : prefix;
     const options = {
         other: otherOptions ? otherOptions : '',
         fps: showFps ? `DXVK_HUD=fps` : '',
         audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
         showMangohud: showMangohud ? `MANGOHUD=1` : '',
-        proton: isProton ? `STEAM_COMPAT_DATA_PATH=${winePrefix}` : '',
+        proton: isProton
+            ? `STEAM_COMPAT_DATA_PATH=${winePrefix.replace('~', home)}`
+            : '',
     };
     envVars = Object.values(options).join(' ');
     if (isProton) {
@@ -316,6 +319,8 @@ function installDxvk(prefix) {
         if (!prefix) {
             return;
         }
+        const winePrefix = prefix.replace('~', home);
+        console.log({ prefix, winePrefix });
         if (!fs_1.existsSync(`${heroicToolsPath}/DXVK/latest_dxvk`)) {
             console.log('dxvk not found!');
             yield getLatestDxvk();
@@ -324,7 +329,7 @@ function installDxvk(prefix) {
             .toString()
             .split('\n')[0];
         const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`;
-        const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`;
+        const currentVersionCheck = `${winePrefix.replaceAll("'", '')}/current_dxvk`;
         let currentVersion = '';
         if (fs_1.existsSync(currentVersionCheck)) {
             currentVersion = fs_1.readFileSync(currentVersionCheck).toString().split('\n')[0];
@@ -332,10 +337,10 @@ function installDxvk(prefix) {
         if (currentVersion === globalVersion) {
             return;
         }
-        const installCommand = `WINEPREFIX=${prefix} bash ${dxvkPath}setup_dxvk.sh install`;
+        const installCommand = `WINEPREFIX=${winePrefix} bash ${dxvkPath}setup_dxvk.sh install`;
         const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`;
-        console.log(`installing DXVK on ${prefix}`, installCommand);
-        yield execAsync(`WINEPREFIX=${prefix} wineboot`);
+        console.log(`installing DXVK on ${winePrefix}`, installCommand);
+        yield execAsync(`WINEPREFIX=${winePrefix} wineboot`);
         yield execAsync(installCommand, { shell: '/bin/bash' }).then(() => child_process_1.exec(echoCommand));
     });
 }

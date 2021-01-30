@@ -1,9 +1,9 @@
 import { IpcRendererEvent } from 'electron'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { fixSaveFolder, getGameInfo, writeConfig } from '../../helper'
+import { getGameInfo, writeConfig } from '../../helper'
 import { useToggle } from '../../hooks'
-import { AppSettings, WineProps } from '../../../types'
+import { AppSettings, WineProps } from '../../types'
 import Header from '../UI/Header'
 import GeneralSettings from './GeneralSettings'
 import OtherSettings from './OtherSettings'
@@ -26,7 +26,7 @@ export default function Settings() {
     name: 'Wine Default',
     bin: '/usr/bin/wine',
   } as WineProps)
-  const [winePrefix, setWinePrefix] = useState('')
+  const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
