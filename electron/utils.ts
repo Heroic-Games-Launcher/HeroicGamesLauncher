@@ -392,7 +392,7 @@ const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
     copyright: 'GPL V3',
-    applicationVersion: `${app.getVersion()} Absalom`,
+    applicationVersion: `${app.getVersion()} Doflamingo`,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher',
     iconPath: icon,
   })
