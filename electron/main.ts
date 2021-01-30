@@ -74,7 +74,6 @@ function createWindow() {
     },
   })
 
-  writeDefaultconfig()
   getLatestDxvk()
 
   setTimeout(() => {
@@ -460,6 +459,7 @@ ipcMain.handle('readFile', async (event, file) => {
 
   if (file === 'user') {
     if (loggedIn) {
+      writeDefaultconfig()
       return files[file].displayName
     }
     return null
