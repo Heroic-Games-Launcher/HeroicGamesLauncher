@@ -66,9 +66,14 @@ export const syncSaves = async (
   appName: string,
   arg?: string
 ) => {
+  const { user } = await ipcRenderer.invoke('getUserInfo')
+
+  const path = savesPath.replace('~', `/home/${user}`)
+  console.log(path)
+
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
-    savesPath,
+    path,
     appName,
   ])
   return response

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { syncSaves } from '../../helper'
+import React, { useEffect, useState } from 'react'
+import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
 import { Path, SyncType } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
@@ -15,6 +15,8 @@ interface Props {
   autoSyncSaves: boolean
   setAutoSyncSaves: (value: boolean) => void
   defaultFolder: string
+  isProton: boolean
+  winePrefix: string
 }
 
 export default function SyncSaves({
@@ -24,9 +26,27 @@ export default function SyncSaves({
   autoSyncSaves,
   setAutoSyncSaves,
   defaultFolder,
+  isProton,
+  winePrefix,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
+
+  useEffect(() => {
+    const getSyncFolder = async () => {
+      const { saveFolder, install_path } = await getGameInfo(appName)
+
+      setAutoSyncSaves(autoSyncSaves)
+      let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
+      folder = folder.replace('{InstallDir}', install_path)
+      const path = savesPath ? savesPath : folder
+      console.log(path)
+
+      setSavesPath(path)
+    }
+    getSyncFolder()
+  }, [winePrefix, isProton])
+
   const isLinked = Boolean(savesPath.length)
   const syncTypes: SyncType[] = [
     'Download',
@@ -34,7 +54,6 @@ export default function SyncSaves({
     'Force download',
     'Force upload',
   ]
-
   async function handleSync() {
     setIsSyncing(true)
     const command = {

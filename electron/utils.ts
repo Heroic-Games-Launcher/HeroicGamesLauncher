@@ -15,7 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
-import { AppSettings } from 'types'
+import { AppSettings } from './types'
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
@@ -133,17 +133,19 @@ const launchGame = async (appName: any) => {
   } = settings[settingsName] as AppSettings
 
   let wine = `--wine ${wineVersion.bin}`
-  let prefix = `--wine-prefix ${winePrefix}`
+  let prefix = `--wine-prefix ${winePrefix.replace('~', home)}`
 
   const isProton = wineVersion.name.startsWith('Proton')
-  prefix = isProton ? '' : `--wine-prefix ${winePrefix}`
+  prefix = isProton ? '' : prefix
 
   const options = {
     other: otherOptions ? otherOptions : '',
     fps: showFps ? `DXVK_HUD=fps` : '',
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
     showMangohud: showMangohud ? `MANGOHUD=1` : '',
-    proton: isProton ? `STEAM_COMPAT_DATA_PATH=${winePrefix}` : '',
+    proton: isProton
+      ? `STEAM_COMPAT_DATA_PATH=${winePrefix.replace('~', home)}`
+      : '',
   }
 
   envVars = Object.values(options).join(' ')
@@ -214,7 +216,7 @@ const writeDefaultconfig = () => {
         name: 'Wine Default',
         bin: '/usr/bin/wine',
       },
-      winePrefix: '~/.wine',
+      winePrefix: `${home}/.wine`,
       otherOptions: '',
       useGameMode: false,
       showFps: false,
@@ -355,6 +357,7 @@ async function installDxvk(prefix: string) {
   if (!prefix) {
     return
   }
+  const winePrefix = prefix.replace('~', home)
 
   if (!existsSync(`${heroicToolsPath}/DXVK/latest_dxvk`)) {
     console.log('dxvk not found!')
@@ -365,7 +368,7 @@ async function installDxvk(prefix: string) {
     .toString()
     .split('\n')[0]
   const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
-  const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
+  const currentVersionCheck = `${winePrefix.replaceAll("'", '')}/current_dxvk`
   let currentVersion = ''
 
   if (existsSync(currentVersionCheck)) {
@@ -376,10 +379,10 @@ async function installDxvk(prefix: string) {
     return
   }
 
-  const installCommand = `WINEPREFIX=${prefix} bash ${dxvkPath}setup_dxvk.sh install`
+  const installCommand = `WINEPREFIX=${winePrefix} bash ${dxvkPath}setup_dxvk.sh install`
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
-  console.log(`installing DXVK on ${prefix}`, installCommand)
-  await execAsync(`WINEPREFIX=${prefix} wineboot`)
+  console.log(`installing DXVK on ${winePrefix}`, installCommand)
+  await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
   await execAsync(installCommand, { shell: '/bin/bash' }).then(() =>
     exec(echoCommand)
   )

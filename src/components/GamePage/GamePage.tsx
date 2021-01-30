@@ -40,7 +40,7 @@ export default function GamePage() {
   )
 
   const gameStatus: GameStatus = libraryStatus.filter(
-    (game) => game.appName === appName
+    (game: GameStatus) => game.appName === appName
   )[0]
 
   const { status } = gameStatus || {}
@@ -118,7 +118,6 @@ export default function GamePage() {
       install_path,
       install_size,
       isInstalled,
-      executable,
       version,
       extraInfo,
       developer,
@@ -200,23 +199,17 @@ export default function GamePage() {
                     <div className="summary">
                       {extraInfo ? extraInfo.shortDescription : ''}
                     </div>
-                    <div
-                      style={{
-                        color: cloudSaveEnabled ? '#07C5EF' : '#5A5E5F',
-                      }}
-                    >
-                      Cloud Save Sync:{' '}
-                      {cloudSaveEnabled
-                        ? `Supports (${
-                            autoSyncSaves
-                              ? 'Auto Sync Enabled'
-                              : 'Auto Sync Disabled'
-                          })`
-                        : 'Does not support'}
-                    </div>
+                    {cloudSaveEnabled && (
+                      <div
+                        style={{
+                          color: autoSyncSaves ? '#07C5EF' : '',
+                        }}
+                      >
+                        Sync Saves: {autoSyncSaves ? 'Enabled' : 'Disabled'}
+                      </div>
+                    )}
                     {isInstalled && (
                       <>
-                        <div>Executable: {executable}</div>
                         <div>Size: {install_size}</div>
                         <div>Version: {version}</div>
                         <div
@@ -225,7 +218,7 @@ export default function GamePage() {
                             ipcRenderer.send('openFolder', install_path)
                           }
                         >
-                          Location: {install_path} (Click to Open Location)
+                          Location: {install_path}
                         </div>
                         <br />
                       </>
