@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -72,7 +72,7 @@
     "eject": "react-scripts eject",
     "pretitier": "prettier --check",
     "format-files": "prettier --write .",
-    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm",
+    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "build-any": "npm run dist",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
