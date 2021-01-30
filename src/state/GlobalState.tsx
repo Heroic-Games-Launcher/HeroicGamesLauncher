@@ -116,9 +116,13 @@ export class GlobalState extends PureComponent<Props> {
         `${appName}-progress`,
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
-          const message =
-            percent < 95 ? 'Installation Canceled' : 'Has finished installing'
-          notify([title, message])
+          if (percent) {
+            const message =
+              percent < 95 ? 'Installation Canceled' : 'Has finished installing'
+            notify([title, message])
+            return currentWindow.reload()
+          }
+          notify([title, 'Game Imported'])
           return currentWindow.reload()
         }
       )
