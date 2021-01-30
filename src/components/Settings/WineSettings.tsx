@@ -1,5 +1,5 @@
 import React from 'react'
-import { Path, WineProps } from '../../types'
+import { Path, WineProps } from '../../../types'
 import InfoBox from '../UI/InfoBox'
 const {
   remote: { dialog },

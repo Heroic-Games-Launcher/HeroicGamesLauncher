@@ -17,7 +17,7 @@ import {
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
-import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { Link, useParams } from 'react-router-dom'
 import Update from '../UI/Update'

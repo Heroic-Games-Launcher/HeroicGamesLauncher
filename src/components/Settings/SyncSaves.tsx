@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { syncSaves } from '../../helper'
-import { Path, SyncType } from '../../types'
+import { Path, SyncType } from '../../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 

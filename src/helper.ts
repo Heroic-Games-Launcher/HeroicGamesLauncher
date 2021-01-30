@@ -1,4 +1,4 @@
-import { Game, InstallProgress } from './types'
+import { Game, InstallProgress } from '../types'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {

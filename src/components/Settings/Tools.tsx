@@ -1,5 +1,5 @@
 import React from 'react'
-import { WineProps } from '../../types'
+import { WineProps } from '../../../types'
 const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showOpenDialog },

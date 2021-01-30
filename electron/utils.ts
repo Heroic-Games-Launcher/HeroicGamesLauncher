@@ -15,7 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
-import { AppSettings } from 'types'
+import { AppSettings } from '../types'
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
