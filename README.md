@@ -49,6 +49,7 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 
 - DEB, RPM and AppImage
 - Recommended AUR version: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
+- Fedora (COPR): https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/
 - Might think about Flatpak And/Or SNAP in the future as well
 
 ## How to build and run locally
