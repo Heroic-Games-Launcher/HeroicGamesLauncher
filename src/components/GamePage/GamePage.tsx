@@ -12,6 +12,8 @@ import {
   updateGame,
   repair,
   getProgress,
+  fixSaveFolder,
+  handleStopInstallation,
 } from '../../helper'
 import Header from '../UI/Header'
 import '../../App.css'
@@ -38,7 +40,7 @@ export default function GamePage() {
   )
 
   const gameStatus: GameStatus = libraryStatus.filter(
-    (game) => game.appName === appName
+    (game: GameStatus) => game.appName === appName
   )[0]
 
   const { status } = gameStatus || {}
@@ -58,6 +60,7 @@ export default function GamePage() {
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
+  const isMoving = status === 'moving'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -67,9 +70,18 @@ export default function GamePage() {
         ipcRenderer.send('requestSettings', appName)
         ipcRenderer.once(
           appName,
-          (event: any, { autoSyncSaves, savesPath }: AppSettings) => {
+          async (
+            event: any,
+            { autoSyncSaves, winePrefix, wineVersion }: AppSettings
+          ) => {
+            const isProton = wineVersion.name.includes('Proton')
             setAutoSyncSaves(autoSyncSaves)
-            setSavesPath(savesPath)
+            const folder = await fixSaveFolder(
+              newInfo.saveFolder,
+              winePrefix,
+              isProton
+            )
+            setSavesPath(folder)
           }
         )
       }
@@ -106,14 +118,15 @@ export default function GamePage() {
       install_path,
       install_size,
       isInstalled,
-      executable,
       version,
       extraInfo,
       developer,
       cloudSaveEnabled,
-      saveFolder,
     }: Game = gameInfo
 
+    if (savesPath.includes('{InstallDir}')) {
+      setSavesPath(savesPath.replace('{InstallDir}', install_path))
+    }
     const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
     return (
@@ -144,6 +157,12 @@ export default function GamePage() {
                       className="hidden link"
                     >
                       Verify and Repair
+                    </span>{' '}
+                    <span
+                      onClick={() => handleMoveInstall()}
+                      className="hidden link"
+                    >
+                      Move Game
                     </span>{' '}
                     <span
                       onClick={() => ipcRenderer.send('getLog', appName)}
@@ -180,26 +199,17 @@ export default function GamePage() {
                     <div className="summary">
                       {extraInfo ? extraInfo.shortDescription : ''}
                     </div>
-                    <div
-                      style={{
-                        color: cloudSaveEnabled ? '#07C5EF' : '#5A5E5F',
-                      }}
-                    >
-                      Cloud Save Sync:{' '}
-                      {cloudSaveEnabled
-                        ? `Supports (${
-                            autoSyncSaves
-                              ? 'Auto Sync Enabled'
-                              : 'Auto Sync Disabled'
-                          })`
-                        : 'Does not support'}
-                    </div>
                     {cloudSaveEnabled && (
-                      <div>{`Cloud Sync Folder: ${saveFolder}`}</div>
+                      <div
+                        style={{
+                          color: autoSyncSaves ? '#07C5EF' : '',
+                        }}
+                      >
+                        Sync Saves: {autoSyncSaves ? 'Enabled' : 'Disabled'}
+                      </div>
                     )}
                     {isInstalled && (
                       <>
-                        <div>Executable: {executable}</div>
                         <div>Size: {install_size}</div>
                         <div>Version: {version}</div>
                         <div
@@ -208,7 +218,7 @@ export default function GamePage() {
                             ipcRenderer.send('openFolder', install_path)
                           }
                         >
-                          Location: {install_path} (Click to Open Location)
+                          Location: {install_path}
                         </div>
                         <br />
                       </>
@@ -229,7 +239,7 @@ export default function GamePage() {
                           isInstalled || isInstalling ? '#0BD58C' : '#BD0A0A',
                       }}
                     >
-                      {getInstallLabel(isInstalled, isUpdating)}
+                      {getInstallLabel(isInstalled)}
                     </p>
                   </div>
                   {!isInstalled && !isInstalling && (
@@ -247,7 +257,7 @@ export default function GamePage() {
                     {isInstalled && (
                       <>
                         <button
-                          disabled={isReparing}
+                          disabled={isReparing || isMoving}
                           onClick={handlePlay()}
                           className={`button ${getPlayBtnClass()}`}
                         >
@@ -257,7 +267,9 @@ export default function GamePage() {
                     )}
                     <button
                       onClick={handleInstall(isInstalled)}
-                      disabled={isPlaying || isUpdating || isReparing}
+                      disabled={
+                        isPlaying || isUpdating || isReparing || isMoving
+                      }
                       className={`button ${getButtonClass(isInstalled)}`}
                     >
                       {`${getButtonLabel(isInstalled)}`}
@@ -296,13 +308,14 @@ export default function GamePage() {
     return isPlaying ? 'Playing (Stop)' : 'Play Now'
   }
 
-  function getInstallLabel(
-    isInstalled: boolean,
-    isUpdating: boolean
-  ): React.ReactNode {
+  function getInstallLabel(isInstalled: boolean): React.ReactNode {
     const { eta, percent } = progress
     if (isReparing) {
       return `Repairing Game ${percent ? `${percent}` : '...'}`
+    }
+
+    if (isMoving) {
+      return `Moving Installation, please wait.`
     }
 
     if (isUpdating && isInstalling) {
@@ -389,7 +402,8 @@ export default function GamePage() {
   function handleInstall(isInstalled: boolean): any {
     return async () => {
       if (isInstalling) {
-        return sendKill(appName)
+        const { folderName } = await getGameInfo(appName)
+        return handleStopInstallation(appName, [installPath, folderName])
       }
 
       if (isInstalled) {
@@ -434,6 +448,7 @@ export default function GamePage() {
         if (filePaths[0]) {
           const path = filePaths[0]
           handleGameStatus({ appName, status: 'installing' })
+          setInstallPath(path)
           await install({ appName, path })
           // Wait to be 100% finished
           return setTimeout(() => {
@@ -442,6 +457,20 @@ export default function GamePage() {
         }
       }
     }
+  }
+
+  async function handleMoveInstall() {
+    const { response } = await showMessageBox({
+      title: 'Move Game Installation',
+      message: 'This can take a long time, are you sure?',
+      buttons: ['YES', 'NO'],
+    })
+    if (response === 0) {
+      handleGameStatus({ appName, status: 'moving' })
+      await ipcRenderer.invoke('moveInstall', appName)
+      handleGameStatus({ appName, status: 'done' })
+    }
+    return
   }
 
   async function handleRepair(appName: string) {

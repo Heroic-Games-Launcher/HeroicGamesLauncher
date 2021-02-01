@@ -9,10 +9,10 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 ## Current Version Screenshots
 
 ![login](https://user-images.githubusercontent.com/26871415/104823821-49dedb00-584d-11eb-9e89-0972f5515e96.png)
-![library](https://user-images.githubusercontent.com/26871415/104823772-eb196180-584c-11eb-9302-667e3d3e934e.png)
-![gamepage](https://user-images.githubusercontent.com/26871415/104823773-ec4a8e80-584c-11eb-970b-32b83ab88365.png)
-![game-installed](https://user-images.githubusercontent.com/26871415/104823774-ec4a8e80-584c-11eb-9b11-6a418bf58329.png)
-![settings-other](https://user-images.githubusercontent.com/26871415/104823775-ec4a8e80-584c-11eb-8e9f-4690e8ec21a9.png)
+![library](https://user-images.githubusercontent.com/26871415/106364733-8f150980-6331-11eb-8680-b8128ea0fb5a.png)
+![gamepage](https://user-images.githubusercontent.com/26871415/106364522-f7fb8200-632f-11eb-941d-32ff55d16782.png)
+![image](https://user-images.githubusercontent.com/26871415/106364750-b7046d00-6331-11eb-968a-5f63007cbb3d.png)
+![settings-other](https://user-images.githubusercontent.com/26871415/106364722-760c5880-6331-11eb-8542-1423e6637b49.png)
 
 ## How to use it:
 
@@ -24,8 +24,10 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 - Login with an existing Epic Games account
 - Install/Uninstall Games
 - Import an already installed game
+- Play online (EAC not supported)
 - Update installed Games
 - Repair installed Games
+- Move installed games to different folders
 - Multiple downloads at the same time
 - Play games using the default wine and default prefix
 - Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
@@ -45,8 +47,9 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 
 ## Binaries supported right now
 
-- DEB, RPM, Pacman, AppImage and TAR.XZ (with the heroic binary and all dependecies)
+- DEB, RPM and AppImage
 - Recommended AUR version: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
+- Fedora (COPR): https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/
 - Might think about Flatpak And/Or SNAP in the future as well
 
 ## How to build and run locally
@@ -60,4 +63,4 @@ To be able to run you will need to have NodeJs installed locally and follow the 
 - On the project folder run `npm install`.
 - Run `npm run build` to build the React Assets.
 - Run `npm start`.
-- To build the binaries run `npm run dist`.
+- To build the binaries run `npm run dist {package to create}`.

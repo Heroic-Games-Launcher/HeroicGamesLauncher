@@ -78,7 +78,8 @@ export class GlobalState extends PureComponent<Props> {
           return (
             currentApp.status === 'installing' ||
             currentApp.status === 'repairing' ||
-            currentApp.status === 'updating'
+            currentApp.status === 'updating' ||
+            currentApp.status === 'moving'
           )
         })
       default:
@@ -115,21 +116,16 @@ export class GlobalState extends PureComponent<Props> {
         `${appName}-progress`,
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
-          if (percent < 95) {
-            notify([title, 'Installation Canceled'])
-
-            if (windowIsVisible) {
-              return this.refresh()
-            }
-
+          if (percent) {
+            const message =
+              percent < 95 ? 'Installation Canceled' : 'Has finished installing'
+            notify([title, message])
             return currentWindow.reload()
           }
+          notify([title, 'Game Imported'])
+          return currentWindow.reload()
         }
       )
-
-      notify([title, 'Has finished installing'])
-      currentWindow.reload()
-      return this.refresh()
     }
 
     if (currentApp && currentApp.status === 'updating' && status === 'done') {
@@ -143,20 +139,12 @@ export class GlobalState extends PureComponent<Props> {
         `${appName}-progress`,
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
-          if (percent < 95) {
-            notify([title, 'Updated Canceled'])
-
-            if (windowIsVisible) {
-              return this.refresh()
-            }
-
-            return currentWindow.reload()
-          }
+          const message =
+            percent < 95 ? 'Update Canceled' : 'Has finished updating'
+          notify([title, message])
+          return currentWindow.reload()
         }
       )
-
-      notify([title, 'Has finished Updating'])
-      return this.refresh()
     }
 
     if (currentApp && currentApp.status === 'repairing' && status === 'done') {
@@ -183,6 +171,20 @@ export class GlobalState extends PureComponent<Props> {
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
       notify([title, 'Was uninstalled'])
+
+      if (windowIsVisible) {
+        return this.refresh()
+      }
+
+      return currentWindow.reload()
+    }
+
+    if (currentApp && currentApp.status === 'moving' && status === 'done') {
+      const updatedLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      this.setState({ libraryStatus: updatedLibraryStatus })
+      notify([title, 'Finished Moving Installation'])
 
       if (windowIsVisible) {
         return this.refresh()

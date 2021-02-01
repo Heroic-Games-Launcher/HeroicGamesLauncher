@@ -9,13 +9,13 @@ import {
   mkdir,
   writeFileSync,
 } from 'fs'
-import { homedir } from 'os'
+import { homedir, userInfo as user } from 'os'
 const execAsync = promisify(exec)
 import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
-import { AppSettings } from 'types'
+import { AppSettings } from './types'
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
@@ -133,21 +133,22 @@ const launchGame = async (appName: any) => {
   } = settings[settingsName] as AppSettings
 
   let wine = `--wine ${wineVersion.bin}`
-  let prefix = `--wine-prefix ${winePrefix}`
+  let prefix = `--wine-prefix ${winePrefix.replace('~', home)}`
 
   const isProton = wineVersion.name.startsWith('Proton')
-  prefix = isProton ? '' : `--wine-prefix ${winePrefix}`
+  prefix = isProton ? '' : prefix
 
   const options = {
-    fps: showFps ? ` DXVK_HUD=fps` : '',
-    audio: audioFix ? ` PULSE_LATENCY_MSEC=60` : '',
-    showMangohud: showMangohud ? ` MANGOHUD=1` : '',
-    proton: isProton ? ` STEAM_COMPAT_DATA_PATH=${winePrefix}` : '',
+    other: otherOptions ? otherOptions : '',
+    fps: showFps ? `DXVK_HUD=fps` : '',
+    audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
+    showMangohud: showMangohud ? `MANGOHUD=1` : '',
+    proton: isProton
+      ? `STEAM_COMPAT_DATA_PATH=${winePrefix.replace('~', home)}`
+      : '',
   }
 
-  envVars = otherOptions
-    .concat(Object.values(options).join(''))
-    .replace(' ', '')
+  envVars = Object.values(options).join(' ')
   if (isProton) {
     console.log(
       `\n You are using Proton, this can lead to some bugs, 
@@ -206,6 +207,8 @@ const launchGame = async (appName: any) => {
 }
 
 const writeDefaultconfig = () => {
+  // @ts-ignore
+  const { account_id } = JSON.parse(readFileSync(userInfo))
   const config = {
     defaultSettings: {
       defaultInstallPath: heroicInstallPath,
@@ -213,10 +216,14 @@ const writeDefaultconfig = () => {
         name: 'Wine Default',
         bin: '/usr/bin/wine',
       },
-      winePrefix: '~/.wine',
+      winePrefix: `${home}/.wine`,
       otherOptions: '',
       useGameMode: false,
       showFps: false,
+      userInfo: {
+        name: user,
+        epicId: account_id,
+      },
     },
   }
   if (!existsSync(heroicConfigPath)) {
@@ -253,6 +260,8 @@ const writeGameconfig = (game: any) => {
     showFps,
     //@ts-ignore
   } = JSON.parse(readFileSync(heroicConfigPath)).defaultSettings
+  // @ts-ignore
+  const { account_id } = JSON.parse(readFileSync(userInfo))
   const config = {
     [game]: {
       wineVersion,
@@ -260,6 +269,10 @@ const writeGameconfig = (game: any) => {
       otherOptions,
       useGameMode,
       showFps,
+      userInfo: {
+        name: user,
+        epicId: account_id,
+      },
     },
   }
 
@@ -305,10 +318,11 @@ async function getLatestDxvk() {
     'https://api.github.com/repos/lutris/dxvk/releases/latest'
   )
   const current = assets[0]
-  const name = current.name.replace('.tar.gz', '')
+  const pkg = current.name
+  const name = pkg.replace('.tar.gz', '')
   const downloadUrl = current.browser_download_url
 
-  const dxvkLatest = `${heroicToolsPath}/DXVK/${name}`
+  const dxvkLatest = `${heroicToolsPath}/DXVK/${pkg}`
   const pastVersionCheck = `${heroicToolsPath}/DXVK/latest_dxvk`
   let pastVersion = ''
 
@@ -343,6 +357,7 @@ async function installDxvk(prefix: string) {
   if (!prefix) {
     return
   }
+  const winePrefix = prefix.replace('~', home)
 
   if (!existsSync(`${heroicToolsPath}/DXVK/latest_dxvk`)) {
     console.log('dxvk not found!')
@@ -353,7 +368,7 @@ async function installDxvk(prefix: string) {
     .toString()
     .split('\n')[0]
   const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
-  const currentVersionCheck = `${prefix.replaceAll("'", '')}/current_dxvk`
+  const currentVersionCheck = `${winePrefix.replaceAll("'", '')}/current_dxvk`
   let currentVersion = ''
 
   if (existsSync(currentVersionCheck)) {
@@ -364,10 +379,10 @@ async function installDxvk(prefix: string) {
     return
   }
 
-  const installCommand = `WINEPREFIX=${prefix} bash ${dxvkPath}setup_dxvk.sh install`
+  const installCommand = `WINEPREFIX=${winePrefix} bash ${dxvkPath}setup_dxvk.sh install`
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
-  console.log(`installing DXVK on ${prefix}`, installCommand)
-  await execAsync(`WINEPREFIX=${prefix} wineboot`)
+  console.log(`installing DXVK on ${winePrefix}`, installCommand)
+  await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
   await execAsync(installCommand, { shell: '/bin/bash' }).then(() =>
     exec(echoCommand)
   )
@@ -377,7 +392,7 @@ const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
     copyright: 'GPL V3',
-    applicationVersion: `${app.getVersion()} Absalom`,
+    applicationVersion: `${app.getVersion()} Doflamingo`,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher',
     iconPath: icon,
   })
@@ -388,7 +403,7 @@ const handleExit = async () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     const { response } = await showMessageBox({
       title: 'Exit',
-      message: 'Games are being download, are you sure?',
+      message: 'There are pending operations, are you sure?',
       buttons: ['NO', 'YES'],
     })
 

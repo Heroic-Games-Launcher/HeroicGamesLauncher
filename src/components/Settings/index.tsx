@@ -87,9 +87,9 @@ export default function Settings() {
         setLauncherArgs(config.launcherArgs)
         setEgsLinkedPath(config.egsLinkedPath || '')
         setEgsPath(config.egsLinkedPath || '')
-        setSavesPath(config.savesPath || '')
         setAutoSyncSaves(config.autoSyncSaves)
         setExitToTray(config.exitToTray || false)
+        setSavesPath(config.savesPath || '')
         if (!isDefault) {
           const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
           setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
@@ -207,10 +207,11 @@ export default function Settings() {
               savesPath={savesPath}
               setSavesPath={setSavesPath}
               appName={appName}
-              saveFolder={haveCloudSaving.saveFolder}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
               defaultFolder={winePrefix}
+              isProton={wineVersion.name.includes('Proton')}
+              winePrefix={winePrefix}
             />
           )}
           <span className="save">Settings are saved automatically</span>

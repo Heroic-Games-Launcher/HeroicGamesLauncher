@@ -37,9 +37,10 @@
     "webpack",
     "jest",
     "src/setupTests.ts",
-    "public/start-react.js"
+    "public/start-react.js",
+    "public/*.js"
   ],
   "include": [
     "src"
-  ]
+, "src/types.ts"  ]
 }

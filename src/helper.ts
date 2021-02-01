@@ -1,7 +1,10 @@
 import { Game, InstallProgress } from './types'
 
 const { ipcRenderer, remote } = window.require('electron')
-const { BrowserWindow } = remote
+const {
+  BrowserWindow,
+  dialog: { showMessageBox },
+} = remote
 
 const readFile = async (file: string) =>
   await ipcRenderer.invoke('readFile', file)
@@ -63,9 +66,14 @@ export const syncSaves = async (
   appName: string,
   arg?: string
 ) => {
+  const { user } = await ipcRenderer.invoke('getUserInfo')
+
+  const path = savesPath.replace('~', `/home/${user}`)
+  console.log(path)
+
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
-    savesPath,
+    path,
     appName,
   ])
   return response
@@ -114,4 +122,97 @@ export const formatStoreUrl = (title: string) =>
 
 export function getProgress(progress: InstallProgress): number {
   return Number(progress.percent.replace('%', ''))
+}
+
+export async function fixSaveFolder(
+  folder: string,
+  prefix: string,
+  isProton: boolean
+) {
+  const { user, epicId } = await ipcRenderer.invoke('getUserInfo')
+  const username = isProton ? 'steamuser' : user
+  let winePrefix = prefix.replaceAll("'", '')
+  winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
+
+  folder = folder.replace('{EpicID}', epicId)
+  folder = folder.replace('{EpicId}', epicId)
+
+  if (folder.includes('locallow')) {
+    return folder.replace(
+      '{appdata}/../locallow',
+      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+    )
+  }
+
+  if (folder.includes('LocalLow')) {
+    return folder.replace(
+      '{AppData}/../LocalLow',
+      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+    )
+  }
+
+  if (folder.includes('{UserSavedGames}')) {
+    return folder.replace(
+      '{UserSavedGames}',
+      `${winePrefix}/drive_c/users/${username}/Saved Games`
+    )
+  }
+
+  if (folder.includes('roaming')) {
+    return folder.replace(
+      '{appdata}/../roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('{appdata}/../Roaming/')) {
+    return folder.replace(
+      '{appdata}/../Roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('Roaming')) {
+    return folder.replace(
+      '{AppData}/../Roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('{AppData}')) {
+    return folder.replace(
+      '{AppData}',
+      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+    )
+  }
+
+  if (folder.includes('{UserDir}')) {
+    return folder.replace(
+      '{UserDir}',
+      `${winePrefix}/drive_c/users/${username}/My Documents`
+    )
+  }
+
+  return folder
+}
+
+export async function handleStopInstallation(
+  appName: string,
+  [path, folderName]: string[]
+) {
+  const { response } = await showMessageBox({
+    title: 'Stop Installation',
+    message: 'Do you wish to KEEP downloaded files?',
+    buttons: ['KEEP INSTALLING', 'YES', 'NO'],
+  })
+  if (response === 0) {
+    return
+  }
+  if (response === 1) {
+    sendKill(appName)
+  }
+  if (response === 2) {
+    ipcRenderer.send('removeFolder', [path, folderName])
+    sendKill(appName)
+  }
 }

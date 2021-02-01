@@ -39,6 +39,7 @@ import {
 } from 'fs'
 import { promisify } from 'util'
 import axios from 'axios'
+import { userInfo as user } from 'os'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -56,7 +57,7 @@ import {
 } from 'electron'
 import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
 
-const { showMessageBox, showErrorBox } = dialog
+const { showMessageBox, showErrorBox, showOpenDialog } = dialog
 let mainWindow: BrowserWindow = null
 
 function createWindow() {
@@ -73,7 +74,6 @@ function createWindow() {
     },
   })
 
-  writeDefaultconfig()
   getLatestDxvk()
 
   setTimeout(() => {
@@ -406,6 +406,39 @@ ipcMain.on('getLog', (event, appName) =>
   spawn('xdg-open', [`${heroicGamesConfigPath}/${appName}-lastPlay.log`])
 )
 
+const installed = `${legendaryConfigPath}/installed.json`
+
+ipcMain.handle('moveInstall', async (event, appName: string) => {
+  const { filePaths } = await showOpenDialog({
+    title: 'Choose where you want to move',
+    buttonLabel: 'Choose',
+    properties: ['openDirectory'],
+  })
+
+  if (filePaths[0]) {
+    // @ts-ignore
+    const file = JSON.parse(readFileSync(installed))
+    const installedGames: Game[] = Object.values(file)
+    const { install_path } = installedGames.filter(
+      (game) => game.app_name === appName
+    )[0]
+
+    const splitPath = install_path.split('/')
+    const installFolder = splitPath[splitPath.length - 1]
+    const newPath = `${filePaths[0]}/${installFolder}`
+    const game: Game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    return await execAsync(`mv -f ${install_path} ${newPath}`)
+      .then(() => {
+        writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
+          console.log(`Finished moving ${appName} to ${newPath}`)
+        )
+      })
+      .catch(console.log)
+  }
+  return
+})
+
 ipcMain.handle('readFile', async (event, file) => {
   const loggedIn = isLoggedIn()
 
@@ -413,7 +446,6 @@ ipcMain.handle('readFile', async (event, file) => {
     return { user: { displayName: null }, library: [] }
   }
 
-  const installed = `${legendaryConfigPath}/installed.json`
   const files: any = {
     // @ts-ignore
     user: loggedIn ? JSON.parse(readFileSync(userInfo)) : { displayName: null },
@@ -427,6 +459,7 @@ ipcMain.handle('readFile', async (event, file) => {
 
   if (file === 'user') {
     if (loggedIn) {
+      writeDefaultconfig()
       return files[file].displayName
     }
     return null
@@ -449,10 +482,11 @@ ipcMain.handle('readFile', async (event, file) => {
               keyImages,
               title,
               developer,
-              customAttributes: { CloudSaveFolder },
+              customAttributes: { CloudSaveFolder, FolderName },
             } = metadata
             const cloudSaveEnabled = Boolean(CloudSaveFolder)
             const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+            const installFolder = FolderName ? FolderName.value : ''
             const gameBox = keyImages.filter(
               ({ type }: KeyImage) => type === 'DieselGameBox'
             )[0]
@@ -468,6 +502,7 @@ ipcMain.handle('readFile', async (event, file) => {
             const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
             const installedGames: Game[] = Object.values(files.installed)
+
             const isInstalled = Boolean(
               installedGames.filter((game) => game.app_name === app_name).length
             )
@@ -480,11 +515,12 @@ ipcMain.handle('readFile', async (event, file) => {
               version = null,
               install_size = null,
               install_path = null,
+              is_dlc = null,
             } = info as InstalledInfo
 
-            const convertedSize = `${byteSize(install_size).value}${
-              byteSize(install_size).unit
-            }`
+            const convertedSize =
+              install_size &&
+              `${byteSize(install_size).value}${byteSize(install_size).unit}`
 
             return {
               isInstalled,
@@ -499,9 +535,11 @@ ipcMain.handle('readFile', async (event, file) => {
               description,
               cloudSaveEnabled,
               saveFolder,
+              folderName: installFolder,
               art_cover: art_cover || art_square,
               art_square: art_square || art_cover,
               art_logo,
+              is_dlc,
             }
           })
           .sort((a, b) => {
@@ -534,9 +572,36 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
+ipcMain.handle('getUserInfo', () => {
+  // @ts-ignore
+  const { account_id } = JSON.parse(readFileSync(userInfo))
+  return { user: user().username, epicId: account_id }
+})
+
+ipcMain.on('removeFolder', (e, args: string[]) => {
+  const [path, folderName] = args
+
+  if (path === 'default') {
+    // @ts-ignore
+    let { defaultInstallPath } = JSON.parse(readFileSync(heroicConfigPath))
+      .defaultSettings as AppSettings
+    defaultInstallPath = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${defaultInstallPath}/${folderName}`
+    return setTimeout(() => {
+      exec(`rm -Rf ${folderToDelete}`)
+    }, 2000)
+  }
+
+  const folderToDelete = `${path}/${folderName}`
+  return setTimeout(() => {
+    exec(`rm -Rf ${folderToDelete}`)
+  }, 2000)
+})
+
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
-  const command = `${legendaryBin} sync-saves --save-path ${path} ${arg} ${appName} -y`
+
+  const command = `${legendaryBin} sync-saves --save-path "${path}" ${arg} ${appName} -y`
   const legendarySavesPath = `${home}/legendary/.saves`
 
   //workaround error when no .saves folder exists

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { syncSaves } from '../../helper'
+import React, { useEffect, useState } from 'react'
+import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
 import { Path, SyncType } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
@@ -13,9 +13,10 @@ interface Props {
   setSavesPath: (value: string) => void
   appName: string
   autoSyncSaves: boolean
-  saveFolder: string
   setAutoSyncSaves: (value: boolean) => void
   defaultFolder: string
+  isProton: boolean
+  winePrefix: string
 }
 
 export default function SyncSaves({
@@ -24,11 +25,28 @@ export default function SyncSaves({
   appName,
   autoSyncSaves,
   setAutoSyncSaves,
-  saveFolder,
   defaultFolder,
+  isProton,
+  winePrefix,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
+
+  useEffect(() => {
+    const getSyncFolder = async () => {
+      const { saveFolder, install_path } = await getGameInfo(appName)
+
+      setAutoSyncSaves(autoSyncSaves)
+      let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
+      folder = folder.replace('{InstallDir}', install_path)
+      const path = savesPath ? savesPath : folder
+      console.log(path)
+
+      setSavesPath(path)
+    }
+    getSyncFolder()
+  }, [winePrefix, isProton])
+
   const isLinked = Boolean(savesPath.length)
   const syncTypes: SyncType[] = [
     'Download',
@@ -36,7 +54,6 @@ export default function SyncSaves({
     'Force download',
     'Force upload',
   ]
-
   async function handleSync() {
     setIsSyncing(true)
     const command = {
@@ -55,9 +72,7 @@ export default function SyncSaves({
   return (
     <>
       <span className="setting">
-        <span className="settingText">
-          Search or create the folder with the save games on the GamePrefix
-        </span>
+        <span className="settingText">Override Cloud Sync Save folder</span>
         <span>
           <input
             type="text"
@@ -142,9 +157,17 @@ export default function SyncSaves({
       <InfoBox>
         <ul>
           <li>
-            The folder where the saves for this game is stored is{' '}
-            <strong>{saveFolder}</strong>. Find it or create it inside the wine
-            prefix.
+            Heroic try to guess the right save folder and this will work on the
+            majority of cases. In case the folder is wrong, use the override box
+            to change it.
+          </li>
+          <li>
+            In case you change the prefix folder or Wine for Proton and
+            vice-versa, you will need to check the path again since proton uses
+            a different prefix (/pfx) and username (steamuser). So you can
+            simple erase the current path, get out of the sync settings page and
+            get back again for Heroic to guess the folder one more time with the
+            right prefix.
           </li>
           <li>
             Manual Sync: Choose Download to download the games saves stored on
