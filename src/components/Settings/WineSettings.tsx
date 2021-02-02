@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { WineProps, Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
 const {
+  ipcRenderer,
   remote: { dialog },
 } = window.require('electron')
 
@@ -11,15 +12,27 @@ interface Props {
   setWineversion: (wine: WineProps) => void
   wineVersion: WineProps
   altWine: WineProps[]
+  setAltWine: (altWine: WineProps[]) => void
 }
 
 export default function WineSettings({
   winePrefix,
   setWinePrefix,
   setWineversion,
+  setAltWine,
   wineVersion,
   altWine,
 }: Props) {
+  useEffect(() => {
+    const getAltWine = async () => {
+      const wineList: WineProps[] = await ipcRenderer.invoke(
+        'getAlternativeWine'
+      )
+      setAltWine(wineList)
+    }
+    getAltWine()
+  }, [altWine])
+
   return (
     <>
       <span className="setting">
@@ -41,7 +54,7 @@ export default function WineSettings({
                   properties: ['openDirectory'],
                 })
                 .then(({ filePaths }: Path) =>
-                  setWinePrefix(filePaths[0] ? `'${filePaths[0]}'` : '~/.wine')
+                  setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')
                 )
             }
           >

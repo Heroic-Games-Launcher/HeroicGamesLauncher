@@ -97,7 +97,7 @@ export default function SyncSaves({
                         properties: ['openDirectory'],
                       })
                       .then(({ filePaths }: Path) =>
-                        setSavesPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                        setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
                       )
               }
             >
