@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { Suspense, useContext } from 'react'
 
 import './App.css'
 import { Library } from './components/Library'
@@ -22,24 +22,26 @@ function App() {
   const numberOfGames = library.length
 
   return (
-    <div className="App">
-      <HashRouter>
-        <NavBar />
-        <Switch>
-          <Route exact path="/">
-            <Header
-              goTo={''}
-              renderBackButton={false}
-              handleFilter={handleFilter}
-              numberOfGames={numberOfGames}
-            />
-            <Library library={library} />
-          </Route>
-          <Route exact path="/gameconfig/:appName" component={GamePage} />
-          <Route path="/settings/:appName/:type" component={Settings} />
-        </Switch>
-      </HashRouter>
-    </div>
+    <Suspense fallback="loading">
+      <div className="App">
+        <HashRouter>
+          <NavBar />
+          <Switch>
+            <Route exact path="/">
+              <Header
+                goTo={''}
+                renderBackButton={false}
+                handleFilter={handleFilter}
+                numberOfGames={numberOfGames}
+              />
+              <Library library={library} />
+            </Route>
+            <Route exact path="/gameconfig/:appName" component={GamePage} />
+            <Route path="/settings/:appName/:type" component={Settings} />
+          </Switch>
+        </HashRouter>
+      </div>
+    </Suspense>
   )
 }
 
