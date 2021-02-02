@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import ContextProvider from '../../state/ContextProvider'
 
@@ -15,6 +16,7 @@ export default function Header({
   handleFilter,
   goTo,
 }: Props) {
+  const { t } = useTranslation('header')
   const { filter, libraryStatus } = useContext(ContextProvider)
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
@@ -25,41 +27,45 @@ export default function Header({
       <div className="header">
         {handleFilter && (
           <span className="selectFilter">
-            <span>Filter:</span>
+            <span>{t('Filter')}:</span>
             <span
               className={filter === 'all' ? 'selected' : ''}
               onClick={() => handleFilter('all')}
             >
-              All
+              {t('All')}
             </span>
             <span
               className={filter === 'installed' ? 'selected' : ''}
               onClick={() => handleFilter('installed')}
             >
-              Ready
+              {t('Ready')}
             </span>
             <span
               className={filter === 'uninstalled' ? 'selected' : ''}
               onClick={() => handleFilter('uninstalled')}
             >
-              Not Ready
+              {t('Not Ready')}
             </span>
             <span
               className={filter === 'downloading' ? 'selected' : ''}
               onClick={() => handleFilter('downloading')}
             >
-              {`Downloading ${haveDownloads > 0 ? `(${haveDownloads})` : ''}`}
+              {`${t('Downloading')} ${
+                haveDownloads > 0 ? `(${haveDownloads})` : ''
+              }`}
             </span>
           </span>
         )}
         {Boolean(numberOfGames) && (
-          <span className="totalGamesText">Total Games: {numberOfGames}</span>
+          <span className="totalGamesText">
+            {t('Total Games')}: {numberOfGames}
+          </span>
         )}
         {renderBackButton && (
           <div className="leftCluster">
             <Link className="returnLink" to={goTo}>
               <span className="material-icons">arrow_back</span>
-              Return
+              {t('Return')}
             </Link>
           </div>
         )}
