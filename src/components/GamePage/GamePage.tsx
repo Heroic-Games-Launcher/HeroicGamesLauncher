@@ -477,7 +477,7 @@ export default function GamePage() {
     const { response } = await showMessageBox({
       title: 'Verify and Repair',
       message:
-        'Do you want to try to repair this game. It can take a long time?',
+        'Do you want to try to repair this game? This can take a long time.',
       buttons: ['YES', 'NO'],
     })
 
