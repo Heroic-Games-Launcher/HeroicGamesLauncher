@@ -96,6 +96,23 @@ const getAlternativeWine = () => {
 
 const isLoggedIn = () => existsSync(userInfo)
 
+const getSettings = (appName: string | 'default'): AppSettings => {
+  const gameConfig = `${heroicGamesConfigPath}${appName}.json`
+  const globalConfig = heroicConfigPath
+  let settingsPath = gameConfig
+  let settingsName = appName
+
+  if (appName === 'default' || !existsSync(gameConfig)) {
+    settingsPath = globalConfig
+    settingsName = 'defaultSettings'
+  }
+
+  const settings = JSON.parse(readFileSync(settingsPath, 'utf-8'))
+  return settings[settingsName]
+}
+
+const getUserInfo = () => JSON.parse(readFileSync(userInfo, 'utf-8'))
+
 const updateGame = (game: any) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
@@ -109,18 +126,6 @@ const launchGame = async (appName: any) => {
   let dxvkPrefix = ''
   let gameMode
 
-  const gameConfig = `${heroicGamesConfigPath}${appName}.json`
-  const globalConfig = heroicConfigPath
-  let settingsPath = gameConfig
-  let settingsName = appName
-
-  if (!existsSync(gameConfig)) {
-    settingsPath = globalConfig
-    settingsName = 'defaultSettings'
-  }
-
-  //@ts-ignore
-  const settings = JSON.parse(readFileSync(settingsPath))
   const {
     winePrefix,
     wineVersion,
@@ -130,10 +135,14 @@ const launchGame = async (appName: any) => {
     launcherArgs = '',
     showMangohud,
     audioFix,
-  } = settings[settingsName] as AppSettings
+  } = getSettings(appName)
 
   let wine = `--wine ${wineVersion.bin}`
-  let prefix = `--wine-prefix ${winePrefix.replace('~', home)}`
+
+  // We need to keep replacing the ' to keep compatibility with old configs
+  let prefix = `--wine-prefix '${winePrefix
+    .replaceAll("'", '')
+    .replace('~', home)}'`
 
   const isProton = wineVersion.name.startsWith('Proton')
   prefix = isProton ? '' : prefix
@@ -144,7 +153,9 @@ const launchGame = async (appName: any) => {
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
     showMangohud: showMangohud ? `MANGOHUD=1` : '',
     proton: isProton
-      ? `STEAM_COMPAT_DATA_PATH=${winePrefix.replace('~', home)}`
+      ? `STEAM_COMPAT_DATA_PATH='${winePrefix
+          .replaceAll("'", '')
+          .replace('~', home)}'`
       : '',
   }
 
@@ -207,8 +218,7 @@ const launchGame = async (appName: any) => {
 }
 
 const writeDefaultconfig = () => {
-  // @ts-ignore
-  const { account_id } = JSON.parse(readFileSync(userInfo))
+  const { account_id } = getUserInfo()
   const config = {
     defaultSettings: {
       defaultInstallPath: heroicInstallPath,
@@ -258,10 +268,9 @@ const writeGameconfig = (game: any) => {
     otherOptions,
     useGameMode,
     showFps,
-    //@ts-ignore
-  } = JSON.parse(readFileSync(heroicConfigPath)).defaultSettings
-  // @ts-ignore
-  const { account_id } = JSON.parse(readFileSync(userInfo))
+  } = getSettings('default')
+
+  const { account_id } = getUserInfo()
   const config = {
     [game]: {
       wineVersion,
@@ -280,8 +289,7 @@ const writeGameconfig = (game: any) => {
     writeFileSync(
       `${heroicGamesConfigPath}${game}.json`,
       JSON.stringify(config, null, 2),
-      //@ts-ignore
-      () => 'done'
+      null
     )
   }
 }
@@ -368,7 +376,7 @@ async function installDxvk(prefix: string) {
     .toString()
     .split('\n')[0]
   const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
-  const currentVersionCheck = `${winePrefix.replaceAll("'", '')}/current_dxvk`
+  const currentVersionCheck = `${winePrefix}/current_dxvk`
   let currentVersion = ''
 
   if (existsSync(currentVersionCheck)) {
@@ -417,6 +425,7 @@ const handleExit = async () => {
 
 export {
   getAlternativeWine,
+  getSettings,
   isLoggedIn,
   launchGame,
   writeDefaultconfig,

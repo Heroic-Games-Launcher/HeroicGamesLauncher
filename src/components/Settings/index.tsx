@@ -1,4 +1,3 @@
-import { IpcRendererEvent } from 'electron'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from '../../helper'
@@ -69,40 +68,34 @@ export default function Settings() {
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
 
-  const settings = isDefault ? 'defaultSettings' : appName
-
   useEffect(() => {
-    ipcRenderer.send('requestSettings', appName)
-    ipcRenderer.once(
-      settings,
-      async (event: IpcRendererEvent, config: AppSettings) => {
-        setUseGameMode(config.useGameMode || false)
-        setShowFps(config.showFps || false)
-        setAudioFix(config.audioFix || false)
-        setShowMangoHud(config.showMangohud || false)
-        setDefaultInstallPath(config.defaultInstallPath)
-        setWineversion(config.wineVersion)
-        setWinePrefix(config.winePrefix)
-        setOtherOptions(config.otherOptions)
-        setLauncherArgs(config.launcherArgs)
-        setEgsLinkedPath(config.egsLinkedPath || '')
-        setEgsPath(config.egsLinkedPath || '')
-        setAutoSyncSaves(config.autoSyncSaves)
-        setExitToTray(config.exitToTray || false)
-        setSavesPath(config.savesPath || '')
-        if (!isDefault) {
-          const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
-          setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
-        }
+    const getSettings = async () => {
+      const config: AppSettings = await ipcRenderer.invoke(
+        'requestSettings',
+        appName
+      )
+      setUseGameMode(config.useGameMode || false)
+      setShowFps(config.showFps || false)
+      setAudioFix(config.audioFix || false)
+      setShowMangoHud(config.showMangohud || false)
+      setDefaultInstallPath(config.defaultInstallPath)
+      setWineversion(config.wineVersion)
+      setWinePrefix(config.winePrefix)
+      setOtherOptions(config.otherOptions)
+      setLauncherArgs(config.launcherArgs)
+      setEgsLinkedPath(config.egsLinkedPath || '')
+      setEgsPath(config.egsLinkedPath || '')
+      setAutoSyncSaves(config.autoSyncSaves)
+      setExitToTray(config.exitToTray || false)
+      setSavesPath(config.savesPath || '')
 
-        ipcRenderer.send('getAlternativeWine')
-        ipcRenderer.on(
-          'alternativeWine',
-          (event: IpcRendererEvent, args: WineProps[]) => setAltWine(args)
-        )
+      if (!isDefault) {
+        const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
+        setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
-    )
-  }, [appName, settings, type, isDefault])
+    }
+    getSettings()
+  }, [appName, type])
 
   const GlobalSettings = {
     defaultSettings: {
@@ -177,6 +170,7 @@ export default function Settings() {
           {isWineSettings && (
             <WineSettings
               altWine={altWine}
+              setAltWine={setAltWine}
               wineVersion={wineVersion}
               winePrefix={winePrefix}
               setWineversion={setWineversion}

@@ -67,23 +67,20 @@ export default function GamePage() {
       const newInfo = await getGameInfo(appName)
       setGameInfo(newInfo)
       if (newInfo.cloudSaveEnabled) {
-        ipcRenderer.send('requestSettings', appName)
-        ipcRenderer.once(
-          appName,
-          async (
-            event: any,
-            { autoSyncSaves, winePrefix, wineVersion }: AppSettings
-          ) => {
-            const isProton = wineVersion.name.includes('Proton')
-            setAutoSyncSaves(autoSyncSaves)
-            const folder = await fixSaveFolder(
-              newInfo.saveFolder,
-              winePrefix,
-              isProton
-            )
-            setSavesPath(folder)
-          }
+        const {
+          autoSyncSaves,
+          winePrefix,
+          wineVersion,
+          savesPath,
+        }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
+        const isProton = wineVersion.name.includes('Proton')
+        setAutoSyncSaves(autoSyncSaves)
+        const folder = await fixSaveFolder(
+          newInfo.saveFolder,
+          winePrefix,
+          isProton
         )
+        setSavesPath(savesPath || folder)
       }
     }
     updateConfig()

@@ -21,6 +21,7 @@ import {
   handleExit,
   heroicGithubURL,
   iconDark,
+  getSettings,
   iconLight,
 } from './utils'
 
@@ -55,7 +56,7 @@ import {
   dialog,
   powerSaveBlocker,
 } from 'electron'
-import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
+import { Game, InstalledInfo, KeyImage } from './types.js'
 
 const { showMessageBox, showErrorBox, showOpenDialog } = dialog
 let mainWindow: BrowserWindow = null
@@ -94,10 +95,7 @@ function createWindow() {
     mainWindow.webContents.openDevTools()
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = JSON.parse(
-        // @ts-ignore
-        readFileSync(heroicConfigPath)
-      ).defaultSettings as AppSettings
+      const { exitToTray } = getSettings('default')
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -107,10 +105,7 @@ function createWindow() {
   } else {
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = JSON.parse(
-        // @ts-ignore
-        readFileSync(heroicConfigPath)
-      ).defaultSettings as AppSettings
+      const { exitToTray } = getSettings('default')
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -285,10 +280,7 @@ ipcMain.handle('install', async (event, args) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
   if (path === 'default') {
-    const { defaultInstallPath } = JSON.parse(
-      // @ts-ignore
-      readFileSync(heroicConfigPath)
-    ).defaultSettings
+    const { defaultInstallPath } = getSettings('default')
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
@@ -342,9 +334,7 @@ ipcMain.on('kill', (event, game) => {
 
 ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
 
-ipcMain.on('getAlternativeWine', (event) =>
-  event.reply('alternativeWine', getAlternativeWine())
-)
+ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
@@ -375,24 +365,16 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
   return exec(command)
 })
 
-ipcMain.on('requestSettings', (event, appName) => {
-  let settings: AppSettings
+ipcMain.handle('requestSettings', (event, appName) => {
+  if (appName === 'default') {
+    return getSettings('default')
+  }
+
   if (appName !== 'default') {
     writeGameconfig(appName)
   }
-  // @ts-ignore
-  const defaultSettings = JSON.parse(readFileSync(heroicConfigPath))
-  if (appName === 'default') {
-    return event.reply('defaultSettings', defaultSettings.defaultSettings)
-  }
-  if (existsSync(`${heroicGamesConfigPath}${appName}.json`)) {
-    settings = JSON.parse(
-      // @ts-ignore
-      readFileSync(`${heroicGamesConfigPath}${appName}.json`)
-    )
-    return event.reply(appName, settings[appName])
-  }
-  return event.reply(appName, defaultSettings.defaultSettings)
+
+  return getSettings(appName)
 })
 
 //Checks if the user have logged in with Legendary already
@@ -416,8 +398,7 @@ ipcMain.handle('moveInstall', async (event, appName: string) => {
   })
 
   if (filePaths[0]) {
-    // @ts-ignore
-    const file = JSON.parse(readFileSync(installed))
+    const file = JSON.parse(readFileSync(installed, 'utf8'))
     const installedGames: Game[] = Object.values(file)
     const { install_path } = installedGames.filter(
       (game) => game.app_name === appName
@@ -447,13 +428,13 @@ ipcMain.handle('readFile', async (event, file) => {
   }
 
   const files: any = {
-    // @ts-ignore
-    user: loggedIn ? JSON.parse(readFileSync(userInfo)) : { displayName: null },
+    user: loggedIn
+      ? JSON.parse(readFileSync(userInfo, 'utf8'))
+      : { displayName: null },
     library: `${legendaryConfigPath}/metadata/`,
     config: heroicConfigPath,
     installed: await statAsync(installed)
-      // @ts-ignore
-      .then(() => JSON.parse(readFileSync(installed)))
+      .then(() => JSON.parse(readFileSync(installed, 'utf-8')))
       .catch(() => []),
   }
 
@@ -471,83 +452,80 @@ ipcMain.handle('readFile', async (event, file) => {
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
 
     if (library) {
-      return (
-        readdirSync(files.library)
-          .map((file) => `${files.library}/${file}`)
-          // @ts-ignore
-          .map((file) => JSON.parse(readFileSync(file)))
-          .map(({ app_name, metadata }) => {
-            const {
-              description,
-              keyImages,
-              title,
-              developer,
-              customAttributes: { CloudSaveFolder, FolderName },
-            } = metadata
-            const cloudSaveEnabled = Boolean(CloudSaveFolder)
-            const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
-            const installFolder = FolderName ? FolderName.value : ''
-            const gameBox = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBox'
-            )[0]
-            const gameBoxTall = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-            )[0]
-            const logo = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-            )[0]
+      return readdirSync(files.library)
+        .map((file) => `${files.library}/${file}`)
+        .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
+        .map(({ app_name, metadata }) => {
+          const {
+            description,
+            keyImages,
+            title,
+            developer,
+            customAttributes: { CloudSaveFolder, FolderName },
+          } = metadata
+          const cloudSaveEnabled = Boolean(CloudSaveFolder)
+          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+          const installFolder = FolderName ? FolderName.value : ''
+          const gameBox = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBox'
+          )[0]
+          const gameBoxTall = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxTall'
+          )[0]
+          const logo = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
+          )[0]
 
-            const art_cover = gameBox ? gameBox.url : null
-            const art_logo = logo ? logo.url : null
-            const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+          const art_cover = gameBox ? gameBox.url : null
+          const art_logo = logo ? logo.url : null
+          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
-            const installedGames: Game[] = Object.values(files.installed)
+          const installedGames: Game[] = Object.values(files.installed)
 
-            const isInstalled = Boolean(
-              installedGames.filter((game) => game.app_name === app_name).length
-            )
-            const info = isInstalled
-              ? installedGames.filter((game) => game.app_name === app_name)[0]
-              : {}
+          const isInstalled = Boolean(
+            installedGames.filter((game) => game.app_name === app_name).length
+          )
+          const info = isInstalled
+            ? installedGames.filter((game) => game.app_name === app_name)[0]
+            : {}
 
-            const {
-              executable = null,
-              version = null,
-              install_size = null,
-              install_path = null,
-              is_dlc = null,
-            } = info as InstalledInfo
+          const {
+            executable = null,
+            version = null,
+            install_size = null,
+            install_path = null,
+            is_dlc = null,
+          } = info as InstalledInfo
 
-            const convertedSize =
-              install_size &&
-              `${byteSize(install_size).value}${byteSize(install_size).unit}`
+          const convertedSize =
+            install_size &&
+            `${byteSize(install_size).value}${byteSize(install_size).unit}`
 
-            return {
-              isInstalled,
-              info,
-              title,
-              executable,
-              version,
-              install_size: convertedSize,
-              install_path,
-              app_name,
-              developer,
-              description,
-              cloudSaveEnabled,
-              saveFolder,
-              folderName: installFolder,
-              art_cover: art_cover || art_square,
-              art_square: art_square || art_cover,
-              art_logo,
-              is_dlc,
-            }
-          })
-          .sort((a, b) => {
-            const gameA = a.title.toUpperCase()
-            const gameB = b.title.toUpperCase()
-            return gameA < gameB ? -1 : 1
-          })
-      )
+          return {
+            isInstalled,
+            info,
+            title,
+            executable,
+            version,
+            install_size: convertedSize,
+            install_path,
+            app_name,
+            developer,
+            description,
+            cloudSaveEnabled,
+            saveFolder,
+            folderName: installFolder,
+            art_cover: art_cover || art_square,
+            art_square: art_square || art_cover,
+            art_logo,
+            is_dlc,
+          }
+        })
+        .sort((a, b) => {
+          const gameA = a.title.toUpperCase()
+          const gameB = b.title.toUpperCase()
+          return gameA < gameB ? -1 : 1
+        })
     }
     return []
   }
@@ -573,8 +551,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 })
 
 ipcMain.handle('getUserInfo', () => {
-  // @ts-ignore
-  const { account_id } = JSON.parse(readFileSync(userInfo))
+  const { account_id } = JSON.parse(readFileSync(userInfo, 'utf-8'))
   return { user: user().username, epicId: account_id }
 })
 
@@ -582,10 +559,9 @@ ipcMain.on('removeFolder', (e, args: string[]) => {
   const [path, folderName] = args
 
   if (path === 'default') {
-    // @ts-ignore
-    let { defaultInstallPath } = JSON.parse(readFileSync(heroicConfigPath))
-      .defaultSettings as AppSettings
-    defaultInstallPath = defaultInstallPath.replaceAll("'", '')
+    const defaultInstallPath = getSettings(
+      'default'
+    ).defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${defaultInstallPath}/${folderName}`
     return setTimeout(() => {
       exec(`rm -Rf ${folderToDelete}`)
