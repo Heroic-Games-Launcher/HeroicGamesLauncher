@@ -9,6 +9,7 @@ import Settings from './components/Settings'
 import GamePage from './components/GamePage/GamePage'
 import Header from './components/UI/Header'
 import ContextProvider from './state/ContextProvider'
+import Update from './components/UI/Update'
 
 function App() {
   const context = useContext(ContextProvider)
@@ -22,7 +23,7 @@ function App() {
   const numberOfGames = library.length
 
   return (
-    <Suspense fallback="loading">
+    <Suspense fallback={<Update />}>
       <div className="App">
         <HashRouter>
           <NavBar />

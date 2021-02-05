@@ -78,7 +78,6 @@
   font-size: 20px;
   line-height: 23.7px;
   font-weight: 400;
-  width: 282px;
   height: 25px;
   left: 43px;
   top: 26px;
@@ -105,7 +104,7 @@
   width: 174px;
   height: 39px;
   border-radius: 10px;
-  margin: auto;
+  margin: auto 26px;
   transition: 250ms;
   text-align: center;
 }

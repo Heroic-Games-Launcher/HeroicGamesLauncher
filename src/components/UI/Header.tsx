@@ -16,7 +16,7 @@ export default function Header({
   handleFilter,
   goTo,
 }: Props) {
-  const { t } = useTranslation('header')
+  const { t } = useTranslation()
   const { filter, libraryStatus } = useContext(ContextProvider)
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'

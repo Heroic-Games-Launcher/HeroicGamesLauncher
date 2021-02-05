@@ -1,9 +1,11 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import SearchBar from './UI/SearchBar'
 import UserSelector from './UI/UserSelector'
 
 export default function NavBar() {
+  const { t } = useTranslation()
   return (
     <div className="NavBar">
       <div className="Links">
@@ -18,7 +20,7 @@ export default function NavBar() {
           exact
           to="/"
         >
-          Library
+          {t('Library')}
         </NavLink>
         <NavLink
           activeStyle={{ color: '#FFA800', fontWeight: 500 }}
@@ -27,7 +29,7 @@ export default function NavBar() {
             pathname: '/settings/default/general',
           }}
         >
-          Settings
+          {t('Settings')}
         </NavLink>
       </div>
       <SearchBar />

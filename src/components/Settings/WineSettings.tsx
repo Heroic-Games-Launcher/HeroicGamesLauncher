@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { WineProps, Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
 const {
@@ -32,11 +34,12 @@ export default function WineSettings({
     }
     getAltWine()
   }, [altWine])
+  const { t } = useTranslation()
 
   return (
     <>
       <span className="setting">
-        <span className="settingText">Default WinePrefix</span>
+        <span className="settingText">{t('setting.wineprefix')}</span>
         <span>
           <input
             type="text"

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import ContextProvider from '../../state/ContextProvider'
 import { Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
@@ -31,6 +32,7 @@ export default function GeneralSettings({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const { refreshLibrary } = useContext(ContextProvider)
+  const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
 
   async function handleSync() {
@@ -39,7 +41,7 @@ export default function GeneralSettings({
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await dialog.showMessageBox({
           title: 'EGS Sync',
-          message: 'Unsync Complete',
+          message: t('message.unsync'),
         })
         setEgsLinkedPath('')
         setEgsPath('')
@@ -59,7 +61,7 @@ export default function GeneralSettings({
         }
         await dialog.showMessageBox({
           title: 'EGS Sync',
-          message: 'Sync Complete',
+          message: t('message.sync'),
         })
 
         setIsSyncing(false)
@@ -71,7 +73,7 @@ export default function GeneralSettings({
   return (
     <>
       <span className="setting">
-        <span className="settingText">Default Installation Path</span>
+        <span className="settingText">{t('setting.default-install-path')}</span>
         <span>
           <input
             type="text"
@@ -85,8 +87,8 @@ export default function GeneralSettings({
             onClick={() =>
               dialog
                 .showOpenDialog({
-                  title: 'Choose Default Instalation Folder',
-                  buttonLabel: 'Choose',
+                  title: t('box.default-install-path'),
+                  buttonLabel: t('box.choose'),
                   properties: ['openDirectory'],
                 })
                 .then(({ filePaths }: Path) =>
@@ -99,11 +101,11 @@ export default function GeneralSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">Sync with Installed Epic Games</span>
+        <span className="settingText">{t('setting.egs-sync')}</span>
         <span>
           <input
             type="text"
-            placeholder={'Prefix where EGS is installed'}
+            placeholder={t('placeholder.egs-prefix')}
             className="settingSelect small"
             value={egsPath || egsLinkedPath}
             disabled={isLinked}
@@ -118,8 +120,8 @@ export default function GeneralSettings({
                   ? ''
                   : dialog
                       .showOpenDialog({
-                        title: 'Choose Prefix where EGS is installed',
-                        buttonLabel: 'Choose',
+                        title: t('box.choose-egs-prefix'),
+                        buttonLabel: t('box.choose'),
                         properties: ['openDirectory'],
                       })
                       .then(({ filePaths }: Path) =>
@@ -149,21 +151,23 @@ export default function GeneralSettings({
               isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${isLinked ? 'Unsync' : isSyncing ? 'Syncing' : 'Sync'}`}
+            {`${
+              isLinked
+                ? t('button.unsync')
+                : isSyncing
+                ? t('button.syncing')
+                : t('button.sync')
+            }`}
           </button>
         </span>
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          Exit to System Tray
+          {t('setting.exit-to-tray')}
           <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
         </span>
       </span>
-      <InfoBox>
-        Sync with EGS in case you have a working installation of the Epic Games
-        Store elsewhere and want to import your games to avoid downloading them
-        again.
-      </InfoBox>
+      <InfoBox>{t('help.general')}</InfoBox>
     </>
   )
 }
