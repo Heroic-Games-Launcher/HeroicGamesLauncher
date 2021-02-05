@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { initReactI18next } from 'react-i18next'
 import i18next from 'i18next'
-import Backend from 'i18next-http-backend'
+import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 import './index.css'
 import App from './App'
 import GlobalState from './state/GlobalState'
+
+const Backend = new HttpApi(null, {
+  allowMultiLoading: false,
+  addPath: 'build/locales/{{lng}}/{{ns}}',
+  loadPath: 'locales/{{lng}}/{{ns}}.json',
+})
 
 i18next
   // load translation using http -> see /public/locales
@@ -25,6 +31,9 @@ i18next
     lng: 'pt',
     fallbackLng: 'en',
     debug: process.env.NODE_ENV !== 'production',
+    react: {
+      useSuspense: true,
+    },
   })
 
 ReactDOM.render(
