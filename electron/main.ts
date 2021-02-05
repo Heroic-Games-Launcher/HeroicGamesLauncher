@@ -25,6 +25,7 @@ import {
   iconLight,
 } from './utils'
 
+// @ts-ignore
 import byteSize from 'byte-size'
 import { spawn, exec } from 'child_process'
 import * as path from 'path'
@@ -61,7 +62,7 @@ import { Game, InstalledInfo, KeyImage } from './types.js'
 const { showMessageBox, showErrorBox, showOpenDialog } = dialog
 let mainWindow: BrowserWindow = null
 
-function createWindow() {
+function createWindow(): BrowserWindow {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: isDev ? 1800 : 1280,
@@ -83,6 +84,7 @@ function createWindow() {
 
   //load the index.html from a url
   if (isDev) {
+    //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
@@ -114,6 +116,8 @@ function createWindow() {
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
     mainWindow.setMenu(null)
+
+    return mainWindow
   }
 }
 
@@ -121,7 +125,7 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 let appIcon: Tray = null
-let window = null
+let window: BrowserWindow = null
 const gotTheLock = app.requestSingleInstanceLock()
 
 if (!gotTheLock) {
@@ -209,16 +213,22 @@ ipcMain.handle('writeFile', (event, args) => {
   )
 })
 
-let powerId = null
+let powerId: number | null
 ipcMain.on('lock', () => {
-  writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
-  powerId = powerSaveBlocker.start('prevent-app-suspension')
+  if (!existsSync(`${heroicGamesConfigPath}/lock`)) {
+    writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
+    if (!powerId) {
+      powerId = powerSaveBlocker.start('prevent-app-suspension')
+    }
+  }
 })
 
 ipcMain.on('unlock', () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     unlinkSync(`${heroicGamesConfigPath}/lock`)
-    powerSaveBlocker.stop(powerId)
+    if (powerId) {
+      powerSaveBlocker.stop(powerId)
+    }
   }
 })
 
@@ -592,6 +602,11 @@ ipcMain.handle('syncSaves', async (event, args) => {
 })
 
 ipcMain.on('showAboutWindow', () => showAboutWindow())
+
+// Maybe this can help with white screens
+process.on('uncaughtException', (err) => {
+  console.log(err)
+})
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

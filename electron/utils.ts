@@ -113,7 +113,7 @@ const getSettings = (appName: string | 'default'): AppSettings => {
 
 const getUserInfo = () => JSON.parse(readFileSync(userInfo, 'utf-8'))
 
-const updateGame = (game: any) => {
+const updateGame = (game: string) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
   return execAsync(command, { shell: '/bin/bash' })
@@ -121,7 +121,7 @@ const updateGame = (game: any) => {
     .catch(console.log)
 }
 
-const launchGame = async (appName: any) => {
+const launchGame = async (appName: string) => {
   let envVars = ''
   let dxvkPrefix = ''
   let gameMode
@@ -261,7 +261,7 @@ const writeDefaultconfig = () => {
   }
 }
 
-const writeGameconfig = (game: any) => {
+const writeGameconfig = (game: string) => {
   const {
     wineVersion,
     winePrefix,
