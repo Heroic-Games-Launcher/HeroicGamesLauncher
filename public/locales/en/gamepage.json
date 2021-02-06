@@ -1,0 +1,22 @@
+{
+  "box": {
+    "move": {
+      "message": "This can take a long time, are you sure?",
+      "title": "Move Game Installation"
+    },
+    "no": "NO",
+    "repair": {
+      "title": "Verify and Repair",
+      "message": "Do you want to try to repair this game? This can take a long time."
+    },
+    "yes": "YES"
+  },
+  "submenu": {
+    "log": "Latest Log",
+    "move": "Move Game",
+    "protondb": "Check Compatibility",
+    "settings": "Settings",
+    "store": "Store Page",
+    "verify": "Verify and Repair"
+  }
+}

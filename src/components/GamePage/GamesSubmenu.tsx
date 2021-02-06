@@ -1,0 +1,100 @@
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { createNewWindow, formatStoreUrl, repair } from '../../helper'
+import ContextProvider from '../../state/ContextProvider'
+import { useTranslation } from 'react-i18next'
+
+const { ipcRenderer, remote } = window.require('electron')
+const {
+  dialog: { showMessageBox },
+} = remote
+
+interface Props {
+  appName: string
+  isInstalled: boolean
+  title: string
+  clicked: boolean
+}
+
+export default function GamesSubmenu({
+  appName,
+  isInstalled,
+  title,
+  clicked,
+}: Props) {
+  const { handleGameStatus } = useContext(ContextProvider)
+  const { t } = useTranslation('gamepage')
+
+  const protonDBurl = `https://www.protondb.com/search?q=${title}`
+
+  async function handleMoveInstall() {
+    const { response } = await showMessageBox({
+      title: t('box.move.title'),
+      message: t('box.move.message'),
+      buttons: [t('box.yes'), t('box.no')],
+    })
+    if (response === 0) {
+      handleGameStatus({ appName, status: 'moving' })
+      await ipcRenderer.invoke('moveInstall', appName)
+      handleGameStatus({ appName, status: 'done' })
+    }
+    return
+  }
+
+  async function handleRepair(appName: string) {
+    const { response } = await showMessageBox({
+      title: t('box.repair.title'),
+      message: t('box.repair.message'),
+      buttons: [t('box.yes'), t('box.no')],
+    })
+
+    if (response === 1) {
+      return
+    }
+
+    handleGameStatus({ appName, status: 'repairing' })
+    await repair(appName)
+    return handleGameStatus({ appName, status: 'done' })
+  }
+
+  return (
+    <div className={`more ${clicked ? 'clicked' : ''}`}>
+      {isInstalled && (
+        <>
+          <Link
+            className="hidden link"
+            to={{
+              pathname: `/settings/${appName}/wine`,
+            }}
+          >
+            {t('submenu.settings')}
+          </Link>
+          <span onClick={() => handleRepair(appName)} className="hidden link">
+            {t('submenu.verify')}
+          </span>{' '}
+          <span onClick={() => handleMoveInstall()} className="hidden link">
+            {t('submenu.move')}
+          </span>{' '}
+          <span
+            onClick={() => ipcRenderer.send('getLog', appName)}
+            className="hidden link"
+          >
+            {t('submenu.log')}
+          </span>
+        </>
+      )}
+      <span
+        onClick={() => createNewWindow(formatStoreUrl(title))}
+        className="hidden link"
+      >
+        {t('submenu.store')}
+      </span>
+      <span
+        onClick={() => createNewWindow(protonDBurl)}
+        className="hidden link"
+      >
+        {t('submenu.protondb')}
+      </span>
+    </div>
+  )
+}

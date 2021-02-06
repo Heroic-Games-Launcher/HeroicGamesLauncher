@@ -1,7 +1,5 @@
 {
-  "infobox": {
-    "help": "Help"
-  },
+  "All": "All",
   "box": {
     "choose": "Choose",
     "choose-egs-prefix": "Choose Prefix where EGS is installed",
@@ -9,13 +7,16 @@
     "sync": {
       "button": "Choose",
       "title": "Choose the saves directory"
-    }
+    },
+    "wineprefix": "Choose Wine Prefix Folder"
   },
   "button": {
     "sync": "Sync",
     "syncing": "Syncing",
     "unsync": "Unsync"
   },
+  "Downloading": "Downloading",
+  "Filter": "Filter",
   "help": {
     "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
     "other": {
@@ -32,12 +33,21 @@
       "part2": "In case you change the prefix folder or Wine for Proton and vice-versa, you will need to check the path again since proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
       "part3": "Manual Sync: Choose Download to download the games saves stored on the Cloud. Upload to upload the local ones to the cloud. Force Download and Force Upload will ignore the version that is locally or on the cloud.",
       "part4": "Sync Saves Automatically will sync the saves every time you Start a Game and after finishing playing."
+    },
+    "wine": {
+      "part1": "Heroic searchs for versions of Wine and Proton on the following folders:",
+      "part2": "For other places, use a symbolic link to one of these folders"
     }
   },
+  "infobox": {
+    "help": "Help"
+  },
+  "Library": "Library",
   "message": {
     "sync": "Sync Complete",
     "unsync": "Unsync Complete"
   },
+  "Not Ready": "Not Ready",
   "options": {
     "advanced": {
       "placeholder": "Put here other launch options",
@@ -51,37 +61,33 @@
   "placeholder": {
     "egs-prefix": "Prefix where EGS is installed"
   },
+  "Ready": "Ready",
+  "Return": "Return",
+  "search": "Enter the game name here...",
   "setting": {
     "audiofix": "Audio Fix (Pulse Audio Latency)",
-    "autosync": "",
+    "autosync": "Autosync Saves",
     "default-install-path": "Default Installation Path",
     "egs-sync": "Sync with Installed Epic Games",
     "exit-to-tray": "Exit to System Tray",
     "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
     "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
-    "manualsync": "",
+    "manualsync": "Manual Sync Saves",
     "savefolder": {
       "placeholder": "Select the exact save games folder",
       "title": "Override Cloud Sync Save folder"
     },
     "showfps": "Show FPS (DX9, 10 and 11)",
-    "wineprefix": "Default WinePrefix"
+    "wineprefix": "WinePrefix folder",
+    "wineversion": "Wine Version"
   },
-  "library": "Library",
-  "search": "Enter the game name here...",
-  "settings": "Settings",
+  "Settings": "Settings",
+  "Total Games": "Total Games",
   "userselector": {
     "about": "About",
     "logout": "Logout",
     "quit": "Quit",
     "refresh": "Refresh Library",
     "support": "Support Us"
-  },
-  "All": "All",
-  "Downloading": "Downloading",
-  "Filter": "Filter",
-  "Not Ready": "Not Ready",
-  "Ready": "Ready",
-  "Return": "Return",
-  "Total Games": "Total Games"
+  }
 }

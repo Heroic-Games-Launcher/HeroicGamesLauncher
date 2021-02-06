@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
-  createNewWindow,
-  formatStoreUrl,
   getGameInfo,
   legendary,
   install,
@@ -10,7 +9,6 @@ import {
   launch,
   syncSaves,
   updateGame,
-  repair,
   getProgress,
   fixSaveFolder,
   handleStopInstallation,
@@ -19,8 +17,9 @@ import Header from '../UI/Header'
 import '../../App.css'
 import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Update from '../UI/Update'
+import GamesSubmenu from './GamesSubmenu'
 const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showOpenDialog, showMessageBox },
@@ -34,7 +33,7 @@ interface RouteParams {
 
 export default function GamePage() {
   const { appName } = useParams() as RouteParams
-
+  const { t } = useTranslation()
   const { refresh, libraryStatus, handleGameStatus } = useContext(
     ContextProvider
   )
@@ -124,7 +123,6 @@ export default function GamePage() {
     if (savesPath.includes('{InstallDir}')) {
       setSavesPath(savesPath.replace('{InstallDir}', install_path))
     }
-    const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
     return (
       <>
@@ -138,50 +136,12 @@ export default function GamePage() {
               >
                 more_vertical
               </span>
-              <div className={`more ${clicked ? 'clicked' : ''}`}>
-                {isInstalled && (
-                  <>
-                    <Link
-                      className="hidden link"
-                      to={{
-                        pathname: `/settings/${appName}/wine`,
-                      }}
-                    >
-                      Settings
-                    </Link>
-                    <span
-                      onClick={() => handleRepair(appName)}
-                      className="hidden link"
-                    >
-                      Verify and Repair
-                    </span>{' '}
-                    <span
-                      onClick={() => handleMoveInstall()}
-                      className="hidden link"
-                    >
-                      Move Game
-                    </span>{' '}
-                    <span
-                      onClick={() => ipcRenderer.send('getLog', appName)}
-                      className="hidden link"
-                    >
-                      Latest Log
-                    </span>
-                  </>
-                )}
-                <span
-                  onClick={() => createNewWindow(formatStoreUrl(title))}
-                  className="hidden link"
-                >
-                  Store Page
-                </span>
-                <span
-                  onClick={() => createNewWindow(protonDBurl)}
-                  className="hidden link"
-                >
-                  Check Compatibility
-                </span>
-              </div>
+              <GamesSubmenu
+                appName={appName}
+                clicked={clicked}
+                isInstalled={isInstalled}
+                title={title}
+              />
               <div className="gameConfig">
                 <div className="gamePicture">
                   <img alt="cover-art" src={art_square} className="gameImg" />
@@ -454,36 +414,5 @@ export default function GamePage() {
         }
       }
     }
-  }
-
-  async function handleMoveInstall() {
-    const { response } = await showMessageBox({
-      title: 'Move Game Installation',
-      message: 'This can take a long time, are you sure?',
-      buttons: ['YES', 'NO'],
-    })
-    if (response === 0) {
-      handleGameStatus({ appName, status: 'moving' })
-      await ipcRenderer.invoke('moveInstall', appName)
-      handleGameStatus({ appName, status: 'done' })
-    }
-    return
-  }
-
-  async function handleRepair(appName: string) {
-    const { response } = await showMessageBox({
-      title: 'Verify and Repair',
-      message:
-        'Do you want to try to repair this game. It can take a long time?',
-      buttons: ['YES', 'NO'],
-    })
-
-    if (response === 1) {
-      return
-    }
-
-    handleGameStatus({ appName, status: 'repairing' })
-    await repair(appName)
-    return handleGameStatus({ appName, status: 'done' })
   }
 }

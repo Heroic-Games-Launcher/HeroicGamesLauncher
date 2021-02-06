@@ -1,14 +1,5 @@
 {
-  "infobox": {
-    "help": "Ajuda"
-  },
   "All": "Tudo",
-  "Downloading": "Baixando",
-  "Filter": "Filtro",
-  "Not Ready": "Não Baixados",
-  "Ready": "Baixados",
-  "Return": "Voltar",
-  "Total Games": "Total de Jogos",
   "box": {
     "choose": "Selecione",
     "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
@@ -16,13 +7,16 @@
     "sync": {
       "button": "Selecionar",
       "title": "Selecione o diretório com os Saves"
-    }
+    },
+    "wineprefix": "Escolha a pasta com o Prefixo Wine"
   },
   "button": {
     "sync": "Sincronizar",
     "syncing": "Sincronizando",
     "unsync": "Dessincronizar"
   },
+  "Downloading": "Baixando",
+  "Filter": "Filtro",
   "help": {
     "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
     "other": {
@@ -39,12 +33,21 @@
       "part2": "Caso você modifique o wine prefix ou o wine por proton e vice-versa, você deve apagar a pasta selecionada acima, sair e voltar para a tela de sync para que o heroic gere novamente a pasta correta",
       "part3": "Sincronização Manual: Você pode utilizar essa opção para manualmente fazer download ou upload dos saves. Você pode forçar o download ou upload também, dessa forma o Heroic irá ignorar a versão salva na nuvem ou localmente, sobrescrevendo os saves.",
       "part4": "Sincronizar Saves Automaticamente: ativando essa opção, toda a vez que você iniciar uma sessão de jogos ou terminar de jogar, o Heroic irá realizar uma sincronização. Dessa forma seus saves sempre estarão atualizados."
+    },
+    "wine": {
+      "part1": "Heroic procura por versões do Wine e do Proton nas seguntes pastas:",
+      "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
     }
   },
+  "infobox": {
+    "help": "Ajuda"
+  },
+  "Library": "Biblioteca",
   "message": {
     "sync": "Sync Concluído",
     "unsync": "Unsync Concluído"
   },
+  "Not Ready": "Não Baixados",
   "options": {
     "advanced": {
       "placeholder": "Adicione aqui variáveis de ambiente",
@@ -58,6 +61,9 @@
   "placeholder": {
     "egs-prefix": "Prefix onde a Epic Games está instalada"
   },
+  "Ready": "Baixados",
+  "Return": "Voltar",
+  "search": "Digite o nome do jogo...",
   "setting": {
     "audiofix": "Consertar Audio do Jogo",
     "autosync": "Ativar Sincronização Automática",
@@ -72,11 +78,11 @@
       "title": "Sobrescrever diretório de saves automáticos"
     },
     "showfps": "Mostrar FPS (DX9, 10 e 11)",
-    "wineprefix": "Prefixo Wine"
+    "wineprefix": "Prefixo Wine",
+    "wineversion": "Versão do Wine"
   },
-  "Library": "Biblioteca",
-  "search": "Digite o nome do jogo...",
   "Settings": "Configurações",
+  "Total Games": "Total de Jogos",
   "userselector": {
     "about": "Sobre",
     "logout": "Logout",

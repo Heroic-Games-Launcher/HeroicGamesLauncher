@@ -1,0 +1,22 @@
+{
+  "box": {
+    "move": {
+      "message": "Isso pode levar bastante tempo, continuar?",
+      "title": "Mover Games para outra pasta"
+    },
+    "no": "NÃO",
+    "repair": {
+      "title": "Verificar e Reparar",
+      "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo."
+    },
+    "yes": "SIM"
+  },
+  "submenu": {
+    "log": "Último Log",
+    "move": "Mover Jogo",
+    "protondb": "Compatibilidade",
+    "settings": "Configurações",
+    "store": "Página da Loja",
+    "verify": "Verificar e Reparar"
+  }
+}
