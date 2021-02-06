@@ -5,12 +5,17 @@
     "installpath": "Escolha a pasta de instalação",
     "move": {
       "message": "Isso pode levar bastante tempo, continuar?",
+      "path": "Escolha a pasta de destino",
       "title": "Mover Games para outra pasta"
     },
     "no": "NÃO",
     "repair": {
       "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo.",
       "title": "Verificar e Reparar"
+    },
+    "uninstall": {
+      "message": "Você deseja desinstalar esse jogo?",
+      "title": "Desinstalar"
     },
     "update": {
       "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",

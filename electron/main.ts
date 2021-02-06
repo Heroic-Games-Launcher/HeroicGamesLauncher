@@ -54,12 +54,10 @@ import {
   Menu,
   Tray,
   nativeTheme,
-  dialog,
   powerSaveBlocker,
 } from 'electron'
 import { Game, InstalledInfo, KeyImage } from './types.js'
 
-const { showMessageBox, showErrorBox, showOpenDialog } = dialog
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
@@ -255,35 +253,18 @@ ipcMain.handle('launch', (event, appName) => {
 })
 
 ipcMain.handle('legendary', async (event, args) => {
-  const isUninstall = args.startsWith('uninstall')
-
-  if (isUninstall) {
-    const { response } = await showMessageBox({
-      type: 'warning',
-      title: 'Uninstall',
-      message: 'Do you want to Uninstall this game?',
-      buttons: ['Yes', 'No'],
+  const command = `${legendaryBin} ${args}`
+  return await execAsync(command)
+    .then(({ stdout, stderr }) => {
+      if (stdout) {
+        return stdout
+      } else if (stderr) {
+        return stderr
+      } else {
+        return 'done'
+      }
     })
-    if (response === 1) {
-      return response
-    }
-    if (response === 0) {
-      return execAsync(`${legendaryBin} ${args} -y`)
-    }
-  } else {
-    const command = `${legendaryBin} ${args}`
-    return await execAsync(command)
-      .then(({ stdout, stderr }) => {
-        if (stdout) {
-          return stdout
-        } else if (stderr) {
-          return stderr
-        } else {
-          return 'done'
-        }
-      })
-      .catch((err) => console.log(err))
-  }
+    .catch((err) => console.log(err))
 })
 
 ipcMain.handle('install', async (event, args) => {
@@ -401,34 +382,25 @@ ipcMain.on('getLog', (event, appName) =>
 
 const installed = `${legendaryConfigPath}/installed.json`
 
-ipcMain.handle('moveInstall', async (event, appName: string) => {
-  const { filePaths } = await showOpenDialog({
-    title: 'Choose where you want to move',
-    buttonLabel: 'Choose',
-    properties: ['openDirectory'],
-  })
+ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
+  const file = JSON.parse(readFileSync(installed, 'utf8'))
+  const installedGames: Game[] = Object.values(file)
+  const { install_path } = installedGames.filter(
+    (game) => game.app_name === appName
+  )[0]
 
-  if (filePaths[0]) {
-    const file = JSON.parse(readFileSync(installed, 'utf8'))
-    const installedGames: Game[] = Object.values(file)
-    const { install_path } = installedGames.filter(
-      (game) => game.app_name === appName
-    )[0]
-
-    const splitPath = install_path.split('/')
-    const installFolder = splitPath[splitPath.length - 1]
-    const newPath = `${filePaths[0]}/${installFolder}`
-    const game: Game = { ...file[appName], install_path: newPath }
-    const modifiedInstall = { ...file, [appName]: game }
-    return await execAsync(`mv -f ${install_path} ${newPath}`)
-      .then(() => {
-        writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
-          console.log(`Finished moving ${appName} to ${newPath}`)
-        )
-      })
-      .catch(console.log)
-  }
-  return
+  const splitPath = install_path.split('/')
+  const installFolder = splitPath[splitPath.length - 1]
+  const newPath = `${path}/${installFolder}`
+  const game: Game = { ...file[appName], install_path: newPath }
+  const modifiedInstall = { ...file, [appName]: game }
+  return await execAsync(`mv -f ${install_path} ${newPath}`)
+    .then(() => {
+      writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
+        console.log(`Finished moving ${appName} to ${newPath}`)
+      )
+    })
+    .catch(console.log)
 })
 
 ipcMain.handle('readFile', async (event, file) => {
@@ -556,7 +528,6 @@ ipcMain.handle('egsSync', async (event, args) => {
     console.log(`${stdout} - ${stderr}`)
     return `${stdout} - ${stderr}`
   } catch (error) {
-    showErrorBox('Error', 'Invalid Path')
     return 'Error'
   }
 })

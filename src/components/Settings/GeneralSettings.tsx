@@ -8,6 +8,7 @@ const {
   ipcRenderer,
   remote: { dialog },
 } = window.require('electron')
+const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const storage: Storage = window.localStorage
 
 interface Props {
@@ -48,7 +49,7 @@ export default function GeneralSettings({
     setIsSyncing(true)
     if (isLinked) {
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
-        await dialog.showMessageBox({
+        await showMessageBox({
           title: 'EGS Sync',
           message: t('message.unsync'),
         })
@@ -64,6 +65,7 @@ export default function GeneralSettings({
       .then(async (res: string) => {
         if (res === 'Error') {
           setIsSyncing(false)
+          showErrorBox(t('box.error'), t('box.sync.error'))
           setEgsLinkedPath('')
           setEgsPath('')
           return
@@ -105,15 +107,13 @@ export default function GeneralSettings({
           <span
             className="material-icons settings folder"
             onClick={() =>
-              dialog
-                .showOpenDialog({
-                  title: t('box.default-install-path'),
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                })
-                .then(({ filePaths }: Path) =>
-                  setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
-                )
+              showOpenDialog({
+                title: t('box.default-install-path'),
+                buttonLabel: t('box.choose'),
+                properties: ['openDirectory'],
+              }).then(({ filePaths }: Path) =>
+                setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+              )
             }
           >
             create_new_folder

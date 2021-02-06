@@ -5,12 +5,17 @@
     "installpath": "Choose Install Path",
     "move": {
       "message": "This can take a long time, are you sure?",
+      "path": "Choose where do you want to move",
       "title": "Move Game Installation"
     },
     "no": "NO",
     "repair": {
       "message": "Do you want to try to repair this game? This can take a long time.",
       "title": "Verify and Repair"
+    },
+    "uninstall": {
+      "message": "Do you want to uninstall this game?",
+      "title": "Uninstall"
     },
     "update": {
       "message": "This game has an update, do you wish to update now?",

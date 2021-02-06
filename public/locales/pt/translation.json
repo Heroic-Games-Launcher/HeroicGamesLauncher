@@ -4,12 +4,14 @@
     "choose": "Selecione",
     "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
     "default-install-path": "Selecione o Local de instalação padrão",
+    "error": "Erro!",
     "runexe": {
       "title": "Selecione o EXE"
     },
     "select": "Selecionar",
     "sync": {
       "button": "Selecionar",
+      "error": "Caminho Inválido",
       "title": "Selecione o diretório com os Saves"
     },
     "wineprefix": "Escolha a pasta com o Prefixo Wine"

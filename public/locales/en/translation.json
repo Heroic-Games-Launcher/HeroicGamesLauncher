@@ -4,12 +4,14 @@
     "choose": "Choose",
     "choose-egs-prefix": "Choose Prefix where EGS is installed",
     "default-install-path": "Choose Default Install Path",
+    "error": "Error",
     "runexe": {
       "title": "Select EXE to Run"
     },
     "select": "Select",
     "sync": {
       "button": "Choose",
+      "error": "Invalid Path",
       "title": "Choose the saves directory"
     },
     "wineprefix": "Choose Wine Prefix Folder"

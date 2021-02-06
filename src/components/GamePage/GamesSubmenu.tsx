@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom'
 import { createNewWindow, formatStoreUrl, repair } from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import { IpcRenderer } from 'electron'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
-  dialog: { showMessageBox },
+  dialog: { showMessageBox, showOpenDialog },
 } = remote
+
+const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   appName: string
@@ -34,9 +37,18 @@ export default function GamesSubmenu({
       buttons: [t('box.yes'), t('box.no')],
     })
     if (response === 0) {
-      handleGameStatus({ appName, status: 'moving' })
-      await ipcRenderer.invoke('moveInstall', appName)
-      handleGameStatus({ appName, status: 'done' })
+      const { filePaths } = await showOpenDialog({
+        title: t('box.move.path'),
+        buttonLabel: t('box.choose'),
+        properties: ['openDirectory'],
+      })
+      if (filePaths[0]) {
+        const path = filePaths[0]
+        handleGameStatus({ appName, status: 'moving' })
+        await renderer.invoke('moveInstall', [appName, path])
+        handleGameStatus({ appName, status: 'done' })
+      }
+      return
     }
     return
   }
@@ -76,7 +88,7 @@ export default function GamesSubmenu({
             {t('submenu.move')}
           </span>{' '}
           <span
-            onClick={() => ipcRenderer.send('getLog', appName)}
+            onClick={() => renderer.send('getLog', appName)}
             className="hidden link"
           >
             {t('submenu.log')}

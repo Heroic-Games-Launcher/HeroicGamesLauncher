@@ -373,9 +373,7 @@ export default function GamePage() {
       }
 
       if (isInstalled) {
-        handleGameStatus({ appName, status: 'uninstalling' })
-        await legendary(`uninstall ${appName}`)
-        handleGameStatus({ appName, status: 'done' })
+        await handleUninstall()
         return refresh()
       }
 
@@ -423,5 +421,21 @@ export default function GamePage() {
         }
       }
     }
+  }
+
+  async function handleUninstall() {
+    const { response } = await showMessageBox({
+      type: 'warning',
+      title: t('box.uninstall.title'),
+      message: t('box.uninstall.message'),
+      buttons: [t('box.yes'), t('box.no')],
+    })
+
+    if (response === 0) {
+      handleGameStatus({ appName, status: 'uninstalling' })
+      await legendary(`uninstall ${appName} -y`)
+      return handleGameStatus({ appName, status: 'done' })
+    }
+    return
   }
 }
