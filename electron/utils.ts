@@ -408,7 +408,9 @@ const showAboutWindow = () => {
 }
 
 const handleExit = async () => {
-  if (existsSync(`${heroicGamesConfigPath}/lock`)) {
+  const isLocked = existsSync(`${heroicGamesConfigPath}/lock`)
+
+  if (isLocked) {
     const { response } = await showMessageBox({
       title: 'Exit',
       message: 'There are pending operations, are you sure?',

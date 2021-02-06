@@ -102,7 +102,8 @@ function createWindow(): BrowserWindow {
       if (exitToTray) {
         return mainWindow.hide()
       }
-      return handleExit()
+
+      return await handleExit()
     })
   } else {
     mainWindow.on('close', async (e) => {
@@ -232,7 +233,7 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.on('quit', () => handleExit())
+ipcMain.on('quit', async () => handleExit())
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   const epicUrl = `https://store-content.ak.epicgames.com/api/en-US/content/products/${game}`

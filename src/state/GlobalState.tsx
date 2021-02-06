@@ -1,5 +1,6 @@
+import { i18n } from 'i18next'
 import React, { PureComponent } from 'react'
-import { TFunction, TranslationProps, withTranslation } from 'react-i18next'
+import { TFunction, withTranslation } from 'react-i18next'
 import Update from '../components/UI/Update'
 import {
   getGameInfo,
@@ -18,6 +19,7 @@ const { BrowserWindow } = remote
 interface Props {
   children: React.ReactNode
   t: TFunction
+  i18n: i18n
 }
 
 interface StateProps {
@@ -27,6 +29,7 @@ interface StateProps {
   error: boolean
   filter: string
   filterText: string
+  language: string
   libraryStatus: GameStatus[]
 }
 
@@ -37,6 +40,7 @@ export class GlobalState extends PureComponent<Props> {
     data: [],
     libraryStatus: [],
     refreshing: false,
+    language: '',
     error: false,
     filter: 'all',
   }
@@ -213,8 +217,11 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidMount() {
+    const { i18n } = this.props
     const filter = storage.getItem('filter') || 'all'
-    this.setState({ filter })
+    const language = storage.getItem('language') || 'en'
+    i18n.changeLanguage(language)
+    this.setState({ filter, language })
     this.refresh()
   }
 

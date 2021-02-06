@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from '../../state/ContextProvider'
 import { Path } from '../../types'
@@ -8,6 +8,7 @@ const {
   ipcRenderer,
   remote: { dialog },
 } = window.require('electron')
+const storage: Storage = window.localStorage
 
 interface Props {
   defaultInstallPath: string
@@ -34,6 +35,14 @@ export default function GeneralSettings({
   const { refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
+  const [language, setLanguage] = useState(
+    () => storage.getItem('language') || ''
+  )
+
+  useEffect(() => {
+    i18n.changeLanguage(language)
+    storage.setItem('language', language)
+  }, [language])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -72,6 +81,17 @@ export default function GeneralSettings({
 
   return (
     <>
+      <span className="setting">
+        <span className="settingText">{t('setting.wineversion')}</span>
+        <select
+          onChange={(event) => setLanguage(event.target.value)}
+          value={language}
+          className="settingSelect"
+        >
+          <option value="en">English</option>
+          <option value="pt">Português</option>
+        </select>
+      </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>
         <span>
