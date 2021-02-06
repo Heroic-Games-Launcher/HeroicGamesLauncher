@@ -1,15 +1,61 @@
 {
   "box": {
+    "choose": "Selecionar",
+    "importpath": "Escolha a pasta do jogo para importar",
+    "installpath": "Escolha a pasta de instalação",
     "move": {
       "message": "Isso pode levar bastante tempo, continuar?",
       "title": "Mover Games para outra pasta"
     },
     "no": "NÃO",
     "repair": {
-      "title": "Verificar e Reparar",
-      "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo."
+      "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo.",
+      "title": "Verificar e Reparar"
+    },
+    "update": {
+      "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
+      "title": "Atualização!"
     },
     "yes": "SIM"
+  },
+  "button": {
+    "cancel": "Cancelar",
+    "import": "Importar",
+    "install": "Instalar",
+    "uninstall": "Desinstalar"
+  },
+  "disabled": "Desabilitado",
+  "enabled": "Habilitado",
+  "info": {
+    "path": "Pasta de Instalação",
+    "size": "Tamanho",
+    "syncsaves": "Sincronização em Nuvem",
+    "version": "Versão"
+  },
+  "install": {
+    "another": "Instalar em outro local",
+    "default": "Instalar no local padrão",
+    "import": "Importar Jogo"
+  },
+  "label": {
+    "cancel": {
+      "update": "Cancelar"
+    },
+    "playing": {
+      "start": "Jogar",
+      "stop": "Jogando (Parar)"
+    },
+    "saves": {
+      "syncing": "Sincronizando"
+    }
+  },
+  "status": {
+    "installed": "Jogo Instalado",
+    "installing": "Instalando",
+    "moving": "Movendo Jogo, por favor espere.",
+    "notinstalled": "Jogo não instalado",
+    "reparing": "Reparando jogo, por favor espere.",
+    "updating": "Atualizando jogo"
   },
   "submenu": {
     "log": "Último Log",

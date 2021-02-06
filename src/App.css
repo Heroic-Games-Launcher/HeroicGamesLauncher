@@ -81,9 +81,13 @@
   height: 25px;
   left: 43px;
   top: 26px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   font-family: 'Rubik', sans-serif;
+  justify-content: space-between;
+}
+
+.Links > a:not(:first-child) {
+  margin-left: 8px;
 }
 
 .NavBar .SearchBar {
@@ -1012,14 +1016,14 @@ input:checked + .slider:before {
 .helpLink {
   color: #f69707;
   cursor: pointer;
-  width: 100px;
-  display: grid;
+  display: flex;
   height: 40px;
   position: relative;
-  left: 45%;
   bottom: 8px;
-  grid-template-columns: 32px 32px;
   align-items: center;
+  min-width: 45px;
+  width: 100%;
+  justify-content: center;
 }
 
 .infoBox > ul {

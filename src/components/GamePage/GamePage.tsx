@@ -33,7 +33,7 @@ interface RouteParams {
 
 export default function GamePage() {
   const { appName } = useParams() as RouteParams
-  const { t } = useTranslation()
+  const { t } = useTranslation('gamepage')
   const { refresh, libraryStatus, handleGameStatus } = useContext(
     ContextProvider
   )
@@ -162,20 +162,25 @@ export default function GamePage() {
                           color: autoSyncSaves ? '#07C5EF' : '',
                         }}
                       >
-                        Sync Saves: {autoSyncSaves ? 'Enabled' : 'Disabled'}
+                        {t('info.syncsaves')}:{' '}
+                        {autoSyncSaves ? t('enabled') : t('disabled')}
                       </div>
                     )}
                     {isInstalled && (
                       <>
-                        <div>Size: {install_size}</div>
-                        <div>Version: {version}</div>
+                        <div>
+                          {t('info.size')}: {install_size}
+                        </div>
+                        <div>
+                          {t('info.version')}: {version}
+                        </div>
                         <div
                           className="clickable"
                           onClick={() =>
                             ipcRenderer.send('openFolder', install_path)
                           }
                         >
-                          Location: {install_path}
+                          {t('info.path')}: {install_path}
                         </div>
                         <br />
                       </>
@@ -205,9 +210,9 @@ export default function GamePage() {
                       value={installPath}
                       className="settingSelect"
                     >
-                      <option value={'default'}>Install on default Path</option>
-                      <option value={'another'}>Install on another Path</option>
-                      <option value={'import'}>Import Game</option>
+                      <option value={'default'}>{t('install.default')}</option>
+                      <option value={'another'}>{t('install.another')}</option>
+                      <option value={'import'}>{t('install.import')}</option>
                     </select>
                   )}
                   <div className="buttonsWrapper">
@@ -256,38 +261,42 @@ export default function GamePage() {
 
   function getPlayLabel(): React.ReactNode {
     if (isUpdating) {
-      return 'Cancel Update'
+      return t('label.cancel.update')
     }
     if (isSyncing) {
-      return 'Syncinc Saves'
+      return t('label.saves.syncing')
     }
 
-    return isPlaying ? 'Playing (Stop)' : 'Play Now'
+    return isPlaying ? t('label.playing.stop') : t('label.playing.start')
   }
 
   function getInstallLabel(isInstalled: boolean): React.ReactNode {
     const { eta, percent } = progress
     if (isReparing) {
-      return `Repairing Game ${percent ? `${percent}` : '...'}`
+      return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
 
     if (isMoving) {
-      return `Moving Installation, please wait.`
+      return `${t('status.moving')}`
     }
 
     if (isUpdating && isInstalling) {
-      return `Updating ${percent ? `${percent} | ETA: ${eta}` : '...'}`
+      return `${t('status.updating')} ${
+        percent ? `${percent} | ETA: ${eta}` : '...'
+      }`
     }
 
     if (!isUpdating && isInstalling) {
-      return `Installing ${percent ? `${percent} | ETA: ${eta}` : '...'}`
+      return `${t('status.installing')} ${
+        percent ? `${percent} | ETA: ${eta}` : '...'
+      }`
     }
 
     if (isInstalled) {
-      return 'Installed'
+      return t('status.installed')
     }
 
-    return 'This game is not installed'
+    return t('status.notinstalled')
   }
 
   function getButtonClass(isInstalled: boolean) {
@@ -299,15 +308,15 @@ export default function GamePage() {
 
   function getButtonLabel(isInstalled: boolean) {
     if (installPath === 'import') {
-      return 'Import'
+      return t('button.import')
     }
     if (isInstalled) {
-      return 'Uninstall'
+      return t('button.uninstall')
     }
     if (isInstalling) {
-      return 'Cancel'
+      return t('button.cancel')
     }
-    return 'Install'
+    return t('button.install')
   }
 
   function handlePlay() {
@@ -330,9 +339,9 @@ export default function GamePage() {
         }
         if (err.includes('ERROR: Game is out of date')) {
           const { response } = await showMessageBox({
-            title: 'Game Needs Update',
-            message: 'This game has an update, do you wish to update now?',
-            buttons: ['YES', 'NO'],
+            title: t('box.update.title'),
+            message: t('box.update.message'),
+            buttons: [t('box.yes'), t('box.no')],
           })
 
           if (response === 0) {
@@ -382,8 +391,8 @@ export default function GamePage() {
 
       if (installPath === 'import') {
         const { filePaths } = await showOpenDialog({
-          title: 'Choose Game Folder to import',
-          buttonLabel: 'Choose',
+          title: t('box.importpath'),
+          buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
         })
 
@@ -397,8 +406,8 @@ export default function GamePage() {
 
       if (installPath === 'another') {
         const { filePaths } = await showOpenDialog({
-          title: 'Choose Install Path',
-          buttonLabel: 'Choose',
+          title: t('box.installpath'),
+          buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
         })
 

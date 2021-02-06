@@ -1,4 +1,4 @@
-import React, { Suspense, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import './App.css'
 import { Library } from './components/Library'
@@ -9,7 +9,6 @@ import Settings from './components/Settings'
 import GamePage from './components/GamePage/GamePage'
 import Header from './components/UI/Header'
 import ContextProvider from './state/ContextProvider'
-import Update from './components/UI/Update'
 
 function App() {
   const context = useContext(ContextProvider)
@@ -23,26 +22,24 @@ function App() {
   const numberOfGames = library.length
 
   return (
-    <Suspense fallback={<Update />}>
-      <div className="App">
-        <HashRouter>
-          <NavBar />
-          <Switch>
-            <Route exact path="/">
-              <Header
-                goTo={''}
-                renderBackButton={false}
-                handleFilter={handleFilter}
-                numberOfGames={numberOfGames}
-              />
-              <Library library={library} />
-            </Route>
-            <Route exact path="/gameconfig/:appName" component={GamePage} />
-            <Route path="/settings/:appName/:type" component={Settings} />
-          </Switch>
-        </HashRouter>
-      </div>
-    </Suspense>
+    <div className="App">
+      <HashRouter>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <Header
+              goTo={''}
+              renderBackButton={false}
+              handleFilter={handleFilter}
+              numberOfGames={numberOfGames}
+            />
+            <Library library={library} />
+          </Route>
+          <Route exact path="/gameconfig/:appName" component={GamePage} />
+          <Route path="/settings/:appName/:type" component={Settings} />
+        </Switch>
+      </HashRouter>
+    </div>
   )
 }
 

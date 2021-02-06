@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 import { getGameInfo, writeConfig } from '../../helper'
 import { useToggle } from '../../hooks'
 import { AppSettings, WineProps } from '../../types'
@@ -17,10 +19,11 @@ interface RouteParams {
   type: string
 }
 
-// TODO: add option to add Custom wine
 // TODO: add feedback when launching winecfg and winetricks
 
 export default function Settings() {
+  const { t } = useTranslation()
+
   const [wineVersion, setWineversion] = useState({
     name: 'Wine Default',
     bin: '/usr/bin/wine',
@@ -141,17 +144,17 @@ export default function Settings() {
         <div className="settingsNavbar">
           {isDefault && (
             <NavLink to={{ pathname: '/settings/default/general' }}>
-              General
+              {t('settings.navbar.general')}
             </NavLink>
           )}
           <NavLink to={{ pathname: `/settings/${appName}/wine` }}>Wine</NavLink>
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink to={{ pathname: `/settings/${appName}/sync` }}>
-              Sync
+              {t('settings.navbar.sync')}
             </NavLink>
           )}
           <NavLink to={{ pathname: `/settings/${appName}/other` }}>
-            Other
+            {t('settings.navbar.other')}
           </NavLink>
         </div>
         <div className="settingsWrapper">
@@ -208,7 +211,7 @@ export default function Settings() {
               winePrefix={winePrefix}
             />
           )}
-          <span className="save">Settings are saved automatically</span>
+          <span className="save">{t('info.settings')}</span>
         </div>
       </div>
     </>

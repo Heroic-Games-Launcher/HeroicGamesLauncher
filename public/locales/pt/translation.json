@@ -4,6 +4,10 @@
     "choose": "Selecione",
     "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
     "default-install-path": "Selecione o Local de instalação padrão",
+    "runexe": {
+      "title": "Selecione o EXE"
+    },
+    "select": "Selecionar",
     "sync": {
       "button": "Selecionar",
       "title": "Selecione o diretório com os Saves"
@@ -39,6 +43,9 @@
       "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
     }
   },
+  "info": {
+    "settings": "As configurações são salvas automaticamente"
+  },
   "infobox": {
     "help": "Ajuda"
   },
@@ -47,7 +54,25 @@
     "sync": "Sync Concluído",
     "unsync": "Unsync Concluído"
   },
+  "nogames": "Nenhum Jogo Encontrado",
   "Not Ready": "Não Baixados",
+  "notify": {
+    "finished": {
+      "reparing": "Terminou o Reparo"
+    },
+    "install": {
+      "canceled": "Instalação cancelada",
+      "finished": "Instalação concluída"
+    },
+    "moved": "Movido com sucesso",
+    "refreshed": "Biblioteca Atualizada",
+    "refreshing": "Atualizando",
+    "uninstalled": "Desinstalado",
+    "update": {
+      "canceled": "Updated Cancelado",
+      "finished": "Update Finalizado"
+    }
+  },
   "options": {
     "advanced": {
       "placeholder": "Adicione aqui variáveis de ambiente",
@@ -73,6 +98,10 @@
     "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
     "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
     "manualsync": "Sincronização manual",
+    "runexe": {
+      "message": "Arraste e Solte arquivos aqui",
+      "title": "Executar EXE no Prefixo"
+    },
     "savefolder": {
       "placeholder": "Selecione a pasta exata com os saves",
       "title": "Sobrescrever diretório de saves automáticos"
@@ -82,6 +111,13 @@
     "wineversion": "Versão do Wine"
   },
   "Settings": "Configurações",
+  "settings": {
+    "navbar": {
+      "general": "Geral",
+      "other": "Outros",
+      "sync": "Sincronização"
+    }
+  },
   "Total Games": "Total de Jogos",
   "userselector": {
     "about": "Sobre",

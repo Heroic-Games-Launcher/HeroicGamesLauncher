@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { initReactI18next } from 'react-i18next'
@@ -9,6 +9,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import './index.css'
 import App from './App'
 import GlobalState from './state/GlobalState'
+import Update from './components/UI/Update'
 
 const Backend = new HttpApi(null, {
   allowMultiLoading: false,
@@ -39,9 +40,11 @@ i18next
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <GlobalState>
-        <App />
-      </GlobalState>
+      <Suspense fallback={<Update />}>
+        <GlobalState>
+          <App />
+        </GlobalState>
+      </Suspense>
     </I18nextProvider>
   </React.StrictMode>,
   document.getElementById('root')

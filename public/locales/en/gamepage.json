@@ -1,15 +1,61 @@
 {
   "box": {
+    "choose": "Choose",
+    "importpath": "Choose Game Folder to import",
+    "installpath": "Choose Install Path",
     "move": {
       "message": "This can take a long time, are you sure?",
       "title": "Move Game Installation"
     },
     "no": "NO",
     "repair": {
-      "title": "Verify and Repair",
-      "message": "Do you want to try to repair this game? This can take a long time."
+      "message": "Do you want to try to repair this game? This can take a long time.",
+      "title": "Verify and Repair"
+    },
+    "update": {
+      "message": "This game has an update, do you wish to update now?",
+      "title": "Game Needs Update"
     },
     "yes": "YES"
+  },
+  "button": {
+    "cancel": "Cancel",
+    "import": "Import",
+    "install": "Install",
+    "uninstall": "Uninstall"
+  },
+  "disabled": "Disabled",
+  "enabled": "Enabled",
+  "info": {
+    "path": "Install Path",
+    "size": "Size",
+    "syncsaves": "Sync Saves",
+    "version": "Version"
+  },
+  "install": {
+    "another": "Install on another Path",
+    "default": "Install on default Path",
+    "import": "Import Game"
+  },
+  "label": {
+    "cancel": {
+      "update": "Cancel Update"
+    },
+    "playing": {
+      "start": "Play Now",
+      "stop": "Playing (Stop)"
+    },
+    "saves": {
+      "syncing": "Syncinc Saves"
+    }
+  },
+  "status": {
+    "installed": "Installed",
+    "installing": "Installing",
+    "moving": "Moving Installation, please wait",
+    "notinstalled": "This game is not installed",
+    "reparing": "Repairing Game, please wait",
+    "updating": "Updating Game"
   },
   "submenu": {
     "log": "Latest Log",

@@ -4,6 +4,10 @@
     "choose": "Choose",
     "choose-egs-prefix": "Choose Prefix where EGS is installed",
     "default-install-path": "Choose Default Install Path",
+    "runexe": {
+      "title": "Select EXE to Run"
+    },
+    "select": "Select",
     "sync": {
       "button": "Choose",
       "title": "Choose the saves directory"
@@ -39,6 +43,9 @@
       "part2": "For other places, use a symbolic link to one of these folders"
     }
   },
+  "info": {
+    "settings": "Settings are saved automatically"
+  },
   "infobox": {
     "help": "Help"
   },
@@ -47,7 +54,25 @@
     "sync": "Sync Complete",
     "unsync": "Unsync Complete"
   },
+  "nogames": "No Games Found",
   "Not Ready": "Not Ready",
+  "notify": {
+    "finished": {
+      "reparing": "Finished Reparing"
+    },
+    "install": {
+      "canceled": "Install Canceled",
+      "finished": "Install Finished"
+    },
+    "moved": "Finished Moving",
+    "refreshed": "Library Refreshed",
+    "refreshing": "Refreshing",
+    "uninstalled": "Uninstalled",
+    "update": {
+      "canceled": "Updated Canceled",
+      "finished": "Updated Finished"
+    }
+  },
   "options": {
     "advanced": {
       "placeholder": "Put here other launch options",
@@ -73,6 +98,10 @@
     "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
     "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
     "manualsync": "Manual Sync Saves",
+    "runexe": {
+      "message": "Drag and Drop Files here",
+      "title": "Run EXE on Prefix"
+    },
     "savefolder": {
       "placeholder": "Select the exact save games folder",
       "title": "Override Cloud Sync Save folder"
@@ -82,6 +111,13 @@
     "wineversion": "Wine Version"
   },
   "Settings": "Settings",
+  "settings": {
+    "navbar": {
+      "general": "General",
+      "other": "Other",
+      "sync": "Save-Sync"
+    }
+  },
   "Total Games": "Total Games",
   "userselector": {
     "about": "About",

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { TFunction, TranslationProps, withTranslation } from 'react-i18next'
 import Update from '../components/UI/Update'
 import {
   getGameInfo,
@@ -16,6 +17,7 @@ const { BrowserWindow } = remote
 
 interface Props {
   children: React.ReactNode
+  t: TFunction
 }
 
 interface StateProps {
@@ -52,10 +54,11 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   refreshLibrary = async (): Promise<void> => {
+    const { t } = this.props
     this.setState({ refreshing: true })
     await legendary('list-games')
     this.refresh()
-    notify(['Refreshing', 'Library was refreshed'])
+    notify([t('notify.refreshing'), t('notify.refreshed')])
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
@@ -89,6 +92,7 @@ export class GlobalState extends PureComponent<Props> {
 
   handleGameStatus = async ({ appName, status, progress }: GameStatus) => {
     const { libraryStatus } = this.state
+    const { t } = this.props
     const currentApp =
       libraryStatus.filter((game) => game.appName === appName)[0] || {}
     const currentWindow = BrowserWindow.getAllWindows()[0]
@@ -118,7 +122,9 @@ export class GlobalState extends PureComponent<Props> {
           const percent = getProgress(progress)
           if (percent) {
             const message =
-              percent < 95 ? 'Installation Canceled' : 'Has finished installing'
+              percent < 95
+                ? t('notify.install.canceled')
+                : t('notify.install.finished')
             notify([title, message])
             return currentWindow.reload()
           }
@@ -140,7 +146,9 @@ export class GlobalState extends PureComponent<Props> {
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
           const message =
-            percent < 95 ? 'Update Canceled' : 'Has finished updating'
+            percent < 95
+              ? t('notify.update.canceled')
+              : t('notify.update.finished')
           notify([title, message])
           return currentWindow.reload()
         }
@@ -152,8 +160,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
-      notify([title, 'Has finished Repairing'])
-
+      notify([title, t('notify.finished.reparing')])
       if (windowIsVisible) {
         return this.refresh()
       }
@@ -170,7 +177,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
-      notify([title, 'Was uninstalled'])
+      notify([title, t('notify.uninstalled')])
 
       if (windowIsVisible) {
         return this.refresh()
@@ -184,7 +191,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
-      notify([title, 'Finished Moving Installation'])
+      notify([title, t('notify.moved')])
 
       if (windowIsVisible) {
         return this.refresh()
@@ -254,4 +261,4 @@ export class GlobalState extends PureComponent<Props> {
   }
 }
 
-export default GlobalState
+export default withTranslation()(GlobalState)
