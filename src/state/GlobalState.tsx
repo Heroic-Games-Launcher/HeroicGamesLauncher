@@ -1,3 +1,4 @@
+import { IpcRenderer } from 'electron'
 import { i18n } from 'i18next'
 import React, { PureComponent } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -14,7 +15,10 @@ import ContextProvider from './ContextProvider'
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
 
-const { BrowserWindow } = remote
+const { BrowserWindow, dialog } = remote
+const { showMessageBox } = dialog
+
+const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   children: React.ReactNode
@@ -119,8 +123,8 @@ export class GlobalState extends PureComponent<Props> {
 
       this.setState({ libraryStatus: updatedLibraryStatus })
 
-      ipcRenderer.send('requestGameProgress', appName)
-      ipcRenderer.on(
+      renderer.send('requestGameProgress', appName)
+      renderer.on(
         `${appName}-progress`,
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
@@ -144,8 +148,8 @@ export class GlobalState extends PureComponent<Props> {
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
 
-      ipcRenderer.send('requestGameProgress', appName)
-      ipcRenderer.on(
+      renderer.send('requestGameProgress', appName)
+      renderer.on(
         `${appName}-progress`,
         (event: any, progress: InstallProgress) => {
           const percent = getProgress(progress)
@@ -216,6 +220,25 @@ export class GlobalState extends PureComponent<Props> {
     })
   }
 
+  checkVersion = async () => {
+    const { t } = this.props
+    const newVersion = await renderer.invoke('checkVersion')
+    if (newVersion) {
+      const { response } = await showMessageBox({
+        title: t('box.appupdate.title', 'Update Available'),
+        message: t(
+          'box.appupdate.message',
+          'There is a new version of Heroic Available, do you want to update now?'
+        ),
+        buttons: [t('box.yes'), t('box.no')],
+      })
+
+      if (response === 0) {
+        renderer.send('openReleases')
+      }
+    }
+  }
+
   componentDidMount() {
     const { i18n } = this.props
     const filter = storage.getItem('filter') || 'all'
@@ -223,6 +246,10 @@ export class GlobalState extends PureComponent<Props> {
     i18n.changeLanguage(language)
     this.setState({ filter, language })
     this.refresh()
+
+    setTimeout(() => {
+      this.checkVersion()
+    }, 2500)
   }
 
   componentDidUpdate() {
@@ -232,9 +259,9 @@ export class GlobalState extends PureComponent<Props> {
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
       .length
     if (pendingOps) {
-      ipcRenderer.send('lock')
+      renderer.send('lock')
     } else {
-      ipcRenderer.send('unlock')
+      renderer.send('unlock')
     }
   }
 

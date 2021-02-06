@@ -84,7 +84,7 @@ export default function GeneralSettings({
   return (
     <>
       <span className="setting">
-        <span className="settingText">{t('setting.wineversion')}</span>
+        <span className="settingText">{t('setting.language')}</span>
         <select
           onChange={(event) => setLanguage(event.target.value)}
           value={language}

@@ -1,10 +1,15 @@
 {
   "All": "Tudo",
   "box": {
+    "appupdate": {
+      "message": "Nove versão do Heroic lançada. Deseja atualizar agora?",
+      "title": "Nova Versão Disponível"
+    },
     "choose": "Selecione",
     "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
     "default-install-path": "Selecione o Local de instalação padrão",
     "error": "Erro!",
+    "no": "NÃO",
     "runexe": {
       "title": "Selecione o EXE"
     },
@@ -14,7 +19,8 @@
       "error": "Caminho Inválido",
       "title": "Selecione o diretório com os Saves"
     },
-    "wineprefix": "Escolha a pasta com o Prefixo Wine"
+    "wineprefix": "Escolha a pasta com o Prefixo Wine",
+    "yes": "SIM"
   },
   "button": {
     "sync": "Sincronizar",
@@ -98,6 +104,7 @@
     "egs-sync": "Sincronizar com Epic Games Store",
     "exit-to-tray": "Sair para a área de noticação",
     "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
+    "language": "Selecionar idioma",
     "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
     "manualsync": "Sincronização manual",
     "runexe": {

@@ -1,10 +1,15 @@
 {
   "All": "All",
   "box": {
+    "appupdate": {
+      "message": "There is a new version of Heroic Available, do you want to update now?",
+      "title": "Update Available"
+    },
     "choose": "Choose",
     "choose-egs-prefix": "Choose Prefix where EGS is installed",
     "default-install-path": "Choose Default Install Path",
     "error": "Error",
+    "no": "NO",
     "runexe": {
       "title": "Select EXE to Run"
     },
@@ -14,7 +19,8 @@
       "error": "Invalid Path",
       "title": "Choose the saves directory"
     },
-    "wineprefix": "Choose Wine Prefix Folder"
+    "wineprefix": "Choose Wine Prefix Folder",
+    "yes": "YES"
   },
   "button": {
     "sync": "Sync",
@@ -98,6 +104,7 @@
     "egs-sync": "Sync with Installed Epic Games",
     "exit-to-tray": "Exit to System Tray",
     "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+    "language": "Choose App Language",
     "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
     "manualsync": "Manual Sync Saves",
     "runexe": {
