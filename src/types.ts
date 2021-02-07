@@ -35,6 +35,7 @@ export interface AppSettings {
   showMangohud: boolean
   defaultInstallPath: string
   language: string
+  maxWorkers: number
 }
 
 export interface Game {
@@ -95,7 +96,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   refresh: () => void
   refreshLibrary: () => void
-  handleGameStatus: (game: GameStatus) => void
+  handleGameStatus: (game: GameStatus) => Promise<void>
   handleFilter: (value: string) => void
   handleSearch: (input: string) => void
 }

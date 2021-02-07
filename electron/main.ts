@@ -41,10 +41,10 @@ import {
   existsSync,
   mkdirSync,
   unlinkSync,
-} from 'fs'
+} from 'graceful-fs'
 import { promisify } from 'util'
 import axios from 'axios'
-import { userInfo as user } from 'os'
+import { userInfo as user, cpus } from 'os'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -68,15 +68,14 @@ function createWindow(): BrowserWindow {
   mainWindow = new BrowserWindow({
     width: isDev ? 1800 : 1280,
     height: isDev ? 1200 : 720,
-    minHeight: 600,
-    minWidth: 1280,
+    minHeight: 700,
+    minWidth: 1200,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
     },
   })
-
   getLatestDxvk()
 
   //load the index.html from a url
@@ -265,6 +264,8 @@ ipcMain.on('unlock', () => {
   }
 })
 
+ipcMain.handle('getMaxCpus', () => cpus().length)
+
 ipcMain.on('quit', async () => handleExit())
 
 ipcMain.handle('getGameInfo', async (event, game) => {
@@ -303,21 +304,26 @@ ipcMain.handle('legendary', async (event, args) => {
 
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
+  const { defaultInstallPath, maxWorkers } = getSettings('default')
+  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+
   const logPath = `${heroicGamesConfigPath}${game}.log`
-  let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
+  let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
   if (path === 'default') {
-    const { defaultInstallPath } = getSettings('default')
-    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y |& tee ${logPath}`
+    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
     .then(() => console.log('finished installing'))
-    .catch(console.log)
+    .catch((err) => console.log(err))
 })
 
 ipcMain.handle('repair', async (event, game) => {
+  const { maxWorkers } = getSettings('default')
+  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+
   const logPath = `${heroicGamesConfigPath}${game}.log`
-  const command = `${legendaryBin} repair ${game} -y &> ${logPath}`
+  const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
 
   console.log(`Repairing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
@@ -335,22 +341,22 @@ ipcMain.handle('importGame', async (event, args) => {
 
 ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
 
-ipcMain.on('requestGameProgress', (event, appName) => {
+ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
-  exec(
-    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`,
-    (error, stdout) => {
-      const status = `${stdout.split('\n')[0]}`.split('(')
-      const percent = status[0]
-      const eta = status[1] ? status[1].split(',')[1] : ''
-      const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
-      const progress = { percent, bytes, eta }
-      console.log(
-        `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
-      )
-      event.reply(`${appName}-progress`, progress)
-    }
-  )
+  const command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`
+  const { stdout } = await execAsync(command)
+  const status = `${stdout.split('\n')[0]}`.split('(')
+  const percent = status[0]
+  const eta = status[1] ? status[1].split(',')[1] : ''
+  const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
+  if (percent && bytes && eta) {
+    const progress = { percent, bytes, eta }
+    console.log(
+      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+    )
+    return progress
+  }
+  return ''
 })
 
 ipcMain.on('kill', (event, game) => {

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import ContextProvider from '../../state/ContextProvider'
 import { GameStatus } from '../../types'
+import { getProgress } from '../../helper'
 const { ipcRenderer } = window.require('electron')
 interface Card {
   cover: string
@@ -16,12 +17,14 @@ interface Card {
 interface InstallProgress {
   percent: string
   bytes: string
+  eta: string
 }
 
 const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   const [progress, setProgress] = useState({
     percent: '0.00%',
     bytes: '0/0MB',
+    eta: '',
   } as InstallProgress)
   const { t } = useTranslation()
 
@@ -38,21 +41,21 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   const haveStatus = isMoving || isReparing || isInstalling
 
   useEffect(() => {
-    const progressInterval = setInterval(() => {
+    const progressInterval = setInterval(async () => {
       if (isInstalling) {
-        ipcRenderer.send('requestGameProgress', appName)
-        ipcRenderer.on(
-          `${appName}-progress`,
-          (event: any, progress: InstallProgress) => setProgress(progress)
+        const progress = await ipcRenderer.invoke(
+          'requestGameProgress',
+          appName
         )
+        setProgress(progress)
       }
-    }, 500)
+    }, 1500)
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 
   const { percent } = progress
   const effectPercent = isInstalling
-    ? `${125 - Number(percent.replace('%', ''))}%`
+    ? `${125 - getProgress(progress)}%`
     : '100%'
 
   function getStatus() {

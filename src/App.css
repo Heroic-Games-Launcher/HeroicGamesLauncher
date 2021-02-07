@@ -321,9 +321,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background: rgba(13, 14, 14, 0.58);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
   display: grid;
   position: relative;
   place-items: flex-start;
@@ -396,6 +393,17 @@
   margin: 16px 0;
 }
 
+.settingInputWithButton {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  width: 513px;
+}
+
+.settingInputWithButton > .button.is-small {
+  min-width: fit-content;
+}
+
 .setting > .toggleWrapper {
   display: grid;
   grid-template-columns: 95% 5%;
@@ -436,10 +444,16 @@
   text-indent: 22px;
   outline: none;
   border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .settingSelect.small {
   width: 372px;
+}
+
+.settingSelect.smaller {
+  width: 48px;
+  text-indent: 11px;
 }
 
 .settingSelect > option {
@@ -1019,7 +1033,6 @@ input:checked + .slider:before {
   display: flex;
   height: 40px;
   position: relative;
-  bottom: 8px;
   align-items: center;
   min-width: 45px;
   width: 100%;

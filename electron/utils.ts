@@ -8,7 +8,7 @@ import {
   writeFile,
   mkdir,
   writeFileSync,
-} from 'fs'
+} from 'graceful-fs'
 import { homedir, userInfo as user } from 'os'
 const execAsync = promisify(exec)
 import { fixPathForAsarUnpack } from 'electron-util'
@@ -99,6 +99,7 @@ const isLoggedIn = () => existsSync(userInfo)
 
 const getSettings = (appName: string | 'default'): AppSettings => {
   const gameConfig = `${heroicGamesConfigPath}${appName}.json`
+
   const globalConfig = heroicConfigPath
   let settingsPath = gameConfig
   let settingsName = appName
@@ -106,13 +107,22 @@ const getSettings = (appName: string | 'default'): AppSettings => {
   if (appName === 'default' || !existsSync(gameConfig)) {
     settingsPath = globalConfig
     settingsName = 'defaultSettings'
+    if (!existsSync(settingsPath)) {
+      writeDefaultconfig()
+      return getSettings('default')
+    }
   }
 
   const settings = JSON.parse(readFileSync(settingsPath, 'utf-8'))
   return settings[settingsName]
 }
 
-const getUserInfo = () => JSON.parse(readFileSync(userInfo, 'utf-8'))
+const getUserInfo = () => {
+  if (existsSync(userInfo)) {
+    return JSON.parse(readFileSync(userInfo, 'utf-8'))
+  }
+  return { account_id: '' }
+}
 
 const updateGame = (game: string) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
@@ -223,6 +233,8 @@ const launchGame = async (appName: string) => {
 
 const writeDefaultconfig = () => {
   const { account_id } = getUserInfo()
+  const userName = user().username
+
   const config = {
     defaultSettings: {
       defaultInstallPath: heroicInstallPath,
@@ -236,15 +248,13 @@ const writeDefaultconfig = () => {
       showFps: false,
       language: 'en',
       userInfo: {
-        name: user,
+        name: userName,
         epicId: account_id,
       },
     },
   }
   if (!existsSync(heroicConfigPath)) {
-    writeFile(heroicConfigPath, JSON.stringify(config, null, 2), () => {
-      return 'done'
-    })
+    writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
   }
 
   if (!existsSync(heroicGamesConfigPath)) {
@@ -273,9 +283,9 @@ const writeGameconfig = (game: string) => {
     otherOptions,
     useGameMode,
     showFps,
+    userInfo,
   } = getSettings('default')
 
-  const { account_id } = getUserInfo()
   const config = {
     [game]: {
       wineVersion,
@@ -283,10 +293,7 @@ const writeGameconfig = (game: string) => {
       otherOptions,
       useGameMode,
       showFps,
-      userInfo: {
-        name: user,
-        epicId: account_id,
-      },
+      userInfo,
     },
   }
 

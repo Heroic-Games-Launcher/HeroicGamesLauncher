@@ -1,3 +1,4 @@
+import { TFunction } from 'react-i18next/*'
 import { Game, InstallProgress } from './types'
 
 const { ipcRenderer, remote } = window.require('electron')
@@ -114,14 +115,18 @@ export const handleSavePath = async (game: string) => {
   return { cloudSaveEnabled, saveFolder }
 }
 
-export const createNewWindow = (url: string) => new BrowserWindow().loadURL(url)
+export const createNewWindow = (url: string) =>
+  new BrowserWindow({ width: 1200, height: 700 }).loadURL(url)
 const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
 
 export const formatStoreUrl = (title: string) =>
   `${storeUrl}${cleanTitle(title)}`
 
 export function getProgress(progress: InstallProgress): number {
-  return Number(progress.percent.replace('%', ''))
+  if (progress && progress.percent) {
+    return Number(progress.percent.replace('%', ''))
+  }
+  return 0
 }
 
 export async function fixSaveFolder(
@@ -218,22 +223,21 @@ export async function fixSaveFolder(
 }
 
 export async function handleStopInstallation(
+  t: TFunction<'gamepage'>,
   appName: string,
   [path, folderName]: string[]
 ) {
   const { response } = await showMessageBox({
-    title: 'Stop Installation',
-    message: 'Do you wish to KEEP downloaded files?',
-    buttons: ['KEEP INSTALLING', 'YES', 'NO'],
+    title: t('box.stopInstall.title'),
+    message: t('box.stopInstall.message'),
+    buttons: [t('box.stopInstall.keepInstalling'), t('box.yes'), t('box.no')],
   })
-  if (response === 0) {
-    return
-  }
   if (response === 1) {
-    sendKill(appName)
+    return sendKill(appName)
   }
   if (response === 2) {
     ipcRenderer.send('removeFolder', [path, folderName])
-    sendKill(appName)
+    return sendKill(appName)
   }
+  return
 }

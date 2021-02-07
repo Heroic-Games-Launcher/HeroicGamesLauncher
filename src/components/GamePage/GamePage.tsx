@@ -48,6 +48,7 @@ export default function GamePage() {
   const [progress, setProgress] = useState({
     percent: '0.00%',
     bytes: '0/0MB',
+    eta: '00:00:00',
   } as InstallProgress)
   const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
@@ -86,23 +87,24 @@ export default function GamePage() {
   }, [isInstalling, isPlaying, appName])
 
   useEffect(() => {
-    const progressInterval = setInterval(() => {
+    const progressInterval = setInterval(async () => {
       if (isInstalling || isUpdating || isReparing) {
-        ipcRenderer.send('requestGameProgress', appName)
-        ipcRenderer.on(
-          `${appName}-progress`,
-          (event: any, progress: InstallProgress) => {
-            setProgress(progress)
-
-            handleGameStatus({
-              appName,
-              status,
-              progress: getProgress(progress),
-            })
-          }
+        const progress = await ipcRenderer.invoke(
+          'requestGameProgress',
+          appName
         )
+
+        if (progress) {
+          setProgress(progress)
+        }
+
+        handleGameStatus({
+          appName,
+          status,
+          progress: getProgress(progress),
+        })
       }
-    }, 500)
+    }, 1500)
     return () => clearInterval(progressInterval)
   }, [isInstalling, isUpdating, appName, isReparing])
 
@@ -123,6 +125,13 @@ export default function GamePage() {
     if (savesPath.includes('{InstallDir}')) {
       setSavesPath(savesPath.replace('{InstallDir}', install_path))
     }
+
+    /* 
+    Other Keys:
+    t('box.stopInstall.title')
+    t('box.stopInstall.message')
+    t('box.stopInstall.keepInstalling') 
+    */
 
     return (
       <>
@@ -280,7 +289,7 @@ export default function GamePage() {
       return `${t('status.moving')}`
     }
 
-    if (isUpdating && isInstalling) {
+    if (isUpdating && isInstalled) {
       return `${t('status.updating')} ${
         percent ? `${percent} | ETA: ${eta}` : '...'
       }`
@@ -332,7 +341,7 @@ export default function GamePage() {
         setIsSyncing(false)
       }
 
-      handleGameStatus({ appName, status: 'playing' })
+      await handleGameStatus({ appName, status: 'playing' })
       await launch(appName).then(async (err: string | string[]) => {
         if (!err) {
           return
@@ -345,6 +354,7 @@ export default function GamePage() {
           })
 
           if (response === 0) {
+            await handleGameStatus({ appName, status: 'done' })
             handleGameStatus({ appName, status: 'updating' })
             await updateGame(appName)
             return handleGameStatus({ appName, status: 'done' })
@@ -369,7 +379,7 @@ export default function GamePage() {
     return async () => {
       if (isInstalling) {
         const { folderName } = await getGameInfo(appName)
-        return handleStopInstallation(appName, [installPath, folderName])
+        return handleStopInstallation(t, appName, [installPath, folderName])
       }
 
       if (isInstalled) {
@@ -384,7 +394,7 @@ export default function GamePage() {
         // Wait to be 100% finished
         return setTimeout(() => {
           handleGameStatus({ appName, status: 'done' })
-        }, 1000)
+        }, 2000)
       }
 
       if (installPath === 'import') {
@@ -417,7 +427,7 @@ export default function GamePage() {
           // Wait to be 100% finished
           return setTimeout(() => {
             handleGameStatus({ appName, status: 'done' })
-          }, 1000)
+          }, 200)
         }
       }
     }

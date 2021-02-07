@@ -10,7 +10,7 @@ const initialContext: ContextType = {
   error: false,
   refresh: () => null,
   refreshLibrary: () => null,
-  handleGameStatus: () => null,
+  handleGameStatus: () => Promise.resolve(),
   handleSearch: () => null,
   handleFilter: () => null,
 }
