@@ -20,6 +20,11 @@ export interface WineProps {
   bin: string
 }
 
+type UserInfo = {
+  name: string
+  epicId: string
+}
+
 export interface AppSettings {
   wineVersion: WineProps
   winePrefix: string
@@ -36,6 +41,7 @@ export interface AppSettings {
   defaultInstallPath: string
   language: string
   maxWorkers: number
+  userInfo: UserInfo
 }
 
 export interface Game {

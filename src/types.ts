@@ -96,7 +96,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   refresh: () => void
   refreshLibrary: () => void
-  handleGameStatus: (game: GameStatus) => void
+  handleGameStatus: (game: GameStatus) => Promise<void>
   handleFilter: (value: string) => void
   handleSearch: (input: string) => void
 }
