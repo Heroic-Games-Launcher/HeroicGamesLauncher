@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { legendary, loginPage, sidInfoPage } from '../helper'
+const storage: Storage = window.localStorage
 
 interface Props {
   refresh: () => void
 }
 
 export default function Login({ refresh }: Props) {
-  const { t } = useTranslation('login')
+  const { t, i18n } = useTranslation('login')
 
   const [input, setInput] = useState('')
   const [status, setStatus] = useState({
@@ -15,6 +16,13 @@ export default function Login({ refresh }: Props) {
     message: '',
   })
   const { loading, message } = status
+
+  const handleChangeLanguage = (language: string) => {
+    storage.setItem('language', language)
+    i18n.changeLanguage(language)
+  }
+
+  const currentLanguage = i18n.language
 
   const handleLogin = async (sid: string) => {
     setStatus({
@@ -103,6 +111,28 @@ export default function Login({ refresh }: Props) {
               {t('button.login', 'Login')}
             </button>
           </div>
+          <span style={{ color: 'white', marginTop: '4px' }}>
+            <span
+              style={
+                currentLanguage === 'en'
+                  ? { color: '#07c5ef', fontWeight: 600 }
+                  : { cursor: 'pointer' }
+              }
+              onClick={() => handleChangeLanguage('en')}
+            >
+              English -{' '}
+            </span>
+            <span
+              style={
+                currentLanguage === 'pt'
+                  ? { color: '#07c5ef', fontWeight: 600 }
+                  : { cursor: 'pointer' }
+              }
+              onClick={() => handleChangeLanguage('pt')}
+            >
+              Português
+            </span>
+          </span>
         </div>
       </div>
       <span className="loginBackground"></span>
