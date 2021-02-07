@@ -1,3 +1,4 @@
+import { TFunction } from 'react-i18next/*'
 import { Game, InstallProgress } from './types'
 
 const { ipcRenderer, remote } = window.require('electron')
@@ -218,13 +219,14 @@ export async function fixSaveFolder(
 }
 
 export async function handleStopInstallation(
+  t: TFunction<'gamepage'>,
   appName: string,
   [path, folderName]: string[]
 ) {
   const { response } = await showMessageBox({
-    title: 'Stop Installation',
-    message: 'Do you wish to KEEP downloaded files?',
-    buttons: ['KEEP INSTALLING', 'YES', 'NO'],
+    title: t('box.stopInstall.title'),
+    message: t('box.stopInstall.message'),
+    buttons: [t('box.stopInstall.keepInstalling'), t('box.yes'), t('box.no')],
   })
   if (response === 0) {
     return

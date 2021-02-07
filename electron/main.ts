@@ -60,7 +60,6 @@ import {
   powerSaveBlocker,
 } from 'electron'
 import { Game, InstalledInfo, KeyImage } from './types.js'
-import { worker } from 'cluster'
 
 let mainWindow: BrowserWindow = null
 

@@ -20,6 +20,11 @@
       "title": "Select EXE to Run"
     },
     "select": "Select",
+    "stopInstall": {
+      "keepInstalling": "",
+      "message": "",
+      "title": ""
+    },
     "sync": {
       "button": "Choose",
       "error": "Invalid Path",

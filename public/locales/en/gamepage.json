@@ -13,6 +13,11 @@
       "message": "Do you want to try to repair this game? This can take a long time.",
       "title": "Verify and Repair"
     },
+    "stopInstall": {
+      "keepInstalling": "Keep Installing",
+      "message": "Do you wish to KEEP downloaded files?",
+      "title": "Stop Installation"
+    },
     "uninstall": {
       "message": "Do you want to uninstall this game?",
       "title": "Uninstall"

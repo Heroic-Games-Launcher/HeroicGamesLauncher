@@ -124,6 +124,13 @@ export default function GamePage() {
       setSavesPath(savesPath.replace('{InstallDir}', install_path))
     }
 
+    /* 
+    Other Keys:
+    t('box.stopInstall.title')
+    t('box.stopInstall.message')
+    t('box.stopInstall.keepInstalling') 
+    */
+
     return (
       <>
         <Header goTo={'/'} renderBackButton />
@@ -369,7 +376,7 @@ export default function GamePage() {
     return async () => {
       if (isInstalling) {
         const { folderName } = await getGameInfo(appName)
-        return handleStopInstallation(appName, [installPath, folderName])
+        return handleStopInstallation(t, appName, [installPath, folderName])
       }
 
       if (isInstalled) {

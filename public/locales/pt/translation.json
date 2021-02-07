@@ -20,6 +20,11 @@
       "title": "Selecione o EXE"
     },
     "select": "Selecionar",
+    "stopInstall": {
+      "keepInstalling": "",
+      "message": "",
+      "title": ""
+    },
     "sync": {
       "button": "Selecionar",
       "error": "Caminho Inválido",
