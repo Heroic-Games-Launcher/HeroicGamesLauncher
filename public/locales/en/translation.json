@@ -35,6 +35,10 @@
   },
   "Downloading": "Downloading",
   "Filter": "Filter",
+  "gamecard": {
+    "moving": "Moving",
+    "repairing": "Repairing"
+  },
   "help": {
     "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
     "other": {

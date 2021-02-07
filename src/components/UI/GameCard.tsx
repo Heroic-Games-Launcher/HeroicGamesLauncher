@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 import ContextProvider from '../../state/ContextProvider'
 import { GameStatus } from '../../types'
 const { ipcRenderer } = window.require('electron')
@@ -21,6 +23,7 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
     percent: '0.00%',
     bytes: '0/0MB',
   } as InstallProgress)
+  const { t } = useTranslation()
 
   const { libraryStatus } = useContext(ContextProvider)
 
@@ -32,6 +35,7 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   const isInstalling = status === 'installing' || status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+  const haveStatus = isMoving || isReparing || isInstalling
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -48,8 +52,21 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
 
   const { percent } = progress
   const effectPercent = isInstalling
-    ? `${150 - Number(percent.replace('%', ''))}%`
+    ? `${125 - Number(percent.replace('%', ''))}%`
     : '100%'
+
+  function getStatus() {
+    if (isInstalling) {
+      return percent
+    }
+    if (isMoving) {
+      return t('gamecard.moving', 'Moving')
+    }
+    if (isReparing) {
+      return t('gamecard.repairing', 'Repairing')
+    }
+    return ''
+  }
 
   return (
     <Link
@@ -58,9 +75,7 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
         pathname: `/gameconfig/${appName}`,
       }}
     >
-      {isInstalling && <span className="progress">{percent}</span>}
-      {isMoving && <span className="progress">Moving...</span>}
-      {isReparing && <span className="progress">Repairing...</span>}
+      {haveStatus && <span className="progress">{getStatus()}</span>}
       {logo && (
         <img
           alt="logo"

@@ -311,7 +311,7 @@ ipcMain.handle('install', async (event, args) => {
   }
   console.log(`Installing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
-    .then(console.log)
+    .then(() => console.log('finished installing'))
     .catch(console.log)
 })
 
@@ -321,7 +321,7 @@ ipcMain.handle('repair', async (event, game) => {
 
   console.log(`Repairing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
-    .then(console.log)
+    .then(() => console.log('finished repairing'))
     .catch(console.log)
 })
 

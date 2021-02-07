@@ -35,6 +35,10 @@
   },
   "Downloading": "Baixando",
   "Filter": "Filtro",
+  "gamecard": {
+    "moving": "Movendo",
+    "repairing": "Reparando"
+  },
   "help": {
     "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
     "other": {
