@@ -1,0 +1,24 @@
+{
+  "button": {
+    "login": "Logar"
+  },
+  "input": {
+    "placeholder": "Cole o número SID aqui"
+  },
+  "message": {
+    "part1": "Para que você possa logar e instalar seus jogos, é necessário seguir os passos abaixo:",
+    "part2": "Abra a",
+    "part3": "Epic Store clicando aqui",
+    "part4": ", logue na sua conta e copie o",
+    "part5": "Numero SID mostrado",
+    "part6": "cole apenas o",
+    "part7": "número SID",
+    "part8": "na caixa abaixo e clique em Logar."
+  },
+  "status": {
+    "error": "Erro",
+    "loading": "Carregando lista de jogos...",
+    "logging": "Logando..."
+  },
+  "welcome": "Bem Vindo!"
+}
