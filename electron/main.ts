@@ -68,15 +68,14 @@ function createWindow(): BrowserWindow {
   mainWindow = new BrowserWindow({
     width: isDev ? 1800 : 1280,
     height: isDev ? 1200 : 720,
-    minHeight: 600,
-    minWidth: 1280,
+    minHeight: 700,
+    minWidth: 1200,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
     },
   })
-
   getLatestDxvk()
 
   //load the index.html from a url
@@ -316,7 +315,7 @@ ipcMain.handle('install', async (event, args) => {
   console.log(`Installing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
     .then(() => console.log('finished installing'))
-    .catch(console.log)
+    .catch((err) => console.log(err))
 })
 
 ipcMain.handle('repair', async (event, game) => {
@@ -342,22 +341,22 @@ ipcMain.handle('importGame', async (event, args) => {
 
 ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
 
-ipcMain.on('requestGameProgress', (event, appName) => {
+ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
-  exec(
-    `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`,
-    (error, stdout) => {
-      const status = `${stdout.split('\n')[0]}`.split('(')
-      const percent = status[0]
-      const eta = status[1] ? status[1].split(',')[1] : ''
-      const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
-      const progress = { percent, bytes, eta }
-      console.log(
-        `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
-      )
-      event.reply(`${appName}-progress`, progress)
-    }
-  )
+  const command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`
+  const { stdout } = await execAsync(command)
+  const status = `${stdout.split('\n')[0]}`.split('(')
+  const percent = status[0]
+  const eta = status[1] ? status[1].split(',')[1] : ''
+  const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
+  if (percent && bytes && eta) {
+    const progress = { percent, bytes, eta }
+    console.log(
+      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+    )
+    return progress
+  }
+  return ''
 })
 
 ipcMain.on('kill', (event, game) => {

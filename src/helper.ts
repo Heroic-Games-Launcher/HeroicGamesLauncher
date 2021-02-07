@@ -122,7 +122,10 @@ export const formatStoreUrl = (title: string) =>
   `${storeUrl}${cleanTitle(title)}`
 
 export function getProgress(progress: InstallProgress): number {
-  return Number(progress.percent.replace('%', ''))
+  if (progress && progress.percent) {
+    return Number(progress.percent.replace('%', ''))
+  }
+  return 0
 }
 
 export async function fixSaveFolder(
@@ -228,14 +231,12 @@ export async function handleStopInstallation(
     message: t('box.stopInstall.message'),
     buttons: [t('box.stopInstall.keepInstalling'), t('box.yes'), t('box.no')],
   })
-  if (response === 0) {
-    return
-  }
   if (response === 1) {
-    sendKill(appName)
+    return sendKill(appName)
   }
   if (response === 2) {
     ipcRenderer.send('removeFolder', [path, folderName])
-    sendKill(appName)
+    return sendKill(appName)
   }
+  return
 }
