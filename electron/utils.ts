@@ -8,7 +8,7 @@ import {
   writeFile,
   mkdir,
   writeFileSync,
-} from 'fs'
+} from 'graceful-fs'
 import { homedir, userInfo as user } from 'os'
 const execAsync = promisify(exec)
 import { fixPathForAsarUnpack } from 'electron-util'

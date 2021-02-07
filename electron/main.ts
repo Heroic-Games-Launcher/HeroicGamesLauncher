@@ -41,7 +41,7 @@ import {
   existsSync,
   mkdirSync,
   unlinkSync,
-} from 'fs'
+} from 'graceful-fs'
 import { promisify } from 'util'
 import axios from 'axios'
 import { userInfo as user, cpus } from 'os'
