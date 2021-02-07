@@ -1,0 +1,78 @@
+{
+  "box": {
+    "choose": "Auswählen",
+    "importpath": "Zu importierenden Spieleordner auswählen",
+    "installpath": "Installations-Pfad auswählen",
+    "move": {
+      "message": "Das kann lange dauern, sind Sie sicher?",
+      "path": "Wählen Sie, wohin Sie es verschieben möchten",
+      "title": "Spieleinstallation verschieben"
+    },
+    "no": "NEIN",
+    "repair": {
+      "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies kann sehr lange dauern.",
+      "title": "Prüfen und Reparieren"
+    },
+    "stopInstall": {
+      "keepInstalling": "Installation fortsetzen",
+      "message": "Möchten Sie die heruntergeladenen Dateien BEHALTEN?",
+      "title": "Installation stoppen"
+    },
+    "uninstall": {
+      "message": "Möchten Sie dieses Spiel deinstallieren?",
+      "title": "Deinstallieren"
+    },
+    "update": {
+      "message": "Dieses Spiel hat ein Update, möchten Sie jetzt aktualisieren?",
+      "title": "Spiel benötigt Update"
+    },
+    "yes": "JA"
+  },
+  "button": {
+    "cancel": "Abbrechen",
+    "import": "Importieren",
+    "install": "Installieren",
+    "uninstall": "Deinstallieren"
+  },
+  "disabled": "Deaktiviert",
+  "enabled": "Aktiviert",
+  "info": {
+    "path": "Installations-Pfad",
+    "size": "Größe",
+    "syncsaves": "Spielstände synchronisieren",
+    "version": "Version"
+  },
+  "install": {
+    "another": "Auf einem anderen Pfad installieren",
+    "default": "Auf dem Standardpfad installieren",
+    "import": "Spiel importieren"
+  },
+  "label": {
+    "cancel": {
+      "update": "Update abbrechen"
+    },
+    "playing": {
+      "start": "Jetzt spielen",
+      "stop": "Läuft (Stoppen)"
+    },
+    "saves": {
+      "syncing": "Spielstände werden synchronisiert"
+    }
+  },
+  "status": {
+    "installed": "Installiert",
+    "installing": "Wird installiert",
+    "moving": "Installation wird verschoben, bitte warten",
+    "notinstalled": "Dieses Spiel ist nicht installiert",
+    "reparing": "Spiel wird repariert, bitte warten",
+    "updating": "Spiel wird aktualisiert"
+  },
+  "submenu": {
+    "log": "Neuester Log",
+    "move": "Spiel verschieben",
+    "protondb": "Kompatibilität überprüfen",
+    "settings": "Einstellungen",
+    "store": "Store-Seite",
+    "verify": "Prüfen und reparieren"
+  }
+}
