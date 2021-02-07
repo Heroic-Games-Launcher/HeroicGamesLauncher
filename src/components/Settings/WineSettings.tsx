@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { WineProps, Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
 const {
+  ipcRenderer,
   remote: { dialog },
 } = window.require('electron')
 
@@ -11,19 +14,32 @@ interface Props {
   setWineversion: (wine: WineProps) => void
   wineVersion: WineProps
   altWine: WineProps[]
+  setAltWine: (altWine: WineProps[]) => void
 }
 
 export default function WineSettings({
   winePrefix,
   setWinePrefix,
   setWineversion,
+  setAltWine,
   wineVersion,
   altWine,
 }: Props) {
+  useEffect(() => {
+    const getAltWine = async () => {
+      const wineList: WineProps[] = await ipcRenderer.invoke(
+        'getAlternativeWine'
+      )
+      setAltWine(wineList)
+    }
+    getAltWine()
+  }, [altWine])
+  const { t } = useTranslation()
+
   return (
     <>
       <span className="setting">
-        <span className="settingText">Default WinePrefix</span>
+        <span className="settingText">{t('setting.wineprefix')}</span>
         <span>
           <input
             type="text"
@@ -36,12 +52,12 @@ export default function WineSettings({
             onClick={() =>
               dialog
                 .showOpenDialog({
-                  title: 'Choose WinePrefix',
-                  buttonLabel: 'Choose',
+                  title: t('box.wineprefix'),
+                  buttonLabel: t('box.choose'),
                   properties: ['openDirectory'],
                 })
                 .then(({ filePaths }: Path) =>
-                  setWinePrefix(filePaths[0] ? `'${filePaths[0]}'` : '~/.wine')
+                  setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')
                 )
             }
           >
@@ -50,7 +66,7 @@ export default function WineSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">Default Wine Version</span>
+        <span className="settingText">{t('setting.wineversion')}</span>
         <select
           onChange={(event) =>
             setWineversion(
@@ -66,10 +82,7 @@ export default function WineSettings({
         </select>
       </span>
       <InfoBox>
-        <span>
-          Heroic searchs for versions of Wine and Proton on the following
-          folders:
-        </span>
+        <span>{t('help.wine.part1')}</span>
         <ul>
           <i>
             <li>.config/heroic/Tools/wine</li>
@@ -81,9 +94,7 @@ export default function WineSettings({
             <li>/usr/share/steam</li>
           </i>
         </ul>
-        <span>
-          For other places, use a symbolic link to one of these folders
-        </span>
+        <span>{t('help.wine.part2')}</span>
       </InfoBox>
     </>
   )

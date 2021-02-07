@@ -158,6 +158,13 @@ export async function fixSaveFolder(
     )
   }
 
+  if (folder.includes('{usersavedgames}')) {
+    return folder.replace(
+      '{usersavedgames}',
+      `${winePrefix}/drive_c/users/${username}/Saved Games`
+    )
+  }
+
   if (folder.includes('roaming')) {
     return folder.replace(
       '{appdata}/../roaming/',
@@ -183,6 +190,20 @@ export async function fixSaveFolder(
     return folder.replace(
       '{AppData}',
       `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+    )
+  }
+
+  if (folder.includes('{appdata}')) {
+    return folder.replace(
+      '{appdata}',
+      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+    )
+  }
+
+  if (folder.includes('{userdir}')) {
+    return folder.replace(
+      '{userdir}',
+      `${winePrefix}/drive_c/users/${username}/My Documents`
     )
   }
 

@@ -1,5 +1,7 @@
 import React from 'react'
 import { WineProps } from '../../types'
+import { useTranslation } from 'react-i18next'
+
 const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showOpenDialog },
@@ -11,6 +13,8 @@ interface Props {
 }
 
 export default function Tools({ wineVersion, winePrefix }: Props) {
+  const { t } = useTranslation()
+
   const callTools = (tool: string, exe?: string) =>
     ipcRenderer.send('callTool', {
       tool,
@@ -22,8 +26,8 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
   const handleRunExe = async () => {
     let exe = ''
     const { filePaths } = await showOpenDialog({
-      title: 'Select EXE to Run',
-      buttonLabel: 'Select',
+      title: t('box.runexe.title'),
+      buttonLabel: t('box.select'),
       properties: ['openFile'],
       filters: ['exe', 'msi'],
     })
@@ -72,8 +76,9 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             className="tools drag"
             onClick={() => handleRunExe()}
           >
-            Run EXE inside prefix <br />
-            <span>You can drag and Drop files here</span>
+            {t('setting.runexe.title')}
+            <br />
+            <span>{t('setting.runexe.message')}</span>
           </span>
         </div>
       </div>

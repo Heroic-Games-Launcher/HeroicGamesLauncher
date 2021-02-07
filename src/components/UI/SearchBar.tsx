@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import ContextProvider from '../../state/ContextProvider'
 
 export default function SearchBar() {
   const { handleSearch } = useContext(ContextProvider)
   const [textValue, setTextValue] = useState('')
+  const { t } = useTranslation()
 
   return (
     <div className="SearchBar">
@@ -17,7 +19,7 @@ export default function SearchBar() {
           setTextValue(event.target.value)
           handleSearch(event.target.value)
         }}
-        placeholder={'Enter the game name here...'}
+        placeholder={t('search')}
       />
       {textValue.length > 0 && (
         <span

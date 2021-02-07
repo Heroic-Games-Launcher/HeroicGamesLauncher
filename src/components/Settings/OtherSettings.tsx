@@ -1,4 +1,6 @@
 import React, { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 
@@ -35,42 +37,41 @@ export default function OtherSettings({
     setOtherOptions(event.currentTarget.value)
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
+  const { t } = useTranslation()
 
   return (
     <>
       <span className="setting">
         <span className="toggleWrapper">
-          Show FPS (DXVK_HUD=fps)
+          {t('setting.showfps')}
           <ToggleSwitch value={showFps} handleChange={toggleFps} />
         </span>
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          Use GameMode (Feral Game Mode needs to be installed)
+          {t('setting.gamemode')}
           <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
         </span>
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          Audio Fix (Pulse Audio Latency)
+          {t('setting.audiofix')}
           <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
         </span>
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          Enable Mangohud (Mangohud needs to be installed)
+          {t('setting.mangohud')}
           <ToggleSwitch value={showMangohud} handleChange={toggleMangoHud} />
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">
-          Advanced Options (Enviroment Variables):
-        </span>
+        <span className="settingText">{t('options.advanced.title')}</span>
         <span>
           <input
             id="otherOptions"
             type="text"
-            placeholder={'Put here other launch options'}
+            placeholder={t('options.advanced.placeholder')}
             className="settingSelect"
             value={otherOptions}
             onChange={handleOtherOptions}
@@ -78,14 +79,12 @@ export default function OtherSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">
-          Game Arguments (To run after the command):
-        </span>
+        <span className="settingText">{t('options.gameargs.title')}</span>
         <span>
           <input
             id="launcherArgs"
             type="text"
-            placeholder={'Put here the Launcher Arguments'}
+            placeholder={t('options.gameargs.placeholder')}
             className="settingSelect"
             value={launcherArgs}
             onChange={handleLauncherArgs}
@@ -93,11 +92,15 @@ export default function OtherSettings({
         </span>
       </span>
       <InfoBox>
-        Use the <strong>Advanced Options</strong> to be called before launching
-        the game; <br />
-        Use the <strong>Game Arguments</strong> to be called after the launch
-        command, for instance: <strong> -nolauncher </strong> to skip the
-        launcher in some games, etc.
+        {t('help.other.part1')}
+        <strong>{`${t('help.other.part2')} `}</strong>
+        {t('help.other.part3')}
+        <br />
+        {t('help.other.part4')}
+        <strong>{t('help.other.part5')}</strong>
+        {t('help.other.part6')}
+        <strong>{` -nolauncher `}</strong>
+        {t('help.other.part7')}
       </InfoBox>
     </>
   )

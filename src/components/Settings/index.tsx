@@ -1,6 +1,7 @@
-import { IpcRendererEvent } from 'electron'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 import { getGameInfo, writeConfig } from '../../helper'
 import { useToggle } from '../../hooks'
 import { AppSettings, WineProps } from '../../types'
@@ -12,16 +13,18 @@ import Tools from './Tools'
 import WineSettings from './WineSettings'
 
 const { ipcRenderer } = window.require('electron')
+const storage: Storage = window.localStorage
 
 interface RouteParams {
   appName: string
   type: string
 }
 
-// TODO: add option to add Custom wine
 // TODO: add feedback when launching winecfg and winetricks
 
 export default function Settings() {
+  const { t } = useTranslation()
+
   const [wineVersion, setWineversion] = useState({
     name: 'Wine Default',
     bin: '/usr/bin/wine',
@@ -32,6 +35,9 @@ export default function Settings() {
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
+  const [language, setLanguage] = useState(
+    () => storage.getItem('language') || ''
+  )
   const [savesPath, setSavesPath] = useState('')
   const {
     on: useGameMode,
@@ -69,40 +75,34 @@ export default function Settings() {
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
 
-  const settings = isDefault ? 'defaultSettings' : appName
-
   useEffect(() => {
-    ipcRenderer.send('requestSettings', appName)
-    ipcRenderer.once(
-      settings,
-      async (event: IpcRendererEvent, config: AppSettings) => {
-        setUseGameMode(config.useGameMode || false)
-        setShowFps(config.showFps || false)
-        setAudioFix(config.audioFix || false)
-        setShowMangoHud(config.showMangohud || false)
-        setDefaultInstallPath(config.defaultInstallPath)
-        setWineversion(config.wineVersion)
-        setWinePrefix(config.winePrefix)
-        setOtherOptions(config.otherOptions)
-        setLauncherArgs(config.launcherArgs)
-        setEgsLinkedPath(config.egsLinkedPath || '')
-        setEgsPath(config.egsLinkedPath || '')
-        setAutoSyncSaves(config.autoSyncSaves)
-        setExitToTray(config.exitToTray || false)
-        setSavesPath(config.savesPath || '')
-        if (!isDefault) {
-          const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
-          setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
-        }
+    const getSettings = async () => {
+      const config: AppSettings = await ipcRenderer.invoke(
+        'requestSettings',
+        appName
+      )
+      setUseGameMode(config.useGameMode || false)
+      setShowFps(config.showFps || false)
+      setAudioFix(config.audioFix || false)
+      setShowMangoHud(config.showMangohud || false)
+      setDefaultInstallPath(config.defaultInstallPath)
+      setWineversion(config.wineVersion)
+      setWinePrefix(config.winePrefix)
+      setOtherOptions(config.otherOptions)
+      setLauncherArgs(config.launcherArgs)
+      setEgsLinkedPath(config.egsLinkedPath || '')
+      setEgsPath(config.egsLinkedPath || '')
+      setAutoSyncSaves(config.autoSyncSaves)
+      setExitToTray(config.exitToTray || false)
+      setSavesPath(config.savesPath || '')
 
-        ipcRenderer.send('getAlternativeWine')
-        ipcRenderer.on(
-          'alternativeWine',
-          (event: IpcRendererEvent, args: WineProps[]) => setAltWine(args)
-        )
+      if (!isDefault) {
+        const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
+        setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
-    )
-  }, [appName, settings, type, isDefault])
+    }
+    getSettings()
+  }, [appName, type])
 
   const GlobalSettings = {
     defaultSettings: {
@@ -116,6 +116,7 @@ export default function Settings() {
       exitToTray,
       audioFix,
       showMangohud,
+      language,
     },
   }
 
@@ -148,17 +149,17 @@ export default function Settings() {
         <div className="settingsNavbar">
           {isDefault && (
             <NavLink to={{ pathname: '/settings/default/general' }}>
-              General
+              {t('settings.navbar.general')}
             </NavLink>
           )}
           <NavLink to={{ pathname: `/settings/${appName}/wine` }}>Wine</NavLink>
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink to={{ pathname: `/settings/${appName}/sync` }}>
-              Sync
+              {t('settings.navbar.sync')}
             </NavLink>
           )}
           <NavLink to={{ pathname: `/settings/${appName}/other` }}>
-            Other
+            {t('settings.navbar.other')}
           </NavLink>
         </div>
         <div className="settingsWrapper">
@@ -172,11 +173,14 @@ export default function Settings() {
               setDefaultInstallPath={setDefaultInstallPath}
               exitToTray={exitToTray}
               toggleTray={toggleTray}
+              language={language}
+              setLanguage={setLanguage}
             />
           )}
           {isWineSettings && (
             <WineSettings
               altWine={altWine}
+              setAltWine={setAltWine}
               wineVersion={wineVersion}
               winePrefix={winePrefix}
               setWineversion={setWineversion}
@@ -214,7 +218,7 @@ export default function Settings() {
               winePrefix={winePrefix}
             />
           )}
-          <span className="save">Settings are saved automatically</span>
+          <span className="save">{t('info.settings')}</span>
         </div>
       </div>
     </>

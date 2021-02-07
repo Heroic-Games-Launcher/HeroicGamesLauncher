@@ -16,6 +16,7 @@ import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
 import { AppSettings } from './types'
+import i18next from 'i18next'
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
@@ -96,7 +97,24 @@ const getAlternativeWine = () => {
 
 const isLoggedIn = () => existsSync(userInfo)
 
-const updateGame = (game: any) => {
+const getSettings = (appName: string | 'default'): AppSettings => {
+  const gameConfig = `${heroicGamesConfigPath}${appName}.json`
+  const globalConfig = heroicConfigPath
+  let settingsPath = gameConfig
+  let settingsName = appName
+
+  if (appName === 'default' || !existsSync(gameConfig)) {
+    settingsPath = globalConfig
+    settingsName = 'defaultSettings'
+  }
+
+  const settings = JSON.parse(readFileSync(settingsPath, 'utf-8'))
+  return settings[settingsName]
+}
+
+const getUserInfo = () => JSON.parse(readFileSync(userInfo, 'utf-8'))
+
+const updateGame = (game: string) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
   return execAsync(command, { shell: '/bin/bash' })
@@ -104,23 +122,11 @@ const updateGame = (game: any) => {
     .catch(console.log)
 }
 
-const launchGame = async (appName: any) => {
+const launchGame = async (appName: string) => {
   let envVars = ''
   let dxvkPrefix = ''
   let gameMode
 
-  const gameConfig = `${heroicGamesConfigPath}${appName}.json`
-  const globalConfig = heroicConfigPath
-  let settingsPath = gameConfig
-  let settingsName = appName
-
-  if (!existsSync(gameConfig)) {
-    settingsPath = globalConfig
-    settingsName = 'defaultSettings'
-  }
-
-  //@ts-ignore
-  const settings = JSON.parse(readFileSync(settingsPath))
   const {
     winePrefix,
     wineVersion,
@@ -130,10 +136,14 @@ const launchGame = async (appName: any) => {
     launcherArgs = '',
     showMangohud,
     audioFix,
-  } = settings[settingsName] as AppSettings
+  } = getSettings(appName)
 
   let wine = `--wine ${wineVersion.bin}`
-  let prefix = `--wine-prefix ${winePrefix.replace('~', home)}`
+
+  // We need to keep replacing the ' to keep compatibility with old configs
+  let prefix = `--wine-prefix '${winePrefix
+    .replaceAll("'", '')
+    .replace('~', home)}'`
 
   const isProton = wineVersion.name.startsWith('Proton')
   prefix = isProton ? '' : prefix
@@ -144,7 +154,9 @@ const launchGame = async (appName: any) => {
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
     showMangohud: showMangohud ? `MANGOHUD=1` : '',
     proton: isProton
-      ? `STEAM_COMPAT_DATA_PATH=${winePrefix.replace('~', home)}`
+      ? `STEAM_COMPAT_DATA_PATH='${winePrefix
+          .replaceAll("'", '')
+          .replace('~', home)}'`
       : '',
   }
 
@@ -191,8 +203,11 @@ const launchGame = async (appName: any) => {
       )
       if (stderr.includes('Errno')) {
         showErrorBox(
-          'Something Went Wrong',
-          'Error when launching the game, check the logs!'
+          i18next.t('box.error', 'Something Went Wrong'),
+          i18next.t(
+            'box.error.launch',
+            'Error when launching the game, check the logs!'
+          )
         )
       }
     })
@@ -207,8 +222,7 @@ const launchGame = async (appName: any) => {
 }
 
 const writeDefaultconfig = () => {
-  // @ts-ignore
-  const { account_id } = JSON.parse(readFileSync(userInfo))
+  const { account_id } = getUserInfo()
   const config = {
     defaultSettings: {
       defaultInstallPath: heroicInstallPath,
@@ -220,6 +234,7 @@ const writeDefaultconfig = () => {
       otherOptions: '',
       useGameMode: false,
       showFps: false,
+      language: 'en',
       userInfo: {
         name: user,
         epicId: account_id,
@@ -251,17 +266,16 @@ const writeDefaultconfig = () => {
   }
 }
 
-const writeGameconfig = (game: any) => {
+const writeGameconfig = (game: string) => {
   const {
     wineVersion,
     winePrefix,
     otherOptions,
     useGameMode,
     showFps,
-    //@ts-ignore
-  } = JSON.parse(readFileSync(heroicConfigPath)).defaultSettings
-  // @ts-ignore
-  const { account_id } = JSON.parse(readFileSync(userInfo))
+  } = getSettings('default')
+
+  const { account_id } = getUserInfo()
   const config = {
     [game]: {
       wineVersion,
@@ -280,8 +294,7 @@ const writeGameconfig = (game: any) => {
     writeFileSync(
       `${heroicGamesConfigPath}${game}.json`,
       JSON.stringify(config, null, 2),
-      //@ts-ignore
-      () => 'done'
+      null
     )
   }
 }
@@ -296,19 +309,7 @@ async function checkForUpdates() {
   const newVersion = tag_name.replace('v', '').replaceAll('.', '')
   const currentVersion = app.getVersion().replaceAll('.', '')
 
-  if (newVersion > currentVersion) {
-    const { response } = await showMessageBox({
-      title: 'Update Available',
-      message:
-        'There is a new version of Heroic Available, do you want to update now?',
-      buttons: ['YES', 'NO'],
-    })
-
-    if (response === 0) {
-      return exec(`xdg-open ${heroicGithubURL}`)
-    }
-    return
-  }
+  return newVersion > currentVersion
 }
 
 async function getLatestDxvk() {
@@ -368,7 +369,7 @@ async function installDxvk(prefix: string) {
     .toString()
     .split('\n')[0]
   const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
-  const currentVersionCheck = `${winePrefix.replaceAll("'", '')}/current_dxvk`
+  const currentVersionCheck = `${winePrefix}/current_dxvk`
   let currentVersion = ''
 
   if (existsSync(currentVersionCheck)) {
@@ -392,7 +393,7 @@ const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
     copyright: 'GPL V3',
-    applicationVersion: `${app.getVersion()} Doflamingo`,
+    applicationVersion: `${app.getVersion()} Katakuri`,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher',
     iconPath: icon,
   })
@@ -400,11 +401,16 @@ const showAboutWindow = () => {
 }
 
 const handleExit = async () => {
-  if (existsSync(`${heroicGamesConfigPath}/lock`)) {
+  const isLocked = existsSync(`${heroicGamesConfigPath}/lock`)
+
+  if (isLocked) {
     const { response } = await showMessageBox({
-      title: 'Exit',
-      message: 'There are pending operations, are you sure?',
-      buttons: ['NO', 'YES'],
+      title: i18next.t('box.quit.title', 'Exit'),
+      message: i18next.t(
+        'box.quit.message',
+        'There are pending operations, are you sure?'
+      ),
+      buttons: [i18next.t('box.no'), i18next.t('box.yes')],
     })
 
     if (response === 0) {
@@ -417,6 +423,7 @@ const handleExit = async () => {
 
 export {
   getAlternativeWine,
+  getSettings,
   isLoggedIn,
   launchGame,
   writeDefaultconfig,

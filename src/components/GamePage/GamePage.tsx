@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
-  createNewWindow,
-  formatStoreUrl,
   getGameInfo,
   legendary,
   install,
@@ -10,7 +9,6 @@ import {
   launch,
   syncSaves,
   updateGame,
-  repair,
   getProgress,
   fixSaveFolder,
   handleStopInstallation,
@@ -19,8 +17,9 @@ import Header from '../UI/Header'
 import '../../App.css'
 import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Update from '../UI/Update'
+import GamesSubmenu from './GamesSubmenu'
 const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showOpenDialog, showMessageBox },
@@ -34,7 +33,7 @@ interface RouteParams {
 
 export default function GamePage() {
   const { appName } = useParams() as RouteParams
-
+  const { t } = useTranslation('gamepage')
   const { refresh, libraryStatus, handleGameStatus } = useContext(
     ContextProvider
   )
@@ -67,23 +66,20 @@ export default function GamePage() {
       const newInfo = await getGameInfo(appName)
       setGameInfo(newInfo)
       if (newInfo.cloudSaveEnabled) {
-        ipcRenderer.send('requestSettings', appName)
-        ipcRenderer.once(
-          appName,
-          async (
-            event: any,
-            { autoSyncSaves, winePrefix, wineVersion }: AppSettings
-          ) => {
-            const isProton = wineVersion.name.includes('Proton')
-            setAutoSyncSaves(autoSyncSaves)
-            const folder = await fixSaveFolder(
-              newInfo.saveFolder,
-              winePrefix,
-              isProton
-            )
-            setSavesPath(folder)
-          }
+        const {
+          autoSyncSaves,
+          winePrefix,
+          wineVersion,
+          savesPath,
+        }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
+        const isProton = wineVersion.name.includes('Proton')
+        setAutoSyncSaves(autoSyncSaves)
+        const folder = await fixSaveFolder(
+          newInfo.saveFolder,
+          winePrefix,
+          isProton
         )
+        setSavesPath(savesPath || folder)
       }
     }
     updateConfig()
@@ -127,7 +123,6 @@ export default function GamePage() {
     if (savesPath.includes('{InstallDir}')) {
       setSavesPath(savesPath.replace('{InstallDir}', install_path))
     }
-    const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
     return (
       <>
@@ -141,50 +136,12 @@ export default function GamePage() {
               >
                 more_vertical
               </span>
-              <div className={`more ${clicked ? 'clicked' : ''}`}>
-                {isInstalled && (
-                  <>
-                    <Link
-                      className="hidden link"
-                      to={{
-                        pathname: `/settings/${appName}/wine`,
-                      }}
-                    >
-                      Settings
-                    </Link>
-                    <span
-                      onClick={() => handleRepair(appName)}
-                      className="hidden link"
-                    >
-                      Verify and Repair
-                    </span>{' '}
-                    <span
-                      onClick={() => handleMoveInstall()}
-                      className="hidden link"
-                    >
-                      Move Game
-                    </span>{' '}
-                    <span
-                      onClick={() => ipcRenderer.send('getLog', appName)}
-                      className="hidden link"
-                    >
-                      Latest Log
-                    </span>
-                  </>
-                )}
-                <span
-                  onClick={() => createNewWindow(formatStoreUrl(title))}
-                  className="hidden link"
-                >
-                  Store Page
-                </span>
-                <span
-                  onClick={() => createNewWindow(protonDBurl)}
-                  className="hidden link"
-                >
-                  Check Compatibility
-                </span>
-              </div>
+              <GamesSubmenu
+                appName={appName}
+                clicked={clicked}
+                isInstalled={isInstalled}
+                title={title}
+              />
               <div className="gameConfig">
                 <div className="gamePicture">
                   <img alt="cover-art" src={art_square} className="gameImg" />
@@ -205,20 +162,25 @@ export default function GamePage() {
                           color: autoSyncSaves ? '#07C5EF' : '',
                         }}
                       >
-                        Sync Saves: {autoSyncSaves ? 'Enabled' : 'Disabled'}
+                        {t('info.syncsaves')}:{' '}
+                        {autoSyncSaves ? t('enabled') : t('disabled')}
                       </div>
                     )}
                     {isInstalled && (
                       <>
-                        <div>Size: {install_size}</div>
-                        <div>Version: {version}</div>
+                        <div>
+                          {t('info.size')}: {install_size}
+                        </div>
+                        <div>
+                          {t('info.version')}: {version}
+                        </div>
                         <div
                           className="clickable"
                           onClick={() =>
                             ipcRenderer.send('openFolder', install_path)
                           }
                         >
-                          Location: {install_path}
+                          {t('info.path')}: {install_path}
                         </div>
                         <br />
                       </>
@@ -248,9 +210,9 @@ export default function GamePage() {
                       value={installPath}
                       className="settingSelect"
                     >
-                      <option value={'default'}>Install on default Path</option>
-                      <option value={'another'}>Install on another Path</option>
-                      <option value={'import'}>Import Game</option>
+                      <option value={'default'}>{t('install.default')}</option>
+                      <option value={'another'}>{t('install.another')}</option>
+                      <option value={'import'}>{t('install.import')}</option>
                     </select>
                   )}
                   <div className="buttonsWrapper">
@@ -299,38 +261,42 @@ export default function GamePage() {
 
   function getPlayLabel(): React.ReactNode {
     if (isUpdating) {
-      return 'Cancel Update'
+      return t('label.cancel.update')
     }
     if (isSyncing) {
-      return 'Syncinc Saves'
+      return t('label.saves.syncing')
     }
 
-    return isPlaying ? 'Playing (Stop)' : 'Play Now'
+    return isPlaying ? t('label.playing.stop') : t('label.playing.start')
   }
 
   function getInstallLabel(isInstalled: boolean): React.ReactNode {
     const { eta, percent } = progress
     if (isReparing) {
-      return `Repairing Game ${percent ? `${percent}` : '...'}`
+      return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
 
     if (isMoving) {
-      return `Moving Installation, please wait.`
+      return `${t('status.moving')}`
     }
 
     if (isUpdating && isInstalling) {
-      return `Updating ${percent ? `${percent} | ETA: ${eta}` : '...'}`
+      return `${t('status.updating')} ${
+        percent ? `${percent} | ETA: ${eta}` : '...'
+      }`
     }
 
     if (!isUpdating && isInstalling) {
-      return `Installing ${percent ? `${percent} | ETA: ${eta}` : '...'}`
+      return `${t('status.installing')} ${
+        percent ? `${percent} | ETA: ${eta}` : '...'
+      }`
     }
 
     if (isInstalled) {
-      return 'Installed'
+      return t('status.installed')
     }
 
-    return 'This game is not installed'
+    return t('status.notinstalled')
   }
 
   function getButtonClass(isInstalled: boolean) {
@@ -342,15 +308,15 @@ export default function GamePage() {
 
   function getButtonLabel(isInstalled: boolean) {
     if (installPath === 'import') {
-      return 'Import'
+      return t('button.import')
     }
     if (isInstalled) {
-      return 'Uninstall'
+      return t('button.uninstall')
     }
     if (isInstalling) {
-      return 'Cancel'
+      return t('button.cancel')
     }
-    return 'Install'
+    return t('button.install')
   }
 
   function handlePlay() {
@@ -373,9 +339,9 @@ export default function GamePage() {
         }
         if (err.includes('ERROR: Game is out of date')) {
           const { response } = await showMessageBox({
-            title: 'Game Needs Update',
-            message: 'This game has an update, do you wish to update now?',
-            buttons: ['YES', 'NO'],
+            title: t('box.update.title'),
+            message: t('box.update.message'),
+            buttons: [t('box.yes'), t('box.no')],
           })
 
           if (response === 0) {
@@ -407,9 +373,7 @@ export default function GamePage() {
       }
 
       if (isInstalled) {
-        handleGameStatus({ appName, status: 'uninstalling' })
-        await legendary(`uninstall ${appName}`)
-        handleGameStatus({ appName, status: 'done' })
+        await handleUninstall()
         return refresh()
       }
 
@@ -425,8 +389,8 @@ export default function GamePage() {
 
       if (installPath === 'import') {
         const { filePaths } = await showOpenDialog({
-          title: 'Choose Game Folder to import',
-          buttonLabel: 'Choose',
+          title: t('box.importpath'),
+          buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
         })
 
@@ -440,8 +404,8 @@ export default function GamePage() {
 
       if (installPath === 'another') {
         const { filePaths } = await showOpenDialog({
-          title: 'Choose Install Path',
-          buttonLabel: 'Choose',
+          title: t('box.installpath'),
+          buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
         })
 
@@ -459,34 +423,19 @@ export default function GamePage() {
     }
   }
 
-  async function handleMoveInstall() {
+  async function handleUninstall() {
     const { response } = await showMessageBox({
-      title: 'Move Game Installation',
-      message: 'This can take a long time, are you sure?',
-      buttons: ['YES', 'NO'],
+      type: 'warning',
+      title: t('box.uninstall.title'),
+      message: t('box.uninstall.message'),
+      buttons: [t('box.yes'), t('box.no')],
     })
+
     if (response === 0) {
-      handleGameStatus({ appName, status: 'moving' })
-      await ipcRenderer.invoke('moveInstall', appName)
-      handleGameStatus({ appName, status: 'done' })
+      handleGameStatus({ appName, status: 'uninstalling' })
+      await legendary(`uninstall ${appName} -y`)
+      return handleGameStatus({ appName, status: 'done' })
     }
     return
-  }
-
-  async function handleRepair(appName: string) {
-    const { response } = await showMessageBox({
-      title: 'Verify and Repair',
-      message:
-        'Do you want to try to repair this game. It can take a long time?',
-      buttons: ['YES', 'NO'],
-    })
-
-    if (response === 1) {
-      return
-    }
-
-    handleGameStatus({ appName, status: 'repairing' })
-    await repair(appName)
-    return handleGameStatus({ appName, status: 'done' })
   }
 }

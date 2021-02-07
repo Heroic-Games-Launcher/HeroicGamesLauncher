@@ -21,13 +21,18 @@ import {
   handleExit,
   heroicGithubURL,
   iconDark,
+  getSettings,
   iconLight,
 } from './utils'
 
+// @ts-ignore
 import byteSize from 'byte-size'
 import { spawn, exec } from 'child_process'
 import * as path from 'path'
 import isDev from 'electron-is-dev'
+import i18next from 'i18next'
+import Backend from 'i18next-fs-backend'
+
 import {
   stat,
   readFileSync,
@@ -52,15 +57,13 @@ import {
   Menu,
   Tray,
   nativeTheme,
-  dialog,
   powerSaveBlocker,
 } from 'electron'
-import { AppSettings, Game, InstalledInfo, KeyImage } from './types.js'
+import { Game, InstalledInfo, KeyImage } from './types.js'
 
-const { showMessageBox, showErrorBox, showOpenDialog } = dialog
 let mainWindow: BrowserWindow = null
 
-function createWindow() {
+function createWindow(): BrowserWindow {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: isDev ? 1800 : 1280,
@@ -76,12 +79,9 @@ function createWindow() {
 
   getLatestDxvk()
 
-  setTimeout(() => {
-    checkForUpdates()
-  }, 3500)
-
   //load the index.html from a url
   if (isDev) {
+    //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
@@ -92,25 +92,21 @@ function createWindow() {
     mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
+
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = JSON.parse(
-        // @ts-ignore
-        readFileSync(heroicConfigPath)
-      ).defaultSettings as AppSettings
+      const { exitToTray } = getSettings('default')
 
       if (exitToTray) {
         return mainWindow.hide()
       }
-      return handleExit()
+
+      return await handleExit()
     })
   } else {
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = JSON.parse(
-        // @ts-ignore
-        readFileSync(heroicConfigPath)
-      ).defaultSettings as AppSettings
+      const { exitToTray } = getSettings('default')
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -119,6 +115,8 @@ function createWindow() {
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
     mainWindow.setMenu(null)
+
+    return mainWindow
   }
 }
 
@@ -126,7 +124,7 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 let appIcon: Tray = null
-let window = null
+let window: BrowserWindow = null
 const gotTheLock = app.requestSingleInstanceLock()
 
 if (!gotTheLock) {
@@ -141,20 +139,42 @@ if (!gotTheLock) {
       }
     }
   })
-  app.whenReady().then(() => {
+  app.whenReady().then(async () => {
+    const { language } = getSettings('default')
+
+    await i18next.use(Backend).init({
+      lng: language,
+      fallbackLng: 'en',
+      supportedLngs: ['en', 'pt'],
+      debug: false,
+      backend: {
+        allowMultiLoading: false,
+        addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
+        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
+      },
+    })
+
     window = createWindow()
+
     const trayIcon = nativeTheme.shouldUseDarkColors ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Show Heroic',
+        label: i18next.t('tray.show'),
         click: function () {
           mainWindow.show()
         },
       },
       {
-        label: 'About',
+        label: i18next.t('tray.reload', 'Reload'),
+        click: function () {
+          mainWindow.reload()
+        },
+        accelerator: 'ctrl + R',
+      },
+      {
+        label: i18next.t('tray.about', 'About'),
         click: function () {
           showAboutWindow()
         },
@@ -166,13 +186,13 @@ if (!gotTheLock) {
         },
       },
       {
-        label: 'Support Us',
+        label: i18next.t('tray.support', 'Support Us'),
         click: function () {
           exec(`xdg-open ${kofiURL}`)
         },
       },
       {
-        label: 'Quit',
+        label: i18next.t('tray.quit', 'Quit'),
         click: function () {
           handleExit()
         },
@@ -181,6 +201,10 @@ if (!gotTheLock) {
 
     appIcon.setContextMenu(contextMenu)
     appIcon.setToolTip('Heroic')
+    ipcMain.on('changeLanguage', async (event, language: string) => {
+      await i18next.changeLanguage(language)
+      appIcon.setContextMenu(contextMenu)
+    })
     return
   })
 }
@@ -195,7 +219,15 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
+// ipcMain.on('changeLanguage', (event, language: string) => {
+//   return i18next.changeLanguage(language)
+// })
+
 ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
+
+ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
+
+ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
@@ -214,20 +246,26 @@ ipcMain.handle('writeFile', (event, args) => {
   )
 })
 
-let powerId = null
+let powerId: number | null
 ipcMain.on('lock', () => {
-  writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
-  powerId = powerSaveBlocker.start('prevent-app-suspension')
+  if (!existsSync(`${heroicGamesConfigPath}/lock`)) {
+    writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
+    if (!powerId) {
+      powerId = powerSaveBlocker.start('prevent-app-suspension')
+    }
+  }
 })
 
 ipcMain.on('unlock', () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     unlinkSync(`${heroicGamesConfigPath}/lock`)
-    powerSaveBlocker.stop(powerId)
+    if (powerId) {
+      powerSaveBlocker.stop(powerId)
+    }
   }
 })
 
-ipcMain.on('quit', () => handleExit())
+ipcMain.on('quit', async () => handleExit())
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   const epicUrl = `https://store-content.ak.epicgames.com/api/en-US/content/products/${game}`
@@ -249,35 +287,18 @@ ipcMain.handle('launch', (event, appName) => {
 })
 
 ipcMain.handle('legendary', async (event, args) => {
-  const isUninstall = args.startsWith('uninstall')
-
-  if (isUninstall) {
-    const { response } = await showMessageBox({
-      type: 'warning',
-      title: 'Uninstall',
-      message: 'Do you want to Uninstall this game?',
-      buttons: ['Yes', 'No'],
+  const command = `${legendaryBin} ${args}`
+  return await execAsync(command)
+    .then(({ stdout, stderr }) => {
+      if (stdout) {
+        return stdout
+      } else if (stderr) {
+        return stderr
+      } else {
+        return 'done'
+      }
     })
-    if (response === 1) {
-      return response
-    }
-    if (response === 0) {
-      return execAsync(`${legendaryBin} ${args} -y`)
-    }
-  } else {
-    const command = `${legendaryBin} ${args}`
-    return await execAsync(command)
-      .then(({ stdout, stderr }) => {
-        if (stdout) {
-          return stdout
-        } else if (stderr) {
-          return stderr
-        } else {
-          return 'done'
-        }
-      })
-      .catch((err) => console.log(err))
-  }
+    .catch((err) => console.log(err))
 })
 
 ipcMain.handle('install', async (event, args) => {
@@ -285,15 +306,12 @@ ipcMain.handle('install', async (event, args) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
   let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
   if (path === 'default') {
-    const { defaultInstallPath } = JSON.parse(
-      // @ts-ignore
-      readFileSync(heroicConfigPath)
-    ).defaultSettings
+    const { defaultInstallPath } = getSettings('default')
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
-    .then(console.log)
+    .then(() => console.log('finished installing'))
     .catch(console.log)
 })
 
@@ -303,7 +321,7 @@ ipcMain.handle('repair', async (event, game) => {
 
   console.log(`Repairing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
-    .then(console.log)
+    .then(() => console.log('finished repairing'))
     .catch(console.log)
 })
 
@@ -342,9 +360,7 @@ ipcMain.on('kill', (event, game) => {
 
 ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
 
-ipcMain.on('getAlternativeWine', (event) =>
-  event.reply('alternativeWine', getAlternativeWine())
-)
+ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
@@ -375,24 +391,16 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
   return exec(command)
 })
 
-ipcMain.on('requestSettings', (event, appName) => {
-  let settings: AppSettings
+ipcMain.handle('requestSettings', (event, appName) => {
+  if (appName === 'default') {
+    return getSettings('default')
+  }
+
   if (appName !== 'default') {
     writeGameconfig(appName)
   }
-  // @ts-ignore
-  const defaultSettings = JSON.parse(readFileSync(heroicConfigPath))
-  if (appName === 'default') {
-    return event.reply('defaultSettings', defaultSettings.defaultSettings)
-  }
-  if (existsSync(`${heroicGamesConfigPath}${appName}.json`)) {
-    settings = JSON.parse(
-      // @ts-ignore
-      readFileSync(`${heroicGamesConfigPath}${appName}.json`)
-    )
-    return event.reply(appName, settings[appName])
-  }
-  return event.reply(appName, defaultSettings.defaultSettings)
+
+  return getSettings(appName)
 })
 
 //Checks if the user have logged in with Legendary already
@@ -408,35 +416,25 @@ ipcMain.on('getLog', (event, appName) =>
 
 const installed = `${legendaryConfigPath}/installed.json`
 
-ipcMain.handle('moveInstall', async (event, appName: string) => {
-  const { filePaths } = await showOpenDialog({
-    title: 'Choose where you want to move',
-    buttonLabel: 'Choose',
-    properties: ['openDirectory'],
-  })
+ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
+  const file = JSON.parse(readFileSync(installed, 'utf8'))
+  const installedGames: Game[] = Object.values(file)
+  const { install_path } = installedGames.filter(
+    (game) => game.app_name === appName
+  )[0]
 
-  if (filePaths[0]) {
-    // @ts-ignore
-    const file = JSON.parse(readFileSync(installed))
-    const installedGames: Game[] = Object.values(file)
-    const { install_path } = installedGames.filter(
-      (game) => game.app_name === appName
-    )[0]
-
-    const splitPath = install_path.split('/')
-    const installFolder = splitPath[splitPath.length - 1]
-    const newPath = `${filePaths[0]}/${installFolder}`
-    const game: Game = { ...file[appName], install_path: newPath }
-    const modifiedInstall = { ...file, [appName]: game }
-    return await execAsync(`mv -f ${install_path} ${newPath}`)
-      .then(() => {
-        writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
-          console.log(`Finished moving ${appName} to ${newPath}`)
-        )
-      })
-      .catch(console.log)
-  }
-  return
+  const splitPath = install_path.split('/')
+  const installFolder = splitPath[splitPath.length - 1]
+  const newPath = `${path}/${installFolder}`
+  const game: Game = { ...file[appName], install_path: newPath }
+  const modifiedInstall = { ...file, [appName]: game }
+  return await execAsync(`mv -f ${install_path} ${newPath}`)
+    .then(() => {
+      writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
+        console.log(`Finished moving ${appName} to ${newPath}`)
+      )
+    })
+    .catch(console.log)
 })
 
 ipcMain.handle('readFile', async (event, file) => {
@@ -447,13 +445,13 @@ ipcMain.handle('readFile', async (event, file) => {
   }
 
   const files: any = {
-    // @ts-ignore
-    user: loggedIn ? JSON.parse(readFileSync(userInfo)) : { displayName: null },
+    user: loggedIn
+      ? JSON.parse(readFileSync(userInfo, 'utf8'))
+      : { displayName: null },
     library: `${legendaryConfigPath}/metadata/`,
     config: heroicConfigPath,
     installed: await statAsync(installed)
-      // @ts-ignore
-      .then(() => JSON.parse(readFileSync(installed)))
+      .then(() => JSON.parse(readFileSync(installed, 'utf-8')))
       .catch(() => []),
   }
 
@@ -471,83 +469,80 @@ ipcMain.handle('readFile', async (event, file) => {
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
 
     if (library) {
-      return (
-        readdirSync(files.library)
-          .map((file) => `${files.library}/${file}`)
-          // @ts-ignore
-          .map((file) => JSON.parse(readFileSync(file)))
-          .map(({ app_name, metadata }) => {
-            const {
-              description,
-              keyImages,
-              title,
-              developer,
-              customAttributes: { CloudSaveFolder, FolderName },
-            } = metadata
-            const cloudSaveEnabled = Boolean(CloudSaveFolder)
-            const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
-            const installFolder = FolderName ? FolderName.value : ''
-            const gameBox = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBox'
-            )[0]
-            const gameBoxTall = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-            )[0]
-            const logo = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-            )[0]
+      return readdirSync(files.library)
+        .map((file) => `${files.library}/${file}`)
+        .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
+        .map(({ app_name, metadata }) => {
+          const {
+            description,
+            keyImages,
+            title,
+            developer,
+            customAttributes: { CloudSaveFolder, FolderName },
+          } = metadata
+          const cloudSaveEnabled = Boolean(CloudSaveFolder)
+          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+          const installFolder = FolderName ? FolderName.value : ''
+          const gameBox = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBox'
+          )[0]
+          const gameBoxTall = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxTall'
+          )[0]
+          const logo = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
+          )[0]
 
-            const art_cover = gameBox ? gameBox.url : null
-            const art_logo = logo ? logo.url : null
-            const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+          const art_cover = gameBox ? gameBox.url : null
+          const art_logo = logo ? logo.url : null
+          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
-            const installedGames: Game[] = Object.values(files.installed)
+          const installedGames: Game[] = Object.values(files.installed)
 
-            const isInstalled = Boolean(
-              installedGames.filter((game) => game.app_name === app_name).length
-            )
-            const info = isInstalled
-              ? installedGames.filter((game) => game.app_name === app_name)[0]
-              : {}
+          const isInstalled = Boolean(
+            installedGames.filter((game) => game.app_name === app_name).length
+          )
+          const info = isInstalled
+            ? installedGames.filter((game) => game.app_name === app_name)[0]
+            : {}
 
-            const {
-              executable = null,
-              version = null,
-              install_size = null,
-              install_path = null,
-              is_dlc = null,
-            } = info as InstalledInfo
+          const {
+            executable = null,
+            version = null,
+            install_size = null,
+            install_path = null,
+            is_dlc = null,
+          } = info as InstalledInfo
 
-            const convertedSize =
-              install_size &&
-              `${byteSize(install_size).value}${byteSize(install_size).unit}`
+          const convertedSize =
+            install_size &&
+            `${byteSize(install_size).value}${byteSize(install_size).unit}`
 
-            return {
-              isInstalled,
-              info,
-              title,
-              executable,
-              version,
-              install_size: convertedSize,
-              install_path,
-              app_name,
-              developer,
-              description,
-              cloudSaveEnabled,
-              saveFolder,
-              folderName: installFolder,
-              art_cover: art_cover || art_square,
-              art_square: art_square || art_cover,
-              art_logo,
-              is_dlc,
-            }
-          })
-          .sort((a, b) => {
-            const gameA = a.title.toUpperCase()
-            const gameB = b.title.toUpperCase()
-            return gameA < gameB ? -1 : 1
-          })
-      )
+          return {
+            isInstalled,
+            info,
+            title,
+            executable,
+            version,
+            install_size: convertedSize,
+            install_path,
+            app_name,
+            developer,
+            description,
+            cloudSaveEnabled,
+            saveFolder,
+            folderName: installFolder,
+            art_cover: art_cover || art_square,
+            art_square: art_square || art_cover,
+            art_logo,
+            is_dlc,
+          }
+        })
+        .sort((a, b) => {
+          const gameA = a.title.toUpperCase()
+          const gameB = b.title.toUpperCase()
+          return gameA < gameB ? -1 : 1
+        })
     }
     return []
   }
@@ -567,14 +562,12 @@ ipcMain.handle('egsSync', async (event, args) => {
     console.log(`${stdout} - ${stderr}`)
     return `${stdout} - ${stderr}`
   } catch (error) {
-    showErrorBox('Error', 'Invalid Path')
     return 'Error'
   }
 })
 
 ipcMain.handle('getUserInfo', () => {
-  // @ts-ignore
-  const { account_id } = JSON.parse(readFileSync(userInfo))
+  const { account_id } = JSON.parse(readFileSync(userInfo, 'utf-8'))
   return { user: user().username, epicId: account_id }
 })
 
@@ -582,10 +575,9 @@ ipcMain.on('removeFolder', (e, args: string[]) => {
   const [path, folderName] = args
 
   if (path === 'default') {
-    // @ts-ignore
-    let { defaultInstallPath } = JSON.parse(readFileSync(heroicConfigPath))
-      .defaultSettings as AppSettings
-    defaultInstallPath = defaultInstallPath.replaceAll("'", '')
+    const defaultInstallPath = getSettings(
+      'default'
+    ).defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${defaultInstallPath}/${folderName}`
     return setTimeout(() => {
       exec(`rm -Rf ${folderToDelete}`)
@@ -616,6 +608,11 @@ ipcMain.handle('syncSaves', async (event, args) => {
 })
 
 ipcMain.on('showAboutWindow', () => showAboutWindow())
+
+// Maybe this can help with white screens
+process.on('uncaughtException', (err) => {
+  console.log(err)
+})
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

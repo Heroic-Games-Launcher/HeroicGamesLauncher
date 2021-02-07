@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
 import { Path, SyncType } from '../../types'
 import InfoBox from '../UI/InfoBox'
@@ -31,6 +33,7 @@ export default function SyncSaves({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const getSyncFolder = async () => {
@@ -72,11 +75,11 @@ export default function SyncSaves({
   return (
     <>
       <span className="setting">
-        <span className="settingText">Override Cloud Sync Save folder</span>
+        <span className="settingText">{t('setting.savefolder.title')}</span>
         <span>
           <input
             type="text"
-            placeholder={'Select the exact save games folder'}
+            placeholder={t('setting.savefolder.placeholder')}
             className="settingSelect"
             value={savesPath}
             disabled={isSyncing}
@@ -91,13 +94,13 @@ export default function SyncSaves({
                   ? ''
                   : dialog
                       .showOpenDialog({
-                        title: 'Choose the saves directory',
-                        buttonLabel: 'Choose',
+                        title: t('box.sync.title'),
+                        buttonLabel: t('box.sync.button'),
                         defaultPath: defaultFolder,
                         properties: ['openDirectory'],
                       })
                       .then(({ filePaths }: Path) =>
-                        setSavesPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                        setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
                       )
               }
             >
@@ -115,7 +118,7 @@ export default function SyncSaves({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">Manual Sync</span>
+        <span className="settingText">{t('setting.manualsync')}</span>
         <span
           style={{
             display: 'flex',
@@ -146,7 +149,7 @@ export default function SyncSaves({
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          Sync Saves Automatically
+          {t('setting.autosync')}
           <ToggleSwitch
             value={autoSyncSaves}
             disabled={!savesPath.length}
@@ -156,29 +159,10 @@ export default function SyncSaves({
       </span>
       <InfoBox>
         <ul>
-          <li>
-            Heroic try to guess the right save folder and this will work on the
-            majority of cases. In case the folder is wrong, use the override box
-            to change it.
-          </li>
-          <li>
-            In case you change the prefix folder or Wine for Proton and
-            vice-versa, you will need to check the path again since proton uses
-            a different prefix (/pfx) and username (steamuser). So you can
-            simple erase the current path, get out of the sync settings page and
-            get back again for Heroic to guess the folder one more time with the
-            right prefix.
-          </li>
-          <li>
-            Manual Sync: Choose Download to download the games saves stored on
-            the Cloud. Upload to upload the local ones to the cloud. Force
-            Download and Force Upload will ignore the version that is locally or
-            on the cloud.
-          </li>
-          <li>
-            Sync Saves Automatically will sync the saves every time you Start a
-            Game and after finishing playing.
-          </li>
+          <li>{t('help.sync.part1')}</li>
+          <li>{t('help.sync.part2')}</li>
+          <li>{t('help.sync.part3')}</li>
+          <li>{t('help.sync.part4')}</li>
         </ul>
       </InfoBox>
     </>

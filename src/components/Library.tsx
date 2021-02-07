@@ -1,4 +1,6 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Game } from '../types'
 import GameCard from './UI/GameCard'
 
@@ -8,6 +10,8 @@ interface Props {
 
 // TODO: Add a list options instead of Grid only
 export const Library = ({ library }: Props) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <div className="gameList">
@@ -37,7 +41,7 @@ export const Library = ({ library }: Props) => {
             }
           )
         ) : (
-          <div className="noGames">No Games Found</div>
+          <div className="noGames">{t('nogames')}</div>
         )}
       </div>
     </>
