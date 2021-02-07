@@ -141,7 +141,7 @@ export default function GeneralSettings({
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.egs-sync')}</span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             type="text"
             placeholder={t('placeholder.egs-prefix')}
