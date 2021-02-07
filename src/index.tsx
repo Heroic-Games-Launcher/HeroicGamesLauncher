@@ -29,7 +29,7 @@ i18next
     interpolation: {
       escapeValue: false,
     },
-    lng: 'pt',
+    lng: 'en',
     fallbackLng: 'en',
     debug: process.env.NODE_ENV !== 'production',
     react: {

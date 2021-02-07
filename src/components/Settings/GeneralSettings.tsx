@@ -209,15 +209,15 @@ export default function GeneralSettings({
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.maxworkers')}
-          <input
-            type="number"
-            name="max-workers"
-            id="max-workers"
-            min="1"
+          <select
+            onChange={(event) => setMaxWorkers(Number(event.target.value))}
             value={maxWorkers}
-            max={maxCpus}
-            onChange={(e) => setMaxWorkers(Number(e.target.value))}
-          />
+            className="settingSelect smaller"
+          >
+            {Array.from(Array(maxCpus).keys()).map((n) => (
+              <option key={n + 1}>{n + 1}</option>
+            ))}
+          </select>
         </span>
       </span>
       <InfoBox>{t('help.general')}</InfoBox>

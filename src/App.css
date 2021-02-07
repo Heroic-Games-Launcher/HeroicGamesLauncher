@@ -451,6 +451,11 @@
   width: 372px;
 }
 
+.settingSelect.smaller {
+  width: 48px;
+  text-indent: 11px;
+}
+
 .settingSelect > option {
   background: #424546;
   height: 40px;
