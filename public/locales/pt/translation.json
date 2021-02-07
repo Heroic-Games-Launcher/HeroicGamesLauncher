@@ -137,6 +137,7 @@
   "tray": {
     "about": "Sobre",
     "quit": "Fechar",
+    "reload": "Recarregar",
     "show": "Mostrar",
     "support": "Apoie-nos"
   },

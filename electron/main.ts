@@ -142,23 +142,17 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     const { language } = getSettings('default')
 
-    await i18next
-      // load translation using http -> see /public/locales
-      // learn more: https://github.com/i18next/i18next-http-backend
-      .use(Backend)
-      // detect user language
-      // learn more: https://github.com/i18next/i18next-browser-languageDetector
-      .init({
-        lng: language,
-        fallbackLng: 'en',
-        supportedLngs: ['en', 'pt'],
-        debug: true,
-        backend: {
-          allowMultiLoading: false,
-          addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
-          loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
-        },
-      })
+    await i18next.use(Backend).init({
+      lng: language,
+      fallbackLng: 'en',
+      supportedLngs: ['en', 'pt'],
+      debug: false,
+      backend: {
+        allowMultiLoading: false,
+        addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
+        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
+      },
+    })
 
     window = createWindow()
 
@@ -171,6 +165,13 @@ if (!gotTheLock) {
         click: function () {
           mainWindow.show()
         },
+      },
+      {
+        label: i18next.t('tray.reload', 'Reload'),
+        click: function () {
+          mainWindow.reload()
+        },
+        accelerator: 'ctrl + R',
       },
       {
         label: i18next.t('tray.about', 'About'),
