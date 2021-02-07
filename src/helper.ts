@@ -115,7 +115,8 @@ export const handleSavePath = async (game: string) => {
   return { cloudSaveEnabled, saveFolder }
 }
 
-export const createNewWindow = (url: string) => new BrowserWindow().loadURL(url)
+export const createNewWindow = (url: string) =>
+  new BrowserWindow({ width: 1200, height: 700 }).loadURL(url)
 const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
 
 export const formatStoreUrl = (title: string) =>
