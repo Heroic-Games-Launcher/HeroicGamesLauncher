@@ -13,6 +13,7 @@ import Tools from './Tools'
 import WineSettings from './WineSettings'
 
 const { ipcRenderer } = window.require('electron')
+const storage: Storage = window.localStorage
 
 interface RouteParams {
   appName: string
@@ -34,6 +35,9 @@ export default function Settings() {
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
+  const [language, setLanguage] = useState(
+    () => storage.getItem('language') || ''
+  )
   const [savesPath, setSavesPath] = useState('')
   const {
     on: useGameMode,
@@ -112,6 +116,7 @@ export default function Settings() {
       exitToTray,
       audioFix,
       showMangohud,
+      language,
     },
   }
 
@@ -168,6 +173,8 @@ export default function Settings() {
               setDefaultInstallPath={setDefaultInstallPath}
               exitToTray={exitToTray}
               toggleTray={toggleTray}
+              language={language}
+              setLanguage={setLanguage}
             />
           )}
           {isWineSettings && (

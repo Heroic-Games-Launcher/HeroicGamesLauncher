@@ -8,8 +8,14 @@
     "choose": "Choose",
     "choose-egs-prefix": "Choose Prefix where EGS is installed",
     "default-install-path": "Choose Default Install Path",
-    "error": "Error",
+    "error": {
+      "launch": "Error when launching the game, check the logs!"
+    },
     "no": "NO",
+    "quit": {
+      "message": "There are pending operations, are you sure?",
+      "title": "Exit"
+    },
     "runexe": {
       "title": "Select EXE to Run"
     },
@@ -128,6 +134,12 @@
     }
   },
   "Total Games": "Total Games",
+  "tray": {
+    "about": "About",
+    "quit": "Quit",
+    "show": "Show",
+    "support": "Support Us"
+  },
   "userselector": {
     "about": "About",
     "logout": "Logout",

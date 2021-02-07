@@ -30,6 +30,9 @@ import byteSize from 'byte-size'
 import { spawn, exec } from 'child_process'
 import * as path from 'path'
 import isDev from 'electron-is-dev'
+import i18next from 'i18next'
+import Backend from 'i18next-fs-backend'
+
 import {
   stat,
   readFileSync,
@@ -76,10 +79,6 @@ function createWindow(): BrowserWindow {
 
   getLatestDxvk()
 
-  setTimeout(() => {
-    checkForUpdates()
-  }, 3500)
-
   //load the index.html from a url
   if (isDev) {
     //@ts-ignore
@@ -93,6 +92,7 @@ function createWindow(): BrowserWindow {
     mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
+
     mainWindow.on('close', async (e) => {
       e.preventDefault()
       const { exitToTray } = getSettings('default')
@@ -139,20 +139,41 @@ if (!gotTheLock) {
       }
     }
   })
-  app.whenReady().then(() => {
+  app.whenReady().then(async () => {
+    const { language } = getSettings('default')
+
+    await i18next
+      // load translation using http -> see /public/locales
+      // learn more: https://github.com/i18next/i18next-http-backend
+      .use(Backend)
+      // detect user language
+      // learn more: https://github.com/i18next/i18next-browser-languageDetector
+      .init({
+        lng: language,
+        fallbackLng: 'en',
+        supportedLngs: ['en', 'pt'],
+        debug: true,
+        backend: {
+          allowMultiLoading: false,
+          addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
+          loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
+        },
+      })
+
     window = createWindow()
+
     const trayIcon = nativeTheme.shouldUseDarkColors ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Show Heroic',
+        label: i18next.t('tray.show'),
         click: function () {
           mainWindow.show()
         },
       },
       {
-        label: 'About',
+        label: i18next.t('tray.about', 'About'),
         click: function () {
           showAboutWindow()
         },
@@ -164,13 +185,13 @@ if (!gotTheLock) {
         },
       },
       {
-        label: 'Support Us',
+        label: i18next.t('tray.support', 'Support Us'),
         click: function () {
           exec(`xdg-open ${kofiURL}`)
         },
       },
       {
-        label: 'Quit',
+        label: i18next.t('tray.quit', 'Quit'),
         click: function () {
           handleExit()
         },
@@ -179,6 +200,10 @@ if (!gotTheLock) {
 
     appIcon.setContextMenu(contextMenu)
     appIcon.setToolTip('Heroic')
+    ipcMain.on('changeLanguage', async (event, language: string) => {
+      await i18next.changeLanguage(language)
+      appIcon.setContextMenu(contextMenu)
+    })
     return
   })
 }
@@ -193,7 +218,15 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
+// ipcMain.on('changeLanguage', (event, language: string) => {
+//   return i18next.changeLanguage(language)
+// })
+
 ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
+
+ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
+
+ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]

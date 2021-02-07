@@ -34,6 +34,7 @@ export interface AppSettings {
   audioFix: boolean
   showMangohud: boolean
   defaultInstallPath: string
+  language: string
 }
 
 export interface Game {

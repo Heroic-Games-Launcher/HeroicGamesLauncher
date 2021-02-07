@@ -16,6 +16,7 @@ import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
 import { AppSettings } from './types'
+import i18next from 'i18next'
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
@@ -202,8 +203,11 @@ const launchGame = async (appName: string) => {
       )
       if (stderr.includes('Errno')) {
         showErrorBox(
-          'Something Went Wrong',
-          'Error when launching the game, check the logs!'
+          i18next.t('box.error', 'Something Went Wrong'),
+          i18next.t(
+            'box.error.launch',
+            'Error when launching the game, check the logs!'
+          )
         )
       }
     })
@@ -230,6 +234,7 @@ const writeDefaultconfig = () => {
       otherOptions: '',
       useGameMode: false,
       showFps: false,
+      language: 'en',
       userInfo: {
         name: user,
         epicId: account_id,
@@ -304,19 +309,7 @@ async function checkForUpdates() {
   const newVersion = tag_name.replace('v', '').replaceAll('.', '')
   const currentVersion = app.getVersion().replaceAll('.', '')
 
-  if (newVersion > currentVersion) {
-    const { response } = await showMessageBox({
-      title: 'Update Available',
-      message:
-        'There is a new version of Heroic Available, do you want to update now?',
-      buttons: ['YES', 'NO'],
-    })
-
-    if (response === 0) {
-      return exec(`xdg-open ${heroicGithubURL}`)
-    }
-    return
-  }
+  return newVersion > currentVersion
 }
 
 async function getLatestDxvk() {
@@ -400,7 +393,7 @@ const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
     copyright: 'GPL V3',
-    applicationVersion: `${app.getVersion()} Doflamingo`,
+    applicationVersion: `${app.getVersion()} Katakuri`,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher',
     iconPath: icon,
   })
@@ -412,9 +405,12 @@ const handleExit = async () => {
 
   if (isLocked) {
     const { response } = await showMessageBox({
-      title: 'Exit',
-      message: 'There are pending operations, are you sure?',
-      buttons: ['NO', 'YES'],
+      title: i18next.t('box.quit.title', 'Exit'),
+      message: i18next.t(
+        'box.quit.message',
+        'There are pending operations, are you sure?'
+      ),
+      buttons: [i18next.t('box.no'), i18next.t('box.yes')],
     })
 
     if (response === 0) {

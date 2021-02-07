@@ -20,6 +20,8 @@ interface Props {
   setEgsLinkedPath: (value: string) => void
   exitToTray: boolean
   toggleTray: () => void
+  language: string
+  setLanguage: (value: string) => void
 }
 
 export default function GeneralSettings({
@@ -31,14 +33,13 @@ export default function GeneralSettings({
   setEgsLinkedPath,
   exitToTray,
   toggleTray,
+  language,
+  setLanguage,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const { refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
-  const [language, setLanguage] = useState(
-    () => storage.getItem('language') || ''
-  )
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -81,12 +82,17 @@ export default function GeneralSettings({
       })
   }
 
+  async function handleChangeLanguage(language: string) {
+    ipcRenderer.send('changeLanguage', language)
+    setLanguage(language)
+  }
+
   return (
     <>
       <span className="setting">
         <span className="settingText">{t('setting.language')}</span>
         <select
-          onChange={(event) => setLanguage(event.target.value)}
+          onChange={(event) => handleChangeLanguage(event.target.value)}
           value={language}
           className="settingSelect"
         >
