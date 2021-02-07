@@ -117,6 +117,7 @@
     "language": "Choose App Language",
     "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
     "manualsync": "Manual Sync Saves",
+    "maxworkers": "Maximum Number of Workers when downloading",
     "runexe": {
       "message": "Drag and Drop Files here",
       "title": "Run EXE on Prefix"

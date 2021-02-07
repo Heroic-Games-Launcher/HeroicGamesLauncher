@@ -34,6 +34,7 @@ export default function Settings() {
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
+  const [maxWorkers, setMaxWorkers] = useState(2)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || ''
@@ -95,6 +96,7 @@ export default function Settings() {
       setAutoSyncSaves(config.autoSyncSaves)
       setExitToTray(config.exitToTray || false)
       setSavesPath(config.savesPath || '')
+      setMaxWorkers(config.maxWorkers || 2)
 
       if (!isDefault) {
         const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
@@ -117,6 +119,7 @@ export default function Settings() {
       audioFix,
       showMangohud,
       language,
+      maxWorkers,
     },
   }
 
@@ -175,6 +178,8 @@ export default function Settings() {
               toggleTray={toggleTray}
               language={language}
               setLanguage={setLanguage}
+              maxWorkers={maxWorkers}
+              setMaxWorkers={setMaxWorkers}
             />
           )}
           {isWineSettings && (

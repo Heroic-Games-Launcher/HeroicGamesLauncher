@@ -22,6 +22,8 @@ interface Props {
   toggleTray: () => void
   language: string
   setLanguage: (value: string) => void
+  maxWorkers: number
+  setMaxWorkers: (value: number) => void
 }
 
 export default function GeneralSettings({
@@ -35,8 +37,11 @@ export default function GeneralSettings({
   toggleTray,
   language,
   setLanguage,
+  maxWorkers,
+  setMaxWorkers,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
+  const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const { refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
@@ -45,6 +50,14 @@ export default function GeneralSettings({
     i18n.changeLanguage(language)
     storage.setItem('language', language)
   }, [language])
+
+  useEffect(() => {
+    const getMaxCpus = async () => {
+      const cores = await ipcRenderer.invoke('getMaxCpus')
+      setMaxCpus(cores)
+    }
+    getMaxCpus()
+  }, [maxWorkers])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -191,6 +204,20 @@ export default function GeneralSettings({
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}
           <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.maxworkers')}
+          <input
+            type="number"
+            name="max-workers"
+            id="max-workers"
+            min="1"
+            value={maxWorkers}
+            max={maxCpus}
+            onChange={(e) => setMaxWorkers(Number(e.target.value))}
+          />
         </span>
       </span>
       <InfoBox>{t('help.general')}</InfoBox>

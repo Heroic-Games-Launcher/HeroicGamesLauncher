@@ -35,6 +35,7 @@ export interface AppSettings {
   showMangohud: boolean
   defaultInstallPath: string
   language: string
+  maxWorkers: number
 }
 
 export interface Game {

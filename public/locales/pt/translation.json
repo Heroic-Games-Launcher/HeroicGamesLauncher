@@ -117,6 +117,7 @@
     "language": "Selecionar idioma",
     "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
     "manualsync": "Sincronização manual",
+    "maxworkers": "CPUs máximos utilizados ao baixar jogos",
     "runexe": {
       "message": "Arraste e Solte arquivos aqui",
       "title": "Executar EXE no Prefixo"

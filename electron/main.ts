@@ -44,7 +44,7 @@ import {
 } from 'fs'
 import { promisify } from 'util'
 import axios from 'axios'
-import { userInfo as user } from 'os'
+import { userInfo as user, cpus } from 'os'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -60,6 +60,7 @@ import {
   powerSaveBlocker,
 } from 'electron'
 import { Game, InstalledInfo, KeyImage } from './types.js'
+import { worker } from 'cluster'
 
 let mainWindow: BrowserWindow = null
 
@@ -265,6 +266,8 @@ ipcMain.on('unlock', () => {
   }
 })
 
+ipcMain.handle('getMaxCpus', () => cpus().length)
+
 ipcMain.on('quit', async () => handleExit())
 
 ipcMain.handle('getGameInfo', async (event, game) => {
@@ -303,11 +306,13 @@ ipcMain.handle('legendary', async (event, args) => {
 
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
+  const { defaultInstallPath, maxWorkers } = getSettings('default')
+  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+
   const logPath = `${heroicGamesConfigPath}${game}.log`
-  let command = `${legendaryBin} install ${game} --base-path '${path}' -y &> ${logPath}`
+  let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
   if (path === 'default') {
-    const { defaultInstallPath } = getSettings('default')
-    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} -y |& tee ${logPath}`
+    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
@@ -316,8 +321,11 @@ ipcMain.handle('install', async (event, args) => {
 })
 
 ipcMain.handle('repair', async (event, game) => {
+  const { maxWorkers } = getSettings('default')
+  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+
   const logPath = `${heroicGamesConfigPath}${game}.log`
-  const command = `${legendaryBin} repair ${game} -y &> ${logPath}`
+  const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
 
   console.log(`Repairing ${game} with:`, command)
   await execAsync(command, { shell: '/bin/bash' })
