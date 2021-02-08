@@ -61,6 +61,16 @@ export default function Settings() {
     toggle: toggleTray,
     setOn: setExitToTray,
   } = useToggle(false)
+  const {
+    on: darkTrayIcon,
+    toggle: toggleDarkTrayIcon,
+    setOn: setDarkTrayIcon,
+  } = useToggle(false)
+  const {
+    on: autoInstallDxvk,
+    toggle: toggleAutoInstallDxvk,
+    setOn: setAutoInstallDxvk,
+  } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -95,6 +105,8 @@ export default function Settings() {
       setEgsPath(config.egsLinkedPath || '')
       setAutoSyncSaves(config.autoSyncSaves)
       setExitToTray(config.exitToTray || false)
+      setDarkTrayIcon(config.darkTrayIcon || false)
+      setAutoInstallDxvk(config.autoInstallDxvk || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers || 2)
 
@@ -119,6 +131,7 @@ export default function Settings() {
       audioFix,
       showMangohud,
       language,
+      darkTrayIcon,
       maxWorkers,
     },
   }
@@ -134,6 +147,7 @@ export default function Settings() {
       showFps,
       autoSyncSaves,
       audioFix,
+      autoInstallDxvk,
       showMangohud,
     },
   }
@@ -180,6 +194,8 @@ export default function Settings() {
               setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
+              toggleDarkTrayIcon={toggleDarkTrayIcon}
+              darkTrayIcon={darkTrayIcon}
             />
           )}
           {isWineSettings && (
@@ -190,6 +206,8 @@ export default function Settings() {
               winePrefix={winePrefix}
               setWineversion={setWineversion}
               setWinePrefix={setWinePrefix}
+              autoInstallDxvk={autoInstallDxvk}
+              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
             />
           )}
           {isWineSettings && (

@@ -408,7 +408,7 @@
 
 .setting > .toggleWrapper {
   display: grid;
-  grid-template-columns: 95% 5%;
+  grid-template-columns: 93% 10%;
   place-self: center;
   width: 512px;
   justify-items: baseline;

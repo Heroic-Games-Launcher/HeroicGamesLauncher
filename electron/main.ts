@@ -56,7 +56,6 @@ import {
   Notification,
   Menu,
   Tray,
-  nativeTheme,
   powerSaveBlocker,
 } from 'electron'
 import { Game, InstalledInfo, KeyImage } from './types.js'
@@ -139,7 +138,7 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language } = getSettings('default')
+    const { language, darkTrayIcon } = getSettings('default')
 
     await i18next.use(Backend).init({
       lng: language,
@@ -155,7 +154,7 @@ if (!gotTheLock) {
 
     window = createWindow()
 
-    const trayIcon = nativeTheme.shouldUseDarkColors ? iconDark : iconLight
+    const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
     const contextMenu = Menu.buildFromTemplate([
@@ -217,10 +216,6 @@ ipcMain.on('Notify', (event, args) => {
   notify.on('click', () => mainWindow.show())
   notify.show()
 })
-
-// ipcMain.on('changeLanguage', (event, language: string) => {
-//   return i18next.changeLanguage(language)
-// })
 
 ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
 

@@ -36,6 +36,8 @@ export interface AppSettings {
   defaultInstallPath: string
   language: string
   maxWorkers: number
+  darkTrayIcon: boolean
+  autoInstallDxvk: boolean
 }
 
 export interface Game {

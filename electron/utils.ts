@@ -146,6 +146,7 @@ const launchGame = async (appName: string) => {
     launcherArgs = '',
     showMangohud,
     audioFix,
+    autoInstallDxvk,
   } = getSettings(appName)
 
   let wine = `--wine ${wineVersion.bin}`
@@ -180,7 +181,7 @@ const launchGame = async (appName: string) => {
   }
 
   // Install DXVK for non Proton Prefixes
-  if (!isProton) {
+  if (!isProton && autoInstallDxvk) {
     dxvkPrefix = winePrefix
     await installDxvk(dxvkPrefix)
   }
