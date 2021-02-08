@@ -114,7 +114,9 @@
   "search": "Digite o nome do jogo...",
   "setting": {
     "audiofix": "Consertar Audio do Jogo",
+    "autodxvk": "Instalar/Atualizar DXVK automaticamente",
     "autosync": "Ativar Sincronização Automática",
+    "darktray": "Usar ícone escuro (necessita reiniciar)",
     "default-install-path": "Pasta de instalação padrão",
     "egs-sync": "Sincronizar com Epic Games Store",
     "exit-to-tray": "Sair para a área de noticação",

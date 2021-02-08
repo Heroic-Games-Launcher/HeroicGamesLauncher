@@ -114,7 +114,9 @@
   "search": "Geben Sie hier den Namen des Spiels ein...",
   "setting": {
     "audiofix": "Audio-Fix (Pulse Audio Latenz)",
+    "autodxvk": "Auto Install/Update DXVK on Prefix",
     "autosync": "Spielstände automatisch synchronisieren",
+    "darktray": "Use Dark Tray Icon (needs restart)",
     "default-install-path": "Standard-Installationspfad",
     "egs-sync": "Mit installiertem Epic Games synchronisieren",
     "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
