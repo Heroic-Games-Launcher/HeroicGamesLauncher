@@ -58,7 +58,7 @@
     "sync": {
       "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der Ordner falsch ist, verwenden Sie das Feld zum Überschreiben",
       "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können also einfach den aktuellen Pfad löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren und Heroic wird den Ordner erneut mit dem richtigen Prefix versuchen zu erraten.",
-      "part3": "Manuelle SynchronisierungÖ Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
+      "part3": "Manuelle Synchronisierung: Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
       "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
     },
     "wine": {
@@ -78,7 +78,7 @@
     "unsync": "Synchronisation erfolgreich aufgehoben"
   },
   "nogames": "Keine Spiele gefunden",
-  "Not Ready": "Nicht bereit",
+  "Not Ready": "Nicht installiert",
   "notify": {
     "finished": {
       "reparing": "Reparatur fertig"
@@ -89,7 +89,7 @@
     },
     "moved": "Verschieben fertig",
     "refreshed": "Bibliothek aktualisiert",
-    "refreshing": "Aktualisiere",
+    "refreshing": "Bibliothek-Aktualisierung",
     "uninstalled": "Deinstalliert",
     "update": {
       "canceled": "Update abgebrochen",
@@ -109,7 +109,7 @@
   "placeholder": {
     "egs-prefix": "Prefix, wo EGS installiert ist"
   },
-  "Ready": "Bereit",
+  "Ready": "Installiert",
   "Return": "Zurück",
   "search": "Geben Sie hier den Namen des Spiels ein...",
   "setting": {
@@ -131,7 +131,7 @@
       "placeholder": "Genauen Spielstände Ordner auswählen",
       "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
     },
-    "showfps": "FPS anzeigen (DX9, 10 and 11)",
+    "showfps": "FPS anzeigen (DX9, 10 und 11)",
     "wineprefix": "WinePrefix Ordner",
     "wineversion": "Wine Version"
   },

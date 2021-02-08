@@ -130,7 +130,17 @@ export default function Login({ refresh }: Props) {
               }
               onClick={() => handleChangeLanguage('pt')}
             >
-              Português
+              Português -{' '}
+            </span>
+            <span
+              style={
+                currentLanguage === 'de'
+                  ? { color: '#07c5ef', fontWeight: 600 }
+                  : { cursor: 'pointer' }
+              }
+              onClick={() => handleChangeLanguage('de')}
+            >
+              Deutsch
             </span>
           </span>
         </div>
