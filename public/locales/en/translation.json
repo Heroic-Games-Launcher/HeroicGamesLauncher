@@ -56,13 +56,13 @@
       "part7": " to skip the launcher in some games, etc."
     },
     "sync": {
-      "part1": "Heroic try to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
-      "part2": "In case you change the prefix folder or Wine for Proton and vice-versa, you will need to check the path again since proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
+      "part1": "Heroic tries to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
+      "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
       "part3": "Manual Sync: Choose Download to download the games saves stored on the Cloud. Upload to upload the local ones to the cloud. Force Download and Force Upload will ignore the version that is locally or on the cloud.",
       "part4": "Sync Saves Automatically will sync the saves every time you Start a Game and after finishing playing."
     },
     "wine": {
-      "part1": "Heroic searchs for versions of Wine and Proton on the following folders:",
+      "part1": "Heroic searches for versions of Wine and Proton on the following folders:",
       "part2": "For other places, use a symbolic link to one of these folders"
     }
   },
@@ -81,7 +81,7 @@
   "Not Ready": "Not Ready",
   "notify": {
     "finished": {
-      "reparing": "Finished Reparing"
+      "reparing": "Finished Repairing"
     },
     "install": {
       "canceled": "Install Canceled",
@@ -99,7 +99,7 @@
   "options": {
     "advanced": {
       "placeholder": "Put here other launch options",
-      "title": "Advanced Options (Enviroment Variables):"
+      "title": "Advanced Options (Environment Variables):"
     },
     "gameargs": {
       "placeholder": "Put here the Launcher Arguments",
