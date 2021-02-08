@@ -105,10 +105,10 @@
   position: absolute;
   right: 16px;
   top: 17px;
-  width: 174px;
+  width: max-content;
   height: 39px;
   border-radius: 10px;
-  margin: auto 26px;
+  margin: auto 10px;
   transition: 250ms;
   text-align: center;
 }
@@ -122,7 +122,9 @@
   line-height: 17px;
   color: #07c5ef;
   margin-bottom: 8px;
-  margin-left: 25%;
+  margin-left: 10%;
+  padding-right: 30px;
+  white-space: nowrap;
 }
 
 .UserSelector .hidden {
@@ -686,7 +688,7 @@
 }
 
 .gameInfo > .settingSelect {
-  width: 270px;
+  width: 300px;
   margin-bottom: 12px;
 }
 
@@ -868,7 +870,7 @@
   right: 68px;
   color: #ffa800;
   font-size: 25px;
-  width: 170px;
+  width: max-content;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -883,7 +885,7 @@
 
 .dots {
   position: absolute;
-  right: 70px;
+  right: 75px;
   top: 64px;
   width: 25px;
   z-index: 1;
