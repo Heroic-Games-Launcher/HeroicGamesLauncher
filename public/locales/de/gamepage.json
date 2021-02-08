@@ -4,27 +4,27 @@
     "importpath": "Zu importierenden Spieleordner auswählen",
     "installpath": "Installations-Pfad auswählen",
     "move": {
-      "message": "Das kann lange dauern, sind Sie sicher?",
-      "path": "Wählen Sie, wohin Sie es verschieben möchten",
-      "title": "Spieleinstallation verschieben"
+      "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
+      "path": "Wählen Sie einen Ort, an welchen Sie das Spiel verschieben möchten",
+      "title": "Spielinstallation verschieben"
     },
     "no": "NEIN",
     "repair": {
-      "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies kann sehr lange dauern.",
-      "title": "Prüfen und Reparieren"
+      "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
+      "title": "Auf Fehler überprüfen und Reparieren"
     },
     "stopInstall": {
       "keepInstalling": "Installation fortsetzen",
       "message": "Möchten Sie die heruntergeladenen Dateien BEHALTEN?",
-      "title": "Installation stoppen"
+      "title": "Installation abbrechen"
     },
     "uninstall": {
       "message": "Möchten Sie dieses Spiel deinstallieren?",
       "title": "Deinstallieren"
     },
     "update": {
-      "message": "Dieses Spiel hat ein Update, möchten Sie jetzt aktualisieren?",
-      "title": "Spiel benötigt Update"
+      "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
+      "title": "Spiel benötigt eine neuere Version"
     },
     "yes": "JA"
   },

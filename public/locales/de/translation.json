@@ -2,7 +2,7 @@
   "All": "Alle",
   "box": {
     "appupdate": {
-      "message": "Es ist eine neue Version von Heroic verfügbar, möchten Sie jetzt aktualisieren?",
+      "message": "Es ist eine neue Version von Heroic verfügbar, möchten Sie diese jetzt installieren?",
       "title": "Update verfügbar"
     },
     "choose": "Auswählen",
@@ -13,7 +13,7 @@
     },
     "no": "NEIN",
     "quit": {
-      "message": "Es gibt anstehende Operationen, sind Sie sicher?",
+      "message": "Es gibt anstehende Operationen, möchten Sie wirklich fortfahren?",
       "title": "Beenden"
     },
     "runexe": {
@@ -56,8 +56,8 @@
       "part7": " um den Launcher in einigen Spielen zu überspringen, usw."
     },
     "sync": {
-      "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der Ordner falsch ist, verwenden Sie das Feld zum Überschreiben",
-      "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können also einfach den aktuellen Pfad löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren und Heroic wird den Ordner erneut mit dem richtigen Prefix versuchen zu erraten.",
+      "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu Überschreiben",
+      "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren und Heroic wird den Ordner erneut mit dem richtigen Prefix versuchen zu finden.",
       "part3": "Manuelle Synchronisierung: Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
       "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
     },
@@ -74,26 +74,26 @@
   },
   "Library": "Bibliothek",
   "message": {
-    "sync": "Synchronisation fertig",
+    "sync": "Synchronisation abgeschlossen",
     "unsync": "Synchronisation erfolgreich aufgehoben"
   },
   "nogames": "Keine Spiele gefunden",
   "Not Ready": "Nicht installiert",
   "notify": {
     "finished": {
-      "reparing": "Reparatur fertig"
+      "reparing": "Reparatur abgeschlossen"
     },
     "install": {
       "canceled": "Installation abgebrochen",
-      "finished": "Installation fertig"
+      "finished": "Installation abgeschlossen"
     },
-    "moved": "Verschieben fertig",
+    "moved": "Verschieben abgeschlossen",
     "refreshed": "Bibliothek aktualisiert",
     "refreshing": "Bibliothek-Aktualisierung",
     "uninstalled": "Deinstalliert",
     "update": {
       "canceled": "Update abgebrochen",
-      "finished": "Update fertig"
+      "finished": "Update abgeschlossen"
     }
   },
   "options": {
@@ -102,7 +102,7 @@
       "title": "Erweiterte Optionen (Umgebungsvariablen):"
     },
     "gameargs": {
-      "placeholder": "Setzen Sie hier die Spiel-Argumente",
+      "placeholder": "Legen Sie hier die Spiel-Argumente fest",
       "title": "Spiel-Argumente (Zur Ausführung nach dem Befehl):"
     }
   },
@@ -117,7 +117,7 @@
     "autosync": "Spielstände automatisch synchronisieren",
     "default-install-path": "Standard-Installationspfad",
     "egs-sync": "Mit installiertem Epic Games synchronisieren",
-    "exit-to-tray": "In die Taskleiste beenden",
+    "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
     "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
     "language": "App Sprache auswählen",
     "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
@@ -145,14 +145,14 @@
   },
   "Total Games": "Anzahl der Spiele",
   "tray": {
-    "about": "Über",
+    "about": "Über Heroic",
     "quit": "Beenden",
     "reload": "Neu laden",
     "show": "Anzeigen",
     "support": "Unterstütze uns"
   },
   "userselector": {
-    "about": "Über",
+    "about": "Über Heroic",
     "logout": "Abmelden",
     "quit": "Beenden",
     "refresh": "Bibliothek aktualisieren",
