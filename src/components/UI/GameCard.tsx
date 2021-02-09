@@ -87,6 +87,7 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
             filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
           }}
           className="gameLogo"
+          loading="lazy"
         />
       )}
       <img
@@ -94,6 +95,7 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
         src={cover}
         style={{ filter: isInstalled ? 'none' : `grayscale(${effectPercent})` }}
         className="gameImg"
+        loading="lazy"
       />
       <div className="gameTitle">
         <span>{title}</span>

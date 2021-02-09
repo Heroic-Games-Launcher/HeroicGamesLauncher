@@ -13,7 +13,7 @@ import ContextProvider from './state/ContextProvider'
 function App() {
   const context = useContext(ContextProvider)
 
-  const { user, data: library, refresh, handleFilter } = context
+  const { user, data: library, refresh, handleFilter, handleLayout } = context
 
   if (!user && !library.length) {
     return <Login refresh={refresh} />
@@ -32,7 +32,9 @@ function App() {
               renderBackButton={false}
               handleFilter={handleFilter}
               numberOfGames={numberOfGames}
+              handleLayout={handleLayout}
             />
+            <div id="top"></div>
             <Library library={library} />
           </Route>
           <Route exact path="/gameconfig/:appName" component={GamePage} />

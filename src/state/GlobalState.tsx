@@ -35,6 +35,7 @@ interface StateProps {
   filterText: string
   language: string
   libraryStatus: GameStatus[]
+  layout: string
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -47,6 +48,7 @@ export class GlobalState extends PureComponent<Props> {
     language: '',
     error: false,
     filter: 'all',
+    layout: 'grid',
   }
 
   refresh = async (): Promise<void> => {
@@ -71,6 +73,7 @@ export class GlobalState extends PureComponent<Props> {
 
   handleSearch = (input: string) => this.setState({ filterText: input })
   handleFilter = (filter: string) => this.setState({ filter })
+  handleLayout = (layout: string) => this.setState({ layout })
 
   filterLibrary = (library: Game[], filter: string) => {
     switch (filter) {
@@ -264,6 +267,7 @@ export class GlobalState extends PureComponent<Props> {
           handleGameStatus: this.handleGameStatus,
           handleFilter: this.handleFilter,
           handleSearch: this.handleSearch,
+          handleLayout: this.handleLayout,
         }}
       >
         {children}
