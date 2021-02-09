@@ -11,10 +11,14 @@ import OtherSettings from './OtherSettings'
 import SyncSaves from './SyncSaves'
 import Tools from './Tools'
 import WineSettings from './WineSettings'
+import { IpcRenderer } from 'electron'
 
-const { ipcRenderer } = window.require('electron')
+interface ElectronProps {
+  ipcRenderer: IpcRenderer
+}
+
+const { ipcRenderer } = window.require('electron') as ElectronProps
 const storage: Storage = window.localStorage
-
 interface RouteParams {
   appName: string
   type: string
@@ -116,7 +120,11 @@ export default function Settings() {
       }
     }
     getSettings()
-  }, [appName, type])
+
+    return () => {
+      ipcRenderer.removeAllListeners('requestSettings')
+    }
+  }, [appName, type, isDefault])
 
   const GlobalSettings = {
     defaultSettings: {
