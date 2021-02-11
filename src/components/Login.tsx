@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { legendary, loginPage, sidInfoPage } from '../helper'
+import { IpcRenderer } from 'electron'
+const {ipcRenderer } = window.require('electron')
+const renderer: IpcRenderer = ipcRenderer
 const storage: Storage = window.localStorage
-
 interface Props {
   refresh: () => void
 }
@@ -36,6 +38,7 @@ export default function Login({ refresh }: Props) {
           loading: true,
           message: t('status.loading', 'Loading Game list, please wait'),
         })
+        renderer.invoke('writeLibrary')
         await legendary(`list-games`)
         refresh()
       }
@@ -141,6 +144,16 @@ export default function Login({ refresh }: Props) {
               onClick={() => handleChangeLanguage('de')}
             >
               Deutsch
+            </span>
+            <span
+              style={
+                currentLanguage === 'fr'
+                  ? { color: '#07c5ef', fontWeight: 600 }
+                  : { cursor: 'pointer' }
+              }
+              onClick={() => handleChangeLanguage('fr')}
+            >
+              Français
             </span>
           </span>
         </div>

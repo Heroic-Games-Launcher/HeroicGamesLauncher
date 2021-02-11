@@ -8,7 +8,6 @@ import { getProgress } from '../../helper'
 const { ipcRenderer } = window.require('electron')
 interface List {
     cover: string
-    logo: string
     title: string
     appName: string
     isInstalled: boolean

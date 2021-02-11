@@ -15,12 +15,12 @@ function App() {
 
   const { user, data: library, refresh, handleFilter, handleLayout } = context
 
+  console.log(library.length);
+  
   if (!user && !library.length) {
     return <Login refresh={refresh} />
   }
-
   const numberOfGames = library.length
-
   return (
     <div className="App">
       <HashRouter>

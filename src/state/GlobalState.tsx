@@ -14,7 +14,6 @@ import { Game, GameStatus } from '../types'
 import ContextProvider from './ContextProvider'
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
-
 const { dialog } = remote
 const { showMessageBox } = dialog
 
@@ -66,9 +65,11 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async (): Promise<void> => {
     const { t } = this.props
     this.setState({ refreshing: true })
+    renderer.invoke('writeLibrary')
     await legendary('list-games')
     this.refresh()
     notify([t('notify.refreshing'), t('notify.refreshed')])
+
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })

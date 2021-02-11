@@ -23,6 +23,7 @@ import {
   iconDark,
   getSettings,
   iconLight,
+  heroicFolder
 } from './utils'
 
 // @ts-ignore
@@ -36,7 +37,6 @@ import Backend from 'i18next-fs-backend'
 import {
   stat,
   readFileSync,
-  readdirSync,
   writeFile,
   existsSync,
   mkdirSync,
@@ -228,6 +228,17 @@ ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
+ipcMain.handle('writeLibrary', () => {
+  execAsync('legendary list-games --json')
+    .then(res => res.stdout)
+    .then(res => {
+      //the delete operator can be used to get rid of unsed data and minimize the json size
+      return writeFile(`${heroicFolder}library.json`, res, (err) => {
+        if (err) console.error(err)
+      })
+    })
+})
+
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
   const config = args[1]
@@ -268,8 +279,17 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.on('quit', async () => handleExit())
 
+
+
+/* const storage: Storage = mainWindow.localStorage
+const lang = storage.getItem('language') */
+
 ipcMain.handle('getGameInfo', async (event, game) => {
-  const epicUrl = `https://store-content.ak.epicgames.com/api/en-US/content/products/${game}`
+  let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings.language
+  if (lang === "pt") {
+    lang = 'pt-BR'
+  }
+  const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
   try {
     const response = await axios({
       url: epicUrl,
@@ -443,6 +463,20 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
     .catch(console.log)
 })
 
+/* Since the lengedary metadata's files doesn't have is_dlc value all dlcs appeared as games
+*  The --json command gives all the datas we need better used this way to save the library as a json file
+*  Need some logic test to see if the file already exist, test the length of the list-games command against this file and append new entries
+*  Now all dlcs available are listed in a array inside the object itself maybe need some tweaks for the installation process
+*/
+execAsync('legendary list-games --json')
+  .then(res => res.stdout)
+  .then(res => {
+    //the delete operator can be used to get rid of unsed data and minimize the json size
+    return writeFile(`${heroicFolder}library.json`, res, (err) => {
+      if (err) console.error(err)
+    })
+  })
+
 ipcMain.handle('readFile', async (event, file) => {
   const loggedIn = isLoggedIn()
 
@@ -470,22 +504,22 @@ ipcMain.handle('readFile', async (event, file) => {
   }
 
   if (file === 'library') {
-    const library = existsSync(files.library)
+    const library = existsSync(`${heroicFolder}library.json`)
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
 
     if (library) {
-      return readdirSync(files.library)
-        .map((file) => `${files.library}/${file}`)
-        .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
-        .map(({ app_name, metadata }) => {
+      return JSON.parse(readFileSync(`${heroicFolder}library.json`, 'utf-8'))
+      .map((c: { metadata: { description: any; keyImages: any; title: any; developer: any; customAttributes: { CloudSaveFolder: any; FolderName: any } }; app_name: string; app_version: string; dlcs:string[] }) => {         
           const {
             description,
             keyImages,
             title,
             developer,
             customAttributes: { CloudSaveFolder, FolderName },
-          } = metadata
+          } = c.metadata        
+          const app_name = c.app_name
+          const dlcs = c.dlcs
           const cloudSaveEnabled = Boolean(CloudSaveFolder)
           const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
           const installFolder = FolderName ? FolderName.value : ''
@@ -514,10 +548,9 @@ ipcMain.handle('readFile', async (event, file) => {
 
           const {
             executable = null,
-            version = null,
+            version = c.app_version,
             install_size = null,
             install_path = null,
-            is_dlc = null,
           } = info as InstalledInfo
 
           const convertedSize =
@@ -541,10 +574,10 @@ ipcMain.handle('readFile', async (event, file) => {
             art_cover: art_cover || art_square,
             art_square: art_square || art_cover,
             art_logo,
-            is_dlc,
+            dlcs,
           }
         })
-        .sort((a, b) => {
+        .sort((a: { title: string }, b: { title: string }) => {
           const gameA = a.title.toUpperCase()
           const gameB = b.title.toUpperCase()
           return gameA < gameB ? -1 : 1

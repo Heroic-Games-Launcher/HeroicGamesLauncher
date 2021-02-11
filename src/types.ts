@@ -53,8 +53,8 @@ export interface Game {
   cloudSaveEnabled: boolean
   saveFolder: string
   folderName: string
-  is_dlc: boolean
   extraInfo: ExtraInfo
+  dlcs: string[]
 }
 
 export interface InstallProgress {

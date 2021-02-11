@@ -8,10 +8,13 @@ import { getProgress } from '../../helper'
 const { ipcRenderer } = window.require('electron')
 interface Card {
   cover: string
+  coverList: string
   logo: string
   title: string
   appName: string
   isInstalled: boolean
+  version: string
+  dlcs: string []
 }
 
 interface InstallProgress {
@@ -20,7 +23,7 @@ interface InstallProgress {
   eta: string
 }
 
-const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
+const GameCard = ({ cover, title, appName, isInstalled, logo, coverList, version, dlcs }: Card) => {
   const [progress, setProgress] = useState({
     percent: '0.00%',
     bytes: '0/0MB',
@@ -28,7 +31,9 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   } as InstallProgress)
   const { t } = useTranslation()
 
-  const { libraryStatus } = useContext(ContextProvider)
+  const { libraryStatus, layout } = useContext(ContextProvider)
+
+  const grid = layout === 'grid'
 
   const gameStatus: GameStatus = libraryStatus.filter(
     (game) => game.appName === appName
@@ -72,42 +77,58 @@ const GameCard = ({ cover, title, appName, isInstalled, logo }: Card) => {
   }
 
   return (
-    <Link
-      className="gameCard"
-      to={{
-        pathname: `/gameconfig/${appName}`,
-      }}
-    >
-      {haveStatus && <span className="progress">{getStatus()}</span>}
-      {logo && (
+    <>
+      <Link
+        className={grid ? "gameCard" : 'gameListItem'}
+        to={{
+          pathname: `/gameconfig/${appName}`,
+        }}
+      >
+        {haveStatus && <span className="progress">{getStatus()}</span>}
+        {(logo && grid) && (
+          <img
+            alt="logo"
+            src={logo}
+            style={{
+              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+            }}
+            className="gameLogo"
+            loading="lazy"
+          />
+        )}
         <img
-          alt="logo"
-          src={logo}
-          style={{
-            filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
-          }}
-          className="gameLogo"
+          alt="cover-art"
+          src={grid ? cover : coverList}
+          style={{ filter: isInstalled ? 'none' : `grayscale(${effectPercent})` }}
+          className={grid ? "gameImg" : "gameImgList"}
           loading="lazy"
         />
-      )}
-      <img
-        alt="cover-art"
-        src={cover}
-        style={{ filter: isInstalled ? 'none' : `grayscale(${effectPercent})` }}
-        className="gameImg"
-        loading="lazy"
-      />
-      <div className="gameTitle">
-        <span>{title}</span>
-        <i
-          className={`material-icons ${
-            isInstalled ? 'is-success' : 'is-primary'
-          }`}
-        >
-          {isInstalled ? 'play_circle' : 'get_app'}
-        </i>
-      </div>
-    </Link>
+        {grid ? (
+          <div className="gameTitle">
+            <span >{title}</span>
+            {dlcs.length > 0 ? (<small> Dlcs : {dlcs.length}</small>) : <small> Dlcs : 0</small>}
+          <i
+            className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'
+              }`}
+          >
+            {isInstalled ? 'play_circle' : 'get_app'}
+          </i>
+        </div>
+        ) : (
+          <>
+              {<div className="gameListInfo"><pre><small>Ver : {version}{dlcs.length > 0 ? (`\n Dlcs : ${dlcs.length}`) : '\n Dlcs : 0'}</small></pre></div>}
+              <span className="gameTitleList">{title}</span>
+              <i
+                className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'
+                  } gameActionList`}
+              >
+                {isInstalled ? 'play_circle' : 'get_app'}
+              </i>
+            </>
+          )}
+      </Link>
+      {!grid ? (<hr style={{ width: "90%", opacity: .1 }} />) : ''}
+    </>
   )
 }
 

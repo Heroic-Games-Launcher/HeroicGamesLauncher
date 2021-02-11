@@ -12,7 +12,6 @@
 
 .App .header {
   display: grid;
-  width: 1194px;
   place-self: center;
   place-content: center;
   height: 84px;
@@ -717,7 +716,7 @@
   line-height: 19px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  overflow: hidden;
+  overflow: auto;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   color: #eae8e5;
@@ -1072,13 +1071,13 @@ input:checked + .slider:before {
   flex-direction: column;
   overflow: hidden;
   position: relative;
-    padding-top: 2em;
+  padding-top: 2em;
 }
 
 .gameListItem{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas: "cover name action";
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "cover infos name action";
   height: 10vh;
   grid-template-rows: 10vh;
   margin: 1em;
@@ -1110,6 +1109,10 @@ input:checked + .slider:before {
 .gameActionList {
   font-size: 3em;
   grid-area: action;
+}
+
+.gameListInfo {
+  grid-area: infos;
 }
 
 #backToTopBtn {
