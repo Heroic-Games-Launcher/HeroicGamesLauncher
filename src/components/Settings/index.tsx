@@ -235,6 +235,7 @@ export default function Settings() {
               toggleAudioFix={toggleAudioFix}
               showMangohud={showMangohud}
               toggleMangoHud={toggleMangoHud}
+              isDefault={isDefault}
             />
           )}
           {isSyncSettings && (

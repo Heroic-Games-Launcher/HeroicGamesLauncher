@@ -17,6 +17,7 @@ interface Props {
   toggleAudioFix: () => void
   showMangohud: boolean
   toggleMangoHud: () => void
+  isDefault: boolean
 }
 
 export default function OtherSettings({
@@ -32,6 +33,7 @@ export default function OtherSettings({
   toggleAudioFix,
   showMangohud,
   toggleMangoHud,
+  isDefault,
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -78,29 +80,35 @@ export default function OtherSettings({
           />
         </span>
       </span>
-      <span className="setting">
-        <span className="settingText">{t('options.gameargs.title')}</span>
-        <span>
-          <input
-            id="launcherArgs"
-            type="text"
-            placeholder={t('options.gameargs.placeholder')}
-            className="settingSelect"
-            value={launcherArgs}
-            onChange={handleLauncherArgs}
-          />
+      {!isDefault && (
+        <span className="setting">
+          <span className="settingText">{t('options.gameargs.title')}</span>
+          <span>
+            <input
+              id="launcherArgs"
+              type="text"
+              placeholder={t('options.gameargs.placeholder')}
+              className="settingSelect"
+              value={launcherArgs}
+              onChange={handleLauncherArgs}
+            />
+          </span>
         </span>
-      </span>
+      )}
       <InfoBox>
         {t('help.other.part1')}
         <strong>{`${t('help.other.part2')} `}</strong>
         {t('help.other.part3')}
         <br />
-        {t('help.other.part4')}
-        <strong>{t('help.other.part5')}</strong>
-        {t('help.other.part6')}
-        <strong>{` -nolauncher `}</strong>
-        {t('help.other.part7')}
+        {!isDefault && (
+          <span>
+            {t('help.other.part4')}
+            <strong>{t('help.other.part5')}</strong>
+            {t('help.other.part6')}
+            <strong>{` -nolauncher `}</strong>
+            {t('help.other.part7')}
+          </span>
+        )}
       </InfoBox>
     </>
   )
