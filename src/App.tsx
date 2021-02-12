@@ -1,21 +1,20 @@
-import React, { useContext } from 'react'
+import React, { lazy, useContext } from 'react'
 
 import './App.css'
 import { Library } from './components/Library'
-import Login from './components/Login'
 import { HashRouter, Switch, Route } from 'react-router-dom'
-import NavBar from './components/NavBar'
-import Settings from './components/Settings'
-import GamePage from './components/GamePage/GamePage'
-import Header from './components/UI/Header'
 import ContextProvider from './state/ContextProvider'
+
+const NavBar = lazy(() => import('./components/NavBar'))
+const Settings = lazy(() => import('./components/Settings'))
+const GamePage = lazy(() => import('./components/GamePage/GamePage'))
+const Header = lazy(() => import('./components/UI/Header'))
+const Login = lazy(() => import('./components/Login'))
 
 function App() {
   const context = useContext(ContextProvider)
 
   const { user, data: library, refresh, handleFilter, handleLayout } = context
-
-  console.log(library.length);
   
   if (!user && !library.length) {
     return <Login refresh={refresh} />

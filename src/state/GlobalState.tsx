@@ -7,7 +7,6 @@ import {
   getGameInfo,
   getLegendaryConfig,
   getProgress,
-  legendary,
   notify,
 } from '../helper'
 import { Game, GameStatus } from '../types'
@@ -65,9 +64,8 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async (): Promise<void> => {
     const { t } = this.props
     this.setState({ refreshing: true })
-    renderer.invoke('writeLibrary')
-    await legendary('list-games')
-    this.refresh()
+    await renderer.invoke('writeLibrary')
+      .then(() => this.refresh())
     notify([t('notify.refreshing'), t('notify.refreshed')])
 
   }

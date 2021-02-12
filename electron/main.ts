@@ -41,6 +41,7 @@ import {
   existsSync,
   mkdirSync,
   unlinkSync,
+  writeFileSync,
 } from 'graceful-fs'
 import { promisify } from 'util'
 import axios from 'axios'
@@ -60,7 +61,6 @@ import {
   powerSaveBlocker,
 } from 'electron'
 import { Game, InstalledInfo, KeyImage } from './types.js'
-
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
@@ -228,15 +228,39 @@ ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
-ipcMain.handle('writeLibrary', () => {
-  execAsync('legendary list-games --json')
-    .then(res => res.stdout)
-    .then(res => {
-      //the delete operator can be used to get rid of unsed data and minimize the json size
-      return writeFile(`${heroicFolder}library.json`, res, (err) => {
-        if (err) console.error(err)
+ipcMain.handle('writeLibrary', async () => {
+  const { stdout, stderr } = await execAsync('legendary list-games --json')
+  if (stdout) {
+    const results = JSON.parse(stdout)
+    // NEED DOUBLE CHECK IF SOMETHINGS INSIDE IS NEEDED OR ADD MORE STUFF IT REDUCE SIZE OF THE FINAL FILE
+    // There is maybe a better way to do that tried with filter but still not work
+    results.map((res: any) => {
+      delete res.asset_info
+      delete res.metadata.creationDate
+      delete res.metadata.developerId
+      delete res.metadata.dlcItemList
+      delete res.metadata.endOfSupport
+      delete res.metadata.entitlementName
+      delete res.metadata.entitlementType
+      delete res.metadata.lastModifiedDate
+      delete res.metadata.releaseInfo
+      res.metadata.keyImages.map((k: any) => {
+        delete k.height
+        delete k.md5
+        delete k.size
+        delete k.uploadedDate
+        delete k.width
       })
     })
+    const json = JSON.stringify(results)
+    return writeFileSync(`${heroicFolder}library.json`, json)
+
+  } else if (stderr) {
+    return stderr
+  }
+  else {
+    return 'done'
+  }
 })
 
 ipcMain.handle('writeFile', (event, args) => {
@@ -405,9 +429,8 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
-    tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-  }`
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+    }`
 
   if (tool === 'runExe') {
     command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
@@ -463,20 +486,6 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
     .catch(console.log)
 })
 
-/* Since the lengedary metadata's files doesn't have is_dlc value all dlcs appeared as games
-*  The --json command gives all the datas we need better used this way to save the library as a json file
-*  Need some logic test to see if the file already exist, test the length of the list-games command against this file and append new entries
-*  Now all dlcs available are listed in a array inside the object itself maybe need some tweaks for the installation process
-*/
-execAsync('legendary list-games --json')
-  .then(res => res.stdout)
-  .then(res => {
-    //the delete operator can be used to get rid of unsed data and minimize the json size
-    return writeFile(`${heroicFolder}library.json`, res, (err) => {
-      if (err) console.error(err)
-    })
-  })
-
 ipcMain.handle('readFile', async (event, file) => {
   const loggedIn = isLoggedIn()
 
@@ -510,14 +519,14 @@ ipcMain.handle('readFile', async (event, file) => {
 
     if (library) {
       return JSON.parse(readFileSync(`${heroicFolder}library.json`, 'utf-8'))
-      .map((c: { metadata: { description: any; keyImages: any; title: any; developer: any; customAttributes: { CloudSaveFolder: any; FolderName: any } }; app_name: string; app_version: string; dlcs:string[] }) => {         
+        .map((c: { metadata: { description: any; keyImages: any; title: any; developer: any; customAttributes: { CloudSaveFolder: any; FolderName: any } }; app_name: string; app_version: string; dlcs: string[] }) => {
           const {
             description,
             keyImages,
             title,
             developer,
             customAttributes: { CloudSaveFolder, FolderName },
-          } = c.metadata        
+          } = c.metadata
           const app_name = c.app_name
           const dlcs = c.dlcs
           const cloudSaveEnabled = Boolean(CloudSaveFolder)

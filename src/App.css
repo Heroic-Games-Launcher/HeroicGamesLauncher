@@ -219,7 +219,7 @@
   color: #0bd58c;
 }
 
-.gameCard > .gameImg {
+.gameCard > .gameImg-wrapper > img {
   width: 200px;
   height: 266px;
   border-radius: 0.5rem;
@@ -272,6 +272,12 @@
 }
 
 .gameImg {
+  width: 210px;
+  height: 280px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+.gameImg-wrapper {
   width: 210px;
   height: 280px;
   border-radius: 0.5rem;
@@ -1078,23 +1084,26 @@ input:checked + .slider:before {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas: "cover infos name action";
-  height: 10vh;
-  grid-template-rows: 10vh;
+  height: 20vh;
   margin: 1em;
   align-items: center;
   justify-items: center;
 }
-.gameImgList {
-  width: inherit;
+.gameImgList-wrapper {
+  max-width: 35vh;
   height: inherit;
   grid-area: cover;
   border-radius: .5rem;
+  contain: content;
+}
+.gameImgList-wrapper > img {
+  height: inherit;
 }
 .gameTitleList {
   grid-area: name;
     font-size: 1.5em;
 }
-.gameListItem>.progress {
+.gameListItem > .progress {
   z-index: 5;
   grid-area: cover;
   font-weight: 500;

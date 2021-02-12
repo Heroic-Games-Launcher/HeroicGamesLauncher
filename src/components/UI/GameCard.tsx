@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-
+import LazyLoad from 'react-lazyload';
 import ContextProvider from '../../state/ContextProvider'
 import { GameStatus } from '../../types'
 import { getProgress } from '../../helper'
@@ -14,7 +14,7 @@ interface Card {
   appName: string
   isInstalled: boolean
   version: string
-  dlcs: string []
+  dlcs: string[]
 }
 
 interface InstallProgress {
@@ -86,36 +86,37 @@ const GameCard = ({ cover, title, appName, isInstalled, logo, coverList, version
       >
         {haveStatus && <span className="progress">{getStatus()}</span>}
         {(logo && grid) && (
-          <img
-            alt="logo"
-            src={logo}
-            style={{
-              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
-            }}
-            className="gameLogo"
-            loading="lazy"
-          />
+          <LazyLoad>
+            <img
+              alt="logo"
+              src={logo}
+              style={{
+                filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+              }}
+              className="gameLogo"
+            />
+          </LazyLoad>
         )}
-        <img
-          alt="cover-art"
-          src={grid ? cover : coverList}
-          style={{ filter: isInstalled ? 'none' : `grayscale(${effectPercent})` }}
-          className={grid ? "gameImg" : "gameImgList"}
-          loading="lazy"
-        />
+        <LazyLoad classNamePrefix={grid ? "gameImg" : "gameImgList"} resize>
+          <img
+            alt="cover-art"
+            src={grid ? cover : coverList}
+            style={{ filter: isInstalled ? 'none' : `grayscale(${effectPercent})` }}
+          />
+        </LazyLoad>
         {grid ? (
           <div className="gameTitle">
             <span >{title}</span>
             {dlcs.length > 0 ? (<small> Dlcs : {dlcs.length}</small>) : <small> Dlcs : 0</small>}
-          <i
-            className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'
-              }`}
-          >
-            {isInstalled ? 'play_circle' : 'get_app'}
-          </i>
-        </div>
+            <i
+              className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'
+                }`}
+            >
+              {isInstalled ? 'play_circle' : 'get_app'}
+            </i>
+          </div>
         ) : (
-          <>
+            <>
               {<div className="gameListInfo"><pre><small>Ver : {version}{dlcs.length > 0 ? (`\n Dlcs : ${dlcs.length}`) : '\n Dlcs : 0'}</small></pre></div>}
               <span className="gameTitleList">{title}</span>
               <i

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from '../state/ContextProvider'
 
 import { Game } from '../types'
-//import GameCard from './UI/GameCard'
 const GameCard = lazy(() => import('./UI/GameCard'))
 
 interface Props {
