@@ -542,7 +542,7 @@ ipcMain.handle('readFile', async (event, file) => {
             ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
           )[0]
 
-          const art_cover = gameBox ? gameBox.url : null
+          const art_cover = gameBox ? gameBox.url : fallBackImage
           const art_logo = logo ? logo.url : null
           const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 

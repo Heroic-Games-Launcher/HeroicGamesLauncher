@@ -219,7 +219,7 @@
   color: #0bd58c;
 }
 
-.gameCard > .gameImg-wrapper > img {
+.gameCard > .gameImg > img {
   width: 200px;
   height: 266px;
   border-radius: 0.5rem;
@@ -276,12 +276,7 @@
   height: 280px;
   border-radius: 0.5rem;
   object-fit: cover;
-}
-.gameImg-wrapper {
-  width: 210px;
-  height: 280px;
-  border-radius: 0.5rem;
-  object-fit: cover;
+  position: absolute;
 }
 
 .installProgress[value] {
@@ -1077,31 +1072,38 @@ input:checked + .slider:before {
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  padding-top: 2em;
+  padding-top: 1em;
 }
 
 .gameListItem{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas: "cover infos name action";
-  height: 20vh;
+  height: 8vh;
   margin: 1em;
   align-items: center;
   justify-items: center;
+  position: relative;
 }
-.gameImgList-wrapper {
-  max-width: 35vh;
+.gameImgList {
+  max-width: 15vh;
   height: inherit;
   grid-area: cover;
   border-radius: .5rem;
   contain: content;
 }
-.gameImgList-wrapper > img {
-  height: inherit;
+
+.gameListItem > .gameLogo {
+  width: 20%;
+  min-width: 80px;
+  position: absolute;
+  z-index: 2;
+  grid-area: cover;
 }
+
 .gameTitleList {
   grid-area: name;
-    font-size: 1.5em;
+  font-size: 1em;
 }
 .gameListItem > .progress {
   z-index: 5;
@@ -1116,11 +1118,12 @@ input:checked + .slider:before {
 }
 
 .gameActionList {
-  font-size: 3em;
+  font-size: 2.5em;
   grid-area: action;
 }
 
 .gameListInfo {
+  font-size: 1em;
   grid-area: infos;
 }
 
@@ -1167,4 +1170,8 @@ input:checked + .slider:before {
 }
 .layoutSelection > span {
   margin: 0 .2em;
+}
+
+.leftCluster{
+  width: 390px;
 }
