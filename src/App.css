@@ -1093,6 +1093,7 @@ input:checked + .slider:before {
   overflow: hidden;
   position: relative;
   padding-top: 1em;
+  min-height: 2vh;
 }
 
 .gameListItem {
