@@ -48,7 +48,7 @@ export interface Game {
   executable: string
   title: string
   version: string
-  install_size: number
+  install_size: string
   install_path: string
   developer: string
   isInstalled: boolean
@@ -76,14 +76,14 @@ export interface WineProps {
 export interface GameStatus {
   appName: string
   status:
-  | 'installing'
-  | 'updating'
-  | 'playing'
-  | 'uninstalling'
-  | 'repairing'
-  | 'done'
-  | 'canceled'
-  | 'moving'
+    | 'installing'
+    | 'updating'
+    | 'playing'
+    | 'uninstalling'
+    | 'repairing'
+    | 'done'
+    | 'canceled'
+    | 'moving'
   progress?: number | null
 }
 
@@ -102,5 +102,5 @@ export interface ContextType {
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleFilter: (value: string) => void
   handleSearch: (input: string) => void
-  handleLayout:   (value: string) => void
+  handleLayout: (value: string) => void
 }

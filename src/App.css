@@ -182,6 +182,7 @@
 .SearchBar > .close {
   position: relative;
   left: -30px;
+  top: 7px;
 }
 
 .SearchBar > .close:hover {
@@ -1105,13 +1106,16 @@ input:checked + .slider:before {
   align-items: center;
   justify-items: center;
   position: relative;
+  cursor: default;
 }
+
 .gameImgList {
   max-width: 15vh;
   height: inherit;
   grid-area: cover;
   border-radius: 0.5rem;
   contain: content;
+  cursor: pointer;
 }
 
 .gameListItem > .gameLogo {
@@ -1126,6 +1130,11 @@ input:checked + .slider:before {
   grid-area: name;
   font-size: 1em;
 }
+
+.gameListItem > a {
+  grid-area: cover;
+}
+
 .gameListItem > .progress {
   z-index: 5;
   grid-area: cover;
@@ -1138,11 +1147,22 @@ input:checked + .slider:before {
   padding: 2px 5px;
   border-radius: 4px;
   color: #0bd58c;
+  position: relative;
+  bottom: 34px;
+  left: -52px;
 }
 
 .gameActionList {
   font-size: 2.5em;
   grid-area: action;
+  z-index: 10;
+  cursor: pointer;
+  position: absolute;
+  transition: 200ms;
+}
+
+.gameActionList.material-icons.is-success:hover {
+  color: #30eca8;
 }
 
 .gameListInfo {

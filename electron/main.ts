@@ -75,7 +75,9 @@ function createWindow(): BrowserWindow {
       enableRemoteModule: true,
     },
   })
-  getLatestDxvk()
+  setTimeout(() => {
+    getLatestDxvk()
+  }, 2500)
 
   //load the index.html from a url
   if (isDev) {
