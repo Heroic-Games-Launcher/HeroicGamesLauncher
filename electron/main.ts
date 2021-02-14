@@ -23,6 +23,7 @@ import {
   iconDark,
   getSettings,
   iconLight,
+  heroicFolder
 } from './utils'
 
 // @ts-ignore
@@ -36,11 +37,11 @@ import Backend from 'i18next-fs-backend'
 import {
   stat,
   readFileSync,
-  readdirSync,
   writeFile,
   existsSync,
   mkdirSync,
   unlinkSync,
+  writeFileSync,
 } from 'graceful-fs'
 import { promisify } from 'util'
 import axios from 'axios'
@@ -59,7 +60,6 @@ import {
   powerSaveBlocker,
 } from 'electron'
 import { Game, InstalledInfo, KeyImage } from './types.js'
-
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
@@ -223,6 +223,41 @@ ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
+ipcMain.handle('writeLibrary', async () => {
+  const { stdout, stderr } = await execAsync('legendary list-games --json')
+  if (stdout) {
+    const results = JSON.parse(stdout)
+    // NEED DOUBLE CHECK IF SOMETHINGS INSIDE IS NEEDED OR ADD MORE STUFF IT REDUCE SIZE OF THE FINAL FILE
+    // There is maybe a better way to do that tried with filter but still not work
+    results.map((res: any) => {
+      delete res.asset_info
+      delete res.metadata.creationDate
+      delete res.metadata.developerId
+      delete res.metadata.dlcItemList
+      delete res.metadata.endOfSupport
+      delete res.metadata.entitlementName
+      delete res.metadata.entitlementType
+      delete res.metadata.lastModifiedDate
+      delete res.metadata.releaseInfo
+      res.metadata.keyImages.map((k: any) => {
+        delete k.height
+        delete k.md5
+        delete k.size
+        delete k.uploadedDate
+        delete k.width
+      })
+    })
+    const json = JSON.stringify(results)
+    return writeFileSync(`${heroicFolder}library.json`, json)
+
+  } else if (stderr) {
+    return stderr
+  }
+  else {
+    return 'done'
+  }
+})
+
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
   const config = args[1]
@@ -263,8 +298,17 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.on('quit', async () => handleExit())
 
+
+
+/* const storage: Storage = mainWindow.localStorage
+const lang = storage.getItem('language') */
+
 ipcMain.handle('getGameInfo', async (event, game) => {
-  const epicUrl = `https://store-content.ak.epicgames.com/api/en-US/content/products/${game}`
+  let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings.language
+  if (lang === "pt") {
+    lang = 'pt-BR'
+  }
+  const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
   try {
     const response = await axios({
       url: epicUrl,
@@ -380,9 +424,8 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
-    tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-  }`
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+    }`
 
   if (tool === 'runExe') {
     command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
@@ -465,22 +508,22 @@ ipcMain.handle('readFile', async (event, file) => {
   }
 
   if (file === 'library') {
-    const library = existsSync(files.library)
+    const library = existsSync(`${heroicFolder}library.json`)
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
 
     if (library) {
-      return readdirSync(files.library)
-        .map((file) => `${files.library}/${file}`)
-        .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
-        .map(({ app_name, metadata }) => {
+      return JSON.parse(readFileSync(`${heroicFolder}library.json`, 'utf-8'))
+        .map((c: { metadata: { description: any; keyImages: any; title: any; developer: any; customAttributes: { CloudSaveFolder: any; FolderName: any } }; app_name: string; app_version: string; dlcs: string[] }) => {
           const {
             description,
             keyImages,
             title,
             developer,
             customAttributes: { CloudSaveFolder, FolderName },
-          } = metadata
+          } = c.metadata
+          const app_name = c.app_name
+          const dlcs = c.dlcs
           const cloudSaveEnabled = Boolean(CloudSaveFolder)
           const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
           const installFolder = FolderName ? FolderName.value : ''
@@ -494,7 +537,7 @@ ipcMain.handle('readFile', async (event, file) => {
             ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
           )[0]
 
-          const art_cover = gameBox ? gameBox.url : null
+          const art_cover = gameBox ? gameBox.url : fallBackImage
           const art_logo = logo ? logo.url : null
           const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
@@ -509,10 +552,9 @@ ipcMain.handle('readFile', async (event, file) => {
 
           const {
             executable = null,
-            version = null,
+            version = c.app_version,
             install_size = null,
             install_path = null,
-            is_dlc = null,
           } = info as InstalledInfo
 
           const convertedSize =
@@ -536,10 +578,10 @@ ipcMain.handle('readFile', async (event, file) => {
             art_cover: art_cover || art_square,
             art_square: art_square || art_cover,
             art_logo,
-            is_dlc,
+            dlcs,
           }
         })
-        .sort((a, b) => {
+        .sort((a: { title: string }, b: { title: string }) => {
           const gameA = a.title.toUpperCase()
           const gameB = b.title.toUpperCase()
           return gameA < gameB ? -1 : 1
