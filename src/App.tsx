@@ -15,7 +15,7 @@ function App() {
   const context = useContext(ContextProvider)
 
   const { user, data: library, refresh, handleFilter, handleLayout } = context
-  
+
   if (!user && !library.length) {
     return <Login refresh={refresh} />
   }
@@ -26,15 +26,17 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path="/">
-            <Header
-              goTo={''}
-              renderBackButton={false}
-              handleFilter={handleFilter}
-              numberOfGames={numberOfGames}
-              handleLayout={handleLayout}
-            />
-            <div id="top"></div>
-            <Library library={library} />
+            <div className="content">
+              <Header
+                goTo={''}
+                renderBackButton={false}
+                handleFilter={handleFilter}
+                numberOfGames={numberOfGames}
+                handleLayout={handleLayout}
+              />
+              <div id="top"></div>
+              <Library library={library} />
+            </div>
           </Route>
           <Route exact path="/gameconfig/:appName" component={GamePage} />
           <Route path="/settings/:appName/:type" component={Settings} />

@@ -15,8 +15,9 @@
   place-self: center;
   place-content: center;
   height: 84px;
-  padding: 1rem;
-  grid-template-columns: repeat(3,1fr);
+  width: 100%;
+  padding: 0 4rem 1rem 4rem;
+  grid-template-columns: repeat(3, 1fr);
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
@@ -25,16 +26,21 @@
   color: #c1c4c3;
 }
 
-.App .header .leftCluster,
-.App .header .rightCluster {
+.App .header .leftCluster {
   display: flex;
   cursor: pointer;
+}
+
+.App .content {
+  display: grid;
+  place-content: center;
+  width: 100vw;
 }
 
 .selectFilter {
   display: flex;
   width: fit-content;
-  justify-self: center;
+  justify-self: auto;
   justify-content: space-evenly;
 }
 
@@ -47,6 +53,10 @@
 .selectFilter > :not(:first-child) {
   cursor: pointer;
   padding: 0 8px;
+}
+
+.layoutSelection {
+  place-self: end;
 }
 
 .App .pageTitle {
@@ -86,7 +96,7 @@
 }
 
 .Links > a:not(:first-child) {
-  margin-left: 8px;
+  margin-left: 24px;
 }
 
 .NavBar .SearchBar {
@@ -127,7 +137,7 @@
 }
 
 .UserSelector .hidden {
-  display: block;
+  display: none;
   color: #eae8e5;
   cursor: pointer;
   transition: 150ms;
@@ -181,9 +191,12 @@
 .gameList {
   color: #e4deea;
   display: grid;
-  grid-template-columns: minmax(210px, max-content) repeat(auto-fill, 210px) 10%;
-  grid-gap: 34px;
+  grid-template-columns: min(11vw, 200px) repeat(auto-fill, min(11vw, 200px)) 6%;
+  grid-gap: 24px min(1vw, 32px);
   padding: 0 4rem 1rem 4rem;
+  max-width: 3382px;
+  place-self: center;
+  width: inherit;
 }
 
 .noGames {
@@ -198,8 +211,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 266px;
+  width: 8vw;
+  height: 10vw;
+  max-width: 200px;
+  max-height: 266px;
+  min-width: 130px;
+  min-height: 173px;
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
@@ -221,9 +238,13 @@
   color: #0bd58c;
 }
 
-.gameCard > .gameImg > img {
-  width: 200px;
-  height: 266px;
+.gameCard > .gameImg {
+  width: 8vw;
+  height: 10vw;
+  max-width: 200px;
+  max-height: 266px;
+  min-width: 130px;
+  min-height: 173px;
   border-radius: 0.5rem;
   object-fit: cover;
   position: absolute;
@@ -233,9 +254,9 @@
 
 .gameCard > .gameLogo {
   width: 70%;
-  min-width: 140px;
+  min-width: 70px;
   position: relative;
-  bottom: -85px;
+  top: 2vw;
   z-index: 2;
 }
 
@@ -255,6 +276,7 @@
   border-radius: 0px 0px 10px 10px;
   transition: 200ms;
   font-family: Rubik;
+  font-size: min(0.8vw, 1em);
   line-height: 17px;
   color: #eae8e5;
 }
@@ -278,7 +300,6 @@
   height: 280px;
   border-radius: 0.5rem;
   object-fit: cover;
-  position: absolute;
 }
 
 .installProgress[value] {
@@ -714,14 +735,11 @@
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-size: 16px;
   line-height: 19px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  overflow: auto;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
   color: #eae8e5;
 }
 
@@ -1077,10 +1095,10 @@ input:checked + .slider:before {
   padding-top: 1em;
 }
 
-.gameListItem{
+.gameListItem {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-areas: "cover infos name action";
+  grid-template-areas: 'cover infos name action';
   height: 8vh;
   margin: 1em;
   align-items: center;
@@ -1091,7 +1109,7 @@ input:checked + .slider:before {
   max-width: 15vh;
   height: inherit;
   grid-area: cover;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   contain: content;
 }
 
@@ -1111,9 +1129,11 @@ input:checked + .slider:before {
   z-index: 5;
   grid-area: cover;
   font-weight: 500;
-  background: linear-gradient(180deg,
-      rgba(0, 0, 0, 0.418) 2.4%,
-      rgba(20, 21, 21, 0.863) 30%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    rgba(20, 21, 21, 0.863) 30%
+  );
   padding: 2px 5px;
   border-radius: 4px;
   color: #0bd58c;
@@ -1147,19 +1167,19 @@ input:checked + .slider:before {
   visibility: hidden;
 }
 
-#backToTopBtn:hover{
+#backToTopBtn:hover {
   cursor: pointer;
-  animation: apparition .3s ease-in forwards;
+  animation: apparition 0.3s ease-in forwards;
 }
 
-@keyframes apparition{
+@keyframes apparition {
   from {
     color: #f69707;
     background-color: transparent;
   }
-  to{
+  to {
     background-color: #f69707;
-    color: #eae8e5
+    color: #eae8e5;
   }
 }
 
@@ -1171,9 +1191,9 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 .layoutSelection > span {
-  margin: 0 .2em;
+  margin: 0 0.2em;
 }
 
-.leftCluster{
+.leftCluster {
   width: 390px;
 }

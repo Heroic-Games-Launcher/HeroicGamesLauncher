@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -22,7 +23,16 @@ interface InstallProgress {
   eta: string
 }
 
-const GameCard = ({ cover, title, appName, isInstalled, logo, coverList, version, dlcs }: Card) => {
+const GameCard = ({
+  cover,
+  title,
+  appName,
+  isInstalled,
+  logo,
+  coverList,
+  version,
+  dlcs,
+}: Card) => {
   const [progress, setProgress] = useState({
     percent: '0.00%',
     bytes: '0/0MB',
@@ -78,53 +88,55 @@ const GameCard = ({ cover, title, appName, isInstalled, logo, coverList, version
   return (
     <>
       <Link
-        className={grid ? "gameCard" : 'gameListItem'}
+        className={grid ? 'gameCard' : 'gameListItem'}
         to={{
           pathname: `/gameconfig/${appName}`,
         }}
       >
         {haveStatus && <span className="progress">{getStatus()}</span>}
-        {(logo) && (
-            <img
-              alt="logo"
-              src={logo}
-              style={{
-                filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
-              }}
-              className="gameLogo"
-            />
-        )}
+        {logo && (
           <img
-            alt="cover-art"
-            src={grid ? cover : coverList}
-            style={{ filter: isInstalled ? 'none' : `grayscale(${effectPercent})` }}
-            className={grid ? "gameImg" : "gameImgList"}
+            alt="logo"
+            src={logo}
+            style={{
+              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+            }}
+            className="gameLogo"
           />
+        )}
+        <img
+          alt="cover-art"
+          src={grid ? cover : coverList}
+          style={{
+            filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+          }}
+          className={grid ? 'gameImg' : 'gameImgList'}
+        />
         {grid ? (
           <div className="gameTitle">
-            <span >{title}</span>
-            {dlcs.length > 0 ? (<span> Dlcs : {dlcs.length}</span>) : <span> Dlcs : 0</span>}
+            <span>{title}</span>
+          </div>
+        ) : (
+          <>
+            {
+              <div className="gameListInfo">
+                Ver : {version}
+                <br />
+                {dlcs.length > 0 ? `Dlcs : ${dlcs.length}` : 'Dlcs : 0'}
+              </div>
+            }
+            <span className="gameTitleList">{title}</span>
             <i
-              className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'
-                }`}
+              className={`material-icons ${
+                isInstalled ? 'is-success' : 'is-primary'
+              } gameActionList`}
             >
               {isInstalled ? 'play_circle' : 'get_app'}
             </i>
-          </div>
-        ) : (
-            <>
-              {<div className="gameListInfo">Ver : {version}<br/>{dlcs.length > 0 ? (`Dlcs : ${dlcs.length}`) : 'Dlcs : 0'}</div>}
-              <span className="gameTitleList">{title}</span>
-              <i
-                className={`material-icons ${isInstalled ? 'is-success' : 'is-primary'
-                  } gameActionList`}
-              >
-                {isInstalled ? 'play_circle' : 'get_app'}
-              </i>
-            </>
-          )}
+          </>
+        )}
       </Link>
-      {!grid ? (<hr style={{ width: "90%", opacity: .1 }} />) : ''}
+      {!grid ? <hr style={{ width: '90%', opacity: 0.1 }} /> : ''}
     </>
   )
 }
