@@ -838,6 +838,14 @@
   color: #4bc984;
 }
 
+.material-icons.is-danger {
+  color: #bd0a0a;
+}
+
+.material-icons.is-danger:hover {
+  color: rgb(233, 8, 8);
+}
+
 .material-icons.settings.folder {
   position: relative;
   right: 42px;
@@ -1095,6 +1103,7 @@ input:checked + .slider:before {
   position: relative;
   padding-top: 1em;
   min-height: 2vh;
+  min-width: 80vw;
 }
 
 .gameListItem {
@@ -1163,6 +1172,14 @@ input:checked + .slider:before {
 
 .gameActionList.material-icons.is-success:hover {
   color: #30eca8;
+}
+
+.gameActionList.material-icons.is-primary:hover {
+  color: #36d1f3;
+}
+
+.gameActionList.material-icons.is-danger:hover {
+  color: #e61717;
 }
 
 .gameListInfo {

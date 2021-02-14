@@ -134,14 +134,24 @@ const GameCard = ({
               </div>
             }
             <span className="gameTitleList">{title}</span>
-            <i
-              className={`material-icons ${
-                isInstalled ? 'is-success' : 'is-primary'
-              } gameActionList`}
-              onClick={() => handlePlay()}
-            >
-              {isInstalled ? 'play_circle' : 'get_app'}
-            </i>
+            {
+              <i
+                className={`material-icons ${
+                  isInstalling
+                    ? 'is-danger'
+                    : isInstalled
+                    ? 'is-success'
+                    : 'is-primary'
+                } gameActionList`}
+                onClick={() => handlePlay()}
+              >
+                {isInstalling
+                  ? 'cancel'
+                  : isInstalled
+                  ? 'play_circle'
+                  : 'get_app'}
+              </i>
+            }
           </>
         )}
       </div>
