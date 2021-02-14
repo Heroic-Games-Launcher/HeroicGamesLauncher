@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from '../../state/ContextProvider'
 import { GameStatus } from '../../types'
-import { getProgress } from '../../helper'
-const { ipcRenderer } = window.require('electron')
+import { getProgress, sendKill, launch, updateGame } from '../../helper'
+import { handleInstall } from '../utls'
+const { ipcRenderer, remote } = window.require('electron')
+const {
+  dialog: { showMessageBox },
+} = remote
 interface Card {
   cover: string
   coverList: string
@@ -14,6 +18,7 @@ interface Card {
   appName: string
   isInstalled: boolean
   version: string
+  size: string
   dlcs: string[]
 }
 
@@ -30,7 +35,7 @@ const GameCard = ({
   isInstalled,
   logo,
   coverList,
-  version,
+  size,
   dlcs,
 }: Card) => {
   const [progress, setProgress] = useState({
@@ -38,9 +43,11 @@ const GameCard = ({
     bytes: '0/0MB',
     eta: '',
   } as InstallProgress)
-  const { t } = useTranslation()
+  const { t } = useTranslation('gamepage')
 
-  const { libraryStatus, layout } = useContext(ContextProvider)
+  const { libraryStatus, layout, handleGameStatus } = useContext(
+    ContextProvider
+  )
 
   const grid = layout === 'grid'
 
@@ -87,12 +94,7 @@ const GameCard = ({
 
   return (
     <>
-      <Link
-        className={grid ? 'gameCard' : 'gameListItem'}
-        to={{
-          pathname: `/gameconfig/${appName}`,
-        }}
-      >
+      <div className={grid ? 'gameCard' : 'gameListItem'}>
         {haveStatus && <span className="progress">{getStatus()}</span>}
         {logo && (
           <img
@@ -104,14 +106,20 @@ const GameCard = ({
             className="gameLogo"
           />
         )}
-        <img
-          alt="cover-art"
-          src={grid ? cover : coverList}
-          style={{
-            filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+        <Link
+          to={{
+            pathname: `/gameconfig/${appName}`,
           }}
-          className={grid ? 'gameImg' : 'gameImgList'}
-        />
+        >
+          <img
+            alt="cover-art"
+            src={grid ? cover : coverList}
+            style={{
+              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+            }}
+            className={grid ? 'gameImg' : 'gameImgList'}
+          />
+        </Link>
         {grid ? (
           <div className="gameTitle">
             <span>{title}</span>
@@ -120,7 +128,7 @@ const GameCard = ({
           <>
             {
               <div className="gameListInfo">
-                Ver : {version}
+                {size}
                 <br />
                 {dlcs.length > 0 ? `Dlcs : ${dlcs.length}` : 'Dlcs : 0'}
               </div>
@@ -130,15 +138,59 @@ const GameCard = ({
               className={`material-icons ${
                 isInstalled ? 'is-success' : 'is-primary'
               } gameActionList`}
+              onClick={() => handlePlay()}
             >
               {isInstalled ? 'play_circle' : 'get_app'}
             </i>
           </>
         )}
-      </Link>
+      </div>
       {!grid ? <hr style={{ width: '90%', opacity: 0.1 }} /> : ''}
     </>
   )
+
+  async function handlePlay() {
+    if (!isInstalled) {
+      await handleInstall({
+        appName,
+        isInstalling,
+        installPath: 'another',
+        handleGameStatus,
+        t,
+      })
+      return
+    }
+    if (status === 'playing' || status === 'updating') {
+      handleGameStatus({ appName, status: 'done' })
+      return sendKill(appName)
+    }
+
+    console.log('play?', appName, status)
+    handleGameStatus({ appName, status: 'playing' })
+    await launch(appName).then(async (err: string | string[]) => {
+      if (!err) {
+        return
+      }
+      if (err.includes('ERROR: Game is out of date')) {
+        const { response } = await showMessageBox({
+          title: t('box.update.title'),
+          message: t('box.update.message'),
+          buttons: [t('box.yes'), t('box.no')],
+        })
+
+        if (response === 0) {
+          handleGameStatus({ appName, status: 'updating' })
+          await updateGame(appName)
+          return handleGameStatus({ appName, status: 'done' })
+        }
+        handleGameStatus({ appName, status: 'playing' })
+        await launch(`${appName} --skip-version-check`)
+        return handleGameStatus({ appName, status: 'done' })
+      }
+    })
+
+    return handleGameStatus({ appName, status: 'done' })
+  }
 }
 
 export default GameCard

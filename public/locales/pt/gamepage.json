@@ -36,6 +36,10 @@
   },
   "disabled": "Desabilitado",
   "enabled": "Habilitado",
+  "gamecard": {
+    "moving": "Movendo",
+    "repairing": "Reparando"
+  },
   "info": {
     "path": "Pasta de Instalação",
     "size": "Tamanho",

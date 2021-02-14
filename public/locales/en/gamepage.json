@@ -36,6 +36,10 @@
   },
   "disabled": "Disabled",
   "enabled": "Enabled",
+  "gamecard": {
+    "moving": "Moving",
+    "repairing": "Repairing"
+  },
   "info": {
     "path": "Install Path",
     "size": "Size",
