@@ -53,8 +53,8 @@ export interface Game {
   cloudSaveEnabled: boolean
   saveFolder: string
   folderName: string
-  is_dlc: boolean
   extraInfo: ExtraInfo
+  dlcs: string[]
 }
 
 export interface InstallProgress {
@@ -74,14 +74,14 @@ export interface WineProps {
 export interface GameStatus {
   appName: string
   status:
-    | 'installing'
-    | 'updating'
-    | 'playing'
-    | 'uninstalling'
-    | 'repairing'
-    | 'done'
-    | 'canceled'
-    | 'moving'
+  | 'installing'
+  | 'updating'
+  | 'playing'
+  | 'uninstalling'
+  | 'repairing'
+  | 'done'
+  | 'canceled'
+  | 'moving'
   progress?: number | null
 }
 
@@ -91,6 +91,7 @@ export interface ContextType {
   user: string
   data: Game[]
   filter: string
+  layout: string
   refreshing: boolean
   error: boolean
   libraryStatus: GameStatus[]
@@ -99,4 +100,5 @@ export interface ContextType {
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleFilter: (value: string) => void
   handleSearch: (input: string) => void
+  handleLayout:   (value: string) => void
 }

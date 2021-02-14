@@ -12,12 +12,11 @@
 
 .App .header {
   display: grid;
-  width: 1194px;
   place-self: center;
   place-content: center;
   height: 84px;
   padding: 1rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3,1fr);
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
@@ -161,7 +160,7 @@
   outline: none;
 }
 
-.SearchBar > .material-icons {
+.SearchBar > label {
   position: absolute;
   top: 8px;
   left: 10px;
@@ -171,6 +170,10 @@
 .SearchBar > .close {
   position: relative;
   left: -30px;
+}
+
+.SearchBar > .close:hover {
+  cursor: pointer;
 }
 
 .gameList {
@@ -216,7 +219,7 @@
   color: #0bd58c;
 }
 
-.gameCard > .gameImg {
+.gameCard > .gameImg > img {
   width: 200px;
   height: 266px;
   border-radius: 0.5rem;
@@ -273,6 +276,7 @@
   height: 280px;
   border-radius: 0.5rem;
   object-fit: cover;
+  position: absolute;
 }
 
 .installProgress[value] {
@@ -713,7 +717,7 @@
   line-height: 19px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  overflow: hidden;
+  overflow: auto;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   color: #eae8e5;
@@ -1060,4 +1064,114 @@ input:checked + .slider:before {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.gameListLayout {
+  background-color: #323035;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  padding-top: 1em;
+}
+
+.gameListItem{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "cover infos name action";
+  height: 8vh;
+  margin: 1em;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+}
+.gameImgList {
+  max-width: 15vh;
+  height: inherit;
+  grid-area: cover;
+  border-radius: .5rem;
+  contain: content;
+}
+
+.gameListItem > .gameLogo {
+  width: 20%;
+  min-width: 80px;
+  position: absolute;
+  z-index: 2;
+  grid-area: cover;
+}
+
+.gameTitleList {
+  grid-area: name;
+  font-size: 1em;
+}
+.gameListItem > .progress {
+  z-index: 5;
+  grid-area: cover;
+  font-weight: 500;
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.418) 2.4%,
+      rgba(20, 21, 21, 0.863) 30%);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #0bd58c;
+}
+
+.gameActionList {
+  font-size: 2.5em;
+  grid-area: action;
+}
+
+.gameListInfo {
+  font-size: 1em;
+  grid-area: infos;
+}
+
+#backToTopBtn {
+  border-radius: 100%;
+  width: 5vh;
+  height: 5vh;
+  position: fixed;
+  bottom: 3%;
+  margin: 1em 3em;
+  border: 1px #f69707 solid;
+  background-color: transparent;
+  color: #f69707;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  z-index: 9;
+  visibility: hidden;
+}
+
+#backToTopBtn:hover{
+  cursor: pointer;
+  animation: apparition .3s ease-in forwards;
+}
+
+@keyframes apparition{
+  from {
+    color: #f69707;
+    background-color: transparent;
+  }
+  to{
+    background-color: #f69707;
+    color: #eae8e5
+  }
+}
+
+.selectedLayout {
+  color: #f69707;
+}
+
+.layoutSelection > span:hover {
+  cursor: pointer;
+}
+.layoutSelection > span {
+  margin: 0 .2em;
+}
+
+.leftCluster{
+  width: 390px;
 }

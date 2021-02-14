@@ -8,16 +8,18 @@ interface Props {
   numberOfGames?: number
   goTo: string
   handleFilter?: (value: string) => void
+  handleLayout?: (value: string) => void
 }
 
 export default function Header({
   renderBackButton,
   numberOfGames,
   handleFilter,
+  handleLayout,
   goTo,
 }: Props) {
   const { t } = useTranslation()
-  const { filter, libraryStatus } = useContext(ContextProvider)
+  const { filter, libraryStatus, layout } = useContext(ContextProvider)
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
@@ -61,6 +63,13 @@ export default function Header({
             {t('Total Games')}: {numberOfGames}
           </span>
         )}
+        {handleLayout && (
+          <div className="layoutSelection">
+            <span className={layout === 'grid' ? 'selectedLayout material-icons' : 'material-icons'} onClick={() => handleLayout('grid')}>apps</span>
+            <span className={layout === 'list' ? 'selectedLayout material-icons' : 'material-icons'} onClick={() => handleLayout('list')}>list</span>
+          </div>
+        )}
+       
         {renderBackButton && (
           <div className="leftCluster">
             <Link className="returnLink" to={goTo}>

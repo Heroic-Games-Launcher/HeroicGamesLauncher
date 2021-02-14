@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import SearchBar from './UI/SearchBar'
-import UserSelector from './UI/UserSelector'
+const SearchBar = lazy(() => import('./UI/SearchBar'))
+const UserSelector = lazy(() => import('./UI/UserSelector'))
 
 export default function NavBar() {
   const { t } = useTranslation()

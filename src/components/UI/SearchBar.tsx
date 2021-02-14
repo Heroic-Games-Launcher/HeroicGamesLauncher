@@ -9,9 +9,10 @@ export default function SearchBar() {
 
   return (
     <div className="SearchBar">
-      <span onClick={() => handleSearch(textValue)} className="material-icons">
-        search
+      <label htmlFor="search"><span onClick={() => handleSearch(textValue)} className="material-icons">
+          search
       </span>
+      </label>
       <input
         className="searchInput"
         value={textValue}
@@ -19,8 +20,10 @@ export default function SearchBar() {
           setTextValue(event.target.value)
           handleSearch(event.target.value)
         }}
-        placeholder={t('search')}
-      />
+          placeholder={t('search')}
+          id="search"
+        />
+       
       {textValue.length > 0 && (
         <span
           onClick={() => {

@@ -91,7 +91,7 @@ export const getLegendaryConfig = async () => {
   return { user, library }
 }
 
-const specialCharactersRegex = /[^((0-9)|(a-z)|(A-Z)|\s)]/g
+const specialCharactersRegex = /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
 const cleanTitle = (title: string) =>
   title
     .replaceAll(specialCharactersRegex, '')
