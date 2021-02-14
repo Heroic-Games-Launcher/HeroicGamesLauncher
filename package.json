@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -69,7 +69,7 @@
   },
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
-    "electron": "npm run build-electron && electron .",
+    "electron": "yarn build-electron && electron .",
     "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
@@ -78,8 +78,7 @@
     "pretitier": "prettier --check",
     "format-files": "prettier --write .",
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
-    "dist": "npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux",
-    "build-any": "npm run dist",
+    "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
@@ -118,9 +117,9 @@
   },
   "husky": {
     "hooks": {
-      "post-checkout": "npm install",
-      "post-merge": "npm install",
-      "pre-push": "npm run lint && pretty-quick --staged lint-staged"
+      "post-checkout": "yarn",
+      "post-merge": "yarn",
+      "pre-push": "yarn lint && pretty-quick --staged lint-staged"
     }
   },
   "browserslist": {
