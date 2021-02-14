@@ -27,4 +27,5 @@ yarn-error.log*
 public/main.js
 public/types.js
 public/utils.js
+public/images
 .vscode/settings.json
