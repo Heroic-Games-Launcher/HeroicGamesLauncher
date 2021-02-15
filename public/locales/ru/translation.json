@@ -118,9 +118,9 @@
     "default-install-path": "Стандартный путь установки",
     "egs-sync": "Синхронизировать с установленнными играми EGS",
     "exit-to-tray": "Сворачивать в системный трей",
-    "gamemode": "Использовать GameMode (Должен быть установлен Feral Game Mode)",
+    "gamemode": "Использовать GameMode (Нужен Feral Game Mode)",
     "language": "Выберите язык приложения",
-    "mangohud": "Включить Mangohud (Должен быть установлен Mangohud needs)",
+    "mangohud": "Включить Mangohud (Нужен Mangohud)",
     "manualsync": "Ручная синхронизация сохранений",
     "maxworkers": "Максимальное количество потоков при скачивании",
     "runexe": {
