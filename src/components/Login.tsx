@@ -158,7 +158,7 @@ export default function Login({ refresh }: Props) {
               })}
               onClick={() => handleChangeLanguage('ru')}
             >
-              Russian 🇷🇺
+              Русский 🇷🇺
             </span>
           </span>
         </div>
