@@ -1,4 +1,20 @@
 html {
+  --background: #424546;
+  --background-secondary: #323035;
+  --primary: #07c5ef;
+  --secondary: #ffa800;
+  --tertiary: #252121;
+  --danger: #bd0a0a;
+  --success: #0bd58c;
+
+  --primary-hover: #36d1f3;
+  --secondary-hover: #feba36;
+  --tertiary-hover: #322b2b;
+  --success-hover: #30eca8;
+  --danger-hover: #bd0a0a;
+
+  --text-primary: #eae8e5;
+  --text-secondary: #c1c4c3;
   overflow-y: overlay;
 }
 

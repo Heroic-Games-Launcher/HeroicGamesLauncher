@@ -151,7 +151,7 @@ export default function GeneralSettings({
           <input
             type="text"
             placeholder={t('placeholder.egs-prefix')}
-            className="settingSelect small"
+            className="settingSelect"
             value={egsPath || egsLinkedPath}
             disabled={isLinked}
             onChange={(event) => setEgsPath(event.target.value)}

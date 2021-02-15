@@ -4,7 +4,7 @@
 
 .App {
   text-align: center;
-  color: #b0abb6;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   font-family: 'Cabin', sans-serif;
@@ -15,15 +15,17 @@
   place-self: center;
   place-content: center;
   height: 84px;
-  width: 100%;
+  width: calc(100% - 1vw);
   padding: 0 4rem 1rem 4rem;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 5fr 5fr 1fr;
+  justify-items: baseline;
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
-  font-size: 1rem;
+  font-size: clamp(1em, 0.5vw, 2rem);
   line-height: 17px;
-  color: #c1c4c3;
+  color: var(--text-secondary);
+  grid-template-areas: 'filter total layout';
 }
 
 .App .header .leftCluster {
@@ -42,12 +44,13 @@
   width: fit-content;
   justify-self: auto;
   justify-content: space-evenly;
+  grid-area: filter;
 }
 
 .selectFilter > .selected {
-  font-size: 1.1rem;
+  font-size: clamp(1.1em, 0.6vw, 2.1rem);
   font-weight: 600;
-  color: #ffa800;
+  color: var(--secondary);
 }
 
 .selectFilter > :not(:first-child) {
@@ -57,6 +60,7 @@
 
 .layoutSelection {
   place-self: end;
+  grid-area: layout;
 }
 
 .App .pageTitle {
@@ -72,7 +76,7 @@
   height: 77px;
   position: sticky;
   top: 0;
-  background: #424546;
+  background: var(--background);
   box-shadow: 0px 4.00313px 10.0078px #161616;
   width: 100%;
   display: grid;
@@ -129,7 +133,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #07c5ef;
+  color: var(--primary);
   margin-bottom: 8px;
   margin-left: 10%;
   padding-right: 30px;
@@ -138,7 +142,7 @@
 
 .UserSelector .hidden {
   display: none;
-  color: #eae8e5;
+  color: var(--text-primary);
   cursor: pointer;
   transition: 150ms;
   opacity: 0;
@@ -166,7 +170,7 @@
   background: #1a1b1c;
   border-radius: 10px;
   border: none;
-  color: #f69707;
+  color: var(--secondary);
   text-indent: 38px;
   font-size: 14px;
   outline: none;
@@ -176,7 +180,7 @@
   position: absolute;
   top: 8px;
   left: 10px;
-  color: #f69707;
+  color: var(--secondary);
 }
 
 .SearchBar > .close {
@@ -192,8 +196,8 @@
 .gameList {
   color: #e4deea;
   display: grid;
-  grid-template-columns: min(11vw, 200px) repeat(auto-fill, min(11vw, 200px)) 6%;
-  grid-gap: 24px min(1vw, 32px);
+  grid-template-columns: min(9vw, 200px) repeat(auto-fill, min(9vw, 200px)) 6%;
+  grid-gap: 24px min(3vw, 32px);
   padding: 0 4rem 1rem 4rem;
   max-width: 3382px;
   place-self: center;
@@ -207,7 +211,7 @@
 }
 
 .gameCard {
-  background-color: #323035;
+  background-color: var(--background-secondary);
   text-align: left;
   display: flex;
   justify-content: center;
@@ -236,10 +240,10 @@
   );
   padding: 2px 5px;
   border-radius: 4px;
-  color: #0bd58c;
+  color: var(--success);
 }
 
-.gameCard > .gameImg {
+.gameCard > a > .gameImg {
   width: 8vw;
   height: 10vw;
   max-width: 200px;
@@ -253,12 +257,20 @@
   left: 0;
 }
 
-.gameCard > .gameLogo {
-  width: 70%;
-  min-width: 70px;
+.gameImgList > .gameLogo {
+  width: 45%;
+  min-width: 60px;
   position: relative;
-  top: 2vw;
+  top: 25px;
   z-index: 2;
+}
+
+.gameImg > .gameLogo {
+  width: min(7vw, 70%);
+  position: relative;
+  top: 50%;
+  z-index: 2;
+  left: 16%;
 }
 
 .gameTitle {
@@ -279,12 +291,20 @@
   font-family: Rubik;
   font-size: min(0.8vw, 1em);
   line-height: 17px;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
-.gameTitle > i {
-  font-size: 32px;
+.gameTitle > .icons {
   align-self: flex-end;
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  cursor: pointer;
+}
+
+.gameTitle > .icons > svg {
+  width: min(calc(1vw + 16px), 36px);
+  height: min(calc(1vw + 16px), 36px);
 }
 
 .gameCard:hover > .gameTitle {
@@ -310,7 +330,7 @@
 }
 
 .installProgress[value]::-webkit-progress-value {
-  color: #0bd58c;
+  color: var(--success);
   animation: animate-stripes 5s linear infinite;
 }
 
@@ -329,7 +349,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .settingsNavbar > a {
@@ -339,7 +359,7 @@
 .settingsNavbar > a.active {
   transition: all 350ms ease-out 0s;
   transform: scale(1.2);
-  color: #07c5ef;
+  color: var(--primary);
   font-weight: 500;
 }
 
@@ -378,17 +398,17 @@
   font-size: 16px;
   line-height: 19px;
   text-decoration: underline;
-  color: #07c5ef;
+  color: var(--primary);
   transition: 350ms;
 }
 
 .tools:hover {
-  color: #ffa800;
+  color: var(--secondary);
 }
 
 .tools.drag {
   display: grid;
-  border: #ffa800 solid 1px;
+  border: var(--secondary) solid 1px;
   border-radius: 7px;
   padding: 12px 20px;
   grid-area: runexe;
@@ -441,7 +461,7 @@
   align-items: center;
   font-size: 16px;
   line-height: 19px;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .toggleWrapper > .switch {
@@ -455,20 +475,20 @@
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .settingSelect {
   width: 513px;
   height: 40px;
-  background: #424546;
+  background: var(--background);
   border-radius: 10px;
   font-family: Cabin;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
-  color: #c1c4c3;
+  color: var(--text-secondary);
   text-indent: 22px;
   outline: none;
   border: none;
@@ -485,9 +505,9 @@
 }
 
 .settingSelect > option {
-  background: #424546;
+  background: var(--background);
   height: 40px;
-  color: #c1c4c3;
+  color: var(--text-secondary);
   text-indent: 22px;
   font-size: 16px;
   border-radius: 10px;
@@ -552,7 +572,7 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 30px;
-  color: #ffa800;
+  color: var(--secondary);
 }
 
 .heroicSubTitle {
@@ -561,7 +581,7 @@
   font-weight: 400;
   font-size: 19px;
   line-height: 24.3px;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .logo {
@@ -590,21 +610,21 @@
   font-weight: 500;
   font-size: 22px;
   line-height: 27px;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .loginInstructions strong {
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .loginInstructions .epicLink {
-  color: #f69707;
+  color: var(--secondary);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .loginInstructions .sid {
-  color: #07c5ef;
+  color: var(--primary);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -622,7 +642,7 @@
 .loginInput {
   width: 388px;
   height: 63px;
-  background: #424546;
+  background: var(--background);
   border-radius: 10px;
   font-family: Cabin;
   font-style: normal;
@@ -630,7 +650,7 @@
   font-size: 16px;
   line-height: 19px;
   outline: none;
-  color: #eae8e5;
+  color: var(--text-primary);
   text-align: center;
   border: none;
 }
@@ -641,7 +661,7 @@
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .loginForm > .message {
@@ -650,7 +670,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: #07c5ef;
+  color: var(--primary);
   display: flex;
 }
 
@@ -741,7 +761,7 @@
   line-height: 19px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .buttonsWrapper {
@@ -755,7 +775,7 @@
   cursor: pointer;
   padding: 0.75rem;
   border-radius: 10px;
-  background: #323035;
+  background: var(--background-secondary);
   color: #1a1b1c;
   text-transform: uppercase;
   font-family: Rubik;
@@ -782,15 +802,15 @@
 }
 
 .button.is-primary {
-  background: #07c5ef;
+  background: var(--primary);
 }
 
 .button.is-tertiary {
-  background: #ffa800;
+  background: var(--secondary);
 }
 
 .button.is-tertiary:hover {
-  background: #feba36;
+  background: var(--secondary-hover);
 }
 
 .button.is-empty {
@@ -799,51 +819,51 @@
 }
 
 .button.is-success {
-  background: #0bd58c;
+  background: var(--success);
 }
 
 .button.button.is-success:hover {
-  background: #30eca8;
+  background: var(--success-hover);
 }
 
 .button.is-success:hover:disabled,
 .button.is-success:disabled {
-  background: #424546;
+  background: var(--background);
   color: #b0abb6;
 }
 
 .button.is-danger {
-  background: #252121;
-  color: #bd0a0a;
+  background: var(--tertiary);
+  color: var(--danger);
 }
 
 .button.is-danger:hover {
-  background: #322b2b;
+  background: var(--tertiary-hover);
 }
 
 .button.is-danger:disabled {
-  background: #424546;
+  background: var(--background);
   color: #b0abb6;
 }
 
 .material-icons.is-primary {
-  color: #07c5ef;
+  color: var(--primary);
 }
 
 .material-icons.is-secondary {
-  color: #ffa800;
+  color: var(--secondary);
 }
 
 .material-icons.is-success {
-  color: #4bc984;
+  color: var(--success);
 }
 
 .material-icons.is-danger {
-  color: #bd0a0a;
+  color: var(--danger);
 }
 
 .material-icons.is-danger:hover {
-  color: rgb(233, 8, 8);
+  color: var(--danger-hover);
 }
 
 .material-icons.settings.folder {
@@ -855,7 +875,7 @@
 
 .button.settings {
   margin-left: -12px;
-  background: #c1c4c3;
+  background: var(--text-secondary);
 }
 
 .button.settings:hover {
@@ -868,12 +888,12 @@
 }
 
 .button.login {
-  background: #07c5ef;
+  background: var(--primary);
   font-size: 14px;
 }
 
 .button.login:hover {
-  background: #36d1f3;
+  background: var(--primary-hover);
 }
 
 .button.login:disabled {
@@ -899,7 +919,7 @@
   position: absolute;
   top: 56px;
   right: 68px;
-  color: #ffa800;
+  color: var(--secondary);
   font-size: 25px;
   width: max-content;
   height: fit-content;
@@ -939,7 +959,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: #07c5ef;
+  color: var(--primary);
 }
 .more .hidden {
   opacity: 0;
@@ -967,6 +987,7 @@
 .totalGamesText {
   right: 55px;
   top: 108px;
+  grid-area: total;
 }
 
 .updateIcon {
@@ -978,7 +999,7 @@
   font-size: 24px;
   justify-content: center;
   flex-direction: column;
-  color: #eae8e5;
+  color: var(--text-primary);
 }
 
 .updateIcon .material-icons {
@@ -1029,19 +1050,19 @@
 }
 
 input:checked + .slider {
-  border-color: #ffa800;
+  border-color: var(--secondary);
 }
 
 input:checked span {
-  color: #ffa800;
+  color: var(--secondary);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #ffa800;
+  box-shadow: 0 0 1px var(--secondary);
 }
 
 input:checked + .slider:before {
-  background-color: #ffa800;
+  background-color: var(--secondary);
   transform: translateX(9px);
 }
 
@@ -1061,7 +1082,7 @@ input:checked + .slider:before {
 }
 
 .helpLink {
-  color: #f69707;
+  color: var(--secondary);
   cursor: pointer;
   display: flex;
   height: 40px;
@@ -1077,7 +1098,7 @@ input:checked + .slider:before {
 }
 
 .infoBox > strong {
-  color: #07c5ef;
+  color: var(--primary);
 }
 
 @keyframes animate-stripes {
@@ -1096,7 +1117,7 @@ input:checked + .slider:before {
 }
 
 .gameListLayout {
-  background-color: #323035;
+  background-color: var(--background-secondary);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1108,7 +1129,7 @@ input:checked + .slider:before {
 
 .gameListItem {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 6fr 1fr;
   grid-template-areas: 'cover infos name action';
   height: 8vh;
   margin: 1em;
@@ -1116,20 +1137,24 @@ input:checked + .slider:before {
   justify-items: center;
   position: relative;
   cursor: default;
+  width: 95%;
+  place-self: center;
 }
 
 .gameImgList {
   max-width: 15vh;
   height: inherit;
+  width: inherit;
   grid-area: cover;
   border-radius: 0.5rem;
   contain: content;
   cursor: pointer;
+  display: block;
 }
 
 .gameListItem > .gameLogo {
-  width: 20%;
-  min-width: 80px;
+  width: 3vw;
+  min-width: 45px;
   position: absolute;
   z-index: 2;
   grid-area: cover;
@@ -1142,6 +1167,13 @@ input:checked + .slider:before {
 
 .gameListItem > a {
   grid-area: cover;
+  max-width: 15vh;
+  width: 100%;
+  height: 100%;
+}
+
+.gameListItem > .icons {
+  cursor: pointer;
 }
 
 .gameListItem > .progress {
@@ -1155,31 +1187,10 @@ input:checked + .slider:before {
   );
   padding: 2px 5px;
   border-radius: 4px;
-  color: #0bd58c;
+  color: var(--success);
   position: relative;
   bottom: 34px;
   left: -52px;
-}
-
-.gameActionList {
-  font-size: 2.5em;
-  grid-area: action;
-  z-index: 10;
-  cursor: pointer;
-  position: absolute;
-  transition: 200ms;
-}
-
-.gameActionList.material-icons.is-success:hover {
-  color: #30eca8;
-}
-
-.gameActionList.material-icons.is-primary:hover {
-  color: #36d1f3;
-}
-
-.gameActionList.material-icons.is-danger:hover {
-  color: #e61717;
 }
 
 .gameListInfo {
@@ -1194,9 +1205,9 @@ input:checked + .slider:before {
   position: fixed;
   bottom: 3%;
   margin: 1em 3em;
-  border: 1px #f69707 solid;
+  border: 1px var(--secondary) solid;
   background-color: transparent;
-  color: #f69707;
+  color: var(--secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1212,17 +1223,26 @@ input:checked + .slider:before {
 
 @keyframes apparition {
   from {
-    color: #f69707;
+    color: var(--secondary);
     background-color: transparent;
   }
   to {
-    background-color: #f69707;
-    color: #eae8e5;
+    background-color: var(--secondary);
+    color: var(--text-primary);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
 .selectedLayout {
-  color: #f69707;
+  color: var(--secondary);
 }
 
 .layoutSelection > span:hover {
