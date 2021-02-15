@@ -151,7 +151,7 @@ export default function Login({ refresh }: Props) {
             >
               Français 🇫🇷
             </span>
-                        <span
+            <span
               className={cx({
                 ['selectedLanguage']: currentLanguage === 'ru',
                 ['language']: currentLanguage !== 'ru',
