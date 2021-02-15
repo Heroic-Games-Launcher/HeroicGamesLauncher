@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
 import { IpcRenderer } from 'electron'
 const { ipcRenderer } = window.require('electron')
@@ -39,8 +40,7 @@ export default function Login({ refresh }: Props) {
           message: t('status.loading', 'Loading Game list, please wait'),
         })
 
-        await renderer.invoke('writeLibrary')
-          .then(() => refresh())
+        await renderer.invoke('writeLibrary').then(() => refresh())
       }
 
       setStatus({ loading: true, message: t('status.error', 'Error') })
@@ -116,44 +116,40 @@ export default function Login({ refresh }: Props) {
           </div>
           <span style={{ color: 'white', marginTop: '4px' }}>
             <span
-              style={
-                currentLanguage === 'en'
-                  ? { color: '#07c5ef', fontWeight: 600 }
-                  : { cursor: 'pointer' }
-              }
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'en',
+                ['language']: currentLanguage !== 'en',
+              })}
               onClick={() => handleChangeLanguage('en')}
             >
-              English -{' '}
+              English 🇬🇧 -{' '}
             </span>
             <span
-              style={
-                currentLanguage === 'pt'
-                  ? { color: '#07c5ef', fontWeight: 600 }
-                  : { cursor: 'pointer' }
-              }
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'pt',
+                ['language']: currentLanguage !== 'pt',
+              })}
               onClick={() => handleChangeLanguage('pt')}
             >
-              Português -{' '}
+              Português 🇧🇷 -{' '}
             </span>
             <span
-              style={
-                currentLanguage === 'de'
-                  ? { color: '#07c5ef', fontWeight: 600 }
-                  : { cursor: 'pointer' }
-              }
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'de',
+                ['language']: currentLanguage !== 'de',
+              })}
               onClick={() => handleChangeLanguage('de')}
             >
-              Deutsch -{' '}
+              Deutsch 🇩🇪 -{' '}
             </span>
             <span
-              style={
-                currentLanguage === 'fr'
-                  ? { color: '#07c5ef', fontWeight: 600 }
-                  : { cursor: 'pointer' }
-              }
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'fr',
+                ['language']: currentLanguage !== 'fr',
+              })}
               onClick={() => handleChangeLanguage('fr')}
             >
-              Français
+              Français 🇫🇷
             </span>
           </span>
         </div>

@@ -11,6 +11,8 @@
     "error": {
       "launch": "Erreur lors du lancement du jeu, consultez le rapport"
     },
+    "importpath": "",
+    "installpath": "",
     "no": "NON",
     "quit": {
       "message": "D'autres opérations sont en cours, êtes-vous sûrs?",
@@ -40,10 +42,6 @@
   },
   "Downloading": "Téléchargements",
   "Filter": "Filtre",
-  "gamecard": {
-    "moving": "Déplacement",
-    "repairing": "Réparation"
-  },
   "help": {
     "general": "Synchronisation avec EGS dans le cas où vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
     "other": {
@@ -114,7 +112,9 @@
   "search": "Entrez le nom d'un jeu ici...",
   "setting": {
     "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
+    "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
     "autosync": "Sauvegardes Autosync",
+    "darktray": "Utiliser Dark Tray Icon (nécessite un redémarrage)",
     "default-install-path": "Chemin par défaut de l'installation",
     "egs-sync": "Synchroniser avec l'nstallation d'Epic Games",
     "exit-to-tray": "Quiiter vers System Tray",

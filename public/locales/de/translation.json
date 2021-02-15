@@ -11,6 +11,8 @@
     "error": {
       "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!"
     },
+    "importpath": "",
+    "installpath": "",
     "no": "NEIN",
     "quit": {
       "message": "Es gibt anstehende Operationen, möchten Sie wirklich fortfahren?",
@@ -40,10 +42,6 @@
   },
   "Downloading": "Am herunterladen",
   "Filter": "Filter",
-  "gamecard": {
-    "moving": "Verschiebe",
-    "repairing": "Repariere"
-  },
   "help": {
     "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
     "other": {
@@ -114,7 +112,9 @@
   "search": "Geben Sie hier den Namen des Spiels ein...",
   "setting": {
     "audiofix": "Audio-Fix (Pulse Audio Latenz)",
+    "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
     "autosync": "Spielstände automatisch synchronisieren",
+    "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
     "default-install-path": "Standard-Installationspfad",
     "egs-sync": "Mit installiertem Epic Games synchronisieren",
     "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",

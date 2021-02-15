@@ -41,6 +41,8 @@ export interface AppSettings {
   language: string
   maxWorkers: number
   userInfo: UserInfo
+  darkTrayIcon: boolean
+  autoInstallDxvk: boolean
 }
 
 export interface Game {

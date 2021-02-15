@@ -11,6 +11,8 @@
     "error": {
       "launch": "Error when launching the game, check the logs!"
     },
+    "importpath": "",
+    "installpath": "",
     "no": "NO",
     "quit": {
       "message": "There are pending operations, are you sure?",
@@ -40,10 +42,6 @@
   },
   "Downloading": "Downloading",
   "Filter": "Filter",
-  "gamecard": {
-    "moving": "Moving",
-    "repairing": "Repairing"
-  },
   "help": {
     "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
     "other": {
@@ -114,7 +112,9 @@
   "search": "Enter the game name here...",
   "setting": {
     "audiofix": "Audio Fix (Pulse Audio Latency)",
+    "autodxvk": "Auto Install/Update DXVK on Prefix",
     "autosync": "Autosync Saves",
+    "darktray": "Use Dark Tray Icon (needs restart)",
     "default-install-path": "Default Installation Path",
     "egs-sync": "Sync with Installed Epic Games",
     "exit-to-tray": "Exit to System Tray",

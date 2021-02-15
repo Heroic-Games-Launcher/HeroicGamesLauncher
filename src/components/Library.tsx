@@ -1,5 +1,6 @@
 import React, { lazy, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import cx from 'classnames'
 import ContextProvider from '../state/ContextProvider'
 
 import { Game } from '../types'
@@ -10,25 +11,30 @@ interface Props {
 }
 
 window.onscroll = () => {
-  const pageOffset = document.documentElement.scrollTop || document.body.scrollTop,
-    btn = document.getElementById('backToTopBtn');
-  if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden';
-};
+  const pageOffset =
+      document.documentElement.scrollTop || document.body.scrollTop,
+    btn = document.getElementById('backToTopBtn')
+  if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden'
+}
 
-export const Library = ({ library }: Props) => {  
+export const Library = ({ library }: Props) => {
   const { t } = useTranslation()
   const { layout } = useContext(ContextProvider)
   const backToTop = () => {
     const anchor = document.getElementById('top')
     if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-
   }
 
   return (
     <>
-      <div className={layout === 'grid' ? "gameList" : "gameListLayout"}>
+      <div
+        className={cx({
+          gameListLayout: layout !== 'grid',
+          gameList: layout === 'grid',
+        })}
+      >
         {library.length ? (
           library.map(
             ({
@@ -39,7 +45,8 @@ export const Library = ({ library }: Props) => {
               app_name,
               isInstalled,
               version,
-              dlcs
+              install_size,
+              dlcs,
             }: Game) => {
               return (
                 <GameCard
@@ -52,15 +59,18 @@ export const Library = ({ library }: Props) => {
                   isInstalled={isInstalled}
                   version={version}
                   dlcs={dlcs}
+                  size={install_size}
                 />
               )
             }
           )
         ) : (
-            <div className="noGames">{t('nogames')}</div>
-          )}
+          <div className="noGames">{t('nogames')}</div>
+        )}
       </div>
-      <button id="backToTopBtn" onClick={backToTop} ><span className="material-icons">arrow_drop_up</span></button>
+      <button id="backToTopBtn" onClick={backToTop}>
+        <span className="material-icons">arrow_drop_up</span>
+      </button>
     </>
   )
 }

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { WineProps, Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
+import ToggleSwitch from '../UI/ToggleSwitch'
 const {
   ipcRenderer,
   remote: { dialog },
@@ -15,6 +16,8 @@ interface Props {
   wineVersion: WineProps
   altWine: WineProps[]
   setAltWine: (altWine: WineProps[]) => void
+  autoInstallDxvk: boolean
+  toggleAutoInstallDxvk: () => void
 }
 
 export default function WineSettings({
@@ -24,6 +27,8 @@ export default function WineSettings({
   setAltWine,
   wineVersion,
   altWine,
+  toggleAutoInstallDxvk,
+  autoInstallDxvk,
 }: Props) {
   useEffect(() => {
     const getAltWine = async () => {
@@ -80,6 +85,15 @@ export default function WineSettings({
             <option key={name}>{name}</option>
           ))}
         </select>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+          <ToggleSwitch
+            value={autoInstallDxvk}
+            handleChange={toggleAutoInstallDxvk}
+          />
+        </span>
       </span>
       <InfoBox>
         <span>{t('help.wine.part1')}</span>

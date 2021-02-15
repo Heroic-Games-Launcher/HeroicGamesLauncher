@@ -23,7 +23,7 @@ import {
   iconDark,
   getSettings,
   iconLight,
-  heroicFolder
+  heroicFolder,
 } from './utils'
 
 // @ts-ignore
@@ -57,7 +57,6 @@ import {
   Notification,
   Menu,
   Tray,
-  nativeTheme,
   powerSaveBlocker,
 } from 'electron'
 import { Game, InstalledInfo, KeyImage } from './types.js'
@@ -76,7 +75,9 @@ function createWindow(): BrowserWindow {
       enableRemoteModule: true,
     },
   })
-  getLatestDxvk()
+  setTimeout(() => {
+    getLatestDxvk()
+  }, 2500)
 
   //load the index.html from a url
   if (isDev) {
@@ -139,7 +140,7 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language } = getSettings('default')
+    const { language, darkTrayIcon } = getSettings('default')
 
     await i18next.use(Backend).init({
       lng: language,
@@ -155,7 +156,7 @@ if (!gotTheLock) {
 
     window = createWindow()
 
-    const trayIcon = nativeTheme.shouldUseDarkColors ? iconDark : iconLight
+    const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
     const contextMenu = Menu.buildFromTemplate([
@@ -218,10 +219,6 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-// ipcMain.on('changeLanguage', (event, language: string) => {
-//   return i18next.changeLanguage(language)
-// })
-
 ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
 
 ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
@@ -254,11 +251,9 @@ ipcMain.handle('writeLibrary', async () => {
     })
     const json = JSON.stringify(results)
     return writeFileSync(`${heroicFolder}library.json`, json)
-
   } else if (stderr) {
     return stderr
-  }
-  else {
+  } else {
     return 'done'
   }
 })
@@ -303,14 +298,13 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.on('quit', async () => handleExit())
 
-
-
 /* const storage: Storage = mainWindow.localStorage
 const lang = storage.getItem('language') */
 
 ipcMain.handle('getGameInfo', async (event, game) => {
-  let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings.language
-  if (lang === "pt") {
+  let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
+    .language
+  if (lang === 'pt') {
     lang = 'pt-BR'
   }
   const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
@@ -429,8 +423,9 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-    }`
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
+    tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+  }`
 
   if (tool === 'runExe') {
     command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
@@ -486,6 +481,23 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
     .catch(console.log)
 })
 
+const heroicImagesFolder = `${__dirname}/images`
+
+const getCover = (appName: string, type: string, url: string) => {
+  const imagePath = `${heroicImagesFolder}/${appName}-${type}.png`
+  const imageOffline = existsSync(imagePath)
+
+  if (imageOffline) {
+    return `images/${appName}-${type}.png`
+  }
+
+  url = url.replaceAll(' ', '%20')
+
+  const downloadCommand = `curl -L '${url}' -o ${heroicImagesFolder}/${appName}-${type}.png`
+  exec(downloadCommand)
+  return `images/${appName}-${type}.png`
+}
+
 ipcMain.handle('readFile', async (event, file) => {
   const loggedIn = isLoggedIn()
 
@@ -519,73 +531,89 @@ ipcMain.handle('readFile', async (event, file) => {
 
     if (library) {
       return JSON.parse(readFileSync(`${heroicFolder}library.json`, 'utf-8'))
-        .map((c: { metadata: { description: any; keyImages: any; title: any; developer: any; customAttributes: { CloudSaveFolder: any; FolderName: any } }; app_name: string; app_version: string; dlcs: string[] }) => {
-          const {
-            description,
-            keyImages,
-            title,
-            developer,
-            customAttributes: { CloudSaveFolder, FolderName },
-          } = c.metadata
-          const app_name = c.app_name
-          const dlcs = c.dlcs
-          const cloudSaveEnabled = Boolean(CloudSaveFolder)
-          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
-          const installFolder = FolderName ? FolderName.value : ''
-          const gameBox = keyImages.filter(
-            ({ type }: KeyImage) => type === 'DieselGameBox'
-          )[0]
-          const gameBoxTall = keyImages.filter(
-            ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-          )[0]
-          const logo = keyImages.filter(
-            ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-          )[0]
+        .map(
+          (c: {
+            metadata: {
+              description: any
+              keyImages: any
+              title: any
+              developer: any
+              customAttributes: { CloudSaveFolder: any; FolderName: any }
+            }
+            app_name: string
+            app_version: string
+            dlcs: string[]
+          }) => {
+            const {
+              description,
+              keyImages,
+              title,
+              developer,
+              customAttributes: { CloudSaveFolder, FolderName },
+            } = c.metadata
+            const app_name = c.app_name
+            const dlcs = c.dlcs
+            const cloudSaveEnabled = Boolean(CloudSaveFolder)
+            const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+            const installFolder = FolderName ? FolderName.value : ''
+            const gameBox = keyImages.filter(
+              ({ type }: KeyImage) => type === 'DieselGameBox'
+            )[0]
+            const gameBoxTall = keyImages.filter(
+              ({ type }: KeyImage) => type === 'DieselGameBoxTall'
+            )[0]
+            const logo = keyImages.filter(
+              ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
+            )[0]
 
-          const art_cover = gameBox ? gameBox.url : fallBackImage
-          const art_logo = logo ? logo.url : null
-          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+            const art_cover = gameBox ? gameBox.url : fallBackImage
+            const art_logo = logo ? getCover(app_name, 'logo', logo.url) : null
+            const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
-          const installedGames: Game[] = Object.values(files.installed)
+            const cover = getCover(app_name, 'cover', art_cover)
+            const square = getCover(app_name, 'square', art_square)
 
-          const isInstalled = Boolean(
-            installedGames.filter((game) => game.app_name === app_name).length
-          )
-          const info = isInstalled
-            ? installedGames.filter((game) => game.app_name === app_name)[0]
-            : {}
+            const installedGames: Game[] = Object.values(files.installed)
 
-          const {
-            executable = null,
-            version = c.app_version,
-            install_size = null,
-            install_path = null,
-          } = info as InstalledInfo
+            const isInstalled = Boolean(
+              installedGames.filter((game) => game.app_name === app_name).length
+            )
+            const info = isInstalled
+              ? installedGames.filter((game) => game.app_name === app_name)[0]
+              : {}
 
-          const convertedSize =
-            install_size &&
-            `${byteSize(install_size).value}${byteSize(install_size).unit}`
+            const {
+              executable = null,
+              version = c.app_version,
+              install_size = null,
+              install_path = null,
+            } = info as InstalledInfo
 
-          return {
-            isInstalled,
-            info,
-            title,
-            executable,
-            version,
-            install_size: convertedSize,
-            install_path,
-            app_name,
-            developer,
-            description,
-            cloudSaveEnabled,
-            saveFolder,
-            folderName: installFolder,
-            art_cover: art_cover || art_square,
-            art_square: art_square || art_cover,
-            art_logo,
-            dlcs,
+            const convertedSize =
+              install_size &&
+              `${byteSize(install_size).value}${byteSize(install_size).unit}`
+
+            return {
+              isInstalled,
+              info,
+              title,
+              executable,
+              version,
+              install_size: convertedSize,
+              install_path,
+              app_name,
+              developer,
+              description,
+              cloudSaveEnabled,
+              saveFolder,
+              folderName: installFolder,
+              art_cover: cover,
+              art_square: square,
+              art_logo,
+              dlcs,
+            }
           }
-        })
+        )
         .sort((a: { title: string }, b: { title: string }) => {
           const gameA = a.title.toUpperCase()
           const gameB = b.title.toUpperCase()

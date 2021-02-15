@@ -3,12 +3,7 @@ import { i18n } from 'i18next'
 import React, { PureComponent } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 import Update from '../components/UI/Update'
-import {
-  getGameInfo,
-  getLegendaryConfig,
-  getProgress,
-  notify,
-} from '../helper'
+import { getGameInfo, getLegendaryConfig, getProgress, notify } from '../helper'
 import { Game, GameStatus } from '../types'
 import ContextProvider from './ContextProvider'
 const storage: Storage = window.localStorage
@@ -64,10 +59,8 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async (): Promise<void> => {
     const { t } = this.props
     this.setState({ refreshing: true })
-    await renderer.invoke('writeLibrary')
-      .then(() => this.refresh())
+    await renderer.invoke('writeLibrary').then(() => this.refresh())
     notify([t('notify.refreshing'), t('notify.refreshed')])
-
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
@@ -221,9 +214,10 @@ export class GlobalState extends PureComponent<Props> {
   componentDidMount() {
     const { i18n } = this.props
     const filter = storage.getItem('filter') || 'all'
+    const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
     i18n.changeLanguage(language)
-    this.setState({ filter, language })
+    this.setState({ filter, language, layout })
     this.refresh()
 
     setTimeout(() => {
@@ -232,9 +226,10 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { filter, libraryStatus } = this.state
+    const { filter, libraryStatus, layout } = this.state
 
     storage.setItem('filter', filter)
+    storage.setItem('layout', layout)
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
       .length
     if (pendingOps) {

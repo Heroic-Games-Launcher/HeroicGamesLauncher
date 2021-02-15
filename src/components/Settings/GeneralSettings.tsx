@@ -24,6 +24,8 @@ interface Props {
   setLanguage: (value: string) => void
   maxWorkers: number
   setMaxWorkers: (value: number) => void
+  darkTrayIcon: boolean
+  toggleDarkTrayIcon: () => void
 }
 
 export default function GeneralSettings({
@@ -39,6 +41,8 @@ export default function GeneralSettings({
   setLanguage,
   maxWorkers,
   setMaxWorkers,
+  darkTrayIcon,
+  toggleDarkTrayIcon,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -147,7 +151,7 @@ export default function GeneralSettings({
           <input
             type="text"
             placeholder={t('placeholder.egs-prefix')}
-            className="settingSelect small"
+            className="settingSelect"
             value={egsPath || egsLinkedPath}
             disabled={isLinked}
             onChange={(event) => setEgsPath(event.target.value)}
@@ -206,6 +210,15 @@ export default function GeneralSettings({
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}
           <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
+          <ToggleSwitch
+            value={darkTrayIcon}
+            handleChange={toggleDarkTrayIcon}
+          />
         </span>
       </span>
       <span className="setting">

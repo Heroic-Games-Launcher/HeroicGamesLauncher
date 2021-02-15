@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -143,7 +144,7 @@ export default function GamePage() {
                 onClick={() => setClicked(!clicked)}
                 className="material-icons is-secondary dots"
               >
-                more_vertical
+                settings
               </span>
               <GamesSubmenu
                 appName={appName}

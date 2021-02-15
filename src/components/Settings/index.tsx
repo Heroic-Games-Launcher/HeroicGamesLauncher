@@ -11,10 +11,14 @@ import OtherSettings from './OtherSettings'
 import SyncSaves from './SyncSaves'
 import Tools from './Tools'
 import WineSettings from './WineSettings'
+import { IpcRenderer } from 'electron'
 
-const { ipcRenderer } = window.require('electron')
+interface ElectronProps {
+  ipcRenderer: IpcRenderer
+}
+
+const { ipcRenderer } = window.require('electron') as ElectronProps
 const storage: Storage = window.localStorage
-
 interface RouteParams {
   appName: string
   type: string
@@ -61,6 +65,16 @@ export default function Settings() {
     toggle: toggleTray,
     setOn: setExitToTray,
   } = useToggle(false)
+  const {
+    on: darkTrayIcon,
+    toggle: toggleDarkTrayIcon,
+    setOn: setDarkTrayIcon,
+  } = useToggle(false)
+  const {
+    on: autoInstallDxvk,
+    toggle: toggleAutoInstallDxvk,
+    setOn: setAutoInstallDxvk,
+  } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -95,6 +109,8 @@ export default function Settings() {
       setEgsPath(config.egsLinkedPath || '')
       setAutoSyncSaves(config.autoSyncSaves)
       setExitToTray(config.exitToTray || false)
+      setDarkTrayIcon(config.darkTrayIcon || false)
+      setAutoInstallDxvk(config.autoInstallDxvk || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers || 2)
 
@@ -104,7 +120,11 @@ export default function Settings() {
       }
     }
     getSettings()
-  }, [appName, type])
+
+    return () => {
+      ipcRenderer.removeAllListeners('requestSettings')
+    }
+  }, [appName, type, isDefault])
 
   const GlobalSettings = {
     defaultSettings: {
@@ -119,6 +139,7 @@ export default function Settings() {
       audioFix,
       showMangohud,
       language,
+      darkTrayIcon,
       maxWorkers,
     },
   }
@@ -134,6 +155,7 @@ export default function Settings() {
       showFps,
       autoSyncSaves,
       audioFix,
+      autoInstallDxvk,
       showMangohud,
     },
   }
@@ -180,6 +202,8 @@ export default function Settings() {
               setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
+              toggleDarkTrayIcon={toggleDarkTrayIcon}
+              darkTrayIcon={darkTrayIcon}
             />
           )}
           {isWineSettings && (
@@ -190,6 +214,8 @@ export default function Settings() {
               winePrefix={winePrefix}
               setWineversion={setWineversion}
               setWinePrefix={setWinePrefix}
+              autoInstallDxvk={autoInstallDxvk}
+              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
             />
           )}
           {isWineSettings && (
@@ -209,6 +235,7 @@ export default function Settings() {
               toggleAudioFix={toggleAudioFix}
               showMangohud={showMangohud}
               toggleMangoHud={toggleMangoHud}
+              isDefault={isDefault}
             />
           )}
           {isSyncSettings && (
