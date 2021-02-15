@@ -546,6 +546,7 @@
   width: 100%;
   align-self: center;
   background: url('./assets/login-background-1536x864.jpg');
+  background-size: cover;
   z-index: -1;
   opacity: 0.4;
 }
