@@ -112,9 +112,9 @@
   "search": "Entrez le nom d'un jeu ici...",
   "setting": {
     "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
-    "autodxvk": "Auto Install/Update DXVK on Prefix",
+    "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
     "autosync": "Sauvegardes Autosync",
-    "darktray": "Use Dark Tray Icon (needs restart)",
+    "darktray": "Utiliser Dark Tray Icon (nécessite un redémarrage)",
     "default-install-path": "Chemin par défaut de l'installation",
     "egs-sync": "Synchroniser avec l'nstallation d'Epic Games",
     "exit-to-tray": "Quiiter vers System Tray",
