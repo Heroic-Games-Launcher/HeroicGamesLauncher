@@ -6,6 +6,11 @@ import ContextProvider from '../../state/ContextProvider'
 import { GameStatus } from '../../types'
 import { getProgress, sendKill, launch, updateGame } from '../../helper'
 import { handleInstall } from '../utls'
+import { ReactComponent as DownIcon } from '../../assets/down-icon.svg'
+import { ReactComponent as PlayIcon } from '../../assets/play-icon.svg'
+import { ReactComponent as StopIcon } from '../../assets/stop-icon.svg'
+import { ReactComponent as StopIconAlt } from '../../assets/stop-icon-alt.svg'
+
 const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showMessageBox },
@@ -59,6 +64,7 @@ const GameCard = ({
   const isInstalling = status === 'installing' || status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+  const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling
 
   useEffect(() => {
@@ -92,37 +98,56 @@ const GameCard = ({
     return ''
   }
 
+  const renderIcon = () => {
+    if (isPlaying) {
+      return <StopIconAlt />
+    }
+    if (isInstalling) {
+      return <StopIcon />
+    }
+    if (isInstalled) {
+      return <PlayIcon />
+    }
+    return <DownIcon />
+  }
+
   return (
     <>
       <div className={grid ? 'gameCard' : 'gameListItem'}>
         {haveStatus && <span className="progress">{getStatus()}</span>}
-        {logo && (
-          <img
-            alt="logo"
-            src={logo}
-            style={{
-              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
-            }}
-            className="gameLogo"
-          />
-        )}
         <Link
           to={{
             pathname: `/gameconfig/${appName}`,
           }}
         >
-          <img
-            alt="cover-art"
-            src={grid ? cover : coverList}
+          <span
             style={{
+              backgroundImage: `url(${grid ? cover : coverList})`,
+              backgroundSize: 'cover',
               filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
             }}
             className={grid ? 'gameImg' : 'gameImgList'}
-          />
+          >
+            {logo && (
+              <img
+                alt="logo"
+                src={logo}
+                style={{
+                  filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+                }}
+                className="gameLogo"
+              />
+            )}
+          </span>
         </Link>
         {grid ? (
           <div className="gameTitle">
             <span>{title}</span>
+            {
+              <span className="icons" onClick={() => handlePlay()}>
+                {renderIcon()}
+              </span>
+            }
           </div>
         ) : (
           <>
@@ -135,22 +160,9 @@ const GameCard = ({
             }
             <span className="gameTitleList">{title}</span>
             {
-              <i
-                className={`material-icons ${
-                  isInstalling
-                    ? 'is-danger'
-                    : isInstalled
-                    ? 'is-success'
-                    : 'is-primary'
-                } gameActionList`}
-                onClick={() => handlePlay()}
-              >
-                {isInstalling
-                  ? 'cancel'
-                  : isInstalled
-                  ? 'play_circle'
-                  : 'get_app'}
-              </i>
+              <span className="icons" onClick={() => handlePlay()}>
+                {renderIcon()}
+              </span>
             }
           </>
         )}
