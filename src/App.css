@@ -551,6 +551,15 @@
   opacity: 0.4;
 }
 
+.language {
+  cursor: pointer;
+}
+
+.selectedLanguage {
+  color: #07c5ef;
+  font-weight: 600;
+}
+
 .heroicLogo {
   width: 205px;
   height: 48px;

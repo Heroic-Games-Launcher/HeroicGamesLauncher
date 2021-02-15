@@ -54,6 +54,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "byte-size": "^7.0.0",
+    "classnames": "^2.2.6",
     "electron-is-dev": "^1.2.0",
     "electron-util": "^0.14.2",
     "i18next": "^19.8.7",
@@ -94,6 +95,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
+    "@types/classnames": "^2.2.11",
     "@types/i18next-fs-backend": "^1.0.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
