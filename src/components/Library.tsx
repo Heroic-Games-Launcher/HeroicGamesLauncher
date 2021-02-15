@@ -1,5 +1,6 @@
 import React, { lazy, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import cx from 'classnames'
 import ContextProvider from '../state/ContextProvider'
 
 import { Game } from '../types'
@@ -28,7 +29,12 @@ export const Library = ({ library }: Props) => {
 
   return (
     <>
-      <div className={layout === 'grid' ? 'gameList' : 'gameListLayout'}>
+      <div
+        className={cx({
+          gameListLayout: layout !== 'grid',
+          gameList: layout === 'grid',
+        })}
+      >
         {library.length ? (
           library.map(
             ({
