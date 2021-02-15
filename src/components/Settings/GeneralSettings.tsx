@@ -117,6 +117,7 @@ export default function GeneralSettings({
           <option value="pt">Português</option>
           <option value="de">Deutsch</option>
           <option value="fr">Français</option>
+          <option value="ru">Русский</option>
         </select>
       </span>
       <span className="setting">
