@@ -1,7 +1,7 @@
 {
   "box": {
     "choose": "Choisir",
-    "importpath": "Choisir le jeu à impoter",
+    "importpath": "Choisir le jeu à importer",
     "installpath": "Choisir le chemin d'installation",
     "move": {
       "message": "Cela peut prendre un moment, êtes-vous sûrs?",
@@ -10,12 +10,12 @@
     },
     "no": "NON",
     "repair": {
-      "message": "Voulez-vous essayé de réparer ce jeu? Cela peut prendre un moment.",
+      "message": "Voulez-vous essayer de réparer ce jeu? Cela peut prendre un moment.",
       "title": "Vérifier et Réparer"
     },
     "stopInstall": {
       "keepInstalling": "Continuer l'installation",
-      "message": "Voulez-vous continué à télécharger les fichiers?",
+      "message": "Voulez-vous continuer à télécharger les fichiers?",
       "title": "Arrêter l'installation"
     },
     "uninstall": {
@@ -24,7 +24,7 @@
     },
     "update": {
       "message": "Une mise à jour est disponible, faire la mise à jour maintenant?",
-      "title": "Mise à jour nécéssaire"
+      "title": "Mise à jour nécessaire"
     },
     "yes": "OUI"
   },
@@ -37,8 +37,8 @@
   "disabled": "Désactivé",
   "enabled": "Activé",
   "gamecard": {
-    "moving": "Moving",
-    "repairing": "Repairing"
+    "moving": "En cours de déplacement",
+    "repairing": "En cours de réparation"
   },
   "info": {
     "path": "Chemin d'installation",
