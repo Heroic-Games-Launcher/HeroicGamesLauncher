@@ -44,7 +44,7 @@
 }
 
 .headerSettings > .headerTitle {
-  font-size: 2rem;
+  font-size: 1.5rem;
   grid-area: title;
 }
 

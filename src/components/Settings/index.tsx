@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { getGameInfo, writeConfig } from '../../helper'
@@ -28,6 +28,8 @@ interface RouteParams {
 
 function Settings() {
   const { t } = useTranslation()
+  const { state } = useLocation() as { state: any }
+
   const [wineVersion, setWineversion] = useState({
     name: 'Wine Default',
     bin: '/usr/bin/wine',
@@ -165,8 +167,15 @@ function Settings() {
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
-  const returnPath = isDefault ? '/' : `/gameconfig/${appName}`
-  const headerTitle = isDefault ? 'Global Settings' : `${gameName}`
+  let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
+
+  if (state && state.fromGameCard) {
+    returnPath = null
+  }
+
+  const headerTitle = isDefault
+    ? t('globalSettings', 'Global Settings')
+    : `${gameName}`
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])

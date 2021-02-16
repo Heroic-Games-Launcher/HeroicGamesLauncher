@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import ContextProvider from '../../state/ContextProvider'
 
 interface Props {
   renderBackButton: boolean
   numberOfGames?: number
-  goTo: string
+  goTo: string | void | null
   title?: string
   handleFilter?: (value: string) => void
   handleLayout?: (value: string) => void
@@ -26,6 +26,15 @@ export default function Header({
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
+  const history = useHistory()
+
+  const link = goTo ? goTo : ''
+  function handleClick() {
+    if (goTo) {
+      return
+    }
+    return history.goBack()
+  }
 
   return (
     <>
@@ -94,7 +103,7 @@ export default function Header({
 
         {renderBackButton && (
           <div className="leftCluster">
-            <Link className="returnLink" to={goTo}>
+            <Link className="returnLink" to={link} onClick={handleClick}>
               <span className="material-icons">arrow_back</span>
               {t('Return')}
             </Link>
