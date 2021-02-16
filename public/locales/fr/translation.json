@@ -42,6 +42,7 @@
   },
   "Downloading": "Téléchargements",
   "Filter": "Filtre",
+  "globalSettings": "Paramètres globaux",
   "help": {
     "general": "Synchronisation avec EGS dans le cas où vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
     "other": {
