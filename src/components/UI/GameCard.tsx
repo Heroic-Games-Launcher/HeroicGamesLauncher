@@ -10,6 +10,7 @@ import { ReactComponent as DownIcon } from '../../assets/down-icon.svg'
 import { ReactComponent as PlayIcon } from '../../assets/play-icon.svg'
 import { ReactComponent as StopIcon } from '../../assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from '../../assets/stop-icon-alt.svg'
+import { ReactComponent as SettingsIcon } from '../../assets/settings-sharp.svg'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
@@ -100,15 +101,15 @@ const GameCard = ({
 
   const renderIcon = () => {
     if (isPlaying) {
-      return <StopIconAlt />
+      return <StopIconAlt onClick={() => handlePlay()} />
     }
     if (isInstalling) {
-      return <StopIcon />
+      return <StopIcon onClick={() => handlePlay()} />
     }
     if (isInstalled) {
-      return <PlayIcon />
+      return <PlayIcon onClick={() => handlePlay()} />
     }
-    return <DownIcon />
+    return <DownIcon onClick={() => handlePlay()} />
   }
 
   return (
@@ -144,8 +145,23 @@ const GameCard = ({
           <div className="gameTitle">
             <span>{title}</span>
             {
-              <span className="icons" onClick={() => handlePlay()}>
+              <span
+                className="icons"
+                style={{
+                  flexDirection: 'row',
+                  width: isInstalled ? '44%' : 'auto',
+                }}
+              >
                 {renderIcon()}
+                {isInstalled && (
+                  <Link
+                    to={{
+                      pathname: `/settings/${appName}/wine`,
+                    }}
+                  >
+                    <SettingsIcon fill={'var(--secondary)'} />
+                  </Link>
+                )}
               </span>
             }
           </div>
@@ -160,8 +176,17 @@ const GameCard = ({
             }
             <span className="gameTitleList">{title}</span>
             {
-              <span className="icons" onClick={() => handlePlay()}>
+              <span className="icons">
                 {renderIcon()}
+                {isInstalled && (
+                  <Link
+                    to={{
+                      pathname: `/settings/${appName}/wine`,
+                    }}
+                  >
+                    <SettingsIcon fill={'var(--secondary)'} />
+                  </Link>
+                )}
               </span>
             }
           </>
