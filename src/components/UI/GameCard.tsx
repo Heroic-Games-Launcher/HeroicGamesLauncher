@@ -157,7 +157,7 @@ const GameCard = ({
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
-                      state: { fromGameCard: true },
+                      state: { fromGameCard: true, title },
                     }}
                   >
                     <SettingsIcon fill={'var(--secondary)'} />
@@ -183,7 +183,7 @@ const GameCard = ({
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
-                      state: { fromGameCard: true },
+                      state: { fromGameCard: true, title },
                     }}
                   >
                     <SettingsIcon fill={'var(--secondary)'} />

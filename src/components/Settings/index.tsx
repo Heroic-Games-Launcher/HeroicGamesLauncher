@@ -37,7 +37,6 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
-  const [gameName, setGameName] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(2)
@@ -117,11 +116,8 @@ function Settings() {
       setMaxWorkers(config.maxWorkers || 2)
 
       if (!isDefault) {
-        const { cloudSaveEnabled, saveFolder, title } = await getGameInfo(
-          appName
-        )
+        const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
         setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
-        setGameName(title)
       }
     }
     getSettings()
@@ -175,7 +171,7 @@ function Settings() {
 
   const headerTitle = isDefault
     ? t('globalSettings', 'Global Settings')
-    : `${gameName}`
+    : `${state ? state.title : ''}`
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
