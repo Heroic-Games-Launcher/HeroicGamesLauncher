@@ -59,8 +59,7 @@ To be able to run you will need to have NodeJs installed locally and follow the 
 ### Steps:
 
 - Clone the Repository.
-- Install foreman with `npm i -g foreman`.
-- On the project folder run `npm install`.
-- Run `npm run build` to build the React Assets.
-- Run `npm start`.
-- To build the binaries run `npm run dist {package to create}`.
+- On the project folder run `yarn install`.
+- Run `yarn build` to build the React Assets.
+- Run `yarn start`.
+- To build the binaries run `yarn dist {package to create}`.

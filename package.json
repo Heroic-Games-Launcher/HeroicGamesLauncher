@@ -71,12 +71,11 @@
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
     "electron": "yarn build-electron && electron .",
-    "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "pretitier": "prettier --check",
+    "prettier": "prettier --check",
     "format-files": "prettier --write .",
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
