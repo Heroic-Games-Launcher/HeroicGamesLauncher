@@ -26,9 +26,8 @@ interface RouteParams {
 
 // TODO: add feedback when launching winecfg and winetricks
 
-export default function Settings() {
+function Settings() {
   const { t } = useTranslation()
-
   const [wineVersion, setWineversion] = useState({
     name: 'Wine Default',
     bin: '/usr/bin/wine',
@@ -36,6 +35,7 @@ export default function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
+  const [gameName, setGameName] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(2)
@@ -115,8 +115,11 @@ export default function Settings() {
       setMaxWorkers(config.maxWorkers || 2)
 
       if (!isDefault) {
-        const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
+        const { cloudSaveEnabled, saveFolder, title } = await getGameInfo(
+          appName
+        )
         setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
+        setGameName(title)
       }
     }
     getSettings()
@@ -161,7 +164,9 @@ export default function Settings() {
   }
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
+
   const returnPath = isDefault ? '/' : `/gameconfig/${appName}`
+  const headerTitle = isDefault ? 'Global Settings' : `${gameName}`
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
@@ -169,7 +174,7 @@ export default function Settings() {
 
   return (
     <>
-      <Header goTo={returnPath} renderBackButton />
+      <Header goTo={returnPath} renderBackButton title={headerTitle} />
       <div className="Settings">
         <div className="settingsNavbar">
           {isDefault && (
@@ -256,3 +261,5 @@ export default function Settings() {
     </>
   )
 }
+
+export default React.memo(Settings)

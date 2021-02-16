@@ -28,6 +28,26 @@
   grid-template-areas: 'filter total layout';
 }
 
+.headerSettings {
+  grid-template-columns: 1fr 6fr;
+  display: grid;
+  grid-template-areas: 'return title';
+  width: 906px;
+  place-self: center;
+  align-items: center;
+}
+
+.headerSettings > .leftCluster {
+  grid-area: return;
+  place-self: center;
+  width: auto;
+}
+
+.headerSettings > .headerTitle {
+  font-size: 2rem;
+  grid-area: title;
+}
+
 .App .header .leftCluster {
   display: flex;
   cursor: pointer;
@@ -207,7 +227,7 @@
 .noGames {
   position: absolute;
   top: 25%;
-  left: 50%;
+  left: 31vw;
 }
 
 .gameCard {
@@ -278,7 +298,7 @@
   bottom: -92px;
   height: 92px;
   width: 100%;
-  padding: 1rem;
+  padding: 0.3vw;
   color: #e4deea;
   display: flex;
   background: linear-gradient(
@@ -289,7 +309,7 @@
   border-radius: 0px 0px 10px 10px;
   transition: 200ms;
   font-family: Rubik;
-  font-size: min(0.8vw, 1em);
+  font-size: min(1vw, 1em);
   line-height: 17px;
   color: var(--text-primary);
 }
@@ -299,12 +319,15 @@
   position: absolute;
   right: 6px;
   bottom: 6px;
-  cursor: pointer;
+  width: 44%;
+  display: flex;
+  justify-content: space-around;
 }
 
-.gameTitle > .icons > svg {
-  width: min(calc(1vw + 16px), 36px);
-  height: min(calc(1vw + 16px), 36px);
+.icons > a > svg,
+.icons > svg {
+  width: min(calc(1vw + 9px), 36px);
+  height: min(calc(1vw + 9px), 36px);
 }
 
 .gameCard:hover > .gameTitle {
@@ -335,15 +358,17 @@
 }
 
 .Settings {
-  display: flex;
+  display: grid;
   justify-content: center;
+  grid-template-columns: 1fr 5fr;
+  place-self: center;
+  width: 906px;
 }
 
 .settingsNavbar {
   display: flex;
   flex-direction: column;
   margin-top: 16px;
-  margin-right: 82px;
   font-family: Rubik;
   font-style: normal;
   font-weight: 500;
@@ -364,15 +389,9 @@
 }
 
 .settingsWrapper {
-  width: 575px;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   display: grid;
-  position: relative;
+  place-self: center;
   place-items: flex-start;
-  padding-bottom: 25px;
 }
 
 .settingsTools {
@@ -1183,6 +1202,13 @@ input:checked + .slider:before {
 }
 
 .gameListItem > .icons {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.icons > * {
   cursor: pointer;
 }
 
