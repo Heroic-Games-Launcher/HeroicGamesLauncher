@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import cx from 'classnames'
 import ContextProvider from '../../state/ContextProvider'
 
 interface Props {
   renderBackButton: boolean
   numberOfGames?: number
-  goTo: string
+  goTo: string | void | null
+  title?: string
   handleFilter?: (value: string) => void
   handleLayout?: (value: string) => void
 }
@@ -17,16 +19,26 @@ export default function Header({
   handleFilter,
   handleLayout,
   goTo,
+  title,
 }: Props) {
   const { t } = useTranslation()
   const { filter, libraryStatus, layout } = useContext(ContextProvider)
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
+  const history = useHistory()
+
+  const link = goTo ? goTo : ''
+  function handleClick() {
+    if (goTo) {
+      return
+    }
+    return history.goBack()
+  }
 
   return (
     <>
-      <div className="header">
+      <div className={cx({ header: !title }, { headerSettings: title })}>
         {handleFilter && (
           <span className="selectFilter">
             <span>{t('Filter')}:</span>
@@ -63,16 +75,35 @@ export default function Header({
             {t('Total Games')}: {numberOfGames}
           </span>
         )}
+        {title && <div className="headerTitle">{title}</div>}
         {handleLayout && (
           <div className="layoutSelection">
-            <span className={layout === 'grid' ? 'selectedLayout material-icons' : 'material-icons'} onClick={() => handleLayout('grid')}>apps</span>
-            <span className={layout === 'list' ? 'selectedLayout material-icons' : 'material-icons'} onClick={() => handleLayout('list')}>list</span>
+            <span
+              className={
+                layout === 'grid'
+                  ? 'selectedLayout material-icons'
+                  : 'material-icons'
+              }
+              onClick={() => handleLayout('grid')}
+            >
+              apps
+            </span>
+            <span
+              className={
+                layout === 'list'
+                  ? 'selectedLayout material-icons'
+                  : 'material-icons'
+              }
+              onClick={() => handleLayout('list')}
+            >
+              list
+            </span>
           </div>
         )}
-       
+
         {renderBackButton && (
           <div className="leftCluster">
-            <Link className="returnLink" to={goTo}>
+            <Link className="returnLink" to={link} onClick={handleClick}>
               <span className="material-icons">arrow_back</span>
               {t('Return')}
             </Link>

@@ -149,6 +149,7 @@ const launchGame = async (appName: string) => {
     autoInstallDxvk,
   } = getSettings(appName)
 
+  const wineTricksCommand = `WINE=${wineVersion.bin} WINEPREFIX=${dxvkPrefix} winetricks`
   let wine = `--wine ${wineVersion.bin}`
 
   // We need to keep replacing the ' to keep compatibility with old configs
@@ -180,10 +181,22 @@ const launchGame = async (appName: string) => {
     )
   }
 
+  // start the new prefix if it doesn't exists
+  if (!existsSync(`'${winePrefix}'`)) {
+    let command = `${wineTricksCommand} sandbox`
+
+    if (isProton) {
+      command = `mkdir '${winePrefix}' -p`
+      await execAsync(command)
+    }
+
+    await execAsync(command)
+  }
+
   // Install DXVK for non Proton Prefixes
   if (!isProton && autoInstallDxvk) {
     dxvkPrefix = winePrefix
-    await installDxvk(dxvkPrefix)
+    await execAsync(`${wineTricksCommand} dxvk`)
   }
 
   if (wineVersion.name !== 'Wine Default') {
@@ -200,10 +213,6 @@ const launchGame = async (appName: string) => {
 
   const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${appName}  ${wine} ${prefix} ${launcherArgs}`
   console.log('\n Launch Command:', command)
-
-  if (isProton && !existsSync(`'${winePrefix}'`)) {
-    await execAsync(`mkdir '${winePrefix}' -p`)
-  }
 
   return execAsync(command)
     .then(({ stderr }) => {
@@ -320,83 +329,6 @@ async function checkForUpdates() {
   return newVersion > currentVersion
 }
 
-async function getLatestDxvk() {
-  const {
-    data: { assets },
-  } = await axios.default.get(
-    'https://api.github.com/repos/lutris/dxvk/releases/latest'
-  )
-  const current = assets[0]
-  const pkg = current.name
-  const name = pkg.replace('.tar.gz', '')
-  const downloadUrl = current.browser_download_url
-
-  const dxvkLatest = `${heroicToolsPath}/DXVK/${pkg}`
-  const pastVersionCheck = `${heroicToolsPath}/DXVK/latest_dxvk`
-  let pastVersion = ''
-
-  if (existsSync(pastVersionCheck)) {
-    pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
-  }
-
-  if (pastVersion === name) {
-    return
-  }
-
-  const downloadCommand = `curl -L ${downloadUrl} -o ${dxvkLatest} --create-dirs`
-  const extractCommand = `tar -zxf ${dxvkLatest} -C ${heroicToolsPath}/DXVK/`
-  const echoCommand = `echo ${name} > ${heroicToolsPath}/DXVK/latest_dxvk`
-  const cleanCommand = `rm ${dxvkLatest}`
-
-  console.log('Updating DXVK to:', name)
-
-  return execAsync(downloadCommand)
-    .then(async () => {
-      console.log('downloaded DXVK')
-      console.log('extracting DXVK')
-      exec(echoCommand)
-      await execAsync(extractCommand)
-      console.log('DXVK updated!')
-      exec(cleanCommand)
-    })
-    .catch(() => console.log('Error when downloading DXVK'))
-}
-
-async function installDxvk(prefix: string) {
-  if (!prefix) {
-    return
-  }
-  const winePrefix = prefix.replace('~', home)
-
-  if (!existsSync(`${heroicToolsPath}/DXVK/latest_dxvk`)) {
-    console.log('dxvk not found!')
-    await getLatestDxvk()
-  }
-
-  const globalVersion = readFileSync(`${heroicToolsPath}/DXVK/latest_dxvk`)
-    .toString()
-    .split('\n')[0]
-  const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
-  const currentVersionCheck = `${winePrefix}/current_dxvk`
-  let currentVersion = ''
-
-  if (existsSync(currentVersionCheck)) {
-    currentVersion = readFileSync(currentVersionCheck).toString().split('\n')[0]
-  }
-
-  if (currentVersion === globalVersion) {
-    return
-  }
-
-  const installCommand = `WINEPREFIX=${winePrefix} bash ${dxvkPath}setup_dxvk.sh install`
-  const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
-  console.log(`installing DXVK on ${winePrefix}`, installCommand)
-  await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
-  await execAsync(installCommand, { shell: '/bin/bash' }).then(() =>
-    exec(echoCommand)
-  )
-}
-
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
@@ -439,8 +371,6 @@ export {
   checkForUpdates,
   handleExit,
   userInfo,
-  getLatestDxvk,
-  installDxvk,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,

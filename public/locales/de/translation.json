@@ -42,6 +42,7 @@
   },
   "Downloading": "Am herunterladen",
   "Filter": "Filter",
+  "globalSettings": "Globale Einstellungen",
   "help": {
     "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
     "other": {

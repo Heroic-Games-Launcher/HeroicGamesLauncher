@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { getGameInfo, writeConfig } from '../../helper'
@@ -26,8 +26,9 @@ interface RouteParams {
 
 // TODO: add feedback when launching winecfg and winetricks
 
-export default function Settings() {
+function Settings() {
   const { t } = useTranslation()
+  const { state } = useLocation() as { state: any }
 
   const [wineVersion, setWineversion] = useState({
     name: 'Wine Default',
@@ -161,7 +162,16 @@ export default function Settings() {
   }
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  const returnPath = isDefault ? '/' : `/gameconfig/${appName}`
+
+  let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
+
+  if (state && state.fromGameCard) {
+    returnPath = null
+  }
+
+  const headerTitle = isDefault
+    ? t('globalSettings', 'Global Settings')
+    : `${state ? state.title : ''}`
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
@@ -169,7 +179,7 @@ export default function Settings() {
 
   return (
     <>
-      <Header goTo={returnPath} renderBackButton />
+      <Header goTo={returnPath} renderBackButton title={headerTitle} />
       <div className="Settings">
         <div className="settingsNavbar">
           {isDefault && (
@@ -256,3 +266,5 @@ export default function Settings() {
     </>
   )
 }
+
+export default React.memo(Settings)

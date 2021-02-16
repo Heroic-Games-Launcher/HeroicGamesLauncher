@@ -31,7 +31,6 @@ i18next
     },
     lng: 'en',
     fallbackLng: 'en',
-    debug: process.env.NODE_ENV !== 'production',
     react: {
       useSuspense: true,
     },

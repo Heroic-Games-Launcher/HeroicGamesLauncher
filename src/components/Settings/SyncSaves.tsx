@@ -43,7 +43,6 @@ export default function SyncSaves({
       let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
       folder = folder.replace('{InstallDir}', install_path)
       const path = savesPath ? savesPath : folder
-      console.log(path)
 
       setSavesPath(path)
     }
