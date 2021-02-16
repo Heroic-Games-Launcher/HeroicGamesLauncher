@@ -11,7 +11,6 @@ import {
   userInfo,
   writeDefaultconfig,
   writeGameconfig,
-  getLatestDxvk,
   home,
   sidInfoUrl,
   updateGame,
@@ -75,9 +74,6 @@ function createWindow(): BrowserWindow {
       enableRemoteModule: true,
     },
   })
-  setTimeout(() => {
-    getLatestDxvk()
-  }, 2500)
 
   //load the index.html from a url
   if (isDev) {
@@ -145,7 +141,7 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de'],
+      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr'],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -351,9 +347,20 @@ ipcMain.handle('install', async (event, args) => {
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
-  await execAsync(command, { shell: '/bin/bash' })
+  const noSpaceMsg = 'Not enough available disk space'
+  execAsync(command, { shell: '/bin/bash' })
     .then(() => console.log('finished installing'))
-    .catch((err) => console.log(err))
+    .catch(() => {
+      return execAsync(`tail ${logPath} | grep 'disk space'`)
+        .then(({ stdout }) => {
+          if (stdout.includes(noSpaceMsg)) {
+            console.log(noSpaceMsg)
+            return stdout
+          }
+          console.log('installation canceled or had some error')
+        })
+        .catch((err) => err)
+    })
 })
 
 ipcMain.handle('repair', async (event, game) => {
