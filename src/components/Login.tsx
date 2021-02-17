@@ -160,6 +160,15 @@ export default function Login({ refresh }: Props) {
             >
               Русский 🇷🇺
             </span>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'pl',
+                ['language']: currentLanguage !== 'pl',
+              })}
+              onClick={() => handleChangeLanguage('pl')}
+            >
+              Polski 🇵🇱
+            </span>
           </span>
         </div>
       </div>
