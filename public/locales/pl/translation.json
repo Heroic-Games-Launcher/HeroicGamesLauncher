@@ -3,7 +3,7 @@
     "box": {
         "appupdate": {
             "message": "Dostępna jest nowa wersja Heroic do pobrania, czy chcesz aktualizować?",
-            "title": "Dostępna nowa wersja"
+            "title": "Dostępna Nowa Wersja"
         },
         "choose": "Wybierz",
         "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
@@ -40,6 +40,7 @@
     },
     "Downloading": "Pobieranie",
     "Filter": "Filtr",
+    "globalSettings": "Ustawienia Globalne",
     "gamecard": {
         "moving": "Przenoszenie",
         "repairing": "Naprawa"
@@ -63,7 +64,7 @@
         },
         "wine": {
             "part1": "Heroic szuka wersji Wine i Proton w poniższych lokalizacjach:",
-            "part2": "W przypadku innych lokalizacji użych przypisań symbolicznych, żeby je wskazać."
+            "part2": "W przypadku innych lokalizacji stwórz przypisanie symboliczne."
         }
     },
     "info": {
@@ -78,7 +79,7 @@
         "unsync": "Desynchronizacja zakończona"
     },
     "nogames": "Nie znaleziono żadnej gry",
-    "Not Ready": "Nie gotowe",
+    "Not Ready": "Dostępne",
     "notify": {
         "finished": {
             "reparing": "Naprawa zakończona"
@@ -103,18 +104,20 @@
         },
         "gameargs": {
             "placeholder": "Wstaw tutaj argumenty uruchamiania",
-            "title": "Argumenty gry (Uruchamiane po komendzie):"
+            "title": "Argumenty gry (uruchamiane po komendzie):"
         }
     },
     "placeholder": {
         "egs-prefix": "Prefiks instalacji EGS"
     },
-    "Ready": "Gotowe",
+    "Ready": "Zainstalowane",
     "Return": "Powrót",
     "search": "Wpisz nazwę gry...",
     "setting": {
-        "audiofix": "Poprawa audio (Opóźnienie Pule Audio)",
+        "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
+        "autodxvk": "Automatycznie instaluj / aktualizuj DXVK na Prefiksie",
         "autosync": "Autosynchronizacja zapisów",
+        "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
         "default-install-path": "Domyślna ścieżka instalacyjna",
         "egs-sync": "Synchronizuj z zapisanymi grami z Epic Games",
         "exit-to-tray": "Wyjście do tacki systemowej",
@@ -145,14 +148,14 @@
     },
     "Total Games": "Ilość gier",
     "tray": {
-        "about": "O",
+        "about": "O Heroic",
         "quit": "Wyjdź",
         "reload": "Przeładuj",
         "show": "Pokaż",
         "support": "Wesprzyj"
     },
     "userselector": {
-        "about": "O",
+        "about": "O Heroic",
         "logout": "Wyloguj",
         "quit": "Wyjdź",
         "refresh": "Odśwież bibliotekę",
