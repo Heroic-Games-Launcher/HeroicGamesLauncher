@@ -226,8 +226,9 @@
 
 .noGames {
   position: absolute;
-  top: 25%;
+  top: 15%;
   left: 31vw;
+  right: 31vw;
 }
 
 .gameCard {
@@ -763,7 +764,6 @@
 }
 
 .gameInfo > .settingSelect {
-  width: 300px;
   margin-bottom: 12px;
 }
 

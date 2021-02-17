@@ -48,7 +48,7 @@
   },
   "install": {
     "another": "Instalar em outro local",
-    "default": "Instalar no local padrão",
+    "default": "Instalar em",
     "import": "Importar Jogo"
   },
   "label": {
