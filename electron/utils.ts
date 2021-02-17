@@ -47,6 +47,19 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
     '/usr/share/steam',
   ]
+
+  if (!existsSync(`${heroicToolsPath}/wine`)) {
+    exec(`mkdir '${heroicToolsPath}/wine' -p`, () => {
+      return 'done'
+    })
+  }
+
+  if (!existsSync(`${heroicToolsPath}/proton`)) {
+    exec(`mkdir '${heroicToolsPath}/proton' -p`, () => {
+      return 'done'
+    })
+  }
+
   const protonPaths: string[] = [`${heroicToolsPath}/proton`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
 
@@ -104,7 +117,9 @@ async function getAlternativeWine(): Promise<WineProps[]> {
 
 const isLoggedIn = () => existsSync(userInfo)
 
-const getSettings = (appName: string | 'default'): AppSettings => {
+const getSettings = async (
+  appName: string | 'default'
+): Promise<AppSettings> => {
   const gameConfig = `${heroicGamesConfigPath}${appName}.json`
 
   const globalConfig = heroicConfigPath
@@ -115,7 +130,7 @@ const getSettings = (appName: string | 'default'): AppSettings => {
     settingsPath = globalConfig
     settingsName = 'defaultSettings'
     if (!existsSync(settingsPath)) {
-      writeDefaultconfig()
+      await writeDefaultconfig()
       return getSettings('default')
     }
   }
@@ -154,7 +169,7 @@ const launchGame = async (appName: string) => {
     showMangohud,
     audioFix,
     autoInstallDxvk,
-  } = getSettings(appName)
+  } = await getSettings(appName)
 
   const wineTricksCommand = `WINE=${wineVersion.bin} WINEPREFIX=${dxvkPrefix} winetricks`
   let wine = `--wine ${wineVersion.bin}`
@@ -251,13 +266,12 @@ const launchGame = async (appName: string) => {
 const writeDefaultconfig = async () => {
   const { account_id } = getUserInfo()
   const userName = user().username
-  let wineVersion = {}
-  getAlternativeWine().then((w) => (wineVersion = w[0]))
+  const [defaultWine] = await getAlternativeWine()
 
   const config = {
     defaultSettings: {
       defaultInstallPath: heroicInstallPath,
-      wineVersion,
+      wineVersion: defaultWine,
       winePrefix: `${home}/.wine`,
       otherOptions: '',
       useGameMode: false,
@@ -278,21 +292,9 @@ const writeDefaultconfig = async () => {
       return 'done'
     })
   }
-
-  if (!existsSync(`${heroicToolsPath}/wine`)) {
-    exec(`mkdir '${heroicToolsPath}/wine' -p`, () => {
-      return 'done'
-    })
-  }
-
-  if (!existsSync(`${heroicToolsPath}/proton`)) {
-    exec(`mkdir '${heroicToolsPath}/proton' -p`, () => {
-      return 'done'
-    })
-  }
 }
 
-const writeGameconfig = (game: string) => {
+const writeGameconfig = async (game: string) => {
   const {
     wineVersion,
     winePrefix,
@@ -300,7 +302,7 @@ const writeGameconfig = (game: string) => {
     useGameMode,
     showFps,
     userInfo,
-  } = getSettings('default')
+  } = await getSettings('default')
 
   const config = {
     [game]: {

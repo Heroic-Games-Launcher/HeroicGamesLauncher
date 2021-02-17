@@ -16,7 +16,7 @@ interface Install {
   appName: string
   isInstalling: boolean
   installPath: 'import' | 'default' | 'another'
-  handleGameStatus: (game: GameStatus) => void
+  handleGameStatus: (game: GameStatus) => Promise<void>
   t: TFunction<'gamepage'>
 }
 
@@ -34,7 +34,7 @@ export async function handleInstall({
 
   if (installPath === 'default') {
     const path = 'default'
-    handleGameStatus({ appName, status: 'installing' })
+    await handleGameStatus({ appName, status: 'installing' })
     await install({ appName, path })
     // Wait to be 100% finished
     return setTimeout(() => {
@@ -51,7 +51,7 @@ export async function handleInstall({
 
     if (filePaths[0]) {
       const path = filePaths[0]
-      handleGameStatus({ appName, status: 'installing' })
+      await handleGameStatus({ appName, status: 'installing' })
       await importGame({ appName, path })
       return handleGameStatus({ appName, status: 'done' })
     }
@@ -66,12 +66,12 @@ export async function handleInstall({
 
     if (filePaths[0]) {
       const path = filePaths[0]
-      handleGameStatus({ appName, status: 'installing' })
+      await handleGameStatus({ appName, status: 'installing' })
       await install({ appName, path })
       // Wait to be 100% finished
       return setTimeout(() => {
         handleGameStatus({ appName, status: 'done' })
-      }, 200)
+      }, 1500)
     }
   }
 }

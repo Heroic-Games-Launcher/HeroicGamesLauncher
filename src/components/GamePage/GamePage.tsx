@@ -79,7 +79,7 @@ export default function GamePage() {
           wineVersion,
           savesPath,
         }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-        const isProton = wineVersion.name.includes('Proton')
+        const isProton = wineVersion?.name?.includes('Proton') || false
         setAutoSyncSaves(autoSyncSaves)
         const folder = await fixSaveFolder(
           newInfo.saveFolder,
@@ -408,10 +408,11 @@ export default function GamePage() {
         const path = 'default'
         handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
+
         // Wait to be 100% finished
         return setTimeout(() => {
           handleGameStatus({ appName, status: 'done' })
-        }, 2000)
+        }, 1500)
       }
 
       if (installPath === 'import') {
@@ -444,7 +445,7 @@ export default function GamePage() {
           // Wait to be 100% finished
           return setTimeout(() => {
             handleGameStatus({ appName, status: 'done' })
-          }, 200)
+          }, 1500)
         }
       }
     }
