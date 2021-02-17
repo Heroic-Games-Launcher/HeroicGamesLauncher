@@ -48,7 +48,7 @@
   },
   "install": {
     "another": "Installer vers un autre chemin",
-    "default": "Installer vers le chemin par défaut",
+    "default": "Installer sur",
     "import": "Importer le jeu"
   },
   "label": {

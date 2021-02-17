@@ -15,7 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
-import { AppSettings } from './types'
+import { AppSettings, WineProps } from './types'
 import i18next from 'i18next'
 const { showErrorBox, showMessageBox } = dialog
 
@@ -40,7 +40,7 @@ const heroicGithubURL =
 const kofiURL = 'https://ko-fi.com/flavioislima'
 
 // check other wine versions installed
-const getAlternativeWine = () => {
+async function getAlternativeWine(): Promise<WineProps[]> {
   // Just add a new string here in case another path is found on another distro
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
@@ -49,6 +49,15 @@ const getAlternativeWine = () => {
   ]
   const protonPaths: string[] = [`${heroicToolsPath}/proton`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
+
+  const defaultWine = { name: '', bin: '' }
+  await execAsync(`which wine`)
+    .then(async ({ stdout }) => {
+      defaultWine.bin = stdout.split('\n')[0]
+      const { stdout: out } = await execAsync(`wine --version`)
+      defaultWine.name = `Wine - ${out.split('\n')[0]}`
+    })
+    .catch(() => console.log('Wine not installed'))
 
   foundPaths.forEach((path) => {
     protonPaths.push(`${path}/steamapps/common/`)
@@ -60,8 +69,6 @@ const getAlternativeWine = () => {
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`
   const proton: { name: string; bin: string }[] = []
   const altWine: { name: string; bin: string }[] = []
-
-  const defaultWine = { name: 'Wine Default', bin: '/usr/bin/wine' }
 
   protonPaths.forEach((path) => {
     if (existsSync(path)) {
@@ -92,7 +99,7 @@ const getAlternativeWine = () => {
     })
   })
 
-  return [...proton, ...altWine, defaultWine]
+  return [defaultWine, ...altWine, ...proton]
 }
 
 const isLoggedIn = () => existsSync(userInfo)
@@ -241,17 +248,16 @@ const launchGame = async (appName: string) => {
     })
 }
 
-const writeDefaultconfig = () => {
+const writeDefaultconfig = async () => {
   const { account_id } = getUserInfo()
   const userName = user().username
+  let wineVersion = {}
+  getAlternativeWine().then((w) => (wineVersion = w[0]))
 
   const config = {
     defaultSettings: {
       defaultInstallPath: heroicInstallPath,
-      wineVersion: {
-        name: 'Wine Default',
-        bin: '/usr/bin/wine',
-      },
+      wineVersion,
       winePrefix: `${home}/.wine`,
       otherOptions: '',
       useGameMode: false,

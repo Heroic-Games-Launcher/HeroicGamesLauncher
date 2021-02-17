@@ -211,18 +211,24 @@ export class GlobalState extends PureComponent<Props> {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { i18n } = this.props
+
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
     i18n.changeLanguage(language)
     this.setState({ filter, language, layout })
-    this.refresh()
 
     setTimeout(() => {
       this.checkVersion()
-    }, 2500)
+    }, 4500)
+
+    await this.refresh()
+
+    if (!this.state.data.length) {
+      this.refreshLibrary()
+    }
   }
 
   componentDidUpdate() {

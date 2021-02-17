@@ -21,7 +21,11 @@ import ContextProvider from '../../state/ContextProvider'
 import { useParams } from 'react-router-dom'
 import Update from '../UI/Update'
 import GamesSubmenu from './GamesSubmenu'
-const { ipcRenderer, remote } = window.require('electron')
+import { IpcRenderer, Remote } from 'electron'
+const { ipcRenderer, remote } = window.require('electron') as {
+  ipcRenderer: IpcRenderer
+  remote: Remote
+}
 const {
   dialog: { showOpenDialog, showMessageBox },
 } = remote
@@ -52,6 +56,7 @@ export default function GamePage() {
     eta: '00:00:00',
   } as InstallProgress)
   const [installPath, setInstallPath] = useState('default')
+  const [defaultPath, setDefaultPath] = useState('...')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -86,6 +91,15 @@ export default function GamePage() {
     }
     updateConfig()
   }, [isInstalling, isPlaying, appName])
+
+  useEffect(() => {
+    ipcRenderer
+      .invoke('requestSettings', 'default')
+      .then((config: AppSettings) => setDefaultPath(config.defaultInstallPath))
+    return () => {
+      ipcRenderer.removeAllListeners('requestSettings')
+    }
+  }, [appName])
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -220,7 +234,9 @@ export default function GamePage() {
                       value={installPath}
                       className="settingSelect"
                     >
-                      <option value={'default'}>{t('install.default')}</option>
+                      <option value={'default'}>{`${t(
+                        'install.default'
+                      )} ${defaultPath.replaceAll("'", '')}`}</option>
                       <option value={'another'}>{t('install.another')}</option>
                       <option value={'import'}>{t('install.import')}</option>
                     </select>
