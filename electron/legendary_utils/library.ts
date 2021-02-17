@@ -10,18 +10,20 @@ import {
   heroicConfigPath,
   heroicFolder,
   isLoggedIn,
+  legendaryBin,
   legendaryConfigPath,
   userInfo,
   writeDefaultconfig,
 } from '../utils'
 import { Game, InstalledInfo, KeyImage } from '../types'
-import { getCover } from './utils'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
 export async function getLegendaryGames() {
-  const { stdout, stderr } = await execAsync('legendary list-games --json')
+  const { stdout, stderr } = await execAsync(
+    `${legendaryBin} list-games --json`
+  )
   if (stdout) {
     const results = JSON.parse(stdout)
     // NEED DOUBLE CHECK IF SOMETHINGS INSIDE IS NEEDED OR ADD MORE STUFF IT REDUCE SIZE OF THE FINAL FILE
@@ -130,12 +132,13 @@ export async function getLegendaryConfig(file: string) {
               ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
             )[0]
 
-            const art_cover = gameBox ? gameBox.url : fallBackImage
-            const art_logo = logo ? getCover(app_name, 'logo', logo.url) : null
-            const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
-
-            const cover = getCover(app_name, 'cover', art_cover)
-            const square = getCover(app_name, 'square', art_square)
+            const art_cover = gameBox
+              ? gameBox.url.replaceAll(' ', '%20')
+              : fallBackImage
+            const art_logo = logo ? logo.url.replaceAll(' ', '%20') : null
+            const art_square = gameBoxTall
+              ? gameBoxTall.url.replaceAll(' ', '%20')
+              : fallBackImage
 
             const installedGames: Game[] = Object.values(files.installed)
 
@@ -171,8 +174,8 @@ export async function getLegendaryConfig(file: string) {
               cloudSaveEnabled,
               saveFolder,
               folderName: installFolder,
-              art_cover: cover,
-              art_square: square,
+              art_cover,
+              art_square,
               art_logo,
               dlcs,
             }
