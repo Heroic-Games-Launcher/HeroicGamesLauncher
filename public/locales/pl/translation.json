@@ -59,7 +59,7 @@
             "part1": "Heroic próbuje odgadnąć właściwy folder zapisów i to działa w większości przypadków. Jeżeli folder jest zły, użyj pola nadpisz aby to zmienić",
             "part2": "Jeżeli zmieniłeś prefiks folderu Wine albo Proton, musisz sprawdzić scieżkę ponownie ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Musisz usunąć aktualną ścieżkę, wyjść z opcji synchronizacji i powrócić do Heroic aby wybrać właściwy folder prefiksu",
             "part3": "Manualna synchronizacja: Wybierz Pobierz aby pobrać zapisy gier przechowywane w chmurze. Wybierz Wgraj aby przesłać lokalne zapisy gry do chmury. Wymuszone Pobranie i Wymuszone Wgranie powoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmuze",
-            "part4": "Automatyczna Synchronizacja Zapisów będzie synchronizować zapisy za każdym razem kiedy uruchmisz grę bądź skończysz granie",
+            "part4": "Automatyczna Synchronizacja Zapisów będzie synchronizować zapisy za każdym razem kiedy uruchmisz grę bądź skończysz granie"
         },
         "wine": {
             "part1": "Heroic szuka wersji Wine i Proton w poniższych lokalizacjach:",
