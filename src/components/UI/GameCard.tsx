@@ -200,21 +200,19 @@ const GameCard = ({
 
   async function handlePlay() {
     if (!isInstalled) {
-      await handleInstall({
+      return await handleInstall({
         appName,
         isInstalling,
         installPath: 'another',
         handleGameStatus,
         t,
       })
-      return
     }
     if (status === 'playing' || status === 'updating') {
       handleGameStatus({ appName, status: 'done' })
       return sendKill(appName)
     }
 
-    console.log('play?', appName, status)
     handleGameStatus({ appName, status: 'playing' })
     await launch(appName).then(async (err: string | string[]) => {
       if (!err) {

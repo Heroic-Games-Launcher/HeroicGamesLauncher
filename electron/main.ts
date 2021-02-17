@@ -88,7 +88,7 @@ function createWindow(): BrowserWindow {
 
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = getSettings('default')
+      const { exitToTray } = await getSettings('default')
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -99,7 +99,7 @@ function createWindow(): BrowserWindow {
   } else {
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = getSettings('default')
+      const { exitToTray } = await getSettings('default')
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -133,7 +133,7 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = getSettings('default')
+    const { language, darkTrayIcon } = await getSettings('default')
 
     await i18next.use(Backend).init({
       lng: language,
@@ -304,7 +304,7 @@ ipcMain.handle('legendary', async (event, args) => {
 
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
-  const { defaultInstallPath, maxWorkers } = getSettings('default')
+  const { defaultInstallPath, maxWorkers } = await getSettings('default')
   const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
@@ -314,23 +314,26 @@ ipcMain.handle('install', async (event, args) => {
   }
   console.log(`Installing ${game} with:`, command)
   const noSpaceMsg = 'Not enough available disk space'
-  execAsync(command, { shell: '/bin/bash' })
+  return await execAsync(command, { shell: '/bin/bash' })
     .then(() => console.log('finished installing'))
-    .catch(() => {
-      return execAsync(`tail ${logPath} | grep 'disk space'`)
-        .then(({ stdout }) => {
-          if (stdout.includes(noSpaceMsg)) {
-            console.log(noSpaceMsg)
-            return stdout
-          }
-          console.log('installation canceled or had some error')
-        })
-        .catch((err) => err)
+    .catch(async () => {
+      try {
+        const { stdout } = await execAsync(
+          `tail ${logPath} | grep 'disk space'`
+        )
+        if (stdout.includes(noSpaceMsg)) {
+          console.log(noSpaceMsg)
+          return stdout
+        }
+        console.log('installation canceled or had some error')
+      } catch (err) {
+        return err
+      }
     })
 })
 
 ipcMain.handle('repair', async (event, game) => {
-  const { maxWorkers } = getSettings('default')
+  const { maxWorkers } = await getSettings('default')
   const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
@@ -408,16 +411,16 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
   return exec(command)
 })
 
-ipcMain.handle('requestSettings', (event, appName) => {
+ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
-    return getSettings('default')
+    return await getSettings('default')
   }
 
   if (appName !== 'default') {
     writeGameconfig(appName)
   }
 
-  return getSettings(appName)
+  return await getSettings(appName)
 })
 
 //Checks if the user have logged in with Legendary already
@@ -478,12 +481,12 @@ ipcMain.handle('getUserInfo', () => {
   return { user: user().username, epicId: account_id }
 })
 
-ipcMain.on('removeFolder', (e, args: string[]) => {
+ipcMain.on('removeFolder', async (e, args: string[]) => {
   const [path, folderName] = args
 
   if (path === 'default') {
-    const defaultInstallPath = getSettings(
-      'default'
+    const defaultInstallPath = await (
+      await getSettings('default')
     ).defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${defaultInstallPath}/${folderName}`
     return setTimeout(() => {

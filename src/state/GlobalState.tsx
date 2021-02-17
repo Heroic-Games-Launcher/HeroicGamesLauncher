@@ -226,7 +226,8 @@ export class GlobalState extends PureComponent<Props> {
 
     await this.refresh()
 
-    if (!this.state.data.length) {
+    const { data, user } = this.state
+    if (user && !data.length) {
       this.refreshLibrary()
     }
   }

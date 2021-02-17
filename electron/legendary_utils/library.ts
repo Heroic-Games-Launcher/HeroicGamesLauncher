@@ -82,7 +82,7 @@ export async function getLegendaryConfig(file: string) {
 
   if (file === 'user') {
     if (loggedIn) {
-      writeDefaultconfig()
+      await writeDefaultconfig()
       return files[file].displayName
     }
     return null
