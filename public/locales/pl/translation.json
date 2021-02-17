@@ -46,7 +46,7 @@
         "repairing": "Naprawa"
     },
     "help": {
-        "general": "Synchronizuj z EGS w wypadku gdy masz pracującą instalację Epic Games Store w innym miejscu i chcesz uniknąć importowania gier ponownie",
+        "general": "Synchronizuj z EGS gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz uniknąć importowania gier",
         "other": {
             "part1": "Użyj ",
             "part2": "Opcje zaawansowane",
@@ -115,11 +115,11 @@
     "search": "Wpisz nazwę gry...",
     "setting": {
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
-        "autodxvk": "Automatycznie instaluj / aktualizuj DXVK na Prefiksie",
+        "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
         "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
         "default-install-path": "Domyślna ścieżka instalacyjna",
-        "egs-sync": "Synchronizuj z zapisanymi grami z Epic Games",
+        "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
         "exit-to-tray": "Wyjście do tacki systemowej",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",

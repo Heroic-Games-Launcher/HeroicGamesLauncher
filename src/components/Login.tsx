@@ -149,7 +149,7 @@ export default function Login({ refresh }: Props) {
               })}
               onClick={() => handleChangeLanguage('fr')}
             >
-              Français 🇫🇷
+              Français 🇫🇷 -{' '}
             </span>
             <span
               className={cx({
@@ -158,7 +158,7 @@ export default function Login({ refresh }: Props) {
               })}
               onClick={() => handleChangeLanguage('ru')}
             >
-              Русский 🇷🇺
+              Русский 🇷🇺 -{' '}
             </span>
             <span
               className={cx({
