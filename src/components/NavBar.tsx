@@ -37,9 +37,12 @@ export default function NavBar() {
         >
           {t('Settings')}
         </NavLink>
-        <NavLink to={''} onClick={() => createNewWindow(epicStore)}>
+        <a
+          style={{ cursor: 'pointer' }}
+          onClick={() => createNewWindow(epicStore)}
+        >
           {t('Store')}
-        </NavLink>
+        </a>
       </div>
       <SearchBar />
       <UserSelector />
