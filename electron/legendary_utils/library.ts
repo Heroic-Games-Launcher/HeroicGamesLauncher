@@ -92,11 +92,10 @@ export async function getLegendaryConfig(file: string) {
   }
 
   if (file === 'library') {
-    const library = existsSync(`${heroicFolder}library.json`)
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
 
-    if (library) {
+    if (existsSync(files.library)) {
       return readdirSync(files.library)
         .map((file) => `${files.library}/${file}`)
         .map((file) => JSON.parse(readFileSync(file, 'utf-8')))

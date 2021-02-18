@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
 const storage: Storage = window.localStorage
 interface Props {
-  refresh: () => void
+  refresh: () => Promise<void>
 }
 
 export default function Login({ refresh }: Props) {
@@ -37,6 +37,7 @@ export default function Login({ refresh }: Props) {
           message: t('status.loading', 'Loading Game list, please wait'),
         })
 
+        await legendary(`list-games`)
         refresh()
       }
 

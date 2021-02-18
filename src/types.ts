@@ -98,7 +98,7 @@ export interface ContextType {
   refreshing: boolean
   error: boolean
   libraryStatus: GameStatus[]
-  refresh: () => void
+  refresh: () => Promise<void>
   refreshLibrary: () => void
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleFilter: (value: string) => void
