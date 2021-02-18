@@ -135,7 +135,7 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr'],
+      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl'],
       debug: false,
       backend: {
         allowMultiLoading: false,
