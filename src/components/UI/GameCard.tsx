@@ -123,7 +123,7 @@ const GameCard = ({
         >
           <span
             style={{
-              backgroundImage: `url(${grid ? cover : coverList})`,
+              backgroundImage: `url('${grid ? cover : coverList}')`,
               backgroundSize: 'cover',
               filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
             }}
@@ -226,6 +226,7 @@ const GameCard = ({
         })
 
         if (response === 0) {
+          await handleGameStatus({ appName, status: 'done' })
           handleGameStatus({ appName, status: 'updating' })
           await updateGame(appName)
           return handleGameStatus({ appName, status: 'done' })

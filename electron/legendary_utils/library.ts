@@ -132,12 +132,10 @@ export async function getLegendaryConfig(file: string) {
               ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
             )[0]
 
-            const art_cover = gameBox
-              ? gameBox.url.replaceAll(' ', '%20')
-              : fallBackImage
-            const art_logo = logo ? logo.url.replaceAll(' ', '%20') : null
+            const art_cover = gameBox ? `${gameBox.url}` : fallBackImage
+            const art_logo = logo ? `${logo.url}` : null
             const art_square = gameBoxTall
-              ? gameBoxTall.url.replaceAll(' ', '%20')
+              ? `${gameBoxTall.url}`
               : fallBackImage
 
             const installedGames: Game[] = Object.values(files.installed)
