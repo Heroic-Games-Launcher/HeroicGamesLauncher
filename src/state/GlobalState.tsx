@@ -3,7 +3,13 @@ import { i18n } from 'i18next'
 import React, { PureComponent } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 import Update from '../components/UI/Update'
-import { getGameInfo, getLegendaryConfig, getProgress, notify } from '../helper'
+import {
+  getGameInfo,
+  getLegendaryConfig,
+  getProgress,
+  legendary,
+  notify,
+} from '../helper'
 import { Game, GameStatus } from '../types'
 import ContextProvider from './ContextProvider'
 const storage: Storage = window.localStorage
@@ -59,7 +65,8 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async (): Promise<void> => {
     const { t } = this.props
     this.setState({ refreshing: true })
-    await renderer.invoke('writeLibrary').then(() => this.refresh())
+    await legendary('list-games')
+    this.refresh()
     notify([t('notify.refreshing'), t('notify.refreshed')])
   }
 

@@ -57,6 +57,7 @@ export interface Game {
   folderName: string
   extraInfo: ExtraInfo
   dlcs: string[]
+  is_dlc: boolean
 }
 
 export interface InstallProgress {

@@ -25,7 +25,6 @@ interface Card {
   isInstalled: boolean
   version: string
   size: string
-  dlcs: string[]
 }
 
 interface InstallProgress {
@@ -42,7 +41,6 @@ const GameCard = ({
   logo,
   coverList,
   size,
-  dlcs,
 }: Card) => {
   const [progress, setProgress] = useState({
     percent: '0.00%',
@@ -168,13 +166,7 @@ const GameCard = ({
           </div>
         ) : (
           <>
-            {
-              <div className="gameListInfo">
-                {size}
-                <br />
-                {dlcs.length > 0 ? `Dlcs : ${dlcs.length}` : 'Dlcs : 0'}
-              </div>
-            }
+            {<div className="gameListInfo">{size}</div>}
             <span className="gameTitleList">{title}</span>
             {
               <span className="icons">
