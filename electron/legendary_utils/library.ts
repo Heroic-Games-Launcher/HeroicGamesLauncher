@@ -37,7 +37,9 @@ export async function getLegendaryGames() {
         }),
         "title": stdoutjson[index].metadata.title,
         "developer": stdoutjson[index].metadata.developer,
-        "customAttributes": stdoutjson[index].metadata.customAttributes
+        "customAttributes": stdoutjson[index].metadata.customAttributes/*.map((ca: any) => {
+          [ca.CanRunOffline, ca.CloudSaveFolder]
+        })*/
       }
     }
     result.push(game)
