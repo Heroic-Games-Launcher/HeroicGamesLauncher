@@ -1,11 +1,17 @@
 import React, { lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
+import { createNewWindow } from '../helper'
 const SearchBar = lazy(() => import('./UI/SearchBar'))
 const UserSelector = lazy(() => import('./UI/UserSelector'))
 
 export default function NavBar() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  let lang = i18n.language
+  if (i18n.language === 'pt') {
+    lang = 'pt-BR'
+  }
+  const epicStore = `https://www.epicgames.com/store/${lang}/`
   return (
     <div className="NavBar">
       <div className="Links">
@@ -30,6 +36,9 @@ export default function NavBar() {
           }}
         >
           {t('Settings')}
+        </NavLink>
+        <NavLink to={''} onClick={() => createNewWindow(epicStore)}>
+          {t('Store')}
         </NavLink>
       </div>
       <SearchBar />
