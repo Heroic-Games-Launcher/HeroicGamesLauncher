@@ -21,45 +21,33 @@ const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
 export async function getLegendaryGames() {
-  const { stdout, stderr } = await execAsync(
-    `${legendaryBin} list-games --json`
-  )
-  if (stdout) {
-    const results = JSON.parse(stdout)
-    // NEED DOUBLE CHECK IF SOMETHINGS INSIDE IS NEEDED OR ADD MORE STUFF IT REDUCE SIZE OF THE FINAL FILE
-    // There is maybe a better way to do that tried with filter but still not work
-    results.map((res: any) => {
-      delete res.asset_info
-      delete res.metadata.creationDate
-      delete res.metadata.developerId
-      delete res.metadata.dlcItemList
-      delete res.metadata.endOfSupport
-      delete res.metadata.entitlementName
-      delete res.metadata.entitlementType
-      delete res.metadata.lastModifiedDate
-      delete res.metadata.releaseInfo
-      res.metadata.keyImages.map((k: any) => {
-        delete k.height
-        delete k.md5
-        delete k.size
-        delete k.uploadedDate
-        delete k.width
-      })
-    })
-    const json = JSON.stringify(results)
-    return writeFileSync(`${heroicFolder}library.json`, json)
-  } else if (stderr) {
-    // return a file to avoid infinite loop
-    return writeFileSync(
-      `${heroicFolder}library.json`,
-      '{"result":"noGamesFound"}'
-    )
-  } else {
-    // return a file to avoid infinite loop
-    return writeFileSync(
-      `${heroicFolder}library.json`,
-      '{"result":"noGamesFound"}'
-    )
+  const {stdout, stderr} = await execAsync(`${legendaryBin} list-games --json`)
+  
+  const stdoutjson = JSON.parse(stdout)
+  const result = []
+  for (let index = 0; index < stdoutjson.length; index++) {
+    const game = {
+      "app_name": stdoutjson[index].app_name,
+      "app_version": stdoutjson[index].app_version,
+      "dlcs": stdoutjson[index].dlcs,
+      "metadata": {
+        "description": stdoutjson[index].metadata.description,
+        "keyImages": stdoutjson[index].metadata.keyImages.map((k: any) => {
+          [k.url,k.type]
+        }),
+        "title": stdoutjson[index].metadata.title,
+        "developer": stdoutjson[index].metadata.developer,
+        "customAttributes": stdoutjson[index].metadata.customAttributes
+      }
+    }
+    result.push(game)
+  }
+  if (result.length > 0) {
+    return writeFileSync(`${heroicFolder}library.json`, JSON.stringify(result))
+  }
+  else {
+    console.log(stderr)
+    return writeFileSync(`${heroicFolder}library.json`, '{"result":"noGamesFound"}')
   }
 }
 
