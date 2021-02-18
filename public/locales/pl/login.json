@@ -1,24 +1,24 @@
 {
-  "button": {
-    "login": "Zaloguj"
-  },
-  "input": {
-    "placeholder": "Wpisz numer SID"
-  },
-  "message": {
-    "part1": "Żeby się zalogowc i zainstalować gry wykonaj następujące kroki :",
-    "part2": "Otwórz",
-    "part3": "Epic Store tutaj",
-    "part4": ", zaloguj się na swoje konto i skopiuj swój",
-    "part5": "numer informacyjny SID",
-    "part6": "Wklej",
-    "part7": "numer SID",
-    "part8": "w pole poniżej, klknij login i czekaj."
-  },
-  "status": {
-    "error": "Błąd",
-    "loading": "Proszę czekać, wczytywanie listy gier",
-    "logging": "Logowanie..."
-  },
-  "welcome": "Witaj!"
+    "button": {
+        "login": "Zaloguj"
+    },
+    "input": {
+        "placeholder": "Wpisz numer SID"
+    },
+    "message": {
+        "part1": "Żeby zainstalować gry wykonaj następujące kroki :",
+        "part2": "Otwórz",
+        "part3": "Epic Games Store",
+        "part4": ", zaloguj się na swoje konto i skopiuj swój",
+        "part5": "numer informacyjny SID",
+        "part6": "Wklej",
+        "part7": "numer SID",
+        "part8": "w pole poniżej, kloknij login i czekaj."
+    },
+    "status": {
+        "error": "Błąd",
+        "loading": "Proszę czekać, wczytywanie listy gier",
+        "logging": "Logowanie..."
+    },
+    "welcome": "Witaj!"
 }

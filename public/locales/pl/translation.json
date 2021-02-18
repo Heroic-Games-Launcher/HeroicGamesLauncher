@@ -46,21 +46,21 @@
         "repairing": "Naprawa"
     },
     "help": {
-        "general": "Synchronizuj z EGS gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz uniknąć importowania gier",
+        "general": "Synchronizuj z EGS gdy masz zainstalowane Epic Games Store w innym miejscu i nie chcesz ich pobierać ponownie",
         "other": {
-            "part1": "Użyj ",
+            "part1": "Wpisz ",
             "part2": "Opcje zaawansowane",
-            "part3": "użyte przed uruchomieniem gry; ",
-            "part4": "Użyj ",
+            "part3": "które będą użyte przed uruchomieniem gry; ",
+            "part4": "Wpisz ",
             "part5": "Argumenty gry",
-            "part6": " użyte po uruchomieniu gry, na przykład: ",
+            "part6": " które będą dodane do wywołania gry, na przykład: ",
             "part7": " żeby ominąć launcher w niektórych grach, etc."
         },
         "sync": {
-            "part1": "Heroic próbuje odgadnąć właściwy folder zapisów i to działa w większości przypadków. Jeżeli folder jest zły, użyj pola nadpisz aby to zmienić",
+            "part1": "Heroic próbuje odgadnąć właściwy folder zapisów gier. To działa w większości przypadków. Jeżeli jednak folder nie istnieje, użyj pola\"Nadpisz\" aby to zmienić",
             "part2": "Jeżeli zmieniłeś prefiks folderu Wine albo Proton, musisz sprawdzić scieżkę ponownie ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Musisz usunąć aktualną ścieżkę, wyjść z opcji synchronizacji i powrócić do Heroic aby wybrać właściwy folder prefiksu",
-            "part3": "Manualna synchronizacja: Wybierz Pobierz aby pobrać zapisy gier przechowywane w chmurze. Wybierz Wgraj aby przesłać lokalne zapisy gry do chmury. Wymuszone Pobranie i Wymuszone Wgranie powoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmuze",
-            "part4": "Automatyczna Synchronizacja Zapisów będzie synchronizować zapisy za każdym razem kiedy uruchmisz grę bądź skończysz granie"
+            "part3": "Manualna synchronizacja: Wybierz \"Pobierz\" aby pobrać zapisy gier przechowywane w chmurze. Wybierz \"Wgraj\" aby przesłać lokalne zapisy gry do chmury. Wymuszone Pobranie i Wymuszone Wgranie powoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmuze",
+            "part4": "Automatyczna synchronizacja zapisów będzie aktualizować zapisy za każdym razem kiedy uruchmisz albo zamkniesz grę."
         },
         "wine": {
             "part1": "Heroic szuka wersji Wine i Proton w poniższych lokalizacjach:",
