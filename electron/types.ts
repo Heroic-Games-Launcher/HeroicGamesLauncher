@@ -3,6 +3,7 @@ export interface InstalledInfo {
   version: string | null
   install_size: string | null
   install_path: string | null
+  is_dlc: boolean
 }
 
 export interface KeyImage {

@@ -52,10 +52,7 @@ import {
   powerSaveBlocker,
 } from 'electron'
 import { Game } from './types.js'
-import {
-  getLegendaryConfig,
-  getLegendaryGames,
-} from './legendary_utils/library'
+import { getLegendaryConfig } from './legendary_utils/library'
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
@@ -217,8 +214,6 @@ ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
 ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
-
-ipcMain.handle('writeLibrary', async () => getLegendaryGames())
 
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
