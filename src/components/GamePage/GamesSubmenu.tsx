@@ -26,7 +26,11 @@ export default function GamesSubmenu({
   clicked,
 }: Props) {
   const { handleGameStatus } = useContext(ContextProvider)
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
+  let lang = i18n.language
+  if (i18n.language === 'pt') {
+    lang = 'pt-BR'
+  }
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
@@ -97,7 +101,7 @@ export default function GamesSubmenu({
         </>
       )}
       <span
-        onClick={() => createNewWindow(formatStoreUrl(title))}
+        onClick={() => createNewWindow(formatStoreUrl(title, lang))}
         className="hidden link"
       >
         {t('submenu.store')}

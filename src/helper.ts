@@ -123,10 +123,11 @@ export const handleSavePath = async (game: string) => {
 
 export const createNewWindow = (url: string) =>
   new BrowserWindow({ width: 1200, height: 700 }).loadURL(url)
-const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
 
-export const formatStoreUrl = (title: string) =>
-  `${storeUrl}${cleanTitle(title)}`
+export const formatStoreUrl = (title: string, lang: string) => {
+  const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
+  return `${storeUrl}${cleanTitle(title)}`
+}
 
 export function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {

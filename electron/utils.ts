@@ -179,7 +179,9 @@ const launchGame = async (appName: string) => {
     .replaceAll("'", '')
     .replace('~', home)}'`
 
-  const isProton = wineVersion.name.startsWith('Proton')
+  const isProton =
+    wineVersion.name.startsWith('Proton') ||
+    wineVersion.name.startsWith('Steam')
   prefix = isProton ? '' : prefix
 
   const options = {

@@ -2,12 +2,9 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
-import { IpcRenderer } from 'electron'
-const { ipcRenderer } = window.require('electron')
-const renderer: IpcRenderer = ipcRenderer
 const storage: Storage = window.localStorage
 interface Props {
-  refresh: () => void
+  refresh: () => Promise<void>
 }
 
 export default function Login({ refresh }: Props) {
@@ -40,7 +37,8 @@ export default function Login({ refresh }: Props) {
           message: t('status.loading', 'Loading Game list, please wait'),
         })
 
-        await renderer.invoke('writeLibrary').then(() => refresh())
+        await legendary(`list-games`)
+        refresh()
       }
 
       setStatus({ loading: true, message: t('status.error', 'Error') })

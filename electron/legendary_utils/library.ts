@@ -2,7 +2,7 @@
 import { writeFileSync } from 'graceful-fs'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { readFileSync, existsSync, stat } from 'graceful-fs'
+import { readFileSync, existsSync, stat, readdirSync } from 'graceful-fs'
 // @ts-ignore
 import byteSize from 'byte-size'
 
@@ -76,6 +76,7 @@ export async function getLegendaryConfig(file: string) {
     user: loggedIn
       ? JSON.parse(readFileSync(userInfo, 'utf8'))
       : { displayName: null },
+    library: `${legendaryConfigPath}/metadata/`,
     config: heroicConfigPath,
     installed: await statAsync(installed)
       .then(() => JSON.parse(readFileSync(installed, 'utf-8')))
@@ -91,96 +92,79 @@ export async function getLegendaryConfig(file: string) {
   }
 
   if (file === 'library') {
-    const library = existsSync(`${heroicFolder}library.json`)
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
 
-    if (library) {
-      return JSON.parse(readFileSync(`${heroicFolder}library.json`, 'utf-8'))
-        .map(
-          (c: {
-            metadata: {
-              description: any
-              keyImages: any
-              title: any
-              developer: any
-              customAttributes: { CloudSaveFolder: any; FolderName: any }
-            }
-            app_name: string
-            app_version: string
-            dlcs: string[]
-          }) => {
-            const {
-              description,
-              keyImages,
-              title,
-              developer,
-              customAttributes: { CloudSaveFolder, FolderName },
-            } = c.metadata
-            const app_name = c.app_name
-            const dlcs = c.dlcs
-            const cloudSaveEnabled = Boolean(CloudSaveFolder)
-            const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
-            const installFolder = FolderName ? FolderName.value : ''
-            const gameBox = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBox'
-            )[0]
-            const gameBoxTall = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-            )[0]
-            const logo = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-            )[0]
+    if (existsSync(files.library)) {
+      return readdirSync(files.library)
+        .map((file) => `${files.library}/${file}`)
+        .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
+        .map(({ app_name, metadata }) => {
+          const {
+            description,
+            keyImages,
+            title,
+            developer,
+            customAttributes: { CloudSaveFolder, FolderName },
+          } = metadata
+          const cloudSaveEnabled = Boolean(CloudSaveFolder)
+          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+          const installFolder = FolderName ? FolderName.value : ''
+          const gameBox = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBox'
+          )[0]
+          const gameBoxTall = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxTall'
+          )[0]
+          const logo = keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
+          )[0]
 
-            const art_cover = gameBox
-              ? gameBox.url.replaceAll(' ', '%20')
-              : fallBackImage
-            const art_logo = logo ? logo.url.replaceAll(' ', '%20') : null
-            const art_square = gameBoxTall
-              ? gameBoxTall.url.replaceAll(' ', '%20')
-              : fallBackImage
+          const art_cover = gameBox ? gameBox.url : null
+          const art_logo = logo ? logo.url : null
+          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
-            const installedGames: Game[] = Object.values(files.installed)
+          const installedGames: Game[] = Object.values(files.installed)
 
-            const isInstalled = Boolean(
-              installedGames.filter((game) => game.app_name === app_name).length
-            )
-            const info = isInstalled
-              ? installedGames.filter((game) => game.app_name === app_name)[0]
-              : {}
+          const isInstalled = Boolean(
+            installedGames.filter((game) => game.app_name === app_name).length
+          )
+          const info = isInstalled
+            ? installedGames.filter((game) => game.app_name === app_name)[0]
+            : {}
 
-            const {
-              executable = null,
-              version = c.app_version,
-              install_size = null,
-              install_path = null,
-            } = info as InstalledInfo
+          const {
+            executable = null,
+            version = null,
+            install_size = null,
+            install_path = null,
+            is_dlc = null,
+          } = info as InstalledInfo
 
-            const convertedSize =
-              install_size &&
-              `${byteSize(install_size).value}${byteSize(install_size).unit}`
+          const convertedSize =
+            install_size &&
+            `${byteSize(install_size).value}${byteSize(install_size).unit}`
 
-            return {
-              isInstalled,
-              info,
-              title,
-              executable,
-              version,
-              install_size: convertedSize,
-              install_path,
-              app_name,
-              developer,
-              description,
-              cloudSaveEnabled,
-              saveFolder,
-              folderName: installFolder,
-              art_cover,
-              art_square,
-              art_logo,
-              dlcs,
-            }
+          return {
+            isInstalled,
+            info,
+            title,
+            executable,
+            version,
+            install_size: convertedSize,
+            install_path,
+            app_name,
+            developer,
+            description,
+            cloudSaveEnabled,
+            saveFolder,
+            folderName: installFolder,
+            art_cover: art_cover || art_square,
+            art_square: art_square || art_cover,
+            art_logo,
+            is_dlc,
           }
-        )
+        })
         .sort((a: { title: string }, b: { title: string }) => {
           const gameA = a.title.toUpperCase()
           const gameB = b.title.toUpperCase()

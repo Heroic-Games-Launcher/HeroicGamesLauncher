@@ -47,8 +47,11 @@ export const Library = ({ library }: Props) => {
               isInstalled,
               version,
               install_size,
-              dlcs,
+              is_dlc,
             }: Game) => {
+              if (is_dlc) {
+                return null
+              }
               return (
                 <GameCard
                   key={app_name}
@@ -59,7 +62,6 @@ export const Library = ({ library }: Props) => {
                   appName={app_name}
                   isInstalled={isInstalled}
                   version={version}
-                  dlcs={dlcs}
                   size={install_size}
                 />
               )
