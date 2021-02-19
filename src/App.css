@@ -386,6 +386,7 @@
 }
 
 .settingsWrapper {
+  width: 569px;
   display: grid;
   place-self: center;
   place-items: flex-start;
