@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -74,6 +74,7 @@
   },
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
+    "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "electron": "yarn build-electron && electron .",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",

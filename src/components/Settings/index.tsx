@@ -12,7 +12,7 @@ import SyncSaves from './SyncSaves'
 import Tools from './Tools'
 import WineSettings from './WineSettings'
 import { IpcRenderer } from 'electron'
-import Update from '../UI/Update'
+import UpdateComponent from '../UI/UpdateComponent'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -182,7 +182,7 @@ function Settings() {
   }, [GlobalSettings, GameSettings, appName])
 
   if (!title) {
-    return <Update />
+    return <UpdateComponent />
   }
 
   return (
