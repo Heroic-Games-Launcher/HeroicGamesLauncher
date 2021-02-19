@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
+import Autorenew from '@material-ui/icons/Autorenew';
+import Info from '@material-ui/icons/Info';
 const storage: Storage = window.localStorage
 interface Props {
   refresh: () => Promise<void>
@@ -76,9 +78,8 @@ export default function Login({ refresh }: Props) {
                 {`${t('message.part4')} `}
                 <span onClick={() => sidInfoPage()} className="sid">
                   {`${t('message.part5')}`}
-                  <i style={{ marginLeft: '4px' }} className="material-icons">
-                    info
-                  </i>
+                  <Info style={{ marginLeft: '4px' }} className="material-icons">
+                  </Info>
                 </span>
                 .
               </li>
@@ -101,7 +102,7 @@ export default function Login({ refresh }: Props) {
             {loading && (
               <p className="message">
                 {message}
-                <span className="material-icons">autorenew</span>{' '}
+                <Autorenew className="material-icons"></Autorenew>{' '}
               </p>
             )}
             <button

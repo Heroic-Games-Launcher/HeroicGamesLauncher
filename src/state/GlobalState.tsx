@@ -2,7 +2,7 @@ import { IpcRenderer } from 'electron'
 import { i18n } from 'i18next'
 import React, { PureComponent } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
-import Update from '../components/UI/Update'
+import UpdateComponent from '../components/UI/UpdateComponent'
 import {
   getGameInfo,
   getLegendaryConfig,
@@ -258,7 +258,7 @@ export class GlobalState extends PureComponent<Props> {
     const { data, filterText, filter, refreshing } = this.state
 
     if (refreshing) {
-      return <Update />
+      return <UpdateComponent />
     }
 
     const filterRegex = new RegExp(String(filterText), 'i')

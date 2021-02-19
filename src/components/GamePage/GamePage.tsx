@@ -19,7 +19,8 @@ import '../../App.css'
 import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { useParams } from 'react-router-dom'
-import Update from '../UI/Update'
+import Settings from '@material-ui/icons/Settings';
+import UpdateComponent from '../UI/UpdateComponent'
 import GamesSubmenu from './GamesSubmenu'
 import { IpcRenderer, Remote } from 'electron'
 const { ipcRenderer, remote } = window.require('electron') as {
@@ -154,12 +155,11 @@ export default function GamePage() {
         <div className="gameConfigContainer">
           {title ? (
             <>
-              <span
+              <Settings
                 onClick={() => setClicked(!clicked)}
                 className="material-icons is-secondary dots"
               >
-                settings
-              </span>
+              </Settings>
               <GamesSubmenu
                 appName={appName}
                 clicked={clicked}
@@ -267,7 +267,7 @@ export default function GamePage() {
               </div>{' '}
             </>
           ) : (
-            <Update />
+            <UpdateComponent />
           )}
         </div>
       </>

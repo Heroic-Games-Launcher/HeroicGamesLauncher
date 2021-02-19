@@ -52,6 +52,8 @@
     }
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "byte-size": "^7.0.0",
     "classnames": "^2.2.6",

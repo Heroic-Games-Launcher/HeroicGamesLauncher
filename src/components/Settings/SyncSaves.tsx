@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+import Backspace from '@material-ui/icons/Backspace';
 import { Path, SyncType } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
@@ -85,7 +87,7 @@ export default function SyncSaves({
             onChange={(event) => setSavesPath(event.target.value)}
           />
           {!savesPath.length ? (
-            <span
+            <CreateNewFolder
               className="material-icons settings folder"
               style={{ color: '#B0ABB6' }}
               onClick={() =>
@@ -103,16 +105,14 @@ export default function SyncSaves({
                       )
               }
             >
-              create_new_folder
-            </span>
+            </CreateNewFolder>
           ) : (
-            <span
+            <Backspace
               className="material-icons settings folder"
               onClick={() => setSavesPath('')}
               style={{ color: '#B0ABB6' }}
             >
-              backspace
-            </span>
+            </Backspace>
           )}
         </span>
       </span>

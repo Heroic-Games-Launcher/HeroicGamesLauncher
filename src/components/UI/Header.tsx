@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useHistory } from 'react-router-dom'
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import Apps from '@material-ui/icons/Apps';
+import List from '@material-ui/icons/List';
 import cx from 'classnames'
 import ContextProvider from '../../state/ContextProvider'
 
@@ -78,7 +81,7 @@ export default function Header({
         {title && <div className="headerTitle">{title}</div>}
         {handleLayout && (
           <div className="layoutSelection">
-            <span
+            <Apps
               className={
                 layout === 'grid'
                   ? 'selectedLayout material-icons'
@@ -86,9 +89,8 @@ export default function Header({
               }
               onClick={() => handleLayout('grid')}
             >
-              apps
-            </span>
-            <span
+            </Apps>
+            <List
               className={
                 layout === 'list'
                   ? 'selectedLayout material-icons'
@@ -96,15 +98,14 @@ export default function Header({
               }
               onClick={() => handleLayout('list')}
             >
-              list
-            </span>
+            </List>
           </div>
         )}
 
         {renderBackButton && (
           <div className="leftCluster">
             <Link className="returnLink" to={link} onClick={handleClick}>
-              <span className="material-icons">arrow_back</span>
+              <ArrowBack className="material-icons"></ArrowBack>
               {t('Return')}
             </Link>
           </div>

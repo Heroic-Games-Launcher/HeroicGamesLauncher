@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { WineProps, Path } from '../../types'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 const {
@@ -52,7 +53,7 @@ export default function WineSettings({
             className="settingSelect"
             onChange={(event) => setWinePrefix(event.target.value)}
           />
-          <span
+          <CreateNewFolder
             className="material-icons settings folder"
             onClick={() =>
               dialog
@@ -66,8 +67,7 @@ export default function WineSettings({
                 )
             }
           >
-            create_new_folder
-          </span>
+          </CreateNewFolder>
         </span>
       </span>
       <span className="setting">

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {
   legendary,
   openAboutWindow,
@@ -24,7 +25,7 @@ export default function UserSelector() {
     <div className="UserSelector">
       <span className="userName">
         {user}
-        <span className="material-icons">arrow_drop_down</span>
+        <ArrowDropDown className="material-icons"></ArrowDropDown>
       </span>
       <div onClick={() => refreshLibrary()} className="userName hidden">
         {t('userselector.refresh')}
