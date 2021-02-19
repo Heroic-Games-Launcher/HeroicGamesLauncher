@@ -52,6 +52,8 @@
     }
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@fontsource/cabin": "^4.2.1",
     "@fontsource/rubik": "^4.2.1",
     "axios": "^0.21.1",

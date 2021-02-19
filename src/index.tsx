@@ -9,7 +9,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import './index.css'
 import App from './App'
 import GlobalState from './state/GlobalState'
-import Update from './components/UI/Update'
+import UpdateComponent from './components/UI/UpdateComponent'
 
 const Backend = new HttpApi(null, {
   allowMultiLoading: false,
@@ -39,7 +39,7 @@ i18next
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<Update />}>
+      <Suspense fallback={<UpdateComponent />}>
         <GlobalState>
           <App />
         </GlobalState>

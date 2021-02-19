@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import Search from '@material-ui/icons/Search';
+import Close from '@material-ui/icons/Close';
 import ContextProvider from '../../state/ContextProvider'
 
 export default function SearchBar() {
@@ -9,9 +11,8 @@ export default function SearchBar() {
 
   return (
     <div className="SearchBar">
-      <label htmlFor="search"><span onClick={() => handleSearch(textValue)} className="material-icons">
-          search
-      </span>
+      <label htmlFor="search">
+        <Search onClick={() => handleSearch(textValue)} className="material-icons" />
       </label>
       <input
         className="searchInput"
@@ -25,15 +26,13 @@ export default function SearchBar() {
         />
        
       {textValue.length > 0 && (
-        <span
+        <Close
           onClick={() => {
             setTextValue('')
             handleSearch('')
           }}
           className="material-icons close"
-        >
-          close
-        </span>
+        />
       )}
     </div>
   )

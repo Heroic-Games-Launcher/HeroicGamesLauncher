@@ -1,5 +1,6 @@
 import React, { lazy, useContext } from 'react'
 import cx from 'classnames'
+import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
 import ContextProvider from '../state/ContextProvider'
 
 import { Game } from '../types'
@@ -67,7 +68,7 @@ export const Library = ({ library }: Props) => {
           )}
       </div>
       <button id="backToTopBtn" onClick={backToTop}>
-        <span className="material-icons">arrow_drop_up</span>
+        <ArrowDropUp className="material-icons" />
       </button>
     </>
   )

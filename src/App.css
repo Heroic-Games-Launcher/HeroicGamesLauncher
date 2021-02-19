@@ -386,6 +386,7 @@
 }
 
 .settingsWrapper {
+  width: 569px;
   display: grid;
   place-self: center;
   place-items: flex-start;
@@ -1280,10 +1281,10 @@ input:checked + .slider:before {
   color: var(--secondary);
 }
 
-.layoutSelection > span:hover {
+.layoutSelection > svg:hover {
   cursor: pointer;
 }
-.layoutSelection > span {
+.layoutSelection > svg {
   margin: 0 0.2em;
 }
 
