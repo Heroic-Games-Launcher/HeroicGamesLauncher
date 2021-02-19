@@ -155,7 +155,7 @@ const GameCard = ({
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
-                      state: { fromGameCard: true, title },
+                      state: { fromGameCard: true },
                     }}
                   >
                     <SettingsIcon fill={'var(--secondary)'} />
@@ -175,7 +175,7 @@ const GameCard = ({
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
-                      state: { fromGameCard: true, title },
+                      state: { fromGameCard: true },
                     }}
                   >
                     <SettingsIcon fill={'var(--secondary)'} />
@@ -210,7 +210,11 @@ const GameCard = ({
       if (!err) {
         return
       }
-      if (err.includes('ERROR: Game is out of date')) {
+
+      if (
+        typeof err === 'string' &&
+        err.includes('ERROR: Game is out of date')
+      ) {
         const { response } = await showMessageBox({
           title: t('box.update.title'),
           message: t('box.update.message'),

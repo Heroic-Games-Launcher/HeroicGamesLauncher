@@ -362,7 +362,10 @@ export default function GamePage() {
         if (!err) {
           return
         }
-        if (err.includes('ERROR: Game is out of date')) {
+        if (
+          typeof err === 'string' &&
+          err.includes('ERROR: Game is out of date')
+        ) {
           const { response } = await showMessageBox({
             title: t('box.update.title'),
             message: t('box.update.message'),

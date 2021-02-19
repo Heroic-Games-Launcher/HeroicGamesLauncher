@@ -21,6 +21,7 @@ import {
   iconDark,
   getSettings,
   iconLight,
+  getLatestDxvk,
 } from './utils'
 
 import { spawn, exec } from 'child_process'
@@ -68,6 +69,10 @@ function createWindow(): BrowserWindow {
       enableRemoteModule: true,
     },
   })
+
+  setTimeout(() => {
+    getLatestDxvk()
+  }, 2500)
 
   //load the index.html from a url
   if (isDev) {
@@ -157,13 +162,6 @@ if (!gotTheLock) {
         },
       },
       {
-        label: i18next.t('tray.reload', 'Reload'),
-        click: function () {
-          mainWindow.reload()
-        },
-        accelerator: 'ctrl + R',
-      },
-      {
         label: i18next.t('tray.about', 'About'),
         click: function () {
           showAboutWindow()
@@ -182,6 +180,13 @@ if (!gotTheLock) {
         },
       },
       {
+        label: i18next.t('tray.reload', 'Reload'),
+        click: function () {
+          mainWindow.reload()
+        },
+        accelerator: 'ctrl + R',
+      },
+      {
         label: i18next.t('tray.quit', 'Quit'),
         click: function () {
           handleExit()
@@ -193,8 +198,8 @@ if (!gotTheLock) {
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
       await i18next.changeLanguage(language)
-      appIcon.setContextMenu(contextMenu)
     })
+
     return
   })
 }
@@ -387,7 +392,7 @@ interface Tools {
 
 ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
   const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
-  let winePrefix: string = prefix
+  let winePrefix: string = prefix.replace('~', home)
 
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')

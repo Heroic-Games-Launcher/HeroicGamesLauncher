@@ -1,5 +1,5 @@
-@import "~@fontsource/rubik/index.css";
-@import "~@fontsource/cabin/index.css";
+@import '~@fontsource/rubik/index.css';
+@import '~@fontsource/cabin/index.css';
 
 * {
   box-sizing: border-box;
@@ -390,6 +390,7 @@
   display: grid;
   place-self: center;
   place-items: flex-start;
+  width: 569px;
 }
 
 .settingsTools {
@@ -988,7 +989,7 @@
   color: var(--primary);
 }
 .more .hidden {
-  opacity: 0;
+  display: none;
   cursor: default;
 }
 
@@ -999,6 +1000,8 @@
 
 .more.clicked > .hidden {
   opacity: 1;
+  display: block;
+
   cursor: pointer;
 }
 

@@ -156,8 +156,7 @@ const updateGame = (game: string) => {
 
 const launchGame = async (appName: string) => {
   let envVars = ''
-  let dxvkPrefix = ''
-  let gameMode
+  let gameMode: string
 
   const {
     winePrefix,
@@ -171,13 +170,12 @@ const launchGame = async (appName: string) => {
     autoInstallDxvk,
   } = await getSettings(appName)
 
-  const wineTricksCommand = `WINE=${wineVersion.bin} WINEPREFIX=${dxvkPrefix} winetricks`
-  let wine = `--wine ${wineVersion.bin}`
+  const fixedWinePrefix = winePrefix.replace('~', home)
+  const wineTricksCommand = `WINE=${wineVersion.bin} WINEPREFIX=${fixedWinePrefix} winetricks`
+  let wineCommand = `--wine ${wineVersion.bin}`
 
   // We need to keep replacing the ' to keep compatibility with old configs
-  let prefix = `--wine-prefix '${winePrefix
-    .replaceAll("'", '')
-    .replace('~', home)}'`
+  let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
 
   const isProton =
     wineVersion.name.startsWith('Proton') ||
@@ -206,26 +204,35 @@ const launchGame = async (appName: string) => {
   }
 
   // start the new prefix if it doesn't exists
-  if (!existsSync(`'${winePrefix}'`)) {
+  if (!existsSync(fixedWinePrefix)) {
+    // Create a sandbox wine prefix by default
+    // TODO: Add an option to disable that
     let command = `${wineTricksCommand} sandbox`
 
     if (isProton) {
-      command = `mkdir '${winePrefix}' -p`
+      command = `mkdir '${fixedWinePrefix}' -p`
+      await execAsync(command)
+    } else {
+      // Start a new prefix with wine to avoid breaking the dxvk installation
+      const wineBoot = wineVersion.bin
+        .replace('wine', 'wineboot')
+        .replace('wine64', 'wineboot')
+
+      await execAsync(`WINEPREFIX=${fixedWinePrefix}  ${wineBoot}`)
       await execAsync(command)
     }
-
-    await execAsync(command)
   }
 
   // Install DXVK for non Proton Prefixes
   if (!isProton && autoInstallDxvk) {
-    dxvkPrefix = winePrefix
-    await execAsync(`${wineTricksCommand} dxvk`)
+    await installDxvk(winePrefix)
   }
 
   if (wineVersion.name !== 'Wine Default') {
     const { bin } = wineVersion
-    wine = isProton ? `--no-wine --wrapper "${bin} run"` : `--wine ${bin}`
+    wineCommand = isProton
+      ? `--no-wine --wrapper "${bin} run"`
+      : `--wine ${bin}`
   }
 
   // check if Gamemode is installed
@@ -235,7 +242,7 @@ const launchGame = async (appName: string) => {
 
   const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${appName}  ${wine} ${prefix} ${launcherArgs}`
+  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${appName}  ${wineCommand} ${prefix} ${launcherArgs}`
   console.log('\n Launch Command:', command)
 
   return execAsync(command)
@@ -265,6 +272,87 @@ const launchGame = async (appName: string) => {
     })
 }
 
+async function getLatestDxvk() {
+  const {
+    data: { assets },
+  } = await axios.default.get(
+    'https://api.github.com/repos/lutris/dxvk/releases/latest'
+  )
+  const current = assets[0]
+  const pkg = current.name
+  const name = pkg.replace('.tar.gz', '')
+  const downloadUrl = current.browser_download_url
+
+  const dxvkLatest = `${heroicToolsPath}/DXVK/${pkg}`
+  const pastVersionCheck = `${heroicToolsPath}/DXVK/latest_dxvk`
+  let pastVersion = ''
+
+  if (existsSync(pastVersionCheck)) {
+    pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
+  }
+
+  if (pastVersion === name) {
+    return
+  }
+
+  const downloadCommand = `curl -L ${downloadUrl} -o ${dxvkLatest} --create-dirs`
+  const extractCommand = `tar -zxf ${dxvkLatest} -C ${heroicToolsPath}/DXVK/`
+  const echoCommand = `echo ${name} > ${heroicToolsPath}/DXVK/latest_dxvk`
+  const cleanCommand = `rm ${dxvkLatest}`
+
+  console.log('Updating DXVK to:', name)
+
+  return execAsync(downloadCommand)
+    .then(async () => {
+      console.log('downloaded DXVK')
+      console.log('extracting DXVK')
+      exec(echoCommand)
+      await execAsync(extractCommand)
+      console.log('DXVK updated!')
+      exec(cleanCommand)
+    })
+    .catch(() => console.log('Error when downloading DXVK'))
+}
+
+async function installDxvk(prefix: string) {
+  if (!prefix) {
+    return
+  }
+  const winePrefix = prefix.replace('~', home)
+
+  if (!existsSync(`${heroicToolsPath}/DXVK/latest_dxvk`)) {
+    console.log('dxvk not found!')
+    await getLatestDxvk()
+  }
+
+  const globalVersion = readFileSync(`${heroicToolsPath}/DXVK/latest_dxvk`)
+    .toString()
+    .split('\n')[0]
+  const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
+  const currentVersionCheck = `${winePrefix}/current_dxvk`
+  let currentVersion = ''
+
+  if (existsSync(currentVersionCheck)) {
+    currentVersion = readFileSync(currentVersionCheck).toString().split('\n')[0]
+  }
+
+  if (currentVersion === globalVersion) {
+    return
+  }
+
+  const installCommand = `WINEPREFIX=${winePrefix} bash ${dxvkPath}setup_dxvk.sh install`
+  const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
+  console.log(`installing DXVK on ${winePrefix}`, installCommand)
+  await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
+  await execAsync(installCommand, { shell: '/bin/bash' })
+    .then(() => exec(echoCommand))
+    .catch(() =>
+      console.log(
+        'error when installing DXVK, please try launching the game again'
+      )
+    )
+}
+
 const writeDefaultconfig = async () => {
   const { account_id } = getUserInfo()
   const userName = user().username
@@ -285,6 +373,7 @@ const writeDefaultconfig = async () => {
       },
     },
   }
+
   if (!existsSync(heroicConfigPath)) {
     writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
   }
@@ -376,6 +465,7 @@ export {
   getSettings,
   isLoggedIn,
   launchGame,
+  getLatestDxvk,
   writeDefaultconfig,
   writeGameconfig,
   checkForUpdates,
