@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from '../../state/ContextProvider'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+import Backspace from '@material-ui/icons/Backspace';
 import { Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
@@ -131,7 +133,7 @@ export default function GeneralSettings({
             placeholder={defaultInstallPath}
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
-          <span
+          <CreateNewFolder
             className="material-icons settings folder"
             onClick={() =>
               showOpenDialog({
@@ -142,9 +144,7 @@ export default function GeneralSettings({
                 setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
               )
             }
-          >
-            create_new_folder
-          </span>
+          />
         </span>
       </span>
       <span className="setting">
@@ -159,7 +159,7 @@ export default function GeneralSettings({
             onChange={(event) => setEgsPath(event.target.value)}
           />
           {!egsPath.length ? (
-            <span
+            <CreateNewFolder
               className="material-icons settings folder"
               style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
               onClick={() =>
@@ -175,11 +175,9 @@ export default function GeneralSettings({
                         setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
                       )
               }
-            >
-              create_new_folder
-            </span>
+            />
           ) : (
-            <span
+            <Backspace
               className="material-icons settings folder"
               onClick={() => (isLinked ? '' : setEgsPath(''))}
               style={
@@ -187,9 +185,7 @@ export default function GeneralSettings({
                   ? { pointerEvents: 'none', color: 'transparent' }
                   : { color: '#B0ABB6' }
               }
-            >
-              backspace
-            </span>
+            />
           )}
           <button
             onClick={() => handleSync()}
