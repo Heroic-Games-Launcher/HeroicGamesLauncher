@@ -1,3 +1,6 @@
+@import "~@fontsource/rubik/index.css";
+@import "~@fontsource/cabin/index.css";
+
 * {
   box-sizing: border-box;
 }
@@ -222,13 +225,6 @@
   max-width: 3382px;
   place-self: center;
   width: inherit;
-}
-
-.noGames {
-  position: absolute;
-  top: 15%;
-  left: 31vw;
-  right: 31vw;
 }
 
 .gameCard {

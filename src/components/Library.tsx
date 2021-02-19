@@ -37,7 +37,7 @@ export const Library = ({ library }: Props) => {
           gameList: layout === 'grid',
         })}
       >
-        {library.length ? (
+        {!!library.length && (
           library.map(
             ({
               title,
@@ -68,8 +68,6 @@ export const Library = ({ library }: Props) => {
               )
             }
           )
-        ) : (
-          <div className="noGames">{t('nogames')}</div>
         )}
       </div>
       <button id="backToTopBtn" onClick={backToTop}>

@@ -73,11 +73,13 @@ export default function Header({
             </span>
           </span>
         )}
-        {Boolean(numberOfGames) && (
+        {numberOfGames ? (
           <span className="totalGamesText">
             {t('Total Games')}: {numberOfGames}
           </span>
-        )}
+        ) :
+          <div className="totalGamesText">{t('nogames')}</div>
+        }
         {title && <div className="headerTitle">{title}</div>}
         {handleLayout && (
           <div className="layoutSelection">
