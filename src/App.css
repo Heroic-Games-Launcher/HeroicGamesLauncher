@@ -1,5 +1,645 @@
+<<<<<<< HEAD
 @import '~@fontsource/rubik/index.css';
 @import '~@fontsource/cabin/index.css';
+=======
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Cabin', sans-serif;
+}
+
+.App .header {
+  display: grid;
+  place-self: center;
+  place-content: center;
+  height: 84px;
+  width: calc(100% - 1vw);
+  padding: 0 4rem 1rem 4rem;
+  grid-template-columns: 5fr 5fr 1fr;
+  justify-items: baseline;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: clamp(1em, 0.5vw, 2rem);
+  line-height: 17px;
+  color: var(--text-secondary);
+  grid-template-areas: 'filter total layout';
+}
+
+.headerSettings {
+  grid-template-columns: 1fr 6fr;
+  display: grid;
+  grid-template-areas: 'return title';
+  width: 906px;
+  place-self: center;
+  align-items: center;
+}
+
+.headerSettings > .leftCluster {
+  grid-area: return;
+  place-self: center;
+  width: auto;
+}
+
+.headerSettings > .headerTitle {
+  font-size: 1.5rem;
+  grid-area: title;
+}
+
+.App .header .leftCluster {
+  display: flex;
+  cursor: pointer;
+}
+
+.App .content {
+  display: grid;
+  place-content: center;
+  width: 100vw;
+}
+
+.selectFilter {
+  display: flex;
+  width: fit-content;
+  justify-self: auto;
+  justify-content: space-evenly;
+  grid-area: filter;
+}
+
+.selectFilter > .selected {
+  font-size: clamp(1.1em, 0.6vw, 2.1rem);
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.selectFilter > :not(:first-child) {
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.layoutSelection {
+  place-self: end;
+  grid-area: layout;
+}
+
+.App .pageTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 100%;
+  z-index: -1;
+  margin-top: 2rem;
+}
+
+.NavBar {
+  height: 77px;
+  position: sticky;
+  top: 0;
+  background: var(--background);
+  box-shadow: 0px 4.00313px 10.0078px #161616;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 5fr 1fr;
+  grid-template-areas: 'links search user';
+  z-index: 99;
+}
+
+.NavBar .Links {
+  grid-area: links;
+  position: absolute;
+  font-size: 20px;
+  line-height: 23.7px;
+  font-weight: 400;
+  height: 25px;
+  left: 43px;
+  top: 26px;
+  display: flex;
+  font-family: 'Rubik', sans-serif;
+  justify-content: space-between;
+}
+
+.Links > a:not(:first-child) {
+  margin-left: 24px;
+}
+
+.NavBar .SearchBar {
+  grid-area: search;
+  margin: auto;
+  position: absolute;
+  top: 16px;
+}
+
+.NavBar .UserSelector {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  grid-area: user;
+  position: absolute;
+  right: 16px;
+  top: 17px;
+  width: max-content;
+  height: 39px;
+  border-radius: 10px;
+  margin: auto 10px;
+  transition: 250ms;
+  text-align: center;
+}
+
+.UserSelector .userName {
+  position: relative;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--primary);
+  margin-bottom: 8px;
+  margin-left: 10%;
+  padding-right: 30px;
+  white-space: nowrap;
+}
+
+.UserSelector .hidden {
+  display: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: 150ms;
+  opacity: 0;
+}
+
+.UserSelector:hover {
+  height: fit-content;
+  background: #1a1b1c;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
+}
+
+.UserSelector:hover > .hidden {
+  display: block;
+  opacity: 1;
+}
+
+.userName > .material-icons {
+  position: relative;
+  top: 8px;
+}
+
+.searchInput {
+  width: 388px;
+  height: 39px;
+  background: #1a1b1c;
+  border-radius: 10px;
+  border: none;
+  color: var(--secondary);
+  text-indent: 38px;
+  font-size: 14px;
+  outline: none;
+}
+
+.SearchBar > label {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  color: var(--secondary);
+}
+
+.SearchBar > .close {
+  position: relative;
+  left: -30px;
+  top: 7px;
+}
+
+.SearchBar > .close:hover {
+  cursor: pointer;
+}
+
+.gameList {
+  color: #e4deea;
+  display: grid;
+  grid-template-columns: min(9vw, 200px) repeat(auto-fill, min(9vw, 200px)) 6%;
+  grid-gap: 24px min(3vw, 32px);
+  padding: 0 4rem 1rem 4rem;
+  max-width: 3382px;
+  place-self: center;
+  width: inherit;
+}
+
+.gameCard {
+  background-color: var(--background-secondary);
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8vw;
+  height: 10vw;
+  max-width: 200px;
+  max-height: 266px;
+  min-width: 130px;
+  min-height: 173px;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.gameCard > .progress {
+  position: absolute;
+  z-index: 5;
+  top: 15px;
+  left: 13px;
+  font-weight: 600;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    rgba(20, 21, 21, 0.863) 30%
+  );
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: var(--success);
+}
+
+.gameCard > a > .gameImg {
+  width: 8vw;
+  height: 10vw;
+  max-width: 200px;
+  max-height: 266px;
+  min-width: 130px;
+  min-height: 173px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.gameImgList > .gameLogo {
+  width: 45%;
+  min-width: 60px;
+  position: relative;
+  top: 25px;
+  z-index: 2;
+}
+
+.gameImg > .gameLogo {
+  width: min(7vw, 70%);
+  position: relative;
+  top: 50%;
+  z-index: 2;
+  left: 16%;
+}
+
+.gameTitle {
+  position: absolute;
+  bottom: -92px;
+  height: 92px;
+  width: 100%;
+  padding: 0.3vw;
+  color: #e4deea;
+  display: flex;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    rgba(20, 21, 21, 0.863) 30%
+  );
+  border-radius: 0px 0px 10px 10px;
+  transition: 200ms;
+  font-family: Rubik;
+  font-size: min(1vw, 1em);
+  line-height: 17px;
+  color: var(--text-primary);
+}
+
+.gameTitle > .icons {
+  align-self: flex-end;
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 44%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.icons > a > svg,
+.icons > svg {
+  width: min(calc(1vw + 9px), 36px);
+  height: min(calc(1vw + 9px), 36px);
+}
+
+.gameCard:hover > .gameTitle {
+  bottom: 0;
+  z-index: 3;
+}
+
+.gameCard .gameTitle span {
+  flex-grow: 1;
+}
+
+.gameImg {
+  width: 210px;
+  height: 280px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.installProgress[value] {
+  appearance: none;
+  width: 169px;
+  height: 5px;
+}
+
+.installProgress[value]::-webkit-progress-value {
+  color: var(--success);
+  animation: animate-stripes 5s linear infinite;
+}
+
+.Settings {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 5fr;
+  place-self: center;
+  width: 906px;
+}
+
+.settingsNavbar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-primary);
+}
+
+.settingsNavbar > a {
+  padding-bottom: 18px;
+}
+
+.settingsNavbar > a.active {
+  transition: all 350ms ease-out 0s;
+  transform: scale(1.2);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.settingsWrapper {
+  display: grid;
+  place-self: center;
+  place-items: flex-start;
+}
+
+.settingsTools {
+  margin: 16px auto;
+}
+
+.toolsWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'winecfg winetricks'
+    'runexe runexe';
+  place-items: center;
+  cursor: pointer;
+  width: 430px;
+  height: 110px;
+}
+
+.tools {
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-decoration: underline;
+  color: var(--primary);
+  transition: 350ms;
+}
+
+.tools:hover {
+  color: var(--secondary);
+}
+
+.tools.drag {
+  display: grid;
+  border: var(--secondary) solid 1px;
+  border-radius: 7px;
+  padding: 12px 20px;
+  grid-area: runexe;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.drag > span {
+  font-size: 11px;
+  font-style: italic;
+  color: #5a5e5f;
+  text-decoration: none;
+}
+
+.setting {
+  display: grid;
+  place-items: baseline;
+  margin: 16px;
+}
+
+.setting.double {
+  margin: 0 16px;
+  align-content: space-between;
+  text-align: left;
+}
+
+.setting.double > span > button,
+.setting.double > span > .small,
+.setting.double > span > input {
+  margin: 16px 0;
+}
+
+.settingInputWithButton {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  width: 513px;
+}
+
+.settingInputWithButton > .button.is-small {
+  min-width: fit-content;
+}
+
+.setting > .toggleWrapper {
+  display: grid;
+  grid-template-columns: 93% 10%;
+  place-self: center;
+  width: 512px;
+  justify-items: baseline;
+  align-items: center;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-primary);
+}
+
+.toggleWrapper > .switch {
+  transform: scale(1.5);
+}
+
+.settingText {
+  margin-bottom: 14px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-primary);
+}
+
+.settingSelect {
+  width: 513px;
+  height: 40px;
+  background: var(--background);
+  border-radius: 10px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-secondary);
+  text-indent: 22px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.settingSelect.small {
+  width: 372px;
+}
+
+.settingSelect.smaller {
+  width: 48px;
+  text-indent: 11px;
+}
+
+.settingSelect > option {
+  background: var(--background);
+  height: 40px;
+  color: var(--text-secondary);
+  text-indent: 22px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.save {
+  margin: 48px 0 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #5a5e5f;
+}
+
+.save > .material-icons {
+  font-size: 28px;
+  margin-left: 6px;
+}
+
+.Login {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.loginBackground {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  align-self: center;
+  background: url('./assets/login-background-1536x864.jpg');
+  background-size: cover;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+.language {
+  cursor: pointer;
+}
+
+.selectedLanguage {
+  color: #07c5ef;
+  font-weight: 600;
+}
+
+.heroicLogo {
+  width: 205px;
+  height: 48px;
+  place-self: baseline;
+  margin-bottom: 31px;
+}
+
+.heroicText {
+  width: 150px;
+  height: 47px;
+  margin-left: 57px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroicTitle {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--secondary);
+}
+
+.heroicSubTitle {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 24.3px;
+  color: var(--text-primary);
+}
+
+.logo {
+  background: url('./assets/heroic-icon.png');
+  background-size: contain;
+  position: absolute;
+  width: 46px;
+  height: 46px;
+}
+
+.loginFormWrapper {
+  display: grid;
+  place-items: center;
+  place-content: center;
+  width: 826px;
+  height: 475px;
+  background: rgba(29, 31, 31, 0.95);
+  border-radius: 10px;
+}
+
+.loginInstructions {
+  margin: 22px;
+  height: 219px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  color: var(--text-primary);
+}
+>>>>>>> f6dce88 (fix: use same position for no games text (fixes #175) (#179))
 
 * {
   box-sizing: border-box;
