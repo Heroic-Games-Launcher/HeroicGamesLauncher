@@ -224,13 +224,6 @@
   width: inherit;
 }
 
-.noGames {
-  position: absolute;
-  top: 15%;
-  left: 31vw;
-  right: 31vw;
-}
-
 .gameCard {
   background-color: var(--background-secondary);
   text-align: left;
