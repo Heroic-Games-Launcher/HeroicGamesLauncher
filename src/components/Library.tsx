@@ -1,5 +1,4 @@
 import React, { lazy, useContext } from 'react'
-import { useTranslation } from 'react-i18next'
 import cx from 'classnames'
 import ContextProvider from '../state/ContextProvider'
 
@@ -18,7 +17,6 @@ window.onscroll = () => {
 }
 
 export const Library = ({ library }: Props) => {
-  const { t } = useTranslation()
   const { layout } = useContext(ContextProvider)
   const backToTop = () => {
     const anchor = document.getElementById('top')
@@ -36,7 +34,7 @@ export const Library = ({ library }: Props) => {
           gameList: layout === 'grid',
         })}
       >
-        {!!library.length && (
+        {!!library.length &&
           library.map(
             ({
               title,
@@ -66,8 +64,7 @@ export const Library = ({ library }: Props) => {
                 />
               )
             }
-          )
-        )}
+          )}
       </div>
       <button id="backToTopBtn" onClick={backToTop}>
         <span className="material-icons">arrow_drop_up</span>
