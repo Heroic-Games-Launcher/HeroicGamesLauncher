@@ -38,22 +38,12 @@
   width: 906px;
   place-self: center;
   align-items: center;
-}
-
-.headerSettings > .leftCluster {
-  grid-area: return;
-  place-self: center;
-  width: auto;
+  margin: 22px 0;
 }
 
 .headerSettings > .headerTitle {
   font-size: 1.5rem;
   grid-area: title;
-}
-
-.App .header .leftCluster {
-  display: flex;
-  cursor: pointer;
 }
 
 .App .content {
@@ -933,7 +923,7 @@
   place-items: center;
   grid-template-columns: 1fr 1fr;
   width: 100px;
-  margin: 85px 0 65px -25px;
+  margin: 0 -25px;
   height: fit-content;
 }
 
@@ -1286,8 +1276,4 @@ input:checked + .slider:before {
 }
 .layoutSelection > svg {
   margin: 0 0.2em;
-}
-
-.leftCluster {
-  width: 390px;
 }

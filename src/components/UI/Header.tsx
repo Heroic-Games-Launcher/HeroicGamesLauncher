@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useHistory } from 'react-router-dom'
-import ArrowBack from '@material-ui/icons/ArrowBack';
-import Apps from '@material-ui/icons/Apps';
-import List from '@material-ui/icons/List';
+import ArrowBack from '@material-ui/icons/ArrowBack'
+import Apps from '@material-ui/icons/Apps'
+import List from '@material-ui/icons/List'
 import cx from 'classnames'
 import ContextProvider from '../../state/ContextProvider'
 
@@ -99,18 +99,15 @@ export default function Header({
                   : 'material-icons'
               }
               onClick={() => handleLayout('list')}
-            >
-            </List>
+            ></List>
           </div>
         )}
 
         {renderBackButton && (
-          <div className="leftCluster">
-            <Link className="returnLink" to={link} onClick={handleClick}>
-              <ArrowBack className="material-icons" />
-              {t('Return')}
-            </Link>
-          </div>
+          <Link className="returnLink" to={link} onClick={handleClick}>
+            <ArrowBack className="material-icons" />
+            {t('Return')}
+          </Link>
         )}
       </div>
     </>
