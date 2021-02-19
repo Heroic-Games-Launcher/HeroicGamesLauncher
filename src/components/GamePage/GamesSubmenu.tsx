@@ -81,7 +81,7 @@ export default function GamesSubmenu({
             className="hidden link"
             to={{
               pathname: `/settings/${appName}/wine`,
-              state: { fromGameCard: false, title },
+              state: { fromGameCard: false },
             }}
           >
             {t('submenu.settings')}
