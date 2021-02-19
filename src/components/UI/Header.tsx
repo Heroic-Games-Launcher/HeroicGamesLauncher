@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import cx from 'classnames'
 import ContextProvider from '../../state/ContextProvider'
 
@@ -26,6 +26,7 @@ export default function Header({
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
+  const { pathname } = useLocation()
   const history = useHistory()
 
   const link = goTo ? goTo : ''
@@ -74,9 +75,11 @@ export default function Header({
           <span className="totalGamesText">
             {t('Total Games')}: {numberOfGames}
           </span>
-        ) :
-          <div className="totalGamesText">{t('nogames')}</div>
-        }
+        ) : (
+          !pathname.startsWith('/settings') && (
+            <div className="totalGamesText">{t('nogames')}</div>
+          )
+        )}
         {title && <div className="headerTitle">{title}</div>}
         {handleLayout && (
           <div className="layoutSelection">

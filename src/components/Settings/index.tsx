@@ -12,6 +12,7 @@ import SyncSaves from './SyncSaves'
 import Tools from './Tools'
 import WineSettings from './WineSettings'
 import { IpcRenderer } from 'electron'
+import Update from '../UI/Update'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -27,7 +28,7 @@ interface RouteParams {
 // TODO: add feedback when launching winecfg and winetricks
 
 function Settings() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { state } = useLocation() as { state: any }
 
   const [wineVersion, setWineversion] = useState({
@@ -39,6 +40,7 @@ function Settings() {
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
+  const [title, setTitle] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(2)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [language, setLanguage] = useState(
@@ -116,16 +118,22 @@ function Settings() {
       setMaxWorkers(config.maxWorkers || 2)
 
       if (!isDefault) {
-        const { cloudSaveEnabled, saveFolder } = await getGameInfo(appName)
-        setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
+        const {
+          cloudSaveEnabled,
+          saveFolder,
+          title: gameTitle,
+        } = await getGameInfo(appName)
+        setTitle(gameTitle)
+        return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
+      return setTitle(t('globalSettings', 'Global Settings'))
     }
     getSettings()
 
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
-  }, [appName, type, isDefault])
+  }, [appName, type, isDefault, i18n.language])
 
   const GlobalSettings = {
     defaultSettings: {
@@ -169,17 +177,17 @@ function Settings() {
     returnPath = null
   }
 
-  const headerTitle = isDefault
-    ? t('globalSettings', 'Global Settings')
-    : `${state ? state.title : ''}`
-
   useEffect(() => {
     writeConfig([appName, settingsToSave])
   }, [GlobalSettings, GameSettings, appName])
 
+  if (!title) {
+    return <Update />
+  }
+
   return (
     <>
-      <Header goTo={returnPath} renderBackButton title={headerTitle} />
+      <Header goTo={returnPath} renderBackButton title={title} />
       <div className="Settings">
         <div className="settingsNavbar">
           {isDefault && (
