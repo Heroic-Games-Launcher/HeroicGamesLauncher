@@ -66,8 +66,7 @@ export default function WineSettings({
                   setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')
                 )
             }
-          >
-          </CreateNewFolder>
+          />
         </span>
       </span>
       <span className="setting">

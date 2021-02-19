@@ -104,15 +104,13 @@ export default function SyncSaves({
                         setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
                       )
               }
-            >
-            </CreateNewFolder>
+            />
           ) : (
             <Backspace
               className="material-icons settings folder"
               onClick={() => setSavesPath('')}
               style={{ color: '#B0ABB6' }}
-            >
-            </Backspace>
+            />
           )}
         </span>
       </span>

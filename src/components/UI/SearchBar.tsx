@@ -11,8 +11,8 @@ export default function SearchBar() {
 
   return (
     <div className="SearchBar">
-      <label htmlFor="search"><Search onClick={() => handleSearch(textValue)} className="material-icons">
-      </Search>
+      <label htmlFor="search">
+        <Search onClick={() => handleSearch(textValue)} className="material-icons" />
       </label>
       <input
         className="searchInput"
@@ -32,8 +32,7 @@ export default function SearchBar() {
             handleSearch('')
           }}
           className="material-icons close"
-        >
-        </Close>
+        />
       )}
     </div>
   )

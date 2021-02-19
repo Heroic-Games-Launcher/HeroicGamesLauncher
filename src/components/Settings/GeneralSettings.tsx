@@ -144,8 +144,7 @@ export default function GeneralSettings({
                 setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
               )
             }
-          >
-          </CreateNewFolder>
+          />
         </span>
       </span>
       <span className="setting">
@@ -176,8 +175,7 @@ export default function GeneralSettings({
                         setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
                       )
               }
-            >
-            </CreateNewFolder>
+            />
           ) : (
             <Backspace
               className="material-icons settings folder"
@@ -187,8 +185,7 @@ export default function GeneralSettings({
                   ? { pointerEvents: 'none', color: 'transparent' }
                   : { color: '#B0ABB6' }
               }
-            >
-            </Backspace>
+            />
           )}
           <button
             onClick={() => handleSync()}

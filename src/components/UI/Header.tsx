@@ -88,8 +88,7 @@ export default function Header({
                   : 'material-icons'
               }
               onClick={() => handleLayout('grid')}
-            >
-            </Apps>
+            />
             <List
               className={
                 layout === 'list'
@@ -105,7 +104,7 @@ export default function Header({
         {renderBackButton && (
           <div className="leftCluster">
             <Link className="returnLink" to={link} onClick={handleClick}>
-              <ArrowBack className="material-icons"></ArrowBack>
+              <ArrowBack className="material-icons" />
               {t('Return')}
             </Link>
           </div>

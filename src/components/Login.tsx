@@ -78,8 +78,7 @@ export default function Login({ refresh }: Props) {
                 {`${t('message.part4')} `}
                 <span onClick={() => sidInfoPage()} className="sid">
                   {`${t('message.part5')}`}
-                  <Info style={{ marginLeft: '4px' }} className="material-icons">
-                  </Info>
+                  <Info style={{ marginLeft: '4px' }} className="material-icons" />
                 </span>
                 .
               </li>
@@ -102,7 +101,7 @@ export default function Login({ refresh }: Props) {
             {loading && (
               <p className="message">
                 {message}
-                <Autorenew className="material-icons"></Autorenew>{' '}
+                <Autorenew className="material-icons" />{' '}
               </p>
             )}
             <button

@@ -73,7 +73,7 @@ export const Library = ({ library }: Props) => {
         )}
       </div>
       <button id="backToTopBtn" onClick={backToTop}>
-        <ArrowDropUp className="material-icons"></ArrowDropUp>
+        <ArrowDropUp className="material-icons" />
       </button>
     </>
   )

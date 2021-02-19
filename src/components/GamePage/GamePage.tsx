@@ -158,8 +158,7 @@ export default function GamePage() {
               <Settings
                 onClick={() => setClicked(!clicked)}
                 className="material-icons is-secondary dots"
-              >
-              </Settings>
+              />
               <GamesSubmenu
                 appName={appName}
                 clicked={clicked}

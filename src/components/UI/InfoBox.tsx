@@ -15,7 +15,7 @@ export default function InfoBox({ children }: Props) {
     <>
       <span className="helpLink" onClick={toggleIsHidden}>
         <p>{t('infobox.help')}</p>
-        <Info className="material-icons"></Info>
+        <Info className="material-icons" />
       </span>
       <div style={{ display: isHidden ? 'none' : 'block' }} className="infoBox">
         {children}

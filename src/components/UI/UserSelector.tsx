@@ -25,7 +25,7 @@ export default function UserSelector() {
     <div className="UserSelector">
       <span className="userName">
         {user}
-        <ArrowDropDown className="material-icons"></ArrowDropDown>
+        <ArrowDropDown className="material-icons" />
       </span>
       <div onClick={() => refreshLibrary()} className="userName hidden">
         {t('userselector.refresh')}
