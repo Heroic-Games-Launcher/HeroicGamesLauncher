@@ -52,6 +52,8 @@
     }
   },
   "dependencies": {
+    "@fontsource/cabin": "^4.2.1",
+    "@fontsource/rubik": "^4.2.1",
     "axios": "^0.21.1",
     "byte-size": "^7.0.0",
     "classnames": "^2.2.6",
