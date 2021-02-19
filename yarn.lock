@@ -1199,6 +1199,16 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/cabin@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/cabin/-/cabin-4.2.1.tgz#97bce7ded7ab2ab1cea1e3f3ffdae0b02a792286"
+  integrity sha512-Sx2/pCWESkWviJr+i48WVUtKstm6KsqMUkVTbod7Y6eZXEyQRiddLJtxGgFsesEMiR+/ta5iBMYyLZT00EVnxg==
+
+"@fontsource/rubik@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.2.1.tgz#3d102d4ee4d4849359c2c07c13224422ad559e67"
+  integrity sha512-KmXhvMDBaUnQl3L8Wd+UVovVPv8RzqQGbzYDZzC0pPV+p9PpNPPK+3zmjiYlCFffiKZzxEsQfutXGei6xcgK8A==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"

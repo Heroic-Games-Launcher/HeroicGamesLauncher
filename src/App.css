@@ -1,3 +1,6 @@
+@import "~@fontsource/rubik/index.css";
+@import "~@fontsource/cabin/index.css";
+
 * {
   box-sizing: border-box;
 }
