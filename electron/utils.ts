@@ -63,7 +63,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   const protonPaths: string[] = [`${heroicToolsPath}/proton`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
 
-  const defaultWine = { name: '', bin: '' }
+  const defaultWine = { name: '', bin: '', boot: '' }
   await execAsync(`which wine`)
     .then(async ({ stdout }) => {
       defaultWine.bin = stdout.split('\n')[0]
@@ -214,9 +214,11 @@ const launchGame = async (appName: string) => {
       await execAsync(command)
     } else {
       // Start a new prefix with wine to avoid breaking the dxvk installation
-      const wineBoot = wineVersion.bin
-        .replace('wine', 'wineboot')
-        .replace('wine64', 'wineboot')
+      const path = wineVersion.bin.replaceAll("'", '').split('/')
+      const wineBoot = path
+        .slice(0, path.length - 1)
+        .join('/')
+        .concat('/wineboot')
 
       await execAsync(`WINEPREFIX=${fixedWinePrefix}  ${wineBoot}`)
       await execAsync(command)
