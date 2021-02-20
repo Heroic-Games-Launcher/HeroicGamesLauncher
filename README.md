@@ -8,11 +8,12 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 
 ## Current Version Screenshots
 
-![login](https://user-images.githubusercontent.com/26871415/104823821-49dedb00-584d-11eb-9e89-0972f5515e96.png)
-![library](https://user-images.githubusercontent.com/26871415/106364733-8f150980-6331-11eb-8680-b8128ea0fb5a.png)
-![gamepage](https://user-images.githubusercontent.com/26871415/106364522-f7fb8200-632f-11eb-941d-32ff55d16782.png)
-![image](https://user-images.githubusercontent.com/26871415/106364750-b7046d00-6331-11eb-968a-5f63007cbb3d.png)
-![settings-other](https://user-images.githubusercontent.com/26871415/106364722-760c5880-6331-11eb-8542-1423e6637b49.png)
+![image](https://user-images.githubusercontent.com/26871415/108600496-bcd0f980-7397-11eb-86d0-95e4f9aa6125.png)
+![image](https://user-images.githubusercontent.com/26871415/108600444-898e6a80-7397-11eb-961e-b8ee5ad5e3a3.png)
+![image](https://user-images.githubusercontent.com/26871415/108600533-f6096980-7397-11eb-8272-5105f75d92c8.png)
+![image](https://user-images.githubusercontent.com/26871415/108600451-8eebb500-7397-11eb-966a-70849a589902.png)
+![image](https://user-images.githubusercontent.com/26871415/108600462-a460df00-7397-11eb-8a42-cde5b9b2744c.png)
+![image](https://user-images.githubusercontent.com/26871415/108600516-e2f69980-7397-11eb-8b96-513729859b86.png)
 
 ## How to use it:
 
@@ -44,6 +45,14 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 - Get the Free game of the week
 - Add Games outside Epic Games
 - Integration with other stores (GOG, ITCH.IO, Humble Bundle)
+
+## Language Support
+- English
+- German
+- Portuguese
+- French
+- Russian
+- Polish
 
 ## Binaries supported right now
 
