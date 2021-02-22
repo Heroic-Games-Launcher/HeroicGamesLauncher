@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { writeFileSync } from 'graceful-fs'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { readFileSync, existsSync, stat, readdirSync } from 'graceful-fs'
+import { readFileSync, existsSync, stat, readdirSync, writeFileSync, unlinkSync } from 'graceful-fs'
 // @ts-ignore
 import byteSize from 'byte-size'
 
@@ -20,10 +19,11 @@ import { Game, InstalledInfo, KeyImage } from '../types'
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
-export async function getLegendaryGames() {
-  const {stdout, stderr} = await execAsync(`${legendaryBin} list-games --json`)
-  
-  const stdoutjson = JSON.parse(stdout)
+export async function getLegendaryGames(): Promise<void> {
+  await execAsync(`${legendaryBin} list-games --json >> ${heroicFolder}tmplibrary.json`, {maxBuffer: Infinity})
+  const out = readFileSync(`${heroicFolder}tmplibrary.json`)
+  unlinkSync(`${heroicFolder}tmplibrary.json`)
+  const stdoutjson = JSON.parse(out.toString())
   const result = []
   for (let index = 0; index < stdoutjson.length; index++) {
     const game = {
@@ -46,7 +46,6 @@ export async function getLegendaryGames() {
     return writeFileSync(`${heroicFolder}library.json`, JSON.stringify(result))
   }
   else {
-    console.log(stderr)
     return writeFileSync(`${heroicFolder}library.json`, '{"result":"noGamesFound"}')
   }
 }
