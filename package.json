@@ -70,7 +70,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "nf start -p 3000 && electron-start",
+    "start-both": "nf start -p 3000 && electron-start",
     "electron-start": "yarn build-electron && electron .",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
