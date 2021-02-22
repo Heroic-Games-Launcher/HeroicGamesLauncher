@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { WineProps, Path } from '../../types'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 const {
@@ -98,12 +98,12 @@ export default function WineSettings({
         <span>{t('help.wine.part1')}</span>
         <ul>
           <i>
-            <li>.config/heroic/Tools/wine</li>
-            <li>.config/heroic/Tools/proton</li>
-            <li>.local/share/Steam/compatibilitytools.d</li>
-            <li>.local/share/Steam/steamapps/common</li>
-            <li>.local/share/lutris/runners/wine</li>
-            <li>.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+            <li>~/.config/heroic/tools/wine</li>
+            <li>~/.config/heroic/tools/proton</li>
+            <li>~/.local/share/Steam/compatibilitytools.d</li>
+            <li>~/.local/share/Steam/steamapps/common</li>
+            <li>~/.local/share/lutris/runners/wine</li>
+            <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
             <li>/usr/share/steam</li>
           </i>
         </ul>

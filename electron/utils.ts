@@ -60,10 +60,10 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     })
   }
 
-  const protonPaths: string[] = [`${heroicToolsPath}/proton`]
+  const protonPaths: string[] = [`${heroicToolsPath}/proton/`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
 
-  const defaultWine = { name: '', bin: '', boot: '' }
+  const defaultWine = { name: '', bin: '' }
   await execAsync(`which wine`)
     .then(async ({ stdout }) => {
       defaultWine.bin = stdout.split('\n')[0]
@@ -80,14 +80,14 @@ async function getAlternativeWine(): Promise<WineProps[]> {
 
   const lutrisPath = `${home}/.local/share/lutris`
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-  const proton: { name: string; bin: string }[] = []
-  const altWine: { name: string; bin: string }[] = []
+  const proton: Set<{ name: string; bin: string }> = new Set()
+  const altWine: Set<{ name: string; bin: string }> = new Set()
 
   protonPaths.forEach((path) => {
     if (existsSync(path)) {
       readdirSync(path).forEach((version) => {
         if (version.toLowerCase().startsWith('proton')) {
-          proton.push({
+          proton.add({
             name: `Proton - ${version}`,
             bin: `'${path}${version}/proton'`,
           })
@@ -98,15 +98,15 @@ async function getAlternativeWine(): Promise<WineProps[]> {
 
   if (existsSync(lutrisCompatPath)) {
     readdirSync(lutrisCompatPath).forEach((version) => {
-      altWine.push({
+      altWine.add({
         name: `Wine - ${version}`,
         bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
       })
     })
   }
 
-  readdirSync(`${heroicToolsPath}/wine`).forEach((version) => {
-    altWine.push({
+  readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
+    altWine.add({
       name: `Wine - ${version}`,
       bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
     })
@@ -171,7 +171,6 @@ const launchGame = async (appName: string) => {
   } = await getSettings(appName)
 
   const fixedWinePrefix = winePrefix.replace('~', home)
-  const wineTricksCommand = `WINE=${wineVersion.bin} WINEPREFIX=${fixedWinePrefix} winetricks`
   let wineCommand = `--wine ${wineVersion.bin}`
 
   // We need to keep replacing the ' to keep compatibility with old configs
@@ -203,26 +202,10 @@ const launchGame = async (appName: string) => {
     )
   }
 
-  // start the new prefix if it doesn't exists
-  if (!existsSync(fixedWinePrefix)) {
-    // Create a sandbox wine prefix by default
-    // TODO: Add an option to disable that
-    let command = `${wineTricksCommand} sandbox`
-
-    if (isProton) {
-      command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command)
-    } else {
-      // Start a new prefix with wine to avoid breaking the dxvk installation
-      const path = wineVersion.bin.replaceAll("'", '').split('/')
-      const wineBoot = path
-        .slice(0, path.length - 1)
-        .join('/')
-        .concat('/wineboot')
-
-      await execAsync(`WINEPREFIX=${fixedWinePrefix}  ${wineBoot}`)
-      await execAsync(command)
-    }
+  // Proton doesn't create a prefix folder so this is a workaround
+  if (isProton && !existsSync(fixedWinePrefix)) {
+    const command = `mkdir '${fixedWinePrefix}' -p`
+    await execAsync(command)
   }
 
   // Install DXVK for non Proton Prefixes
@@ -356,27 +339,27 @@ async function installDxvk(prefix: string) {
 }
 
 const writeDefaultconfig = async () => {
-  const { account_id } = getUserInfo()
-  const userName = user().username
-  const [defaultWine] = await getAlternativeWine()
-
-  const config = {
-    defaultSettings: {
-      defaultInstallPath: heroicInstallPath,
-      wineVersion: defaultWine,
-      winePrefix: `${home}/.wine`,
-      otherOptions: '',
-      useGameMode: false,
-      showFps: false,
-      language: 'en',
-      userInfo: {
-        name: userName,
-        epicId: account_id,
-      },
-    },
-  }
-
   if (!existsSync(heroicConfigPath)) {
+    const { account_id } = getUserInfo()
+    const userName = user().username
+    const [defaultWine] = await getAlternativeWine()
+
+    const config = {
+      defaultSettings: {
+        defaultInstallPath: heroicInstallPath,
+        wineVersion: defaultWine,
+        winePrefix: `${home}/.wine`,
+        otherOptions: '',
+        useGameMode: false,
+        showFps: false,
+        language: 'en',
+        userInfo: {
+          name: userName,
+          epicId: account_id,
+        },
+      },
+    }
+
     writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
   }
 
@@ -388,27 +371,27 @@ const writeDefaultconfig = async () => {
 }
 
 const writeGameconfig = async (game: string) => {
-  const {
-    wineVersion,
-    winePrefix,
-    otherOptions,
-    useGameMode,
-    showFps,
-    userInfo,
-  } = await getSettings('default')
-
-  const config = {
-    [game]: {
+  if (!existsSync(`${heroicGamesConfigPath}${game}.json`)) {
+    const {
       wineVersion,
       winePrefix,
       otherOptions,
       useGameMode,
       showFps,
       userInfo,
-    },
-  }
+    } = await getSettings('default')
 
-  if (!existsSync(`${heroicGamesConfigPath}${game}.json`)) {
+    const config = {
+      [game]: {
+        wineVersion,
+        winePrefix,
+        otherOptions,
+        useGameMode,
+        showFps,
+        userInfo,
+      },
+    }
+
     writeFileSync(
       `${heroicGamesConfigPath}${game}.json`,
       JSON.stringify(config, null, 2),
