@@ -19,6 +19,7 @@ import { Game, InstalledInfo, KeyImage } from '../types'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
+const dlcs:string[] = [];
 
 export async function getLegendaryGames() {
   const { stdout, stderr } = await execAsync(
@@ -91,6 +92,7 @@ export async function getLegendaryConfig(file: string) {
     return null
   }
 
+
   if (file === 'library') {
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
@@ -105,8 +107,15 @@ export async function getLegendaryConfig(file: string) {
             keyImages,
             title,
             developer,
+            dlcItemList,
             customAttributes: { CloudSaveFolder, FolderName },
           } = metadata
+          dlcItemList ?
+            dlcItemList.map((v: { releaseInfo: any[] }) => {
+              v.releaseInfo ?
+              v.releaseInfo.map((a: { appId: string }) => dlcs.push(a.appId)) : null
+            }) : null
+       
           const cloudSaveEnabled = Boolean(CloudSaveFolder)
           const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
           const installFolder = FolderName ? FolderName.value : ''
@@ -131,14 +140,21 @@ export async function getLegendaryConfig(file: string) {
           )
           const info = isInstalled
             ? installedGames.filter((game) => game.app_name === app_name)[0]
-            : {}
-
+            : {} 
+          
+          const dlc = () => {
+            let bool = false
+            dlcs.map(v => {
+                if (v === app_name) return bool = true
+            })
+            return bool
+            } 
           const {
             executable = null,
             version = null,
             install_size = null,
             install_path = null,
-            is_dlc = null,
+            is_dlc = dlc(),
           } = info as InstalledInfo
 
           const convertedSize =
