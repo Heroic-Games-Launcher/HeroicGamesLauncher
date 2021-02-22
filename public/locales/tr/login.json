@@ -1,0 +1,24 @@
+{
+  "button": {
+    "login": "Giriş Yap"
+  },
+  "input": {
+    "placeholder": "SID numarasını buraya yapıştırın"
+  },
+  "message": {
+    "part1": "Giriş yapabilmeniz ve oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
+    "part2": "Epic Store'u",
+    "part3": "buradan",
+    "part4": " açın, hesabınıza giriş yapın ve",
+    "part5": "SID bilgi numarasını kopyalayın",
+    "part6": "Aşağıdaki kutucuğa",
+    "part7": "SID numarasını",
+    "part8": "yapıştırın, giriş yap butonuna tıklayın ve bekleyin."
+  },
+  "status": {
+    "error": "Hata",
+    "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
+    "logging": "Giriş yapılıyor..."
+  },
+  "welcome": "Hoş Geldiniz!"
+}
