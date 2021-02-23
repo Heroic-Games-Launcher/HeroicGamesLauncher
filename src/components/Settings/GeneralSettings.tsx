@@ -6,6 +6,7 @@ import Backspace from '@material-ui/icons/Backspace';
 import { Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
+import LanguageSelector from '../UI/LanguageSelector';
 const {
   ipcRenderer,
   remote: { dialog },
@@ -110,19 +111,7 @@ export default function GeneralSettings({
     <>
       <span className="setting">
         <span className="settingText">{t('setting.language')}</span>
-        <select
-          onChange={(event) => handleChangeLanguage(event.target.value)}
-          value={language}
-          className="settingSelect"
-        >
-          <option value="en">English</option>
-          <option value="pt">Português</option>
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="ru">Русский</option>
-          <option value="pl">Polski</option>
-          <option value="tr">Türkçe</option>
-        </select>
+        <LanguageSelector handleLanguageChange={handleChangeLanguage} currentLanguage={language} />
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>

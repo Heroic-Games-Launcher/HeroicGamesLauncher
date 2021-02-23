@@ -144,10 +144,11 @@
       "sync": "Save-Sync"
     }
   },
+  "Store": "Store",
   "Total Games": "Total Games",
   "tray": {
     "about": "About",
-    "quit": "Quit",
+    "quit": "Sluiten",
     "reload": "Reload",
     "show": "Show",
     "support": "Support Us"
