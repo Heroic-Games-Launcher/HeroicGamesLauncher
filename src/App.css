@@ -507,6 +507,12 @@
   width: 372px;
 }
 
+.settingSelect.language-login {
+  width: 140px;
+  height: 30px;
+  text-indent: 10px;
+}
+
 .settingSelect.smaller {
   width: 48px;
   text-indent: 11px;

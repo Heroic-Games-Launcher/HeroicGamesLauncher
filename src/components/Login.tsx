@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
 import Autorenew from '@material-ui/icons/Autorenew';
 import Info from '@material-ui/icons/Info';
-import LanguageSelector from './UI/LanguageSelector';
+import LanguageSelector, { FlagPosition } from './UI/LanguageSelector';
 const storage: Storage = window.localStorage
 interface Props {
   refresh: () => Promise<void>
@@ -113,11 +113,12 @@ export default function Login({ refresh }: Props) {
               {t('button.login', 'Login')}
             </button>
           </div>
-          <span style={{ color: 'white', marginTop: '4px' }}>
+          <span style={{ paddingRight: '22px', marginBottom: '22px', display: 'flex', justifyContent: 'flex-end', width: '100%'}}> 
             <LanguageSelector 
             handleLanguageChange={handleChangeLanguage}
             currentLanguage={currentLanguage}
-            className="settingSelect small" />
+            flagPossition={FlagPosition.PREPEND}
+            className="settingSelect language-login" />
           </span>
         </div>
       </div>
