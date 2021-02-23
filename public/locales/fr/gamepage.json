@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "",
+      "path": "",
+      "title": ""
+    },
     "choose": "Choisir",
     "importpath": "Choisir le jeu à importer",
     "installpath": "Choisir le chemin d'installation",
@@ -72,6 +77,7 @@
     "updating": "Mise à jour du jeu"
   },
   "submenu": {
+    "change": "",
     "log": "Dernier rapport",
     "move": "Déplacer le jeu",
     "protondb": "Vérifier la compatibilitée",
