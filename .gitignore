@@ -27,3 +27,7 @@ yarn-error.log*
 public/main.js
 public/types.js
 public/utils.js
+public/images
+.vscode/settings.json
+public/legendary_utils/library.js
+public/legendary_utils/utils.js

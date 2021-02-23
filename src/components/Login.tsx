@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
-
+import Autorenew from '@material-ui/icons/Autorenew';
+import Info from '@material-ui/icons/Info';
+const storage: Storage = window.localStorage
 interface Props {
-  refresh: () => void
+  refresh: () => Promise<void>
 }
 
 export default function Login({ refresh }: Props) {
+  const { t, i18n } = useTranslation('login')
+
   const [input, setInput] = useState('')
   const [status, setStatus] = useState({
     loading: false,
@@ -13,20 +19,31 @@ export default function Login({ refresh }: Props) {
   })
   const { loading, message } = status
 
+  const handleChangeLanguage = (language: string) => {
+    storage.setItem('language', language)
+    i18n.changeLanguage(language)
+  }
+
+  const currentLanguage = i18n.language
+
   const handleLogin = async (sid: string) => {
     setStatus({
       loading: true,
-      message: 'Logging In...',
+      message: t('status.logging', 'Logging In...'),
     })
 
     await legendary(`auth --sid ${sid}`).then(async (res) => {
       if (res !== 'error') {
-        setStatus({ loading: true, message: 'Loading Game list, please wait' })
+        setStatus({
+          loading: true,
+          message: t('status.loading', 'Loading Game list, please wait'),
+        })
+
         await legendary(`list-games`)
         refresh()
       }
 
-      setStatus({ loading: true, message: 'Error' })
+      setStatus({ loading: true, message: t('status.error', 'Error') })
       setTimeout(() => {
         setStatus({ ...status, loading: false })
       }, 2500)
@@ -45,32 +62,32 @@ export default function Login({ refresh }: Props) {
         </div>
         <div className="loginFormWrapper">
           <span className="loginInstructions">
-            <strong>Welcome!</strong>
+            <strong>{t('welcome', 'Welcome!')}</strong>
             <p>
-              In order for you to be able to log in and install your games, we
-              first need you to follow the steps below:
+              {t(
+                'message.part1',
+                'In order for you to be able to log in and install your games, we first need you to follow the steps below:'
+              )}
             </p>
             <ol>
               <li>
-                Open{' '}
+                {`${t('message.part2')} `}
                 <span onClick={() => loginPage()} className="epicLink">
-                  Epic Store here
+                  {t('message.part3')}
                 </span>
-                , log in your account and copy your{' '}
+                {`${t('message.part4')} `}
                 <span onClick={() => sidInfoPage()} className="sid">
-                  SID information number
-                  <i style={{ marginLeft: '4px' }} className="material-icons">
-                    info
-                  </i>
+                  {`${t('message.part5')}`}
+                  <Info style={{ marginLeft: '4px' }} className="material-icons" />
                 </span>
                 .
               </li>
               <li>
-                Paste the{' '}
+                {`${t('message.part6')} `}
                 <span onClick={() => sidInfoPage()} className="sid">
-                  SID number
-                </span>{' '}
-                in the input box below, click on the login button and wait.
+                  {`${t('message.part7')}`}
+                </span>
+                {` ${t('message.part8')}`}
               </li>
             </ol>
           </span>
@@ -79,12 +96,12 @@ export default function Login({ refresh }: Props) {
               className="loginInput"
               id="sidInput"
               onChange={(event) => setInput(event.target.value)}
-              placeholder={'Paste the SID number here'}
+              placeholder={t('input.placeholder', 'Paste the SID number here')}
             />
             {loading && (
               <p className="message">
                 {message}
-                <span className="material-icons">autorenew</span>{' '}
+                <Autorenew className="material-icons" />{' '}
               </p>
             )}
             <button
@@ -92,9 +109,74 @@ export default function Login({ refresh }: Props) {
               className="button login"
               disabled={loading || input.length < 30}
             >
-              Login
+              {t('button.login', 'Login')}
             </button>
           </div>
+          <span style={{ color: 'white', marginTop: '4px' }}>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'en',
+                ['language']: currentLanguage !== 'en',
+              })}
+              onClick={() => handleChangeLanguage('en')}
+            >
+              English 🇬🇧 -{' '}
+            </span>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'pt',
+                ['language']: currentLanguage !== 'pt',
+              })}
+              onClick={() => handleChangeLanguage('pt')}
+            >
+              Português 🇧🇷 -{' '}
+            </span>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'de',
+                ['language']: currentLanguage !== 'de',
+              })}
+              onClick={() => handleChangeLanguage('de')}
+            >
+              Deutsch 🇩🇪 -{' '}
+            </span>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'fr',
+                ['language']: currentLanguage !== 'fr',
+              })}
+              onClick={() => handleChangeLanguage('fr')}
+            >
+              Français 🇫🇷 -{' '}
+            </span>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'ru',
+                ['language']: currentLanguage !== 'ru',
+              })}
+              onClick={() => handleChangeLanguage('ru')}
+            >
+              Русский 🇷🇺 -{' '}
+            </span>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'pl',
+                ['language']: currentLanguage !== 'pl',
+              })}
+              onClick={() => handleChangeLanguage('pl')}
+            >
+              Polski 🇵🇱 -{' '}
+            </span>
+            <span
+              className={cx({
+                ['selectedLanguage']: currentLanguage === 'tr',
+                ['language']: currentLanguage !== 'tr',
+              })}
+              onClick={() => handleChangeLanguage('tr')}
+            >
+              Türkçe 🇹🇷
+            </span>
+          </span>
         </div>
       </div>
       <span className="loginBackground"></span>

@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "sourceMap": false,
     "outDir": "../public",
     "baseUrl": ".",
     "esModuleInterop": true,
-    "skipLibCheck":true
+    "skipLibCheck": true,
+    "target": "ES2015"
   },
-  "include": [
-    ".",
-  ]
+  "include": ["."]
 }

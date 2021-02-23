@@ -4,15 +4,18 @@ Heroic is an Open Source Game Launcher for Linux.
 Right now it supports launching game from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), a Linux CLI alternative to launch epic games.
 Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
 
+### [Discord Server](https://discord.gg/rHJ2uqdquK)
+
 ### [Design based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
 ## Current Version Screenshots
 
-![login](https://user-images.githubusercontent.com/26871415/104823821-49dedb00-584d-11eb-9e89-0972f5515e96.png)
-![library](https://user-images.githubusercontent.com/26871415/104823772-eb196180-584c-11eb-9302-667e3d3e934e.png)
-![gamepage](https://user-images.githubusercontent.com/26871415/104823773-ec4a8e80-584c-11eb-970b-32b83ab88365.png)
-![game-installed](https://user-images.githubusercontent.com/26871415/104823774-ec4a8e80-584c-11eb-9b11-6a418bf58329.png)
-![settings-other](https://user-images.githubusercontent.com/26871415/104823775-ec4a8e80-584c-11eb-8e9f-4690e8ec21a9.png)
+![image](https://user-images.githubusercontent.com/26871415/108600496-bcd0f980-7397-11eb-86d0-95e4f9aa6125.png)
+![image](https://user-images.githubusercontent.com/26871415/108600444-898e6a80-7397-11eb-961e-b8ee5ad5e3a3.png)
+![image](https://user-images.githubusercontent.com/26871415/108600533-f6096980-7397-11eb-8272-5105f75d92c8.png)
+![image](https://user-images.githubusercontent.com/26871415/108600451-8eebb500-7397-11eb-966a-70849a589902.png)
+![image](https://user-images.githubusercontent.com/26871415/108600462-a460df00-7397-11eb-8a42-cde5b9b2744c.png)
+![image](https://user-images.githubusercontent.com/26871415/108600516-e2f69980-7397-11eb-8b96-513729859b86.png)
 
 ## How to use it:
 
@@ -24,8 +27,10 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 - Login with an existing Epic Games account
 - Install/Uninstall Games
 - Import an already installed game
+- Play online (EAC not supported)
 - Update installed Games
 - Repair installed Games
+- Move installed games to different folders
 - Multiple downloads at the same time
 - Play games using the default wine and default prefix
 - Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
@@ -43,10 +48,20 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 - Add Games outside Epic Games
 - Integration with other stores (GOG, ITCH.IO, Humble Bundle)
 
+## Language Support
+- English
+- German
+- Portuguese
+- French
+- Russian
+- Polish
+- Turkish
+
 ## Binaries supported right now
 
-- DEB, RPM, Pacman, AppImage and TAR.XZ (with the heroic binary and all dependecies)
+- DEB, RPM and AppImage
 - Recommended AUR version: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
+- Fedora (COPR): https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/
 - Might think about Flatpak And/Or SNAP in the future as well
 
 ## How to build and run locally
@@ -56,8 +71,7 @@ To be able to run you will need to have NodeJs installed locally and follow the 
 ### Steps:
 
 - Clone the Repository.
-- Install foreman with `npm i -g foreman`.
-- On the project folder run `npm install`.
-- Run `npm run build` to build the React Assets.
-- Run `npm start`.
-- To build the binaries run `npm run dist`.
+- On the project folder run `yarn install`.
+- Run `yarn build` to build the React Assets.
+- Run `yarn start`.
+- To build the binaries run `yarn dist {package to create}`.

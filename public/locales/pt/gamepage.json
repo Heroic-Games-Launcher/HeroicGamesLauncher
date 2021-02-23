@@ -1,0 +1,82 @@
+{
+  "box": {
+    "choose": "Selecionar",
+    "importpath": "Escolha a pasta do jogo para importar",
+    "installpath": "Escolha a pasta de instalação",
+    "move": {
+      "message": "Isso pode levar bastante tempo, continuar?",
+      "path": "Escolha a pasta de destino",
+      "title": "Mover Games para outra pasta"
+    },
+    "no": "NÃO",
+    "repair": {
+      "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo.",
+      "title": "Verificar e Reparar"
+    },
+    "stopInstall": {
+      "keepInstalling": "Continuar Instalação",
+      "message": "Deseja manter os arquivos baixados?",
+      "title": "Cancelar Instalação"
+    },
+    "uninstall": {
+      "message": "Você deseja desinstalar esse jogo?",
+      "title": "Desinstalar"
+    },
+    "update": {
+      "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
+      "title": "Atualização!"
+    },
+    "yes": "SIM"
+  },
+  "button": {
+    "cancel": "Cancelar",
+    "import": "Importar",
+    "install": "Instalar",
+    "uninstall": "Desinstalar"
+  },
+  "disabled": "Desabilitado",
+  "enabled": "Habilitado",
+  "gamecard": {
+    "moving": "Movendo",
+    "repairing": "Reparando"
+  },
+  "info": {
+    "path": "Pasta de Instalação",
+    "size": "Tamanho",
+    "syncsaves": "Sincronização em Nuvem",
+    "version": "Versão"
+  },
+  "install": {
+    "another": "Instalar em outro local",
+    "default": "Instalar em",
+    "import": "Importar Jogo"
+  },
+  "label": {
+    "cancel": {
+      "update": "Cancelar"
+    },
+    "playing": {
+      "start": "Jogar",
+      "stop": "Jogando (Parar)"
+    },
+    "saves": {
+      "syncing": "Sincronizando"
+    }
+  },
+  "status": {
+    "installed": "Jogo Instalado",
+    "installing": "Instalando",
+    "moving": "Movendo Jogo, por favor espere.",
+    "notinstalled": "Jogo não instalado",
+    "reparing": "Reparando jogo, por favor espere.",
+    "updating": "Atualizando jogo"
+  },
+  "submenu": {
+    "log": "Último Log",
+    "move": "Mover Jogo",
+    "protondb": "Compatibilidade",
+    "settings": "Configurações",
+    "store": "Página da Loja",
+    "verify": "Verificar e Reparar"
+  }
+}

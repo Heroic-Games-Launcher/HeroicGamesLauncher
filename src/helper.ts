@@ -1,7 +1,17 @@
+import { IpcRenderer, Remote } from 'electron'
+import { TFunction } from 'react-i18next/*'
 import { Game, InstallProgress } from './types'
 
-const { ipcRenderer, remote } = window.require('electron')
-const { BrowserWindow } = remote
+
+
+const { ipcRenderer, remote } = window.require('electron') as {
+  ipcRenderer: IpcRenderer
+  remote: Remote
+}
+const {
+  BrowserWindow,
+  dialog: { showMessageBox },
+} = remote
 
 const readFile = async (file: string) =>
   await ipcRenderer.invoke('readFile', file)
@@ -63,9 +73,14 @@ export const syncSaves = async (
   appName: string,
   arg?: string
 ) => {
+  const { user } = await ipcRenderer.invoke('getUserInfo')
+
+  const path = savesPath.replace('~', `/home/${user}`)
+  console.log(path)
+
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
-    savesPath,
+    path,
     appName,
   ])
   return response
@@ -82,7 +97,7 @@ export const getLegendaryConfig = async () => {
   return { user, library }
 }
 
-const specialCharactersRegex = /[^((0-9)|(a-z)|(A-Z)|\s)]/g
+const specialCharactersRegex = /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
 const cleanTitle = (title: string) =>
   title
     .replaceAll(specialCharactersRegex, '')
@@ -106,12 +121,130 @@ export const handleSavePath = async (game: string) => {
   return { cloudSaveEnabled, saveFolder }
 }
 
-export const createNewWindow = (url: string) => new BrowserWindow().loadURL(url)
-const storeUrl = 'https://www.epicgames.com/store/en-US/product/'
+export const createNewWindow = (url: string) =>
+  new BrowserWindow({ width: 1200, height: 700 }).loadURL(url)
 
-export const formatStoreUrl = (title: string) =>
-  `${storeUrl}${cleanTitle(title)}`
+export const formatStoreUrl = (title: string, lang: string) => {
+  const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
+  return `${storeUrl}${cleanTitle(title)}`
+}
 
 export function getProgress(progress: InstallProgress): number {
-  return Number(progress.percent.replace('%', ''))
+  if (progress && progress.percent) {
+    return Number(progress.percent.replace('%', ''))
+  }
+  return 0
+}
+
+export async function fixSaveFolder(
+  folder: string,
+  prefix: string,
+  isProton: boolean
+) {
+  const { user, epicId } = await ipcRenderer.invoke('getUserInfo')
+  const username = isProton ? 'steamuser' : user
+  let winePrefix = prefix.replaceAll("'", '')
+  winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
+
+  folder = folder.replace('{EpicID}', epicId)
+  folder = folder.replace('{EpicId}', epicId)
+
+  if (folder.includes('locallow')) {
+    return folder.replace(
+      '{appdata}/../locallow',
+      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+    )
+  }
+
+  if (folder.includes('LocalLow')) {
+    return folder.replace(
+      '{AppData}/../LocalLow',
+      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+    )
+  }
+
+  if (folder.includes('{UserSavedGames}')) {
+    return folder.replace(
+      '{UserSavedGames}',
+      `${winePrefix}/drive_c/users/${username}/Saved Games`
+    )
+  }
+
+  if (folder.includes('{usersavedgames}')) {
+    return folder.replace(
+      '{usersavedgames}',
+      `${winePrefix}/drive_c/users/${username}/Saved Games`
+    )
+  }
+
+  if (folder.includes('roaming')) {
+    return folder.replace(
+      '{appdata}/../roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('{appdata}/../Roaming/')) {
+    return folder.replace(
+      '{appdata}/../Roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('Roaming')) {
+    return folder.replace(
+      '{AppData}/../Roaming/',
+      `${winePrefix}/drive_c/users/${username}/Application Data/`
+    )
+  }
+
+  if (folder.includes('{AppData}')) {
+    return folder.replace(
+      '{AppData}',
+      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+    )
+  }
+
+  if (folder.includes('{appdata}')) {
+    return folder.replace(
+      '{appdata}',
+      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+    )
+  }
+
+  if (folder.includes('{userdir}')) {
+    return folder.replace(
+      '{userdir}',
+      `${winePrefix}/drive_c/users/${username}/My Documents`
+    )
+  }
+
+  if (folder.includes('{UserDir}')) {
+    return folder.replace(
+      '{UserDir}',
+      `${winePrefix}/drive_c/users/${username}/My Documents`
+    )
+  }
+
+  return folder
+}
+
+export async function handleStopInstallation(
+  t: TFunction<'gamepage'>,
+  appName: string,
+  [path, folderName]: string[]
+) {
+  const { response } = await showMessageBox({
+    title: t('box.stopInstall.title'),
+    message: t('box.stopInstall.message'),
+    buttons: [t('box.stopInstall.keepInstalling'), t('box.yes'), t('box.no')],
+  })
+  if (response === 1) {
+    return sendKill(appName)
+  }
+  if (response === 2) {
+    ipcRenderer.send('removeFolder', [path, folderName])
+    return sendKill(appName)
+  }
+  return
 }

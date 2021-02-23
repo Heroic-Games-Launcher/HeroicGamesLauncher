@@ -1,4 +1,6 @@
 import React, { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 
@@ -9,6 +11,13 @@ interface Props {
   toggleUseGameMode: () => void
   showFps: boolean
   toggleFps: () => void
+  launcherArgs: string
+  setLauncherArgs: (value: string) => void
+  audioFix: boolean
+  toggleAudioFix: () => void
+  showMangohud: boolean
+  toggleMangoHud: () => void
+  isDefault: boolean
 }
 
 export default function OtherSettings({
@@ -18,43 +27,88 @@ export default function OtherSettings({
   toggleUseGameMode,
   showFps,
   toggleFps,
+  launcherArgs,
+  setLauncherArgs,
+  audioFix,
+  toggleAudioFix,
+  showMangohud,
+  toggleMangoHud,
+  isDefault,
 }: Props) {
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) =>
+  const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
+  const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
+    setLauncherArgs(event.currentTarget.value)
+  const { t } = useTranslation()
 
   return (
     <>
       <span className="setting">
         <span className="toggleWrapper">
-          Show FPS (DXVK_HUD=fps)
+          {t('setting.showfps')}
           <ToggleSwitch value={showFps} handleChange={toggleFps} />
         </span>
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          Use GameMode (Feral Game Mode needs to be installed)
+          {t('setting.gamemode')}
           <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">
-          Advanced Options (Enviroment Variables):
+        <span className="toggleWrapper">
+          {t('setting.audiofix')}
+          <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
         </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.mangohud')}
+          <ToggleSwitch value={showMangohud} handleChange={toggleMangoHud} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="settingText">{t('options.advanced.title')}</span>
         <span>
           <input
             id="otherOptions"
             type="text"
-            placeholder={'Put here other launch options'}
+            placeholder={t('options.advanced.placeholder')}
             className="settingSelect"
             value={otherOptions}
-            onChange={handleInputChange}
+            onChange={handleOtherOptions}
           />
         </span>
       </span>
+      {!isDefault && (
+        <span className="setting">
+          <span className="settingText">{t('options.gameargs.title')}</span>
+          <span>
+            <input
+              id="launcherArgs"
+              type="text"
+              placeholder={t('options.gameargs.placeholder')}
+              className="settingSelect"
+              value={launcherArgs}
+              onChange={handleLauncherArgs}
+            />
+          </span>
+        </span>
+      )}
       <InfoBox>
-        Type bellow any advanced options to launch the game if want, like:{' '}
-        <strong>MANGOHUD=1</strong> to show Mangohud or{' '}
-        <strong>PULSE_LATENCY_MSEC=60</strong> to fix audio in some games, etc.
+        {t('help.other.part1')}
+        <strong>{`${t('help.other.part2')} `}</strong>
+        {t('help.other.part3')}
+        <br />
+        {!isDefault && (
+          <span>
+            {t('help.other.part4')}
+            <strong>{t('help.other.part5')}</strong>
+            {t('help.other.part6')}
+            <strong>{` -nolauncher `}</strong>
+            {t('help.other.part7')}
+          </span>
+        )}
       </InfoBox>
     </>
   )

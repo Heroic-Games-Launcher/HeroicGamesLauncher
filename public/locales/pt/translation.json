@@ -1,0 +1,162 @@
+{
+  "All": "Tudo",
+  "box": {
+    "appupdate": {
+      "message": "Nove versão do Heroic lançada. Deseja atualizar agora?",
+      "title": "Nova Versão Disponível"
+    },
+    "choose": "Selecione",
+    "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
+    "default-install-path": "Selecione o Local de instalação padrão",
+    "error": {
+      "launch": "Houve um erro ao rodar o jogo. Veja os Logs para ver o que aconteceu."
+    },
+    "importpath": "",
+    "installpath": "",
+    "no": "NÃO",
+    "quit": {
+      "message": "Há operações pendentes. Tem certeza?",
+      "title": "Sair"
+    },
+    "runexe": {
+      "title": "Selecione o EXE"
+    },
+    "select": "Selecionar",
+    "stopInstall": {
+      "keepInstalling": "",
+      "message": "",
+      "title": ""
+    },
+    "sync": {
+      "button": "Selecionar",
+      "error": "Caminho Inválido",
+      "title": "Selecione o diretório com os Saves"
+    },
+    "wineprefix": "Escolha a pasta com o Prefixo Wine",
+    "yes": "SIM"
+  },
+  "button": {
+    "sync": "Sincronizar",
+    "syncing": "Sincronizando",
+    "unsync": "Dessincronizar"
+  },
+  "Downloading": "Baixando",
+  "Filter": "Filtro",
+  "globalSettings": "Configurações Globais",
+  "help": {
+    "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
+    "other": {
+      "part1": "Use as ",
+      "part2": "Opções Avançadas",
+      "part3": "para variáveis de ambiente que serão usadas antes do comando do jogo",
+      "part4": "Use os ",
+      "part5": "Argumentos do jogo",
+      "part6": " Para que sejam chamados após o commando ",
+      "part7": "para evitar o lançador em alguns jogos, etc"
+    },
+    "sync": {
+      "part1": "O Heroic tenta advinhar o diretório correto onde ficam os savegames de cada jogo. Funciona na maioria dos casos, mas em alguns você terá que procurar manualmente e selecionar a pasta",
+      "part2": "Caso você modifique o wine prefix ou o wine por proton e vice-versa, você deve apagar a pasta selecionada acima, sair e voltar para a tela de sync para que o heroic gere novamente a pasta correta",
+      "part3": "Sincronização Manual: Você pode utilizar essa opção para manualmente fazer download ou upload dos saves. Você pode forçar o download ou upload também, dessa forma o Heroic irá ignorar a versão salva na nuvem ou localmente, sobrescrevendo os saves.",
+      "part4": "Sincronizar Saves Automaticamente: ativando essa opção, toda a vez que você iniciar uma sessão de jogos ou terminar de jogar, o Heroic irá realizar uma sincronização. Dessa forma seus saves sempre estarão atualizados."
+    },
+    "wine": {
+      "part1": "Heroic procura por versões do Wine e do Proton nas seguntes pastas:",
+      "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
+    }
+  },
+  "info": {
+    "settings": "As configurações são salvas automaticamente"
+  },
+  "infobox": {
+    "help": "Ajuda"
+  },
+  "Library": "Biblioteca",
+  "message": {
+    "sync": "Sync Concluído",
+    "unsync": "Unsync Concluído"
+  },
+  "nogames": "Nenhum Jogo Encontrado",
+  "Not Ready": "Não Baixados",
+  "notify": {
+    "finished": {
+      "reparing": "Terminou o Reparo"
+    },
+    "install": {
+      "canceled": "Instalação cancelada",
+      "finished": "Instalação concluída"
+    },
+    "moved": "Movido com sucesso",
+    "refreshed": "Biblioteca Atualizada",
+    "refreshing": "Atualizando",
+    "uninstalled": "Desinstalado",
+    "update": {
+      "canceled": "Updated Cancelado",
+      "finished": "Update Finalizado"
+    }
+  },
+  "options": {
+    "advanced": {
+      "placeholder": "Adicione aqui variáveis de ambiente",
+      "title": "Opções Avançadas (Variáveis de ambiente)"
+    },
+    "gameargs": {
+      "placeholder": "Coloque aqui os argumentos do jogo",
+      "title": "Argumentos do Jogo"
+    }
+  },
+  "placeholder": {
+    "egs-prefix": "Prefix onde a Epic Games está instalada"
+  },
+  "Ready": "Baixados",
+  "Return": "Voltar",
+  "search": "Digite o nome do jogo...",
+  "setting": {
+    "audiofix": "Consertar Audio do Jogo",
+    "autodxvk": "Instalar/Atualizar DXVK automaticamente",
+    "autosync": "Ativar Sincronização Automática",
+    "darktray": "Usar ícone escuro (necessita reiniciar)",
+    "default-install-path": "Pasta de instalação padrão",
+    "egs-sync": "Sincronizar com Epic Games Store",
+    "exit-to-tray": "Sair para a área de noticação",
+    "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
+    "language": "Selecionar idioma",
+    "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
+    "manualsync": "Sincronização manual",
+    "maxworkers": "CPUs máximos utilizados ao baixar jogos",
+    "runexe": {
+      "message": "Arraste e Solte arquivos aqui",
+      "title": "Executar EXE no Prefixo"
+    },
+    "savefolder": {
+      "placeholder": "Selecione a pasta exata com os saves",
+      "title": "Sobrescrever diretório de saves automáticos"
+    },
+    "showfps": "Mostrar FPS (DX9, 10 e 11)",
+    "wineprefix": "Prefixo Wine",
+    "wineversion": "Versão do Wine"
+  },
+  "Settings": "Configurações",
+  "settings": {
+    "navbar": {
+      "general": "Geral",
+      "other": "Outros",
+      "sync": "Sincronização"
+    }
+  },
+  "Total Games": "Total de Jogos",
+  "tray": {
+    "about": "Sobre",
+    "quit": "Fechar",
+    "reload": "Recarregar",
+    "show": "Mostrar",
+    "support": "Apoie-nos"
+  },
+  "userselector": {
+    "about": "Sobre",
+    "logout": "Logout",
+    "quit": "Fechar",
+    "refresh": "Atualizar Biblioteca",
+    "support": "Apoie-nos"
+  }
+}

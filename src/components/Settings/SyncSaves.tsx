@@ -1,5 +1,9 @@
-import React, { useState } from 'react'
-import { syncSaves } from '../../helper'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+import Backspace from '@material-ui/icons/Backspace';
 import { Path, SyncType } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
@@ -13,9 +17,10 @@ interface Props {
   setSavesPath: (value: string) => void
   appName: string
   autoSyncSaves: boolean
-  saveFolder: string
   setAutoSyncSaves: (value: boolean) => void
   defaultFolder: string
+  isProton: boolean
+  winePrefix: string
 }
 
 export default function SyncSaves({
@@ -24,11 +29,28 @@ export default function SyncSaves({
   appName,
   autoSyncSaves,
   setAutoSyncSaves,
-  saveFolder,
   defaultFolder,
+  isProton,
+  winePrefix,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
+  const { t } = useTranslation()
+
+  useEffect(() => {
+    const getSyncFolder = async () => {
+      const { saveFolder, install_path } = await getGameInfo(appName)
+
+      setAutoSyncSaves(autoSyncSaves)
+      let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
+      folder = folder.replace('{InstallDir}', install_path)
+      const path = savesPath ? savesPath : folder
+
+      setSavesPath(path)
+    }
+    getSyncFolder()
+  }, [winePrefix, isProton])
+
   const isLinked = Boolean(savesPath.length)
   const syncTypes: SyncType[] = [
     'Download',
@@ -36,7 +58,6 @@ export default function SyncSaves({
     'Force download',
     'Force upload',
   ]
-
   async function handleSync() {
     setIsSyncing(true)
     const command = {
@@ -55,20 +76,18 @@ export default function SyncSaves({
   return (
     <>
       <span className="setting">
-        <span className="settingText">
-          Search or create the folder with the save games on the GamePrefix
-        </span>
+        <span className="settingText">{t('setting.savefolder.title')}</span>
         <span>
           <input
             type="text"
-            placeholder={'Select the exact save games folder'}
+            placeholder={t('setting.savefolder.placeholder')}
             className="settingSelect"
             value={savesPath}
             disabled={isSyncing}
             onChange={(event) => setSavesPath(event.target.value)}
           />
           {!savesPath.length ? (
-            <span
+            <CreateNewFolder
               className="material-icons settings folder"
               style={{ color: '#B0ABB6' }}
               onClick={() =>
@@ -76,31 +95,27 @@ export default function SyncSaves({
                   ? ''
                   : dialog
                       .showOpenDialog({
-                        title: 'Choose the saves directory',
-                        buttonLabel: 'Choose',
+                        title: t('box.sync.title'),
+                        buttonLabel: t('box.sync.button'),
                         defaultPath: defaultFolder,
                         properties: ['openDirectory'],
                       })
                       .then(({ filePaths }: Path) =>
-                        setSavesPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                        setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
                       )
               }
-            >
-              create_new_folder
-            </span>
+            />
           ) : (
-            <span
+            <Backspace
               className="material-icons settings folder"
               onClick={() => setSavesPath('')}
               style={{ color: '#B0ABB6' }}
-            >
-              backspace
-            </span>
+            />
           )}
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">Manual Sync</span>
+        <span className="settingText">{t('setting.manualsync')}</span>
         <span
           style={{
             display: 'flex',
@@ -131,7 +146,7 @@ export default function SyncSaves({
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          Sync Saves Automatically
+          {t('setting.autosync')}
           <ToggleSwitch
             value={autoSyncSaves}
             disabled={!savesPath.length}
@@ -141,21 +156,10 @@ export default function SyncSaves({
       </span>
       <InfoBox>
         <ul>
-          <li>
-            The folder where the saves for this game is stored is{' '}
-            <strong>{saveFolder}</strong>. Find it or create it inside the wine
-            prefix.
-          </li>
-          <li>
-            Manual Sync: Choose Download to download the games saves stored on
-            the Cloud. Upload to upload the local ones to the cloud. Force
-            Download and Force Upload will ignore the version that is locally or
-            on the cloud.
-          </li>
-          <li>
-            Sync Saves Automatically will sync the saves every time you Start a
-            Game and after finishing playing.
-          </li>
+          <li>{t('help.sync.part1')}</li>
+          <li>{t('help.sync.part2')}</li>
+          <li>{t('help.sync.part3')}</li>
+          <li>{t('help.sync.part4')}</li>
         </ul>
       </InfoBox>
     </>

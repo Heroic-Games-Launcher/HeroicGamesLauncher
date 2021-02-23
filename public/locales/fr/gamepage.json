@@ -1,0 +1,82 @@
+{
+  "box": {
+    "choose": "Choisir",
+    "importpath": "Choisir le jeu à importer",
+    "installpath": "Choisir le chemin d'installation",
+    "move": {
+      "message": "Cela peut prendre un moment, êtes-vous sûrs?",
+      "path": "Choisir où le déplacer",
+      "title": "Déplacer l'installation du jeu"
+    },
+    "no": "NON",
+    "repair": {
+      "message": "Voulez-vous essayer de réparer ce jeu? Cela peut prendre un moment.",
+      "title": "Vérifier et Réparer"
+    },
+    "stopInstall": {
+      "keepInstalling": "Continuer l'installation",
+      "message": "Voulez-vous continuer à télécharger les fichiers?",
+      "title": "Arrêter l'installation"
+    },
+    "uninstall": {
+      "message": "Voulez-vous désinstaller ce jeu?",
+      "title": "Désinstaller"
+    },
+    "update": {
+      "message": "Une mise à jour est disponible, faire la mise à jour maintenant?",
+      "title": "Mise à jour nécessaire"
+    },
+    "yes": "OUI"
+  },
+  "button": {
+    "cancel": "Annuler",
+    "import": "Importer",
+    "install": "Installer",
+    "uninstall": "Désinstaller"
+  },
+  "disabled": "Désactivé",
+  "enabled": "Activé",
+  "gamecard": {
+    "moving": "En cours de déplacement",
+    "repairing": "En cours de réparation"
+  },
+  "info": {
+    "path": "Chemin d'installation",
+    "size": "Poids",
+    "syncsaves": "Sauvergardes synchronisées",
+    "version": "Version"
+  },
+  "install": {
+    "another": "Installer vers un autre chemin",
+    "default": "Installer sur",
+    "import": "Importer le jeu"
+  },
+  "label": {
+    "cancel": {
+      "update": "Annuler la mise à jour"
+    },
+    "playing": {
+      "start": "Jouer",
+      "stop": "En cours d'utilisation (Arrêter)"
+    },
+    "saves": {
+      "syncing": "Synchronisation des sauvergardes"
+    }
+  },
+  "status": {
+    "installed": "Installé",
+    "installing": "Installation",
+    "moving": "Déplacement de l'installation, veuillez patienter",
+    "notinstalled": "Ce jeu n'est pas installé",
+    "reparing": "Réparation du jeu, veuillez patienter",
+    "updating": "Mise à jour du jeu"
+  },
+  "submenu": {
+    "log": "Dernier rapport",
+    "move": "Déplacer le jeu",
+    "protondb": "Vérifier la compatibilitée",
+    "settings": "Options",
+    "store": "Page du magasin",
+    "verify": "Vérifier et Réparer"
+  }
+}

@@ -1,4 +1,6 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+import Info from '@material-ui/icons/Info';
 import { useToggle } from '../../hooks'
 
 interface Props {
@@ -7,11 +9,13 @@ interface Props {
 
 export default function InfoBox({ children }: Props) {
   const { on: isHidden, toggle: toggleIsHidden } = useToggle(true)
+  const { t } = useTranslation()
+
   return (
     <>
       <span className="helpLink" onClick={toggleIsHidden}>
-        <p>Help</p>
-        <i className="material-icons">info</i>
+        <p>{t('infobox.help')}</p>
+        <Info className="material-icons" />
       </span>
       <div style={{ display: isHidden ? 'none' : 'block' }} className="infoBox">
         {children}

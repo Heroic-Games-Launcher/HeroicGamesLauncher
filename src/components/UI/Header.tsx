@@ -1,67 +1,113 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { Link, useHistory } from 'react-router-dom'
+import ArrowBack from '@material-ui/icons/ArrowBack'
+import Apps from '@material-ui/icons/Apps'
+import List from '@material-ui/icons/List'
+import cx from 'classnames'
 import ContextProvider from '../../state/ContextProvider'
 
 interface Props {
   renderBackButton: boolean
   numberOfGames?: number
-  goTo: string
+  goTo: string | void | null
+  title?: string
   handleFilter?: (value: string) => void
+  handleLayout?: (value: string) => void
 }
 
 export default function Header({
   renderBackButton,
   numberOfGames,
   handleFilter,
+  handleLayout,
   goTo,
+  title,
 }: Props) {
-  const { filter, libraryStatus } = useContext(ContextProvider)
+  const { t } = useTranslation()
+  const { filter, libraryStatus, layout } = useContext(ContextProvider)
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
+  const history = useHistory()
+
+  const link = goTo ? goTo : ''
+  function handleClick() {
+    if (goTo) {
+      return
+    }
+    return history.goBack()
+  }
 
   return (
     <>
-      <div className="header">
+      <div className={cx({ header: !title }, { headerSettings: title })}>
         {handleFilter && (
           <span className="selectFilter">
-            <span>Filter:</span>
+            <span>{t('Filter')}:</span>
             <span
               className={filter === 'all' ? 'selected' : ''}
               onClick={() => handleFilter('all')}
             >
-              All
+              {t('All')}
             </span>
             <span
               className={filter === 'installed' ? 'selected' : ''}
               onClick={() => handleFilter('installed')}
             >
-              Ready
+              {t('Ready')}
             </span>
             <span
               className={filter === 'uninstalled' ? 'selected' : ''}
               onClick={() => handleFilter('uninstalled')}
             >
-              Not Ready
+              {t('Not Ready')}
             </span>
             <span
               className={filter === 'downloading' ? 'selected' : ''}
               onClick={() => handleFilter('downloading')}
             >
-              {`Downloading ${haveDownloads > 0 ? `(${haveDownloads})` : ''}`}
+              {`${t('Downloading')} ${
+                haveDownloads > 0 ? `(${haveDownloads})` : ''
+              }`}
             </span>
           </span>
         )}
-        {Boolean(numberOfGames) && (
-          <span className="totalGamesText">Total Games: {numberOfGames}</span>
+        {numberOfGames !== undefined && numberOfGames > 0 && (
+          <span className="totalGamesText">
+            {t('Total Games')}: {numberOfGames}
+          </span>
         )}
-        {renderBackButton && (
-          <div className="leftCluster">
-            <Link className="returnLink" to={goTo}>
-              <span className="material-icons">arrow_back</span>
-              Return
-            </Link>
+        {numberOfGames !== undefined && numberOfGames === 0 && (
+          <div className="totalGamesText">{t('nogames')}</div>
+        )}
+        {title && <div className="headerTitle">{title}</div>}
+        {handleLayout && (
+          <div className="layoutSelection">
+            <Apps
+              className={
+                layout === 'grid'
+                  ? 'selectedLayout material-icons'
+                  : 'material-icons'
+              }
+              onClick={() => handleLayout('grid')}
+            />
+            <List
+              className={
+                layout === 'list'
+                  ? 'selectedLayout material-icons'
+                  : 'material-icons'
+              }
+              onClick={() => handleLayout('list')}
+            ></List>
           </div>
+        )}
+
+        {renderBackButton && (
+          <Link className="returnLink" to={link} onClick={handleClick}>
+            <ArrowBack className="material-icons" />
+            {t('Return')}
+          </Link>
         )}
       </div>
     </>

@@ -1,4 +1,6 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {
   legendary,
   openAboutWindow,
@@ -8,9 +10,10 @@ import {
 import ContextProvider from '../../state/ContextProvider'
 
 export default function UserSelector() {
+  const { t } = useTranslation()
+
   const { user, refresh, refreshLibrary } = React.useContext(ContextProvider)
   const handleLogout = async () => {
-    // eslint-disable-next-line no-restricted-globals
     if (confirm('are you sure?')) {
       await legendary(`auth --delete`)
       await legendary(`cleanup`)
@@ -22,22 +25,22 @@ export default function UserSelector() {
     <div className="UserSelector">
       <span className="userName">
         {user}
-        <span className="material-icons">arrow_drop_down</span>
+        <ArrowDropDown className="material-icons" />
       </span>
       <div onClick={() => refreshLibrary()} className="userName hidden">
-        Refresh Library
+        {t('userselector.refresh')}
       </div>
       <div onClick={() => handleKofi()} className="userName hidden">
-        Buy a Ko-fi
+        {t('userselector.support')}
       </div>
       <div onClick={() => openAboutWindow()} className="userName hidden">
-        About
+        {t('userselector.about')}
       </div>
       <div onClick={() => handleLogout()} className="userName hidden">
-        Logout
+        {t('userselector.logout')}
       </div>
       <div onClick={() => handleQuit()} className="userName hidden">
-        Quit
+        {t('userselector.quit')}
       </div>
     </div>
   )

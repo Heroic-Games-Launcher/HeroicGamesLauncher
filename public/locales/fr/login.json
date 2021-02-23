@@ -1,0 +1,24 @@
+{
+  "button": {
+    "login": "Connexion"
+  },
+  "input": {
+    "placeholder": "Collez le code SID ici"
+  },
+  "message": {
+    "part1": "Pour vous connecter et installer vos jeux, veuillez suivre les étapes ci-dessous:",
+    "part2": "Ouvrez",
+    "part3": "Epic Store ici",
+    "part4": ", connectez vous à votre compte et copiez le",
+    "part5": "code d'information SID",
+    "part6": "Collez le",
+    "part7": "code SID",
+    "part8": "dans la boîte de dialogue ci-dessous, cliquez sur le bouton connection et patientez."
+  },
+  "status": {
+    "error": "Erreur",
+    "loading": "Chargement de la liste de vos jeux, veuillez patienter",
+    "logging": "Connexion..."
+  },
+  "welcome": "Bienvenue !"
+}
