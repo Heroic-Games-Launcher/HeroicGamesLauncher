@@ -129,7 +129,7 @@ export default function Login({ refresh }: Props) {
               })}
               onClick={() => handleChangeLanguage('pt')}
             >
-              Português 🇧🇷 -{' '}
+              Português 🇵🇹 -{' '}
             </span>
             <span
               className={cx({
@@ -183,7 +183,7 @@ export default function Login({ refresh }: Props) {
               })}
               onClick={() => handleChangeLanguage('es')}
             >
-              Español 🇲🇽
+              Español 🇪🇸
             </span>
           </span>
         </div>
