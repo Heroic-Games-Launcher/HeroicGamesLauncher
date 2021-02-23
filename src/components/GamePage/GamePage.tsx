@@ -68,6 +68,7 @@ export default function GamePage() {
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+  const isChanging = status === 'changing'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -91,7 +92,7 @@ export default function GamePage() {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName])
+  }, [isInstalling, isPlaying, appName, isChanging])
 
   useEffect(() => {
     ipcRenderer

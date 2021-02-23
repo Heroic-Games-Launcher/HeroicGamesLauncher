@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "",
+      "path": "",
+      "title": ""
+    },
     "choose": "Seç",
     "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
     "installpath": "Kurulum Yerini Seç",
@@ -72,6 +77,7 @@
     "updating": "Oyun Güncelleniyor"
   },
   "submenu": {
+    "change": "",
     "log": "Güncel Log",
     "move": "Oyunu Taşı",
     "protondb": "Uyumluluğu Kontrol Et",

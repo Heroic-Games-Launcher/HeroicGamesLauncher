@@ -144,6 +144,7 @@
       "sync": "Save-Sync"
     }
   },
+  "Store": "Store",
   "Total Games": "Total Games",
   "tray": {
     "about": "About",

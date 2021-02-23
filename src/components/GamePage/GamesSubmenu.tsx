@@ -57,6 +57,29 @@ export default function GamesSubmenu({
     return
   }
 
+  async function handleChangeInstall() {
+    const { response } = await showMessageBox({
+      title: t('box.change.title'),
+      message: t('box.change.message'),
+      buttons: [t('box.yes'), t('box.no')],
+    })
+    if (response === 0) {
+      const { filePaths } = await showOpenDialog({
+        title: t('box.change.path'),
+        buttonLabel: t('box.choose'),
+        properties: ['openDirectory'],
+      })
+      if (filePaths[0]) {
+        const path = filePaths[0]
+        handleGameStatus({ appName, status: 'changing' })
+        await renderer.invoke('changeInstall', [appName, path])
+        handleGameStatus({ appName, status: 'done' })
+      }
+      return
+    }
+    return
+  }
+
   async function handleRepair(appName: string) {
     const { response } = await showMessageBox({
       title: t('box.repair.title'),
@@ -91,6 +114,9 @@ export default function GamesSubmenu({
           </span>{' '}
           <span onClick={() => handleMoveInstall()} className="hidden link">
             {t('submenu.move')}
+          </span>{' '}
+          <span onClick={() => handleChangeInstall()} className="hidden link">
+            {t('submenu.change')}
           </span>{' '}
           <span
             onClick={() => renderer.send('getLog', appName)}

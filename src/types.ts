@@ -85,6 +85,7 @@ export interface GameStatus {
     | 'done'
     | 'canceled'
     | 'moving'
+    | 'changing'
   progress?: number | null
 }
 
