@@ -29,17 +29,19 @@ export default function LanguageSelector({
     'pl': 'Polski',
     'tr': 'Türkçe',
     'nl': 'Nederlands',
+    'es': 'Español',
   }
 
   const languageFlags: {[key: string]: string} = {
     'en': '🇬🇧',
-    'pt': '🇧🇷',
+    'pt': '🇵🇹',
     'de': '🇩🇪',
     'fr': '🇫🇷',
     'ru': '🇷🇺',
     'pl': '🇵🇱',
     'tr': '🇹🇷',
     'nl': '🇳🇱',
+    'es': '🇪🇸',
   }
 
   const renderOption = (lang: string)  => {
