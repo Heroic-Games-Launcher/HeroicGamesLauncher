@@ -1,9 +1,9 @@
 {
   "box": {
     "change": {
-      "message": "",
-      "path": "",
-      "title": ""
+      "message": "Bu oyunun kurulum yerini değiştirecek, emin misin?",
+      "path": "Yeni kurulum yeri seçin",
+      "title": "Oyun Kurulum Yerini Değiştir"
     },
     "choose": "Seç",
     "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
@@ -77,7 +77,7 @@
     "updating": "Oyun Güncelleniyor"
   },
   "submenu": {
-    "change": "",
+    "change": "Kurulum yerini değiştir",
     "log": "Güncel Log",
     "move": "Oyunu Taşı",
     "protondb": "Uyumluluğu Kontrol Et",

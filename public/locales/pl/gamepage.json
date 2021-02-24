@@ -1,9 +1,9 @@
 {
   "box": {
     "change": {
-      "message": "",
-      "path": "",
-      "title": ""
+      "message": "To zmieni miejsce gdzie gra jest zainstalowana. Czy jesteś pewien?",
+      "path": "Wybierz nową ścieżkę instalacji",
+      "title": "Wybierz Ścieżkę Instalacji Gier"
     },
     "choose": "Wybierz",
     "importpath": "Wybierz folder gry do importowania",
@@ -77,7 +77,7 @@
     "updating": "Aktualizowanie gry"
   },
   "submenu": {
-    "change": "",
+    "change": "Zmień ścieżkę instalacji",
     "log": "Ostatni log",
     "move": "Przenieś grę",
     "protondb": "Sprawdź kompatybilność",

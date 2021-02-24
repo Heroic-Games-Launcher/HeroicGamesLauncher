@@ -25,7 +25,7 @@ export default function GamesSubmenu({
   title,
   clicked,
 }: Props) {
-  const { handleGameStatus } = useContext(ContextProvider)
+  const { handleGameStatus, refresh } = useContext(ContextProvider)
   const { t, i18n } = useTranslation('gamepage')
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -71,9 +71,8 @@ export default function GamesSubmenu({
       })
       if (filePaths[0]) {
         const path = filePaths[0]
-        handleGameStatus({ appName, status: 'changing' })
-        await renderer.invoke('changeInstall', [appName, path])
-        handleGameStatus({ appName, status: 'done' })
+        await renderer.invoke('changeInstallPath', [appName, path])
+        await refresh()
       }
       return
     }

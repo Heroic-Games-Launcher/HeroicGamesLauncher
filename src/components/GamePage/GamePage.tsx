@@ -40,7 +40,7 @@ interface RouteParams {
 export default function GamePage() {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
-  const { refresh, libraryStatus, handleGameStatus } = useContext(
+  const { refresh, libraryStatus, handleGameStatus, data } = useContext(
     ContextProvider
   )
 
@@ -68,7 +68,6 @@ export default function GamePage() {
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
-  const isChanging = status === 'changing'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -92,7 +91,7 @@ export default function GamePage() {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, isChanging])
+  }, [isInstalling, isPlaying, appName, data])
 
   useEffect(() => {
     ipcRenderer
