@@ -109,7 +109,6 @@ const GameCard = ({
     }
     return <DownIcon onClick={() => handlePlay()} />
   }
-
   return (
     <>
       <div className={grid ? 'gameCard' : 'gameListItem'}>
@@ -121,7 +120,7 @@ const GameCard = ({
         >
           <span
             style={{
-              backgroundImage: `url('${grid ? cover : coverList}')`,
+              backgroundImage: `url('${grid ? cover : coverList}?h=400&resize=1&w=300')`,
               backgroundSize: 'cover',
               filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
             }}
@@ -130,7 +129,7 @@ const GameCard = ({
             {logo && (
               <img
                 alt="logo"
-                src={logo}
+                src={`${logo}?h=400&resize=1&w=300`}
                 style={{
                   filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
                 }}

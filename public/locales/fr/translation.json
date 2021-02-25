@@ -69,7 +69,8 @@
     "settings": "Les options sont sauvegardées automatiquement"
   },
   "infobox": {
-    "help": "Aide"
+    "help": "Aide",
+    "requirements": "Configuration Requise"
   },
   "Library": "Bibliothèque",
   "message": {

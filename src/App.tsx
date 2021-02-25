@@ -19,7 +19,9 @@ function App() {
   if (!user && !library.length) {
     return <Login refresh={refresh} />
   }
-  const numberOfGames = library.length
+
+  const dlcCount = library.filter(lib => lib.is_dlc)
+  const numberOfGames = library.length - dlcCount.length
   return (
     <div className="App">
       <HashRouter>

@@ -223,7 +223,7 @@ export default function GeneralSettings({
           </select>
         </span>
       </span>
-      <InfoBox>{t('help.general')}</InfoBox>
+      <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
     </>
   )
 }

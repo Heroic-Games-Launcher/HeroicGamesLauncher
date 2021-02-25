@@ -10,9 +10,20 @@ export interface KeyImage {
   type: string
 }
 
-interface ExtraInfo {
-  description: string
+interface About {
+  description: string,
   shortDescription: string
+}
+
+interface Reqs {
+  minimum: string,
+  recommended: string,
+  title: string
+}
+
+interface ExtraInfo {
+  about: About,
+  reqs: Reqs[]
 }
 
 export interface WineProps {

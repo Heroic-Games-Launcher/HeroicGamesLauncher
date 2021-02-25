@@ -61,6 +61,18 @@
     },
     "saves": {
       "syncing": "Synchronizacja zapisów gry"
+
+    "submenu": {
+        "log": "Ostatni log",
+        "move": "Przenieś grę",
+        "protondb": "Sprawdź kompatybilność",
+        "settings": "Ustawienia",
+        "store": "Strona sklepu",
+        "verify": "Sprawdź i napraw"
+    },
+    "specs": {
+        "minimum": "Minimalne",
+        "recommended": "Rekomendowane"
     }
   },
   "status": {
