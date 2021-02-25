@@ -62,7 +62,8 @@
     "settings": "As configurações são salvas automaticamente"
   },
   "infobox": {
-    "help": "Ajuda"
+    "help": "Ajuda",
+    "requirements": "Requisitos"
   },
   "Library": "Biblioteca",
   "message": {

@@ -36,6 +36,7 @@ import {
   existsSync,
   mkdirSync,
   unlinkSync,
+  writeFileSync,
 } from 'graceful-fs'
 import { promisify } from 'util'
 import axios from 'axios'
@@ -177,7 +178,7 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr'],
+      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr', 'es'],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -273,7 +274,8 @@ ipcMain.handle('getGameInfo', async (event, game) => {
       url: epicUrl,
       method: 'GET',
     })
-    return response.data.pages[0].data.about
+    delete response.data.pages[0].data.requirements.systems[0].details[0]
+    return {'about': response.data.pages[0].data.about, 'reqs': response.data.pages[0].data.requirements.systems[0].details}
   } catch (error) {
     return {}
   }
@@ -454,6 +456,17 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
     })
     .catch(console.log)
 })
+
+ipcMain.handle(
+  'changeInstallPath',
+  async (event, [appName, newPath]: string[]) => {
+    const file = JSON.parse(readFileSync(installed, 'utf8'))
+    const game: Game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
+    console.log(`Finished moving ${appName} to ${newPath}`)
+  }
+)
 
 ipcMain.handle('readFile', async (event, file) => getLegendaryConfig(file))
 

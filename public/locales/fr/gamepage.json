@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "Cela va changer le chemin d’installation pour ce jeu, êtes-vous sûrs?",
+      "path": "Choisir un nouveau chemin d'installation",
+      "title": "Changer le chemin d'installation du Jeu"
+    },
     "choose": "Choisir",
     "importpath": "Choisir le jeu à importer",
     "installpath": "Choisir le chemin d'installation",
@@ -72,11 +77,16 @@
     "updating": "Mise à jour du jeu"
   },
   "submenu": {
+    "change": "Changer le chemin d'installation",
     "log": "Dernier rapport",
     "move": "Déplacer le jeu",
     "protondb": "Vérifier la compatibilitée",
     "settings": "Options",
     "store": "Page du magasin",
     "verify": "Vérifier et Réparer"
+  },
+  "specs": {
+    "minimum": "Minimale",
+    "recommended": "Recommandée"
   }
 }

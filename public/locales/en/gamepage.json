@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "This will change the install location of this game, are you sure?",
+      "path": "Choose a new install path",
+      "title": "Change Games Install Path"
+    },
     "choose": "Choose",
     "importpath": "Choose Game Folder to import",
     "installpath": "Choose Install Path",
@@ -72,11 +77,16 @@
     "updating": "Updating Game"
   },
   "submenu": {
+    "change": "Change install path",
     "log": "Latest Log",
     "move": "Move Game",
     "protondb": "Check Compatibility",
     "settings": "Settings",
     "store": "Store Page",
     "verify": "Verify and Repair"
+  },
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Recommended"
   }
 }

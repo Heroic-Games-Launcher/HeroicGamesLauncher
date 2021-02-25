@@ -1,0 +1,87 @@
+
+{
+  "box": {
+    "choose": "Escoger",
+    "importpath": "Elija la carpeta del juego para importar",
+    "installpath": "Elija la ruta de instalación",
+    "move": {
+      "message": "Esto puede tomar mucho tiempo, ¿estás seguro?",
+      "path": "Elige a donde quieres moverlo",
+      "title": "Instalación del juego en movimiento"
+    },
+    "no": "No",
+    "repair": {
+      "message": "¿Quieres intentar reparar este juego? Esto puede llevar mucho tiempo.",
+      "title": "Verificar y reparar"
+    },
+    "stopInstall": {
+      "keepInstalling": "Seguir instalando",
+      "message": "¿Desea MANTENER los archivos descargados?",
+      "title": "Detener la instalación"
+    },
+    "uninstall": {
+      "message": "¿Quieres desinstalar este juego?",
+      "title": "Desinstalar"
+    },
+    "update": {
+      "message": "Este juego tiene una actualización, ¿deseas actualizar ahora?",
+      "title": "El juego necesita una actualización"
+    },
+    "yes": "YES"
+  },
+  "button": {
+    "cancel": "Cancelar",
+    "import": "Importar",
+    "install": "Instalar",
+    "uninstall": "Desinstalar"
+  },
+  "disabled": "Deshabilitar",
+  "enabled": "Habilitar",
+  "gamecard": {
+    "moving": "Moviendo",
+    "repairing": "Reparando"
+  },
+  "info": {
+    "path": "Instalar ruta",
+    "size": "Tamaño",
+    "syncsaves": "Sincronizar guardados",
+    "version": "Versión"
+  },
+  "install": {
+    "another": "Instalar en otra ruta",
+    "default": "Instalar en",
+    "import": "Importar juego"
+  },
+  "label": {
+    "cancel": {
+      "update": "Cancelar actualización"
+    },
+    "playing": {
+      "start": "Jugar",
+      "stop": "Detener"
+    },
+    "saves": {
+      "syncing": "Sincronización de guardados"
+    }
+  },
+  "status": {
+    "installed": "Instalado",
+    "installing": "Instalando",
+    "moving": "Instalación en movimiento, espere",
+    "notinstalled": "Este juego no está instalado",
+    "reparing": "Reparando juego, espera",
+    "updating": "Actualización de juego"
+  },
+  "submenu": {
+    "log": "Último registro",
+    "move": "Mover juego",
+    "protondb": "Verificar compatibilidad",
+    "settings": "Ajustes",
+    "store": "Página de la tienda",
+    "verify": "Verificar y reparar"
+  },
+  "specs": {
+    "minimum": "mínimo",
+    "recommended": "recomendado"
+  }
+}

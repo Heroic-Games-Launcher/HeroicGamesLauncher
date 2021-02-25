@@ -25,7 +25,6 @@ export const Library = ({ library }: Props) => {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
-
   return (
     <>
       <div

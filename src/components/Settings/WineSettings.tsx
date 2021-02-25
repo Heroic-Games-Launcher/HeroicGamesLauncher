@@ -94,7 +94,7 @@ export default function WineSettings({
           />
         </span>
       </span>
-      <InfoBox>
+      <InfoBox text="infobox.help">
         <span>{t('help.wine.part1')}</span>
         <ul>
           <i>
