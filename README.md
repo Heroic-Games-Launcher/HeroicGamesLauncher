@@ -2,7 +2,7 @@
 
 Heroic is an Open Source Game Launcher for Linux.
 Right now it supports launching game from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), a Linux CLI alternative to launch epic games.
-Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electron.
+Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electron.
 
 ### [Discord Server](https://discord.gg/rHJ2uqdquK)
 
@@ -20,7 +20,7 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 ## How to use it:
 
 - Download and install the package for your distro or the universal AppImage file on the Releases Page;
-- If you used Legendary before, it load your library and installed games. If not, it will ask you for Login First. Just follow the instructions.
+- If you used Legendary before, it loads your library and installed games. If not, it will ask you to login first. Just follow the instructions.
 
 ## Feature availables right now
 
@@ -58,6 +58,7 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 - Polish
 - Turkish
 - Dutch
+- Spanish
 
 ## Binaries supported right now
 
@@ -68,7 +69,7 @@ Heroic is built with Web Technologies like: Typescrypt, React, NodeJS and Electr
 
 ## How to build and run locally
 
-To be able to run you will need to have NodeJs installed locally and follow the instructions below:
+To be able to run you will need to have NodeJS installed locally and follow the instructions below:
 
 ### Steps:
 
