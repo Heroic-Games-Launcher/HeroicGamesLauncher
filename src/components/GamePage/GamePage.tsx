@@ -19,7 +19,7 @@ import '../../App.css'
 import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { useParams } from 'react-router-dom'
-import Settings from '@material-ui/icons/Settings';
+import Settings from '@material-ui/icons/Settings'
 import UpdateComponent from '../UI/UpdateComponent'
 import GamesSubmenu from './GamesSubmenu'
 import { IpcRenderer, Remote } from 'electron'
@@ -398,7 +398,7 @@ export default function GamePage() {
     return async () => {
       if (isInstalling) {
         const { folderName } = await getGameInfo(appName)
-        return handleStopInstallation(t, appName, [installPath, folderName])
+        return handleStopInstallation(appName, [installPath, folderName])
       }
 
       if (isInstalled) {

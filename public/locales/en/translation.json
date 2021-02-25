@@ -11,8 +11,6 @@
     "error": {
       "launch": "Error when launching the game, check the logs!"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "NO",
     "quit": {
       "message": "There are pending operations, are you sure?",
@@ -22,11 +20,6 @@
       "title": "Select EXE to Run"
     },
     "select": "Select",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Choose",
       "error": "Invalid Path",
@@ -144,6 +137,7 @@
       "sync": "Save-Sync"
     }
   },
+  "store": "Store",
   "Total Games": "Total Games",
   "tray": {
     "about": "About",

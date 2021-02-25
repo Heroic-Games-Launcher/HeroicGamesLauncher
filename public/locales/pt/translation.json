@@ -11,8 +11,6 @@
     "error": {
       "launch": "Houve um erro ao rodar o jogo. Veja os Logs para ver o que aconteceu."
     },
-    "importpath": "",
-    "installpath": "",
     "no": "NÃO",
     "quit": {
       "message": "Há operações pendentes. Tem certeza?",
@@ -22,11 +20,6 @@
       "title": "Selecione o EXE"
     },
     "select": "Selecionar",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Selecionar",
       "error": "Caminho Inválido",
@@ -144,6 +137,7 @@
       "sync": "Sincronização"
     }
   },
+  "store": "Store",
   "Total Games": "Total de Jogos",
   "tray": {
     "about": "Sobre",
