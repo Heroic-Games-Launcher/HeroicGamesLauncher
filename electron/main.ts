@@ -36,6 +36,7 @@ import {
   existsSync,
   mkdirSync,
   unlinkSync,
+  writeFileSync,
 } from 'graceful-fs'
 import { promisify } from 'util'
 import axios from 'axios'
@@ -455,6 +456,17 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
     })
     .catch(console.log)
 })
+
+ipcMain.handle(
+  'changeInstallPath',
+  async (event, [appName, newPath]: string[]) => {
+    const file = JSON.parse(readFileSync(installed, 'utf8'))
+    const game: Game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
+    console.log(`Finished moving ${appName} to ${newPath}`)
+  }
+)
 
 ipcMain.handle('readFile', async (event, file) => getLegendaryConfig(file))
 
