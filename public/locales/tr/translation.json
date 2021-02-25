@@ -69,7 +69,8 @@
     "settings": "Ayarlar otomatik kaydedilir"
   },
   "infobox": {
-    "help": "Yardım"
+    "help": "Yardım",​
+    "requirements"​: ​"Sistem Gereksinimleri"​
   },
   "Library": "Kütüphane",
   "message": {

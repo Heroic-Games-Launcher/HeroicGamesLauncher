@@ -4,6 +4,7 @@ import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
 import Autorenew from '@material-ui/icons/Autorenew';
 import Info from '@material-ui/icons/Info';
+import LanguageSelector, { FlagPosition } from './UI/LanguageSelector';
 const storage: Storage = window.localStorage
 interface Props {
   refresh: () => Promise<void>
@@ -112,79 +113,12 @@ export default function Login({ refresh }: Props) {
               {t('button.login', 'Login')}
             </button>
           </div>
-          <span style={{ color: 'white', marginTop: '4px' }}>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'en',
-                ['language']: currentLanguage !== 'en',
-              })}
-              onClick={() => handleChangeLanguage('en')}
-            >
-              English 🇬🇧 -{' '}
-            </span>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'pt',
-                ['language']: currentLanguage !== 'pt',
-              })}
-              onClick={() => handleChangeLanguage('pt')}
-            >
-              Português 🇵🇹 -{' '}
-            </span>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'de',
-                ['language']: currentLanguage !== 'de',
-              })}
-              onClick={() => handleChangeLanguage('de')}
-            >
-              Deutsch 🇩🇪 -{' '}
-            </span>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'fr',
-                ['language']: currentLanguage !== 'fr',
-              })}
-              onClick={() => handleChangeLanguage('fr')}
-            >
-              Français 🇫🇷 -{' '}
-            </span>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'ru',
-                ['language']: currentLanguage !== 'ru',
-              })}
-              onClick={() => handleChangeLanguage('ru')}
-            >
-              Русский 🇷🇺 -{' '}
-            </span>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'pl',
-                ['language']: currentLanguage !== 'pl',
-              })}
-              onClick={() => handleChangeLanguage('pl')}
-            >
-              Polski 🇵🇱 -{' '}
-            </span>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'tr',
-                ['language']: currentLanguage !== 'tr',
-              })}
-              onClick={() => handleChangeLanguage('tr')}
-            >
-              Türkçe 🇹🇷 -{' '}
-            </span>
-            <span
-              className={cx({
-                ['selectedLanguage']: currentLanguage === 'es',
-                ['language']: currentLanguage !== 'es',
-              })}
-              onClick={() => handleChangeLanguage('es')}
-            >
-              Español 🇪🇸
-            </span>
+          <span style={{ paddingRight: '22px', marginBottom: '22px', display: 'flex', justifyContent: 'flex-end', width: '100%'}}> 
+            <LanguageSelector 
+            handleLanguageChange={handleChangeLanguage}
+            currentLanguage={currentLanguage}
+            flagPossition={FlagPosition.PREPEND}
+            className="settingSelect language-login" />
           </span>
         </div>
       </div>

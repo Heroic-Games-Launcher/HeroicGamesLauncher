@@ -69,7 +69,8 @@
     "settings": "Settings are saved automatically"
   },
   "infobox": {
-    "help": "Help"
+    "help": "Help",
+    "requirements": "System Requirements"
   },
   "Library": "Library",
   "message": {
@@ -148,7 +149,7 @@
   "Total Games": "Total Games",
   "tray": {
     "about": "About",
-    "quit": "Quit",
+    "quit": "Sluiten",
     "reload": "Reload",
     "show": "Show",
     "support": "Support Us"

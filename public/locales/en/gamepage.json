@@ -84,5 +84,9 @@
     "settings": "Settings",
     "store": "Store Page",
     "verify": "Verify and Repair"
+  },
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Recommended"
   }
 }

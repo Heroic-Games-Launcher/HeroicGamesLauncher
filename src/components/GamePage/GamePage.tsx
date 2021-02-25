@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   getGameInfo,
@@ -23,6 +23,7 @@ import Settings from '@material-ui/icons/Settings';
 import UpdateComponent from '../UI/UpdateComponent'
 import GamesSubmenu from './GamesSubmenu'
 import { IpcRenderer, Remote } from 'electron'
+import InfoBox from '../UI/InfoBox'
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
   remote: Remote
@@ -43,7 +44,6 @@ export default function GamePage() {
   const { refresh, libraryStatus, handleGameStatus, data } = useContext(
     ContextProvider
   )
-
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -167,9 +167,9 @@ export default function GamePage() {
               />
               <div className="gameConfig">
                 <div className="gamePicture">
-                  <img alt="cover-art" src={art_square} className="gameImg" />
+                  <img alt="cover-art" src={`${art_square}?h=400&resize=1&w=300`} className="gameImg" />
                   {art_logo && (
-                    <img alt="cover-art" src={art_logo} className="gameLogo" />
+                    <img alt="cover-art" src={`${art_logo}?h=100&resize=1&w=200`} className="gameLogo" />
                   )}
                 </div>
                 <div className="gameInfo">
@@ -177,7 +177,7 @@ export default function GamePage() {
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     <div className="summary">
-                      {extraInfo ? extraInfo.shortDescription : ''}
+                      {extraInfo.about && extraInfo.about.shortDescription}
                     </div>
                     {cloudSaveEnabled && (
                       <div
@@ -262,12 +262,42 @@ export default function GamePage() {
                       {`${getButtonLabel(isInstalled)}`}
                     </button>
                   </div>
+                  <div className="requirements">
+                    {extraInfo.reqs && (
+                      <InfoBox text="infobox.requirements">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td className="specs"></td>
+                              <td className="specs">{t('specs.minimum').toUpperCase()}</td>
+                              <td className="specs">{t('specs.recommended').toUpperCase()}</td>
+                            </tr>
+                            {extraInfo.reqs.map(e => (
+                              <Fragment key={e.title}>
+                                <tr>
+                                  <td>
+                                    <span className="title">{e.title.toUpperCase()}:</span>
+                                  </td>
+                                  <td>
+                                    <span className="text">{e.minimum}</span>
+                                  </td>
+                                  <td>
+                                    <span className="text">{e.recommended}</span>
+                                  </td>
+                                </tr>
+                              </Fragment>
+                            ))}
+                          </tbody>
+                        </table>
+                      </InfoBox>
+                    )}
+                  </div>
                 </div>
               </div>{' '}
             </>
           ) : (
-            <UpdateComponent />
-          )}
+              <UpdateComponent />
+            )}
         </div>
       </>
     )
@@ -306,15 +336,13 @@ export default function GamePage() {
     }
 
     if (isUpdating && isInstalled) {
-      return `${t('status.updating')} ${
-        percent ? `${percent} | ETA: ${eta}` : '...'
-      }`
+      return `${t('status.updating')} ${percent ? `${percent} | ETA: ${eta}` : '...'
+        }`
     }
 
     if (!isUpdating && isInstalling) {
-      return `${t('status.installing')} ${
-        percent ? `${percent} | ETA: ${eta}` : '...'
-      }`
+      return `${t('status.installing')} ${percent ? `${percent} | ETA: ${eta}` : '...'
+        }`
     }
 
     if (isInstalled) {
