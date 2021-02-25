@@ -145,6 +145,7 @@
       "sync": "Save-Sync"
     }
   },
+  "Store": "",
   "Total Games": "Nombre total de jeux",
   "tray": {
     "about": "À propos",

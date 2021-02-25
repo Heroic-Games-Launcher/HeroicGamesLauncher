@@ -1,0 +1,24 @@
+{
+  "button": {
+    "login": "Inloggen"
+  },
+  "input": {
+    "placeholder": "Plak het SID nummer hier"
+  },
+  "message": {
+    "part1": "Om in te loggen en je spellen te installeren, moet je de volgende stappen volgen:",
+    "part2": "Open de",
+    "part3": "Epic Store hier",
+    "part4": ", Log in met je account en kopieer je",
+    "part5": "SID informatie nummer",
+    "part6": "Plak het",
+    "part7": "SID nummer",
+    "part8": "in het invoervak hier onder, en klik op de login knop."
+  },
+  "status": {
+    "error": "Error",
+    "loading": "Spellen lijst word geladen, geduld alstublieft",
+    "logging": "Inloggen..."
+  },
+  "welcome": "Welkom!"
+}
