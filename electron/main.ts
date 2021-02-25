@@ -120,19 +120,56 @@ function createWindow(): BrowserWindow {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 let appIcon: Tray = null
-let window: BrowserWindow = null
 const gotTheLock = app.requestSingleInstanceLock()
+
+const contextMenu = () =>
+  Menu.buildFromTemplate([
+    {
+      label: i18next.t('tray.show'),
+      click: function () {
+        mainWindow.show()
+      },
+    },
+    {
+      label: i18next.t('tray.about', 'About'),
+      click: function () {
+        showAboutWindow()
+      },
+    },
+    {
+      label: 'Github',
+      click: function () {
+        exec(`xdg-open ${heroicGithubURL}`)
+      },
+    },
+    {
+      label: i18next.t('tray.support', 'Support Us'),
+      click: function () {
+        exec(`xdg-open ${kofiURL}`)
+      },
+    },
+    {
+      label: i18next.t('tray.reload', 'Reload'),
+      click: function () {
+        mainWindow.reload()
+      },
+      accelerator: 'ctrl + R',
+    },
+    {
+      label: i18next.t('tray.quit', 'Quit'),
+      click: function () {
+        handleExit()
+      },
+    },
+  ])
 
 if (!gotTheLock) {
   app.quit()
 } else {
   app.on('second-instance', () => {
     // Someone tried to run a second instance, we should focus our window.
-    if (window) {
-      if (window.isMinimized()) {
-        window.restore()
-        window.focus()
-      }
+    if (mainWindow) {
+      mainWindow.show()
     }
   })
   app.whenReady().then(async () => {
@@ -141,7 +178,7 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr'],
+      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr', 'es'],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -150,55 +187,16 @@ if (!gotTheLock) {
       },
     })
 
-    window = createWindow()
+    createWindow()
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
-    const contextMenu = Menu.buildFromTemplate([
-      {
-        label: i18next.t('tray.show'),
-        click: function () {
-          mainWindow.show()
-        },
-      },
-      {
-        label: i18next.t('tray.about', 'About'),
-        click: function () {
-          showAboutWindow()
-        },
-      },
-      {
-        label: 'Github',
-        click: function () {
-          exec(`xdg-open ${heroicGithubURL}`)
-        },
-      },
-      {
-        label: i18next.t('tray.support', 'Support Us'),
-        click: function () {
-          exec(`xdg-open ${kofiURL}`)
-        },
-      },
-      {
-        label: i18next.t('tray.reload', 'Reload'),
-        click: function () {
-          mainWindow.reload()
-        },
-        accelerator: 'ctrl + R',
-      },
-      {
-        label: i18next.t('tray.quit', 'Quit'),
-        click: function () {
-          handleExit()
-        },
-      },
-    ])
-
-    appIcon.setContextMenu(contextMenu)
+    appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
       await i18next.changeLanguage(language)
+      appIcon.setContextMenu(contextMenu())
     })
 
     return
