@@ -303,7 +303,7 @@ ipcMain.handle('legendary', async (event, args) => {
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
   const { defaultInstallPath, maxWorkers } = await getSettings('default')
-  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+  const workers = maxWorkers ? `--max-workers ${maxWorkers * 2}` : ''
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
   let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
