@@ -69,7 +69,8 @@
     "settings": "Settings are saved automatically"
   },
   "infobox": {
-    "help": "Help"
+    "help": "Help",
+    "requirements": "System Requirements"
   },
   "Library": "Library",
   "message": {

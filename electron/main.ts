@@ -275,7 +275,8 @@ ipcMain.handle('getGameInfo', async (event, game) => {
       url: epicUrl,
       method: 'GET',
     })
-    return response.data.pages[0].data.about
+    delete response.data.pages[0].data.requirements.systems[0].details[0]
+    return {'about': response.data.pages[0].data.about, 'reqs': response.data.pages[0].data.requirements.systems[0].details}
   } catch (error) {
     return {}
   }

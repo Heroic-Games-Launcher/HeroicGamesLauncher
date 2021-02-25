@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { writeFileSync } from 'graceful-fs'
-import { exec } from 'child_process'
 import { promisify } from 'util'
 import { readFileSync, existsSync, stat, readdirSync } from 'graceful-fs'
 // @ts-ignore
@@ -8,61 +6,15 @@ import byteSize from 'byte-size'
 
 import {
   heroicConfigPath,
-  heroicFolder,
   isLoggedIn,
-  legendaryBin,
   legendaryConfigPath,
   userInfo,
   writeDefaultconfig,
 } from '../utils'
 import { Game, InstalledInfo, KeyImage } from '../types'
 
-const execAsync = promisify(exec)
 const statAsync = promisify(stat)
-const dlcs:string[] = [];
-
-export async function getLegendaryGames() {
-  const { stdout, stderr } = await execAsync(
-    `${legendaryBin} list-games --json`
-  )
-  if (stdout) {
-    const results = JSON.parse(stdout)
-    // NEED DOUBLE CHECK IF SOMETHINGS INSIDE IS NEEDED OR ADD MORE STUFF IT REDUCE SIZE OF THE FINAL FILE
-    // There is maybe a better way to do that tried with filter but still not work
-    results.map((res: any) => {
-      delete res.asset_info
-      delete res.metadata.creationDate
-      delete res.metadata.developerId
-      delete res.metadata.dlcItemList
-      delete res.metadata.endOfSupport
-      delete res.metadata.entitlementName
-      delete res.metadata.entitlementType
-      delete res.metadata.lastModifiedDate
-      delete res.metadata.releaseInfo
-      res.metadata.keyImages.map((k: any) => {
-        delete k.height
-        delete k.md5
-        delete k.size
-        delete k.uploadedDate
-        delete k.width
-      })
-    })
-    const json = JSON.stringify(results)
-    return writeFileSync(`${heroicFolder}library.json`, json)
-  } else if (stderr) {
-    // return a file to avoid infinite loop
-    return writeFileSync(
-      `${heroicFolder}library.json`,
-      '{"result":"noGamesFound"}'
-    )
-  } else {
-    // return a file to avoid infinite loop
-    return writeFileSync(
-      `${heroicFolder}library.json`,
-      '{"result":"noGamesFound"}'
-    )
-  }
-}
+const dlcs: string[] = [];
 
 const installed = `${legendaryConfigPath}/installed.json`
 
@@ -110,12 +62,15 @@ export async function getLegendaryConfig(file: string) {
             dlcItemList,
             customAttributes: { CloudSaveFolder, FolderName },
           } = metadata
-          dlcItemList ?
-            dlcItemList.map((v: { releaseInfo: any[] }) => {
-              v.releaseInfo ?
-              v.releaseInfo.map((a: { appId: string }) => dlcs.push(a.appId)) : null
-            }) : null
-       
+
+          if (dlcItemList) {
+            dlcItemList.forEach((v: { releaseInfo: { [x: number]: { appId: string } } }) => {
+              if (v.releaseInfo && v.releaseInfo[0]) {
+                dlcs.push(v.releaseInfo[0].appId);
+              }
+            });
+          }
+
           const cloudSaveEnabled = Boolean(CloudSaveFolder)
           const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
           const installFolder = FolderName ? FolderName.value : ''
@@ -140,15 +95,9 @@ export async function getLegendaryConfig(file: string) {
           )
           const info = isInstalled
             ? installedGames.filter((game) => game.app_name === app_name)[0]
-            : {} 
-          
-          const dlc = () => {
-            let bool = false
-            dlcs.map(v => {
-                if (v === app_name) return bool = true
-            })
-            return bool
-            } 
+            : {}
+
+          const dlc = () => dlcs.some(dlc => dlc === app_name)
           const {
             executable = null,
             version = null,

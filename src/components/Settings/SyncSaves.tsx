@@ -154,7 +154,7 @@ export default function SyncSaves({
           />
         </span>
       </span>
-      <InfoBox>
+      <InfoBox text="infobox.help">
         <ul>
           <li>{t('help.sync.part1')}</li>
           <li>{t('help.sync.part2')}</li>
