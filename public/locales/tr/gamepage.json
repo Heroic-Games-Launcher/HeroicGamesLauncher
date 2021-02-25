@@ -78,5 +78,9 @@
     "settings": "Ayarlar",
     "store": "Mağaza Sayfası",
     "verify": "Doğrula ve Onar"
+  },
+  "specs": {​
+    "minimum"​: ​ "Minimum"​,
+    ​​"recommended"​: ​ "Önerilen"
   }
 }

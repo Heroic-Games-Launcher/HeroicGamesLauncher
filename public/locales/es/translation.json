@@ -70,7 +70,8 @@
     "settings": "Los ajustes se guardan automáticamente"
   },
   "infobox": {
-    "help": "Ayuda"
+    "help": "Ayuda",
+    "requirements": "Requisitos del sistema"
   },
   "Library": "Biblioteca",
   "message": {

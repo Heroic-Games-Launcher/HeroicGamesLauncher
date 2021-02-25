@@ -95,7 +95,7 @@ export default function OtherSettings({
           </span>
         </span>
       )}
-      <InfoBox>
+      <InfoBox text="infobox.help">
         {t('help.other.part1')}
         <strong>{`${t('help.other.part2')} `}</strong>
         {t('help.other.part3')}

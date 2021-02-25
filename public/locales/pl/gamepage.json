@@ -74,5 +74,9 @@
         "settings": "Ustawienia",
         "store": "Strona sklepu",
         "verify": "Sprawdź i napraw"
+    },
+    "specs": {
+        "minimum": "Minimalne",
+        "recommended": "Rekomendowane"
     }
 }
