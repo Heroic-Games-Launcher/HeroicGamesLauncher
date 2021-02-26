@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "Dies wird den Installationsort dieses Spiels ändern, sind Sie sicher?",
+      "path": "Wählen Sie einen neuen Installationspfad",
+      "title": "Spiele-Installationspfad ändern"
+    },
     "choose": "Auswählen",
     "importpath": "Zu importierenden Spieleordner auswählen",
     "installpath": "Installations-Pfad auswählen",
@@ -72,6 +77,7 @@
     "updating": "Spiel wird aktualisiert"
   },
   "submenu": {
+    "change": "Installationspfad ändern",
     "log": "Neuester Log",
     "move": "Spiel verschieben",
     "protondb": "Kompatibilität überprüfen",

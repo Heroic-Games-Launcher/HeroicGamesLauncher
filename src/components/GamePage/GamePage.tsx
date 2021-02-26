@@ -41,7 +41,7 @@ interface RouteParams {
 export default function GamePage() {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
-  const { refresh, libraryStatus, handleGameStatus } = useContext(
+  const { refresh, libraryStatus, handleGameStatus, data } = useContext(
     ContextProvider
   )
   const gameStatus: GameStatus = libraryStatus.filter(
@@ -91,7 +91,7 @@ export default function GamePage() {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName])
+  }, [isInstalling, isPlaying, appName, data])
 
   useEffect(() => {
     ipcRenderer
