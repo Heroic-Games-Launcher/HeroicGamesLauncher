@@ -26,14 +26,7 @@
       "title": "Kies de saves map"
     },
     "wineprefix": "Kies een Wine prefix map",
-    "yes": "Ja",
-    "importpath": "",
-    "installpath": "",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    }
+    "yes": "Ja"
   },
   "button": {
     "sync": "Synchroniseer",

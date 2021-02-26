@@ -26,14 +26,7 @@
       "title": "Elija el directorio de guardado"
     },
     "wineprefix": "Elija la carpeta Wine-Prefix",
-    "yes": "Si",
-    "importpath": "",
-    "installpath": "",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    }
+    "yes": "Si"
   },
   "button": {
     "sync": "Sincronizar",

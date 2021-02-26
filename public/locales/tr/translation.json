@@ -11,8 +11,6 @@
     "error": {
       "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "HAYIR",
     "quit": {
       "message": "Bitmemiş işlemler var, emin misin?",
@@ -22,11 +20,6 @@
       "title": "Çalıştırılacak EXE'yi Seçin"
     },
     "select": "Seç",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Seç",
       "error": "Geçersiz Yol",

@@ -1,9 +1,9 @@
 {
   "box": {
     "change": {
-      "message": "",
-      "path": "",
-      "title": ""
+      "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
+      "path": "Seleccione la carpeta",
+      "title": "Modificar la ubicación de instalación del juego"
     },
     "choose": "Escoger",
     "importpath": "Elija la carpeta del juego para importar",
@@ -81,7 +81,7 @@
     "updating": "Actualización de juego"
   },
   "submenu": {
-    "change": "",
+    "change": "Modificar la ubicación",
     "log": "Último registro",
     "move": "Mover juego",
     "protondb": "Verificar compatibilidad",

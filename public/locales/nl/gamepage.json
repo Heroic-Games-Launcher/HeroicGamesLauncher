@@ -1,9 +1,9 @@
 {
   "box": {
     "change": {
-      "message": "",
-      "path": "",
-      "title": ""
+      "message": "Dit zal de installatielocatie van dit spel veranderen, weet je het zeker?",
+      "path": "Kies een nieuw installatiepad",
+      "title": "Verander het installatiepad van games"
     },
     "choose": "Kies",
     "importpath": "Kies een spel-map om te importeren",
@@ -69,8 +69,8 @@
     }
   },
   "specs": {
-    "minimum": "",
-    "recommended": ""
+    "minimum": "Minimum",
+    "aanbevolen": "Aanbevolen"
   },
   "status": {
     "installed": "Geïnstaleerd",
@@ -81,7 +81,7 @@
     "updating": "Spel updaten"
   },
   "submenu": {
-    "change": "",
+    "change": "Wijzig installatiepad",
     "log": "Laatste log",
     "move": "Spel verplaatsen",
     "protondb": "Compatibiliteit checken",
