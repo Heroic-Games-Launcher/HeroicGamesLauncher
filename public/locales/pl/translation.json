@@ -62,7 +62,8 @@
     "settings": "Ustawienia są zapisywane automatycznie"
   },
   "infobox": {
-    "help": "Pomoc"
+    "help": "Pomoc",
+    "requirements": ""
   },
   "Library": "Biblioteka",
   "message": {

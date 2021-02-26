@@ -68,6 +68,10 @@
       "syncing": "Spielstände werden synchronisiert"
     }
   },
+  "specs": {
+    "minimum": "Minimal",
+    "recommended": "Empfohlen"
+  },
   "status": {
     "installed": "Installiert",
     "installing": "Wird installiert",
@@ -84,9 +88,5 @@
     "settings": "Einstellungen",
     "store": "Store-Seite",
     "verify": "Prüfen und reparieren"
-  },
-  "specs": {
-    "minimum": "Minimal",
-    "recommended": "Empfohlen"
   }
 }

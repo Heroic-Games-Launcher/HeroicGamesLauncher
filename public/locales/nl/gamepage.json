@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "",
+      "path": "",
+      "title": ""
+    },
     "choose": "Kies",
     "importpath": "Kies een spel-map om te importeren",
     "installpath": "Kies installatie map",
@@ -63,6 +68,10 @@
       "syncing": "Saves synchroniseren"
     }
   },
+  "specs": {
+    "minimum": "",
+    "recommended": ""
+  },
   "status": {
     "installed": "Geïnstaleerd",
     "installing": "Installeren",
@@ -72,6 +81,7 @@
     "updating": "Spel updaten"
   },
   "submenu": {
+    "change": "",
     "log": "Laatste log",
     "move": "Spel verplaatsen",
     "protondb": "Compatibiliteit checken",

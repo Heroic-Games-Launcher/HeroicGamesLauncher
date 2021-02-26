@@ -2,7 +2,7 @@ module.exports = {
   contextSeparator: '_',
   // Key separator used in your translation keys
 
-  createOldCatalogs: false,
+  createOldCatalogs: true,
   // Save the \_old files
 
   defaultNamespace: 'translation',
@@ -14,7 +14,7 @@ module.exports = {
   indentation: 2,
   // Indentation of the catalog files
 
-  keepRemoved: false,
+  keepRemoved: true,
   // Keep keys from the catalog that are no longer in code
 
   keySeparator: '.',

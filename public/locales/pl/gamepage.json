@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "",
+      "path": "",
+      "title": ""
+    },
     "choose": "Wybierz",
     "importpath": "Wybierz folder gry do importowania",
     "installpath": "Wybierz ścieżkę do zainstalowania",
@@ -63,6 +68,10 @@
       "syncing": "Synchronizacja zapisów gry"
     }
   },
+  "specs": {
+    "minimum": "",
+    "recommended": ""
+  },
   "status": {
     "installed": "Zainstalowane",
     "installing": "W trakcie instalacji",
@@ -72,6 +81,7 @@
     "updating": "Aktualizowanie gry"
   },
   "submenu": {
+    "change": "",
     "log": "Ostatni log",
     "move": "Przenieś grę",
     "protondb": "Sprawdź kompatybilność",

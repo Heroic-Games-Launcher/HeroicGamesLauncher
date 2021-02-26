@@ -11,8 +11,6 @@
     "error": {
       "launch": "Een probleem tijdens het lanceren van een spel, check de logs!"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "NEE",
     "quit": {
       "message": "Er zijn lopende processen, weet je het zeker?",
@@ -22,18 +20,20 @@
       "title": "Selecteer EXE on te lanceren"
     },
     "select": "Selecteren",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Kies",
       "error": "Incorrect map",
       "title": "Kies de saves map"
     },
     "wineprefix": "Kies een Wine prefix map",
-    "yes": "Ja"
+    "yes": "Ja",
+    "importpath": "",
+    "installpath": "",
+    "stopInstall": {
+      "keepInstalling": "",
+      "message": "",
+      "title": ""
+    }
   },
   "button": {
     "sync": "Synchroniseer",
@@ -69,7 +69,8 @@
     "settings": "Instellingen worden automatisch opgeslagen"
   },
   "infobox": {
-    "help": "Help"
+    "help": "Help",
+    "requirements": ""
   },
   "Library": "Bibliotheek",
   "message": {
@@ -144,7 +145,7 @@
       "sync": "Synchronisatie"
     }
   },
-  "Store": "Winkel",
+  "store": "Store",
   "Total Games": "Hoeveelheid spellen",
   "tray": {
     "about": "Over",
@@ -159,5 +160,6 @@
     "quit": "Sluiten",
     "refresh": "Herladen",
     "support": "Steun ons"
-  }
+  },
+  "Store": "Winkel"
 }

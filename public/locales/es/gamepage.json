@@ -1,6 +1,10 @@
-
 {
   "box": {
+    "change": {
+      "message": "",
+      "path": "",
+      "title": ""
+    },
     "choose": "Escoger",
     "importpath": "Elija la carpeta del juego para importar",
     "installpath": "Elija la ruta de instalación",
@@ -64,6 +68,10 @@
       "syncing": "Sincronización de guardados"
     }
   },
+  "specs": {
+    "minimum": "mínimo",
+    "recommended": "recomendado"
+  },
   "status": {
     "installed": "Instalado",
     "installing": "Instalando",
@@ -73,15 +81,12 @@
     "updating": "Actualización de juego"
   },
   "submenu": {
+    "change": "",
     "log": "Último registro",
     "move": "Mover juego",
     "protondb": "Verificar compatibilidad",
     "settings": "Ajustes",
     "store": "Página de la tienda",
     "verify": "Verificar y reparar"
-  },
-  "specs": {
-    "minimum": "mínimo",
-    "recommended": "recomendado"
   }
 }

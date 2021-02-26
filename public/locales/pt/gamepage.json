@@ -68,6 +68,10 @@
       "syncing": "Sincronizando"
     }
   },
+  "specs": {
+    "minimum": "Mínimo",
+    "recommended": "Recomendado"
+  },
   "status": {
     "installed": "Jogo Instalado",
     "installing": "Instalando",
@@ -84,9 +88,5 @@
     "settings": "Configurações",
     "store": "Página da Loja",
     "verify": "Verificar e Reparar"
-  },
-  "specs": {
-    "minimum": "Mínimo",
-    "recommended": "Recomendado"
   }
 }
