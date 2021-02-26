@@ -261,20 +261,53 @@ ipcMain.on('quit', async () => handleExit())
 /* const storage: Storage = mainWindow.localStorage
 const lang = storage.getItem('language') */
 
-ipcMain.handle('getGameInfo', async (event, game) => {
+const fetchGraphQl = async (namespace: string, game:string) => {
+  const graphql = JSON.stringify({
+    query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
+    variables: {}
+  })
+  const result = await axios("https://www.epicgames.com/graphql", {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    data: graphql
+  })
+  const res = result.data.data.Catalog.catalogOffers
+  const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
+  if (slug) {
+    console.log('SLUG',slug)
+    return slug.productSlug.replace(/(\/.*)/, '')
+  } else {
+    console.log('game',game)
+    return game
+  }
+}
+
+
+
+
+ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
   let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
     .language
   if (lang === 'pt') {
     lang = 'pt-BR'
   }
-  const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
+
+  let epicUrl:string;
+  if (namespace) {
+    const fetch:string = await fetchGraphQl(namespace, game)
+
+    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${fetch}`
+  } else {
+    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
+  }
   try {
     const response = await axios({
       url: epicUrl,
       method: 'GET',
     })
     delete response.data.pages[0].data.requirements.systems[0].details[0]
-    return {'about': response.data.pages[0].data.about, 'reqs': response.data.pages[0].data.requirements.systems[0].details}
+    const about = response.data.pages.find((e: { type: string }) => e.type === "productHome")
+    return { 'about': about.data.about, 'reqs': about.data.requirements.systems[0].details }
   } catch (error) {
     return {}
   }
@@ -398,9 +431,8 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
-    tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-  }`
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+    }`
 
   if (tool === 'runExe') {
     command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`

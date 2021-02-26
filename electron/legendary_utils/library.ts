@@ -53,7 +53,7 @@ export async function getLegendaryConfig(file: string) {
       return readdirSync(files.library)
         .map((file) => `${files.library}/${file}`)
         .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
-        .map(({ app_name, metadata }) => {
+        .map(({ app_name, metadata, asset_info }) => {
           const {
             description,
             keyImages,
@@ -62,6 +62,8 @@ export async function getLegendaryConfig(file: string) {
             dlcItemList,
             customAttributes: { CloudSaveFolder, FolderName },
           } = metadata
+          
+          const {catalog_item_id, namespace} = asset_info
 
           if (dlcItemList) {
             dlcItemList.forEach((v: { releaseInfo: { [x: number]: { appId: string } } }) => {
@@ -128,6 +130,8 @@ export async function getLegendaryConfig(file: string) {
             art_square: art_square || art_cover,
             art_logo,
             is_dlc,
+            catalog_item_id,
+            namespace
           }
         })
         .sort((a: { title: string }, b: { title: string }) => {

@@ -110,7 +110,8 @@ export const getGameInfo = async (appName: string) => {
   const game = library.filter((game) => game.app_name === appName)[0]
   const extraInfo = await ipcRenderer.invoke(
     'getGameInfo',
-    cleanTitle(game.title)
+    cleanTitle(game.title),
+    game.namespace,
   )
   return { ...game, extraInfo }
 }

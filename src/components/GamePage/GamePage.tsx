@@ -149,6 +149,7 @@ export default function GamePage() {
     t('box.stopInstall.keepInstalling') 
     */
 
+    (extraInfo && extraInfo.about) ? console.log(extraInfo.about): console.log('non')
     return (
       <>
         <Header goTo={'/'} renderBackButton />
@@ -177,7 +178,7 @@ export default function GamePage() {
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     <div className="summary">
-                      {extraInfo.about && extraInfo.about.shortDescription}
+                      {(extraInfo && extraInfo.about) ? extraInfo.about.shortDescription ? extraInfo.about.shortDescription : extraInfo.about.description ? extraInfo.about.description : '': ''}
                     </div>
                     {cloudSaveEnabled && (
                       <div
