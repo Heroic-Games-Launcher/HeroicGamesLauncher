@@ -62,8 +62,8 @@
     "settings": "Ayarlar otomatik kaydedilir"
   },
   "infobox": {
-    "help": "Yardım",​
-    "requirements"​: ​"Sistem Gereksinimleri"​
+    "help": "Yardım",
+    "requirements": "Sistem Gereksinimleri"
   },
   "Library": "Kütüphane",
   "message": {
@@ -138,7 +138,7 @@
       "sync": "Kaydet-Eşitle"
     }
   },
-  "Store": "",
+  "store": "Store",
   "Total Games": "Toplam Oyun",
   "tray": {
     "about": "Hakkında",
@@ -153,5 +153,6 @@
     "quit": "Çık",
     "refresh": "Kütüphaneyi Yenile",
     "support": "Bizi Destekle"
-  }
+  },
+  "Store": ""
 }

@@ -68,6 +68,10 @@
       "syncing": "Kayıtlar Senkronize Ediliyor"
     }
   },
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Önerilen"
+  },
   "status": {
     "installed": "Yüklendi",
     "installing": "Yükleniyor",
@@ -84,9 +88,5 @@
     "settings": "Ayarlar",
     "store": "Mağaza Sayfası",
     "verify": "Doğrula ve Onar"
-  },
-  "specs": {​
-    "minimum"​: ​ "Minimum"​,
-    ​​"recommended"​: ​ "Önerilen"
   }
 }
