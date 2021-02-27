@@ -1,3 +1,4 @@
+import i18next from 'i18next'
 import { TFunction } from 'react-i18next/*'
 
 import {
@@ -25,11 +26,12 @@ export async function handleInstall({
   isInstalling,
   installPath,
   handleGameStatus,
-  t,
 }: Install) {
+  const { t } = i18next
+
   if (isInstalling) {
     const { folderName } = await getGameInfo(appName)
-    return handleStopInstallation(t, appName, [installPath, folderName])
+    return handleStopInstallation(appName, [installPath, folderName])
   }
 
   if (installPath === 'default') {
@@ -44,9 +46,9 @@ export async function handleInstall({
 
   if (installPath === 'import') {
     const { filePaths } = await showOpenDialog({
-      title: t('box.importpath'),
-      buttonLabel: t('box.choose'),
-      properties: ['openDirectory'],
+      title: t('gamepage:box.importpath'),
+      buttonLabel: t('gamepage:box.choose'),
+      properties: ['gamepage:openDirectory'],
     })
 
     if (filePaths[0]) {
@@ -59,9 +61,9 @@ export async function handleInstall({
 
   if (installPath === 'another') {
     const { filePaths } = await showOpenDialog({
-      title: t('box.installpath'),
-      buttonLabel: t('box.choose'),
-      properties: ['openDirectory'],
+      title: t('gamepage:box.installpath'),
+      buttonLabel: t('gamepage:box.choose'),
+      properties: ['gamepage:openDirectory'],
     })
 
     if (filePaths[0]) {

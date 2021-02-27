@@ -1,8 +1,6 @@
 import { IpcRenderer, Remote } from 'electron'
-import { TFunction } from 'react-i18next/*'
 import { Game, InstallProgress } from './types'
-
-
+import i18next from 'i18next'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -230,14 +228,18 @@ export async function fixSaveFolder(
 }
 
 export async function handleStopInstallation(
-  t: TFunction<'gamepage'>,
   appName: string,
   [path, folderName]: string[]
 ) {
+  const { t } = i18next
   const { response } = await showMessageBox({
-    title: t('box.stopInstall.title'),
-    message: t('box.stopInstall.message'),
-    buttons: [t('box.stopInstall.keepInstalling'), t('box.yes'), t('box.no')],
+    title: t('gamepage:box.stopInstall.title'),
+    message: t('gamepage:box.stopInstall.message'),
+    buttons: [
+      t('gamepage:box.stopInstall.keepInstalling'),
+      t('box.yes'),
+      t('box.no'),
+    ],
   })
   if (response === 1) {
     return sendKill(appName)

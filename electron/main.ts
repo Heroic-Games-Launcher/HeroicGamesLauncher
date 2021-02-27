@@ -178,7 +178,7 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr', 'es'],
+      supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr'],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -275,7 +275,10 @@ ipcMain.handle('getGameInfo', async (event, game) => {
       method: 'GET',
     })
     delete response.data.pages[0].data.requirements.systems[0].details[0]
-    return {'about': response.data.pages[0].data.about, 'reqs': response.data.pages[0].data.requirements.systems[0].details}
+    return {
+      about: response.data.pages[0].data.about,
+      reqs: response.data.pages[0].data.requirements.systems[0].details,
+    }
   } catch (error) {
     return {}
   }
@@ -305,7 +308,7 @@ ipcMain.handle('legendary', async (event, args) => {
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
   const { defaultInstallPath, maxWorkers } = await getSettings('default')
-  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+  const workers = maxWorkers ? `--max-workers ${maxWorkers * 2}` : ''
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
   let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`

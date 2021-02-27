@@ -11,8 +11,6 @@
     "error": {
       "launch": "Błąd przy uruchamianiu gry, sprawdź logi!"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "NIE",
     "quit": {
       "message": "Trwają operacje, czy jesteś pewien?",
@@ -22,18 +20,10 @@
       "title": "Wybierz EXE"
     },
     "select": "Wybierz",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Wybierz",
       "error": "Nieprawidłowa ścieżka",
       "title": "Wybierz folder zapisów gry"
-    "infobox": {
-        "help": "Pomoc",
-        "requirements": "Wymagania"
     },
     "wineprefix": "Wybierz folder prefiksu Wine",
     "yes": "TAK"
@@ -72,7 +62,8 @@
     "settings": "Ustawienia są zapisywane automatycznie"
   },
   "infobox": {
-    "help": "Pomoc"
+    "help": "Pomoc",
+    "requirements": ""
   },
   "Library": "Biblioteka",
   "message": {
@@ -147,7 +138,7 @@
       "sync": "Synchronizasja zapisów"
     }
   },
-  "Store": "",
+  "store": "Store",
   "Total Games": "Ilość gier",
   "tray": {
     "about": "O Heroic",
