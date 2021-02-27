@@ -70,7 +70,7 @@
   },
   "specs": {
     "minimum": "Minimum",
-    "aanbevolen": "Aanbevolen"
+    "recommended": "Aanbevolen"
   },
   "status": {
     "installed": "Geïnstaleerd",
