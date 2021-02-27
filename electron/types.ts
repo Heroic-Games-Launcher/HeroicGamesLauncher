@@ -20,9 +20,11 @@ export interface WineProps {
   bin: string
 }
 
-type UserInfo = {
-  name: string
-  epicId: string
+export type UserInfo = {
+  name?: string
+  epicId?: string
+  account_id?: string
+  displayName?: string
 }
 
 export interface AppSettings {
