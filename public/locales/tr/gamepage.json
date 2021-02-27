@@ -85,8 +85,8 @@
     "store": "Mağaza Sayfası",
     "verify": "Doğrula ve Onar"
   },
-  "specs": {​
-    "minimum"​: ​ "Minimum"​,
-    ​​"recommended"​: ​ "Önerilen"
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Önerilen"
   }
 }
