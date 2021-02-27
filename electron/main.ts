@@ -1,60 +1,65 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  heroicConfigPath,
-  heroicGamesConfigPath,
-  launchGame,
-  legendaryBin,
-  loginUrl,
-  getAlternativeWine,
-  isLoggedIn,
-  legendaryConfigPath,
-  userInfo,
-  writeGameconfig,
-  home,
-  sidInfoUrl,
-  updateGame,
-  checkForUpdates,
-  showAboutWindow,
-  supportURL,
-  handleExit,
-  heroicGithubURL,
-  iconDark,
-  getSettings,
-  iconLight,
-  getLatestDxvk,
-} from './utils'
-
-import { spawn, exec } from 'child_process'
-import * as path from 'path'
-import isDev from 'electron-is-dev'
-import i18next from 'i18next'
-import Backend from 'i18next-fs-backend'
-
-import {
-  readFileSync,
-  writeFile,
-  existsSync,
-  mkdirSync,
-  unlinkSync,
-  writeFileSync,
-} from 'graceful-fs'
-import { promisify } from 'util'
 import axios from 'axios'
-import { userInfo as user, cpus } from 'os'
-
-const execAsync = promisify(exec)
-
+import {
+  exec,
+  spawn
+} from 'child_process'
 import {
   app,
   BrowserWindow,
   ipcMain,
-  Notification,
   Menu,
-  Tray,
+  Notification,
   powerSaveBlocker,
+  Tray
 } from 'electron'
-import { Game } from './types.js'
+import isDev from 'electron-is-dev'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFile,
+  writeFileSync
+} from 'graceful-fs'
+import i18next from 'i18next'
+import Backend from 'i18next-fs-backend'
+import {
+  cpus,
+  userInfo as user
+} from 'os'
+import * as path from 'path'
+import { promisify } from 'util'
+
 import { getLegendaryConfig } from './legendary_utils/library'
+import { Game } from './types.js'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+  checkForUpdates,
+  getAlternativeWine,
+  getLatestDxvk,
+  getSettings,
+  handleExit,
+  heroicConfigPath,
+  heroicGamesConfigPath,
+  heroicGithubURL,
+  home,
+  iconDark,
+  iconLight,
+  isLoggedIn,
+  launchGame,
+  legendaryBin,
+  legendaryConfigPath,
+  loginUrl,
+  showAboutWindow,
+  sidInfoUrl,
+  supportURL,
+  updateGame,
+  userInfo,
+  writeGameconfig
+} from './utils'
+
+const execAsync = promisify(exec)
+
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
@@ -360,20 +365,18 @@ ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
-  const command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`
-  const { stdout } = await execAsync(command)
-  const status = `${stdout.split('\n')[0]}`.split('(')
-  const percent = status[0]
-  const eta = status[1] ? status[1].split(',')[1] : ''
-  const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
-  if (percent && bytes && eta) {
-    const progress = { percent, bytes, eta }
-    console.log(
-      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
-    )
-    return progress
-  }
-  return ''
+  const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
+  const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
+  const { stdout: progress_result } = await execAsync(progress_command)
+  const { stdout: downloaded_result } = await execAsync(downloaded_command)
+  const [percent, eta] = progress_result.split(' ')
+  const bytes = downloaded_result + 'MiB'
+
+  const progress = { percent, bytes, eta }
+  console.log(
+    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+  )
+  return progress
 })
 
 ipcMain.on('kill', (event, game) => {
