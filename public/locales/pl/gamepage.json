@@ -73,6 +73,14 @@
       "message": "Chesz spróbować naprawć tą grę? To może zająć dużo czasu.",
       "title": "Sprawdź i napraw"
     },
+    "saves": {
+      "syncing": "Synchronizacja zapisów gry"
+    },
+
+    "playing": {
+      "start": "Graj",
+      "stop": "Gra włączona (Zatrzymaj)"
+    },
     "stopInstall": {
       "keepInstalling": "Kontunuuj instalację",
       "message": "Czy chcesz zachować pobrane pliki?",
@@ -87,54 +95,6 @@
       "title": "Gra Potrzebuje Aktualizacji"
     },
     "yes": "TAK"
-  },
-  "button": {
-    "cancel": "Anuluj",
-    "import": "Importuj",
-    "install": "Instaluj",
-    "uninstall": "Usuń"
-  },
-  "disabled": "Wyłączona",
-  "enabled": "Włączona",
-  "gamecard": {
-    "moving": "Moving",
-    "repairing": "Repairing"
-  },
-  "info": {
-    "path": "Ścieżka instalacyjna",
-    "size": "Rozmiar",
-    "syncsaves": "Synchronizuj zapisy gry",
-    "version": "Wersja"
-  },
-  "install": {
-    "another": "Instaluj w innej ścieżką",
-    "default": "Instaluj w domyślnej ścieżce",
-    "import": "Importuj grę"
-  },
-  "label": {
-    "cancel": {
-      "update": "Anuluj aktualizację"
-    },
-
-    "playing": {
-      "start": "Graj",
-      "stop": "Gra włączona (Zatrzymaj)"
-    },
-    "saves": {
-      "syncing": "Synchronizacja zapisów gry"
-    "submenu": {
-        "log": "Ostatni log",
-        "move": "Przenieś grę",
-        "protondb": "Sprawdź kompatybilność",
-        "settings": "Ustawienia",
-        "store": "Strona sklepu",
-        "verify": "Sprawdź i napraw"
-    },
-    "specs": {
-        "minimum": "Minimalne",
-        "recommended": "Rekomendowane"
-
-    }
   },
   "status": {
     "installed": "Zainstalowane",
@@ -152,5 +112,9 @@
     "settings": "Ustawienia",
     "store": "Strona sklepu",
     "verify": "Sprawdź i napraw"
+  },
+  "specs": {
+    "minimum": "Minimalne",
+    "recommended": "Rekomendowane"
   }
 }

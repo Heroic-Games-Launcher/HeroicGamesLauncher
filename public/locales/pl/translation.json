@@ -31,9 +31,6 @@
       "button": "Wybierz",
       "error": "Nieprawidłowa ścieżka",
       "title": "Wybierz folder zapisów gry"
-    "infobox": {
-        "help": "Pomoc",
-        "requirements": "Wymagania"
     },
     "wineprefix": "Wybierz folder prefiksu Wine",
     "yes": "TAK"
@@ -72,7 +69,8 @@
     "settings": "Ustawienia są zapisywane automatycznie"
   },
   "infobox": {
-    "help": "Pomoc"
+    "help": "Pomoc",
+    "requirements": "Wymagania"
   },
   "Library": "Biblioteka",
   "message": {
