@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
-import { I18nextProvider } from 'react-i18next'
-import { initReactI18next } from 'react-i18next'
+import { I18nextProvider, initReactI18next } from 'react-i18next'
 import i18next from 'i18next'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
@@ -31,6 +30,7 @@ i18next
     },
     lng: 'en',
     fallbackLng: 'en',
+    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr'],
     react: {
       useSuspense: true,
     },

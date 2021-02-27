@@ -11,8 +11,6 @@
     "error": {
       "launch": "Erreur lors du lancement du jeu, consultez le rapport"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "NON",
     "quit": {
       "message": "D'autres opérations sont en cours, êtes-vous sûrs?",
@@ -22,11 +20,6 @@
       "title": "Sélectionner le EXE à exécuter"
     },
     "select": "Sélectionner",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Choisir",
       "error": "Chemin invalide",
@@ -145,7 +138,7 @@
       "sync": "Save-Sync"
     }
   },
-  "Store": "",
+  "store": "Store",
   "Total Games": "Nombre total de jeux",
   "tray": {
     "about": "À propos",
