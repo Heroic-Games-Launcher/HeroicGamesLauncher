@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import cx from 'classnames'
 import { legendary, loginPage, sidInfoPage } from '../helper'
-import Autorenew from '@material-ui/icons/Autorenew';
-import Info from '@material-ui/icons/Info';
-import LanguageSelector, { FlagPosition } from './UI/LanguageSelector';
+import Autorenew from '@material-ui/icons/Autorenew'
+import Info from '@material-ui/icons/Info'
+import LanguageSelector, { FlagPosition } from './UI/LanguageSelector'
 const storage: Storage = window.localStorage
 interface Props {
   refresh: () => Promise<void>
@@ -79,7 +78,10 @@ export default function Login({ refresh }: Props) {
                 {`${t('message.part4')} `}
                 <span onClick={() => sidInfoPage()} className="sid">
                   {`${t('message.part5')}`}
-                  <Info style={{ marginLeft: '4px' }} className="material-icons" />
+                  <Info
+                    style={{ marginLeft: '4px' }}
+                    className="material-icons"
+                  />
                 </span>
                 .
               </li>
@@ -113,12 +115,21 @@ export default function Login({ refresh }: Props) {
               {t('button.login', 'Login')}
             </button>
           </div>
-          <span style={{ paddingRight: '22px', marginBottom: '22px', display: 'flex', justifyContent: 'flex-end', width: '100%'}}> 
-            <LanguageSelector 
-            handleLanguageChange={handleChangeLanguage}
-            currentLanguage={currentLanguage}
-            flagPossition={FlagPosition.PREPEND}
-            className="settingSelect language-login" />
+          <span
+            style={{
+              paddingRight: '22px',
+              marginBottom: '22px',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: '100%',
+            }}
+          >
+            <LanguageSelector
+              handleLanguageChange={handleChangeLanguage}
+              currentLanguage={currentLanguage}
+              flagPossition={FlagPosition.PREPEND}
+              className="settingSelect language-login"
+            />
           </span>
         </div>
       </div>

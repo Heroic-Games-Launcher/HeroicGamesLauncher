@@ -81,7 +81,7 @@ function createWindow(): BrowserWindow {
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: any) => {
+      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
         console.log('An error occurred: ', err)
       })
     })

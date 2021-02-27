@@ -15,7 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
-import { AppSettings, WineProps } from './types'
+import { AppSettings, WineProps, UserInfo } from './types'
 import i18next from 'i18next'
 const { showErrorBox, showMessageBox } = dialog
 
@@ -140,11 +140,11 @@ const getSettings = async (
   return settings[settingsName]
 }
 
-const getUserInfo = () => {
+export const getUserInfo = (): UserInfo => {
   if (existsSync(userInfo)) {
     return JSON.parse(readFileSync(userInfo, 'utf-8'))
   }
-  return { account_id: '' }
+  return { account_id: '', displayName: null }
 }
 
 const updateGame = (game: string) => {

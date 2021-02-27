@@ -11,18 +11,18 @@ export interface KeyImage {
 }
 
 interface About {
-  description: string,
+  description: string
   shortDescription: string
 }
 
 interface Reqs {
-  minimum: string,
-  recommended: string,
+  minimum: string
+  recommended: string
   title: string
 }
 
 interface ExtraInfo {
-  about: About,
+  about: About
   reqs: Reqs[]
 }
 

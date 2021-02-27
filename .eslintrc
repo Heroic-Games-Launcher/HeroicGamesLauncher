@@ -26,8 +26,9 @@
     }
   },
   "rules": {
+    "complexity": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "complexity": "off"
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }
