@@ -37,7 +37,8 @@ const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
-const kofiURL = 'https://ko-fi.com/flavioislima'
+const supportURL =
+  'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
@@ -469,6 +470,6 @@ export {
   loginUrl,
   sidInfoUrl,
   updateGame,
-  kofiURL,
+  supportURL,
   heroicGithubURL,
 }
