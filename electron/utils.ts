@@ -353,6 +353,7 @@ const writeDefaultconfig = async () => {
         otherOptions: '',
         useGameMode: false,
         showFps: false,
+        maxWorkers: 0,
         language: 'en',
         userInfo: {
           name: userName,
