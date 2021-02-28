@@ -1,9 +1,9 @@
 {
   "box": {
     "change": {
-      "message": "Dit zal de installatielocatie van dit spel veranderen, weet je het zeker?",
-      "path": "Kies een nieuw installatiepad",
-      "title": "Verander het installatiepad van games"
+      "message": "To zmieni miejsce gdzie gra jest zainstalowana. Czy jesteś pewien?",
+      "path": "Wybierz nową ścieżkę instalacji",
+      "title": "Wybierz Ścieżkę Instalacji Gier"
     },
     "choose": "Wybierz",
     "importpath": "Wybierz folder gry do importowania",
@@ -81,7 +81,7 @@
     "updating": "Aktualizowanie gry"
   },
   "submenu": {
-    "change": "Wijzig installatiepad",
+    "change": "Zmień ścieżkę instalacji",
     "log": "Ostatni log",
     "move": "Przenieś grę",
     "protondb": "Sprawdź kompatybilność",
