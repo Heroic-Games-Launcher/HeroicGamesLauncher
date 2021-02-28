@@ -25,11 +25,15 @@ interface RouteParams {
   type: string
 }
 
+interface LocationState {
+  fromGameCard: boolean
+}
+
 // TODO: add feedback when launching winecfg and winetricks
 
 function Settings() {
   const { t, i18n } = useTranslation()
-  const { state } = useLocation() as { state: any }
+  const { state } = useLocation() as { state: LocationState }
 
   const [wineVersion, setWineversion] = useState({
     name: 'Wine Default',
@@ -150,7 +154,7 @@ function Settings() {
       language,
       darkTrayIcon,
       maxWorkers,
-    },
+    } as AppSettings,
   }
 
   const GameSettings = {
@@ -166,7 +170,7 @@ function Settings() {
       audioFix,
       autoInstallDxvk,
       showMangohud,
-    },
+    } as AppSettings,
   }
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings

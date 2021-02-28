@@ -15,7 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
-import { AppSettings, WineProps } from './types'
+import { AppSettings, WineProps, UserInfo } from './types'
 import i18next from 'i18next'
 const { showErrorBox, showMessageBox } = dialog
 
@@ -37,7 +37,8 @@ const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
-const kofiURL = 'https://ko-fi.com/flavioislima'
+const supportURL =
+  'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
@@ -139,11 +140,11 @@ const getSettings = async (
   return settings[settingsName]
 }
 
-const getUserInfo = () => {
+export const getUserInfo = (): UserInfo => {
   if (existsSync(userInfo)) {
     return JSON.parse(readFileSync(userInfo, 'utf-8'))
   }
-  return { account_id: '' }
+  return { account_id: '', displayName: null }
 }
 
 const updateGame = (game: string) => {
@@ -469,6 +470,6 @@ export {
   loginUrl,
   sidInfoUrl,
   updateGame,
-  kofiURL,
+  supportURL,
   heroicGithubURL,
 }

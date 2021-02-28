@@ -5,30 +5,33 @@ import { readFileSync, existsSync, stat, readdirSync } from 'graceful-fs'
 import byteSize from 'byte-size'
 
 import {
+  getUserInfo,
   heroicConfigPath,
   isLoggedIn,
   legendaryConfigPath,
-  userInfo,
   writeDefaultconfig,
 } from '../utils'
-import { Game, InstalledInfo, KeyImage } from '../types'
+import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
 
 const statAsync = promisify(stat)
-const dlcs: string[] = [];
+const dlcs: string[] = []
 
 const installed = `${legendaryConfigPath}/installed.json`
 
-export async function getLegendaryConfig(file: string) {
+export async function getLegendaryConfig(file: string): Promise<unknown> {
   const loggedIn = isLoggedIn()
 
   if (!isLoggedIn) {
     return { user: { displayName: null }, library: [] }
   }
 
-  const files: any = {
-    user: loggedIn
-      ? JSON.parse(readFileSync(userInfo, 'utf8'))
-      : { displayName: null },
+  const files: {
+    user: UserInfo
+    library: string
+    config: string
+    installed: Game[]
+  } = {
+    user: getUserInfo(),
     library: `${legendaryConfigPath}/metadata/`,
     config: heroicConfigPath,
     installed: await statAsync(installed)
@@ -39,11 +42,10 @@ export async function getLegendaryConfig(file: string) {
   if (file === 'user') {
     if (loggedIn) {
       await writeDefaultconfig()
-      return files[file].displayName
+      return files.user.displayName
     }
     return null
   }
-
 
   if (file === 'library') {
     const fallBackImage =
@@ -64,11 +66,13 @@ export async function getLegendaryConfig(file: string) {
           } = metadata
 
           if (dlcItemList) {
-            dlcItemList.forEach((v: { releaseInfo: { [x: number]: { appId: string } } }) => {
-              if (v.releaseInfo && v.releaseInfo[0]) {
-                dlcs.push(v.releaseInfo[0].appId);
+            dlcItemList.forEach(
+              (v: { releaseInfo: { [x: number]: { appId: string } } }) => {
+                if (v.releaseInfo && v.releaseInfo[0]) {
+                  dlcs.push(v.releaseInfo[0].appId)
+                }
               }
-            });
+            )
           }
 
           const cloudSaveEnabled = Boolean(CloudSaveFolder)
@@ -97,7 +101,7 @@ export async function getLegendaryConfig(file: string) {
             ? installedGames.filter((game) => game.app_name === app_name)[0]
             : {}
 
-          const dlc = () => dlcs.some(dlc => dlc === app_name)
+          const dlc = () => dlcs.some((dlc) => dlc === app_name)
           const {
             executable = null,
             version = null,
@@ -136,7 +140,6 @@ export async function getLegendaryConfig(file: string) {
           return gameA < gameB ? -1 : 1
         })
     }
-    return []
+    return { user: null, library: [] }
   }
-  return files[file]
 }

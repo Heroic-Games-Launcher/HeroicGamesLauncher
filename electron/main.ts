@@ -15,7 +15,7 @@ import {
   updateGame,
   checkForUpdates,
   showAboutWindow,
-  kofiURL,
+  supportURL,
   handleExit,
   heroicGithubURL,
   iconDark,
@@ -81,7 +81,7 @@ function createWindow(): BrowserWindow {
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: any) => {
+      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
         console.log('An error occurred: ', err)
       })
     })
@@ -145,7 +145,7 @@ const contextMenu = () =>
     {
       label: i18next.t('tray.support', 'Support Us'),
       click: function () {
-        exec(`xdg-open ${kofiURL}`)
+        exec(`xdg-open ${supportURL}`)
       },
     },
     {
@@ -213,7 +213,7 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
+ipcMain.on('openSupportPage', () => exec(`xdg-open ${supportURL}`))
 
 ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 

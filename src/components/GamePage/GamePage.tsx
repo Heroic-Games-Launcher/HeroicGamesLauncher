@@ -38,7 +38,7 @@ interface RouteParams {
   appName: string
 }
 
-export default function GamePage() {
+export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
   const { refresh, libraryStatus, handleGameStatus, data } = useContext(
@@ -404,31 +404,33 @@ export default function GamePage() {
       }
 
       await handleGameStatus({ appName, status: 'playing' })
-      await launch(appName).then(async (err: string | string[]) => {
-        if (!err) {
-          return
-        }
-        if (
-          typeof err === 'string' &&
-          err.includes('ERROR: Game is out of date')
-        ) {
-          const { response } = await showMessageBox({
-            title: t('box.update.title'),
-            message: t('box.update.message'),
-            buttons: [t('box.yes'), t('box.no')],
-          })
+      await launch(appName).then(
+        async (err: void | string): Promise<void> => {
+          if (!err) {
+            return
+          }
+          if (
+            typeof err === 'string' &&
+            err.includes('ERROR: Game is out of date')
+          ) {
+            const { response } = await showMessageBox({
+              title: t('box.update.title'),
+              message: t('box.update.message'),
+              buttons: [t('box.yes'), t('box.no')],
+            })
 
-          if (response === 0) {
-            await handleGameStatus({ appName, status: 'done' })
-            handleGameStatus({ appName, status: 'updating' })
-            await updateGame(appName)
+            if (response === 0) {
+              await handleGameStatus({ appName, status: 'done' })
+              handleGameStatus({ appName, status: 'updating' })
+              await updateGame(appName)
+              return handleGameStatus({ appName, status: 'done' })
+            }
+            handleGameStatus({ appName, status: 'playing' })
+            await launch(`${appName} --skip-version-check`)
             return handleGameStatus({ appName, status: 'done' })
           }
-          handleGameStatus({ appName, status: 'playing' })
-          await launch(`${appName} --skip-version-check`)
-          return handleGameStatus({ appName, status: 'done' })
         }
-      })
+      )
 
       if (autoSyncSaves) {
         setIsSyncing(true)
@@ -440,7 +442,9 @@ export default function GamePage() {
     }
   }
 
-  function handleInstall(isInstalled: boolean): any {
+  function handleInstall(
+    isInstalled: boolean
+  ): () => Promise<void | NodeJS.Timeout> {
     return async () => {
       if (isInstalling) {
         const { folderName } = await getGameInfo(appName)
