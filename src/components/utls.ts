@@ -1,4 +1,3 @@
-import i18next from 'i18next'
 import { TFunction } from 'react-i18next/*'
 
 import {
@@ -26,12 +25,11 @@ export async function handleInstall({
   isInstalling,
   installPath,
   handleGameStatus,
+  t,
 }: Install) {
-  const { t } = i18next
-
   if (isInstalling) {
     const { folderName } = await getGameInfo(appName)
-    return handleStopInstallation(appName, [installPath, folderName])
+    return handleStopInstallation(appName, [installPath, folderName], t)
   }
 
   if (installPath === 'default') {
