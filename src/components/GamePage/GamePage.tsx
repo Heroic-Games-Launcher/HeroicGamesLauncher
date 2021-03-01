@@ -185,7 +185,7 @@ export default function GamePage(): JSX.Element | null {
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     <div className="summary">
-                      {extraInfo.about && extraInfo.about.shortDescription}
+                      {(extraInfo && extraInfo.about) ? extraInfo.about.shortDescription ? extraInfo.about.shortDescription : extraInfo.about.description ? extraInfo.about.description : '': ''}
                     </div>
                     {cloudSaveEnabled && (
                       <div
