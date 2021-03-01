@@ -69,7 +69,6 @@ export interface Game {
   extraInfo: ExtraInfo
   dlcs: string[]
   is_dlc: boolean,
-  catalog_item_id: string,
   namespace: string
 }
 

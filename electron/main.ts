@@ -262,7 +262,7 @@ ipcMain.on('quit', async () => handleExit())
 /* const storage: Storage = mainWindow.localStorage
 const lang = storage.getItem('language') */
 
-const getProductSlug = async (namespace: string, game:string) => {
+const getProductSlug = async (namespace: string, game: string) => {
   const graphql = JSON.stringify({
     query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
     variables: {}
@@ -292,9 +292,9 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
     lang = 'pt-BR'
   }
 
-  let epicUrl:string;
+  let epicUrl: string;
   if (namespace) {
-    const productSlug:string = await getProductSlug(namespace, game)
+    const productSlug: string = await getProductSlug(namespace, game)
     epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
   } else {
     epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
@@ -433,8 +433,9 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-    }`
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} 
+    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+      }`
 
   if (tool === 'runExe') {
     command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
