@@ -29,7 +29,7 @@ export async function handleInstall({
 }: Install) {
   if (isInstalling) {
     const { folderName } = await getGameInfo(appName)
-    return handleStopInstallation(t, appName, [installPath, folderName])
+    return handleStopInstallation(appName, [installPath, folderName], t)
   }
 
   if (installPath === 'default') {
@@ -44,9 +44,9 @@ export async function handleInstall({
 
   if (installPath === 'import') {
     const { filePaths } = await showOpenDialog({
-      title: t('box.importpath'),
-      buttonLabel: t('box.choose'),
-      properties: ['openDirectory'],
+      title: t('gamepage:box.importpath'),
+      buttonLabel: t('gamepage:box.choose'),
+      properties: ['gamepage:openDirectory'],
     })
 
     if (filePaths[0]) {
@@ -59,9 +59,9 @@ export async function handleInstall({
 
   if (installPath === 'another') {
     const { filePaths } = await showOpenDialog({
-      title: t('box.installpath'),
-      buttonLabel: t('box.choose'),
-      properties: ['openDirectory'],
+      title: t('gamepage:box.installpath'),
+      buttonLabel: t('gamepage:box.choose'),
+      properties: ['gamepage:openDirectory'],
     })
 
     if (filePaths[0]) {

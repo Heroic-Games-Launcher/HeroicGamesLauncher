@@ -19,7 +19,7 @@ import '../../App.css'
 import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import ContextProvider from '../../state/ContextProvider'
 import { useParams } from 'react-router-dom'
-import Settings from '@material-ui/icons/Settings';
+import Settings from '@material-ui/icons/Settings'
 import UpdateComponent from '../UI/UpdateComponent'
 import GamesSubmenu from './GamesSubmenu'
 import { IpcRenderer, Remote } from 'electron'
@@ -38,7 +38,7 @@ interface RouteParams {
   appName: string
 }
 
-export default function GamePage() {
+export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
   const { refresh, libraryStatus, handleGameStatus, data } = useContext(
@@ -149,7 +149,6 @@ export default function GamePage() {
     t('box.stopInstall.keepInstalling') 
     */
 
-    (extraInfo && extraInfo.about) ? console.log(extraInfo.about): console.log('non')
     return (
       <>
         <Header goTo={'/'} renderBackButton />
@@ -168,9 +167,17 @@ export default function GamePage() {
               />
               <div className="gameConfig">
                 <div className="gamePicture">
-                  <img alt="cover-art" src={`${art_square}?h=400&resize=1&w=300`} className="gameImg" />
+                  <img
+                    alt="cover-art"
+                    src={`${art_square}?h=400&resize=1&w=300`}
+                    className="gameImg"
+                  />
                   {art_logo && (
-                    <img alt="cover-art" src={`${art_logo}?h=100&resize=1&w=200`} className="gameLogo" />
+                    <img
+                      alt="cover-art"
+                      src={`${art_logo}?h=100&resize=1&w=200`}
+                      className="gameLogo"
+                    />
                   )}
                 </div>
                 <div className="gameInfo">
@@ -270,20 +277,28 @@ export default function GamePage() {
                           <tbody>
                             <tr>
                               <td className="specs"></td>
-                              <td className="specs">{t('specs.minimum').toUpperCase()}</td>
-                              <td className="specs">{t('specs.recommended').toUpperCase()}</td>
+                              <td className="specs">
+                                {t('specs.minimum').toUpperCase()}
+                              </td>
+                              <td className="specs">
+                                {t('specs.recommended').toUpperCase()}
+                              </td>
                             </tr>
-                            {extraInfo.reqs.map(e => (
+                            {extraInfo.reqs.map((e) => (
                               <Fragment key={e.title}>
                                 <tr>
                                   <td>
-                                    <span className="title">{e.title.toUpperCase()}:</span>
+                                    <span className="title">
+                                      {e.title.toUpperCase()}:
+                                    </span>
                                   </td>
                                   <td>
                                     <span className="text">{e.minimum}</span>
                                   </td>
                                   <td>
-                                    <span className="text">{e.recommended}</span>
+                                    <span className="text">
+                                      {e.recommended}
+                                    </span>
                                   </td>
                                 </tr>
                               </Fragment>
@@ -297,8 +312,8 @@ export default function GamePage() {
               </div>{' '}
             </>
           ) : (
-              <UpdateComponent />
-            )}
+            <UpdateComponent />
+          )}
         </div>
       </>
     )
@@ -337,13 +352,15 @@ export default function GamePage() {
     }
 
     if (isUpdating && isInstalled) {
-      return `${t('status.updating')} ${percent ? `${percent} | ETA: ${eta}` : '...'
-        }`
+      return `${t('status.updating')} ${
+        percent ? `${percent} | ETA: ${eta}` : '...'
+      }`
     }
 
     if (!isUpdating && isInstalling) {
-      return `${t('status.installing')} ${percent ? `${percent} | ETA: ${eta}` : '...'
-        }`
+      return `${t('status.installing')} ${
+        percent ? `${percent} | ETA: ${eta}` : '...'
+      }`
     }
 
     if (isInstalled) {
@@ -387,31 +404,33 @@ export default function GamePage() {
       }
 
       await handleGameStatus({ appName, status: 'playing' })
-      await launch(appName).then(async (err: string | string[]) => {
-        if (!err) {
-          return
-        }
-        if (
-          typeof err === 'string' &&
-          err.includes('ERROR: Game is out of date')
-        ) {
-          const { response } = await showMessageBox({
-            title: t('box.update.title'),
-            message: t('box.update.message'),
-            buttons: [t('box.yes'), t('box.no')],
-          })
+      await launch(appName).then(
+        async (err: void | string): Promise<void> => {
+          if (!err) {
+            return
+          }
+          if (
+            typeof err === 'string' &&
+            err.includes('ERROR: Game is out of date')
+          ) {
+            const { response } = await showMessageBox({
+              title: t('box.update.title'),
+              message: t('box.update.message'),
+              buttons: [t('box.yes'), t('box.no')],
+            })
 
-          if (response === 0) {
-            await handleGameStatus({ appName, status: 'done' })
-            handleGameStatus({ appName, status: 'updating' })
-            await updateGame(appName)
+            if (response === 0) {
+              await handleGameStatus({ appName, status: 'done' })
+              handleGameStatus({ appName, status: 'updating' })
+              await updateGame(appName)
+              return handleGameStatus({ appName, status: 'done' })
+            }
+            handleGameStatus({ appName, status: 'playing' })
+            await launch(`${appName} --skip-version-check`)
             return handleGameStatus({ appName, status: 'done' })
           }
-          handleGameStatus({ appName, status: 'playing' })
-          await launch(`${appName} --skip-version-check`)
-          return handleGameStatus({ appName, status: 'done' })
         }
-      })
+      )
 
       if (autoSyncSaves) {
         setIsSyncing(true)
@@ -423,11 +442,13 @@ export default function GamePage() {
     }
   }
 
-  function handleInstall(isInstalled: boolean): any {
+  function handleInstall(
+    isInstalled: boolean
+  ): () => Promise<void | NodeJS.Timeout> {
     return async () => {
       if (isInstalling) {
         const { folderName } = await getGameInfo(appName)
-        return handleStopInstallation(t, appName, [installPath, folderName])
+        return handleStopInstallation(appName, [installPath, folderName], t)
       }
 
       if (isInstalled) {

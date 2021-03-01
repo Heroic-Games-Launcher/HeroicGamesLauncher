@@ -38,7 +38,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
     return
   }
 
-  function dropHandler(ev: any) {
+  function dropHandler(ev: React.DragEvent<HTMLSpanElement>) {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault()
 
@@ -46,7 +46,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
       // Use DataTransferItemList interface to access the file(s)
       // If dropped items aren't files, reject them
       if (ev.dataTransfer.items[0].kind === 'file') {
-        const exe = ev.dataTransfer.items[0].getAsFile().path
+        const exe = ev?.dataTransfer?.items[0]?.getAsFile()?.path
 
         return callTools('runExe', exe)
       }
@@ -54,7 +54,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
     return
   }
 
-  function dragOverHandler(ev: any) {
+  function dragOverHandler(ev: React.DragEvent<HTMLSpanElement>) {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault()
   }

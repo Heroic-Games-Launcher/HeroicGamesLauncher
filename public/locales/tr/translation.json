@@ -11,8 +11,6 @@
     "error": {
       "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "HAYIR",
     "quit": {
       "message": "Bitmemiş işlemler var, emin misin?",
@@ -22,11 +20,6 @@
       "title": "Çalıştırılacak EXE'yi Seçin"
     },
     "select": "Seç",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Seç",
       "error": "Geçersiz Yol",
@@ -69,8 +62,8 @@
     "settings": "Ayarlar otomatik kaydedilir"
   },
   "infobox": {
-    "help": "Yardım",​
-    "requirements"​: ​"Sistem Gereksinimleri"​
+    "help": "Yardım",
+    "requirements": "Sistem Gereksinimleri"
   },
   "Library": "Kütüphane",
   "message": {
@@ -145,7 +138,7 @@
       "sync": "Kaydet-Eşitle"
     }
   },
-  "Store": "",
+  "store": "Store",
   "Total Games": "Toplam Oyun",
   "tray": {
     "about": "Hakkında",
@@ -160,5 +153,6 @@
     "quit": "Çık",
     "refresh": "Kütüphaneyi Yenile",
     "support": "Bizi Destekle"
-  }
+  },
+  "Store": ""
 }

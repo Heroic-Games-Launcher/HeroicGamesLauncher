@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from '../../state/ContextProvider'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
-import Backspace from '@material-ui/icons/Backspace';
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import Backspace from '@material-ui/icons/Backspace'
 import { Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
-import LanguageSelector from '../UI/LanguageSelector';
+import LanguageSelector from '../UI/LanguageSelector'
 const {
   ipcRenderer,
   remote: { dialog },
@@ -111,7 +111,10 @@ export default function GeneralSettings({
     <>
       <span className="setting">
         <span className="settingText">{t('setting.language')}</span>
-        <LanguageSelector handleLanguageChange={handleChangeLanguage} currentLanguage={language} />
+        <LanguageSelector
+          handleLanguageChange={handleChangeLanguage}
+          currentLanguage={language}
+        />
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>
@@ -220,6 +223,9 @@ export default function GeneralSettings({
             {Array.from(Array(maxCpus).keys()).map((n) => (
               <option key={n + 1}>{n + 1}</option>
             ))}
+            <option key={0} value={0}>
+              Max
+            </option>
           </select>
         </span>
       </span>

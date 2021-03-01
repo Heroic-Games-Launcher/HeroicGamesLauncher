@@ -1,4 +1,3 @@
-
 {
   "All": "Todos",
   "box": {
@@ -12,8 +11,6 @@
     "error": {
       "launch": "Error al iniciar el juego, ¡revisa los registros!"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "No",
     "quit": {
       "message": "Hay operaciones pendientes, ¿estás seguro?",
@@ -23,11 +20,6 @@
       "title": "Seleccione EXE para ejecutar"
     },
     "select": "Seleccionar",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Elegir",
       "error": "Ruta no válida",
@@ -146,6 +138,7 @@
       "sync": "Guardar-Sincronizar"
     }
   },
+  "store": "Store",
   "Total Games": "Juegos totales",
   "tray": {
     "about": "Acerca",

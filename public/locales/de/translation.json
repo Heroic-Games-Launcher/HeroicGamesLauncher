@@ -11,8 +11,6 @@
     "error": {
       "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!"
     },
-    "importpath": "",
-    "installpath": "",
     "no": "NEIN",
     "quit": {
       "message": "Es gibt anstehende Operationen, möchten Sie wirklich fortfahren?",
@@ -22,11 +20,6 @@
       "title": "EXE zum Starten auswählen"
     },
     "select": "Auswählen",
-    "stopInstall": {
-      "keepInstalling": "",
-      "message": "",
-      "title": ""
-    },
     "sync": {
       "button": "Auswählen",
       "error": "Ungültiger Pfad",
@@ -145,7 +138,7 @@
       "sync": "Spielstände-Synchronisation"
     }
   },
-  "Store": "",
+  "store": "Store",
   "Total Games": "Anzahl der Spiele",
   "tray": {
     "about": "Über Heroic",

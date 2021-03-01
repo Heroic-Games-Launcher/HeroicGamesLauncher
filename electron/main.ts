@@ -15,7 +15,7 @@ import {
   updateGame,
   checkForUpdates,
   showAboutWindow,
-  kofiURL,
+  supportURL,
   handleExit,
   heroicGithubURL,
   iconDark,
@@ -81,7 +81,7 @@ function createWindow(): BrowserWindow {
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: any) => {
+      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
         console.log('An error occurred: ', err)
       })
     })
@@ -145,7 +145,7 @@ const contextMenu = () =>
     {
       label: i18next.t('tray.support', 'Support Us'),
       click: function () {
-        exec(`xdg-open ${kofiURL}`)
+        exec(`xdg-open ${supportURL}`)
       },
     },
     {
@@ -178,7 +178,7 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr', 'es'],
+      supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr'],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -213,7 +213,7 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
+ipcMain.on('openSupportPage', () => exec(`xdg-open ${supportURL}`))
 
 ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 
@@ -262,7 +262,7 @@ ipcMain.on('quit', async () => handleExit())
 /* const storage: Storage = mainWindow.localStorage
 const lang = storage.getItem('language') */
 
-const fetchGraphQl = async (namespace: string, game:string) => {
+const getProductSlug = async (namespace: string, game:string) => {
   const graphql = JSON.stringify({
     query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
     variables: {}
@@ -275,10 +275,9 @@ const fetchGraphQl = async (namespace: string, game:string) => {
   const res = result.data.data.Catalog.catalogOffers
   const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
   if (slug) {
-    console.log('SLUG',slug)
+    console.log(slug.productSlug.replace(/(\/.*)/, ''))
     return slug.productSlug.replace(/(\/.*)/, '')
   } else {
-    console.log('game',game)
     return game
   }
 }
@@ -295,9 +294,8 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
 
   let epicUrl:string;
   if (namespace) {
-    const fetch:string = await fetchGraphQl(namespace, game)
-
-    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${fetch}`
+    const productSlug:string = await getProductSlug(namespace, game)
+    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
   } else {
     epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
   }
@@ -308,7 +306,10 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
     })
     delete response.data.pages[0].data.requirements.systems[0].details[0]
     const about = response.data.pages.find((e: { type: string }) => e.type === "productHome")
-    return { 'about': about.data.about, 'reqs': about.data.requirements.systems[0].details }
+    return {
+      about: about.data.about,
+      reqs: about.data.requirements.systems[0].details
+    }
   } catch (error) {
     return {}
   }
@@ -338,7 +339,7 @@ ipcMain.handle('legendary', async (event, args) => {
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
   const { defaultInstallPath, maxWorkers } = await getSettings('default')
-  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+  const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
   let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
