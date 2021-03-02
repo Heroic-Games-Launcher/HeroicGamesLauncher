@@ -73,6 +73,7 @@
     "recommended": "Empfohlen"
   },
   "status": {
+    "hasUpdates": "Neue Version verfügbar!",
     "installed": "Installiert",
     "installing": "Wird installiert",
     "moving": "Installation wird verschoben, bitte warten",

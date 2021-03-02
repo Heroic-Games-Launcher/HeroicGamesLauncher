@@ -73,6 +73,7 @@
     "recommended": "Рекомендованные"
   },
   "status": {
+    "hasUpdates": "New Version Available!",
     "installed": "Установлено",
     "installing": "Устанавливается",
     "moving": "Перемещаю игру, пожалуйста подождите",

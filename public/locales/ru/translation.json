@@ -149,6 +149,7 @@
   },
   "userselector": {
     "about": "О программе",
+    "discord": "Discord",
     "logout": "Разлогиниться",
     "quit": "Выйти",
     "refresh": "Обновить библиотеку",

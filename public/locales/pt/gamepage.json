@@ -73,6 +73,7 @@
     "recommended": "Recomendado"
   },
   "status": {
+    "hasUpdates": "Nova versão disponível!",
     "installed": "Jogo Instalado",
     "installing": "Instalando",
     "moving": "Movendo Jogo, por favor espere.",

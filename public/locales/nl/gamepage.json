@@ -73,6 +73,7 @@
     "recommended": "Aanbevolen"
   },
   "status": {
+    "hasUpdates": "Nieuwe versie beschikbaar!",
     "installed": "Geïnstaleerd",
     "installing": "Installeren",
     "moving": "Spel verplaatsen, geduld alstublieft",

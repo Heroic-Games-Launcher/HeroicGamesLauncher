@@ -73,6 +73,7 @@
     "recommended": "recomendado"
   },
   "status": {
+    "hasUpdates": "Nueva versión disponible!",
     "installed": "Instalado",
     "installing": "Instalando",
     "moving": "Instalación en movimiento, espere",
