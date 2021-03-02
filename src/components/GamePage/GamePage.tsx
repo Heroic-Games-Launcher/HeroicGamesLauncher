@@ -41,9 +41,13 @@ interface RouteParams {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
-  const { refresh, libraryStatus, handleGameStatus, data } = useContext(
-    ContextProvider
-  )
+  const {
+    refresh,
+    libraryStatus,
+    handleGameStatus,
+    data,
+    gameUpdates,
+  } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -124,6 +128,8 @@ export default function GamePage(): JSX.Element | null {
     return () => clearInterval(progressInterval)
   }, [isInstalling, isUpdating, appName, isReparing])
 
+  const hasUpdate = gameUpdates.includes(appName)
+
   if (gameInfo) {
     const {
       title,
@@ -185,7 +191,13 @@ export default function GamePage(): JSX.Element | null {
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     <div className="summary">
-                      {(extraInfo && extraInfo.about) ? extraInfo.about.shortDescription ? extraInfo.about.shortDescription : extraInfo.about.description ? extraInfo.about.description : '': ''}
+                      {extraInfo && extraInfo.about
+                        ? extraInfo.about.shortDescription
+                          ? extraInfo.about.shortDescription
+                          : extraInfo.about.description
+                          ? extraInfo.about.description
+                          : ''
+                        : ''}
                     </div>
                     {cloudSaveEnabled && (
                       <div
@@ -361,6 +373,13 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.installing')} ${
         percent ? `${percent} | ETA: ${eta}` : '...'
       }`
+    }
+
+    if (hasUpdate) {
+      return `${t('status.installed')} - ${t(
+        'status.hasUpdates',
+        'New Version Available!'
+      )}`
     }
 
     if (isInstalled) {

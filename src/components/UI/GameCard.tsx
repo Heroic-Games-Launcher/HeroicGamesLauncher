@@ -11,6 +11,7 @@ import { ReactComponent as PlayIcon } from '../../assets/play-icon.svg'
 import { ReactComponent as StopIcon } from '../../assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from '../../assets/stop-icon-alt.svg'
 import { ReactComponent as SettingsIcon } from '../../assets/settings-sharp.svg'
+import NewReleasesIcon from '@material-ui/icons/NewReleases'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
@@ -25,6 +26,7 @@ interface Card {
   isInstalled: boolean
   version: string
   size: string
+  hasUpdate: boolean
 }
 
 interface InstallProgress {
@@ -41,6 +43,7 @@ const GameCard = ({
   logo,
   coverList,
   size,
+  hasUpdate,
 }: Card) => {
   const [progress, setProgress] = useState({
     percent: '0.00%',
@@ -64,7 +67,7 @@ const GameCard = ({
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
-  const haveStatus = isMoving || isReparing || isInstalling
+  const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -94,6 +97,10 @@ const GameCard = ({
     if (isReparing) {
       return t('gamecard.repairing', 'Repairing')
     }
+    if (hasUpdate) {
+      return <NewReleasesIcon />
+    }
+
     return ''
   }
 
@@ -120,7 +127,9 @@ const GameCard = ({
         >
           <span
             style={{
-              backgroundImage: `url('${grid ? cover : coverList}?h=400&resize=1&w=300')`,
+              backgroundImage: `url('${
+                grid ? cover : coverList
+              }?h=400&resize=1&w=300')`,
               backgroundSize: 'cover',
               filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
             }}
