@@ -251,11 +251,11 @@ export async function handleStopInstallation(
     ],
   })
   if (response === 1) {
-    return sendKill(appName)
+    sendKill(appName)
   }
-  if (response === 2) {
+  else if (response === 2) {
+    sendKill(appName)
     ipcRenderer.send('removeFolder', [path, folderName])
-    return sendKill(appName)
   }
   return
 }

@@ -1,29 +1,47 @@
-/* eslint-disable complexity */
-import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import {
-  getGameInfo,
-  legendary,
-  install,
-  sendKill,
-  importGame,
-  launch,
-  syncSaves,
-  updateGame,
-  getProgress,
-  fixSaveFolder,
-  handleStopInstallation,
-} from '../../helper'
-import Header from '../UI/Header'
 import '../../App.css'
-import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
-import ContextProvider from '../../state/ContextProvider'
+
+/* eslint-disable complexity */
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+
+import {
+  IpcRenderer,
+  Remote
+} from 'electron'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
+
 import Settings from '@material-ui/icons/Settings'
+
+import {
+  fixSaveFolder,
+  getGameInfo,
+  getProgress,
+  handleStopInstallation,
+  importGame,
+  install,
+  launch,
+  legendary,
+  sendKill,
+  syncSaves,
+  updateGame
+} from '../../helper'
+import ContextProvider from '../../state/ContextProvider'
+import {
+  AppSettings,
+  Game,
+  GameStatus,
+  InstallProgress
+} from '../../types'
+import Header from '../UI/Header'
+import InfoBox from '../UI/InfoBox'
 import UpdateComponent from '../UI/UpdateComponent'
 import GamesSubmenu from './GamesSubmenu'
-import { IpcRenderer, Remote } from 'electron'
-import InfoBox from '../UI/InfoBox'
+
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
   remote: Remote
@@ -354,7 +372,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getInstallLabel(isInstalled: boolean): React.ReactNode {
-    const { eta, percent } = progress
+    const { eta, bytes, percent } = progress
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
@@ -364,15 +382,13 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (isUpdating && isInstalled) {
-      return `${t('status.updating')} ${
-        percent ? `${percent} | ETA: ${eta}` : '...'
-      }`
+      return `${t('status.updating')} ${percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
+        }`
     }
 
     if (!isUpdating && isInstalling) {
-      return `${t('status.installing')} ${
-        percent ? `${percent} | ETA: ${eta}` : '...'
-      }`
+      return `${t('status.installing')} ${percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
+        }`
     }
 
     if (hasUpdate) {
