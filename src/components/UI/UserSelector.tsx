@@ -1,11 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import {
   legendary,
   openAboutWindow,
   handleQuit,
   handleKofi,
+  openDiscordLink,
 } from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
 
@@ -32,6 +33,9 @@ export default function UserSelector() {
       </div>
       <div onClick={() => handleKofi()} className="userName hidden">
         {t('userselector.support')}
+      </div>
+      <div onClick={() => openDiscordLink()} className="userName hidden">
+        {t('userselector.discord', 'Discord')}
       </div>
       <div onClick={() => openAboutWindow()} className="userName hidden">
         {t('userselector.about')}
