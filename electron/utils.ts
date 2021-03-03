@@ -39,6 +39,7 @@ const heroicGithubURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
+const discordLink = 'https://discord.gg/rHJ2uqdquK'
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
@@ -426,6 +427,13 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
+const checkGameUpdates = async (): Promise<Array<string>> => {
+  const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
+  const { stdout } = await execAsync(command)
+  const result = stdout.split('\n')
+  return result
+}
+
 const handleExit = async () => {
   const isLocked = existsSync(`${heroicGamesConfigPath}/lock`)
 
@@ -450,9 +458,11 @@ const handleExit = async () => {
 export {
   getAlternativeWine,
   getSettings,
+  checkGameUpdates,
   isLoggedIn,
   launchGame,
   getLatestDxvk,
+  discordLink,
   writeDefaultconfig,
   writeGameconfig,
   checkForUpdates,

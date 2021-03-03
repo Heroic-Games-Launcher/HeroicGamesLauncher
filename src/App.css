@@ -381,6 +381,7 @@
   place-self: center;
   place-items: flex-start;
   width: 569px;
+  padding-bottom: 8px;
 }
 
 .settingsTools {
@@ -529,7 +530,7 @@
 }
 
 .save {
-  margin: 48px 0 0 18px;
+  margin: 24px 0 0 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -706,7 +707,7 @@
 }
 
 .gameConfigContainer {
-  width: 1194px;
+  width: 1110px;
   background: rgba(13, 14, 14, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -721,7 +722,7 @@
   align-self: center;
   min-width: 780px;
   max-width: 800px;
-  margin: 64px 70px;
+  margin: 44px 60px 16px 44px;
 }
 
 .gameConfig .title {
@@ -942,7 +943,7 @@
 .more {
   position: absolute;
   top: 56px;
-  right: 68px;
+  right: 42px;
   color: var(--secondary);
   font-size: 25px;
   width: max-content;
@@ -960,7 +961,7 @@
 
 .dots {
   position: absolute;
-  right: 75px;
+  right: 46px;
   top: 64px;
   width: 25px;
   z-index: 1;
@@ -1103,7 +1104,7 @@ input:checked + .slider:before {
 
 .infoBox {
   width: 100%;
-  padding: 20px 44px;
+  padding: 10px 20px 20px 20px;
   font-size: 16px;
   line-height: 19px;
 }
@@ -1118,6 +1119,10 @@ input:checked + .slider:before {
   min-width: 45px;
   width: 100%;
   justify-content: center;
+}
+
+.helpLink > svg {
+  margin-left: 4px;
 }
 
 .infoBox > ul {
@@ -1224,7 +1229,7 @@ input:checked + .slider:before {
   border-radius: 4px;
   color: var(--success);
   position: relative;
-  bottom: 34px;
+  bottom: 28px;
   left: -52px;
 }
 

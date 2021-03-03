@@ -68,7 +68,7 @@ export interface Game {
   folderName: string
   extraInfo: ExtraInfo
   dlcs: string[]
-  is_dlc: boolean,
+  is_dlc: boolean
   namespace: string
 }
 
@@ -110,6 +110,7 @@ export interface ContextType {
   refreshing: boolean
   error: boolean
   libraryStatus: GameStatus[]
+  gameUpdates: string[]
   refresh: () => Promise<void>
   refreshLibrary: () => void
   handleGameStatus: (game: GameStatus) => Promise<void>

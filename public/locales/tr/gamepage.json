@@ -73,6 +73,7 @@
     "recommended": "Önerilen"
   },
   "status": {
+    "hasUpdates": "Yeni sürüm mevcut!",
     "installed": "Yüklendi",
     "installing": "Yükleniyor",
     "moving": "Kurulum taşınıyor, lütfen bekleyin",

@@ -149,6 +149,7 @@
   },
   "userselector": {
     "about": "Acerca",
+    "discord": "Discord",
     "logout": "Cerrar sesión",
     "quit": "Salir",
     "refresh": "Refresar Biblioteca",

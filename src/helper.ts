@@ -52,6 +52,8 @@ export const importGame = async (args: {
 
 export const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
+export const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
+
 export let progress: string
 
 export const sendKill = (appName: string): void =>
@@ -115,7 +117,7 @@ export const getGameInfo = async (appName: string) => {
   const extraInfo = await ipcRenderer.invoke(
     'getGameInfo',
     cleanTitle(game.title),
-    game.namespace,
+    game.namespace
   )
   return { ...game, extraInfo }
 }
@@ -240,9 +242,13 @@ export async function handleStopInstallation(
   t: TFunction<'gamepage'>
 ) {
   const { response } = await showMessageBox({
-    title: t('box.stopInstall.title'),
-    message: t('box.stopInstall.message'),
-    buttons: [t('box.stopInstall.keepInstalling'), t('box.yes'), t('box.no')],
+    title: t('gamepage:box.stopInstall.title'),
+    message: t('gamepage:box.stopInstall.message'),
+    buttons: [
+      t('gamepage:box.stopInstall.keepInstalling'),
+      t('box.yes'),
+      t('box.no'),
+    ],
   })
   if (response === 1) {
     sendKill(appName)

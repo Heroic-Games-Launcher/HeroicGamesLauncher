@@ -73,6 +73,7 @@
     "recommended": "Zalecana"
   },
   "status": {
+    "hasUpdates": "Nowa wersja dostępna!",
     "installed": "Zainstalowane",
     "installing": "W trakcie instalacji",
     "moving": "Przenoszenie gry, proszę czekać",

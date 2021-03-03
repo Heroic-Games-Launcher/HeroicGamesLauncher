@@ -1,8 +1,5 @@
 import axios from 'axios'
-import {
-  exec,
-  spawn
-} from 'child_process'
+import { exec, spawn } from 'child_process'
 import {
   app,
   BrowserWindow,
@@ -10,7 +7,7 @@ import {
   Menu,
   Notification,
   powerSaveBlocker,
-  Tray
+  Tray,
 } from 'electron'
 import isDev from 'electron-is-dev'
 import {
@@ -19,14 +16,11 @@ import {
   readFileSync,
   unlinkSync,
   writeFile,
-  writeFileSync
+  writeFileSync,
 } from 'graceful-fs'
 import i18next from 'i18next'
 import Backend from 'i18next-fs-backend'
-import {
-  cpus,
-  userInfo as user
-} from 'os'
+import { cpus, userInfo as user } from 'os'
 import * as path from 'path'
 import { promisify } from 'util'
 
@@ -35,6 +29,8 @@ import { Game } from './types.js'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   checkForUpdates,
+  checkGameUpdates,
+  discordLink,
   getAlternativeWine,
   getLatestDxvk,
   getSettings,
@@ -55,7 +51,7 @@ import {
   supportURL,
   updateGame,
   userInfo,
-  writeGameconfig
+  writeGameconfig,
 } from './utils'
 
 const execAsync = promisify(exec)
@@ -220,6 +216,8 @@ ipcMain.on('Notify', (event, args) => {
 
 ipcMain.on('openSupportPage', () => exec(`xdg-open ${supportURL}`))
 
+ipcMain.handle('checkGameUpdates', () => checkGameUpdates())
+
 ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
@@ -270,25 +268,21 @@ const lang = storage.getItem('language') */
 const getProductSlug = async (namespace: string, game: string) => {
   const graphql = JSON.stringify({
     query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
-    variables: {}
+    variables: {},
   })
-  const result = await axios("https://www.epicgames.com/graphql", {
+  const result = await axios('https://www.epicgames.com/graphql', {
     method: 'POST',
-    headers: { "Content-Type": "application/json" },
-    data: graphql
+    headers: { 'Content-Type': 'application/json' },
+    data: graphql,
   })
   const res = result.data.data.Catalog.catalogOffers
   const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
   if (slug) {
-    console.log(slug.productSlug.replace(/(\/.*)/, ''))
     return slug.productSlug.replace(/(\/.*)/, '')
   } else {
     return game
   }
 }
-
-
-
 
 ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
   let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
@@ -297,7 +291,7 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
     lang = 'pt-BR'
   }
 
-  let epicUrl: string;
+  let epicUrl: string
   if (namespace) {
     const productSlug: string = await getProductSlug(namespace, game)
     epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
@@ -310,10 +304,12 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
       method: 'GET',
     })
     delete response.data.pages[0].data.requirements.systems[0].details[0]
-    const about = response.data.pages.find((e: { type: string }) => e.type === "productHome")
+    const about = response.data.pages.find(
+      (e: { type: string }) => e.type === 'productHome'
+    )
     return {
       about: about.data.about,
-      reqs: about.data.requirements.systems[0].details
+      reqs: about.data.requirements.systems[0].details,
     }
   } catch (error) {
     return {}
@@ -437,8 +433,7 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
   }
 
   let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} 
-    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-      }`
+    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
 
   if (tool === 'runExe') {
     command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
@@ -464,6 +459,8 @@ ipcMain.handle('requestSettings', async (event, appName) => {
 ipcMain.handle('isLoggedIn', () => isLoggedIn())
 
 ipcMain.on('openLoginPage', () => spawn('xdg-open', [loginUrl]))
+
+ipcMain.on('openDiscordLink', () => spawn('xdg-open', [discordLink]))
 
 ipcMain.on('openSidInfoPage', () => spawn('xdg-open', [sidInfoUrl]))
 
