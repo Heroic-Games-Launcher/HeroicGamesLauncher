@@ -3,7 +3,11 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react-jsx",
@@ -23,7 +27,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "."
   },
   "exclude": [
     "node_modules/**/*",
@@ -36,5 +41,8 @@
     "public/start-react.js",
     "public/*.js"
   ],
-  "include": ["src", "src/types.ts"]
+  "include": [
+    "src",
+    "src/types.ts"
+  ]
 }
