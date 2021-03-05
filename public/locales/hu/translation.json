@@ -126,7 +126,7 @@
       "placeholder": "Válaszd ki a pontos játék mentési mappát",
       "title": "Cloud Sync Save Mappa Felülírása"
     },
-    "showfps": "FPS Megjelenítése (DX9, 10 and 11)",
+    "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
     "wineprefix": "WinePrefix Mappa",
     "wineversion": "Wine Verzió"
   },
