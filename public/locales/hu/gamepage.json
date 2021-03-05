@@ -1,0 +1,93 @@
+{
+  "box": {
+    "change": {
+      "message": "Ez megfogja változtatni ennek a játéknak a telepítési helyét, biztos vagy benne?",
+      "path": "Válassz egy új Telepítési Útvonalat",
+      "title": "Játék Telepítési Útvonal Megváltoztatása"
+    },
+    "choose": "Kiválaszt",
+    "importpath": "Válassz Játék Mappát az importáláshoz",
+    "installpath": "Válassz Telepítési Útvonalat",
+    "move": {
+      "message": "Ez eltarthat egy ideig, biztos vagy benne?",
+      "path": "Válaszd ki, hova szeretnéd áthelyezni",
+      "title": "Játék telepítés áthelyezése"
+    },
+    "no": "NEM",
+    "repair": {
+      "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
+      "title": "Ellenőrzés és Javítás"
+    },
+    "stopInstall": {
+      "keepInstalling": "Telepítés folytatása",
+      "message": "Szeretnéd MEGTARTANI a letöltött fájlokat?",
+      "title": "Telepítés megállítása"
+    },
+    "uninstall": {
+      "message": "El akarod távolítani ezt a játékot?",
+      "title": "Eltávolítás"
+    },
+    "update": {
+      "message": "Ennek a játéknak van egy frissítése, szeretnéd most frissíteni?",
+      "title": "Játéknak frissítésre van szüksége"
+    },
+    "yes": "IGEN"
+  },
+  "button": {
+    "cancel": "Mégse",
+    "import": "Importálás",
+    "install": "Telepítés",
+    "uninstall": "Eltávolítás"
+  },
+  "disabled": "Letiltva",
+  "enabled": "Engedélyezve",
+  "gamecard": {
+    "moving": "Áthelyezés",
+    "repairing": "Javítás"
+  },
+  "info": {
+    "path": "Telepítési útvonal",
+    "size": "Méret",
+    "syncsaves": "Mentések szinkronizálása",
+    "version": "Verzió"
+  },
+  "install": {
+    "another": "Telepítés másik útvonalra",
+    "default": "Telepítés ide:",
+    "import": "Játék Importálása"
+  },
+  "label": {
+    "cancel": {
+      "update": "Frissítés Visszavonása"
+    },
+    "playing": {
+      "start": "Indítás Most",
+      "stop": "Játékban (Megállítás)"
+    },
+    "saves": {
+      "syncing": "Mentések szinkronizálása"
+    }
+  },
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Ajánlott"
+  },
+  "status": {
+    "hasUpdates": "Új verzió elérhető!",
+    "installed": "Telepítve",
+    "installing": "Telepítés",
+    "moving": "Telepítés áthelyezése, kérlek várj",
+    "notinstalled": "Ez a játék nincs telepítve",
+    "reparing": "Játék javítása, kérlek várj",
+    "updating": "Játék Frissítése"
+  },
+  "submenu": {
+    "change": "Telepítési útvonal megváltoztatása",
+    "log": "Legutóbbi Naplózás (Log)",
+    "move": "Játék áthelyezése",
+    "protondb": "Kompatibilitás ellenőrzése",
+    "settings": "Beállítások",
+    "store": "Áruházi Oldala",
+    "verify": "Ellenőrzés és Javítás"
+  }
+}

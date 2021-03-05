@@ -30,7 +30,7 @@ i18next
     },
     lng: 'en',
     fallbackLng: 'en',
-    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr'],
+    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
     react: {
       useSuspense: true,
     },
