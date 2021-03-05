@@ -30,6 +30,7 @@ export default function LanguageSelector({
     'tr': 'Türkçe',
     'nl': 'Nederlands',
     'es': 'Español',
+    'hu': 'Magyar',
   }
 
   const languageFlags: {[key: string]: string} = {
@@ -42,6 +43,7 @@ export default function LanguageSelector({
     'tr': '🇹🇷',
     'nl': '🇳🇱',
     'es': '🇪🇸',
+    'hu': '🇭🇺',
   }
 
   const renderOption = (lang: string)  => {
