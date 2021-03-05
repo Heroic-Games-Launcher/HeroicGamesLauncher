@@ -1,22 +1,36 @@
+import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { exec } from 'child_process'
-import { promisify } from 'util'
+import {
+  app,
+  dialog
+} from 'electron'
+import { fixPathForAsarUnpack } from 'electron-util'
 import {
   existsSync,
+  mkdir,
   readdirSync,
   readFileSync,
   writeFile,
-  mkdir,
-  writeFileSync,
+  writeFileSync
 } from 'graceful-fs'
-import { homedir, userInfo as user } from 'os'
-const execAsync = promisify(exec)
-import { fixPathForAsarUnpack } from 'electron-util'
-import { join } from 'path'
-import { app, dialog } from 'electron'
-import * as axios from 'axios'
-import { AppSettings, WineProps, UserInfo } from './types'
 import i18next from 'i18next'
+import isOnline from 'is-online'
+import {
+  homedir,
+  userInfo as user
+} from 'os'
+import { join } from 'path'
+import { promisify } from 'util'
+
+import {
+  AppSettings,
+  UserInfo,
+  WineProps
+} from './types'
+
+const execAsync = promisify(exec)
+
 const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
@@ -165,6 +179,9 @@ export const getUserInfo = (): UserInfo => {
 }
 
 const updateGame = async (game: string) => {
+  if (!isOnline()) {
+    console.log(`App offline, skipping update for game '${game}'.`)
+  }
   const logPath = `${heroicGamesConfigPath}${game}.log`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
 
@@ -193,6 +210,12 @@ const launchGame = async (appName: string) => {
 
   const fixedWinePrefix = winePrefix.replace('~', home)
   let wineCommand = `--wine ${wineVersion.bin}`
+
+  let fixedLauncherArgs = launcherArgs
+
+  if (!(await isOnline()) && !fixedLauncherArgs.includes('--offline')) {
+    fixedLauncherArgs = fixedLauncherArgs.trimRight() + ' --offline'
+  }
 
   // We need to keep replacing the ' to keep compatibility with old configs
   let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
@@ -248,7 +271,7 @@ const launchGame = async (appName: string) => {
 
   const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${appName}  ${wineCommand} ${prefix} ${launcherArgs}`
+  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${appName}  ${wineCommand} ${prefix} ${fixedLauncherArgs}`
   console.log('\n Launch Command:', command)
 
   return execAsync(command)
@@ -279,6 +302,10 @@ const launchGame = async (appName: string) => {
 }
 
 async function getLatestDxvk() {
+  if (!(await isOnline())) {
+    console.log("App offline, skipping possible DXVK update.")
+    return
+  }
   const {
     data: { assets },
   } = await axios.default.get(
@@ -424,6 +451,10 @@ const writeGameconfig = async (game: string) => {
 }
 
 async function checkForUpdates() {
+  if (!(await isOnline())) {
+    console.log("Version check failed, app is offline.")
+    return false;
+  }
   const {
     data: { tag_name },
   } = await axios.default.get(
@@ -502,33 +533,34 @@ function genericErrorMessage(): void {
 }
 
 export {
-  getAlternativeWine,
-  getSettings,
-  checkGameUpdates,
-  isLoggedIn,
-  launchGame,
-  getLatestDxvk,
-  discordLink,
-  writeDefaultconfig,
-  writeGameconfig,
   checkForUpdates,
+  checkGameUpdates,
+  discordLink,
+  errorHandler,
+  genericErrorMessage,
+  getAlternativeWine,
+  getLatestDxvk,
+  getSettings,
   handleExit,
-  userInfo,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
-  legendaryConfigPath,
-  legendaryBin,
-  showAboutWindow,
+  heroicGithubURL,
+  home,
   icon,
   iconDark,
   iconLight,
-  home,
+  isLoggedIn,
+  isOnline,
+  launchGame,
+  legendaryBin,
+  legendaryConfigPath,
   loginUrl,
+  showAboutWindow,
   sidInfoUrl,
-  updateGame,
   supportURL,
-  heroicGithubURL,
-  errorHandler,
-  genericErrorMessage,
+  updateGame,
+  userInfo,
+  writeDefaultconfig,
+  writeGameconfig
 }

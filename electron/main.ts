@@ -1,5 +1,8 @@
 import axios from 'axios'
-import { exec, spawn } from 'child_process'
+import {
+  exec,
+  spawn
+} from 'child_process'
 import {
   app,
   BrowserWindow,
@@ -7,7 +10,7 @@ import {
   Menu,
   Notification,
   powerSaveBlocker,
-  Tray,
+  Tray
 } from 'electron'
 
 import isDev from 'electron-is-dev'
@@ -17,11 +20,15 @@ import {
   readFileSync,
   unlinkSync,
   writeFile,
-  writeFileSync,
+  writeFileSync
 } from 'graceful-fs'
 import i18next from 'i18next'
 import Backend from 'i18next-fs-backend'
-import { cpus, userInfo as user } from 'os'
+import isOnline from 'is-online'
+import {
+  cpus,
+  userInfo as user
+} from 'os'
 import * as path from 'path'
 import { promisify } from 'util'
 
@@ -53,7 +60,7 @@ import {
   supportURL,
   updateGame,
   userInfo,
-  writeGameconfig,
+  writeGameconfig
 } from './utils'
 
 const execAsync = promisify(exec)
@@ -295,6 +302,9 @@ const getProductSlug = async (namespace: string, game: string) => {
 }
 
 ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
+  if (!(await isOnline())) {
+    return {}
+  }
   let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
     .language
   if (lang === 'pt') {
@@ -367,6 +377,9 @@ ipcMain.handle('install', async (event, args) => {
 })
 
 ipcMain.handle('repair', async (event, game) => {
+  if (!(await isOnline())) {
+    console.log(`App offline, skipping pair for game '${game}'.`)
+  }
   const { maxWorkers } = await getSettings('default')
   const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
