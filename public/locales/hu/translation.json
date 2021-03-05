@@ -5,8 +5,8 @@
       "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
       "title": "Frissítés Elérhető"
     },
-    "choose": "Válassz",
-    "choose-egs-prefix": "Válassz Prefix-et ahova EGS telepítve van",
+    "choose": "Kiválaszt",
+    "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
     "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
     "error": {
       "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!"
@@ -37,25 +37,25 @@
   "Filter": "Szűrő",
   "globalSettings": "Globális beállítások",
   "help": {
-    "general": "Szonkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importálnád a játékaidat, az újonnani letöltés elkerülése végett.",
+    "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
     "other": {
-      "part1": "Használd a ",
-      "part2": "Haladó Beállításokat",
-      "part3": "hogy meghívódjon a játék indítása előtt; ",
-      "part4": "Használd a ",
-      "part5": "Játék Argumentumokat",
-      "part6": " hogy meghívodjon az indítási parancs után, példaképpen: ",
-      "part7": " hogy kihagy a Launcher-t néhány játékban, stb."
+      "part1": "A ",
+      "part2": "Haladó Beállításoknak",
+      "part3": "azt használd, amit meg akarsz hívni a játék indítása előtt; ",
+      "part4": "A ",
+      "part5": "Játék Argumentumoknak",
+      "part6": " azt használd, amit meg akarsz hívni a játék indítási parancs után, példaképpen: ",
+      "part7": " hogy kihagyd a Launcher-t néhány játékban, stb."
     },
     "sync": {
-      "part1": "A Heroic megpróbálja kitalálni a megfelelő mentési mappát és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd azt.",
-      "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj visszaahoz, hogy a Heroic mégegyszer kitalálhassa a mappát a megfelelő prefix-el.",
-      "part3": "Manuális Szinkronizálás: Válaszd a Letöltést, hogy letöltsed a játékmentéseket, amiket a Felhőben tárolsz. Feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített Letöltés és Kényszerített Feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
+      "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd azt.",
+      "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj visszaahoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
+      "part3": "Manuális Szinkronizálás: Válaszd a Letöltést, hogy letöltsd a játékmentéseket, amiket a Felhőben tárolsz. Feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített Letöltés és Kényszerített Feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
       "part4": "Mentések Önálló Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
     },
     "wine": {
-      "part1": "A Heroic a Wine és Proton verzióit keresi a következő mappákban:",
-      "part2": "Más helyekért, használj egy szimbolikus linket ezen mappák egyikére"
+      "part1": "A Heroic a Wine és Proton verzióit a következő mappákban keresi:",
+      "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
     }
   },
   "info": {
@@ -91,11 +91,11 @@
   },
   "options": {
     "advanced": {
-      "placeholder": "Tegyél ide további indítási lehetőségeket",
+      "placeholder": "További indítási lehetőségeket ide írd",
       "title": "Haladó beállítások (Környezeti Változók):"
     },
     "gameargs": {
-      "placeholder": "Tegyél ide Launcher Argumentumokat",
+      "placeholder": "Launcher Argumentumokat ide írd",
       "title": "Játék Argumentumok (amik a parancs után fussanak le):"
     }
   },

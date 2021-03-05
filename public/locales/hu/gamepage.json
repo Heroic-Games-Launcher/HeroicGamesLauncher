@@ -5,7 +5,7 @@
       "path": "Válassz egy új Telepítési Útvonalat",
       "title": "Játék Telepítési Útvonal Megváltoztatása"
     },
-    "choose": "Válassz",
+    "choose": "Kiválaszt",
     "importpath": "Válassz Játék Mappát az importáláshoz",
     "installpath": "Válassz Telepítési Útvonalat",
     "move": {
@@ -19,7 +19,7 @@
       "title": "Ellenőrzés és Javítás"
     },
     "stopInstall": {
-      "keepInstalling": "Telepítés megtartása",
+      "keepInstalling": "Telepítés folytatása",
       "message": "Szeretnéd MEGTARTANI a letöltött fájlokat?",
       "title": "Telepítés megállítása"
     },
@@ -40,13 +40,13 @@
     "uninstall": "Eltávolítás"
   },
   "disabled": "Letiltva",
-  "enabled": "Engedélyeze",
+  "enabled": "Engedélyezve",
   "gamecard": {
     "moving": "Áthelyezés",
     "repairing": "Javítás"
   },
   "info": {
-    "path": "Útvonal telepítése",
+    "path": "Telepítési útvonal",
     "size": "Méret",
     "syncsaves": "Mentések szinkronizálása",
     "version": "Verzió"
