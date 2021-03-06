@@ -116,7 +116,15 @@
     "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
     "language": "Selecionar idioma",
     "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
-    "manualsync": "Sincronização manual",
+    "manualsync": {
+      "title": "Sincronização manual",
+      "download": "Download",
+      "upload": "Upload",
+      "forcedownload": "Force Download",
+      "forceupload": "Force Upload",
+      "sync": "Sync",
+      "syncing": "Syncing"
+    },
     "maxworkers": "CPUs máximos utilizados ao baixar jogos",
     "runexe": {
       "message": "Arraste e Solte arquivos aqui",

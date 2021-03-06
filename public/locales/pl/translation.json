@@ -116,7 +116,15 @@
     "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
     "language": "Wybierz język",
     "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",
-    "manualsync": "Manualnie synchronizuj zapisy",
+    "manualsync": {
+      "title": "Manualnie synchronizuj zapisy",
+      "download": "Download",
+      "upload": "Upload",
+      "forcedownload": "Force Download",
+      "forceupload": "Force Upload",
+      "sync": "Sync",
+      "syncing": "Syncing"
+    },
     "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
     "runexe": {
       "message": "Upuść pliki tutaj",
