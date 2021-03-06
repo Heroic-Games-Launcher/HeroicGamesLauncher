@@ -53,10 +53,10 @@ export default function SyncSaves({
 
   const isLinked = Boolean(savesPath.length)
   const syncTypes: SyncType[] = [
-    'Download',
-    'Upload',
-    'Force download',
-    'Force upload',
+    t('setting.manualsync.download'),
+    t('setting.manualsync.upload'),
+    t('setting.manualsync.forcedownload'),
+    t('setting.manualsync.forceupload'),
   ]
   async function handleSync() {
     setIsSyncing(true)
@@ -115,7 +115,7 @@ export default function SyncSaves({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">{t('setting.manualsync')}</span>
+        <span className="settingText">{t('setting.manualsync.title')}</span>
         <span
           style={{
             display: 'flex',
@@ -140,7 +140,7 @@ export default function SyncSaves({
               isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${isSyncing ? 'Syncing' : 'Sync'}`}
+            {`${isSyncing ? t('setting.manualsync.syncing') : t('setting.manualsync.sync')}`}
           </button>
         </span>
       </span>
