@@ -106,7 +106,7 @@
   "Return": "Vissza",
   "search": "Add meg a játék nevét itt...",
   "setting": {
-    "audiofix": "Önálló javítás (Pulse Audio Latency)",
+    "audiofix": "Hangzás javítás (Pulse Audio Latency)",
     "autodxvk": "DXVK Önálló Telepítése/Frissítése a Prefix-en",
     "autosync": "Mentések Önálló Szinkronizálása",
     "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
