@@ -51,7 +51,7 @@
       "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd azt.",
       "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj visszaahoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
       "part3": "Manuális Szinkronizálás: Válaszd a Letöltést, hogy letöltsd a játékmentéseket, amiket a Felhőben tárolsz. Feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített Letöltés és Kényszerített Feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
-      "part4": "Mentések Önálló Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
+      "part4": "Mentések Automatikus Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
     },
     "wine": {
       "part1": "A Heroic a Wine és Proton verzióit a következő mappákban keresi:",
@@ -107,8 +107,8 @@
   "search": "Add meg a játék nevét itt...",
   "setting": {
     "audiofix": "Hangzás javítás (Pulse Audio Latency)",
-    "autodxvk": "DXVK Önálló Telepítése/Frissítése a Prefix-en",
-    "autosync": "Mentések Önálló Szinkronizálása",
+    "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
+    "autosync": "Mentések Automatikus Szinkronizálása",
     "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
     "default-install-path": "Alapértelmezett Telepítési Útvonal",
     "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
