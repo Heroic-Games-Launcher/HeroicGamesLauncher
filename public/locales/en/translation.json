@@ -116,7 +116,15 @@
     "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
     "language": "Choose App Language",
     "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
-    "manualsync": "Manual Sync Saves",
+    "manualsync": {
+      "title": "Manual Sync Saves",
+      "download": "Download",
+      "upload": "Upload",
+      "forcedownload": "Force Download",
+      "forceupload": "Force Upload",
+      "sync": "Sync",
+      "syncing": "Syncing"
+    },
     "maxworkers": "Maximum Number of Workers when downloading",
     "runexe": {
       "message": "Drag and Drop Files here",

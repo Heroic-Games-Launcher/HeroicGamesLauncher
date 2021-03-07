@@ -116,7 +116,15 @@
     "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
     "language": "Elija el idioma de la aplicación",
     "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
-    "manualsync": "Guardado de sincronización manual",
+    "manualsync": {
+      "title": "Guardado de sincronización manual",
+      "download": "Download",
+      "upload": "Upload",
+      "forcedownload": "Force Download",
+      "forceupload": "Force Upload",
+      "sync": "Sync",
+      "syncing": "Syncing"
+    },
     "maxworkers": "Número máximo de descargas",
     "runexe": {
       "message": "Arrastra y suelta archivos aquí",
