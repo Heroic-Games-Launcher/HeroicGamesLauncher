@@ -163,7 +163,10 @@ const updateGame = async (game: string) => {
           console.log(noSpaceMsg)
           return showErrorBox(
             i18next.t('box.error.diskspace.title', 'No Space'),
-            i18next.t('box.error.diskspace', 'Not enough available disk space')
+            i18next.t(
+              'box.error.diskspace.message',
+              'Not enough available disk space'
+            )
           )
         }
         console.log(genericMessage)
