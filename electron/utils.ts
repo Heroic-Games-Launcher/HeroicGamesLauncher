@@ -148,12 +148,29 @@ export const getUserInfo = (): UserInfo => {
   return { account_id: '', displayName: null }
 }
 
-const updateGame = (game: string) => {
+const updateGame = async (game: string) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
-  return execAsync(command, { shell: '/bin/bash' })
-    .then(console.log)
-    .catch(console.log)
+
+  try {
+    await execAsync(command, { shell: '/bin/bash' })
+  } catch (error) {
+    const noSpaceMsg = 'Not enough available disk space'
+    const genericMessage = 'installation canceled or had some error'
+    await execAsync(`tail ${logPath} | grep 'disk space'`)
+      .then(({ stdout }) => {
+        if (stdout.includes(noSpaceMsg)) {
+          console.log(noSpaceMsg)
+          return showErrorBox(
+            i18next.t('box.error.diskspace.title', 'No Space'),
+            i18next.t('box.error.diskspace', 'Not enough available disk space')
+          )
+        }
+        console.log(genericMessage)
+        return genericMessage
+      })
+      .catch(() => console.log(genericMessage))
+  }
 }
 
 const launchGame = async (appName: string) => {

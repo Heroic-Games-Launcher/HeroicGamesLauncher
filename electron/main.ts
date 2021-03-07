@@ -3,12 +3,14 @@ import { exec, spawn } from 'child_process'
 import {
   app,
   BrowserWindow,
+  dialog,
   ipcMain,
   Menu,
   Notification,
   powerSaveBlocker,
   Tray,
 } from 'electron'
+
 import isDev from 'electron-is-dev'
 import {
   existsSync,
@@ -55,6 +57,7 @@ import {
 } from './utils'
 
 const execAsync = promisify(exec)
+const { showErrorBox } = dialog
 
 let mainWindow: BrowserWindow = null
 
@@ -179,7 +182,18 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
+      supportedLngs: [
+        'de',
+        'en',
+        'es',
+        'fr',
+        'nl',
+        'pl',
+        'pt',
+        'ru',
+        'tr',
+        'hu',
+      ],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -348,23 +362,29 @@ ipcMain.handle('install', async (event, args) => {
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
-  const noSpaceMsg = 'Not enough available disk space'
-  return await execAsync(command, { shell: '/bin/bash' })
-    .then(() => console.log('finished installing'))
-    .catch(async () => {
-      try {
-        const { stdout } = await execAsync(
-          `tail ${logPath} | grep 'disk space'`
-        )
+  try {
+    await execAsync(command, { shell: '/bin/bash' })
+    console.log('finished installing')
+  } catch (error) {
+    const noSpaceMsg = 'Not enough available disk space'
+    const genericMessage = 'installation canceled or had some error'
+    await execAsync(`tail ${logPath} | grep 'disk space'`)
+      .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           console.log(noSpaceMsg)
-          return stdout
+          return showErrorBox(
+            i18next.t('box.error.diskspace.title', 'No Space'),
+            i18next.t(
+              'box.error.diskspace.message',
+              'Not enough available disk space'
+            )
+          )
         }
-        console.log('installation canceled or had some error')
-      } catch (err) {
-        return err
-      }
-    })
+        console.log(genericMessage)
+        return genericMessage
+      })
+      .catch(() => console.log(genericMessage))
+  }
 })
 
 ipcMain.handle('repair', async (event, game) => {
@@ -388,7 +408,9 @@ ipcMain.handle('importGame', async (event, args) => {
   return
 })
 
-ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
+ipcMain.handle('updateGame', (e, appName) =>
+  updateGame(appName).then((res) => res)
+)
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
