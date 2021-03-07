@@ -10,8 +10,8 @@
     "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
     "error": {
       "diskspace": {
-        "message": "Not enough available disk space",
-        "title": "No Space"
+        "message": "Nincs elég elérhető lemezterület",
+        "title": "Nincs hely"
       },
       "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!"
     },
