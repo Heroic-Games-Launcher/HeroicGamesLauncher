@@ -9,6 +9,10 @@
     "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
     "default-install-path": "Selecione o Local de instalação padrão",
     "error": {
+      "diskspace": {
+        "message": "Sem espaço disponível no disco!",
+        "title": "Sem Espaço"
+      },
       "launch": "Houve um erro ao rodar o jogo. Veja os Logs para ver o que aconteceu."
     },
     "no": "NÃO",
@@ -117,13 +121,13 @@
     "language": "Selecionar idioma",
     "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
     "manualsync": {
-      "title": "Sincronização manual",
       "download": "Download",
-      "upload": "Upload",
       "forcedownload": "Force Download",
       "forceupload": "Force Upload",
       "sync": "Sync",
-      "syncing": "Syncing"
+      "syncing": "Syncing",
+      "title": "Sincronização manual",
+      "upload": "Upload"
     },
     "maxworkers": "CPUs máximos utilizados ao baixar jogos",
     "runexe": {

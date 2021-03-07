@@ -9,6 +9,10 @@
     "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
     "default-install-path": "Elija la ruta de instalación predeterminada",
     "error": {
+      "diskspace": {
+        "message": "Not enough available disk space",
+        "title": "No Space"
+      },
       "launch": "Error al iniciar el juego, ¡revisa los registros!"
     },
     "no": "No",
@@ -117,13 +121,13 @@
     "language": "Elija el idioma de la aplicación",
     "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
     "manualsync": {
-      "title": "Guardado de sincronización manual",
       "download": "Download",
-      "upload": "Upload",
       "forcedownload": "Force Download",
       "forceupload": "Force Upload",
       "sync": "Sync",
-      "syncing": "Syncing"
+      "syncing": "Syncing",
+      "title": "Guardado de sincronización manual",
+      "upload": "Upload"
     },
     "maxworkers": "Número máximo de descargas",
     "runexe": {

@@ -9,6 +9,10 @@
     "choose-egs-prefix": "Kies een prefix waar EGS zijn geïnstalleerd",
     "default-install-path": "Kies een standaard map",
     "error": {
+      "diskspace": {
+        "message": "Not enough available disk space",
+        "title": "No Space"
+      },
       "launch": "Een probleem tijdens het lanceren van een spel, check de logs!"
     },
     "no": "NEE",
@@ -117,13 +121,13 @@
     "language": "Kies een App taal",
     "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
     "manualsync": {
-      "title": "Handmatige synchronisatie van saves",
       "download": "Download",
-      "upload": "Upload",
       "forcedownload": "Force Download",
       "forceupload": "Force Upload",
       "sync": "Sync",
-      "syncing": "Syncing"
+      "syncing": "Syncing",
+      "title": "Handmatige synchronisatie van saves",
+      "upload": "Upload"
     },
     "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
     "runexe": {

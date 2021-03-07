@@ -9,6 +9,10 @@
     "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
     "default-install-path": "Выбрать стандартный путь установки",
     "error": {
+      "diskspace": {
+        "message": "Not enough available disk space",
+        "title": "No Space"
+      },
       "launch": "Ошибка при запуске игры, посмотрите логи!"
     },
     "no": "НЕТ",
@@ -117,13 +121,13 @@
     "language": "Выберите язык приложения",
     "mangohud": "Включить Mangohud (Нужен Mangohud)",
     "manualsync": {
-      "title": "Ручная синхронизация сохранений",
       "download": "Download",
-      "upload": "Upload",
       "forcedownload": "Force Download",
       "forceupload": "Force Upload",
       "sync": "Sync",
-      "syncing": "Syncing"
+      "syncing": "Syncing",
+      "title": "Ручная синхронизация сохранений",
+      "upload": "Upload"
     },
     "maxworkers": "Максимальное количество потоков при скачивании",
     "runexe": {
