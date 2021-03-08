@@ -73,7 +73,7 @@
     "recommended": "Рекомендованные"
   },
   "status": {
-    "hasUpdates": "New Version Available!",
+    "hasUpdates": "Доступна новая версия!",
     "installed": "Установлено",
     "installing": "Устанавливается",
     "moving": "Перемещаю игру, пожалуйста подождите",
@@ -88,7 +88,7 @@
     "protondb": "Проверить совместимость",
     "settings": "Настройки",
     "store": "Страница в магазине",
-    "update": "Update Game",
+    "update": "Обновить игру",
     "verify": "Проверить и восстановить"
   }
 }

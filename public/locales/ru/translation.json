@@ -10,8 +10,8 @@
     "default-install-path": "Выбрать стандартный путь установки",
     "error": {
       "diskspace": {
-        "message": "Not enough available disk space",
-        "title": "No Space"
+        "message": "Недостаточно свободного места на диске",
+        "title": "Нет места"
       },
       "launch": "Ошибка при запуске игры, посмотрите логи!"
     },

@@ -10,8 +10,8 @@
     "default-install-path": "Wählen Sie den Standard Installations-Pfad",
     "error": {
       "diskspace": {
-        "message": "Not enough available disk space",
-        "title": "No Space"
+        "message": "Nicht genügend freier Speicherplatz",
+        "title": "Kein Speicherplatz"
       },
       "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!"
     },
