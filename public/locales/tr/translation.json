@@ -136,6 +136,7 @@
       "upload": "Upload"
     },
     "maxworkers": "İndirirken Maksimum İşçi Sayısı",
+    "offlinemode": "Oyunu Çevrimdışı Çalıştır",
     "runexe": {
       "message": "Dosyaları buraya Sürükle ve Bırak",
       "title": "Exe Çalıştır"

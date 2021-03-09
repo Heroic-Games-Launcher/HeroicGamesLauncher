@@ -136,6 +136,7 @@
       "upload": "Upload"
     },
     "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
+    "offlinemode": "Spiel Offline Ausführen",
     "runexe": {
       "message": "Dateien hierher ziehen und ablegen",
       "title": "EXE in Prefix starten"

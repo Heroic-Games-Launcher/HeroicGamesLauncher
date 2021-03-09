@@ -136,6 +136,7 @@
       "upload": "Upload"
     },
     "maxworkers": "Maximum Number of Workers when downloading",
+    "offlinemode": "Run Game Offline",
     "runexe": {
       "message": "Drag and Drop Files here",
       "title": "Run EXE on Prefix"
