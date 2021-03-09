@@ -13,6 +13,10 @@
         "message": "Geen ruimte beschikbaar op de harde schijf",
         "title": "Niet genoeg opslag"
       },
+      "generic": {
+        "message": "Er is een onbekende fout opgetreden",
+        "title": "Onbekende fout"
+      },
       "launch": "Een probleem tijdens het lanceren van een spel, check de logs!"
     },
     "no": "NEE",

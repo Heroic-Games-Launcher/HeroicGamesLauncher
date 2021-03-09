@@ -13,6 +13,10 @@
         "message": "No hay suficiente espacio disponible en disco",
         "title": "No espacio"
       },
+      "generic": {
+        "message": "Un error desconocido a ocurrido",
+        "title": "Error desconocido"
+      },
       "launch": "Error al iniciar el juego, ¡revisa los registros!"
     },
     "no": "No",

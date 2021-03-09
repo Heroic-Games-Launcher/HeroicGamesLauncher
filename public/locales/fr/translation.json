@@ -13,6 +13,10 @@
         "message": "Espace disque nécessaire insuffisant",
         "title": "Pas de place"
       },
+      "generic": {
+        "message": "Une erreur inconnue s'est produite",
+        "title": "Erreur inconnue"
+      },
       "launch": "Erreur lors du lancement du jeu, consultez le rapport"
     },
     "no": "NON",

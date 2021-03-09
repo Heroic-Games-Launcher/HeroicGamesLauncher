@@ -13,6 +13,10 @@
         "message": "Sem espaço disponível no disco!",
         "title": "Sem Espaço"
       },
+      "generic": {
+        "message": "An Unknown Error has occurred",
+        "title": "Unknown Error"
+      },
       "launch": "Houve um erro ao rodar o jogo. Veja os Logs para ver o que aconteceu."
     },
     "no": "NÃO",

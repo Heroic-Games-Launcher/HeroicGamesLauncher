@@ -10,8 +10,12 @@
     "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
     "error": {
       "diskspace": {
-        "message": "Za mało miejsca na dysku",,
+        "message": "Za mało miejsca na dysku",
         "title": "Brak miejsca"
+      },
+      "generic": {
+        "message": "Bilinmeyen bir hata oluştu",
+        "title": "Bilinmeyen hata"
       },
       "launch": "Błąd przy uruchamianiu gry, sprawdź logi!"
     },

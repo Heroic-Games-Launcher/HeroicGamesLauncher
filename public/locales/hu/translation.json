@@ -13,6 +13,10 @@
         "message": "Nincs elég elérhető lemezterület",
         "title": "Nincs hely"
       },
+      "generic": {
+        "message": "Ismeretlen hiba lépett fel",
+        "title": "Ismeretlen hiba"
+      },
       "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!"
     },
     "no": "NEM",

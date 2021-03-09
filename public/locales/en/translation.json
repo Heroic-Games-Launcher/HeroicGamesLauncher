@@ -13,6 +13,10 @@
         "message": "Not enough available disk space",
         "title": "No Space"
       },
+      "generic": {
+        "message": "An Unknown Error has occurred",
+        "title": "Unknown Error"
+      },
       "launch": "Error when launching the game, check the logs!"
     },
     "no": "NO",

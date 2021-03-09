@@ -13,6 +13,10 @@
         "message": "Nicht genügend freier Speicherplatz",
         "title": "Kein Speicherplatz"
       },
+      "generic": {
+        "message": "Ein unbekannter Fehler ist aufgetreten",
+        "title": "Unbekannter Fehler"
+      },
       "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!"
     },
     "no": "NEIN",

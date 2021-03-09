@@ -13,6 +13,10 @@
         "message": "Yeterli alan mevcut değil",
         "title": "Alan Yok"
       },
+      "generic": {
+        "message": "Bilinmeyen bir hata oluştu",
+        "title": "Bilinmeyen hata"
+      },
       "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!"
     },
     "no": "HAYIR",
