@@ -155,24 +155,7 @@ const updateGame = async (game: string) => {
   try {
     await execAsync(command, { shell: '/bin/bash' })
   } catch (error) {
-    const noSpaceMsg = 'Not enough available disk space'
-    const genericMessage = 'installation canceled or had some error'
-    await execAsync(`tail ${logPath} | grep 'disk space'`)
-      .then(({ stdout }) => {
-        if (stdout.includes(noSpaceMsg)) {
-          console.log(noSpaceMsg)
-          return showErrorBox(
-            i18next.t('box.error.diskspace.title', 'No Space'),
-            i18next.t(
-              'box.error.diskspace.message',
-              'Not enough available disk space'
-            )
-          )
-        }
-        console.log(genericMessage)
-        return genericMessage
-      })
-      .catch(() => console.log(genericMessage))
+    return errorHandler(logPath)
   }
 }
 
@@ -475,6 +458,32 @@ const handleExit = async () => {
   app.exit()
 }
 
+async function errorHandler(logPath: string): Promise<void> {
+  const noSpaceMsg = 'Not enough available disk space'
+  return execAsync(`tail ${logPath} | grep 'disk space'`)
+    .then(({ stdout }) => {
+      if (stdout.includes(noSpaceMsg)) {
+        console.log(noSpaceMsg)
+        return showErrorBox(
+          i18next.t('box.error.diskspace.title', 'No Space'),
+          i18next.t(
+            'box.error.diskspace.message',
+            'Not enough available disk space'
+          )
+        )
+      }
+      return genericErrorMessage()
+    })
+    .catch(() => console.log('operation interrupted'))
+}
+
+function genericErrorMessage(): void {
+  return showErrorBox(
+    i18next.t('box.error.generic.title', 'Unknown Error'),
+    i18next.t('box.error.generic.message', 'An Unknown Error has occurred')
+  )
+}
+
 export {
   getAlternativeWine,
   getSettings,
@@ -503,4 +512,6 @@ export {
   updateGame,
   supportURL,
   heroicGithubURL,
+  errorHandler,
+  genericErrorMessage,
 }

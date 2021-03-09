@@ -3,7 +3,6 @@ import { exec, spawn } from 'child_process'
 import {
   app,
   BrowserWindow,
-  dialog,
   ipcMain,
   Menu,
   Notification,
@@ -48,6 +47,7 @@ import {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
+  errorHandler,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
@@ -57,7 +57,6 @@ import {
 } from './utils'
 
 const execAsync = promisify(exec)
-const { showErrorBox } = dialog
 
 let mainWindow: BrowserWindow = null
 
@@ -366,24 +365,7 @@ ipcMain.handle('install', async (event, args) => {
     await execAsync(command, { shell: '/bin/bash' })
     console.log('finished installing')
   } catch (error) {
-    const noSpaceMsg = 'Not enough available disk space'
-    const genericMessage = 'installation canceled or had some error'
-    await execAsync(`tail ${logPath} | grep 'disk space'`)
-      .then(({ stdout }) => {
-        if (stdout.includes(noSpaceMsg)) {
-          console.log(noSpaceMsg)
-          return showErrorBox(
-            i18next.t('box.error.diskspace.title', 'No Space'),
-            i18next.t(
-              'box.error.diskspace.message',
-              'Not enough available disk space'
-            )
-          )
-        }
-        console.log(genericMessage)
-        return genericMessage
-      })
-      .catch(() => console.log(genericMessage))
+    return errorHandler(logPath)
   }
 })
 
