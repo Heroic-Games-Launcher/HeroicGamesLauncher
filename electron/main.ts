@@ -12,7 +12,6 @@ import {
   powerSaveBlocker,
   Tray
 } from 'electron'
-
 import isDev from 'electron-is-dev'
 import {
   existsSync,
@@ -39,6 +38,7 @@ import {
   checkForUpdates,
   checkGameUpdates,
   discordLink,
+  errorHandler,
   getAlternativeWine,
   getLatestDxvk,
   getSettings,
@@ -54,7 +54,6 @@ import {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
-  errorHandler,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
@@ -245,7 +244,7 @@ ipcMain.handle('checkVersion', () => checkForUpdates())
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
   const config = args[1]
-  if (args[0] === 'default') {
+  if (app === 'default') {
     return writeFile(
       heroicConfigPath,
       JSON.stringify(config, null, 2),
@@ -378,7 +377,8 @@ ipcMain.handle('install', async (event, args) => {
 
 ipcMain.handle('repair', async (event, game) => {
   if (!(await isOnline())) {
-    console.log(`App offline, skipping pair for game '${game}'.`)
+    console.log(`App offline, skipping repair for game '${game}'.`)
+    return
   }
   const { maxWorkers } = await getSettings('default')
   const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
@@ -561,6 +561,11 @@ ipcMain.on('removeFolder', async (e, args: string[]) => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
+  if (!(await isOnline())) {
+    console.log(`App offline, skipping syncing saves for game '${appName}'.`)
+    return
+  }
+
   const fixedPath = path.replaceAll("'", '')
   const command = `${legendaryBin} sync-saves --save-path "${fixedPath}" ${arg} ${appName} -y`
   const legendarySavesPath = `${home}/legendary/.saves`

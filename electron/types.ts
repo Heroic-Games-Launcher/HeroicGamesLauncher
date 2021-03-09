@@ -37,6 +37,7 @@ export interface AppSettings {
   savesPath: string
   autoSyncSaves: boolean
   exitToTray: boolean
+  offlineMode: boolean
   launcherArgs: string
   audioFix: boolean
   showMangohud: boolean

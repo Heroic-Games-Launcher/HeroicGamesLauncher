@@ -37,6 +37,7 @@ export interface AppSettings {
   otherOptions: string
   useGameMode: boolean
   showFps: boolean
+  offlineMode: boolean
   egsLinkedPath: string
   savesPath: string
   autoSyncSaves: boolean

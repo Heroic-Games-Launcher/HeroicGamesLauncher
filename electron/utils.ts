@@ -181,6 +181,7 @@ export const getUserInfo = (): UserInfo => {
 const updateGame = async (game: string) => {
   if (!isOnline()) {
     console.log(`App offline, skipping update for game '${game}'.`)
+    return
   }
   const logPath = `${heroicGamesConfigPath}${game}.log`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
@@ -202,6 +203,7 @@ const launchGame = async (appName: string) => {
     otherOptions,
     useGameMode,
     showFps,
+    offlineMode = false,
     launcherArgs = '',
     showMangohud,
     audioFix,
@@ -211,11 +213,7 @@ const launchGame = async (appName: string) => {
   const fixedWinePrefix = winePrefix.replace('~', home)
   let wineCommand = `--wine ${wineVersion.bin}`
 
-  let fixedLauncherArgs = launcherArgs
-
-  if (!(await isOnline()) && !fixedLauncherArgs.includes('--offline')) {
-    fixedLauncherArgs = fixedLauncherArgs.trimRight() + ' --offline'
-  }
+  const offlineArg = (!offlineMode && (await isOnline())) ? "" : "--offline";
 
   // We need to keep replacing the ' to keep compatibility with old configs
   let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
@@ -271,7 +269,7 @@ const launchGame = async (appName: string) => {
 
   const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${appName}  ${wineCommand} ${prefix} ${fixedLauncherArgs}`
+  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${offlineArg} ${appName}  ${wineCommand} ${prefix} ${launcherArgs}`
   console.log('\n Launch Command:', command)
 
   return execAsync(command)
