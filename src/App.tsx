@@ -43,7 +43,7 @@ function App() {
     return <Login refresh={refresh} />
   }
 
-  const dlcCount = library.filter((lib) => lib.is_dlc)
+  const dlcCount = library.filter(lib => lib.is_dlc)
   const numberOfGames = library.length - dlcCount.length
   return (
     <div className="App">

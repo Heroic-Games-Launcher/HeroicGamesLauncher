@@ -116,7 +116,15 @@
     "gamemode": "Gebruik spel-modus (Feral Game Mode moet zijn geïnstalleerd)",
     "language": "Kies een App taal",
     "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
-    "manualsync": "Handmatige synchronisatie van saves",
+    "manualsync": {
+      "title": "Handmatige synchronisatie van saves",
+      "download": "Download",
+      "upload": "Upload",
+      "forcedownload": "Force Download",
+      "forceupload": "Force Upload",
+      "sync": "Sync",
+      "syncing": "Syncing"
+    },
     "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
     "runexe": {
       "message": "Sleep de bestanden hier",

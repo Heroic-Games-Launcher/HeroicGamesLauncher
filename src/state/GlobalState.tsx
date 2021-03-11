@@ -55,14 +55,14 @@ export class GlobalState extends PureComponent<Props> {
   refresh = async (): Promise<void> => {
     this.setState({ refreshing: true })
     const { user, library } = await getLegendaryConfig()
-    //const updates = await renderer.invoke('checkGameUpdates')
+    const updates = await renderer.invoke('checkGameUpdates')
 
     this.setState({
       user,
       refreshing: false,
       filterText: '',
       data: library,
-    //  gameUpdates: updates,
+      gameUpdates: updates,
     })
   }
 

@@ -179,18 +179,7 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: [
-        'de',
-        'en',
-        'es',
-        'fr',
-        'nl',
-        'pl',
-        'pt',
-        'ru',
-        'tr',
-        'hu',
-      ],
+      supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
       debug: false,
       backend: {
         allowMultiLoading: false,
