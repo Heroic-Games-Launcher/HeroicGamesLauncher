@@ -1,0 +1,159 @@
+{
+  "All": "Allemaal",
+  "box": {
+    "appupdate": {
+      "message": "Er is een nieuwe versie van Heroic beschikbaar, wil je hem nu updaten?",
+      "title": "Update beschikbaar"
+    },
+    "choose": "Kies",
+    "choose-egs-prefix": "Kies een prefix waar EGS zijn geïnstalleerd",
+    "default-install-path": "Kies een standaard map",
+    "error": {
+      "launch": "Een probleem tijdens het lanceren van een spel, check de logs!"
+    },
+    "no": "NEE",
+    "quit": {
+      "message": "Er zijn lopende processen, weet je het zeker?",
+      "title": "Stoppen"
+    },
+    "runexe": {
+      "title": "Selecteer EXE on te lanceren"
+    },
+    "select": "Selecteren",
+    "sync": {
+      "button": "Kies",
+      "error": "Incorrect map",
+      "title": "Kies de saves map"
+    },
+    "wineprefix": "Kies een Wine prefix map",
+    "yes": "Ja"
+  },
+  "button": {
+    "sync": "Synchroniseer",
+    "syncing": "Synchroniseren",
+    "unsync": "De-synchroniseren"
+  },
+  "Downloading": "Downloads",
+  "Filter": "Filter",
+  "globalSettings": "Algemene instellingen",
+  "help": {
+    "general": "Synchronisatie met EGS voor het geval je elders een werkende installatie van de Epic Games Store hebt en je games wilt importeren om ze opnieuw te downloaden.",
+    "other": {
+      "part1": "Gebruik de ",
+      "part2": "Geavanceerde opties",
+      "part3": "voor opdrachten of parameters voor het lanceren van het spel; ",
+      "part4": "Gebruik de ",
+      "part5": "Spel argumenten",
+      "part6": "voor opdrachten of parameters na het lanceren van het spel, voor bijvoorbeeld: ",
+      "part7": " om de launcher in sommige games over te slaan."
+    },
+    "sync": {
+      "part1": "Heroic probeert de juiste opslagmap te vinden en dit zal over het algemeen werken. wanneer dit niet werkt, gebruik de overschijf-box om het te wijzigen.",
+      "part2": "Als je de prefix map voor Wine of Proton wijzigt, moet je het pad opnieuw controleren sinds Proton een ander prefix (/pfx) en gebruikersnaam (steamuser) gebruikt. Je kunt dus eenvoudig het huidige pad wissen dat je uitkomt uit de pagina Synchronisatie-instellingen en weer terug te gaan voor Heroic om de map nog een keer met het juiste voorvoegsel te raden.",
+      "part3": "Handmatige synchronisatie: Kies 'Downloaden' om de spel saves te downloaden die zijn opgeslagen in de cloud. 'Upload' om de lokale saves te uploaden naar de cloud. 'Force Download' en 'Force Upload' negeert de versie die lokaal of in de cloud is.",
+      "part4": "Synchroniseren van saves synchroniseerd elke keer wanneer je een spel start of nadat je een spel afsluit"
+    },
+    "wine": {
+      "part1": "Heroic zoekt naar versies van Wine en Proton op de volgende mappen:",
+      "part2": "Voor andere locaties moet je een symbolische link begruiken naar een van deze mappen"
+    }
+  },
+  "info": {
+    "settings": "Instellingen worden automatisch opgeslagen"
+  },
+  "infobox": {
+    "help": "Help",
+    "requirements": ""
+  },
+  "Library": "Bibliotheek",
+  "message": {
+    "sync": "Synchronisatie compleet",
+    "unsync": "De-synchronisatie compleet"
+  },
+  "nogames": "Geen spellen gevonden",
+  "Not Ready": "Beschikbaar",
+  "notify": {
+    "finished": {
+      "reparing": "Klaar met reparatie"
+    },
+    "install": {
+      "canceled": "Installatie geannuleerd",
+      "finished": "Installatie is voltooid"
+    },
+    "moved": "Klaar met verplaatsing",
+    "refreshed": "Bibliotheek vernieuwd",
+    "refreshing": "Vernieuwen",
+    "uninstalled": "Klaar met deinstallatie",
+    "update": {
+      "canceled": "Update geannuleerd",
+      "finished": "Update is voltooid"
+    }
+  },
+  "options": {
+    "advanced": {
+      "placeholder": "Hier je andere lanceer opties plaatsen",
+      "title": "Geavanceerde opties (Environment variables):"
+    },
+    "gameargs": {
+      "placeholder": "Hier je lanceer opties plaatsen",
+      "title": "Spel argumenten (Om na het commando te runnen)"
+    }
+  },
+  "placeholder": {
+    "egs-prefix": "Prefix waar EGS zijn geïnstalleerd"
+  },
+  "Ready": "Geïnstalleerd",
+  "Return": "Terug",
+  "search": "Voor je spel naam hier in...",
+  "setting": {
+    "audiofix": "Geluid fix (Pulse Audio Latency)",
+    "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
+    "autosync": "Automatisch Synchroniseren van saves",
+    "darktray": "Gebruik donker tray icoon (vereist opnieuw opstarten)",
+    "default-install-path": "Standaard installatie map",
+    "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
+    "exit-to-tray": "Stoppen naar systeem tray",
+    "gamemode": "Gebruik spel-modus (Feral Game Mode moet zijn geïnstalleerd)",
+    "language": "Kies een App taal",
+    "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
+    "manualsync": "Handmatige synchronisatie van saves",
+    "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
+    "runexe": {
+      "message": "Sleep de bestanden hier",
+      "title": "Voer EXE ui op Prefix"
+    },
+    "savefolder": {
+      "placeholder": "Selecteer de exacte opslagmap",
+      "title": "Overschijf cloud synchronisatie save map"
+    },
+    "showfps": "Toon FPS (DX9, DX10 en DX11)",
+    "wineprefix": "WinePrefix map",
+    "wineversion": "Wine versie"
+  },
+  "Settings": "Instellingen",
+  "settings": {
+    "navbar": {
+      "general": "Algemeen",
+      "other": "Overig",
+      "sync": "Synchronisatie"
+    }
+  },
+  "store": "Store",
+  "Total Games": "Hoeveelheid spellen",
+  "tray": {
+    "about": "Over",
+    "quit": "Stoppen",
+    "reload": "Herladen",
+    "show": "Laten zien",
+    "support": "Steun ons"
+  },
+  "userselector": {
+    "about": "Over",
+    "discord": "Discord",
+    "logout": "Log uit",
+    "quit": "Sluiten",
+    "refresh": "Herladen",
+    "support": "Steun ons"
+  },
+  "Store": "Winkel"
+}

@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "Isso irá alterar o local the instalação do jogo, você tem certeza?",
+      "path": "Selecione a pasta",
+      "title": "Modificar local de instalação do Jogo"
+    },
     "choose": "Selecionar",
     "importpath": "Escolha a pasta do jogo para importar",
     "installpath": "Escolha a pasta de instalação",
@@ -63,7 +68,12 @@
       "syncing": "Sincronizando"
     }
   },
+  "specs": {
+    "minimum": "Mínimo",
+    "recommended": "Recomendado"
+  },
   "status": {
+    "hasUpdates": "Nova versão disponível!",
     "installed": "Jogo Instalado",
     "installing": "Instalando",
     "moving": "Movendo Jogo, por favor espere.",
@@ -72,6 +82,7 @@
     "updating": "Atualizando jogo"
   },
   "submenu": {
+    "change": "Modificar local de instalação",
     "log": "Último Log",
     "move": "Mover Jogo",
     "protondb": "Compatibilidade",

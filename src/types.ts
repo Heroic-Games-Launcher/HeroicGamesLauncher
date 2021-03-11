@@ -11,18 +11,18 @@ export interface KeyImage {
 }
 
 interface About {
-  description: string,
+  description: string
   shortDescription: string
 }
 
 interface Reqs {
-  minimum: string,
-  recommended: string,
+  minimum: string
+  recommended: string
   title: string
 }
 
 interface ExtraInfo {
-  about: About,
+  about: About
   reqs: Reqs[]
 }
 
@@ -69,6 +69,7 @@ export interface Game {
   extraInfo: ExtraInfo
   dlcs: string[]
   is_dlc: boolean
+  namespace: string
 }
 
 export interface InstallProgress {
@@ -109,6 +110,7 @@ export interface ContextType {
   refreshing: boolean
   error: boolean
   libraryStatus: GameStatus[]
+  gameUpdates: string[]
   refresh: () => Promise<void>
   refreshLibrary: () => void
   handleGameStatus: (game: GameStatus) => Promise<void>

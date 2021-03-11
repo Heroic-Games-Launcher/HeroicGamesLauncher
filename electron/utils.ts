@@ -15,7 +15,7 @@ import { fixPathForAsarUnpack } from 'electron-util'
 import { join } from 'path'
 import { app, dialog } from 'electron'
 import * as axios from 'axios'
-import { AppSettings, WineProps } from './types'
+import { AppSettings, WineProps, UserInfo } from './types'
 import i18next from 'i18next'
 const { showErrorBox, showMessageBox } = dialog
 
@@ -37,7 +37,9 @@ const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
-const kofiURL = 'https://ko-fi.com/flavioislima'
+const supportURL =
+  'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
+const discordLink = 'https://discord.gg/rHJ2uqdquK'
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
@@ -139,11 +141,11 @@ const getSettings = async (
   return settings[settingsName]
 }
 
-const getUserInfo = () => {
+export const getUserInfo = (): UserInfo => {
   if (existsSync(userInfo)) {
     return JSON.parse(readFileSync(userInfo, 'utf-8'))
   }
-  return { account_id: '' }
+  return { account_id: '', displayName: null }
 }
 
 const updateGame = (game: string) => {
@@ -352,6 +354,7 @@ const writeDefaultconfig = async () => {
         otherOptions: '',
         useGameMode: false,
         showFps: false,
+        maxWorkers: 0,
         language: 'en',
         userInfo: {
           name: userName,
@@ -424,6 +427,13 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
+const checkGameUpdates = async (): Promise<Array<string>> => {
+  const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
+  const { stdout } = await execAsync(command)
+  const result = stdout.split('\n')
+  return result
+}
+
 const handleExit = async () => {
   const isLocked = existsSync(`${heroicGamesConfigPath}/lock`)
 
@@ -448,9 +458,11 @@ const handleExit = async () => {
 export {
   getAlternativeWine,
   getSettings,
+  checkGameUpdates,
   isLoggedIn,
   launchGame,
   getLatestDxvk,
+  discordLink,
   writeDefaultconfig,
   writeGameconfig,
   checkForUpdates,
@@ -469,6 +481,6 @@ export {
   loginUrl,
   sidInfoUrl,
   updateGame,
-  kofiURL,
+  supportURL,
   heroicGithubURL,
 }

@@ -1,0 +1,24 @@
+{
+  "button": {
+    "login": "Bejelentkezés"
+  },
+  "input": {
+    "placeholder": "Illeszd az SID számodat ide"
+  },
+  "message": {
+    "part1": "Annak érdekében, hogy be tudj jelentkezni és letöltsd a játékaidat, először követned kell az itt lent felsoroltakat:",
+    "part2": "Nyisd meg az ",
+    "part3": "Epic Store-t itt",
+    "part4": ", jelentkezz be a fiókodba és másold ki a",
+    "part5": "SID információs számodat",
+    "part6": "Másold be az",
+    "part7": "SID számot",
+    "part8": "a lenti beviteli mezőbe, kattints a bejelentkezés gombra, majd várj."
+  },
+  "status": {
+    "error": "Hiba",
+    "loading": "Játék lista betöltése, kérlek várj",
+    "logging": "Bejelentkezés..."
+  },
+  "welcome": "Üdvözlünk!"
+}

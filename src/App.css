@@ -377,6 +377,7 @@
   place-self: center;
   place-items: flex-start;
   width: 569px;
+  padding-bottom: 8px;
 }
 
 .settingsTools {
@@ -503,9 +504,16 @@
   width: 372px;
 }
 
+.settingSelect.language-login {
+  width: 140px;
+  height: 30px;
+  text-indent: 10px;
+}
+
 .settingSelect.smaller {
-  width: 48px;
+  width: 66px;
   text-indent: 11px;
+  margin-left: -24px;
 }
 
 .settingSelect>option {
@@ -518,7 +526,7 @@
 }
 
 .save {
-  margin: 48px 0 0 18px;
+  margin: 24px 0 0 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -695,7 +703,7 @@
 }
 
 .gameConfigContainer {
-  width: 1194px;
+  width: 1110px;
   background: rgba(13, 14, 14, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -710,7 +718,7 @@
   align-self: center;
   min-width: 780px;
   max-width: 800px;
-  margin: 64px 70px;
+  margin: 44px 60px 16px 44px;
 }
 
 .gameConfig .title {
@@ -931,7 +939,7 @@
 .more {
   position: absolute;
   top: 56px;
-  right: 68px;
+  right: 42px;
   color: var(--secondary);
   font-size: 25px;
   width: max-content;
@@ -949,7 +957,7 @@
 
 .dots {
   position: absolute;
-  right: 75px;
+  right: 46px;
   top: 64px;
   width: 25px;
   z-index: 1;
@@ -1092,7 +1100,7 @@ input:checked+.slider:before {
 
 .infoBox {
   width: 100%;
-  padding: 20px 44px;
+  padding: 10px 20px 20px 20px;
   font-size: 16px;
   line-height: 19px;
 }
@@ -1109,7 +1117,11 @@ input:checked+.slider:before {
   justify-content: center;
 }
 
-.infoBox>ul {
+.helpLink > svg {
+  margin-left: 4px;
+}
+
+.infoBox > ul {
   text-align: left;
 }
 
@@ -1211,7 +1223,7 @@ input:checked+.slider:before {
   border-radius: 4px;
   color: var(--success);
   position: relative;
-  bottom: 34px;
+  bottom: 28px;
   left: -52px;
 }
 
@@ -1273,18 +1285,18 @@ input:checked+.slider:before {
   cursor: pointer;
 }
 
-.layoutSelection>svg {
+.layoutSelection > svg {
   margin: 0 0.2em;
 }
 
-.requirements{
+.requirements {
   margin-top: 2em;
 }
 
 .requirements table td {
-    width: 33.33%;
-    vertical-align: baseline;
-    padding: .5em;
+  width: 33.33%;
+  vertical-align: baseline;
+  padding: 0.5em;
 }
 table td.specs {
   color: var(--secondary);
@@ -1298,4 +1310,7 @@ table td.specs {
 table span.text {
   color: var(--text-secondary);
   font-size: 0.9em;
+}
+*:focus {
+  border: var(--secondary) 5px solid;
 }

@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "Bu oyunun kurulum yerini değiştirecek, emin misin?",
+      "path": "Yeni kurulum yeri seçin",
+      "title": "Oyun Kurulum Yerini Değiştir"
+    },
     "choose": "Seç",
     "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
     "installpath": "Kurulum Yerini Seç",
@@ -63,7 +68,12 @@
       "syncing": "Kayıtlar Senkronize Ediliyor"
     }
   },
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Önerilen"
+  },
   "status": {
+    "hasUpdates": "Yeni sürüm mevcut!",
     "installed": "Yüklendi",
     "installing": "Yükleniyor",
     "moving": "Kurulum taşınıyor, lütfen bekleyin",
@@ -72,6 +82,7 @@
     "updating": "Oyun Güncelleniyor"
   },
   "submenu": {
+    "change": "Kurulum yerini değiştir",
     "log": "Güncel Log",
     "move": "Oyunu Taşı",
     "protondb": "Uyumluluğu Kontrol Et",

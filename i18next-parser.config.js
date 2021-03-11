@@ -2,7 +2,7 @@ module.exports = {
   contextSeparator: '_',
   // Key separator used in your translation keys
 
-  createOldCatalogs: false,
+  createOldCatalogs: true,
   // Save the \_old files
 
   defaultNamespace: 'translation',
@@ -14,7 +14,7 @@ module.exports = {
   indentation: 2,
   // Indentation of the catalog files
 
-  keepRemoved: false,
+  keepRemoved: true,
   // Keep keys from the catalog that are no longer in code
 
   keySeparator: '.',
@@ -35,7 +35,7 @@ module.exports = {
   lineEnding: 'auto',
   // Control the line ending. See options at https://github.com/ryanve/eol
 
-  locales: ['en', 'pt', 'de', 'fr', 'ru', 'pl'],
+  locales: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
   // An array of the locales in your applications
 
   namespaceSeparator: ':',

@@ -1,5 +1,10 @@
 {
   "box": {
+    "change": {
+      "message": "This will change the install location of this game, are you sure?",
+      "path": "Choose a new install path",
+      "title": "Change Games Install Path"
+    },
     "choose": "Choose",
     "importpath": "Choose Game Folder to import",
     "installpath": "Choose Install Path",
@@ -63,7 +68,12 @@
       "syncing": "Syncing Saves"
     }
   },
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Recommended"
+  },
   "status": {
+    "hasUpdates": "New Version Available!",
     "installed": "Installed",
     "installing": "Installing",
     "moving": "Moving Installation, please wait",
@@ -72,6 +82,7 @@
     "updating": "Updating Game"
   },
   "submenu": {
+    "change": "Change install path",
     "log": "Latest Log",
     "move": "Move Game",
     "protondb": "Check Compatibility",

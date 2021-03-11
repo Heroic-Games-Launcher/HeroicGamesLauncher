@@ -41,7 +41,7 @@ export default function NavBar() {
           style={{ cursor: 'pointer' }}
           onClick={() => createNewWindow(epicStore)}
         >
-          {t('Store')}
+          {t('store', 'Store')}
         </a>
       </div>
       <SearchBar />

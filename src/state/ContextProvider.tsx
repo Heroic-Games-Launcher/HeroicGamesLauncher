@@ -9,6 +9,7 @@ const initialContext: ContextType = {
   filter: 'all',
   layout: 'grid',
   error: false,
+  gameUpdates: [],
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
   handleGameStatus: () => Promise.resolve(),

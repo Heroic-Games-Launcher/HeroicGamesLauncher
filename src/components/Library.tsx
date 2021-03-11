@@ -1,6 +1,6 @@
 import React, { lazy, useContext } from 'react'
 import cx from 'classnames'
-import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
+import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 import ContextProvider from '../state/ContextProvider'
 
 import { Game } from '../types'
@@ -10,6 +10,7 @@ interface Props {
   library: Array<Game>
 }
 
+
 window.onscroll = () => {
   const pageOffset =
       document.documentElement.scrollTop || document.body.scrollTop,
@@ -18,7 +19,7 @@ window.onscroll = () => {
 }
 
 export const Library = ({ library }: Props) => {
-  const { layout } = useContext(ContextProvider)
+  const { layout, gameUpdates } = useContext(ContextProvider)
   const backToTop = () => {
     const anchor = document.getElementById('top')
     if (anchor) {
@@ -50,6 +51,7 @@ export const Library = ({ library }: Props) => {
               if (is_dlc) {
                 return null
               }
+              const hasUpdate = gameUpdates.includes(app_name)
               return (
                 <GameCard
                   key={app_name}
@@ -61,6 +63,7 @@ export const Library = ({ library }: Props) => {
                   isInstalled={isInstalled}
                   version={version}
                   size={install_size}
+                  hasUpdate={hasUpdate}
                 />
               )
             }

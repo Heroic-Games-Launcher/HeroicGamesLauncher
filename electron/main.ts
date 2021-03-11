@@ -1,59 +1,61 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  heroicConfigPath,
-  heroicGamesConfigPath,
-  launchGame,
-  legendaryBin,
-  loginUrl,
-  getAlternativeWine,
-  isLoggedIn,
-  legendaryConfigPath,
-  userInfo,
-  writeGameconfig,
-  home,
-  sidInfoUrl,
-  updateGame,
-  checkForUpdates,
-  showAboutWindow,
-  kofiURL,
-  handleExit,
-  heroicGithubURL,
-  iconDark,
-  getSettings,
-  iconLight,
-  getLatestDxvk,
-} from './utils'
-
-import { spawn, exec } from 'child_process'
-import * as path from 'path'
-import isDev from 'electron-is-dev'
-import i18next from 'i18next'
-import Backend from 'i18next-fs-backend'
-
-import {
-  readFileSync,
-  writeFile,
-  existsSync,
-  mkdirSync,
-  unlinkSync,
-} from 'graceful-fs'
-import { promisify } from 'util'
 import axios from 'axios'
-import { userInfo as user, cpus } from 'os'
-
-const execAsync = promisify(exec)
-
+import { exec, spawn } from 'child_process'
 import {
   app,
   BrowserWindow,
   ipcMain,
-  Notification,
   Menu,
-  Tray,
+  Notification,
   powerSaveBlocker,
+  Tray,
 } from 'electron'
-import { Game } from './types.js'
+import isDev from 'electron-is-dev'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFile,
+  writeFileSync,
+} from 'graceful-fs'
+import i18next from 'i18next'
+import Backend from 'i18next-fs-backend'
+import { cpus, userInfo as user } from 'os'
+import * as path from 'path'
+import { promisify } from 'util'
+
 import { getLegendaryConfig } from './legendary_utils/library'
+import { Game } from './types.js'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+  checkForUpdates,
+  checkGameUpdates,
+  discordLink,
+  getAlternativeWine,
+  getLatestDxvk,
+  getSettings,
+  handleExit,
+  heroicConfigPath,
+  heroicGamesConfigPath,
+  heroicGithubURL,
+  home,
+  iconDark,
+  iconLight,
+  isLoggedIn,
+  launchGame,
+  legendaryBin,
+  legendaryConfigPath,
+  loginUrl,
+  showAboutWindow,
+  sidInfoUrl,
+  supportURL,
+  updateGame,
+  userInfo,
+  writeGameconfig,
+} from './utils'
+
+const execAsync = promisify(exec)
+
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
@@ -80,7 +82,7 @@ function createWindow(): BrowserWindow {
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: any) => {
+      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
         console.log('An error occurred: ', err)
       })
     })
@@ -144,7 +146,7 @@ const contextMenu = () =>
     {
       label: i18next.t('tray.support', 'Support Us'),
       click: function () {
-        exec(`xdg-open ${kofiURL}`)
+        exec(`xdg-open ${supportURL}`)
       },
     },
     {
@@ -177,7 +179,18 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr', 'es'],
+      supportedLngs: [
+        'de',
+        'en',
+        'es',
+        'fr',
+        'nl',
+        'pl',
+        'pt',
+        'ru',
+        'tr',
+        'hu',
+      ],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -212,7 +225,9 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
+ipcMain.on('openSupportPage', () => exec(`xdg-open ${supportURL}`))
+
+ipcMain.handle('checkGameUpdates', () => checkGameUpdates())
 
 ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
 
@@ -261,20 +276,52 @@ ipcMain.on('quit', async () => handleExit())
 /* const storage: Storage = mainWindow.localStorage
 const lang = storage.getItem('language') */
 
-ipcMain.handle('getGameInfo', async (event, game) => {
+const getProductSlug = async (namespace: string, game: string) => {
+  const graphql = JSON.stringify({
+    query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
+    variables: {},
+  })
+  const result = await axios('https://www.epicgames.com/graphql', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: graphql,
+  })
+  const res = result.data.data.Catalog.catalogOffers
+  const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
+  if (slug) {
+    return slug.productSlug.replace(/(\/.*)/, '')
+  } else {
+    return game
+  }
+}
+
+ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
   let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
     .language
   if (lang === 'pt') {
     lang = 'pt-BR'
   }
-  const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
+
+  let epicUrl: string
+  if (namespace) {
+    const productSlug: string = await getProductSlug(namespace, game)
+    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
+  } else {
+    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
+  }
   try {
     const response = await axios({
       url: epicUrl,
       method: 'GET',
     })
     delete response.data.pages[0].data.requirements.systems[0].details[0]
-    return {'about': response.data.pages[0].data.about, 'reqs': response.data.pages[0].data.requirements.systems[0].details}
+    const about = response.data.pages.find(
+      (e: { type: string }) => e.type === 'productHome'
+    )
+    return {
+      about: about.data.about,
+      reqs: about.data.requirements.systems[0].details,
+    }
   } catch (error) {
     return {}
   }
@@ -304,7 +351,7 @@ ipcMain.handle('legendary', async (event, args) => {
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
   const { defaultInstallPath, maxWorkers } = await getSettings('default')
-  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+  const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
   let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
@@ -356,20 +403,18 @@ ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
-  const command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`
-  const { stdout } = await execAsync(command)
-  const status = `${stdout.split('\n')[0]}`.split('(')
-  const percent = status[0]
-  const eta = status[1] ? status[1].split(',')[1] : ''
-  const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
-  if (percent && bytes && eta) {
-    const progress = { percent, bytes, eta }
-    console.log(
-      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
-    )
-    return progress
-  }
-  return ''
+  const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
+  const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
+  const { stdout: progress_result } = await execAsync(progress_command)
+  const { stdout: downloaded_result } = await execAsync(downloaded_command)
+  const [percent, eta] = progress_result.split(' ')
+  const bytes = downloaded_result + 'MiB'
+
+  const progress = { percent, bytes, eta }
+  console.log(
+    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+  )
+  return progress
 })
 
 ipcMain.on('kill', (event, game) => {
@@ -398,9 +443,8 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     winePrefix = `'${protonPrefix}/pfx'`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
-    tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-  }`
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} 
+    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
 
   if (tool === 'runExe') {
     command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
@@ -426,6 +470,8 @@ ipcMain.handle('requestSettings', async (event, appName) => {
 ipcMain.handle('isLoggedIn', () => isLoggedIn())
 
 ipcMain.on('openLoginPage', () => spawn('xdg-open', [loginUrl]))
+
+ipcMain.on('openDiscordLink', () => spawn('xdg-open', [discordLink]))
 
 ipcMain.on('openSidInfoPage', () => spawn('xdg-open', [sidInfoUrl]))
 
@@ -455,6 +501,17 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
     })
     .catch(console.log)
 })
+
+ipcMain.handle(
+  'changeInstallPath',
+  async (event, [appName, newPath]: string[]) => {
+    const file = JSON.parse(readFileSync(installed, 'utf8'))
+    const game: Game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
+    console.log(`Finished moving ${appName} to ${newPath}`)
+  }
+)
 
 ipcMain.handle('readFile', async (event, file) => getLegendaryConfig(file))
 

@@ -1,15 +1,14 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
-import { I18nextProvider } from 'react-i18next'
-import { initReactI18next } from 'react-i18next'
+import { I18nextProvider, initReactI18next } from 'react-i18next'
 import i18next from 'i18next'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
-
 import './index.css'
 import App from './App'
 import GlobalState from './state/GlobalState'
 import UpdateComponent from './components/UI/UpdateComponent'
+
 
 const Backend = new HttpApi(null, {
   allowMultiLoading: false,
@@ -31,6 +30,7 @@ i18next
     },
     lng: 'en',
     fallbackLng: 'en',
+    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
     react: {
       useSuspense: true,
     },

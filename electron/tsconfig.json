@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "target": "ES2015"
   },
-  "include": ["."]
+  "include": [".", "../src/GamepadApi.ts"]
 }

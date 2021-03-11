@@ -35,6 +35,7 @@ interface StateProps {
   language: string
   libraryStatus: GameStatus[]
   layout: string
+  gameUpdates: string[]
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -48,17 +49,20 @@ export class GlobalState extends PureComponent<Props> {
     error: false,
     filter: 'all',
     layout: 'grid',
+    gameUpdates: [],
   }
 
   refresh = async (): Promise<void> => {
     this.setState({ refreshing: true })
     const { user, library } = await getLegendaryConfig()
+    //const updates = await renderer.invoke('checkGameUpdates')
 
     this.setState({
       user,
       refreshing: false,
       filterText: '',
       data: library,
+    //  gameUpdates: updates,
     })
   }
 
@@ -66,6 +70,7 @@ export class GlobalState extends PureComponent<Props> {
     const { t } = this.props
     this.setState({ refreshing: true })
     await legendary('list-games')
+
     this.refresh()
     notify([t('notify.refreshing'), t('notify.refreshed')])
   }

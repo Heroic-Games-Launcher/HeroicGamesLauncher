@@ -49,6 +49,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Integration with other stores (GOG, ITCH.IO, Humble Bundle)
 
 ## Language Support
+
 - English
 - German
 - Portuguese
@@ -56,7 +57,9 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Russian
 - Polish
 - Turkish
+- Dutch
 - Spanish
+- Hungarian
 
 ## Binaries supported right now
 
