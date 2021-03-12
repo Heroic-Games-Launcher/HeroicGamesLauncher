@@ -8,26 +8,6 @@ import GamepadApi from './GamepadApi'
 const { remote } = window.require('electron')
 const { Notification } = remote
 
-//Reconnect controller after closing a game
-window.onfocus = () => {
-  GamepadApi.disconnected && navigator.getGamepads()[0]
-    ? GamepadApi.connect()
-    : null
-}
-// Connect Controller
-window.addEventListener('gamepadconnected', () => {
-  window.focus()
-  const gamepad = navigator.getGamepads()[0]
-
-  if (gamepad) {
-    new Notification({
-      title: 'Gamepad Connected',
-      body: `${gamepad.id}`,
-    }).show()
-    GamepadApi.connect()
-  }
-})
-
 const NavBar = lazy(() => import('./components/NavBar'))
 const Settings = lazy(() => import('./components/Settings'))
 const GamePage = lazy(() => import('./components/GamePage/GamePage'))
@@ -37,13 +17,41 @@ const Login = lazy(() => import('./components/Login'))
 function App() {
   const context = useContext(ContextProvider)
 
-  const { user, data: library, refresh, handleFilter, handleLayout } = context
+  const {
+    user,
+    data: library,
+    refresh,
+    handleFilter,
+    handleLayout,
+    handleGamepad,
+  } = context
 
   if (!user && !library.length) {
     return <Login refresh={refresh} />
   }
 
-  const dlcCount = library.filter(lib => lib.is_dlc)
+  //Reconnect controller after closing a game
+  window.onfocus = () => {
+    GamepadApi.connected && navigator.getGamepads()[0]
+      ? GamepadApi.connect()
+      : handleGamepad(false)
+  }
+  // Connect Controller
+  window.addEventListener('gamepadconnected', () => {
+    window.focus()
+    const gamepad = navigator.getGamepads()[0]
+    GamepadApi.connected = true
+    if (gamepad) {
+      new Notification({
+        title: 'Gamepad Connected',
+        body: `${gamepad.id}`,
+      }).show()
+      GamepadApi.connect()
+      handleGamepad(true)
+    }
+  })
+
+  const dlcCount = library.filter((lib) => lib.is_dlc)
   const numberOfGames = library.length - dlcCount.length
   return (
     <div className="App">

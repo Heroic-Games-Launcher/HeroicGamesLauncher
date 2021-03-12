@@ -10,12 +10,14 @@ const initialContext: ContextType = {
   layout: 'grid',
   error: false,
   gameUpdates: [],
+  gamepadConnected: false,
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
   handleGameStatus: () => Promise.resolve(),
   handleSearch: () => null,
   handleFilter: () => null,
   handleLayout: () => null,
+  handleGamepad: () => null,
 }
 
 export default React.createContext(initialContext)

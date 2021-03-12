@@ -36,6 +36,7 @@ interface StateProps {
   libraryStatus: GameStatus[]
   layout: string
   gameUpdates: string[]
+  gamepadConnected: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -50,19 +51,20 @@ export class GlobalState extends PureComponent<Props> {
     filter: 'all',
     layout: 'grid',
     gameUpdates: [],
+    gamepadConnected: false,
   }
 
   refresh = async (): Promise<void> => {
     this.setState({ refreshing: true })
     const { user, library } = await getLegendaryConfig()
-    const updates = await renderer.invoke('checkGameUpdates')
+    //const updates = await renderer.invoke('checkGameUpdates')
 
     this.setState({
       user,
       refreshing: false,
       filterText: '',
       data: library,
-      gameUpdates: updates,
+      // gameUpdates: updates,
     })
   }
 
@@ -78,6 +80,8 @@ export class GlobalState extends PureComponent<Props> {
   handleSearch = (input: string) => this.setState({ filterText: input })
   handleFilter = (filter: string) => this.setState({ filter })
   handleLayout = (layout: string) => this.setState({ layout })
+  handleGamepad = ( gamepadConnected : boolean) =>
+    this.setState({ gamepadConnected })
 
   filterLibrary = (library: Game[], filter: string) => {
     switch (filter) {
@@ -281,6 +285,7 @@ export class GlobalState extends PureComponent<Props> {
           handleFilter: this.handleFilter,
           handleSearch: this.handleSearch,
           handleLayout: this.handleLayout,
+          handleGamepad: this.handleGamepad,
         }}
       >
         {children}

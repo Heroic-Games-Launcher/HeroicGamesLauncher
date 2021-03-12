@@ -111,10 +111,12 @@ export interface ContextType {
   error: boolean
   libraryStatus: GameStatus[]
   gameUpdates: string[]
+  gamepadConnected: boolean
   refresh: () => Promise<void>
   refreshLibrary: () => void
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleFilter: (value: string) => void
   handleSearch: (input: string) => void
   handleLayout: (value: string) => void
+  handleGamepad: (value: boolean) => void
 }

@@ -156,18 +156,7 @@ else {
         yield i18next_1.default.use(i18next_fs_backend_1.default).init({
             lng: language,
             fallbackLng: 'en',
-            supportedLngs: [
-                'de',
-                'en',
-                'es',
-                'fr',
-                'nl',
-                'pl',
-                'pt',
-                'ru',
-                'tr',
-                'hu',
-            ],
+            supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
             debug: false,
             backend: {
                 allowMultiLoading: false,

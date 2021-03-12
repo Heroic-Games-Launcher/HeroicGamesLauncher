@@ -25,7 +25,9 @@ export default function Header({
   title,
 }: Props) {
   const { t } = useTranslation()
-  const { filter, libraryStatus, layout } = useContext(ContextProvider)
+  const { filter, libraryStatus, layout, gamepadConnected } = useContext(
+    ContextProvider
+  )
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
@@ -44,7 +46,8 @@ export default function Header({
       <div className={cx({ header: !title }, { headerSettings: title })}>
         {handleFilter && (
           <span className="selectFilter">
-            <span>{t('Filter')}:</span>
+            {gamepadConnected ? <div className="gamepad-frontBtn">LB</div> : null}
+            <span className="filter-title">{t('Filter')}:</span>
             <span
               className={filter === 'all' ? 'selected' : ''}
               onClick={() => handleFilter('all')}
@@ -71,6 +74,7 @@ export default function Header({
                 haveDownloads > 0 ? `(${haveDownloads})` : ''
               }`}
             </span>
+            {gamepadConnected ? <div className="gamepad-frontBtn">RB</div> : null}
           </span>
         )}
         {numberOfGames !== undefined && numberOfGames > 0 && (
@@ -84,6 +88,7 @@ export default function Header({
         {title && <div className="headerTitle">{title}</div>}
         {handleLayout && (
           <div className="layoutSelection">
+            {gamepadConnected ? <div className="btn-gamepad">Y</div> : null}
             <Apps
               className={
                 layout === 'grid'
