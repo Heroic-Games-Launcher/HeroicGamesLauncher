@@ -53,7 +53,7 @@
   },
   "install": {
     "another": "Установить по другому пути",
-    "default": "установить на",
+    "default": "Установить в",
     "import": "Импортировать игру"
   },
   "label": {
@@ -73,7 +73,7 @@
     "recommended": "Рекомендованные"
   },
   "status": {
-    "hasUpdates": "New Version Available!",
+    "hasUpdates": "Доступна новая версия!",
     "installed": "Установлено",
     "installing": "Устанавливается",
     "moving": "Перемещаю игру, пожалуйста подождите",
