@@ -1,10 +1,21 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { existsSync, readFileSync, readdirSync, stat } from 'graceful-fs'
-import { promisify } from 'util'
 // @ts-ignore
 import byteSize from 'byte-size'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+  existsSync,
+  readdirSync,
+  readFileSync,
+  stat
+} from 'graceful-fs'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { promisify } from 'util'
 
-import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
+import {
+  Game,
+  InstalledInfo,
+  KeyImage,
+  UserInfo
+} from '../types'
 import {
   getUserInfo,
   heroicConfigPath,

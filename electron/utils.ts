@@ -1,23 +1,33 @@
 import * as axios from 'axios'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { app, dialog } from 'electron'
 import { exec } from 'child_process'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+  app,
+  dialog
+} from 'electron'
+import { fixPathForAsarUnpack } from 'electron-util'
 import {
   existsSync,
   mkdir,
-  readFileSync,
   readdirSync,
+  readFileSync,
   writeFile,
   writeFileSync
 } from 'graceful-fs'
-import { fixPathForAsarUnpack } from 'electron-util'
-import { homedir, userInfo as user } from 'os'
-import { join } from 'path'
-import { promisify } from 'util'
 import i18next from 'i18next'
 import isOnline from 'is-online'
+import {
+  homedir,
+  userInfo as user
+} from 'os'
+import { join } from 'path'
+import { promisify } from 'util'
 
-import { AppSettings, UserInfo, WineProps } from './types'
+import {
+  AppSettings,
+  UserInfo,
+  WineProps
+} from './types'
 
 const execAsync = promisify(exec)
 
