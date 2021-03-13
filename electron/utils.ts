@@ -213,7 +213,8 @@ const launchGame = async (appName: string) => {
   const fixedWinePrefix = winePrefix.replace('~', home)
   let wineCommand = `--wine ${wineVersion.bin}`
 
-  const offlineArg = (!offlineMode && (await isOnline())) ? "" : "--offline";
+  const is_online = await isOnline()
+  const offlineArg = (!offlineMode && is_online) ? "" : "--offline";
 
   // We need to keep replacing the ' to keep compatibility with old configs
   let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
@@ -477,6 +478,10 @@ const showAboutWindow = () => {
 }
 
 const checkGameUpdates = async (): Promise<Array<string>> => {
+  if (!(await isOnline())) {
+    console.log("App offline, skipping checking game updates.")
+    return []
+  }
   const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
   const { stdout } = await execAsync(command)
   const result = stdout.split('\n')
