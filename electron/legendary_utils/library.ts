@@ -1,12 +1,10 @@
-// @ts-ignore
-import byteSize from 'byte-size'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   existsSync,
   readdirSync,
   readFileSync,
   stat
 } from 'graceful-fs'
+import prettyBytes from 'pretty-bytes'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { promisify } from 'util'
 
@@ -126,8 +124,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
           } = info as InstalledInfo
 
           const convertedSize =
-            install_size &&
-            `${byteSize(install_size).value}${byteSize(install_size).unit}`
+            install_size && prettyBytes(Number(install_size))
 
           return {
             app_name,
