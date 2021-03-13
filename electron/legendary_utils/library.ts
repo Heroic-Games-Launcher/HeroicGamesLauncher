@@ -11,18 +11,20 @@ import {
 import { promisify } from 'util'
 
 import {
+  getUserInfo,
+  isLoggedIn,
+  writeDefaultConfig
+} from '../config'
+import {
+  heroicConfigPath,
+  legendaryConfigPath
+} from '../constants'
+import {
   Game,
   InstalledInfo,
   KeyImage,
   UserInfo
 } from '../types'
-import {
-  getUserInfo,
-  heroicConfigPath,
-  isLoggedIn,
-  legendaryConfigPath,
-  writeDefaultconfig
-} from '../utils'
 
 const statAsync = promisify(stat)
 const dlcs: string[] = []
@@ -52,7 +54,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
 
   if (file === 'user') {
     if (loggedIn) {
-      await writeDefaultconfig()
+      await writeDefaultConfig()
       return files.user.displayName
     }
     return null

@@ -23,7 +23,6 @@ import {
 } from 'graceful-fs'
 import i18next from 'i18next'
 import Backend from 'i18next-fs-backend'
-import isOnline from 'is-online'
 import {
   cpus,
   userInfo as user
@@ -31,37 +30,44 @@ import {
 import * as path from 'path'
 import { promisify } from 'util'
 
-import { getLegendaryConfig } from './legendary_utils/library'
-import { Game } from './types.js'
+import {
+  getAlternativeWine,
+  getSettings,
+  isLoggedIn,
+  writeGameConfig
+} from './config'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
-  checkForUpdates,
-  checkGameUpdates,
   discordLink,
-  errorHandler,
-  getAlternativeWine,
-  getLatestDxvk,
-  getSettings,
-  handleExit,
   heroicConfigPath,
   heroicGamesConfigPath,
   heroicGithubURL,
   home,
   iconDark,
   iconLight,
-  isLoggedIn,
-  launchGame,
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
-  openUrlOrFile,
   shell,
-  showAboutWindow,
   sidInfoUrl,
   supportURL,
-  updateGame,
-  userInfo,
-  writeGameconfig
+  userInfo
+} from './constants'
+import { getLatestDxvk } from './dxvk'
+import {
+  checkGameUpdates,
+  launchGame,
+  updateGame
+} from './games'
+import { getLegendaryConfig } from './legendary_utils/library'
+import { Game } from './types.js'
+import {
+  checkForUpdates,
+  errorHandler,
+  handleExit,
+  isOnline,
+  openUrlOrFile,
+  showAboutWindow
 } from './utils'
 
 const execAsync = promisify(exec)
@@ -468,7 +474,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   }
 
   if (appName !== 'default') {
-    writeGameconfig(appName)
+    writeGameConfig(appName)
   }
 
   return await getSettings(appName)
