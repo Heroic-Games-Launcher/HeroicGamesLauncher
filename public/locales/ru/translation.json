@@ -125,13 +125,14 @@
     "language": "Выберите язык приложения",
     "mangohud": "Включить Mangohud (Нужен Mangohud)",
     "manualsync": {
-      "download": "Download",
-      "forcedownload": "Force Download",
-      "forceupload": "Force Upload",
-      "sync": "Sync",
-      "syncing": "Syncing",
+
       "title": "Ручная синхронизация сохранений",
-      "upload": "Upload"
+      "download": "Скачать",
+      "upload": "Загрузить",
+      "forcedownload": "Принудительная скачка",
+      "forceupload": "Принудительная загрузка",
+      "sync": "Синхронизировать",
+      "syncing": "Синхронизация"
     },
     "maxworkers": "Максимальное количество потоков при скачивании",
     "runexe": {
@@ -154,7 +155,7 @@
       "sync": "Сохранение-Синхронизация"
     }
   },
-  "store": "Store",
+  "store": "Магазин",
   "Total Games": "Всего игр",
   "tray": {
     "about": "О программе",
@@ -165,7 +166,7 @@
   },
   "userselector": {
     "about": "О программе",
-    "discord": "Discord",
+    "discord": "Дискорд",
     "logout": "Разлогиниться",
     "quit": "Выйти",
     "refresh": "Обновить библиотеку",
