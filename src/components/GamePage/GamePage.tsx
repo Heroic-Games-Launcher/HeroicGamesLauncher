@@ -1,17 +1,9 @@
 import '../../App.css'
 
 /* eslint-disable complexity */
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 
-import {
-  IpcRenderer,
-  Remote
-} from 'electron'
+import { IpcRenderer, Remote } from 'electron'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
@@ -28,15 +20,10 @@ import {
   legendary,
   sendKill,
   syncSaves,
-  updateGame
+  updateGame,
 } from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
-import {
-  AppSettings,
-  Game,
-  GameStatus,
-  InstallProgress
-} from '../../types'
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import Header from '../UI/Header'
 import InfoBox from '../UI/InfoBox'
 import UpdateComponent from '../UI/UpdateComponent'
@@ -382,13 +369,15 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (isUpdating && isInstalled) {
-      return `${t('status.updating')} ${percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
-        }`
+      return `${t('status.updating')} ${
+        percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
+      }`
     }
 
     if (!isUpdating && isInstalling) {
-      return `${t('status.installing')} ${percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
-        }`
+      return `${t('status.installing')} ${
+        percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
+      }`
     }
 
     if (hasUpdate) {
@@ -493,13 +482,13 @@ export default function GamePage(): JSX.Element | null {
 
       if (installPath === 'default') {
         const path = 'default'
-        handleGameStatus({ appName, status: 'installing' })
+        await handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
 
         // Wait to be 100% finished
         return setTimeout(() => {
           handleGameStatus({ appName, status: 'done' })
-        }, 1500)
+        }, 500)
       }
 
       if (installPath === 'import') {
@@ -532,7 +521,7 @@ export default function GamePage(): JSX.Element | null {
           // Wait to be 100% finished
           return setTimeout(() => {
             handleGameStatus({ appName, status: 'done' })
-          }, 1500)
+          }, 500)
         }
       }
     }

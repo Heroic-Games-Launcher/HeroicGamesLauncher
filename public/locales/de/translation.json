@@ -9,6 +9,14 @@
     "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
     "default-install-path": "Wählen Sie den Standard Installations-Pfad",
     "error": {
+      "diskspace": {
+        "message": "Nicht genügend freier Speicherplatz",
+        "title": "Kein Speicherplatz"
+      },
+      "generic": {
+        "message": "Ein unbekannter Fehler ist aufgetreten",
+        "title": "Unbekannter Fehler"
+      },
       "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!"
     },
     "no": "NEIN",
@@ -117,13 +125,13 @@
     "language": "App Sprache auswählen",
     "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
     "manualsync": {
-      "title": "Spielstände manuell synchronisieren",
       "download": "Download",
-      "upload": "Upload",
       "forcedownload": "Force Download",
       "forceupload": "Force Upload",
       "sync": "Sync",
-      "syncing": "Syncing"
+      "syncing": "Syncing",
+      "title": "Spielstände manuell synchronisieren",
+      "upload": "Upload"
     },
     "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
     "runexe": {

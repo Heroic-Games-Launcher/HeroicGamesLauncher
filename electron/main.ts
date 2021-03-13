@@ -9,6 +9,7 @@ import {
   powerSaveBlocker,
   Tray,
 } from 'electron'
+
 import isDev from 'electron-is-dev'
 import {
   existsSync,
@@ -46,6 +47,7 @@ import {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
+  errorHandler,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
@@ -179,7 +181,18 @@ if (!gotTheLock) {
     await i18next.use(Backend).init({
       lng: language,
       fallbackLng: 'en',
-      supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
+      supportedLngs: [
+        'de',
+        'en',
+        'es',
+        'fr',
+        'nl',
+        'pl',
+        'pt',
+        'ru',
+        'tr',
+        'hu',
+      ],
       debug: false,
       backend: {
         allowMultiLoading: false,
@@ -348,23 +361,12 @@ ipcMain.handle('install', async (event, args) => {
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
-  const noSpaceMsg = 'Not enough available disk space'
-  return await execAsync(command, { shell: '/bin/bash' })
-    .then(() => console.log('finished installing'))
-    .catch(async () => {
-      try {
-        const { stdout } = await execAsync(
-          `tail ${logPath} | grep 'disk space'`
-        )
-        if (stdout.includes(noSpaceMsg)) {
-          console.log(noSpaceMsg)
-          return stdout
-        }
-        console.log('installation canceled or had some error')
-      } catch (err) {
-        return err
-      }
-    })
+  try {
+    await execAsync(command, { shell: '/bin/bash' })
+    console.log('finished installing')
+  } catch (error) {
+    return errorHandler(logPath)
+  }
 })
 
 ipcMain.handle('repair', async (event, game) => {
@@ -388,7 +390,9 @@ ipcMain.handle('importGame', async (event, args) => {
   return
 })
 
-ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
+ipcMain.handle('updateGame', (e, appName) =>
+  updateGame(appName).then((res) => res)
+)
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`

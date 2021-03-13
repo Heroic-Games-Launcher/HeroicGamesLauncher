@@ -9,6 +9,14 @@
     "choose-egs-prefix": "Choose Prefix where EGS is installed",
     "default-install-path": "Choose Default Install Path",
     "error": {
+      "diskspace": {
+        "message": "Not enough available disk space",
+        "title": "No Space"
+      },
+      "generic": {
+        "message": "An Unknown Error has occurred",
+        "title": "Unknown Error"
+      },
       "launch": "Error when launching the game, check the logs!"
     },
     "no": "NO",
@@ -117,13 +125,13 @@
     "language": "Choose App Language",
     "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
     "manualsync": {
-      "title": "Manual Sync Saves",
       "download": "Download",
-      "upload": "Upload",
       "forcedownload": "Force Download",
       "forceupload": "Force Upload",
       "sync": "Sync",
-      "syncing": "Syncing"
+      "syncing": "Syncing",
+      "title": "Manual Sync Saves",
+      "upload": "Upload"
     },
     "maxworkers": "Maximum Number of Workers when downloading",
     "runexe": {

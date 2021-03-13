@@ -148,12 +148,15 @@ export const getUserInfo = (): UserInfo => {
   return { account_id: '', displayName: null }
 }
 
-const updateGame = (game: string) => {
+const updateGame = async (game: string) => {
   const logPath = `${heroicGamesConfigPath}${game}.log`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
-  return execAsync(command, { shell: '/bin/bash' })
-    .then(console.log)
-    .catch(console.log)
+
+  try {
+    await execAsync(command, { shell: '/bin/bash' })
+  } catch (error) {
+    return errorHandler(logPath)
+  }
 }
 
 const launchGame = async (appName: string) => {
@@ -455,6 +458,32 @@ const handleExit = async () => {
   app.exit()
 }
 
+async function errorHandler(logPath: string): Promise<void> {
+  const noSpaceMsg = 'Not enough available disk space'
+  return execAsync(`tail ${logPath} | grep 'disk space'`)
+    .then(({ stdout }) => {
+      if (stdout.includes(noSpaceMsg)) {
+        console.log(noSpaceMsg)
+        return showErrorBox(
+          i18next.t('box.error.diskspace.title', 'No Space'),
+          i18next.t(
+            'box.error.diskspace.message',
+            'Not enough available disk space'
+          )
+        )
+      }
+      return genericErrorMessage()
+    })
+    .catch(() => console.log('operation interrupted'))
+}
+
+function genericErrorMessage(): void {
+  return showErrorBox(
+    i18next.t('box.error.generic.title', 'Unknown Error'),
+    i18next.t('box.error.generic.message', 'An Unknown Error has occurred')
+  )
+}
+
 export {
   getAlternativeWine,
   getSettings,
@@ -483,4 +512,6 @@ export {
   updateGame,
   supportURL,
   heroicGithubURL,
+  errorHandler,
+  genericErrorMessage,
 }

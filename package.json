@@ -33,8 +33,7 @@
     "linux": {
       "category": "Game",
       "icon": "build/icon.icns",
-      "description": "A Native Epic Games Launcher for Linux",
-      "desktop": "Name=Heroic Exec=heroic Icon=heroic Type=Application Categories=games"
+      "description": "A Native Epic Games Launcher for Linux"
     },
     "deb": {
       "packageCategory": "games",

@@ -9,6 +9,14 @@
     "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
     "default-install-path": "Varsayılan Yükleme Yerini Seçin",
     "error": {
+      "diskspace": {
+        "message": "Yeterli alan mevcut değil",
+        "title": "Alan Yok"
+      },
+      "generic": {
+        "message": "Bilinmeyen bir hata oluştu",
+        "title": "Bilinmeyen hata"
+      },
       "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!"
     },
     "no": "HAYIR",
@@ -117,13 +125,13 @@
     "language": "Uygulama Dilini Seç",
     "mangohud": "Mangohud'u Etkinleştir (Mangohud yüklü olmalıdır)",
     "manualsync": {
-      "title": "Elle Eşitle",
       "download": "Download",
-      "upload": "Upload",
       "forcedownload": "Force Download",
       "forceupload": "Force Upload",
       "sync": "Sync",
-      "syncing": "Syncing"
+      "syncing": "Syncing",
+      "title": "Elle Eşitle",
+      "upload": "Upload"
     },
     "maxworkers": "İndirirken Maksimum İşçi Sayısı",
     "runexe": {

@@ -1,6 +1,11 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { createNewWindow, formatStoreUrl, repair } from '../../helper'
+import {
+  createNewWindow,
+  formatStoreUrl,
+  repair,
+  updateGame,
+} from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { IpcRenderer } from 'electron'
@@ -25,7 +30,8 @@ export default function GamesSubmenu({
   title,
   clicked,
 }: Props) {
-  const { handleGameStatus, refresh } = useContext(ContextProvider)
+  const { handleGameStatus, refresh, gameUpdates } = useContext(ContextProvider)
+
   const { t, i18n } = useTranslation('gamepage')
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -33,6 +39,7 @@ export default function GamesSubmenu({
   }
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
+  const hasUpdate = gameUpdates.includes(appName)
 
   async function handleMoveInstall() {
     const { response } = await showMessageBox({
@@ -79,6 +86,21 @@ export default function GamesSubmenu({
     return
   }
 
+  async function handleUpdate() {
+    const { response } = await showMessageBox({
+      title: t('box.update.title'),
+      message: t('box.update.message'),
+      buttons: [t('box.yes'), t('box.no')],
+    })
+
+    if (response === 0) {
+      await handleGameStatus({ appName, status: 'updating' })
+      await updateGame(appName)
+      return handleGameStatus({ appName, status: 'done' })
+    }
+    return
+  }
+
   async function handleRepair(appName: string) {
     const { response } = await showMessageBox({
       title: t('box.repair.title'),
@@ -108,6 +130,11 @@ export default function GamesSubmenu({
           >
             {t('submenu.settings')}
           </Link>
+          {hasUpdate && (
+            <span onClick={() => handleUpdate()} className="hidden link">
+              {t('submenu.update', 'Update Game')}
+            </span>
+          )}
           <span onClick={() => handleRepair(appName)} className="hidden link">
             {t('submenu.verify')}
           </span>{' '}
