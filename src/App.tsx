@@ -32,20 +32,21 @@ function App() {
 
   //Reconnect controller after closing a game
   window.onfocus = () => {
-    GamepadApi.connected && navigator.getGamepads()[0]
+    !GamepadApi.connected && GamepadApi.controller
       ? GamepadApi.connect()
       : handleGamepad(false)
   }
   // Connect Controller
   window.addEventListener('gamepadconnected', () => {
-    window.focus()
     const gamepad = navigator.getGamepads()[0]
-    GamepadApi.connected = true
     if (gamepad) {
+      window.focus()
+      GamepadApi.connected = true
       new Notification({
         title: 'Gamepad Connected',
         body: `${gamepad.id}`,
       }).show()
+      GamepadApi.controller = gamepad
       GamepadApi.connect()
       handleGamepad(true)
     }

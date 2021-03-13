@@ -1318,7 +1318,7 @@ table span.text {
   font-size: 0.9em;
 }
 *:focus {
-  border: var(--secondary) 5px solid;
+  border: var(--primary) 5px solid;
 }
 .btn-gamepad {
   background-color: var(--primary);
