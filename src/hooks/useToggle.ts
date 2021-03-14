@@ -15,5 +15,5 @@ export function useToggle(state = false): Toggle {
     setOn((o) => !o)
   }, [setOn])
 
-  return { on, toggle, close, setOn }
+  return { close, on, setOn, toggle }
 }

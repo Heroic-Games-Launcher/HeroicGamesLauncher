@@ -50,8 +50,8 @@ function Settings() {
   const { state } = useLocation() as { state: LocationState }
 
   const [wineVersion, setWineversion] = useState({
-    name: 'Wine Default',
     bin: '/usr/bin/wine',
+    name: 'Wine Default',
   } as WineProps)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
@@ -159,38 +159,38 @@ function Settings() {
 
   const GlobalSettings = {
     defaultSettings: {
-      defaultInstallPath,
-      wineVersion,
-      winePrefix,
-      otherOptions,
-      useGameMode,
-      egsLinkedPath,
-      showFps,
-      offlineMode,
-      exitToTray,
       audioFix,
-      showMangohud,
-      language,
-      darkTrayIcon,
-      maxWorkers,
       customWinePaths,
+      darkTrayIcon,
+      defaultInstallPath,
+      egsLinkedPath,
+      exitToTray,
+      language,
+      maxWorkers,
+      offlineMode,
+      otherOptions,
+      showFps,
+      showMangohud,
+      useGameMode,
+      winePrefix,
+      wineVersion,
     } as AppSettings,
   }
 
   const GameSettings = {
     [appName]: {
-      wineVersion,
-      winePrefix,
-      otherOptions,
-      launcherArgs,
-      useGameMode,
-      savesPath,
-      showFps,
-      offlineMode,
-      autoSyncSaves,
       audioFix,
       autoInstallDxvk,
+      autoSyncSaves,
+      launcherArgs,
+      offlineMode,
+      otherOptions,
+      savesPath,
+      showFps,
       showMangohud,
+      useGameMode,
+      winePrefix,
+      wineVersion,
     } as AppSettings,
   }
 

@@ -69,7 +69,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   const protonPaths: string[] = [`${heroicToolsPath}/proton/`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
 
-  const defaultWine = { name: '', bin: '' }
+  const defaultWine = { bin: '', name: '' }
   await execAsync(`which wine`)
     .then(async ({ stdout }) => {
       defaultWine.bin = stdout.split('\n')[0]
@@ -95,8 +95,8 @@ async function getAlternativeWine(): Promise<WineProps[]> {
       readdirSync(path).forEach((version) => {
         if (version.toLowerCase().startsWith('proton')) {
           proton.add({
-            name: `Proton - ${version}`,
             bin: `'${path}${version}/proton'`,
+            name: `Proton - ${version}`,
           })
         }
       })
@@ -106,16 +106,16 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   if (existsSync(lutrisCompatPath)) {
     readdirSync(lutrisCompatPath).forEach((version) => {
       altWine.add({
-        name: `Wine - ${version}`,
         bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
+        name: `Wine - ${version}`,
       })
     })
   }
 
   readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
     altWine.add({
-      name: `Wine - ${version}`,
       bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
+      name: `Wine - ${version}`,
     })
   })
 
@@ -124,13 +124,13 @@ async function getAlternativeWine(): Promise<WineProps[]> {
       customWinePaths.forEach((path) => {
         if (path.endsWith('proton')) {
           return customPaths.add({
-            name: `Proton Custom - ${path}`,
             bin: `'${path}'`,
+            name: `Proton Custom - ${path}`,
           })
         }
         return customPaths.add({
-          name: `Wine Custom - ${path}`,
           bin: `'${path}'`,
+          name: `Wine Custom - ${path}`,
         })
       })
     }
@@ -215,15 +215,15 @@ const launchGame = async (appName: string) => {
   prefix = isProton ? '' : prefix
 
   const options = {
-    other: otherOptions ? otherOptions : '',
-    fps: showFps ? `DXVK_HUD=fps` : '',
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
-    showMangohud: showMangohud ? `MANGOHUD=1` : '',
+    fps: showFps ? `DXVK_HUD=fps` : '',
+    other: otherOptions ? otherOptions : '',
     proton: isProton
       ? `STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')
           .replace('~', home)}'`
       : '',
+    showMangohud: showMangohud ? `MANGOHUD=1` : '',
   }
 
   envVars = Object.values(options).join(' ')
@@ -383,19 +383,19 @@ const writeDefaultconfig = async () => {
 
     const config = {
       defaultSettings: {
-        defaultInstallPath: heroicInstallPath,
-        wineVersion: defaultWine,
-        winePrefix: `${home}/.wine`,
-        otherOptions: '',
-        useGameMode: false,
-        showFps: false,
-        maxWorkers: 0,
-        language: 'en',
         customWinePaths: [],
+        defaultInstallPath: heroicInstallPath,
+        language: 'en',
+        maxWorkers: 0,
+        otherOptions: '',
+        showFps: false,
+        useGameMode: false,
         userInfo: {
-          name: userName,
           epicId: account_id,
+          name: userName,
         },
+        winePrefix: `${home}/.wine`,
+        wineVersion: defaultWine,
       } as AppSettings,
     }
 
@@ -422,12 +422,12 @@ const writeGameconfig = async (game: string) => {
 
     const config = {
       [game]: {
-        wineVersion,
-        winePrefix,
         otherOptions,
-        useGameMode,
         showFps,
+        useGameMode,
         userInfo,
+        winePrefix,
+        wineVersion,
       },
     }
 
@@ -459,10 +459,10 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    copyright: 'GPL V3',
     applicationVersion: `${app.getVersion()} Magelan`,
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
+    copyright: 'GPL V3',
     iconPath: icon,
+    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
   })
   return app.showAboutPanel()
 }
@@ -483,12 +483,12 @@ const handleExit = async () => {
 
   if (isLocked) {
     const { response } = await showMessageBox({
-      title: i18next.t('box.quit.title', 'Exit'),
+      buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
         'There are pending operations, are you sure?'
       ),
-      buttons: [i18next.t('box.no'), i18next.t('box.yes')],
+      title: i18next.t('box.quit.title', 'Exit'),
     })
 
     if (response === 0) {

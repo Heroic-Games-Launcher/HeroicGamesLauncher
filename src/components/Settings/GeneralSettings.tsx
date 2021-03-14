@@ -71,8 +71,8 @@ export default function GeneralSettings({
     if (isLinked) {
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await showMessageBox({
-          title: 'EGS Sync',
           message: t('message.unsync'),
+          title: 'EGS Sync',
         })
         setEgsLinkedPath('')
         setEgsPath('')
@@ -92,8 +92,8 @@ export default function GeneralSettings({
           return
         }
         await dialog.showMessageBox({
-          title: 'EGS Sync',
           message: t('message.sync'),
+          title: 'EGS Sync',
         })
 
         setIsSyncing(false)
@@ -130,9 +130,9 @@ export default function GeneralSettings({
             className="material-icons settings folder"
             onClick={() =>
               showOpenDialog({
-                title: t('box.default-install-path'),
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
+                title: t('box.default-install-path'),
               }).then(({ filePaths }: Path) =>
                 setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
               )
@@ -160,9 +160,9 @@ export default function GeneralSettings({
                   ? ''
                   : dialog
                       .showOpenDialog({
-                        title: t('box.choose-egs-prefix'),
                         buttonLabel: t('box.choose'),
                         properties: ['openDirectory'],
+                        title: t('box.choose-egs-prefix'),
                       })
                       .then(({ filePaths }: Path) =>
                         setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
@@ -175,7 +175,7 @@ export default function GeneralSettings({
               onClick={() => (isLinked ? '' : setEgsPath(''))}
               style={
                 isLinked
-                  ? { pointerEvents: 'none', color: 'transparent' }
+                  ? { color: 'transparent', pointerEvents: 'none' }
                   : { color: '#B0ABB6' }
               }
             />

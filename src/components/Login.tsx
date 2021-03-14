@@ -117,10 +117,10 @@ export default function Login({ refresh }: Props) {
           </div>
           <span
             style={{
-              paddingRight: '22px',
-              marginBottom: '22px',
               display: 'flex',
               justifyContent: 'flex-end',
+              marginBottom: '22px',
+              paddingRight: '22px',
               width: '100%',
             }}
           >

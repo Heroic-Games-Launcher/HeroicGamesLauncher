@@ -21,29 +21,29 @@ export default function LanguageSelector({
  }: Props) {
    
   const languageLabels: {[key: string]: string} = {
-    'en': 'English',
-    'pt': 'Português',
     'de': 'Deutsch',
-    'fr': 'Français',
-    'ru': 'Русский',
-    'pl': 'Polski',
-    'tr': 'Türkçe',
-    'nl': 'Nederlands',
+    'en': 'English',
     'es': 'Español',
+    'fr': 'Français',
     'hu': 'Magyar',
+    'nl': 'Nederlands',
+    'pl': 'Polski',
+    'pt': 'Português',
+    'ru': 'Русский',
+    'tr': 'Türkçe',
   }
 
   const languageFlags: {[key: string]: string} = {
-    'en': '🇬🇧',
-    'pt': '🇵🇹',
     'de': '🇩🇪',
-    'fr': '🇫🇷',
-    'ru': '🇷🇺',
-    'pl': '🇵🇱',
-    'tr': '🇹🇷',
-    'nl': '🇳🇱',
+    'en': '🇬🇧',
     'es': '🇪🇸',
+    'fr': '🇫🇷',
     'hu': '🇭🇺',
+    'nl': '🇳🇱',
+    'pl': '🇵🇱',
+    'pt': '🇵🇹',
+    'ru': '🇷🇺',
+    'tr': '🇹🇷',
   }
 
   const renderOption = (lang: string)  => {

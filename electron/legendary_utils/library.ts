@@ -22,7 +22,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
   const loggedIn = isLoggedIn()
 
   if (!isLoggedIn) {
-    return { user: { displayName: null }, library: [] }
+    return { library: [], user: { displayName: null } }
   }
 
   const files: {
@@ -31,12 +31,12 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
     config: string
     installed: Game[]
   } = {
-    user: getUserInfo(),
-    library: `${legendaryConfigPath}/metadata/`,
     config: heroicConfigPath,
     installed: await statAsync(installed)
       .then(() => JSON.parse(readFileSync(installed, 'utf-8')))
       .catch(() => []),
+    library: `${legendaryConfigPath}/metadata/`,
+    user: getUserInfo(),
   }
 
   if (file === 'user') {
@@ -117,24 +117,24 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             `${byteSize(install_size).value}${byteSize(install_size).unit}`
 
           return {
-            isInstalled,
-            info,
-            title,
-            executable,
-            version,
-            install_size: convertedSize,
-            install_path,
             app_name,
-            developer,
-            description,
-            cloudSaveEnabled,
-            saveFolder,
-            folderName: installFolder,
             art_cover: art_cover || art_square,
-            art_square: art_square || art_cover,
             art_logo,
+            art_square: art_square || art_cover,
+            cloudSaveEnabled,
+            description,
+            developer,
+            executable,
+            folderName: installFolder,
+            info,
+            install_path,
+            install_size: convertedSize,
+            isInstalled,
             is_dlc,
-            namespace
+            namespace,
+            saveFolder,
+            title,
+            version
           }
         })
         .sort((a: { title: string }, b: { title: string }) => {
@@ -143,6 +143,6 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
           return gameA < gameB ? -1 : 1
         })
     }
-    return { user: null, library: [] }
+    return { library: [], user: null }
   }
 }

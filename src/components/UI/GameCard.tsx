@@ -46,9 +46,9 @@ const GameCard = ({
   hasUpdate,
 }: Card) => {
   const [progress, setProgress] = useState({
-    percent: '0.00%',
     bytes: '0/0MB',
     eta: '',
+    percent: '0.00%',
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
 
@@ -194,7 +194,7 @@ const GameCard = ({
           </>
         )}
       </div>
-      {!grid ? <hr style={{ width: '90%', opacity: 0.1 }} /> : ''}
+      {!grid ? <hr style={{ opacity: 0.1, width: '90%' }} /> : ''}
     </>
   )
 
@@ -202,9 +202,9 @@ const GameCard = ({
     if (!isInstalled) {
       return await handleInstall({
         appName,
-        isInstalling,
-        installPath: 'another',
         handleGameStatus,
+        installPath: 'another',
+        isInstalling,
         t,
       })
     }
@@ -224,9 +224,9 @@ const GameCard = ({
         err.includes('ERROR: Game is out of date')
       ) {
         const { response } = await showMessageBox({
-          title: t('box.update.title'),
-          message: t('box.update.message'),
           buttons: [t('box.yes'), t('box.no')],
+          message: t('box.update.message'),
+          title: t('box.update.title'),
         })
 
         if (response === 0) {

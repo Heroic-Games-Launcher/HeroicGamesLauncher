@@ -57,9 +57,9 @@ export default function WineSettings({
   function selectCustomPath() {
     dialog
       .showOpenDialog({
-        title: t('box.customWine', 'Select the Wine or Proton Binary'),
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
+        title: t('box.customWine', 'Select the Wine or Proton Binary'),
       })
       .then(({ filePaths }: Path) => {
         if (!customWinePaths.includes(filePaths[0])) {
@@ -92,9 +92,9 @@ export default function WineSettings({
             onClick={() =>
               dialog
                 .showOpenDialog({
-                  title: t('box.wineprefix'),
                   buttonLabel: t('box.choose'),
                   properties: ['openDirectory'],
+                  title: t('box.wineprefix'),
                 })
                 .then(({ filePaths }: Path) =>
                   setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')

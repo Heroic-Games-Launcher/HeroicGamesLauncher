@@ -44,9 +44,9 @@ export async function handleInstall({
 
   if (installPath === 'import') {
     const { filePaths } = await showOpenDialog({
-      title: t('gamepage:box.importpath'),
       buttonLabel: t('gamepage:box.choose'),
       properties: ['gamepage:openDirectory'],
+      title: t('gamepage:box.importpath'),
     })
 
     if (filePaths[0]) {
@@ -59,9 +59,9 @@ export async function handleInstall({
 
   if (installPath === 'another') {
     const { filePaths } = await showOpenDialog({
-      title: t('gamepage:box.installpath'),
       buttonLabel: t('gamepage:box.choose'),
       properties: ['openDirectory'],
+      title: t('gamepage:box.installpath'),
     })
 
     if (filePaths[0]) {

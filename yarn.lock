@@ -5322,6 +5322,13 @@ eslint-plugin-sort-imports-es6-autofix@^0.5.0:
   dependencies:
     eslint "^6.2.2"
 
+eslint-plugin-sort-keys-fix@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sort-keys-fix/-/eslint-plugin-sort-keys-fix-1.1.1.tgz#2ed201b53fd4a89552c6e2abd38933f330a4b62e"
+  integrity sha512-x02SLBg+8OEaoT9vvMbsgeInw17wjHLsa9cOieIVQY+xMNRiXBbyMWw+NiBoxYyJIR4QKDOPDofCjQdoSvltQg==
+  dependencies:
+    requireindex "~1.2.0"
+
 eslint-plugin-testing-library@^3.9.2:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-3.10.1.tgz#4dd02306d601c3238fdabf1d1dbc5f2a8e85d531"
@@ -11217,6 +11224,11 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
+
+requireindex@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
+  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 requires-port@^1.0.0:
   version "1.0.0"

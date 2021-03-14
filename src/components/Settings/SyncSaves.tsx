@@ -62,13 +62,13 @@ export default function SyncSaves({
     setIsSyncing(true)
     const command = {
       Download: '--skip-upload',
-      Upload: '--skip-download',
       'Force download': '--force-download',
       'Force upload': '--force-upload',
+      Upload: '--skip-download',
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
-      dialog.showMessageBox({ title: 'Saves Sync', message: res })
+      dialog.showMessageBox({ message: res, title: 'Saves Sync' })
     )
     setIsSyncing(false)
   }
@@ -95,10 +95,10 @@ export default function SyncSaves({
                   ? ''
                   : dialog
                       .showOpenDialog({
-                        title: t('box.sync.title'),
                         buttonLabel: t('box.sync.button'),
                         defaultPath: defaultFolder,
                         properties: ['openDirectory'],
+                        title: t('box.sync.title'),
                       })
                       .then(({ filePaths }: Path) =>
                         setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')

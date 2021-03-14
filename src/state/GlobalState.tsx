@@ -40,16 +40,16 @@ interface StateProps {
 
 export class GlobalState extends PureComponent<Props> {
   state: StateProps = {
-    user: '',
-    filterText: '',
     data: [],
-    libraryStatus: [],
-    refreshing: false,
-    language: '',
     error: false,
     filter: 'all',
-    layout: 'grid',
+    filterText: '',
     gameUpdates: [],
+    language: '',
+    layout: 'grid',
+    libraryStatus: [],
+    refreshing: false,
+    user: '',
   }
 
   refresh = async (): Promise<void> => {
@@ -58,11 +58,11 @@ export class GlobalState extends PureComponent<Props> {
     const updates = await renderer.invoke('checkGameUpdates')
 
     this.setState({
-      user,
-      refreshing: false,
-      filterText: '',
       data: library,
+      filterText: '',
       gameUpdates: updates,
+      refreshing: false,
+      user,
     })
   }
 
@@ -209,12 +209,12 @@ export class GlobalState extends PureComponent<Props> {
     const newVersion = await renderer.invoke('checkVersion')
     if (newVersion) {
       const { response } = await showMessageBox({
-        title: t('box.appupdate.title', 'Update Available'),
+        buttons: [t('box.yes'), t('box.no')],
         message: t(
           'box.appupdate.message',
           'There is a new version of Heroic Available, do you want to update now?'
         ),
-        buttons: [t('box.yes'), t('box.no')],
+        title: t('box.appupdate.title', 'Update Available'),
       })
 
       if (response === 0) {
@@ -275,12 +275,12 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           data: filteredLibrary,
+          handleFilter: this.handleFilter,
+          handleGameStatus: this.handleGameStatus,
+          handleLayout: this.handleLayout,
+          handleSearch: this.handleSearch,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          handleGameStatus: this.handleGameStatus,
-          handleFilter: this.handleFilter,
-          handleSearch: this.handleSearch,
-          handleLayout: this.handleLayout,
         }}
       >
         {children}

@@ -104,10 +104,10 @@ const getLegendaryConfig = async (): Promise<{
   const library: Array<Game> = await readFile('library')
 
   if (!user) {
-    return { user: '', library: [] }
+    return { library: [], user: '' }
   }
 
-  return { user, library }
+  return { library, user }
 }
 
 const specialCharactersRegex = /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
@@ -136,7 +136,7 @@ const handleSavePath = async (game: string) => {
 }
 
 const createNewWindow = (url: string) =>
-  new BrowserWindow({ width: 1200, height: 700 }).loadURL(url)
+  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 
 const formatStoreUrl = (title: string, lang: string) => {
   const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
@@ -249,13 +249,13 @@ async function handleStopInstallation(
   t: TFunction<'gamepage'>
 ) {
   const { response } = await showMessageBox({
-    title: t('gamepage:box.stopInstall.title'),
-    message: t('gamepage:box.stopInstall.message'),
     buttons: [
       t('gamepage:box.stopInstall.keepInstalling'),
       t('box.yes'),
       t('box.no'),
     ],
+    message: t('gamepage:box.stopInstall.message'),
+    title: t('gamepage:box.stopInstall.title'),
   })
   if (response === 1) {
     return sendKill(appName)

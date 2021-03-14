@@ -36,8 +36,8 @@ export const Library = ({ library }: Props) => {
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({
-          gameListLayout: layout !== 'grid',
           gameList: layout === 'grid',
+          gameListLayout: layout !== 'grid',
         })}
       >
         {!!library.length &&

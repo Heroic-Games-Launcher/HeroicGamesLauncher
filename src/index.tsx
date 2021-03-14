@@ -11,8 +11,8 @@ import GlobalState from './state/GlobalState'
 import UpdateComponent from './components/UI/UpdateComponent'
 
 const Backend = new HttpApi(null, {
-  allowMultiLoading: false,
   addPath: 'build/locales/{{lng}}/{{ns}}',
+  allowMultiLoading: false,
   loadPath: 'locales/{{lng}}/{{ns}}.json',
 })
 
@@ -25,15 +25,15 @@ i18next
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },
     lng: 'en',
-    fallbackLng: 'en',
-    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
     react: {
       useSuspense: true,
     },
+    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
   })
 
 ReactDOM.render(
