@@ -275,9 +275,6 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.on('quit', async () => handleExit())
 
-/* const storage: Storage = mainWindow.localStorage
-const lang = storage.getItem('language') */
-
 const getProductSlug = async (namespace: string, game: string) => {
   const graphql = JSON.stringify({
     query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
@@ -551,8 +548,8 @@ ipcMain.on('removeFolder', async (e, args: string[]) => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
-
-  const command = `${legendaryBin} sync-saves --save-path "${path}" ${arg} ${appName} -y`
+  const fixedPath = path.replaceAll("'", '')
+  const command = `${legendaryBin} sync-saves --save-path "${fixedPath}" ${arg} ${appName} -y`
   const legendarySavesPath = `${home}/legendary/.saves`
 
   //workaround error when no .saves folder exists

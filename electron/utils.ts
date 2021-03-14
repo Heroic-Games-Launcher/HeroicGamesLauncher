@@ -114,14 +114,27 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     })
   })
 
-  return [defaultWine, ...altWine, ...proton]
+  const { customWinePaths } = await getSettings()
+  const customPaths: Set<WineProps> = new Set()
+  customWinePaths.forEach((path) => {
+    if (path.endsWith('proton')) {
+      return customPaths.add({
+        name: `Proton Custom - ${path}`,
+        bin: `'${path}'`,
+      })
+    }
+    return customPaths.add({
+      name: `Wine Custom - ${path}`,
+      bin: `'${path}'`,
+    })
+  })
+
+  return [defaultWine, ...altWine, ...proton, ...customPaths]
 }
 
 const isLoggedIn = () => existsSync(userInfo)
 
-const getSettings = async (
-  appName: string | 'default'
-): Promise<AppSettings> => {
+const getSettings = async (appName = 'default'): Promise<AppSettings> => {
   const gameConfig = `${heroicGamesConfigPath}${appName}.json`
 
   const globalConfig = heroicConfigPath
@@ -359,11 +372,12 @@ const writeDefaultconfig = async () => {
         showFps: false,
         maxWorkers: 0,
         language: 'en',
+        customWinePaths: [],
         userInfo: {
           name: userName,
           epicId: account_id,
         },
-      },
+      } as AppSettings,
     }
 
     writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
