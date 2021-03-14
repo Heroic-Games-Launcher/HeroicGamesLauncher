@@ -8,8 +8,8 @@ const {
 } = remote
 
 interface Props {
+  winePrefix: string,
   wineVersion: WineProps
-  winePrefix: string
 }
 
 export default function Tools({ wineVersion, winePrefix }: Props) {

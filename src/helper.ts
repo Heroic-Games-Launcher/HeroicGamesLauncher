@@ -97,8 +97,8 @@ const syncSaves = async (
 }
 
 const getLegendaryConfig = async (): Promise<{
+  library: Game[],
   user: string
-  library: Game[]
 }> => {
   const user: string = await readFile('user')
   const library: Array<Game> = await readFile('library')

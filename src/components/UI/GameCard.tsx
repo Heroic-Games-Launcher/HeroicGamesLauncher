@@ -18,21 +18,21 @@ const {
   dialog: { showMessageBox },
 } = remote
 interface Card {
-  cover: string
-  coverList: string
-  logo: string
-  title: string
-  appName: string
-  isInstalled: boolean
+  appName: string,
+  cover: string,
+  coverList: string,
+  hasUpdate: boolean,
+  isInstalled: boolean,
+  logo: string,
+  size: string,
+  title: string,
   version: string
-  size: string
-  hasUpdate: boolean
 }
 
 interface InstallProgress {
+  bytes: string,
+  eta: string,
   percent: string
-  bytes: string
-  eta: string
 }
 
 const GameCard = ({

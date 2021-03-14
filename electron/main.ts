@@ -431,10 +431,10 @@ ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
-  tool: string
+  exe: string,
+  prefix: string,
+  tool: string,
   wine: string
-  prefix: string
-  exe: string
 }
 
 ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {

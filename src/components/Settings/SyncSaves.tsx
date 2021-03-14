@@ -13,13 +13,13 @@ const {
 } = window.require('electron')
 
 interface Props {
-  savesPath: string
-  setSavesPath: (value: string) => void
-  appName: string
-  autoSyncSaves: boolean
-  setAutoSyncSaves: (value: boolean) => void
-  defaultFolder: string
-  isProton: boolean
+  appName: string,
+  autoSyncSaves: boolean,
+  defaultFolder: string,
+  isProton: boolean,
+  savesPath: string,
+  setAutoSyncSaves: (value: boolean) => void,
+  setSavesPath: (value: string) => void,
   winePrefix: string
 }
 

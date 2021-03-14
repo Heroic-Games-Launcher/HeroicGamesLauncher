@@ -15,20 +15,20 @@ const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const storage: Storage = window.localStorage
 
 interface Props {
-  defaultInstallPath: string
-  setDefaultInstallPath: (value: string) => void
-  egsPath: string
-  setEgsPath: (value: string) => void
-  egsLinkedPath: string
-  setEgsLinkedPath: (value: string) => void
-  exitToTray: boolean
-  toggleTray: () => void
-  language: string
-  setLanguage: (value: string) => void
-  maxWorkers: number
+  darkTrayIcon: boolean,
+  defaultInstallPath: string,
+  egsLinkedPath: string,
+  egsPath: string,
+  exitToTray: boolean,
+  language: string,
+  maxWorkers: number,
+  setDefaultInstallPath: (value: string) => void,
+  setEgsLinkedPath: (value: string) => void,
+  setEgsPath: (value: string) => void,
+  setLanguage: (value: string) => void,
   setMaxWorkers: (value: number) => void
-  darkTrayIcon: boolean
-  toggleDarkTrayIcon: () => void
+  toggleDarkTrayIcon: () => void,
+  toggleTray: () => void
 }
 
 export default function GeneralSettings({

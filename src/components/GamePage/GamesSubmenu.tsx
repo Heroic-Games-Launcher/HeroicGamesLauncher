@@ -19,9 +19,9 @@ const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   appName: string
-  isInstalled: boolean
+  clicked: boolean,
+  isInstalled: boolean,
   title: string
-  clicked: boolean
 }
 
 export default function GamesSubmenu({

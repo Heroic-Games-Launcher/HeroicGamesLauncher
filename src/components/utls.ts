@@ -14,9 +14,9 @@ const {
 
 interface Install {
   appName: string
-  isInstalling: boolean
+  handleGameStatus: (game: GameStatus) => Promise<void>,
   installPath: 'import' | 'default' | 'another'
-  handleGameStatus: (game: GameStatus) => Promise<void>
+  isInstalling: boolean,
   t: TFunction<'gamepage'>
 }
 

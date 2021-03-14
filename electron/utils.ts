@@ -86,9 +86,9 @@ async function getAlternativeWine(): Promise<WineProps[]> {
 
   const lutrisPath = `${home}/.local/share/lutris`
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-  const proton: Set<{ name: string; bin: string }> = new Set()
-  const altWine: Set<{ name: string; bin: string }> = new Set()
-  const customPaths: Set<{ name: string; bin: string }> = new Set()
+  const proton: Set<{ bin: string, name: string; }> = new Set()
+  const altWine: Set<{ bin: string, name: string; }> = new Set()
+  const customPaths: Set<{ bin: string, name: string; }> = new Set()
 
   protonPaths.forEach((path) => {
     if (existsSync(path)) {

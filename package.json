@@ -89,7 +89,7 @@
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
-    "lint-fix": "eslint -c .eslintrc --ext .tsx,ts ./src --fix && eslint -c .eslintrc --ext .ts ./electron --fix",
+    "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
     "i18n": "i18next"
@@ -119,6 +119,7 @@
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-typescript-sort-keys": "^1.5.0",
     "foreman": "^3.0.1",
     "husky": "^4.3.8",
     "i18next-parser": "^3.6.0",

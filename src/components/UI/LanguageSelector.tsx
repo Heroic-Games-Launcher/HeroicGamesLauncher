@@ -1,9 +1,9 @@
 import React from 'react';
 
 export enum FlagPosition {
+  APPEND = 'append',
   NONE = 'none',
-  PREPEND = 'prepend',
-  APPEND = 'append'
+  PREPEND = 'prepend'
 }
 
 interface Props {

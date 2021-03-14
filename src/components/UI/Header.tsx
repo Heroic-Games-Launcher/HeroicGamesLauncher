@@ -8,12 +8,12 @@ import React, { useContext } from 'react'
 import cx from 'classnames'
 
 interface Props {
-  renderBackButton: boolean
-  numberOfGames?: number
-  goTo: string | void | null
+  goTo: string | void | null,
+  handleFilter?: (value: string) => void,
+  handleLayout?: (value: string) => void,
+  numberOfGames?: number,
+  renderBackButton: boolean,
   title?: string
-  handleFilter?: (value: string) => void
-  handleLayout?: (value: string) => void
 }
 
 export default function Header({

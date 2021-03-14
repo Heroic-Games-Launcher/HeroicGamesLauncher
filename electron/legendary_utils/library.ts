@@ -26,10 +26,10 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
   }
 
   const files: {
+    config: string,
+    installed: Game[],
+    library: string,
     user: UserInfo
-    library: string
-    config: string
-    installed: Game[]
   } = {
     config: heroicConfigPath,
     installed: await statAsync(installed)
