@@ -4,28 +4,28 @@ import React, {
 } from 'react'
 
 import { IpcRenderer } from 'electron'
-import { useTranslation } from 'react-i18next'
 import {
   NavLink,
   useLocation,
   useParams
 } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
+import {
+  AppSettings,
+  WineProps
+} from '../../types'
 import {
   getGameInfo,
   writeConfig
 } from '../../helper'
 import { useToggle } from '../../hooks'
-import {
-  AppSettings,
-  WineProps
-} from '../../types'
-import Header from '../UI/Header'
-import UpdateComponent from '../UI/UpdateComponent'
 import GeneralSettings from './GeneralSettings'
+import Header from '../UI/Header'
 import OtherSettings from './OtherSettings'
 import SyncSaves from './SyncSaves'
 import Tools from './Tools'
+import UpdateComponent from '../UI/UpdateComponent'
 import WineSettings from './WineSettings'
 
 interface ElectronProps {

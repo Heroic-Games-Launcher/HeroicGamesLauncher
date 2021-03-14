@@ -1,21 +1,21 @@
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { exec } from 'child_process'
 import { app, dialog } from 'electron'
-import { fixPathForAsarUnpack } from 'electron-util'
+import { exec } from 'child_process'
 import {
   existsSync,
   mkdir,
-  readdirSync,
   readFileSync,
+  readdirSync,
   writeFile,
   writeFileSync,
 } from 'graceful-fs'
-import i18next from 'i18next'
-import isOnline from 'is-online'
+import { fixPathForAsarUnpack } from 'electron-util'
 import { homedir, userInfo as user } from 'os'
 import { join } from 'path'
 import { promisify } from 'util'
+import i18next from 'i18next'
+import isOnline from 'is-online'
 
 import { AppSettings, UserInfo, WineProps } from './types'
 

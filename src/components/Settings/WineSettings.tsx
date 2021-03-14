@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import AddBoxIcon from '@material-ui/icons/AddBox'
+import React, { useEffect, useState } from 'react'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
-import { WineProps, Path } from '../../types'
+import { Path, WineProps } from '../../types'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'

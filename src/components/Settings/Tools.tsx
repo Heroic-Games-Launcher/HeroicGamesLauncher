@@ -1,6 +1,6 @@
-import React from 'react'
 import { WineProps } from '../../types'
 import { useTranslation } from 'react-i18next'
+import React from 'react'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {

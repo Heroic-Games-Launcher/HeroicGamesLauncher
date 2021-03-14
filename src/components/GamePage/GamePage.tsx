@@ -4,11 +4,12 @@ import '../../App.css'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 
 import { IpcRenderer, Remote } from 'electron'
-import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import Settings from '@material-ui/icons/Settings'
 
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import {
   fixSaveFolder,
   getGameInfo,
@@ -23,11 +24,10 @@ import {
   updateGame,
 } from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
-import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
+import GamesSubmenu from './GamesSubmenu'
 import Header from '../UI/Header'
 import InfoBox from '../UI/InfoBox'
 import UpdateComponent from '../UI/UpdateComponent'
-import GamesSubmenu from './GamesSubmenu'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer

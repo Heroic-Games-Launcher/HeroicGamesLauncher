@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { legendary, loginPage, sidInfoPage } from '../helper'
+import { useTranslation } from 'react-i18next'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
 import LanguageSelector, { FlagPosition } from './UI/LanguageSelector'
+import React, { useState } from 'react'
 const storage: Storage = window.localStorage
 interface Props {
   refresh: () => Promise<void>

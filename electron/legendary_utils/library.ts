@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { existsSync, readFileSync, readdirSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
-import { readFileSync, existsSync, stat, readdirSync } from 'graceful-fs'
 // @ts-ignore
 import byteSize from 'byte-size'
 
+import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
 import {
   getUserInfo,
   heroicConfigPath,
@@ -11,7 +12,6 @@ import {
   legendaryConfigPath,
   writeDefaultconfig,
 } from '../utils'
-import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
 
 const statAsync = promisify(stat)
 const dlcs: string[] = []

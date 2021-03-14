@@ -1,17 +1,17 @@
 /* eslint-disable complexity */
-import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import ContextProvider from '../../state/ContextProvider'
-import { GameStatus } from '../../types'
-import { getProgress, sendKill, launch, updateGame } from '../../helper'
-import { handleInstall } from '../utls'
 import { ReactComponent as DownIcon } from '../../assets/down-icon.svg'
+import { GameStatus } from '../../types'
+import { Link } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from '../../assets/play-icon.svg'
+import { ReactComponent as SettingsIcon } from '../../assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from '../../assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from '../../assets/stop-icon-alt.svg'
-import { ReactComponent as SettingsIcon } from '../../assets/settings-sharp.svg'
+import { getProgress, launch, sendKill, updateGame } from '../../helper'
+import { handleInstall } from '../utls'
+import { useTranslation } from 'react-i18next'
+import ContextProvider from '../../state/ContextProvider'
 import NewReleasesIcon from '@material-ui/icons/NewReleases'
+import React, { useContext, useEffect, useState } from 'react'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {

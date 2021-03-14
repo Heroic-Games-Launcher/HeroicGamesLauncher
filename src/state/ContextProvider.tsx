@@ -1,5 +1,5 @@
-import React from 'react'
 import { ContextType } from '../types'
+import React from 'react'
 
 const initialContext: ContextType = {
   user: '',

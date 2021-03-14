@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Search from '@material-ui/icons/Search';
 import Close from '@material-ui/icons/Close';
 import ContextProvider from '../../state/ContextProvider'
+import React, { useContext, useState } from 'react'
+import Search from '@material-ui/icons/Search';
 
 export default function SearchBar() {
   const { handleSearch } = useContext(ContextProvider)

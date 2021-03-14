@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { IpcRenderer } from 'electron'
 import { Link } from 'react-router-dom'
 import {
   createNewWindow,
@@ -6,9 +6,9 @@ import {
   repair,
   updateGame,
 } from '../../helper'
-import ContextProvider from '../../state/ContextProvider'
 import { useTranslation } from 'react-i18next'
-import { IpcRenderer } from 'electron'
+import ContextProvider from '../../state/ContextProvider'
+import React, { useContext } from 'react'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {

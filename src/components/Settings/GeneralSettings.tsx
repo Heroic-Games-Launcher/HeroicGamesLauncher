@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { Path } from '../../types'
 import { useTranslation } from 'react-i18next'
+import Backspace from '@material-ui/icons/Backspace'
 import ContextProvider from '../../state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-import Backspace from '@material-ui/icons/Backspace'
-import { Path } from '../../types'
 import InfoBox from '../UI/InfoBox'
-import ToggleSwitch from '../UI/ToggleSwitch'
 import LanguageSelector from '../UI/LanguageSelector'
+import React, { useContext, useEffect, useState } from 'react'
+import ToggleSwitch from '../UI/ToggleSwitch'
 const {
   ipcRenderer,
   remote: { dialog },

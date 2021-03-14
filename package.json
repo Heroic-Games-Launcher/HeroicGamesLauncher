@@ -60,6 +60,8 @@
     "classnames": "^2.2.6",
     "electron-is-dev": "^1.2.0",
     "electron-util": "^0.14.2",
+    "eslint-plugin-sort-exports": "^0.3.2",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "i18next": "^19.8.7",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-fs-backend": "^1.0.8",

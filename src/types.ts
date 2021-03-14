@@ -1,36 +1,7 @@
-export interface InstalledInfo {
-  executable: string | null
-  version: string | null
-  install_size: string | null
-  install_path: string | null
-  is_dlc: boolean | null
-}
-
-export interface KeyImage {
-  type: string
-}
-
 interface About {
   description: string
   shortDescription: string
 }
-
-interface Reqs {
-  minimum: string
-  recommended: string
-  title: string
-}
-
-interface ExtraInfo {
-  about: About
-  reqs: Reqs[]
-}
-
-export interface WineProps {
-  name: string
-  bin: string
-}
-
 export interface AppSettings {
   wineVersion: WineProps
   winePrefix: string
@@ -53,6 +24,30 @@ export interface AppSettings {
   customWinePaths: Array<string>
 }
 
+
+export interface ContextType {
+  user: string
+  data: Game[]
+  filter: string
+  layout: string
+  refreshing: boolean
+  error: boolean
+  libraryStatus: GameStatus[]
+  gameUpdates: string[]
+  refresh: () => Promise<void>
+  refreshLibrary: () => void
+  handleGameStatus: (game: GameStatus) => Promise<void>
+  handleFilter: (value: string) => void
+  handleSearch: (input: string) => void
+  handleLayout: (value: string) => void
+}
+
+interface ExtraInfo {
+  about: About
+  reqs: Reqs[]
+}
+
+
 export interface Game {
   art_cover: string
   art_square: string
@@ -74,20 +69,6 @@ export interface Game {
   namespace: string
 }
 
-export interface InstallProgress {
-  percent: string
-  bytes: string
-  eta: string
-}
-
-export interface Path {
-  filePaths: string[]
-}
-export interface WineProps {
-  name: string
-  bin: string
-}
-
 export interface GameStatus {
   appName: string
   status:
@@ -102,21 +83,35 @@ export interface GameStatus {
   progress?: number | null
 }
 
+export interface InstallProgress {
+  percent: string
+  bytes: string
+  eta: string
+}
+export interface InstalledInfo {
+  executable: string | null
+  version: string | null
+  install_size: string | null
+  install_path: string | null
+  is_dlc: boolean | null
+}
+
+export interface KeyImage {
+  type: string
+}
+
+export interface Path {
+  filePaths: string[]
+}
+interface Reqs {
+  minimum: string
+  recommended: string
+  title: string
+}
+
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
-export interface ContextType {
-  user: string
-  data: Game[]
-  filter: string
-  layout: string
-  refreshing: boolean
-  error: boolean
-  libraryStatus: GameStatus[]
-  gameUpdates: string[]
-  refresh: () => Promise<void>
-  refreshLibrary: () => void
-  handleGameStatus: (game: GameStatus) => Promise<void>
-  handleFilter: (value: string) => void
-  handleSearch: (input: string) => void
-  handleLayout: (value: string) => void
+export interface WineProps {
+  name: string
+  bin: string
 }

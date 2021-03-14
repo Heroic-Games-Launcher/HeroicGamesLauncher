@@ -1,8 +1,6 @@
+import { Game, GameStatus } from '../types'
 import { IpcRenderer } from 'electron'
-import { i18n } from 'i18next'
-import React, { PureComponent } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
-import UpdateComponent from '../components/UI/UpdateComponent'
 import {
   getGameInfo,
   getLegendaryConfig,
@@ -10,8 +8,10 @@ import {
   legendary,
   notify,
 } from '../helper'
-import { Game, GameStatus } from '../types'
+import { i18n } from 'i18next'
 import ContextProvider from './ContextProvider'
+import React, { PureComponent } from 'react'
+import UpdateComponent from '../components/UI/UpdateComponent'
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
 const { dialog } = remote

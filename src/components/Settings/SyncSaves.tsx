@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import React, { useEffect, useState } from 'react'
 
-import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
-import Backspace from '@material-ui/icons/Backspace';
 import { Path, SyncType } from '../../types'
+import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
+import Backspace from '@material-ui/icons/Backspace';
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 

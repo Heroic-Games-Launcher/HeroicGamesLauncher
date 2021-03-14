@@ -1,12 +1,12 @@
 import { TFunction } from 'react-i18next'
 
+import { GameStatus } from '../types'
 import {
   getGameInfo,
   handleStopInstallation,
-  install,
   importGame,
+  install,
 } from '../helper'
-import { GameStatus } from '../types'
 const { remote } = window.require('electron')
 const {
   dialog: { showOpenDialog },
