@@ -57,15 +57,17 @@ export default function WineSettings({
   function selectCustomPath() {
     dialog
       .showOpenDialog({
-        title: t('box.customWine'),
+        title: t('box.customWine', 'Select the Wine or Proton Binary'),
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
       })
-      .then(({ filePaths }: Path) =>
-        setCustomWinePaths(
-          filePaths[0] ? [...customWinePaths, filePaths[0]] : customWinePaths
-        )
-      )
+      .then(({ filePaths }: Path) => {
+        if (!customWinePaths.includes(filePaths[0])) {
+          setCustomWinePaths(
+            filePaths[0] ? [...customWinePaths, filePaths[0]] : customWinePaths
+          )
+        }
+      })
   }
 
   function removeCustomPath() {
@@ -126,12 +128,14 @@ export default function WineSettings({
                   cursor: selectedPath ? 'pointer' : '',
                 }}
                 fontSize="large"
+                titleAccess={t('tooltip.removepath', 'Remove Path')}
               />{' '}
               <AddBoxIcon
                 onClick={() => selectCustomPath()}
                 className={`is-primary`}
                 style={{ color: 'var(--success)', cursor: 'pointer' }}
                 fontSize="large"
+                titleAccess={t('tooltip.addpath', 'Add New Path')}
               />
             </div>
           </span>
