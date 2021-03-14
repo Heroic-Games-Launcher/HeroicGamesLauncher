@@ -89,6 +89,7 @@
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
+    "lint-fix": "eslint -c .eslintrc --ext .tsx,ts ./src --fix && eslint -c .eslintrc --ext .ts ./electron --fix",
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
     "i18n": "i18next"
@@ -129,7 +130,9 @@
     "hooks": {
       "post-checkout": "yarn",
       "post-merge": "yarn",
-      "pre-push": "yarn lint && pretty-quick --staged lint-staged"
+      "post-rebase": "yarn",
+      "pre-push": "yarn lint && pretty-quick --staged lint-staged",
+      "pre-commit": "yarn lint-fix"
     }
   },
   "browserslist": {
