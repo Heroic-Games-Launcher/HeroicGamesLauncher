@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
 import { WineProps, Path } from '../../types'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
@@ -19,6 +21,9 @@ interface Props {
   setAltWine: (altWine: WineProps[]) => void
   autoInstallDxvk: boolean
   toggleAutoInstallDxvk: () => void
+  customWinePaths: string[]
+  setCustomWinePaths: (value: string[]) => void
+  isDefault: boolean
 }
 
 export default function WineSettings({
@@ -30,7 +35,12 @@ export default function WineSettings({
   altWine,
   toggleAutoInstallDxvk,
   autoInstallDxvk,
+  customWinePaths,
+  setCustomWinePaths,
+  isDefault,
 }: Props) {
+  const [selectedPath, setSelectedPath] = useState('')
+
   useEffect(() => {
     const getAltWine = async () => {
       const wineList: WineProps[] = await ipcRenderer.invoke(
@@ -39,8 +49,30 @@ export default function WineSettings({
       setAltWine(wineList)
     }
     getAltWine()
-  }, [altWine])
+    setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
+  }, [altWine, customWinePaths])
+
   const { t } = useTranslation()
+
+  function selectCustomPath() {
+    dialog
+      .showOpenDialog({
+        title: t('box.customWine'),
+        buttonLabel: t('box.choose'),
+        properties: ['openFile'],
+      })
+      .then(({ filePaths }: Path) =>
+        setCustomWinePaths(
+          filePaths[0] ? [...customWinePaths, filePaths[0]] : customWinePaths
+        )
+      )
+  }
+
+  function removeCustomPath() {
+    const newPaths = customWinePaths.filter((path) => path !== selectedPath)
+    setCustomWinePaths(newPaths)
+    return setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
+  }
 
   return (
     <>
@@ -69,6 +101,42 @@ export default function WineSettings({
           />
         </span>
       </span>
+      {isDefault && (
+        <span className="setting">
+          <span className="settingText">
+            {t('setting.customWine', 'Custom Wine/Proton Paths')}
+          </span>
+          <span className="settingInputWithButton">
+            <select
+              disabled={!customWinePaths.length}
+              className="settingSelect"
+              defaultValue={selectedPath}
+              onChange={(e) => setSelectedPath(e.target.value)}
+              style={{ width: '440px' }}
+            >
+              {customWinePaths.map((path: string) => (
+                <option key={path}>{path}</option>
+              ))}
+            </select>
+            <div className="iconsWrapper">
+              <RemoveCircleIcon
+                onClick={() => removeCustomPath()}
+                style={{
+                  color: selectedPath ? 'var(--danger)' : 'var(--background)',
+                  cursor: selectedPath ? 'pointer' : '',
+                }}
+                fontSize="large"
+              />{' '}
+              <AddBoxIcon
+                onClick={() => selectCustomPath()}
+                className={`is-primary`}
+                style={{ color: 'var(--success)', cursor: 'pointer' }}
+                fontSize="large"
+              />
+            </div>
+          </span>
+        </span>
+      )}
       <span className="setting">
         <span className="settingText">{t('setting.wineversion')}</span>
         <select

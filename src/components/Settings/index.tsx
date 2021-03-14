@@ -50,6 +50,7 @@ function Settings() {
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || ''
   )
+  const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
   const {
     on: useGameMode,
@@ -120,6 +121,7 @@ function Settings() {
       setAutoInstallDxvk(config.autoInstallDxvk || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 2)
+      setCustomWinePaths(config.customWinePaths || [])
 
       if (!isDefault) {
         const {
@@ -154,6 +156,7 @@ function Settings() {
       language,
       darkTrayIcon,
       maxWorkers,
+      customWinePaths,
     } as AppSettings,
   }
 
@@ -238,6 +241,9 @@ function Settings() {
               setWinePrefix={setWinePrefix}
               autoInstallDxvk={autoInstallDxvk}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+              customWinePaths={customWinePaths}
+              setCustomWinePaths={setCustomWinePaths}
+              isDefault={isDefault}
             />
           )}
           {isWineSettings && (
