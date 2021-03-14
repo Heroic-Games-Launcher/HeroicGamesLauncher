@@ -114,19 +114,22 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     })
   })
 
-  const { customWinePaths } = await getSettings()
   const customPaths: Set<WineProps> = new Set()
-  customWinePaths.forEach((path) => {
-    if (path.endsWith('proton')) {
-      return customPaths.add({
-        name: `Proton Custom - ${path}`,
-        bin: `'${path}'`,
+  getSettings().then(({ customWinePaths }) => {
+    if (customWinePaths.length) {
+      customWinePaths.forEach((path) => {
+        if (path.endsWith('proton')) {
+          return customPaths.add({
+            name: `Proton Custom - ${path}`,
+            bin: `'${path}'`,
+          })
+        }
+        return customPaths.add({
+          name: `Wine Custom - ${path}`,
+          bin: `'${path}'`,
+        })
       })
     }
-    return customPaths.add({
-      name: `Wine Custom - ${path}`,
-      bin: `'${path}'`,
-    })
   })
 
   return [defaultWine, ...altWine, ...proton, ...customPaths]
