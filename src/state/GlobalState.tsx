@@ -6,7 +6,7 @@ import {
   getLegendaryConfig,
   getProgress,
   legendary,
-  notify,
+  notify
 } from '../helper'
 import { i18n } from 'i18next'
 import ContextProvider from './ContextProvider'
@@ -49,7 +49,7 @@ export class GlobalState extends PureComponent<Props> {
     layout: 'grid',
     libraryStatus: [],
     refreshing: false,
-    user: '',
+    user: ''
   }
 
   refresh = async (): Promise<void> => {
@@ -62,7 +62,7 @@ export class GlobalState extends PureComponent<Props> {
       filterText: '',
       gameUpdates: updates,
       refreshing: false,
-      user,
+      user
     })
   }
 
@@ -118,7 +118,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       return this.setState({
-        libraryStatus: [...updatedLibraryStatus, { ...currentApp }],
+        libraryStatus: [...updatedLibraryStatus, { ...currentApp }]
       })
     }
 
@@ -200,7 +200,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     return this.setState({
-      libraryStatus: [...libraryStatus, { appName, status }],
+      libraryStatus: [...libraryStatus, { appName, status }]
     })
   }
 
@@ -214,7 +214,7 @@ export class GlobalState extends PureComponent<Props> {
           'box.appupdate.message',
           'There is a new version of Heroic Available, do you want to update now?'
         ),
-        title: t('box.appupdate.title', 'Update Available'),
+        title: t('box.appupdate.title', 'Update Available')
       })
 
       if (response === 0) {
@@ -280,7 +280,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handleSearch: this.handleSearch,
           refresh: this.refresh,
-          refreshLibrary: this.refreshLibrary,
+          refreshLibrary: this.refreshLibrary
         }}
       >
         {children}

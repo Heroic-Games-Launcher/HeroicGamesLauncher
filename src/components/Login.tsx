@@ -15,7 +15,7 @@ export default function Login({ refresh }: Props) {
   const [input, setInput] = useState('')
   const [status, setStatus] = useState({
     loading: false,
-    message: '',
+    message: ''
   })
   const { loading, message } = status
 
@@ -29,14 +29,14 @@ export default function Login({ refresh }: Props) {
   const handleLogin = async (sid: string) => {
     setStatus({
       loading: true,
-      message: t('status.logging', 'Logging In...'),
+      message: t('status.logging', 'Logging In...')
     })
 
     await legendary(`auth --sid ${sid}`).then(async (res) => {
       if (res !== 'error') {
         setStatus({
           loading: true,
-          message: t('status.loading', 'Loading Game list, please wait'),
+          message: t('status.loading', 'Loading Game list, please wait')
         })
 
         await legendary(`list-games`)
@@ -121,7 +121,7 @@ export default function Login({ refresh }: Props) {
               justifyContent: 'flex-end',
               marginBottom: '22px',
               paddingRight: '22px',
-              width: '100%',
+              width: '100%'
             }}
           >
             <LanguageSelector

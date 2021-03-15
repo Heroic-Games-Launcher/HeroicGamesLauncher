@@ -4,7 +4,7 @@ import {
   createNewWindow,
   formatStoreUrl,
   repair,
-  updateGame,
+  updateGame
 } from '../../helper'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from '../../state/ContextProvider'
@@ -12,7 +12,7 @@ import React, { useContext } from 'react'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
-  dialog: { showMessageBox, showOpenDialog },
+  dialog: { showMessageBox, showOpenDialog }
 } = remote
 
 const renderer: IpcRenderer = ipcRenderer
@@ -28,7 +28,7 @@ export default function GamesSubmenu({
   appName,
   isInstalled,
   title,
-  clicked,
+  clicked
 }: Props) {
   const { handleGameStatus, refresh, gameUpdates } = useContext(ContextProvider)
 
@@ -45,13 +45,13 @@ export default function GamesSubmenu({
     const { response } = await showMessageBox({
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.move.message'),
-      title: t('box.move.title'),
+      title: t('box.move.title')
     })
     if (response === 0) {
       const { filePaths } = await showOpenDialog({
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
-        title: t('box.move.path'),
+        title: t('box.move.path')
       })
       if (filePaths[0]) {
         const path = filePaths[0]
@@ -68,13 +68,13 @@ export default function GamesSubmenu({
     const { response } = await showMessageBox({
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.change.message'),
-      title: t('box.change.title'),
+      title: t('box.change.title')
     })
     if (response === 0) {
       const { filePaths } = await showOpenDialog({
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
-        title: t('box.change.path'),
+        title: t('box.change.path')
       })
       if (filePaths[0]) {
         const path = filePaths[0]
@@ -90,7 +90,7 @@ export default function GamesSubmenu({
     const { response } = await showMessageBox({
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.update.message'),
-      title: t('box.update.title'),
+      title: t('box.update.title')
     })
 
     if (response === 0) {
@@ -105,7 +105,7 @@ export default function GamesSubmenu({
     const { response } = await showMessageBox({
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.repair.message'),
-      title: t('box.repair.title'),
+      title: t('box.repair.title')
     })
 
     if (response === 1) {
@@ -125,7 +125,7 @@ export default function GamesSubmenu({
             className="hidden link"
             to={{
               pathname: `/settings/${appName}/wine`,
-              state: { fromGameCard: false },
+              state: { fromGameCard: false }
             }}
           >
             {t('submenu.settings')}

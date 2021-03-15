@@ -15,7 +15,7 @@ const { ipcRenderer, remote } = window.require('electron') as {
 }
 const {
   BrowserWindow,
-  dialog: { showMessageBox },
+  dialog: { showMessageBox }
 } = remote
 
 const readFile = async (file: string) =>
@@ -91,7 +91,7 @@ const syncSaves = async (
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
     path,
-    appName,
+    appName
   ])
   return response
 }
@@ -252,10 +252,10 @@ async function handleStopInstallation(
     buttons: [
       t('gamepage:box.stopInstall.keepInstalling'),
       t('box.yes'),
-      t('box.no'),
+      t('box.no')
     ],
     message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title'),
+    title: t('gamepage:box.stopInstall.title')
   })
   if (response === 1) {
     return sendKill(appName)

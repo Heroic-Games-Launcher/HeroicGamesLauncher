@@ -13,13 +13,13 @@ interface Props {
   handleLanguageChange: (language: string) => void;
 }
 
-export default function LanguageSelector({ 
-  handleLanguageChange, 
-  currentLanguage = 'en', 
+export default function LanguageSelector({
+  handleLanguageChange,
+  currentLanguage = 'en',
   className = 'settingSelect',
-  flagPossition = FlagPosition.NONE,
+  flagPossition = FlagPosition.NONE
  }: Props) {
-   
+
   const languageLabels: {[key: string]: string} = {
     'de': 'Deutsch',
     'en': 'English',
@@ -30,7 +30,7 @@ export default function LanguageSelector({
     'pl': 'Polski',
     'pt': 'Português',
     'ru': 'Русский',
-    'tr': 'Türkçe',
+    'tr': 'Türkçe'
   }
 
   const languageFlags: {[key: string]: string} = {
@@ -43,7 +43,7 @@ export default function LanguageSelector({
     'pl': '🇵🇱',
     'pt': '🇵🇹',
     'ru': '🇷🇺',
-    'tr': '🇹🇷',
+    'tr': '🇹🇷'
   }
 
   const renderOption = (lang: string)  => {
@@ -55,7 +55,7 @@ export default function LanguageSelector({
     return <option key={lang} value={lang}>{label}</option>
   }
   return (
-    <select 
+    <select
       onChange={(event) => handleLanguageChange(event.target.value)}
       className={className}
       value={currentLanguage}

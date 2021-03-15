@@ -12,7 +12,7 @@ export default function InfoBox({ children, text }: Props) {
   const { on: isHidden, toggle: toggleIsHidden } = useToggle(true)
   const { t } = useTranslation()
 
-  /* 
+  /*
     keys to parse
       t('infobox.help')
       t('infobox.requirements')

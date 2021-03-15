@@ -3,7 +3,7 @@ import {
   handleQuit,
   legendary,
   openAboutWindow,
-  openDiscordLink,
+  openDiscordLink
 } from '../../helper'
 import { useTranslation } from 'react-i18next'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'

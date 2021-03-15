@@ -24,7 +24,7 @@ export default function SearchBar() {
           placeholder={t('search')}
           id="search"
         />
-       
+
       {textValue.length > 0 && (
         <Close
           onClick={() => {

@@ -5,11 +5,11 @@ import {
   getGameInfo,
   handleStopInstallation,
   importGame,
-  install,
+  install
 } from '../helper'
 const { remote } = window.require('electron')
 const {
-  dialog: { showOpenDialog },
+  dialog: { showOpenDialog }
 } = remote
 
 interface Install {
@@ -25,7 +25,7 @@ export async function handleInstall({
   isInstalling,
   installPath,
   handleGameStatus,
-  t,
+  t
 }: Install) {
   if (isInstalling) {
     const { folderName } = await getGameInfo(appName)
@@ -46,7 +46,7 @@ export async function handleInstall({
     const { filePaths } = await showOpenDialog({
       buttonLabel: t('gamepage:box.choose'),
       properties: ['gamepage:openDirectory'],
-      title: t('gamepage:box.importpath'),
+      title: t('gamepage:box.importpath')
     })
 
     if (filePaths[0]) {
@@ -61,7 +61,7 @@ export async function handleInstall({
     const { filePaths } = await showOpenDialog({
       buttonLabel: t('gamepage:box.choose'),
       properties: ['openDirectory'],
-      title: t('gamepage:box.installpath'),
+      title: t('gamepage:box.installpath')
     })
 
     if (filePaths[0]) {

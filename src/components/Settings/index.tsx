@@ -51,7 +51,7 @@ function Settings() {
 
   const [wineVersion, setWineversion] = useState({
     bin: '/usr/bin/wine',
-    name: 'Wine Default',
+    name: 'Wine Default'
   } as WineProps)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
@@ -69,39 +69,39 @@ function Settings() {
   const {
     on: useGameMode,
     toggle: toggleUseGameMode,
-    setOn: setUseGameMode,
+    setOn: setUseGameMode
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
   const { on: offlineMode, toggle: toggleOffline, setOn: setShowOffline } = useToggle(false)
   const {
     on: audioFix,
     toggle: toggleAudioFix,
-    setOn: setAudioFix,
+    setOn: setAudioFix
   } = useToggle(false)
   const {
     on: showMangohud,
     toggle: toggleMangoHud,
-    setOn: setShowMangoHud,
+    setOn: setShowMangoHud
   } = useToggle(false)
   const {
     on: exitToTray,
     toggle: toggleTray,
-    setOn: setExitToTray,
+    setOn: setExitToTray
   } = useToggle(false)
   const {
     on: darkTrayIcon,
     toggle: toggleDarkTrayIcon,
-    setOn: setDarkTrayIcon,
+    setOn: setDarkTrayIcon
   } = useToggle(false)
   const {
     on: autoInstallDxvk,
     toggle: toggleAutoInstallDxvk,
-    setOn: setAutoInstallDxvk,
+    setOn: setAutoInstallDxvk
   } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
-    saveFolder: '',
+    saveFolder: ''
   })
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineProps[])
@@ -143,7 +143,7 @@ function Settings() {
         const {
           cloudSaveEnabled,
           saveFolder,
-          title: gameTitle,
+          title: gameTitle
         } = await getGameInfo(appName)
         setTitle(gameTitle)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
@@ -173,8 +173,8 @@ function Settings() {
       showMangohud,
       useGameMode,
       winePrefix,
-      wineVersion,
-    } as AppSettings,
+      wineVersion
+    } as AppSettings
   }
 
   const GameSettings = {
@@ -190,8 +190,8 @@ function Settings() {
       showMangohud,
       useGameMode,
       winePrefix,
-      wineVersion,
-    } as AppSettings,
+      wineVersion
+    } as AppSettings
   }
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
