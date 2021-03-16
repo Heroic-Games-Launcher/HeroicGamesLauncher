@@ -7,6 +7,7 @@
     },
     "choose": "Kiválaszt",
     "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
+    "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
     "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
     "error": {
       "diskspace": {
@@ -117,6 +118,7 @@
     "audiofix": "Hangzás javítás (Pulse Audio Latency)",
     "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
     "autosync": "Mentések Automatikus Szinkronizálása",
+    "customWineProton": "Egyéni Wine/Proton útvonalak",
     "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
     "default-install-path": "Alapértelmezett Telepítési Útvonal",
     "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
@@ -155,6 +157,10 @@
     }
   },
   "store": "Áruház",
+  "tooltip": {
+    "addpath": "Új útvonal hozzáadása",
+    "removepath": "Útvonal eltávolítása"
+  },
   "Total Games": "Összes Játék",
   "tray": {
     "about": "Rólunk",

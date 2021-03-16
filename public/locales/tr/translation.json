@@ -7,6 +7,7 @@
     },
     "choose": "Seç",
     "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
+    "customWine": "Wine ya da Proton Dosyasını Seçin",
     "default-install-path": "Varsayılan Yükleme Yerini Seçin",
     "error": {
       "diskspace": {
@@ -117,6 +118,7 @@
     "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
     "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
     "autosync": "Kayıtları Otomatik Eşitle",
+    "customWineProton": "Özel Wine/Proton Yolları",
     "darktray": "Karanlık Tepsi İkonu Kullan (yeniden başlatma gerektirir)",
     "default-install-path": "Varsayılan Kurulum Yeri",
     "egs-sync": "Yüklü Epic Games ile Eşitle",
@@ -155,6 +157,10 @@
     }
   },
   "store": "Store",
+  "tooltip": {
+    "addpath": "Yeni Yol Ekle",
+    "removepath": "Yolu Kaldır"
+  },
   "Total Games": "Toplam Oyun",
   "tray": {
     "about": "Hakkında",

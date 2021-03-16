@@ -7,6 +7,7 @@
     },
     "choose": "Auswählen",
     "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
+    "customWine": "Benutzerdefinierte Wine/Proton Pfade",
     "default-install-path": "Wählen Sie den Standard Installations-Pfad",
     "error": {
       "diskspace": {
@@ -117,6 +118,7 @@
     "audiofix": "Audio-Fix (Pulse Audio Latenz)",
     "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
     "autosync": "Spielstände automatisch synchronisieren",
+    "customWineProton": "Wähle die Wine oder Proton Binärdatei",
     "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
     "default-install-path": "Standard-Installationspfad",
     "egs-sync": "Mit installiertem Epic Games synchronisieren",
@@ -155,6 +157,10 @@
     }
   },
   "store": "Store",
+  "tooltip": {
+    "addpath": "Neuen Pfad hinzufügen",
+    "removepath": "Pfad entfernen"
+  },
   "Total Games": "Anzahl der Spiele",
   "tray": {
     "about": "Über Heroic",

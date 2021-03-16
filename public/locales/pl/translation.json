@@ -7,6 +7,7 @@
     },
     "choose": "Wybierz",
     "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
+    "customWine": "Wybierz plik uruchomieniowy Wine albo Proton",
     "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
     "error": {
       "diskspace": {
@@ -117,6 +118,7 @@
     "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
     "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
     "autosync": "Autosynchronizacja zapisów",
+    "customWineProton": "Niestandardowe ścieżki Wine/Proton",
     "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
     "default-install-path": "Domyślna ścieżka instalacyjna",
     "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
@@ -155,6 +157,10 @@
     }
   },
   "store": "Store",
+  "tooltip": {
+    "addpath": "Dodaj nową ścieżkę",
+    "removepath": "Usuń ścieżkę"
+  },
   "Total Games": "Ilość gier",
   "tray": {
     "about": "O Heroic",

@@ -46,6 +46,7 @@ export interface AppSettings {
   userInfo: UserInfo
   darkTrayIcon: boolean
   autoInstallDxvk: boolean
+  customWinePaths: Array<string>
 }
 
 export interface Game {

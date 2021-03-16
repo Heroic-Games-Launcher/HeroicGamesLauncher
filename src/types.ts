@@ -49,6 +49,7 @@ export interface AppSettings {
   maxWorkers: number
   darkTrayIcon: boolean
   autoInstallDxvk: boolean
+  customWinePaths: Array<string>
 }
 
 export interface Game {
