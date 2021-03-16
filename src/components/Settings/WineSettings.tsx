@@ -106,7 +106,7 @@ export default function WineSettings({
       {isDefault && (
         <span className="setting">
           <span className="settingText">
-            {t('setting.customWine', 'Custom Wine/Proton Paths')}
+            {t('setting.customWineProton', 'Custom Wine/Proton Paths')}
           </span>
           <span className="settingInputWithButton">
             <select

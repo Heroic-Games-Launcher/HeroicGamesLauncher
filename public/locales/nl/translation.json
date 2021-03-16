@@ -7,6 +7,7 @@
     },
     "choose": "Kies",
     "choose-egs-prefix": "Kies een prefix waar EGS zijn geïnstalleerd",
+    "customWine": "Selecteer de Wine of Proton Binary",
     "default-install-path": "Kies een standaard map",
     "error": {
       "diskspace": {
@@ -117,6 +118,7 @@
     "audiofix": "Geluid fix (Pulse Audio Latency)",
     "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
     "autosync": "Automatisch Synchroniseren van saves",
+    "customWineProton": "Aangepaste wijn- of protonpaden",
     "darktray": "Gebruik donker tray icoon (vereist opnieuw opstarten)",
     "default-install-path": "Standaard installatie map",
     "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
@@ -155,6 +157,10 @@
     }
   },
   "store": "Store",
+  "tooltip": {
+    "addpath": "Voeg een nieuw pad toe",
+    "removepath": "Pad verwijderen "
+  },
   "Total Games": "Hoeveelheid spellen",
   "tray": {
     "about": "Over",

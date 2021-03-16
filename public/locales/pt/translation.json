@@ -7,6 +7,7 @@
     },
     "choose": "Selecione",
     "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
+    "customWine": "Selecione o binário do Wine ou Proton",
     "default-install-path": "Selecione o Local de instalação padrão",
     "error": {
       "diskspace": {
@@ -117,6 +118,7 @@
     "audiofix": "Consertar Audio do Jogo",
     "autodxvk": "Instalar/Atualizar DXVK automaticamente",
     "autosync": "Ativar Sincronização Automática",
+    "customWineProton": "Wine e Proton Customizados",
     "darktray": "Usar ícone escuro (necessita reiniciar)",
     "default-install-path": "Pasta de instalação padrão",
     "egs-sync": "Sincronizar com Epic Games Store",
@@ -155,6 +157,10 @@
     }
   },
   "store": "Store",
+  "tooltip": {
+    "addpath": "Adicionar",
+    "removepath": "Remover"
+  },
   "Total Games": "Total de Jogos",
   "tray": {
     "about": "Sobre",

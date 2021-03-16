@@ -7,6 +7,7 @@
     },
     "choose": "Elegir",
     "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
+    "customWine": "Seleccione el Wine o Proton binario",
     "default-install-path": "Elija la ruta de instalación predeterminada",
     "error": {
       "diskspace": {
@@ -117,6 +118,7 @@
     "audiofix": "Corrección de audio (latencia de Pulseaudio)",
     "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
     "autosync": "Autosyncronizar guardados",
+    "customWineProton": "Rutas personalizadas de Wine o Proton",
     "darktray": "Utilice el icono de bandeja oscura (necesita reiniciarse)",
     "default-install-path": "Ruta de instalación predeterminada",
     "egs-sync": "Sincronizar con juegos EGS",
@@ -155,6 +157,10 @@
     }
   },
   "store": "Store",
+  "tooltip": {
+    "addpath": "Agregar una nueva ruta",
+    "removepath": "Eliminar ruta"
+  },
   "Total Games": "Juegos totales",
   "tray": {
     "about": "Acerca",
