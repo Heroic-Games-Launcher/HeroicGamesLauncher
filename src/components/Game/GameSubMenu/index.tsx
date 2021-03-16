@@ -5,8 +5,8 @@ import {
   formatStoreUrl,
   repair,
   updateGame,
-} from '../../helper'
-import ContextProvider from '../../state/ContextProvider'
+} from '../../../helper'
+import ContextProvider from '../../../state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { IpcRenderer } from 'electron'
 
@@ -14,6 +14,7 @@ const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showMessageBox, showOpenDialog },
 } = remote
+import './index.css'
 
 const renderer: IpcRenderer = ipcRenderer
 

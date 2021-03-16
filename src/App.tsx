@@ -7,7 +7,7 @@ import ContextProvider from './state/ContextProvider'
 
 const NavBar = lazy(() => import('./components/NavBar'))
 const Settings = lazy(() => import('./components/Settings'))
-const GamePage = lazy(() => import('./components/GamePage/GamePage'))
+const GamePage = lazy(() => import('./components/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
 const Login = lazy(() => import('./components/Login'))
 
@@ -20,7 +20,7 @@ function App() {
     return <Login refresh={refresh} />
   }
 
-  const dlcCount = library.filter(lib => lib.is_dlc)
+  const dlcCount = library.filter((lib) => lib.is_dlc)
   const numberOfGames = library.length - dlcCount.length
   return (
     <div className="App">

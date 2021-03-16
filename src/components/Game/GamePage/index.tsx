@@ -1,5 +1,3 @@
-import '../../App.css'
-
 /* eslint-disable complexity */
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 
@@ -21,14 +19,14 @@ import {
   sendKill,
   syncSaves,
   updateGame,
-} from '../../helper'
-import ContextProvider from '../../state/ContextProvider'
-import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
-import Header from '../UI/Header'
-import InfoBox from '../UI/InfoBox'
-import UpdateComponent from '../UI/UpdateComponent'
-import GamesSubmenu from './GamesSubmenu'
-import './GamePage.css'
+} from '../../../helper'
+import ContextProvider from '../../../state/ContextProvider'
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../../types'
+import Header from '../../UI/Header'
+import InfoBox from '../../UI/InfoBox'
+import UpdateComponent from '../../UI/UpdateComponent'
+import GamesSubmenu from '../GameSubMenu'
+import './index.css'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
