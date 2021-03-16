@@ -74,6 +74,7 @@
 .layoutSelection {
   place-self: end;
   grid-area: layout;
+  min-width: 68px;
 }
 
 .App .pageTitle {
@@ -209,8 +210,10 @@
 .gameList {
   color: #e4deea;
   display: grid;
-  grid-template-columns: min(9vw, 200px) repeat(auto-fill, min(9vw, 200px)) 6%;
-  grid-gap: 24px min(3vw, 32px);
+  grid-template-columns:
+    minmax(max-content, 130px) repeat(auto-fill, minmax(max-content, 130px))
+    0%;
+  grid-gap: 0.5rem 1rem;
   padding: 0 4rem 1rem 4rem;
   max-width: 3382px;
   place-self: center;
@@ -331,17 +334,6 @@
   height: 280px;
   border-radius: 0.5rem;
   object-fit: cover;
-}
-
-.installProgress[value] {
-  appearance: none;
-  width: 169px;
-  height: 5px;
-}
-
-.installProgress[value]::-webkit-progress-value {
-  color: var(--success);
-  animation: animate-stripes 5s linear infinite;
 }
 
 .Settings {
@@ -704,89 +696,6 @@
   font-size: 16px;
   margin-left: 4px;
   animation: refreshing 1.5s infinite;
-}
-
-.gameConfigContainer {
-  width: 1110px;
-  background: rgba(13, 14, 14, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  margin: auto;
-  display: grid;
-  position: relative;
-  place-items: flex-start;
-}
-
-.gameConfig {
-  display: flex;
-  align-self: center;
-  min-width: 780px;
-  max-width: 800px;
-  margin: 44px 60px 16px 44px;
-}
-
-.gameConfig .title {
-  font-weight: 500;
-  font-size: 25px;
-  line-height: 30px;
-  color: #f79707;
-}
-
-.gameConfig > .gamePicture {
-  max-width: 210px;
-  max-height: 280px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  position: relative;
-}
-
-.gamePicture > .gameLogo {
-  position: absolute;
-  bottom: 0;
-  width: 70%;
-  min-width: 140px;
-}
-
-.gameInfo {
-  text-align: initial;
-  padding-left: 3.5rem;
-  font-size: 1rem;
-  color: #e4deea;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.gameInfo > .settingSelect {
-  margin-bottom: 12px;
-}
-
-.gameInfo .infoWrapper {
-  color: #b0abb6;
-  flex-grow: 1;
-}
-
-.gameInfo .infoWrapper * {
-  margin-bottom: 0.5rem;
-}
-
-.gameInfo .developer {
-  padding: 1rem 0 1rem 0;
-  color: #e4deea;
-}
-
-.gameInfo .summary {
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  margin-bottom: 16px;
-  font-size: 16px;
-  line-height: 19px;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  color: var(--text-primary);
 }
 
 .buttonsWrapper {
@@ -1293,29 +1202,6 @@ input:checked + .slider:before {
 
 .layoutSelection > svg {
   margin: 0 0.2em;
-}
-
-.requirements {
-  margin-top: 2em;
-}
-
-.requirements table td {
-  width: 33.33%;
-  vertical-align: baseline;
-  padding: 0.5em;
-}
-table td.specs {
-  color: var(--secondary);
-  opacity: 0.8;
-}
-
-.requirements table span.title {
-  color: var(--background);
-  font-size: 1em;
-}
-table span.text {
-  color: var(--text-secondary);
-  font-size: 0.9em;
 }
 
 .iconsWrapper {

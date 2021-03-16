@@ -28,6 +28,7 @@ import Header from '../UI/Header'
 import InfoBox from '../UI/InfoBox'
 import UpdateComponent from '../UI/UpdateComponent'
 import GamesSubmenu from './GamesSubmenu'
+import './GamePage.css'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
