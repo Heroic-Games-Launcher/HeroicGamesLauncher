@@ -1,0 +1,157 @@
+.Login {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.loginBackground {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  align-self: center;
+  background: url('../../assets/login-background-1536x864.jpg');
+  background-size: cover;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+.language {
+  cursor: pointer;
+}
+
+.selectedLanguage {
+  color: #07c5ef;
+  font-weight: 600;
+}
+
+.heroicLogo {
+  width: 205px;
+  height: 48px;
+  place-self: baseline;
+  margin-bottom: 31px;
+}
+
+.heroicText {
+  width: 150px;
+  height: 47px;
+  margin-left: 57px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroicTitle {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--secondary);
+}
+
+.heroicSubTitle {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 24.3px;
+  color: var(--text-primary);
+}
+
+.logo {
+  background: url('../../assets/heroic-icon.png');
+  background-size: contain;
+  position: absolute;
+  width: 46px;
+  height: 46px;
+}
+
+.loginFormWrapper {
+  display: grid;
+  place-items: center;
+  place-content: center;
+  width: 826px;
+  height: 475px;
+  background: rgba(29, 31, 31, 0.95);
+  border-radius: 10px;
+}
+
+.loginInstructions {
+  margin: 22px;
+  height: 219px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  color: var(--text-primary);
+}
+
+.loginInstructions strong {
+  color: var(--text-primary);
+}
+
+.loginInstructions .epicLink {
+  color: var(--secondary);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.loginInstructions .sid {
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 400px;
+  height: 150px;
+  align-self: center;
+}
+
+.loginInput {
+  width: 388px;
+  height: 63px;
+  background: var(--background);
+  border-radius: 10px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  outline: none;
+  color: var(--text-primary);
+  text-align: center;
+  border: none;
+}
+
+.loginInput::placeholder {
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-primary);
+}
+
+.loginForm > .message {
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--primary);
+  display: flex;
+}
+
+.settingSelect.language-login {
+  width: 140px;
+  height: 30px;
+  text-indent: 10px;
+}
