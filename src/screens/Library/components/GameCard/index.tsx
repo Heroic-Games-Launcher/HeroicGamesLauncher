@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { GameStatus } from 'src/types'
 import { getProgress, sendKill, launch, updateGame } from 'src/helpers'
-import { handleInstall } from '../utils'
+import { handleInstall } from 'src/components/utils'
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import NewReleasesIcon from '@material-ui/icons/NewReleases'
-
+import './index.css'
 const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showMessageBox },

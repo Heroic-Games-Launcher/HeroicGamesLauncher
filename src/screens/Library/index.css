@@ -1,0 +1,21 @@
+.gameList {
+  color: #e4deea;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
+  grid-gap: 0.5rem 1rem;
+  padding: 0 4rem 1rem 4rem;
+  max-width: 3382px;
+  place-self: center;
+  width: inherit;
+}
+
+.gameListLayout {
+  background-color: var(--background-secondary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  padding-top: 1em;
+  min-height: 2vh;
+  min-width: 80vw;
+}

@@ -4,7 +4,8 @@ import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 import ContextProvider from 'src/state/ContextProvider'
 
 import { Game } from 'src/types'
-const GameCard = lazy(() => import('src/components/UI/GameCard'))
+import './index.css'
+const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
 
 interface Props {
   library: Array<Game>
