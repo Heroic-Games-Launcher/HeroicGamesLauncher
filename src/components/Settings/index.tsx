@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { getGameInfo, writeConfig } from '../../helper'
-import { useToggle } from '../../hooks'
-import { AppSettings, WineProps } from '../../types'
-import Header from '../UI/Header'
+import { getGameInfo, writeConfig } from 'src/helpers'
+import { useToggle } from 'src/hooks'
+import { AppSettings, WineProps } from 'src/types'
+import Header from 'src/components/UI/Header'
 import GeneralSettings from './GeneralSettings'
 import OtherSettings from './OtherSettings'
 import SyncSaves from './SyncSaves'
 import Tools from './Tools'
 import WineSettings from './WineSettings'
 import { IpcRenderer } from 'electron'
-import UpdateComponent from '../UI/UpdateComponent'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer

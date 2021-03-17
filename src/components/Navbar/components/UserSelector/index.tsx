@@ -7,8 +7,8 @@ import {
   handleQuit,
   handleKofi,
   openDiscordLink,
-} from '../../helper'
-import ContextProvider from '../../state/ContextProvider'
+} from 'src/helpers'
+import ContextProvider from 'src/state/ContextProvider'
 
 export default function UserSelector() {
   const { t } = useTranslation()

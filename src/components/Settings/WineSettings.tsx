@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
-import { WineProps, Path } from '../../types'
+import { WineProps, Path } from 'src/types'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-import InfoBox from '../UI/InfoBox'
-import ToggleSwitch from '../UI/ToggleSwitch'
+import InfoBox from 'src/components/UI/InfoBox'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 const {
   ipcRenderer,
   remote: { dialog },

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Info from '@material-ui/icons/Info'
-import { useToggle } from '../../hooks'
+import { useToggle } from 'src/hooks'
 
 interface Props {
   children: React.ReactNode

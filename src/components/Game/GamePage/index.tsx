@@ -19,12 +19,12 @@ import {
   sendKill,
   syncSaves,
   updateGame,
-} from '../../../helper'
-import ContextProvider from '../../../state/ContextProvider'
-import { AppSettings, Game, GameStatus, InstallProgress } from '../../../types'
-import Header from '../../UI/Header'
-import InfoBox from '../../UI/InfoBox'
-import UpdateComponent from '../../UI/UpdateComponent'
+} from 'src/helpers'
+import ContextProvider from 'src/state/ContextProvider'
+import { AppSettings, Game, GameStatus, InstallProgress } from 'src/types'
+import Header from 'src/components/UI/Header'
+import InfoBox from 'src/components/UI/InfoBox'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
 import GamesSubmenu from '../GameSubMenu'
 import './index.css'
 

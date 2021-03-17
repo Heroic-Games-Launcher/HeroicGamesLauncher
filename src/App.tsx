@@ -5,7 +5,7 @@ import { Library } from './components/Library'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 import ContextProvider from './state/ContextProvider'
 
-const NavBar = lazy(() => import('./components/NavBar'))
+const NavBar = lazy(() => import('./components/Navbar'))
 const Settings = lazy(() => import('./components/Settings'))
 const GamePage = lazy(() => import('./components/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))

@@ -1,10 +1,10 @@
 import React, { lazy, useContext } from 'react'
 import cx from 'classnames'
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
-import ContextProvider from '../state/ContextProvider'
+import ContextProvider from 'src/state/ContextProvider'
 
-import { Game } from '../types'
-const GameCard = lazy(() => import('./UI/GameCard'))
+import { Game } from 'src/types'
+const GameCard = lazy(() => import('src/components/UI/GameCard'))
 
 interface Props {
   library: Array<Game>

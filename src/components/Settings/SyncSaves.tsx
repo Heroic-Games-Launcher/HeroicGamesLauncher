@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
-import Backspace from '@material-ui/icons/Backspace';
-import { Path, SyncType } from '../../types'
-import InfoBox from '../UI/InfoBox'
-import ToggleSwitch from '../UI/ToggleSwitch'
+import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import Backspace from '@material-ui/icons/Backspace'
+import { Path, SyncType } from 'src/types'
+import InfoBox from 'src/components/UI/InfoBox'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 const {
   remote: { dialog },
@@ -140,7 +140,11 @@ export default function SyncSaves({
               isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${isSyncing ? t('setting.manualsync.syncing') : t('setting.manualsync.sync')}`}
+            {`${
+              isSyncing
+                ? t('setting.manualsync.syncing')
+                : t('setting.manualsync.sync')
+            }`}
           </button>
         </span>
       </span>

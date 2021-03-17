@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import InfoBox from '../UI/InfoBox'
-import ToggleSwitch from '../UI/ToggleSwitch'
+import InfoBox from 'src/components/UI/InfoBox'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 interface Props {
   otherOptions: string

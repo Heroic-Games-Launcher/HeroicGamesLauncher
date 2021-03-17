@@ -5,7 +5,7 @@ import {
   handleStopInstallation,
   install,
   importGame,
-} from '../helper'
+} from '../helpers'
 import { GameStatus } from '../types'
 const { remote } = window.require('electron')
 const {

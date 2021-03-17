@@ -2,15 +2,15 @@ import { IpcRenderer } from 'electron'
 import { i18n } from 'i18next'
 import React, { PureComponent } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
-import UpdateComponent from '../components/UI/UpdateComponent'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
 import {
   getGameInfo,
   getLegendaryConfig,
   getProgress,
   legendary,
   notify,
-} from '../helper'
-import { Game, GameStatus } from '../types'
+} from 'src/helpers'
+import { Game, GameStatus } from 'src/types'
 import ContextProvider from './ContextProvider'
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Search from '@material-ui/icons/Search';
-import Close from '@material-ui/icons/Close';
-import ContextProvider from '../../state/ContextProvider'
+import Search from '@material-ui/icons/Search'
+import Close from '@material-ui/icons/Close'
+import ContextProvider from 'src/state/ContextProvider'
 
 export default function SearchBar() {
   const { handleSearch } = useContext(ContextProvider)
@@ -12,7 +12,10 @@ export default function SearchBar() {
   return (
     <div className="SearchBar">
       <label htmlFor="search">
-        <Search onClick={() => handleSearch(textValue)} className="material-icons" />
+        <Search
+          onClick={() => handleSearch(textValue)}
+          className="material-icons"
+        />
       </label>
       <input
         className="searchInput"
@@ -21,10 +24,10 @@ export default function SearchBar() {
           setTextValue(event.target.value)
           handleSearch(event.target.value)
         }}
-          placeholder={t('search')}
-          id="search"
-        />
-       
+        placeholder={t('search')}
+        id="search"
+      />
+
       {textValue.length > 0 && (
         <Close
           onClick={() => {

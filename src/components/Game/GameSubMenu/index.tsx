@@ -5,8 +5,8 @@ import {
   formatStoreUrl,
   repair,
   updateGame,
-} from '../../../helper'
-import ContextProvider from '../../../state/ContextProvider'
+} from 'src/helpers'
+import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { IpcRenderer } from 'electron'
 

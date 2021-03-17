@@ -5,7 +5,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack'
 import Apps from '@material-ui/icons/Apps'
 import List from '@material-ui/icons/List'
 import cx from 'classnames'
-import ContextProvider from '../../state/ContextProvider'
+import ContextProvider from 'src/state/ContextProvider'
 
 interface Props {
   renderBackButton: boolean

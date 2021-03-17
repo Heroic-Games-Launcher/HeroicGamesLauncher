@@ -8,7 +8,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import './index.css'
 import App from './App'
 import GlobalState from './state/GlobalState'
-import UpdateComponent from './components/UI/UpdateComponent'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 const Backend = new HttpApi(null, {
   allowMultiLoading: false,
