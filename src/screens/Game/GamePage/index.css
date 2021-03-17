@@ -40,6 +40,13 @@
   min-width: 140px;
 }
 
+.gameImg {
+  width: 210px;
+  height: 280px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
 .gameInfo {
   text-align: initial;
   padding-left: 3.5rem;
@@ -113,4 +120,22 @@ table td.specs {
 table span.text {
   color: var(--text-secondary);
   font-size: 0.9em;
+}
+
+.clickable {
+  cursor: pointer;
+  color: var(--secondary);
+}
+
+.buttonsWrapper {
+  width: 380px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: baseline;
+}
+
+@keyframes animate-stripes {
+  100% {
+    background-position: -100px 0px;
+  }
 }

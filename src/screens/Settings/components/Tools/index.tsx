@@ -1,6 +1,7 @@
 import React from 'react'
 import { WineProps } from 'src/types'
 import { useTranslation } from 'react-i18next'
+import './index.css'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {

@@ -74,3 +74,18 @@
   justify-content: center;
   padding-left: 6px;
 }
+
+.totalGamesText {
+  right: 55px;
+  top: 108px;
+  grid-area: total;
+}
+
+.returnLink {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: 100px;
+  margin: 0 -25px;
+  height: fit-content;
+}

@@ -150,6 +150,12 @@
   display: flex;
 }
 
+.message > .material-icons {
+  font-size: 16px;
+  margin-left: 4px;
+  animation: refreshing 1.5s infinite;
+}
+
 .settingSelect.language-login {
   width: 140px;
   height: 30px;
