@@ -210,9 +210,7 @@
 .gameList {
   color: #e4deea;
   display: grid;
-  grid-template-columns:
-    minmax(max-content, 130px) repeat(auto-fill, minmax(max-content, 130px))
-    0%;
+  grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
   grid-gap: 0.5rem 1rem;
   padding: 0 4rem 1rem 4rem;
   max-width: 3382px;
@@ -226,11 +224,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 8vw;
+  width: clamp(130px, 8vw, 200px);
   height: 10vw;
-  max-width: 200px;
   max-height: 266px;
-  min-width: 130px;
   min-height: 173px;
   border-radius: 1rem;
   overflow: hidden;
