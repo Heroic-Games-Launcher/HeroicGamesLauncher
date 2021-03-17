@@ -1,15 +1,15 @@
 import React, { lazy, useContext } from 'react'
 
 import './App.css'
-import { Library } from './components/Library'
+import { Library } from './screens/Library'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 import ContextProvider from './state/ContextProvider'
 
 const NavBar = lazy(() => import('./components/Navbar'))
-const Settings = lazy(() => import('./components/Settings'))
-const GamePage = lazy(() => import('./components/Game/GamePage'))
+const Settings = lazy(() => import('./screens/Settings'))
+const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
-const Login = lazy(() => import('./components/Login'))
+const Login = lazy(() => import('./screens/Login'))
 
 function App() {
   const context = useContext(ContextProvider)

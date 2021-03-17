@@ -6,7 +6,11 @@ import Info from '@material-ui/icons/Info'
 import LanguageSelector, {
   FlagPosition,
 } from 'src/components/UI/LanguageSelector'
+
+import './index.css'
+
 const storage: Storage = window.localStorage
+
 interface Props {
   refresh: () => Promise<void>
 }
@@ -111,7 +115,7 @@ export default function Login({ refresh }: Props) {
             )}
             <button
               onClick={() => handleLogin(input)}
-              className="button login"
+              className="button is-primary"
               disabled={loading || input.length < 30}
             >
               {t('button.login', 'Login')}
