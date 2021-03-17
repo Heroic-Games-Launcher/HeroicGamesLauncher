@@ -9,6 +9,7 @@ import {
   openDiscordLink,
 } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
+import './index.css'
 
 export default function UserSelector() {
   const { t } = useTranslation()

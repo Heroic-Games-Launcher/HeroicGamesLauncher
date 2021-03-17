@@ -7,6 +7,8 @@ import List from '@material-ui/icons/List'
 import cx from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
 
+import './index.css'
+
 interface Props {
   renderBackButton: boolean
   numberOfGames?: number

@@ -43,6 +43,59 @@
   left: 0;
 }
 
+.gameTitle {
+  position: absolute;
+  bottom: -92px;
+  height: 92px;
+  width: 100%;
+  padding: 0.3vw;
+  color: #e4deea;
+  display: flex;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    rgba(20, 21, 21, 0.863) 30%
+  );
+  border-radius: 0px 0px 10px 10px;
+  transition: 200ms;
+  font-family: Rubik;
+  font-size: min(1vw, 1em);
+  line-height: 17px;
+  color: var(--text-primary);
+}
+
+.gameTitle > .icons {
+  align-self: flex-end;
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 44%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.icons > a > svg,
+.icons > svg {
+  width: min(calc(1vw + 9px), 36px);
+  height: min(calc(1vw + 9px), 36px);
+}
+
+.gameCard:hover > .gameTitle {
+  bottom: 0;
+  z-index: 3;
+}
+
+.gameCard .gameTitle span {
+  flex-grow: 1;
+}
+
+.gameImg {
+  width: 210px;
+  height: 280px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
 .gameListItem {
   display: grid;
   grid-template-columns: 2fr 1fr 6fr 1fr;
@@ -74,6 +127,14 @@
   position: absolute;
   z-index: 2;
   grid-area: cover;
+}
+
+.gameImgList > .gameLogo {
+  width: 45%;
+  min-width: 60px;
+  position: relative;
+  top: 25px;
+  z-index: 2;
 }
 
 .gameTitleList {
@@ -115,4 +176,12 @@
 .gameListInfo {
   font-size: 1em;
   grid-area: infos;
+}
+
+.gameImg > .gameLogo {
+  width: min(7vw, 70%);
+  position: relative;
+  top: 50%;
+  z-index: 2;
+  left: 16%;
 }
