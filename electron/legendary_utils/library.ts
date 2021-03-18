@@ -11,7 +11,7 @@ import {
   legendaryConfigPath,
   writeDefaultconfig,
 } from '../utils'
-import { Game, InstalledInfo, KeyImage, UserInfo } from 'src/types'
+import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
 
 const statAsync = promisify(stat)
 const dlcs: string[] = []
