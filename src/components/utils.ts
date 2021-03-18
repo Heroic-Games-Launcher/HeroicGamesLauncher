@@ -5,8 +5,8 @@ import {
   handleStopInstallation,
   install,
   importGame,
-} from '../helpers'
-import { GameStatus } from '../types'
+} from 'src/helpers'
+import { GameStatus } from 'src/types'
 const { remote } = window.require('electron')
 const {
   dialog: { showOpenDialog },

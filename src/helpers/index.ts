@@ -1,5 +1,5 @@
 import { IpcRenderer, Remote } from 'electron'
-import { Game, InstallProgress } from '../types'
+import { Game, InstallProgress } from 'src/types'
 import { TFunction } from 'react-i18next'
 
 const { ipcRenderer, remote } = window.require('electron') as {

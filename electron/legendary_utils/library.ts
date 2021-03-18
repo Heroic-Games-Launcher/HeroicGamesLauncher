@@ -11,7 +11,7 @@ import {
   legendaryConfigPath,
   writeDefaultconfig,
 } from '../utils'
-import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
+import { Game, InstalledInfo, KeyImage, UserInfo } from 'src/types'
 
 const statAsync = promisify(stat)
 const dlcs: string[] = []
@@ -64,8 +64,8 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             dlcItemList,
             customAttributes: { CloudSaveFolder, FolderName },
           } = metadata
-          
-          const {namespace} = asset_info
+
+          const { namespace } = asset_info
 
           if (dlcItemList) {
             dlcItemList.forEach(
@@ -134,7 +134,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             art_square: art_square || art_cover,
             art_logo,
             is_dlc,
-            namespace
+            namespace,
           }
         })
         .sort((a: { title: string }, b: { title: string }) => {
