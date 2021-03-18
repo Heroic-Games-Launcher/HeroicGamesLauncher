@@ -5,7 +5,7 @@ import i18next from 'i18next'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import 'src/index.css'
+import './index.css'
 import App from 'src/App'
 import GlobalState from 'src/state/GlobalState'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
