@@ -1,18 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 
-import { getGameInfo, writeConfig } from '../../helper'
+import { IpcRenderer } from 'electron'
+import { useTranslation } from 'react-i18next'
+import {
+  NavLink,
+  useLocation,
+  useParams
+} from 'react-router-dom'
+
+import {
+  getGameInfo,
+  writeConfig
+} from '../../helper'
 import { useToggle } from '../../hooks'
-import { AppSettings, WineProps } from '../../types'
+import {
+  AppSettings,
+  WineProps
+} from '../../types'
 import Header from '../UI/Header'
+import UpdateComponent from '../UI/UpdateComponent'
 import GeneralSettings from './GeneralSettings'
 import OtherSettings from './OtherSettings'
 import SyncSaves from './SyncSaves'
 import Tools from './Tools'
 import WineSettings from './WineSettings'
-import { IpcRenderer } from 'electron'
-import UpdateComponent from '../UI/UpdateComponent'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -58,6 +72,7 @@ function Settings() {
     setOn: setUseGameMode,
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
+  const { on: offlineMode, toggle: toggleOffline, setOn: setShowOffline } = useToggle(false)
   const {
     on: audioFix,
     toggle: toggleAudioFix,
@@ -106,6 +121,7 @@ function Settings() {
       )
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
+      setShowOffline(config.offlineMode || false)
       setAudioFix(config.audioFix || false)
       setShowMangoHud(config.showMangohud || false)
       setDefaultInstallPath(config.defaultInstallPath)
@@ -150,6 +166,7 @@ function Settings() {
       useGameMode,
       egsLinkedPath,
       showFps,
+      offlineMode,
       exitToTray,
       audioFix,
       showMangohud,
@@ -169,6 +186,7 @@ function Settings() {
       useGameMode,
       savesPath,
       showFps,
+      offlineMode,
       autoSyncSaves,
       audioFix,
       autoInstallDxvk,
@@ -259,6 +277,8 @@ function Settings() {
               toggleUseGameMode={toggleUseGameMode}
               showFps={showFps}
               toggleFps={toggleFps}
+              offlineMode={offlineMode}
+              toggleOffline={toggleOffline}
               audioFix={audioFix}
               toggleAudioFix={toggleAudioFix}
               showMangohud={showMangohud}

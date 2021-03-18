@@ -136,6 +136,7 @@
       "upload": "Upload"
     },
     "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
+    "offlinemode": "Lancer le jeu hors ligne",
     "runexe": {
       "message": "Glissez et déposez les fichiers ici",
       "title": "Utiliser un EXE pour le Prefix"

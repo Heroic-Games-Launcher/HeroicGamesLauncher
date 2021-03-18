@@ -136,6 +136,7 @@
       "upload": "Upload"
     },
     "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
+    "offlinemode": "Spel offline spelen",
     "runexe": {
       "message": "Sleep de bestanden hier",
       "title": "Voer EXE ui op Prefix"
