@@ -1,10 +1,7 @@
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { exec } from 'child_process'
-import {
-  app,
-  dialog
-} from 'electron'
+import { app, dialog } from 'electron'
 import { fixPathForAsarUnpack } from 'electron-util'
 import {
   existsSync,
@@ -12,22 +9,15 @@ import {
   readdirSync,
   readFileSync,
   writeFile,
-  writeFileSync
+  writeFileSync,
 } from 'graceful-fs'
 import i18next from 'i18next'
 import isOnline from 'is-online'
-import {
-  homedir,
-  userInfo as user
-} from 'os'
+import { homedir, userInfo as user } from 'os'
 import { join } from 'path'
 import { promisify } from 'util'
 
-import {
-  AppSettings,
-  UserInfo,
-  WineProps
-} from './types'
+import { AppSettings, UserInfo, WineProps } from './types'
 
 const execAsync = promisify(exec)
 
@@ -98,6 +88,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`
   const proton: Set<{ name: string; bin: string }> = new Set()
   const altWine: Set<{ name: string; bin: string }> = new Set()
+  const customPaths: Set<{ name: string; bin: string }> = new Set()
 
   protonPaths.forEach((path) => {
     if (existsSync(path)) {
@@ -128,8 +119,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     })
   })
 
-  const customPaths: Set<WineProps> = new Set()
-  getSettings().then(({ customWinePaths }) => {
+  await getSettings().then(({ customWinePaths }) => {
     if (customWinePaths.length) {
       customWinePaths.forEach((path) => {
         if (path.endsWith('proton')) {
@@ -214,7 +204,7 @@ const launchGame = async (appName: string) => {
   let wineCommand = `--wine ${wineVersion.bin}`
 
   const is_online = await isOnline()
-  const offlineArg = (!offlineMode && is_online) ? "" : "--offline";
+  const offlineArg = !offlineMode && is_online ? '' : '--offline'
 
   // We need to keep replacing the ' to keep compatibility with old configs
   let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
@@ -302,7 +292,7 @@ const launchGame = async (appName: string) => {
 
 async function getLatestDxvk() {
   if (!(await isOnline())) {
-    console.log("App offline, skipping possible DXVK update.")
+    console.log('App offline, skipping possible DXVK update.')
     return
   }
   const {
@@ -451,8 +441,8 @@ const writeGameconfig = async (game: string) => {
 
 async function checkForUpdates() {
   if (!(await isOnline())) {
-    console.log("Version check failed, app is offline.")
-    return false;
+    console.log('Version check failed, app is offline.')
+    return false
   }
   const {
     data: { tag_name },
@@ -479,7 +469,7 @@ const showAboutWindow = () => {
 
 const checkGameUpdates = async (): Promise<Array<string>> => {
   if (!(await isOnline())) {
-    console.log("App offline, skipping checking game updates.")
+    console.log('App offline, skipping checking game updates.')
     return []
   }
   const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
@@ -565,5 +555,5 @@ export {
   updateGame,
   userInfo,
   writeDefaultconfig,
-  writeGameconfig
+  writeGameconfig,
 }
