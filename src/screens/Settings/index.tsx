@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+
+import { IpcRenderer } from 'electron'
 import { useTranslation } from 'react-i18next'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
 
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
@@ -11,7 +13,6 @@ import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
-import { IpcRenderer } from 'electron'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 import './index.css'
 
@@ -60,6 +61,11 @@ function Settings() {
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
   const {
+    on: offlineMode,
+    toggle: toggleOffline,
+    setOn: setShowOffline,
+  } = useToggle(false)
+  const {
     on: audioFix,
     toggle: toggleAudioFix,
     setOn: setAudioFix,
@@ -107,6 +113,7 @@ function Settings() {
       )
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
+      setShowOffline(config.offlineMode || false)
       setAudioFix(config.audioFix || false)
       setShowMangoHud(config.showMangohud || false)
       setDefaultInstallPath(config.defaultInstallPath)
@@ -151,6 +158,7 @@ function Settings() {
       useGameMode,
       egsLinkedPath,
       showFps,
+      offlineMode,
       exitToTray,
       audioFix,
       showMangohud,
@@ -170,6 +178,7 @@ function Settings() {
       useGameMode,
       savesPath,
       showFps,
+      offlineMode,
       autoSyncSaves,
       audioFix,
       autoInstallDxvk,
@@ -260,6 +269,8 @@ function Settings() {
               toggleUseGameMode={toggleUseGameMode}
               showFps={showFps}
               toggleFps={toggleFps}
+              offlineMode={offlineMode}
+              toggleOffline={toggleOffline}
               audioFix={audioFix}
               toggleAudioFix={toggleAudioFix}
               showMangohud={showMangohud}

@@ -1,5 +1,8 @@
 import axios from 'axios'
-import { exec, spawn } from 'child_process'
+import {
+  exec,
+  spawn
+} from 'child_process'
 import {
   app,
   BrowserWindow,
@@ -7,9 +10,8 @@ import {
   Menu,
   Notification,
   powerSaveBlocker,
-  Tray,
+  Tray
 } from 'electron'
-
 import isDev from 'electron-is-dev'
 import {
   existsSync,
@@ -17,11 +19,15 @@ import {
   readFileSync,
   unlinkSync,
   writeFile,
-  writeFileSync,
+  writeFileSync
 } from 'graceful-fs'
 import i18next from 'i18next'
 import Backend from 'i18next-fs-backend'
-import { cpus, userInfo as user } from 'os'
+import isOnline from 'is-online'
+import {
+  cpus,
+  userInfo as user
+} from 'os'
 import * as path from 'path'
 import { promisify } from 'util'
 
@@ -32,6 +38,7 @@ import {
   checkForUpdates,
   checkGameUpdates,
   discordLink,
+  errorHandler,
   getAlternativeWine,
   getLatestDxvk,
   getSettings,
@@ -47,13 +54,12 @@ import {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
-  errorHandler,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
   updateGame,
   userInfo,
-  writeGameconfig,
+  writeGameconfig
 } from './utils'
 
 const execAsync = promisify(exec)
@@ -238,7 +244,7 @@ ipcMain.handle('checkVersion', () => checkForUpdates())
 ipcMain.handle('writeFile', (event, args) => {
   const app = args[0]
   const config = args[1]
-  if (args[0] === 'default') {
+  if (app === 'default') {
     return writeFile(
       heroicConfigPath,
       JSON.stringify(config, null, 2),
@@ -295,6 +301,9 @@ const getProductSlug = async (namespace: string, game: string) => {
 }
 
 ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
+  if (!(await isOnline())) {
+    return {}
+  }
   let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
     .language
   if (lang === 'pt') {
@@ -367,6 +376,10 @@ ipcMain.handle('install', async (event, args) => {
 })
 
 ipcMain.handle('repair', async (event, game) => {
+  if (!(await isOnline())) {
+    console.log(`App offline, skipping repair for game '${game}'.`)
+    return
+  }
   const { maxWorkers } = await getSettings('default')
   const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
@@ -548,6 +561,11 @@ ipcMain.on('removeFolder', async (e, args: string[]) => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
+  if (!(await isOnline())) {
+    console.log(`App offline, skipping syncing saves for game '${appName}'.`)
+    return
+  }
+
   const fixedPath = path.replaceAll("'", '')
   const command = `${legendaryBin} sync-saves --save-path "${fixedPath}" ${arg} ${appName} -y`
   const legendarySavesPath = `${home}/legendary/.saves`

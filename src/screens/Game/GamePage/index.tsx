@@ -61,7 +61,7 @@ export default function GamePage(): JSX.Element | null {
   const [gameInfo, setGameInfo] = useState({} as Game)
   const [progress, setProgress] = useState({
     percent: '0.00%',
-    bytes: '0/0MB',
+    bytes: '0.00MiB',
     eta: '00:00:00',
   } as InstallProgress)
   const [installPath, setInstallPath] = useState('default')

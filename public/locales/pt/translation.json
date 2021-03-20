@@ -136,6 +136,7 @@
       "upload": "Upload"
     },
     "maxworkers": "CPUs máximos utilizados ao baixar jogos",
+    "offlinemode": "Executar o jogo offline",
     "runexe": {
       "message": "Arraste e Solte arquivos aqui",
       "title": "Executar EXE no Prefixo"

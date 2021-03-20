@@ -136,6 +136,7 @@
       "upload": "Upload"
     },
     "maxworkers": "Número máximo de descargas",
+    "offlinemode": "Ejecutar juego sin conexión",
     "runexe": {
       "message": "Arrastra y suelta archivos aquí",
       "title": "Ejecutar EXE en Prefix"

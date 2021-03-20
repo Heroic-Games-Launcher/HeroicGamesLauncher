@@ -50,7 +50,7 @@ export default function WineSettings({
     }
     getAltWine()
     setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
-  }, [altWine])
+  }, [customWinePaths])
 
   const { t } = useTranslation()
 

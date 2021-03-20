@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react'
+
 import { useTranslation } from 'react-i18next'
 
 import InfoBox from 'src/components/UI/InfoBox'
@@ -11,6 +12,8 @@ interface Props {
   toggleUseGameMode: () => void
   showFps: boolean
   toggleFps: () => void
+  offlineMode : boolean
+  toggleOffline : () => void
   launcherArgs: string
   setLauncherArgs: (value: string) => void
   audioFix: boolean
@@ -27,6 +30,8 @@ export default function OtherSettings({
   toggleUseGameMode,
   showFps,
   toggleFps,
+  offlineMode,
+  toggleOffline,
   launcherArgs,
   setLauncherArgs,
   audioFix,
@@ -47,6 +52,12 @@ export default function OtherSettings({
         <span className="toggleWrapper">
           {t('setting.showfps')}
           <ToggleSwitch value={showFps} handleChange={toggleFps} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.offlinemode')}
+          <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
         </span>
       </span>
       <span className="setting">
