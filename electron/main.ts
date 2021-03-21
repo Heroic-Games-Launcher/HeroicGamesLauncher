@@ -55,6 +55,7 @@ import {
   legendaryConfigPath,
   loginUrl,
   openUrlOrFile,
+  shell,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
@@ -369,7 +370,7 @@ ipcMain.handle('install', async (event, args) => {
   }
   console.log(`Installing ${game} with:`, command)
   try {
-    await execAsync(command, { shell: '/bin/bash' })
+    await execAsync(command, { shell: shell })
     console.log('finished installing')
   } catch (error) {
     return errorHandler(logPath)
@@ -388,7 +389,7 @@ ipcMain.handle('repair', async (event, game) => {
   const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
 
   console.log(`Repairing ${game} with:`, command)
-  await execAsync(command, { shell: '/bin/bash' })
+  await execAsync(command, { shell: shell })
     .then(() => console.log('finished repairing'))
     .catch(console.log)
 })
@@ -396,7 +397,7 @@ ipcMain.handle('repair', async (event, game) => {
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const command = `${legendaryBin} import-game ${game} '${path}'`
-  const { stderr, stdout } = await execAsync(command, { shell: '/bin/bash' })
+  const { stderr, stdout } = await execAsync(command, { shell: shell })
   console.log(`${stdout} - ${stderr}`)
   return
 })

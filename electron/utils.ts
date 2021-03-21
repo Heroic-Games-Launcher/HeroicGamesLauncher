@@ -44,6 +44,7 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
+const shell = process.platform === 'darwin' ? '/bin/zsh' : '/bin/bash'
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
@@ -179,7 +180,7 @@ const updateGame = async (game: string) => {
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
 
   try {
-    await execAsync(command, { shell: '/bin/bash' })
+    await execAsync(command, { shell: shell })
   } catch (error) {
     return errorHandler(logPath)
   }
@@ -368,7 +369,7 @@ async function installDxvk(prefix: string) {
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${winePrefix}`, installCommand)
   await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
-  await execAsync(installCommand, { shell: '/bin/bash' })
+  await execAsync(installCommand, { shell: shell })
     .then(() => exec(echoCommand))
     .catch(() =>
       console.log(
@@ -563,6 +564,7 @@ export {
   legendaryConfigPath,
   loginUrl,
   openUrlOrFile,
+  shell,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
