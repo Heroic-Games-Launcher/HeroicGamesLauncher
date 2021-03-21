@@ -25,7 +25,7 @@ const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
-const heroicFolder = `${home}/.config/heroic/`
+const heroicFolder = process.platform === 'darwin' ? `${home}/Library/Application Support/heroic/` : `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
