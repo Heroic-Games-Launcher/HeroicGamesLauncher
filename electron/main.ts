@@ -362,7 +362,7 @@ ipcMain.handle('install', async (event, args) => {
   const { defaultInstallPath, maxWorkers } = await getSettings('default')
   const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
-  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const logPath = `"${heroicGamesConfigPath}${game}.log"`
   let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
   if (path === 'default') {
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
@@ -384,7 +384,7 @@ ipcMain.handle('repair', async (event, game) => {
   const { maxWorkers } = await getSettings('default')
   const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
-  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const logPath = `"${heroicGamesConfigPath}${game}.log"`
   const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
 
   console.log(`Repairing ${game} with:`, command)
@@ -406,7 +406,7 @@ ipcMain.handle('updateGame', (e, appName) =>
 )
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `${heroicGamesConfigPath}${appName}.log`
+  const logPath = `"${heroicGamesConfigPath}${appName}.log"`
   const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
   const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
   const { stdout: progress_result } = await execAsync(progress_command)

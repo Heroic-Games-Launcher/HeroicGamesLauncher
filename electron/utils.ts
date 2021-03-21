@@ -175,7 +175,7 @@ const updateGame = async (game: string) => {
     console.log(`App offline, skipping update for game '${game}'.`)
     return
   }
-  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const logPath = `"${heroicGamesConfigPath}${game}.log"`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
 
   try {
@@ -319,10 +319,10 @@ async function getLatestDxvk() {
     return
   }
 
-  const downloadCommand = `curl -L ${downloadUrl} -o ${dxvkLatest} --create-dirs`
-  const extractCommand = `tar -zxf ${dxvkLatest} -C ${heroicToolsPath}/DXVK/`
-  const echoCommand = `echo ${name} > ${heroicToolsPath}/DXVK/latest_dxvk`
-  const cleanCommand = `rm ${dxvkLatest}`
+  const downloadCommand = `curl -L ${downloadUrl} -o "${dxvkLatest}" --create-dirs`
+  const extractCommand = `tar -zxf "${dxvkLatest}" -C "${heroicToolsPath}/DXVK/"`
+  const echoCommand = `echo ${name} > "${heroicToolsPath}/DXVK/latest_dxvk"`
+  const cleanCommand = `rm "${dxvkLatest}"`
 
   console.log('Updating DXVK to:', name)
 
