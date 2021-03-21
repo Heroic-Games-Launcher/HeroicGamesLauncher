@@ -1,24 +1,11 @@
-import React, {
-  useEffect,
-  useState
-} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { IpcRenderer } from 'electron'
-import {
-  NavLink,
-  useLocation,
-  useParams
-} from 'react-router-dom'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import {
-  AppSettings,
-  WineProps
-} from '../../types'
-import {
-  getGameInfo,
-  writeConfig
-} from '../../helper'
+import { AppSettings, WineProps } from '../../types'
+import { getGameInfo, writeConfig } from '../../helper'
 import { useToggle } from '../../hooks'
 import GeneralSettings from './GeneralSettings'
 import Header from '../UI/Header'
@@ -62,7 +49,7 @@ function Settings() {
   const [maxWorkers, setMaxWorkers] = useState(0)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [language, setLanguage] = useState(
-    () => storage.getItem('language') || ''
+    () => storage.getItem('language') || 'en'
   )
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
@@ -72,7 +59,11 @@ function Settings() {
     setOn: setUseGameMode
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
-  const { on: offlineMode, toggle: toggleOffline, setOn: setShowOffline } = useToggle(false)
+  const {
+    on: offlineMode,
+    toggle: toggleOffline,
+    setOn: setShowOffline
+  } = useToggle(false)
   const {
     on: audioFix,
     toggle: toggleAudioFix,
