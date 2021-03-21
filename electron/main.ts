@@ -54,6 +54,7 @@ import {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
+  openUrlOrFile,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
@@ -147,13 +148,13 @@ const contextMenu = () =>
     },
     {
       click: function () {
-        exec(`xdg-open ${heroicGithubURL}`)
+        openUrlOrFile(heroicGithubURL)
       },
       label: 'Github'
     },
     {
       click: function () {
-        exec(`xdg-open ${supportURL}`)
+        openUrlOrFile(supportURL)
       },
       label: i18next.t('tray.support', 'Support Us')
     },
@@ -233,11 +234,11 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-ipcMain.on('openSupportPage', () => exec(`xdg-open ${supportURL}`))
+ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 
 ipcMain.handle('checkGameUpdates', () => checkGameUpdates())
 
-ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
+ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
@@ -425,7 +426,7 @@ ipcMain.on('kill', (event, game) => {
   return spawn('pkill', ['-f', game])
 })
 
-ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
+ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
 
 ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
@@ -472,14 +473,14 @@ ipcMain.handle('requestSettings', async (event, appName) => {
 //Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', () => isLoggedIn())
 
-ipcMain.on('openLoginPage', () => spawn('xdg-open', [loginUrl]))
+ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 
-ipcMain.on('openDiscordLink', () => spawn('xdg-open', [discordLink]))
+ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 
-ipcMain.on('openSidInfoPage', () => spawn('xdg-open', [sidInfoUrl]))
+ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('getLog', (event, appName) =>
-  spawn('xdg-open', [`${heroicGamesConfigPath}/${appName}-lastPlay.log`])
+  openUrlOrFile(`${heroicGamesConfigPath}/${appName}-lastPlay.log`)
 )
 
 const installed = `${legendaryConfigPath}/installed.json`

@@ -530,6 +530,14 @@ function genericErrorMessage(): void {
   )
 }
 
+function openUrlOrFile(url: string): void {
+  if (process.platform === 'darwin') {
+    exec(`open ${url}`)
+  } else {
+    exec(`xdg-open ${url}`)
+  }
+}
+
 export {
   checkForUpdates,
   checkGameUpdates,
@@ -554,6 +562,7 @@ export {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
+  openUrlOrFile,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
