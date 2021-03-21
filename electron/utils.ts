@@ -119,9 +119,11 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     })
   })
 
-  getSettings().then(({ customWinePaths }) => {
+  // skips this on new installations to avoid infinite loops
+  if (existsSync(heroicConfigPath)) {
+    const { customWinePaths } = await getSettings('default')
     if (customWinePaths.length) {
-      customWinePaths.forEach((path) => {
+      customWinePaths.forEach((path: string) => {
         if (path.endsWith('proton')) {
           return customPaths.add({
             name: `Proton Custom - ${path}`,
@@ -134,7 +136,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
         })
       })
     }
-  })
+  }
 
   return [defaultWine, ...altWine, ...proton, ...customPaths]
 }
@@ -444,16 +446,19 @@ async function checkForUpdates() {
     console.log('Version check failed, app is offline.')
     return false
   }
-  const {
-    data: { tag_name },
-  } = await axios.default.get(
-    'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
-  )
+  try {
+    const {
+      data: { tag_name },
+    } = await axios.default.get(
+      'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
+    )
+    const newVersion = tag_name.replace('v', '').replaceAll('.', '')
+    const currentVersion = app.getVersion().replaceAll('.', '')
 
-  const newVersion = tag_name.replace('v', '').replaceAll('.', '')
-  const currentVersion = app.getVersion().replaceAll('.', '')
-
-  return newVersion > currentVersion
+    return newVersion > currentVersion
+  } catch (error) {
+    console.log('Could not check for new version of heroic')
+  }
 }
 
 const showAboutWindow = () => {
