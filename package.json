@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -132,7 +132,7 @@
       "post-checkout": "yarn",
       "post-merge": "yarn",
       "post-rebase": "yarn",
-      "pre-push": "yarn lint && pretty-quick --staged lint-staged",
+      "pre-push": "yarn lint-fix && pretty-quick --staged lint-staged",
       "pre-commit": "yarn lint-fix"
     }
   },
