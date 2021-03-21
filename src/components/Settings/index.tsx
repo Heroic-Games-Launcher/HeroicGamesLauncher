@@ -4,28 +4,28 @@ import React, {
 } from 'react'
 
 import { IpcRenderer } from 'electron'
-import { useTranslation } from 'react-i18next'
 import {
   NavLink,
   useLocation,
   useParams
 } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
+import {
+  AppSettings,
+  WineProps
+} from '../../types'
 import {
   getGameInfo,
   writeConfig
 } from '../../helper'
 import { useToggle } from '../../hooks'
-import {
-  AppSettings,
-  WineProps
-} from '../../types'
-import Header from '../UI/Header'
-import UpdateComponent from '../UI/UpdateComponent'
 import GeneralSettings from './GeneralSettings'
+import Header from '../UI/Header'
 import OtherSettings from './OtherSettings'
 import SyncSaves from './SyncSaves'
 import Tools from './Tools'
+import UpdateComponent from '../UI/UpdateComponent'
 import WineSettings from './WineSettings'
 
 interface ElectronProps {
@@ -50,8 +50,8 @@ function Settings() {
   const { state } = useLocation() as { state: LocationState }
 
   const [wineVersion, setWineversion] = useState({
-    name: 'Wine Default',
     bin: '/usr/bin/wine',
+    name: 'Wine Default'
   } as WineProps)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
@@ -69,39 +69,39 @@ function Settings() {
   const {
     on: useGameMode,
     toggle: toggleUseGameMode,
-    setOn: setUseGameMode,
+    setOn: setUseGameMode
   } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
   const { on: offlineMode, toggle: toggleOffline, setOn: setShowOffline } = useToggle(false)
   const {
     on: audioFix,
     toggle: toggleAudioFix,
-    setOn: setAudioFix,
+    setOn: setAudioFix
   } = useToggle(false)
   const {
     on: showMangohud,
     toggle: toggleMangoHud,
-    setOn: setShowMangoHud,
+    setOn: setShowMangoHud
   } = useToggle(false)
   const {
     on: exitToTray,
     toggle: toggleTray,
-    setOn: setExitToTray,
+    setOn: setExitToTray
   } = useToggle(false)
   const {
     on: darkTrayIcon,
     toggle: toggleDarkTrayIcon,
-    setOn: setDarkTrayIcon,
+    setOn: setDarkTrayIcon
   } = useToggle(false)
   const {
     on: autoInstallDxvk,
     toggle: toggleAutoInstallDxvk,
-    setOn: setAutoInstallDxvk,
+    setOn: setAutoInstallDxvk
   } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
-    saveFolder: '',
+    saveFolder: ''
   })
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineProps[])
@@ -143,7 +143,7 @@ function Settings() {
         const {
           cloudSaveEnabled,
           saveFolder,
-          title: gameTitle,
+          title: gameTitle
         } = await getGameInfo(appName)
         setTitle(gameTitle)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
@@ -159,39 +159,39 @@ function Settings() {
 
   const GlobalSettings = {
     defaultSettings: {
-      defaultInstallPath,
-      wineVersion,
-      winePrefix,
-      otherOptions,
-      useGameMode,
-      egsLinkedPath,
-      showFps,
-      offlineMode,
-      exitToTray,
       audioFix,
-      showMangohud,
-      language,
-      darkTrayIcon,
-      maxWorkers,
       customWinePaths,
-    } as AppSettings,
+      darkTrayIcon,
+      defaultInstallPath,
+      egsLinkedPath,
+      exitToTray,
+      language,
+      maxWorkers,
+      offlineMode,
+      otherOptions,
+      showFps,
+      showMangohud,
+      useGameMode,
+      winePrefix,
+      wineVersion
+    } as AppSettings
   }
 
   const GameSettings = {
     [appName]: {
-      wineVersion,
-      winePrefix,
-      otherOptions,
-      launcherArgs,
-      useGameMode,
-      savesPath,
-      showFps,
-      offlineMode,
-      autoSyncSaves,
       audioFix,
       autoInstallDxvk,
+      autoSyncSaves,
+      launcherArgs,
+      offlineMode,
+      otherOptions,
+      savesPath,
+      showFps,
       showMangohud,
-    } as AppSettings,
+      useGameMode,
+      winePrefix,
+      wineVersion
+    } as AppSettings
   }
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings

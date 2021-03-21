@@ -1,38 +1,38 @@
 /* eslint-disable complexity */
-import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import ContextProvider from '../../state/ContextProvider'
-import { GameStatus } from '../../types'
-import { getProgress, sendKill, launch, updateGame } from '../../helper'
-import { handleInstall } from '../utls'
 import { ReactComponent as DownIcon } from '../../assets/down-icon.svg'
+import { GameStatus } from '../../types'
+import { Link } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from '../../assets/play-icon.svg'
+import { ReactComponent as SettingsIcon } from '../../assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from '../../assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from '../../assets/stop-icon-alt.svg'
-import { ReactComponent as SettingsIcon } from '../../assets/settings-sharp.svg'
+import { getProgress, launch, sendKill, updateGame } from '../../helper'
+import { handleInstall } from '../utls'
+import { useTranslation } from 'react-i18next'
+import ContextProvider from '../../state/ContextProvider'
 import NewReleasesIcon from '@material-ui/icons/NewReleases'
+import React, { useContext, useEffect, useState } from 'react'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
-  dialog: { showMessageBox },
+  dialog: { showMessageBox }
 } = remote
 interface Card {
-  cover: string
-  coverList: string
-  logo: string
-  title: string
-  appName: string
-  isInstalled: boolean
+  appName: string,
+  cover: string,
+  coverList: string,
+  hasUpdate: boolean,
+  isInstalled: boolean,
+  logo: string,
+  size: string,
+  title: string,
   version: string
-  size: string
-  hasUpdate: boolean
 }
 
 interface InstallProgress {
+  bytes: string,
+  eta: string,
   percent: string
-  bytes: string
-  eta: string
 }
 
 const GameCard = ({
@@ -43,12 +43,12 @@ const GameCard = ({
   logo,
   coverList,
   size,
-  hasUpdate,
+  hasUpdate
 }: Card) => {
   const [progress, setProgress] = useState({
-    percent: '0.00%',
     bytes: '0/0MB',
     eta: '',
+    percent: '0.00%'
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
 
@@ -122,7 +122,7 @@ const GameCard = ({
         {haveStatus && <span className="progress">{getStatus()}</span>}
         <Link
           to={{
-            pathname: `/gameconfig/${appName}`,
+            pathname: `/gameconfig/${appName}`
           }}
         >
           <span
@@ -131,7 +131,7 @@ const GameCard = ({
                 grid ? cover : coverList
               }?h=400&resize=1&w=300')`,
               backgroundSize: 'cover',
-              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
             }}
             className={grid ? 'gameImg' : 'gameImgList'}
           >
@@ -140,7 +140,7 @@ const GameCard = ({
                 alt="logo"
                 src={`${logo}?h=400&resize=1&w=300`}
                 style={{
-                  filter: isInstalled ? 'none' : `grayscale(${effectPercent})`,
+                  filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
                 }}
                 className="gameLogo"
               />
@@ -155,7 +155,7 @@ const GameCard = ({
                 className="icons"
                 style={{
                   flexDirection: 'row',
-                  width: isInstalled ? '44%' : 'auto',
+                  width: isInstalled ? '44%' : 'auto'
                 }}
               >
                 {renderIcon()}
@@ -163,7 +163,7 @@ const GameCard = ({
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
-                      state: { fromGameCard: true },
+                      state: { fromGameCard: true }
                     }}
                   >
                     <SettingsIcon fill={'var(--secondary)'} />
@@ -183,7 +183,7 @@ const GameCard = ({
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
-                      state: { fromGameCard: true },
+                      state: { fromGameCard: true }
                     }}
                   >
                     <SettingsIcon fill={'var(--secondary)'} />
@@ -194,7 +194,7 @@ const GameCard = ({
           </>
         )}
       </div>
-      {!grid ? <hr style={{ width: '90%', opacity: 0.1 }} /> : ''}
+      {!grid ? <hr style={{ opacity: 0.1, width: '90%' }} /> : ''}
     </>
   )
 
@@ -202,10 +202,10 @@ const GameCard = ({
     if (!isInstalled) {
       return await handleInstall({
         appName,
-        isInstalling,
-        installPath: 'another',
         handleGameStatus,
-        t,
+        installPath: 'another',
+        isInstalling,
+        t
       })
     }
     if (status === 'playing' || status === 'updating') {
@@ -224,9 +224,9 @@ const GameCard = ({
         err.includes('ERROR: Game is out of date')
       ) {
         const { response } = await showMessageBox({
-          title: t('box.update.title'),
-          message: t('box.update.message'),
           buttons: [t('box.yes'), t('box.no')],
+          message: t('box.update.message'),
+          title: t('box.update.title')
         })
 
         if (response === 0) {

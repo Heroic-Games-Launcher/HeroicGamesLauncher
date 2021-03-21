@@ -19,7 +19,14 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "sort-imports-es6-autofix",
+    "sort-exports",
+    "sort-keys-fix",
+    "typescript-sort-keys"
+  ],
   "settings": {
     "react": {
       "version": "17.0"
@@ -27,8 +34,17 @@
   },
   "rules": {
     "complexity": "off",
+    "comma-dangle": ["error", "never"],
+    "no-trailing-spaces": "error",
+    "sort-keys-fix/sort-keys-fix": "error",
+    "typescript-sort-keys/interface": "error",
+    "sort-vars": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "sort-imports-es6-autofix/sort-imports-es6": [
+      "error", {}
+    ],
+    "sort-exports/sort-exports": ["error", {"sortDir": "asc"}]
   }
 }

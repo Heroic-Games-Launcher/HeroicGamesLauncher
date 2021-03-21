@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react'
 
 type Toggle = {
-  on: boolean
+  close: () => void,
+  on: boolean,
+  setOn: React.Dispatch<React.SetStateAction<boolean>>,
   toggle: () => void
-  close: () => void
-  setOn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export function useToggle(state = false): Toggle {
@@ -15,5 +15,5 @@ export function useToggle(state = false): Toggle {
     setOn((o) => !o)
   }, [setOn])
 
-  return { on, toggle, close, setOn }
+  return { close, on, setOn, toggle }
 }

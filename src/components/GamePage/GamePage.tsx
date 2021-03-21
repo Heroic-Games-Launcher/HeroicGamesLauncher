@@ -4,11 +4,12 @@ import '../../App.css'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 
 import { IpcRenderer, Remote } from 'electron'
-import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import Settings from '@material-ui/icons/Settings'
 
+import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
 import {
   fixSaveFolder,
   getGameInfo,
@@ -20,21 +21,20 @@ import {
   legendary,
   sendKill,
   syncSaves,
-  updateGame,
+  updateGame
 } from '../../helper'
 import ContextProvider from '../../state/ContextProvider'
-import { AppSettings, Game, GameStatus, InstallProgress } from '../../types'
+import GamesSubmenu from './GamesSubmenu'
 import Header from '../UI/Header'
 import InfoBox from '../UI/InfoBox'
 import UpdateComponent from '../UI/UpdateComponent'
-import GamesSubmenu from './GamesSubmenu'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
   remote: Remote
 }
 const {
-  dialog: { showOpenDialog, showMessageBox },
+  dialog: { showOpenDialog, showMessageBox }
 } = remote
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
@@ -51,7 +51,7 @@ export default function GamePage(): JSX.Element | null {
     libraryStatus,
     handleGameStatus,
     data,
-    gameUpdates,
+    gameUpdates
   } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -61,9 +61,9 @@ export default function GamePage(): JSX.Element | null {
 
   const [gameInfo, setGameInfo] = useState({} as Game)
   const [progress, setProgress] = useState({
-    percent: '0.00%',
     bytes: '0.00MiB',
     eta: '00:00:00',
+    percent: '0.00%'
   } as InstallProgress)
   const [installPath, setInstallPath] = useState('default')
   const [defaultPath, setDefaultPath] = useState('...')
@@ -87,7 +87,7 @@ export default function GamePage(): JSX.Element | null {
           autoSyncSaves,
           winePrefix,
           wineVersion,
-          savesPath,
+          savesPath
         }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
         const isProton = wineVersion?.name?.includes('Proton') || false
         setAutoSyncSaves(autoSyncSaves)
@@ -125,8 +125,8 @@ export default function GamePage(): JSX.Element | null {
 
         handleGameStatus({
           appName,
-          status,
           progress: getProgress(progress),
+          status
         })
       }
     }, 1500)
@@ -146,18 +146,18 @@ export default function GamePage(): JSX.Element | null {
       version,
       extraInfo,
       developer,
-      cloudSaveEnabled,
+      cloudSaveEnabled
     }: Game = gameInfo
 
     if (savesPath.includes('{InstallDir}')) {
       setSavesPath(savesPath.replace('{InstallDir}', install_path))
     }
 
-    /* 
+    /*
     Other Keys:
     t('box.stopInstall.title')
     t('box.stopInstall.message')
-    t('box.stopInstall.keepInstalling') 
+    t('box.stopInstall.keepInstalling')
     */
 
     return (
@@ -207,7 +207,7 @@ export default function GamePage(): JSX.Element | null {
                     {cloudSaveEnabled && (
                       <div
                         style={{
-                          color: autoSyncSaves ? '#07C5EF' : '',
+                          color: autoSyncSaves ? '#07C5EF' : ''
                         }}
                       >
                         {t('info.syncsaves')}:{' '}
@@ -244,9 +244,9 @@ export default function GamePage(): JSX.Element | null {
                     )}
                     <p
                       style={{
-                        fontStyle: 'italic',
                         color:
                           isInstalled || isInstalling ? '#0BD58C' : '#BD0A0A',
+                        fontStyle: 'italic'
                       }}
                     >
                       {getInstallLabel(isInstalled)}
@@ -438,9 +438,9 @@ export default function GamePage(): JSX.Element | null {
             err.includes('ERROR: Game is out of date')
           ) {
             const { response } = await showMessageBox({
-              title: t('box.update.title'),
-              message: t('box.update.message'),
               buttons: [t('box.yes'), t('box.no')],
+              message: t('box.update.message'),
+              title: t('box.update.title')
             })
 
             if (response === 0) {
@@ -493,9 +493,9 @@ export default function GamePage(): JSX.Element | null {
 
       if (installPath === 'import') {
         const { filePaths } = await showOpenDialog({
-          title: t('box.importpath'),
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
+          title: t('box.importpath')
         })
 
         if (filePaths[0]) {
@@ -508,9 +508,9 @@ export default function GamePage(): JSX.Element | null {
 
       if (installPath === 'another') {
         const { filePaths } = await showOpenDialog({
-          title: t('box.installpath'),
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
+          title: t('box.installpath')
         })
 
         if (filePaths[0]) {
@@ -529,10 +529,10 @@ export default function GamePage(): JSX.Element | null {
 
   async function handleUninstall() {
     const { response } = await showMessageBox({
-      type: 'warning',
-      title: t('box.uninstall.title'),
-      message: t('box.uninstall.message'),
       buttons: [t('box.yes'), t('box.no')],
+      message: t('box.uninstall.message'),
+      title: t('box.uninstall.title'),
+      type: 'warning'
     })
 
     if (response === 0) {

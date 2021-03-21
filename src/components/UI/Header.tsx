@@ -1,19 +1,19 @@
-import React, { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Link, useHistory } from 'react-router-dom'
-import ArrowBack from '@material-ui/icons/ArrowBack'
+import { useTranslation } from 'react-i18next'
 import Apps from '@material-ui/icons/Apps'
-import List from '@material-ui/icons/List'
-import cx from 'classnames'
+import ArrowBack from '@material-ui/icons/ArrowBack'
 import ContextProvider from '../../state/ContextProvider'
+import List from '@material-ui/icons/List'
+import React, { useContext } from 'react'
+import cx from 'classnames'
 
 interface Props {
-  renderBackButton: boolean
-  numberOfGames?: number
-  goTo: string | void | null
+  goTo: string | void | null,
+  handleFilter?: (value: string) => void,
+  handleLayout?: (value: string) => void,
+  numberOfGames?: number,
+  renderBackButton: boolean,
   title?: string
-  handleFilter?: (value: string) => void
-  handleLayout?: (value: string) => void
 }
 
 export default function Header({
@@ -22,7 +22,7 @@ export default function Header({
   handleFilter,
   handleLayout,
   goTo,
-  title,
+  title
 }: Props) {
   const { t } = useTranslation()
   const { filter, libraryStatus, layout } = useContext(ContextProvider)

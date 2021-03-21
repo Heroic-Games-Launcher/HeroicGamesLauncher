@@ -1,7 +1,7 @@
-import React, { lazy } from 'react'
-import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { createNewWindow } from '../helper'
+import { useTranslation } from 'react-i18next'
+import React, { lazy } from 'react'
 const SearchBar = lazy(() => import('./UI/SearchBar'))
 const UserSelector = lazy(() => import('./UI/UserSelector'))
 
@@ -32,7 +32,7 @@ export default function NavBar() {
           activeStyle={{ color: '#FFA800', fontWeight: 500 }}
           isActive={(match, location) => location.pathname.includes('settings')}
           to={{
-            pathname: '/settings/default/general',
+            pathname: '/settings/default/general'
           }}
         >
           {t('Settings')}

@@ -1,9 +1,9 @@
 import React from 'react';
 
 export enum FlagPosition {
+  APPEND = 'append',
   NONE = 'none',
-  PREPEND = 'prepend',
-  APPEND = 'append'
+  PREPEND = 'prepend'
 }
 
 interface Props {
@@ -13,37 +13,37 @@ interface Props {
   handleLanguageChange: (language: string) => void;
 }
 
-export default function LanguageSelector({ 
-  handleLanguageChange, 
-  currentLanguage = 'en', 
+export default function LanguageSelector({
+  handleLanguageChange,
+  currentLanguage = 'en',
   className = 'settingSelect',
-  flagPossition = FlagPosition.NONE,
+  flagPossition = FlagPosition.NONE
  }: Props) {
-   
+
   const languageLabels: {[key: string]: string} = {
-    'en': 'English',
-    'pt': 'Português',
     'de': 'Deutsch',
-    'fr': 'Français',
-    'ru': 'Русский',
-    'pl': 'Polski',
-    'tr': 'Türkçe',
-    'nl': 'Nederlands',
+    'en': 'English',
     'es': 'Español',
+    'fr': 'Français',
     'hu': 'Magyar',
+    'nl': 'Nederlands',
+    'pl': 'Polski',
+    'pt': 'Português',
+    'ru': 'Русский',
+    'tr': 'Türkçe'
   }
 
   const languageFlags: {[key: string]: string} = {
-    'en': '🇬🇧',
-    'pt': '🇵🇹',
     'de': '🇩🇪',
-    'fr': '🇫🇷',
-    'ru': '🇷🇺',
-    'pl': '🇵🇱',
-    'tr': '🇹🇷',
-    'nl': '🇳🇱',
+    'en': '🇬🇧',
     'es': '🇪🇸',
+    'fr': '🇫🇷',
     'hu': '🇭🇺',
+    'nl': '🇳🇱',
+    'pl': '🇵🇱',
+    'pt': '🇵🇹',
+    'ru': '🇷🇺',
+    'tr': '🇹🇷'
   }
 
   const renderOption = (lang: string)  => {
@@ -55,7 +55,7 @@ export default function LanguageSelector({
     return <option key={lang} value={lang}>{label}</option>
   }
   return (
-    <select 
+    <select
       onChange={(event) => handleLanguageChange(event.target.value)}
       className={className}
       value={currentLanguage}
