@@ -423,6 +423,9 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 })
 
 ipcMain.on('kill', (event, game) => {
+  // until the legendary bug gets fixed, kill legendary on mac
+  // not a perfect solution but it's the only choice for now
+  game = process.platform === 'darwin' ? 'legendary' : game
   console.log('killing', game)
   return spawn('pkill', ['-f', game])
 })
