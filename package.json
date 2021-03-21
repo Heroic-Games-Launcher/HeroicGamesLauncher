@@ -21,7 +21,8 @@
       "node_modules/**/*"
     ],
     "asarUnpack": [
-      "build/bin/legendary",
+      "build/bin/linux/legendary",
+      "build/bin/darwin/legendary",
       "build/icon.png",
       "build/icon-dark.png",
       "build/icon-light.png"
