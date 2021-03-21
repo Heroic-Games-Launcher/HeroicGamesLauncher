@@ -55,13 +55,13 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   ]
 
   if (!existsSync(`${heroicToolsPath}/wine`)) {
-    exec(`mkdir '${heroicToolsPath}/wine' -p`, () => {
+    exec(`mkdir -p '${heroicToolsPath}/wine'`, () => {
       return 'done'
     })
   }
 
   if (!existsSync(`${heroicToolsPath}/proton`)) {
-    exec(`mkdir '${heroicToolsPath}/proton' -p`, () => {
+    exec(`mkdir -p '${heroicToolsPath}/proton'`, () => {
       return 'done'
     })
   }
@@ -239,7 +239,7 @@ const launchGame = async (appName: string) => {
 
   // Proton doesn't create a prefix folder so this is a workaround
   if (isProton && !existsSync(fixedWinePrefix)) {
-    const command = `mkdir '${fixedWinePrefix}' -p`
+    const command = `mkdir -p '${fixedWinePrefix}'`
     await execAsync(command)
   }
 
