@@ -480,7 +480,7 @@ ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('getLog', (event, appName) =>
-  openUrlOrFile(`${heroicGamesConfigPath}/${appName}-lastPlay.log`)
+  openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
 )
 
 const installed = `${legendaryConfigPath}/installed.json`
