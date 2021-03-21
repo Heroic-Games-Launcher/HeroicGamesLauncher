@@ -119,7 +119,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     })
   })
 
-  await getSettings().then(({ customWinePaths }) => {
+  getSettings().then(({ customWinePaths }) => {
     if (customWinePaths.length) {
       customWinePaths.forEach((path) => {
         if (path.endsWith('proton')) {
