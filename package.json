@@ -60,6 +60,9 @@
     "classnames": "^2.2.6",
     "electron-is-dev": "^1.2.0",
     "electron-util": "^0.14.2",
+    "eslint-plugin-sort-exports": "^0.3.2",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.1",
     "i18next": "^19.8.7",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-fs-backend": "^1.0.8",
@@ -86,6 +89,7 @@
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
+    "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
     "i18n": "i18next"
@@ -115,6 +119,7 @@
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-typescript-sort-keys": "^1.5.0",
     "foreman": "^3.0.1",
     "husky": "^4.3.8",
     "i18next-parser": "^3.6.0",
@@ -126,7 +131,9 @@
     "hooks": {
       "post-checkout": "yarn",
       "post-merge": "yarn",
-      "pre-push": "yarn lint && pretty-quick --staged lint-staged"
+      "post-rebase": "yarn",
+      "pre-push": "yarn lint && pretty-quick --staged lint-staged",
+      "pre-commit": "yarn lint-fix"
     }
   },
   "browserslist": {

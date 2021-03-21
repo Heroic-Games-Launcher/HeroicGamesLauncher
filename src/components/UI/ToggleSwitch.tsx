@@ -1,9 +1,9 @@
 import React from 'react'
 
 interface Props {
-  handleChange: () => void
+  disabled?: boolean,
+  handleChange: () => void,
   value: boolean
-  disabled?: boolean
 }
 
 export default function ToggleSwitch({ handleChange, value, disabled }: Props) {

@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import AddBoxIcon from '@material-ui/icons/AddBox'
+import React, { useEffect, useState } from 'react'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
-import { WineProps, Path } from '../../types'
+import { Path, WineProps } from '../../types'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 const {
   ipcRenderer,
-  remote: { dialog },
+  remote: { dialog }
 } = window.require('electron')
 
 interface Props {
-  winePrefix: string
-  setWinePrefix: (value: string) => void
-  setWineversion: (wine: WineProps) => void
+  altWine: WineProps[],
+  autoInstallDxvk: boolean,
+  customWinePaths: string[],
+  isDefault: boolean,
+  setAltWine: (altWine: WineProps[]) => void,
+  setCustomWinePaths: (value: string[]) => void,
+  setWinePrefix: (value: string) => void,
+  setWineversion: (wine: WineProps) => void,
+  toggleAutoInstallDxvk: () => void,
+  winePrefix: string,
   wineVersion: WineProps
-  altWine: WineProps[]
-  setAltWine: (altWine: WineProps[]) => void
-  autoInstallDxvk: boolean
-  toggleAutoInstallDxvk: () => void
-  customWinePaths: string[]
-  setCustomWinePaths: (value: string[]) => void
-  isDefault: boolean
 }
 
 export default function WineSettings({
@@ -37,7 +37,7 @@ export default function WineSettings({
   autoInstallDxvk,
   customWinePaths,
   setCustomWinePaths,
-  isDefault,
+  isDefault
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
 
@@ -57,9 +57,9 @@ export default function WineSettings({
   function selectCustomPath() {
     dialog
       .showOpenDialog({
-        title: t('box.customWine', 'Select the Wine or Proton Binary'),
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
+        title: t('box.customWine', 'Select the Wine or Proton Binary')
       })
       .then(({ filePaths }: Path) => {
         if (!customWinePaths.includes(filePaths[0])) {
@@ -92,9 +92,9 @@ export default function WineSettings({
             onClick={() =>
               dialog
                 .showOpenDialog({
-                  title: t('box.wineprefix'),
                   buttonLabel: t('box.choose'),
                   properties: ['openDirectory'],
+                  title: t('box.wineprefix')
                 })
                 .then(({ filePaths }: Path) =>
                   setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')
@@ -125,7 +125,7 @@ export default function WineSettings({
                 onClick={() => removeCustomPath()}
                 style={{
                   color: selectedPath ? 'var(--danger)' : 'var(--background)',
-                  cursor: selectedPath ? 'pointer' : '',
+                  cursor: selectedPath ? 'pointer' : ''
                 }}
                 fontSize="large"
                 titleAccess={t('tooltip.removepath', 'Remove Path')}

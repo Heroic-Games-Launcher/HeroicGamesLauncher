@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { legendary, loginPage, sidInfoPage } from '../helper'
+import { useTranslation } from 'react-i18next'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
 import LanguageSelector, { FlagPosition } from './UI/LanguageSelector'
+import React, { useState } from 'react'
 const storage: Storage = window.localStorage
 interface Props {
   refresh: () => Promise<void>
@@ -15,7 +15,7 @@ export default function Login({ refresh }: Props) {
   const [input, setInput] = useState('')
   const [status, setStatus] = useState({
     loading: false,
-    message: '',
+    message: ''
   })
   const { loading, message } = status
 
@@ -29,14 +29,14 @@ export default function Login({ refresh }: Props) {
   const handleLogin = async (sid: string) => {
     setStatus({
       loading: true,
-      message: t('status.logging', 'Logging In...'),
+      message: t('status.logging', 'Logging In...')
     })
 
     await legendary(`auth --sid ${sid}`).then(async (res) => {
       if (res !== 'error') {
         setStatus({
           loading: true,
-          message: t('status.loading', 'Loading Game list, please wait'),
+          message: t('status.loading', 'Loading Game list, please wait')
         })
 
         await legendary(`list-games`)
@@ -117,11 +117,11 @@ export default function Login({ refresh }: Props) {
           </div>
           <span
             style={{
-              paddingRight: '22px',
-              marginBottom: '22px',
               display: 'flex',
               justifyContent: 'flex-end',
-              width: '100%',
+              marginBottom: '22px',
+              paddingRight: '22px',
+              width: '100%'
             }}
           >
             <LanguageSelector

@@ -1,18 +1,21 @@
-import axios from 'axios'
+import * as path from 'path'
+import {
+  BrowserWindow,
+  Menu,
+  Notification,
+  Tray,
+  app,
+  ipcMain,
+  powerSaveBlocker
+} from 'electron'
+import {
+  cpus,
+  userInfo as user
+} from 'os'
 import {
   exec,
   spawn
 } from 'child_process'
-import {
-  app,
-  BrowserWindow,
-  ipcMain,
-  Menu,
-  Notification,
-  powerSaveBlocker,
-  Tray
-} from 'electron'
-import isDev from 'electron-is-dev'
 import {
   existsSync,
   mkdirSync,
@@ -21,18 +24,15 @@ import {
   writeFile,
   writeFileSync
 } from 'graceful-fs'
-import i18next from 'i18next'
-import Backend from 'i18next-fs-backend'
-import isOnline from 'is-online'
-import {
-  cpus,
-  userInfo as user
-} from 'os'
-import * as path from 'path'
 import { promisify } from 'util'
+import Backend from 'i18next-fs-backend'
+import axios from 'axios'
+import i18next from 'i18next'
+import isDev from 'electron-is-dev'
+import isOnline from 'is-online'
 
-import { getLegendaryConfig } from './legendary_utils/library'
 import { Game } from './types.js'
+import { getLegendaryConfig } from './legendary_utils/library'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   checkForUpdates,
@@ -69,15 +69,15 @@ let mainWindow: BrowserWindow = null
 function createWindow(): BrowserWindow {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: isDev ? 1800 : 1280,
     height: isDev ? 1200 : 720,
     minHeight: 700,
     minWidth: 1200,
     webPreferences: {
-      nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
+      nodeIntegration: true
     },
+    width: isDev ? 1800 : 1280
   })
 
   setTimeout(() => {
@@ -134,42 +134,42 @@ const gotTheLock = app.requestSingleInstanceLock()
 const contextMenu = () =>
   Menu.buildFromTemplate([
     {
-      label: i18next.t('tray.show'),
       click: function () {
         mainWindow.show()
       },
+      label: i18next.t('tray.show')
     },
     {
-      label: i18next.t('tray.about', 'About'),
       click: function () {
         showAboutWindow()
       },
+      label: i18next.t('tray.about', 'About')
     },
     {
-      label: 'Github',
       click: function () {
         exec(`xdg-open ${heroicGithubURL}`)
       },
+      label: 'Github'
     },
     {
-      label: i18next.t('tray.support', 'Support Us'),
       click: function () {
         exec(`xdg-open ${supportURL}`)
       },
+      label: i18next.t('tray.support', 'Support Us')
     },
     {
-      label: i18next.t('tray.reload', 'Reload'),
+      accelerator: 'ctrl + R',
       click: function () {
         mainWindow.reload()
       },
-      accelerator: 'ctrl + R',
+      label: i18next.t('tray.reload', 'Reload')
     },
     {
-      label: i18next.t('tray.quit', 'Quit'),
       click: function () {
         handleExit()
       },
-    },
+      label: i18next.t('tray.quit', 'Quit')
+    }
   ])
 
 if (!gotTheLock) {
@@ -185,8 +185,14 @@ if (!gotTheLock) {
     const { language, darkTrayIcon } = await getSettings('default')
 
     await i18next.use(Backend).init({
-      lng: language,
+      backend: {
+        addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
+        allowMultiLoading: false,
+        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json')
+      },
+      debug: false,
       fallbackLng: 'en',
+      lng: language,
       supportedLngs: [
         'de',
         'en',
@@ -197,14 +203,8 @@ if (!gotTheLock) {
         'pt',
         'ru',
         'tr',
-        'hu',
-      ],
-      debug: false,
-      backend: {
-        allowMultiLoading: false,
-        addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
-        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
-      },
+        'hu'
+      ]
     })
 
     createWindow()
@@ -225,8 +225,8 @@ if (!gotTheLock) {
 
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
-    title: args[0],
     body: args[1],
+    title: args[0]
   })
 
   notify.on('click', () => mainWindow.show())
@@ -284,12 +284,12 @@ ipcMain.on('quit', async () => handleExit())
 const getProductSlug = async (namespace: string, game: string) => {
   const graphql = JSON.stringify({
     query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
-    variables: {},
+    variables: {}
   })
   const result = await axios('https://www.epicgames.com/graphql', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     data: graphql,
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST'
   })
   const res = result.data.data.Catalog.catalogOffers
   const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
@@ -319,8 +319,8 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
   }
   try {
     const response = await axios({
-      url: epicUrl,
       method: 'GET',
+      url: epicUrl
     })
     delete response.data.pages[0].data.requirements.systems[0].details[0]
     const about = response.data.pages.find(
@@ -328,7 +328,7 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
     )
     return {
       about: about.data.about,
-      reqs: about.data.requirements.systems[0].details,
+      reqs: about.data.requirements.systems[0].details
     }
   } catch (error) {
     return {}
@@ -413,7 +413,7 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   const [percent, eta] = progress_result.split(' ')
   const bytes = downloaded_result + 'MiB'
 
-  const progress = { percent, bytes, eta }
+  const progress = { bytes, eta, percent }
   console.log(
     `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
   )
@@ -431,10 +431,10 @@ ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
-  tool: string
+  exe: string,
+  prefix: string,
+  tool: string,
   wine: string
-  prefix: string
-  exe: string
 }
 
 ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
@@ -537,7 +537,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 
 ipcMain.handle('getUserInfo', () => {
   const { account_id } = JSON.parse(readFileSync(userInfo, 'utf-8'))
-  return { user: user().username, epicId: account_id }
+  return { epicId: account_id, user: user().username }
 })
 
 ipcMain.on('removeFolder', async (e, args: string[]) => {

@@ -1,9 +1,15 @@
-import React, { lazy, useContext } from 'react'
+import React, {
+  lazy,
+  useContext
+} from 'react'
+
 import cx from 'classnames'
+
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
-import ContextProvider from '../state/ContextProvider'
 
 import { Game } from '../types'
+import ContextProvider from '../state/ContextProvider'
+
 const GameCard = lazy(() => import('./UI/GameCard'))
 
 interface Props {
@@ -12,8 +18,8 @@ interface Props {
 
 window.onscroll = () => {
   const pageOffset =
-      document.documentElement.scrollTop || document.body.scrollTop,
-    btn = document.getElementById('backToTopBtn')
+      document.documentElement.scrollTop || document.body.scrollTop
+  const btn = document.getElementById('backToTopBtn')
   if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden'
 }
 
@@ -30,8 +36,8 @@ export const Library = ({ library }: Props) => {
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({
-          gameListLayout: layout !== 'grid',
           gameList: layout === 'grid',
+          gameListLayout: layout !== 'grid'
         })}
       >
         {!!library.length &&
@@ -45,7 +51,7 @@ export const Library = ({ library }: Props) => {
               isInstalled,
               version,
               install_size,
-              is_dlc,
+              is_dlc
             }: Game) => {
               if (is_dlc) {
                 return null
