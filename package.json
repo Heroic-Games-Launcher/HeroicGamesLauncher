@@ -132,7 +132,7 @@
       "post-checkout": "yarn",
       "post-merge": "yarn",
       "post-rebase": "yarn",
-      "pre-push": "yarn lint-fix && pretty-quick --staged lint-staged",
+      "pre-push": "yarn lint && pretty-quick --staged lint-staged",
       "pre-commit": "yarn lint-fix"
     }
   },
