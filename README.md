@@ -96,7 +96,7 @@ Otherwise you can install it via your prefered AUR helper, e.g. yay.
 
 ### Fedora
 
-Heroic for Fedora is available on [the COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/) or the binary on the releases page
+Heroic for Fedora is available on [the COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/) or as the binary on the releases page.
 
 ### Other Distributions
 
