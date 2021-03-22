@@ -34,7 +34,7 @@ export const Library = ({ library }: Props) => {
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({
           gameList: layout === 'grid',
-          gameListLayout: layout !== 'grid'
+          gameListLayout: layout !== 'grid',
         })}
       >
         {!!library.length &&
@@ -48,7 +48,7 @@ export const Library = ({ library }: Props) => {
               isInstalled,
               version,
               install_size,
-              is_dlc
+              is_dlc,
             }: Game) => {
               if (is_dlc) {
                 return null

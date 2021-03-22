@@ -34,7 +34,6 @@
   },
   "rules": {
     "complexity": "off",
-    "comma-dangle": ["error", "never"],
     "no-trailing-spaces": "error",
     "sort-keys-fix/sort-keys-fix": "error",
     "typescript-sort-keys/interface": "error",

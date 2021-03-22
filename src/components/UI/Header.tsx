@@ -22,7 +22,7 @@ export default function Header({
   handleFilter,
   handleLayout,
   goTo,
-  title
+  title,
 }: Props) {
   const { t } = useTranslation()
   const { filter, libraryStatus, layout } = useContext(ContextProvider)

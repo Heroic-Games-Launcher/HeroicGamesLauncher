@@ -13,7 +13,7 @@ import UpdateComponent from './components/UI/UpdateComponent'
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
   allowMultiLoading: false,
-  loadPath: 'locales/{{lng}}/{{ns}}.json'
+  loadPath: 'locales/{{lng}}/{{ns}}.json',
 })
 
 i18next
@@ -27,13 +27,13 @@ i18next
   .init({
     fallbackLng: 'en',
     interpolation: {
-      escapeValue: false
+      escapeValue: false,
     },
     lng: 'en',
     react: {
-      useSuspense: true
+      useSuspense: true,
     },
-    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu']
+    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
   })
 
 ReactDOM.render(

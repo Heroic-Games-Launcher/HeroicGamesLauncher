@@ -38,7 +38,7 @@ export default function OtherSettings({
   toggleAudioFix,
   showMangohud,
   toggleMangoHud,
-  isDefault
+  isDefault,
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)

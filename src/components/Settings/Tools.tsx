@@ -4,7 +4,7 @@ import React from 'react'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
-  dialog: { showOpenDialog }
+  dialog: { showOpenDialog },
 } = remote
 
 interface Props {
@@ -20,7 +20,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
       exe,
       prefix: winePrefix,
       tool,
-      wine: wineVersion.bin
+      wine: wineVersion.bin,
     })
 
   const handleRunExe = async () => {
@@ -29,7 +29,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
       buttonLabel: t('box.select'),
       filters: ['exe', 'msi'],
       properties: ['openFile'],
-      title: t('box.runexe.title')
+      title: t('box.runexe.title'),
     })
     if (filePaths[0]) {
       exe = filePaths[0]
