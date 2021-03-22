@@ -6,23 +6,28 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ### [Discord Server](https://discord.gg/rHJ2uqdquK)
 
-### [Design based on the UI/UX Research by Biliane Moreira ](https://bilianemoreira.com/heroic-game-launcher-for-linux)
+### [Design based on the UI/UX Research by Biliane Moreira](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
-## Current Version Screenshots
+## Index
 
-![image](https://user-images.githubusercontent.com/26871415/108600496-bcd0f980-7397-11eb-86d0-95e4f9aa6125.png)
-![image](https://user-images.githubusercontent.com/26871415/108600444-898e6a80-7397-11eb-961e-b8ee5ad5e3a3.png)
-![image](https://user-images.githubusercontent.com/26871415/108600533-f6096980-7397-11eb-8272-5105f75d92c8.png)
-![image](https://user-images.githubusercontent.com/26871415/108600451-8eebb500-7397-11eb-966a-70849a589902.png)
-![image](https://user-images.githubusercontent.com/26871415/108600462-a460df00-7397-11eb-8a42-cde5b9b2744c.png)
-![image](https://user-images.githubusercontent.com/26871415/108600516-e2f69980-7397-11eb-8b96-513729859b86.png)
+- [How to use it](#how-to-use-it)
+- [Feature available right now](#feature-available-right-now)
+- [Planned features](#planned-features)
+- [Language Support](#language-support)
+- [Installation](#installation)
+  - [Debian](#debian)
+  - [Arch (Aur)](#arch-aur)
+  - [Fedora](#fedora)
+  - [Other Distributions](#other-distributions)
+  - [Build, install and run locally](#build-install-and-run-locally)
+- [Current Version Screenshots](#current-version-screenshots)
 
-## How to use it:
+## How to use it
 
 - Download and install the package for your distro or the universal AppImage file on the Releases Page;
 - If you used Legendary before, it loads your library and installed games. If not, it will ask you to login first. Just follow the instructions.
 
-## Feature availables right now
+## Feature available right now
 
 - Login with an existing Epic Games account
 - Install/Uninstall Games
@@ -61,21 +66,75 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Spanish
 - Hungarian
 
-## Binaries supported right now
+## Installation
 
-- DEB, RPM and AppImage
-- Recommended AUR version: https://aur.archlinux.org/packages/heroic-games-launcher-bin/
-- Fedora (COPR): https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/
-- Might think about Flatpak And/Or SNAP in the future as well
+### Debian
 
-## How to build and run locally
+Download the `heroic_x.x.x_amd64.deb` from the Releases section
 
-To be able to run you will need to have NodeJS installed locally and follow the instructions below:
+```bash
+sudo dpkg -i heroic_x.x.x_amd64.deb
+```
 
-### Steps:
+### Arch (AUR)
 
-- Clone the Repository.
-- On the project folder run `yarn install`.
-- Run `yarn build` to build the React Assets.
-- Run `yarn start`.
-- To build the binaries run `yarn dist {package to create}`.
+[![AUR version](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat-square)](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
+
+AUR page: [https://aur.archlinux.org/packages/heroic-games-launcher-bin/](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
+
+To install it manually use:
+
+```bash
+git clone https://aur.archlinux.org/heroic-games-launcher-bin.git
+
+cd heroic-games-launcher-bin
+
+makepkg --cleanbuild --syncdeps --install --clean --rmdeps
+```
+
+Otherwise you can install it via your prefered AUR helper, e.g. yay.
+
+### Fedora
+
+Heroic for Fedora is available on [the COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/) or the binary on the releases page
+
+### Other Distributions
+
+Download the `heroic-x.x.x.AppImage` from the Releases section.
+
+To make it executable use:
+
+```bash
+chmod +x heroic-x.x.x.AppImage
+```
+
+To run it use:
+
+```bash
+./heroic-x.x.x.AppImage
+```
+
+### Build, install and run locally
+
+Requires NodeJS to build
+
+```bash
+git clone https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher.git
+
+cd HeroicGamesLauncher
+
+yarn
+
+yarn start
+
+yarn dist {package to create}
+```
+
+## Current Version Screenshots
+
+![image](https://user-images.githubusercontent.com/26871415/108600496-bcd0f980-7397-11eb-86d0-95e4f9aa6125.png)
+![image](https://user-images.githubusercontent.com/26871415/108600444-898e6a80-7397-11eb-961e-b8ee5ad5e3a3.png)
+![image](https://user-images.githubusercontent.com/26871415/108600533-f6096980-7397-11eb-8272-5105f75d92c8.png)
+![image](https://user-images.githubusercontent.com/26871415/108600451-8eebb500-7397-11eb-966a-70849a589902.png)
+![image](https://user-images.githubusercontent.com/26871415/108600462-a460df00-7397-11eb-8a42-cde5b9b2744c.png)
+![image](https://user-images.githubusercontent.com/26871415/108600516-e2f69980-7397-11eb-8b96-513729859b86.png)
