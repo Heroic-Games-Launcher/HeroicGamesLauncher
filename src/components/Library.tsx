@@ -1,7 +1,4 @@
-import React, {
-  lazy,
-  useContext
-} from 'react'
+import React, { lazy, useContext } from 'react'
 
 import cx from 'classnames'
 
@@ -18,7 +15,7 @@ interface Props {
 
 window.onscroll = () => {
   const pageOffset =
-      document.documentElement.scrollTop || document.body.scrollTop
+    document.documentElement.scrollTop || document.body.scrollTop
   const btn = document.getElementById('backToTopBtn')
   if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden'
 }

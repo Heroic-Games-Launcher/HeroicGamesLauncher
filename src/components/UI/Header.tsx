@@ -8,11 +8,11 @@ import React, { useContext } from 'react'
 import cx from 'classnames'
 
 interface Props {
-  goTo: string | void | null,
-  handleFilter?: (value: string) => void,
-  handleLayout?: (value: string) => void,
-  numberOfGames?: number,
-  renderBackButton: boolean,
+  goTo: string | void | null
+  handleFilter?: (value: string) => void
+  handleLayout?: (value: string) => void
+  numberOfGames?: number
+  renderBackButton: boolean
   title?: string
 }
 

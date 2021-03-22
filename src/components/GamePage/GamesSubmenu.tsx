@@ -19,8 +19,8 @@ const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   appName: string
-  clicked: boolean,
-  isInstalled: boolean,
+  clicked: boolean
+  isInstalled: boolean
   title: string
 }
 

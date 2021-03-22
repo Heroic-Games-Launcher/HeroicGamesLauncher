@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 
 import { Path, SyncType } from '../../types'
 import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
-import Backspace from '@material-ui/icons/Backspace';
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+import Backspace from '@material-ui/icons/Backspace'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 
@@ -13,13 +13,13 @@ const {
 } = window.require('electron')
 
 interface Props {
-  appName: string,
-  autoSyncSaves: boolean,
-  defaultFolder: string,
-  isProton: boolean,
-  savesPath: string,
-  setAutoSyncSaves: (value: boolean) => void,
-  setSavesPath: (value: string) => void,
+  appName: string
+  autoSyncSaves: boolean
+  defaultFolder: string
+  isProton: boolean
+  savesPath: string
+  setAutoSyncSaves: (value: boolean) => void
+  setSavesPath: (value: string) => void
   winePrefix: string
 }
 
@@ -140,7 +140,11 @@ export default function SyncSaves({
               isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${isSyncing ? t('setting.manualsync.syncing') : t('setting.manualsync.sync')}`}
+            {`${
+              isSyncing
+                ? t('setting.manualsync.syncing')
+                : t('setting.manualsync.sync')
+            }`}
           </button>
         </span>
       </span>

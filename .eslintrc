@@ -42,9 +42,7 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "error",
-    "sort-imports-es6-autofix/sort-imports-es6": [
-      "error", {}
-    ],
-    "sort-exports/sort-exports": ["error", {"sortDir": "asc"}]
+    "sort-imports-es6-autofix/sort-imports-es6": ["error", {}],
+    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }]
   }
 }

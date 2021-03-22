@@ -1,13 +1,7 @@
-import {
-  IpcRenderer,
-  Remote
-} from 'electron'
+import { IpcRenderer, Remote } from 'electron'
 import { TFunction } from 'react-i18next'
 
-import {
-  Game,
-  InstallProgress
-} from './types'
+import { Game, InstallProgress } from './types'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -39,10 +33,8 @@ const launch = (args: string): Promise<string> =>
 const updateGame = (appName: string): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName)
 
-const notify = ([title, message]: [
-  title: string,
-  message: string
-]): void => ipcRenderer.send('Notify', [title, message])
+const notify = ([title, message]: [title: string, message: string]): void =>
+  ipcRenderer.send('Notify', [title, message])
 
 const loginPage = (): void => ipcRenderer.send('openLoginPage')
 
@@ -63,8 +55,7 @@ const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
 let progress: string
 
-const sendKill = (appName: string): void =>
-  ipcRenderer.send('kill', appName)
+const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
 
 const legendary = async (args: string): Promise<string> =>
   await ipcRenderer
@@ -97,7 +88,7 @@ const syncSaves = async (
 }
 
 const getLegendaryConfig = async (): Promise<{
-  library: Game[],
+  library: Game[]
   user: string
 }> => {
   const user: string = await readFile('user')

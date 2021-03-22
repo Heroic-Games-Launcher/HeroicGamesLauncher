@@ -8,7 +8,7 @@ const {
 } = remote
 
 interface Props {
-  winePrefix: string,
+  winePrefix: string
   wineVersion: WineProps
 }
 

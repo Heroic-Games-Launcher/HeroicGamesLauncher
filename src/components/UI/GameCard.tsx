@@ -18,20 +18,20 @@ const {
   dialog: { showMessageBox }
 } = remote
 interface Card {
-  appName: string,
-  cover: string,
-  coverList: string,
-  hasUpdate: boolean,
-  isInstalled: boolean,
-  logo: string,
-  size: string,
-  title: string,
+  appName: string
+  cover: string
+  coverList: string
+  hasUpdate: boolean
+  isInstalled: boolean
+  logo: string
+  size: string
+  title: string
   version: string
 }
 
 interface InstallProgress {
-  bytes: string,
-  eta: string,
+  bytes: string
+  eta: string
   percent: string
 }
 

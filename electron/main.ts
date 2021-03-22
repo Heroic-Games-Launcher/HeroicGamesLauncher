@@ -8,14 +8,8 @@ import {
   ipcMain,
   powerSaveBlocker
 } from 'electron'
-import {
-  cpus,
-  userInfo as user
-} from 'os'
-import {
-  exec,
-  spawn
-} from 'child_process'
+import { cpus, userInfo as user } from 'os'
+import { exec, spawn } from 'child_process'
 import {
   existsSync,
   mkdirSync,
@@ -431,9 +425,9 @@ ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
-  exe: string,
-  prefix: string,
-  tool: string,
+  exe: string
+  prefix: string
+  tool: string
   wine: string
 }
 

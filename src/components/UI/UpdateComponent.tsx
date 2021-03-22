@@ -1,5 +1,5 @@
-import React from 'react';
-import Update from '@material-ui/icons/Update';
+import React from 'react'
+import Update from '@material-ui/icons/Update'
 
 export default function UpdateComponent() {
   return (

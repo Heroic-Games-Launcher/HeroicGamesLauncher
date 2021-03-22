@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
 
 type Toggle = {
-  close: () => void,
-  on: boolean,
-  setOn: React.Dispatch<React.SetStateAction<boolean>>,
+  close: () => void
+  on: boolean
+  setOn: React.Dispatch<React.SetStateAction<boolean>>
   toggle: () => void
 }
 

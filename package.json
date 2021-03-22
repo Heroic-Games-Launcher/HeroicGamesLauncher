@@ -84,12 +84,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --check",
+    "prettier": "prettier --check .",
     "format-files": "prettier --write .",
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
-    "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
-    "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
+    "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron && pretty-quick --check",
+    "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron && pretty-quick --staged",
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
     "i18n": "i18next"
@@ -117,7 +117,7 @@
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^7.18.0",
-    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-typescript-sort-keys": "^1.5.0",
     "foreman": "^3.0.1",
@@ -131,8 +131,7 @@
     "hooks": {
       "post-checkout": "yarn",
       "post-merge": "yarn",
-      "post-rebase": "yarn",
-      "pre-push": "yarn lint && pretty-quick --staged lint-staged",
+      "pre-push": "yarn lint",
       "pre-commit": "yarn lint-fix"
     }
   },

@@ -21,20 +21,20 @@ const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   children: React.ReactNode
-  i18n: i18n,
+  i18n: i18n
   t: TFunction
 }
 
 interface StateProps {
-  data: Game[],
-  error: boolean,
-  filter: string,
-  filterText: string,
-  gameUpdates: string[],
-  language: string,
-  layout: string,
+  data: Game[]
+  error: boolean
+  filter: string
+  filterText: string
+  gameUpdates: string[]
+  language: string
+  layout: string
   libraryStatus: GameStatus[]
-  refreshing: boolean,
+  refreshing: boolean
   user: string
 }
 

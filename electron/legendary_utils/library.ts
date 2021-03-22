@@ -26,9 +26,9 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
   }
 
   const files: {
-    config: string,
-    installed: Game[],
-    library: string,
+    config: string
+    installed: Game[]
+    library: string
     user: UserInfo
   } = {
     config: heroicConfigPath,
@@ -65,7 +65,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             customAttributes: { CloudSaveFolder, FolderName }
           } = metadata
 
-          const {namespace} = asset_info
+          const { namespace } = asset_info
 
           if (dlcItemList) {
             dlcItemList.forEach(
