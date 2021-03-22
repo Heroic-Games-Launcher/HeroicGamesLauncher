@@ -24,7 +24,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ## How to use it
 
-- Download and install the package for your distro or the universal AppImage file on the Releases Page;
+- [Download and Install](#installation) the package for your distro or the universal AppImage file on the Releases Page;
 - If you used Legendary before, it loads your library and installed games. If not, it will ask you to login first. Just follow the instructions.
 
 ## Feature available right now
