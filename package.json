@@ -67,11 +67,8 @@
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-fs-backend": "^1.0.8",
     "i18next-http-backend": "^1.1.0",
-<<<<<<< HEAD
     "is-online": "^9.0.0",
-=======
     "pretty-bytes": "^5.6.0",
->>>>>>> 49f49a8 (Replace `byte-size` (a JS module) with `pretty-bytes` (a TS module).)
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.5",
@@ -135,6 +132,45 @@
       "pre-push": "yarn lint",
       "pre-commit": "yarn lint-fix"
     }
+  },
+  "importSorter": {
+    "groupRules": [
+      {
+        "flags": [
+          "namespace"
+        ]
+      },
+      {
+        "flags": [
+          "multiple"
+        ]
+      },
+      {
+        "flags": [
+          "single"
+        ]
+      },
+      {
+        "flags": [
+          "namespace"
+        ],
+        "regex": "^[.]"
+      },
+      {
+        "flags": [
+          "multiple"
+        ],
+        "regex": "^[.]"
+      },
+      {
+        "flags": [
+          "single"
+        ],
+        "regex": "^[.]"
+      },
+      {}
+    ],
+    "hasSemicolon": false
   },
   "browserslist": {
     "production": [

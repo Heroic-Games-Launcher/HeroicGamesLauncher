@@ -1,19 +1,15 @@
-import * as axios from 'axios'
-import { exec } from 'child_process'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  app,
-  dialog
-} from 'electron'
+import * as axios from 'axios'
+
+import { app, dialog } from 'electron'
+
+import { exec } from 'child_process'
 import { existsSync } from 'graceful-fs'
+import { promisify } from 'util'
 import i18next from 'i18next'
 import isOnline from 'is-online'
-import { promisify } from 'util'
 
-import {
-  heroicGamesConfigPath,
-  icon
-} from './constants'
+import { heroicGamesConfigPath, icon } from './constants'
 
 const execAsync = promisify(exec)
 

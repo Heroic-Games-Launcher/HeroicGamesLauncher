@@ -1,28 +1,11 @@
-import {
-  existsSync,
-  readdirSync,
-  readFileSync,
-  stat
-} from 'graceful-fs'
+import { existsSync, readFileSync, readdirSync, stat } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { promisify } from 'util'
 
-import {
-  getUserInfo,
-  isLoggedIn,
-  writeDefaultConfig
-} from '../config'
-import {
-  heroicConfigPath,
-  legendaryConfigPath
-} from '../constants'
-import {
-  Game,
-  InstalledInfo,
-  KeyImage,
-  UserInfo
-} from '../types'
+import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
+import { getUserInfo, isLoggedIn, writeDefaultConfig } from '../config'
+import { heroicConfigPath, legendaryConfigPath } from '../constants'
 
 const statAsync = promisify(stat)
 const dlcs: string[] = []

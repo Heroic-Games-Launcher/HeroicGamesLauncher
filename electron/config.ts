@@ -3,13 +3,14 @@ import { exec } from 'child_process'
 import {
   existsSync,
   mkdir,
-  readdirSync,
   readFileSync,
+  readdirSync,
   writeFileSync
 } from 'graceful-fs'
-import { userInfo as user } from 'os'
 import { promisify } from 'util'
+import { userInfo as user } from 'os'
 
+import { AppSettings, UserInfo, WineProps } from './types'
 import {
   heroicConfigPath,
   heroicGamesConfigPath,
@@ -18,11 +19,6 @@ import {
   home,
   userInfo
 } from './constants'
-import {
-  AppSettings,
-  UserInfo,
-  WineProps
-} from './types'
 
 const execAsync = promisify(exec)
 
@@ -32,7 +28,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-    '/usr/share/steam',
+    '/usr/share/steam'
   ]
 
   if (!existsSync(`${heroicToolsPath}/wine`)) {
@@ -77,7 +73,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
         if (version.toLowerCase().startsWith('proton')) {
           proton.add({
             bin: `'${path}${version}/proton'`,
-            name: `Proton - ${version}`,
+            name: `Proton - ${version}`
           })
         }
       })
@@ -88,7 +84,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     readdirSync(lutrisCompatPath).forEach((version) => {
       altWine.add({
         bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-        name: `Wine - ${version}`,
+        name: `Wine - ${version}`
       })
     })
   }
@@ -96,7 +92,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
     altWine.add({
       bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-      name: `Wine - ${version}`,
+      name: `Wine - ${version}`
     })
   })
 
@@ -108,12 +104,12 @@ async function getAlternativeWine(): Promise<WineProps[]> {
         if (path.endsWith('proton')) {
           return customPaths.add({
             bin: `'${path}'`,
-            name: `Proton Custom - ${path}`,
+            name: `Proton Custom - ${path}`
           })
         }
         return customPaths.add({
           bin: `'${path}'`,
-          name: `Wine Custom - ${path}`,
+          name: `Wine Custom - ${path}`
         })
       })
     }
@@ -160,18 +156,18 @@ const writeDefaultConfig = async () => {
     const config = {
       defaultSettings: {
         defaultInstallPath: heroicInstallPath,
-        wineVersion: defaultWine,
-        winePrefix: `${home}/.wine`,
-        otherOptions: '',
-        useGameMode: false,
-        showFps: false,
-        maxWorkers: 0,
         language: 'en',
+        maxWorkers: 0,
+        otherOptions: '',
+        showFps: false,
+        useGameMode: false,
         userInfo: {
-          name: userName,
           epicId: account_id,
+          name: userName
         },
-      } as AppSettings,
+        winePrefix: `${home}/.wine`,
+        wineVersion: defaultWine
+      } as AppSettings
     }
 
     writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
@@ -192,18 +188,18 @@ const writeGameConfig = async (game: string) => {
       otherOptions,
       useGameMode,
       showFps,
-      userInfo,
+      userInfo
     } = await getSettings('default')
 
     const config = {
       [game]: {
-        wineVersion,
-        winePrefix,
         otherOptions,
-        useGameMode,
         showFps,
+        useGameMode,
         userInfo,
-      },
+        winePrefix,
+        wineVersion
+      }
     }
 
     writeFileSync(

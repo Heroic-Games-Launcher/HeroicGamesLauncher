@@ -1,24 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { exec } from 'child_process'
 import { dialog } from 'electron'
-import {
-  existsSync,
-  writeFile
-} from 'graceful-fs'
-import i18next from 'i18next'
+import { exec } from 'child_process'
+import { existsSync, writeFile } from 'graceful-fs'
 import { promisify } from 'util'
+import i18next from 'i18next'
 
+import { errorHandler, isOnline } from './utils'
 import { getSettings } from './config'
-import {
-  heroicGamesConfigPath,
-  home,
-  legendaryBin
-} from './constants'
+import { heroicGamesConfigPath, home, legendaryBin } from './constants'
 import { installDxvk } from './dxvk'
-import {
-  errorHandler,
-  isOnline
-} from './utils'
 
 const execAsync = promisify(exec)
 
@@ -64,7 +54,7 @@ const launchGame = async (appName: string) => {
     launcherArgs = '',
     showMangohud,
     audioFix,
-    autoInstallDxvk,
+    autoInstallDxvk
   } = await getSettings(appName)
 
   const fixedWinePrefix = winePrefix.replace('~', home)
@@ -87,10 +77,10 @@ const launchGame = async (appName: string) => {
     other: otherOptions ? otherOptions : '',
     proton: isProton
       ? `STEAM_COMPAT_DATA_PATH='${winePrefix
-          .replaceAll("'", '')
-          .replace('~', home)}'`
+        .replaceAll("'", '')
+        .replace('~', home)}'`
       : '',
-    showMangohud: showMangohud ? `MANGOHUD=1` : '',
+    showMangohud: showMangohud ? `MANGOHUD=1` : ''
   }
 
   envVars = Object.values(options).join(' ')

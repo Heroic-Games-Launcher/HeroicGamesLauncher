@@ -21,7 +21,7 @@ async function getLatestDxvk() {
     return
   }
   const {
-    data: { assets },
+    data: { assets }
   } = await axios.default.get(
     'https://api.github.com/repos/lutris/dxvk/releases/latest'
   )

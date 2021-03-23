@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "dozerg.tsimportsorter",
+    "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "coenraads.bracket-pair-colorizer-2",
     "steoates.autoimport",

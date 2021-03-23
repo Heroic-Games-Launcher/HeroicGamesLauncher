@@ -1,18 +1,16 @@
-import axios from 'axios'
+import * as path from 'path'
+
 import {
-  exec,
-  spawn
-} from 'child_process'
-import {
-  app,
   BrowserWindow,
-  ipcMain,
   Menu,
   Notification,
-  powerSaveBlocker,
-  Tray
+  Tray,
+  app,
+  ipcMain,
+  powerSaveBlocker
 } from 'electron'
-import isDev from 'electron-is-dev'
+import { cpus, userInfo as user } from 'os'
+import { exec, spawn } from 'child_process'
 import {
   existsSync,
   mkdirSync,
@@ -21,22 +19,22 @@ import {
   writeFile,
   writeFileSync
 } from 'graceful-fs'
-import i18next from 'i18next'
-import Backend from 'i18next-fs-backend'
-import {
-  cpus,
-  userInfo as user
-} from 'os'
-import * as path from 'path'
+
 import { promisify } from 'util'
+import Backend from 'i18next-fs-backend'
+import axios from 'axios'
+import i18next from 'i18next'
+import isDev from 'electron-is-dev'
 
 import {
-  getAlternativeWine,
-  getSettings,
-  isLoggedIn,
-  writeGameConfig
-} from './config'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+  checkForUpdates,
+  errorHandler,
+  handleExit,
+  isOnline,
+  openUrlOrFile,
+  showAboutWindow
+} from './utils'
+import { checkGameUpdates, launchGame, updateGame } from './games'
 import {
   discordLink,
   heroicConfigPath,
@@ -53,22 +51,17 @@ import {
   supportURL,
   userInfo
 } from './constants'
+import {
+  getAlternativeWine,
+  getSettings,
+  isLoggedIn,
+  writeGameConfig
+} from './config'
+
 import { getLatestDxvk } from './dxvk'
-import {
-  checkGameUpdates,
-  launchGame,
-  updateGame
-} from './games'
 import { getLegendaryConfig } from './legendary_utils/library'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Game } from './types.js'
-import {
-  checkForUpdates,
-  errorHandler,
-  handleExit,
-  isOnline,
-  openUrlOrFile,
-  showAboutWindow
-} from './utils'
 
 const execAsync = promisify(exec)
 
