@@ -8,7 +8,7 @@ import {
   readFileSync,
   readdirSync,
   writeFile,
-  writeFileSync
+  writeFileSync,
 } from 'graceful-fs'
 import { fixPathForAsarUnpack } from 'electron-util'
 import { homedir, userInfo as user } from 'os'
@@ -52,7 +52,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-    '/usr/share/steam'
+    '/usr/share/steam',
   ]
 
   if (!existsSync(`${heroicToolsPath}/wine`)) {
@@ -97,7 +97,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
         if (version.toLowerCase().startsWith('proton')) {
           proton.add({
             bin: `'${path}${version}/proton'`,
-            name: `Proton - ${version}`
+            name: `Proton - ${version}`,
           })
         }
       })
@@ -108,7 +108,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     readdirSync(lutrisCompatPath).forEach((version) => {
       altWine.add({
         bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-        name: `Wine - ${version}`
+        name: `Wine - ${version}`,
       })
     })
   }
@@ -116,7 +116,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
     altWine.add({
       bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-      name: `Wine - ${version}`
+      name: `Wine - ${version}`,
     })
   })
 
@@ -128,12 +128,12 @@ async function getAlternativeWine(): Promise<WineProps[]> {
         if (path.endsWith('proton')) {
           return customPaths.add({
             bin: `'${path}'`,
-            name: `Proton Custom - ${path}`
+            name: `Proton Custom - ${path}`,
           })
         }
         return customPaths.add({
           bin: `'${path}'`,
-          name: `Wine Custom - ${path}`
+          name: `Wine Custom - ${path}`,
         })
       })
     }
@@ -200,7 +200,7 @@ const launchGame = async (appName: string) => {
     launcherArgs = '',
     showMangohud,
     audioFix,
-    autoInstallDxvk
+    autoInstallDxvk,
   } = await getSettings(appName)
 
   const fixedWinePrefix = winePrefix.replace('~', home)
@@ -226,7 +226,7 @@ const launchGame = async (appName: string) => {
           .replaceAll("'", '')
           .replace('~', home)}'`
       : '',
-    showMangohud: showMangohud ? `MANGOHUD=1` : ''
+    showMangohud: showMangohud ? `MANGOHUD=1` : '',
   }
 
   envVars = Object.values(options).join(' ')
@@ -299,7 +299,7 @@ async function getLatestDxvk() {
     return
   }
   const {
-    data: { assets }
+    data: { assets },
   } = await axios.default.get(
     'https://api.github.com/repos/lutris/dxvk/releases/latest'
   )
@@ -395,11 +395,11 @@ const writeDefaultconfig = async () => {
         useGameMode: false,
         userInfo: {
           epicId: account_id,
-          name: userName
+          name: userName,
         },
         winePrefix: `${home}/.wine`,
-        wineVersion: defaultWine
-      } as AppSettings
+        wineVersion: defaultWine,
+      } as AppSettings,
     }
 
     writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
@@ -420,7 +420,7 @@ const writeGameconfig = async (game: string) => {
       otherOptions,
       useGameMode,
       showFps,
-      userInfo
+      userInfo,
     } = await getSettings('default')
 
     const config = {
@@ -430,8 +430,8 @@ const writeGameconfig = async (game: string) => {
         useGameMode,
         userInfo,
         winePrefix,
-        wineVersion
-      }
+        wineVersion,
+      },
     }
 
     writeFileSync(
@@ -449,7 +449,7 @@ async function checkForUpdates() {
   }
   try {
     const {
-      data: { tag_name }
+      data: { tag_name },
     } = await axios.default.get(
       'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
     )
@@ -468,7 +468,7 @@ const showAboutWindow = () => {
     applicationVersion: `${app.getVersion()} Magelan`,
     copyright: 'GPL V3',
     iconPath: icon,
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher'
+    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
   })
   return app.showAboutPanel()
 }
@@ -494,7 +494,7 @@ const handleExit = async () => {
         'box.quit.message',
         'There are pending operations, are you sure?'
       ),
-      title: i18next.t('box.quit.title', 'Exit')
+      title: i18next.t('box.quit.title', 'Exit'),
     })
 
     if (response === 0) {
@@ -571,5 +571,5 @@ export {
   updateGame,
   userInfo,
   writeDefaultconfig,
-  writeGameconfig
+  writeGameconfig,
 }

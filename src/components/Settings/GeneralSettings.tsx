@@ -9,25 +9,25 @@ import React, { useContext, useEffect, useState } from 'react'
 import ToggleSwitch from '../UI/ToggleSwitch'
 const {
   ipcRenderer,
-  remote: { dialog }
+  remote: { dialog },
 } = window.require('electron')
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const storage: Storage = window.localStorage
 
 interface Props {
-  darkTrayIcon: boolean,
-  defaultInstallPath: string,
-  egsLinkedPath: string,
-  egsPath: string,
-  exitToTray: boolean,
-  language: string,
-  maxWorkers: number,
-  setDefaultInstallPath: (value: string) => void,
-  setEgsLinkedPath: (value: string) => void,
-  setEgsPath: (value: string) => void,
-  setLanguage: (value: string) => void,
+  darkTrayIcon: boolean
+  defaultInstallPath: string
+  egsLinkedPath: string
+  egsPath: string
+  exitToTray: boolean
+  language: string
+  maxWorkers: number
+  setDefaultInstallPath: (value: string) => void
+  setEgsLinkedPath: (value: string) => void
+  setEgsPath: (value: string) => void
+  setLanguage: (value: string) => void
   setMaxWorkers: (value: number) => void
-  toggleDarkTrayIcon: () => void,
+  toggleDarkTrayIcon: () => void
   toggleTray: () => void
 }
 
@@ -45,7 +45,7 @@ export default function GeneralSettings({
   maxWorkers,
   setMaxWorkers,
   darkTrayIcon,
-  toggleDarkTrayIcon
+  toggleDarkTrayIcon,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -72,7 +72,7 @@ export default function GeneralSettings({
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await showMessageBox({
           message: t('message.unsync'),
-          title: 'EGS Sync'
+          title: 'EGS Sync',
         })
         setEgsLinkedPath('')
         setEgsPath('')
@@ -93,7 +93,7 @@ export default function GeneralSettings({
         }
         await dialog.showMessageBox({
           message: t('message.sync'),
-          title: 'EGS Sync'
+          title: 'EGS Sync',
         })
 
         setIsSyncing(false)
@@ -132,7 +132,7 @@ export default function GeneralSettings({
               showOpenDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
-                title: t('box.default-install-path')
+                title: t('box.default-install-path'),
               }).then(({ filePaths }: Path) =>
                 setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
               )
@@ -162,7 +162,7 @@ export default function GeneralSettings({
                       .showOpenDialog({
                         buttonLabel: t('box.choose'),
                         properties: ['openDirectory'],
-                        title: t('box.choose-egs-prefix')
+                        title: t('box.choose-egs-prefix'),
                       })
                       .then(({ filePaths }: Path) =>
                         setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')

@@ -6,23 +6,17 @@ import {
   Tray,
   app,
   ipcMain,
-  powerSaveBlocker
+  powerSaveBlocker,
 } from 'electron'
-import {
-  cpus,
-  userInfo as user
-} from 'os'
-import {
-  exec,
-  spawn
-} from 'child_process'
+import { cpus, userInfo as user } from 'os'
+import { exec, spawn } from 'child_process'
 import {
   existsSync,
   mkdirSync,
   readFileSync,
   unlinkSync,
   writeFile,
-  writeFileSync
+  writeFileSync,
 } from 'graceful-fs'
 import { promisify } from 'util'
 import Backend from 'i18next-fs-backend'
@@ -61,7 +55,7 @@ import {
   supportURL,
   updateGame,
   userInfo,
-  writeGameconfig
+  writeGameconfig,
 } from './utils'
 
 const execAsync = promisify(exec)
@@ -77,9 +71,9 @@ function createWindow(): BrowserWindow {
     webPreferences: {
       contextIsolation: false,
       enableRemoteModule: true,
-      nodeIntegration: true
+      nodeIntegration: true,
     },
-    width: isDev ? 1800 : 1280
+    width: isDev ? 1800 : 1280,
   })
 
   setTimeout(() => {
@@ -139,39 +133,39 @@ const contextMenu = () =>
       click: function () {
         mainWindow.show()
       },
-      label: i18next.t('tray.show')
+      label: i18next.t('tray.show'),
     },
     {
       click: function () {
         showAboutWindow()
       },
-      label: i18next.t('tray.about', 'About')
+      label: i18next.t('tray.about', 'About'),
     },
     {
       click: function () {
         openUrlOrFile(heroicGithubURL)
       },
-      label: 'Github'
+      label: 'Github',
     },
     {
       click: function () {
         openUrlOrFile(supportURL)
       },
-      label: i18next.t('tray.support', 'Support Us')
+      label: i18next.t('tray.support', 'Support Us'),
     },
     {
       accelerator: 'ctrl + R',
       click: function () {
         mainWindow.reload()
       },
-      label: i18next.t('tray.reload', 'Reload')
+      label: i18next.t('tray.reload', 'Reload'),
     },
     {
       click: function () {
         handleExit()
       },
-      label: i18next.t('tray.quit', 'Quit')
-    }
+      label: i18next.t('tray.quit', 'Quit'),
+    },
   ])
 
 if (!gotTheLock) {
@@ -190,7 +184,7 @@ if (!gotTheLock) {
       backend: {
         addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
         allowMultiLoading: false,
-        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json')
+        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
       },
       debug: false,
       fallbackLng: 'en',
@@ -205,8 +199,8 @@ if (!gotTheLock) {
         'pt',
         'ru',
         'tr',
-        'hu'
-      ]
+        'hu',
+      ],
     })
 
     createWindow()
@@ -228,7 +222,7 @@ if (!gotTheLock) {
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
     body: args[1],
-    title: args[0]
+    title: args[0],
   })
 
   notify.on('click', () => mainWindow.show())
@@ -286,12 +280,12 @@ ipcMain.on('quit', async () => handleExit())
 const getProductSlug = async (namespace: string, game: string) => {
   const graphql = JSON.stringify({
     query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
-    variables: {}
+    variables: {},
   })
   const result = await axios('https://www.epicgames.com/graphql', {
     data: graphql,
     headers: { 'Content-Type': 'application/json' },
-    method: 'POST'
+    method: 'POST',
   })
   const res = result.data.data.Catalog.catalogOffers
   const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
@@ -322,7 +316,7 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: epicUrl
+      url: epicUrl,
     })
     delete response.data.pages[0].data.requirements.systems[0].details[0]
     const about = response.data.pages.find(
@@ -330,7 +324,7 @@ ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
     )
     return {
       about: about.data.about,
-      reqs: about.data.requirements.systems[0].details
+      reqs: about.data.requirements.systems[0].details,
     }
   } catch (error) {
     return {}
@@ -436,9 +430,9 @@ ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
-  exe: string,
-  prefix: string,
-  tool: string,
+  exe: string
+  prefix: string
+  tool: string
   wine: string
 }
 
