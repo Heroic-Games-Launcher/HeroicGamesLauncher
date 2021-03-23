@@ -1,13 +1,15 @@
+import './index.css'
+
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+
 import { legendary, loginPage, sidInfoPage } from 'src/helpers'
-import Autorenew from '@material-ui/icons/Autorenew'
-import Info from '@material-ui/icons/Info'
+import { useTranslation } from 'react-i18next'
 import LanguageSelector, {
   FlagPosition,
 } from 'src/components/UI/LanguageSelector'
 
-import './index.css'
+import Autorenew from '@material-ui/icons/Autorenew'
+import Info from '@material-ui/icons/Info'
 
 const storage: Storage = window.localStorage
 
@@ -123,10 +125,10 @@ export default function Login({ refresh }: Props) {
           </div>
           <span
             style={{
-              paddingRight: '22px',
-              marginBottom: '22px',
               display: 'flex',
               justifyContent: 'flex-end',
+              marginBottom: '22px',
+              paddingRight: '22px',
               width: '100%',
             }}
           >

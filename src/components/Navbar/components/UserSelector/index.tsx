@@ -1,15 +1,17 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
+import './index.css'
+
 import {
+  handleKofi,
+  handleQuit,
   legendary,
   openAboutWindow,
-  handleQuit,
-  handleKofi,
   openDiscordLink,
 } from 'src/helpers'
+
+import { useTranslation } from 'react-i18next'
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import ContextProvider from 'src/state/ContextProvider'
-import './index.css'
+import React from 'react'
 
 export default function UserSelector() {
   const { t } = useTranslation()

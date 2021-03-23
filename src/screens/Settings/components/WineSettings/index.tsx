@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import AddBoxIcon from '@material-ui/icons/AddBox'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
-import { WineProps, Path } from 'src/types'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import { Path, WineProps } from 'src/types'
+import { useTranslation } from 'react-i18next'
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
+
 const {
   ipcRenderer,
   remote: { dialog },
 } = window.require('electron')
 
 interface Props {
-  winePrefix: string
+  altWine: WineProps[]
+  autoInstallDxvk: boolean
+  customWinePaths: string[]
+  isDefault: boolean
+  setAltWine: (altWine: WineProps[]) => void
+  setCustomWinePaths: (value: string[]) => void
   setWinePrefix: (value: string) => void
   setWineversion: (wine: WineProps) => void
-  wineVersion: WineProps
-  altWine: WineProps[]
-  setAltWine: (altWine: WineProps[]) => void
-  autoInstallDxvk: boolean
   toggleAutoInstallDxvk: () => void
-  customWinePaths: string[]
-  setCustomWinePaths: (value: string[]) => void
-  isDefault: boolean
+  winePrefix: string
+  wineVersion: WineProps
 }
 
 export default function WineSettings({
@@ -57,9 +59,9 @@ export default function WineSettings({
   function selectCustomPath() {
     dialog
       .showOpenDialog({
-        title: t('box.customWine', 'Select the Wine or Proton Binary'),
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
+        title: t('box.customWine', 'Select the Wine or Proton Binary'),
       })
       .then(({ filePaths }: Path) => {
         if (!customWinePaths.includes(filePaths[0])) {
@@ -92,9 +94,9 @@ export default function WineSettings({
             onClick={() =>
               dialog
                 .showOpenDialog({
-                  title: t('box.wineprefix'),
                   buttonLabel: t('box.choose'),
                   properties: ['openDirectory'],
+                  title: t('box.wineprefix'),
                 })
                 .then(({ filePaths }: Path) =>
                   setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')

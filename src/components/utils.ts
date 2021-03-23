@@ -1,12 +1,13 @@
-import { TFunction } from 'react-i18next'
-
 import {
   getGameInfo,
   handleStopInstallation,
-  install,
   importGame,
+  install,
 } from 'src/helpers'
+
 import { GameStatus } from 'src/types'
+import { TFunction } from 'react-i18next'
+
 const { remote } = window.require('electron')
 const {
   dialog: { showOpenDialog },
@@ -14,9 +15,9 @@ const {
 
 interface Install {
   appName: string
-  isInstalling: boolean
-  installPath: 'import' | 'default' | 'another'
   handleGameStatus: (game: GameStatus) => Promise<void>
+  installPath: 'import' | 'default' | 'another'
+  isInstalling: boolean
   t: TFunction<'gamepage'>
 }
 
@@ -44,9 +45,9 @@ export async function handleInstall({
 
   if (installPath === 'import') {
     const { filePaths } = await showOpenDialog({
-      title: t('gamepage:box.importpath'),
       buttonLabel: t('gamepage:box.choose'),
       properties: ['gamepage:openDirectory'],
+      title: t('gamepage:box.importpath'),
     })
 
     if (filePaths[0]) {
@@ -59,9 +60,9 @@ export async function handleInstall({
 
   if (installPath === 'another') {
     const { filePaths } = await showOpenDialog({
-      title: t('gamepage:box.installpath'),
       buttonLabel: t('gamepage:box.choose'),
       properties: ['openDirectory'],
+      title: t('gamepage:box.installpath'),
     })
 
     if (filePaths[0]) {

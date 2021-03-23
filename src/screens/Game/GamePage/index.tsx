@@ -1,12 +1,8 @@
-/* eslint-disable complexity */
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import './index.css'
 
+import { AppSettings, Game, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer, Remote } from 'electron'
-import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
-
-import Settings from '@material-ui/icons/Settings'
-
+/* eslint-disable complexity */
 import {
   fixSaveFolder,
   getGameInfo,
@@ -20,13 +16,16 @@ import {
   syncSaves,
   updateGame,
 } from 'src/helpers'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
+
+import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import { AppSettings, Game, GameStatus, InstallProgress } from 'src/types'
+import GamesSubmenu from '../GameSubMenu'
 import Header from 'src/components/UI/Header'
 import InfoBox from 'src/components/UI/InfoBox'
+import Settings from '@material-ui/icons/Settings'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
-import GamesSubmenu from '../GameSubMenu'
-import './index.css'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -60,9 +59,9 @@ export default function GamePage(): JSX.Element | null {
 
   const [gameInfo, setGameInfo] = useState({} as Game)
   const [progress, setProgress] = useState({
-    percent: '0.00%',
     bytes: '0.00MiB',
     eta: '00:00:00',
+    percent: '0.00%',
   } as InstallProgress)
   const [installPath, setInstallPath] = useState('default')
   const [defaultPath, setDefaultPath] = useState('...')
@@ -124,8 +123,8 @@ export default function GamePage(): JSX.Element | null {
 
         handleGameStatus({
           appName,
-          status,
           progress: getProgress(progress),
+          status,
         })
       }
     }, 1500)
@@ -152,11 +151,11 @@ export default function GamePage(): JSX.Element | null {
       setSavesPath(savesPath.replace('{InstallDir}', install_path))
     }
 
-    /* 
+    /*
     Other Keys:
     t('box.stopInstall.title')
     t('box.stopInstall.message')
-    t('box.stopInstall.keepInstalling') 
+    t('box.stopInstall.keepInstalling')
     */
 
     return (
@@ -243,9 +242,9 @@ export default function GamePage(): JSX.Element | null {
                     )}
                     <p
                       style={{
-                        fontStyle: 'italic',
                         color:
                           isInstalled || isInstalling ? '#0BD58C' : '#BD0A0A',
+                        fontStyle: 'italic',
                       }}
                     >
                       {getInstallLabel(isInstalled)}
@@ -437,9 +436,9 @@ export default function GamePage(): JSX.Element | null {
             err.includes('ERROR: Game is out of date')
           ) {
             const { response } = await showMessageBox({
-              title: t('box.update.title'),
-              message: t('box.update.message'),
               buttons: [t('box.yes'), t('box.no')],
+              message: t('box.update.message'),
+              title: t('box.update.title'),
             })
 
             if (response === 0) {
@@ -492,9 +491,9 @@ export default function GamePage(): JSX.Element | null {
 
       if (installPath === 'import') {
         const { filePaths } = await showOpenDialog({
-          title: t('box.importpath'),
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
+          title: t('box.importpath'),
         })
 
         if (filePaths[0]) {
@@ -507,9 +506,9 @@ export default function GamePage(): JSX.Element | null {
 
       if (installPath === 'another') {
         const { filePaths } = await showOpenDialog({
-          title: t('box.installpath'),
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
+          title: t('box.installpath'),
         })
 
         if (filePaths[0]) {
@@ -528,10 +527,10 @@ export default function GamePage(): JSX.Element | null {
 
   async function handleUninstall() {
     const { response } = await showMessageBox({
-      type: 'warning',
-      title: t('box.uninstall.title'),
-      message: t('box.uninstall.message'),
       buttons: [t('box.yes'), t('box.no')],
+      message: t('box.uninstall.message'),
+      title: t('box.uninstall.title'),
+      type: 'warning',
     })
 
     if (response === 0) {

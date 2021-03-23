@@ -1,6 +1,7 @@
+import './index.css'
+
 import React from 'react'
 import Update from '@material-ui/icons/Update'
-import './index.css'
 
 export default function UpdateComponent() {
   return (

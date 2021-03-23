@@ -1,21 +1,21 @@
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { exec } from 'child_process'
 import { app, dialog } from 'electron'
-import { fixPathForAsarUnpack } from 'electron-util'
+import { exec } from 'child_process'
 import {
   existsSync,
   mkdir,
-  readdirSync,
   readFileSync,
+  readdirSync,
   writeFile,
   writeFileSync,
 } from 'graceful-fs'
-import i18next from 'i18next'
-import isOnline from 'is-online'
+import { fixPathForAsarUnpack } from 'electron-util'
 import { homedir, userInfo as user } from 'os'
 import { join } from 'path'
 import { promisify } from 'util'
+import i18next from 'i18next'
+import isOnline from 'is-online'
 
 import { AppSettings, UserInfo, WineProps } from './types'
 
@@ -69,7 +69,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   const protonPaths: string[] = [`${heroicToolsPath}/proton/`]
   const foundPaths = steamPaths.filter((path) => existsSync(path))
 
-  const defaultWine = { name: '', bin: '' }
+  const defaultWine = { bin: '', name: '' }
   await execAsync(`which wine`)
     .then(async ({ stdout }) => {
       defaultWine.bin = stdout.split('\n')[0]
@@ -86,17 +86,17 @@ async function getAlternativeWine(): Promise<WineProps[]> {
 
   const lutrisPath = `${home}/.local/share/lutris`
   const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-  const proton: Set<{ name: string; bin: string }> = new Set()
-  const altWine: Set<{ name: string; bin: string }> = new Set()
-  const customPaths: Set<{ name: string; bin: string }> = new Set()
+  const proton: Set<{ bin: string; name: string }> = new Set()
+  const altWine: Set<{ bin: string; name: string }> = new Set()
+  const customPaths: Set<{ bin: string; name: string }> = new Set()
 
   protonPaths.forEach((path) => {
     if (existsSync(path)) {
       readdirSync(path).forEach((version) => {
         if (version.toLowerCase().startsWith('proton')) {
           proton.add({
-            name: `Proton - ${version}`,
             bin: `'${path}${version}/proton'`,
+            name: `Proton - ${version}`,
           })
         }
       })
@@ -106,35 +106,37 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   if (existsSync(lutrisCompatPath)) {
     readdirSync(lutrisCompatPath).forEach((version) => {
       altWine.add({
-        name: `Wine - ${version}`,
         bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
+        name: `Wine - ${version}`,
       })
     })
   }
 
   readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
     altWine.add({
-      name: `Wine - ${version}`,
       bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
+      name: `Wine - ${version}`,
     })
   })
 
-  await getSettings().then(({ customWinePaths }) => {
+  // skips this on new installations to avoid infinite loops
+  if (existsSync(heroicConfigPath)) {
+    const { customWinePaths } = await getSettings('default')
     if (customWinePaths.length) {
-      customWinePaths.forEach((path) => {
+      customWinePaths.forEach((path: string) => {
         if (path.endsWith('proton')) {
           return customPaths.add({
-            name: `Proton Custom - ${path}`,
             bin: `'${path}'`,
+            name: `Proton Custom - ${path}`,
           })
         }
         return customPaths.add({
-          name: `Wine Custom - ${path}`,
           bin: `'${path}'`,
+          name: `Wine Custom - ${path}`,
         })
       })
     }
-  })
+  }
 
   return [defaultWine, ...altWine, ...proton, ...customPaths]
 }
@@ -215,15 +217,15 @@ const launchGame = async (appName: string) => {
   prefix = isProton ? '' : prefix
 
   const options = {
-    other: otherOptions ? otherOptions : '',
-    fps: showFps ? `DXVK_HUD=fps` : '',
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
-    showMangohud: showMangohud ? `MANGOHUD=1` : '',
+    fps: showFps ? `DXVK_HUD=fps` : '',
+    other: otherOptions ? otherOptions : '',
     proton: isProton
       ? `STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')
           .replace('~', home)}'`
       : '',
+    showMangohud: showMangohud ? `MANGOHUD=1` : '',
   }
 
   envVars = Object.values(options).join(' ')
@@ -383,19 +385,19 @@ const writeDefaultconfig = async () => {
 
     const config = {
       defaultSettings: {
-        defaultInstallPath: heroicInstallPath,
-        wineVersion: defaultWine,
-        winePrefix: `${home}/.wine`,
-        otherOptions: '',
-        useGameMode: false,
-        showFps: false,
-        maxWorkers: 0,
-        language: 'en',
         customWinePaths: [],
+        defaultInstallPath: heroicInstallPath,
+        language: 'en',
+        maxWorkers: 0,
+        otherOptions: '',
+        showFps: false,
+        useGameMode: false,
         userInfo: {
-          name: userName,
           epicId: account_id,
+          name: userName,
         },
+        winePrefix: `${home}/.wine`,
+        wineVersion: defaultWine,
       } as AppSettings,
     }
 
@@ -422,12 +424,12 @@ const writeGameconfig = async (game: string) => {
 
     const config = {
       [game]: {
-        wineVersion,
-        winePrefix,
         otherOptions,
-        useGameMode,
         showFps,
+        useGameMode,
         userInfo,
+        winePrefix,
+        wineVersion,
       },
     }
 
@@ -444,25 +446,28 @@ async function checkForUpdates() {
     console.log('Version check failed, app is offline.')
     return false
   }
-  const {
-    data: { tag_name },
-  } = await axios.default.get(
-    'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
-  )
+  try {
+    const {
+      data: { tag_name },
+    } = await axios.default.get(
+      'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
+    )
+    const newVersion = tag_name.replace('v', '').replaceAll('.', '')
+    const currentVersion = app.getVersion().replaceAll('.', '')
 
-  const newVersion = tag_name.replace('v', '').replaceAll('.', '')
-  const currentVersion = app.getVersion().replaceAll('.', '')
-
-  return newVersion > currentVersion
+    return newVersion > currentVersion
+  } catch (error) {
+    console.log('Could not check for new version of heroic')
+  }
 }
 
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    copyright: 'GPL V3',
     applicationVersion: `${app.getVersion()} Magelan`,
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
+    copyright: 'GPL V3',
     iconPath: icon,
+    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
   })
   return app.showAboutPanel()
 }
@@ -483,12 +488,12 @@ const handleExit = async () => {
 
   if (isLocked) {
     const { response } = await showMessageBox({
-      title: i18next.t('box.quit.title', 'Exit'),
+      buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
         'There are pending operations, are you sure?'
       ),
-      buttons: [i18next.t('box.no'), i18next.t('box.yes')],
+      title: i18next.t('box.quit.title', 'Exit'),
     })
 
     if (response === 0) {

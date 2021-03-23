@@ -1,8 +1,10 @@
+import './index.css'
+
 import React, { lazy } from 'react'
-import { useTranslation } from 'react-i18next'
+
 import { NavLink } from 'react-router-dom'
 import { createNewWindow } from 'src/helpers'
-import './index.css'
+import { useTranslation } from 'react-i18next'
 
 const SearchBar = lazy(() => import('./components/SearchBar'))
 const UserSelector = lazy(() => import('./components/UserSelector'))

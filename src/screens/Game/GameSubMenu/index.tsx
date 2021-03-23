@@ -1,4 +1,8 @@
+import './index.css'
+
 import React, { useContext } from 'react'
+
+import { IpcRenderer } from 'electron'
 import { Link } from 'react-router-dom'
 import {
   createNewWindow,
@@ -6,23 +10,21 @@ import {
   repair,
   updateGame,
 } from 'src/helpers'
-import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
-import { IpcRenderer } from 'electron'
+import ContextProvider from 'src/state/ContextProvider'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showMessageBox, showOpenDialog },
 } = remote
-import './index.css'
 
 const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   appName: string
+  clicked: boolean
   isInstalled: boolean
   title: string
-  clicked: boolean
 }
 
 export default function GamesSubmenu({
@@ -44,15 +46,15 @@ export default function GamesSubmenu({
 
   async function handleMoveInstall() {
     const { response } = await showMessageBox({
-      title: t('box.move.title'),
-      message: t('box.move.message'),
       buttons: [t('box.yes'), t('box.no')],
+      message: t('box.move.message'),
+      title: t('box.move.title'),
     })
     if (response === 0) {
       const { filePaths } = await showOpenDialog({
-        title: t('box.move.path'),
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
+        title: t('box.move.path'),
       })
       if (filePaths[0]) {
         const path = filePaths[0]
@@ -67,15 +69,15 @@ export default function GamesSubmenu({
 
   async function handleChangeInstall() {
     const { response } = await showMessageBox({
-      title: t('box.change.title'),
-      message: t('box.change.message'),
       buttons: [t('box.yes'), t('box.no')],
+      message: t('box.change.message'),
+      title: t('box.change.title'),
     })
     if (response === 0) {
       const { filePaths } = await showOpenDialog({
-        title: t('box.change.path'),
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
+        title: t('box.change.path'),
       })
       if (filePaths[0]) {
         const path = filePaths[0]
@@ -89,9 +91,9 @@ export default function GamesSubmenu({
 
   async function handleUpdate() {
     const { response } = await showMessageBox({
-      title: t('box.update.title'),
-      message: t('box.update.message'),
       buttons: [t('box.yes'), t('box.no')],
+      message: t('box.update.message'),
+      title: t('box.update.title'),
     })
 
     if (response === 0) {
@@ -104,9 +106,9 @@ export default function GamesSubmenu({
 
   async function handleRepair(appName: string) {
     const { response } = await showMessageBox({
-      title: t('box.repair.title'),
-      message: t('box.repair.message'),
       buttons: [t('box.yes'), t('box.no')],
+      message: t('box.repair.message'),
+      title: t('box.repair.title'),
     })
 
     if (response === 1) {

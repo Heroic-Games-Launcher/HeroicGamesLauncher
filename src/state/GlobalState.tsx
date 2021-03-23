@@ -1,8 +1,8 @@
-import { IpcRenderer } from 'electron'
-import { i18n } from 'i18next'
 import React, { PureComponent } from 'react'
+
+import { Game, GameStatus } from 'src/types'
+import { IpcRenderer } from 'electron'
 import { TFunction, withTranslation } from 'react-i18next'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
 import {
   getGameInfo,
   getLegendaryConfig,
@@ -10,8 +10,11 @@ import {
   legendary,
   notify,
 } from 'src/helpers'
-import { Game, GameStatus } from 'src/types'
+import { i18n } from 'i18next'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
+
 import ContextProvider from './ContextProvider'
+
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
 const { dialog } = remote
@@ -21,35 +24,35 @@ const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   children: React.ReactNode
-  t: TFunction
   i18n: i18n
+  t: TFunction
 }
 
 interface StateProps {
-  user: string
   data: Game[]
-  refreshing: boolean
   error: boolean
   filter: string
   filterText: string
-  language: string
-  libraryStatus: GameStatus[]
-  layout: string
   gameUpdates: string[]
+  language: string
+  layout: string
+  libraryStatus: GameStatus[]
+  refreshing: boolean
+  user: string
 }
 
 export class GlobalState extends PureComponent<Props> {
   state: StateProps = {
-    user: '',
-    filterText: '',
     data: [],
-    libraryStatus: [],
-    refreshing: false,
-    language: '',
     error: false,
     filter: 'all',
-    layout: 'grid',
+    filterText: '',
     gameUpdates: [],
+    language: '',
+    layout: 'grid',
+    libraryStatus: [],
+    refreshing: false,
+    user: '',
   }
 
   refresh = async (): Promise<void> => {
@@ -58,11 +61,11 @@ export class GlobalState extends PureComponent<Props> {
     const updates = await renderer.invoke('checkGameUpdates')
 
     this.setState({
-      user,
-      refreshing: false,
-      filterText: '',
       data: library,
+      filterText: '',
       gameUpdates: updates,
+      refreshing: false,
+      user,
     })
   }
 
@@ -209,12 +212,12 @@ export class GlobalState extends PureComponent<Props> {
     const newVersion = await renderer.invoke('checkVersion')
     if (newVersion) {
       const { response } = await showMessageBox({
-        title: t('box.appupdate.title', 'Update Available'),
+        buttons: [t('box.yes'), t('box.no')],
         message: t(
           'box.appupdate.message',
           'There is a new version of Heroic Available, do you want to update now?'
         ),
-        buttons: [t('box.yes'), t('box.no')],
+        title: t('box.appupdate.title', 'Update Available'),
       })
 
       if (response === 0) {
@@ -275,12 +278,12 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           data: filteredLibrary,
+          handleFilter: this.handleFilter,
+          handleGameStatus: this.handleGameStatus,
+          handleLayout: this.handleLayout,
+          handleSearch: this.handleSearch,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          handleGameStatus: this.handleGameStatus,
-          handleFilter: this.handleFilter,
-          handleSearch: this.handleSearch,
-          handleLayout: this.handleLayout,
         }}
       >
         {children}

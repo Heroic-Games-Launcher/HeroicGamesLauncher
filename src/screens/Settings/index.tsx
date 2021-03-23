@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
 import { IpcRenderer } from 'electron'
-import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
+import './index.css'
+import { AppSettings, WineProps } from 'src/types'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
-import { AppSettings, WineProps } from 'src/types'
-import Header from 'src/components/UI/Header'
 import GeneralSettings from './components/GeneralSettings'
+import Header from 'src/components/UI/Header'
 import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
-import WineSettings from './components/WineSettings'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
-import './index.css'
+import WineSettings from './components/WineSettings'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -38,8 +38,8 @@ function Settings() {
   const { state } = useLocation() as { state: LocationState }
 
   const [wineVersion, setWineversion] = useState({
-    name: 'Wine Default',
     bin: '/usr/bin/wine',
+    name: 'Wine Default',
   } as WineProps)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
@@ -50,7 +50,7 @@ function Settings() {
   const [maxWorkers, setMaxWorkers] = useState(0)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [language, setLanguage] = useState(
-    () => storage.getItem('language') || ''
+    () => storage.getItem('language') || 'en'
   )
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
@@ -151,38 +151,38 @@ function Settings() {
 
   const GlobalSettings = {
     defaultSettings: {
-      defaultInstallPath,
-      wineVersion,
-      winePrefix,
-      otherOptions,
-      useGameMode,
-      egsLinkedPath,
-      showFps,
-      offlineMode,
-      exitToTray,
       audioFix,
-      showMangohud,
-      language,
-      darkTrayIcon,
-      maxWorkers,
       customWinePaths,
+      darkTrayIcon,
+      defaultInstallPath,
+      egsLinkedPath,
+      exitToTray,
+      language,
+      maxWorkers,
+      offlineMode,
+      otherOptions,
+      showFps,
+      showMangohud,
+      useGameMode,
+      winePrefix,
+      wineVersion,
     } as AppSettings,
   }
 
   const GameSettings = {
     [appName]: {
-      wineVersion,
-      winePrefix,
-      otherOptions,
-      launcherArgs,
-      useGameMode,
-      savesPath,
-      showFps,
-      offlineMode,
-      autoSyncSaves,
       audioFix,
       autoInstallDxvk,
+      autoSyncSaves,
+      launcherArgs,
+      offlineMode,
+      otherOptions,
+      savesPath,
+      showFps,
       showMangohud,
+      useGameMode,
+      winePrefix,
+      wineVersion,
     } as AppSettings,
   }
 

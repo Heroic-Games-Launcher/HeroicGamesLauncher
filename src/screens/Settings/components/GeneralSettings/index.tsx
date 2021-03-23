@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
+
+import { Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-import Backspace from '@material-ui/icons/Backspace'
-import { Path } from 'src/types'
 import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+
+import Backspace from '@material-ui/icons/Backspace'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+
 const {
   ipcRenderer,
   remote: { dialog },
@@ -15,20 +18,20 @@ const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const storage: Storage = window.localStorage
 
 interface Props {
-  defaultInstallPath: string
-  setDefaultInstallPath: (value: string) => void
-  egsPath: string
-  setEgsPath: (value: string) => void
-  egsLinkedPath: string
-  setEgsLinkedPath: (value: string) => void
-  exitToTray: boolean
-  toggleTray: () => void
-  language: string
-  setLanguage: (value: string) => void
-  maxWorkers: number
-  setMaxWorkers: (value: number) => void
   darkTrayIcon: boolean
+  defaultInstallPath: string
+  egsLinkedPath: string
+  egsPath: string
+  exitToTray: boolean
+  language: string
+  maxWorkers: number
+  setDefaultInstallPath: (value: string) => void
+  setEgsLinkedPath: (value: string) => void
+  setEgsPath: (value: string) => void
+  setLanguage: (value: string) => void
+  setMaxWorkers: (value: number) => void
   toggleDarkTrayIcon: () => void
+  toggleTray: () => void
 }
 
 export default function GeneralSettings({
@@ -71,8 +74,8 @@ export default function GeneralSettings({
     if (isLinked) {
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await showMessageBox({
-          title: 'EGS Sync',
           message: t('message.unsync'),
+          title: 'EGS Sync',
         })
         setEgsLinkedPath('')
         setEgsPath('')
@@ -92,8 +95,8 @@ export default function GeneralSettings({
           return
         }
         await dialog.showMessageBox({
-          title: 'EGS Sync',
           message: t('message.sync'),
+          title: 'EGS Sync',
         })
 
         setIsSyncing(false)
@@ -130,9 +133,9 @@ export default function GeneralSettings({
             className="material-icons settings folder"
             onClick={() =>
               showOpenDialog({
-                title: t('box.default-install-path'),
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
+                title: t('box.default-install-path'),
               }).then(({ filePaths }: Path) =>
                 setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
               )
@@ -160,9 +163,9 @@ export default function GeneralSettings({
                   ? ''
                   : dialog
                       .showOpenDialog({
-                        title: t('box.choose-egs-prefix'),
                         buttonLabel: t('box.choose'),
                         properties: ['openDirectory'],
+                        title: t('box.choose-egs-prefix'),
                       })
                       .then(({ filePaths }: Path) =>
                         setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
@@ -175,7 +178,7 @@ export default function GeneralSettings({
               onClick={() => (isLinked ? '' : setEgsPath(''))}
               style={
                 isLinked
-                  ? { pointerEvents: 'none', color: 'transparent' }
+                  ? { color: 'transparent', pointerEvents: 'none' }
                   : { color: '#B0ABB6' }
               }
             />

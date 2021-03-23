@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-import Backspace from '@material-ui/icons/Backspace'
 import { Path, SyncType } from 'src/types'
+import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
+import { useTranslation } from 'react-i18next'
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+
+import Backspace from '@material-ui/icons/Backspace'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 
 const {
   remote: { dialog },
 } = window.require('electron')
 
 interface Props {
-  savesPath: string
-  setSavesPath: (value: string) => void
   appName: string
   autoSyncSaves: boolean
-  setAutoSyncSaves: (value: boolean) => void
   defaultFolder: string
   isProton: boolean
+  savesPath: string
+  setAutoSyncSaves: (value: boolean) => void
+  setSavesPath: (value: string) => void
   winePrefix: string
 }
 
@@ -62,13 +63,13 @@ export default function SyncSaves({
     setIsSyncing(true)
     const command = {
       Download: '--skip-upload',
-      Upload: '--skip-download',
       'Force download': '--force-download',
       'Force upload': '--force-upload',
+      Upload: '--skip-download',
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
-      dialog.showMessageBox({ title: 'Saves Sync', message: res })
+      dialog.showMessageBox({ message: res, title: 'Saves Sync' })
     )
     setIsSyncing(false)
   }
@@ -95,10 +96,10 @@ export default function SyncSaves({
                   ? ''
                   : dialog
                       .showOpenDialog({
-                        title: t('box.sync.title'),
                         buttonLabel: t('box.sync.button'),
                         defaultPath: defaultFolder,
                         properties: ['openDirectory'],
+                        title: t('box.sync.title'),
                       })
                       .then(({ filePaths }: Path) =>
                         setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')

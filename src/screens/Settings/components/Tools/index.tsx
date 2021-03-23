@@ -1,7 +1,9 @@
+import './index.css'
+
 import React from 'react'
+
 import { WineProps } from 'src/types'
 import { useTranslation } from 'react-i18next'
-import './index.css'
 
 const { ipcRenderer, remote } = window.require('electron')
 const {
@@ -9,8 +11,8 @@ const {
 } = remote
 
 interface Props {
-  wineVersion: WineProps
   winePrefix: string
+  wineVersion: WineProps
 }
 
 export default function Tools({ wineVersion, winePrefix }: Props) {
@@ -18,19 +20,19 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
 
   const callTools = (tool: string, exe?: string) =>
     ipcRenderer.send('callTool', {
+      exe,
+      prefix: winePrefix,
       tool,
       wine: wineVersion.bin,
-      prefix: winePrefix,
-      exe,
     })
 
   const handleRunExe = async () => {
     let exe = ''
     const { filePaths } = await showOpenDialog({
-      title: t('box.runexe.title'),
       buttonLabel: t('box.select'),
-      properties: ['openFile'],
       filters: ['exe', 'msi'],
+      properties: ['openFile'],
+      title: t('box.runexe.title'),
     })
     if (filePaths[0]) {
       exe = filePaths[0]

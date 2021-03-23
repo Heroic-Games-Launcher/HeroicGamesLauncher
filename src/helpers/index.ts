@@ -1,5 +1,6 @@
-import { IpcRenderer, Remote } from 'electron'
 import { Game, InstallProgress } from 'src/types'
+import { IpcRenderer, Remote } from 'electron'
+
 import { TFunction } from 'react-i18next'
 
 const { ipcRenderer, remote } = window.require('electron') as {
@@ -14,52 +15,49 @@ const {
 const readFile = async (file: string) =>
   await ipcRenderer.invoke('readFile', file)
 
-export const writeConfig = async (
+const writeConfig = async (
   data: [appName: string, x: unknown]
 ): Promise<void> => await ipcRenderer.invoke('writeFile', data)
 
-export const install = async (args: {
+const install = async (args: {
   appName: string
   path: string
 }): Promise<void> => await ipcRenderer.invoke('install', args)
 
-export const repair = async (appName: string): Promise<void> =>
+const repair = async (appName: string): Promise<void> =>
   await ipcRenderer.invoke('repair', appName)
 
-export const launch = (args: string): Promise<string> =>
+const launch = (args: string): Promise<string> =>
   ipcRenderer.invoke('launch', args).then((res: string): string => res)
 
-export const updateGame = (appName: string): Promise<void> =>
+const updateGame = (appName: string): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName)
 
-export const notify = ([title, message]: [
-  title: string,
-  message: string
-]): void => ipcRenderer.send('Notify', [title, message])
+const notify = ([title, message]: [title: string, message: string]): void =>
+  ipcRenderer.send('Notify', [title, message])
 
-export const loginPage = (): void => ipcRenderer.send('openLoginPage')
+const loginPage = (): void => ipcRenderer.send('openLoginPage')
 
-export const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
+const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
 
-export const handleKofi = (): void => ipcRenderer.send('openSupportPage')
+const handleKofi = (): void => ipcRenderer.send('openSupportPage')
 
-export const handleQuit = (): void => ipcRenderer.send('quit')
+const handleQuit = (): void => ipcRenderer.send('quit')
 
-export const importGame = async (args: {
+const importGame = async (args: {
   appName: string
   path: string
 }): Promise<void> => await ipcRenderer.invoke('importGame', args)
 
-export const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
+const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
-export const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
+const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
-export let progress: string
+let progress: string
 
-export const sendKill = (appName: string): void =>
-  ipcRenderer.send('kill', appName)
+const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
 
-export const legendary = async (args: string): Promise<string> =>
+const legendary = async (args: string): Promise<string> =>
   await ipcRenderer
     .invoke('legendary', args)
     .then(async (res: string) => {
@@ -68,10 +66,10 @@ export const legendary = async (args: string): Promise<string> =>
     })
     .catch((err: string | null) => String(err))
 
-export const isLoggedIn = async (): Promise<void> =>
+const isLoggedIn = async (): Promise<void> =>
   await ipcRenderer.invoke('isLoggedIn')
 
-export const syncSaves = async (
+const syncSaves = async (
   savesPath: string,
   appName: string,
   arg?: string
@@ -89,18 +87,18 @@ export const syncSaves = async (
   return response
 }
 
-export const getLegendaryConfig = async (): Promise<{
-  user: string
+const getLegendaryConfig = async (): Promise<{
   library: Game[]
+  user: string
 }> => {
   const user: string = await readFile('user')
   const library: Array<Game> = await readFile('library')
 
   if (!user) {
-    return { user: '', library: [] }
+    return { library: [], user: '' }
   }
 
-  return { user, library }
+  return { library, user }
 }
 
 const specialCharactersRegex = /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
@@ -111,7 +109,7 @@ const cleanTitle = (title: string) =>
     .toLowerCase()
     .split('--definitive')[0]
 
-export const getGameInfo = async (appName: string) => {
+const getGameInfo = async (appName: string) => {
   const library: Array<Game> = await readFile('library')
   const game = library.filter((game) => game.app_name === appName)[0]
   const extraInfo = await ipcRenderer.invoke(
@@ -122,28 +120,28 @@ export const getGameInfo = async (appName: string) => {
   return { ...game, extraInfo }
 }
 
-export const handleSavePath = async (game: string) => {
+const handleSavePath = async (game: string) => {
   const { cloudSaveEnabled, saveFolder } = await getGameInfo(game)
 
   return { cloudSaveEnabled, saveFolder }
 }
 
-export const createNewWindow = (url: string) =>
-  new BrowserWindow({ width: 1200, height: 700 }).loadURL(url)
+const createNewWindow = (url: string) =>
+  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 
-export const formatStoreUrl = (title: string, lang: string) => {
+const formatStoreUrl = (title: string, lang: string) => {
   const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
   return `${storeUrl}${cleanTitle(title)}`
 }
 
-export function getProgress(progress: InstallProgress): number {
+function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {
     return Number(progress.percent.replace('%', ''))
   }
   return 0
 }
 
-export async function fixSaveFolder(
+async function fixSaveFolder(
   folder: string,
   prefix: string,
   isProton: boolean
@@ -236,19 +234,19 @@ export async function fixSaveFolder(
   return folder
 }
 
-export async function handleStopInstallation(
+async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>
 ) {
   const { response } = await showMessageBox({
-    title: t('gamepage:box.stopInstall.title'),
-    message: t('gamepage:box.stopInstall.message'),
     buttons: [
       t('gamepage:box.stopInstall.keepInstalling'),
       t('box.yes'),
       t('box.no'),
     ],
+    message: t('gamepage:box.stopInstall.message'),
+    title: t('gamepage:box.stopInstall.title'),
   })
   if (response === 1) {
     return sendKill(appName)
@@ -256,4 +254,33 @@ export async function handleStopInstallation(
     sendKill(appName)
     return ipcRenderer.send('removeFolder', [path, folderName])
   }
+}
+
+export {
+  createNewWindow,
+  fixSaveFolder,
+  formatStoreUrl,
+  getGameInfo,
+  getLegendaryConfig,
+  getProgress,
+  handleKofi,
+  handleQuit,
+  handleSavePath,
+  handleStopInstallation,
+  importGame,
+  install,
+  isLoggedIn,
+  launch,
+  legendary,
+  loginPage,
+  notify,
+  openAboutWindow,
+  openDiscordLink,
+  progress,
+  repair,
+  sendKill,
+  sidInfoPage,
+  syncSaves,
+  updateGame,
+  writeConfig,
 }

@@ -1,8 +1,8 @@
 import React, { lazy, useContext } from 'react'
 
 import './App.css'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import { Library } from './screens/Library'
-import { HashRouter, Switch, Route } from 'react-router-dom'
 import ContextProvider from './state/ContextProvider'
 
 const NavBar = lazy(() => import('./components/Navbar'))
