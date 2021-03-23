@@ -6,20 +6,20 @@ import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 
 interface Props {
-  audioFix: boolean,
-  isDefault: boolean,
-  launcherArgs: string,
-  offlineMode : boolean,
-  otherOptions: string,
-  setLauncherArgs: (value: string) => void,
-  setOtherOptions: (value: string) => void,
-  showFps: boolean,
-  showMangohud: boolean,
-  toggleAudioFix: () => void,
-  toggleFps: () => void,
-  toggleMangoHud: () => void,
-  toggleOffline : () => void,
-  toggleUseGameMode: () => void,
+  audioFix: boolean
+  isDefault: boolean
+  launcherArgs: string
+  offlineMode: boolean
+  otherOptions: string
+  setLauncherArgs: (value: string) => void
+  setOtherOptions: (value: string) => void
+  showFps: boolean
+  showMangohud: boolean
+  toggleAudioFix: () => void
+  toggleFps: () => void
+  toggleMangoHud: () => void
+  toggleOffline: () => void
+  toggleUseGameMode: () => void
   useGameMode: boolean
 }
 
@@ -38,7 +38,7 @@ export default function OtherSettings({
   toggleAudioFix,
   showMangohud,
   toggleMangoHud,
-  isDefault
+  isDefault,
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)

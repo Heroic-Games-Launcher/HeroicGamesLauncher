@@ -10,7 +10,7 @@ import {
   heroicConfigPath,
   isLoggedIn,
   legendaryConfigPath,
-  writeDefaultconfig
+  writeDefaultconfig,
 } from '../utils'
 
 const statAsync = promisify(stat)
@@ -26,9 +26,9 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
   }
 
   const files: {
-    config: string,
-    installed: Game[],
-    library: string,
+    config: string
+    installed: Game[]
+    library: string
     user: UserInfo
   } = {
     config: heroicConfigPath,
@@ -36,7 +36,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
       .then(() => JSON.parse(readFileSync(installed, 'utf-8')))
       .catch(() => []),
     library: `${legendaryConfigPath}/metadata/`,
-    user: getUserInfo()
+    user: getUserInfo(),
   }
 
   if (file === 'user') {
@@ -62,10 +62,10 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             title,
             developer,
             dlcItemList,
-            customAttributes: { CloudSaveFolder, FolderName }
+            customAttributes: { CloudSaveFolder, FolderName },
           } = metadata
 
-          const {namespace} = asset_info
+          const { namespace } = asset_info
 
           if (dlcItemList) {
             dlcItemList.forEach(
@@ -109,7 +109,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             version = null,
             install_size = null,
             install_path = null,
-            is_dlc = dlc()
+            is_dlc = dlc(),
           } = info as InstalledInfo
 
           const convertedSize =
@@ -134,7 +134,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             namespace,
             saveFolder,
             title,
-            version
+            version,
           }
         })
         .sort((a: { title: string }, b: { title: string }) => {

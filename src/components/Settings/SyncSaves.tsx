@@ -3,23 +3,23 @@ import React, { useEffect, useState } from 'react'
 
 import { Path, SyncType } from '../../types'
 import { fixSaveFolder, getGameInfo, syncSaves } from '../../helper'
-import Backspace from '@material-ui/icons/Backspace';
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+import Backspace from '@material-ui/icons/Backspace'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import InfoBox from '../UI/InfoBox'
 import ToggleSwitch from '../UI/ToggleSwitch'
 
 const {
-  remote: { dialog }
+  remote: { dialog },
 } = window.require('electron')
 
 interface Props {
-  appName: string,
-  autoSyncSaves: boolean,
-  defaultFolder: string,
-  isProton: boolean,
-  savesPath: string,
-  setAutoSyncSaves: (value: boolean) => void,
-  setSavesPath: (value: string) => void,
+  appName: string
+  autoSyncSaves: boolean
+  defaultFolder: string
+  isProton: boolean
+  savesPath: string
+  setAutoSyncSaves: (value: boolean) => void
+  setSavesPath: (value: string) => void
   winePrefix: string
 }
 
@@ -31,7 +31,7 @@ export default function SyncSaves({
   setAutoSyncSaves,
   defaultFolder,
   isProton,
-  winePrefix
+  winePrefix,
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
@@ -56,7 +56,7 @@ export default function SyncSaves({
     t('setting.manualsync.download'),
     t('setting.manualsync.upload'),
     t('setting.manualsync.forcedownload'),
-    t('setting.manualsync.forceupload')
+    t('setting.manualsync.forceupload'),
   ]
   async function handleSync() {
     setIsSyncing(true)
@@ -64,7 +64,7 @@ export default function SyncSaves({
       Download: '--skip-upload',
       'Force download': '--force-download',
       'Force upload': '--force-upload',
-      Upload: '--skip-download'
+      Upload: '--skip-download',
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
@@ -98,7 +98,7 @@ export default function SyncSaves({
                         buttonLabel: t('box.sync.button'),
                         defaultPath: defaultFolder,
                         properties: ['openDirectory'],
-                        title: t('box.sync.title')
+                        title: t('box.sync.title'),
                       })
                       .then(({ filePaths }: Path) =>
                         setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
@@ -120,7 +120,7 @@ export default function SyncSaves({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '513px'
+            width: '513px',
           }}
         >
           <select
@@ -140,7 +140,11 @@ export default function SyncSaves({
               isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${isSyncing ? t('setting.manualsync.syncing') : t('setting.manualsync.sync')}`}
+            {`${
+              isSyncing
+                ? t('setting.manualsync.syncing')
+                : t('setting.manualsync.sync')
+            }`}
           </button>
         </span>
       </span>

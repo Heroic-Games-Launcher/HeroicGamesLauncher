@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface Props {
-  disabled?: boolean,
-  handleChange: () => void,
+  disabled?: boolean
+  handleChange: () => void
   value: boolean
 }
 
