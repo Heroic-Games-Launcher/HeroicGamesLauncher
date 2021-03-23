@@ -78,5 +78,5 @@ To be able to run you will need to have NodeJS installed locally and follow the 
 - On the project folder run `yarn install`.
 - Run `yarn build` to build the React Assets.
 - Run `yarn start`.
-- To build the binaries for linux, run `yarn dist {package to create}`.
-- To build the binaries for macOS, run `yarn dist-mac {package to create}`.
+- To build the binaries for Linux, run `yarn dist {package to create}`.
+- To build the binaries for MacOS, run `yarn dist-mac {package to create}`.
