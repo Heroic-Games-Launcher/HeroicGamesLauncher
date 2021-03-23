@@ -17,7 +17,7 @@ export default function LanguageSelector({
   handleLanguageChange,
   currentLanguage = 'en',
   className = 'settingSelect',
-  flagPossition = FlagPosition.NONE,
+  flagPossition = FlagPosition.NONE
 }: Props) {
   const languageLabels: { [key: string]: string } = {
     de: 'Deutsch',
@@ -29,7 +29,7 @@ export default function LanguageSelector({
     pl: 'Polski',
     pt: 'Português',
     ru: 'Русский',
-    tr: 'Türkçe',
+    tr: 'Türkçe'
   }
 
   const languageFlags: { [key: string]: string } = {
@@ -42,7 +42,7 @@ export default function LanguageSelector({
     pl: '🇵🇱',
     pt: '🇵🇹',
     ru: '🇷🇺',
-    tr: '🇹🇷',
+    tr: '🇹🇷'
   }
 
   const renderOption = (lang: string) => {

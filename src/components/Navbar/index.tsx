@@ -36,7 +36,7 @@ export default function NavBar() {
           activeStyle={{ color: '#FFA800', fontWeight: 500 }}
           isActive={(match, location) => location.pathname.includes('settings')}
           to={{
-            pathname: '/settings/default/general',
+            pathname: '/settings/default/general'
           }}
         >
           {t('Settings')}

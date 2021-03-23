@@ -5,7 +5,7 @@ import {
   handleQuit,
   legendary,
   openAboutWindow,
-  openDiscordLink,
+  openDiscordLink
 } from 'src/helpers'
 
 import { useTranslation } from 'react-i18next'

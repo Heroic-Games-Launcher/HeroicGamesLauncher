@@ -10,7 +10,7 @@ import Backspace from '@material-ui/icons/Backspace'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 
 const {
-  remote: { dialog },
+  remote: { dialog }
 } = window.require('electron')
 
 interface Props {
@@ -32,7 +32,7 @@ export default function SyncSaves({
   setAutoSyncSaves,
   defaultFolder,
   isProton,
-  winePrefix,
+  winePrefix
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
@@ -57,7 +57,7 @@ export default function SyncSaves({
     t('setting.manualsync.download'),
     t('setting.manualsync.upload'),
     t('setting.manualsync.forcedownload'),
-    t('setting.manualsync.forceupload'),
+    t('setting.manualsync.forceupload')
   ]
   async function handleSync() {
     setIsSyncing(true)
@@ -65,7 +65,7 @@ export default function SyncSaves({
       Download: '--skip-upload',
       'Force download': '--force-download',
       'Force upload': '--force-upload',
-      Upload: '--skip-download',
+      Upload: '--skip-download'
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
@@ -95,15 +95,15 @@ export default function SyncSaves({
                 isLinked
                   ? ''
                   : dialog
-                      .showOpenDialog({
-                        buttonLabel: t('box.sync.button'),
-                        defaultPath: defaultFolder,
-                        properties: ['openDirectory'],
-                        title: t('box.sync.title'),
-                      })
-                      .then(({ filePaths }: Path) =>
-                        setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
-                      )
+                    .showOpenDialog({
+                      buttonLabel: t('box.sync.button'),
+                      defaultPath: defaultFolder,
+                      properties: ['openDirectory'],
+                      title: t('box.sync.title')
+                    })
+                    .then(({ filePaths }: Path) =>
+                      setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
+                    )
               }
             />
           ) : (
@@ -121,7 +121,7 @@ export default function SyncSaves({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '513px',
+            width: '513px'
           }}
         >
           <select

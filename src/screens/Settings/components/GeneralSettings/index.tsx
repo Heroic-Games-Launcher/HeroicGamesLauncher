@@ -12,7 +12,7 @@ import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 
 const {
   ipcRenderer,
-  remote: { dialog },
+  remote: { dialog }
 } = window.require('electron')
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const storage: Storage = window.localStorage
@@ -48,7 +48,7 @@ export default function GeneralSettings({
   maxWorkers,
   setMaxWorkers,
   darkTrayIcon,
-  toggleDarkTrayIcon,
+  toggleDarkTrayIcon
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -75,7 +75,7 @@ export default function GeneralSettings({
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await showMessageBox({
           message: t('message.unsync'),
-          title: 'EGS Sync',
+          title: 'EGS Sync'
         })
         setEgsLinkedPath('')
         setEgsPath('')
@@ -96,7 +96,7 @@ export default function GeneralSettings({
         }
         await dialog.showMessageBox({
           message: t('message.sync'),
-          title: 'EGS Sync',
+          title: 'EGS Sync'
         })
 
         setIsSyncing(false)
@@ -135,7 +135,7 @@ export default function GeneralSettings({
               showOpenDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
-                title: t('box.default-install-path'),
+                title: t('box.default-install-path')
               }).then(({ filePaths }: Path) =>
                 setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
               )
@@ -162,14 +162,14 @@ export default function GeneralSettings({
                 isLinked
                   ? ''
                   : dialog
-                      .showOpenDialog({
-                        buttonLabel: t('box.choose'),
-                        properties: ['openDirectory'],
-                        title: t('box.choose-egs-prefix'),
-                      })
-                      .then(({ filePaths }: Path) =>
-                        setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
-                      )
+                    .showOpenDialog({
+                      buttonLabel: t('box.choose'),
+                      properties: ['openDirectory'],
+                      title: t('box.choose-egs-prefix')
+                    })
+                    .then(({ filePaths }: Path) =>
+                      setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                    )
               }
             />
           ) : (
@@ -194,8 +194,8 @@ export default function GeneralSettings({
               isLinked
                 ? t('button.unsync')
                 : isSyncing
-                ? t('button.syncing')
-                : t('button.sync')
+                  ? t('button.syncing')
+                  : t('button.sync')
             }`}
           </button>
         </span>
