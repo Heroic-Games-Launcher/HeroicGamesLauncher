@@ -127,6 +127,8 @@ yarn
 
 yarn start
 
+yarn electron
+
 yarn dist {package to create}
 ```
 
