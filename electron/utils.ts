@@ -1,7 +1,7 @@
 import * as axios from 'axios'
+import { exec } from 'child_process'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { app, dialog } from 'electron'
-import { exec } from 'child_process'
 import {
   existsSync,
   mkdir,
@@ -511,17 +511,17 @@ const showAboutWindow = () => {
 }
 
 const checkGameUpdates = async (): Promise<Array<string>> => {
-  if (isWindows) {
-    return []
-  }
   if (!(await isOnline())) {
     console.log('App offline, skipping checking game updates.')
     return []
   }
-  const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
+
+  const command = `${legendaryBin} list-installed --check-updates --tsv`
   const { stdout } = await execAsync(command)
-  const result = stdout.split('\n')
-  console.log('gameUpdates', result)
+  const result = stdout
+    .split('\n')
+    .filter((item) => item.includes('True'))
+    .map((item) => item.split('\t')[0])
 
   return result
 }
