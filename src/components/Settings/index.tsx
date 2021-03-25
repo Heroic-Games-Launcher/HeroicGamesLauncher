@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { AppSettings, WineProps } from '../../types'
 import { getGameInfo, writeConfig } from '../../helper'
 import { useToggle } from '../../hooks'
+import ContextProvider from 'src/state/ContextProvider'
 import GeneralSettings from './GeneralSettings'
 import Header from '../UI/Header'
 import OtherSettings from './OtherSettings'
@@ -35,6 +36,8 @@ interface LocationState {
 function Settings() {
   const { t, i18n } = useTranslation()
   const { state } = useLocation() as { state: LocationState }
+  const { platform } = useContext(ContextProvider)
+  const isWin = platform === 'win32'
 
   const [wineVersion, setWineversion] = useState({
     bin: '/usr/bin/wine',
@@ -100,7 +103,7 @@ function Settings() {
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
-  const isWineSettings = type === 'wine'
+  const isWineSettings = type === 'wine' && platform !== 'win32'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
 
@@ -211,7 +214,11 @@ function Settings() {
               {t('settings.navbar.general')}
             </NavLink>
           )}
-          <NavLink to={{ pathname: `/settings/${appName}/wine` }}>Wine</NavLink>
+          {!isWin && (
+            <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
+              Wine
+            </NavLink>
+          )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink to={{ pathname: `/settings/${appName}/sync` }}>
               {t('settings.navbar.sync')}
