@@ -1,13 +1,7 @@
-import {
-  IpcRenderer,
-  Remote
-} from 'electron'
+import { IpcRenderer, Remote } from 'electron'
 import { TFunction } from 'react-i18next'
 
-import {
-  Game,
-  InstallProgress
-} from './types'
+import { Game, InstallProgress } from './types'
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -15,7 +9,7 @@ const { ipcRenderer, remote } = window.require('electron') as {
 }
 const {
   BrowserWindow,
-  dialog: { showMessageBox }
+  dialog: { showMessageBox },
 } = remote
 
 const readFile = async (file: string) =>
@@ -39,10 +33,8 @@ const launch = (args: string): Promise<string> =>
 const updateGame = (appName: string): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName)
 
-const notify = ([title, message]: [
-  title: string,
-  message: string
-]): void => ipcRenderer.send('Notify', [title, message])
+const notify = ([title, message]: [title: string, message: string]): void =>
+  ipcRenderer.send('Notify', [title, message])
 
 const loginPage = (): void => ipcRenderer.send('openLoginPage')
 
@@ -63,8 +55,7 @@ const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
 let progress: string
 
-const sendKill = (appName: string): void =>
-  ipcRenderer.send('kill', appName)
+const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
 
 const legendary = async (args: string): Promise<string> =>
   await ipcRenderer
@@ -91,13 +82,13 @@ const syncSaves = async (
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
     path,
-    appName
+    appName,
   ])
   return response
 }
 
 const getLegendaryConfig = async (): Promise<{
-  library: Game[],
+  library: Game[]
   user: string
 }> => {
   const user: string = await readFile('user')
@@ -252,10 +243,10 @@ async function handleStopInstallation(
     buttons: [
       t('gamepage:box.stopInstall.keepInstalling'),
       t('box.yes'),
-      t('box.no')
+      t('box.no'),
     ],
     message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title')
+    title: t('gamepage:box.stopInstall.title'),
   })
   if (response === 1) {
     return sendKill(appName)
@@ -291,5 +282,5 @@ export {
   sidInfoPage,
   syncSaves,
   updateGame,
-  writeConfig
+  writeConfig,
 }

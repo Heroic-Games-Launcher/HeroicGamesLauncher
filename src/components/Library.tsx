@@ -1,7 +1,4 @@
-import React, {
-  lazy,
-  useContext
-} from 'react'
+import React, { lazy, useContext } from 'react'
 
 import cx from 'classnames'
 
@@ -18,7 +15,7 @@ interface Props {
 
 window.onscroll = () => {
   const pageOffset =
-      document.documentElement.scrollTop || document.body.scrollTop
+    document.documentElement.scrollTop || document.body.scrollTop
   const btn = document.getElementById('backToTopBtn')
   if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden'
 }
@@ -37,7 +34,7 @@ export const Library = ({ library }: Props) => {
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({
           gameList: layout === 'grid',
-          gameListLayout: layout !== 'grid'
+          gameListLayout: layout !== 'grid',
         })}
       >
         {!!library.length &&
@@ -51,7 +48,7 @@ export const Library = ({ library }: Props) => {
               isInstalled,
               version,
               install_size,
-              is_dlc
+              is_dlc,
             }: Game) => {
               if (is_dlc) {
                 return null
