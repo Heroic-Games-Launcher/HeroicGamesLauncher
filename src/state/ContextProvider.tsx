@@ -1,5 +1,6 @@
-import { ContextType } from '../types'
 import React from 'react'
+
+import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
   data: [],
