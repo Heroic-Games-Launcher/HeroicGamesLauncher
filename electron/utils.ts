@@ -5,13 +5,14 @@ import { exec } from 'child_process'
 import {
   existsSync,
   mkdir,
+  mkdirSync,
   readFileSync,
   readdirSync,
   writeFile,
   writeFileSync
 } from 'graceful-fs'
 import { fixPathForAsarUnpack } from 'electron-util'
-import { homedir, userInfo as user } from 'os'
+import { homedir, platform, userInfo as user } from 'os'
 import { join } from 'path'
 import { promisify } from 'util'
 import i18next from 'i18next'
@@ -23,15 +24,22 @@ const execAsync = promisify(exec)
 
 const { showErrorBox, showMessageBox } = dialog
 
+const isWindows = platform() === 'win32'
 const home = homedir()
-const legendaryConfigPath = `${home}/.config/legendary`
-const heroicFolder = `${home}/.config/heroic/`
-const heroicConfigPath = `${heroicFolder}config.json`
-const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
-const heroicToolsPath = `${heroicFolder}tools`
-const userInfo = `${legendaryConfigPath}/user.json`
-const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/legendary'))
+const legendaryConfigPath = isWindows
+  ? `${home}\\.config\\legendary`
+  : `${home}/.config/legendary`
+const heroicFolder: string = isWindows
+  ? `${home}\\.config\\heroic`
+  : `${home}/.config/heroic/`
+const heroicConfigPath = `${heroicFolder}\\config.json`
+const heroicGamesConfigPath = `${heroicFolder}\\GamesConfig\\`
+const heroicToolsPath = `${heroicFolder}\\tools`
+const userInfo = `${legendaryConfigPath}\\user.json`
+const heroicInstallPath = `${home}\\Games\\Heroic`
+const legendaryBin = isWindows
+  ? join(__dirname, '/bin/legendary.exe')
+  : fixPathForAsarUnpack(join(__dirname, '/bin/legendary'))
 const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
 const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
@@ -45,9 +53,25 @@ const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 
+function getShell() {
+  switch (process.platform) {
+    case 'win32':
+      return 'cmd.exe'
+    case 'linux':
+      return '/bin/bash'
+    case 'darwin':
+      return '/bin/zsh'
+    default:
+      return '/bin/bash'
+  }
+}
+
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
   // Just add a new string here in case another path is found on another distro
+  if (isWindows) {
+    return
+  }
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
@@ -154,7 +178,7 @@ const getSettings = async (appName = 'default'): Promise<AppSettings> => {
     settingsPath = globalConfig
     settingsName = 'defaultSettings'
     if (!existsSync(settingsPath)) {
-      await writeDefaultconfig()
+      writeDefaultconfig()
       return getSettings('default')
     }
   }
@@ -179,7 +203,7 @@ const updateGame = async (game: string) => {
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
 
   try {
-    await execAsync(command, { shell: '/bin/bash' })
+    await execAsync(command, { shell: getShell() })
   } catch (error) {
     return errorHandler(logPath)
   }
@@ -202,11 +226,16 @@ const launchGame = async (appName: string) => {
     autoInstallDxvk
   } = await getSettings(appName)
 
-  const fixedWinePrefix = winePrefix.replace('~', home)
-  let wineCommand = `--wine ${wineVersion.bin}`
-
   const is_online = await isOnline()
   const offlineArg = !offlineMode && is_online ? '' : '--offline'
+
+  if (isWindows) {
+    const command = `${legendaryBin} launch ${offlineArg} ${appName}`
+    return execAsync(command)
+  }
+
+  const fixedWinePrefix = winePrefix.replace('~', home)
+  let wineCommand = `--wine ${wineVersion.bin}`
 
   // We need to keep replacing the ' to keep compatibility with old configs
   let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
@@ -368,7 +397,7 @@ async function installDxvk(prefix: string) {
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${winePrefix}`, installCommand)
   await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
-  await execAsync(installCommand, { shell: '/bin/bash' })
+  await execAsync(installCommand, { shell: getShell() })
     .then(() => exec(echoCommand))
     .catch(() =>
       console.log(
@@ -377,15 +406,19 @@ async function installDxvk(prefix: string) {
     )
 }
 
-const writeDefaultconfig = async () => {
+const writeDefaultconfig = () => {
+  if (!existsSync(heroicFolder)) {
+    mkdirSync(heroicFolder)
+  }
+
   if (!existsSync(heroicConfigPath)) {
     const { account_id } = getUserInfo()
     const userName = user().username
-    const [defaultWine] = await getAlternativeWine()
+    // const [defaultWine] = await getAlternativeWine()
 
     const config = {
       defaultSettings: {
-        customWinePaths: [],
+        customWinePaths: isWindows ? null : [],
         defaultInstallPath: heroicInstallPath,
         language: 'en',
         maxWorkers: 0,
@@ -396,10 +429,12 @@ const writeDefaultconfig = async () => {
           epicId: account_id,
           name: userName
         },
-        winePrefix: `${home}/.wine`,
-        wineVersion: defaultWine
+        winePrefix: isWindows ? null : `${home}/.wine`,
+        wineVersion: isWindows ? null : {}
       } as AppSettings
     }
+
+    console.log(heroicConfigPath, config)
 
     writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
   }
@@ -442,6 +477,9 @@ const writeGameconfig = async (game: string) => {
 }
 
 async function checkForUpdates() {
+  if (isWindows) {
+    return
+  }
   if (!(await isOnline())) {
     console.log('Version check failed, app is offline.')
     return false
@@ -473,6 +511,9 @@ const showAboutWindow = () => {
 }
 
 const checkGameUpdates = async (): Promise<Array<string>> => {
+  if (isWindows) {
+    return []
+  }
   if (!(await isOnline())) {
     console.log('App offline, skipping checking game updates.')
     return []
@@ -480,6 +521,8 @@ const checkGameUpdates = async (): Promise<Array<string>> => {
   const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
   const { stdout } = await execAsync(command)
   const result = stdout.split('\n')
+  console.log('gameUpdates', result)
+
   return result
 }
 
@@ -539,6 +582,7 @@ export {
   getAlternativeWine,
   getLatestDxvk,
   getSettings,
+  getShell,
   handleExit,
   heroicConfigPath,
   heroicFolder,

@@ -8,14 +8,8 @@ import {
   ipcMain,
   powerSaveBlocker
 } from 'electron'
-import {
-  cpus,
-  userInfo as user
-} from 'os'
-import {
-  exec,
-  spawn
-} from 'child_process'
+import { cpus, userInfo as user } from 'os'
+import { exec, spawn } from 'child_process'
 import {
   existsSync,
   mkdirSync,
@@ -42,6 +36,7 @@ import {
   getAlternativeWine,
   getLatestDxvk,
   getSettings,
+  getShell,
   handleExit,
   heroicConfigPath,
   heroicGamesConfigPath,
@@ -63,6 +58,7 @@ import {
 } from './utils'
 
 const execAsync = promisify(exec)
+const isWindows = process.platform === 'win32'
 
 let mainWindow: BrowserWindow = null
 
@@ -81,7 +77,9 @@ function createWindow(): BrowserWindow {
   })
 
   setTimeout(() => {
-    getLatestDxvk()
+    if (process.platform === 'linux') {
+      getLatestDxvk()
+    }
   }, 2500)
 
   //load the index.html from a url
@@ -362,15 +360,19 @@ ipcMain.handle('install', async (event, args) => {
   const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
-  let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
+  const writeLog = isWindows ? '' : `|& tee ${logPath}`
+
+  let command = `${legendaryBin} install ${game} --base-path ${path} ${workers} -y ${writeLog}`
   if (path === 'default') {
-    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
+    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y`
   }
   console.log(`Installing ${game} with:`, command)
   try {
-    await execAsync(command, { shell: '/bin/bash' })
+    await execAsync(command, { shell: getShell() })
     console.log('finished installing')
   } catch (error) {
+    console.log({ error })
+
     return errorHandler(logPath)
   }
 })
@@ -387,15 +389,19 @@ ipcMain.handle('repair', async (event, game) => {
   const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
 
   console.log(`Repairing ${game} with:`, command)
-  await execAsync(command, { shell: '/bin/bash' })
+  await execAsync(command, { shell: getShell() })
     .then(() => console.log('finished repairing'))
     .catch(console.log)
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
-  const command = `${legendaryBin} import-game ${game} '${path}'`
-  const { stderr, stdout } = await execAsync(command, { shell: '/bin/bash' })
+  console.log('import', { game, legendaryBin, path })
+
+  const command = `${legendaryBin} import-game ${game} ${path}`
+  console.log(command)
+
+  const { stderr, stdout } = await execAsync(command, { shell: getShell() })
   console.log(`${stdout} - ${stderr}`)
   return
 })
@@ -405,6 +411,10 @@ ipcMain.handle('updateGame', (e, appName) =>
 )
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
+  if (process.platform === 'win32') {
+    return ''
+  }
+
   const logPath = `${heroicGamesConfigPath}${appName}.log`
   const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
   const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
@@ -431,9 +441,9 @@ ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
-  exe: string,
-  prefix: string,
-  tool: string,
+  exe: string
+  prefix: string
+  tool: string
   wine: string
 }
 
