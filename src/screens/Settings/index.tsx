@@ -15,6 +15,7 @@ import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 import WineSettings from './components/WineSettings'
+import ContextProvider from 'src/state/ContextProvider'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
