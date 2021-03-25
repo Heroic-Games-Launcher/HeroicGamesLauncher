@@ -6,9 +6,9 @@ import ReactDOM from 'react-dom'
 import i18next from 'i18next'
 
 import './index.css'
-import App from './App'
-import GlobalState from './state/GlobalState'
-import UpdateComponent from './components/UI/UpdateComponent'
+import App from 'src/App'
+import GlobalState from 'src/state/GlobalState'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',

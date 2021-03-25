@@ -1,0 +1,30 @@
+.NavBar {
+  height: 77px;
+  position: sticky;
+  top: 0;
+  background: var(--background);
+  box-shadow: 0px 4.00313px 10.0078px #161616;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 5fr 1fr;
+  grid-template-areas: 'links search user';
+  z-index: 99;
+}
+
+.NavBar .Links {
+  grid-area: links;
+  position: absolute;
+  font-size: 20px;
+  line-height: 23.7px;
+  font-weight: 400;
+  height: 25px;
+  left: 43px;
+  top: 26px;
+  display: flex;
+  font-family: 'Rubik', sans-serif;
+  justify-content: space-between;
+}
+
+.Links > a:not(:first-child) {
+  margin-left: 24px;
+}
