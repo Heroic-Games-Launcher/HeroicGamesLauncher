@@ -16,10 +16,10 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - [Language Support](#language-support)
 - [Installation](#installation)
   - [Debian](#debian)
-  - [Arch (Aur)](#arch-aur)
+  - [Arch (AUR)](#arch-aur)
   - [Fedora](#fedora)
   - [Other Distributions](#other-distributions)
-  - [Build, install and run locally](#build-install-and-run-locally)
+  - [Build binaries locally](#build-binaries-locally)
 - [Current Version Screenshots](#current-version-screenshots)
 
 ## How to use it
@@ -114,7 +114,7 @@ To run it use:
 ./heroic-x.x.x.AppImage
 ```
 
-### Build, install and run locally
+### Build binaries locally
 
 Requires NodeJS to build
 
