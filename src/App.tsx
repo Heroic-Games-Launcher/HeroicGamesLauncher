@@ -2,14 +2,14 @@ import React, { lazy, useContext } from 'react'
 
 import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Library } from './components/Library'
+import { Library } from './screens/Library'
 import ContextProvider from './state/ContextProvider'
 
-const NavBar = lazy(() => import('./components/NavBar'))
-const Settings = lazy(() => import('./components/Settings'))
-const GamePage = lazy(() => import('./components/GamePage/GamePage'))
+const NavBar = lazy(() => import('./components/Navbar'))
+const Settings = lazy(() => import('./screens/Settings'))
+const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
-const Login = lazy(() => import('./components/Login'))
+const Login = lazy(() => import('./screens/Login'))
 
 function App() {
   const context = useContext(ContextProvider)
@@ -20,7 +20,7 @@ function App() {
     return <Login refresh={refresh} />
   }
 
-  const dlcCount = library.filter(lib => lib.is_dlc)
+  const dlcCount = library.filter((lib) => lib.is_dlc)
   const numberOfGames = library.length - dlcCount.length
   return (
     <div className="App">

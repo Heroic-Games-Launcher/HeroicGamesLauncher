@@ -1,8 +1,8 @@
-import { ContextType } from '../types'
 import React from 'react'
 
 const { remote } = window.require('electron')
 const { process } = remote
+import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
   data: [],

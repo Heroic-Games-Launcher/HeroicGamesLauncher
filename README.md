@@ -76,6 +76,7 @@ To be able to run you will need to have NodeJS installed locally and follow the 
 
 - Clone the Repository.
 - On the project folder run `yarn install`.
-- Run `yarn build` to build the React Assets.
-- Run `yarn start`.
+- Run `yarn build` to build the React assets.
+- Run `yarn start` to start the NodeJS server.
+- Run `yarn electron` to build and run the Electron app.
 - To build the binaries run `yarn dist {package to create}`.

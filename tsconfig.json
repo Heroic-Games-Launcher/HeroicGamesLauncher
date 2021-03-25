@@ -3,11 +3,7 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react-jsx",
@@ -39,10 +35,8 @@
     "jest",
     "src/setupTests.ts",
     "public/start-react.js",
-    "public/*.js"
+    "public/*.js",
+    "dist"
   ],
-  "include": [
-    "src",
-    "src/types.ts"
-  ]
+  "include": ["src", "src/types.ts"]
 }
