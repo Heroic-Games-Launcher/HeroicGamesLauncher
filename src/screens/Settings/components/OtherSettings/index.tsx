@@ -1,7 +1,8 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useContext } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
+import ContextProvider from 'src/state/ContextProvider'
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
@@ -45,52 +46,63 @@ export default function OtherSettings({
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
   const { t } = useTranslation()
+  const { platform } = useContext(ContextProvider)
 
   return (
     <>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.showfps')}
-          <ToggleSwitch value={showFps} handleChange={toggleFps} />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.offlinemode')}
-          <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.gamemode')}
-          <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.audiofix')}
-          <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.mangohud')}
-          <ToggleSwitch value={showMangohud} handleChange={toggleMangoHud} />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="settingText">{t('options.advanced.title')}</span>
-        <span>
-          <input
-            id="otherOptions"
-            type="text"
-            placeholder={t('options.advanced.placeholder')}
-            className="settingSelect"
-            value={otherOptions}
-            onChange={handleOtherOptions}
-          />
-        </span>
-      </span>
+      {platform !== 'win32' && (
+        <>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t('setting.showfps')}
+              <ToggleSwitch value={showFps} handleChange={toggleFps} />
+            </span>
+          </span>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t('setting.offlinemode')}
+              <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
+            </span>
+          </span>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t('setting.gamemode')}
+              <ToggleSwitch
+                value={useGameMode}
+                handleChange={toggleUseGameMode}
+              />
+            </span>
+          </span>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t('setting.audiofix')}
+              <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
+            </span>
+          </span>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t('setting.mangohud')}
+              <ToggleSwitch
+                value={showMangohud}
+                handleChange={toggleMangoHud}
+              />
+            </span>
+          </span>
+          <span className="setting">
+            <span className="settingText">{t('options.advanced.title')}</span>
+            <span>
+              <input
+                id="otherOptions"
+                type="text"
+                placeholder={t('options.advanced.placeholder')}
+                className="settingSelect"
+                value={otherOptions}
+                onChange={handleOtherOptions}
+              />
+            </span>
+          </span>
+        </>
+      )}
       {!isDefault && (
         <span className="setting">
           <span className="settingText">{t('options.gameargs.title')}</span>

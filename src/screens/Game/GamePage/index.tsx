@@ -49,8 +49,10 @@ export default function GamePage(): JSX.Element | null {
     libraryStatus,
     handleGameStatus,
     data,
-    gameUpdates
+    gameUpdates,
+    platform
   } = useContext(ContextProvider)
+  const isWin = platform === 'win32'
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -202,7 +204,7 @@ export default function GamePage(): JSX.Element | null {
                           : ''
                         : ''}
                     </div>
-                    {cloudSaveEnabled && (
+                    {cloudSaveEnabled && !isWin && (
                       <div
                         style={{
                           color: autoSyncSaves ? '#07C5EF' : ''

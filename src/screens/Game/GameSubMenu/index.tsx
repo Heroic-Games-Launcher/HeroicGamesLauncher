@@ -33,7 +33,10 @@ export default function GamesSubmenu({
   title,
   clicked
 }: Props) {
-  const { handleGameStatus, refresh, gameUpdates } = useContext(ContextProvider)
+  const { handleGameStatus, refresh, gameUpdates, platform } = useContext(
+    ContextProvider
+  )
+  const isWin = platform === 'win32'
 
   const { t, i18n } = useTranslation('gamepage')
   let lang = i18n.language
@@ -127,7 +130,9 @@ export default function GamesSubmenu({
           <Link
             className="hidden link"
             to={{
-              pathname: `/settings/${appName}/wine`,
+              pathname: isWin
+                ? `/settings/${appName}/other`
+                : `/settings/${appName}/wine`,
               state: { fromGameCard: false }
             }}
           >

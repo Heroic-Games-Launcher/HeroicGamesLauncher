@@ -8,6 +8,7 @@ import './index.css'
 import { AppSettings, WineProps } from 'src/types'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
+import ContextProvider from 'src/state/ContextProvider'
 import GeneralSettings from './components/GeneralSettings'
 import Header from 'src/components/UI/Header'
 import OtherSettings from './components/OtherSettings'
@@ -15,7 +16,6 @@ import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 import WineSettings from './components/WineSettings'
-import ContextProvider from 'src/state/ContextProvider'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -104,7 +104,7 @@ function Settings() {
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
-  const isWineSettings = type === 'wine' && platform !== 'win32'
+  const isWineSettings = type === 'wine'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
 
@@ -220,14 +220,16 @@ function Settings() {
               Wine
             </NavLink>
           )}
-          {!isDefault && haveCloudSaving.cloudSaveEnabled && (
+          {!isDefault && haveCloudSaving.cloudSaveEnabled && !isWin && (
             <NavLink to={{ pathname: `/settings/${appName}/sync` }}>
               {t('settings.navbar.sync')}
             </NavLink>
           )}
-          <NavLink to={{ pathname: `/settings/${appName}/other` }}>
-            {t('settings.navbar.other')}
-          </NavLink>
+          {
+            <NavLink to={{ pathname: `/settings/${appName}/other` }}>
+              {t('settings.navbar.other')}
+            </NavLink>
+          }
         </div>
         <div className="settingsWrapper">
           {isGeneralSettings && (
