@@ -40,6 +40,7 @@ export interface ContextType {
   refreshLibrary: () => void,
   refreshing: boolean,
   user: string
+  platform: string
 }
 
 interface ExtraInfo {

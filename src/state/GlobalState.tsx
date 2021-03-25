@@ -12,29 +12,30 @@ import { i18n } from 'i18next'
 import ContextProvider from './ContextProvider'
 import React, { PureComponent } from 'react'
 import UpdateComponent from '../components/UI/UpdateComponent'
+
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
-const { dialog } = remote
+const { dialog, process } = remote
 const { showMessageBox } = dialog
 
 const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   children: React.ReactNode
-  i18n: i18n,
+  i18n: i18n
   t: TFunction
 }
 
 interface StateProps {
-  data: Game[],
-  error: boolean,
-  filter: string,
-  filterText: string,
-  gameUpdates: string[],
-  language: string,
-  layout: string,
+  data: Game[]
+  error: boolean
+  filter: string
+  filterText: string
+  gameUpdates: string[]
+  language: string
+  layout: string
   libraryStatus: GameStatus[]
-  refreshing: boolean,
+  refreshing: boolean
   user: string
 }
 
@@ -56,6 +57,8 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ refreshing: true })
     const { user, library } = await getLegendaryConfig()
     const updates = await renderer.invoke('checkGameUpdates')
+
+    console.log(process.platform)
 
     this.setState({
       data: library,
@@ -279,6 +282,7 @@ export class GlobalState extends PureComponent<Props> {
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handleSearch: this.handleSearch,
+          platform: process.platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary
         }}
