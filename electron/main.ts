@@ -48,6 +48,8 @@ import {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
+  openUrlOrFile,
+  shell,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
@@ -141,13 +143,13 @@ const contextMenu = () =>
     },
     {
       click: function () {
-        exec(`xdg-open ${heroicGithubURL}`)
+        openUrlOrFile(heroicGithubURL)
       },
       label: 'Github',
     },
     {
       click: function () {
-        exec(`xdg-open ${supportURL}`)
+        openUrlOrFile(supportURL)
       },
       label: i18next.t('tray.support', 'Support Us'),
     },
@@ -227,11 +229,11 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-ipcMain.on('openSupportPage', () => exec(`xdg-open ${supportURL}`))
+ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 
 ipcMain.handle('checkGameUpdates', () => checkGameUpdates())
 
-ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
+ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
@@ -355,14 +357,14 @@ ipcMain.handle('install', async (event, args) => {
   const { defaultInstallPath, maxWorkers } = await getSettings('default')
   const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
-  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const logPath = `"${heroicGamesConfigPath}${game}.log"`
   let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
   if (path === 'default') {
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
   }
   console.log(`Installing ${game} with:`, command)
   try {
-    await execAsync(command, { shell: '/bin/bash' })
+    await execAsync(command, { shell: shell })
     console.log('finished installing')
   } catch (error) {
     return errorHandler(logPath)
@@ -377,11 +379,11 @@ ipcMain.handle('repair', async (event, game) => {
   const { maxWorkers } = await getSettings('default')
   const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
-  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const logPath = `"${heroicGamesConfigPath}${game}.log"`
   const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
 
   console.log(`Repairing ${game} with:`, command)
-  await execAsync(command, { shell: '/bin/bash' })
+  await execAsync(command, { shell: shell })
     .then(() => console.log('finished repairing'))
     .catch(console.log)
 })
@@ -389,7 +391,7 @@ ipcMain.handle('repair', async (event, game) => {
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const command = `${legendaryBin} import-game ${game} '${path}'`
-  const { stderr, stdout } = await execAsync(command, { shell: '/bin/bash' })
+  const { stderr, stdout } = await execAsync(command, { shell: shell })
   console.log(`${stdout} - ${stderr}`)
   return
 })
@@ -399,7 +401,7 @@ ipcMain.handle('updateGame', (e, appName) =>
 )
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `${heroicGamesConfigPath}${appName}.log`
+  const logPath = `"${heroicGamesConfigPath}${appName}.log"`
   const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
   const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
   const { stdout: progress_result } = await execAsync(progress_command)
@@ -415,11 +417,14 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 })
 
 ipcMain.on('kill', (event, game) => {
+  // until the legendary bug gets fixed, kill legendary on mac
+  // not a perfect solution but it's the only choice for now
+  game = process.platform === 'darwin' ? 'legendary' : game
   console.log('killing', game)
   return spawn('pkill', ['-f', game])
 })
 
-ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
+ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
 
 ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
@@ -466,14 +471,14 @@ ipcMain.handle('requestSettings', async (event, appName) => {
 //Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', () => isLoggedIn())
 
-ipcMain.on('openLoginPage', () => spawn('xdg-open', [loginUrl]))
+ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 
-ipcMain.on('openDiscordLink', () => spawn('xdg-open', [discordLink]))
+ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 
-ipcMain.on('openSidInfoPage', () => spawn('xdg-open', [sidInfoUrl]))
+ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('getLog', (event, appName) =>
-  spawn('xdg-open', [`${heroicGamesConfigPath}/${appName}-lastPlay.log`])
+  openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
 )
 
 const installed = `${legendaryConfigPath}/installed.json`

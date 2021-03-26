@@ -25,13 +25,13 @@ const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
-const heroicFolder = `${home}/.config/heroic/`
+const heroicFolder = process.platform === 'darwin' ? `${home}/Library/Application Support/heroic/` : `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/legendary'))
+const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, '/legendary'))
 const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
 const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
@@ -44,6 +44,7 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
+const shell = process.platform === 'darwin' ? '/bin/zsh' : '/bin/bash'
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
@@ -55,13 +56,13 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   ]
 
   if (!existsSync(`${heroicToolsPath}/wine`)) {
-    exec(`mkdir '${heroicToolsPath}/wine' -p`, () => {
+    exec(`mkdir -p '${heroicToolsPath}/wine'`, () => {
       return 'done'
     })
   }
 
   if (!existsSync(`${heroicToolsPath}/proton`)) {
-    exec(`mkdir '${heroicToolsPath}/proton' -p`, () => {
+    exec(`mkdir -p '${heroicToolsPath}/proton'`, () => {
       return 'done'
     })
   }
@@ -175,11 +176,11 @@ const updateGame = async (game: string) => {
     console.log(`App offline, skipping update for game '${game}'.`)
     return
   }
-  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const logPath = `"${heroicGamesConfigPath}${game}.log"`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
 
   try {
-    await execAsync(command, { shell: '/bin/bash' })
+    await execAsync(command, { shell: shell })
   } catch (error) {
     return errorHandler(logPath)
   }
@@ -239,7 +240,7 @@ const launchGame = async (appName: string) => {
 
   // Proton doesn't create a prefix folder so this is a workaround
   if (isProton && !existsSync(fixedWinePrefix)) {
-    const command = `mkdir '${fixedWinePrefix}' -p`
+    const command = `mkdir -p '${fixedWinePrefix}'`
     await execAsync(command)
   }
 
@@ -319,10 +320,10 @@ async function getLatestDxvk() {
     return
   }
 
-  const downloadCommand = `curl -L ${downloadUrl} -o ${dxvkLatest} --create-dirs`
-  const extractCommand = `tar -zxf ${dxvkLatest} -C ${heroicToolsPath}/DXVK/`
-  const echoCommand = `echo ${name} > ${heroicToolsPath}/DXVK/latest_dxvk`
-  const cleanCommand = `rm ${dxvkLatest}`
+  const downloadCommand = `curl -L ${downloadUrl} -o "${dxvkLatest}" --create-dirs`
+  const extractCommand = `tar -zxf "${dxvkLatest}" -C "${heroicToolsPath}/DXVK/"`
+  const echoCommand = `echo ${name} > "${heroicToolsPath}/DXVK/latest_dxvk"`
+  const cleanCommand = `rm "${dxvkLatest}"`
 
   console.log('Updating DXVK to:', name)
 
@@ -368,7 +369,7 @@ async function installDxvk(prefix: string) {
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${winePrefix}`, installCommand)
   await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
-  await execAsync(installCommand, { shell: '/bin/bash' })
+  await execAsync(installCommand, { shell: shell })
     .then(() => exec(echoCommand))
     .catch(() =>
       console.log(
@@ -530,6 +531,14 @@ function genericErrorMessage(): void {
   )
 }
 
+function openUrlOrFile(url: string): void {
+  if (process.platform === 'darwin') {
+    exec(`open ${url}`)
+  } else {
+    exec(`xdg-open ${url}`)
+  }
+}
+
 export {
   checkForUpdates,
   checkGameUpdates,
@@ -554,6 +563,8 @@ export {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
+  openUrlOrFile,
+  shell,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
