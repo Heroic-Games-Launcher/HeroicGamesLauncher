@@ -14,7 +14,7 @@ import {
   legendary,
   sendKill,
   syncSaves,
-  updateGame,
+  updateGame
 } from 'src/helpers'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 
@@ -32,7 +32,7 @@ const { ipcRenderer, remote } = window.require('electron') as {
   remote: Remote
 }
 const {
-  dialog: { showOpenDialog, showMessageBox },
+  dialog: { showOpenDialog, showMessageBox }
 } = remote
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
@@ -49,7 +49,7 @@ export default function GamePage(): JSX.Element | null {
     libraryStatus,
     handleGameStatus,
     data,
-    gameUpdates,
+    gameUpdates
   } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -61,7 +61,7 @@ export default function GamePage(): JSX.Element | null {
   const [progress, setProgress] = useState({
     bytes: '0.00MiB',
     eta: '00:00:00',
-    percent: '0.00%',
+    percent: '0.00%'
   } as InstallProgress)
   const [installPath, setInstallPath] = useState('default')
   const [defaultPath, setDefaultPath] = useState('...')
@@ -85,7 +85,7 @@ export default function GamePage(): JSX.Element | null {
           autoSyncSaves,
           winePrefix,
           wineVersion,
-          savesPath,
+          savesPath
         }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
         const isProton = wineVersion?.name?.includes('Proton') || false
         setAutoSyncSaves(autoSyncSaves)
@@ -124,7 +124,7 @@ export default function GamePage(): JSX.Element | null {
         handleGameStatus({
           appName,
           progress: getProgress(progress),
-          status,
+          status
         })
       }
     }, 1500)
@@ -144,7 +144,7 @@ export default function GamePage(): JSX.Element | null {
       version,
       extraInfo,
       developer,
-      cloudSaveEnabled,
+      cloudSaveEnabled
     }: Game = gameInfo
 
     if (savesPath.includes('{InstallDir}')) {
@@ -198,14 +198,14 @@ export default function GamePage(): JSX.Element | null {
                         ? extraInfo.about.shortDescription
                           ? extraInfo.about.shortDescription
                           : extraInfo.about.description
-                          ? extraInfo.about.description
-                          : ''
+                            ? extraInfo.about.description
+                            : ''
                         : ''}
                     </div>
                     {cloudSaveEnabled && (
                       <div
                         style={{
-                          color: autoSyncSaves ? '#07C5EF' : '',
+                          color: autoSyncSaves ? '#07C5EF' : ''
                         }}
                       >
                         {t('info.syncsaves')}:{' '}
@@ -244,7 +244,7 @@ export default function GamePage(): JSX.Element | null {
                       style={{
                         color:
                           isInstalled || isInstalling ? '#0BD58C' : '#BD0A0A',
-                        fontStyle: 'italic',
+                        fontStyle: 'italic'
                       }}
                     >
                       {getInstallLabel(isInstalled)}
@@ -438,7 +438,7 @@ export default function GamePage(): JSX.Element | null {
             const { response } = await showMessageBox({
               buttons: [t('box.yes'), t('box.no')],
               message: t('box.update.message'),
-              title: t('box.update.title'),
+              title: t('box.update.title')
             })
 
             if (response === 0) {
@@ -493,7 +493,7 @@ export default function GamePage(): JSX.Element | null {
         const { filePaths } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
-          title: t('box.importpath'),
+          title: t('box.importpath')
         })
 
         if (filePaths[0]) {
@@ -508,7 +508,7 @@ export default function GamePage(): JSX.Element | null {
         const { filePaths } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
-          title: t('box.installpath'),
+          title: t('box.installpath')
         })
 
         if (filePaths[0]) {
@@ -530,7 +530,7 @@ export default function GamePage(): JSX.Element | null {
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.uninstall.message'),
       title: t('box.uninstall.title'),
-      type: 'warning',
+      type: 'warning'
     })
 
     if (response === 0) {

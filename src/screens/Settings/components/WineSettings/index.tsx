@@ -11,7 +11,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
 const {
   ipcRenderer,
-  remote: { dialog },
+  remote: { dialog }
 } = window.require('electron')
 
 interface Props {
@@ -39,7 +39,7 @@ export default function WineSettings({
   autoInstallDxvk,
   customWinePaths,
   setCustomWinePaths,
-  isDefault,
+  isDefault
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
 
@@ -61,7 +61,7 @@ export default function WineSettings({
       .showOpenDialog({
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
-        title: t('box.customWine', 'Select the Wine or Proton Binary'),
+        title: t('box.customWine', 'Select the Wine or Proton Binary')
       })
       .then(({ filePaths }: Path) => {
         if (!customWinePaths.includes(filePaths[0])) {
@@ -96,7 +96,7 @@ export default function WineSettings({
                 .showOpenDialog({
                   buttonLabel: t('box.choose'),
                   properties: ['openDirectory'],
-                  title: t('box.wineprefix'),
+                  title: t('box.wineprefix')
                 })
                 .then(({ filePaths }: Path) =>
                   setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')
@@ -127,7 +127,7 @@ export default function WineSettings({
                 onClick={() => removeCustomPath()}
                 style={{
                   color: selectedPath ? 'var(--danger)' : 'var(--background)',
-                  cursor: selectedPath ? 'pointer' : '',
+                  cursor: selectedPath ? 'pointer' : ''
                 }}
                 fontSize="large"
                 titleAccess={t('tooltip.removepath', 'Remove Path')}
