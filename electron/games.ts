@@ -1,14 +1,24 @@
+import { exec } from 'child_process'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { dialog } from 'electron'
-import { exec } from 'child_process'
-import { existsSync, writeFile } from 'graceful-fs'
+import {
+  existsSync,
+  writeFile
+} from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 
-import { errorHandler, isOnline } from './utils'
+import { DXVK } from './dxvk'
+import {
+  errorHandler,
+  isOnline
+} from './utils'
 import { getSettings } from './config'
-import { heroicGamesConfigPath, home, legendaryBin } from './constants'
-import { installDxvk } from './dxvk'
+import {
+  heroicGamesConfigPath,
+  home,
+  legendaryBin
+} from './constants'
 
 const execAsync = promisify(exec)
 
@@ -26,7 +36,7 @@ const checkGameUpdates = async (): Promise<Array<string>> => {
 }
 
 const updateGame = async (game: string) => {
-  if (!isOnline()) {
+  if (!(await isOnline())) {
     console.log(`App offline, skipping update for game '${game}'.`)
     return
   }
@@ -100,7 +110,7 @@ const launchGame = async (appName: string) => {
 
   // Install DXVK for non Proton Prefixes
   if (!isProton && autoInstallDxvk) {
-    await installDxvk(winePrefix)
+    await DXVK.install(winePrefix)
   }
 
   if (wineVersion.name !== 'Wine Default') {

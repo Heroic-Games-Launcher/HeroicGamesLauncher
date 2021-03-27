@@ -9,8 +9,14 @@ import {
   ipcMain,
   powerSaveBlocker
 } from 'electron'
-import { cpus, userInfo as user } from 'os'
-import { exec, spawn } from 'child_process'
+import {
+  cpus,
+  userInfo as user
+} from 'os'
+import {
+  exec,
+  spawn
+} from 'child_process'
 import {
   existsSync,
   mkdirSync,
@@ -26,15 +32,12 @@ import axios from 'axios'
 import i18next from 'i18next'
 import isDev from 'electron-is-dev'
 
+import { DXVK } from './dxvk'
 import {
-  checkForUpdates,
-  errorHandler,
-  handleExit,
-  isOnline,
-  openUrlOrFile,
-  showAboutWindow
-} from './utils'
-import { checkGameUpdates, launchGame, updateGame } from './games'
+  checkGameUpdates,
+  launchGame,
+  updateGame
+} from './games'
 import {
   discordLink,
   heroicConfigPath,
@@ -57,11 +60,17 @@ import {
   isLoggedIn,
   writeGameConfig
 } from './config'
-
-import { getLatestDxvk } from './dxvk'
 import { getLegendaryConfig } from './legendary_utils/library'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Game } from './types.js'
+import {
+  checkForUpdates,
+  errorHandler,
+  handleExit,
+  isOnline,
+  openUrlOrFile,
+  showAboutWindow
+} from './utils'
 
 const execAsync = promisify(exec)
 
@@ -82,7 +91,7 @@ function createWindow(): BrowserWindow {
   })
 
   setTimeout(() => {
-    getLatestDxvk()
+    DXVK.getLatest()
   }, 2500)
 
   //load the index.html from a url
@@ -520,7 +529,9 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('readFile', async (event, file) => getLegendaryConfig(file))
+ipcMain.handle('readConfig', async (event, config_class) =>
+  getLegendaryConfig(config_class)
+)
 
 ipcMain.handle('egsSync', async (event, args) => {
   const linkArgs = `--enable-sync --egl-wine-prefix ${args}`

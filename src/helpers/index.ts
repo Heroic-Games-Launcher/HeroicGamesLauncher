@@ -13,7 +13,7 @@ const {
 } = remote
 
 const readFile = async (file: string) =>
-  await ipcRenderer.invoke('readFile', file)
+  await ipcRenderer.invoke('readConfig', file)
 
 const writeConfig = async (
   data: [appName: string, x: unknown]
