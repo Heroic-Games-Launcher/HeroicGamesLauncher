@@ -38,7 +38,7 @@ const heroicToolsPath = `${heroicFolder}\\tools`
 const userInfo = `${legendaryConfigPath}\\user.json`
 const heroicInstallPath = `${home}\\Games\\Heroic`
 const legendaryBin = isWindows
-  ? join(__dirname, '/bin/legendary.exe')
+  ? fixPathForAsarUnpack(join(__dirname, '/bin/legendary.exe'))
   : fixPathForAsarUnpack(join(__dirname, '/bin/legendary'))
 const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
@@ -56,7 +56,7 @@ const discordLink = 'https://discord.gg/rHJ2uqdquK'
 function getShell() {
   switch (process.platform) {
     case 'win32':
-      return 'cmd.exe'
+      return 'powershell.exe'
     case 'linux':
       return '/bin/bash'
     case 'darwin':
