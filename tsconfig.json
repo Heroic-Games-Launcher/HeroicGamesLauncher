@@ -35,7 +35,8 @@
     "jest",
     "src/setupTests.ts",
     "public/start-react.js",
-    "public/*.js"
+    "public/*.js",
+    "dist"
   ],
   "include": ["src", "src/types.ts"]
 }

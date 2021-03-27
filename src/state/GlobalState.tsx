@@ -1,4 +1,6 @@
-import { Game, GameStatus } from '../types'
+import React, { PureComponent } from 'react'
+
+import { Game, GameStatus } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
@@ -6,12 +8,13 @@ import {
   getLegendaryConfig,
   getProgress,
   legendary,
-  notify,
-} from '../helper'
+  notify
+} from 'src/helpers'
 import { i18n } from 'i18next'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
+
 import ContextProvider from './ContextProvider'
-import React, { PureComponent } from 'react'
-import UpdateComponent from '../components/UI/UpdateComponent'
+
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
 const { dialog } = remote
@@ -49,7 +52,7 @@ export class GlobalState extends PureComponent<Props> {
     layout: 'grid',
     libraryStatus: [],
     refreshing: false,
-    user: '',
+    user: ''
   }
 
   refresh = async (): Promise<void> => {
@@ -62,7 +65,7 @@ export class GlobalState extends PureComponent<Props> {
       filterText: '',
       gameUpdates: updates,
       refreshing: false,
-      user,
+      user
     })
   }
 
@@ -81,27 +84,27 @@ export class GlobalState extends PureComponent<Props> {
 
   filterLibrary = (library: Game[], filter: string) => {
     switch (filter) {
-      case 'installed':
-        return library.filter((game) => game.isInstalled)
-      case 'uninstalled':
-        return library.filter((game) => !game.isInstalled)
-      case 'downloading':
-        return library.filter((game) => {
-          const currentApp = this.state.libraryStatus.filter(
-            (app) => app.appName === game.app_name
-          )[0]
-          if (!currentApp) {
-            return false
-          }
-          return (
-            currentApp.status === 'installing' ||
+    case 'installed':
+      return library.filter((game) => game.isInstalled)
+    case 'uninstalled':
+      return library.filter((game) => !game.isInstalled)
+    case 'downloading':
+      return library.filter((game) => {
+        const currentApp = this.state.libraryStatus.filter(
+          (app) => app.appName === game.app_name
+        )[0]
+        if (!currentApp) {
+          return false
+        }
+        return (
+          currentApp.status === 'installing' ||
             currentApp.status === 'repairing' ||
             currentApp.status === 'updating' ||
             currentApp.status === 'moving'
-          )
-        })
-      default:
-        return library
+        )
+      })
+    default:
+      return library
     }
   }
 
@@ -118,7 +121,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       return this.setState({
-        libraryStatus: [...updatedLibraryStatus, { ...currentApp }],
+        libraryStatus: [...updatedLibraryStatus, { ...currentApp }]
       })
     }
 
@@ -200,7 +203,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     return this.setState({
-      libraryStatus: [...libraryStatus, { appName, status }],
+      libraryStatus: [...libraryStatus, { appName, status }]
     })
   }
 
@@ -214,7 +217,7 @@ export class GlobalState extends PureComponent<Props> {
           'box.appupdate.message',
           'There is a new version of Heroic Available, do you want to update now?'
         ),
-        title: t('box.appupdate.title', 'Update Available'),
+        title: t('box.appupdate.title', 'Update Available')
       })
 
       if (response === 0) {
@@ -280,7 +283,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handleSearch: this.handleSearch,
           refresh: this.refresh,
-          refreshLibrary: this.refreshLibrary,
+          refreshLibrary: this.refreshLibrary
         }}
       >
         {children}

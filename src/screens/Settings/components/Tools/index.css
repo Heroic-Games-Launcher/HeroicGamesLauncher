@@ -1,0 +1,43 @@
+.toolsWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'winecfg winetricks'
+    'runexe runexe';
+  place-items: center;
+  cursor: pointer;
+  width: 430px;
+  height: 110px;
+}
+
+.tools {
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-decoration: underline;
+  color: var(--primary);
+  transition: 350ms;
+}
+
+.tools:hover {
+  color: var(--secondary);
+}
+
+.tools.drag {
+  display: grid;
+  border: var(--secondary) solid 1px;
+  border-radius: 7px;
+  padding: 12px 20px;
+  grid-area: runexe;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.drag > span {
+  font-size: 11px;
+  font-style: italic;
+  color: #5a5e5f;
+  text-decoration: none;
+}

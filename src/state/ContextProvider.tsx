@@ -1,5 +1,6 @@
-import { ContextType } from '../types'
 import React from 'react'
+
+import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
   data: [],
@@ -15,7 +16,7 @@ const initialContext: ContextType = {
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
   refreshing: false,
-  user: '',
+  user: ''
 }
 
 export default React.createContext(initialContext)

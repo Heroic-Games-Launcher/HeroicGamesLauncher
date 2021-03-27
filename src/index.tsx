@@ -6,14 +6,14 @@ import ReactDOM from 'react-dom'
 import i18next from 'i18next'
 
 import './index.css'
-import App from './App'
-import GlobalState from './state/GlobalState'
-import UpdateComponent from './components/UI/UpdateComponent'
+import App from 'src/App'
+import GlobalState from 'src/state/GlobalState'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
   allowMultiLoading: false,
-  loadPath: 'locales/{{lng}}/{{ns}}.json',
+  loadPath: 'locales/{{lng}}/{{ns}}.json'
 })
 
 i18next
@@ -27,13 +27,13 @@ i18next
   .init({
     fallbackLng: 'en',
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
     lng: 'en',
     react: {
-      useSuspense: true,
+      useSuspense: true
     },
-    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu'],
+    supportedLngs: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'tr', 'hu']
   })
 
 ReactDOM.render(

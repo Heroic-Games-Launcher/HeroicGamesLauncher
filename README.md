@@ -104,6 +104,7 @@ Download the `heroic-x.x.x.AppImage` from the Releases section.
 
 To make it executable use:
 
+
 ```bash
 chmod +x heroic-x.x.x.AppImage
 ```
@@ -125,11 +126,7 @@ cd HeroicGamesLauncher
 
 yarn
 
-yarn start
-
-yarn electron
-
-yarn dist {package to create}
+yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm)
 ```
 
 ## Current Version Screenshots

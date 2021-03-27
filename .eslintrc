@@ -7,8 +7,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "plugin:@typescript-eslint/recommended"
   ],
   "root": true,
   "parser": "@typescript-eslint/parser",
@@ -33,15 +32,18 @@
     }
   },
   "rules": {
-    "complexity": "off",
-    "no-trailing-spaces": "error",
-    "sort-keys-fix/sort-keys-fix": "error",
-    "typescript-sort-keys/interface": "error",
-    "sort-vars": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "error",
+    "complexity": "off",
+    "comma-dangle": ["error", "never"],
+    "indent": ["error", 2],
+    "no-trailing-spaces": "error",
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
     "sort-imports-es6-autofix/sort-imports-es6": ["error", {}],
-    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }]
+    "sort-keys-fix/sort-keys-fix": "error",
+    "sort-vars": "error",
+    "typescript-sort-keys/interface": "error"
   }
 }

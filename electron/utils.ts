@@ -8,7 +8,7 @@ import {
   readFileSync,
   readdirSync,
   writeFile,
-  writeFileSync,
+  writeFileSync
 } from 'graceful-fs'
 import { fixPathForAsarUnpack } from 'electron-util'
 import { homedir, userInfo as user } from 'os'
@@ -25,13 +25,13 @@ const { showErrorBox, showMessageBox } = dialog
 
 const home = homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
-const heroicFolder = `${home}/.config/heroic/`
+const heroicFolder = process.platform === 'darwin' ? `${home}/Library/Application Support/heroic/` : `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/legendary'))
+const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, '/legendary'))
 const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
 const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
@@ -44,6 +44,7 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
+const shell = process.platform === 'darwin' ? '/bin/zsh' : '/bin/bash'
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {
@@ -51,17 +52,17 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,
     `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-    '/usr/share/steam',
+    '/usr/share/steam'
   ]
 
   if (!existsSync(`${heroicToolsPath}/wine`)) {
-    exec(`mkdir '${heroicToolsPath}/wine' -p`, () => {
+    exec(`mkdir -p '${heroicToolsPath}/wine'`, () => {
       return 'done'
     })
   }
 
   if (!existsSync(`${heroicToolsPath}/proton`)) {
-    exec(`mkdir '${heroicToolsPath}/proton' -p`, () => {
+    exec(`mkdir -p '${heroicToolsPath}/proton'`, () => {
       return 'done'
     })
   }
@@ -96,7 +97,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
         if (version.toLowerCase().startsWith('proton')) {
           proton.add({
             bin: `'${path}${version}/proton'`,
-            name: `Proton - ${version}`,
+            name: `Proton - ${version}`
           })
         }
       })
@@ -107,7 +108,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
     readdirSync(lutrisCompatPath).forEach((version) => {
       altWine.add({
         bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-        name: `Wine - ${version}`,
+        name: `Wine - ${version}`
       })
     })
   }
@@ -115,7 +116,7 @@ async function getAlternativeWine(): Promise<WineProps[]> {
   readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
     altWine.add({
       bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-      name: `Wine - ${version}`,
+      name: `Wine - ${version}`
     })
   })
 
@@ -127,12 +128,12 @@ async function getAlternativeWine(): Promise<WineProps[]> {
         if (path.endsWith('proton')) {
           return customPaths.add({
             bin: `'${path}'`,
-            name: `Proton Custom - ${path}`,
+            name: `Proton Custom - ${path}`
           })
         }
         return customPaths.add({
           bin: `'${path}'`,
-          name: `Wine Custom - ${path}`,
+          name: `Wine Custom - ${path}`
         })
       })
     }
@@ -175,11 +176,11 @@ const updateGame = async (game: string) => {
     console.log(`App offline, skipping update for game '${game}'.`)
     return
   }
-  const logPath = `${heroicGamesConfigPath}${game}.log`
+  const logPath = `"${heroicGamesConfigPath}${game}.log"`
   const command = `${legendaryBin} update ${game} -y &> ${logPath}`
 
   try {
-    await execAsync(command, { shell: '/bin/bash' })
+    await execAsync(command, { shell: shell })
   } catch (error) {
     return errorHandler(logPath)
   }
@@ -199,7 +200,7 @@ const launchGame = async (appName: string) => {
     launcherArgs = '',
     showMangohud,
     audioFix,
-    autoInstallDxvk,
+    autoInstallDxvk
   } = await getSettings(appName)
 
   const fixedWinePrefix = winePrefix.replace('~', home)
@@ -222,10 +223,10 @@ const launchGame = async (appName: string) => {
     other: otherOptions ? otherOptions : '',
     proton: isProton
       ? `STEAM_COMPAT_DATA_PATH='${winePrefix
-          .replaceAll("'", '')
-          .replace('~', home)}'`
+        .replaceAll("'", '')
+        .replace('~', home)}'`
       : '',
-    showMangohud: showMangohud ? `MANGOHUD=1` : '',
+    showMangohud: showMangohud ? `MANGOHUD=1` : ''
   }
 
   envVars = Object.values(options).join(' ')
@@ -239,7 +240,7 @@ const launchGame = async (appName: string) => {
 
   // Proton doesn't create a prefix folder so this is a workaround
   if (isProton && !existsSync(fixedWinePrefix)) {
-    const command = `mkdir '${fixedWinePrefix}' -p`
+    const command = `mkdir -p '${fixedWinePrefix}'`
     await execAsync(command)
   }
 
@@ -298,7 +299,7 @@ async function getLatestDxvk() {
     return
   }
   const {
-    data: { assets },
+    data: { assets }
   } = await axios.default.get(
     'https://api.github.com/repos/lutris/dxvk/releases/latest'
   )
@@ -319,10 +320,10 @@ async function getLatestDxvk() {
     return
   }
 
-  const downloadCommand = `curl -L ${downloadUrl} -o ${dxvkLatest} --create-dirs`
-  const extractCommand = `tar -zxf ${dxvkLatest} -C ${heroicToolsPath}/DXVK/`
-  const echoCommand = `echo ${name} > ${heroicToolsPath}/DXVK/latest_dxvk`
-  const cleanCommand = `rm ${dxvkLatest}`
+  const downloadCommand = `curl -L ${downloadUrl} -o "${dxvkLatest}" --create-dirs`
+  const extractCommand = `tar -zxf "${dxvkLatest}" -C "${heroicToolsPath}/DXVK/"`
+  const echoCommand = `echo ${name} > "${heroicToolsPath}/DXVK/latest_dxvk"`
+  const cleanCommand = `rm "${dxvkLatest}"`
 
   console.log('Updating DXVK to:', name)
 
@@ -368,7 +369,7 @@ async function installDxvk(prefix: string) {
   const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
   console.log(`installing DXVK on ${winePrefix}`, installCommand)
   await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
-  await execAsync(installCommand, { shell: '/bin/bash' })
+  await execAsync(installCommand, { shell: shell })
     .then(() => exec(echoCommand))
     .catch(() =>
       console.log(
@@ -394,11 +395,11 @@ const writeDefaultconfig = async () => {
         useGameMode: false,
         userInfo: {
           epicId: account_id,
-          name: userName,
+          name: userName
         },
         winePrefix: `${home}/.wine`,
-        wineVersion: defaultWine,
-      } as AppSettings,
+        wineVersion: defaultWine
+      } as AppSettings
     }
 
     writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
@@ -419,7 +420,7 @@ const writeGameconfig = async (game: string) => {
       otherOptions,
       useGameMode,
       showFps,
-      userInfo,
+      userInfo
     } = await getSettings('default')
 
     const config = {
@@ -429,8 +430,8 @@ const writeGameconfig = async (game: string) => {
         useGameMode,
         userInfo,
         winePrefix,
-        wineVersion,
-      },
+        wineVersion
+      }
     }
 
     writeFileSync(
@@ -448,7 +449,7 @@ async function checkForUpdates() {
   }
   try {
     const {
-      data: { tag_name },
+      data: { tag_name }
     } = await axios.default.get(
       'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
     )
@@ -467,7 +468,7 @@ const showAboutWindow = () => {
     applicationVersion: `${app.getVersion()} Magelan`,
     copyright: 'GPL V3',
     iconPath: icon,
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher',
+    website: 'https://github.com/flavioislima/HeroicGamesLauncher'
   })
   return app.showAboutPanel()
 }
@@ -493,7 +494,7 @@ const handleExit = async () => {
         'box.quit.message',
         'There are pending operations, are you sure?'
       ),
-      title: i18next.t('box.quit.title', 'Exit'),
+      title: i18next.t('box.quit.title', 'Exit')
     })
 
     if (response === 0) {
@@ -530,6 +531,14 @@ function genericErrorMessage(): void {
   )
 }
 
+function openUrlOrFile(url: string): void {
+  if (process.platform === 'darwin') {
+    exec(`open ${url}`)
+  } else {
+    exec(`xdg-open ${url}`)
+  }
+}
+
 export {
   checkForUpdates,
   checkGameUpdates,
@@ -554,11 +563,13 @@ export {
   legendaryBin,
   legendaryConfigPath,
   loginUrl,
+  openUrlOrFile,
+  shell,
   showAboutWindow,
   sidInfoUrl,
   supportURL,
   updateGame,
   userInfo,
   writeDefaultconfig,
-  writeGameconfig,
+  writeGameconfig
 }
