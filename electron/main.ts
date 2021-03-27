@@ -360,11 +360,11 @@ ipcMain.handle('install', async (event, args) => {
   const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
   const logPath = `${heroicGamesConfigPath}${game}.log`
-  const writeLog = isWindows ? '' : `|& tee ${logPath}`
+  const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
   let command = `${legendaryBin} install ${game} --base-path ${path} ${workers} -y ${writeLog}`
   if (path === 'default') {
-    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y`
+    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y ${writeLog}`
   }
   console.log(`Installing ${game} with:`, command)
   try {
@@ -411,17 +411,40 @@ ipcMain.handle('updateGame', (e, appName) =>
 )
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  if (process.platform === 'win32') {
-    return ''
+  const logPath = `${heroicGamesConfigPath}${appName}.log`
+
+  const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
+  const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
+  const progress_command = isWindows
+    ? win_progress_command
+    : unix_progress_command
+
+  const unix_downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
+  const win_downloaded_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Downloaded:'`
+  const downloaded_command = isWindows
+    ? win_downloaded_command
+    : unix_downloaded_command
+
+  const { stdout: progress_result } = await execAsync(progress_command, {
+    shell: getShell()
+  })
+  const { stdout: downloaded_result } = await execAsync(downloaded_command, {
+    shell: getShell()
+  })
+
+  let percent = ''
+  let eta = ''
+  let bytes = ''
+  if (isWindows) {
+    percent = progress_result.split(' ')[4]
+    eta = progress_result.split(' ')[10]
+    bytes = downloaded_result.split(' ')[5] + 'MiB'
   }
 
-  const logPath = `${heroicGamesConfigPath}${appName}.log`
-  const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
-  const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
-  const { stdout: progress_result } = await execAsync(progress_command)
-  const { stdout: downloaded_result } = await execAsync(downloaded_command)
-  const [percent, eta] = progress_result.split(' ')
-  const bytes = downloaded_result + 'MiB'
+  if (!isWindows) {
+    ;[percent, eta] = progress_result.split(' ')
+    bytes = downloaded_result + 'MiB'
+  }
 
   const progress = { bytes, eta, percent }
   console.log(
