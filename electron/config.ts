@@ -7,10 +7,12 @@ import {
   readdirSync,
   writeFileSync
 } from 'graceful-fs'
-import { promisify } from 'util'
 import { userInfo as user } from 'os'
 
 import { AppSettings, UserInfo, WineProps } from './types'
+import {
+  execAsync
+} from './utils'
 import {
   heroicConfigPath,
   heroicGamesConfigPath,
@@ -19,8 +21,6 @@ import {
   home,
   userInfo
 } from './constants'
-
-const execAsync = promisify(exec)
 
 // check other wine versions installed
 async function getAlternativeWine(): Promise<WineProps[]> {

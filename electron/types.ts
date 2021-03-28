@@ -21,7 +21,7 @@ export interface AppSettings {
   wineVersion: WineProps
 }
 export interface ContextType {
-  data: Game[]
+  data: GameInfo[]
   error: boolean
   filter: string
   handleFilter: (value: string) => void
@@ -39,23 +39,20 @@ interface ExtraInfo {
   shortDescription: string
 }
 
-export interface Game {
-  app_name: string
-  art_cover: string
-  art_logo: string
-  art_square: string
-  cloudSaveEnabled: boolean
-  developer: string
-  executable: string
-  extraInfo: ExtraInfo
-  folderName: string
-  install_path: string
-  install_size: number
-  isInstalled: boolean
-  is_dlc: boolean
-  saveFolder: string
+export interface GameInfo {
+  app_name: string,
+  art_cover: string,
+  art_logo: string,
+  art_square: string,
+  cloud_save_enabled: boolean,
+  developer: string,
+  extra: ExtraInfo,
+  folder_name: string,
+  install: InstalledInfo,
+  is_installed: boolean,
+  namespace: unknown,
+  save_folder: string,
   title: string
-  version: string
 }
 
 export interface GameStatus {
@@ -90,6 +87,25 @@ export interface KeyImage {
 
 export interface Path {
   filePaths: string[]
+}
+
+export interface RawGameJSON {
+  app_name: string
+  art_cover: string
+  art_logo: string
+  art_square: string
+  cloudSaveEnabled: boolean
+  developer: string
+  executable: string
+  extraInfo: ExtraInfo
+  folderName: string
+  install_path: string
+  install_size: number
+  isInstalled: boolean
+  is_dlc: boolean
+  saveFolder: string
+  title: string
+  version: string
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'

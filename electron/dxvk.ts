@@ -5,15 +5,13 @@ import {
   existsSync,
   readFileSync
 } from 'graceful-fs'
-import { promisify } from 'util'
 
+import { execAsync, isOnline } from './utils'
 import {
   heroicToolsPath,
   home
 } from './constants'
-import { isOnline } from './utils'
 
-const execAsync = promisify(exec)
 
 export const DXVK = {
   getLatest: async () => {

@@ -4,7 +4,7 @@ import * as axios from 'axios'
 import { app, dialog } from 'electron'
 
 import { exec } from 'child_process'
-import { existsSync } from 'graceful-fs'
+import { existsSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 import isOnline from 'is-online'
@@ -12,6 +12,7 @@ import isOnline from 'is-online'
 import { heroicGamesConfigPath, icon } from './constants'
 
 const execAsync = promisify(exec)
+const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
@@ -104,9 +105,11 @@ function openUrlOrFile(url: string): void {
 export {
   checkForUpdates,
   errorHandler,
+  execAsync,
   genericErrorMessage,
   handleExit,
   isOnline,
   openUrlOrFile,
-  showAboutWindow
+  showAboutWindow,
+  statAsync
 }

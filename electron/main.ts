@@ -26,18 +26,22 @@ import {
   writeFileSync
 } from 'graceful-fs'
 
-import { promisify } from 'util'
 import Backend from 'i18next-fs-backend'
-import axios from 'axios'
 import i18next from 'i18next'
 import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
+import { LegendaryGame } from './games'
+import { RawGameJSON } from './types.js'
 import {
-  checkGameUpdates,
-  launchGame,
-  updateGame
-} from './games'
+  checkForUpdates,
+  execAsync,
+  handleExit,
+  isOnline,
+  openUrlOrFile,
+  showAboutWindow
+} from './utils'
+import { dialog } from 'electron'
 import {
   discordLink,
   heroicConfigPath,
@@ -46,10 +50,9 @@ import {
   home,
   iconDark,
   iconLight,
+  installed,
   legendaryBin,
-  legendaryConfigPath,
   loginUrl,
-  shell,
   sidInfoUrl,
   supportURL,
   userInfo
@@ -60,19 +63,9 @@ import {
   isLoggedIn,
   writeGameConfig
 } from './config'
-import { getLegendaryConfig } from './legendary_utils/library'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Game } from './types.js'
-import {
-  checkForUpdates,
-  errorHandler,
-  handleExit,
-  isOnline,
-  openUrlOrFile,
-  showAboutWindow
-} from './utils'
+import { getLegendaryConfig } from './legendary_utils/legacy_library'
 
-const execAsync = promisify(exec)
+const { showErrorBox } = dialog
 
 let mainWindow: BrowserWindow = null
 
@@ -96,6 +89,7 @@ function createWindow(): BrowserWindow {
 
   //load the index.html from a url
   if (isDev) {
+    /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
@@ -107,6 +101,7 @@ function createWindow(): BrowserWindow {
     mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
+    /* eslint-enable @typescript-eslint/ban-ts-comment */
 
     mainWindow.on('close', async (e) => {
       e.preventDefault()
@@ -245,7 +240,7 @@ ipcMain.on('Notify', (event, args) => {
 
 ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 
-ipcMain.handle('checkGameUpdates', () => checkGameUpdates())
+ipcMain.handle('checkGameUpdates', () => LegendaryGame.checkGameUpdates())
 
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 
@@ -291,64 +286,36 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.on('quit', async () => handleExit())
 
-const getProductSlug = async (namespace: string, game: string) => {
-  const graphql = JSON.stringify({
-    query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
-    variables: {}
-  })
-  const result = await axios('https://www.epicgames.com/graphql', {
-    data: graphql,
-    headers: { 'Content-Type': 'application/json' },
-    method: 'POST'
-  })
-  const res = result.data.data.Catalog.catalogOffers
-  const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
-  if (slug) {
-    return slug.productSlug.replace(/(\/.*)/, '')
-  } else {
-    return game
-  }
-}
-
-ipcMain.handle('getGameInfo', async (event, game, namespace: string | null) => {
-  if (!(await isOnline())) {
-    return {}
-  }
-  let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
-    .language
-  if (lang === 'pt') {
-    lang = 'pt-BR'
-  }
-
-  let epicUrl: string
-  if (namespace) {
-    const productSlug: string = await getProductSlug(namespace, game)
-    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
-  } else {
-    epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
-  }
-  try {
-    const response = await axios({
-      method: 'GET',
-      url: epicUrl
-    })
-    delete response.data.pages[0].data.requirements.systems[0].details[0]
-    const about = response.data.pages.find(
-      (e: { type: string }) => e.type === 'productHome'
-    )
-    return {
-      about: about.data.about,
-      reqs: about.data.requirements.systems[0].details
-    }
-  } catch (error) {
-    return {}
-  }
+ipcMain.handle('getGameInfo', (event, game, namespace: string | null) => {
+  return (new LegendaryGame(game)).getExtraInfo(namespace)
 })
 
-ipcMain.handle('launch', (event, appName) => {
-  console.log('launching', appName)
+ipcMain.handle('launch', (event, game) => {
+  console.log('launching', game)
 
-  return launchGame(appName).catch(console.log)
+  return (new LegendaryGame(game)).launch().then(({ stderr }) => {
+    writeFile(
+      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      stderr,
+      () => 'done'
+    )
+    if (stderr.includes('Errno')) {
+      showErrorBox(
+        i18next.t('box.error', 'Something Went Wrong'),
+        i18next.t(
+          'box.error.launch',
+          'Error when launching the game, check the logs!'
+        )
+      )
+    }
+  }).catch(async ({ stderr }) => {
+    writeFile(
+      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      stderr,
+      () => 'done'
+    )
+    return stderr
+  })
 })
 
 ipcMain.handle('legendary', async (event, args) => {
@@ -368,21 +335,13 @@ ipcMain.handle('legendary', async (event, args) => {
 
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
-  const { defaultInstallPath, maxWorkers } = await getSettings('default')
-  const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-
-  const logPath = `"${heroicGamesConfigPath}${game}.log"`
-  let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
-  if (path === 'default') {
-    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
+  if (!(await isOnline())) {
+    console.log(`App offline, skipping install for game '${game}'.`)
+    return
   }
-  console.log(`Installing ${game} with:`, command)
-  try {
-    await execAsync(command, { shell: shell })
-    console.log('finished installing')
-  } catch (error) {
-    return errorHandler(logPath)
-  }
+  return (new LegendaryGame(game)).install(path).then(
+    () => { console.log('finished installing') }
+  ).catch((res) => res)
 })
 
 ipcMain.handle('repair', async (event, game) => {
@@ -390,30 +349,28 @@ ipcMain.handle('repair', async (event, game) => {
     console.log(`App offline, skipping repair for game '${game}'.`)
     return
   }
-  const { maxWorkers } = await getSettings('default')
-  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
-
-  const logPath = `"${heroicGamesConfigPath}${game}.log"`
-  const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
-
-  console.log(`Repairing ${game} with:`, command)
-  await execAsync(command, { shell: shell })
-    .then(() => console.log('finished repairing'))
-    .catch(console.log)
+  return (new LegendaryGame(game)).repair().then(
+    () => console.log('finished repairing')
+  ).catch(console.log)
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
-  const command = `${legendaryBin} import-game ${game} '${path}'`
-  const { stderr, stdout } = await execAsync(command, { shell: shell })
+  const {stderr, stdout} = await (new LegendaryGame(game)).import(path)
   console.log(`${stdout} - ${stderr}`)
-  return
 })
 
-ipcMain.handle('updateGame', (e, appName) =>
-  updateGame(appName).then((res) => res)
-)
+ipcMain.handle('updateGame', async (e, game) => {
+  if (!(await isOnline())) {
+    console.log(`App offline, skipping install for game '${game}'.`)
+    return
+  }
+  return (new LegendaryGame(game)).update().then(
+    () => { console.log('finished updating') }
+  ).catch((res) => res)
+})
 
+// @@refactor
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `"${heroicGamesConfigPath}${appName}.log"`
   const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
@@ -495,11 +452,11 @@ ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
 )
 
-const installed = `${legendaryConfigPath}/installed.json`
 
+// @@refactor
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   const file = JSON.parse(readFileSync(installed, 'utf8'))
-  const installedGames: Game[] = Object.values(file)
+  const installedGames: RawGameJSON[] = Object.values(file)
   const { install_path } = installedGames.filter(
     (game) => game.app_name === appName
   )[0]
@@ -507,7 +464,7 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   const splitPath = install_path.split('/')
   const installFolder = splitPath[splitPath.length - 1]
   const newPath = `${path}/${installFolder}`
-  const game: Game = { ...file[appName], install_path: newPath }
+  const game: RawGameJSON = { ...file[appName], install_path: newPath }
   const modifiedInstall = { ...file, [appName]: game }
   return await execAsync(`mv -f ${install_path} ${newPath}`)
     .then(() => {
@@ -518,11 +475,12 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
     .catch(console.log)
 })
 
+// @@refactor
 ipcMain.handle(
   'changeInstallPath',
   async (event, [appName, newPath]: string[]) => {
     const file = JSON.parse(readFileSync(installed, 'utf8'))
-    const game: Game = { ...file[appName], install_path: newPath }
+    const game: RawGameJSON = { ...file[appName], install_path: newPath }
     const modifiedInstall = { ...file, [appName]: game }
     writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
     console.log(`Finished moving ${appName} to ${newPath}`)

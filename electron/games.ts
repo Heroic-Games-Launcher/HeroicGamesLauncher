@@ -1,160 +1,232 @@
-import { exec } from 'child_process'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { dialog } from 'electron'
 import {
   existsSync,
-  writeFile
+  readFileSync
 } from 'graceful-fs'
-import { promisify } from 'util'
-import i18next from 'i18next'
+import axios from 'axios';
 
 import { DXVK } from './dxvk'
+import { Library } from './legendary_utils/library'
 import {
   errorHandler,
+  execAsync,
   isOnline
 } from './utils'
 import { getSettings } from './config'
 import {
+  heroicConfigPath,
   heroicGamesConfigPath,
   home,
-  legendaryBin
+  legendaryBin,
+  shell
 } from './constants'
 
-const execAsync = promisify(exec)
 
-const { showErrorBox } = dialog
+class LegendaryGame {
+  public appName: string
 
-const checkGameUpdates = async (): Promise<Array<string>> => {
-  if (!(await isOnline())) {
-    console.log('App offline, skipping checking game updates.')
-    return []
-  }
-  const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
-  const { stdout } = await execAsync(command)
-  const result = stdout.split('\n')
-  return result
-}
-
-const updateGame = async (game: string) => {
-  if (!(await isOnline())) {
-    console.log(`App offline, skipping update for game '${game}'.`)
-    return
-  }
-  const logPath = `${heroicGamesConfigPath}${game}.log`
-  const command = `${legendaryBin} update ${game} -y &> ${logPath}`
-
-  try {
-    await execAsync(command, { shell: '/bin/bash' })
-  } catch (error) {
-    return errorHandler(logPath)
-  }
-}
-
-const launchGame = async (appName: string) => {
-  let envVars = ''
-  let gameMode: string
-
-  const {
-    winePrefix,
-    wineVersion,
-    otherOptions,
-    useGameMode,
-    showFps,
-    offlineMode = false,
-    launcherArgs = '',
-    showMangohud,
-    audioFix,
-    autoInstallDxvk
-  } = await getSettings(appName)
-
-  const fixedWinePrefix = winePrefix.replace('~', home)
-  let wineCommand = `--wine ${wineVersion.bin}`
-
-  const is_online = await isOnline()
-  const offlineArg = !offlineMode && is_online ? '' : '--offline'
-
-  // We need to keep replacing the ' to keep compatibility with old configs
-  let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
-
-  const isProton =
-    wineVersion.name.startsWith('Proton') ||
-    wineVersion.name.startsWith('Steam')
-  prefix = isProton ? '' : prefix
-
-  const options = {
-    audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
-    fps: showFps ? `DXVK_HUD=fps` : '',
-    other: otherOptions ? otherOptions : '',
-    proton: isProton
-      ? `STEAM_COMPAT_DATA_PATH='${winePrefix
-        .replaceAll("'", '')
-        .replace('~', home)}'`
-      : '',
-    showMangohud: showMangohud ? `MANGOHUD=1` : ''
+  constructor(appName: string) {
+    this.appName = appName
   }
 
-  envVars = Object.values(options).join(' ')
-  if (isProton) {
-    console.log(
-      `\n You are using Proton, this can lead to some bugs, 
-            please do not open issues with bugs related with games`,
-      wineVersion.name
-    )
+  public getGameInfo() {
+    Library.get().getGameInfo(this.appName)
   }
 
-  // Proton doesn't create a prefix folder so this is a workaround
-  if (isProton && !existsSync(fixedWinePrefix)) {
-    const command = `mkdir '${fixedWinePrefix}' -p`
-    await execAsync(command)
+  private async getProductSlug(namespace: string) {
+    const graphql = JSON.stringify({
+      query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
+      variables: {}
+    })
+    const result = await axios('https://www.epicgames.com/graphql', {
+      data: graphql,
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST'
+    })
+    const res = result.data.data.Catalog.catalogOffers
+    const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
+    if (slug) {
+      return slug.productSlug.replace(/(\/.*)/, '')
+    } else {
+      return this.appName
+    }
   }
 
-  // Install DXVK for non Proton Prefixes
-  if (!isProton && autoInstallDxvk) {
-    await DXVK.install(winePrefix)
-  }
+  public async getExtraInfo(namespace: string | null) {
+    if (!(await isOnline())) {
+      return {}
+    }
+    let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
+      .language
+    if (lang === 'pt') {
+      lang = 'pt-BR'
+    }
 
-  if (wineVersion.name !== 'Wine Default') {
-    const { bin } = wineVersion
-    wineCommand = isProton
-      ? `--no-wine --wrapper "${bin} run"`
-      : `--wine ${bin}`
-  }
-
-  // check if Gamemode is installed
-  await execAsync(`which gamemoderun`)
-    .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
-    .catch(() => console.log('GameMode not installed'))
-
-  const runWithGameMode = useGameMode && gameMode ? gameMode : ''
-
-  const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${offlineArg} ${appName}  ${wineCommand} ${prefix} ${launcherArgs}`
-  console.log('\n Launch Command:', command)
-
-  return execAsync(command)
-    .then(({ stderr }) => {
-      writeFile(
-        `${heroicGamesConfigPath}${appName}-lastPlay.log`,
-        stderr,
-        () => 'done'
+    let epicUrl: string
+    if (namespace) {
+      const productSlug: string = await this.getProductSlug(namespace)
+      epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
+    } else {
+      epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${this.appName}`
+    }
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: epicUrl
+      })
+      delete response.data.pages[0].data.requirements.systems[0].details[0]
+      const about = response.data.pages.find(
+        (e: { type: string }) => e.type === 'productHome'
       )
-      if (stderr.includes('Errno')) {
-        showErrorBox(
-          i18next.t('box.error', 'Something Went Wrong'),
-          i18next.t(
-            'box.error.launch',
-            'Error when launching the game, check the logs!'
-          )
-        )
+      return {
+        about: about.data.about,
+        reqs: about.data.requirements.systems[0].details
       }
-    })
-    .catch(async ({ stderr }) => {
-      writeFile(
-        `${heroicGamesConfigPath}${appName}-lastPlay.log`,
-        stderr,
-        () => 'done'
+    } catch (error) {
+      return {}
+    }
+  }
+
+  public async getSettings() {
+    return await getSettings(this.appName)
+  }
+
+  public async update() {
+    const logPath = `${heroicGamesConfigPath}${this.appName}.log`
+    const command = `${legendaryBin} update ${this.appName} -y &> ${logPath}`
+
+    try {
+      return await execAsync(command, { shell: '/bin/bash' })
+    } catch (error) {
+      return errorHandler(logPath)
+    }
+  }
+
+  public async install(path : string) {
+    const { defaultInstallPath, maxWorkers } = await getSettings('default')
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+
+    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    let command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y &> ${logPath}`
+    if (path === 'default') {
+      command = `${legendaryBin} install ${this.appName} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
+    }
+    console.log(`Installing ${this.appName} with:`, command)
+    try {
+      return await execAsync(command, { shell: shell })
+    } catch (error) {
+      return errorHandler(logPath)
+    }
+  }
+
+  public async repair() {
+    const { maxWorkers } = await getSettings('default')
+    const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+
+    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const command = `${legendaryBin} repair ${this.appName} ${workers} -y &> ${logPath}`
+
+    console.log(`Repairing ${this.appName} with:`, command)
+    return await execAsync(command, { shell: shell })
+  }
+
+  public async import(path : string) {
+    const command = `${legendaryBin} import-game ${this.appName} '${path}'`
+    const { stderr, stdout } = await execAsync(command, { shell: shell })
+    return {stderr, stdout}
+  }
+
+  public static async checkGameUpdates() {
+    if (!(await isOnline())) {
+      console.log('App offline, skipping checking game updates.')
+      return []
+    }
+    const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
+    const { stdout } = await execAsync(command)
+    const result = stdout.split('\n')
+    return result
+  }
+
+  public async launch() {
+    let envVars = ''
+    let gameMode: string
+
+    const {
+      winePrefix,
+      wineVersion,
+      otherOptions,
+      useGameMode,
+      showFps,
+      launcherArgs = '',
+      showMangohud,
+      audioFix,
+      autoInstallDxvk
+    } = await getSettings(this.appName)
+
+    const fixedWinePrefix = winePrefix.replace('~', home)
+    let wineCommand = `--wine ${wineVersion.bin}`
+
+    // We need to keep replacing the ' to keep compatibility with old configs
+    let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
+
+    const isProton =
+      wineVersion.name.startsWith('Proton') ||
+      wineVersion.name.startsWith('Steam')
+    prefix = isProton ? '' : prefix
+
+    const options = {
+      audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
+      fps: showFps ? `DXVK_HUD=fps` : '',
+      other: otherOptions ? otherOptions : '',
+      proton: isProton
+        ? `STEAM_COMPAT_DATA_PATH='${winePrefix
+          .replaceAll("'", '')
+          .replace('~', home)}'`
+        : '',
+      showMangohud: showMangohud ? `MANGOHUD=1` : ''
+    }
+
+    envVars = Object.values(options).join(' ')
+    if (isProton) {
+      console.log(
+        `\n You are using Proton, this can lead to some bugs, 
+              please do not open issues with bugs related with games`,
+        wineVersion.name
       )
-      return stderr
-    })
+    }
+
+    // Proton doesn't create a prefix folder so this is a workaround
+    if (isProton && !existsSync(fixedWinePrefix)) {
+      const command = `mkdir '${fixedWinePrefix}' -p`
+      await execAsync(command)
+    }
+
+    // Install DXVK for non Proton Prefixes
+    if (!isProton && autoInstallDxvk) {
+      await DXVK.install(winePrefix)
+    }
+
+    if (wineVersion.name !== 'Wine Default') {
+      const { bin } = wineVersion
+      wineCommand = isProton
+        ? `--no-wine --wrapper "${bin} run"`
+        : `--wine ${bin}`
+    }
+
+    // check if Gamemode is installed
+    await execAsync(`which gamemoderun`)
+      .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
+      .catch(() => console.log('GameMode not installed'))
+
+    const runWithGameMode = useGameMode && gameMode ? gameMode : ''
+
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
+    console.log('\n Launch Command:', command)
+
+    return await execAsync(command)
+  }
 }
 
-export { checkGameUpdates, launchGame, updateGame }
+
+export {
+  LegendaryGame
+}

@@ -1,57 +1,63 @@
-import { existsSync, readFileSync, readdirSync, stat } from 'graceful-fs'
+import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { promisify } from 'util'
 
-import { Game, InstalledInfo, KeyImage, UserInfo } from '../types'
-import { getUserInfo, isLoggedIn, writeDefaultConfig } from '../config'
-import { heroicConfigPath, legendaryConfigPath } from '../constants'
+import { GameInfo, InstalledInfo, KeyImage, RawGameJSON } from '../types'
+import { execAsync, statAsync } from '../utils'
+import { legendaryBin, legendaryConfigPath } from '../constants'
 
-const statAsync = promisify(stat)
-const dlcs: string[] = []
 
-const installed = `${legendaryConfigPath}/installed.json`
+class Library {
+  private static globalInstance: Library = null
 
-export async function getLegendaryConfig(file: string): Promise<unknown> {
-  const loggedIn = isLoggedIn()
+  private library: Map<string, GameInfo>
 
-  if (!isLoggedIn) {
-    return { library: [], user: { displayName: null } }
-  }
-
-  const files: {
-    config: string
-    installed: Game[]
-    library: string
-    user: UserInfo
-  } = {
-    config: heroicConfigPath,
-    installed: await statAsync(installed)
-      .then(() => JSON.parse(readFileSync(installed, 'utf-8')))
-      .catch(() => []),
-    library: `${legendaryConfigPath}/metadata/`,
-    user: getUserInfo()
-  }
-
-  if (file === 'user') {
-    if (loggedIn) {
-      await writeDefaultConfig()
-      return files.user.displayName
+  private constructor(lazy_load: boolean) {
+    if (lazy_load) {
+      this.load()
     }
-    return null
   }
 
-  if (file === 'library') {
+  public static get(lazy_load = true) {
+    if (this.globalInstance === null) {
+      Library.globalInstance = new Library(lazy_load)
+    }
+    return this.globalInstance
+  }
+
+  public async getGames() {
+    return Array.from(this.library.values()).sort(
+      (a: { title: string }, b: { title: string }) => {
+        const gameA = a.title.toUpperCase()
+        const gameB = b.title.toUpperCase()
+        return gameA < gameB ? -1 : 1
+      }
+    )
+  }
+
+  public async getGameInfo(app_name: string) {
+    return this.library.get(app_name) || null
+  }
+
+  public async listUpdateableGames() {
+    const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
+    const { stdout } = await execAsync(command)
+    const result = stdout.split('\n')
+    return result
+  }
+
+  private async load() {
+    const libraryPath = `${legendaryConfigPath}/metadata/`
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
 
-    if (existsSync(files.library)) {
-      return readdirSync(files.library)
-        .map((file) => `${files.library}/${file}`)
+    if (existsSync(libraryPath)) {
+      return readdirSync(libraryPath)
+        .map((file) => `${libraryPath}/${file}`)
         .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
-        .map(({ app_name, metadata, asset_info }) => {
+        .forEach(({ app_name, metadata, asset_info }) => {
           const {
             description,
+            shortDescription = '',
             keyImages,
             title,
             developer,
@@ -60,6 +66,8 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
           } = metadata
 
           const { namespace } = asset_info
+
+          const dlcs: string[] = []
 
           if (dlcItemList) {
             dlcItemList.forEach(
@@ -71,8 +79,8 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             )
           }
 
-          const cloudSaveEnabled = Boolean(CloudSaveFolder)
-          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+          const cloud_save_enabled = Boolean(CloudSaveFolder)
+          const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
           const installFolder = FolderName ? FolderName.value : ''
           const gameBox = keyImages.filter(
             ({ type }: KeyImage) => type === 'DieselGameBox'
@@ -88,7 +96,12 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
           const art_logo = logo ? logo.url : null
           const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
-          const installedGames: Game[] = Object.values(files.installed)
+          const installedJSON = `${legendaryConfigPath}/installed.json`
+          const installedGames: RawGameJSON[] = Object.values(
+            statAsync(installedJSON)
+              .then(() => JSON.parse(readFileSync(installedJSON, 'utf-8')))
+              .catch(() => [])
+          )
 
           const isInstalled = Boolean(
             installedGames.filter((game) => game.app_name === app_name).length
@@ -109,33 +122,33 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
           const convertedSize =
             install_size && prettyBytes(Number(install_size))
 
-          return {
+          this.library.set(app_name, {
             app_name,
             art_cover: art_cover || art_square,
             art_logo,
             art_square: art_square || art_cover,
-            cloudSaveEnabled,
-            description,
+            cloud_save_enabled,
             developer,
-            executable,
-            folderName: installFolder,
-            info,
-            install_path,
-            install_size: convertedSize,
-            isInstalled,
-            is_dlc,
+            extra: {
+              description,
+              shortDescription
+            },
+            folder_name: installFolder,
+            install: ({
+              executable,
+              install_path,
+              install_size: convertedSize,
+              is_dlc,
+              version
+            }),
+            is_installed: isInstalled,
             namespace,
-            saveFolder,
-            title,
-            version
-          }
-        })
-        .sort((a: { title: string }, b: { title: string }) => {
-          const gameA = a.title.toUpperCase()
-          const gameB = b.title.toUpperCase()
-          return gameA < gameB ? -1 : 1
+            save_folder: saveFolder,
+            title
+          } as GameInfo)
         })
     }
-    return { library: [], user: null }
   }
 }
+
+export { Library }
