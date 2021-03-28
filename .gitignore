@@ -26,26 +26,3 @@ yarn-error.log*
 
 public/**/*.js
 .vscode/settings.json
-<<<<<<< Updated upstream
-=======
-=======
-# Built files.
-public/config.js
-public/constants.js
-public/dxvk.js
-public/game.js
-public/library.js
-public/games.js
-public/main.js
-public/types.js
-public/utils.js
-public/images
-.vscode/settings.json
-public/legendary_utils/library.js
-public/legendary_utils/config.js
-public/legendary_utils/constants.js
-public/legendary_utils/dxvk.js
-public/legendary_utils/games.js
-public/legendary_utils/utils.js
->>>>>>> 8dbf3fb (Organize utils into various files.)
->>>>>>> Stashed changes
