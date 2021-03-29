@@ -40,17 +40,23 @@ class Library {
     return this.globalInstance
   }
 
-  public async getGames() {
-    return Array.from(this.library.values()).sort(
+  public async getGames(format: 'info' | 'class' = 'class') {
+    const arr = Array.from(this.library.values()).sort(
       (a: { title: string }, b: { title: string }) => {
         const gameA = a.title.toUpperCase()
         const gameB = b.title.toUpperCase()
         return gameA < gameB ? -1 : 1
       }
-    ).map(({app_name}) => LegendaryGame.get(app_name))
+    )
+    if (format === 'info') {
+      return arr
+    }
+    if (format === 'class') {
+      return arr.map(({app_name}) => LegendaryGame.get(app_name))
+    }
   }
 
-  public async getGameInfo(app_name: string) : Promise<null | GameInfo> {
+  public async getGameInfo(app_name: string) {
     const info = this.library.get(app_name)
     if (info === undefined) {
       return null

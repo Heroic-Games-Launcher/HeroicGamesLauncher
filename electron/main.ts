@@ -32,6 +32,7 @@ import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
 import { LegendaryGame } from './games'
+import { Library } from 'legendary_utils/library'
 import { RawGameJSON } from './types.js'
 import {
   checkForUpdates,
@@ -487,9 +488,14 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('readConfig', async (event, config_class) =>
-  getLegendaryConfig(config_class)
-)
+ipcMain.handle('readConfig', async (event, config_class) =>  {
+  if (config_class === 'library') {
+    return Library.get().getGames('info')
+  }
+  else {
+    getLegendaryConfig(config_class)
+  }
+})
 
 ipcMain.handle('egsSync', async (event, args) => {
   const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
