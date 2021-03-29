@@ -29,8 +29,8 @@ export async function handleInstall({
   t
 }: Install) {
   if (isInstalling) {
-    const { folderName } = await getGameInfo(appName)
-    return handleStopInstallation(appName, [installPath, folderName], t)
+    const { folder_name } = await getGameInfo(appName)
+    return handleStopInstallation(appName, [installPath, folder_name], t)
   }
 
   if (installPath === 'default') {

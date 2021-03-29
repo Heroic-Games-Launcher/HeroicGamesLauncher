@@ -1,4 +1,4 @@
-import { Game, InstallProgress } from 'src/types'
+import { GameInfo, InstallProgress } from 'src/types'
 import { IpcRenderer, Remote } from 'electron'
 
 import { TFunction } from 'react-i18next'
@@ -88,11 +88,11 @@ const syncSaves = async (
 }
 
 const getLegendaryConfig = async (): Promise<{
-  library: Game[]
+  library: GameInfo[]
   user: string
 }> => {
   const user: string = await readFile('user')
-  const library: Array<Game> = await readFile('library')
+  const library: Array<GameInfo> = await readFile('library')
 
   if (!user) {
     return { library: [], user: '' }
@@ -110,7 +110,7 @@ const cleanTitle = (title: string) =>
     .split('--definitive')[0]
 
 const getGameInfo = async (appName: string) => {
-  const library: Array<Game> = await readFile('library')
+  const library: Array<GameInfo> = await readFile('library')
   const game = library.filter((game) => game.app_name === appName)[0]
   const extraInfo = await ipcRenderer.invoke(
     'getGameInfo',
@@ -121,9 +121,9 @@ const getGameInfo = async (appName: string) => {
 }
 
 const handleSavePath = async (game: string) => {
-  const { cloudSaveEnabled, saveFolder } = await getGameInfo(game)
+  const { cloud_save_enabled, save_folder } = await getGameInfo(game)
 
-  return { cloudSaveEnabled, saveFolder }
+  return { cloud_save_enabled, save_folder }
 }
 
 const createNewWindow = (url: string) =>

@@ -15,6 +15,7 @@ const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
 const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
 const installed = `${legendaryConfigPath}/installed.json`
+const libraryPath = `${legendaryConfigPath}/metadata/`
 const loginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
 const sidInfoUrl =
@@ -41,6 +42,7 @@ export {
   installed,
   legendaryBin,
   legendaryConfigPath,
+  libraryPath,
   loginUrl,
   shell,
   sidInfoUrl,

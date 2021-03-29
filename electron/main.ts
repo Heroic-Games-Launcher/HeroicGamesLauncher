@@ -287,13 +287,13 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.on('quit', async () => handleExit())
 
 ipcMain.handle('getGameInfo', (event, game, namespace: string | null) => {
-  return (new LegendaryGame(game)).getExtraInfo(namespace)
+  return LegendaryGame.get(game).getExtraInfo(namespace)
 })
 
 ipcMain.handle('launch', (event, game) => {
   console.log('launching', game)
 
-  return (new LegendaryGame(game)).launch().then(({ stderr }) => {
+  return LegendaryGame.get(game).launch().then(({ stderr }) => {
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
@@ -339,7 +339,7 @@ ipcMain.handle('install', async (event, args) => {
     console.log(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return (new LegendaryGame(game)).install(path).then(
+  return LegendaryGame.get(game).install(path).then(
     () => { console.log('finished installing') }
   ).catch((res) => res)
 })
@@ -349,14 +349,14 @@ ipcMain.handle('repair', async (event, game) => {
     console.log(`App offline, skipping repair for game '${game}'.`)
     return
   }
-  return (new LegendaryGame(game)).repair().then(
+  return LegendaryGame.get(game).repair().then(
     () => console.log('finished repairing')
   ).catch(console.log)
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
-  const {stderr, stdout} = await (new LegendaryGame(game)).import(path)
+  const {stderr, stdout} = await LegendaryGame.get(game).import(path)
   console.log(`${stdout} - ${stderr}`)
 })
 
@@ -365,7 +365,7 @@ ipcMain.handle('updateGame', async (e, game) => {
     console.log(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return (new LegendaryGame(game)).update().then(
+  return LegendaryGame.get(game).update().then(
     () => { console.log('finished updating') }
   ).catch((res) => res)
 })

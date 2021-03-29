@@ -5,6 +5,7 @@ import {
 import axios from 'axios';
 
 import { DXVK } from './dxvk'
+import { GameStatus } from 'types';
 import { Library } from './legendary_utils/library'
 import {
   errorHandler,
@@ -23,13 +24,22 @@ import {
 
 class LegendaryGame {
   public appName: string
+  public state : GameStatus
+  private static instances : Map<string, LegendaryGame>
 
-  constructor(appName: string) {
+  private constructor(appName: string) {
     this.appName = appName
   }
 
+  public static get(appName: string) {
+    if (LegendaryGame.instances.get(appName) === undefined) {
+      LegendaryGame.instances.set(appName, new LegendaryGame(appName))
+    }
+    return LegendaryGame.instances.get(appName)
+  }
+
   public getGameInfo() {
-    Library.get().getGameInfo(this.appName)
+    return Library.get().getGameInfo(this.appName)
   }
 
   private async getProductSlug(namespace: string) {
@@ -90,6 +100,12 @@ class LegendaryGame {
     return await getSettings(this.appName)
   }
 
+  public async hasUpdate() {
+    return (await Library.get().listUpdateableGames()).find((app_name) => {
+      return app_name == this.appName
+    }) !== undefined
+  }
+
   public async update() {
     const logPath = `${heroicGamesConfigPath}${this.appName}.log`
     const command = `${legendaryBin} update ${this.appName} -y &> ${logPath}`
@@ -106,11 +122,13 @@ class LegendaryGame {
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    let command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y &> ${logPath}`
+    const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
+    let command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y |& tee ${logPath} ${sockPath}`
     if (path === 'default') {
-      command = `${legendaryBin} install ${this.appName} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
+      command = `${legendaryBin} install ${this.appName} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath} ${sockPath}`
     }
     console.log(`Installing ${this.appName} with:`, command)
+    // TODO(adityaruplaha):Create a socket connection for requestGameProgress
     try {
       return await execAsync(command, { shell: shell })
     } catch (error) {
@@ -136,14 +154,7 @@ class LegendaryGame {
   }
 
   public static async checkGameUpdates() {
-    if (!(await isOnline())) {
-      console.log('App offline, skipping checking game updates.')
-      return []
-    }
-    const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
-    const { stdout } = await execAsync(command)
-    const result = stdout.split('\n')
-    return result
+    return await Library.get().listUpdateableGames()
   }
 
   public async launch() {
@@ -160,7 +171,7 @@ class LegendaryGame {
       showMangohud,
       audioFix,
       autoInstallDxvk
-    } = await getSettings(this.appName)
+    } = await this.getSettings()
 
     const fixedWinePrefix = winePrefix.replace('~', home)
     let wineCommand = `--wine ${wineVersion.bin}`

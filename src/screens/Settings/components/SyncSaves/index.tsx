@@ -40,11 +40,11 @@ export default function SyncSaves({
 
   useEffect(() => {
     const getSyncFolder = async () => {
-      const { saveFolder, install_path } = await getGameInfo(appName)
+      const { save_folder, install:{install_path} } = await getGameInfo(appName)
 
       setAutoSyncSaves(autoSyncSaves)
-      let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
-      folder = folder.replace('{InstallDir}', install_path)
+      let folder = await fixSaveFolder(save_folder, winePrefix, isProton)
+      folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
 
       setSavesPath(path)

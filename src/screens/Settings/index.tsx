@@ -133,8 +133,8 @@ function Settings() {
 
       if (!isDefault) {
         const {
-          cloudSaveEnabled,
-          saveFolder,
+          cloud_save_enabled: cloudSaveEnabled,
+          save_folder: saveFolder,
           title: gameTitle
         } = await getGameInfo(appName)
         setTitle(gameTitle)
