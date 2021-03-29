@@ -133,45 +133,6 @@
       "pre-commit": "yarn lint-fix"
     }
   },
-  "importSorter": {
-    "groupRules": [
-      {
-        "flags": [
-          "namespace"
-        ]
-      },
-      {
-        "flags": [
-          "multiple"
-        ]
-      },
-      {
-        "flags": [
-          "single"
-        ]
-      },
-      {
-        "flags": [
-          "namespace"
-        ],
-        "regex": "^[.]"
-      },
-      {
-        "flags": [
-          "multiple"
-        ],
-        "regex": "^[.]"
-      },
-      {
-        "flags": [
-          "single"
-        ],
-        "regex": "^[.]"
-      },
-      {}
-    ],
-    "hasSemicolon": false
-  },
   "browserslist": {
     "production": [
       ">0.2%",

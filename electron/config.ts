@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { exec } from 'child_process'
 import {
   existsSync,

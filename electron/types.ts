@@ -20,8 +20,10 @@ export interface AppSettings {
   winePrefix: string
   wineVersion: WineProps
 }
+
+// this is unused? maybe remove?
 export interface ContextType {
-  data: GameInfo[]
+  data: RawGameJSON[]
   error: boolean
   filter: string
   handleFilter: (value: string) => void
