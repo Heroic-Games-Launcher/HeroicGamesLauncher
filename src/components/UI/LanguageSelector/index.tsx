@@ -25,12 +25,12 @@ export default function LanguageSelector({
     es: 'Español',
     fr: 'Français',
     hu: 'Magyar',
+    ml: 'മലയാളം',
     nl: 'Nederlands',
     pl: 'Polski',
     pt: 'Português',
     ru: 'Русский',
     tr: 'Türkçe',
-    ml: 'മലയാളം'
   }
 
   const languageFlags: { [key: string]: string } = {
@@ -39,12 +39,12 @@ export default function LanguageSelector({
     es: '🇪🇸',
     fr: '🇫🇷',
     hu: '🇭🇺',
+    ml: '🇮🇳',
     nl: '🇳🇱',
     pl: '🇵🇱',
     pt: '🇵🇹',
     ru: '🇷🇺',
     tr: '🇹🇷',
-    ml: '🇮🇳' 
   }
 
   const renderOption = (lang: string) => {
