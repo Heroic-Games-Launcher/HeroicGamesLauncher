@@ -364,7 +364,7 @@ ipcMain.handle('install', async (event, args) => {
   }
   if (path.includes('Unreal Projects')) {
     if (!path.includes('Content')) {
-      const contentPath = path + '/Content' 
+      const contentPath = path + '/Content'
       command = `${legendaryBin} install ${game} --base-path '${contentPath}' ${workers} -y &> ${logPath}`
     }
   }

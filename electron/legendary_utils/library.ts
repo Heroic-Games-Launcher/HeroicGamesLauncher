@@ -66,7 +66,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               dlcItemList,
               customAttributes: { CloudSaveFolder, FolderName }
             } = metadata
-  
+
             if (dlcItemList) {
               dlcItemList.forEach(
                 (v: { releaseInfo: { [x: number]: { appId: string } } }) => {
@@ -76,7 +76,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
                 }
               )
             }
-  
+
             const cloudSaveEnabled = Boolean(CloudSaveFolder)
             const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
             const installFolder = FolderName ? FolderName.value : ''
@@ -89,20 +89,20 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
             const logo = keyImages.filter(
               ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
             )[0]
-  
+
             const art_cover = gameBox ? gameBox.url : null
             const art_logo = logo ? logo.url : null
             const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
-  
+
             const installedGames: Game[] = Object.values(files.installed)
-  
+
             const isInstalled = Boolean(
               installedGames.filter((game) => game.app_name === app_name).length
             )
             const info = isInstalled
               ? installedGames.filter((game) => game.app_name === app_name)[0]
               : {}
-  
+
             const dlc = () => dlcs.some((dlc) => dlc === app_name)
             const {
               executable = null,
@@ -111,11 +111,11 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               install_path = null,
               is_dlc = dlc()
             } = info as InstalledInfo
-  
+
             const convertedSize =
               install_size &&
               `${byteSize(install_size).value}${byteSize(install_size).unit}`
-  
+
             return {
               app_name,
               art_cover: art_cover || art_square,
@@ -156,7 +156,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               ({ type }: KeyImage) => type === 'Thumbnail'
             )[0]
 
-            var compatibleApps
+            let compatibleApps
             releaseInfo.forEach(
               (rI: { appId : string, compatibleApps : string[] } ) => {
                 if (rI.appId == app_name) {
@@ -164,13 +164,13 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
                 }
               }
             )
-  
+
             const art_cover = gameBox ? gameBox.url : null
             const art_logo = logo ? logo.url : null
             const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
-  
+
             const installedGames: Game[] = Object.values(files.installed)
-  
+
             const isInstalled = Boolean(
               installedGames.filter((game) => game.app_name === app_name).length
             )
@@ -185,11 +185,11 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               install_path = null,
               is_dlc = false
             } = info as InstalledInfo
-  
+
             const convertedSize =
               install_size &&
               `${byteSize(install_size).value}${byteSize(install_size).unit}`
-  
+
             return {
               app_name,
               art_cover,
