@@ -46,6 +46,7 @@ export const Library = ({ library }: Props) => {
               art_cover,
               art_logo,
               app_name,
+              namespace,
               isInstalled,
               version,
               install_size,
@@ -63,6 +64,7 @@ export const Library = ({ library }: Props) => {
                   logo={art_logo}
                   title={title}
                   appName={app_name}
+                  namespace={namespace}
                   isInstalled={isInstalled}
                   version={version}
                   size={install_size}

@@ -28,6 +28,7 @@ interface Card {
   hasUpdate: boolean
   isInstalled: boolean
   logo: string
+  namespace : string
   size: string
   title: string
   version: string
@@ -43,6 +44,7 @@ const GameCard = ({
   cover,
   title,
   appName,
+  namespace,
   isInstalled,
   logo,
   coverList,
@@ -115,10 +117,13 @@ const GameCard = ({
     if (isInstalling) {
       return <StopIcon onClick={() => handlePlay()} />
     }
-    if (isInstalled) {
+    if (isInstalled && namespace != 'ue') {
       return <PlayIcon onClick={() => handlePlay()} />
     }
-    return <DownIcon onClick={() => handlePlay()} />
+    if (!isInstalled) {
+      return <DownIcon onClick={() => handlePlay()} />
+    }
+    return null
   }
   return (
     <>
@@ -159,7 +164,7 @@ const GameCard = ({
                 className="icons"
                 style={{
                   flexDirection: 'row',
-                  width: isInstalled ? '44%' : 'auto'
+                  width: isInstalled&&namespace!='ue' ? '44%' : 'auto'
                 }}
               >
                 {renderIcon()}

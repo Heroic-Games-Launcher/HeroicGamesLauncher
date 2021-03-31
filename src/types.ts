@@ -52,6 +52,7 @@ export interface Game {
   art_logo: string
   art_square: string
   cloudSaveEnabled: boolean
+  compatibleApps: string[]
   developer: string
   dlcs: string[]
   executable: string
