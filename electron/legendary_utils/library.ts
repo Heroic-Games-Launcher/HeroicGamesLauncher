@@ -134,6 +134,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               isGame,
               isInstalled,
               isUEAsset: false,
+              isUEPlugin: false,
               isUEProject: false,
               is_dlc,
               namespace,
@@ -170,15 +171,20 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               }
             )
 
+            let isUEAsset = false
             let isUEProject = false
+            let isUEPlugin = false
             categories.forEach(
               (c: { path : string} ) => {
                 if (c.path == 'projects') {
                   isUEProject = true
+                } else if (c.path == 'assets') {
+                  isUEAsset = true
+                } else if (c.path == 'plugins') {
+                  isUEPlugin = true
                 }
               }
             )
-            const isUEAsset = isUEProject ? false : true
 
             const art_cover = gameBox ? gameBox.url : null
             const art_logo = logo ? logo.url : null
@@ -219,9 +225,10 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               info,
               install_path,
               install_size: convertedSize,
-              isGame: false,
+              isGame,
               isInstalled,
               isUEAsset,
+              isUEPlugin,
               isUEProject,
               is_dlc,
               namespace,

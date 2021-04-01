@@ -63,6 +63,7 @@ export interface Game {
   isGame: boolean
   isInstalled: boolean
   isUEAsset: boolean
+  isUEPlugin: boolean
   isUEProject: boolean
   is_dlc: boolean
   namespace: string

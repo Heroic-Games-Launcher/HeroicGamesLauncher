@@ -85,9 +85,9 @@ export class GlobalState extends PureComponent<Props> {
   filterLibrary = (library: Game[], filter: string) => {
     switch (filter) {
     case 'installed':
-      return library.filter((game) => game.isInstalled && game.namespace != 'ue')
+      return library.filter((game) => game.isInstalled && game.isGame)
     case 'uninstalled':
-      return library.filter((game) => !game.isInstalled && game.namespace != 'ue')
+      return library.filter((game) => !game.isInstalled && game.isGame)
     case 'downloading':
       return library.filter((game) => {
         const currentApp = this.state.libraryStatus.filter(
@@ -104,9 +104,9 @@ export class GlobalState extends PureComponent<Props> {
         )
       })
     case 'unreal':
-      return library.filter((game) => game.namespace == 'ue' && !game.app_name.includes('UE_'))
+      return library.filter((game) => game.isUEProject || game.isUEAsset || game.isUEPlugin)
     default:
-      return library.filter((game) => game.namespace != 'ue')
+      return library.filter((game) => game.isGame)
     }
   }
 
