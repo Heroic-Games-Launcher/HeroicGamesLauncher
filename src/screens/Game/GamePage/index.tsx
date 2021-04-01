@@ -136,11 +136,11 @@ export default function GamePage(): JSX.Element | null {
   if (gameInfo) {
     const {
       title,
-      namespace,
       art_square,
       art_logo,
       install_path,
       install_size,
+      isGame,
       isInstalled,
       version,
       extraInfo,
@@ -166,10 +166,12 @@ export default function GamePage(): JSX.Element | null {
         <div className="gameConfigContainer">
           {title ? (
             <>
-              <Settings
-                onClick={() => setClicked(!clicked)}
-                className="material-icons is-secondary dots"
-              />
+              {isGame && (
+                <Settings
+                  onClick={() => setClicked(!clicked)}
+                  className="material-icons is-secondary dots"
+                />
+              )}
               <GamesSubmenu
                 appName={appName}
                 clicked={clicked}
@@ -195,7 +197,7 @@ export default function GamePage(): JSX.Element | null {
                   <div className="title">{title}</div>
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
-                    {namespace == 'ue' && (
+                    {!isGame && (
                       <div className="compatibleApps">{compatibleApps.join(', ')}</div>
                     )}
                     <div className="summary">
@@ -207,7 +209,7 @@ export default function GamePage(): JSX.Element | null {
                             : ''
                         : ''}
                     </div>
-                    {cloudSaveEnabled && namespace != 'ue' && (
+                    {cloudSaveEnabled && isGame && (
                       <div
                         style={{
                           color: autoSyncSaves ? '#07C5EF' : ''
@@ -255,7 +257,7 @@ export default function GamePage(): JSX.Element | null {
                       {getInstallLabel(isInstalled)}
                     </p>
                   </div>
-                  {!isInstalled && !isInstalling && namespace != 'ue' && (
+                  {!isInstalled && !isInstalling && isGame && (
                     <select
                       onChange={(event) => setInstallPath(event.target.value)}
                       value={installPath}
@@ -269,7 +271,7 @@ export default function GamePage(): JSX.Element | null {
                     </select>
                   )}
                   <div className="buttonsWrapper">
-                    {isInstalled && namespace != 'ue' && (
+                    {isInstalled && isGame && (
                       <>
                         <button
                           disabled={isReparing || isMoving}
@@ -483,7 +485,7 @@ export default function GamePage(): JSX.Element | null {
         return refresh()
       }
 
-      if (installPath === 'default' && gameInfo.namespace != 'ue') {
+      if (installPath === 'default' && gameInfo.isGame) {
         const path = 'default'
         await handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
@@ -494,7 +496,7 @@ export default function GamePage(): JSX.Element | null {
         }, 500)
       }
 
-      if (installPath === 'import' && gameInfo.namespace != 'ue') {
+      if (installPath === 'import' && gameInfo.isGame) {
         const { filePaths } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
@@ -509,7 +511,7 @@ export default function GamePage(): JSX.Element | null {
         }
       }
 
-      if (installPath === 'another' || gameInfo.namespace == 'ue') {
+      if (installPath === 'another' || !gameInfo.isGame) {
         const { filePaths } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],

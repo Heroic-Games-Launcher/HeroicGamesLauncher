@@ -46,10 +46,10 @@ export const Library = ({ library }: Props) => {
               art_cover,
               art_logo,
               app_name,
-              namespace,
               isInstalled,
               version,
               install_size,
+              isGame,
               is_dlc
             }: Game) => {
               if (is_dlc) {
@@ -64,10 +64,10 @@ export const Library = ({ library }: Props) => {
                   logo={art_logo}
                   title={title}
                   appName={app_name}
-                  namespace={namespace}
                   isInstalled={isInstalled}
                   version={version}
                   size={install_size}
+                  isGame={isGame}
                   hasUpdate={hasUpdate}
                 />
               )

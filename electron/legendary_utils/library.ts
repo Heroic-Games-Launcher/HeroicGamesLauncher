@@ -57,7 +57,8 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
         .map((file) => JSON.parse(readFileSync(file, 'utf-8')))
         .map(({ app_name, metadata, asset_info }) => {
           const { namespace } = asset_info
-          if (namespace != 'ue') {
+          const isGame = namespace!='ue' ? true : false
+          if (isGame) {
             const {
               description,
               keyImages,
@@ -130,7 +131,10 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               info,
               install_path,
               install_size: convertedSize,
+              isGame,
               isInstalled,
+              isUEAsset: false,
+              isUEProject: false,
               is_dlc,
               namespace,
               saveFolder,
@@ -143,7 +147,8 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               keyImages,
               title,
               developer,
-              releaseInfo
+              releaseInfo,
+              categories
             } = metadata
 
             const gameBox = keyImages.filter(
@@ -164,6 +169,16 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
                 }
               }
             )
+
+            let isUEProject = false
+            categories.forEach(
+              (c: { path : string} ) => {
+                if (c.path == 'projects') {
+                  isUEProject = true
+                }
+              }
+            )
+            const isUEAsset = isUEProject ? false : true
 
             const art_cover = gameBox ? gameBox.url : null
             const art_logo = logo ? logo.url : null
@@ -204,7 +219,10 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               info,
               install_path,
               install_size: convertedSize,
+              isGame: false,
               isInstalled,
+              isUEAsset,
+              isUEProject,
               is_dlc,
               namespace,
               saveFolder: null,

@@ -60,7 +60,10 @@ export interface Game {
   folderName: string
   install_path: string
   install_size: string
+  isGame: boolean
   isInstalled: boolean
+  isUEAsset: boolean
+  isUEProject: boolean
   is_dlc: boolean
   namespace: string
   saveFolder: string
