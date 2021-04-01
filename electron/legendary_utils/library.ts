@@ -192,6 +192,8 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
 
             const installedGames: Game[] = Object.values(files.installed)
 
+            const installFolder = app_name
+
             const isInstalled = Boolean(
               installedGames.filter((game) => game.app_name === app_name).length
             )
@@ -221,7 +223,7 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
               description,
               developer,
               executable,
-              folderName: '',
+              folderName: installFolder,
               info,
               install_path,
               install_size: convertedSize,
