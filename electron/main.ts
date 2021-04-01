@@ -31,6 +31,7 @@ import i18next from 'i18next'
 import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
+import { GlobalConfig } from './new_config'
 import { LegendaryGame } from './games'
 import { Library } from 'legendary_utils/library'
 import { RawGameJSON } from './types.js'
@@ -62,9 +63,8 @@ import {
   getAlternativeWine,
   getSettings,
   isLoggedIn,
-  writeGameConfig
+  writeDefaultGameConfig
 } from './config'
-import { getLegendaryConfig } from './legendary_utils/legacy_library'
 
 const { showErrorBox } = dialog
 
@@ -434,7 +434,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   }
 
   if (appName !== 'default') {
-    writeGameConfig(appName)
+    writeDefaultGameConfig(appName)
   }
 
   return await getSettings(appName)
@@ -489,11 +489,14 @@ ipcMain.handle(
 )
 
 ipcMain.handle('readConfig', async (event, config_class) =>  {
-  if (config_class === 'library') {
+  switch (config_class) {
+  case 'library':
     return Library.get().getGames('info')
-  }
-  else {
-    getLegendaryConfig(config_class)
+  case 'user':
+    return GlobalConfig().getUserInfo().displayName
+  default:
+    console.log(`Which idiot requested '${config_class}' using readConfig?`)
+    return {}
   }
 })
 

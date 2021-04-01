@@ -1,7 +1,9 @@
+import { ConfigVersion } from './types';
 import { fixPathForAsarUnpack } from 'electron-util'
 import { homedir } from 'os'
 import { join } from 'path'
 
+const currentConfigVersion : ConfigVersion = 'v0'
 const home = homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
 const heroicFolder = `${home}/.config/heroic/`
@@ -28,6 +30,7 @@ const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const shell = process.platform === 'darwin' ? '/bin/zsh' : '/bin/bash'
 
 export {
+  currentConfigVersion,
   discordLink,
   heroicConfigPath,
   heroicFolder,

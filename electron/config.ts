@@ -179,7 +179,8 @@ const writeDefaultConfig = async () => {
   }
 }
 
-const writeGameConfig = async (game: string) => {
+// @@refactor into Game
+const writeDefaultGameConfig = async (game: string) => {
   if (!existsSync(`${heroicGamesConfigPath}${game}.json`)) {
     const {
       wineVersion,
@@ -214,5 +215,5 @@ export {
   getSettings,
   isLoggedIn,
   writeDefaultConfig,
-  writeGameConfig
+  writeDefaultGameConfig
 }

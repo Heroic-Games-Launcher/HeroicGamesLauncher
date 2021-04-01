@@ -21,6 +21,8 @@ export interface AppSettings {
   wineVersion: WineProps
 }
 
+export type ConfigVersion = 'auto' | 'v0'
+
 // this is unused? maybe remove?
 export interface ContextType {
   data: RawGameJSON[]
@@ -111,6 +113,7 @@ export interface RawGameJSON {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
+
 
 export type UserInfo = {
   account_id?: string
