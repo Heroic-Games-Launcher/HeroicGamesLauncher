@@ -362,12 +362,6 @@ ipcMain.handle('install', async (event, args) => {
   if (path === 'default') {
     command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
   }
-  if (path.includes('Unreal Projects')) {
-    if (!path.includes('Content')) {
-      const contentPath = path + '/Content'
-      command = `${legendaryBin} install ${game} --base-path '${contentPath}' ${workers} -y &> ${logPath}`
-    }
-  }
   console.log(`Installing ${game} with:`, command)
   try {
     await execAsync(command, { shell: shell })
