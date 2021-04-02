@@ -58,122 +58,35 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
         .map(({ app_name, metadata, asset_info }) => {
           const { namespace } = asset_info
           const isGame = namespace!='ue' ? true : false
-          if (isGame) {
-            const {
-              description,
-              keyImages,
-              title,
-              developer,
-              dlcItemList,
-              customAttributes: { CloudSaveFolder, FolderName }
-            } = metadata
+          const {
+            description,
+            keyImages,
+            title,
+            developer,
+            dlcItemList,
+            releaseInfo,
+            categories,
+            customAttributes
+          } = metadata
 
-            if (dlcItemList) {
-              dlcItemList.forEach(
-                (v: { releaseInfo: { [x: number]: { appId: string } } }) => {
-                  if (v.releaseInfo && v.releaseInfo[0]) {
-                    dlcs.push(v.releaseInfo[0].appId)
-                  }
-                }
-              )
-            }
 
-            const cloudSaveEnabled = Boolean(CloudSaveFolder)
-            const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
-            const installFolder = FolderName ? FolderName.value : ''
-            const gameBox = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBox'
-            )[0]
-            const gameBoxTall = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-            )[0]
-            const logo = keyImages.filter(
-              ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-            )[0]
+          const CloudSaveFolder = isGame ? customAttributes: null
+          const FolderName = isGame ? customAttributes: null
 
-            const art_cover = gameBox ? gameBox.url : null
-            const art_logo = logo ? logo.url : null
-            const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
-
-            const installedGames: Game[] = Object.values(files.installed)
-
-            const isInstalled = Boolean(
-              installedGames.filter((game) => game.app_name === app_name).length
-            )
-            const info = isInstalled
-              ? installedGames.filter((game) => game.app_name === app_name)[0]
-              : {}
-
-            const dlc = () => dlcs.some((dlc) => dlc === app_name)
-            const {
-              executable = null,
-              version = null,
-              install_size = null,
-              install_path = null,
-              is_dlc = dlc()
-            } = info as InstalledInfo
-
-            const convertedSize =
-              install_size &&
-              `${byteSize(install_size).value}${byteSize(install_size).unit}`
-
-            return {
-              app_name,
-              art_cover: art_cover || art_square,
-              art_logo,
-              art_square: art_square || art_cover,
-              cloudSaveEnabled,
-              compatibleApps: null,
-              description,
-              developer,
-              executable,
-              folderName: installFolder,
-              info,
-              install_path,
-              install_size: convertedSize,
-              isGame,
-              isInstalled,
-              isUEAsset: false,
-              isUEPlugin: false,
-              isUEProject: false,
-              is_dlc,
-              namespace,
-              saveFolder,
-              title,
-              version
-            }
-          } else {
-            const {
-              description,
-              keyImages,
-              title,
-              developer,
-              releaseInfo,
-              categories
-            } = metadata
-
-            const gameBox = keyImages.filter(
-              ({ type }: KeyImage) => type === 'Screenshot'
-            )[0]
-            const gameBoxTall = keyImages.filter(
-              ({ type }: KeyImage) => type === 'Screenshot'
-            )[0]
-            const logo = keyImages.filter(
-              ({ type }: KeyImage) => type === 'Thumbnail'
-            )[0]
-
-            let compatibleApps
-            releaseInfo.forEach(
-              (rI: { appId : string, compatibleApps : string[] } ) => {
-                if (rI.appId == app_name) {
-                  compatibleApps = rI.compatibleApps
+          if (dlcItemList) {
+            dlcItemList.forEach(
+              (v: { releaseInfo: { [x: number]: { appId: string } } }) => {
+                if (v.releaseInfo && v.releaseInfo[0]) {
+                  dlcs.push(v.releaseInfo[0].appId)
                 }
               }
             )
+          }
 
-            let isUEAsset = false
-            let isUEProject = false
-            let isUEPlugin = false
+          let isUEAsset = false
+          let isUEProject = false
+          let isUEPlugin = false
+          if (categories) {
             categories.forEach(
               (c: { path : string} ) => {
                 if (c.path == 'projects') {
@@ -185,59 +98,83 @@ export async function getLegendaryConfig(file: string): Promise<unknown> {
                 }
               }
             )
+          }
 
-            const art_cover = gameBox ? gameBox.url : null
-            const art_logo = logo ? logo.url : null
-            const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
-
-            const installedGames: Game[] = Object.values(files.installed)
-
-            const installFolder = app_name
-
-            const isInstalled = Boolean(
-              installedGames.filter((game) => game.app_name === app_name).length
-            )
-            const info = isInstalled
-              ? installedGames.filter((game) => game.app_name === app_name)[0]
-              : {}
-
-            const {
-              executable = null,
-              version = null,
-              install_size = null,
-              install_path = null,
-              is_dlc = false
-            } = info as InstalledInfo
-
-            const convertedSize =
-              install_size &&
-              `${byteSize(install_size).value}${byteSize(install_size).unit}`
-
-            return {
-              app_name,
-              art_cover,
-              art_logo,
-              art_square,
-              cloudSaveEnabled: false,
-              compatibleApps,
-              description,
-              developer,
-              executable,
-              folderName: installFolder,
-              info,
-              install_path,
-              install_size: convertedSize,
-              isGame,
-              isInstalled,
-              isUEAsset,
-              isUEPlugin,
-              isUEProject,
-              is_dlc,
-              namespace,
-              saveFolder: null,
-              title,
-              version
+          let compatibleApps
+          releaseInfo.forEach(
+            (rI: { appId : string, compatibleApps : string[] } ) => {
+              if (rI.appId == app_name) {
+                compatibleApps = rI.compatibleApps
+              }
             }
+          )
+
+          const cloudSaveEnabled = Boolean(CloudSaveFolder)
+          const saveFolder = cloudSaveEnabled ? CloudSaveFolder.value : ''
+          const installFolder = FolderName ? FolderName.value : app_name
+
+          const gameBox = isGame ?
+            keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox' )[0] :
+            keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+
+          const gameBoxTall = isGame ?
+            keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
+            keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+
+          const logo = isGame ?
+            keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
+            keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail' )[0]
+
+          const art_cover = gameBox ? gameBox.url : null
+          const art_logo = logo ? logo.url : null
+          const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+
+          const installedGames: Game[] = Object.values(files.installed)
+
+          const isInstalled = Boolean(
+            installedGames.filter((game) => game.app_name === app_name).length
+          )
+          const info = isInstalled
+            ? installedGames.filter((game) => game.app_name === app_name)[0]
+            : {}
+
+          const dlc = () => dlcs.some((dlc) => dlc === app_name)
+          const {
+            executable = null,
+            version = null,
+            install_size = null,
+            install_path = null,
+            is_dlc = dlc()
+          } = info as InstalledInfo
+
+          const convertedSize =
+            install_size &&
+            `${byteSize(install_size).value}${byteSize(install_size).unit}`
+
+          return {
+            app_name,
+            art_cover: art_cover || art_square,
+            art_logo,
+            art_square: art_square || art_cover,
+            cloudSaveEnabled,
+            compatibleApps,
+            description,
+            developer,
+            executable,
+            folderName: installFolder,
+            info,
+            install_path,
+            install_size: convertedSize,
+            isGame,
+            isInstalled,
+            isUEAsset,
+            isUEPlugin,
+            isUEProject,
+            is_dlc,
+            namespace,
+            saveFolder,
+            title,
+            version
           }
         })
         .sort((a: { title: string }, b: { title: string }) => {
