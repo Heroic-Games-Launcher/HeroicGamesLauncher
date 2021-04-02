@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import { DXVK } from './dxvk'
 import { GameStatus } from 'types';
+import { GlobalConfig } from './new_config';
 import { Library } from './legendary_utils/library'
 import {
   errorHandler,
@@ -118,7 +119,7 @@ class LegendaryGame {
   }
 
   public async install(path : string) {
-    const { defaultInstallPath, maxWorkers } = await getSettings('default')
+    const { defaultInstallPath, maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
@@ -137,7 +138,7 @@ class LegendaryGame {
   }
 
   public async repair() {
-    const { maxWorkers } = await getSettings('default')
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`

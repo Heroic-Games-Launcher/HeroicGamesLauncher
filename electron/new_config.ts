@@ -1,18 +1,16 @@
-import { exec } from 'child_process'
 import {
   existsSync,
-  mkdir,
+  mkdirSync,
   readFileSync,
   readdirSync,
   writeFileSync
 } from 'graceful-fs'
 import { userInfo as user } from 'os'
 
-import { AppSettings, ConfigVersion, WineProps } from './types'
+import { AppSettings, GlobalConfigVersion, UserInfo, WineInstallation } from './types'
 import {
-  currentConfigVersion,
+  currentGlobalConfigVersion,
   heroicConfigPath,
-  heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
   home,
@@ -32,140 +30,137 @@ import {
 abstract class GlobalConfig {
   protected static globalInstance : GlobalConfig
 
-  public abstract version : ConfigVersion
+  public abstract version : GlobalConfigVersion
 
   public config : AppSettings
 
   /**
    * Get the global configuartion handler.
    *
-   * @param version ConfigVersion to use for parsing config file. Default: 'auto'
    * @returns GlobalConfig instance or undefined.
    */
-  public static get(version : ConfigVersion = 'auto') : GlobalConfig {
-    let configVersion : ConfigVersion = undefined
+  public static get() : GlobalConfig {
+    let version : GlobalConfigVersion
 
     // Config file doesn't already exist, make one with the current version.
     if (!existsSync(heroicConfigPath)) {
-      configVersion = currentConfigVersion
-
-      // For autodetect.
-      if (version === 'auto') {
-        version = currentConfigVersion
-      }
+      version = currentGlobalConfigVersion
     }
     // Config file exists, detect its version.
     else {
       // Check version field in the config.
-      configVersion = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
+      version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
       // Legacy config file without a version field, it's a v0 config.
-      if (configVersion === undefined) {
-        configVersion = 'v0'
-      }
-
-      // For autodetect.
-      if (version === 'auto') {
-        version = configVersion
+      if (version === undefined) {
+        version = 'v0'
       }
     }
 
-    // Check for version mismatches.
-    // Should never happen for 'auto'.
-    if (version !== configVersion) {
-      console.log(`Config version mismatch! Requested: ${version}. Found: ${configVersion}.`)
-    }
-
-    // Select loader to use.
-    switch (version) {
-    case 'v0':
-      if (GlobalConfig.globalInstance === undefined) {
-        GlobalConfig.globalInstance = new GlobalConfigV0()
-      }
-      break;
-    default:
-      console.log(`Invalid config version '${version}' requested.`)
-      break;
+    if (GlobalConfig.globalInstance === undefined) {
+      GlobalConfig.reload(version)
     }
 
     return GlobalConfig.globalInstance
   }
 
-  /**
-   * Detects Wine on the user's system.
-   *
-   * @returns An Array of wine installations.
-   */
-  public async getAlternativeWine(): Promise<WineProps[]> {
-    // Just add a new string here in case another path is found on another distro
-    const steamPaths: string[] = [
-      `${home}/.local/share/Steam`,
-      `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-      '/usr/share/steam'
-    ]
+  private static reload(version : GlobalConfigVersion) : void {
+    // Select loader to use.
+    switch (version) {
+    case 'v0':
+      GlobalConfig.globalInstance = new GlobalConfigV0()
+      break;
+    default:
+      console.log(`GlobalConfig: Invalid config version '${version}' requested.`)
+      break;
+    }
+    // Try to upgrade outdated config.
+    if (GlobalConfig.globalInstance.upgrade()) {
+      // Upgrade done, we need to fully reload config.
+      console.log(`GlobalConfig: Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`)
+      return GlobalConfig.reload(currentGlobalConfigVersion)
+    }
+    else if (version !== currentGlobalConfigVersion) {
+      // Upgrade failed.
+      console.log(`GlobalConfig: Failed to upgrade outdated ${version} config.`)
+    }
+  }
 
+  /**
+   * Detects Wine/Proton on the user's system.
+   *
+   * @returns An Array of Wine/Proton installations.
+   */
+  public async getAlternativeWine(): Promise<WineInstallation[]> {
     if (!existsSync(`${heroicToolsPath}/wine`)) {
-      exec(`mkdir '${heroicToolsPath}/wine' -p`, () => {
-        return 'done'
-      })
+      mkdirSync(`${heroicToolsPath}/wine`, {recursive: true})
     }
 
     if (!existsSync(`${heroicToolsPath}/proton`)) {
-      exec(`mkdir '${heroicToolsPath}/proton' -p`, () => {
-        return 'done'
-      })
+      mkdirSync(`${heroicToolsPath}/proton`, {recursive: true})
     }
 
-    const protonPaths: string[] = [`${heroicToolsPath}/proton/`]
-    const foundPaths = steamPaths.filter((path) => existsSync(path))
 
     const defaultWine = { bin: '', name: '' }
     await execAsync(`which wine`)
       .then(async ({ stdout }) => {
         defaultWine.bin = stdout.split('\n')[0]
         const { stdout: out } = await execAsync(`wine --version`)
-        defaultWine.name = `Wine - ${out.split('\n')[0]}`
+        const version = out.split('\n')[0]
+        defaultWine.name = `Wine - ${version}`
       })
       .catch(() => console.log('Wine not installed'))
 
-    foundPaths.forEach((path) => {
-      protonPaths.push(`${path}/steamapps/common/`)
-      protonPaths.push(`${path}/compatibilitytools.d/`)
-      return
+    readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
+      altWine.add({
+        bin: `'${heroicToolsPath}/wine/${version}/bin/wine64'`,
+        name: `Wine - ${version}`
+      })
     })
 
     const lutrisPath = `${home}/.local/share/lutris`
     const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-    const proton: Set<{ bin: string; name: string }> = new Set()
-    const altWine: Set<{ bin: string; name: string }> = new Set()
-    const customPaths: Set<{ bin: string; name: string }> = new Set()
-
-    protonPaths.forEach((path) => {
-      if (existsSync(path)) {
-        readdirSync(path).forEach((version) => {
-          if (version.toLowerCase().startsWith('proton')) {
-            proton.add({
-              bin: `'${path}${version}/proton'`,
-              name: `Proton - ${version}`
-            })
-          }
-        })
-      }
-    })
 
     if (existsSync(lutrisCompatPath)) {
       readdirSync(lutrisCompatPath).forEach((version) => {
         altWine.add({
           bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-          name: `Wine - ${version}`
+          name: `Lutris Wine - ${version}`
         })
       })
     }
 
-    readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
-      altWine.add({
-        bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-        name: `Wine - ${version}`
-      })
+    const protonPaths: string[] = [`${heroicToolsPath}/proton/`]
+
+    // Known places where Steam might be found.
+    // Just add a new string here in case another path is found on another distro.
+    const steamPaths: string[] = [
+      `${home}/.local/share/Steam`,
+      `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
+      '/usr/share/steam'
+    ].filter((path) => existsSync(path))
+
+    steamPaths.forEach((path) => {
+      protonPaths.push(`${path}/steamapps/common/`)
+      protonPaths.push(`${path}/compatibilitytools.d/`)
+      return
+    })
+
+    const proton: Set<WineInstallation> = new Set()
+    const altWine: Set<WineInstallation> = new Set()
+    const customPaths: Set<WineInstallation> = new Set()
+
+    protonPaths.forEach((path) => {
+      if (existsSync(path)) {
+        readdirSync(path).forEach((version) => {
+          if (version.toLowerCase().startsWith('proton')) {
+            const steam = path.toLowerCase().indexOf('steam') < 0 ? '' : 'Steam '
+            proton.add({
+              bin: `'${path}${version}/proton'`,
+              name: `${steam}Proton - ${version}`
+            })
+          }
+        })
+      }
     })
 
     // skips this on new installations to avoid infinite loops
@@ -176,12 +171,12 @@ abstract class GlobalConfig {
           if (path.endsWith('proton')) {
             return customPaths.add({
               bin: `'${path}'`,
-              name: `Proton Custom - ${path}`
+              name: `Custom Proton - ${path}`
             })
           }
           return customPaths.add({
             bin: `'${path}'`,
-            name: `Wine Custom - ${path}`
+            name: `Custom Wine - ${path}`
           })
         })
       }
@@ -194,16 +189,24 @@ abstract class GlobalConfig {
     return existsSync(userInfo)
   }
 
-  public getUserInfo() {
+  public getUserInfo() : UserInfo {
     if (this.isLoggedIn()) {
       return JSON.parse(readFileSync(userInfo, 'utf-8'))
     }
     return { account_id: '', displayName: null }
   }
 
-  protected abstract getSettings() : Promise<AppSettings>
+  public abstract getSettings() : Promise<AppSettings>
 
-  public abstract makeLatest() : void
+  /**
+   * Updates this.config, this.version to upgrade the current config file.
+   *
+   * Writes to file after that.
+   * DO NOT call `flush()` afterward.
+   *
+   * @returns true if upgrade successful, false if upgrade fails or no upgrade needed.
+   */
+  public abstract upgrade() : boolean
 
   public abstract resetToDefaults() : void
 
@@ -214,46 +217,39 @@ abstract class GlobalConfig {
   public abstract flush() : void
 
   protected async load() {
-    if (!existsSync(heroicGamesConfigPath)) {
-      mkdir(heroicGamesConfigPath, () => {
-        return 'done'
-      })
-    }
+    // Config file doesn't exist, make one.
     if (!existsSync(heroicConfigPath)) {
       this.resetToDefaults()
     }
-    // always convert before loading to avoid errors.
-    // getSettings doesn't return an AppSettings otherwise.
-    if (this.version !== currentConfigVersion) {
-      this.makeLatest()
-      this.load()
+    // Always upgrade before loading to avoid errors.
+    // `getSettings` doesn't return an `AppSettings` otherwise.
+    if (this.version !== currentGlobalConfigVersion) {
+      // Do not load the config.
+      // Wait for `upgrade` to be called by `reload`.
     }
     else {
-      this.version = currentConfigVersion
-      this.config = await this.getSettings()
+      // No upgrades necessary, load config.
+      // `this.version` should be `currentGlobalConfigVersion` at this point.
+      this.config = await this.getSettings() as AppSettings
     }
   }
 }
 
 class GlobalConfigV0 extends GlobalConfig {
-  public version : ConfigVersion = 'v0'
+  public version : GlobalConfigVersion = 'v0'
 
   constructor() {
     super()
     this.load()
   }
 
-  public makeLatest() {
+  public upgrade() {
     // Here we rewrite the config object to match the latest format and write to file.
     // Not necessary as this is the current version.
+    return false
   }
 
-  protected async getSettings(): Promise<AppSettings> {
-    if (!existsSync(heroicConfigPath)) {
-      await this.resetToDefaults()
-      return this.config
-    }
-
+  public async getSettings(): Promise<AppSettings> {
     const settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
     return settings.defaultSettings
   }

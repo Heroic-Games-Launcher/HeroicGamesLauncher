@@ -33,7 +33,7 @@ import isDev from 'electron-is-dev'
 import { DXVK } from './dxvk'
 import { GlobalConfig } from './new_config'
 import { LegendaryGame } from './games'
-import { Library } from 'legendary_utils/library'
+import { Library } from './legendary_utils/library'
 import { RawGameJSON } from './types.js'
 import {
   checkForUpdates,
@@ -60,9 +60,6 @@ import {
   userInfo
 } from './constants'
 import {
-  getAlternativeWine,
-  getSettings,
-  isLoggedIn,
   writeDefaultGameConfig
 } from './config'
 
@@ -88,6 +85,9 @@ function createWindow(): BrowserWindow {
     DXVK.getLatest()
   }, 2500)
 
+  GlobalConfig.get()
+  Library.get()
+
   //load the index.html from a url
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -106,7 +106,7 @@ function createWindow(): BrowserWindow {
 
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = await getSettings('default')
+      const { exitToTray } = (await GlobalConfig.get().getSettings())
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -117,7 +117,7 @@ function createWindow(): BrowserWindow {
   } else {
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = await getSettings('default')
+      const { exitToTray } = (await GlobalConfig.get().getSettings())
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -188,7 +188,7 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = await getSettings('default')
+    const { language, darkTrayIcon } = (await GlobalConfig.get().getSettings())
 
     await i18next.use(Backend).init({
       backend: {
@@ -398,7 +398,7 @@ ipcMain.on('kill', (event, game) => {
 
 ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
 
-ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
+ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
@@ -430,18 +430,16 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 
 ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
-    return await getSettings('default')
+    return (await GlobalConfig.get().getSettings())
   }
 
   if (appName !== 'default') {
     writeDefaultGameConfig(appName)
   }
-
-  return await getSettings(appName)
 })
 
 //Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', () => isLoggedIn())
+ipcMain.handle('isLoggedIn', () => GlobalConfig.get().isLoggedIn())
 
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 
@@ -493,7 +491,7 @@ ipcMain.handle('readConfig', async (event, config_class) =>  {
   case 'library':
     return Library.get().getGames('info')
   case 'user':
-    return GlobalConfig().getUserInfo().displayName
+    return GlobalConfig.get().getUserInfo().displayName
   default:
     console.log(`Which idiot requested '${config_class}' using readConfig?`)
     return {}
@@ -526,9 +524,7 @@ ipcMain.on('removeFolder', async (e, args: string[]) => {
   const [path, folderName] = args
 
   if (path === 'default') {
-    const defaultInstallPath = await (
-      await getSettings('default')
-    ).defaultInstallPath.replaceAll("'", '')
+    const defaultInstallPath = (await GlobalConfig.get().getSettings()).defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${defaultInstallPath}/${folderName}`
     return setTimeout(() => {
       exec(`rm -Rf ${folderToDelete}`)

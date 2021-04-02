@@ -8,7 +8,7 @@ import {
 } from 'graceful-fs'
 import { userInfo as user } from 'os'
 
-import { AppSettings, UserInfo, WineProps } from './types'
+import { AppSettings, UserInfo, WineInstallation } from './types'
 import {
   execAsync
 } from './utils'
@@ -22,7 +22,7 @@ import {
 } from './constants'
 
 // check other wine versions installed
-async function getAlternativeWine(): Promise<WineProps[]> {
+async function getAlternativeWine(): Promise<WineInstallation[]> {
   // Just add a new string here in case another path is found on another distro
   const steamPaths: string[] = [
     `${home}/.local/share/Steam`,

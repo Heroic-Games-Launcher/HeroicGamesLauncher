@@ -19,6 +19,7 @@ class Library {
    * @param lazy_load Whether the library loads data lazily or in advance.
    */
   private constructor(lazy_load: boolean) {
+    this.library = new Map<string, null | GameInfo>()
     if (!lazy_load) {
       this.loadAll()
     }
@@ -33,14 +34,22 @@ class Library {
    * @param lazy_load Whether the library loads data lazily or in advance. Default: TRUE.
    * @returns Library instance.
    */
-  public static get(lazy_load = true) {
+  public static get(lazy_load = false) {
     if (this.globalInstance === null) {
       Library.globalInstance = new Library(lazy_load)
     }
     return this.globalInstance
   }
 
-  public async getGames(format: 'info' | 'class' = 'class') {
+  /**
+   * Get a list of all games in the library.
+   * Please note this loads all library data, thus making lazy loading kind of pointless.
+   *
+   * @param format Return format. 'info' -> GameInfo, 'class' (default) -> LegendaryGame
+   * @returns Array of objects.
+   */
+  public async getGames(format: 'info' | 'class' = 'class') : Promise<(LegendaryGame | GameInfo)[]> {
+    await this.loadAllStubs()
     const arr = Array.from(this.library.values()).sort(
       (a: { title: string }, b: { title: string }) => {
         const gameA = a.title.toUpperCase()
@@ -92,7 +101,7 @@ class Library {
    *
    * @returns App name of loaded file.
    */
-  private loadFile(fileName : string) {
+  private loadFile(fileName : string) : string {
     fileName = `${libraryPath}/${fileName}`
     const { app_name, metadata, asset_info } = JSON.parse(readFileSync(fileName, 'utf-8'))
     const {
@@ -146,21 +155,15 @@ class Library {
         .catch(() => [])
     )
 
-    const isInstalled = Boolean(
-      installedGames.filter((game) => game.app_name === app_name).length
-    )
-    const info = isInstalled
-      ? installedGames.filter((game) => game.app_name === app_name)[0]
-      : {}
+    const info = installedGames.find((game) => game.app_name === app_name)
 
-    const dlc = () => dlcs.some((dlc) => dlc === app_name)
     const {
       executable = null,
       version = null,
       install_size = null,
       install_path = null,
-      is_dlc = dlc()
-    } = info as InstalledInfo
+      is_dlc = dlcs.indexOf(app_name) >= 0
+    } = (info === undefined ? {} : info) as InstalledInfo
 
     const convertedSize =
       install_size && prettyBytes(Number(install_size))
@@ -184,7 +187,7 @@ class Library {
         is_dlc,
         version
       }),
-      is_installed: isInstalled,
+      is_installed: info !== undefined,
       namespace,
       save_folder: saveFolder,
       title
@@ -199,7 +202,7 @@ class Library {
    *
    * @returns App name of loaded file.
    */
-  private loadFileStub(fileName : string) {
+  private loadFileStub(fileName : string) : string {
     fileName = `${libraryPath}/${fileName}`
     const { app_name } = JSON.parse(readFileSync(fileName, 'utf-8'))
     this.library.set(app_name, null)
@@ -212,10 +215,10 @@ class Library {
    *
    * @returns App names of loaded files.
    */
-  private async loadAll() {
+  private async loadAll() : Promise<string[]> {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
-        .map(this.loadFile)
+        .map((filename) => this.loadFile(filename))
     }
   }
 
@@ -225,14 +228,14 @@ class Library {
    *
    * @returns App names of loaded files.
    */
-  public async loadAllStubs() {
+  public async loadAllStubs() : Promise<string[]> {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
         .filter((fileName) => {
           const app_name =fileName.split('.')[0]
           return (this.library.get(app_name) === null)
         })
-        .map(this.loadFile)
+        .map((filename) => this.loadFile(filename))
     }
   }
 
@@ -241,10 +244,10 @@ class Library {
    *
    * @returns App names of loaded files.
    */
-  private async loadAsStubs() {
+  private async loadAsStubs() : Promise<string[]> {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
-        .map(this.loadFileStub)
+        .map((filename) => this.loadFileStub(filename))
     }
   }
 }

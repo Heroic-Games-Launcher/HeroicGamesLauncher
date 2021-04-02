@@ -109,15 +109,15 @@ const cleanTitle = (title: string) =>
     .toLowerCase()
     .split('--definitive')[0]
 
-const getGameInfo = async (appName: string) => {
+const getGameInfo = async (appName: string) : Promise<GameInfo> => {
   const library: Array<GameInfo> = await readFile('library')
   const game = library.filter((game) => game.app_name === appName)[0]
-  const extraInfo = await ipcRenderer.invoke(
+  game.extra = await ipcRenderer.invoke(
     'getGameInfo',
     cleanTitle(game.title),
     game.namespace
   )
-  return { ...game, extraInfo }
+  return game
 }
 
 const handleSavePath = async (game: string) => {

@@ -134,6 +134,7 @@ export default function GamePage(): JSX.Element | null {
   const hasUpdate = gameUpdates.includes(appName)
 
   if (gameInfo) {
+    console.log(gameInfo)
     const {
       title,
       art_square,

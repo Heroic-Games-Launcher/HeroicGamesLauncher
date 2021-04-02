@@ -18,10 +18,8 @@ export interface AppSettings {
   useGameMode: boolean
   userInfo: UserInfo
   winePrefix: string
-  wineVersion: WineProps
+  wineVersion: WineInstallation
 }
-
-export type ConfigVersion = 'auto' | 'v0'
 
 // this is unused? maybe remove?
 export interface ContextType {
@@ -43,6 +41,7 @@ interface ExtraInfo {
   shortDescription: string
 }
 
+export type GameConfigVersion = 'auto' | 'v0'
 export interface GameInfo {
   app_name: string,
   art_cover: string,
@@ -73,6 +72,7 @@ export interface GameStatus {
     | 'moving'
 }
 
+export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
   bytes: string
   eta: string
@@ -121,7 +121,7 @@ export type UserInfo = {
   epicId?: string
   name?: string
 }
-export interface WineProps {
+export interface WineInstallation {
   bin: string
   name: string
 }
