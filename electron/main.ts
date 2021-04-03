@@ -287,8 +287,11 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.on('quit', async () => handleExit())
 
-ipcMain.handle('getGameInfo', (event, game, namespace: string | null) => {
-  return LegendaryGame.get(game).getExtraInfo(namespace)
+ipcMain.handle('getGameInfo', async (event, game) => {
+  const obj = LegendaryGame.get(game)
+  const info = await obj.getGameInfo()
+  info.extra = await obj.getExtraInfo(info.namespace)
+  return info
 })
 
 ipcMain.handle('launch', (event, game) => {
@@ -489,7 +492,7 @@ ipcMain.handle(
 ipcMain.handle('readConfig', async (event, config_class) =>  {
   switch (config_class) {
   case 'library':
-    return Library.get().getGames('info')
+    return await Library.get().getGames('info')
   case 'user':
     return GlobalConfig.get().getUserInfo().displayName
   default:

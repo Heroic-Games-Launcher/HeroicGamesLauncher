@@ -10,7 +10,7 @@ import { legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
 class Library {
   private static globalInstance: Library = null
 
-  private library: Map<string, null | GameInfo>
+  private library: Map<string, null | GameInfo> = new Map()
 
   /**
    * Private constructor for Library since we don't really want multiple instances around.
@@ -19,7 +19,6 @@ class Library {
    * @param lazy_load Whether the library loads data lazily or in advance.
    */
   private constructor(lazy_load: boolean) {
-    this.library = new Map<string, null | GameInfo>()
     if (!lazy_load) {
       this.loadAll()
     }
@@ -176,8 +175,11 @@ class Library {
       cloud_save_enabled,
       developer,
       extra: {
-        description,
-        shortDescription
+        about : {
+          description,
+          shortDescription
+        },
+        reqs : {}
       },
       folder_name: installFolder,
       install: ({

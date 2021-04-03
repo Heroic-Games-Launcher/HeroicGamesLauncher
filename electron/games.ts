@@ -1,11 +1,10 @@
 import {
-  existsSync,
-  readFileSync
+  existsSync
 } from 'graceful-fs'
 import axios from 'axios';
 
 import { DXVK } from './dxvk'
-import { GameStatus } from 'types';
+import { ExtraInfo, GameStatus } from 'types';
 import { GlobalConfig } from './new_config';
 import { Library } from './legendary_utils/library'
 import {
@@ -15,7 +14,6 @@ import {
 } from './utils'
 import { getSettings } from './config'
 import {
-  heroicConfigPath,
   heroicGamesConfigPath,
   home,
   legendaryBin,
@@ -26,7 +24,7 @@ import {
 class LegendaryGame {
   public appName: string
   public state : GameStatus
-  private static instances : Map<string, LegendaryGame>
+  private static instances : Map<string, LegendaryGame> = new Map()
 
   private constructor(appName: string) {
     this.appName = appName
@@ -62,12 +60,14 @@ class LegendaryGame {
     }
   }
 
-  public async getExtraInfo(namespace: string | null) {
+  public async getExtraInfo(namespace: string | null) : Promise<ExtraInfo> {
     if (!(await isOnline())) {
-      return {}
+      return {
+        about: {},
+        reqs: []
+      } as ExtraInfo
     }
-    let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
-      .language
+    let lang = GlobalConfig.get().config.language
     if (lang === 'pt') {
       lang = 'pt-BR'
     }
@@ -91,9 +91,12 @@ class LegendaryGame {
       return {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details
-      }
+      } as ExtraInfo
     } catch (error) {
-      return {}
+      return {
+        about: {},
+        reqs: []
+      } as ExtraInfo
     }
   }
 

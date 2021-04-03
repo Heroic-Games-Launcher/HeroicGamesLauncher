@@ -51,12 +51,12 @@ abstract class GlobalConfig {
       // Check version field in the config.
       version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
       // Legacy config file without a version field, it's a v0 config.
-      if (version === undefined) {
+      if (!version) {
         version = 'v0'
       }
     }
 
-    if (GlobalConfig.globalInstance === undefined) {
+    if (!GlobalConfig.globalInstance) {
       GlobalConfig.reload(version)
     }
 

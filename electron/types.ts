@@ -1,3 +1,8 @@
+interface About {
+  description: string
+  shortDescription: string
+}
+
 export interface AppSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
@@ -36,9 +41,9 @@ export interface ContextType {
   user: string
 }
 
-interface ExtraInfo {
-  description: string
-  shortDescription: string
+export interface ExtraInfo {
+  about: About
+  reqs: Reqs[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0'
@@ -53,7 +58,7 @@ export interface GameInfo {
   folder_name: string,
   install: InstalledInfo,
   is_installed: boolean,
-  namespace: unknown,
+  namespace: string,
   save_folder: string,
   title: string
 }
@@ -110,6 +115,12 @@ export interface RawGameJSON {
   saveFolder: string
   title: string
   version: string
+}
+
+interface Reqs {
+  minimum: string
+  recommended: string
+  title: string
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
