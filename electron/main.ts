@@ -31,6 +31,7 @@ import i18next from 'i18next'
 import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
+import { GameConfig } from './game_config'
 import { GlobalConfig } from './new_config'
 import { LegendaryGame } from './games'
 import { Library } from './legendary_utils/library'
@@ -59,9 +60,6 @@ import {
   supportURL,
   userInfo
 } from './constants'
-import {
-  writeDefaultGameConfig
-} from './config'
 
 const { showErrorBox } = dialog
 
@@ -433,11 +431,11 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 
 ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
-    return (await GlobalConfig.get().getSettings())
+    return await GlobalConfig.get().getSettings()
   }
 
   if (appName !== 'default') {
-    writeDefaultGameConfig(appName)
+    return await GameConfig.get(appName).getSettings()
   }
 })
 

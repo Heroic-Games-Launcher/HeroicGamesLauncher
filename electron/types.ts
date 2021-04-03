@@ -7,7 +7,7 @@ export interface AppSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
-  customWinePaths: Array<string>
+  customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
   egsLinkedPath: string
@@ -46,7 +46,7 @@ export interface ExtraInfo {
   reqs: Reqs[]
 }
 
-export type GameConfigVersion = 'auto' | 'v0'
+export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 export interface GameInfo {
   app_name: string,
   art_cover: string,
@@ -61,6 +61,22 @@ export interface GameInfo {
   namespace: string,
   save_folder: string,
   title: string
+}
+
+export interface GameSettings {
+  audioFix: boolean
+  autoInstallDxvk: boolean
+  autoSyncSaves: boolean
+  launcherArgs: string
+  offlineMode: boolean
+  otherOptions: string
+  savesPath: string
+  showFps: boolean
+  showMangohud: boolean
+  useGameMode: boolean,
+  userInfo: UserInfo,
+  winePrefix: string
+  wineVersion: WineInstallation
 }
 
 export interface GameStatus {

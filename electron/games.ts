@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { DXVK } from './dxvk'
 import { ExtraInfo, GameStatus } from 'types';
+import { GameConfig } from './game_config';
 import { GlobalConfig } from './new_config';
 import { Library } from './legendary_utils/library'
 import {
@@ -12,7 +13,6 @@ import {
   execAsync,
   isOnline
 } from './utils'
-import { getSettings } from './config'
 import {
   heroicGamesConfigPath,
   home,
@@ -101,7 +101,7 @@ class LegendaryGame {
   }
 
   public async getSettings() {
-    return await getSettings(this.appName)
+    return await GameConfig.get(this.appName).config
   }
 
   public async hasUpdate() {
