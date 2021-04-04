@@ -32,7 +32,7 @@ import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
 import { GameConfig } from './game_config'
-import { GlobalConfig } from './new_config'
+import { GlobalConfig } from './config'
 import { LegendaryGame } from './games'
 import { Library } from './legendary_utils/library'
 import { RawGameJSON } from './types.js'

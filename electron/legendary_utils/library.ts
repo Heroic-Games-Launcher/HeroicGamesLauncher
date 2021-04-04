@@ -3,7 +3,7 @@ import prettyBytes from 'pretty-bytes'
 
 import { GameInfo, InstalledInfo, KeyImage, RawGameJSON } from '../types'
 import { LegendaryGame } from '../games'
-import { execAsync, isOnline, statAsync } from '../utils'
+import { execAsync, isOnline } from '../utils'
 import { legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
 
 
@@ -12,6 +12,8 @@ class Library {
 
   private library: Map<string, null | GameInfo> = new Map()
 
+  private readonly installedGames : Map<string, RawGameJSON>
+
   /**
    * Private constructor for Library since we don't really want multiple instances around.
    * Atleast not before multi-account support.
@@ -19,6 +21,13 @@ class Library {
    * @param lazy_load Whether the library loads data lazily or in advance.
    */
   private constructor(lazy_load: boolean) {
+    const installedJSON = `${legendaryConfigPath}/installed.json`
+    if (existsSync(installedJSON)) {
+      this.installedGames = new Map(Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8'))))
+    }
+    else {
+      this.installedGames = new Map()
+    }
     if (!lazy_load) {
       this.loadAll()
     }
@@ -33,7 +42,7 @@ class Library {
    * @param lazy_load Whether the library loads data lazily or in advance. Default: TRUE.
    * @returns Library instance.
    */
-  public static get(lazy_load = false) {
+  public static get(lazy_load = true) {
     if (this.globalInstance === null) {
       Library.globalInstance = new Library(lazy_load)
     }
@@ -147,15 +156,7 @@ class Library {
     const art_logo = logo ? logo.url : null
     const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
 
-    const installedJSON = `${legendaryConfigPath}/installed.json`
-    const installedGames: RawGameJSON[] = Object.values(
-      statAsync(installedJSON)
-        .then(() => JSON.parse(readFileSync(installedJSON, 'utf-8')))
-        .catch(() => [])
-    )
-
-    const info = installedGames.find((game) => game.app_name === app_name)
-
+    const info = this.installedGames.get(app_name)
     const {
       executable = null,
       version = null,

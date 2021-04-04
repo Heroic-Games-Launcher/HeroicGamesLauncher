@@ -6,7 +6,7 @@ import axios from 'axios';
 import { DXVK } from './dxvk'
 import { ExtraInfo, GameStatus } from 'types';
 import { GameConfig } from './game_config';
-import { GlobalConfig } from './new_config';
+import { GlobalConfig } from './config';
 import { Library } from './legendary_utils/library'
 import {
   errorHandler,

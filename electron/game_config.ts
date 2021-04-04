@@ -5,7 +5,7 @@ import {
 } from 'graceful-fs'
 
 import { GameConfigVersion, GameSettings } from './types'
-import { GlobalConfig } from './new_config'
+import { GlobalConfig } from './config'
 import {
   currentGameConfigVersion,
   heroicConfigPath,
