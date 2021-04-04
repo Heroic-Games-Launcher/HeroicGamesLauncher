@@ -12,7 +12,7 @@ class Library {
 
   private library: Map<string, null | GameInfo> = new Map()
 
-  private readonly installedGames : Map<string, RawGameJSON>
+  private installedGames : Map<string, RawGameJSON>
 
   /**
    * Private constructor for Library since we don't really want multiple instances around.
@@ -101,6 +101,11 @@ class Library {
     return (await this.listUpdateableGames()).map(LegendaryGame.get).map(
       (game) => game.update()
     )
+  }
+
+  public changeGameInstallPath(appName : string, newPath : string) {
+    this.library.get(appName).install.install_path = newPath
+    this.installedGames.get(appName).install_path = newPath
   }
 
   /**

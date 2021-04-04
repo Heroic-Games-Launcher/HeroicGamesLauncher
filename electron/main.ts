@@ -22,9 +22,7 @@ import {
   mkdirSync,
   readFileSync,
   unlinkSync,
-  writeFile,
-  writeFileSync
-} from 'graceful-fs'
+  writeFile} from 'graceful-fs'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
@@ -35,7 +33,6 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryGame } from './games'
 import { Library } from './legendary_utils/library'
-import { RawGameJSON } from './types.js'
 import {
   checkForUpdates,
   execAsync,
@@ -47,13 +44,11 @@ import {
 import { dialog } from 'electron'
 import {
   discordLink,
-  heroicConfigPath,
   heroicGamesConfigPath,
   heroicGithubURL,
   home,
   iconDark,
   iconLight,
-  installed,
   legendaryBin,
   loginUrl,
   sidInfoUrl,
@@ -245,21 +240,15 @@ ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
-ipcMain.handle('writeFile', (event, args) => {
-  const app = args[0]
-  const config = args[1]
-  if (app === 'default') {
-    return writeFile(
-      heroicConfigPath,
-      JSON.stringify(config, null, 2),
-      () => 'done'
-    )
+ipcMain.handle('writeFile', (event, [appName, config]) => {
+  if (appName === 'default') {
+    GlobalConfig.get().config = config
+    GlobalConfig.get().flush()
   }
-  return writeFile(
-    `${heroicGamesConfigPath}/${app}.json`,
-    JSON.stringify(config, null, 2),
-    () => 'done'
-  )
+  else {
+    GameConfig.get(appName).config = config
+    GameConfig.get(appName).flush()
+  }
 })
 
 let powerId: number | null
@@ -372,7 +361,7 @@ ipcMain.handle('updateGame', async (e, game) => {
   ).catch((res) => res)
 })
 
-// @@refactor
+// TODO(adityaruplaha): Use UNIX sockets to refactor this.
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `"${heroicGamesConfigPath}${appName}.log"`
   const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
@@ -439,7 +428,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   }
 })
 
-//Checks if the user have logged in with Legendary already
+// Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', () => GlobalConfig.get().isLoggedIn())
 
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
@@ -452,38 +441,16 @@ ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
 )
 
-
-// @@refactor
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  const file = JSON.parse(readFileSync(installed, 'utf8'))
-  const installedGames: RawGameJSON[] = Object.values(file)
-  const { install_path } = installedGames.filter(
-    (game) => game.app_name === appName
-  )[0]
-
-  const splitPath = install_path.split('/')
-  const installFolder = splitPath[splitPath.length - 1]
-  const newPath = `${path}/${installFolder}`
-  const game: RawGameJSON = { ...file[appName], install_path: newPath }
-  const modifiedInstall = { ...file, [appName]: game }
-  return await execAsync(`mv -f ${install_path} ${newPath}`)
-    .then(() => {
-      writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
-        console.log(`Finished moving ${appName} to ${newPath}`)
-      )
-    })
-    .catch(console.log)
+  const newPath = await LegendaryGame.get(appName).moveInstall(path)
+  console.log(`Finished moving ${appName} to ${newPath}.`)
 })
 
-// @@refactor
 ipcMain.handle(
   'changeInstallPath',
   async (event, [appName, newPath]: string[]) => {
-    const file = JSON.parse(readFileSync(installed, 'utf8'))
-    const game: RawGameJSON = { ...file[appName], install_path: newPath }
-    const modifiedInstall = { ...file, [appName]: game }
-    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
-    console.log(`Finished moving ${appName} to ${newPath}`)
+    Library.get().changeGameInstallPath(appName, newPath)
+    console.log(`Finished moving ${appName} to ${newPath}.`)
   }
 )
 

@@ -1,5 +1,6 @@
 import {
-  existsSync
+  existsSync,
+  renameSync
 } from 'graceful-fs'
 import axios from 'axios';
 
@@ -108,6 +109,14 @@ class LegendaryGame {
     return (await Library.get().listUpdateableGames()).find((app_name) => {
       return app_name == this.appName
     }) !== undefined
+  }
+
+  public async moveInstall(newInstallPath : string) {
+    const info = await this.getGameInfo()
+    newInstallPath += '/' + info.install.install_path.split('/').slice(-1)[0]
+    renameSync(info.install.install_path, newInstallPath)
+    Library.get().changeGameInstallPath(this.appName, newInstallPath)
+    return newInstallPath
   }
 
   public async update() {
