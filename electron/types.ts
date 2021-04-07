@@ -74,7 +74,6 @@ export interface GameSettings {
   showFps: boolean
   showMangohud: boolean
   useGameMode: boolean,
-  userInfo: UserInfo,
   winePrefix: string
   wineVersion: WineInstallation
 }

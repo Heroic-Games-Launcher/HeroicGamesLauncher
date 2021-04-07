@@ -21,7 +21,7 @@ export interface AppSettings {
   showMangohud: boolean
   useGameMode: boolean
   winePrefix: string
-  wineVersion: WineProps
+  wineVersion: WineInstallation
 }
 
 export interface ContextType {
@@ -104,7 +104,7 @@ interface Reqs {
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
-export interface WineProps {
+export interface WineInstallation {
   bin: string
   name: string
 }

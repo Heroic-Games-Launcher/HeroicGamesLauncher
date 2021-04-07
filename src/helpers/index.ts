@@ -17,7 +17,7 @@ const readFile = async (file: string) =>
 
 const writeConfig = async (
   data: [appName: string, x: unknown]
-): Promise<void> => await ipcRenderer.invoke('writeFile', data)
+): Promise<void> => await ipcRenderer.invoke('writeConfig', data)
 
 const install = async (args: {
   appName: string
@@ -57,6 +57,12 @@ let progress: string
 
 const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
 
+/**
+ * Deprecated API to spawn a subprocess with a legendary command.
+ * Avoid using, old code will be migrated.
+ * @param args
+ * @returns Return code. ('error' or 'done')
+ */
 const legendary = async (args: string): Promise<string> =>
   await ipcRenderer
     .invoke('legendary', args)

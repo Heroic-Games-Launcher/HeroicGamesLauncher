@@ -5,7 +5,7 @@ import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import './index.css'
-import { AppSettings, WineProps } from 'src/types'
+import { AppSettings, WineInstallation } from 'src/types'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import GeneralSettings from './components/GeneralSettings'
@@ -37,10 +37,10 @@ function Settings() {
   const { t, i18n } = useTranslation()
   const { state } = useLocation() as { state: LocationState }
 
-  const [wineVersion, setWineversion] = useState({
+  const [wineVersion, setWineVersion] = useState({
     bin: '/usr/bin/wine',
     name: 'Wine Default'
-  } as WineProps)
+  } as WineInstallation)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
@@ -96,7 +96,7 @@ function Settings() {
     saveFolder: ''
   })
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
-  const [altWine, setAltWine] = useState([] as WineProps[])
+  const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
@@ -117,7 +117,7 @@ function Settings() {
       setAudioFix(config.audioFix || false)
       setShowMangoHud(config.showMangohud || false)
       setDefaultInstallPath(config.defaultInstallPath)
-      setWineversion(config.wineVersion)
+      setWineVersion(config.wineVersion)
       setWinePrefix(config.winePrefix)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
@@ -150,41 +150,37 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   const GlobalSettings = {
-    defaultSettings: {
-      audioFix,
-      customWinePaths,
-      darkTrayIcon,
-      defaultInstallPath,
-      egsLinkedPath,
-      exitToTray,
-      language,
-      maxWorkers,
-      offlineMode,
-      otherOptions,
-      showFps,
-      showMangohud,
-      useGameMode,
-      winePrefix,
-      wineVersion
-    } as AppSettings
-  }
+    audioFix,
+    customWinePaths,
+    darkTrayIcon,
+    defaultInstallPath,
+    egsLinkedPath,
+    exitToTray,
+    language,
+    maxWorkers,
+    offlineMode,
+    otherOptions,
+    showFps,
+    showMangohud,
+    useGameMode,
+    winePrefix,
+    wineVersion
+  } as AppSettings
 
   const GameSettings = {
-    [appName]: {
-      audioFix,
-      autoInstallDxvk,
-      autoSyncSaves,
-      launcherArgs,
-      offlineMode,
-      otherOptions,
-      savesPath,
-      showFps,
-      showMangohud,
-      useGameMode,
-      winePrefix,
-      wineVersion
-    } as AppSettings
-  }
+    audioFix,
+    autoInstallDxvk,
+    autoSyncSaves,
+    launcherArgs,
+    offlineMode,
+    otherOptions,
+    savesPath,
+    showFps,
+    showMangohud,
+    useGameMode,
+    winePrefix,
+    wineVersion
+  } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
@@ -247,7 +243,7 @@ function Settings() {
               setAltWine={setAltWine}
               wineVersion={wineVersion}
               winePrefix={winePrefix}
-              setWineversion={setWineversion}
+              setWineVersion={setWineVersion}
               setWinePrefix={setWinePrefix}
               autoInstallDxvk={autoInstallDxvk}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}

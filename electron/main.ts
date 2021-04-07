@@ -95,11 +95,10 @@ function createWindow(): BrowserWindow {
     mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
-    /* eslint-enable @typescript-eslint/ban-ts-comment */
 
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = (await GlobalConfig.get().getSettings())
+      const { exitToTray } = (await GlobalConfig.get().config)
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -110,7 +109,7 @@ function createWindow(): BrowserWindow {
   } else {
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = (await GlobalConfig.get().getSettings())
+      const { exitToTray } = (await GlobalConfig.get().config)
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -148,7 +147,7 @@ const contextMenu = () =>
       click: function () {
         openUrlOrFile(heroicGithubURL)
       },
-      label: 'Github'
+      label: 'GitHub'
     },
     {
       click: function () {
@@ -240,7 +239,7 @@ ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
-ipcMain.handle('writeFile', (event, [appName, config]) => {
+ipcMain.handle('writeConfig', (event, [appName, config]) => {
   if (appName === 'default') {
     GlobalConfig.get().config = config
     GlobalConfig.get().flush()
@@ -420,12 +419,9 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 
 ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
-    return await GlobalConfig.get().getSettings()
+    return await GlobalConfig.get().config
   }
-
-  if (appName !== 'default') {
-    return await GameConfig.get(appName).getSettings()
-  }
+  return await GameConfig.get(appName).getSettings()
 })
 
 // Checks if the user have logged in with Legendary already

@@ -153,18 +153,13 @@ class GameConfigV0 extends GameConfig {
 
   public async getSettings(): Promise<GameSettings> {
     const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
-    if (settings.explicit) {
-      // Explicit mode on. Config is taken as is, missing values are not substituted for defaults.
-      this.isExplicit = true
-      return settings[this.appName] as GameSettings
-    }
     // Take defaults, then overwrite if explicitly set values exist.
     // The settings defined work as overrides.
     return {...GlobalConfig.get().config, ...settings[this.appName] } as GameSettings
   }
 
   public async resetToDefaults() {
-    this.config = await GlobalConfig.get().config as GameSettings
+    this.config = {} as GameSettings
     return await this.flush()
   }
 

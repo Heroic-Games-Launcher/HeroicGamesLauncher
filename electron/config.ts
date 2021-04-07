@@ -90,7 +90,7 @@ abstract class GlobalConfig {
    *
    * @returns An Array of Wine/Proton installations.
    */
-  public async getAlternativeWine(): Promise<WineInstallation[]> {
+  public async getAlternativeWine(scanCustom = true): Promise<WineInstallation[]> {
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, {recursive: true})
     }
@@ -147,7 +147,6 @@ abstract class GlobalConfig {
 
     const proton: Set<WineInstallation> = new Set()
     const altWine: Set<WineInstallation> = new Set()
-    const customPaths: Set<WineInstallation> = new Set()
 
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
@@ -163,26 +162,10 @@ abstract class GlobalConfig {
       }
     })
 
-    // skips this on new installations to avoid infinite loops
-    if (existsSync(heroicConfigPath)) {
-      const { customWinePaths } = await this.getSettings()
-      if (customWinePaths.length) {
-        customWinePaths.forEach((path: string) => {
-          if (path.endsWith('proton')) {
-            return customPaths.add({
-              bin: `'${path}'`,
-              name: `Custom Proton - ${path}`
-            })
-          }
-          return customPaths.add({
-            bin: `'${path}'`,
-            name: `Custom Wine - ${path}`
-          })
-        })
-      }
+    if(!scanCustom) {
+      return [defaultWine, ...altWine, ...proton]
     }
-
-    return [defaultWine, ...altWine, ...proton, ...customPaths]
+    return [defaultWine, ...altWine, ...proton, ...(await this.getCustomWinePaths())]
   }
 
   public isLoggedIn() {
@@ -207,6 +190,10 @@ abstract class GlobalConfig {
    * @returns true if upgrade successful, false if upgrade fails or no upgrade needed.
    */
   public abstract upgrade() : boolean
+
+  public abstract getCustomWinePaths() : Promise<Set<WineInstallation>>
+
+  public abstract getFactoryDefaults() : Promise<AppSettings>
 
   public abstract resetToDefaults() : void
 
@@ -250,16 +237,38 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getSettings(): Promise<AppSettings> {
-    const settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
-    return settings.defaultSettings
+    let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+    settings = {...(await this.getFactoryDefaults()), ...settings.defaultSettings} as AppSettings
+    return settings
   }
 
-  public async resetToDefaults() {
+  public async getCustomWinePaths(): Promise<Set<WineInstallation>> {
+    const customPaths : Set<WineInstallation> = new Set()
+    // skips this on new installations to avoid infinite loops
+    if (existsSync(heroicConfigPath)) {
+      const { customWinePaths = [] } = await this.getSettings()
+      customWinePaths.forEach((path: string) => {
+        if (path.endsWith('proton')) {
+          return customPaths.add({
+            bin: `'${path}'`,
+            name: `Custom Proton - ${path}`
+          })
+        }
+        return customPaths.add({
+          bin: `'${path}'`,
+          name: `Custom Wine - ${path}`
+        })
+      })
+    }
+    return customPaths
+  }
+
+  public async getFactoryDefaults(): Promise<AppSettings> {
     const { account_id } = this.getUserInfo()
     const userName = user().username
-    const [defaultWine] = await this.getAlternativeWine()
+    const [defaultWine] = await this.getAlternativeWine(false)
 
-    this.config = {
+    return {
       defaultInstallPath: heroicInstallPath,
       language: 'en',
       maxWorkers: 0,
@@ -273,7 +282,10 @@ class GlobalConfigV0 extends GlobalConfig {
       winePrefix: `${home}/.wine`,
       wineVersion: defaultWine
     } as AppSettings
+  }
 
+  public async resetToDefaults() {
+    this.config = await this.getFactoryDefaults()
     return await this.flush()
   }
 

@@ -2,7 +2,7 @@ import './index.css'
 
 import React from 'react'
 
-import { WineProps } from 'src/types'
+import { WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
 
 const { ipcRenderer, remote } = window.require('electron')
@@ -12,7 +12,7 @@ const {
 
 interface Props {
   winePrefix: string
-  wineVersion: WineProps
+  wineVersion: WineInstallation
 }
 
 export default function Tools({ wineVersion, winePrefix }: Props) {

@@ -538,6 +538,7 @@ export default function GamePage(): JSX.Element | null {
 
     if (response === 0) {
       handleGameStatus({ appName, status: 'uninstalling' })
+      await ipcRenderer.invoke('uninstall', appName)
       await legendary(`uninstall ${appName} -y`)
       return handleGameStatus({ appName, status: 'done' })
     }
