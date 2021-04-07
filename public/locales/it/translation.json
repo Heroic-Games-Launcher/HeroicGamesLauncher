@@ -79,7 +79,7 @@
     "sync": "Sincronizzazione completata",
     "unsync": "Annullamento sincronizzazione completato"
   },
-  "nogames": "Nessun gioco provato",
+  "nogames": "Nessun gioco trovato",
   "Not Ready": "Non ancora pronto",
   "notify": {
     "finished": {
