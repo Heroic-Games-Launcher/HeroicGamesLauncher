@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
 
+import { GameConfig } from '../game_config'
 import { GameInfo, InstalledInfo, KeyImage, RawGameJSON } from '../types'
 import { LegendaryGame } from '../games'
 import { execAsync, isOnline } from '../utils'
@@ -34,6 +35,7 @@ class Library {
     else {
       this.loadAsStubs()
     }
+    this.loadGameConfigs()
   }
 
   /**
@@ -73,17 +75,17 @@ class Library {
     }
   }
 
-  public async getGameInfo(app_name: string) {
-    const info = this.library.get(app_name)
+  public async getGameInfo(appName: string) {
+    const info = this.library.get(appName)
     if (info === undefined) {
       return null
     }
     if (info === null) {
       // This assumes that fileName and appName are same.
       // If that changes, this will break.
-      this.loadFile(`${app_name}.json`)
+      this.loadFile(`${appName}.json`)
     }
-    return this.library.get(app_name)
+    return this.library.get(appName)
   }
 
   public async listUpdateableGames() {
@@ -106,6 +108,23 @@ class Library {
   public changeGameInstallPath(appName : string, newPath : string) {
     this.library.get(appName).install.install_path = newPath
     this.installedGames.get(appName).install_path = newPath
+  }
+
+  public installState(appName : string, state : boolean) {
+    if (state) {
+      // This assumes that fileName and appName are same.
+      // If that changes, this will break.
+      this.loadFile(`${appName}.json`)
+    }
+    else {
+      this.installedGames.delete(appName)
+    }
+  }
+
+  public loadGameConfigs() {
+    for (const appName of this.installedGames.keys()) {
+      GameConfig.get(appName)
+    }
   }
 
   /**

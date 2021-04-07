@@ -143,10 +143,19 @@ class LegendaryGame {
     console.log(`Installing ${this.appName} with:`, command)
     // TODO(adityaruplaha):Create a socket connection for requestGameProgress
     try {
+      Library.get().installState(this.appName, true)
       return await execAsync(command, { shell: shell })
     } catch (error) {
+      Library.get().installState(this.appName, false)
       return errorHandler(logPath)
     }
+  }
+
+  public async uninstall() {
+    const command = `${legendaryBin} uninstall ${this.appName} -y`
+    console.log(`Uninstalling ${this.appName} with:`, command)
+    Library.get().installState(this.appName, false)
+    return await execAsync(command, { shell: shell })
   }
 
   public async repair() {

@@ -143,7 +143,7 @@ class GameConfigV0 extends GameConfig {
     // Not necessary as this version's config structure is identical.
 
     // TODO(adityaruplaha): Continue treating legacy configs as fully explicit?
-    const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
+    const settings = existsSync(this.path) ? JSON.parse(readFileSync(this.path, 'utf-8')) : {}
     // settings['explicit'] = true    // Continue treating as explicit.
     // settings['explicit'] = false   // No, convert to ovverides.
     this.writeToFile(settings)

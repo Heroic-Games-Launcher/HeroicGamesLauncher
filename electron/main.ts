@@ -334,6 +334,12 @@ ipcMain.handle('install', async (event, args) => {
   ).catch((res) => res)
 })
 
+ipcMain.handle('uninstall', async (event, game) => {
+  return LegendaryGame.get(game).uninstall().then(
+    () => { console.log('finished uninstalling') }
+  ).catch((res) => res)
+})
+
 ipcMain.handle('repair', async (event, game) => {
   if (!(await isOnline())) {
     console.log(`App offline, skipping repair for game '${game}'.`)
