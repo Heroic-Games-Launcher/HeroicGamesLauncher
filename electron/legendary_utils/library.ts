@@ -117,6 +117,8 @@ class Library {
       this.loadFile(`${appName}.json`)
     }
     else {
+      this.library.get(appName).is_installed = false
+      this.library.get(appName).install = {} as InstalledInfo
       this.installedGames.delete(appName)
     }
   }

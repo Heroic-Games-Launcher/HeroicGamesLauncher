@@ -117,18 +117,17 @@ export default function GamePage(): JSX.Element | null {
         )
 
         if (progress) {
-          setProgress(progress)
+          return setProgress(progress)
         }
 
-        handleGameStatus({
+        return await handleGameStatus({
           appName,
-          progress: getProgress(progress),
           status
         })
       }
     }, 1500)
     return () => clearInterval(progressInterval)
-  }, [isInstalling, isUpdating, appName, isReparing])
+  }, [appName, isInstalling, isUpdating, isReparing])
 
   const hasUpdate = gameUpdates.includes(appName)
 
@@ -447,11 +446,11 @@ export default function GamePage(): JSX.Element | null {
               await handleGameStatus({ appName, status: 'done' })
               handleGameStatus({ appName, status: 'updating' })
               await updateGame(appName)
-              return handleGameStatus({ appName, status: 'done' })
+              return await handleGameStatus({ appName, status: 'done' })
             }
             handleGameStatus({ appName, status: 'playing' })
             await launch(`${appName} --skip-version-check`)
-            return handleGameStatus({ appName, status: 'done' })
+            return await handleGameStatus({ appName, status: 'done' })
           }
         }
       )
@@ -462,7 +461,7 @@ export default function GamePage(): JSX.Element | null {
         setIsSyncing(false)
       }
 
-      return handleGameStatus({ appName, status: 'done' })
+      return await handleGameStatus({ appName, status: 'done' })
     }
   }
 
@@ -485,10 +484,7 @@ export default function GamePage(): JSX.Element | null {
         await handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
 
-        // Wait to be 100% finished
-        return setTimeout(() => {
-          handleGameStatus({ appName, status: 'done' })
-        }, 500)
+        return await handleGameStatus({ appName, status: 'done' })
       }
 
       if (installPath === 'import') {
@@ -502,7 +498,7 @@ export default function GamePage(): JSX.Element | null {
           const path = filePaths[0]
           handleGameStatus({ appName, status: 'installing' })
           await importGame({ appName, path })
-          return handleGameStatus({ appName, status: 'done' })
+          return await handleGameStatus({ appName, status: 'done' })
         }
       }
 
@@ -519,9 +515,7 @@ export default function GamePage(): JSX.Element | null {
           setInstallPath(path)
           await install({ appName, path })
           // Wait to be 100% finished
-          return setTimeout(() => {
-            handleGameStatus({ appName, status: 'done' })
-          }, 500)
+          return await handleGameStatus({ appName, status: 'done' })
         }
       }
     }
@@ -538,7 +532,7 @@ export default function GamePage(): JSX.Element | null {
     if (response === 0) {
       handleGameStatus({ appName, status: 'uninstalling' })
       await ipcRenderer.invoke('uninstall', appName)
-      return handleGameStatus({ appName, status: 'done' })
+      return await handleGameStatus({ appName, status: 'done' })
     }
     return
   }

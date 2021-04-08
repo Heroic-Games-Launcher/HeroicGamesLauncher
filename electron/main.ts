@@ -337,7 +337,7 @@ ipcMain.handle('install', async (event, args) => {
 ipcMain.handle('uninstall', async (event, game) => {
   return LegendaryGame.get(game).uninstall().then(
     () => { console.log('finished uninstalling') }
-  ).catch((res) => res)
+  ).catch(console.log)
 })
 
 ipcMain.handle('repair', async (event, game) => {
