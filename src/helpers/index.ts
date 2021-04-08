@@ -1,4 +1,4 @@
-import { Game, InstallProgress } from 'src/types'
+import { GameInfo, InstallProgress } from 'src/types'
 import { IpcRenderer, Remote } from 'electron'
 
 import { TFunction } from 'react-i18next'
@@ -13,11 +13,11 @@ const {
 } = remote
 
 const readFile = async (file: string) =>
-  await ipcRenderer.invoke('readFile', file)
+  await ipcRenderer.invoke('readConfig', file)
 
 const writeConfig = async (
   data: [appName: string, x: unknown]
-): Promise<void> => await ipcRenderer.invoke('writeFile', data)
+): Promise<void> => await ipcRenderer.invoke('writeConfig', data)
 
 const install = async (args: {
   appName: string
@@ -57,6 +57,12 @@ let progress: string
 
 const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
 
+/**
+ * Deprecated API to spawn a subprocess with a legendary command.
+ * Avoid using, old code will be migrated.
+ * @param args
+ * @returns Return code. ('error' or 'done')
+ */
 const legendary = async (args: string): Promise<string> =>
   await ipcRenderer
     .invoke('legendary', args)
@@ -88,11 +94,11 @@ const syncSaves = async (
 }
 
 const getLegendaryConfig = async (): Promise<{
-  library: Game[]
+  library: GameInfo[]
   user: string
 }> => {
   const user: string = await readFile('user')
-  const library: Array<Game> = await readFile('library')
+  const library: Array<GameInfo> = await readFile('library')
 
   if (!user) {
     return { library: [], user: '' }
@@ -109,21 +115,14 @@ const cleanTitle = (title: string) =>
     .toLowerCase()
     .split('--definitive')[0]
 
-const getGameInfo = async (appName: string) => {
-  const library: Array<Game> = await readFile('library')
-  const game = library.filter((game) => game.app_name === appName)[0]
-  const extraInfo = await ipcRenderer.invoke(
-    'getGameInfo',
-    cleanTitle(game.title),
-    game.namespace
-  )
-  return { ...game, extraInfo }
+const getGameInfo = async (appName: string) : Promise<GameInfo> => {
+  return await ipcRenderer.invoke('getGameInfo', appName)
 }
 
 const handleSavePath = async (game: string) => {
-  const { cloudSaveEnabled, saveFolder } = await getGameInfo(game)
+  const { cloud_save_enabled, save_folder } = await getGameInfo(game)
 
-  return { cloudSaveEnabled, saveFolder }
+  return { cloud_save_enabled, save_folder }
 }
 
 const createNewWindow = (url: string) =>

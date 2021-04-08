@@ -1,8 +1,13 @@
+interface About {
+  description: string
+  shortDescription: string
+}
+
 export interface AppSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
-  customWinePaths: Array<string>
+  customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
   egsLinkedPath: string
@@ -18,10 +23,12 @@ export interface AppSettings {
   useGameMode: boolean
   userInfo: UserInfo
   winePrefix: string
-  wineVersion: WineProps
+  wineVersion: WineInstallation
 }
+
+// this is unused? maybe remove?
 export interface ContextType {
-  data: Game[]
+  data: RawGameJSON[]
   error: boolean
   filter: string
   handleFilter: (value: string) => void
@@ -34,29 +41,46 @@ export interface ContextType {
   user: string
 }
 
-interface ExtraInfo {
-  description: string
-  shortDescription: string
+export interface ExtraInfo {
+  about: About
+  reqs: Reqs[]
 }
 
-export interface Game {
-  app_name: string
-  art_cover: string
-  art_logo: string
-  art_square: string
-  cloudSaveEnabled: boolean
-  compatibleApps: string[]
-  developer: string
-  executable: string
-  extraInfo: ExtraInfo
-  folderName: string
-  install_path: string
-  install_size: number
-  isInstalled: boolean
-  is_dlc: boolean
-  saveFolder: string
+export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
+export interface GameInfo {
+  app_name: string,
+  art_cover: string,
+  art_logo: string,
+  art_square: string,
+  cloud_save_enabled: boolean,
+  compatible_apps: string[],
+  developer: string,
+  extra: ExtraInfo,
+  folder_name: string,
+  install: InstalledInfo,
+  is_game: boolean,
+  is_installed: boolean,
+  is_ue_asset: boolean,
+  is_ue_plugin: boolean,
+  is_ue_project: boolean,
+  namespace: string,
+  save_folder: string,
   title: string
-  version: string
+}
+
+export interface GameSettings {
+  audioFix: boolean
+  autoInstallDxvk: boolean
+  autoSyncSaves: boolean
+  launcherArgs: string
+  offlineMode: boolean
+  otherOptions: string
+  savesPath: string
+  showFps: boolean
+  showMangohud: boolean
+  useGameMode: boolean,
+  winePrefix: string
+  wineVersion: WineInstallation
 }
 
 export interface GameStatus {
@@ -73,6 +97,7 @@ export interface GameStatus {
     | 'moving'
 }
 
+export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
   bytes: string
   eta: string
@@ -93,7 +118,33 @@ export interface Path {
   filePaths: string[]
 }
 
+export interface RawGameJSON {
+  app_name: string
+  art_cover: string
+  art_logo: string
+  art_square: string
+  cloudSaveEnabled: boolean
+  developer: string
+  executable: string
+  extraInfo: ExtraInfo
+  folderName: string
+  install_path: string
+  install_size: number
+  isInstalled: boolean
+  is_dlc: boolean
+  saveFolder: string
+  title: string
+  version: string
+}
+
+interface Reqs {
+  minimum: string
+  recommended: string
+  title: string
+}
+
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
+
 
 export type UserInfo = {
   account_id?: string
@@ -101,7 +152,7 @@ export type UserInfo = {
   epicId?: string
   name?: string
 }
-export interface WineProps {
+export interface WineInstallation {
   bin: string
   name: string
 }

@@ -218,11 +218,11 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      handleGameStatus({ appName, status: 'done' })
+      await handleGameStatus({ appName, status: 'done' })
       return sendKill(appName)
     }
 
-    handleGameStatus({ appName, status: 'playing' })
+    await handleGameStatus({ appName, status: 'playing' })
     await launch(appName).then(async (err: string | string[]) => {
       if (!err) {
         return
@@ -240,17 +240,17 @@ const GameCard = ({
 
         if (response === 0) {
           await handleGameStatus({ appName, status: 'done' })
-          handleGameStatus({ appName, status: 'updating' })
+          await handleGameStatus({ appName, status: 'updating' })
           await updateGame(appName)
-          return handleGameStatus({ appName, status: 'done' })
+          return await handleGameStatus({ appName, status: 'done' })
         }
-        handleGameStatus({ appName, status: 'playing' })
+        await handleGameStatus({ appName, status: 'playing' })
         await launch(`${appName} --skip-version-check`)
-        return handleGameStatus({ appName, status: 'done' })
+        return await handleGameStatus({ appName, status: 'done' })
       }
     })
 
-    return handleGameStatus({ appName, status: 'done' })
+    return await handleGameStatus({ appName, status: 'done' })
   }
 }
 
