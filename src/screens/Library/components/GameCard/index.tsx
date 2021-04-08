@@ -1,7 +1,11 @@
 import './index.css'
 
 /* eslint-disable complexity */
-import React, { useContext, useEffect, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { GameStatus } from 'src/types'
@@ -10,7 +14,12 @@ import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
-import { getProgress, launch, sendKill, updateGame } from 'src/helpers'
+import {
+  getProgress,
+  launch,
+  sendKill,
+  updateGame
+} from 'src/helpers'
 import { handleInstall } from 'src/components/utils'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
@@ -216,11 +225,11 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      handleGameStatus({ appName, status: 'done' })
+      await handleGameStatus({ appName, status: 'done' })
       return sendKill(appName)
     }
 
-    handleGameStatus({ appName, status: 'playing' })
+    await handleGameStatus({ appName, status: 'playing' })
     await launch(appName).then(async (err: string | string[]) => {
       if (!err) {
         return
@@ -238,17 +247,17 @@ const GameCard = ({
 
         if (response === 0) {
           await handleGameStatus({ appName, status: 'done' })
-          handleGameStatus({ appName, status: 'updating' })
+          await handleGameStatus({ appName, status: 'updating' })
           await updateGame(appName)
-          return handleGameStatus({ appName, status: 'done' })
+          return await handleGameStatus({ appName, status: 'done' })
         }
-        handleGameStatus({ appName, status: 'playing' })
+        await handleGameStatus({ appName, status: 'playing' })
         await launch(`${appName} --skip-version-check`)
-        return handleGameStatus({ appName, status: 'done' })
+        return await handleGameStatus({ appName, status: 'done' })
       }
     })
 
-    return handleGameStatus({ appName, status: 'done' })
+    return await handleGameStatus({ appName, status: 'done' })
   }
 }
 

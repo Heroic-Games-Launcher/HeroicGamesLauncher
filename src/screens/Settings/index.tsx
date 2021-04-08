@@ -1,20 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react'
-
-import { IpcRenderer } from 'electron'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-
 import './index.css'
-import { AppSettings, WineProps } from 'src/types'
-import { getGameInfo, writeConfig } from 'src/helpers'
+
+import React, {
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+
+import {
+  AppSettings,
+  WineInstallation
+} from 'src/types'
+import { IpcRenderer } from 'electron'
+import {
+  NavLink,
+  useLocation,
+  useParams
+} from 'react-router-dom'
+import {
+  getGameInfo,
+  writeConfig
+} from 'src/helpers'
 import { useToggle } from 'src/hooks'
+import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import GeneralSettings from './components/GeneralSettings'
 import Header from 'src/components/UI/Header'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
+
+import GeneralSettings from './components/GeneralSettings'
 import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
 import WineSettings from './components/WineSettings'
 
 interface ElectronProps {
@@ -40,10 +55,10 @@ function Settings() {
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
-  const [wineVersion, setWineversion] = useState({
+  const [wineVersion, setWineVersion] = useState({
     bin: '/usr/bin/wine',
     name: 'Wine Default'
-  } as WineProps)
+  } as WineInstallation)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
@@ -99,7 +114,7 @@ function Settings() {
     saveFolder: ''
   })
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
-  const [altWine, setAltWine] = useState([] as WineProps[])
+  const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
@@ -120,7 +135,7 @@ function Settings() {
       setAudioFix(config.audioFix || false)
       setShowMangoHud(config.showMangohud || false)
       setDefaultInstallPath(config.defaultInstallPath)
-      setWineversion(config.wineVersion)
+      setWineVersion(config.wineVersion)
       setWinePrefix(config.winePrefix)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
@@ -136,8 +151,8 @@ function Settings() {
 
       if (!isDefault) {
         const {
-          cloudSaveEnabled,
-          saveFolder,
+          cloud_save_enabled: cloudSaveEnabled,
+          save_folder: saveFolder,
           title: gameTitle
         } = await getGameInfo(appName)
         setTitle(gameTitle)
@@ -153,41 +168,37 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   const GlobalSettings = {
-    defaultSettings: {
-      audioFix,
-      customWinePaths,
-      darkTrayIcon,
-      defaultInstallPath,
-      egsLinkedPath,
-      exitToTray,
-      language,
-      maxWorkers,
-      offlineMode,
-      otherOptions,
-      showFps,
-      showMangohud,
-      useGameMode,
-      winePrefix,
-      wineVersion
-    } as AppSettings
-  }
+    audioFix,
+    customWinePaths,
+    darkTrayIcon,
+    defaultInstallPath,
+    egsLinkedPath,
+    exitToTray,
+    language,
+    maxWorkers,
+    offlineMode,
+    otherOptions,
+    showFps,
+    showMangohud,
+    useGameMode,
+    winePrefix,
+    wineVersion
+  } as AppSettings
 
   const GameSettings = {
-    [appName]: {
-      audioFix,
-      autoInstallDxvk,
-      autoSyncSaves,
-      launcherArgs,
-      offlineMode,
-      otherOptions,
-      savesPath,
-      showFps,
-      showMangohud,
-      useGameMode,
-      winePrefix,
-      wineVersion
-    } as AppSettings
-  }
+    audioFix,
+    autoInstallDxvk,
+    autoSyncSaves,
+    launcherArgs,
+    offlineMode,
+    otherOptions,
+    savesPath,
+    showFps,
+    showMangohud,
+    useGameMode,
+    winePrefix,
+    wineVersion
+  } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
@@ -256,7 +267,7 @@ function Settings() {
               setAltWine={setAltWine}
               wineVersion={wineVersion}
               winePrefix={winePrefix}
-              setWineversion={setWineversion}
+              setWineVersion={setWineVersion}
               setWinePrefix={setWinePrefix}
               autoInstallDxvk={autoInstallDxvk}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}

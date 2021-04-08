@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Path, WineProps } from 'src/types'
+import { Path, WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
@@ -15,23 +15,23 @@ const {
 } = window.require('electron')
 
 interface Props {
-  altWine: WineProps[]
+  altWine: WineInstallation[]
   autoInstallDxvk: boolean
   customWinePaths: string[]
   isDefault: boolean
-  setAltWine: (altWine: WineProps[]) => void
+  setAltWine: (altWine: WineInstallation[]) => void
   setCustomWinePaths: (value: string[]) => void
   setWinePrefix: (value: string) => void
-  setWineversion: (wine: WineProps) => void
+  setWineVersion: (wine: WineInstallation) => void
   toggleAutoInstallDxvk: () => void
   winePrefix: string
-  wineVersion: WineProps
+  wineVersion: WineInstallation
 }
 
 export default function WineSettings({
   winePrefix,
   setWinePrefix,
-  setWineversion,
+  setWineVersion,
   setAltWine,
   wineVersion,
   altWine,
@@ -45,7 +45,7 @@ export default function WineSettings({
 
   useEffect(() => {
     const getAltWine = async () => {
-      const wineList: WineProps[] = await ipcRenderer.invoke(
+      const wineList: WineInstallation[] = await ipcRenderer.invoke(
         'getAlternativeWine'
       )
       setAltWine(wineList)
@@ -147,7 +147,7 @@ export default function WineSettings({
         <span className="settingText">{t('setting.wineversion')}</span>
         <select
           onChange={(event) =>
-            setWineversion(
+            setWineVersion(
               altWine.filter(({ name }) => name === event.target.value)[0]
             )
           }

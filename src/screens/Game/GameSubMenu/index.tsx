@@ -61,13 +61,11 @@ export default function GamesSubmenu({
       })
       if (filePaths[0]) {
         const path = filePaths[0]
-        handleGameStatus({ appName, status: 'moving' })
+        await handleGameStatus({ appName, status: 'moving' })
         await renderer.invoke('moveInstall', [appName, path])
-        handleGameStatus({ appName, status: 'done' })
+        await handleGameStatus({ appName, status: 'done' })
       }
-      return
     }
-    return
   }
 
   async function handleChangeInstall() {
@@ -102,9 +100,8 @@ export default function GamesSubmenu({
     if (response === 0) {
       await handleGameStatus({ appName, status: 'updating' })
       await updateGame(appName)
-      return handleGameStatus({ appName, status: 'done' })
+      await handleGameStatus({ appName, status: 'done' })
     }
-    return
   }
 
   async function handleRepair(appName: string) {
@@ -114,13 +111,11 @@ export default function GamesSubmenu({
       title: t('box.repair.title')
     })
 
-    if (response === 1) {
-      return
+    if (response === 0) {
+      await handleGameStatus({ appName, status: 'repairing' })
+      await repair(appName)
+      await handleGameStatus({ appName, status: 'done' })
     }
-
-    handleGameStatus({ appName, status: 'repairing' })
-    await repair(appName)
-    return handleGameStatus({ appName, status: 'done' })
   }
 
   return (

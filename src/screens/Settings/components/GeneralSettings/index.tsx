@@ -1,4 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 import { Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
@@ -162,14 +166,14 @@ export default function GeneralSettings({
                 isLinked
                   ? ''
                   : dialog
-                      .showOpenDialog({
-                        buttonLabel: t('box.choose'),
-                        properties: ['openDirectory'],
-                        title: t('box.choose-egs-prefix')
-                      })
-                      .then(({ filePaths }: Path) =>
-                        setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
-                      )
+                    .showOpenDialog({
+                      buttonLabel: t('box.choose'),
+                      properties: ['openDirectory'],
+                      title: t('box.choose-egs-prefix')
+                    })
+                    .then(({ filePaths }: Path) =>
+                      setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                    )
               }
             />
           ) : (
@@ -194,8 +198,8 @@ export default function GeneralSettings({
               isLinked
                 ? t('button.unsync')
                 : isSyncing
-                ? t('button.syncing')
-                : t('button.sync')
+                  ? t('button.syncing')
+                  : t('button.sync')
             }`}
           </button>
         </span>

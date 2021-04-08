@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import { Game, GameStatus } from 'src/types'
+import { GameInfo, GameStatus } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
@@ -29,7 +29,7 @@ interface Props {
 }
 
 interface StateProps {
-  data: Game[]
+  data: GameInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -84,29 +84,29 @@ export class GlobalState extends PureComponent<Props> {
   handleFilter = (filter: string) => this.setState({ filter })
   handleLayout = (layout: string) => this.setState({ layout })
 
-  filterLibrary = (library: Game[], filter: string) => {
+  filterLibrary = (library: GameInfo[], filter: string) => {
     switch (filter) {
-      case 'installed':
-        return library.filter((game) => game.isInstalled)
-      case 'uninstalled':
-        return library.filter((game) => !game.isInstalled)
-      case 'downloading':
-        return library.filter((game) => {
-          const currentApp = this.state.libraryStatus.filter(
-            (app) => app.appName === game.app_name
-          )[0]
-          if (!currentApp) {
-            return false
-          }
-          return (
-            currentApp.status === 'installing' ||
+    case 'installed':
+      return library.filter((game) => game.is_installed)
+    case 'uninstalled':
+      return library.filter((game) => !game.is_installed)
+    case 'downloading':
+      return library.filter((game) => {
+        const currentApp = this.state.libraryStatus.filter(
+          (app) => app.appName === game.app_name
+        )[0]
+        if (!currentApp) {
+          return false
+        }
+        return (
+          currentApp.status === 'installing' ||
             currentApp.status === 'repairing' ||
             currentApp.status === 'updating' ||
             currentApp.status === 'moving'
-          )
-        })
-      default:
-        return library
+        )
+      })
+    default:
+      return library
     }
   }
 
@@ -272,7 +272,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     const filterRegex = new RegExp(String(filterText), 'i')
-    const textFilter = ({ title }: Game) => filterRegex.test(title)
+    const textFilter = ({ title }: GameInfo) => filterRegex.test(title)
     const filteredLibrary = this.filterLibrary(data, filter).filter(textFilter)
 
     return (

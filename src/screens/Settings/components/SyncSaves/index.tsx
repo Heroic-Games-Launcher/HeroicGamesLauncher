@@ -1,7 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 
-import { Path, SyncType } from 'src/types'
-import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
+import {
+  Path,
+  SyncType
+} from 'src/types'
+import {
+  fixSaveFolder,
+  getGameInfo,
+  syncSaves
+} from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
@@ -40,11 +50,11 @@ export default function SyncSaves({
 
   useEffect(() => {
     const getSyncFolder = async () => {
-      const { saveFolder, install_path } = await getGameInfo(appName)
+      const { save_folder, install:{install_path} } = await getGameInfo(appName)
 
       setAutoSyncSaves(autoSyncSaves)
-      let folder = await fixSaveFolder(saveFolder, winePrefix, isProton)
-      folder = folder.replace('{InstallDir}', install_path)
+      let folder = await fixSaveFolder(save_folder, winePrefix, isProton)
+      folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
 
       setSavesPath(path)
@@ -95,15 +105,15 @@ export default function SyncSaves({
                 isLinked
                   ? ''
                   : dialog
-                      .showOpenDialog({
-                        buttonLabel: t('box.sync.button'),
-                        defaultPath: defaultFolder,
-                        properties: ['openDirectory'],
-                        title: t('box.sync.title')
-                      })
-                      .then(({ filePaths }: Path) =>
-                        setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
-                      )
+                    .showOpenDialog({
+                      buttonLabel: t('box.sync.button'),
+                      defaultPath: defaultFolder,
+                      properties: ['openDirectory'],
+                      title: t('box.sync.title')
+                    })
+                    .then(({ filePaths }: Path) =>
+                      setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
+                    )
               }
             />
           ) : (
