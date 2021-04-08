@@ -200,16 +200,16 @@ class Library {
     const installFolder = FolderName ? FolderName.value : app_name
 
     const gameBox = is_game ?
-    keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox' )[0] :
-    keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
 
-  const gameBoxTall = is_game ?
-    keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
-    keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+    const gameBoxTall = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
 
-  const logo = is_game ?
-    keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
-    keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail' )[0]
+    const logo = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail' )[0]
 
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
