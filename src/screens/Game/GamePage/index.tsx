@@ -1,6 +1,6 @@
 import './index.css'
 
-import { AppSettings, Game, GameStatus, InstallProgress } from 'src/types'
+import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer, Remote } from 'electron'
 /* eslint-disable complexity */
 import {
@@ -11,7 +11,6 @@ import {
   importGame,
   install,
   launch,
-  legendary,
   sendKill,
   syncSaves,
   updateGame
@@ -57,7 +56,7 @@ export default function GamePage(): JSX.Element | null {
 
   const { status } = gameStatus || {}
 
-  const [gameInfo, setGameInfo] = useState({} as Game)
+  const [gameInfo, setGameInfo] = useState({} as GameInfo)
   const [progress, setProgress] = useState({
     bytes: '0.00MiB',
     eta: '00:00:00',
@@ -80,7 +79,7 @@ export default function GamePage(): JSX.Element | null {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName)
       setGameInfo(newInfo)
-      if (newInfo.cloudSaveEnabled) {
+      if (newInfo.cloud_save_enabled) {
         const {
           autoSyncSaves,
           winePrefix,
@@ -90,7 +89,7 @@ export default function GamePage(): JSX.Element | null {
         const isProton = wineVersion?.name?.includes('Proton') || false
         setAutoSyncSaves(autoSyncSaves)
         const folder = await fixSaveFolder(
-          newInfo.saveFolder,
+          newInfo.save_folder,
           winePrefix,
           isProton
         )
@@ -118,37 +117,39 @@ export default function GamePage(): JSX.Element | null {
         )
 
         if (progress) {
-          setProgress(progress)
+          return setProgress(progress)
         }
 
-        handleGameStatus({
+        return await handleGameStatus({
           appName,
-          progress: getProgress(progress),
           status
         })
       }
     }, 1500)
     return () => clearInterval(progressInterval)
-  }, [isInstalling, isUpdating, appName, isReparing])
+  }, [appName, isInstalling, isUpdating, isReparing])
 
   const hasUpdate = gameUpdates.includes(appName)
 
-  if (gameInfo) {
+  if (gameInfo && gameInfo.install) {
     const {
       title,
       art_square,
       art_logo,
-      install_path,
-      install_size,
-      isInstalled,
-      version,
-      extraInfo,
+      install : {
+        install_path,
+        install_size,
+        version
+      },
+      is_installed,
+      extra,
       developer,
-      cloudSaveEnabled
-    }: Game = gameInfo
+      cloud_save_enabled
+    }: GameInfo = gameInfo
 
     if (savesPath.includes('{InstallDir}')) {
-      setSavesPath(savesPath.replace('{InstallDir}', install_path))
+      // a little hack to stop ESLint from screaming about install_path being null.
+      setSavesPath(savesPath.replace('{InstallDir}', `${install_path}`))
     }
 
     /*
@@ -171,7 +172,7 @@ export default function GamePage(): JSX.Element | null {
               <GamesSubmenu
                 appName={appName}
                 clicked={clicked}
-                isInstalled={isInstalled}
+                isInstalled={is_installed}
                 title={title}
               />
               <div className="gameConfig">
@@ -194,15 +195,15 @@ export default function GamePage(): JSX.Element | null {
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     <div className="summary">
-                      {extraInfo && extraInfo.about
-                        ? extraInfo.about.shortDescription
-                          ? extraInfo.about.shortDescription
-                          : extraInfo.about.description
-                            ? extraInfo.about.description
+                      {extra && extra.about
+                        ? extra.about.shortDescription
+                          ? extra.about.shortDescription
+                          : extra.about.description
+                            ? extra.about.description
                             : ''
                         : ''}
                     </div>
-                    {cloudSaveEnabled && (
+                    {cloud_save_enabled && (
                       <div
                         style={{
                           color: autoSyncSaves ? '#07C5EF' : ''
@@ -212,7 +213,7 @@ export default function GamePage(): JSX.Element | null {
                         {autoSyncSaves ? t('enabled') : t('disabled')}
                       </div>
                     )}
-                    {isInstalled && (
+                    {is_installed && (
                       <>
                         <div>
                           {t('info.size')}: {install_size}
@@ -243,14 +244,14 @@ export default function GamePage(): JSX.Element | null {
                     <p
                       style={{
                         color:
-                          isInstalled || isInstalling ? '#0BD58C' : '#BD0A0A',
+                          is_installed || isInstalling ? '#0BD58C' : '#BD0A0A',
                         fontStyle: 'italic'
                       }}
                     >
-                      {getInstallLabel(isInstalled)}
+                      {getInstallLabel(is_installed)}
                     </p>
                   </div>
-                  {!isInstalled && !isInstalling && (
+                  {!is_installed && !isInstalling && (
                     <select
                       onChange={(event) => setInstallPath(event.target.value)}
                       value={installPath}
@@ -264,7 +265,7 @@ export default function GamePage(): JSX.Element | null {
                     </select>
                   )}
                   <div className="buttonsWrapper">
-                    {isInstalled && (
+                    {is_installed && (
                       <>
                         <button
                           disabled={isReparing || isMoving}
@@ -276,17 +277,17 @@ export default function GamePage(): JSX.Element | null {
                       </>
                     )}
                     <button
-                      onClick={handleInstall(isInstalled)}
+                      onClick={handleInstall(is_installed)}
                       disabled={
                         isPlaying || isUpdating || isReparing || isMoving
                       }
-                      className={`button ${getButtonClass(isInstalled)}`}
+                      className={`button ${getButtonClass(is_installed)}`}
                     >
-                      {`${getButtonLabel(isInstalled)}`}
+                      {`${getButtonLabel(is_installed)}`}
                     </button>
                   </div>
                   <div className="requirements">
-                    {extraInfo.reqs && (
+                    {extra.reqs && (
                       <InfoBox text="infobox.requirements">
                         <table>
                           <tbody>
@@ -299,7 +300,7 @@ export default function GamePage(): JSX.Element | null {
                                 {t('specs.recommended').toUpperCase()}
                               </td>
                             </tr>
-                            {extraInfo.reqs.map((e) => (
+                            {extra.reqs.map((e) => (
                               <Fragment key={e.title}>
                                 <tr>
                                   <td>
@@ -356,7 +357,7 @@ export default function GamePage(): JSX.Element | null {
     return isPlaying ? t('label.playing.stop') : t('label.playing.start')
   }
 
-  function getInstallLabel(isInstalled: boolean): React.ReactNode {
+  function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
@@ -366,7 +367,7 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.moving')}`
     }
 
-    if (isUpdating && isInstalled) {
+    if (isUpdating && is_installed) {
       return `${t('status.updating')} ${
         percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
       }`
@@ -385,25 +386,25 @@ export default function GamePage(): JSX.Element | null {
       )}`
     }
 
-    if (isInstalled) {
+    if (is_installed) {
       return t('status.installed')
     }
 
     return t('status.notinstalled')
   }
 
-  function getButtonClass(isInstalled: boolean) {
-    if (isInstalled || isInstalling) {
+  function getButtonClass(is_installed: boolean) {
+    if (is_installed || isInstalling) {
       return 'is-danger'
     }
     return 'is-primary'
   }
 
-  function getButtonLabel(isInstalled: boolean) {
+  function getButtonLabel(is_installed: boolean) {
     if (installPath === 'import') {
       return t('button.import')
     }
-    if (isInstalled) {
+    if (is_installed) {
       return t('button.uninstall')
     }
     if (isInstalling) {
@@ -445,11 +446,11 @@ export default function GamePage(): JSX.Element | null {
               await handleGameStatus({ appName, status: 'done' })
               handleGameStatus({ appName, status: 'updating' })
               await updateGame(appName)
-              return handleGameStatus({ appName, status: 'done' })
+              return await handleGameStatus({ appName, status: 'done' })
             }
             handleGameStatus({ appName, status: 'playing' })
             await launch(`${appName} --skip-version-check`)
-            return handleGameStatus({ appName, status: 'done' })
+            return await handleGameStatus({ appName, status: 'done' })
           }
         }
       )
@@ -460,20 +461,20 @@ export default function GamePage(): JSX.Element | null {
         setIsSyncing(false)
       }
 
-      return handleGameStatus({ appName, status: 'done' })
+      return await handleGameStatus({ appName, status: 'done' })
     }
   }
 
   function handleInstall(
-    isInstalled: boolean
+    is_installed: boolean
   ): () => Promise<void | NodeJS.Timeout> {
     return async () => {
       if (isInstalling) {
-        const { folderName } = await getGameInfo(appName)
-        return handleStopInstallation(appName, [installPath, folderName], t)
+        const { folder_name } = await getGameInfo(appName)
+        return handleStopInstallation(appName, [installPath, folder_name], t)
       }
 
-      if (isInstalled) {
+      if (is_installed) {
         await handleUninstall()
         return refresh()
       }
@@ -483,10 +484,7 @@ export default function GamePage(): JSX.Element | null {
         await handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
 
-        // Wait to be 100% finished
-        return setTimeout(() => {
-          handleGameStatus({ appName, status: 'done' })
-        }, 500)
+        return await handleGameStatus({ appName, status: 'done' })
       }
 
       if (installPath === 'import') {
@@ -500,7 +498,7 @@ export default function GamePage(): JSX.Element | null {
           const path = filePaths[0]
           handleGameStatus({ appName, status: 'installing' })
           await importGame({ appName, path })
-          return handleGameStatus({ appName, status: 'done' })
+          return await handleGameStatus({ appName, status: 'done' })
         }
       }
 
@@ -517,9 +515,7 @@ export default function GamePage(): JSX.Element | null {
           setInstallPath(path)
           await install({ appName, path })
           // Wait to be 100% finished
-          return setTimeout(() => {
-            handleGameStatus({ appName, status: 'done' })
-          }, 500)
+          return await handleGameStatus({ appName, status: 'done' })
         }
       }
     }
@@ -535,8 +531,8 @@ export default function GamePage(): JSX.Element | null {
 
     if (response === 0) {
       handleGameStatus({ appName, status: 'uninstalling' })
-      await legendary(`uninstall ${appName} -y`)
-      return handleGameStatus({ appName, status: 'done' })
+      await ipcRenderer.invoke('uninstall', appName)
+      return await handleGameStatus({ appName, status: 'done' })
     }
     return
   }
