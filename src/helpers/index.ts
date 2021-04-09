@@ -59,9 +59,10 @@ const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
 
 /**
  * Deprecated API to spawn a subprocess with a legendary command.
- * Avoid using, old code will be migrated.
+ *
  * @param args
  * @returns Return code. ('error' or 'done')
+ * @deprecated Avoid using, old code will be migrated.
  */
 const legendary = async (args: string): Promise<string> =>
   await ipcRenderer

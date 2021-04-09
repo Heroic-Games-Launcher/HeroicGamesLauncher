@@ -36,8 +36,9 @@ abstract class GlobalConfig {
 
   /**
    * Get the global configuartion handler.
+   * If one doesn't exist, create one.
    *
-   * @returns GlobalConfig instance or undefined.
+   * @returns GlobalConfig instance.
    */
   public static get() : GlobalConfig {
     let version : GlobalConfigVersion
@@ -63,6 +64,12 @@ abstract class GlobalConfig {
     return GlobalConfig.globalInstance
   }
 
+  /**
+   * Recreate the global configuration handler.
+   *
+   * @param version Config version to load file using.
+   * @returns void
+   */
   private static reload(version : GlobalConfigVersion) : void {
     // Select loader to use.
     switch (version) {
@@ -168,6 +175,13 @@ abstract class GlobalConfig {
     return [defaultWine, ...altWine, ...proton, ...(await this.getCustomWinePaths())]
   }
 
+  /**
+   * Gets the actual settings from the config file.
+   * Does not modify its parent object.
+   * Always reads from file regardless of `this.config`.
+   *
+   * @returns Settings present in config file.
+   */
   public abstract getSettings() : Promise<AppSettings>
 
   /**
@@ -180,18 +194,40 @@ abstract class GlobalConfig {
    */
   public abstract upgrade() : boolean
 
+  /**
+   * Get custom Wine installations as defined in the config file.
+   *
+   * @returns Set of Wine installations.
+   */
   public abstract getCustomWinePaths() : Promise<Set<WineInstallation>>
 
+  /**
+   * Get default settings as if the user's config file doesn't exist.
+   * Doesn't modify the parent object.
+   * Doesn't access config files.
+   *
+   * @returns AppSettings
+   */
   public abstract getFactoryDefaults() : Promise<AppSettings>
 
+  /**
+   * Reset `this.config` to `getFactoryDefaults()` and flush.
+   */
   public abstract resetToDefaults() : void
 
   protected writeToFile(config : Record<string, unknown>) {
     return writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
   }
 
+  /**
+   * Write `this.config` to file.
+   * Uses the config version defined in `this.version`.
+   */
   public abstract flush() : void
 
+  /**
+   * Load the config file, upgrade if needed.
+   */
   protected async load() {
     // Config file doesn't exist, make one.
     if (!existsSync(heroicConfigPath)) {
