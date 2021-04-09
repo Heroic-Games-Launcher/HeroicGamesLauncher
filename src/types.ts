@@ -21,11 +21,11 @@ export interface AppSettings {
   showMangohud: boolean
   useGameMode: boolean
   winePrefix: string
-  wineVersion: WineProps
+  wineVersion: WineInstallation
 }
 
 export interface ContextType {
-  data: Game[]
+  data: GameInfo[]
   error: boolean
   filter: string
   gameUpdates: string[]
@@ -46,25 +46,20 @@ interface ExtraInfo {
   reqs: Reqs[]
 }
 
-export interface Game {
-  app_name: string
-  art_cover: string
-  art_logo: string
-  art_square: string
-  cloudSaveEnabled: boolean
-  developer: string
-  dlcs: string[]
-  executable: string
-  extraInfo: ExtraInfo
-  folderName: string
-  install_path: string
-  install_size: string
-  isInstalled: boolean
-  is_dlc: boolean
-  namespace: string
-  saveFolder: string
+export interface GameInfo {
+  app_name: string,
+  art_cover: string,
+  art_logo: string,
+  art_square: string,
+  cloud_save_enabled: boolean,
+  developer: string,
+  extra: ExtraInfo,
+  folder_name: string,
+  install: InstalledInfo,
+  is_installed: boolean,
+  namespace: unknown,
+  save_folder: string,
   title: string
-  version: string
 }
 
 export interface GameStatus {
@@ -109,7 +104,7 @@ interface Reqs {
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
-export interface WineProps {
+export interface WineInstallation {
   bin: string
   name: string
 }

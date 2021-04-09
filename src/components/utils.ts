@@ -29,18 +29,15 @@ export async function handleInstall({
   t
 }: Install) {
   if (isInstalling) {
-    const { folderName } = await getGameInfo(appName)
-    return handleStopInstallation(appName, [installPath, folderName], t)
+    const { folder_name } = await getGameInfo(appName)
+    return handleStopInstallation(appName, [installPath, folder_name], t)
   }
 
   if (installPath === 'default') {
     const path = 'default'
     await handleGameStatus({ appName, status: 'installing' })
     await install({ appName, path })
-    // Wait to be 100% finished
-    return setTimeout(() => {
-      handleGameStatus({ appName, status: 'done' })
-    }, 2000)
+    return await handleGameStatus({ appName, status: 'done' })
   }
 
   if (installPath === 'import') {
@@ -54,7 +51,7 @@ export async function handleInstall({
       const path = filePaths[0]
       await handleGameStatus({ appName, status: 'installing' })
       await importGame({ appName, path })
-      return handleGameStatus({ appName, status: 'done' })
+      return await handleGameStatus({ appName, status: 'done' })
     }
   }
 
@@ -69,10 +66,7 @@ export async function handleInstall({
       const path = filePaths[0]
       await handleGameStatus({ appName, status: 'installing' })
       await install({ appName, path })
-      // Wait to be 100% finished
-      return setTimeout(() => {
-        handleGameStatus({ appName, status: 'done' })
-      }, 1500)
+      return await handleGameStatus({ appName, status: 'done' })
     }
   }
 }
