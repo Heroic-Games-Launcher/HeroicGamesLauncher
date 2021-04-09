@@ -22,13 +22,7 @@ class Library {
    * @param lazy_load Whether the library loads data lazily or in advance.
    */
   private constructor(lazy_load: boolean) {
-    const installedJSON = `${legendaryConfigPath}/installed.json`
-    if (existsSync(installedJSON)) {
-      this.installedGames = new Map(Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8'))))
-    }
-    else {
-      this.installedGames = new Map()
-    }
+    this.refreshInstalled()
     if (!lazy_load) {
       this.loadAll()
     }
@@ -49,6 +43,21 @@ class Library {
       Library.globalInstance = new Library(lazy_load)
     }
     return this.globalInstance
+  }
+
+  public async refresh() {
+    await execAsync(`${legendaryBin} list-games --include-ue`)
+    this.loadAll()
+  }
+
+  public refreshInstalled() {
+    const installedJSON = `${legendaryConfigPath}/installed.json`
+    if (existsSync(installedJSON)) {
+      this.installedGames = new Map(Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8'))))
+    }
+    else {
+      this.installedGames = new Map()
+    }
   }
 
   /**

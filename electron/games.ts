@@ -1,5 +1,6 @@
 import {
   existsSync,
+  mkdirSync,
   renameSync
 } from 'graceful-fs'
 import axios from 'axios';
@@ -36,6 +37,10 @@ class LegendaryGame {
       LegendaryGame.instances.set(appName, new LegendaryGame(appName))
     }
     return LegendaryGame.instances.get(appName)
+  }
+
+  public static async checkGameUpdates() {
+    return await Library.get().listUpdateableGames()
   }
 
   public getGameInfo() {
@@ -175,8 +180,18 @@ class LegendaryGame {
     return {stderr, stdout}
   }
 
-  public static async checkGameUpdates() {
-    return await Library.get().listUpdateableGames()
+  public async syncSaves(arg : string, path : string) {
+    const fixedPath = path.replaceAll("'", '')
+    const command = `${legendaryBin} sync-saves --save-path "${fixedPath}" ${arg} ${this.appName} -y`
+    const legendarySavesPath = `${home}/legendary/.saves`
+
+    //workaround error when no .saves folder exists
+    if (!existsSync(legendarySavesPath)) {
+      mkdirSync(legendarySavesPath, { recursive: true })
+    }
+
+    console.log('\n syncing saves for ', this.appName)
+    return await execAsync(command)
   }
 
   public async launch() {

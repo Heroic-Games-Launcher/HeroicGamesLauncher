@@ -7,14 +7,14 @@ import {
 } from 'graceful-fs'
 import { userInfo as user } from 'os'
 
-import { AppSettings, GlobalConfigVersion, UserInfo, WineInstallation } from './types'
+import { AppSettings, GlobalConfigVersion,  WineInstallation } from './types'
+import { User } from './legendary_utils/user';
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
   heroicInstallPath,
   heroicToolsPath,
-  home,
-  userInfo
+  home
 } from './constants'
 import {
   execAsync
@@ -168,17 +168,6 @@ abstract class GlobalConfig {
     return [defaultWine, ...altWine, ...proton, ...(await this.getCustomWinePaths())]
   }
 
-  public isLoggedIn() {
-    return existsSync(userInfo)
-  }
-
-  public getUserInfo() : UserInfo {
-    if (this.isLoggedIn()) {
-      return JSON.parse(readFileSync(userInfo, 'utf-8'))
-    }
-    return { account_id: '', displayName: null }
-  }
-
   public abstract getSettings() : Promise<AppSettings>
 
   /**
@@ -264,7 +253,7 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getFactoryDefaults(): Promise<AppSettings> {
-    const { account_id } = this.getUserInfo()
+    const { account_id } = User.getUserInfo()
     const userName = user().username
     const [defaultWine] = await this.getAlternativeWine(false)
 

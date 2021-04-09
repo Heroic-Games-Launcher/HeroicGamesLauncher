@@ -3,11 +3,11 @@ import './index.css'
 import {
   handleKofi,
   handleQuit,
-  legendary,
   openAboutWindow,
   openDiscordLink
 } from 'src/helpers'
 
+import { ipcRenderer } from 'electron/renderer'
 import { useTranslation } from 'react-i18next'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import ContextProvider from 'src/state/ContextProvider'
@@ -18,9 +18,8 @@ export default function UserSelector() {
 
   const { user, refresh, refreshLibrary } = React.useContext(ContextProvider)
   const handleLogout = async () => {
-    if (confirm('are you sure?')) {
-      await legendary(`auth --delete`)
-      await legendary(`cleanup`)
+    if (confirm('Are you sure?')) {
+      await ipcRenderer.invoke('logout')
       refresh()
     }
   }

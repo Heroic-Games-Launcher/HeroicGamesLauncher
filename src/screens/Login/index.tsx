@@ -2,12 +2,13 @@ import './index.css'
 
 import React, { useState } from 'react'
 
-import { legendary, loginPage, sidInfoPage } from 'src/helpers'
+import { loginPage, sidInfoPage } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import LanguageSelector, {
   FlagPosition
 } from 'src/components/UI/LanguageSelector'
 
+import { ipcRenderer } from 'electron/renderer'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
 
@@ -40,14 +41,14 @@ export default function Login({ refresh }: Props) {
       message: t('status.logging', 'Logging In...')
     })
 
-    await legendary(`auth --sid ${sid}`).then(async (res) => {
+    await ipcRenderer.invoke('login', sid).then(async (res) => {
       if (res !== 'error') {
         setStatus({
           loading: true,
           message: t('status.loading', 'Loading Game list, please wait')
         })
 
-        await legendary(`list-games`)
+        await ipcRenderer.invoke('refreshLibrary')
         refresh()
       }
 
