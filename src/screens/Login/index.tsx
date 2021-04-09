@@ -8,7 +8,7 @@ import LanguageSelector, {
   FlagPosition
 } from 'src/components/UI/LanguageSelector'
 
-import { ipcRenderer } from 'electron/renderer'
+import { ipcRenderer } from 'electron'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
 

@@ -7,7 +7,7 @@ import {
   openDiscordLink
 } from 'src/helpers'
 
-import { ipcRenderer } from 'electron/renderer'
+import { ipcRenderer } from 'electron'
 import { useTranslation } from 'react-i18next'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import ContextProvider from 'src/state/ContextProvider'
