@@ -6,7 +6,7 @@ import {
 import axios from 'axios';
 
 import { DXVK } from './dxvk'
-import { ExtraInfo, GameStatus } from 'types';
+import { ExtraInfo, GameInfo, GameSettings, GameStatus } from './types';
 import { GameConfig } from './game_config';
 import { GlobalConfig } from './config';
 import { Library } from './legendary_utils/library'
@@ -22,8 +22,24 @@ import {
   shell
 } from './constants'
 
-
-class LegendaryGame {
+type ExecResult = void | {stderr : string, stdout : string}
+interface Game {
+  appName: string,
+  getExtraInfo(namespace : string) : Promise<ExtraInfo>,
+  getGameInfo() : Promise<GameInfo>,
+  getSettings() : Promise<GameSettings>,
+  hasUpdate() : Promise<boolean>,
+  import(path : string) : Promise<ExecResult>,
+  install(path : string) : Promise<ExecResult>,
+  launch() : Promise<ExecResult>
+  moveInstall(newInstallPath : string) : Promise<string>,
+  repair() : Promise<ExecResult>,
+  state: GameStatus,
+  syncSaves(arg : string, path : string) : Promise<ExecResult>
+  uninstall() : Promise<ExecResult>
+  update() : Promise<ExecResult>
+}
+class LegendaryGame implements Game {
   public appName: string
   public state : GameStatus
   private static instances : Map<string, LegendaryGame> = new Map()
@@ -39,12 +55,20 @@ class LegendaryGame {
     return LegendaryGame.instances.get(appName)
   }
 
+  /**
+   * Alias for `Library.listUpdateableGames`
+   */
   public static async checkGameUpdates() {
     return await Library.get().listUpdateableGames()
   }
 
-  public getGameInfo() {
-    return Library.get().getGameInfo(this.appName)
+  /**
+   * Alias for `Library.getGameInfo(this.appName)`
+   *
+   * @returns GameInfo
+   */
+  public async getGameInfo() {
+    return await Library.get().getGameInfo(this.appName)
   }
 
   private async getProductSlug(namespace: string) {
@@ -66,6 +90,12 @@ class LegendaryGame {
     }
   }
 
+  /**
+   * Get extra info from Epic's API.
+   *
+   * @param namespace
+   * @returns
+   */
   public async getExtraInfo(namespace: string | null) : Promise<ExtraInfo> {
     if (!(await isOnline())) {
       return {
@@ -106,16 +136,31 @@ class LegendaryGame {
     }
   }
 
+  /**
+   * Alias for `GameConfig.get(this.appName).config`
+   *
+   * @returns GameConfig
+   */
   public async getSettings() {
-    return await GameConfig.get(this.appName).config
+    return GameConfig.get(this.appName).config
   }
 
+  /**
+   * Helper for `checkGameUpdates().contains(this.appName)`
+   *
+   * @returns If game has an update.
+   */
   public async hasUpdate() {
-    return (await Library.get().listUpdateableGames()).find((app_name) => {
-      return app_name == this.appName
-    }) !== undefined
+    return (await Library.get().listUpdateableGames()).indexOf(this.appName) >= 0
   }
 
+  /**
+   * Parent folder to move app to.
+   * Amends install path by adding the appropriate folder name.
+   *
+   * @param newInstallPath
+   * @returns The amended install path.
+   */
   public async moveInstall(newInstallPath : string) {
     const info = await this.getGameInfo()
     newInstallPath += '/' + info.install.install_path.split('/').slice(-1)[0]
@@ -124,6 +169,12 @@ class LegendaryGame {
     return newInstallPath
   }
 
+  /**
+   * Update game.
+   * Does NOT check for online connectivity.
+   *
+   * @returns Result of execAsync.
+   */
   public async update() {
     const logPath = `${heroicGamesConfigPath}${this.appName}.log`
     const command = `${legendaryBin} update ${this.appName} -y &> ${logPath}`
@@ -131,10 +182,16 @@ class LegendaryGame {
     try {
       return await execAsync(command, { shell: '/bin/bash' })
     } catch (error) {
-      return errorHandler(logPath)
+      return await errorHandler(logPath)
     }
   }
 
+  /**
+   * Install game.
+   * Does NOT check for online connectivity.
+   *
+   * @returns Result of execAsync.
+   */
   public async install(path : string) {
     const { defaultInstallPath, maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
@@ -163,6 +220,12 @@ class LegendaryGame {
     return await execAsync(command, { shell: shell })
   }
 
+  /**
+   * Repair game.
+   * Does NOT check for online connectivity.
+   *
+   * @returns Result of execAsync.
+   */
   public async repair() {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
@@ -180,6 +243,12 @@ class LegendaryGame {
     return {stderr, stdout}
   }
 
+  /**
+   * Sync saves.
+   * Does NOT check for online connectivity.
+   *
+   * @returns Result of execAsync.
+   */
   public async syncSaves(arg : string, path : string) {
     const fixedPath = path.replaceAll("'", '')
     const command = `${legendaryBin} sync-saves --save-path "${fixedPath}" ${arg} ${this.appName} -y`

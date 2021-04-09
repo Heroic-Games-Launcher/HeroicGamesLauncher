@@ -7,7 +7,12 @@ import { LegendaryGame } from '../games'
 import { execAsync, isOnline } from '../utils'
 import { legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
 
-
+/**
+ * Legendary Library.
+ *
+ * For multi-account support, the single global instance will need to become a instance map.
+ * @see GameConfig
+ */
 class Library {
   private static globalInstance: Library = null
 
@@ -16,8 +21,7 @@ class Library {
   private installedGames : Map<string, RawGameJSON>
 
   /**
-   * Private constructor for Library since we don't really want multiple instances around.
-   * Atleast not before multi-account support.
+   * Private constructor for Library since we don't really want it to be constructible from outside.
    *
    * @param lazy_load Whether the library loads data lazily or in advance.
    */
@@ -45,11 +49,17 @@ class Library {
     return this.globalInstance
   }
 
+  /**
+   * Refresh library.
+   */
   public async refresh() {
     await execAsync(`${legendaryBin} list-games --include-ue`)
     this.loadAll()
   }
 
+  /**
+   * Refresh `this.installedGames` from file.
+   */
   public refreshInstalled() {
     const installedJSON = `${legendaryConfigPath}/installed.json`
     if (existsSync(installedJSON)) {
@@ -84,6 +94,12 @@ class Library {
     }
   }
 
+  /**
+   * Get game info for a particular game.
+   *
+   * @param appName
+   * @returns GameInfo
+   */
   public async getGameInfo(appName: string) {
     const info = this.library.get(appName)
     if (info === undefined) {
@@ -97,6 +113,11 @@ class Library {
     return this.library.get(appName)
   }
 
+  /**
+   * Obtain a list of updateable games.
+   *
+   * @returns App names of updateable games.
+   */
   public async listUpdateableGames() {
     if (!(await isOnline())) {
       console.log('App offline, skipping checking game updates.')
@@ -108,17 +129,37 @@ class Library {
     return result
   }
 
+  /**
+   * Update all updateable games.
+   * Uses `listUpdateableGames` along with `LegendaryGame.update`
+   *
+   * @returns Array of results of `Game.update`.
+   */
   public async updateAllGames() {
-    return (await this.listUpdateableGames()).map(LegendaryGame.get).map(
+    return Promise.allSettled((await this.listUpdateableGames()).map(LegendaryGame.get).map(
       (game) => game.update()
-    )
+    ))
   }
 
+  /**
+   * Change the install path for a given game.
+   *
+   * DOES NOT MOVE FILES. Use `LegendaryGame.moveInstall` instead.
+   *
+   * @param appName
+   * @param newPath
+   */
   public changeGameInstallPath(appName : string, newPath : string) {
     this.library.get(appName).install.install_path = newPath
     this.installedGames.get(appName).install_path = newPath
   }
 
+  /**
+   * Change the install state of a game without a complete library reload.
+   *
+   * @param appName
+   * @param state true if its installed, false otherwise.
+   */
   public installState(appName : string, state : boolean) {
     if (state) {
       // This assumes that fileName and appName are same.
@@ -132,6 +173,9 @@ class Library {
     }
   }
 
+  /**
+   * Load configs for installed games into memory.
+   */
   public loadGameConfigs() {
     for (const appName of this.installedGames.keys()) {
       GameConfig.get(appName)
