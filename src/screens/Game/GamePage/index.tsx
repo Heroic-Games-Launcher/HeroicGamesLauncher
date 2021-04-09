@@ -142,6 +142,8 @@ export default function GamePage(): JSX.Element | null {
         version
       },
       is_installed,
+      is_game,
+      compatible_apps,
       extra,
       developer,
       cloud_save_enabled
@@ -165,10 +167,12 @@ export default function GamePage(): JSX.Element | null {
         <div className="gameConfigContainer">
           {title ? (
             <>
-              <Settings
-                onClick={() => setClicked(!clicked)}
-                className="material-icons is-secondary dots"
-              />
+              {is_game && (
+                <Settings
+                  onClick={() => setClicked(!clicked)}
+                  className="material-icons is-secondary dots"
+                />
+              )}
               <GamesSubmenu
                 appName={appName}
                 clicked={clicked}
@@ -194,6 +198,9 @@ export default function GamePage(): JSX.Element | null {
                   <div className="title">{title}</div>
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
+                    {!is_game && (
+                      <div className="compatibleApps">{compatible_apps.join(', ')}</div>
+                    )}
                     <div className="summary">
                       {extra && extra.about
                         ? extra.about.shortDescription
@@ -203,7 +210,7 @@ export default function GamePage(): JSX.Element | null {
                             : ''
                         : ''}
                     </div>
-                    {cloud_save_enabled && (
+                    {cloud_save_enabled && is_game && (
                       <div
                         style={{
                           color: autoSyncSaves ? '#07C5EF' : ''
@@ -251,7 +258,7 @@ export default function GamePage(): JSX.Element | null {
                       {getInstallLabel(is_installed)}
                     </p>
                   </div>
-                  {!is_installed && !isInstalling && (
+                  {!is_installed && !isInstalling && is_game &&(
                     <select
                       onChange={(event) => setInstallPath(event.target.value)}
                       value={installPath}
@@ -265,7 +272,7 @@ export default function GamePage(): JSX.Element | null {
                     </select>
                   )}
                   <div className="buttonsWrapper">
-                    {is_installed && (
+                    {is_installed && is_game && (
                       <>
                         <button
                           disabled={isReparing || isMoving}
@@ -287,7 +294,7 @@ export default function GamePage(): JSX.Element | null {
                     </button>
                   </div>
                   <div className="requirements">
-                    {extra.reqs && (
+                    {extra.reqs && is_game && (
                       <InfoBox text="infobox.requirements">
                         <table>
                           <tbody>
@@ -479,7 +486,7 @@ export default function GamePage(): JSX.Element | null {
         return refresh()
       }
 
-      if (installPath === 'default') {
+      if (installPath === 'default' && gameInfo.is_game) {
         const path = 'default'
         await handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
@@ -487,7 +494,7 @@ export default function GamePage(): JSX.Element | null {
         return await handleGameStatus({ appName, status: 'done' })
       }
 
-      if (installPath === 'import') {
+      if (installPath === 'import' && gameInfo.is_game) {
         const { filePaths } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
@@ -502,7 +509,7 @@ export default function GamePage(): JSX.Element | null {
         }
       }
 
-      if (installPath === 'another') {
+      if (installPath === 'another' || !gameInfo.is_game) {
         const { filePaths } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
