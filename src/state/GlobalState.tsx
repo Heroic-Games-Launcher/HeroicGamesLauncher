@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import { Game, GameStatus } from 'src/types'
+import { GameInfo, GameStatus } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
@@ -29,7 +29,7 @@ interface Props {
 }
 
 interface StateProps {
-  data: Game[]
+  data: GameInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -72,7 +72,7 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async (): Promise<void> => {
     const { t } = this.props
     this.setState({ refreshing: true })
-    await legendary('list-games')
+    await legendary('list-games --include-ue')
 
     this.refresh()
     notify([t('notify.refreshing'), t('notify.refreshed')])
@@ -82,12 +82,12 @@ export class GlobalState extends PureComponent<Props> {
   handleFilter = (filter: string) => this.setState({ filter })
   handleLayout = (layout: string) => this.setState({ layout })
 
-  filterLibrary = (library: Game[], filter: string) => {
+  filterLibrary = (library: GameInfo[], filter: string) => {
     switch (filter) {
     case 'installed':
-      return library.filter((game) => game.isInstalled)
+      return library.filter((game) => game.is_installed && game.is_game)
     case 'uninstalled':
-      return library.filter((game) => !game.isInstalled)
+      return library.filter((game) => !game.is_installed && game.is_game)
     case 'downloading':
       return library.filter((game) => {
         const currentApp = this.state.libraryStatus.filter(
@@ -103,8 +103,10 @@ export class GlobalState extends PureComponent<Props> {
             currentApp.status === 'moving'
         )
       })
+    case 'unreal':
+      return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
     default:
-      return library
+      return library.filter((game) => game.is_game)
     }
   }
 
@@ -270,7 +272,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     const filterRegex = new RegExp(String(filterText), 'i')
-    const textFilter = ({ title }: Game) => filterRegex.test(title)
+    const textFilter = ({ title }: GameInfo) => filterRegex.test(title)
     const filteredLibrary = this.filterLibrary(data, filter).filter(textFilter)
 
     return (

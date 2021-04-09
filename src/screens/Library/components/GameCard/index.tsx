@@ -26,6 +26,7 @@ interface Card {
   cover: string
   coverList: string
   hasUpdate: boolean
+  isGame: boolean
   isInstalled: boolean
   logo: string
   size: string
@@ -43,6 +44,7 @@ const GameCard = ({
   cover,
   title,
   appName,
+  isGame,
   isInstalled,
   logo,
   coverList,
@@ -115,10 +117,13 @@ const GameCard = ({
     if (isInstalling) {
       return <StopIcon onClick={() => handlePlay()} />
     }
-    if (isInstalled) {
+    if (isInstalled && isGame) {
       return <PlayIcon onClick={() => handlePlay()} />
     }
-    return <DownIcon onClick={() => handlePlay()} />
+    if (!isInstalled) {
+      return <DownIcon onClick={() => handlePlay()} />
+    }
+    return null
   }
   return (
     <>
@@ -159,11 +164,11 @@ const GameCard = ({
                 className="icons"
                 style={{
                   flexDirection: 'row',
-                  width: isInstalled ? '44%' : 'auto'
+                  width: isInstalled&&isGame ? '44%' : 'auto'
                 }}
               >
                 {renderIcon()}
-                {isInstalled && (
+                {isInstalled && isGame && (
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
@@ -213,11 +218,11 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      handleGameStatus({ appName, status: 'done' })
+      await handleGameStatus({ appName, status: 'done' })
       return sendKill(appName)
     }
 
-    handleGameStatus({ appName, status: 'playing' })
+    await handleGameStatus({ appName, status: 'playing' })
     await launch(appName).then(async (err: string | string[]) => {
       if (!err) {
         return
@@ -235,17 +240,17 @@ const GameCard = ({
 
         if (response === 0) {
           await handleGameStatus({ appName, status: 'done' })
-          handleGameStatus({ appName, status: 'updating' })
+          await handleGameStatus({ appName, status: 'updating' })
           await updateGame(appName)
-          return handleGameStatus({ appName, status: 'done' })
+          return await handleGameStatus({ appName, status: 'done' })
         }
-        handleGameStatus({ appName, status: 'playing' })
+        await handleGameStatus({ appName, status: 'playing' })
         await launch(`${appName} --skip-version-check`)
-        return handleGameStatus({ appName, status: 'done' })
+        return await handleGameStatus({ appName, status: 'done' })
       }
     })
 
-    return handleGameStatus({ appName, status: 'done' })
+    return await handleGameStatus({ appName, status: 'done' })
   }
 }
 

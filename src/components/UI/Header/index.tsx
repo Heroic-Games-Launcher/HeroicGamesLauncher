@@ -74,6 +74,12 @@ export default function Header({
                 haveDownloads > 0 ? `(${haveDownloads})` : ''
               }`}
             </span>
+            <span
+              className={filter === 'unreal' ? 'selected' : ''}
+              onClick={() => handleFilter('unreal')}
+            >
+              {t('Unreal Marketplace')}
+            </span>
           </span>
         )}
         {numberOfGames !== undefined && numberOfGames > 0 && (

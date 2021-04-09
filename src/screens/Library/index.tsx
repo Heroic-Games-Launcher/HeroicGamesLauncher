@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { lazy, useContext } from 'react'
 
-import { Game } from 'src/types'
+import { GameInfo } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
 import cx from 'classnames'
 
@@ -11,7 +11,7 @@ import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
 
 interface Props {
-  library: Array<Game>
+  library: Array<GameInfo>
 }
 
 window.onscroll = () => {
@@ -46,11 +46,14 @@ export const Library = ({ library }: Props) => {
               art_cover,
               art_logo,
               app_name,
-              isInstalled,
-              version,
-              install_size,
-              is_dlc
-            }: Game) => {
+              is_installed,
+              is_game,
+              install : {
+                version,
+                install_size,
+                is_dlc
+              }
+            }: GameInfo) => {
               if (is_dlc) {
                 return null
               }
@@ -63,9 +66,10 @@ export const Library = ({ library }: Props) => {
                   logo={art_logo}
                   title={title}
                   appName={app_name}
-                  isInstalled={isInstalled}
-                  version={version}
-                  size={install_size}
+                  isInstalled={is_installed}
+                  isGame={is_game}
+                  version={`${version}`}
+                  size={`${install_size}`}
                   hasUpdate={hasUpdate}
                 />
               )
