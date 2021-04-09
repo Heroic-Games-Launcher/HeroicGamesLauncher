@@ -217,8 +217,8 @@ class LegendaryGame {
     let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
 
     const isProton =
-      wineVersion.name.startsWith('Proton') ||
-      wineVersion.name.startsWith('Steam')
+      wineVersion.name.indexOf('Proton') >= 0 ||
+      wineVersion.name.indexOf('Steam') >= 0
     prefix = isProton ? '' : prefix
 
     const options = {
