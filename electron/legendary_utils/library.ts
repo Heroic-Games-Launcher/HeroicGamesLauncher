@@ -138,6 +138,8 @@ class Library {
   private loadFile(fileName : string) : string {
     fileName = `${libraryPath}/${fileName}`
     const { app_name, metadata, asset_info } = JSON.parse(readFileSync(fileName, 'utf-8'))
+    const { namespace } = asset_info
+    const is_game = namespace!='ue' ? true : false
     const {
       description,
       shortDescription = '',
@@ -145,10 +147,11 @@ class Library {
       title,
       developer,
       dlcItemList,
-      customAttributes: { CloudSaveFolder, FolderName }
+      releaseInfo,
+      categories,
+      customAttributes
     } = metadata
 
-    const { namespace } = asset_info
 
     const dlcs: string[] = []
 
@@ -162,18 +165,51 @@ class Library {
       )
     }
 
+
+    let is_ue_asset = false
+    let is_ue_project = false
+    let is_ue_plugin = false
+    if (categories) {
+      categories.forEach(
+        (c: { path : string} ) => {
+          if (c.path == 'projects') {
+            is_ue_project = true
+          } else if (c.path == 'assets') {
+            is_ue_asset = true
+          } else if (c.path == 'plugins') {
+            is_ue_plugin = true
+          }
+        }
+      )
+    }
+
+    let compatible_apps: string[] = []
+    releaseInfo.forEach(
+      (rI: { appId : string, compatibleApps : string[] } ) => {
+        if (rI.appId == app_name) {
+          compatible_apps = rI.compatibleApps
+        }
+      }
+    )
+
+    const CloudSaveFolder = is_game ? customAttributes : null
+    const FolderName = is_game ? customAttributes : null
+
     const cloud_save_enabled = Boolean(CloudSaveFolder)
     const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
-    const installFolder = FolderName ? FolderName.value : ''
-    const gameBox = keyImages.filter(
-      ({ type }: KeyImage) => type === 'DieselGameBox'
-    )[0]
-    const gameBoxTall = keyImages.filter(
-      ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-    )[0]
-    const logo = keyImages.filter(
-      ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-    )[0]
+    const installFolder = FolderName ? FolderName.value : app_name
+
+    const gameBox = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+
+    const gameBoxTall = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+
+    const logo = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail' )[0]
 
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
@@ -200,6 +236,7 @@ class Library {
       art_logo,
       art_square: art_square || art_cover,
       cloud_save_enabled,
+      compatible_apps,
       developer,
       extra: {
         about : {
@@ -216,7 +253,11 @@ class Library {
         is_dlc,
         version
       }),
+      is_game,
       is_installed: info !== undefined,
+      is_ue_asset,
+      is_ue_plugin,
+      is_ue_project,
       namespace,
       save_folder: saveFolder,
       title
@@ -261,7 +302,7 @@ class Library {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
         .filter((fileName) => {
-          const app_name =fileName.split('.')[0]
+          const app_name =fileName.split('.json')[0]
           return (this.library.get(app_name) === null)
         })
         .map((filename) => this.loadFile(filename))

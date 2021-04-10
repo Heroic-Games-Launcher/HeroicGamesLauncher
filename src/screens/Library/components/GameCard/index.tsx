@@ -26,6 +26,7 @@ interface Card {
   cover: string
   coverList: string
   hasUpdate: boolean
+  isGame: boolean
   isInstalled: boolean
   logo: string
   size: string
@@ -43,6 +44,7 @@ const GameCard = ({
   cover,
   title,
   appName,
+  isGame,
   isInstalled,
   logo,
   coverList,
@@ -115,10 +117,13 @@ const GameCard = ({
     if (isInstalling) {
       return <StopIcon onClick={() => handlePlay()} />
     }
-    if (isInstalled) {
+    if (isInstalled && isGame) {
       return <PlayIcon onClick={() => handlePlay()} />
     }
-    return <DownIcon onClick={() => handlePlay()} />
+    if (!isInstalled) {
+      return <DownIcon onClick={() => handlePlay()} />
+    }
+    return null
   }
   return (
     <>
@@ -159,11 +164,11 @@ const GameCard = ({
                 className="icons"
                 style={{
                   flexDirection: 'row',
-                  width: isInstalled ? '44%' : 'auto'
+                  width: isInstalled&&isGame ? '44%' : 'auto'
                 }}
               >
                 {renderIcon()}
-                {isInstalled && (
+                {isInstalled && isGame && (
                   <Link
                     to={{
                       pathname: `/settings/${appName}/wine`,
