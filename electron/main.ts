@@ -202,7 +202,8 @@ if (!gotTheLock) {
         'ru',
         'tr',
         'hu',
-        'it'
+        'it',
+        'ml'
       ]
     })
 
