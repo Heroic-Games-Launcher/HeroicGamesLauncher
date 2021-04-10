@@ -277,7 +277,7 @@ class Library {
       version = null,
       install_size = null,
       install_path = null,
-      is_dlc = dlcs.indexOf(app_name) >= 0
+      is_dlc = dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
     const convertedSize =

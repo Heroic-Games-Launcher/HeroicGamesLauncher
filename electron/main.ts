@@ -16,6 +16,7 @@ import {
 } from 'child_process'
 import {
   existsSync,
+  rmdirSync,
   unlinkSync,
   writeFile
 } from 'graceful-fs'
@@ -175,7 +176,7 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = (await GlobalConfig.get().getSettings())
+    const { language, darkTrayIcon } = GlobalConfig.get().config
 
     await i18next.use(Backend).init({
       backend: {
@@ -292,16 +293,16 @@ ipcMain.on('getLog', (event, appName) =>
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
-    const defaultInstallPath = (await GlobalConfig.get().getSettings()).defaultInstallPath.replaceAll("'", '')
+    const defaultInstallPath = (await GlobalConfig.get()).config.defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${defaultInstallPath}/${folderName}`
     return setTimeout(() => {
-      exec(`rm -Rf ${folderToDelete}`)
+      rmdirSync(folderToDelete, {recursive: true})
     }, 2000)
   }
 
   const folderToDelete = `${path}/${folderName}`
   return setTimeout(() => {
-    exec(`rm -Rf ${folderToDelete}`)
+    rmdirSync(folderToDelete, {recursive: true})
   }, 2000)
 })
 
@@ -353,9 +354,9 @@ ipcMain.handle('getUserInfo', () => User.getUserInfo())
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', () => User.isLoggedIn())
 
-ipcMain.handle('login', (event, sid) => User.login(sid))
+ipcMain.handle('login', async (event, sid) => await User.login(sid))
 
-ipcMain.handle('logout', () => User.logout())
+ipcMain.handle('logout', async () => await User.logout())
 
 ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
 
@@ -375,7 +376,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
     return await GlobalConfig.get().config
   }
-  return await GameConfig.get(appName).getSettings()
+  return await GameConfig.get(appName).config
 })
 
 ipcMain.handle('writeConfig', (event, [appName, config]) => {

@@ -1,4 +1,4 @@
-import { exec } from 'child_process'
+import { execAsync } from '../utils'
 import {
   existsSync,
   readFileSync
@@ -11,13 +11,13 @@ import {
 } from '../constants'
 
 export class User {
-  public static login(sid: string) {
-    exec(`${legendaryBin} auth --sid ${sid}`)
+  public static async login(sid: string) {
+    await execAsync(`${legendaryBin} auth --sid ${sid}`)
   }
 
-  public static logout() {
-    exec(`${legendaryBin} auth --delete`)
-    exec(`${legendaryBin} cleanup`)
+  public static async logout() {
+    await execAsync(`${legendaryBin} auth --delete`)
+    await execAsync(`${legendaryBin} cleanup`)
   }
 
   public static isLoggedIn() {

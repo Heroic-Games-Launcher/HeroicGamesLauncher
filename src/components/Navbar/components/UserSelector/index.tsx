@@ -18,7 +18,7 @@ export default function UserSelector() {
 
   const { user, refresh, refreshLibrary } = React.useContext(ContextProvider)
   const handleLogout = async () => {
-    if (confirm('Are you sure?')) {
+    if (confirm(t('userselector.logout_confirmation', 'Logout?'))) {
       await ipcRenderer.invoke('logout')
       refresh()
     }

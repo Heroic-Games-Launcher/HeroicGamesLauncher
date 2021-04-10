@@ -131,7 +131,7 @@ abstract class GlobalConfig {
       readdirSync(lutrisCompatPath).forEach((version) => {
         altWine.add({
           bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-          name: `Lutris Wine - ${version}`
+          name: `Wine - ${version}`
         })
       })
     }
@@ -159,10 +159,9 @@ abstract class GlobalConfig {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
           if (version.toLowerCase().startsWith('proton')) {
-            const steam = path.toLowerCase().indexOf('steam') < 0 ? '' : 'Steam '
             proton.add({
               bin: `'${path}${version}/proton'`,
-              name: `${steam}Proton - ${version}`
+              name: `Proton - ${version}`
             })
           }
         })

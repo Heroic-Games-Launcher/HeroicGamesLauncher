@@ -151,7 +151,7 @@ class LegendaryGame implements Game {
    * @returns If game has an update.
    */
   public async hasUpdate() {
-    return (await Library.get().listUpdateableGames()).indexOf(this.appName) >= 0
+    return (await Library.get().listUpdateableGames()).includes(this.appName)
   }
 
   /**
@@ -286,8 +286,8 @@ class LegendaryGame implements Game {
     let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
 
     const isProton =
-      wineVersion.name.indexOf('Proton') >= 0 ||
-      wineVersion.name.indexOf('Steam') >= 0
+      wineVersion.name.includes('Proton') ||
+      wineVersion.name.includes('Steam')
     prefix = isProton ? '' : prefix
 
     const options = {
