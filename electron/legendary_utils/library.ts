@@ -136,9 +136,16 @@ class Library {
    * @returns Array of results of `Game.update`.
    */
   public async updateAllGames() {
-    return Promise.allSettled((await this.listUpdateableGames()).map(LegendaryGame.get).map(
+    return (await Promise.allSettled((await this.listUpdateableGames()).map(LegendaryGame.get).map(
       (game) => game.update()
-    ))
+    ))).map((res) => {
+      if (res.status === 'fulfilled') {
+        return res.value
+      }
+      else {
+        return null
+      }
+    })
   }
 
   /**

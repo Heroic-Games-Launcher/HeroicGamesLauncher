@@ -1,10 +1,11 @@
-import { execAsync } from '../utils'
+
 import {
   existsSync,
   readFileSync
 } from 'graceful-fs'
 
 import { UserInfo } from '../types'
+import { execAsync } from '../utils'
 import {
   legendaryBin,
   userInfo
