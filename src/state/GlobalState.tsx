@@ -29,6 +29,7 @@ interface Props {
 }
 
 interface StateProps {
+  category: string
   data: GameInfo[]
   error: boolean
   filter: string
@@ -43,6 +44,7 @@ interface StateProps {
 
 export class GlobalState extends PureComponent<Props> {
   state: StateProps = {
+    category: 'games',
     data: [],
     error: false,
     filter: 'all',
@@ -81,6 +83,7 @@ export class GlobalState extends PureComponent<Props> {
   handleSearch = (input: string) => this.setState({ filterText: input })
   handleFilter = (filter: string) => this.setState({ filter })
   handleLayout = (layout: string) => this.setState({ layout })
+  handleCategory = (category: string) => this.setState({ category })
 
   filterLibrary = (library: GameInfo[], filter: string) => {
     switch (filter) {
@@ -93,7 +96,7 @@ export class GlobalState extends PureComponent<Props> {
         const currentApp = this.state.libraryStatus.filter(
           (app) => app.appName === game.app_name
         )[0]
-        if (!currentApp) {
+        if (!currentApp || !game.is_game) {
           return false
         }
         return (
@@ -105,6 +108,16 @@ export class GlobalState extends PureComponent<Props> {
       })
     case 'unreal':
       return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
+    case 'asset':
+      return library.filter((game) => game.is_ue_asset)
+    case 'plugin':
+      return library.filter((game) => game.is_ue_plugin)
+    case 'project':
+      return library.filter((game) => game.is_ue_project)
+    case '4.26':
+      return library.filter((game) => game.compatible_apps.includes('UE_4.26'))
+    case '4.25':
+      return library.filter((game) => game.compatible_apps.includes('UE_4.25'))
     default:
       return library.filter((game) => game.is_game)
     }
@@ -280,6 +293,7 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           data: filteredLibrary,
+          handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,

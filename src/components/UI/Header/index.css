@@ -5,7 +5,7 @@
   height: 84px;
   width: calc(100% - 1vw);
   padding: 0 4rem 1rem 4rem;
-  grid-template-columns: 5fr 5fr 1fr;
+  grid-template-columns: 5fr 2fr 4fr 1fr;
   justify-items: baseline;
   font-family: Cabin;
   font-style: normal;
@@ -13,7 +13,7 @@
   font-size: clamp(1em, 0.5vw, 2rem);
   line-height: 17px;
   color: var(--text-secondary);
-  grid-template-areas: 'filter total layout';
+  grid-template-areas: 'filter total category layout';
 }
 
 .headerSettings {
@@ -47,6 +47,25 @@
 
 .selectFilter > :not(:first-child) {
   cursor: pointer;
+  padding: 0 8px;
+}
+
+.selectCategory {
+  display: flex;
+  width: fit-content;
+  justify-self: end;
+  justify-content: space-evenly;
+  cursor: pointer;
+  grid-area: category;
+}
+
+.selectCategory > .selected {
+  font-size: clamp(1.1em, 0.6vw, 2.1rem);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.selectCategory > :not(:first-child) {
   padding: 0 8px;
 }
 

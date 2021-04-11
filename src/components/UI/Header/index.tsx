@@ -12,6 +12,7 @@ import cx from 'classnames'
 
 interface Props {
   goTo: string | void | null
+  handleCategory?: (value: string) => void
   handleFilter?: (value: string) => void
   handleLayout?: (value: string) => void
   numberOfGames?: number
@@ -24,11 +25,12 @@ export default function Header({
   numberOfGames,
   handleFilter,
   handleLayout,
+  handleCategory,
   goTo,
   title
 }: Props) {
   const { t } = useTranslation()
-  const { filter, libraryStatus, layout } = useContext(ContextProvider)
+  const { filter, libraryStatus, layout, category } = useContext(ContextProvider)
   const haveDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
@@ -42,10 +44,33 @@ export default function Header({
     return history.goBack()
   }
 
+  function toggleCategory(newCategory: string) {
+    if(handleFilter && handleCategory && category != newCategory) {
+      handleCategory(newCategory)
+      handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
+    }
+  }
+
   return (
     <>
       <div className={cx({ header: !title }, { headerSettings: title })}>
-        {handleFilter && (
+        {handleCategory && (
+          <span className="selectCategory">
+            <span
+              className={category === 'games' ? 'selected' : ''}
+              onClick={() => toggleCategory('games')}
+            >
+              {t('Games')}
+            </span>
+            <span
+              className={category === 'unreal' ? 'selected' : ''}
+              onClick={() => toggleCategory('unreal')}
+            >
+              {t('Unreal Marketplace')}
+            </span>
+          </span>
+        )}
+        {handleFilter && category==='games' && (
           <span className="selectFilter">
             <span>{t('Filter')}:</span>
             <span
@@ -74,11 +99,34 @@ export default function Header({
                 haveDownloads > 0 ? `(${haveDownloads})` : ''
               }`}
             </span>
+          </span>
+        )}
+        {handleFilter && category==='unreal' && (
+          <span className="selectFilter">
+            <span>{t('Filter')}:</span>
             <span
               className={filter === 'unreal' ? 'selected' : ''}
               onClick={() => handleFilter('unreal')}
             >
-              {t('Unreal Marketplace')}
+              {t('All')}
+            </span>
+            <span
+              className={filter === 'asset' ? 'selected' : ''}
+              onClick={() => handleFilter('asset')}
+            >
+              {t('Assets')}
+            </span>
+            <span
+              className={filter === 'plugin' ? 'selected' : ''}
+              onClick={() => handleFilter('plugin')}
+            >
+              {t('Plugins')}
+            </span>
+            <span
+              className={filter === 'project' ? 'selected' : ''}
+              onClick={() => handleFilter('project')}
+            >
+              {t('Projects')}
             </span>
           </span>
         )}

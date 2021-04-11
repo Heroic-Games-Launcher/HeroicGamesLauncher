@@ -25,10 +25,12 @@ export interface AppSettings {
 }
 
 export interface ContextType {
+  category: string
   data: GameInfo[]
   error: boolean
   filter: string
   gameUpdates: string[]
+  handleCategory: (value: string) => void
   handleFilter: (value: string) => void
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleLayout: (value: string) => void
