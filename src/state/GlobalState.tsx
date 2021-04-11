@@ -114,10 +114,6 @@ export class GlobalState extends PureComponent<Props> {
       return library.filter((game) => game.is_ue_plugin)
     case 'project':
       return library.filter((game) => game.is_ue_project)
-    case '4.26':
-      return library.filter((game) => game.compatible_apps.includes('UE_4.26'))
-    case '4.25':
-      return library.filter((game) => game.compatible_apps.includes('UE_4.25'))
     default:
       return library.filter((game) => game.is_game)
     }
