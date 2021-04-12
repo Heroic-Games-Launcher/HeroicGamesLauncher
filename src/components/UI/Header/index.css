@@ -50,6 +50,20 @@
   padding: 0 8px;
 }
 
+.selectFilter > select {
+  font-size: clamp(1em, 0.5vw, 2rem);
+  color: var(--text-secondary);
+  box-sizing: content-box;
+  height: 17px;
+  border: none;
+  background: none;
+}
+
+option {
+  background: var(--background-secondary);
+  color: var(--text-secondary);
+}
+
 .selectCategory {
   display: flex;
   width: fit-content;

@@ -86,36 +86,45 @@ export class GlobalState extends PureComponent<Props> {
   handleCategory = (category: string) => this.setState({ category })
 
   filterLibrary = (library: GameInfo[], filter: string) => {
-    switch (filter) {
-    case 'installed':
-      return library.filter((game) => game.is_installed && game.is_game)
-    case 'uninstalled':
-      return library.filter((game) => !game.is_installed && game.is_game)
-    case 'downloading':
+    if (filter.includes('UE_')) {
       return library.filter((game) => {
-        const currentApp = this.state.libraryStatus.filter(
-          (app) => app.appName === game.app_name
-        )[0]
-        if (!currentApp || !game.is_game) {
-          return false
+        if(!game.compatible_apps) {
+          return false;
         }
-        return (
-          currentApp.status === 'installing' ||
-            currentApp.status === 'repairing' ||
-            currentApp.status === 'updating' ||
-            currentApp.status === 'moving'
-        )
+        return game.compatible_apps.includes(filter)
       })
-    case 'unreal':
-      return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
-    case 'asset':
-      return library.filter((game) => game.is_ue_asset)
-    case 'plugin':
-      return library.filter((game) => game.is_ue_plugin)
-    case 'project':
-      return library.filter((game) => game.is_ue_project)
-    default:
-      return library.filter((game) => game.is_game)
+    } else {
+      switch (filter) {
+      case 'installed':
+        return library.filter((game) => game.is_installed && game.is_game)
+      case 'uninstalled':
+        return library.filter((game) => !game.is_installed && game.is_game)
+      case 'downloading':
+        return library.filter((game) => {
+          const currentApp = this.state.libraryStatus.filter(
+            (app) => app.appName === game.app_name
+          )[0]
+          if (!currentApp || !game.is_game) {
+            return false
+          }
+          return (
+            currentApp.status === 'installing' ||
+              currentApp.status === 'repairing' ||
+              currentApp.status === 'updating' ||
+               currentApp.status === 'moving'
+          )
+        })
+      case 'unreal':
+        return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
+      case 'asset':
+        return library.filter((game) => game.is_ue_asset)
+      case 'plugin':
+        return library.filter((game) => game.is_ue_plugin)
+      case 'project':
+        return library.filter((game) => game.is_ue_project)
+      default:
+        return library.filter((game) => game.is_game)
+      }
     }
   }
 
@@ -263,7 +272,11 @@ export class GlobalState extends PureComponent<Props> {
     const { filter, libraryStatus, layout, category } = this.state
 
     storage.setItem('category', category)
-    storage.setItem('filter', filter)
+    if (filter.includes('UE_')) {
+      storage.setItem('UE_4.26', filter)
+    } else {
+      storage.setItem('filter', filter)
+    }
     storage.setItem('layout', layout)
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
       .length

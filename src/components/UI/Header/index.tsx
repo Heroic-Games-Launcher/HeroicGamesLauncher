@@ -128,6 +128,27 @@ export default function Header({
             >
               {t('Projects')}
             </span>
+            <select
+              className={filter.includes('UE_') ? 'selected' : ''}
+              onChange={(event) => handleFilter(event.target.value)}
+            >
+              <option value='UE_4.26'>4.26</option>
+              <option value='UE_4.25'>4.25</option>
+              <option value='UE_4.24'>4.24</option>
+              <option value='UE_4.23'>4.23</option>
+              <option value='UE_4.22'>4.22</option>
+              <option value='UE_4.21'>4.21</option>
+              <option value='UE_4.20'>4.20</option>
+              <option value='UE_4.19'>4.19</option>
+              <option value='UE_4.18'>4.18</option>
+              <option value='UE_4.17'>4.17</option>
+              <option value='UE_4.16'>4.16</option>
+              <option value='UE_4.15'>4.15</option>
+              <option value='UE_4.14'>4.14</option>
+              <option value='UE_4.13'>4.13</option>
+              <option value='UE_4.12'>4.12</option>
+              <option value='UE_4.11'>4.11</option>
+            </select>
           </span>
         )}
         {numberOfGames !== undefined && numberOfGames > 0 && (
