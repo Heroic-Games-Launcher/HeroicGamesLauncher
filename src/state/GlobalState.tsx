@@ -272,11 +272,7 @@ export class GlobalState extends PureComponent<Props> {
     const { filter, libraryStatus, layout, category } = this.state
 
     storage.setItem('category', category)
-    if (filter.includes('UE_')) {
-      storage.setItem('UE_4.26', filter)
-    } else {
-      storage.setItem('filter', filter)
-    }
+    storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
       .length
