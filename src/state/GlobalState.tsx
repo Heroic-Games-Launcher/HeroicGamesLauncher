@@ -240,11 +240,12 @@ export class GlobalState extends PureComponent<Props> {
   async componentDidMount() {
     const { i18n } = this.props
 
+    const category = storage.getItem('category') || 'games'
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
     i18n.changeLanguage(language)
-    this.setState({ filter, language, layout })
+    this.setState({ category, filter, language, layout })
 
     setTimeout(() => {
       this.checkVersion()
@@ -259,8 +260,9 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { filter, libraryStatus, layout } = this.state
+    const { filter, libraryStatus, layout, category } = this.state
 
+    storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
