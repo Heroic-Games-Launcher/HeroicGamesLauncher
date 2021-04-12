@@ -31,7 +31,8 @@ export default function LanguageSelector({
     pl: 'Polski',
     pt: 'Português',
     ru: 'Русский',
-    tr: 'Türkçe'
+    tr: 'Türkçe',
+    cs: 'Čeština'
   }
 
   const languageFlags: { [key: string]: string } = {
