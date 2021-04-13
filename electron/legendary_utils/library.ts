@@ -209,7 +209,10 @@ class Library {
       dlcItemList,
       releaseInfo,
       categories,
-      customAttributes
+      customAttributes : {
+        CloudSaveFolder,
+        FolderName
+      }
     } = metadata
 
 
@@ -252,10 +255,7 @@ class Library {
       }
     )
 
-    const CloudSaveFolder = is_game ? customAttributes : null
-    const FolderName = is_game ? customAttributes : null
-
-    const cloud_save_enabled = Boolean(CloudSaveFolder)
+    const cloud_save_enabled = is_game && Boolean(CloudSaveFolder)
     const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
     const installFolder = FolderName ? FolderName.value : app_name
 
@@ -265,7 +265,7 @@ class Library {
 
     const gameBoxTall = is_game ?
       keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
-      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+      gameBox
 
     const logo = is_game ?
       keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :

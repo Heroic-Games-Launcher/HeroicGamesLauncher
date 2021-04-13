@@ -176,7 +176,8 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = GlobalConfig.get().config
+    // We can't use .config since apparently its not loaded fast enough.
+    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
 
     await i18next.use(Backend).init({
       backend: {
@@ -376,7 +377,8 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
     return await GlobalConfig.get().config
   }
-  return await GameConfig.get(appName).config
+  // We can't use .config since apparently its not loaded fast enough.
+  return await GameConfig.get(appName).getSettings()
 })
 
 ipcMain.handle('writeConfig', (event, [appName, config]) => {

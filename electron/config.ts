@@ -261,6 +261,9 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getSettings(): Promise<AppSettings> {
+    if (!existsSync(heroicConfigPath)) {
+      return await this.getFactoryDefaults()
+    }
     let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
     settings = {...(await this.getFactoryDefaults()), ...settings.defaultSettings} as AppSettings
     return settings

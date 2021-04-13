@@ -178,6 +178,9 @@ class GameConfigV0 extends GameConfig {
   }
 
   public async getSettings(): Promise<GameSettings> {
+    if (!existsSync(this.path)) {
+      return {...GlobalConfig.get().config} as GameSettings
+    }
     const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
     // Take defaults, then overwrite if explicitly set values exist.
     // The settings defined work as overrides.
