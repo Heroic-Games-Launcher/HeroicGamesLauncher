@@ -12,7 +12,7 @@ import {
   heroicGamesConfigPath} from './constants'
 
 /**
- * This class does config handling.
+ * This class does config handling for games.
  * This can't be constructed directly. Use the static method get().
  * It automatically selects the appropriate config loader based on the config version.
  *
@@ -34,9 +34,11 @@ abstract class GameConfig {
   }
 
   /**
-   * Get the global configuartion handler.
+   * Get the game's configuartion handler.
+   * If one doesn't exist, create one.
    *
-   * @returns GameConfig instance or undefined.
+   * @param appName Game to get handler of.
+   * @returns GameConfig instance.
    */
   public static get(appName : string) : GameConfig {
     let version : GameConfigVersion
@@ -62,6 +64,13 @@ abstract class GameConfig {
     return GameConfig.instances.get(appName)
   }
 
+  /**
+   * Recreate the game's configuration handler.
+   *
+   * @param appName
+   * @param version Config version to load file using.
+   * @returns void
+   */
   private static reload(appName : string, version : GameConfigVersion) : void {
     // Select loader to use.
     switch (version) {
@@ -87,6 +96,13 @@ abstract class GameConfig {
     }
   }
 
+  /**
+   * Gets the actual settings from the config file.
+   * Does not modify its parent object.
+   * Always reads from file regardless of `this.config`.
+   *
+   * @returns Settings present in config file.
+   */
   public abstract getSettings() : Promise<GameSettings>
 
   /**
@@ -99,14 +115,24 @@ abstract class GameConfig {
    */
   public abstract upgrade() : boolean
 
+  /**
+   * Reset `this.config` to global defaults and flush.
+   */
   public abstract resetToDefaults() : void
 
   protected writeToFile(config : Record<string, unknown>) {
     return writeFileSync(this.path, JSON.stringify(config, null, 2))
   }
 
+  /**
+   * Write `this.config` to file.
+   * Uses the config version defined in `this.version`.
+   */
   public abstract flush() : void
 
+  /**
+   * Load the config file, upgrade if needed.
+   */
   protected async load() {
     // Config file doesn't exist, make one.
     if (!existsSync(heroicConfigPath)) {
@@ -152,6 +178,9 @@ class GameConfigV0 extends GameConfig {
   }
 
   public async getSettings(): Promise<GameSettings> {
+    if (!existsSync(this.path)) {
+      return {...GlobalConfig.get().config} as GameSettings
+    }
     const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
     // Take defaults, then overwrite if explicitly set values exist.
     // The settings defined work as overrides.
