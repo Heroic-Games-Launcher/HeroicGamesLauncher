@@ -20,6 +20,7 @@ export default function LanguageSelector({
   flagPossition = FlagPosition.NONE
 }: Props) {
   const languageLabels: { [key: string]: string } = {
+    cs: 'Čeština',
     de: 'Deutsch',
     en: 'English',
     es: 'Español',
@@ -31,7 +32,6 @@ export default function LanguageSelector({
     pl: 'Polski',
     pt: 'Português',
     ru: 'Русский',
-    cs: 'Čeština',
     tr: 'Türkçe'
   }
 
