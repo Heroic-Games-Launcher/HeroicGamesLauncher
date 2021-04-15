@@ -7,7 +7,8 @@ import {
   Tray,
   app,
   ipcMain,
-  powerSaveBlocker
+  powerSaveBlocker,
+  protocol
 } from 'electron'
 import { cpus } from 'os'
 import {
@@ -52,6 +53,7 @@ import {
   sidInfoUrl,
   supportURL
 } from './constants'
+import { handleProtocol } from './protocol'
 
 const { showErrorBox } = dialog
 
@@ -203,6 +205,21 @@ if (!gotTheLock) {
         'ml'
       ]
     })
+
+    protocol.registerStringProtocol('heroic', (request, callback) => {
+      const [command, args_string] = request.url.split('://')[1].split('/')
+      handleProtocol(command, args_string.split('::'))
+      callback('Operation initaited.')
+    })
+    if (!app.isDefaultProtocolClient('heroic')) {
+      if (app.setAsDefaultProtocolClient('heroic')) {
+        console.log('Registered protocol with OS.')
+      } else {
+        console.log('Failed to register protocol with OS.')
+      }
+    } else {
+      console.log('Protocol already registered.')
+    }
 
     createWindow()
 

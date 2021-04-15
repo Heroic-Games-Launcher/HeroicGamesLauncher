@@ -142,5 +142,10 @@
     "development": [
       "last 1 chrome version"
     ]
+  },
+  "linux": {
+    "desktop": {
+      "MimeType": "x-scheme-handler/heroic;" 
+    }
   }
 }
