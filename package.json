@@ -30,14 +30,17 @@
     "directories": {
       "buildResources": "public"
     },
+    "protocols": [{
+      "name": "heroic",
+      "schemes": ["heroic"]
+    }],
     "icon": "build/icon.icns",
     "linux": {
       "category": "Game",
       "icon": "build/icon.icns",
       "description": "A native Epic Games launcher for Linux",
       "desktop": {
-        "Name": "Heroic Games Launcher",
-        "MimeType": "x-scheme-handler/heroic=heroic.desktop;" 
+        "Name": "Heroic Games Launcher"
       }
     },
     "deb": {

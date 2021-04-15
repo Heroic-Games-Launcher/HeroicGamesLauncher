@@ -206,10 +206,13 @@ if (!gotTheLock) {
       ]
     })
 
+    createWindow()
+
     protocol.registerStringProtocol('heroic', (request, callback) => {
       const [command, args_string] = request.url.split('://')[1].split('/')
+      console.log('Received:', request.url)
       handleProtocol(command, args_string.split('::'))
-      callback('Operation initaited.')
+      callback('Operation initiated.')
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
@@ -220,8 +223,6 @@ if (!gotTheLock) {
     } else {
       console.log('Protocol already registered.')
     }
-
-    createWindow()
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)

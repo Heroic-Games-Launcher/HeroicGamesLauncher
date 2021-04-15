@@ -9,7 +9,8 @@ import { GlobalConfig } from './config'
 import {
   currentGameConfigVersion,
   heroicConfigPath,
-  heroicGamesConfigPath} from './constants'
+  heroicGamesConfigPath
+} from './constants'
 
 /**
  * This class does config handling for games.

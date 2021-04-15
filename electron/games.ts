@@ -138,11 +138,12 @@ class LegendaryGame implements Game {
 
   /**
    * Alias for `GameConfig.get(this.appName).config`
+   * If it doesn't exist, uses getSettings() instead.
    *
    * @returns GameConfig
    */
   public async getSettings() {
-    return GameConfig.get(this.appName).config
+    return GameConfig.get(this.appName).config || await GameConfig.get(this.appName).getSettings()
   }
 
   /**
