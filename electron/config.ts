@@ -115,8 +115,8 @@ abstract class GlobalConfig {
         const version = out.split('\n')[0]
         defaultWine.name = `Wine - ${version}`
       })
-      .catch(() => console.log('Wine not installed'))    
-    
+      .catch(() => console.log('Wine not installed'))
+
     const altWine: Set<WineInstallation> = new Set()
 
     readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
