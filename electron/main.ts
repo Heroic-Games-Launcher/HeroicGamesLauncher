@@ -178,7 +178,7 @@ if (!gotTheLock) {
     }
     if (argv[1]) {
       const url = argv[1]
-      handleProtocol(url)
+      handleProtocol(mainWindow, url)
     }
   })
   app.whenReady().then(async () => {
@@ -213,7 +213,7 @@ if (!gotTheLock) {
     createWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
-      handleProtocol(request.url)
+      handleProtocol(mainWindow, request.url)
       callback('Operation initiated.')
     })
     if (!app.isDefaultProtocolClient('heroic')) {
@@ -227,7 +227,7 @@ if (!gotTheLock) {
     }
     if (process.argv[1]) {
       const url = process.argv[1]
-      handleProtocol(url)
+      handleProtocol(mainWindow, url)
     }
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
@@ -299,7 +299,7 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
-  handleProtocol(url)
+  handleProtocol(mainWindow, url)
 })
 
 ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
