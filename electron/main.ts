@@ -171,10 +171,14 @@ const contextMenu = () =>
 if (!gotTheLock) {
   app.quit()
 } else {
-  app.on('second-instance', () => {
+  app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
     if (mainWindow) {
       mainWindow.show()
+    }
+    if (argv[1]) {
+      const url = argv[1]
+      handleProtocol(url)
     }
   })
   app.whenReady().then(async () => {
@@ -209,9 +213,7 @@ if (!gotTheLock) {
     createWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
-      const [command, args_string] = request.url.split('://')[1].split('/')
-      console.log('Received:', request.url)
-      handleProtocol(command, args_string.split('::'))
+      handleProtocol(request.url)
       callback('Operation initiated.')
     })
     if (!app.isDefaultProtocolClient('heroic')) {
@@ -222,6 +224,10 @@ if (!gotTheLock) {
       }
     } else {
       console.log('Protocol already registered.')
+    }
+    if (process.argv[1]) {
+      const url = process.argv[1]
+      handleProtocol(url)
     }
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
@@ -289,6 +295,11 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+app.on('open-url', (event, url) => {
+  event.preventDefault()
+  handleProtocol(url)
 })
 
 ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
