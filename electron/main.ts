@@ -7,7 +7,8 @@ import {
   Tray,
   app,
   ipcMain,
-  powerSaveBlocker
+  powerSaveBlocker,
+  protocol
 } from 'electron'
 import { cpus } from 'os'
 import {
@@ -52,6 +53,7 @@ import {
   sidInfoUrl,
   supportURL
 } from './constants'
+import { handleProtocol } from './protocol'
 
 const { showErrorBox } = dialog
 
@@ -169,10 +171,14 @@ const contextMenu = () =>
 if (!gotTheLock) {
   app.quit()
 } else {
-  app.on('second-instance', () => {
+  app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
     if (mainWindow) {
       mainWindow.show()
+    }
+    if (argv[1]) {
+      const url = argv[1]
+      handleProtocol(mainWindow, url)
     }
   })
   app.whenReady().then(async () => {
@@ -205,6 +211,24 @@ if (!gotTheLock) {
     })
 
     createWindow()
+
+    protocol.registerStringProtocol('heroic', (request, callback) => {
+      handleProtocol(mainWindow, request.url)
+      callback('Operation initiated.')
+    })
+    if (!app.isDefaultProtocolClient('heroic')) {
+      if (app.setAsDefaultProtocolClient('heroic')) {
+        console.log('Registered protocol with OS.')
+      } else {
+        console.log('Failed to register protocol with OS.')
+      }
+    } else {
+      console.log('Protocol already registered.')
+    }
+    if (process.argv[1]) {
+      const url = process.argv[1]
+      handleProtocol(mainWindow, url)
+    }
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
@@ -271,6 +295,11 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+app.on('open-url', (event, url) => {
+  event.preventDefault()
+  handleProtocol(mainWindow, url)
 })
 
 ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
