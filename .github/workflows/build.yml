@@ -24,6 +24,7 @@ jobs:
         run: yarn build-electron
       - name: Build artifacts.
         run: |
+          sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
           yarn dist snap appimage pacman deb rpm --publish=never
       - name: Upload artifacts.
         uses: actions/upload-artifact@v2
