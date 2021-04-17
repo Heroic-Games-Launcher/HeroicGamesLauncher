@@ -23,9 +23,33 @@ jobs:
         run: |
           sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
           yarn dist snap appimage pacman deb rpm --publish=never
-      - name: Upload artifacts.
+      - name: Upload Snap package.
         uses: actions/upload-artifact@v2
         with:
-          name: linux-binaries
-          path: dist/heroic*
+          name: linux-snap
+          path: dist/heroic*.snap
+          retention-days: 7
+      - name: Upload AppImage.
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-appimage
+          path: dist/heroic*.AppImage
+          retention-days: 7
+      - name: Upload Pacman package.
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-pacman
+          path: dist/heroic*.pacman
+          retention-days: 7
+      - name: Upload DEB package.
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-deb
+          path: dist/heroic*.deb
+          retention-days: 7
+      - name: Upload RPM package.
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-rpm
+          path: dist/heroic*.rpm
           retention-days: 7
