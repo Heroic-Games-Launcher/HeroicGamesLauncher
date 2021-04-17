@@ -21,11 +21,11 @@ jobs:
         run: yarn build-electron
       - name: Build artifacts.
         run: |
-          yarn dist snap
-          yarn dist appimage
-          yarn dist pacman
-          yarn dist deb
-          yarn dist rpm
+          yarn dist snap --publish=never
+          yarn dist appimage --publish=never
+          yarn dist pacman --publish=never
+          yarn dist deb --publish=never
+          yarn dist rpm --publish=never
       - name: Upload artifacts.
         uses: actions/upload-artifact@v2
         with:
