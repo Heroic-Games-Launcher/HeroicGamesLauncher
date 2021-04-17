@@ -22,3 +22,17 @@ jobs:
         run: yarn build
       - name: Build 'electron'.
         run: yarn build-electron
+      - name: Build artifacts.
+        run: |
+          yarn start
+          yarn dist snap
+          yarn dist appimage
+          yarn dist pacman
+          yarn dist deb
+          yarn dist rpm
+      - name: Upload artifacts.
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-binaries
+          path: dist/heroic*
+          retention-days: 7
