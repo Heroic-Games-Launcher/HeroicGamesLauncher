@@ -117,6 +117,8 @@ abstract class GlobalConfig {
       })
       .catch(() => console.log('Wine not installed'))
 
+    const altWine: Set<WineInstallation> = new Set()
+
     readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
       altWine.add({
         bin: `'${heroicToolsPath}/wine/${version}/bin/wine64'`,
@@ -153,7 +155,6 @@ abstract class GlobalConfig {
     })
 
     const proton: Set<WineInstallation> = new Set()
-    const altWine: Set<WineInstallation> = new Set()
 
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
