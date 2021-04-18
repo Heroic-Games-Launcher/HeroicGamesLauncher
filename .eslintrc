@@ -37,6 +37,7 @@
     "@typescript-eslint/no-unused-vars": "error",
     "complexity": "off",
     "comma-dangle": ["error", "never"],
+    "eol-last": ["error", "always"],
     "indent": ["error", 2],
     "no-trailing-spaces": "error",
     "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
