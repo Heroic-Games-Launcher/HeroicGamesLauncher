@@ -92,6 +92,15 @@ cd heroic-games-launcher-bin
 
 makepkg --cleanbuild --syncdeps --install --clean --rmdeps
 ```
+Installation via the pacman file:
+
+Download the `heroic-x.x.x.pacman` from the Releases section
+
+Navigate to the file directory and run:
+
+```bash
+sudo pacman -U heroic-x.x.x.pacman
+```
 
 Otherwise you can install it via your prefered AUR helper, e.g. yay.
 
