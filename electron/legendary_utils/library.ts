@@ -203,7 +203,7 @@ class Library {
     const {
       description,
       shortDescription = '',
-      keyImages,
+      keyImages = [],
       title,
       developer,
       dlcItemList,
