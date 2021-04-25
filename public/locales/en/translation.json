@@ -176,6 +176,7 @@
     "logout": "Logout",
     "quit": "Quit",
     "refresh": "Refresh Library",
-    "support": "Support Us"
+    "support": "Support Us",
+    "logout_confirmation": "Are you sure you want to logout?"
   }
 }

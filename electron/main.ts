@@ -7,22 +7,20 @@ import {
   Tray,
   app,
   ipcMain,
-  powerSaveBlocker
+  powerSaveBlocker,
+  protocol
 } from 'electron'
-import {
-  cpus,
-  userInfo as user
-} from 'os'
+import { cpus } from 'os'
 import {
   exec,
   spawn
 } from 'child_process'
 import {
   existsSync,
-  mkdirSync,
-  readFileSync,
+  rmdirSync,
   unlinkSync,
-  writeFile} from 'graceful-fs'
+  writeFile
+} from 'graceful-fs'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
@@ -33,6 +31,7 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryGame } from './games'
 import { Library } from './legendary_utils/library'
+import { User } from './legendary_utils/user';
 import {
   checkForUpdates,
   execAsync,
@@ -52,9 +51,9 @@ import {
   legendaryBin,
   loginUrl,
   sidInfoUrl,
-  supportURL,
-  userInfo
+  supportURL
 } from './constants'
+import { handleProtocol } from './protocol'
 
 const { showErrorBox } = dialog
 
@@ -81,7 +80,6 @@ function createWindow(): BrowserWindow {
   GlobalConfig.get()
   Library.get()
 
-  //load the index.html from a url
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
@@ -173,14 +171,19 @@ const contextMenu = () =>
 if (!gotTheLock) {
   app.quit()
 } else {
-  app.on('second-instance', () => {
+  app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
     if (mainWindow) {
       mainWindow.show()
     }
+    if (argv[1]) {
+      const url = argv[1]
+      handleProtocol(mainWindow, url)
+    }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = (await GlobalConfig.get().getSettings())
+    // We can't use .config since apparently its not loaded fast enough.
+    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
 
     await i18next.use(Backend).init({
       backend: {
@@ -210,6 +213,24 @@ if (!gotTheLock) {
 
     createWindow()
 
+    protocol.registerStringProtocol('heroic', (request, callback) => {
+      handleProtocol(mainWindow, request.url)
+      callback('Operation initiated.')
+    })
+    if (!app.isDefaultProtocolClient('heroic')) {
+      if (app.setAsDefaultProtocolClient('heroic')) {
+        console.log('Registered protocol with OS.')
+      } else {
+        console.log('Failed to register protocol with OS.')
+      }
+    } else {
+      console.log('Protocol already registered.')
+    }
+    if (process.argv[1]) {
+      const url = process.argv[1]
+      handleProtocol(mainWindow, url)
+    }
+
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
@@ -234,23 +255,9 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
-
-ipcMain.handle('checkGameUpdates', () => LegendaryGame.checkGameUpdates())
-
-ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
-
-ipcMain.handle('checkVersion', () => checkForUpdates())
-
-ipcMain.handle('writeConfig', (event, [appName, config]) => {
-  if (appName === 'default') {
-    GlobalConfig.get().config = config
-    GlobalConfig.get().flush()
-  }
-  else {
-    GameConfig.get(appName).config = config
-    GameConfig.get(appName).flush()
-  }
+// Maybe this can help with white screens
+process.on('uncaughtException', (err) => {
+  console.log(err)
 })
 
 let powerId: number | null
@@ -272,15 +279,151 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.on('kill', (event, game) => {
+  // until the legendary bug gets fixed, kill legendary on mac
+  // not a perfect solution but it's the only choice for now
+  game = process.platform === 'darwin' ? 'legendary' : game
+  console.log('killing', game)
+  return spawn('pkill', ['-f', game])
+})
 
 ipcMain.on('quit', async () => handleExit())
+
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('open-url', (event, url) => {
+  event.preventDefault()
+  handleProtocol(mainWindow, url)
+})
+
+ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
+
+ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
+
+ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
+
+ipcMain.on('showAboutWindow', () => showAboutWindow())
+
+ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
+
+ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
+
+ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
+
+ipcMain.on('getLog', (event, appName) =>
+  openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
+)
+
+
+ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  if (path === 'default') {
+    const defaultInstallPath = (await GlobalConfig.get()).config.defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${defaultInstallPath}/${folderName}`
+    return setTimeout(() => {
+      rmdirSync(folderToDelete, {recursive: true})
+    }, 2000)
+  }
+
+  const folderToDelete = `${path}/${folderName}`
+  return setTimeout(() => {
+    rmdirSync(folderToDelete, {recursive: true})
+  }, 2000)
+})
+
+// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
+interface Tools {
+  exe: string
+  prefix: string
+  tool: string
+  wine: string
+}
+
+ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
+  const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
+  let winePrefix: string = prefix.replace('~', home)
+
+  if (wine.includes('proton')) {
+    const protonPrefix = winePrefix.replaceAll("'", '')
+    winePrefix = `'${protonPrefix}/pfx'`
+  }
+
+  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} 
+    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
+
+  if (tool === 'runExe') {
+    command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
+  }
+
+  console.log({ command })
+  return exec(command)
+})
+
+/// IPC handlers begin here.
+
+ipcMain.handle('checkGameUpdates', () => LegendaryGame.checkGameUpdates())
+
+ipcMain.handle('checkVersion', () => checkForUpdates())
+
+ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   const obj = LegendaryGame.get(game)
   const info = await obj.getGameInfo()
   info.extra = await obj.getExtraInfo(info.namespace)
   return info
+})
+
+ipcMain.handle('getUserInfo', () => User.getUserInfo())
+
+// Checks if the user have logged in with Legendary already
+ipcMain.handle('isLoggedIn', () => User.isLoggedIn())
+
+ipcMain.handle('login', async (event, sid) => await User.login(sid))
+
+ipcMain.handle('logout', async () => await User.logout())
+
+ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
+
+ipcMain.handle('readConfig', async (event, config_class) =>  {
+  switch (config_class) {
+  case 'library':
+    return await Library.get().getGames('info')
+  case 'user':
+    return User.getUserInfo().displayName
+  default:
+    console.log(`Which idiot requested '${config_class}' using readConfig?`)
+    return {}
+  }
+})
+
+ipcMain.handle('requestSettings', async (event, appName) => {
+  if (appName === 'default') {
+    return await GlobalConfig.get().config
+  }
+  // We can't use .config since apparently its not loaded fast enough.
+  return await GameConfig.get(appName).getSettings()
+})
+
+ipcMain.handle('writeConfig', (event, [appName, config]) => {
+  if (appName === 'default') {
+    GlobalConfig.get().config = config
+    GlobalConfig.get().flush()
+  }
+  else {
+    GameConfig.get(appName).config = config
+    GameConfig.get(appName).flush()
+  }
+})
+
+ipcMain.handle('refreshLibrary', async () => {
+  return await Library.get().refresh()
 })
 
 ipcMain.handle('launch', (event, game) => {
@@ -311,20 +454,6 @@ ipcMain.handle('launch', (event, game) => {
   })
 })
 
-ipcMain.handle('legendary', async (event, args) => {
-  const command = `${legendaryBin} ${args}`
-  return await execAsync(command)
-    .then(({ stdout, stderr }) => {
-      if (stdout) {
-        return stdout
-      } else if (stderr) {
-        return stderr
-      } else {
-        return 'done'
-      }
-    })
-    .catch((err) => console.log(err))
-})
 
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
@@ -386,66 +515,6 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   return progress
 })
 
-ipcMain.on('kill', (event, game) => {
-  // until the legendary bug gets fixed, kill legendary on mac
-  // not a perfect solution but it's the only choice for now
-  game = process.platform === 'darwin' ? 'legendary' : game
-  console.log('killing', game)
-  return spawn('pkill', ['-f', game])
-})
-
-ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
-
-ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
-
-// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-interface Tools {
-  exe: string
-  prefix: string
-  tool: string
-  wine: string
-}
-
-ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
-  const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
-  let winePrefix: string = prefix.replace('~', home)
-
-  if (wine.includes('proton')) {
-    const protonPrefix = winePrefix.replaceAll("'", '')
-    winePrefix = `'${protonPrefix}/pfx'`
-  }
-
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} 
-    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
-
-  if (tool === 'runExe') {
-    command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
-  }
-
-  console.log({ command })
-  return exec(command)
-})
-
-ipcMain.handle('requestSettings', async (event, appName) => {
-  if (appName === 'default') {
-    return await GlobalConfig.get().config
-  }
-  return await GameConfig.get(appName).getSettings()
-})
-
-// Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', () => GlobalConfig.get().isLoggedIn())
-
-ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
-
-ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
-
-ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
-
-ipcMain.on('getLog', (event, appName) =>
-  openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
-)
-
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   const newPath = await LegendaryGame.get(appName).moveInstall(path)
   console.log(`Finished moving ${appName} to ${newPath}.`)
@@ -458,18 +527,6 @@ ipcMain.handle(
     console.log(`Finished moving ${appName} to ${newPath}.`)
   }
 )
-
-ipcMain.handle('readConfig', async (event, config_class) =>  {
-  switch (config_class) {
-  case 'library':
-    return await Library.get().getGames('info')
-  case 'user':
-    return GlobalConfig.get().getUserInfo().displayName
-  default:
-    console.log(`Which idiot requested '${config_class}' using readConfig?`)
-    return {}
-  }
-})
 
 ipcMain.handle('egsSync', async (event, args) => {
   const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
@@ -488,28 +545,6 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
-ipcMain.handle('getUserInfo', () => {
-  const { account_id } = JSON.parse(readFileSync(userInfo, 'utf-8'))
-  return { epicId: account_id, user: user().username }
-})
-
-ipcMain.on('removeFolder', async (e, args: string[]) => {
-  const [path, folderName] = args
-
-  if (path === 'default') {
-    const defaultInstallPath = (await GlobalConfig.get().getSettings()).defaultInstallPath.replaceAll("'", '')
-    const folderToDelete = `${defaultInstallPath}/${folderName}`
-    return setTimeout(() => {
-      exec(`rm -Rf ${folderToDelete}`)
-    }, 2000)
-  }
-
-  const folderToDelete = `${path}/${folderName}`
-  return setTimeout(() => {
-    exec(`rm -Rf ${folderToDelete}`)
-  }, 2000)
-})
-
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
   if (!(await isOnline())) {
@@ -517,35 +552,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
     return
   }
 
-  const fixedPath = path.replaceAll("'", '')
-  const command = `${legendaryBin} sync-saves --save-path "${fixedPath}" ${arg} ${appName} -y`
-  const legendarySavesPath = `${home}/legendary/.saves`
-
-  //workaround error when no .saves folder exists
-  if (!existsSync(legendarySavesPath)) {
-    mkdirSync(legendarySavesPath, { recursive: true })
-  }
-
-  console.log('\n syncing saves for ', appName)
-  const { stderr, stdout } = await execAsync(command)
+  const { stderr, stdout } = await LegendaryGame.get(appName).syncSaves(arg, path)
   console.log(`${stdout} - ${stderr}`)
   return `\n ${stdout} - ${stderr}`
-})
-
-ipcMain.on('showAboutWindow', () => showAboutWindow())
-
-// Maybe this can help with white screens
-process.on('uncaughtException', (err) => {
-  console.log(err)
-})
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
 })
