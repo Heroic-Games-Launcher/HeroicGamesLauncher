@@ -209,10 +209,7 @@ class Library {
       dlcItemList,
       releaseInfo,
       categories,
-      customAttributes : {
-        CloudSaveFolder,
-        FolderName
-      }
+      customAttributes
     } = metadata
 
 
@@ -254,6 +251,9 @@ class Library {
         }
       }
     )
+
+    const CloudSaveFolder = is_game ? customAttributes : null
+    const FolderName = is_game ? customAttributes : null
 
     const cloud_save_enabled = is_game && Boolean(CloudSaveFolder)
     const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''

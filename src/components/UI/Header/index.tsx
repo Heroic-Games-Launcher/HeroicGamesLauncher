@@ -44,6 +44,19 @@ export default function Header({
     return history.goBack()
   }
 
+  const ueVersionSelect = document.getElementById('ueVersionSelect') as HTMLSelectElement
+  const ueVersions: string[] = ['4.0', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8',
+    '4.10', '4.11', '4.12', '4.13', '4.14', '4.15', '4.16', '4.17', '4.18', '4.19', '4.20',
+    '4.21', '4.22', '4.23', '4.24', '4.25', '4.26'
+  ]
+  if (ueVersionSelect) {
+    if (ueVersionSelect.options.length == 0) {
+      ueVersions.forEach(version => {
+        ueVersionSelect.options.add(new Option(version, 'UE_' + version))
+      })
+    }
+  }
+
   function toggleCategory(newCategory: string) {
     if(handleFilter && handleCategory && category != newCategory) {
       handleCategory(newCategory)
@@ -130,24 +143,9 @@ export default function Header({
             </span>
             <select
               className={filter.includes('UE_') ? 'selected' : ''}
+              id='ueVersionSelect'
               onChange={(event) => handleFilter(event.target.value)}
             >
-              <option value='UE_4.26'>4.26</option>
-              <option value='UE_4.25'>4.25</option>
-              <option value='UE_4.24'>4.24</option>
-              <option value='UE_4.23'>4.23</option>
-              <option value='UE_4.22'>4.22</option>
-              <option value='UE_4.21'>4.21</option>
-              <option value='UE_4.20'>4.20</option>
-              <option value='UE_4.19'>4.19</option>
-              <option value='UE_4.18'>4.18</option>
-              <option value='UE_4.17'>4.17</option>
-              <option value='UE_4.16'>4.16</option>
-              <option value='UE_4.15'>4.15</option>
-              <option value='UE_4.14'>4.14</option>
-              <option value='UE_4.13'>4.13</option>
-              <option value='UE_4.12'>4.12</option>
-              <option value='UE_4.11'>4.11</option>
             </select>
           </span>
         )}
