@@ -1,11 +1,11 @@
 {
   "name": "heroic",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
   "license": "GPL-3.0-only",
-  "description": "A Native Epic Games Launcher for Linux",
+  "description": "A native Epic Games launcher for Linux",
   "repository": {
     "type": "Github",
     "url": "https://github.com/flavioislima/HeroicGamesLauncher"
@@ -30,11 +30,18 @@
     "directories": {
       "buildResources": "public"
     },
+    "protocols": [{
+      "name": "heroic",
+      "schemes": ["heroic"]
+    }],
     "icon": "build/icon.icns",
     "linux": {
       "category": "Game",
       "icon": "build/icon.icns",
-      "description": "A Native Epic Games Launcher for Linux"
+      "description": "A native Epic Games launcher for Linux",
+      "desktop": {
+        "Name": "Heroic Games Launcher"
+      }
     },
     "deb": {
       "packageCategory": "games",

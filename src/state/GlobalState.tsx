@@ -7,7 +7,6 @@ import {
   getGameInfo,
   getLegendaryConfig,
   getProgress,
-  legendary,
   notify
 } from 'src/helpers'
 import { i18n } from 'i18next'
@@ -74,7 +73,7 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async (): Promise<void> => {
     const { t } = this.props
     this.setState({ refreshing: true })
-    await legendary('list-games --include-ue')
+    await renderer.invoke('refreshLibrary')
 
     this.refresh()
     notify([t('notify.refreshing'), t('notify.refreshed')])

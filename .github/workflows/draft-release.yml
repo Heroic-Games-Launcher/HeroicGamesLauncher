@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - 'v*'
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -13,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.4
       - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
-      - run: npm install
-      - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" npm run ci-build
+      - run: yarn install
+      - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" yarn ci-build
