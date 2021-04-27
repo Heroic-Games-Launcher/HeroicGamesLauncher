@@ -8,7 +8,7 @@ import LanguageSelector, {
   FlagPosition
 } from 'src/components/UI/LanguageSelector'
 
-import { ipcRenderer } from 'electron'
+import { IpcRenderer } from 'electron'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
 
@@ -20,6 +20,9 @@ interface Props {
 
 export default function Login({ refresh }: Props) {
   const { t, i18n } = useTranslation('login')
+  const { ipcRenderer } = window.require('electron') as {
+    ipcRenderer : IpcRenderer
+  }
 
   const [input, setInput] = useState('')
   const [status, setStatus] = useState({
