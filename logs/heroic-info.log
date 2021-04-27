@@ -1,0 +1,10 @@
+{"message":"Attempting to read config for heroic ","service":"readConfig","level":"info","timestamp":"2021-04-27 18:53:43"}
+{"message":"Attempting to unlock ","service":"unlock","level":"info","timestamp":"2021-04-27 18:53:43"}
+{"message":"Attempting to read config for heroic ","service":"readConfig","level":"info","timestamp":"2021-04-27 18:53:43"}
+{"message":"Attempting to check for game updates ","service":"checkGameUpdates","level":"info","timestamp":"2021-04-27 18:53:43"}
+{"message":"Attempting to check heroic version ","service":"checkVersion","level":"info","timestamp":"2021-04-27 18:53:48"}
+{"message":"Attempting to read config for heroic ","service":"readConfig","level":"info","timestamp":"2021-04-27 18:55:43"}
+{"message":"Attempting to unlock ","service":"unlock","level":"info","timestamp":"2021-04-27 18:55:43"}
+{"message":"Attempting to read config for heroic ","service":"readConfig","level":"info","timestamp":"2021-04-27 18:55:43"}
+{"message":"Attempting to check for game updates ","service":"checkGameUpdates","level":"info","timestamp":"2021-04-27 18:55:43"}
+{"message":"Attempting to check heroic version ","service":"checkVersion","level":"info","timestamp":"2021-04-27 18:55:47"}
