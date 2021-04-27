@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-@import '~@fontsource/rubik/index.css';
-@import '~@fontsource/cabin/index.css';
-=======
 * {
   box-sizing: border-box;
 }
@@ -639,7 +635,6 @@
   line-height: 27px;
   color: var(--text-primary);
 }
->>>>>>> f6dce88 (fix: use same position for no games text (fixes #175) (#179))
 
 * {
   box-sizing: border-box;

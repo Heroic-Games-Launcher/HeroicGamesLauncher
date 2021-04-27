@@ -38,11 +38,7 @@ export const Library = ({ library }: Props) => {
           gameListLayout: layout !== 'grid'
         })}
       >
-<<<<<<< HEAD:src/screens/Library/index.tsx
-        {!!library.length &&
-=======
         {!!library.length && (
->>>>>>> f6dce88 (fix: use same position for no games text (fixes #175) (#179)):src/components/Library.tsx
           library.map(
             ({
               title,
@@ -78,12 +74,8 @@ export const Library = ({ library }: Props) => {
                 />
               )
             }
-<<<<<<< HEAD:src/screens/Library/index.tsx
-          )}
-=======
           )
         )}
->>>>>>> f6dce88 (fix: use same position for no games text (fixes #175) (#179)):src/components/Library.tsx
       </div>
       <button id="backToTopBtn" onClick={backToTop}>
         <ArrowDropUp className="material-icons" />
