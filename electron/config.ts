@@ -4,21 +4,24 @@ import {
   readFileSync,
   readdirSync,
   writeFileSync
-} from 'graceful-fs'
-import { userInfo as user } from 'os'
+} from 'graceful-fs';
+import { userInfo as user } from 'os';
 
-import { AppSettings, GlobalConfigVersion,  WineInstallation } from './types'
+import {
+  AppSettings,
+  GlobalConfigVersion,
+  WineInstallation
+} from './types';
 import { User } from './legendary_utils/user';
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
+  heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
   home
-} from './constants'
-import {
-  execAsync
-} from './utils'
+} from './constants';
+import { execAsync } from './utils';
 
 /**
  * This class does config handling.
@@ -262,9 +265,14 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getSettings(): Promise<AppSettings> {
+    if(!existsSync(heroicGamesConfigPath)){
+      mkdirSync(heroicGamesConfigPath, {recursive: true})
+    }
+
     if (!existsSync(heroicConfigPath)) {
       return await this.getFactoryDefaults()
     }
+
     let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
     settings = {...(await this.getFactoryDefaults()), ...settings.defaultSettings} as AppSettings
     return settings
@@ -325,6 +333,4 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 }
 
-export {
-  GlobalConfig
-}
+export { GlobalConfig };
