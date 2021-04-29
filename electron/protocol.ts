@@ -4,7 +4,11 @@ import { LegendaryGame } from './games'
 
 // TODO(adityaruplaha): Translate strings used here.
 export async function handleProtocol(window : BrowserWindow, url : string) {
-  const [command, args_string] = url.split('://')[1].split('?')
+  const [scheme, path] = url.split('://')
+  if (!url || scheme != 'heroic' || !path) {
+    return
+  }
+  const [command, args_string] = path.split('?')
   const args = new Map<string, string>()
   args_string.split(',').forEach((arg) => {
     const [k, v] = arg.split('=')
