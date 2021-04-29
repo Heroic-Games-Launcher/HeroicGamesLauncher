@@ -357,7 +357,7 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
   let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
 
   if (tool === 'runExe') {
-    command = `WINEPREFIX=${winePrefix} ${wineBin} '${exe}'`
+    command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
   console.log({ command })
