@@ -1,6 +1,0 @@
-{"message":"Failed to register protocol with OS","service":"ipcMain::registerheroicprotocol","level":"error","timestamp":"2021-04-30 17:59:46:79:+01:00"}
-{"message":"Attempting to read config for heroic ","service":"ipcMain::readConfig","level":"info","timestamp":"2021-04-30 17:59:52:54:+01:00"}
-{"message":"Attempting to unlock ","service":"ipcMain::unlock","level":"info","timestamp":"2021-04-30 17:59:52:54:+01:00"}
-{"message":"Attempting to read config for heroic ","service":"ipcMain::readConfig","level":"info","timestamp":"2021-04-30 17:59:52:55:+01:00"}
-{"message":"Attempting to check for game updates ","service":"ipcMain::checkGameUpdates","level":"info","timestamp":"2021-04-30 17:59:52:57:+01:00"}
-{"message":"Attempting to check heroic version ","service":"ipcMain::checkVersion","level":"info","timestamp":"2021-04-30 17:59:57:04:+01:00"}
