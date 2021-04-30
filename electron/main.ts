@@ -370,11 +370,11 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', () => {Logger.info({message: 'Attempting to check for game updates ', service: 'ipcMain::checkGameUpdates'}); LegendaryGame.checkGameUpdates()})
+ipcMain.handle('checkGameUpdates', () => {Logger.info({message: 'Attempting to check for game updates ', service: 'ipcMain::checkGameUpdates'}); return LegendaryGame.checkGameUpdates()})
 
-ipcMain.handle('checkVersion', () => {Logger.info({message: 'Attempting to check heroic version ', service: 'ipcMain::checkVersion'}); checkForUpdates()})
+ipcMain.handle('checkVersion', () => {Logger.info({message: 'Attempting to check heroic version ', service: 'ipcMain::checkVersion'}); return checkForUpdates()})
 
-ipcMain.handle('getMaxCpus', () => {Logger.info({message: 'Attempting to get max cpus ', service: 'ipcMain::getMaxCpus'}); cpus().length})
+ipcMain.handle('getMaxCpus', () => {Logger.info({message: 'Attempting to get max cpus ', service: 'ipcMain::getMaxCpus'}); return cpus().length})
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   Logger.info({message: `Attempting to get game info for ${game} `, service: 'ipcMain::getGameInfo'})
@@ -384,16 +384,16 @@ ipcMain.handle('getGameInfo', async (event, game) => {
   return info
 })
 
-ipcMain.handle('getUserInfo', () => {Logger.info({message: 'Attempting to get user info ', service: 'ipcMain::getUserInfo'}); User.getUserInfo()})
+ipcMain.handle('getUserInfo', () => {Logger.info({message: 'Attempting to get user info ', service: 'ipcMain::getUserInfo'}); return User.getUserInfo()})
 
 // Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', () => {Logger.info({message: 'Attempting to check if user is logged in ', service: 'ipcMain::isLoggedIn'}); User.isLoggedIn()})
+ipcMain.handle('isLoggedIn', () => {Logger.info({message: 'Attempting to check if user is logged in ', service: 'ipcMain::isLoggedIn'}); return User.isLoggedIn()})
 
-ipcMain.handle('login', async (event, sid) => {Logger.info({message: 'Attempting to log user in ', service: 'ipcMain::login'}); await User.login(sid)})
+ipcMain.handle('login', async (event, sid) => {Logger.info({message: 'Attempting to log user in ', service: 'ipcMain::login'}); return await User.login(sid)})
 
-ipcMain.handle('logout', async () => {Logger.info({message: 'Attempting to logout user ', service: 'ipcMain::logout'}); await User.logout()})
+ipcMain.handle('logout', async () => {Logger.info({message: 'Attempting to logout user ', service: 'ipcMain::logout'}); return await User.logout()})
 
-ipcMain.handle('getAlternativeWine', () => {Logger.info({message: 'Attempting to get alternative wine(s) ', service: 'ipcMain::getAlternativeWine'}); GlobalConfig.get().getAlternativeWine()})
+ipcMain.handle('getAlternativeWine', () => {Logger.info({message: 'Attempting to get alternative wine(s) ', service: 'ipcMain::getAlternativeWine'}); return GlobalConfig.get().getAlternativeWine()})
 
 ipcMain.handle('readConfig', async (event, config_class) =>  {
   Logger.info({message: 'Attempting to read config for heroic ', service: 'ipcMain::readConfig'});
