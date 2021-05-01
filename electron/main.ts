@@ -195,20 +195,20 @@ if (!gotTheLock) {
       fallbackLng: 'en',
       lng: language,
       supportedLngs: [
+        'cs',
         'de',
         'en',
         'es',
         'fr',
+        'hu',
+        'it',
+        'ml',
         'nl',
         'pl',
         'pt',
         'ru',
-        'tr',
-        'hu',
-        'it',
-        'ml',
-        'cs',
-        'sv'
+        'sv',
+        'tr'
       ]
     })
 
