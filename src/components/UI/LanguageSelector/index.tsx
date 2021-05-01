@@ -32,6 +32,7 @@ export default function LanguageSelector({
     pl: 'Polski',
     pt: 'Português',
     ru: 'Русский',
+    sv: 'Svenska',
     tr: 'Türkçe'
   }
 
@@ -47,6 +48,7 @@ export default function LanguageSelector({
     pl: '🇵🇱',
     pt: '🇵🇹',
     ru: '🇷🇺',
+    sv: '🇸🇪',
     tr: '🇹🇷'
   }
 

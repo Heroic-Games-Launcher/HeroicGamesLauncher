@@ -207,7 +207,8 @@ if (!gotTheLock) {
         'hu',
         'it',
         'ml',
-        'cs'
+        'cs',
+        'sv'
       ]
     })
 
