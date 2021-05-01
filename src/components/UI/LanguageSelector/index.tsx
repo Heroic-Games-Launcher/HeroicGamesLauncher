@@ -37,6 +37,7 @@ export default function LanguageSelector({
   }
 
   const languageFlags: { [key: string]: string } = {
+    cs: '🇨🇿',
     de: '🇩🇪',
     en: '🇬🇧',
     es: '🇪🇸',
