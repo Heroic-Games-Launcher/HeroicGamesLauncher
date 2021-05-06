@@ -48,7 +48,7 @@ const GameCard = ({
   isInstalled,
   logo,
   coverList,
-  size,
+  size = '',
   hasUpdate
 }: Card) => {
   const [progress, setProgress] = useState({
@@ -183,7 +183,7 @@ const GameCard = ({
           </div>
         ) : (
           <>
-            {<div className="gameListInfo">{size}</div>}
+            {<div className="gameListInfo">{isInstalled ? size : '---'}</div>}
             <span className="gameTitleList">{title}</span>
             {
               <span className="icons">
