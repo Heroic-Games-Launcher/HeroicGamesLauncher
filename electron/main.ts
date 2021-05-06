@@ -352,14 +352,13 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')
-    winePrefix = `'${protonPrefix}/pfx'`
+    winePrefix = `${protonPrefix}/pfx`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} 
-    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
+  let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
 
   if (tool === 'runExe') {
-    command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
+    command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
   console.log({ command })
