@@ -32,10 +32,12 @@ export default function LanguageSelector({
     pl: 'Polski',
     pt: 'Português',
     ru: 'Русский',
+    sv: 'Svenska',
     tr: 'Türkçe'
   }
 
   const languageFlags: { [key: string]: string } = {
+    cs: '🇨🇿',
     de: '🇩🇪',
     en: '🇬🇧',
     es: '🇪🇸',
@@ -47,6 +49,7 @@ export default function LanguageSelector({
     pl: '🇵🇱',
     pt: '🇵🇹',
     ru: '🇷🇺',
+    sv: '🇸🇪',
     tr: '🇹🇷'
   }
 
