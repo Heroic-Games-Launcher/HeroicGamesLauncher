@@ -199,7 +199,7 @@ class Library {
     fileName = `${libraryPath}/${fileName}`
     const { app_name, metadata, asset_info } = JSON.parse(readFileSync(fileName, 'utf-8'))
     const { namespace } = asset_info
-    const is_game = namespace!='ue' ? true : false
+    const is_game = namespace !== 'ue' ? true : false
     const {
       description,
       shortDescription = '',
@@ -209,14 +209,12 @@ class Library {
       dlcItemList,
       releaseInfo,
       categories,
-      customAttributes : {
-        CloudSaveFolder,
-        FolderName
-      }
+      customAttributes
     } = metadata
 
-
     const dlcs: string[] = []
+    const CloudSaveFolder = customAttributes?.CloudSaveFolder
+    const FolderName = customAttributes?.FolderName
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -227,7 +225,6 @@ class Library {
         }
       )
     }
-
 
     let is_ue_asset = false
     let is_ue_project = false
@@ -255,7 +252,7 @@ class Library {
       }
     )
 
-    const cloud_save_enabled = is_game && Boolean(CloudSaveFolder)
+    const cloud_save_enabled = is_game && Boolean(CloudSaveFolder?.value)
     const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
     const installFolder = FolderName ? FolderName.value : app_name
 
