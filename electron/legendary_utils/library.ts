@@ -1,11 +1,11 @@
-import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
 
 import { GameConfig } from '../game_config'
 import { GameInfo, InstalledInfo, KeyImage, RawGameJSON } from '../types'
 import { LegendaryGame } from '../games'
 import { execAsync, isOnline } from '../utils'
-import { legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
+import { installed, legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
 
 /**
  * Legendary Library.
@@ -161,6 +161,12 @@ class Library {
   public changeGameInstallPath(appName : string, newPath : string) {
     this.library.get(appName).install.install_path = newPath
     this.installedGames.get(appName).install_path = newPath
+
+    // Modify Legendary installed.json file:
+    const file = JSON.parse(readFileSync(installed, 'utf8'))
+    const game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
   }
 
   /**
