@@ -195,19 +195,20 @@ if (!gotTheLock) {
       fallbackLng: 'en',
       lng: language,
       supportedLngs: [
+        'cs',
         'de',
         'en',
         'es',
         'fr',
+        'hu',
+        'it',
+        'ml',
         'nl',
         'pl',
         'pt',
         'ru',
-        'tr',
-        'hu',
-        'it',
-        'ml',
-        'cs'
+        'sv',
+        'tr'
       ]
     })
 
@@ -351,14 +352,13 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')
-    winePrefix = `'${protonPrefix}/pfx'`
+    winePrefix = `${protonPrefix}/pfx`
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} 
-    ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
+  let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
 
   if (tool === 'runExe') {
-    command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
+    command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
   console.log({ command })
