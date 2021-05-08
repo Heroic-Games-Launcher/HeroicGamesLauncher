@@ -33,7 +33,6 @@ export default function Header({
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
   const hasUEAssets = !data.filter(game => game.is_game).length
-  console.log(gameUpdates);
 
   const hasUpdates = gameUpdates.length
   const history = useHistory()
