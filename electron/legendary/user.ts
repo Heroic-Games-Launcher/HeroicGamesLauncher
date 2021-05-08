@@ -11,7 +11,7 @@ import {
 } from '../constants'
 import {userInfo as user} from 'os'
 
-export class User {
+export class LegendaryUser {
   public static async login(sid: string) {
     return (await execAsync(`${legendaryBin} auth --sid ${sid}`)).stdout.includes('Successfully logged in')
   }
@@ -29,7 +29,7 @@ export class User {
   }
 
   public static getUserInfo() : UserInfo {
-    if (User.isLoggedIn()) {
+    if (LegendaryUser.isLoggedIn()) {
       return {...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username}
     }
     return { account_id: '', displayName: null }

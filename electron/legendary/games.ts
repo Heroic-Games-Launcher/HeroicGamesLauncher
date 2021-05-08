@@ -9,7 +9,8 @@ import { ExtraInfo, GameStatus } from '../types';
 import { Game } from '../games';
 import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
-import { Library } from './library'
+import { LegendaryLibrary } from './library'
+import { LegendaryUser } from './user';
 import {
   errorHandler,
   execAsync,
@@ -22,7 +23,6 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
-import { User } from './user';
 class LegendaryGame extends Game {
   public appName: string
   public state : GameStatus
@@ -41,22 +41,22 @@ class LegendaryGame extends Game {
   }
 
   /**
-   * Alias for `Library.listUpdateableGames`
+   * Alias for `LegendaryLibrary.listUpdateableGames`
    */
   public static async checkGameUpdates() {
-    if (!User.isLoggedIn()){
+    if (!LegendaryUser.isLoggedIn()){
       return []
     }
-    return await Library.get().listUpdateableGames()
+    return await LegendaryLibrary.get().listUpdateableGames()
   }
 
   /**
-   * Alias for `Library.getGameInfo(this.appName)`
+   * Alias for `LegendaryLibrary.getGameInfo(this.appName)`
    *
    * @returns GameInfo
    */
   public async getGameInfo() {
-    return await Library.get().getGameInfo(this.appName)
+    return await LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
   private async getProductSlug(namespace: string) {
@@ -140,7 +140,7 @@ class LegendaryGame extends Game {
    * @returns If game has an update.
    */
   public async hasUpdate() {
-    return (await Library.get().listUpdateableGames()).includes(this.appName)
+    return (await LegendaryLibrary.get().listUpdateableGames()).includes(this.appName)
   }
 
   /**
@@ -157,7 +157,7 @@ class LegendaryGame extends Game {
     const installpath = info.install.install_path
     await execAsync(`mv -f ${installpath} ${newInstallPath}`)
       .then(() => {
-        Library.get().changeGameInstallPath(this.appName, newInstallPath)
+        LegendaryLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
       })
       .catch(console.log)
     this.state.status = 'done'
@@ -211,13 +211,13 @@ class LegendaryGame extends Game {
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
     console.log(`Installing ${this.appName} with:`, command)
     try {
-      Library.get().installState(this.appName, true)
+      LegendaryLibrary.get().installState(this.appName, true)
       return await execAsync(command, execOptions).then((v) => {
         this.state.status = 'done'
         return v
       })
     } catch (error) {
-      Library.get().installState(this.appName, false)
+      LegendaryLibrary.get().installState(this.appName, false)
       return errorHandler({error, logPath}).then((v) => {
         this.state.status = 'done'
         return v
@@ -229,7 +229,7 @@ class LegendaryGame extends Game {
     this.state.status = 'uninstalling'
     const command = `${legendaryBin} uninstall ${this.appName} -y`
     console.log(`Uninstalling ${this.appName} with:`, command)
-    Library.get().installState(this.appName, false)
+    LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
       return v

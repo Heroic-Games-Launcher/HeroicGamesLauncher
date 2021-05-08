@@ -28,8 +28,8 @@ import { DXVK } from './dxvk'
 import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
-import { Library } from './legendary/library'
-import { User } from './legendary/user'
+import { LegendaryLibrary } from './legendary/library'
+import { LegendaryUser } from './legendary/user';
 import {
   checkForUpdates,
   errorHandler,
@@ -80,7 +80,7 @@ function createWindow(): BrowserWindow {
   }, 2500)
 
   GlobalConfig.get()
-  Library.get()
+  LegendaryLibrary.get()
 
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -370,10 +370,10 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', () => Library.get().listUpdateableGames())
+ipcMain.handle('checkGameUpdates', () => LegendaryLibrary.get().listUpdateableGames())
 
 // Not ready to be used safely yet.
-ipcMain.handle('updateAll', () => Library.get().updateAllGames())
+ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
@@ -391,23 +391,23 @@ ipcMain.handle('getGameInfo', async (event, game) => {
   return info
 })
 
-ipcMain.handle('getUserInfo', async () => await User.getUserInfo())
+ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
 
 // Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', async () => await User.isLoggedIn())
+ipcMain.handle('isLoggedIn', async () => await LegendaryUser.isLoggedIn())
 
-ipcMain.handle('login', async (event, sid) => await User.login(sid))
+ipcMain.handle('login', async (event, sid) => await LegendaryUser.login(sid))
 
-ipcMain.handle('logout', async () => await User.logout())
+ipcMain.handle('logout', async () => await LegendaryUser.logout())
 
 ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
 
 ipcMain.handle('readConfig', async (event, config_class) =>  {
   switch (config_class) {
   case 'library':
-    return await Library.get().getGames('info')
+    return await LegendaryLibrary.get().getGames('info')
   case 'user':
-    return (await User.getUserInfo()).displayName
+    return (await LegendaryUser.getUserInfo()).displayName
   default:
     console.log(`Which idiot requested '${config_class}' using readConfig?`)
     return {}
@@ -433,8 +433,8 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
   }
 })
 
-ipcMain.handle('refreshLibrary', async () => {
-  return await Library.get().refresh()
+ipcMain.handle('refreshLegendaryLibrary', async () => {
+  return await LegendaryLibrary.get().refresh()
 })
 
 ipcMain.handle('launch', (event, game) => {
@@ -582,7 +582,7 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
 ipcMain.handle(
   'changeInstallPath',
   async (event, [appName, newPath]: string[]) => {
-    Library.get().changeGameInstallPath(appName, newPath)
+    LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
     console.log(`Finished moving ${appName} to ${newPath}.`)
   }
 )
