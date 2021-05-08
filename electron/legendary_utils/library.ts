@@ -54,6 +54,8 @@ class Library {
    */
   public async refresh() {
     await execAsync(`${legendaryBin} list-games --include-ue`)
+
+    this.refreshInstalled()
     this.loadAll()
   }
 
