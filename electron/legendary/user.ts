@@ -13,16 +13,19 @@ import {userInfo as user} from 'os'
 
 export class User {
   public static async login(sid: string) {
-    await execAsync(`${legendaryBin} auth --sid ${sid}`)
+    return (await execAsync(`${legendaryBin} auth --sid ${sid}`)).stdout.includes('Successfully logged in')
   }
 
   public static async logout() {
     await execAsync(`${legendaryBin} auth --delete`)
+    // Should we do this?
     await execAsync(`${legendaryBin} cleanup`)
   }
 
-  public static isLoggedIn() {
-    return existsSync(userInfo)
+  public static async isLoggedIn() {
+    return existsSync(userInfo) || await execAsync(`${legendaryBin} status`).then(
+      ({stdout}) => !stdout.includes('Epic account: <not logged in>')
+    )
   }
 
   public static getUserInfo() : UserInfo {

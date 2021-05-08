@@ -15,10 +15,6 @@ import {
   platform
 } from 'os'
 import {
-  exec,
-  spawn
-} from 'child_process'
-import {
   existsSync,
   rmdirSync,
   unlinkSync,
@@ -29,11 +25,11 @@ import i18next from 'i18next'
 import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
+import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
-import { LegendaryGame } from './games'
-import { Library } from './legendary_utils/library'
-import { User } from './legendary_utils/user'
+import { Library } from './legendary/library'
+import { User } from './legendary/user'
 import {
   checkForUpdates,
   errorHandler,
@@ -297,12 +293,8 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.on('kill', (event, game) => {
-  // until the legendary bug gets fixed, kill legendary on mac
-  // not a perfect solution but it's the only choice for now
-  game = process.platform === 'darwin' ? 'legendary' : game
-  console.log('killing', game)
-  return spawn('pkill', ['-f', game])
+ipcMain.on('kill', async (event, appName) => {
+  return await Game.get(appName).stop()
 })
 
 ipcMain.on('quit', async () => handleExit())
@@ -373,12 +365,16 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
   }
 
   console.log({ command })
-  return exec(command)
+  return await execAsync(command)
 })
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', () => LegendaryGame.checkGameUpdates())
+ipcMain.handle('checkGameUpdates', () => Library.get().listUpdateableGames())
+
+// Not ready to be used safely yet.
+ipcMain.handle('updateAll', () => Library.get().updateAllGames())
+
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
@@ -389,16 +385,16 @@ ipcMain.on('createNewWindow', (e, url) =>
 )
 
 ipcMain.handle('getGameInfo', async (event, game) => {
-  const obj = LegendaryGame.get(game)
+  const obj = Game.get(game)
   const info = await obj.getGameInfo()
   info.extra = await obj.getExtraInfo(info.namespace)
   return info
 })
 
-ipcMain.handle('getUserInfo', () => User.getUserInfo())
+ipcMain.handle('getUserInfo', async () => await User.getUserInfo())
 
 // Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', () => User.isLoggedIn())
+ipcMain.handle('isLoggedIn', async () => await User.isLoggedIn())
 
 ipcMain.handle('login', async (event, sid) => await User.login(sid))
 
@@ -411,7 +407,7 @@ ipcMain.handle('readConfig', async (event, config_class) =>  {
   case 'library':
     return await Library.get().getGames('info')
   case 'user':
-    return User.getUserInfo().displayName
+    return (await User.getUserInfo()).displayName
   default:
     console.log(`Which idiot requested '${config_class}' using readConfig?`)
     return {}
@@ -444,7 +440,7 @@ ipcMain.handle('refreshLibrary', async () => {
 ipcMain.handle('launch', (event, game) => {
   console.log('launching', game)
 
-  return LegendaryGame.get(game).launch().then(({ stderr }) => {
+  return Game.get(game).launch().then(({ stderr }) => {
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
@@ -493,13 +489,13 @@ ipcMain.handle('install', async (event, args) => {
     console.log(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return LegendaryGame.get(game).install(path).then(
+  return Game.get(game).install(path).then(
     () => { console.log('finished installing') }
   ).catch((res) => res)
 })
 
 ipcMain.handle('uninstall', async (event, game) => {
-  return LegendaryGame.get(game).uninstall().then(
+  return Game.get(game).uninstall().then(
     () => { console.log('finished uninstalling') }
   ).catch(console.log)
 })
@@ -509,14 +505,14 @@ ipcMain.handle('repair', async (event, game) => {
     console.log(`App offline, skipping repair for game '${game}'.`)
     return
   }
-  return LegendaryGame.get(game).repair().then(
+  return Game.get(game).repair().then(
     () => console.log('finished repairing')
   ).catch(console.log)
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
-  const {stderr, stdout} = await LegendaryGame.get(game).import(path)
+  const {stderr, stdout} = await Game.get(game).import(path)
   console.log(`${stdout} - ${stderr}`)
 })
 
@@ -525,7 +521,7 @@ ipcMain.handle('updateGame', async (e, game) => {
     console.log(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return LegendaryGame.get(game).update().then(
+  return Game.get(game).update().then(
     () => { console.log('finished updating') }
   ).catch((res) => res)
 })
@@ -579,7 +575,7 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 })
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  const newPath = await LegendaryGame.get(appName).moveInstall(path)
+  const newPath = await Game.get(appName).moveInstall(path)
   console.log(`Finished moving ${appName} to ${newPath}.`)
 })
 
@@ -615,7 +611,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
     return
   }
 
-  const { stderr, stdout } = await LegendaryGame.get(appName).syncSaves(arg, path)
+  const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
   console.log(`${stdout} - ${stderr}`)
   return `\n ${stdout} - ${stderr}`
 })

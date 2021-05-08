@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron'
-import { LegendaryGame } from './games'
+import { Game } from './games'
 
 export async function handleProtocol(window : BrowserWindow, url : string) {
   const [scheme, path] = url.split('://')
@@ -17,7 +17,7 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
     return console.log('Received ping!', args)
   }
   const appName = args.get('appName')
-  const game = LegendaryGame.get(appName)
+  const game = Game.get(appName)
   if (command === 'launch') {
     const { is_installed } = await game.getGameInfo()
     if (!is_installed) {

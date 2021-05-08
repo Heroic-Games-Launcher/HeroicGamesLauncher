@@ -13,7 +13,7 @@ import {
   KeyImage,
   RawGameJSON
 } from '../types';
-import { LegendaryGame } from '../games';
+import { LegendaryGame } from './games';
 import {
   execAsync,
   isOnline
