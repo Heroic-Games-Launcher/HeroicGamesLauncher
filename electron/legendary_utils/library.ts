@@ -128,6 +128,7 @@ class Library {
     const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
     const { stdout } = await execAsync(command)
     const result = stdout.split('\n')
+    result.pop()
     return result
   }
 
