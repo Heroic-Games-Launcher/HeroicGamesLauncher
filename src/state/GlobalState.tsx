@@ -104,6 +104,8 @@ export class GlobalState extends PureComponent<Props> {
       })
     case 'unreal':
       return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
+    case 'updates':
+      return library.filter(game => this.state.gameUpdates.includes(game.app_name))
     default:
       return library.filter((game) => game.is_game)
     }
@@ -142,9 +144,9 @@ export class GlobalState extends PureComponent<Props> {
             ? t('notify.install.canceled')
             : t('notify.install.finished')
         notify([title, message])
-        return this.refresh()
+        return this.refreshLibrary()
       }
-      this.refresh()
+      this.refreshLibrary()
       return notify([title, 'Game Imported'])
     }
 

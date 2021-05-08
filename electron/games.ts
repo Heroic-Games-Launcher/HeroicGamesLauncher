@@ -1,7 +1,6 @@
 import {
   existsSync,
-  mkdirSync,
-  renameSync
+  mkdirSync
 } from 'graceful-fs'
 import axios from 'axios';
 
@@ -165,8 +164,12 @@ class LegendaryGame implements Game {
   public async moveInstall(newInstallPath : string) {
     const info = await this.getGameInfo()
     newInstallPath += '/' + info.install.install_path.split('/').slice(-1)[0]
-    renameSync(info.install.install_path, newInstallPath)
-    Library.get().changeGameInstallPath(this.appName, newInstallPath)
+    const installpath = info.install.install_path
+    await execAsync(`mv -f ${installpath} ${newInstallPath}`)
+      .then(() => {
+        Library.get().changeGameInstallPath(this.appName, newInstallPath)
+      })
+      .catch(console.log)
     return newInstallPath
   }
 

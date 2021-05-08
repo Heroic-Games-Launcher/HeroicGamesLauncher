@@ -1,0 +1,94 @@
+{
+  "box": {
+    "change": {
+      "message": "Detta kommer ändra installationssökvägen, är du säker?",
+      "path": "Välj ny installationssökväg",
+      "title": "Byt spelets installationssökväg"
+    },
+    "choose": "Ok",
+    "importpath": "Välj spelmapp för import",
+    "installpath": "Välj installationssökväg",
+    "move": {
+      "message": "Det kan ta lång tid, är du säker??",
+      "path": "Välj vart du vill flytta",
+      "title": "Flytta var spelet är installerat"
+    },
+    "no": "Nej",
+    "repair": {
+      "message": "Vill du försöka reparera spelet? Det kan ta lång tid.",
+      "title": "Verifiera och reparera"
+    },
+    "stopInstall": {
+      "keepInstalling": "Fortsätt installationen",
+      "message": "Vill du behålla nedladdade filer?",
+      "title": "Avbryt installationen"
+    },
+    "uninstall": {
+      "message": "Vill du avinstallera spelet?",
+      "title": "Avinstallera"
+    },
+    "update": {
+      "message": "Det finns en speluppdatering, vill du uppdatera?",
+      "title": "Spelet behöver uppdateras"
+    },
+    "yes": "Ja"
+  },
+  "button": {
+    "cancel": "Avbryt",
+    "import": "Importera",
+    "install": "Installera",
+    "uninstall": "Avinstallera"
+  },
+  "disabled": "Inaktiverad",
+  "enabled": "Aktiverad",
+  "gamecard": {
+    "moving": "Flyttar",
+    "repairing": "Reparerar"
+  },
+  "info": {
+    "path": "Installationssökväg",
+    "size": "Storlek",
+    "syncsaves": "Synkronisera sparfiler",
+    "version": "Version"
+  },
+  "install": {
+    "another": "Installera i en annan sökväg",
+    "default": "Installera",
+    "import": "Importera spel"
+  },
+  "label": {
+    "cancel": {
+      "update": "Avbryt uppdatering"
+    },
+    "playing": {
+      "start": "Spela",
+      "stop": "Avsluta spel"
+    },
+    "saves": {
+      "syncing": "Synkroniserar sparfiler"
+    }
+  },
+  "specs": {
+    "minimum": "Minimum",
+    "recommended": "Rekommenderad"
+  },
+  "status": {
+    "hasUpdates": "Det finns en ny version tillgänglig!",
+    "installed": "Installerad",
+    "installing": "Installerar",
+    "moving": "Flyttar installationen, var god dröj",
+    "notinstalled": "Detta spelet är inte installerat",
+    "reparing": "Reparerar speler, var god dröj",
+    "updating": "Updaterar spelet"
+  },
+  "submenu": {
+    "change": "Byt installationssökväg",
+    "log": "Senaste loggen",
+    "move": "Flytta spelet",
+    "protondb": "Kontrollera kompatibilitet",
+    "settings": "Inställningar",
+    "store": "Butikssida",
+    "update": "Updatera Spelet",
+    "verify": "Verifiera och reparera"
+  }
+}
