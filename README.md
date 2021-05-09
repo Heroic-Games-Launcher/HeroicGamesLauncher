@@ -98,7 +98,7 @@ Installation via the pacman file:
 
 Download the `heroic-x.x.x.pacman` from the Releases section
 
-Navigate to the file directory and run:
+Navigate to the directory containing the downloaded file and run:
 
 ```bash
 sudo pacman -U heroic-x.x.x.pacman
