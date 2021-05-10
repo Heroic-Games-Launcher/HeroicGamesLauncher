@@ -1,11 +1,11 @@
-import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
 
 import { GameConfig } from '../game_config'
 import { GameInfo, InstalledInfo, KeyImage, RawGameJSON } from '../types'
 import { LegendaryGame } from '../games'
 import { execAsync, isOnline } from '../utils'
-import { legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
+import { installed, legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
 
 /**
  * Legendary Library.
@@ -54,6 +54,8 @@ class Library {
    */
   public async refresh() {
     await execAsync(`${legendaryBin} list-games --include-ue`)
+
+    this.refreshInstalled()
     this.loadAll()
   }
 
@@ -126,6 +128,7 @@ class Library {
     const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
     const { stdout } = await execAsync(command)
     const result = stdout.split('\n')
+    result.pop()
     return result
   }
 
@@ -159,6 +162,12 @@ class Library {
   public changeGameInstallPath(appName : string, newPath : string) {
     this.library.get(appName).install.install_path = newPath
     this.installedGames.get(appName).install_path = newPath
+
+    // Modify Legendary installed.json file:
+    const file = JSON.parse(readFileSync(installed, 'utf8'))
+    const game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
   }
 
   /**
@@ -199,7 +208,7 @@ class Library {
     fileName = `${libraryPath}/${fileName}`
     const { app_name, metadata, asset_info } = JSON.parse(readFileSync(fileName, 'utf-8'))
     const { namespace } = asset_info
-    const is_game = namespace!='ue' ? true : false
+    const is_game = namespace !== 'ue' ? true : false
     const {
       description,
       shortDescription = '',
@@ -209,14 +218,12 @@ class Library {
       dlcItemList,
       releaseInfo,
       categories,
-      customAttributes : {
-        CloudSaveFolder,
-        FolderName
-      }
+      customAttributes
     } = metadata
 
-
     const dlcs: string[] = []
+    const CloudSaveFolder = customAttributes?.CloudSaveFolder
+    const FolderName = customAttributes?.FolderName
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -227,7 +234,6 @@ class Library {
         }
       )
     }
-
 
     let is_ue_asset = false
     let is_ue_project = false
@@ -255,7 +261,7 @@ class Library {
       }
     )
 
-    const cloud_save_enabled = is_game && Boolean(CloudSaveFolder)
+    const cloud_save_enabled = is_game && Boolean(CloudSaveFolder?.value)
     const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
     const installFolder = FolderName ? FolderName.value : app_name
 

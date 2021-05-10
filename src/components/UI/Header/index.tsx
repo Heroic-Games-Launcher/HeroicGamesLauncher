@@ -28,10 +28,12 @@ export default function Header({
   title
 }: Props) {
   const { t } = useTranslation()
-  const { filter, libraryStatus, layout } = useContext(ContextProvider)
-  const haveDownloads = libraryStatus.filter(
+  const { filter, libraryStatus, layout, data, gameUpdates } = useContext(ContextProvider)
+  const hasDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
+  const hasUEAssets = !data.filter(game => game.is_game).length
+  const hasUpdates = gameUpdates.length
   const history = useHistory()
 
   const link = goTo ? goTo : ''
@@ -66,20 +68,28 @@ export default function Header({
             >
               {t('Not Ready')}
             </span>
-            <span
+            {!!hasDownloads && <span
               className={filter === 'downloading' ? 'selected' : ''}
               onClick={() => handleFilter('downloading')}
             >
               {`${t('Downloading')} ${
-                haveDownloads > 0 ? `(${haveDownloads})` : ''
+                hasDownloads > 0 ? `(${hasDownloads})` : ''
               }`}
-            </span>
-            <span
+            </span>}
+            {!!hasUpdates && <span
+              className={filter === 'updates' ? 'selected' : ''}
+              onClick={() => handleFilter('updates')}
+            >
+              {`${t('Updates', 'Updates')} ${
+                hasUpdates > 0 ? `(${hasUpdates})` : ''
+              }`}
+            </span>}
+            {!!hasUEAssets && <span
               className={filter === 'unreal' ? 'selected' : ''}
               onClick={() => handleFilter('unreal')}
             >
               {t('Unreal Marketplace')}
-            </span>
+            </span>}
           </span>
         )}
         {numberOfGames !== undefined && numberOfGames > 0 && (
