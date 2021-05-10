@@ -7,7 +7,7 @@ const Logger = createLogger({
   exitOnError: false,
   format: format.combine(
     format.timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss:SS:Z'
+      format: 'DD-MM-YYYY HH:mm:ss:SS:Z'
     }),
     format.errors({ stack: true }),
     format.splat(),
