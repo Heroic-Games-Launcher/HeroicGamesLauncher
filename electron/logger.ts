@@ -7,27 +7,31 @@ import('winston-daily-rotate-file')
 
 const heroicCrashes = new transports.DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
-  filename: 'logs/heroic/crashes-%DATE%.log',
+  dirname: './logs/heroic',
+  filename: 'crashes-%DATE%.log',
   maxFiles: '2d',
   maxSize: '2m'
 })
 const heroicDebug = new transports.DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
-  filename: 'logs/heroic/debug-%DATE%.log',
+  dirname: './logs/heroic',
+  filename: 'debug-%DATE%.log',
   level: 'debug',
   maxFiles: '1d',
   maxSize: '10m'
 })
 const heroicErrors = new transports.DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
-  filename: 'logs/heroic/errors-%DATE%.log',
+  dirname: './logs/heroic',
+  filename: 'errors-%DATE%.log',
   level: 'warn',
   maxFiles: '5d',
   maxSize: '3m'
 })
 const heroicInfo = new transports.DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
-  filename: 'logs/heroic/info-%DATE%.log',
+  dirname: './logs/heroic',
+  filename: 'info-%DATE%.log',
   level: 'info',
   maxFiles: '2d',
   maxSize: '5m'
