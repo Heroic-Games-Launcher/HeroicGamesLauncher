@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -30,10 +30,14 @@
     "directories": {
       "buildResources": "public"
     },
-    "protocols": [{
-      "name": "heroic",
-      "schemes": ["heroic"]
-    }],
+    "protocols": [
+      {
+        "name": "heroic",
+        "schemes": [
+          "heroic"
+        ]
+      }
+    ],
     "icon": "build/icon.icns",
     "linux": {
       "category": "Game",
@@ -65,23 +69,23 @@
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
-    "electron-is-dev": "^1.2.0",
-    "electron-util": "^0.14.2",
+    "electron-is-dev": "^2.0.0",
+    "electron-util": "^0.16.0",
     "eslint-plugin-sort-exports": "^0.3.2",
     "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "eslint-plugin-sort-keys-fix": "^1.1.1",
-    "i18next": "^19.8.7",
-    "i18next-browser-languagedetector": "^6.0.1",
-    "i18next-fs-backend": "^1.0.8",
-    "i18next-http-backend": "^1.1.0",
+    "i18next": "^20.2.2",
+    "i18next-browser-languagedetector": "^6.1.1",
+    "i18next-fs-backend": "^1.1.1",
+    "i18next-http-backend": "^1.2.2",
     "is-online": "^9.0.0",
     "pretty-bytes": "^5.6.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-i18next": "^11.8.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-i18next": "^11.8.15",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
-    "tslib": "^2.1.0",
+    "react-scripts": "4.0.3",
+    "tslib": "^2.2.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -120,9 +124,9 @@
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
-    "electron": "^11.2.0",
-    "electron-builder": "^22.9.1",
-    "electron-devtools-installer": "^3.1.1",
+    "electron": "^12.0.7",
+    "electron-builder": "^22.11.3",
+    "electron-devtools-installer": "^3.2.0",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-react": "^7.22.0",

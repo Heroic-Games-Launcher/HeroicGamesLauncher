@@ -30,7 +30,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
     let exe = ''
     const { filePaths } = await showOpenDialog({
       buttonLabel: t('box.select'),
-      filters: ['exe', 'msi'],
+      filters: [ { extensions: ['exe', 'msi'], name: 'Binaries' }],
       properties: ['openFile'],
       title: t('box.runexe.title')
     })
