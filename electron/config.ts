@@ -146,14 +146,14 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths: string[] = [
-      `${home}/.local/share/Steam`,
+      `${home}/.steam`,
       `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
     steamPaths.forEach((path) => {
-      protonPaths.push(`${path}/steamapps/common/`)
-      protonPaths.push(`${path}/compatibilitytools.d/`)
+      protonPaths.push(`${path}/steam/steamapps/common/`)
+      protonPaths.push(`${path}/root/compatibilitytools.d/`)
       return
     })
 
