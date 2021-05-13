@@ -1,3 +1,4 @@
+import { InstallProgress } from './../types';
 import {
   getGameInfo,
   handleStopInstallation,
@@ -18,6 +19,7 @@ interface Install {
   handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: 'import' | 'default' | 'another'
   isInstalling: boolean
+  progress: InstallProgress
   t: TFunction<'gamepage'>
 }
 
@@ -26,11 +28,12 @@ export async function handleInstall({
   isInstalling,
   installPath,
   handleGameStatus,
-  t
+  t,
+  progress
 }: Install) {
   if (isInstalling) {
     const { folder_name } = await getGameInfo(appName)
-    return handleStopInstallation(appName, [installPath, folder_name], t)
+    return handleStopInstallation(appName, [installPath, folder_name], t, progress)
   }
 
   if (installPath === 'default') {
@@ -43,7 +46,7 @@ export async function handleInstall({
   if (installPath === 'import') {
     const { filePaths } = await showOpenDialog({
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['gamepage:openDirectory'],
+      properties: ['openDirectory'],
       title: t('gamepage:box.importpath')
     })
 

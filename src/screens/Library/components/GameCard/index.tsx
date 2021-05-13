@@ -21,6 +21,8 @@ const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showMessageBox }
 } = remote
+const storage: Storage = window.localStorage
+
 interface Card {
   appName: string
   cover: string
@@ -51,9 +53,10 @@ const GameCard = ({
   size = '',
   hasUpdate
 }: Card) => {
-  const [progress, setProgress] = useState({
-    bytes: '0/0MB',
-    eta: '',
+  const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
+  const [progress, setProgress] = useState(previousProgress ?? {
+    bytes: '0.00MiB',
+    eta: '00:00:00',
     percent: '0.00%'
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
@@ -82,6 +85,17 @@ const GameCard = ({
           'requestGameProgress',
           appName
         )
+
+        if (progress) {
+          if (previousProgress){
+            const legendaryPercent = getProgress(progress)
+            const heroicPercent = getProgress(previousProgress)
+            const newPercent: number = Math.round((legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent)
+            progress.percent = `${newPercent}%`
+          }
+          return setProgress(progress)
+        }
+
         setProgress(progress)
       }
     }, 1500)
@@ -214,6 +228,7 @@ const GameCard = ({
         handleGameStatus,
         installPath: 'another',
         isInstalling,
+        progress,
         t
       })
     }
