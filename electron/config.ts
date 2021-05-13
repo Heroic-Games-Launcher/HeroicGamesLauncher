@@ -110,7 +110,7 @@ abstract class GlobalConfig {
     }
 
 
-    const defaultWine = { bin: '', name: '' }
+    const defaultWine = { bin: '', name: 'Default Wine - Not Found' }
     await execAsync(`which wine`)
       .then(async ({ stdout }) => {
         defaultWine.bin = stdout.split('\n')[0]
@@ -118,7 +118,7 @@ abstract class GlobalConfig {
         const version = out.split('\n')[0]
         defaultWine.name = `Wine - ${version}`
       })
-      .catch(() => console.log('Wine not installed'))
+      .catch(() => console.log('Default Wine not installed'))
 
     const altWine: Set<WineInstallation> = new Set()
 
