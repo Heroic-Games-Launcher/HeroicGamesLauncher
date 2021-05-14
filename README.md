@@ -68,6 +68,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Spanish
 - Swedish
 - Turkish
+### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
 ## Installation
 
