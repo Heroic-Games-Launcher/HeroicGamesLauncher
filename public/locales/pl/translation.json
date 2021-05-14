@@ -1,185 +1,185 @@
 {
-  "All": "Wszystkie",
-  "box": {
-    "appupdate": {
-      "message": "Dostępna jest nowa wersja Heroic do pobrania, czy chcesz aktualizować?",
-      "title": "Dostępna Nowa Wersja"
+    "All": "Wszystkie",
+    "box": {
+        "appupdate": {
+            "message": "Dostępna jest nowa wersja Heroic do pobrania, czy chcesz aktualizować?",
+            "title": "Dostępna Nowa Wersja"
+        },
+        "choose": "Wybierz",
+        "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
+        "customWine": "Wybierz plik uruchomieniowy Wine albo Proton",
+        "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
+        "error": {
+            "diskspace": {
+                "message": "Za mało miejsca na dysku",
+                "title": "Brak miejsca"
+            },
+            "generic": {
+                "message": "Bilinmeyen bir hata oluştu",
+                "title": "Bilinmeyen hata"
+            },
+            "launch": "Błąd przy uruchamianiu gry, sprawdź logi!"
+        },
+        "no": "NIE",
+        "quit": {
+            "message": "Trwają operacje, czy jesteś pewien?",
+            "title": "Wyjście"
+        },
+        "runexe": {
+            "title": "Wybierz EXE"
+        },
+        "select": "Wybierz",
+        "sync": {
+            "button": "Wybierz",
+            "error": "Nieprawidłowa ścieżka",
+            "title": "Wybierz folder zapisów gry"
+        },
+        "wineprefix": "Wybierz folder prefiksu Wine",
+        "yes": "TAK"
     },
-    "choose": "Wybierz",
-    "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
-    "customWine": "Wybierz plik uruchomieniowy Wine albo Proton",
-    "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
-    "error": {
-      "diskspace": {
-        "message": "Za mało miejsca na dysku",
-        "title": "Brak miejsca"
-      },
-      "generic": {
-        "message": "Bilinmeyen bir hata oluştu",
-        "title": "Bilinmeyen hata"
-      },
-      "launch": "Błąd przy uruchamianiu gry, sprawdź logi!"
+    "button": {
+        "sync": "Synchronizuj",
+        "syncing": "Synchronizacja",
+        "unsync": "Desynchronizacja"
     },
-    "no": "NIE",
-    "quit": {
-      "message": "Trwają operacje, czy jesteś pewien?",
-      "title": "Wyjście"
+    "Downloading": "Pobieranie",
+    "Filter": "Filtr",
+    "globalSettings": "Ustawienia Globalne",
+    "help": {
+        "general": "Synchronizuj z EGS gdy masz zainstalowane Epic Games Store w innym miejscu i nie chcesz ich pobierać ponownie",
+        "other": {
+            "part1": "Wpisz ",
+            "part2": "Opcje zaawansowane",
+            "part3": "które będą użyte przed uruchomieniem gry; ",
+            "part4": "Wpisz ",
+            "part5": "Argumenty gry",
+            "part6": " które będą dodane do wywołania gry, na przykład: ",
+            "part7": " żeby ominąć launcher w niektórych grach, etc."
+        },
+        "sync": {
+            "part1": "Heroic próbuje odgadnąć właściwy folder zapisów gier. To działa w większości przypadków. Jeżeli jednak folder nie istnieje, użyj pola\"Nadpisz\" aby to zmienić",
+            "part2": "Jeżeli zmieniłeś prefiks folderu Wine albo Proton, musisz sprawdzić scieżkę ponownie ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Musisz usunąć aktualną ścieżkę, wyjść z opcji synchronizacji i powrócić do Heroic aby wybrać właściwy folder prefiksu",
+            "part3": "Manualna synchronizacja: Wybierz \"Pobierz\" aby pobrać zapisy gier przechowywane w chmurze. Wybierz \"Wgraj\" aby przesłać lokalne zapisy gry do chmury. Wymuszone Pobranie i Wymuszone Wgranie powoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmuze",
+            "part4": "Automatyczna synchronizacja zapisów będzie aktualizować zapisy za każdym razem kiedy uruchmisz albo zamkniesz grę."
+        },
+        "wine": {
+            "part1": "Heroic szuka wersji Wine i Proton w poniższych lokalizacjach:",
+            "part2": "W przypadku innych lokalizacji stwórz przypisanie symboliczne."
+        }
     },
-    "runexe": {
-      "title": "Wybierz EXE"
+    "info": {
+        "settings": "Ustawienia są zapisywane automatycznie"
     },
-    "select": "Wybierz",
-    "sync": {
-      "button": "Wybierz",
-      "error": "Nieprawidłowa ścieżka",
-      "title": "Wybierz folder zapisów gry"
+    "infobox": {
+        "help": "Pomoc",
+        "requirements": ""
     },
-    "wineprefix": "Wybierz folder prefiksu Wine",
-    "yes": "TAK"
-  },
-  "button": {
-    "sync": "Synchronizuj",
-    "syncing": "Synchronizacja",
-    "unsync": "Desynchronizacja"
-  },
-  "Downloading": "Pobieranie",
-  "Filter": "Filtr",
-  "globalSettings": "Ustawienia Globalne",
-  "help": {
-    "general": "Synchronizuj z EGS gdy masz zainstalowane Epic Games Store w innym miejscu i nie chcesz ich pobierać ponownie",
-    "other": {
-      "part1": "Wpisz ",
-      "part2": "Opcje zaawansowane",
-      "part3": "które będą użyte przed uruchomieniem gry; ",
-      "part4": "Wpisz ",
-      "part5": "Argumenty gry",
-      "part6": " które będą dodane do wywołania gry, na przykład: ",
-      "part7": " żeby ominąć launcher w niektórych grach, etc."
+    "Library": "Biblioteka",
+    "message": {
+        "sync": "Synchronizacja zakończona",
+        "unsync": "Desynchronizacja zakończona"
     },
-    "sync": {
-      "part1": "Heroic próbuje odgadnąć właściwy folder zapisów gier. To działa w większości przypadków. Jeżeli jednak folder nie istnieje, użyj pola\"Nadpisz\" aby to zmienić",
-      "part2": "Jeżeli zmieniłeś prefiks folderu Wine albo Proton, musisz sprawdzić scieżkę ponownie ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Musisz usunąć aktualną ścieżkę, wyjść z opcji synchronizacji i powrócić do Heroic aby wybrać właściwy folder prefiksu",
-      "part3": "Manualna synchronizacja: Wybierz \"Pobierz\" aby pobrać zapisy gier przechowywane w chmurze. Wybierz \"Wgraj\" aby przesłać lokalne zapisy gry do chmury. Wymuszone Pobranie i Wymuszone Wgranie powoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmuze",
-      "part4": "Automatyczna synchronizacja zapisów będzie aktualizować zapisy za każdym razem kiedy uruchmisz albo zamkniesz grę."
+    "nogames": "Nie znaleziono żadnej gry",
+    "Not Ready": "Dostępne",
+    "notify": {
+        "finished": {
+            "reparing": "Naprawa zakończona"
+        },
+        "install": {
+            "canceled": "Instalacja zatrzymana",
+            "finished": "Instalacja zakończona"
+        },
+        "moved": "Przenoszenie zakończone",
+        "refreshed": "Biblioteka odświeżona",
+        "refreshing": "Odświeżanie",
+        "uninstalled": "Odinstalowane",
+        "update": {
+            "canceled": "Anulowane",
+            "finished": "Aktualizacja zakończona"
+        }
     },
-    "wine": {
-      "part1": "Heroic szuka wersji Wine i Proton w poniższych lokalizacjach:",
-      "part2": "W przypadku innych lokalizacji stwórz przypisanie symboliczne."
-    }
-  },
-  "info": {
-    "settings": "Ustawienia są zapisywane automatycznie"
-  },
-  "infobox": {
-    "help": "Pomoc",
-    "requirements": ""
-  },
-  "Library": "Biblioteka",
-  "message": {
-    "sync": "Synchronizacja zakończona",
-    "unsync": "Desynchronizacja zakończona"
-  },
-  "nogames": "Nie znaleziono żadnej gry",
-  "Not Ready": "Dostępne",
-  "notify": {
-    "finished": {
-      "reparing": "Naprawa zakończona"
+    "options": {
+        "advanced": {
+            "placeholder": "Wstaw tutaj inne opcje uruchamiania",
+            "title": "Opcje zaawansowane (zmienne środowiskowe):"
+        },
+        "gameargs": {
+            "placeholder": "Wstaw tutaj argumenty uruchamiania",
+            "title": "Argumenty gry (uruchamiane po komendzie):"
+        }
     },
-    "install": {
-      "canceled": "Instalacja zatrzymana",
-      "finished": "Instalacja zakończona"
+    "placeholder": {
+        "egs-prefix": "Prefiks instalacji EGS"
     },
-    "moved": "Przenoszenie zakończone",
-    "refreshed": "Biblioteka odświeżona",
-    "refreshing": "Odświeżanie",
-    "uninstalled": "Odinstalowane",
-    "update": {
-      "canceled": "Anulowane",
-      "finished": "Aktualizacja zakończona"
-    }
-  },
-  "options": {
-    "advanced": {
-      "placeholder": "Wstaw tutaj inne opcje uruchamiania",
-      "title": "Opcje zaawansowane (zmienne środowiskowe):"
+    "Ready": "Zainstalowane",
+    "Return": "Powrót",
+    "search": "Wpisz nazwę gry...",
+    "setting": {
+        "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
+        "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
+        "autosync": "Autosynchronizacja zapisów",
+        "customWineProton": "Niestandardowe ścieżki Wine/Proton",
+        "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
+        "default-install-path": "Domyślna ścieżka instalacyjna",
+        "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
+        "exit-to-tray": "Wyjście do tacki systemowej",
+        "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
+        "language": "Wybierz język",
+        "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",
+        "manualsync": {
+            "download": "Download",
+            "forcedownload": "Force Download",
+            "forceupload": "Force Upload",
+            "sync": "Sync",
+            "syncing": "Syncing",
+            "title": "Manualnie synchronizuj zapisy",
+            "upload": "Upload"
+        },
+        "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
+        "offlinemode": "Uruchom grę w trybie offline",
+        "runexe": {
+            "message": "Upuść pliki tutaj",
+            "title": "Uruchom EXE w prefiksie"
+        },
+        "savefolder": {
+            "placeholder": "Wybierz dokładny folder zapisu",
+            "title": "Pomiń synchronizację z chmurą"
+        },
+        "showfps": "Pokaż FPS (DX9, 10 and 11)",
+        "wineprefix": "Folder prefiksu Wine",
+        "wineversion": "Wersja Wine"
     },
-    "gameargs": {
-      "placeholder": "Wstaw tutaj argumenty uruchamiania",
-      "title": "Argumenty gry (uruchamiane po komendzie):"
-    }
-  },
-  "placeholder": {
-    "egs-prefix": "Prefiks instalacji EGS"
-  },
-  "Ready": "Zainstalowane",
-  "Return": "Powrót",
-  "search": "Wpisz nazwę gry...",
-  "setting": {
-    "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
-    "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
-    "autosync": "Autosynchronizacja zapisów",
-    "customWineProton": "Niestandardowe ścieżki Wine/Proton",
-    "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
-    "default-install-path": "Domyślna ścieżka instalacyjna",
-    "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
-    "exit-to-tray": "Wyjście do tacki systemowej",
-    "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
-    "language": "Wybierz język",
-    "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",
-    "manualsync": {
-      "download": "Download",
-      "forcedownload": "Force Download",
-      "forceupload": "Force Upload",
-      "sync": "Sync",
-      "syncing": "Syncing",
-      "title": "Manualnie synchronizuj zapisy",
-      "upload": "Upload"
+    "Settings": "Ustawienia",
+    "settings": {
+        "navbar": {
+            "general": "Główne",
+            "other": "Inne",
+            "sync": "Synchronizasja zapisów"
+        }
     },
-    "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
-    "offlinemode": "Uruchom grę w trybie offline",
-    "runexe": {
-      "message": "Upuść pliki tutaj",
-      "title": "Uruchom EXE w prefiksie"
+    "store": "Store",
+    "tooltip": {
+        "addpath": "Dodaj nową ścieżkę",
+        "removepath": "Usuń ścieżkę"
     },
-    "savefolder": {
-      "placeholder": "Wybierz dokładny folder zapisu",
-      "title": "Pomiń synchronizację z chmurą"
+    "Total Games": "Ilość gier",
+    "tray": {
+        "about": "O Heroic",
+        "quit": "Wyjdź",
+        "reload": "Przeładuj",
+        "show": "Pokaż",
+        "support": "Wesprzyj"
     },
-    "showfps": "Pokaż FPS (DX9, 10 and 11)",
-    "wineprefix": "Folder prefiksu Wine",
-    "wineversion": "Wersja Wine"
-  },
-  "Settings": "Ustawienia",
-  "settings": {
-    "navbar": {
-      "general": "Główne",
-      "other": "Inne",
-      "sync": "Synchronizasja zapisów"
-    }
-  },
-  "store": "Store",
-  "tooltip": {
-    "addpath": "Dodaj nową ścieżkę",
-    "removepath": "Usuń ścieżkę"
-  },
-  "Total Games": "Ilość gier",
-  "tray": {
-    "about": "O Heroic",
-    "quit": "Wyjdź",
-    "reload": "Przeładuj",
-    "show": "Pokaż",
-    "support": "Wesprzyj"
-  },
-  "Unreal Marketplace": "",
-  "Updates": "Updates",
-  "userselector": {
-    "about": "O Heroic",
-    "discord": "Discord",
-    "logout": "Wyloguj",
-    "logout_confirmation": "Logout?",
-    "quit": "Wyjdź",
-    "refresh": "Odśwież bibliotekę",
-    "support": "Wesprzyj nas"
-  },
-  "wiki": "Wiki"
+    "Unreal Marketplace": "",
+    "Updates": "Updates",
+    "userselector": {
+        "about": "O Heroic",
+        "discord": "Discord",
+        "logout": "Wyloguj",
+        "logout_confirmation": "Logout?",
+        "quit": "Wyjdź",
+        "refresh": "Odśwież bibliotekę",
+        "support": "Wesprzyj nas"
+    },
+    "wiki": "Wiki"
 }

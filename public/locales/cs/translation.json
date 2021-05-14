@@ -1,185 +1,185 @@
 {
-  "All": "All",
-  "box": {
-    "appupdate": {
-      "message": "K dispozici je nová aktualizace pro Heroic, chcete aktualizovat nyní?",
-      "title": "Je dostupná aktualizace"
+    "All": "All",
+    "box": {
+        "appupdate": {
+            "message": "K dispozici je nová aktualizace pro Heroic, chcete aktualizovat nyní?",
+            "title": "Je dostupná aktualizace"
+        },
+        "choose": "Vybrat",
+        "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
+        "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
+        "default-install-path": "Vyberte výchozí cestu pro instalaci",
+        "error": {
+            "diskspace": {
+                "message": "Nedostatek místa na disku",
+                "title": "Nedostatek místa"
+            },
+            "generic": {
+                "message": "Nastala neočekávaná chyba",
+                "title": "Neočekávaná chyba"
+            },
+            "launch": "Chyba při spouštění hry, zkontrolujte záznamy!"
+        },
+        "no": "NE",
+        "quit": {
+            "message": "Existují nevyřízené operace, jste si jisti?",
+            "title": "Ukončit"
+        },
+        "runexe": {
+            "title": "Vyberte soubor EXE pro spuštění"
+        },
+        "select": "Vybrat",
+        "sync": {
+            "button": "Vybrat",
+            "error": "Neplatná cesta",
+            "title": "Vyberte cestu s uloženými soubory"
+        },
+        "wineprefix": "Vyberte složku Wine prefixu",
+        "yes": "ANO"
     },
-    "choose": "Vybrat",
-    "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
-    "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
-    "default-install-path": "Vyberte výchozí cestu pro instalaci",
-    "error": {
-      "diskspace": {
-        "message": "Nedostatek místa na disku",
-        "title": "Nedostatek místa"
-      },
-      "generic": {
-        "message": "Nastala neočekávaná chyba",
-        "title": "Neočekávaná chyba"
-      },
-      "launch": "Chyba při spouštění hry, zkontrolujte záznamy!"
+    "button": {
+        "sync": "Synchronizovat",
+        "syncing": "Synchronizuji",
+        "unsync": "Desynchroniozovat"
     },
-    "no": "NE",
-    "quit": {
-      "message": "Existují nevyřízené operace, jste si jisti?",
-      "title": "Ukončit"
+    "Downloading": "Stahování",
+    "Filter": "Filtr",
+    "globalSettings": "Globální nastavení",
+    "help": {
+        "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
+        "other": {
+            "part1": "Použijte ",
+            "part2": "Pokročilé možnosti",
+            "part3": "které budou použity před spuštěním hry; ",
+            "part4": "Použijte ",
+            "part5": "Herní argumenty",
+            "part6": " které budou použity při spuštění hry, například: ",
+            "part7": " pro přeskočení spouštěče u některých her, apod."
+        },
+        "sync": {
+            "part1": "Heroic se pokusí uhodnout správnou složku pro ukládání, což bude ve většině případů fungovat. V případě, že je složka špatně, změňte ji pomocí pole přepsání.",
+            "part2": "V případě, že změníte složku prefixu pro Wine nebo Proton, budete muset cestu znovu zkontrolovat, protože Proton používá jiný prefix (/pfx) a uživatelské jméno (steamuser). Můžete tedy jednoduše vymazat aktuální cestu, dostat se ze stránky nastavení synchronizace a vrátit se zpět, aby Heroic mohl uhodnout složku se správným prefixem.",
+            "part3": "Ruční synchronizace: Vyberte Stáhnout pro stažení uložených souborů hry z cloudu. Nahrát pro nahrání místních souborů do cloudu. Vynutit stahování a Vynutit nahrávání bude ignorovat verzi, která je místní nebo v cloudu.",
+            "part4": "Automatická synchronizace uložených souborů synchronizuje uložené soubory při každém spuštění hry a po dokončení hraní."
+        },
+        "wine": {
+            "part1": "Heroic hledá verze Wine a Proton v následujících složkách:",
+            "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
+        }
     },
-    "runexe": {
-      "title": "Vyberte soubor EXE pro spuštění"
+    "info": {
+        "settings": "Nastavení se ukládají automaticky"
     },
-    "select": "Vybrat",
-    "sync": {
-      "button": "Vybrat",
-      "error": "Neplatná cesta",
-      "title": "Vyberte cestu s uloženými soubory"
+    "infobox": {
+        "help": "Pomoc",
+        "requirements": "Systémové požadavky"
     },
-    "wineprefix": "Vyberte složku Wine prefixu",
-    "yes": "ANO"
-  },
-  "button": {
-    "sync": "Synchronizovat",
-    "syncing": "Synchronizuji",
-    "unsync": "Desynchroniozovat"
-  },
-  "Downloading": "Stahování",
-  "Filter": "Filtr",
-  "globalSettings": "Globální nastavení",
-  "help": {
-    "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
-    "other": {
-      "part1": "Použijte ",
-      "part2": "Pokročilé možnosti",
-      "part3": "které budou použity před spuštěním hry; ",
-      "part4": "Použijte ",
-      "part5": "Herní argumenty",
-      "part6": " které budou použity při spuštění hry, například: ",
-      "part7": " pro přeskočení spouštěče u některých her, apod."
+    "Library": "Knihovna",
+    "message": {
+        "sync": "Synchronizace dokončena",
+        "unsync": "Desynchronizace dokončena"
     },
-    "sync": {
-      "part1": "Heroic se pokusí uhodnout správnou složku pro ukládání, což bude ve většině případů fungovat. V případě, že je složka špatně, změňte ji pomocí pole přepsání.",
-      "part2": "V případě, že změníte složku prefixu pro Wine nebo Proton, budete muset cestu znovu zkontrolovat, protože Proton používá jiný prefix (/pfx) a uživatelské jméno (steamuser). Můžete tedy jednoduše vymazat aktuální cestu, dostat se ze stránky nastavení synchronizace a vrátit se zpět, aby Heroic mohl uhodnout složku se správným prefixem.",
-      "part3": "Ruční synchronizace: Vyberte Stáhnout pro stažení uložených souborů hry z cloudu. Nahrát pro nahrání místních souborů do cloudu. Vynutit stahování a Vynutit nahrávání bude ignorovat verzi, která je místní nebo v cloudu.",
-      "part4": "Automatická synchronizace uložených souborů synchronizuje uložené soubory při každém spuštění hry a po dokončení hraní."
+    "nogames": "Žádné hry nebyly nalezeny",
+    "Not Ready": "Není připraveno",
+    "notify": {
+        "finished": {
+            "reparing": "Oprava dokončena"
+        },
+        "install": {
+            "canceled": "Instalace zrušena",
+            "finished": "Instalace dokončena"
+        },
+        "moved": "Přesun dokončen",
+        "refreshed": "Knihovna obnovena",
+        "refreshing": "Obnovuji",
+        "uninstalled": "Odinstalováno",
+        "update": {
+            "canceled": "Aktualizace zrušena",
+            "finished": "Aktualizace dokončena"
+        }
     },
-    "wine": {
-      "part1": "Heroic hledá verze Wine a Proton v následujících složkách:",
-      "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
-    }
-  },
-  "info": {
-    "settings": "Nastavení se ukládají automaticky"
-  },
-  "infobox": {
-    "help": "Pomoc",
-    "requirements": "Systémové požadavky"
-  },
-  "Library": "Knihovna",
-  "message": {
-    "sync": "Synchronizace dokončena",
-    "unsync": "Desynchronizace dokončena"
-  },
-  "nogames": "Žádné hry nebyly nalezeny",
-  "Not Ready": "Není připraveno",
-  "notify": {
-    "finished": {
-      "reparing": "Oprava dokončena"
+    "options": {
+        "advanced": {
+            "placeholder": "Sem vložte ostatní možnosti spuštění",
+            "title": "Pokročilé možnosti (Proměnné prostředí):"
+        },
+        "gameargs": {
+            "placeholder": "Sem vložte argumenty spouštěče",
+            "title": "Herní argumenty (Pro spuštění po příkazu):"
+        }
     },
-    "install": {
-      "canceled": "Instalace zrušena",
-      "finished": "Instalace dokončena"
+    "placeholder": {
+        "egs-prefix": "Prefix kde je nainstalován EGS"
     },
-    "moved": "Přesun dokončen",
-    "refreshed": "Knihovna obnovena",
-    "refreshing": "Obnovuji",
-    "uninstalled": "Odinstalováno",
-    "update": {
-      "canceled": "Aktualizace zrušena",
-      "finished": "Aktualizace dokončena"
-    }
-  },
-  "options": {
-    "advanced": {
-      "placeholder": "Sem vložte ostatní možnosti spuštění",
-      "title": "Pokročilé možnosti (Proměnné prostředí):"
+    "Ready": "Připraveno",
+    "Return": "Zpět",
+    "search": "Zde zadejte název hry...",
+    "setting": {
+        "audiofix": "Oprava zvuku (Pulse Audio latence)",
+        "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
+        "autosync": "Automaticky synchronizovat uložené soubory",
+        "customWineProton": "Vlastní cesty pro Wine/Proton",
+        "darktray": "Použít tmavou ikonu v systémové oblasti (vyžaduje restart)",
+        "default-install-path": "Výchozí cesta pro instalaci",
+        "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
+        "exit-to-tray": "Ukončit do systémové oblasti",
+        "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
+        "language": "Vybrat jazyk aplikace",
+        "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
+        "manualsync": {
+            "download": "Stáhnout",
+            "forcedownload": "Vynutit stahování",
+            "forceupload": "Vynutit nahrávání",
+            "sync": "Synchronizovat",
+            "syncing": "Synchronizuji",
+            "title": "Ručně synchronizovat uložené soubory",
+            "upload": "Nahrát"
+        },
+        "maxworkers": "Maximální počet vláken při stahování",
+        "offlinemode": "Spustit hru offline",
+        "runexe": {
+            "message": "Přetáhněte soubory sem",
+            "title": "Spustit EXE na prefixu"
+        },
+        "savefolder": {
+            "placeholder": "Vyberte přesnou složku s uloženými soubory",
+            "title": "Přepsat synchronizaci cloudu"
+        },
+        "showfps": "Zobrazit FPS (DX9, 10 a 11)",
+        "wineprefix": "Složka WinePrefix",
+        "wineversion": "Verze Wine"
     },
-    "gameargs": {
-      "placeholder": "Sem vložte argumenty spouštěče",
-      "title": "Herní argumenty (Pro spuštění po příkazu):"
-    }
-  },
-  "placeholder": {
-    "egs-prefix": "Prefix kde je nainstalován EGS"
-  },
-  "Ready": "Připraveno",
-  "Return": "Zpět",
-  "search": "Zde zadejte název hry...",
-  "setting": {
-    "audiofix": "Oprava zvuku (Pulse Audio latence)",
-    "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
-    "autosync": "Automaticky synchronizovat uložené soubory",
-    "customWineProton": "Vlastní cesty pro Wine/Proton",
-    "darktray": "Použít tmavou ikonu v systémové oblasti (vyžaduje restart)",
-    "default-install-path": "Výchozí cesta pro instalaci",
-    "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
-    "exit-to-tray": "Ukončit do systémové oblasti",
-    "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
-    "language": "Vybrat jazyk aplikace",
-    "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
-    "manualsync": {
-      "download": "Stáhnout",
-      "forcedownload": "Vynutit stahování",
-      "forceupload": "Vynutit nahrávání",
-      "sync": "Synchronizovat",
-      "syncing": "Synchronizuji",
-      "title": "Ručně synchronizovat uložené soubory",
-      "upload": "Nahrát"
+    "Settings": "Nastavení",
+    "settings": {
+        "navbar": {
+            "general": "Obecné",
+            "other": "Ostatní",
+            "sync": "Synchronizace uložených souborů"
+        }
     },
-    "maxworkers": "Maximální počet vláken při stahování",
-    "offlinemode": "Spustit hru offline",
-    "runexe": {
-      "message": "Přetáhněte soubory sem",
-      "title": "Spustit EXE na prefixu"
+    "store": "Obchod",
+    "tooltip": {
+        "addpath": "přidat novou cestu",
+        "removepath": "Odstranit cestu"
     },
-    "savefolder": {
-      "placeholder": "Vyberte přesnou složku s uloženými soubory",
-      "title": "Přepsat synchronizaci cloudu"
+    "Total Games": "Celkem her",
+    "tray": {
+        "about": "O aplikaci",
+        "quit": "Ukončit",
+        "reload": "Obnovit",
+        "show": "Zobrazit",
+        "support": "Podpořte nás"
     },
-    "showfps": "Zobrazit FPS (DX9, 10 a 11)",
-    "wineprefix": "Složka WinePrefix",
-    "wineversion": "Verze Wine"
-  },
-  "Settings": "Nastavení",
-  "settings": {
-    "navbar": {
-      "general": "Obecné",
-      "other": "Ostatní",
-      "sync": "Synchronizace uložených souborů"
-    }
-  },
-  "store": "Obchod",
-  "tooltip": {
-    "addpath": "přidat novou cestu",
-    "removepath": "Odstranit cestu"
-  },
-  "Total Games": "Celkem her",
-  "tray": {
-    "about": "O aplikaci",
-    "quit": "Ukončit",
-    "reload": "Obnovit",
-    "show": "Zobrazit",
-    "support": "Podpořte nás"
-  },
-  "Unreal Marketplace": "",
-  "Updates": "Updates",
-  "userselector": {
-    "about": "O aplikaci",
-    "discord": "Discord",
-    "logout": "Odhlásit",
-    "logout_confirmation": "Logout?",
-    "quit": "Ukončit",
-    "refresh": "Obnovit knihovnu",
-    "support": "Podpořte nás"
-  },
-  "wiki": "Wiki"
+    "Unreal Marketplace": "",
+    "Updates": "Updates",
+    "userselector": {
+        "about": "O aplikaci",
+        "discord": "Discord",
+        "logout": "Odhlásit",
+        "logout_confirmation": "Logout?",
+        "quit": "Ukončit",
+        "refresh": "Obnovit knihovnu",
+        "support": "Podpořte nás"
+    },
+    "wiki": "Wiki"
 }

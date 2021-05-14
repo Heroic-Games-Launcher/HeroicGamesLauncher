@@ -1,185 +1,185 @@
 {
-  "All": "Összes",
-  "box": {
-    "appupdate": {
-      "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
-      "title": "Frissítés Elérhető"
+    "All": "Összes",
+    "box": {
+        "appupdate": {
+            "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
+            "title": "Frissítés Elérhető"
+        },
+        "choose": "Kiválaszt",
+        "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
+        "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
+        "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
+        "error": {
+            "diskspace": {
+                "message": "Nincs elég elérhető lemezterület",
+                "title": "Nincs hely"
+            },
+            "generic": {
+                "message": "Ismeretlen hiba lépett fel",
+                "title": "Ismeretlen hiba"
+            },
+            "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!"
+        },
+        "no": "NEM",
+        "quit": {
+            "message": "Függőben lévő műveletek vannak, biztos vagy benne?",
+            "title": "Kilépés"
+        },
+        "runexe": {
+            "title": "Válasszd ki a futtatni kívánt EXE fájlt"
+        },
+        "select": "Kiválaszt",
+        "sync": {
+            "button": "Választ",
+            "error": "Érvénytelen útvonal",
+            "title": "Válaszd ki a mentések könyvtárát"
+        },
+        "wineprefix": "Válassz Wine Prefix Mappát",
+        "yes": "IGEN"
     },
-    "choose": "Kiválaszt",
-    "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
-    "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
-    "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
-    "error": {
-      "diskspace": {
-        "message": "Nincs elég elérhető lemezterület",
-        "title": "Nincs hely"
-      },
-      "generic": {
-        "message": "Ismeretlen hiba lépett fel",
-        "title": "Ismeretlen hiba"
-      },
-      "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!"
+    "button": {
+        "sync": "Szinkronizálás",
+        "syncing": "Szinkronizálás folyamatban",
+        "unsync": "Deszinkronizálás"
     },
-    "no": "NEM",
-    "quit": {
-      "message": "Függőben lévő műveletek vannak, biztos vagy benne?",
-      "title": "Kilépés"
+    "Downloading": "Letöltés",
+    "Filter": "Szűrő",
+    "globalSettings": "Globális beállítások",
+    "help": {
+        "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
+        "other": {
+            "part1": "A ",
+            "part2": "Haladó Beállításoknak",
+            "part3": "azt használd, amit meg akarsz hívni a játék indítása előtt; ",
+            "part4": "A ",
+            "part5": "Játék Argumentumoknak",
+            "part6": " azt használd, amit meg akarsz hívni a játék indítási parancs után, példaképpen: ",
+            "part7": " hogy kihagyd a Launcher-t néhány játékban, stb."
+        },
+        "sync": {
+            "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd azt.",
+            "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj visszaahoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
+            "part3": "Manuális Szinkronizálás: Válaszd a Letöltést, hogy letöltsd a játékmentéseket, amiket a Felhőben tárolsz. Feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített Letöltés és Kényszerített Feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
+            "part4": "Mentések Automatikus Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
+        },
+        "wine": {
+            "part1": "A Heroic a Wine és Proton verzióit a következő mappákban keresi:",
+            "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
+        }
     },
-    "runexe": {
-      "title": "Válasszd ki a futtatni kívánt EXE fájlt"
+    "info": {
+        "settings": "A beállítások maguktól mentődnek"
     },
-    "select": "Kiválaszt",
-    "sync": {
-      "button": "Választ",
-      "error": "Érvénytelen útvonal",
-      "title": "Válaszd ki a mentések könyvtárát"
+    "infobox": {
+        "help": "Segítség",
+        "requirements": "Rendszer Követelmények"
     },
-    "wineprefix": "Válassz Wine Prefix Mappát",
-    "yes": "IGEN"
-  },
-  "button": {
-    "sync": "Szinkronizálás",
-    "syncing": "Szinkronizálás folyamatban",
-    "unsync": "Deszinkronizálás"
-  },
-  "Downloading": "Letöltés",
-  "Filter": "Szűrő",
-  "globalSettings": "Globális beállítások",
-  "help": {
-    "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
-    "other": {
-      "part1": "A ",
-      "part2": "Haladó Beállításoknak",
-      "part3": "azt használd, amit meg akarsz hívni a játék indítása előtt; ",
-      "part4": "A ",
-      "part5": "Játék Argumentumoknak",
-      "part6": " azt használd, amit meg akarsz hívni a játék indítási parancs után, példaképpen: ",
-      "part7": " hogy kihagyd a Launcher-t néhány játékban, stb."
+    "Library": "Könyvtár",
+    "message": {
+        "sync": "Szinkronizálás Befejezve",
+        "unsync": "Deszinkronizálás Befejezve"
     },
-    "sync": {
-      "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd azt.",
-      "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj visszaahoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
-      "part3": "Manuális Szinkronizálás: Válaszd a Letöltést, hogy letöltsd a játékmentéseket, amiket a Felhőben tárolsz. Feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített Letöltés és Kényszerített Feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
-      "part4": "Mentések Automatikus Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
+    "nogames": "Nem találtunk játékot",
+    "Not Ready": "Nincs kész",
+    "notify": {
+        "finished": {
+            "reparing": "Javítás Befejezve"
+        },
+        "install": {
+            "canceled": "Telepítés Visszavonva",
+            "finished": "Telepítés Befejezve"
+        },
+        "moved": "Áthelyezés Befejezve",
+        "refreshed": "Könyvtár Frissítve",
+        "refreshing": "Frissítés",
+        "uninstalled": "Eltávolítva",
+        "update": {
+            "canceled": "Frissítés Visszavonva",
+            "finished": "Frissítés Befejezve"
+        }
     },
-    "wine": {
-      "part1": "A Heroic a Wine és Proton verzióit a következő mappákban keresi:",
-      "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
-    }
-  },
-  "info": {
-    "settings": "A beállítások maguktól mentődnek"
-  },
-  "infobox": {
-    "help": "Segítség",
-    "requirements": "Rendszer Követelmények"
-  },
-  "Library": "Könyvtár",
-  "message": {
-    "sync": "Szinkronizálás Befejezve",
-    "unsync": "Deszinkronizálás Befejezve"
-  },
-  "nogames": "Nem találtunk játékot",
-  "Not Ready": "Nincs kész",
-  "notify": {
-    "finished": {
-      "reparing": "Javítás Befejezve"
+    "options": {
+        "advanced": {
+            "placeholder": "További indítási lehetőségeket ide írd",
+            "title": "Haladó beállítások (Környezeti Változók):"
+        },
+        "gameargs": {
+            "placeholder": "Launcher Argumentumokat ide írd",
+            "title": "Játék Argumentumok (amik a parancs után fussanak le):"
+        }
     },
-    "install": {
-      "canceled": "Telepítés Visszavonva",
-      "finished": "Telepítés Befejezve"
+    "placeholder": {
+        "egs-prefix": "Prefix ahol EGS telepítve van"
     },
-    "moved": "Áthelyezés Befejezve",
-    "refreshed": "Könyvtár Frissítve",
-    "refreshing": "Frissítés",
-    "uninstalled": "Eltávolítva",
-    "update": {
-      "canceled": "Frissítés Visszavonva",
-      "finished": "Frissítés Befejezve"
-    }
-  },
-  "options": {
-    "advanced": {
-      "placeholder": "További indítási lehetőségeket ide írd",
-      "title": "Haladó beállítások (Környezeti Változók):"
+    "Ready": "Kész",
+    "Return": "Vissza",
+    "search": "Add meg a játék nevét itt...",
+    "setting": {
+        "audiofix": "Hangzás javítás (Pulse Audio Latency)",
+        "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
+        "autosync": "Mentések Automatikus Szinkronizálása",
+        "customWineProton": "Egyéni Wine/Proton útvonalak",
+        "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
+        "default-install-path": "Alapértelmezett Telepítési Útvonal",
+        "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
+        "exit-to-tray": "Kilépés a Rendszer Tálcára",
+        "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
+        "language": "Válasszd ki az Alkalmazás Nyelvét",
+        "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
+        "manualsync": {
+            "download": "Letöltés",
+            "forcedownload": "Kényszerített Letöltés",
+            "forceupload": "Kényszerített Feltöltés",
+            "sync": "Szinkronizálás",
+            "syncing": "Szinkronizálás folyamatban",
+            "title": "Manuális Mentés Szinkronizálás",
+            "upload": "Feltöltés"
+        },
+        "maxworkers": "Maximum Dolgozók Száma letöltéskor",
+        "offlinemode": "Futtassa a Játékot Offline",
+        "runexe": {
+            "message": "Fogd és húzd ide a fájlokat",
+            "title": "Futtasd az EXE fájlt Prefix-el"
+        },
+        "savefolder": {
+            "placeholder": "Válaszd ki a pontos játék mentési mappát",
+            "title": "Cloud Sync Save Mappa Felülírása"
+        },
+        "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "wineprefix": "WinePrefix Mappa",
+        "wineversion": "Wine Verzió"
     },
-    "gameargs": {
-      "placeholder": "Launcher Argumentumokat ide írd",
-      "title": "Játék Argumentumok (amik a parancs után fussanak le):"
-    }
-  },
-  "placeholder": {
-    "egs-prefix": "Prefix ahol EGS telepítve van"
-  },
-  "Ready": "Kész",
-  "Return": "Vissza",
-  "search": "Add meg a játék nevét itt...",
-  "setting": {
-    "audiofix": "Hangzás javítás (Pulse Audio Latency)",
-    "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
-    "autosync": "Mentések Automatikus Szinkronizálása",
-    "customWineProton": "Egyéni Wine/Proton útvonalak",
-    "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
-    "default-install-path": "Alapértelmezett Telepítési Útvonal",
-    "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
-    "exit-to-tray": "Kilépés a Rendszer Tálcára",
-    "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
-    "language": "Válasszd ki az Alkalmazás Nyelvét",
-    "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
-    "manualsync": {
-      "download": "Letöltés",
-      "forcedownload": "Kényszerített Letöltés",
-      "forceupload": "Kényszerített Feltöltés",
-      "sync": "Szinkronizálás",
-      "syncing": "Szinkronizálás folyamatban",
-      "title": "Manuális Mentés Szinkronizálás",
-      "upload": "Feltöltés"
+    "Settings": "Beállítások",
+    "settings": {
+        "navbar": {
+            "general": "Általános",
+            "other": "Egyéb",
+            "sync": "Mentés szinkronizálás"
+        }
     },
-    "maxworkers": "Maximum Dolgozók Száma letöltéskor",
-    "offlinemode": "Futtassa a Játékot Offline",
-    "runexe": {
-      "message": "Fogd és húzd ide a fájlokat",
-      "title": "Futtasd az EXE fájlt Prefix-el"
+    "store": "Áruház",
+    "tooltip": {
+        "addpath": "Új útvonal hozzáadása",
+        "removepath": "Útvonal eltávolítása"
     },
-    "savefolder": {
-      "placeholder": "Válaszd ki a pontos játék mentési mappát",
-      "title": "Cloud Sync Save Mappa Felülírása"
+    "Total Games": "Összes Játék",
+    "tray": {
+        "about": "Rólunk",
+        "quit": "Kilép",
+        "reload": "Újratölt",
+        "show": "Mutasd",
+        "support": "Támogass Minket"
     },
-    "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
-    "wineprefix": "WinePrefix Mappa",
-    "wineversion": "Wine Verzió"
-  },
-  "Settings": "Beállítások",
-  "settings": {
-    "navbar": {
-      "general": "Általános",
-      "other": "Egyéb",
-      "sync": "Mentés szinkronizálás"
-    }
-  },
-  "store": "Áruház",
-  "tooltip": {
-    "addpath": "Új útvonal hozzáadása",
-    "removepath": "Útvonal eltávolítása"
-  },
-  "Total Games": "Összes Játék",
-  "tray": {
-    "about": "Rólunk",
-    "quit": "Kilép",
-    "reload": "Újratölt",
-    "show": "Mutasd",
-    "support": "Támogass Minket"
-  },
-  "Unreal Marketplace": "",
-  "Updates": "Updates",
-  "userselector": {
-    "about": "Névjegy",
-    "discord": "Discord",
-    "logout": "Kijelentkezés",
-    "logout_confirmation": "Logout?",
-    "quit": "Kilépés",
-    "refresh": "Könyvtár frissítése",
-    "support": "Támogass minket"
-  },
-  "wiki": "Wiki"
+    "Unreal Marketplace": "",
+    "Updates": "Updates",
+    "userselector": {
+        "about": "Névjegy",
+        "discord": "Discord",
+        "logout": "Kijelentkezés",
+        "logout_confirmation": "Logout?",
+        "quit": "Kilépés",
+        "refresh": "Könyvtár frissítése",
+        "support": "Támogass minket"
+    },
+    "wiki": "Wiki"
 }
