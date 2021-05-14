@@ -170,13 +170,17 @@
     "show": "Laten zien",
     "support": "Steun ons"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "Over",
     "discord": "Discord",
     "logout": "Log uit",
+    "logout_confirmation": "Logout?",
     "quit": "Sluiten",
     "refresh": "Herladen",
     "support": "Steun ons"
   },
+  "wiki": "Wiki",
   "Store": "Winkel"
 }

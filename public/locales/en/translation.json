@@ -170,13 +170,16 @@
     "show": "Show",
     "support": "Support Us"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "About",
     "discord": "Discord",
     "logout": "Logout",
+    "logout_confirmation": "Are you sure you want to logout?",
     "quit": "Quit",
     "refresh": "Refresh Library",
-    "support": "Support Us",
-    "logout_confirmation": "Are you sure you want to logout?"
-  }
+    "support": "Support Us"
+  },
+  "wiki": "Wiki"
 }

@@ -170,13 +170,17 @@
     "show": "Göster",
     "support": "Bizi Destekle"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "Hakkında",
     "discord": "Discord",
     "logout": "Çıkış Yap",
+    "logout_confirmation": "Logout?",
     "quit": "Çık",
     "refresh": "Kütüphaneyi Yenile",
     "support": "Bizi Destekle"
   },
+  "wiki": "Wiki",
   "Store": ""
 }

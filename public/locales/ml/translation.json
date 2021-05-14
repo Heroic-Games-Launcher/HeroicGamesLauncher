@@ -23,7 +23,7 @@
     "no": "വേണ്ട",
     "quit": {
       "message": "ചെയ്തുതീര്‍ക്കാത്ത പണികളുണ്ട്, ഉറപ്പല്ലേ?",
-      "title":"പുറത്തിറക്ക്"
+      "title": "പുറത്തിറക്ക്"
     },
     "runexe": {
       "title": "ഓടിക്കുവാനുള്ള EXE നല്‍കൂ"
@@ -170,12 +170,16 @@
     "show": "കാണിക്കൂ",
     "support": "ഞങ്ങളെ പിന്താങ്ങൂ"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "ഇതിനെക്കിറിച്ച്",
     "discord": "ഡിസ്കോഡ഻്",
     "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
+    "logout_confirmation": "Logout?",
     "quit": "പുറത്തുകടക്കൂ",
     "refresh": "കളിശാല പുതുക്കൂ",
     "support": "ഞങ്ങളെ പിന്താങ്ങൂ"
-  }
+  },
+  "wiki": "Wiki"
 }

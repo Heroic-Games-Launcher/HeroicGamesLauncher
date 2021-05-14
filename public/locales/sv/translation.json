@@ -170,13 +170,16 @@
     "show": "Visa",
     "support": "Stöd oss"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "Om",
     "discord": "Discord",
     "logout": "Logga ut",
+    "logout_confirmation": "Är du säker på att du vill logga ut?",
     "quit": "Avsluta",
     "refresh": "Uppdatera bibliotet",
-    "support": "Stöd oss",
-    "logout_confirmation": "Är du säker på att du vill logga ut?"
-  }
+    "support": "Stöd oss"
+  },
+  "wiki": "Wiki"
 }

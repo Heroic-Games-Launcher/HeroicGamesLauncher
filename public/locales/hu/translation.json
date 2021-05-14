@@ -170,12 +170,16 @@
     "show": "Mutasd",
     "support": "Támogass Minket"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "Névjegy",
     "discord": "Discord",
     "logout": "Kijelentkezés",
+    "logout_confirmation": "Logout?",
     "quit": "Kilépés",
     "refresh": "Könyvtár frissítése",
     "support": "Támogass minket"
-  }
+  },
+  "wiki": "Wiki"
 }

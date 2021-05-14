@@ -170,12 +170,16 @@
     "show": "Zobrazit",
     "support": "Podpořte nás"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "O aplikaci",
     "discord": "Discord",
     "logout": "Odhlásit",
+    "logout_confirmation": "Logout?",
     "quit": "Ukončit",
     "refresh": "Obnovit knihovnu",
     "support": "Podpořte nás"
-  }
+  },
+  "wiki": "Wiki"
 }

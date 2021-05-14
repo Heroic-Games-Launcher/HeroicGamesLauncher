@@ -170,12 +170,16 @@
     "show": "Pokaż",
     "support": "Wesprzyj"
   },
+  "Unreal Marketplace": "",
+  "Updates": "Updates",
   "userselector": {
     "about": "O Heroic",
     "discord": "Discord",
     "logout": "Wyloguj",
+    "logout_confirmation": "Logout?",
     "quit": "Wyjdź",
     "refresh": "Odśwież bibliotekę",
     "support": "Wesprzyj nas"
-  }
+  },
+  "wiki": "Wiki"
 }
