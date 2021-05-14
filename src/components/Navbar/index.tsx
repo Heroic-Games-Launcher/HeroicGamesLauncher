@@ -16,6 +16,7 @@ export default function NavBar() {
     lang = 'pt-BR'
   }
   const epicStore = `https://www.epicgames.com/store/${lang}/`
+  const wiki = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   return (
     <div className="NavBar">
       <div className="Links">
@@ -46,6 +47,12 @@ export default function NavBar() {
           onClick={() => createNewWindow(epicStore)}
         >
           {t('store', 'Store')}
+        </a>
+        <a
+          style={{ cursor: 'pointer' }}
+          onClick={() => createNewWindow(wiki)}
+        >
+          {t('wiki', 'Wiki')}
         </a>
       </div>
       <SearchBar />
