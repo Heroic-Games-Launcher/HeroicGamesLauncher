@@ -1,4 +1,3 @@
-import { InstallProgress } from './../types';
 import {
   getGameInfo,
   handleStopInstallation,
@@ -6,7 +5,7 @@ import {
   install
 } from 'src/helpers'
 
-import { GameStatus } from 'src/types'
+import { GameStatus, InstallProgress } from 'src/types'
 import { TFunction } from 'react-i18next'
 
 const { remote } = window.require('electron')
