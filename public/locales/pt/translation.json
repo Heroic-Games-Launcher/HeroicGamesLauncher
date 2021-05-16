@@ -5,20 +5,20 @@
             "message": "Nove versão do Heroic lançada. Deseja atualizar agora?",
             "title": "Nova Versão Disponível"
         },
-        "choose": "Selecione",
+        "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Local de instalação padrão",
         "error": {
             "diskspace": {
-                "message": "Sem espaço disponível no disco!",
+                "message": "Sem espaço disponível no disco",
                 "title": "Sem Espaço"
             },
             "generic": {
-                "message": "An Unknown Error has occurred",
-                "title": "Unknown Error"
+                "message": "Ocorreu um erro desconhecido",
+                "title": "Erro Desconhecido"
             },
-            "launch": "Houve um erro ao rodar o jogo. Veja os Logs para ver o que aconteceu."
+            "launch": "Houve um erro ao rodar o jogo, veja os Logs para ver o que aconteceu!"
         },
         "no": "NÃO",
         "quit": {
@@ -50,15 +50,15 @@
         "other": {
             "part1": "Use as ",
             "part2": "Opções Avançadas",
-            "part3": "para variáveis de ambiente que serão usadas antes do comando do jogo",
+            "part3": "para variáveis de ambiente que serão usadas antes do comando do jogo; ",
             "part4": "Use os ",
             "part5": "Argumentos do jogo",
             "part6": " Para que sejam chamados após o commando ",
-            "part7": "para evitar o lançador em alguns jogos, etc"
+            "part7": " para evitar o lançador em alguns jogos, etc."
         },
         "sync": {
-            "part1": "O Heroic tenta advinhar o diretório correto onde ficam os savegames de cada jogo. Funciona na maioria dos casos, mas em alguns você terá que procurar manualmente e selecionar a pasta",
-            "part2": "Caso você modifique o wine prefix ou o wine por proton e vice-versa, você deve apagar a pasta selecionada acima, sair e voltar para a tela de sync para que o heroic gere novamente a pasta correta",
+            "part1": "O Heroic tenta advinhar o diretório correto onde ficam os savegames de cada jogo. Funciona na maioria dos casos, mas em alguns você terá que procurar manualmente e selecionar a pasta.",
+            "part2": "Caso você modifique o wine prefix ou o wine por proton e vice-versa, você deve apagar a pasta selecionada acima, sair e voltar para a tela de sync para que o heroic gere novamente a pasta correta.",
             "part3": "Sincronização Manual: Você pode utilizar essa opção para manualmente fazer download ou upload dos saves. Você pode forçar o download ou upload também, dessa forma o Heroic irá ignorar a versão salva na nuvem ou localmente, sobrescrevendo os saves.",
             "part4": "Sincronizar Saves Automaticamente: ativando essa opção, toda a vez que você iniciar uma sessão de jogos ou terminar de jogar, o Heroic irá realizar uma sincronização. Dessa forma seus saves sempre estarão atualizados."
         },
@@ -101,11 +101,11 @@
     "options": {
         "advanced": {
             "placeholder": "Adicione aqui variáveis de ambiente",
-            "title": "Opções Avançadas (Variáveis de ambiente)"
+            "title": "Opções Avançadas (Variáveis de ambiente):"
         },
         "gameargs": {
             "placeholder": "Coloque aqui os argumentos do jogo",
-            "title": "Argumentos do Jogo"
+            "title": "Argumentos do Jogo:"
         }
     },
     "placeholder": {
@@ -128,10 +128,10 @@
         "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
         "manualsync": {
             "download": "Download",
-            "forcedownload": "Force Download",
-            "forceupload": "Force Upload",
-            "sync": "Sync",
-            "syncing": "Syncing",
+            "forcedownload": "Forçar Download",
+            "forceupload": "Forçar Upload",
+            "sync": "Sincronizar",
+            "syncing": "Sincronizando",
             "title": "Sincronização manual",
             "upload": "Upload"
         },
@@ -157,7 +157,7 @@
             "sync": "Sincronização"
         }
     },
-    "store": "Store",
+    "store": "Loja",
     "tooltip": {
         "addpath": "Adicionar",
         "removepath": "Remover"
@@ -171,11 +171,11 @@
         "support": "Apoie-nos"
     },
     "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Updates": "Atualizações",
     "userselector": {
         "about": "Sobre",
         "discord": "Discord",
-        "logout": "Logout",
+        "logout": "Sair",
         "logout_confirmation": "Logout?",
         "quit": "Fechar",
         "refresh": "Atualizar Biblioteca",
