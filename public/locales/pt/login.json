@@ -17,7 +17,7 @@
     },
     "status": {
         "error": "Erro",
-        "loading": "Carregando lista de jogos...",
+        "loading": "Carregando lista de jogos",
         "logging": "Logando..."
     },
     "welcome": "Bem Vindo!"

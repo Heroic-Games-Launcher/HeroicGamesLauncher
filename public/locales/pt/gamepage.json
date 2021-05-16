@@ -76,9 +76,9 @@
         "hasUpdates": "Nova versão disponível!",
         "installed": "Jogo Instalado",
         "installing": "Instalando",
-        "moving": "Movendo Jogo, por favor espere.",
+        "moving": "Movendo Jogo, por favor espere",
         "notinstalled": "Jogo não instalado",
-        "reparing": "Reparando jogo, por favor espere.",
+        "reparing": "Reparando jogo, por favor espere",
         "updating": "Atualizando jogo"
     },
     "submenu": {
