@@ -92,6 +92,7 @@ export class GlobalState extends PureComponent<Props> {
         }
         return game.compatible_apps.includes(filter)
       })
+
     } else {
       switch (filter) {
       case 'installed':
@@ -160,9 +161,9 @@ export class GlobalState extends PureComponent<Props> {
             ? t('notify.install.canceled')
             : t('notify.install.finished')
         notify([title, message])
-        return this.refresh()
+        return this.refreshLibrary()
       }
-      this.refresh()
+      this.refreshLibrary()
       return notify([title, 'Game Imported'])
     }
 

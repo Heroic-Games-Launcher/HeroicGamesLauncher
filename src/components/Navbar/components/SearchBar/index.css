@@ -8,7 +8,7 @@
 .searchInput {
   width: 388px;
   height: 39px;
-  background: #1a1b1c;
+  background: var(--searchbar-background);
   border-radius: 10px;
   border: none;
   color: var(--secondary);

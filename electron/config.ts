@@ -4,21 +4,24 @@ import {
   readFileSync,
   readdirSync,
   writeFileSync
-} from 'graceful-fs'
-import { userInfo as user } from 'os'
+} from 'graceful-fs';
+import { userInfo as user } from 'os';
 
-import { AppSettings, GlobalConfigVersion,  WineInstallation } from './types'
+import {
+  AppSettings,
+  GlobalConfigVersion,
+  WineInstallation
+} from './types';
 import { User } from './legendary_utils/user';
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
+  heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
   home
-} from './constants'
-import {
-  execAsync
-} from './utils'
+} from './constants';
+import { execAsync } from './utils';
 
 /**
  * This class does config handling.
@@ -107,7 +110,7 @@ abstract class GlobalConfig {
     }
 
 
-    const defaultWine = { bin: '', name: '' }
+    const defaultWine = { bin: '', name: 'Default Wine - Not Found' }
     await execAsync(`which wine`)
       .then(async ({ stdout }) => {
         defaultWine.bin = stdout.split('\n')[0]
@@ -115,7 +118,7 @@ abstract class GlobalConfig {
         const version = out.split('\n')[0]
         defaultWine.name = `Wine - ${version}`
       })
-      .catch(() => console.log('Wine not installed'))
+      .catch(() => console.log('Default Wine not installed'))
 
     const altWine: Set<WineInstallation> = new Set()
 
@@ -143,14 +146,14 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths: string[] = [
-      `${home}/.local/share/Steam`,
+      `${home}/.steam`,
       `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
     steamPaths.forEach((path) => {
-      protonPaths.push(`${path}/steamapps/common/`)
-      protonPaths.push(`${path}/compatibilitytools.d/`)
+      protonPaths.push(`${path}/steam/steamapps/common/`)
+      protonPaths.push(`${path}/root/compatibilitytools.d/`)
       return
     })
 
@@ -262,9 +265,14 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getSettings(): Promise<AppSettings> {
+    if(!existsSync(heroicGamesConfigPath)){
+      mkdirSync(heroicGamesConfigPath, {recursive: true})
+    }
+
     if (!existsSync(heroicConfigPath)) {
       return await this.getFactoryDefaults()
     }
+
     let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
     settings = {...(await this.getFactoryDefaults()), ...settings.defaultSettings} as AppSettings
     return settings
@@ -325,6 +333,4 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 }
 
-export {
-  GlobalConfig
-}
+export { GlobalConfig };

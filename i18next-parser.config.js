@@ -25,7 +25,7 @@ module.exports = {
   failOnWarnings: false,
   // Exit with an exit code of 1 on warnings
 
-  indentation: 2,
+  indentation: 4,
   // Indentation of the catalog files
 
   input: ['src/**/*.{ts,tsx}', 'electron/**/*.{ts,tsx}'],
@@ -53,7 +53,7 @@ module.exports = {
   lineEnding: 'auto',
   // Control the line ending. See options at https://github.com/ryanve/eol
 
-  locales: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'cs', 'tr', 'hu', 'it', 'ml'],
+  locales: ['de', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'cs', 'tr', 'hu', 'it', 'ml', 'sv'],
   // An array of the locales in your applications
 
   namespaceSeparator: ':',

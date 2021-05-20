@@ -1,0 +1,185 @@
+{
+    "All": "Alla",
+    "box": {
+        "appupdate": {
+            "message": "Det finns en ny version av Heroic tillgänglig, Vill du uppdatera nu?",
+            "title": "Updatering tillgänglig"
+        },
+        "choose": "Ok",
+        "choose-egs-prefix": "Välj prefix där EGS är installerad",
+        "customWine": "Välj wine eller proton binär",
+        "default-install-path": "Väjl standard installationssökväg",
+        "error": {
+            "diskspace": {
+                "message": "Det finns inte tillräckligt med hårdiskutrymme",
+                "title": "Inget utrymme"
+            },
+            "generic": {
+                "message": "Ett okänt fel har inträffat",
+                "title": "Okänt fel"
+            },
+            "launch": "Fel vid uppstar av spelet, kontrollera loggarna!"
+        },
+        "no": "Nej",
+        "quit": {
+            "message": "Det finns pågående nedladdningar, är du säker?",
+            "title": "Avbryt"
+        },
+        "runexe": {
+            "title": "Välj EXE-fil att köra"
+        },
+        "select": "Kör",
+        "sync": {
+            "button": "Ok",
+            "error": "Ogilltig sökväg",
+            "title": "Väl mapp för sparfiler"
+        },
+        "wineprefix": "Välj wine prefix mapp",
+        "yes": "Ja"
+    },
+    "button": {
+        "sync": "Synkronisering",
+        "syncing": "Synkroniserar",
+        "unsync": "Ogör synkronisering"
+    },
+    "Downloading": "Laddar ner",
+    "Filter": "Filtrera",
+    "globalSettings": "Globala inställningar",
+    "help": {
+        "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
+        "other": {
+            "part1": "Använda ",
+            "part2": "Miljövariabler (Environment Variables)",
+            "part3": "laddas innan speluppstart; ",
+            "part4": "Använda ",
+            "part5": "Argument eller flaggor",
+            "part6": " skrivs efter startkommandot, t.ex.: ",
+            "part7": " för att starta utan launcher i vissa spel."
+        },
+        "sync": {
+            "part1": "Heroic försöker gissa mapp för sparfiler vilket oftast fungerar. Om det blir fel mapp så använd fältet för att ändra det.",
+            "part2": "Om du ändrar prefix mapp för Wine eller Proton, kommer du behöva kontrollera sökvägen igen då Proton använder ett annorlunda prefix (/pfx) och användarnamn (steamuser). Du kan enkelt radera aktuell sökväg och lämna synkroniseringsinställningarssidan och öppna den på nytt för att Heroic ska göra ett nytt försök att hitta rätt prefix.",
+            "part3": "Manuell synkronisering: Välj ladda ner för att ladda ner sparfiler sparade i molnet. Ladda upp för att ladda upp lokala sparfiler till molnlagring. Tvingad nedladdning och tvingad uppladning kommer ignorera versionering lokalt eller i molnlagring.",
+            "part4": "Synkronisera spelspraningar automatisk kommer synkronisera sparfiler var gång ett spel startas samt avslutas."
+        },
+        "wine": {
+            "part1": "Heroic söker efter versioner av Wine och Proton i följade mappar:",
+            "part2": "För andra platser, använd en symbolisk länk till en av mapparna"
+        }
+    },
+    "info": {
+        "settings": "Inställningar sparas automatiskt"
+    },
+    "infobox": {
+        "help": "Hjälp",
+        "requirements": "Systemkrav"
+    },
+    "Library": "Bibliotek",
+    "message": {
+        "sync": "Synkronisering klar",
+        "unsync": "Ogör synkronisering klar"
+    },
+    "nogames": "Inga spel hittades",
+    "Not Ready": "Ej nedladdade",
+    "notify": {
+        "finished": {
+            "reparing": "Reparation klar"
+        },
+        "install": {
+            "canceled": "Installation avbröts",
+            "finished": "Installation klar"
+        },
+        "moved": "Flytta klar",
+        "refreshed": "Biblioter uppdaterat",
+        "refreshing": "Uppdaterar",
+        "uninstalled": "Avinstallerad",
+        "update": {
+            "canceled": "Updatering avbruten",
+            "finished": "Updatering klar"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "Skriv in önkade variabler",
+            "title": "Miljövariabler (Environment Variables):"
+        },
+        "gameargs": {
+            "placeholder": "Skriv in spelets argument/flaggor",
+            "title": "Argument eller flaggor (körs efter startkommandot):"
+        }
+    },
+    "placeholder": {
+        "egs-prefix": "Prefix där EGS är installerad"
+    },
+    "Ready": "Nedladdade",
+    "Return": "Tillbaka",
+    "search": "Skriv in spelets namn här...",
+    "setting": {
+        "audiofix": "Ljudfix (Pulse Audio Latens)",
+        "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
+        "autosync": "Autosynkronisera sparfiler",
+        "customWineProton": "Anpassad wine/proton sökväg",
+        "darktray": "Använd mörk ikon i sytembrickan (kräver omstart)",
+        "default-install-path": "Standard installationssökväg",
+        "egs-sync": "Synkronisera med installerade Epic spel",
+        "exit-to-tray": "Avsluta till systembrickan",
+        "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
+        "language": "Välj app-språk",
+        "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
+        "manualsync": {
+            "download": "Ladda ner",
+            "forcedownload": "Tvinga nedladdning",
+            "forceupload": "Tvinga uppladdning",
+            "sync": "Synkronisera",
+            "syncing": "Synkroniserar",
+            "title": "Manuell sparfilssynkronisering",
+            "upload": "Ladda upp"
+        },
+        "maxworkers": "Maximalt antal samtida nedladdningar",
+        "offlinemode": "Kör spelet offline",
+        "runexe": {
+            "message": "Drag och släpp filer här",
+            "title": "Kör EXE-fil i prefix"
+        },
+        "savefolder": {
+            "placeholder": "Välj exakt sparfilsmapp",
+            "title": "Synkroniseringsmapp för sparfiler"
+        },
+        "showfps": "Visa FPS (DX9, 10 och 11)",
+        "wineprefix": "WinePrefix mapp",
+        "wineversion": "Wine version"
+    },
+    "Settings": "Inställningar",
+    "settings": {
+        "navbar": {
+            "general": "Allmänna",
+            "other": "Övriga",
+            "sync": "Synkronisera sparfiler"
+        }
+    },
+    "store": "Butik",
+    "tooltip": {
+        "addpath": "Lägg till ny sökväg",
+        "removepath": "Ta bort sökväg"
+    },
+    "Total Games": "Antal spel",
+    "tray": {
+        "about": "Om",
+        "quit": "Avsluta",
+        "reload": "Ladda om",
+        "show": "Visa",
+        "support": "Stöd oss"
+    },
+    "Unreal Marketplace": "",
+    "Updates": "Updates",
+    "userselector": {
+        "about": "Om",
+        "discord": "Discord",
+        "logout": "Logga ut",
+        "logout_confirmation": "Är du säker på att du vill logga ut?",
+        "quit": "Avsluta",
+        "refresh": "Uppdatera bibliotet",
+        "support": "Stöd oss"
+    },
+    "wiki": "Wiki"
+}

@@ -25,6 +25,7 @@ import Header from 'src/components/UI/Header'
 import InfoBox from 'src/components/UI/InfoBox'
 import Settings from '@material-ui/icons/Settings'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
+const storage: Storage = window.localStorage
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -55,9 +56,10 @@ export default function GamePage(): JSX.Element | null {
   )[0]
 
   const { status } = gameStatus || {}
+  const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
 
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
-  const [progress, setProgress] = useState({
+  const [progress, setProgress] = useState(previousProgress ?? {
     bytes: '0.00MiB',
     eta: '00:00:00',
     percent: '0.00%'
@@ -111,12 +113,18 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const progressInterval = setInterval(async () => {
       if (isInstalling || isUpdating || isReparing) {
-        const progress = await ipcRenderer.invoke(
+        const progress: InstallProgress = await ipcRenderer.invoke(
           'requestGameProgress',
           appName
         )
 
         if (progress) {
+          if (previousProgress){
+            const legendaryPercent = getProgress(progress)
+            const heroicPercent = getProgress(previousProgress)
+            const newPercent: number = Math.round((legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent)
+            progress.percent = `${newPercent}%`
+          }
           return setProgress(progress)
         }
 
@@ -478,7 +486,7 @@ export default function GamePage(): JSX.Element | null {
     return async () => {
       if (isInstalling) {
         const { folder_name } = await getGameInfo(appName)
-        return handleStopInstallation(appName, [installPath, folder_name], t)
+        return handleStopInstallation(appName, [installPath, folder_name], t, progress)
       }
 
       if (is_installed) {
@@ -490,6 +498,10 @@ export default function GamePage(): JSX.Element | null {
         const path = 'default'
         await handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path })
+
+        if (progress.percent === '100%') {
+          storage.removeItem(appName)
+        }
 
         return await handleGameStatus({ appName, status: 'done' })
       }
@@ -522,6 +534,9 @@ export default function GamePage(): JSX.Element | null {
           setInstallPath(path)
           await install({ appName, path })
           // Wait to be 100% finished
+          if (progress.percent === '100%') {
+            storage.removeItem(appName)
+          }
           return await handleGameStatus({ appName, status: 'done' })
         }
       }
@@ -539,6 +554,7 @@ export default function GamePage(): JSX.Element | null {
     if (response === 0) {
       handleGameStatus({ appName, status: 'uninstalling' })
       await ipcRenderer.invoke('uninstall', appName)
+      storage.removeItem(appName)
       return await handleGameStatus({ appName, status: 'done' })
     }
     return
