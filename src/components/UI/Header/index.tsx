@@ -30,12 +30,11 @@ export default function Header({
   title
 }: Props) {
   const { t } = useTranslation()
-  const { data, filter, gameUpdates, libraryStatus, layout, category } = useContext(ContextProvider)
-  const haveDownloads = libraryStatus.filter(
+  const { filter, gameUpdates, libraryStatus, layout, category } = useContext(ContextProvider)
+  const hasDownloads = libraryStatus.filter(
 
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
-  const hasUEAssets = !data.filter(game => game.is_game).length
   const hasUpdates = gameUpdates.length
   const history = useHistory()
 
@@ -114,7 +113,9 @@ export default function Header({
               {`${t('Downloading')} ${
                 hasDownloads > 0 ? `(${hasDownloads})` : ''
               }`}
-              {!!hasUpdates && <span
+            </span>
+            }
+            {!!hasUpdates && <span
               className={filter === 'updates' ? 'selected' : ''}
               onClick={() => handleFilter('updates')}
             >
@@ -122,7 +123,6 @@ export default function Header({
                 hasUpdates > 0 ? `(${hasUpdates})` : ''
               }`}
             </span>}
-            </span>
           </span>
         )}
         {handleFilter && category==='unreal' && (
