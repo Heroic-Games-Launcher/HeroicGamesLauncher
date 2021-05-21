@@ -5,7 +5,7 @@
             "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
             "title": "Actualización disponible"
         },
-        "choose": "Elegir",
+        "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
         "customWine": "Seleccione el Wine o Proton binario",
         "default-install-path": "Elija la ruta de instalación predeterminada",
@@ -35,7 +35,7 @@
             "title": "Elija el directorio de guardado"
         },
         "wineprefix": "Elija la carpeta Wine-Prefix",
-        "yes": "Si"
+        "yes": "SÍ"
     },
     "button": {
         "sync": "Sincronizar",
@@ -49,8 +49,8 @@
         "general": "Sincronice con EGS en caso de que tenga una instalación funcional de EGS en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
         "other": {
             "part1": "Utilizar las ",
-            "part2": "Opciones avanzadas ",
-            "part3": "para ser llamado antes de iniciar el juego.",
+            "part2": "Opciones avanzadas",
+            "part3": "para ser llamado antes de iniciar el juego; ",
             "part4": "Usa los ",
             "part5": "argumentos del juego",
             "part6": " para ser llamado después del comando de lanzamiento, por ejemplo: ",
@@ -128,10 +128,10 @@
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
         "manualsync": {
             "download": "Download",
-            "forcedownload": "Force Download",
-            "forceupload": "Force Upload",
-            "sync": "Sync",
-            "syncing": "Syncing",
+            "forcedownload": "Forzar Descarga",
+            "forceupload": "Forzar Subida",
+            "sync": "Sincronizar",
+            "syncing": "Sincronizando",
             "title": "Guardado de sincronización manual",
             "upload": "Upload"
         },
@@ -157,7 +157,7 @@
             "sync": "Guardar-Sincronizar"
         }
     },
-    "store": "Store",
+    "store": "Tienda",
     "tooltip": {
         "addpath": "Agregar una nueva ruta",
         "removepath": "Eliminar ruta"
@@ -170,8 +170,8 @@
         "show": "Mostrar",
         "support": "Apoyanos"
     },
-    "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Unreal Marketplace": "Unreal Marketplace",
+    "Updates": "Actualizaciones",
     "userselector": {
         "about": "Acerca",
         "discord": "Discord",
