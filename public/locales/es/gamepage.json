@@ -31,7 +31,7 @@
             "message": "Este juego tiene una actualización, ¿deseas actualizar ahora?",
             "title": "El juego necesita una actualización"
         },
-        "yes": "YES"
+        "yes": "SÍ"
     },
     "button": {
         "cancel": "Cancelar",
