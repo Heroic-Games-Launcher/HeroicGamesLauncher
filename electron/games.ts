@@ -277,6 +277,7 @@ class LegendaryGame implements Game {
       otherOptions,
       useGameMode,
       showFps,
+      nvidiaPrime,
       launcherArgs = '',
       showMangohud,
       audioFix,
@@ -298,6 +299,7 @@ class LegendaryGame implements Game {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
       other: otherOptions ? otherOptions : '',
+      prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
         ? `STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')

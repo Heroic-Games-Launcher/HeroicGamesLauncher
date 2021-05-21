@@ -137,6 +137,7 @@
         },
         "maxworkers": "Максимальное количество потоков при скачивании",
         "offlinemode": "Запустить игру в автономном режиме",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE на префиксе"

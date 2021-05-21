@@ -137,6 +137,7 @@
         },
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "offlinemode": "Uruchom grę w trybie offline",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Upuść pliki tutaj",
             "title": "Uruchom EXE w prefiksie"

@@ -137,6 +137,7 @@
         },
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"
