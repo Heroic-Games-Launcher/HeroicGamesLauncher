@@ -308,6 +308,7 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       language: 'en',
       maxWorkers: 0,
+      nvidiaPrime: false,
       otherOptions: '',
       showFps: false,
       useGameMode: false,
