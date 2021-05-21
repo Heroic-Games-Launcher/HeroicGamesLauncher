@@ -11,6 +11,7 @@ export default function ToggleSwitch({ handleChange, value, disabled }: Props) {
   return (
     <label className="switch">
       <input
+        data-testid="toggleswitch"
         disabled={disabled}
         checked={value}
         type="checkbox"
