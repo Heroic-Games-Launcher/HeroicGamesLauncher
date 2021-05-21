@@ -24,7 +24,19 @@ module.exports = {
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
 
   // Module file extensions for importing
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx"]
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
 
+  coverageDirectory: "<rootDir>/coverage",
 
+  collectCoverageFrom: ["**/*.{js,jsx,ts,tsx}"],
+
+  coveragePathIgnorePatterns: [
+    "<rootDir>/node_modules>",
+    "<rootDir>/public",
+    "<rootDir>/electron",
+    "<rootDir>/dist",
+    "<rootDir>/build"
+  ],
+
+  coverageReporters: ['text', 'html']
 };
