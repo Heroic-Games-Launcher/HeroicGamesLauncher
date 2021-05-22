@@ -508,18 +508,6 @@ export default function GamePage(): JSX.Element | null {
         return refresh()
       }
 
-      if (installPath === 'default' && gameInfo.is_game) {
-        setInstallPath(defaultPath)
-        await handleGameStatus({ appName, status: 'installing' })
-        await install({ appName, path: installPath })
-
-        if (progress.percent === '100%') {
-          storage.removeItem(appName)
-        }
-
-        return await handleGameStatus({ appName, status: 'done' })
-      }
-
       if (installPath === 'import' && gameInfo.is_game) {
         const { filePaths } = await showOpenDialog({
           buttonLabel: t('box.choose'),
@@ -553,6 +541,17 @@ export default function GamePage(): JSX.Element | null {
           }
           return await handleGameStatus({ appName, status: 'done' })
         }
+      }
+
+      if (gameInfo.is_game) {
+        await handleGameStatus({ appName, status: 'installing' })
+        await install({ appName, path: installPath })
+
+        if (progress.percent === '100%') {
+          storage.removeItem(appName)
+        }
+
+        return await handleGameStatus({ appName, status: 'done' })
       }
     }
   }
