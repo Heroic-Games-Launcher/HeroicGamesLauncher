@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "Mégse",
+        "continue": "Continue Download",
         "import": "Importálás",
         "install": "Telepítés",
         "uninstall": "Eltávolítás"
@@ -79,6 +80,7 @@
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
         "reparing": "Játék javítása, kérlek várj",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Játék Frissítése"
     },
     "submenu": {
