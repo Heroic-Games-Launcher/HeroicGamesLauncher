@@ -64,8 +64,8 @@ export default function GamePage(): JSX.Element | null {
     eta: '00:00:00',
     percent: '0.00%'
   } as InstallProgress)
-  const [installPath, setInstallPath] = useState('default')
   const [defaultPath, setDefaultPath] = useState('...')
+  const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -104,11 +104,16 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     ipcRenderer
       .invoke('requestSettings', 'default')
-      .then((config: AppSettings) => setDefaultPath(config.defaultInstallPath))
+      .then((config: AppSettings) => {
+        setDefaultPath(config.defaultInstallPath)
+        if (installPath === 'default') {
+          setInstallPath(config.defaultInstallPath)
+        }
+      })
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
-  }, [appName])
+  }, [appName, installPath])
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -119,7 +124,7 @@ export default function GamePage(): JSX.Element | null {
         )
 
         if (progress) {
-          if (previousProgress){
+          if (previousProgress.folder === installPath){
             const legendaryPercent = getProgress(progress)
             const heroicPercent = getProgress(previousProgress)
             const newPercent: number = Math.round((legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent)
@@ -133,7 +138,7 @@ export default function GamePage(): JSX.Element | null {
           status
         })
       }
-    }, 1500)
+    }, 100)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
 
@@ -374,6 +379,7 @@ export default function GamePage(): JSX.Element | null {
 
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
+
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
@@ -405,6 +411,11 @@ export default function GamePage(): JSX.Element | null {
       return t('status.installed')
     }
 
+    if (previousProgress.folder === installPath) {
+      const currentStatus = `${getProgress(previousProgress)}%`
+      return t('status.pausedInstall', `Total Downloaded ${currentStatus}`)
+    }
+
     return t('status.notinstalled')
   }
 
@@ -416,6 +427,9 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel(is_installed: boolean) {
+    if (previousProgress.folder === installPath && !isInstalling) {
+      return t('button.continue', 'Continue Download')
+    }
     if (installPath === 'import') {
       return t('button.import')
     }
@@ -495,9 +509,9 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (installPath === 'default' && gameInfo.is_game) {
-        const path = 'default'
+        setInstallPath(defaultPath)
         await handleGameStatus({ appName, status: 'installing' })
-        await install({ appName, path })
+        await install({ appName, path: installPath })
 
         if (progress.percent === '100%') {
           storage.removeItem(appName)
@@ -529,11 +543,11 @@ export default function GamePage(): JSX.Element | null {
         })
 
         if (filePaths[0]) {
-          const path = filePaths[0]
+          const path = `${filePaths[0]}`
           handleGameStatus({ appName, status: 'installing' })
           setInstallPath(path)
           await install({ appName, path })
-          // Wait to be 100% finished
+
           if (progress.percent === '100%') {
             storage.removeItem(appName)
           }
