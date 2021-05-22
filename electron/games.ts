@@ -197,15 +197,12 @@ class LegendaryGame implements Game {
    * @returns Result of execAsync.
    */
   public async install(path : string) {
-    const { defaultInstallPath, maxWorkers } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
-    let command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y |& tee ${logPath} ${sockPath}`
-    if (path === 'default') {
-      command = `${legendaryBin} install ${this.appName} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath} ${sockPath}`
-    }
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y |& tee ${logPath} ${sockPath}`
     console.log(`Installing ${this.appName} with:`, command)
     // TODO(adityaruplaha):Create a socket connection for requestGameProgress
     try {

@@ -405,7 +405,7 @@ ipcMain.handle('readConfig', async (event, config_class) =>  {
 
 ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
-    return await GlobalConfig.get().config
+    return GlobalConfig.get().config
   }
   // We can't use .config since apparently its not loaded fast enough.
   return await GameConfig.get(appName).getSettings()
