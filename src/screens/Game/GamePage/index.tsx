@@ -413,7 +413,7 @@ export default function GamePage(): JSX.Element | null {
 
     if (previousProgress.folder === installPath) {
       const currentStatus = `${getProgress(previousProgress)}%`
-      return t('status.pausedInstall', `Total Downloaded ${currentStatus}`)
+      return `${t('status.totalDownloaded', 'Total Downloaded')} ${currentStatus}`
     }
 
     return t('status.notinstalled')
