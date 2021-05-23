@@ -48,7 +48,7 @@
     "info": {
         "path": "Kurulum Yeri",
         "size": "Boyut",
-        "syncsaves": "Kayıtları Senkronize Et",
+        "syncsaves": "Kayıtları Eşzamanla",
         "version": "Versiyon"
     },
     "install": {
@@ -65,7 +65,7 @@
             "stop": "Oynanıyor (Durdur)"
         },
         "saves": {
-            "syncing": "Kayıtlar Senkronize Ediliyor"
+            "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
     "specs": {
