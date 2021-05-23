@@ -99,7 +99,7 @@ const GameCard = ({
 
         setProgress(progress)
       }
-    }, 100)
+    }, 500)
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 

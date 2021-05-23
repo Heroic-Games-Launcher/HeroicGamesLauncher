@@ -138,7 +138,7 @@ export default function GamePage(): JSX.Element | null {
           status
         })
       }
-    }, 100)
+    }, 500)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
 
