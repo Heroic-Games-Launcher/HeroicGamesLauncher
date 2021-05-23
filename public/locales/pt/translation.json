@@ -137,6 +137,7 @@
         },
         "maxworkers": "CPUs máximos utilizados ao baixar jogos",
         "offlinemode": "Executar o jogo offline",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Arraste e Solte arquivos aqui",
             "title": "Executar EXE no Prefixo"

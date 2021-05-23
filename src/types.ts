@@ -14,6 +14,7 @@ export interface AppSettings {
   language: string
   launcherArgs: string
   maxWorkers: number
+  nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions: string
   savesPath: string
