@@ -197,21 +197,12 @@ class LegendaryGame implements Game {
    * @returns Result of execAsync.
    */
   public async install(path : string) {
-    const { maxWorkers } = (await GlobalConfig.get().getSettings())
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y |& tee ${logPath} ${sockPath}`
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} -y |& tee ${logPath}`
     console.log(`Installing ${this.appName} with:`, command)
-    // TODO(adityaruplaha):Create a socket connection for requestGameProgress
-    try {
-      Library.get().installState(this.appName, true)
-      return await execAsync(command, { shell: shell })
-    } catch (error) {
-      Library.get().installState(this.appName, false)
-      return errorHandler(logPath)
-    }
+    return await execAsync(command, { shell: '/bin/bash' })
+      .then(() => console.log('finished installing'))
+      .catch((err) => console.log({installError: err}))
   }
 
   public async uninstall() {

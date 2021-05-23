@@ -267,6 +267,7 @@ ipcMain.on('lock', () => {
     writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
     if (!powerId) {
       powerId = powerSaveBlocker.start('prevent-app-suspension')
+      return powerId
     }
   }
 })
@@ -275,7 +276,7 @@ ipcMain.on('unlock', () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     unlinkSync(`${heroicGamesConfigPath}/lock`)
     if (powerId) {
-      powerSaveBlocker.stop(powerId)
+      return powerSaveBlocker.stop(powerId)
     }
   }
 })
