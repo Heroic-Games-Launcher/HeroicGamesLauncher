@@ -32,7 +32,7 @@ export default function Header({
   const hasDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
-  const hasUEAssets = !data.filter(game => game.is_game).length
+  const hasUEAssets = data.filter(game => game.is_ue_asset).length
   const hasUpdates = gameUpdates.length
   const history = useHistory()
 
@@ -51,24 +51,28 @@ export default function Header({
           <span className="selectFilter">
             <span>{t('Filter')}:</span>
             <span
+              data-testid="all"
               className={filter === 'all' ? 'selected' : ''}
               onClick={() => handleFilter('all')}
             >
               {t('All')}
             </span>
             <span
+              data-testid="installed"
               className={filter === 'installed' ? 'selected' : ''}
               onClick={() => handleFilter('installed')}
             >
               {t('Ready')}
             </span>
             <span
+              data-testid="uninstalled"
               className={filter === 'uninstalled' ? 'selected' : ''}
               onClick={() => handleFilter('uninstalled')}
             >
               {t('Not Ready')}
             </span>
             {!!hasDownloads && <span
+              data-testid="downloading"
               className={filter === 'downloading' ? 'selected' : ''}
               onClick={() => handleFilter('downloading')}
             >
@@ -77,6 +81,7 @@ export default function Header({
               }`}
             </span>}
             {!!hasUpdates && <span
+              data-testid="updates"
               className={filter === 'updates' ? 'selected' : ''}
               onClick={() => handleFilter('updates')}
             >
@@ -85,6 +90,7 @@ export default function Header({
               }`}
             </span>}
             {!!hasUEAssets && <span
+              data-testid="unreal"
               className={filter === 'unreal' ? 'selected' : ''}
               onClick={() => handleFilter('unreal')}
             >
@@ -93,17 +99,18 @@ export default function Header({
           </span>
         )}
         {numberOfGames !== undefined && numberOfGames > 0 && (
-          <span className="totalGamesText">
+          <span className="totalGamesText" data-testid="totalGamesText">
             {t('Total Games')}: {numberOfGames}
           </span>
         )}
         {numberOfGames !== undefined && numberOfGames === 0 && (
-          <div className="totalGamesText">{t('nogames')}</div>
+          <div className="totalGamesText" data-testid="totalGamesText">{t('nogames')}</div>
         )}
-        {title && <div className="headerTitle">{title}</div>}
+        {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
         {handleLayout && (
           <div className="layoutSelection">
             <Apps
+              data-testid="grid"
               className={
                 layout === 'grid'
                   ? 'selectedLayout material-icons'
@@ -112,6 +119,7 @@ export default function Header({
               onClick={() => handleLayout('grid')}
             />
             <List
+              data-testid="list"
               className={
                 layout === 'list'
                   ? 'selectedLayout material-icons'

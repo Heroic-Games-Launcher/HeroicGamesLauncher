@@ -28,14 +28,18 @@ module.exports = {
 
   coverageDirectory: "<rootDir>/coverage",
 
-  collectCoverageFrom: ["**/*.{js,jsx,ts,tsx}"],
+  collectCoverageFrom: [
+    "**/*.{js,jsx,ts,tsx}",
+    "!**/*.config.js"
+  ],
 
   coveragePathIgnorePatterns: [
     "<rootDir>/node_modules>",
     "<rootDir>/public",
     "<rootDir>/electron",
     "<rootDir>/dist",
-    "<rootDir>/build"
+    "<rootDir>/build",
+    "<rootDir>/coverage"
   ],
 
   coverageReporters: ['text', 'html']
