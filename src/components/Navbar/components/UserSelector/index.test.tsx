@@ -35,7 +35,7 @@ jest.mock('src/helpers', () => ({
   openDiscordLink: jest.fn()
 }));
 
-function getUserSelector(props: Partial<ContextType> = {}) {
+function renderUserSelector(props: Partial<ContextType> = {}) {
   const defaultProps: ContextType = {
     data: [],
     error: false,
@@ -62,18 +62,18 @@ function getUserSelector(props: Partial<ContextType> = {}) {
 describe('UserSelector', () => {
 
   test('render', () => {
-    getUserSelector();
+    renderUserSelector();
   })
 
   test('shows correct username', () => {
-    const { getByTestId} = getUserSelector( {user: 'test-user'});
+    const { getByTestId} = renderUserSelector( {user: 'test-user'});
     const userName = getByTestId('userName');
     expect(userName).toHaveTextContent('test-user');
   })
 
   test('calls refresh library on click', () => {
     const onRefreshLibrary = jest.fn();
-    const { getByTestId } = getUserSelector({ refreshLibrary: onRefreshLibrary});
+    const { getByTestId } = renderUserSelector({ refreshLibrary: onRefreshLibrary});
     const divLibrary = getByTestId('refreshLibrary');
     expect(onRefreshLibrary).not.toBeCalled();
     fireEvent.click(divLibrary);
@@ -81,7 +81,7 @@ describe('UserSelector', () => {
   })
 
   test('calls handle kofi on click', () => {
-    const { getByTestId } = getUserSelector();
+    const { getByTestId } = renderUserSelector();
     const divKofi = getByTestId('handleKofi');
     expect(handleKofi).not.toBeCalled();
     fireEvent.click(divKofi);
@@ -89,7 +89,7 @@ describe('UserSelector', () => {
   })
 
   test('calls open discord link on click', () => {
-    const { getByTestId } = getUserSelector();
+    const { getByTestId } = renderUserSelector();
     const divDiscordLink = getByTestId('openDiscordLink');
     expect(openDiscordLink).not.toBeCalled();
     fireEvent.click(divDiscordLink);
@@ -97,7 +97,7 @@ describe('UserSelector', () => {
   })
 
   test('calls open about window on click', () => {
-    const { getByTestId } = getUserSelector();
+    const { getByTestId } = renderUserSelector();
     const divAboutWindow = getByTestId('openAboutWindow');
     expect(openAboutWindow).not.toBeCalled();
     fireEvent.click(divAboutWindow);
@@ -107,7 +107,7 @@ describe('UserSelector', () => {
   test('calls handle logout on click and invoke ipc renderer if user confirm', () => {
     window.confirm = jest.fn().mockImplementation(() => true)
 
-    const { getByTestId } = getUserSelector();
+    const { getByTestId } = renderUserSelector();
     const divLogout = getByTestId('handleLogout');
     expect(ipcRenderer.invoke).not.toBeCalled();
     fireEvent.click(divLogout);
@@ -118,7 +118,7 @@ describe('UserSelector', () => {
   test("calls handle logout on click and doesn't invoke ipc renderer if user don't confirm", () => {
     window.confirm = jest.fn().mockImplementation(() => false)
 
-    const { getByTestId } = getUserSelector();
+    const { getByTestId } = renderUserSelector();
     const divLogout = getByTestId('handleLogout');
     expect(ipcRenderer.invoke).not.toBeCalled();
     fireEvent.click(divLogout);
@@ -126,7 +126,7 @@ describe('UserSelector', () => {
   })
 
   test('calls handle quit on click', () => {
-    const { getByTestId } = getUserSelector();
+    const { getByTestId } = renderUserSelector();
     const divQuit = getByTestId('handleQuit');
     expect(handleQuit).not.toBeCalled();
     fireEvent.click(divQuit);

@@ -18,9 +18,11 @@ export default function SearchBar() {
         <Search
           onClick={() => handleSearch(textValue)}
           className="material-icons"
+          data-testid="searchButton"
         />
       </label>
       <input
+        data-testid="searchInput"
         className="searchInput"
         value={textValue}
         onChange={(event) => {
@@ -38,6 +40,7 @@ export default function SearchBar() {
             handleSearch('')
           }}
           className="material-icons close"
+          data-testid="closeButton"
         />
       )}
     </div>
