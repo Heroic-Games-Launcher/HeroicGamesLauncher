@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "Отменить",
+        "continue": "Continue Download",
         "import": "Импорт",
         "install": "Установить",
         "uninstall": "Удалить"
@@ -79,6 +80,7 @@
         "moving": "Перемещаю игру, пожалуйста подождите",
         "notinstalled": "Игра не установлена",
         "reparing": "Восстанавливаю игру, пожалуйста подождите",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Обновляю игру"
     },
     "submenu": {

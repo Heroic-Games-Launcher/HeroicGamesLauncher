@@ -57,6 +57,7 @@ const GameCard = ({
   const [progress, setProgress] = useState(previousProgress ?? {
     bytes: '0.00MiB',
     eta: '00:00:00',
+    path: '',
     percent: '0.00%'
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
@@ -98,7 +99,7 @@ const GameCard = ({
 
         setProgress(progress)
       }
-    }, 1500)
+    }, 500)
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 
@@ -226,7 +227,7 @@ const GameCard = ({
       return await handleInstall({
         appName,
         handleGameStatus,
-        installPath: 'another',
+        installPath: 'default',
         isInstalling,
         progress,
         t

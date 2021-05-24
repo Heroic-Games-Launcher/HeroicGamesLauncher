@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "İptal",
+        "continue": "Continue Download",
         "import": "İçeri Aktar",
         "install": "Yükle",
         "uninstall": "Kaldır"
@@ -79,6 +80,7 @@
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun yüklü değil",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Oyun Güncelleniyor"
     },
     "submenu": {

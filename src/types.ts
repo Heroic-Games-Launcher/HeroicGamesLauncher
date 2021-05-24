@@ -85,6 +85,7 @@ export interface GameStatus {
 export interface InstallProgress {
   bytes: string
   eta: string
+  folder?: string
   percent: string
 }
 export interface InstalledInfo {
