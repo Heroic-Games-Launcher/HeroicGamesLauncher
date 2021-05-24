@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "Avbryt",
+        "continue": "Continue Download",
         "import": "Importera",
         "install": "Installera",
         "uninstall": "Avinstallera"
@@ -79,6 +80,7 @@
         "moving": "Flyttar installationen, var god dröj",
         "notinstalled": "Detta spelet är inte installerat",
         "reparing": "Reparerar speler, var god dröj",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Updaterar spelet"
     },
     "submenu": {

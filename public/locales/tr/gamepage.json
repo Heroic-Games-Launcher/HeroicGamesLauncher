@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "İptal",
+        "continue": "Continue Download",
         "import": "İçeri Aktar",
         "install": "Yükle",
         "uninstall": "Kaldır"
@@ -48,7 +49,7 @@
     "info": {
         "path": "Kurulum Yeri",
         "size": "Boyut",
-        "syncsaves": "Kayıtları Senkronize Et",
+        "syncsaves": "Kayıtları Eşzamanla",
         "version": "Versiyon"
     },
     "install": {
@@ -65,7 +66,7 @@
             "stop": "Oynanıyor (Durdur)"
         },
         "saves": {
-            "syncing": "Kayıtlar Senkronize Ediliyor"
+            "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
     "specs": {
@@ -79,6 +80,7 @@
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun yüklü değil",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Oyun Güncelleniyor"
     },
     "submenu": {

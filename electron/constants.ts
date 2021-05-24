@@ -29,11 +29,18 @@ const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const shell = process.platform === 'darwin' ? '/bin/zsh' : '/bin/bash'
+const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
+
+const execOptions = {
+  maxBuffer: MAX_BUFFER,
+  shell
+}
 
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
   discordLink,
+  execOptions,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
