@@ -15,10 +15,10 @@ import {
   isOnline
 } from './utils'
 import {
+  execOptions,
   heroicGamesConfigPath,
   home,
-  legendaryBin,
-  shell
+  legendaryBin
 } from './constants'
 
 type ExecResult = void | {stderr : string, stdout : string}
@@ -184,7 +184,7 @@ class LegendaryGame implements Game {
     const command = `${legendaryBin} update ${this.appName} -y &> ${logPath}`
 
     try {
-      return await execAsync(command, { shell: '/bin/bash' })
+      return await execAsync(command, execOptions)
     } catch (error) {
       return await errorHandler(logPath)
     }
@@ -197,19 +197,28 @@ class LegendaryGame implements Game {
    * @returns Result of execAsync.
    */
   public async install(path : string) {
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} -y |& tee ${logPath}`
+    const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y |& tee ${logPath} ${sockPath}`
     console.log(`Installing ${this.appName} with:`, command)
-    return await execAsync(command, { shell: '/bin/bash' })
-      .then(() => console.log('finished installing'))
-      .catch((err) => console.log({installError: err}))
+    // TODO(adityaruplaha):Create a socket connection for requestGameProgress
+    try {
+      Library.get().installState(this.appName, true)
+      return await execAsync(command, execOptions)
+    } catch (error) {
+      Library.get().installState(this.appName, false)
+      return errorHandler(logPath)
+    }
   }
 
   public async uninstall() {
     const command = `${legendaryBin} uninstall ${this.appName} -y`
     console.log(`Uninstalling ${this.appName} with:`, command)
     Library.get().installState(this.appName, false)
-    return await execAsync(command, { shell: shell })
+    return await execAsync(command, execOptions)
   }
 
   /**
@@ -226,12 +235,12 @@ class LegendaryGame implements Game {
     const command = `${legendaryBin} repair ${this.appName} ${workers} -y &> ${logPath}`
 
     console.log(`Repairing ${this.appName} with:`, command)
-    return await execAsync(command, { shell: shell })
+    return await execAsync(command, execOptions)
   }
 
   public async import(path : string) {
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
-    const { stderr, stdout } = await execAsync(command, { shell: shell })
+    const { stderr, stdout } = await execAsync(command, execOptions)
     return {stderr, stdout}
   }
 
