@@ -38,29 +38,29 @@
         "yes": "EVET"
     },
     "button": {
-        "sync": "Eşitle",
-        "syncing": "Eşitleniyor",
-        "unsync": "Eşitlemeyi kaldır"
+        "sync": "Eşzamanla",
+        "syncing": "Eşzamanlanıyor",
+        "unsync": "Eşzamanlamayı kaldır"
     },
     "Downloading": "İndiriliyor",
     "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
     "help": {
-        "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşitleyin.",
+        "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
         "other": {
             "part1": "Oyun başlatılmadan önce çağırılması için ",
             "part2": "Gelişmiş Seçenekler",
             "part3": "'i kullanın; ",
             "part4": "Oyunu başlatma komutuna eklenmesi için ",
             "part5": "Oyun Parametleri",
-            "part6": "'ni kullanın, örneğin bazı oyunlarda başlatıcıyı atlamak için: ",
+            "part6": " 'ni kullanın, örneğin bazı oyunlarda başlatıcıyı atlamak için: ",
             "part7": " gibi."
         },
         "sync": {
             "part1": "Heroic doğru kayıt klasörünü algılamaya çalışır ve bu çoğu zaman çalışıyor. Eğer klasör yanlışsa, değiştirmek için geçersiz kıl kutucuğunu kullan.",
-            "part2": "Wine ya da Proton klasörünü değiştirmek istersen, Proton farklı bir yol (/pfx) ve kullanıcı adı (steamuser) kullandığı için yolu tekrar kontrol etmen gerekecek. Heroic'in doğru klasörü bir kez daha tahmin etmesi için basitçe senkronizasyon ayarlarından şuanki yolu silebilir ve tekrar geri dönebilirsiniz.",
-            "part3": "Elle Eşitle: Bulutta depolanan oyun kayıtlarını indirmek için Download'ı seçin. Yerel kayıtları buluta yüklemek için Upload'ı. Force Download ve Force Upload yerel ya da buluttaki versiyonu dikkate almayacak.",
-            "part4": "Kayıtları Otomatik Eşitle oyunu her başlattığında ve oynamayı bitirdiğinde kayıtları eşitleyecek."
+            "part2": "Wine ya da Proton klasörünü değiştirmek isterseniz, Proton farklı bir yol (/pfx) ve kullanıcı adı (steamuser) kullandığı için yolu tekrar gözden geçirmeniz gerekecek. Heroic'in doğru klasörü bir kez daha tahmin etmesi için basitçe eşzamanlama ayarlarından geçerli yolu silebilir ve tekrar geri dönebilirsiniz.",
+            "part3": "Elle Eşzamanla: Bulutta depolanan oyun kayıtlarını indirmek için İndir seçeneğini seçin. Yerel kayıtları buluta yüklemek için Karşıya Yükle seçeneğini seçin. İndirmeye Zorla ve Karşıya Yüklemeye Zorla yerel veya buluttaki sürümü dikkate almayacaktır.",
+            "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
         },
         "wine": {
             "part1": "Heroic Wine ve Proton sürümlerini şu klasörlerde arar:",
@@ -76,8 +76,8 @@
     },
     "Library": "Kütüphane",
     "message": {
-        "sync": "Eşitleme Tamamlandı",
-        "unsync": "Eşitlemeyi Kaldırma Tamamlandı"
+        "sync": "Eşzamanlama Tamamlandı",
+        "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
     },
     "nogames": "Oyun Bulunamadı",
     "Not Ready": "Hazır Değil",
@@ -117,34 +117,34 @@
     "setting": {
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
-        "autosync": "Kayıtları Otomatik Eşitle",
+        "autosync": "Kayıtları Otomatik Eşzamanla",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan (yeniden başlatma gerektirir)",
         "default-install-path": "Varsayılan Kurulum Yeri",
-        "egs-sync": "Yüklü Epic Games ile Eşitle",
+        "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "exit-to-tray": "Sistem Tepsisine Küçült",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
         "mangohud": "Mangohud'u Etkinleştir (Mangohud yüklü olmalıdır)",
         "manualsync": {
-            "download": "Download",
-            "forcedownload": "Force Download",
-            "forceupload": "Force Upload",
-            "sync": "Sync",
-            "syncing": "Syncing",
-            "title": "Elle Eşitle",
-            "upload": "Upload"
+            "download": "İndir",
+            "forcedownload": "İndirmeye Zorla",
+            "forceupload": "Karşıya Yüklemeye Zorla",
+            "sync": "Eşzamanla",
+            "syncing": "Eşzamanlanıyor",
+            "title": "Kayıtları Elle Eşzamanla",
+            "upload": "Karşıya Yükle"
         },
         "maxworkers": "İndirirken Maksimum İşçi Sayısı",
         "offlinemode": "Oyunu Çevrimdışı Çalıştır",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Nvidia Prime Render'ı Etkinleştir",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Exe Çalıştır"
         },
         "savefolder": {
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
-            "title": "Bulut Eşitleme Kayıt klasörünü Geçersiz Kıl"
+            "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "wineprefix": "WinePrefix klasörü",
@@ -155,10 +155,10 @@
         "navbar": {
             "general": "Genel",
             "other": "Diğer",
-            "sync": "Kaydet-Eşitle"
+            "sync": "Kaydet-Eşzamanla"
         }
     },
-    "store": "Store",
+    "store": "Mağaza",
     "tooltip": {
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
@@ -171,8 +171,8 @@
         "show": "Göster",
         "support": "Bizi Destekle"
     },
-    "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Unreal Marketplace": "Unreal Mağazası",
+    "Updates": "Güncellemeler",
     "userselector": {
         "about": "Hakkında",
         "discord": "Discord",
