@@ -1,5 +1,5 @@
 export { default as GeneralSettings } from './GeneralSettings'
-export { default as WineSettings } from './WineSettings'
+export { default as OtherSettings } from './OtherSettings'
 export { default as SyncSaves } from './SyncSaves'
 export { default as Tools } from './Tools'
-export { default as OtherSettings } from './OtherSettings'
+export { default as WineSettings } from './WineSettings'
