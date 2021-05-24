@@ -531,7 +531,7 @@ export default function GamePage(): JSX.Element | null {
         })
 
         if (filePaths[0]) {
-          const path = `${filePaths[0]}`
+          const path = `'${filePaths[0]}'`
           // If the user changed the previous folder, the percentage should start from zero again.
           if (previousProgress.folder !== path) {
             storage.removeItem(appName)
