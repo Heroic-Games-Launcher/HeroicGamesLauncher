@@ -16,10 +16,14 @@ module.exports = {
 
   moduleNameMapper: {
     "\\.css$": "identity-obj-proxy",
+    "electron": "<rootDir>/src/test_helpers/mock/electron.ts"
   },
 
+  resetMocks: true,
+
+  setupFilesAfterEnv: ["<rootDir>/src/test_helpers/setupTests.ts"],
+
   // Test spec file resolution pattern
-  // Matches parent folder `__tests__` and filename
   // should contain `test` or `spec`.
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
 

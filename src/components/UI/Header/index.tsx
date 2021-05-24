@@ -76,18 +76,14 @@ export default function Header({
               className={filter === 'downloading' ? 'selected' : ''}
               onClick={() => handleFilter('downloading')}
             >
-              {`${t('Downloading')} ${
-                hasDownloads > 0 ? `(${hasDownloads})` : ''
-              }`}
+              {`${t('Downloading')} (${hasDownloads})`}
             </span>}
             {!!hasUpdates && <span
               data-testid="updates"
               className={filter === 'updates' ? 'selected' : ''}
               onClick={() => handleFilter('updates')}
             >
-              {`${t('Updates', 'Updates')} ${
-                hasUpdates > 0 ? `(${hasUpdates})` : ''
-              }`}
+              {`${t('Updates', 'Updates')} (${hasUpdates})`}
             </span>}
             {!!hasUEAssets && <span
               data-testid="unreal"

@@ -10,7 +10,7 @@ import {
 
 
 import { ContextType } from 'src/types';
-import { game, plugin } from 'src/testDefaultVariables';
+import { game, plugin } from 'src/test_helpers/testDefaultVariables';
 import ContextProvider from 'src/state/ContextProvider';
 import Header from './index';
 
