@@ -124,7 +124,7 @@ export default function GamePage(): JSX.Element | null {
         )
 
         if (progress) {
-          if (previousProgress.folder === installPath){
+          if (previousProgress){
             const legendaryPercent = getProgress(progress)
             const heroicPercent = getProgress(previousProgress)
             const newPercent: number = Math.round((legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent)
@@ -532,6 +532,10 @@ export default function GamePage(): JSX.Element | null {
 
         if (filePaths[0]) {
           const path = `${filePaths[0]}`
+          // If the user changed the previous folder, the percentage should start from zero again.
+          if (previousProgress.folder !== path) {
+            storage.removeItem(appName)
+          }
           handleGameStatus({ appName, status: 'installing' })
           setInstallPath(path)
           await install({ appName, path })
@@ -544,6 +548,10 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (gameInfo.is_game) {
+        // If the user changed the previous folder, the percentage should start from zero again.
+        if (previousProgress.folder !== installPath) {
+          storage.removeItem(appName)
+        }
         await handleGameStatus({ appName, status: 'installing' })
         await install({ appName, path: installPath })
 
