@@ -24,6 +24,8 @@ import {
 import net from 'net';
 
 type ExecResult = void | {stderr : string, stdout : string}
+
+type ProgressMode = 'install' | 'update' | 'repair' | 'import'
 interface Game {
   appName: string,
   getExtraInfo(namespace : string) : Promise<ExtraInfo>,
@@ -187,23 +189,7 @@ class LegendaryGame implements Game {
   public async update() {
     const logPath = `${heroicGamesConfigPath}${this.appName}.log`
 
-    const server = net.createServer((socket) => {
-      socket.on('connect', () => {
-        console.log(`[update ${this.appName}]: Connected.`)
-      })
-      socket.on('end', () => {
-        console.log(`[update ${this.appName}]: Disconnected.`)
-      })
-      socket.on('data', (data) => {
-        this.updateInstallProgress(data.toString())
-      })
-      socket.on('timeout', () => {
-        // Maybe handle this case?
-      })
-    })
-    server.listen(heroicPort, () => {
-      console.log(`[update ${this.appName}]: Server active.`)
-    })
+    const server = this.getProgressServer('update')
 
     // Use bash magic to send data to the TCP server.
     const sockPath = `"/dev/tcp/localhost/${heroicPort}"`
@@ -236,7 +222,7 @@ class LegendaryGame implements Game {
 
     const command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y |& tee ${logPath} &> ${sockPath}`
 
-    const server = this.getInstallProgressServer()
+    const server = this.getProgressServer('install')
     console.log(`Installing ${this.appName} with:`, command)
     try {
       Library.get().installState(this.appName, true)
@@ -382,14 +368,16 @@ class LegendaryGame implements Game {
     return await execAsync(command)
   }
 
-  private getInstallProgressServer() {
+  private getProgressServer(mode : ProgressMode) {
     const server = net.createServer((socket) => {
       console.log(`[progress ${this.appName}]: Connected.`)
       socket.on('end', () => {
         console.log(`[progress ${this.appName}]: Disconnected.`)
       })
       socket.on('data', (data) => {
-        this.updateInstallProgress(data.toString())
+        if (mode === 'install' || mode === 'update') {
+          this.updateInstallProgress(data.toString())
+        }
       })
       socket.on('timeout', () => {
         // Maybe handle this case?
