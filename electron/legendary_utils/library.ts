@@ -282,7 +282,7 @@ class Library {
 
     const art_cover = gameBox ? gameBox.url : null
     const art_logo = logo ? logo.url : null
-    const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+    const art_square = gameBoxTall ? gameBoxTall.url : null
 
     const info = this.installedGames.get(app_name)
     const {
@@ -298,9 +298,9 @@ class Library {
 
     this.library.set(app_name, {
       app_name,
-      art_cover: art_cover || art_square,
+      art_cover: art_cover || art_square || fallBackImage,
       art_logo,
-      art_square: art_square || art_cover,
+      art_square: art_square || art_cover || fallBackImage,
       cloud_save_enabled,
       compatible_apps,
       developer,
