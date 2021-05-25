@@ -6,6 +6,7 @@ import { join } from 'path'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
 const home = homedir()
+const heroicPort = 40627
 const legendaryConfigPath = `${home}/.config/legendary`
 const heroicFolder = `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
@@ -46,6 +47,7 @@ export {
   heroicGamesConfigPath,
   heroicGithubURL,
   heroicInstallPath,
+  heroicPort,
   heroicToolsPath,
   home,
   icon,

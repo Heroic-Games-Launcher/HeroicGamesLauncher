@@ -499,35 +499,7 @@ ipcMain.handle('updateGame', async (e, game) => {
   ).catch((res) => res)
 })
 
-// TODO(adityaruplaha): Use UNIX sockets to refactor this.
-ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `"${heroicGamesConfigPath}${appName}.log"`
-  const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
-  const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
-  const progress = {
-    bytes: '0.00MiB',
-    eta: '00:00:00',
-    percent: '0.00%'
-  }
-
-  try {
-    const { stdout: progress_result } = await execAsync(progress_command)
-    const { stdout: downloaded_result } = await execAsync(downloaded_command)
-
-    progress.bytes = downloaded_result + 'MiB'
-    progress.eta = progress_result.split(' ')[1]
-    progress.percent = progress_result.split(' ')[0]
-
-    console.log(
-      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`
-    )
-
-    return progress
-  } catch (error) {
-    console.log(error);
-    return progress
-  }
-})
+ipcMain.handle('requestGameProgress',  (event, appName) => LegendaryGame.get(appName).currentProgress)
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   const newPath = await LegendaryGame.get(appName).moveInstall(path)

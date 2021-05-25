@@ -86,7 +86,7 @@ export interface GameStatus {
 
 export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
-  bytes: string
+  bytes?: string
   eta: string
   folder?: string
   percent: string

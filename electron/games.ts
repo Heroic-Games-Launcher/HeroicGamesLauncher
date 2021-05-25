@@ -5,7 +5,7 @@ import {
 import axios from 'axios';
 
 import { DXVK } from './dxvk'
-import { ExtraInfo, GameInfo, GameSettings, GameStatus } from './types';
+import { ExtraInfo, GameInfo, GameSettings, GameStatus, InstallProgress } from './types';
 import { GameConfig } from './game_config';
 import { GlobalConfig } from './config';
 import { Library } from './legendary_utils/library'
@@ -17,9 +17,11 @@ import {
 import {
   execOptions,
   heroicGamesConfigPath,
+  heroicPort,
   home,
   legendaryBin
 } from './constants'
+import net from 'net';
 
 type ExecResult = void | {stderr : string, stdout : string}
 interface Game {
@@ -42,6 +44,9 @@ class LegendaryGame implements Game {
   public appName: string
   public state : GameStatus
   private static instances : Map<string, LegendaryGame> = new Map()
+
+  private progressOutputBuffer = ''
+  public currentProgress : InstallProgress
 
   private constructor(appName: string) {
     this.appName = appName
@@ -181,12 +186,37 @@ class LegendaryGame implements Game {
    */
   public async update() {
     const logPath = `${heroicGamesConfigPath}${this.appName}.log`
-    const command = `${legendaryBin} update ${this.appName} -y &> ${logPath}`
+
+    const server = net.createServer((socket) => {
+      socket.on('connect', () => {
+        console.log(`[update ${this.appName}]: Connected.`)
+      })
+      socket.on('end', () => {
+        console.log(`[update ${this.appName}]: Disconnected.`)
+      })
+      socket.on('data', (data) => {
+        this.updateInstallProgress(data.toString())
+      })
+      socket.on('timeout', () => {
+        // Maybe handle this case?
+      })
+    })
+    server.listen(heroicPort, () => {
+      console.log(`[update ${this.appName}]: Server active.`)
+    })
+
+    // Use bash magic to send data to the TCP server.
+    const sockPath = `"/dev/tcp/localhost/${heroicPort}"`
+    const command = `${legendaryBin} update ${this.appName} -y |& tee ${logPath} &> ${sockPath}`
 
     try {
-      return await execAsync(command, execOptions)
+      return await execAsync(command, execOptions).then((v) => {
+        server.close()
+        return v
+      })
     } catch (error) {
-      return await errorHandler(logPath)
+      server.close()
+      return errorHandler(logPath)
     }
   }
 
@@ -200,16 +230,23 @@ class LegendaryGame implements Game {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
+    // Use bash magic to send data to the TCP server.
+    const sockPath = `"/dev/tcp/localhost/${heroicPort}"`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y |& tee ${logPath} ${sockPath}`
+
+    const command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y |& tee ${logPath} &> ${sockPath}`
+
+    const server = this.getInstallProgressServer()
     console.log(`Installing ${this.appName} with:`, command)
-    // TODO(adityaruplaha):Create a socket connection for requestGameProgress
     try {
       Library.get().installState(this.appName, true)
-      return await execAsync(command, execOptions)
+      return await execAsync(command, execOptions).then((v) => {
+        server.close()
+        return v
+      })
     } catch (error) {
       Library.get().installState(this.appName, false)
+      server.close()
       return errorHandler(logPath)
     }
   }
@@ -308,7 +345,7 @@ class LegendaryGame implements Game {
     envVars = Object.values(options).join(' ')
     if (isProton) {
       console.log(
-        `\n You are using Proton, this can lead to some bugs, 
+        `\n You are using Proton, this can lead to some bugs,
               please do not open issues with bugs related with games`,
         wineVersion.name
       )
@@ -343,6 +380,71 @@ class LegendaryGame implements Game {
     console.log('\n Launch Command:', command)
 
     return await execAsync(command)
+  }
+
+  private getInstallProgressServer() {
+    const server = net.createServer((socket) => {
+      console.log(`[progress ${this.appName}]: Connected.`)
+      socket.on('end', () => {
+        console.log(`[progress ${this.appName}]: Disconnected.`)
+      })
+      socket.on('data', (data) => {
+        this.updateInstallProgress(data.toString())
+      })
+      socket.on('timeout', () => {
+        // Maybe handle this case?
+      })
+    })
+    server.listen(heroicPort, () => {
+      console.log(`[progress ${this.appName}]: Server active.`)
+    })
+    return server
+  }
+
+  private updateInstallProgress(data : string) {
+    this.progressOutputBuffer += data.replace(/\[DLManager\] INFO: /g, '')
+
+    // Cursed af, do not touch. Tailor made for the Legendary log format.
+    const re_comps = [
+      /Progress: ([\d.]+%) \([\d]+\/[\d]+\),/,                           // line 1...
+      / Running for ([\d:]+), ETA:\s+([\d:]+)/,                          // line 1: percentages, runtime, eta
+      /\s+- Downloaded: ([\d.]+ MiB), Written: ([\d.]+ MiB)/,            // line 2: total amounts downloaded and written
+      /\s+.+/,                                                           // line 3: nothing very useful for us
+      /\s+\+ Download\s+- ([\d.]+ MiB\/s) \(raw\) \/ ([\d.]+ MiB\/s).+/, // line 4: speeds!
+      /\s+\+ Disk\s+- ([\d.]+ MiB\/s) \(write\) \/ ([\d.]+ MiB\/s)/      // line 5: disk usage
+    ]
+    // Combine the split regex.
+    // @see https://stackoverflow.com/a/34755045
+    const re = new RegExp(re_comps.map(function(r) {return r.source}).join(''), 'g')
+
+    const matches = Array.from(this.progressOutputBuffer.matchAll(re))
+    if (matches && matches.length > 0) {
+      const match = matches.pop()
+
+      // @adityaruplaha: Commented stuff might come in handy later.
+
+      const percent = match[1]
+      //const runtime = match[2]
+      const eta = match[3]
+      const downloaded = match[4]
+      //const written = match[5]
+      //const rawDownloadSpeed = match[6]
+      //const actualDownloadSpeed = match[7]
+      //const diskWriteSpeed = match[8]
+      //const diskReadSpeed = match[9]
+
+      this.currentProgress = {
+        bytes: downloaded,
+        eta,
+        percent
+      }
+
+      // Game states are not implemented yet, so this should be a temporary patch.
+      const mode = this.state?.status || 'fixme'
+      console.log(`[progress ${this.appName}]: ${mode}: ${percent} (${downloaded}) | ETA: ${eta}`)
+
+      this.progressOutputBuffer = ''
+    }
   }
 }
 
