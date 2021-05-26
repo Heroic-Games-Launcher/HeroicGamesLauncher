@@ -17,7 +17,6 @@ import {
 import {
   execOptions,
   heroicGamesConfigPath,
-  heroicPort,
   home,
   legendaryBin
 } from './constants'
@@ -25,7 +24,37 @@ import net from 'net';
 
 type ExecResult = void | {stderr : string, stdout : string}
 
-type ProgressMode = 'install' | 'update' | 'repair' | 'import'
+type ProgressMode = 'install' | 'update' | 'verify' | 'repair' | 'import'
+
+// @adityaruplaha: Cursed af, do not touch. Tailor made for the Legendary log format.
+const dl_re_comps = [
+  /Progress: ([\d.]+%) \([\d]+\/[\d]+\),/,                           // line 1...
+  / Running for ([\d:]+), ETA:\s+([\d:]+)/,                          // line 1: percentages, runtime, eta
+  /\s+- Downloaded: ([\d.]+ MiB), Written: ([\d.]+ MiB)/,            // line 2: total amounts downloaded and written
+  /\s+.+/,                                                           // line 3: nothing very useful for us
+  /\s+\+ Download\s+- ([\d.]+ MiB\/s) \(raw\) \/ ([\d.]+ MiB\/s).+/, // line 4: speeds!
+  /\s+\+ Disk\s+- ([\d.]+ MiB\/s) \(write\) \/ ([\d.]+ MiB\/s)/      // line 5: disk usage
+]
+// Combine the split regex.
+// @see https://stackoverflow.com/a/34755045
+const dl_re = new RegExp(dl_re_comps.map(r => r.source).join(''), 'g')
+
+function interpretDlMatch(match : RegExpMatchArray) {
+  const percent = match[1]
+  const runtime = match[2]
+  const eta = match[3]
+  const downloaded = match[4]
+  const written = match[5]
+  const rawDownloadSpeed = match[6]
+  const actualDownloadSpeed = match[7]
+  const diskWriteSpeed = match[8]
+  const diskReadSpeed = match[9]
+
+  return {
+    actualDownloadSpeed, diskReadSpeed, diskWriteSpeed, downloaded, eta, percent, rawDownloadSpeed, runtime, written
+  }
+}
+
 interface Game {
   appName: string,
   getExtraInfo(namespace : string) : Promise<ExtraInfo>,
@@ -187,12 +216,13 @@ class LegendaryGame implements Game {
    * @returns Result of execAsync.
    */
   public async update() {
-    const logPath = `${heroicGamesConfigPath}${this.appName}.log`
-
-    const server = this.getProgressServer('update')
+    const server = this.getProgressServer('install')
+    const { port } = server.address() as net.AddressInfo
 
     // Use bash magic to send data to the TCP server.
-    const sockPath = `"/dev/tcp/localhost/${heroicPort}"`
+    const sockPath = `"/dev/tcp/localhost/${port}"`
+    const logPath = `${heroicGamesConfigPath}${this.appName}.log`
+
     const command = `${legendaryBin} update ${this.appName} -y |& tee ${logPath} &> ${sockPath}`
 
     try {
@@ -216,13 +246,15 @@ class LegendaryGame implements Game {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
+    const server = this.getProgressServer('install')
+    const { port } = server.address() as net.AddressInfo
+
     // Use bash magic to send data to the TCP server.
-    const sockPath = `"/dev/tcp/localhost/${heroicPort}"`
+    const sockPath = `"/dev/tcp/localhost/${port}"`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
 
     const command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y |& tee ${logPath} &> ${sockPath}`
 
-    const server = this.getProgressServer('install')
     console.log(`Installing ${this.appName} with:`, command)
     try {
       Library.get().installState(this.appName, true)
@@ -254,17 +286,25 @@ class LegendaryGame implements Game {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
+    const server = this.getProgressServer('repair')
+    const { port } = server.address() as net.AddressInfo
+
+    // Use bash magic to send data to the TCP server.
+    const sockPath = `"/dev/tcp/localhost/${port}"`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const command = `${legendaryBin} repair ${this.appName} ${workers} -y &> ${logPath}`
+
+    const command = `${legendaryBin} repair ${this.appName} ${workers} -y |& tee ${logPath} &> ${sockPath}`
 
     console.log(`Repairing ${this.appName} with:`, command)
-    return await execAsync(command, execOptions)
+    return await execAsync(command, execOptions).then((v) => {
+      server.close()
+      return v
+    })
   }
 
   public async import(path : string) {
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
-    const { stderr, stdout } = await execAsync(command, execOptions)
-    return {stderr, stdout}
+    return await execAsync(command, execOptions)
   }
 
   /**
@@ -378,13 +418,17 @@ class LegendaryGame implements Game {
         if (mode === 'install' || mode === 'update') {
           this.updateInstallProgress(data.toString())
         }
+        if (mode === 'verify' || mode === 'repair') {
+          this.updateRepairProgress(data.toString())
+        }
       })
       socket.on('timeout', () => {
         // Maybe handle this case?
       })
     })
-    server.listen(heroicPort, () => {
-      console.log(`[progress ${this.appName}]: Server active.`)
+    server.listen(() => {
+      const { port } = server.address() as net.AddressInfo
+      console.log(`[progress ${this.appName}]: Server (mode: ${mode}) active on localhost:${port}.`)
     })
     return server
   }
@@ -392,46 +436,50 @@ class LegendaryGame implements Game {
   private updateInstallProgress(data : string) {
     this.progressOutputBuffer += data.replace(/\[DLManager\] INFO: /g, '')
 
-    // Cursed af, do not touch. Tailor made for the Legendary log format.
-    const re_comps = [
-      /Progress: ([\d.]+%) \([\d]+\/[\d]+\),/,                           // line 1...
-      / Running for ([\d:]+), ETA:\s+([\d:]+)/,                          // line 1: percentages, runtime, eta
-      /\s+- Downloaded: ([\d.]+ MiB), Written: ([\d.]+ MiB)/,            // line 2: total amounts downloaded and written
-      /\s+.+/,                                                           // line 3: nothing very useful for us
-      /\s+\+ Download\s+- ([\d.]+ MiB\/s) \(raw\) \/ ([\d.]+ MiB\/s).+/, // line 4: speeds!
-      /\s+\+ Disk\s+- ([\d.]+ MiB\/s) \(write\) \/ ([\d.]+ MiB\/s)/      // line 5: disk usage
-    ]
-    // Combine the split regex.
-    // @see https://stackoverflow.com/a/34755045
-    const re = new RegExp(re_comps.map(function(r) {return r.source}).join(''), 'g')
-
-    const matches = Array.from(this.progressOutputBuffer.matchAll(re))
+    const matches = Array.from(this.progressOutputBuffer.matchAll(dl_re) || [])
     if (matches && matches.length > 0) {
-      const match = matches.pop()
-
-      // @adityaruplaha: Commented stuff might come in handy later.
-
-      const percent = match[1]
-      //const runtime = match[2]
-      const eta = match[3]
-      const downloaded = match[4]
-      //const written = match[5]
-      //const rawDownloadSpeed = match[6]
-      //const actualDownloadSpeed = match[7]
-      //const diskWriteSpeed = match[8]
-      //const diskReadSpeed = match[9]
-
+      const {percent, eta, downloaded} = interpretDlMatch(matches.pop())
       this.currentProgress = {
         bytes: downloaded,
         eta,
         percent
       }
-
       // Game states are not implemented yet, so this should be a temporary patch.
       const mode = this.state?.status || 'fixme'
       console.log(`[progress ${this.appName}]: ${mode}: ${percent} (${downloaded}) | ETA: ${eta}`)
 
       this.progressOutputBuffer = ''
+    }
+  }
+
+  private updateRepairProgress(data : string) {
+    this.progressOutputBuffer += data.replace(/\[DLManager\] INFO: /g, '')
+
+    // For repair.
+    const matches = Array.from(this.progressOutputBuffer.matchAll(dl_re) || [])
+    if (matches && matches.length > 0) {
+      const {percent, eta, downloaded} = interpretDlMatch(matches.pop())
+      this.currentProgress = {
+        bytes: downloaded,
+        eta,
+        percent
+      }
+      console.log(`[progress ${this.appName}]: repairing: ${percent} (${downloaded}) | ETA: ${eta}`)
+      this.progressOutputBuffer = ''
+      return
+    }
+
+    // For verify.
+    const vf_re = /Verification progress: (\d+\/\d+) \(([\d.]+%)\)/g
+    const vf_matches = Array.from(this.progressOutputBuffer.matchAll(vf_re) || [])
+    if (vf_matches && vf_matches.length > 0) {
+      const [,chunks,percent] = vf_matches.pop()
+      this.currentProgress = { eta: '', percent }
+
+      console.log(`[progress ${this.appName}]: verifying: ${percent} (${chunks})`)
+
+      this.progressOutputBuffer = ''
+      return
     }
   }
 }
