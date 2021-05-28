@@ -1,94 +1,96 @@
 {
-  "box": {
-    "change": {
-      "message": "Dies wird den Installationsort dieses Spiels ändern, sind Sie sicher?",
-      "path": "Wählen Sie einen neuen Installationspfad",
-      "title": "Spiele-Installationspfad ändern"
+    "box": {
+        "change": {
+            "message": "Dies wird den Installationsort dieses Spiels ändern, sind Sie sicher?",
+            "path": "Wählen Sie einen neuen Installationspfad",
+            "title": "Spiele-Installationspfad ändern"
+        },
+        "choose": "Auswählen",
+        "importpath": "Zu importierenden Spieleordner auswählen",
+        "installpath": "Installations-Pfad auswählen",
+        "move": {
+            "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
+            "path": "Wählen Sie einen Ort, an welchen Sie das Spiel verschieben möchten",
+            "title": "Spielinstallation verschieben"
+        },
+        "no": "NEIN",
+        "repair": {
+            "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
+            "title": "Auf Fehler überprüfen und Reparieren"
+        },
+        "stopInstall": {
+            "keepInstalling": "Installation fortsetzen",
+            "message": "Möchten Sie die heruntergeladenen Dateien BEHALTEN?",
+            "title": "Installation abbrechen"
+        },
+        "uninstall": {
+            "message": "Möchten Sie dieses Spiel deinstallieren?",
+            "title": "Deinstallieren"
+        },
+        "update": {
+            "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
+            "title": "Spiel benötigt eine neuere Version"
+        },
+        "yes": "JA"
     },
-    "choose": "Auswählen",
-    "importpath": "Zu importierenden Spieleordner auswählen",
-    "installpath": "Installations-Pfad auswählen",
-    "move": {
-      "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
-      "path": "Wählen Sie einen Ort, an welchen Sie das Spiel verschieben möchten",
-      "title": "Spielinstallation verschieben"
+    "button": {
+        "cancel": "Abbrechen",
+        "continue": "Continue Download",
+        "import": "Importieren",
+        "install": "Installieren",
+        "uninstall": "Deinstallieren"
     },
-    "no": "NEIN",
-    "repair": {
-      "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
-      "title": "Auf Fehler überprüfen und Reparieren"
+    "disabled": "Deaktiviert",
+    "enabled": "Aktiviert",
+    "gamecard": {
+        "moving": "Verschiebe",
+        "repairing": "Repariere"
     },
-    "stopInstall": {
-      "keepInstalling": "Installation fortsetzen",
-      "message": "Möchten Sie die heruntergeladenen Dateien BEHALTEN?",
-      "title": "Installation abbrechen"
+    "info": {
+        "path": "Installations-Pfad",
+        "size": "Größe",
+        "syncsaves": "Spielstände synchronisieren",
+        "version": "Version"
     },
-    "uninstall": {
-      "message": "Möchten Sie dieses Spiel deinstallieren?",
-      "title": "Deinstallieren"
+    "install": {
+        "another": "Auf einem anderen Pfad installieren",
+        "default": "Installieren Auf",
+        "import": "Spiel importieren"
     },
-    "update": {
-      "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
-      "title": "Spiel benötigt eine neuere Version"
+    "label": {
+        "cancel": {
+            "update": "Update abbrechen"
+        },
+        "playing": {
+            "start": "Jetzt spielen",
+            "stop": "Läuft (Stoppen)"
+        },
+        "saves": {
+            "syncing": "Spielstände werden synchronisiert"
+        }
     },
-    "yes": "JA"
-  },
-  "button": {
-    "cancel": "Abbrechen",
-    "import": "Importieren",
-    "install": "Installieren",
-    "uninstall": "Deinstallieren"
-  },
-  "disabled": "Deaktiviert",
-  "enabled": "Aktiviert",
-  "gamecard": {
-    "moving": "Verschiebe",
-    "repairing": "Repariere"
-  },
-  "info": {
-    "path": "Installations-Pfad",
-    "size": "Größe",
-    "syncsaves": "Spielstände synchronisieren",
-    "version": "Version"
-  },
-  "install": {
-    "another": "Auf einem anderen Pfad installieren",
-    "default": "Installieren Auf",
-    "import": "Spiel importieren"
-  },
-  "label": {
-    "cancel": {
-      "update": "Update abbrechen"
+    "specs": {
+        "minimum": "Minimal",
+        "recommended": "Empfohlen"
     },
-    "playing": {
-      "start": "Jetzt spielen",
-      "stop": "Läuft (Stoppen)"
+    "status": {
+        "hasUpdates": "Neue Version verfügbar!",
+        "installed": "Installiert",
+        "installing": "Wird installiert",
+        "moving": "Installation wird verschoben, bitte warten",
+        "notinstalled": "Dieses Spiel ist nicht installiert",
+        "reparing": "Spiel wird repariert, bitte warten",
+        "totalDownloaded": "Total Downloaded",
+        "updating": "Spiel wird aktualisiert"
     },
-    "saves": {
-      "syncing": "Spielstände werden synchronisiert"
+    "submenu": {
+        "change": "Installationspfad ändern",
+        "log": "Neuester Log",
+        "move": "Spiel verschieben",
+        "protondb": "Kompatibilität überprüfen",
+        "settings": "Einstellungen",
+        "store": "Store-Seite",
+        "update": "Spiel aktualisieren",
+        "verify": "Prüfen und reparieren"
     }
-  },
-  "specs": {
-    "minimum": "Minimal",
-    "recommended": "Empfohlen"
-  },
-  "status": {
-    "hasUpdates": "Neue Version verfügbar!",
-    "installed": "Installiert",
-    "installing": "Wird installiert",
-    "moving": "Installation wird verschoben, bitte warten",
-    "notinstalled": "Dieses Spiel ist nicht installiert",
-    "reparing": "Spiel wird repariert, bitte warten",
-    "updating": "Spiel wird aktualisiert"
-  },
-  "submenu": {
-    "change": "Installationspfad ändern",
-    "log": "Neuester Log",
-    "move": "Spiel verschieben",
-    "protondb": "Kompatibilität überprüfen",
-    "settings": "Einstellungen",
-    "store": "Store-Seite",
-    "update": "Spiel aktualisieren",
-    "verify": "Prüfen und reparieren"
-  }
 }

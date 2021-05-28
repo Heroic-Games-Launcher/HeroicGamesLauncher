@@ -1,10 +1,12 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, {
+  ChangeEvent,
+  useContext,
+} from 'react';
 
-import { useTranslation } from 'react-i18next'
-
-import ContextProvider from 'src/state/ContextProvider'
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { useTranslation } from 'react-i18next';
+import InfoBox from 'src/components/UI/InfoBox';
+import ToggleSwitch from 'src/components/UI/ToggleSwitch';
+import ContextProvider from 'src/state/ContextProvider';
 
 interface Props {
   audioFix: boolean
@@ -12,6 +14,7 @@ interface Props {
   launcherArgs: string
   offlineMode: boolean
   otherOptions: string
+  primeRun: boolean
   setLauncherArgs: (value: string) => void
   setOtherOptions: (value: string) => void
   showFps: boolean
@@ -20,6 +23,7 @@ interface Props {
   toggleFps: () => void
   toggleMangoHud: () => void
   toggleOffline: () => void
+  togglePrimeRun: () => void
   toggleUseGameMode: () => void
   useGameMode: boolean
 }
@@ -39,7 +43,9 @@ export default function OtherSettings({
   toggleAudioFix,
   showMangohud,
   toggleMangoHud,
-  isDefault
+  isDefault,
+  primeRun,
+  togglePrimeRun
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -47,62 +53,62 @@ export default function OtherSettings({
     setLauncherArgs(event.currentTarget.value)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
+  const isWin = platform === 'win32'
 
   return (
     <>
-      {platform !== 'win32' && (
-        <>
-          <span className="setting">
-            <span className="toggleWrapper">
-              {t('setting.showfps')}
-              <ToggleSwitch value={showFps} handleChange={toggleFps} />
-            </span>
-          </span>
-          <span className="setting">
-            <span className="toggleWrapper">
-              {t('setting.offlinemode')}
-              <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
-            </span>
-          </span>
-          <span className="setting">
-            <span className="toggleWrapper">
-              {t('setting.gamemode')}
-              <ToggleSwitch
-                value={useGameMode}
-                handleChange={toggleUseGameMode}
-              />
-            </span>
-          </span>
-          <span className="setting">
-            <span className="toggleWrapper">
-              {t('setting.audiofix')}
-              <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
-            </span>
-          </span>
-          <span className="setting">
-            <span className="toggleWrapper">
-              {t('setting.mangohud')}
-              <ToggleSwitch
-                value={showMangohud}
-                handleChange={toggleMangoHud}
-              />
-            </span>
-          </span>
-          <span className="setting">
-            <span className="settingText">{t('options.advanced.title')}</span>
-            <span>
-              <input
-                id="otherOptions"
-                type="text"
-                placeholder={t('options.advanced.placeholder')}
-                className="settingSelect"
-                value={otherOptions}
-                onChange={handleOtherOptions}
-              />
-            </span>
-          </span>
-        </>
-      )}
+      {!isWin && <> 
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.showfps')}
+          <ToggleSwitch value={showFps} handleChange={toggleFps} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.gamemode')}
+          <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.primerun', 'Enable Nvidia Prime Render')}
+          <ToggleSwitch value={primeRun} handleChange={togglePrimeRun} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.audiofix')}
+          <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.mangohud')}
+          <ToggleSwitch value={showMangohud} handleChange={toggleMangoHud} />
+        </span>
+      </span>
+      </>
+      }
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.offlinemode')}
+          <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="settingText">{t('options.advanced.title')}</span>
+        <span>
+          <input
+            id="otherOptions"
+            type="text"
+            placeholder={t('options.advanced.placeholder')}
+            className="settingSelect"
+            value={otherOptions}
+            onChange={handleOtherOptions}
+          />
+        </span>
+      </span>
       {!isDefault && (
         <span className="setting">
           <span className="settingText">{t('options.gameargs.title')}</span>

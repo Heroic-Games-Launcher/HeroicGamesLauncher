@@ -1,181 +1,186 @@
 {
-  "All": "Todos",
-  "box": {
-    "appupdate": {
-      "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
-      "title": "Actualización disponible"
+    "All": "Todos",
+    "box": {
+        "appupdate": {
+            "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
+            "title": "Actualización disponible"
+        },
+        "choose": "Escoger",
+        "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
+        "customWine": "Seleccione el Wine o Proton binario",
+        "default-install-path": "Elija la ruta de instalación predeterminada",
+        "error": {
+            "diskspace": {
+                "message": "No hay suficiente espacio disponible en disco",
+                "title": "No espacio"
+            },
+            "generic": {
+                "message": "Un error desconocido a ocurrido",
+                "title": "Error desconocido"
+            },
+            "launch": "Error al iniciar el juego, ¡revisa los registros!"
+        },
+        "no": "No",
+        "quit": {
+            "message": "Hay operaciones pendientes, ¿estás seguro?",
+            "title": "Salir"
+        },
+        "runexe": {
+            "title": "Seleccione EXE para ejecutar"
+        },
+        "select": "Seleccionar",
+        "sync": {
+            "button": "Elegir",
+            "error": "Ruta no válida",
+            "title": "Elija el directorio de guardado"
+        },
+        "wineprefix": "Elija la carpeta Wine-Prefix",
+        "yes": "SÍ"
     },
-    "choose": "Elegir",
-    "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-    "customWine": "Seleccione el Wine o Proton binario",
-    "default-install-path": "Elija la ruta de instalación predeterminada",
-    "error": {
-      "diskspace": {
-        "message": "No hay suficiente espacio disponible en disco",
-        "title": "No espacio"
-      },
-      "generic": {
-        "message": "Un error desconocido a ocurrido",
-        "title": "Error desconocido"
-      },
-      "launch": "Error al iniciar el juego, ¡revisa los registros!"
+    "button": {
+        "sync": "Sincronizar",
+        "syncing": "Sincronizando",
+        "unsync": "Desincronizar"
     },
-    "no": "No",
-    "quit": {
-      "message": "Hay operaciones pendientes, ¿estás seguro?",
-      "title": "Salir"
+    "Downloading": "Descargando",
+    "Filter": "Filtrar",
+    "globalSettings": "Ajustes globales",
+    "help": {
+        "general": "Sincronice con EGS en caso de que tenga una instalación funcional de EGS en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
+        "other": {
+            "part1": "Utilizar las ",
+            "part2": "Opciones avanzadas",
+            "part3": "para ser llamado antes de iniciar el juego; ",
+            "part4": "Usa los ",
+            "part5": "argumentos del juego",
+            "part6": " para ser llamado después del comando de lanzamiento, por ejemplo: ",
+            "part7": " omitir el lanzador en algunos juegos, etc."
+        },
+        "sync": {
+            "part1": "Heroic intenta adivinar la carpeta de guardado correcta y esto funcionará en la mayoría de los casos. En caso de que la carpeta sea incorrecta, use el cuadro de anulación para cambiarla.",
+            "part2": "En caso de que cambie la carpeta de Prefix para Wine o Proton, deberá verificar la ruta nuevamente, ya que Proton usa un Prefix (/pfx) y un nombre de usuario (steamuser) diferentes. Por lo tanto, puede borrar la ruta actual, salir de la página de configuración de sincronización y volver para que Heroic adivine la carpeta una vez más con el Prefix correcto.",
+            "part3": "Sincronización manual: elija Descargar para descargar los juegos guardados en la nube. Subir para subir los locales a la nube. Forzar descarga y Carga forzada ignorarán la versión local o en la nube.",
+            "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
+        },
+        "wine": {
+            "part1": "Búsquedas de versiones de Wine y Proton en las siguientes carpetas:",
+            "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
+        }
     },
-    "runexe": {
-      "title": "Seleccione EXE para ejecutar"
+    "info": {
+        "settings": "Los ajustes se guardan automáticamente"
     },
-    "select": "Seleccionar",
-    "sync": {
-      "button": "Elegir",
-      "error": "Ruta no válida",
-      "title": "Elija el directorio de guardado"
+    "infobox": {
+        "help": "Ayuda",
+        "requirements": "Requisitos del sistema"
     },
-    "wineprefix": "Elija la carpeta Wine-Prefix",
-    "yes": "Si"
-  },
-  "button": {
-    "sync": "Sincronizar",
-    "syncing": "Sincronizando",
-    "unsync": "Desincronizar"
-  },
-  "Downloading": "Descargando",
-  "Filter": "Filtrar",
-  "globalSettings": "Ajustes globales",
-  "help": {
-    "general": "Sincronice con EGS en caso de que tenga una instalación funcional de EGS en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
-    "other": {
-      "part1": "Utilizar las ",
-      "part2": "Opciones avanzadas ",
-      "part3": "para ser llamado antes de iniciar el juego.",
-      "part4": "Usa los ",
-      "part5": "argumentos del juego",
-      "part6": " para ser llamado después del comando de lanzamiento, por ejemplo: ",
-      "part7": " omitir el lanzador en algunos juegos, etc."
+    "Library": "Biblioteca",
+    "message": {
+        "sync": "Sincronización completa",
+        "unsync": "Desincronizacion completa"
     },
-    "sync": {
-      "part1": "Heroic intenta adivinar la carpeta de guardado correcta y esto funcionará en la mayoría de los casos. En caso de que la carpeta sea incorrecta, use el cuadro de anulación para cambiarla.",
-      "part2": "En caso de que cambie la carpeta de Prefix para Wine o Proton, deberá verificar la ruta nuevamente, ya que Proton usa un Prefix (/pfx) y un nombre de usuario (steamuser) diferentes. Por lo tanto, puede borrar la ruta actual, salir de la página de configuración de sincronización y volver para que Heroic adivine la carpeta una vez más con el Prefix correcto.",
-      "part3": "Sincronización manual: elija Descargar para descargar los juegos guardados en la nube. Subir para subir los locales a la nube. Forzar descarga y Carga forzada ignorarán la versión local o en la nube.",
-      "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
+    "nogames": "No se han encontrado juegos",
+    "Not Ready": "No listo",
+    "notify": {
+        "finished": {
+            "reparing": "Reparación terminada"
+        },
+        "install": {
+            "canceled": "Instalación cancelada",
+            "finished": "Instalación terminado"
+        },
+        "moved": "Movimiento terminado",
+        "refreshed": "Biblioteca actualizada",
+        "refreshing": "Actualizando",
+        "uninstalled": "Desinstalado",
+        "update": {
+            "canceled": "Actualizacion cancelado",
+            "finished": "Actualizacion terminado"
+        }
     },
-    "wine": {
-      "part1": "Búsquedas de versiones de Wine y Proton en las siguientes carpetas:",
-      "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
-    }
-  },
-  "info": {
-    "settings": "Los ajustes se guardan automáticamente"
-  },
-  "infobox": {
-    "help": "Ayuda",
-    "requirements": "Requisitos del sistema"
-  },
-  "Library": "Biblioteca",
-  "message": {
-    "sync": "Sincronización completa",
-    "unsync": "Desincronizacion completa"
-  },
-  "nogames": "No se han encontrado juegos",
-  "Not Ready": "No listo",
-  "notify": {
-    "finished": {
-      "reparing": "Reparación terminada"
+    "options": {
+        "advanced": {
+            "placeholder": "Pon aquí otras opciones de lanzamiento",
+            "title": "Opciones avanzadas (variables de entorno):"
+        },
+        "gameargs": {
+            "placeholder": "Pon aquí los argumentos de lanzamiento",
+            "title": "Argumentos del juego (para ejecutar después del comando):"
+        }
     },
-    "install": {
-      "canceled": "Instalación cancelada",
-      "finished": "Instalación terminado"
+    "placeholder": {
+        "egs-prefix": "Prefix donde está instalado EGS"
     },
-    "moved": "Movimiento terminado",
-    "refreshed": "Biblioteca actualizada",
-    "refreshing": "Actualizando",
-    "uninstalled": "Desinstalado",
-    "update": {
-      "canceled": "Actualizacion cancelado",
-      "finished": "Actualizacion terminado"
-    }
-  },
-  "options": {
-    "advanced": {
-      "placeholder": "Pon aquí otras opciones de lanzamiento",
-      "title": "Opciones avanzadas (variables de entorno):"
+    "Ready": "Listo",
+    "Return": "Regresar",
+    "search": "Ingrese el nombre del juego aquí ...",
+    "setting": {
+        "audiofix": "Corrección de audio (latencia de Pulseaudio)",
+        "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
+        "autosync": "Autosyncronizar guardados",
+        "customWineProton": "Rutas personalizadas de Wine o Proton",
+        "darktray": "Utilice el icono de bandeja oscura (necesita reiniciarse)",
+        "default-install-path": "Ruta de instalación predeterminada",
+        "egs-sync": "Sincronizar con juegos EGS",
+        "exit-to-tray": "Salir a la bandeja del sistema",
+        "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
+        "language": "Elija el idioma de la aplicación",
+        "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
+        "manualsync": {
+            "download": "Download",
+            "forcedownload": "Forzar Descarga",
+            "forceupload": "Forzar Subida",
+            "sync": "Sincronizar",
+            "syncing": "Sincronizando",
+            "title": "Guardado de sincronización manual",
+            "upload": "Upload"
+        },
+        "maxworkers": "Número máximo de descargas",
+        "offlinemode": "Ejecutar juego sin conexión",
+        "primerun": "Enable Nvidia Prime Render",
+        "runexe": {
+            "message": "Arrastra y suelta archivos aquí",
+            "title": "Ejecutar EXE en Prefix"
+        },
+        "savefolder": {
+            "placeholder": "Seleccione la carpeta exacta para guardar juegos",
+            "title": "Anular la carpeta de guardado de Cloud Sync"
+        },
+        "showfps": "Mostrar FPS (DX9, 10 y 11)",
+        "wineprefix": "Carpeta WinePrefix",
+        "wineversion": "Versión de Wine"
     },
-    "gameargs": {
-      "placeholder": "Pon aquí los argumentos de lanzamiento",
-      "title": "Argumentos del juego (para ejecutar después del comando):"
-    }
-  },
-  "placeholder": {
-    "egs-prefix": "Prefix donde está instalado EGS"
-  },
-  "Ready": "Listo",
-  "Return": "Regresar",
-  "search": "Ingrese el nombre del juego aquí ...",
-  "setting": {
-    "audiofix": "Corrección de audio (latencia de Pulseaudio)",
-    "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
-    "autosync": "Autosyncronizar guardados",
-    "customWineProton": "Rutas personalizadas de Wine o Proton",
-    "darktray": "Utilice el icono de bandeja oscura (necesita reiniciarse)",
-    "default-install-path": "Ruta de instalación predeterminada",
-    "egs-sync": "Sincronizar con juegos EGS",
-    "exit-to-tray": "Salir a la bandeja del sistema",
-    "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
-    "language": "Elija el idioma de la aplicación",
-    "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
-    "manualsync": {
-      "download": "Download",
-      "forcedownload": "Force Download",
-      "forceupload": "Force Upload",
-      "sync": "Sync",
-      "syncing": "Syncing",
-      "title": "Guardado de sincronización manual",
-      "upload": "Upload"
+    "Settings": "Ajustes",
+    "settings": {
+        "navbar": {
+            "general": "General",
+            "other": "Otro",
+            "sync": "Guardar-Sincronizar"
+        }
     },
-    "maxworkers": "Número máximo de descargas",
-    "offlinemode": "Ejecutar juego sin conexión",
-    "runexe": {
-      "message": "Arrastra y suelta archivos aquí",
-      "title": "Ejecutar EXE en Prefix"
+    "store": "Tienda",
+    "tooltip": {
+        "addpath": "Agregar una nueva ruta",
+        "removepath": "Eliminar ruta"
     },
-    "savefolder": {
-      "placeholder": "Seleccione la carpeta exacta para guardar juegos",
-      "title": "Anular la carpeta de guardado de Cloud Sync"
+    "Total Games": "Juegos totales",
+    "tray": {
+        "about": "Acerca",
+        "quit": "Salir",
+        "reload": "Refrescar",
+        "show": "Mostrar",
+        "support": "Apoyanos"
     },
-    "showfps": "Mostrar FPS (DX9, 10 y 11)",
-    "wineprefix": "Carpeta WinePrefix",
-    "wineversion": "Versión de Wine"
-  },
-  "Settings": "Ajustes",
-  "settings": {
-    "navbar": {
-      "general": "General",
-      "other": "Otro",
-      "sync": "Guardar-Sincronizar"
-    }
-  },
-  "store": "Store",
-  "tooltip": {
-    "addpath": "Agregar una nueva ruta",
-    "removepath": "Eliminar ruta"
-  },
-  "Total Games": "Juegos totales",
-  "tray": {
-    "about": "Acerca",
-    "quit": "Salir",
-    "reload": "Refrescar",
-    "show": "Mostrar",
-    "support": "Apoyanos"
-  },
-  "userselector": {
-    "about": "Acerca",
-    "discord": "Discord",
-    "logout": "Cerrar sesión",
-    "quit": "Salir",
-    "refresh": "Refresar Biblioteca",
-    "support": "Apoyanos"
-  }
+    "Unreal Marketplace": "Unreal Marketplace",
+    "Updates": "Actualizaciones",
+    "userselector": {
+        "about": "Acerca",
+        "discord": "Discord",
+        "logout": "Cerrar sesión",
+        "logout_confirmation": "Logout?",
+        "quit": "Salir",
+        "refresh": "Refresar Biblioteca",
+        "support": "Apoyanos"
+    },
+    "wiki": "Wiki"
 }

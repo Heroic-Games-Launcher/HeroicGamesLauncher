@@ -1,27 +1,27 @@
 import {
   existsSync,
   mkdirSync,
-  readFileSync,
   readdirSync,
-  writeFileSync
+  readFileSync,
+  writeFileSync,
 } from 'graceful-fs';
+import { User } from 'legendary_utils/user';
 import { userInfo as user } from 'os';
 
 import {
-  AppSettings,
-  GlobalConfigVersion,
-  UserInfo,
-  WineInstallation
-} from './types';
-import {
   currentGlobalConfigVersion,
   heroicConfigPath,
+  heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
   home,
   isWindows,
-  userInfo
 } from './constants';
+import {
+  AppSettings,
+  GlobalConfigVersion,
+  WineInstallation,
+} from './types';
 import { execAsync } from './utils';
 
 /**
@@ -40,8 +40,9 @@ abstract class GlobalConfig {
 
   /**
    * Get the global configuartion handler.
+   * If one doesn't exist, create one.
    *
-   * @returns GlobalConfig instance or undefined.
+   * @returns GlobalConfig instance.
    */
   public static get() : GlobalConfig {
     let version : GlobalConfigVersion
@@ -67,6 +68,12 @@ abstract class GlobalConfig {
     return GlobalConfig.globalInstance
   }
 
+  /**
+   * Recreate the global configuration handler.
+   *
+   * @param version Config version to load file using.
+   * @returns void
+   */
   private static reload(version : GlobalConfigVersion) : void {
     // Select loader to use.
     switch (version) {
@@ -95,7 +102,7 @@ abstract class GlobalConfig {
    * @returns An Array of Wine/Proton installations.
    */
   public async getAlternativeWine(scanCustom = true): Promise<WineInstallation[]> {
-    const defaultWine = { bin: '', name: '' }
+    let defaultWine = { bin: '', name: '' }
     if (isWindows) {
       return [defaultWine]
     }
@@ -109,6 +116,7 @@ abstract class GlobalConfig {
     }
 
 
+    defaultWine = { bin: '', name: 'Default Wine - Not Found' }
     await execAsync(`which wine`)
       .then(async ({ stdout }) => {
         defaultWine.bin = stdout.split('\n')[0]
@@ -116,7 +124,9 @@ abstract class GlobalConfig {
         const version = out.split('\n')[0]
         defaultWine.name = `Wine - ${version}`
       })
-      .catch(() => console.log('Wine not installed'))
+      .catch(() => console.log('Default Wine not installed'))
+
+    const altWine: Set<WineInstallation> = new Set()
 
     readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
       altWine.add({
@@ -132,7 +142,7 @@ abstract class GlobalConfig {
       readdirSync(lutrisCompatPath).forEach((version) => {
         altWine.add({
           bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-          name: `Lutris Wine - ${version}`
+          name: `Wine - ${version}`
         })
       })
     }
@@ -142,28 +152,26 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths: string[] = [
-      `${home}/.local/share/Steam`,
+      `${home}/.steam`,
       `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
     steamPaths.forEach((path) => {
-      protonPaths.push(`${path}/steamapps/common/`)
-      protonPaths.push(`${path}/compatibilitytools.d/`)
+      protonPaths.push(`${path}/steam/steamapps/common/`)
+      protonPaths.push(`${path}/root/compatibilitytools.d/`)
       return
     })
 
     const proton: Set<WineInstallation> = new Set()
-    const altWine: Set<WineInstallation> = new Set()
 
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
           if (version.toLowerCase().startsWith('proton')) {
-            const steam = path.toLowerCase().indexOf('steam') < 0 ? '' : 'Steam '
             proton.add({
               bin: `'${path}${version}/proton'`,
-              name: `${steam}Proton - ${version}`
+              name: `Proton - ${version}`
             })
           }
         })
@@ -176,17 +184,13 @@ abstract class GlobalConfig {
     return [defaultWine, ...altWine, ...proton, ...(await this.getCustomWinePaths())]
   }
 
-  public isLoggedIn() {
-    return existsSync(userInfo)
-  }
-
-  public getUserInfo() : UserInfo {
-    if (this.isLoggedIn()) {
-      return JSON.parse(readFileSync(userInfo, 'utf-8'))
-    }
-    return { account_id: '', displayName: null }
-  }
-
+  /**
+   * Gets the actual settings from the config file.
+   * Does not modify its parent object.
+   * Always reads from file regardless of `this.config`.
+   *
+   * @returns Settings present in config file.
+   */
   public abstract getSettings() : Promise<AppSettings>
 
   /**
@@ -199,18 +203,40 @@ abstract class GlobalConfig {
    */
   public abstract upgrade() : boolean
 
+  /**
+   * Get custom Wine installations as defined in the config file.
+   *
+   * @returns Set of Wine installations.
+   */
   public abstract getCustomWinePaths() : Promise<Set<WineInstallation>>
 
+  /**
+   * Get default settings as if the user's config file doesn't exist.
+   * Doesn't modify the parent object.
+   * Doesn't access config files.
+   *
+   * @returns AppSettings
+   */
   public abstract getFactoryDefaults() : Promise<AppSettings>
 
+  /**
+   * Reset `this.config` to `getFactoryDefaults()` and flush.
+   */
   public abstract resetToDefaults() : void
 
   protected writeToFile(config : Record<string, unknown>) {
     return writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
   }
 
+  /**
+   * Write `this.config` to file.
+   * Uses the config version defined in `this.version`.
+   */
   public abstract flush() : void
 
+  /**
+   * Load the config file, upgrade if needed.
+   */
   protected async load() {
     // Config file doesn't exist, make one.
     if (!existsSync(heroicConfigPath)) {
@@ -245,6 +271,14 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getSettings(): Promise<AppSettings> {
+    if(!existsSync(heroicGamesConfigPath)){
+      mkdirSync(heroicGamesConfigPath, {recursive: true})
+    }
+
+    if (!existsSync(heroicConfigPath)) {
+      return await this.getFactoryDefaults()
+    }
+
     let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
     settings = {...(await this.getFactoryDefaults()), ...settings.defaultSettings} as AppSettings
     return settings
@@ -272,7 +306,7 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getFactoryDefaults(): Promise<AppSettings> {
-    const { account_id } = this.getUserInfo()
+    const { account_id } = User.getUserInfo()
     const userName = user().username
     const [defaultWine] = await this.getAlternativeWine(false)
 
@@ -281,6 +315,7 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       language: 'en',
       maxWorkers: 0,
+      nvidiaPrime: false,
       otherOptions: '',
       showFps: false,
       useGameMode: false,

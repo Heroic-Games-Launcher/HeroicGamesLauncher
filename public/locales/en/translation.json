@@ -1,181 +1,186 @@
 {
-  "All": "All",
-  "box": {
-    "appupdate": {
-      "message": "There is a new version of Heroic Available, do you want to update now?",
-      "title": "Update Available"
+    "All": "All",
+    "box": {
+        "appupdate": {
+            "message": "There is a new version of Heroic Available, do you want to update now?",
+            "title": "Update Available"
+        },
+        "choose": "Choose",
+        "choose-egs-prefix": "Choose Prefix where EGS is installed",
+        "customWine": "Select the Wine or Proton Binary",
+        "default-install-path": "Choose Default Install Path",
+        "error": {
+            "diskspace": {
+                "message": "Not enough available disk space",
+                "title": "No Space"
+            },
+            "generic": {
+                "message": "An Unknown Error has occurred",
+                "title": "Unknown Error"
+            },
+            "launch": "Error when launching the game, check the logs!"
+        },
+        "no": "NO",
+        "quit": {
+            "message": "There are pending operations, are you sure?",
+            "title": "Exit"
+        },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": "Select",
+        "sync": {
+            "button": "Choose",
+            "error": "Invalid Path",
+            "title": "Choose the saves directory"
+        },
+        "wineprefix": "Choose Wine Prefix Folder",
+        "yes": "YES"
     },
-    "choose": "Choose",
-    "choose-egs-prefix": "Choose Prefix where EGS is installed",
-    "customWine": "Select the Wine or Proton Binary",
-    "default-install-path": "Choose Default Install Path",
-    "error": {
-      "diskspace": {
-        "message": "Not enough available disk space",
-        "title": "No Space"
-      },
-      "generic": {
-        "message": "An Unknown Error has occurred",
-        "title": "Unknown Error"
-      },
-      "launch": "Error when launching the game, check the logs!"
+    "button": {
+        "sync": "Sync",
+        "syncing": "Syncing",
+        "unsync": "Unsync"
     },
-    "no": "NO",
-    "quit": {
-      "message": "There are pending operations, are you sure?",
-      "title": "Exit"
+    "Downloading": "Downloading",
+    "Filter": "Filter",
+    "globalSettings": "Global Settings",
+    "help": {
+        "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
+        "other": {
+            "part1": "Use the ",
+            "part2": "Advanced Options",
+            "part3": "to be called before launching the game; ",
+            "part4": "Use the ",
+            "part5": "Game Arguments",
+            "part6": " to be called after the launch command, for instance: ",
+            "part7": " to skip the launcher in some games, etc."
+        },
+        "sync": {
+            "part1": "Heroic tries to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
+            "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
+            "part3": "Manual Sync: Choose Download to download the games saves stored on the Cloud. Upload to upload the local ones to the cloud. Force Download and Force Upload will ignore the version that is locally or on the cloud.",
+            "part4": "Sync Saves Automatically will sync the saves every time you Start a Game and after finishing playing."
+        },
+        "wine": {
+            "part1": "Heroic searches for versions of Wine and Proton on the following folders:",
+            "part2": "For other places, use a symbolic link to one of these folders"
+        }
     },
-    "runexe": {
-      "title": "Select EXE to Run"
+    "info": {
+        "settings": "Settings are saved automatically"
     },
-    "select": "Select",
-    "sync": {
-      "button": "Choose",
-      "error": "Invalid Path",
-      "title": "Choose the saves directory"
+    "infobox": {
+        "help": "Help",
+        "requirements": "System Requirements"
     },
-    "wineprefix": "Choose Wine Prefix Folder",
-    "yes": "YES"
-  },
-  "button": {
-    "sync": "Sync",
-    "syncing": "Syncing",
-    "unsync": "Unsync"
-  },
-  "Downloading": "Downloading",
-  "Filter": "Filter",
-  "globalSettings": "Global Settings",
-  "help": {
-    "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
-    "other": {
-      "part1": "Use the ",
-      "part2": "Advanced Options",
-      "part3": "to be called before launching the game; ",
-      "part4": "Use the ",
-      "part5": "Game Arguments",
-      "part6": " to be called after the launch command, for instance: ",
-      "part7": " to skip the launcher in some games, etc."
+    "Library": "Library",
+    "message": {
+        "sync": "Sync Complete",
+        "unsync": "Unsync Complete"
     },
-    "sync": {
-      "part1": "Heroic tries to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
-      "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
-      "part3": "Manual Sync: Choose Download to download the games saves stored on the Cloud. Upload to upload the local ones to the cloud. Force Download and Force Upload will ignore the version that is locally or on the cloud.",
-      "part4": "Sync Saves Automatically will sync the saves every time you Start a Game and after finishing playing."
+    "nogames": "No Games Found",
+    "Not Ready": "Not Ready",
+    "notify": {
+        "finished": {
+            "reparing": "Finished Repairing"
+        },
+        "install": {
+            "canceled": "Install Canceled",
+            "finished": "Install Finished"
+        },
+        "moved": "Finished Moving",
+        "refreshed": "Library Refreshed",
+        "refreshing": "Refreshing",
+        "uninstalled": "Uninstalled",
+        "update": {
+            "canceled": "Updated Canceled",
+            "finished": "Updated Finished"
+        }
     },
-    "wine": {
-      "part1": "Heroic searches for versions of Wine and Proton on the following folders:",
-      "part2": "For other places, use a symbolic link to one of these folders"
-    }
-  },
-  "info": {
-    "settings": "Settings are saved automatically"
-  },
-  "infobox": {
-    "help": "Help",
-    "requirements": "System Requirements"
-  },
-  "Library": "Library",
-  "message": {
-    "sync": "Sync Complete",
-    "unsync": "Unsync Complete"
-  },
-  "nogames": "No Games Found",
-  "Not Ready": "Not Ready",
-  "notify": {
-    "finished": {
-      "reparing": "Finished Repairing"
+    "options": {
+        "advanced": {
+            "placeholder": "Put here other launch options",
+            "title": "Advanced Options (Environment Variables):"
+        },
+        "gameargs": {
+            "placeholder": "Put here the Launcher Arguments",
+            "title": "Game Arguments (To run after the command):"
+        }
     },
-    "install": {
-      "canceled": "Install Canceled",
-      "finished": "Install Finished"
+    "placeholder": {
+        "egs-prefix": "Prefix where EGS is installed"
     },
-    "moved": "Finished Moving",
-    "refreshed": "Library Refreshed",
-    "refreshing": "Refreshing",
-    "uninstalled": "Uninstalled",
-    "update": {
-      "canceled": "Updated Canceled",
-      "finished": "Updated Finished"
-    }
-  },
-  "options": {
-    "advanced": {
-      "placeholder": "Put here other launch options",
-      "title": "Advanced Options (Environment Variables):"
+    "Ready": "Ready",
+    "Return": "Return",
+    "search": "Enter the game name here...",
+    "setting": {
+        "audiofix": "Audio Fix (Pulse Audio Latency)",
+        "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autosync": "Autosync Saves",
+        "customWineProton": "Custom Wine/Proton Paths",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "Default Installation Path",
+        "egs-sync": "Sync with Installed Epic Games",
+        "exit-to-tray": "Exit to System Tray",
+        "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+        "language": "Choose App Language",
+        "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
+        "manualsync": {
+            "download": "Download",
+            "forcedownload": "Force Download",
+            "forceupload": "Force Upload",
+            "sync": "Sync",
+            "syncing": "Syncing",
+            "title": "Manual Sync Saves",
+            "upload": "Upload"
+        },
+        "maxworkers": "Maximum Number of Workers when downloading",
+        "offlinemode": "Run Game Offline",
+        "primerun": "Enable Nvidia Prime Render",
+        "runexe": {
+            "message": "Drag and Drop Files here",
+            "title": "Run EXE on Prefix"
+        },
+        "savefolder": {
+            "placeholder": "Select the exact save games folder",
+            "title": "Override Cloud Sync Save folder"
+        },
+        "showfps": "Show FPS (DX9, 10 and 11)",
+        "wineprefix": "WinePrefix folder",
+        "wineversion": "Wine Version"
     },
-    "gameargs": {
-      "placeholder": "Put here the Launcher Arguments",
-      "title": "Game Arguments (To run after the command):"
-    }
-  },
-  "placeholder": {
-    "egs-prefix": "Prefix where EGS is installed"
-  },
-  "Ready": "Ready",
-  "Return": "Return",
-  "search": "Enter the game name here...",
-  "setting": {
-    "audiofix": "Audio Fix (Pulse Audio Latency)",
-    "autodxvk": "Auto Install/Update DXVK on Prefix",
-    "autosync": "Autosync Saves",
-    "customWineProton": "Custom Wine/Proton Paths",
-    "darktray": "Use Dark Tray Icon (needs restart)",
-    "default-install-path": "Default Installation Path",
-    "egs-sync": "Sync with Installed Epic Games",
-    "exit-to-tray": "Exit to System Tray",
-    "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
-    "language": "Choose App Language",
-    "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
-    "manualsync": {
-      "download": "Download",
-      "forcedownload": "Force Download",
-      "forceupload": "Force Upload",
-      "sync": "Sync",
-      "syncing": "Syncing",
-      "title": "Manual Sync Saves",
-      "upload": "Upload"
+    "Settings": "Settings",
+    "settings": {
+        "navbar": {
+            "general": "General",
+            "other": "Other",
+            "sync": "Save-Sync"
+        }
     },
-    "maxworkers": "Maximum Number of Workers when downloading",
-    "offlinemode": "Run Game Offline",
-    "runexe": {
-      "message": "Drag and Drop Files here",
-      "title": "Run EXE on Prefix"
+    "store": "Store",
+    "tooltip": {
+        "addpath": "Add New Path",
+        "removepath": "Remove Path"
     },
-    "savefolder": {
-      "placeholder": "Select the exact save games folder",
-      "title": "Override Cloud Sync Save folder"
+    "Total Games": "Total Games",
+    "tray": {
+        "about": "About",
+        "quit": "Quit",
+        "reload": "Reload",
+        "show": "Show",
+        "support": "Support Us"
     },
-    "showfps": "Show FPS (DX9, 10 and 11)",
-    "wineprefix": "WinePrefix folder",
-    "wineversion": "Wine Version"
-  },
-  "Settings": "Settings",
-  "settings": {
-    "navbar": {
-      "general": "General",
-      "other": "Other",
-      "sync": "Save-Sync"
-    }
-  },
-  "store": "Store",
-  "tooltip": {
-    "addpath": "Add New Path",
-    "removepath": "Remove Path"
-  },
-  "Total Games": "Total Games",
-  "tray": {
-    "about": "About",
-    "quit": "Quit",
-    "reload": "Reload",
-    "show": "Show",
-    "support": "Support Us"
-  },
-  "userselector": {
-    "about": "About",
-    "discord": "Discord",
-    "logout": "Logout",
-    "quit": "Quit",
-    "refresh": "Refresh Library",
-    "support": "Support Us"
-  }
+    "Unreal Marketplace": "Unreal Marketplace",
+    "Updates": "Updates",
+    "userselector": {
+        "about": "About",
+        "discord": "Discord",
+        "logout": "Logout",
+        "logout_confirmation": "Are you sure you want to logout?",
+        "quit": "Quit",
+        "refresh": "Refresh Library",
+        "support": "Support Us"
+    },
+    "wiki": "Wiki"
 }

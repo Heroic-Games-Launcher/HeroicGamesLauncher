@@ -1,28 +1,36 @@
 import {
   existsSync,
+  readdirSync,
   readFileSync,
-  readdirSync
+  writeFileSync,
 } from 'graceful-fs';
 import prettyBytes from 'pretty-bytes';
 
+import {
+  installed,
+  legendaryBin,
+  legendaryConfigPath,
+  libraryPath,
+} from '../constants';
 import { GameConfig } from '../game_config';
+import { LegendaryGame } from '../games';
 import {
   GameInfo,
   InstalledInfo,
   KeyImage,
-  RawGameJSON
+  RawGameJSON,
 } from '../types';
-import { LegendaryGame } from '../games';
 import {
   execAsync,
-  isOnline
+  isOnline,
 } from '../utils';
-import {
-  legendaryBin,
-  legendaryConfigPath,
-  libraryPath
-} from '../constants';
 
+/**
+ * Legendary Library.
+ *
+ * For multi-account support, the single global instance will need to become a instance map.
+ * @see GameConfig
+ */
 class Library {
   private static globalInstance: Library = null
 
@@ -31,19 +39,12 @@ class Library {
   private installedGames : Map<string, RawGameJSON>
 
   /**
-   * Private constructor for Library since we don't really want multiple instances around.
-   * Atleast not before multi-account support.
+   * Private constructor for Library since we don't really want it to be constructible from outside.
    *
    * @param lazy_load Whether the library loads data lazily or in advance.
    */
   private constructor(lazy_load: boolean) {
-    const installedJSON = `${legendaryConfigPath}/installed.json`
-    if (existsSync(installedJSON)) {
-      this.installedGames = new Map(Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8'))))
-    }
-    else {
-      this.installedGames = new Map()
-    }
+    this.refreshInstalled()
     if (!lazy_load) {
       this.loadAll()
     }
@@ -64,6 +65,29 @@ class Library {
       Library.globalInstance = new Library(lazy_load)
     }
     return this.globalInstance
+  }
+
+  /**
+   * Refresh library.
+   */
+  public async refresh() {
+    await execAsync(`${legendaryBin} list-games --include-ue`)
+
+    this.refreshInstalled()
+    this.loadAll()
+  }
+
+  /**
+   * Refresh `this.installedGames` from file.
+   */
+  public refreshInstalled() {
+    const installedJSON = `${legendaryConfigPath}/installed.json`
+    if (existsSync(installedJSON)) {
+      this.installedGames = new Map(Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8'))))
+    }
+    else {
+      this.installedGames = new Map()
+    }
   }
 
   /**
@@ -90,6 +114,12 @@ class Library {
     }
   }
 
+  /**
+   * Get game info for a particular game.
+   *
+   * @param appName
+   * @returns GameInfo
+   */
   public async getGameInfo(appName: string) {
     const info = this.library.get(appName)
     if (info === undefined) {
@@ -103,6 +133,11 @@ class Library {
     return this.library.get(appName)
   }
 
+  /**
+   * Obtain a list of updateable games.
+   *
+   * @returns App names of updateable games.
+   */
   public async listUpdateableGames() {
     if (!(await isOnline())) {
       console.log('App offline, skipping checking game updates.')
@@ -116,20 +151,54 @@ class Library {
       .filter((item) => item.includes('True'))
       .map((item) => item.split('\t')[0])
 
+    result.pop()
     return result
   }
 
+  /**
+   * Update all updateable games.
+   * Uses `listUpdateableGames` along with `LegendaryGame.update`
+   *
+   * @returns Array of results of `Game.update`.
+   */
   public async updateAllGames() {
-    return (await this.listUpdateableGames()).map(LegendaryGame.get).map(
+    return (await Promise.allSettled((await this.listUpdateableGames()).map(LegendaryGame.get).map(
       (game) => game.update()
-    )
+    ))).map((res) => {
+      if (res.status === 'fulfilled') {
+        return res.value
+      }
+      else {
+        return null
+      }
+    })
   }
 
+  /**
+   * Change the install path for a given game.
+   *
+   * DOES NOT MOVE FILES. Use `LegendaryGame.moveInstall` instead.
+   *
+   * @param appName
+   * @param newPath
+   */
   public changeGameInstallPath(appName : string, newPath : string) {
     this.library.get(appName).install.install_path = newPath
     this.installedGames.get(appName).install_path = newPath
+
+    // Modify Legendary installed.json file:
+    const file = JSON.parse(readFileSync(installed, 'utf8'))
+    const game = { ...file[appName], install_path: newPath }
+    const modifiedInstall = { ...file, [appName]: game }
+    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
   }
 
+  /**
+   * Change the install state of a game without a complete library reload.
+   *
+   * @param appName
+   * @param state true if its installed, false otherwise.
+   */
   public installState(appName : string, state : boolean) {
     if (state) {
       // This assumes that fileName and appName are same.
@@ -143,6 +212,9 @@ class Library {
     }
   }
 
+  /**
+   * Load configs for installed games into memory.
+   */
   public loadGameConfigs() {
     for (const appName of this.installedGames.keys()) {
       GameConfig.get(appName)
@@ -158,19 +230,23 @@ class Library {
   private loadFile(fileName : string) : string {
     fileName = `${libraryPath}/${fileName}`
     const { app_name, metadata, asset_info } = JSON.parse(readFileSync(fileName, 'utf-8'))
+    const { namespace } = asset_info
+    const is_game = namespace !== 'ue' ? true : false
     const {
       description,
       shortDescription = '',
-      keyImages,
+      keyImages = [],
       title,
       developer,
       dlcItemList,
-      customAttributes: { CloudSaveFolder, FolderName }
+      releaseInfo,
+      categories,
+      customAttributes
     } = metadata
 
-    const { namespace } = asset_info
-
     const dlcs: string[] = []
+    const CloudSaveFolder = customAttributes?.CloudSaveFolder
+    const FolderName = customAttributes?.FolderName
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -182,18 +258,47 @@ class Library {
       )
     }
 
-    const cloud_save_enabled = Boolean(CloudSaveFolder)
+    let is_ue_asset = false
+    let is_ue_project = false
+    let is_ue_plugin = false
+    if (categories) {
+      categories.forEach(
+        (c: { path : string} ) => {
+          if (c.path == 'projects') {
+            is_ue_project = true
+          } else if (c.path == 'assets') {
+            is_ue_asset = true
+          } else if (c.path == 'plugins') {
+            is_ue_plugin = true
+          }
+        }
+      )
+    }
+
+    let compatible_apps: string[] = []
+    releaseInfo.forEach(
+      (rI: { appId : string, compatibleApps : string[] } ) => {
+        if (rI.appId == app_name) {
+          compatible_apps = rI.compatibleApps
+        }
+      }
+    )
+
+    const cloud_save_enabled = is_game && Boolean(CloudSaveFolder?.value)
     const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
-    const installFolder = FolderName ? FolderName.value : ''
-    const gameBox = keyImages.filter(
-      ({ type }: KeyImage) => type === 'DieselGameBox'
-    )[0]
-    const gameBoxTall = keyImages.filter(
-      ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-    )[0]
-    const logo = keyImages.filter(
-      ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-    )[0]
+    const installFolder = FolderName ? FolderName.value : app_name
+
+    const gameBox = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+
+    const gameBoxTall = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
+      gameBox
+
+    const logo = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail' )[0]
 
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
@@ -208,7 +313,7 @@ class Library {
       version = null,
       install_size = null,
       install_path = null,
-      is_dlc = dlcs.indexOf(app_name) >= 0
+      is_dlc = dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
     const convertedSize =
@@ -220,6 +325,7 @@ class Library {
       art_logo,
       art_square: art_square || art_cover,
       cloud_save_enabled,
+      compatible_apps,
       developer,
       extra: {
         about : {
@@ -236,7 +342,11 @@ class Library {
         is_dlc,
         version
       }),
+      is_game,
       is_installed: info !== undefined,
+      is_ue_asset,
+      is_ue_plugin,
+      is_ue_project,
       namespace,
       save_folder: saveFolder,
       title
@@ -281,7 +391,7 @@ class Library {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
         .filter((fileName) => {
-          const app_name =fileName.split('.')[0]
+          const app_name =fileName.split('.json')[0]
           return (this.library.get(app_name) === null)
         })
         .map((filename) => this.loadFile(filename))

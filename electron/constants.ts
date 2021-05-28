@@ -1,13 +1,13 @@
 import { fixPathForAsarUnpack } from 'electron-util';
 import {
   homedir,
-  platform
+  platform,
 } from 'os';
 import { join } from 'path';
 
 import {
   GameConfigVersion,
-  GlobalConfigVersion
+  GlobalConfigVersion,
 } from './types';
 
 const currentGameConfigVersion : GameConfigVersion = 'v0'
@@ -35,7 +35,6 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
-const shell = process.platform === 'darwin' ? '/bin/zsh' : '/bin/bash'
 const isWindows = platform() === 'win32'
 
 function getShell() {
@@ -51,10 +50,18 @@ function getShell() {
   }
 }
 
+const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
+
+const execOptions = {
+  maxBuffer: MAX_BUFFER,
+  shell: getShell()
+}
+
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
   discordLink,
+  execOptions,
   getShell,
   heroicConfigPath,
   heroicFolder,
@@ -72,8 +79,7 @@ export {
   legendaryConfigPath,
   libraryPath,
   loginUrl,
-  shell,
   sidInfoUrl,
   supportURL,
-  userInfo
+  userInfo,
 };

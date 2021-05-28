@@ -1,12 +1,11 @@
 # Heroic Games Launcher
 
+[![Discord](https://img.shields.io/discord/812703221789097985.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=7389D8)](https://discord.gg/rHJ2uqdquK) [![GitHub release](https://img.shields.io/github/release/Heroic-Games-Launcher/HeroicGamesLauncher.svg?label=Release)](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/) [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/COPYING) [![Design](https://img.shields.io/badge/Design%20Research-Biliane%20Moreira-blue?style=flat&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xOCA0VjNjMC0uNTUtLjQ1LTEtMS0xSDVjLS41NSAwLTEgLjQ1LTEgMXY0YzAgLjU1LjQ1IDEgMSAxaDEyYy41NSAwIDEtLjQ1IDEtMVY2aDF2NEg5djExYzAgLjU1LjQ1IDEgMSAxaDJjLjU1IDAgMS0uNDUgMS0xdi05aDhWNGgtM3oiLz48L3N2Zz4=)](https://bilianemoreira.com/projects/heroic) [![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dheroicgameslauncher%26type%3Dpatrons&style=flat&label=Patreon)](https://patreon.com/heroicgameslauncher) [![kofi](https://img.shields.io/badge/Ko--Fi-Donate-orange?style=flat&logo=ko-fi)](https://ko-fi.com/flavioislima)
+
+
 Heroic is an Open Source Game Launcher for Linux.
 Right now it supports launching game from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), a Linux CLI alternative to launch epic games.
 Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electron.
-
-### [Discord Server](https://discord.gg/rHJ2uqdquK)
-
-### [Design based on the UI/UX Research by Biliane Moreira](https://bilianemoreira.com/heroic-game-launcher-for-linux)
 
 ## Index
 
@@ -20,7 +19,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
   - [Fedora](#fedora)
   - [Other Distributions](#other-distributions)
   - [Build binaries locally](#build-binaries-locally)
-- [Current Version Screenshots](#current-version-screenshots)
+- [Current Version Screenshots](#screenshots)
 
 ## How to use it
 
@@ -56,15 +55,20 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 ## Language Support
 
 - English
-- German
-- Portuguese
-- French
-- Russian
-- Polish
-- Turkish
+- Czech
 - Dutch
-- Spanish
+- French
+- German
 - Hungarian
+- Italian
+- Malayalam
+- Polish
+- Portuguese
+- Russian
+- Spanish
+- Swedish
+- Turkish
+### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
 ## Installation
 
@@ -78,7 +82,7 @@ sudo dpkg -i heroic_x.x.x_amd64.deb
 
 ### Arch (AUR)
 
-[![AUR version](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat-square)](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
+[![AUR version](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=AUR)](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
 
 AUR page: [https://aur.archlinux.org/packages/heroic-games-launcher-bin/](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
 
@@ -104,7 +108,6 @@ Download the `heroic-x.x.x.AppImage` from the Releases section.
 
 To make it executable use:
 
-
 ```bash
 chmod +x heroic-x.x.x.AppImage
 ```
@@ -129,7 +132,7 @@ yarn
 yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm)
 ```
 
-## Current Version Screenshots
+## Screenshots
 
 ![image](https://user-images.githubusercontent.com/26871415/108600496-bcd0f980-7397-11eb-86d0-95e4f9aa6125.png)
 ![image](https://user-images.githubusercontent.com/26871415/108600444-898e6a80-7397-11eb-961e-b8ee5ad5e3a3.png)
@@ -137,3 +140,5 @@ yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm)
 ![image](https://user-images.githubusercontent.com/26871415/108600451-8eebb500-7397-11eb-966a-70849a589902.png)
 ![image](https://user-images.githubusercontent.com/26871415/108600462-a460df00-7397-11eb-8a42-cde5b9b2744c.png)
 ![image](https://user-images.githubusercontent.com/26871415/108600516-e2f69980-7397-11eb-8b96-513729859b86.png)
+
+[![jump](https://img.shields.io/badge/Back%20to%20top-%20?style=flat&color=grey&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTQgMTJsMS40MSAxLjQxTDExIDcuODNWMjBoMlY3LjgzbDUuNTggNS41OUwyMCAxMmwtOC04LTggOHoiLz48L3N2Zz4=)](#heroic-games-launcher)

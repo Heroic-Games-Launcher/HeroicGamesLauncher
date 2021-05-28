@@ -14,6 +14,7 @@ export interface AppSettings {
   language: string
   launcherArgs: string
   maxWorkers: number
+  nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions: string
   savesPath: string
@@ -53,11 +54,16 @@ export interface GameInfo {
   art_logo: string,
   art_square: string,
   cloud_save_enabled: boolean,
+  compatible_apps: string[],
   developer: string,
   extra: ExtraInfo,
   folder_name: string,
   install: InstalledInfo,
+  is_game: boolean,
   is_installed: boolean,
+  is_ue_asset: boolean,
+  is_ue_plugin: boolean,
+  is_ue_project: boolean,
   namespace: unknown,
   save_folder: string,
   title: string
@@ -80,6 +86,7 @@ export interface GameStatus {
 export interface InstallProgress {
   bytes: string
   eta: string
+  folder?: string
   percent: string
 }
 export interface InstalledInfo {

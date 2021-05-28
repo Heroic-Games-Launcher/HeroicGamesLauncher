@@ -2,6 +2,7 @@ import { GameInfo, InstallProgress } from 'src/types'
 import { IpcRenderer, Remote } from 'electron'
 
 import { TFunction } from 'react-i18next'
+const storage: Storage = window.localStorage
 
 const { ipcRenderer, remote } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -59,9 +60,10 @@ const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
 
 /**
  * Deprecated API to spawn a subprocess with a legendary command.
- * Avoid using, old code will be migrated.
+ *
  * @param args
  * @returns Return code. ('error' or 'done')
+ * @deprecated Avoid using, old code will be migrated.
  */
 const legendary = async (args: string): Promise<string> =>
   await ipcRenderer
@@ -236,7 +238,8 @@ async function fixSaveFolder(
 async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
-  t: TFunction<'gamepage'>
+  t: TFunction<'gamepage'>,
+  progress: InstallProgress
 ) {
   const { response } = await showMessageBox({
     buttons: [
@@ -248,9 +251,11 @@ async function handleStopInstallation(
     title: t('gamepage:box.stopInstall.title')
   })
   if (response === 1) {
+    storage.setItem(appName, JSON.stringify({...progress, folder: path}))
     return sendKill(appName)
   } else if (response === 2) {
     sendKill(appName)
+    storage.removeItem(appName)
     return ipcRenderer.send('removeFolder', [path, folderName])
   }
 }

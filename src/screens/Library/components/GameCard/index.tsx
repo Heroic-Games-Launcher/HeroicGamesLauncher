@@ -30,11 +30,14 @@ const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showMessageBox }
 } = remote
+const storage: Storage = window.localStorage
+
 interface Card {
   appName: string
   cover: string
   coverList: string
   hasUpdate: boolean
+  isGame: boolean
   isInstalled: boolean
   logo: string
   size: string
@@ -52,15 +55,18 @@ const GameCard = ({
   cover,
   title,
   appName,
+  isGame,
   isInstalled,
   logo,
   coverList,
-  size,
+  size = '',
   hasUpdate
 }: Card) => {
-  const [progress, setProgress] = useState({
-    bytes: '0/0MB',
-    eta: '',
+  const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
+  const [progress, setProgress] = useState(previousProgress ?? {
+    bytes: '0.00MiB',
+    eta: '00:00:00',
+    path: '',
     percent: '0.00%'
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
@@ -90,9 +96,20 @@ const GameCard = ({
           'requestGameProgress',
           appName
         )
+
+        if (progress) {
+          if (previousProgress){
+            const legendaryPercent = getProgress(progress)
+            const heroicPercent = getProgress(previousProgress)
+            const newPercent: number = Math.round((legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent)
+            progress.percent = `${newPercent}%`
+          }
+          return setProgress(progress)
+        }
+
         setProgress(progress)
       }
-    }, 1500)
+    }, 500)
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 
@@ -125,10 +142,13 @@ const GameCard = ({
     if (isInstalling) {
       return <StopIcon onClick={() => handlePlay()} />
     }
-    if (isInstalled) {
+    if (isInstalled && isGame) {
       return <PlayIcon onClick={() => handlePlay()} />
     }
-    return <DownIcon onClick={() => handlePlay()} />
+    if (!isInstalled) {
+      return <DownIcon onClick={() => handlePlay()} />
+    }
+    return null
   }
   return (
     <>
@@ -169,11 +189,11 @@ const GameCard = ({
                 className="icons"
                 style={{
                   flexDirection: 'row',
-                  width: isInstalled ? '44%' : 'auto'
+                  width: isInstalled&&isGame ? '44%' : 'auto'
                 }}
               >
                 {renderIcon()}
-                {isInstalled && (
+                {isInstalled && isGame && (
                   <Link
                     to={{
                       pathname: isWin
@@ -190,7 +210,7 @@ const GameCard = ({
           </div>
         ) : (
           <>
-            {<div className="gameListInfo">{size}</div>}
+            {<div className="gameListInfo">{isInstalled ? size : '---'}</div>}
             <span className="gameTitleList">{title}</span>
             {
               <span className="icons">
@@ -219,8 +239,9 @@ const GameCard = ({
       return await handleInstall({
         appName,
         handleGameStatus,
-        installPath: 'another',
+        installPath: 'default',
         isInstalling,
+        progress,
         t
       })
     }

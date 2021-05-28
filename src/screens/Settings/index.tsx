@@ -77,6 +77,11 @@ function Settings() {
     toggle: toggleUseGameMode,
     setOn: setUseGameMode
   } = useToggle(false)
+  const {
+    on: nvidiaPrime,
+    toggle: toggleNvidiaPrime,
+    setOn: setUseNvidiaPrime
+  } = useToggle(false)
   const { on: showFps, toggle: toggleFps, setOn: setShowFps } = useToggle(false)
   const {
     on: offlineMode,
@@ -129,6 +134,7 @@ function Settings() {
         'requestSettings',
         appName
       )
+      setUseNvidiaPrime(config.nvidiaPrime || false)
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
       setShowOffline(config.offlineMode || false)
@@ -176,6 +182,7 @@ function Settings() {
     exitToTray,
     language,
     maxWorkers,
+    nvidiaPrime,
     offlineMode,
     otherOptions,
     showFps,
@@ -190,6 +197,7 @@ function Settings() {
     autoInstallDxvk,
     autoSyncSaves,
     launcherArgs,
+    nvidiaPrime,
     offlineMode,
     otherOptions,
     savesPath,
@@ -287,6 +295,8 @@ function Settings() {
               setLauncherArgs={setLauncherArgs}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
+              primeRun={nvidiaPrime}
+              togglePrimeRun={toggleNvidiaPrime}
               showFps={showFps}
               toggleFps={toggleFps}
               offlineMode={offlineMode}

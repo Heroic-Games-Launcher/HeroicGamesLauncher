@@ -1,94 +1,96 @@
 {
-  "box": {
-    "change": {
-      "message": "Bu oyunun kurulum yerini değiştirecek, emin misin?",
-      "path": "Yeni kurulum yeri seçin",
-      "title": "Oyun Kurulum Yerini Değiştir"
+    "box": {
+        "change": {
+            "message": "Bu oyunun kurulum yerini değiştirecek, emin misin?",
+            "path": "Yeni kurulum yeri seçin",
+            "title": "Oyun Kurulum Yerini Değiştir"
+        },
+        "choose": "Seç",
+        "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
+        "installpath": "Kurulum Yerini Seç",
+        "move": {
+            "message": "Bu uzun sürebilir, emin misin?",
+            "path": "Nereye taşımak istediğinizi seçin",
+            "title": "Oyun kurulumunu taşı"
+        },
+        "no": "HAYIR",
+        "repair": {
+            "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
+            "title": "Doğrula ve Onar"
+        },
+        "stopInstall": {
+            "keepInstalling": "Yüklemeyi Sürdür",
+            "message": "İndirilen dosyaları SAKLAMAK ister misiniz?",
+            "title": "Yüklemeyi Durdur"
+        },
+        "uninstall": {
+            "message": "Oyunu kaldırmak istiyor musunuz?",
+            "title": "Kaldır"
+        },
+        "update": {
+            "message": "Bu oyun için güncelleme mevcut, şimdi güncellemek ister misiniz?",
+            "title": "Oyunun Güncellenmesi Gerekiyor"
+        },
+        "yes": "EVET"
     },
-    "choose": "Seç",
-    "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
-    "installpath": "Kurulum Yerini Seç",
-    "move": {
-      "message": "Bu uzun sürebilir, emin misin?",
-      "path": "Nereye taşımak istediğinizi seçin",
-      "title": "Oyun kurulumunu taşı"
+    "button": {
+        "cancel": "İptal",
+        "continue": "Continue Download",
+        "import": "İçeri Aktar",
+        "install": "Yükle",
+        "uninstall": "Kaldır"
     },
-    "no": "HAYIR",
-    "repair": {
-      "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
-      "title": "Doğrula ve Onar"
+    "disabled": "Devre dışı",
+    "enabled": "Etkin",
+    "gamecard": {
+        "moving": "Taşınıyor",
+        "repairing": "Onarılıyor"
     },
-    "stopInstall": {
-      "keepInstalling": "Yüklemeyi Sürdür",
-      "message": "İndirilen dosyaları SAKLAMAK ister misiniz?",
-      "title": "Yüklemeyi Durdur"
+    "info": {
+        "path": "Kurulum Yeri",
+        "size": "Boyut",
+        "syncsaves": "Kayıtları Eşzamanla",
+        "version": "Versiyon"
     },
-    "uninstall": {
-      "message": "Oyunu kaldırmak istiyor musunuz?",
-      "title": "Kaldır"
+    "install": {
+        "another": "Farklı bir yere yükle",
+        "default": "Şuraya yükle: ",
+        "import": "Oyunu içe aktar"
     },
-    "update": {
-      "message": "Bu oyun için güncelleme mevcut, şimdi güncellemek ister misiniz?",
-      "title": "Oyunun Güncellenmesi Gerekiyor"
+    "label": {
+        "cancel": {
+            "update": "Güncellemeyi İptal Et"
+        },
+        "playing": {
+            "start": "Şimdi Oyna",
+            "stop": "Oynanıyor (Durdur)"
+        },
+        "saves": {
+            "syncing": "Kayıtlar Eşzamanlanıyor"
+        }
     },
-    "yes": "EVET"
-  },
-  "button": {
-    "cancel": "İptal",
-    "import": "İçeri Aktar",
-    "install": "Yükle",
-    "uninstall": "Kaldır"
-  },
-  "disabled": "Devre dışı",
-  "enabled": "Etkin",
-  "gamecard": {
-    "moving": "Taşınıyor",
-    "repairing": "Onarılıyor"
-  },
-  "info": {
-    "path": "Kurulum Yeri",
-    "size": "Boyut",
-    "syncsaves": "Kayıtları Senkronize Et",
-    "version": "Versiyon"
-  },
-  "install": {
-    "another": "Farklı bir yere yükle",
-    "default": "Şuraya yükle: ",
-    "import": "Oyunu içe aktar"
-  },
-  "label": {
-    "cancel": {
-      "update": "Güncellemeyi İptal Et"
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Önerilen"
     },
-    "playing": {
-      "start": "Şimdi Oyna",
-      "stop": "Oynanıyor (Durdur)"
+    "status": {
+        "hasUpdates": "Yeni sürüm mevcut!",
+        "installed": "Yüklendi",
+        "installing": "Yükleniyor",
+        "moving": "Kurulum taşınıyor, lütfen bekleyin",
+        "notinstalled": "Bu oyun yüklü değil",
+        "reparing": "Oyun onarılıyor, lütfen bekleyin",
+        "totalDownloaded": "Total Downloaded",
+        "updating": "Oyun Güncelleniyor"
     },
-    "saves": {
-      "syncing": "Kayıtlar Senkronize Ediliyor"
+    "submenu": {
+        "change": "Kurulum yerini değiştir",
+        "log": "Güncel Log",
+        "move": "Oyunu Taşı",
+        "protondb": "Uyumluluğu Kontrol Et",
+        "settings": "Ayarlar",
+        "store": "Mağaza Sayfası",
+        "update": "Oyunu Güncelle",
+        "verify": "Doğrula ve Onar"
     }
-  },
-  "specs": {
-    "minimum": "Minimum",
-    "recommended": "Önerilen"
-  },
-  "status": {
-    "hasUpdates": "Yeni sürüm mevcut!",
-    "installed": "Yüklendi",
-    "installing": "Yükleniyor",
-    "moving": "Kurulum taşınıyor, lütfen bekleyin",
-    "notinstalled": "Bu oyun yüklü değil",
-    "reparing": "Oyun onarılıyor, lütfen bekleyin",
-    "updating": "Oyun Güncelleniyor"
-  },
-  "submenu": {
-    "change": "Kurulum yerini değiştir",
-    "log": "Güncel Log",
-    "move": "Oyunu Taşı",
-    "protondb": "Uyumluluğu Kontrol Et",
-    "settings": "Ayarlar",
-    "store": "Mağaza Sayfası",
-    "update": "Oyunu Güncelle",
-    "verify": "Doğrula ve Onar"
-  }
 }
