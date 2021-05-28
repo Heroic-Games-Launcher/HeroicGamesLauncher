@@ -1,13 +1,13 @@
 import { fixPathForAsarUnpack } from 'electron-util';
 import {
   homedir,
-  platform,
+  platform
 } from 'os';
 import { join } from 'path';
 
 import {
   GameConfigVersion,
-  GlobalConfigVersion,
+  GlobalConfigVersion
 } from './types';
 
 const currentGameConfigVersion : GameConfigVersion = 'v0'
@@ -81,5 +81,5 @@ export {
   loginUrl,
   sidInfoUrl,
   supportURL,
-  userInfo,
+  userInfo
 };

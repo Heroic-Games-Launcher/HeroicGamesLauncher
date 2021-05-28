@@ -1,13 +1,18 @@
+import { User } from 'legendary_utils/user';
 import {
   existsSync,
   mkdirSync,
-  readdirSync,
   readFileSync,
-  writeFileSync,
+  readdirSync,
+  writeFileSync
 } from 'graceful-fs';
-import { User } from 'legendary_utils/user';
 import { userInfo as user } from 'os';
 
+import {
+  AppSettings,
+  GlobalConfigVersion,
+  WineInstallation
+} from './types';
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
@@ -15,13 +20,8 @@ import {
   heroicInstallPath,
   heroicToolsPath,
   home,
-  isWindows,
+  isWindows
 } from './constants';
-import {
-  AppSettings,
-  GlobalConfigVersion,
-  WineInstallation,
-} from './types';
 import { execAsync } from './utils';
 
 /**

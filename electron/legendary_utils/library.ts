@@ -1,29 +1,29 @@
 import {
   existsSync,
-  readdirSync,
   readFileSync,
-  writeFileSync,
+  readdirSync,
+  writeFileSync
 } from 'graceful-fs';
 import prettyBytes from 'pretty-bytes';
 
-import {
-  installed,
-  legendaryBin,
-  legendaryConfigPath,
-  libraryPath,
-} from '../constants';
 import { GameConfig } from '../game_config';
-import { LegendaryGame } from '../games';
 import {
   GameInfo,
   InstalledInfo,
   KeyImage,
-  RawGameJSON,
+  RawGameJSON
 } from '../types';
+import { LegendaryGame } from '../games';
 import {
   execAsync,
-  isOnline,
+  isOnline
 } from '../utils';
+import {
+  installed,
+  legendaryBin,
+  legendaryConfigPath,
+  libraryPath
+} from '../constants';
 
 /**
  * Legendary Library.

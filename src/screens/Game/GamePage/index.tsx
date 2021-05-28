@@ -4,18 +4,13 @@ import React, {
   Fragment,
   useContext,
   useEffect,
-  useState,
+  useState
 } from 'react';
 
 import {
   IpcRenderer,
-  Remote,
+  Remote
 } from 'electron';
-import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
-import Header from 'src/components/UI/Header';
-import InfoBox from 'src/components/UI/InfoBox';
-import UpdateComponent from 'src/components/UI/UpdateComponent';
 import {
   fixSaveFolder,
   getGameInfo,
@@ -26,15 +21,20 @@ import {
   launch,
   sendKill,
   syncSaves,
-  updateGame,
+  updateGame
 } from 'src/helpers';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ContextProvider from 'src/state/ContextProvider';
+import Header from 'src/components/UI/Header';
+import InfoBox from 'src/components/UI/InfoBox';
+import UpdateComponent from 'src/components/UI/UpdateComponent';
 /* eslint-disable complexity */
 import {
   AppSettings,
   GameInfo,
   GameStatus,
-  InstallProgress,
+  InstallProgress
 } from 'src/types';
 
 import Settings from '@material-ui/icons/Settings';

@@ -1,34 +1,47 @@
+import * as path from 'path';
 import {
-  exec,
-  spawn,
-} from 'child_process';
-import {
-  app,
   BrowserWindow,
-  dialog,
-  ipcMain,
   Menu,
   Notification,
-  powerSaveBlocker,
-  protocol,
   Tray,
+  app,
+  dialog,
+  ipcMain,
+  powerSaveBlocker,
+  protocol
 } from 'electron';
-import isDev from 'electron-is-dev';
+import {
+  cpus,
+  platform
+} from 'os';
+import {
+  exec,
+  spawn
+} from 'child_process';
 import {
   existsSync,
   rmdirSync,
   unlinkSync,
-  writeFile,
+  writeFile
 } from 'graceful-fs';
-import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
-import {
-  cpus,
-  platform,
-} from 'os';
-import * as path from 'path';
+import i18next from 'i18next';
+import isDev from 'electron-is-dev';
 
+import { DXVK } from './dxvk';
+import { GameConfig } from './game_config';
 import { GlobalConfig } from './config';
+import { LegendaryGame } from './games';
+import { Library } from './legendary_utils/library';
+import { User } from './legendary_utils/user';
+import {
+  checkForUpdates,
+  execAsync,
+  handleExit,
+  isOnline,
+  openUrlOrFile,
+  showAboutWindow
+} from './utils';
 import {
   discordLink,
   getShell,
@@ -40,22 +53,9 @@ import {
   legendaryBin,
   loginUrl,
   sidInfoUrl,
-  supportURL,
+  supportURL
 } from './constants';
-import { DXVK } from './dxvk';
-import { GameConfig } from './game_config';
-import { LegendaryGame } from './games';
-import { Library } from './legendary_utils/library';
-import { User } from './legendary_utils/user';
 import { handleProtocol } from './protocol';
-import {
-  checkForUpdates,
-  execAsync,
-  handleExit,
-  isOnline,
-  openUrlOrFile,
-  showAboutWindow,
-} from './utils';
 
 const { showErrorBox } = dialog
 const isWindows = platform() === 'win32'

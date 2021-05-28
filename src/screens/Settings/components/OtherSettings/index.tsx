@@ -1,12 +1,12 @@
 import React, {
   ChangeEvent,
-  useContext,
+  useContext
 } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import ContextProvider from 'src/state/ContextProvider';
 import InfoBox from 'src/components/UI/InfoBox';
 import ToggleSwitch from 'src/components/UI/ToggleSwitch';
-import ContextProvider from 'src/state/ContextProvider';
 
 interface Props {
   audioFix: boolean
@@ -57,37 +57,37 @@ export default function OtherSettings({
 
   return (
     <>
-      {!isWin && <> 
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.showfps')}
-          <ToggleSwitch value={showFps} handleChange={toggleFps} />
+      {!isWin && <>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.showfps')}
+            <ToggleSwitch value={showFps} handleChange={toggleFps} />
+          </span>
         </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.gamemode')}
-          <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.gamemode')}
+            <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
+          </span>
         </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.primerun', 'Enable Nvidia Prime Render')}
-          <ToggleSwitch value={primeRun} handleChange={togglePrimeRun} />
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.primerun', 'Enable Nvidia Prime Render')}
+            <ToggleSwitch value={primeRun} handleChange={togglePrimeRun} />
+          </span>
         </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.audiofix')}
-          <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.audiofix')}
+            <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
+          </span>
         </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.mangohud')}
-          <ToggleSwitch value={showMangohud} handleChange={toggleMangoHud} />
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.mangohud')}
+            <ToggleSwitch value={showMangohud} handleChange={toggleMangoHud} />
+          </span>
         </span>
-      </span>
       </>
       }
       <span className="setting">

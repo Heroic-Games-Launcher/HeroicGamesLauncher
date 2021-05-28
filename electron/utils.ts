@@ -1,21 +1,21 @@
 import * as axios from 'axios';
-import { exec } from 'child_process';
 import {
   app,
   dialog,
-  net,
+  net
 } from 'electron';
+import { exec } from 'child_process';
 import {
   existsSync,
-  stat,
+  stat
 } from 'graceful-fs';
-import i18next from 'i18next';
 import { promisify } from 'util';
+import i18next from 'i18next';
 
 import {
   heroicGamesConfigPath,
   icon,
-  isWindows,
+  isWindows
 } from './constants';
 
 const execAsync = promisify(exec)
@@ -125,5 +125,5 @@ export {
   isOnline,
   openUrlOrFile,
   showAboutWindow,
-  statAsync,
+  statAsync
 };
