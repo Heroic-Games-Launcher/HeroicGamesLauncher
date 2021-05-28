@@ -2,26 +2,26 @@ import {GameInfo} from 'src/types'
 
 const game: GameInfo = {
   app_name: 'game',
-  art_cover: '',
-  art_logo: '',
-  art_square: '',
+  art_cover: 'art_cover',
+  art_logo: 'art_logo',
+  art_square: 'art_square',
   cloud_save_enabled: false,
-  compatible_apps: [],
-  developer: '',
+  compatible_apps: ['compatible_apps'],
+  developer: 'developer',
   extra: {
     about: {
-      description: '',
-      shortDescription: ''
+      description: 'description',
+      shortDescription: 'shortDescription'
     },
     reqs: []
   },
-  folder_name: '',
+  folder_name: 'folder_name',
   install: {
-    executable: '',
-    install_path: '',
-    install_size: '',
+    executable: 'executable',
+    install_path: 'install_path',
+    install_size: 'install_size',
     is_dlc: false,
-    version: ''
+    version: 'version'
   },
   is_game: true,
   is_installed: false,
@@ -29,32 +29,32 @@ const game: GameInfo = {
   is_ue_plugin: false,
   is_ue_project: false,
   namespace: null,
-  save_folder: '',
-  title: ''
+  save_folder: 'save_folder',
+  title: 'title'
 };
 
 const plugin: GameInfo = {
   app_name: 'plugin',
-  art_cover: '',
-  art_logo: '',
-  art_square: '',
+  art_cover: 'art_cover',
+  art_logo: 'art_logo',
+  art_square: 'art_square',
   cloud_save_enabled: false,
   compatible_apps: [],
-  developer: '',
+  developer: 'developer',
   extra: {
     about: {
-      description: '',
-      shortDescription: ''
+      description: 'description',
+      shortDescription: 'shortDescription'
     },
     reqs: []
   },
-  folder_name: '',
+  folder_name: 'folder_name',
   install: {
-    executable: '',
-    install_path: '',
-    install_size: '',
+    executable: 'executable',
+    install_path: 'install_path',
+    install_size: 'install_size',
     is_dlc: false,
-    version: ''
+    version: 'version'
   },
   is_game: false,
   is_installed: true,
@@ -62,8 +62,8 @@ const plugin: GameInfo = {
   is_ue_plugin: true,
   is_ue_project: true,
   namespace: null,
-  save_folder: '',
-  title: ''
+  save_folder: 'save_folder',
+  title: 'title'
 };
 
 export { game, plugin};
