@@ -1,4 +1,4 @@
-import { User } from 'legendary_utils/user';
+import { User } from './legendary_utils/user';
 import {
   existsSync,
   mkdirSync,
