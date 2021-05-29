@@ -13,14 +13,16 @@ export default function SearchBar() {
   const { t } = useTranslation()
 
   return (
-    <div className="SearchBar">
+    <div className="SearchBar" data-testid="searchbar">
       <label htmlFor="search">
         <Search
           onClick={() => handleSearch(textValue)}
           className="material-icons"
+          data-testid="searchButton"
         />
       </label>
       <input
+        data-testid="searchInput"
         className="searchInput"
         value={textValue}
         onChange={(event) => {
@@ -38,6 +40,7 @@ export default function SearchBar() {
             handleSearch('')
           }}
           className="material-icons close"
+          data-testid="closeButton"
         />
       )}
     </div>

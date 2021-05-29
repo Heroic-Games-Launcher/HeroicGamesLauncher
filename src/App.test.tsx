@@ -1,14 +1,15 @@
 import React from 'react';
 
 import {
-  render,
-  screen
+  render
 } from '@testing-library/react';
 
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />)
-  const linkElement = screen.getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+describe('App', () => {
+
+  test('renders', () => {
+    render(<React.Suspense fallback="App loaded"><App /></React.Suspense>);
+  })
+
 })

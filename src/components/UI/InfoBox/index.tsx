@@ -22,11 +22,11 @@ export default function InfoBox({ children, text }: Props) {
 
   return (
     <>
-      <span className="helpLink" onClick={toggleIsHidden}>
+      <span className="helpLink" onClick={toggleIsHidden} data-testid="infoboxSpan">
         <p>{t(text)}</p>
         <Info className="material-icons" />
       </span>
-      <div style={{ display: isHidden ? 'none' : 'block' }} className="infoBox">
+      <div style={{ display: isHidden ? 'none' : 'block' }} className="infoBox" data-testid="infoboxDiv">
         {children}
       </div>
     </>
