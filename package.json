@@ -133,7 +133,6 @@
     "foreman": "^3.0.1",
     "husky": "^4.3.8",
     "i18next-parser": "^3.6.0",
-    "identity-obj-proxy": "^3.0.0",
     "npm": "^7.14.0",
     "ts-jest": "^26.5.6",
     "typescript": "^4.1.3"

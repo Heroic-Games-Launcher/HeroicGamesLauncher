@@ -15,7 +15,7 @@ module.exports = {
   },
 
   moduleNameMapper: {
-    "\\.css$": "identity-obj-proxy",
+    "\\.css$": "<rootDir>/src/test_helpers/mock/css.ts",
     "electron": "<rootDir>/src/test_helpers/mock/electron.ts"
   },
 
