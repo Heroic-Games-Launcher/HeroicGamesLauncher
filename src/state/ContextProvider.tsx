@@ -5,10 +5,12 @@ const { process } = remote
 import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
+  category: 'games',
   data: [],
   error: false,
   filter: 'all',
   gameUpdates: [],
+  handleCategory: () => null,
   handleFilter: () => null,
   handleGameStatus: () => Promise.resolve(),
   handleLayout: () => null,
