@@ -14,6 +14,7 @@ export interface AppSettings {
   language: string
   launcherArgs: string
   maxWorkers: number
+  nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions: string
   savesPath: string
@@ -86,6 +87,7 @@ export interface GameStatus {
 export interface InstallProgress {
   bytes: string
   eta: string
+  folder?: string
   percent: string
 }
 export interface InstalledInfo {

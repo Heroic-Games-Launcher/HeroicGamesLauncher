@@ -137,6 +137,7 @@
         },
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"

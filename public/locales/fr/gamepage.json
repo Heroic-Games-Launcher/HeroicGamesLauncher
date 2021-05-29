@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "Annuler",
+        "continue": "Continue Download",
         "import": "Importer",
         "install": "Installer",
         "uninstall": "Désinstaller"
@@ -79,6 +80,7 @@
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
         "reparing": "Réparation du jeu, veuillez patienter",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Mise à jour du jeu"
     },
     "submenu": {

@@ -15,10 +15,10 @@ import {
   isOnline
 } from './utils'
 import {
+  execOptions,
   heroicGamesConfigPath,
   home,
-  legendaryBin,
-  shell
+  legendaryBin
 } from './constants'
 
 type ExecResult = void | {stderr : string, stdout : string}
@@ -184,7 +184,7 @@ class LegendaryGame implements Game {
     const command = `${legendaryBin} update ${this.appName} -y &> ${logPath}`
 
     try {
-      return await execAsync(command, { shell: '/bin/bash' })
+      return await execAsync(command, execOptions)
     } catch (error) {
       return await errorHandler(logPath)
     }
@@ -197,20 +197,17 @@ class LegendaryGame implements Game {
    * @returns Result of execAsync.
    */
   public async install(path : string) {
-    const { defaultInstallPath, maxWorkers } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
-    let command = `${legendaryBin} install ${this.appName} --base-path '${path}' ${workers} -y |& tee ${logPath} ${sockPath}`
-    if (path === 'default') {
-      command = `${legendaryBin} install ${this.appName} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath} ${sockPath}`
-    }
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y |& tee ${logPath} ${sockPath}`
     console.log(`Installing ${this.appName} with:`, command)
     // TODO(adityaruplaha):Create a socket connection for requestGameProgress
     try {
       Library.get().installState(this.appName, true)
-      return await execAsync(command, { shell: shell })
+      return await execAsync(command, execOptions)
     } catch (error) {
       Library.get().installState(this.appName, false)
       return errorHandler(logPath)
@@ -221,7 +218,7 @@ class LegendaryGame implements Game {
     const command = `${legendaryBin} uninstall ${this.appName} -y`
     console.log(`Uninstalling ${this.appName} with:`, command)
     Library.get().installState(this.appName, false)
-    return await execAsync(command, { shell: shell })
+    return await execAsync(command, execOptions)
   }
 
   /**
@@ -238,12 +235,12 @@ class LegendaryGame implements Game {
     const command = `${legendaryBin} repair ${this.appName} ${workers} -y &> ${logPath}`
 
     console.log(`Repairing ${this.appName} with:`, command)
-    return await execAsync(command, { shell: shell })
+    return await execAsync(command, execOptions)
   }
 
   public async import(path : string) {
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
-    const { stderr, stdout } = await execAsync(command, { shell: shell })
+    const { stderr, stdout } = await execAsync(command, execOptions)
     return {stderr, stdout}
   }
 
@@ -277,6 +274,7 @@ class LegendaryGame implements Game {
       otherOptions,
       useGameMode,
       showFps,
+      nvidiaPrime,
       launcherArgs = '',
       showMangohud,
       audioFix,
@@ -298,6 +296,7 @@ class LegendaryGame implements Game {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
       other: otherOptions ? otherOptions : '',
+      prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
         ? `STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')

@@ -137,6 +137,7 @@
         },
         "maxworkers": "Maximum Number of Workers when downloading",
         "offlinemode": "Run Game Offline",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Drag and Drop Files here",
             "title": "Run EXE on Prefix"
@@ -170,7 +171,7 @@
         "show": "Show",
         "support": "Support Us"
     },
-    "Unreal Marketplace": "",
+    "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",
     "userselector": {
         "about": "About",

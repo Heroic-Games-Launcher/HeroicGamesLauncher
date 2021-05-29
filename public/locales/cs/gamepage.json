@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "Zrušit",
+        "continue": "Continue Download",
         "import": "Importovat",
         "install": "Instalovat",
         "uninstall": "Odinstalovat"
@@ -79,6 +80,7 @@
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
         "reparing": "Opravuji hru, čekejte prosím",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Aktualizuji hru"
     },
     "submenu": {

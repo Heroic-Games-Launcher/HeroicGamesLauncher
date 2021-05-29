@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "റദ്ദാക്കൂ",
+        "continue": "Continue Download",
         "import": "കൊണ്ടുവരൂ",
         "install": "സ്ഥാപിക്കൂ",
         "uninstall": "എടുത്തുനീക്കൂ"
@@ -79,6 +80,7 @@
         "moving": "സ്ഥാപനയിടം മാറ്റുന്നു, ഇത്തിരി കാക്കൂ",
         "notinstalled": "ഈ കളി സ്ഥാപിച്ചിട്ടില്ല",
         "reparing": "കളി നന്നാക്കുന്നു, ഒന്നു ക്ഷമിക്കണേ",
+        "totalDownloaded": "Total Downloaded",
         "updating": "കളി പുതുക്കുന്നു"
     },
     "submenu": {

@@ -72,7 +72,7 @@
     },
     "infobox": {
         "help": "Help",
-        "requirements": ""
+        "requirements": "Systeem Vereisten"
     },
     "Library": "Bibliotheek",
     "message": {
@@ -137,6 +137,7 @@
         },
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
         "offlinemode": "Spel offline spelen",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Sleep de bestanden hier",
             "title": "Voer EXE ui op Prefix"
@@ -181,6 +182,5 @@
         "refresh": "Herladen",
         "support": "Steun ons"
     },
-    "wiki": "Wiki",
-    "Store": "Winkel"
+    "wiki": "Wiki"
 }

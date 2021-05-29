@@ -137,6 +137,7 @@
         },
         "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
         "offlinemode": "Spiel offline ausführen",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"

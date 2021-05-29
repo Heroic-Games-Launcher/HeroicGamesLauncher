@@ -251,7 +251,7 @@ async function handleStopInstallation(
     title: t('gamepage:box.stopInstall.title')
   })
   if (response === 1) {
-    storage.setItem(appName, JSON.stringify(progress))
+    storage.setItem(appName, JSON.stringify({...progress, folder: path}))
     return sendKill(appName)
   } else if (response === 2) {
     sendKill(appName)

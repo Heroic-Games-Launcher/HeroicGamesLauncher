@@ -137,6 +137,7 @@
         },
         "maxworkers": "CPUs máximos utilizados ao baixar jogos",
         "offlinemode": "Executar o jogo offline",
+        "primerun": "Habilitar Nvidia Prime Render",
         "runexe": {
             "message": "Arraste e Solte arquivos aqui",
             "title": "Executar EXE no Prefixo"
@@ -170,7 +171,7 @@
         "show": "Mostrar",
         "support": "Apoie-nos"
     },
-    "Unreal Marketplace": "",
+    "Unreal Marketplace": "Loja Unreal",
     "Updates": "Atualizações",
     "userselector": {
         "about": "Sobre",

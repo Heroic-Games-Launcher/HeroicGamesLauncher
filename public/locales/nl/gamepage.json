@@ -35,6 +35,7 @@
     },
     "button": {
         "cancel": "Annulleren",
+        "continue": "Continue Download",
         "import": "Importeren",
         "install": "Installeren",
         "uninstall": "Deinstalleren"
@@ -79,6 +80,7 @@
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
         "reparing": "Spel repareren, geduld alstublieft",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Spel updaten"
     },
     "submenu": {
