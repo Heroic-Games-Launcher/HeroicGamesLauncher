@@ -23,6 +23,7 @@
     "asarUnpack": [
       "build/bin/linux/legendary",
       "build/bin/darwin/legendary",
+      "build/bin/win32/legendary.exe",
       "build/icon.png",
       "build/icon-dark.png",
       "build/icon-light.png"
@@ -98,6 +99,7 @@
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "dist-mac": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",
+    "dist-win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win zip",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
     "build-electron": "tsc --project electron/tsconfig.json",
