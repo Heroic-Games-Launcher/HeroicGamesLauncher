@@ -123,6 +123,7 @@ export default function GeneralSettings({
         <span className="settingText">{t('setting.default-install-path')}</span>
         <span>
           <input
+            data-testid="setinstallpath"
             type="text"
             value={defaultInstallPath}
             className="settingSelect"
@@ -130,6 +131,7 @@ export default function GeneralSettings({
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
           <CreateNewFolder
+            data-testid="setinstallpathbutton"
             className="material-icons settings folder"
             onClick={() =>
               showOpenDialog({
@@ -137,7 +139,7 @@ export default function GeneralSettings({
                 properties: ['openDirectory'],
                 title: t('box.default-install-path')
               }).then(({ filePaths }: Path) =>
-                setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                setDefaultInstallPath(filePaths[0] ? filePaths[0] : '')
               )
             }
           />
@@ -147,6 +149,7 @@ export default function GeneralSettings({
         <span className="settingText">{t('setting.egs-sync')}</span>
         <span className="settingInputWithButton">
           <input
+            data-testid="setEpicSyncPath"
             type="text"
             placeholder={t('placeholder.egs-prefix')}
             className="settingSelect"
@@ -156,24 +159,25 @@ export default function GeneralSettings({
           />
           {!egsPath.length ? (
             <CreateNewFolder
+              data-testid="setEpicSyncPathButton"
               className="material-icons settings folder"
               style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
               onClick={() =>
                 isLinked
                   ? ''
-                  : dialog
-                    .showOpenDialog({
-                      buttonLabel: t('box.choose'),
-                      properties: ['openDirectory'],
-                      title: t('box.choose-egs-prefix')
-                    })
+                  : showOpenDialog({
+                    buttonLabel: t('box.choose'),
+                    properties: ['openDirectory'],
+                    title: t('box.choose-egs-prefix')
+                  })
                     .then(({ filePaths }: Path) =>
-                      setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                      setEgsPath(filePaths[0] ? filePaths[0] : '')
                     )
               }
             />
           ) : (
             <Backspace
+              data-testid="setEpicSyncPathBackspace"
               className="material-icons settings folder"
               onClick={() => (isLinked ? '' : setEgsPath(''))}
               style={
@@ -184,6 +188,7 @@ export default function GeneralSettings({
             />
           )}
           <button
+            data-testid="syncButton"
             onClick={() => handleSync()}
             disabled={isSyncing || !egsPath.length}
             className={`button is-small ${
@@ -219,6 +224,7 @@ export default function GeneralSettings({
         <span className="toggleWrapper">
           {t('setting.maxworkers')}
           <select
+            data-testid="setMaxWorkers"
             onChange={(event) => setMaxWorkers(Number(event.target.value))}
             value={maxWorkers}
             className="settingSelect smaller"

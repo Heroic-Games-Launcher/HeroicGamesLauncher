@@ -6,12 +6,6 @@ import {
 } from '@testing-library/react';
 
 import {ContextType} from 'src/types';
-import {
-  handleKofi,
-  handleQuit,
-  openAboutWindow,
-  openDiscordLink
-} from 'src/helpers';
 import { ipcRenderer } from 'electron';
 import ContextProvider from 'src/state/ContextProvider';
 import UserSelector from './index';
@@ -26,13 +20,6 @@ jest.mock('react-i18next', () => ({
       t: (str: string) => str
     };
   }
-}));
-
-jest.mock('src/helpers', () => ({
-  handleKofi: jest.fn(),
-  handleQuit: jest.fn(),
-  openAboutWindow: jest.fn(),
-  openDiscordLink: jest.fn()
 }));
 
 function renderUserSelector(props: Partial<ContextType> = {}) {
@@ -83,25 +70,25 @@ describe('UserSelector', () => {
   test('calls handle kofi on click', () => {
     const { getByTestId } = renderUserSelector();
     const divKofi = getByTestId('handleKofi');
-    expect(handleKofi).not.toBeCalled();
+    expect(ipcRenderer.send).not.toBeCalled();
     fireEvent.click(divKofi);
-    expect(handleKofi).toBeCalledTimes(1);
+    expect(ipcRenderer.send).toBeCalledWith('openSupportPage');
   })
 
   test('calls open discord link on click', () => {
     const { getByTestId } = renderUserSelector();
     const divDiscordLink = getByTestId('openDiscordLink');
-    expect(openDiscordLink).not.toBeCalled();
+    expect(ipcRenderer.send).not.toBeCalled();
     fireEvent.click(divDiscordLink);
-    expect(openDiscordLink).toBeCalledTimes(1);
+    expect(ipcRenderer.send).toBeCalledWith('openDiscordLink');
   })
 
   test('calls open about window on click', () => {
     const { getByTestId } = renderUserSelector();
     const divAboutWindow = getByTestId('openAboutWindow');
-    expect(openAboutWindow).not.toBeCalled();
+    expect(ipcRenderer.send).not.toBeCalled();
     fireEvent.click(divAboutWindow);
-    expect(openAboutWindow).toBeCalledTimes(1);
+    expect(ipcRenderer.send).toBeCalledWith('showAboutWindow');
   })
 
   test('calls handle logout on click and invoke ipc renderer if user confirm', () => {
@@ -128,8 +115,8 @@ describe('UserSelector', () => {
   test('calls handle quit on click', () => {
     const { getByTestId } = renderUserSelector();
     const divQuit = getByTestId('handleQuit');
-    expect(handleQuit).not.toBeCalled();
+    expect(ipcRenderer.send).not.toBeCalled();
     fireEvent.click(divQuit);
-    expect(handleQuit).toBeCalledTimes(1);
+    expect(ipcRenderer.send).toBeCalledWith('quit');
   })
 })
