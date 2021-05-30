@@ -4,7 +4,6 @@ export const ipcRenderer = {
 };
 
 export const remote = {
-  browserWindow: jest.fn(),
   dialog: {
     showErrorBox: jest.fn(),
     showMessageBox: jest.fn(),

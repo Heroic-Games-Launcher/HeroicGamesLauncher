@@ -28,7 +28,7 @@ export default function UserSelector() {
   }
 
   return (
-    <div className="UserSelector" data-testid="userselector">
+    <div className="UserSelector" data-testid="userSelector">
       <span className="userName" data-testid="userName">
         {user}
         <ArrowDropDown className="material-icons" />

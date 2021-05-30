@@ -13,7 +13,7 @@ export default function SearchBar() {
   const { t } = useTranslation()
 
   return (
-    <div className="SearchBar" data-testid="searchbar">
+    <div className="SearchBar" data-testid="searchBar">
       <label htmlFor="search">
         <Search
           onClick={() => handleSearch(textValue)}

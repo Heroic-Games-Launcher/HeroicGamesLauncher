@@ -19,7 +19,7 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       i18n: {
-        changeLanguage: () => new Promise(() => {return;})
+        changeLanguage: () => new Promise(() => { return; })
       },
       t: (str: string) => str
     };
@@ -27,50 +27,42 @@ jest.mock('react-i18next', () => ({
 }));
 
 interface Props {
-    context: ContextType,
-    goTo: string,
-    handleCategory: () => void,
-    handleFilter: () => void,
-    handleLayout: () => void,
-    numberOfGames: number,
-    renderBackButton: boolean,
-    title: string
+  goTo: string,
+  numberOfGames: number,
+  renderBackButton: boolean,
+  title: string
 }
 
 // helper to render with specific props
-function getHeader(props: Partial<Props> = {}) {
-  const defaultProps: Props = {
-    context:
-        {
-          category: 'games',
-          data: [],
-          error: false,
-          filter: 'all',
-          gameUpdates: [],
-          handleCategory: () => {return;},
-          handleFilter: () => {return;},
-          handleGameStatus: () => Promise.resolve(),
-          handleLayout: () => {return;},
-          handleSearch: () => {return;},
-          layout: 'grid',
-          libraryStatus: [],
-          refresh: () => Promise.resolve(),
-          refreshLibrary: () => Promise.resolve(),
-          refreshing: false,
-          user: 'user'
-        },
+function getHeader(props: Partial<{ args: Partial<Props>, context: Partial<ContextType> }> = {}) {
+  const defaultContext: ContextType = {
+    category: 'games',
+    data: [],
+    error: false,
+    filter: 'all',
+    gameUpdates: [],
+    handleCategory: () => { return; },
+    handleFilter: () => { return; },
+    handleGameStatus: () => Promise.resolve(),
+    handleLayout: () => { return; },
+    handleSearch: () => { return; },
+    layout: 'grid',
+    libraryStatus: [],
+    refresh: () => Promise.resolve(),
+    refreshLibrary: () => Promise.resolve(),
+    refreshing: false,
+    user: 'user'
+  };
+  const defaultArgs: Props = {
     goTo: '/',
-    handleCategory: () => {return;},
-    handleFilter: () => {return;},
-    handleLayout: () => {return;},
     numberOfGames: 0,
     renderBackButton: false,
     title: 'title'
   };
 
   return (
-    <ContextProvider.Provider value={{ ...defaultProps, ...props }.context}>
-      <Header {...{ ...defaultProps, ...props }} />
+    <ContextProvider.Provider value={{...defaultContext, ...props.context}}>
+      <Header {...{...defaultArgs, ...props.args}} />
     </ContextProvider.Provider>);
 }
 
@@ -82,7 +74,7 @@ describe('Header', () => {
 
   test('renders back button and switch to goTo on click', () => {
     const history = createMemoryHistory();
-    const { getByRole } = render(<Router history={history}> {getHeader({goTo: '/link', renderBackButton: true })}</Router>);
+    const { getByRole } = render(<Router history={history}> {getHeader({args: { goTo: '/link', renderBackButton: true }})}</Router>);
     const returnLink = getByRole('link');
     expect(history.location.pathname).toBe('/');
     fireEvent.click(returnLink);
@@ -91,7 +83,7 @@ describe('Header', () => {
 
   test('renders back button and call goBack on click if goTo is empty', () => {
     const history = createMemoryHistory();
-    const { getByRole } = render(<Router history={history}> {getHeader({goTo: '', renderBackButton: true })}</Router>);
+    const { getByRole } = render(<Router history={history}> {getHeader({args: { goTo: '', renderBackButton: true }})}</Router>);
     const returnLink = getByRole('link');
     expect(history.location.pathname).toBe('/');
     fireEvent.click(returnLink);
@@ -99,7 +91,7 @@ describe('Header', () => {
   })
 
   test('shows title', () => {
-    const { getByTestId } = render(getHeader({ title: 'Test Title' }));
+    const { getByTestId } = render(getHeader({args: { title: 'Test Title' }}));
     const title = getByTestId('headerTitle');
     expect(title).toHaveTextContent('Test Title');
   })
@@ -112,26 +104,17 @@ describe('Header', () => {
     expect(totalGames).toHaveTextContent('nogames');
 
     // games found
-    rerender(getHeader({ numberOfGames: 12345 }));
+    rerender(getHeader({ args: { numberOfGames: 12345 }}));
     totalGames = getByTestId('totalGamesText');
     expect(totalGames).toHaveTextContent('Total Games: 12345');
   })
 
   test('filtering games works', () => {
-    const onHandleFilter = jest.fn();
-
     const context = {
-      category: 'games',
       data: [game, plugin],
-      error: false,
       filter: 'all',
       gameUpdates: [plugin.app_name],
-      handleCategory: () => {return;},
-      handleFilter: () => {return;},
-      handleGameStatus: () => Promise.resolve(),
-      handleLayout: () => {return;},
-      handleSearch: () => {return;},
-      layout: 'grid',
+      handleFilter: jest.fn(),
       libraryStatus: [{
         appName: game.app_name,
         status: 'installing' as const
@@ -139,14 +122,10 @@ describe('Header', () => {
       {
         appName: plugin.app_name,
         status: 'updating' as const
-      }],
-      refresh: () => Promise.resolve(),
-      refreshLibrary: () => Promise.resolve(),
-      refreshing: false,
-      user: 'user'
+      }]
     }
 
-    const { rerender, getByTestId } = render(getHeader({context: context, handleFilter: onHandleFilter}));
+    const { rerender, getByTestId } = render(getHeader({ context: context }));
 
     const filters = ['all', 'installed', 'uninstalled', 'downloading', 'updates'];
 
@@ -154,44 +133,22 @@ describe('Header', () => {
     // Fixme: how we can avoid the rerender and wait for the useContext rerender trigger ?
     filters.forEach((value) => {
       context.filter = value;
-      rerender(getHeader({context: context, handleFilter: onHandleFilter}));
+      rerender(getHeader({ context: context }));
       const filter = getByTestId(value);
       fireEvent.click(filter);
       expect(filter).toHaveClass('selected');
-      expect(onHandleFilter).toBeCalledWith(value);
+      expect(context.handleFilter).toBeCalledWith(value);
     });
   })
 
   test('filtering unreal works', () => {
-    const onHandleFilter = jest.fn();
-
     const context = {
       category: 'unreal',
-      data: [game, plugin],
-      error: false,
       filter: 'all',
-      gameUpdates: [plugin.app_name],
-      handleCategory: () => {return;},
-      handleFilter: () => {return;},
-      handleGameStatus: () => Promise.resolve(),
-      handleLayout: () => {return;},
-      handleSearch: () => {return;},
-      layout: 'grid',
-      libraryStatus: [{
-        appName: game.app_name,
-        status: 'installing' as const
-      },
-      {
-        appName: plugin.app_name,
-        status: 'updating' as const
-      }],
-      refresh: () => Promise.resolve(),
-      refreshLibrary: () => Promise.resolve(),
-      refreshing: false,
-      user: 'user'
+      handleFilter: jest.fn()
     }
 
-    const { rerender, getByTestId } = render(getHeader({context: context, handleFilter: onHandleFilter}));
+    const { rerender, getByTestId } = render(getHeader({ context: context }));
 
     const filters = ['unreal', 'asset', 'plugin', 'project'];
 
@@ -199,150 +156,89 @@ describe('Header', () => {
     // Fixme: how we can avoid the rerender and wait for the useContext rerender trigger ?
     filters.forEach((value) => {
       context.filter = value;
-      rerender(getHeader({context: context, handleFilter: onHandleFilter}));
+      rerender(getHeader({ context: context }));
       const filter = getByTestId(value);
       fireEvent.click(filter);
       expect(filter).toHaveClass('selected');
-      expect(onHandleFilter).toBeCalledWith(value);
+      expect(context.handleFilter).toBeCalledWith(value);
     });
   })
 
   test('selecting unreal version works', () => {
-    const onHandleFilter = jest.fn();
-
     const context = {
       category: 'unreal',
-      data: [game, plugin],
-      error: false,
       filter: 'UE_',
-      gameUpdates: [plugin.app_name],
-      handleCategory: () => {return;},
-      handleFilter: () => {return;},
-      handleGameStatus: () => Promise.resolve(),
-      handleLayout: () => {return;},
-      handleSearch: () => {return;},
-      layout: 'grid',
-      libraryStatus: [{
-        appName: game.app_name,
-        status: 'installing' as const
-      },
-      {
-        appName: plugin.app_name,
-        status: 'updating' as const
-      }],
-      refresh: () => Promise.resolve(),
-      refreshLibrary: () => Promise.resolve(),
-      refreshing: false,
-      user: 'user'
+      handleFilter: jest.fn(),
+      layout: 'grid'
     }
 
-    const { getByTestId } = render(getHeader({context: context, handleFilter: onHandleFilter}));
+    const { getByTestId } = render(getHeader({ context: context }));
     const ueVersionSelect = getByTestId('ueVersionSelect');
-    fireEvent.change(ueVersionSelect, {target: {value: 'UE_4.17'}});
-    expect(onHandleFilter).toBeCalledWith('UE_4.17');
+    fireEvent.change(ueVersionSelect, { target: { value: 'UE_4.17' } });
+    expect(context.handleFilter).toBeCalledWith('UE_4.17');
   })
 
   test('layout works', () => {
-    const onHandleLayout = jest.fn();
-
     const context = {
       category: 'games',
-      data: [],
-      error: false,
-      filter: 'all',
-      gameUpdates: [],
-      handleCategory: () => {return;},
-      handleFilter: () => {return;},
-      handleGameStatus: () => Promise.resolve(),
-      handleLayout: () => {return;},
-      handleSearch: () => {return;},
-      layout: 'grid',
-      libraryStatus: [],
-      refresh: () => Promise.resolve(),
-      refreshLibrary: () => Promise.resolve(),
-      refreshing: false,
-      user: 'user'
+      handleLayout: jest.fn(),
+      layout: 'grid'
     }
 
-    const { rerender, getByTestId } = render(getHeader({handleLayout: onHandleLayout}));
+    const { rerender, getByTestId } = render(getHeader({ context: context }));
 
     let selectLayoutGrid = getByTestId('grid');
     let selectLayoutList = getByTestId('list');
 
     // trigger grid layout
     fireEvent.click(selectLayoutGrid);
-    expect(onHandleLayout).toBeCalledWith('grid');
-    expect(selectLayoutGrid).toHaveClass('MuiSvgIcon-root selectedLayout material-icons', {exact: true});
-    expect(selectLayoutList).toHaveClass('MuiSvgIcon-root material-icons', {exact: true});
+    expect(context.handleLayout).toBeCalledWith('grid');
+    expect(selectLayoutGrid).toHaveClass('MuiSvgIcon-root selectedLayout material-icons', { exact: true });
+    expect(selectLayoutList).toHaveClass('MuiSvgIcon-root material-icons', { exact: true });
 
     //Fixme: wait for useContext to rerender.
     context.layout = 'list';
-    rerender(getHeader({context: context, handleLayout: onHandleLayout}));
+    rerender(getHeader({ context: context }));
 
     // trigger list layout
     selectLayoutGrid = getByTestId('grid');
     selectLayoutList = getByTestId('list');
     fireEvent.click(selectLayoutList);
-    expect(onHandleLayout).toBeCalledWith('list');
-    expect(selectLayoutGrid).toHaveClass('MuiSvgIcon-root material-icons', {exact: true});
-    expect(selectLayoutList).toHaveClass('MuiSvgIcon-root selectedLayout material-icons', {exact: true});
+    expect(context.handleLayout).toBeCalledWith('list');
+    expect(selectLayoutGrid).toHaveClass('MuiSvgIcon-root material-icons', { exact: true });
+    expect(selectLayoutList).toHaveClass('MuiSvgIcon-root selectedLayout material-icons', { exact: true });
 
   })
 
   test('category works', () => {
-    const onHandleCategory = jest.fn();
-    const onHandleFilter = jest.fn();
-
     const context = {
       category: 'games',
-      data: [],
-      error: false,
-      filter: 'all',
-      gameUpdates: [],
-      handleCategory: () => {return;},
-      handleFilter: () => {return;},
-      handleGameStatus: () => Promise.resolve(),
-      handleLayout: () => {return;},
-      handleSearch: () => {return;},
-      layout: 'grid',
-      libraryStatus: [],
-      refresh: () => Promise.resolve(),
-      refreshLibrary: () => Promise.resolve(),
-      refreshing: false,
-      user: 'user'
+      handleCategory: jest.fn()
     }
 
-    const { rerender, getByTestId } = render(getHeader({
-      context: context,
-      handleCategory: onHandleCategory,
-      handleFilter: onHandleFilter
-    }));
+    const { rerender, getByTestId } = render(getHeader({ context: context }));
 
     let selectGames = getByTestId('gamesCategory');
     let selectUnreal = getByTestId('unrealCategory');
 
     // triggering the same category should do nothing
     fireEvent.click(selectGames);
-    expect(onHandleCategory).not.toBeCalled();
+    expect(context.handleCategory).not.toBeCalled();
 
     // trigger unreal category
     fireEvent.click(selectUnreal);
     expect(selectGames).toHaveClass('selected');
-    expect(onHandleCategory).toBeCalledWith('unreal');
+    expect(context.handleCategory).toBeCalledWith('unreal');
 
     // Fixme: wait for useContext to rerender.
     context.category = 'unreal';
-    rerender(getHeader({
-      context: context,
-      handleCategory: onHandleCategory,
-      handleFilter: onHandleFilter
-    }));
+    rerender(getHeader({ context: context }));
 
     // trigger games category
     selectGames = getByTestId('gamesCategory');
     selectUnreal = getByTestId('unrealCategory');
     fireEvent.click(selectGames);
     expect(selectUnreal).toHaveClass('selected');
-    expect(onHandleCategory).toBeCalledWith('games');
+    expect(context.handleCategory).toBeCalledWith('games');
   })
 })

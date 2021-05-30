@@ -12,9 +12,6 @@ import cx from 'classnames'
 
 interface Props {
   goTo: string | void | null
-  handleCategory?: (value: string) => void
-  handleFilter?: (value: string) => void
-  handleLayout?: (value: string) => void
   numberOfGames?: number
   renderBackButton: boolean
   title?: string
@@ -23,15 +20,20 @@ interface Props {
 export default function Header({
   renderBackButton,
   numberOfGames,
-  handleFilter,
-  handleLayout,
-  handleCategory,
   goTo,
   title
 }: Props) {
   const { t } = useTranslation()
 
-  const { category, filter, gameUpdates, layout, libraryStatus } = useContext(ContextProvider)
+  const {
+    category,
+    filter,
+    gameUpdates,
+    layout,
+    libraryStatus,
+    handleCategory,
+    handleFilter,
+    handleLayout } = useContext(ContextProvider)
 
   const hasDownloads = libraryStatus.filter(
 
@@ -54,7 +56,7 @@ export default function Header({
   ]
 
   function toggleCategory(newCategory: string) {
-    if(handleFilter && handleCategory && category != newCategory) {
+    if (category != newCategory) {
       handleCategory(newCategory)
       handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
     }
@@ -63,25 +65,23 @@ export default function Header({
   return (
     <>
       <div className={cx({ header: !title }, { headerSettings: title })}>
-        {handleCategory && (
-          <span className="selectCategory">
-            <span
-              data-testid="gamesCategory"
-              className={category === 'games' ? 'selected' : ''}
-              onClick={() => toggleCategory('games')}
-            >
-              {t('Games')}
-            </span>
-            <span
-              data-testid="unrealCategory"
-              className={category === 'unreal' ? 'selected' : ''}
-              onClick={() => toggleCategory('unreal')}
-            >
-              {t('Unreal')}
-            </span>
+        <span className="selectCategory">
+          <span
+            data-testid="gamesCategory"
+            className={category === 'games' ? 'selected' : ''}
+            onClick={() => toggleCategory('games')}
+          >
+            {t('Games')}
           </span>
-        )}
-        {handleFilter && category==='games' && (
+          <span
+            data-testid="unrealCategory"
+            className={category === 'unreal' ? 'selected' : ''}
+            onClick={() => toggleCategory('unreal')}
+          >
+            {t('Unreal')}
+          </span>
+        </span>
+        {category === 'games' && (
           <span className="selectFilter">
             <span>{t('Filter')}:</span>
             <span
@@ -121,7 +121,7 @@ export default function Header({
             </span>}
           </span>
         )}
-        {handleFilter && category==='unreal' && (
+        {category === 'unreal' && (
           <span className="selectFilter">
             <span>{t('Filter')}:</span>
             <span
@@ -173,29 +173,26 @@ export default function Header({
           <div className="totalGamesText" data-testid="totalGamesText">{t('nogames')}</div>
         )}
         {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
-        {handleLayout && (
-          <div className="layoutSelection">
-            <Apps
-              data-testid="grid"
-              className={
-                layout === 'grid'
-                  ? 'selectedLayout material-icons'
-                  : 'material-icons'
-              }
-              onClick={() => handleLayout('grid')}
-            />
-            <List
-              data-testid="list"
-              className={
-                layout === 'list'
-                  ? 'selectedLayout material-icons'
-                  : 'material-icons'
-              }
-              onClick={() => handleLayout('list')}
-            ></List>
-          </div>
-        )}
-
+        <div className="layoutSelection">
+          <Apps
+            data-testid="grid"
+            className={
+              layout === 'grid'
+                ? 'selectedLayout material-icons'
+                : 'material-icons'
+            }
+            onClick={() => handleLayout('grid')}
+          />
+          <List
+            data-testid="list"
+            className={
+              layout === 'list'
+                ? 'selectedLayout material-icons'
+                : 'material-icons'
+            }
+            onClick={() => handleLayout('list')}
+          ></List>
+        </div>
         {renderBackButton && (
           <Link className="returnLink" to={link} onClick={handleClick}>
             <ArrowBack className="material-icons" />
