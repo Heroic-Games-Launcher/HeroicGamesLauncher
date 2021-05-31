@@ -93,7 +93,7 @@
     "electron": "yarn build-electron && electron .",
     "react-start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
@@ -133,6 +133,8 @@
     "foreman": "^3.0.1",
     "husky": "^4.3.8",
     "i18next-parser": "^3.6.0",
+    "npm": "^7.14.0",
+    "ts-jest": "^26.5.6",
     "typescript": "^4.1.3"
   },
   "husky": {

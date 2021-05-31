@@ -1,0 +1,22 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository.
+      uses: actions/checkout@v2
+    - name: Install modules.
+      run: yarn
+    - name: Test and collect coverage.
+      uses: artiomtr/jest-coverage-report-action@v1.3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        test_script: yarn test --coverage
