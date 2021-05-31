@@ -10,6 +10,7 @@ import {
   GlobalConfigVersion
 } from './types';
 
+const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
 const home = homedir()
@@ -20,7 +21,7 @@ const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, '/legendary'))
+const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
 const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
 const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
@@ -35,7 +36,6 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
-const isWindows = platform() === 'win32'
 
 function getShell() {
   switch (process.platform) {
