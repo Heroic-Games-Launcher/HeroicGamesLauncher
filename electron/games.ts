@@ -18,6 +18,7 @@ import {
   execOptions,
   heroicGamesConfigPath,
   home,
+  isWindows,
   legendaryBin
 } from './constants'
 
@@ -199,12 +200,14 @@ class LegendaryGame implements Game {
   public async install(path : string) {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-
+    // Need to fix convertion from utf8 to win1252 or vice-versa
+    // const selectiveDownloads = sdl ? `echo ${sdl.join(' ')}` : `echo 'hd_textures'`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y |& tee ${logPath} ${sockPath}`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
     console.log(`Installing ${this.appName} with:`, command)
-    // TODO(adityaruplaha):Create a socket connection for requestGameProgress
+
     try {
       Library.get().installState(this.appName, true)
       return await execAsync(command, execOptions)
@@ -261,6 +264,17 @@ class LegendaryGame implements Game {
     }
 
     console.log('\n syncing saves for ', this.appName)
+    return await execAsync(command)
+  }
+
+  public async launchWin(){
+    const {
+      launcherArgs = ''
+
+    } = await this.getSettings()
+    const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
+    console.log('\n Launch Command:', command)
+
     return await execAsync(command)
   }
 
