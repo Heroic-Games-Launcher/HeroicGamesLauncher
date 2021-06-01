@@ -525,11 +525,15 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (installPath === 'import' && gameInfo.is_game) {
-        const { filePaths } = await showOpenDialog({
+        const { filePaths, canceled } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
           title: t('box.importpath')
         })
+
+        if (canceled) {
+          return
+        }
 
         if (filePaths[0]) {
           const path = filePaths[0]
@@ -540,11 +544,15 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (installPath === 'another' || !gameInfo.is_game) {
-        const { filePaths } = await showOpenDialog({
+        const { filePaths, canceled } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
           title: t('box.installpath')
         })
+
+        if (canceled) {
+          return
+        }
 
         if (filePaths[0]) {
           const path = `'${filePaths[0]}'`

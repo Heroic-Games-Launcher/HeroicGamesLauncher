@@ -118,7 +118,7 @@ function Settings() {
     cloudSaveEnabled: false,
     saveFolder: ''
   })
-  const [autoSyncSaves, setAutoSyncSaves] = useState(false)
+  const [autoSyncSaves, setAutoSyncSaves] = useState(true)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const { appName, type } = useParams() as RouteParams
@@ -147,7 +147,6 @@ function Settings() {
       setLauncherArgs(config.launcherArgs)
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
-      setAutoSyncSaves(config.autoSyncSaves)
       setExitToTray(config.exitToTray || false)
       setDarkTrayIcon(config.darkTrayIcon || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
@@ -162,6 +161,7 @@ function Settings() {
           title: gameTitle
         } = await getGameInfo(appName)
         setTitle(gameTitle)
+        setAutoSyncSaves(config.autoSyncSaves || cloudSaveEnabled)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -239,7 +239,7 @@ function Settings() {
               Wine
             </NavLink>
           )}
-          {!isDefault && haveCloudSaving.cloudSaveEnabled && !isWin && (
+          {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink to={{ pathname: `/settings/${appName}/sync` }}>
               {t('settings.navbar.sync')}
             </NavLink>
@@ -315,8 +315,7 @@ function Settings() {
               appName={appName}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
-              defaultFolder={winePrefix}
-              isProton={wineVersion.name.includes('Proton')}
+              isProton={!isWin && wineVersion.name.includes('Proton')}
               winePrefix={winePrefix}
             />
           )}

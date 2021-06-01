@@ -257,7 +257,7 @@ class LegendaryGame implements Game {
     const fixedPath = isWindows ? path.replaceAll("'", '').slice(0, -1) : path.replaceAll("'", '')
     const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = `${home}/legendary/.saves`
-    
+
     //workaround error when no .saves folder exists
     if (!existsSync(legendarySavesPath)) {
       mkdirSync(legendarySavesPath, { recursive: true })

@@ -2,7 +2,8 @@ import * as axios from 'axios';
 import {
   app,
   dialog,
-  net
+  net,
+  shell
 } from 'electron';
 import { exec } from 'child_process';
 import {
@@ -108,12 +109,8 @@ function genericErrorMessage(): void {
   )
 }
 
-function openUrlOrFile(url: string): void {
-  if (process.platform === 'darwin') {
-    exec(`open ${url}`)
-  } else {
-    exec(`xdg-open ${url}`)
-  }
+function openUrlOrFile(url: string): Promise<string> {
+  return shell.openPath(url)
 }
 
 export {

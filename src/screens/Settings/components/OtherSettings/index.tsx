@@ -96,7 +96,7 @@ export default function OtherSettings({
           <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
         </span>
       </span>
-      <span className="setting">
+      {!isWin && <span className="setting">
         <span className="settingText">{t('options.advanced.title')}</span>
         <span>
           <input
@@ -108,7 +108,7 @@ export default function OtherSettings({
             onChange={handleOtherOptions}
           />
         </span>
-      </span>
+      </span>}
       {!isDefault && (
         <span className="setting">
           <span className="settingText">{t('options.gameargs.title')}</span>

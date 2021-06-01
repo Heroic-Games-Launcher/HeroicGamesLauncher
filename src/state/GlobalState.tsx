@@ -61,8 +61,6 @@ export class GlobalState extends PureComponent<Props> {
     const { user, library } = await getLegendaryConfig()
     const updates = await renderer.invoke('checkGameUpdates')
 
-    console.log(process.platform)
-
     this.setState({
       data: library,
       filterText: '',
