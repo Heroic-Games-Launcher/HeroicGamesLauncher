@@ -16,7 +16,7 @@
   },
   "build": {
     "appId": "com.electron.heroic",
-    "productName" : "Heroic Games Launcher",
+    "productName": "Heroic Games Launcher",
     "files": [
       "build/**/*",
       "node_modules/**/*"
