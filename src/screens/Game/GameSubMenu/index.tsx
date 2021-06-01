@@ -161,12 +161,12 @@ export default function GamesSubmenu({
       >
         {t('submenu.store')}
       </span>
-      <span
+      {!isWin && <span
         onClick={() => createNewWindow(protonDBurl)}
         className="hidden link"
       >
         {t('submenu.protondb')}
-      </span>
+      </span>}
     </div>
   )
 }

@@ -370,7 +370,7 @@ export default function GamePage(): JSX.Element | null {
       </>
     )
   }
-  return null
+  return <UpdateComponent />
 
   function getPlayBtnClass() {
     if (isUpdating) {
