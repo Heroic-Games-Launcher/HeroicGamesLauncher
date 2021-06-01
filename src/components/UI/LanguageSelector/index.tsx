@@ -67,6 +67,7 @@ export default function LanguageSelector({
   }
   return (
     <select
+      data-testid="languageSelector"
       onChange={(event) => handleLanguageChange(event.target.value)}
       className={className}
       value={currentLanguage}
