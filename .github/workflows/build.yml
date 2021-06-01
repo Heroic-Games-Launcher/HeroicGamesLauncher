@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.7.0
       - name: Install modules.
         run: npm install
       - name: Build 'src'.
