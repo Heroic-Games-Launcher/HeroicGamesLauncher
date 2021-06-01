@@ -92,6 +92,7 @@ export default function OtherSettings({
         <span className="settingText">{t('options.advanced.title')}</span>
         <span>
           <input
+            data-testid="otheroptions"
             id="otherOptions"
             type="text"
             placeholder={t('options.advanced.placeholder')}
@@ -106,6 +107,7 @@ export default function OtherSettings({
           <span className="settingText">{t('options.gameargs.title')}</span>
           <span>
             <input
+              data-testid="launcherargs"
               id="launcherArgs"
               type="text"
               placeholder={t('options.gameargs.placeholder')}
