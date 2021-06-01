@@ -10,7 +10,8 @@ const { ipcRenderer, remote } = window.require('electron') as {
 }
 const {
   BrowserWindow,
-  dialog: { showMessageBox }
+  dialog: { showMessageBox },
+  process
 } = remote
 
 const readFile = async (file: string) =>
@@ -83,9 +84,7 @@ const syncSaves = async (
   arg?: string
 ): Promise<string> => {
   const { user } = await ipcRenderer.invoke('getUserInfo')
-
   const path = savesPath.replace('~', `/home/${user}`)
-  console.log(path)
 
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
@@ -147,10 +146,12 @@ async function fixSaveFolder(
   prefix: string,
   isProton: boolean
 ) {
-  const { user, epicId } = await ipcRenderer.invoke('getUserInfo')
+  const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
+  const isWin = process.platform === 'win32';
   let winePrefix = prefix ? prefix.replaceAll("'", '') : ''
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
+  const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`
 
   folder = folder.replace('{EpicID}', epicId)
   folder = folder.replace('{EpicId}', epicId)
@@ -158,77 +159,77 @@ async function fixSaveFolder(
   if (folder.includes('locallow')) {
     return folder.replace(
       '{appdata}/../locallow',
-      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+      `${driveC}/users/${username}/AppData/LocalLow`
     )
   }
 
   if (folder.includes('LocalLow')) {
     return folder.replace(
       '{AppData}/../LocalLow',
-      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+      `${driveC}/users/${username}/AppData/LocalLow`
     )
   }
 
   if (folder.includes('{UserSavedGames}')) {
     return folder.replace(
       '{UserSavedGames}',
-      `${winePrefix}/drive_c/users/${username}/Saved Games`
+      `${driveC}/users/${username}/Saved Games`
     )
   }
 
   if (folder.includes('{usersavedgames}')) {
     return folder.replace(
       '{usersavedgames}',
-      `${winePrefix}/drive_c/users/${username}/Saved Games`
+      `${driveC}/users/${username}/Saved Games`
     )
   }
 
   if (folder.includes('roaming')) {
     return folder.replace(
       '{appdata}/../roaming/',
-      `${winePrefix}/drive_c/users/${username}/Application Data/`
+      `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('{appdata}/../Roaming/')) {
     return folder.replace(
       '{appdata}/../Roaming/',
-      `${winePrefix}/drive_c/users/${username}/Application Data/`
+      `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('Roaming')) {
     return folder.replace(
       '{AppData}/../Roaming/',
-      `${winePrefix}/drive_c/users/${username}/Application Data/`
+      `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('{AppData}')) {
     return folder.replace(
       '{AppData}',
-      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+      `${driveC}/users/${username}/Local Settings/Application Data`
     )
   }
 
   if (folder.includes('{appdata}')) {
     return folder.replace(
       '{appdata}',
-      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+      `${driveC}/users/${username}/Local Settings/Application Data`
     )
   }
 
   if (folder.includes('{userdir}')) {
     return folder.replace(
       '{userdir}',
-      `${winePrefix}/drive_c/users/${username}/My Documents`
+      `/users/${username}/My Documents`
     )
   }
 
   if (folder.includes('{UserDir}')) {
     return folder.replace(
       '{UserDir}',
-      `${winePrefix}/drive_c/users/${username}/My Documents`
+      `${driveC}/users/${username}/My Documents`
     )
   }
 

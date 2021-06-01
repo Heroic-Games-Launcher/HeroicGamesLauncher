@@ -9,6 +9,7 @@ import {
   legendaryBin,
   userInfo
 } from '../constants'
+import {userInfo as user} from 'os'
 
 export class User {
   public static async login(sid: string) {
@@ -26,7 +27,7 @@ export class User {
 
   public static getUserInfo() : UserInfo {
     if (User.isLoggedIn()) {
-      return JSON.parse(readFileSync(userInfo, 'utf-8'))
+      return {...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username}
     }
     return { account_id: '', displayName: null }
   }
