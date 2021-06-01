@@ -15,7 +15,6 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.5
       - name: Install modules.
-        run: npm i -g npm@latest
-        run: npm install
+        run: npm i -g npm@latest && npm install
       - name: Lint code.
         run: npm run lint

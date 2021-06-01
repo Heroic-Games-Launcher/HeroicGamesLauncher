@@ -13,8 +13,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Node.js environment
     - name: Install modules.
-      run: npm i -g npm@latest
-      run: npm install
+      run: npm i -g npm@latest && npm install
     - name: Test and collect coverage.
       uses: artiomtr/jest-coverage-report-action@v1.3
       with:
