@@ -12,10 +12,8 @@ jobs:
     - name: Checkout repository.
       uses: actions/checkout@v2
     - name: Setup Node.js environment
-      uses: actions/setup-node@v2.1.5
-      with:
-        node-version: 14.7.0
     - name: Install modules.
+      run: npm i -g npm@latest
       run: npm install
     - name: Test and collect coverage.
       uses: artiomtr/jest-coverage-report-action@v1.3
