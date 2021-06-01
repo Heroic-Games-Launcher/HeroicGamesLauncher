@@ -1,18 +1,18 @@
-import { User } from './legendary_utils/user';
+import { User } from './legendary_utils/user'
 import {
   existsSync,
   mkdirSync,
   readFileSync,
   readdirSync,
   writeFileSync
-} from 'graceful-fs';
-import { userInfo as user } from 'os';
+} from 'graceful-fs'
+import { userInfo as user } from 'os'
 
 import {
   AppSettings,
   GlobalConfigVersion,
   WineInstallation
-} from './types';
+} from './types'
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
@@ -21,8 +21,8 @@ import {
   heroicToolsPath,
   home,
   isWindows
-} from './constants';
-import { execAsync } from './utils';
+} from './constants'
+import { execAsync } from './utils'
 
 /**
  * This class does config handling.
@@ -79,10 +79,10 @@ abstract class GlobalConfig {
     switch (version) {
     case 'v0':
       GlobalConfig.globalInstance = new GlobalConfigV0()
-      break;
+      break
     default:
       console.log(`GlobalConfig: Invalid config version '${version}' requested.`)
-      break;
+      break
     }
     // Try to upgrade outdated config.
     if (GlobalConfig.globalInstance.upgrade()) {
@@ -341,4 +341,4 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 }
 
-export { GlobalConfig };
+export { GlobalConfig }

@@ -1,5 +1,5 @@
-import { BrowserWindow, dialog } from 'electron';
-import { GlobalConfig } from './config';
+import { BrowserWindow, dialog } from 'electron'
+import { GlobalConfig } from './config'
 import { LegendaryGame } from './games'
 
 // TODO(adityaruplaha): Translate strings used here.

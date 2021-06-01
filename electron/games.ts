@@ -2,12 +2,12 @@ import {
   existsSync,
   mkdirSync
 } from 'graceful-fs'
-import axios from 'axios';
+import axios from 'axios'
 
 import { DXVK } from './dxvk'
-import { ExtraInfo, GameInfo, GameSettings, GameStatus } from './types';
-import { GameConfig } from './game_config';
-import { GlobalConfig } from './config';
+import { ExtraInfo, GameInfo, GameSettings, GameStatus } from './types'
+import { GameConfig } from './game_config'
+import { GlobalConfig } from './config'
 import { Library } from './legendary_utils/library'
 import {
   errorHandler,

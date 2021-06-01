@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
@@ -9,31 +9,31 @@ import {
   ipcMain,
   powerSaveBlocker,
   protocol
-} from 'electron';
+} from 'electron'
 import {
   cpus,
   platform
-} from 'os';
+} from 'os'
 import {
   exec,
   spawn
-} from 'child_process';
+} from 'child_process'
 import {
   existsSync,
   rmdirSync,
   unlinkSync,
   writeFile
-} from 'graceful-fs';
-import Backend from 'i18next-fs-backend';
-import i18next from 'i18next';
-import isDev from 'electron-is-dev';
+} from 'graceful-fs'
+import Backend from 'i18next-fs-backend'
+import i18next from 'i18next'
+import isDev from 'electron-is-dev'
 
-import { DXVK } from './dxvk';
-import { GameConfig } from './game_config';
-import { GlobalConfig } from './config';
-import { LegendaryGame } from './games';
-import { Library } from './legendary_utils/library';
-import { User } from './legendary_utils/user';
+import { DXVK } from './dxvk'
+import { GameConfig } from './game_config'
+import { GlobalConfig } from './config'
+import { LegendaryGame } from './games'
+import { Library } from './legendary_utils/library'
+import { User } from './legendary_utils/user'
 import {
   checkForUpdates,
   execAsync,
@@ -41,7 +41,7 @@ import {
   isOnline,
   openUrlOrFile,
   showAboutWindow
-} from './utils';
+} from './utils'
 import {
   discordLink,
   getShell,
@@ -54,8 +54,8 @@ import {
   loginUrl,
   sidInfoUrl,
   supportURL
-} from './constants';
-import { handleProtocol } from './protocol';
+} from './constants'
+import { handleProtocol } from './protocol'
 
 const { showErrorBox } = dialog
 const isWindows = platform() === 'win32'

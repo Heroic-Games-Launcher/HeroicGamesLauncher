@@ -1,14 +1,14 @@
-import { fixPathForAsarUnpack } from 'electron-util';
+import { fixPathForAsarUnpack } from 'electron-util'
 import {
   homedir,
   platform
-} from 'os';
-import { join } from 'path';
+} from 'os'
+import { join } from 'path'
 
 import {
   GameConfigVersion,
   GlobalConfigVersion
-} from './types';
+} from './types'
 
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
@@ -82,4 +82,4 @@ export {
   sidInfoUrl,
   supportURL,
   userInfo
-};
+}
