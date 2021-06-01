@@ -13,5 +13,4 @@ jobs:
       uses: actions/checkout@v2
     - name: Install modules.
       run: yarn
-    - name: Test and collect coverage.
     - run: yarn test:ci
