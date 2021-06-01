@@ -28,27 +28,27 @@ export default function UserSelector() {
   }
 
   return (
-    <div className="UserSelector">
-      <span className="userName">
+    <div className="UserSelector" data-testid="userSelector">
+      <span className="userName" data-testid="userName">
         {user}
         <ArrowDropDown className="material-icons" />
       </span>
-      <div onClick={() => refreshLibrary()} className="userName hidden">
+      <div onClick={() => refreshLibrary()} className="userName hidden" data-testid="refreshLibrary">
         {t('userselector.refresh')}
       </div>
-      <div onClick={() => handleKofi()} className="userName hidden">
+      <div onClick={() => handleKofi()} className="userName hidden" data-testid="handleKofi">
         {t('userselector.support')}
       </div>
-      <div onClick={() => openDiscordLink()} className="userName hidden">
+      <div onClick={() => openDiscordLink()} className="userName hidden" data-testid="openDiscordLink">
         {t('userselector.discord', 'Discord')}
       </div>
-      <div onClick={() => openAboutWindow()} className="userName hidden">
+      <div onClick={() => openAboutWindow()} className="userName hidden" data-testid="openAboutWindow">
         {t('userselector.about')}
       </div>
-      <div onClick={() => handleLogout()} className="userName hidden">
+      <div onClick={() => handleLogout()} className="userName hidden" data-testid="handleLogout">
         {t('userselector.logout')}
       </div>
-      <div onClick={() => handleQuit()} className="userName hidden">
+      <div onClick={() => handleQuit()} className="userName hidden" data-testid="handleQuit">
         {t('userselector.quit')}
       </div>
     </div>

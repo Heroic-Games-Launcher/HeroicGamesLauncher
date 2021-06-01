@@ -74,7 +74,7 @@ export async function handleInstall({
     })
 
     if (filePaths[0]) {
-      const path = `'${filePaths[0]}'`
+      const path = filePaths[0]
       await handleGameStatus({ appName, status: 'installing' })
       await install({ appName, path })
       return await handleGameStatus({ appName, status: 'done' })
