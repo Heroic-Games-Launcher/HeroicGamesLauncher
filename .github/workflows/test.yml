@@ -11,11 +11,10 @@ jobs:
     steps:
     - name: Checkout repository.
       uses: actions/checkout@v2
-    - name: Setup Node.js environment
     - name: Install modules.
       run: npm i -g npm@latest && npm install
     - name: Test and collect coverage.
       uses: artiomtr/jest-coverage-report-action@v1.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        test_script: npm run test:ci --coverage
+        test_script: yarn test:ci --coverage
