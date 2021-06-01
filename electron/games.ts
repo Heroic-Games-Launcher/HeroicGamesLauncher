@@ -200,6 +200,7 @@ class LegendaryGame implements Game {
   public async install(path : string) {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    //TODO(flavioislima):
     // Need to fix convertion from utf8 to win1252 or vice-versa
     // const selectiveDownloads = sdl ? `echo ${sdl.join(' ')}` : `echo 'hd_textures'`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
