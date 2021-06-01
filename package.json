@@ -71,9 +71,6 @@
     "classnames": "^2.2.6",
     "electron-is-dev": "^2.0.0",
     "electron-util": "^0.16.0",
-    "eslint-plugin-sort-exports": "^0.3.2",
-    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
-    "eslint-plugin-sort-keys-fix": "^1.1.1",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.1",
     "i18next-fs-backend": "^1.1.1",
@@ -85,7 +82,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "tslib": "^2.2.0",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
@@ -102,7 +99,8 @@
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
-    "i18n": "i18next"
+    "i18n": "i18next",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -111,39 +109,35 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.2",
+    "@testing-library/dom": "^7.31.0",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
     "@types/classnames": "^2.2.11",
     "@types/i18next-fs-backend": "^1.0.0",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.22",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.6.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
-    "electron": "^12.0.7",
+    "electron": "^13.0.1",
     "electron-builder": "^22.11.3",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^7.18.0",
-    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-sort-exports": "^0.4.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.1",
     "eslint-plugin-typescript-sort-keys": "^1.5.0",
     "foreman": "^3.0.1",
-    "husky": "^4.3.8",
-    "i18next-parser": "^3.6.0",
+    "husky": "^6.0.0",
+    "i18next-parser": "^4.2.0",
+    "jest": "^27.0.3",
     "npm": "^7.14.0",
-    "ts-jest": "^26.5.6",
+    "ts-jest": "^27.0.2",
     "typescript": "^4.1.3"
-  },
-  "husky": {
-    "hooks": {
-      "post-checkout": "yarn",
-      "post-merge": "yarn",
-      "pre-push": "yarn lint",
-      "pre-commit": "yarn lint-fix"
-    }
   },
   "browserslist": {
     "production": [
