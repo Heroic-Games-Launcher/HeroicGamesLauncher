@@ -12,9 +12,9 @@ jobs:
     - name: Checkout repository.
       uses: actions/checkout@v2
     - name: Install modules.
-      run: yarn
+      run: npm install
     - name: Test and collect coverage.
       uses: artiomtr/jest-coverage-report-action@v1.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        test_script: yarn test --coverage
+        test_script: npm run test:ci --coverage
