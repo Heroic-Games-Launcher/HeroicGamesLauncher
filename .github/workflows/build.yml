@@ -14,8 +14,8 @@ jobs:
       - name: Checkout repository.
         uses: actions/checkout@v2
       - name: Install modules.
-        run: npm i -g npm@latest && npm install
+        run: yarn
       - name: Build 'src'.
-        run: npm run build
+        run: yarn build
       - name: Build 'electron'.
-        run: npm run build-electron
+        run: yarn build-electron
