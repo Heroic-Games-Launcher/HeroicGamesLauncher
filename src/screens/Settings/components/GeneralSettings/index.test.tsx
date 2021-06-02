@@ -186,7 +186,7 @@ describe('GeneralSettings', () => {
   test('change language', async () => {
     const onSetLanguage = jest.fn();
     const { getByTestId } = await renderGeneralSettings({ setLanguage: onSetLanguage});
-    const languageSelector = getByTestId('languageselector');
+    const languageSelector = getByTestId('languageSelector');
 
     fireEvent.change(languageSelector, { target: { value: 'de' }});
     expect(ipcRenderer.send).toBeCalledWith('changeLanguage', 'de');

@@ -49,9 +49,10 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
       // Use DataTransferItemList interface to access the file(s)
       // If dropped items aren't files, reject them
       if (ev.dataTransfer.items[0].kind === 'file') {
-        const exe = ev?.dataTransfer?.items[0]?.getAsFile()?.path
-
-        return callTools('runExe', exe)
+        const exe = ev.dataTransfer.items[0].getAsFile()?.path
+        if (exe) {
+          return callTools('runExe', exe)
+        }
       }
     }
     return
@@ -66,13 +67,20 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
     <>
       <div className="settingsTools">
         <div className="toolsWrapper">
-          <span className="tools" onClick={() => callTools('winecfg')}>
+          <span
+            data-testid="wineCFG"
+            className="tools"
+            onClick={() => callTools('winecfg')}>
             Winecfg
           </span>
-          <span className="tools" onClick={() => callTools('winetricks')}>
+          <span
+            data-testid="wineTricks"
+            className="tools"
+            onClick={() => callTools('winetricks')}>
             Winetricks
           </span>
           <span
+            data-testid="toolsDrag"
             draggable
             onDrop={(ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
