@@ -3,7 +3,7 @@ import {
   format
 } from 'winston'
 import DailyRotateFile from 'winston-daily-rotate-file'
-
+// Need real-world data on how big these logs realistically get so the maxsize of them aren't just guesses (right they are)
 const heroicCrashes = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
   dirname: './logs/heroic',
