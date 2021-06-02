@@ -1,5 +1,4 @@
 import * as path from 'path'
-//import { EventEmitter } from 'events'; EventEmitter.defaultMaxListeners = 20
 import { Logger } from './logger'
 
 import {

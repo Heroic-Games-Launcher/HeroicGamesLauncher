@@ -5,14 +5,14 @@ import {
 import DailyRotateFile from 'winston-daily-rotate-file'
 
 const heroicCrashes = new DailyRotateFile({
-  datePattern: 'DD-MM-YYYY',
+  datePattern: 'YYYY-MM-DD',
   dirname: './logs/heroic',
   filename: 'crashes-%DATE%.log',
   maxFiles: '2d',
   maxSize: '2m'
 })
 const heroicDebug = new DailyRotateFile({
-  datePattern: 'DD-MM-YYYY',
+  datePattern: 'YYYY-MM-DD',
   dirname: './logs/heroic',
   filename: 'debug-%DATE%.log',
   level: 'debug',
@@ -20,7 +20,7 @@ const heroicDebug = new DailyRotateFile({
   maxSize: '10m'
 })
 const heroicErrors = new DailyRotateFile({
-  datePattern: 'DD-MM-YYYY',
+  datePattern: 'YYYY-MM-DD',
   dirname: './logs/heroic',
   filename: 'errors-%DATE%.log',
   level: 'warn',
@@ -28,7 +28,7 @@ const heroicErrors = new DailyRotateFile({
   maxSize: '3m'
 })
 const heroicInfo = new DailyRotateFile({
-  datePattern: 'DD-MM-YYYY',
+  datePattern: 'YYYY-MM-DD',
   dirname: './logs/heroic',
   filename: 'info-%DATE%.log',
   level: 'info',
