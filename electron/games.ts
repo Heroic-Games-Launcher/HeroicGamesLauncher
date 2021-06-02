@@ -9,6 +9,7 @@ import { ExtraInfo, GameInfo, GameSettings, GameStatus } from './types'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { Library } from './legendary_utils/library'
+import { User } from './legendary_utils/user'
 import {
   errorHandler,
   execAsync,
@@ -59,6 +60,9 @@ class LegendaryGame implements Game {
    * Alias for `Library.listUpdateableGames`
    */
   public static async checkGameUpdates() {
+    if (!User.isLoggedIn()){
+      return []
+    }
     return await Library.get().listUpdateableGames()
   }
 
