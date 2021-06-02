@@ -13,4 +13,8 @@ jobs:
       uses: actions/checkout@v2
     - name: Install modules.
       run: yarn
-    - run: yarn test:ci
+    - name: Test and collect coverage.
+      uses: artiomtr/jest-coverage-report-action@v1.3
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        test_script: yarn test:ci --coverage
