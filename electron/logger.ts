@@ -57,6 +57,16 @@ const Logger = createLogger({
   ]
 })
 
+/*
+ --- Usage ---
+LEVEL: Log level to use for this message, which can be the NPM log level or the RFC5424 log levels
+    -- NOTE -- We need to decide which logging levels we want to use
+MESSAGE: Whatever message you want in the log, probably using backticks to include a variable
+SERVICENAME: Name of the service that's reporting this log, so you can find where the log was fired, which follows the message in the log
+
+Logger.LEVEL({message: 'MESSAGE', service: 'SERVICENAME'})
+*/
+
 export {
   Logger
 }
