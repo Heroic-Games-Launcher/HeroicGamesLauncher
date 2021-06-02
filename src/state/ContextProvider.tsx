@@ -1,7 +1,6 @@
 import React from 'react'
 
-const { remote } = window.require('electron')
-const { process } = remote
+const { remote: { process } } = window.require('electron')
 import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
