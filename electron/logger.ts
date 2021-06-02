@@ -1,18 +1,17 @@
 import {
   createLogger,
-  format,
-  transports
+  format
 } from 'winston'
-import('winston-daily-rotate-file')
+import DailyRotateFile from 'winston-daily-rotate-file'
 
-const heroicCrashes = new transports.DailyRotateFile({
+const heroicCrashes = new DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
   dirname: './logs/heroic',
   filename: 'crashes-%DATE%.log',
   maxFiles: '2d',
   maxSize: '2m'
 })
-const heroicDebug = new transports.DailyRotateFile({
+const heroicDebug = new DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
   dirname: './logs/heroic',
   filename: 'debug-%DATE%.log',
@@ -20,7 +19,7 @@ const heroicDebug = new transports.DailyRotateFile({
   maxFiles: '1d',
   maxSize: '10m'
 })
-const heroicErrors = new transports.DailyRotateFile({
+const heroicErrors = new DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
   dirname: './logs/heroic',
   filename: 'errors-%DATE%.log',
@@ -28,7 +27,7 @@ const heroicErrors = new transports.DailyRotateFile({
   maxFiles: '5d',
   maxSize: '3m'
 })
-const heroicInfo = new transports.DailyRotateFile({
+const heroicInfo = new DailyRotateFile({
   datePattern: 'DD-MM-YYYY',
   dirname: './logs/heroic',
   filename: 'info-%DATE%.log',
