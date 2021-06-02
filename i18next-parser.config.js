@@ -2,7 +2,7 @@ module.exports = {
   contextSeparator: '_',
   // Key separator used in your translation keys
 
-  createOldCatalogs: true,
+  createOldCatalogs: false,
   // Save the \_old files
 
   customValueTemplate: null,
@@ -25,14 +25,14 @@ module.exports = {
   failOnWarnings: false,
   // Exit with an exit code of 1 on warnings
 
-  indentation: 2,
+  indentation: 4,
   // Indentation of the catalog files
 
   input: ['src/**/*.{ts,tsx}', 'electron/**/*.{ts,tsx}'],
   // An array of globs that describe where to look for source files
   // relative to the location of the configuration file
 
-  keepRemoved: true,
+  keepRemoved: false,
   // Keep keys from the catalog that are no longer in code
 
   keySeparator: '.',

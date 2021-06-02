@@ -110,7 +110,7 @@ abstract class GlobalConfig {
     }
 
 
-    const defaultWine = { bin: '', name: '' }
+    const defaultWine = { bin: '', name: 'Default Wine - Not Found' }
     await execAsync(`which wine`)
       .then(async ({ stdout }) => {
         defaultWine.bin = stdout.split('\n')[0]
@@ -118,7 +118,7 @@ abstract class GlobalConfig {
         const version = out.split('\n')[0]
         defaultWine.name = `Wine - ${version}`
       })
-      .catch(() => console.log('Wine not installed'))
+      .catch(() => console.log('Default Wine not installed'))
 
     const altWine: Set<WineInstallation> = new Set()
 
@@ -146,14 +146,14 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths: string[] = [
-      `${home}/.local/share/Steam`,
+      `${home}/.steam`,
       `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
     steamPaths.forEach((path) => {
-      protonPaths.push(`${path}/steamapps/common/`)
-      protonPaths.push(`${path}/compatibilitytools.d/`)
+      protonPaths.push(`${path}/steam/steamapps/common/`)
+      protonPaths.push(`${path}/root/compatibilitytools.d/`)
       return
     })
 
@@ -308,6 +308,7 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       language: 'en',
       maxWorkers: 0,
+      nvidiaPrime: false,
       otherOptions: '',
       showFps: false,
       useGameMode: false,

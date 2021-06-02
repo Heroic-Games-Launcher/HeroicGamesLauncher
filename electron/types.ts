@@ -15,6 +15,7 @@ export interface AppSettings {
   language: string
   launcherArgs: string
   maxWorkers: number
+  nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions: string
   savesPath: string
@@ -24,21 +25,6 @@ export interface AppSettings {
   userInfo: UserInfo
   winePrefix: string
   wineVersion: WineInstallation
-}
-
-// this is unused? maybe remove?
-export interface ContextType {
-  data: RawGameJSON[]
-  error: boolean
-  filter: string
-  handleFilter: (value: string) => void
-  handleGameStatus: (game: GameStatus) => void
-  handleSearch: (input: string) => void
-  libraryStatus: GameStatus[]
-  refresh: () => void
-  refreshLibrary: () => void
-  refreshing: boolean
-  user: string
 }
 
 export interface ExtraInfo {
@@ -73,12 +59,13 @@ export interface GameSettings {
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
   launcherArgs: string
+  nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions: string
   savesPath: string
   showFps: boolean
   showMangohud: boolean
-  useGameMode: boolean,
+  useGameMode: boolean
   winePrefix: string
   wineVersion: WineInstallation
 }
@@ -101,6 +88,7 @@ export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
   bytes: string
   eta: string
+  folder?: string
   percent: string
 }
 export interface InstalledInfo {

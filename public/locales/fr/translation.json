@@ -1,181 +1,186 @@
 {
-  "All": "Tout",
-  "box": {
-    "appupdate": {
-      "message": "Une nouvelle version de Heroic est disponible, mettre à jour maintenant?",
-      "title": "Mise à jour disponible"
+    "All": "Tout",
+    "box": {
+        "appupdate": {
+            "message": "Une nouvelle version de Heroic est disponible, mettre à jour maintenant?",
+            "title": "Mise à jour disponible"
+        },
+        "choose": "Choisir",
+        "choose-egs-prefix": "Choisir où le Préfix EGS est installé",
+        "customWine": "Sélectionner le binaire Wine ou Proton",
+        "default-install-path": "Choisir le chemin par défaut",
+        "error": {
+            "diskspace": {
+                "message": "Espace disque nécessaire insuffisant",
+                "title": "Pas de place"
+            },
+            "generic": {
+                "message": "Une erreur inconnue s'est produite",
+                "title": "Erreur inconnue"
+            },
+            "launch": "Erreur lors du lancement du jeu, consultez le rapport"
+        },
+        "no": "NON",
+        "quit": {
+            "message": "D'autres opérations sont en cours, êtes-vous sûrs?",
+            "title": "Quitter"
+        },
+        "runexe": {
+            "title": "Sélectionner le EXE à exécuter"
+        },
+        "select": "Sélectionner",
+        "sync": {
+            "button": "Choisir",
+            "error": "Chemin invalide",
+            "title": "Choisir le dossier de sauvegardes"
+        },
+        "wineprefix": "Choisir le dossier de préfix Wine",
+        "yes": "OUI"
     },
-    "choose": "Choisir",
-    "choose-egs-prefix": "Choisir où le Préfix EGS est installé",
-    "customWine": "Sélectionner le binaire Wine ou Proton",
-    "default-install-path": "Choisir le chemin par défaut",
-    "error": {
-      "diskspace": {
-        "message": "Espace disque nécessaire insuffisant",
-        "title": "Pas de place"
-      },
-      "generic": {
-        "message": "Une erreur inconnue s'est produite",
-        "title": "Erreur inconnue"
-      },
-      "launch": "Erreur lors du lancement du jeu, consultez le rapport"
+    "button": {
+        "sync": "Synchroniser",
+        "syncing": "Synchronisation",
+        "unsync": "Désynchroniser"
     },
-    "no": "NON",
-    "quit": {
-      "message": "D'autres opérations sont en cours, êtes-vous sûrs?",
-      "title": "Quitter"
+    "Downloading": "Téléchargements",
+    "Filter": "Filtre",
+    "globalSettings": "Paramètres globaux",
+    "help": {
+        "general": "Synchronisation avec EGS dans le cas où vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
+        "other": {
+            "part1": "Utilise l' ",
+            "part2": "Options avancées",
+            "part3": "pour être averti avant le lancement du jeu; ",
+            "part4": "Utilise les ",
+            "part5": "Arguments de Jeu",
+            "part6": " pour être averti après la commande, par exemple : ",
+            "part7": " pour passer le launcher dans certains jeux, etc."
+        },
+        "sync": {
+            "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
+            "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
+            "part3": "Synchronisation manuelle: Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Téléversez pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
+            "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez"
+        },
+        "wine": {
+            "part1": "Heroic recherche des versions de Wine et Proton dans ces dossiers:",
+            "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
+        }
     },
-    "runexe": {
-      "title": "Sélectionner le EXE à exécuter"
+    "info": {
+        "settings": "Les options sont sauvegardées automatiquement"
     },
-    "select": "Sélectionner",
-    "sync": {
-      "button": "Choisir",
-      "error": "Chemin invalide",
-      "title": "Choisir le dossier de sauvegardes"
+    "infobox": {
+        "help": "Aide",
+        "requirements": "Configuration Requise"
     },
-    "wineprefix": "Choisir le dossier de préfix Wine",
-    "yes": "OUI"
-  },
-  "button": {
-    "sync": "Synchroniser",
-    "syncing": "Synchronisation",
-    "unsync": "Désynchroniser"
-  },
-  "Downloading": "Téléchargements",
-  "Filter": "Filtre",
-  "globalSettings": "Paramètres globaux",
-  "help": {
-    "general": "Synchronisation avec EGS dans le cas où vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
-    "other": {
-      "part1": "Utilise l' ",
-      "part2": "Options avancées",
-      "part3": "pour être averti avant le lancement du jeu; ",
-      "part4": "Utilise les ",
-      "part5": "Arguments de Jeu",
-      "part6": " pour être averti après la commande, par exemple : ",
-      "part7": " pour passer le launcher dans certains jeux, etc."
+    "Library": "Bibliothèque",
+    "message": {
+        "sync": "Synchronisation Complète",
+        "unsync": "Désynchronisation Complète"
     },
-    "sync": {
-      "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
-      "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-      "part3": "Synchronisation manuelle: Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Téléversez pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
-      "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez"
+    "nogames": "Aucun jeu trouvé",
+    "Not Ready": "Non installé",
+    "notify": {
+        "finished": {
+            "reparing": "Réparation Terminée"
+        },
+        "install": {
+            "canceled": "Installation Annulée",
+            "finished": "Installation Terminée"
+        },
+        "moved": "Déplacement Terminé",
+        "refreshed": "bibliothèque mise à jour",
+        "refreshing": "Actualisation",
+        "uninstalled": "Désinstallé",
+        "update": {
+            "canceled": "Mise à jour Annulée",
+            "finished": "Mise à jour Terminée"
+        }
     },
-    "wine": {
-      "part1": "Heroic recherche des versions de Wine et Proton dans ces dossiers:",
-      "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
-    }
-  },
-  "info": {
-    "settings": "Les options sont sauvegardées automatiquement"
-  },
-  "infobox": {
-    "help": "Aide",
-    "requirements": "Configuration Requise"
-  },
-  "Library": "Bibliothèque",
-  "message": {
-    "sync": "Synchronisation Complète",
-    "unsync": "Désynchronisation Complète"
-  },
-  "nogames": "Aucun jeu trouvé",
-  "Not Ready": "Non installé",
-  "notify": {
-    "finished": {
-      "reparing": "Réparation Terminée"
+    "options": {
+        "advanced": {
+            "placeholder": "Insérez ici les autres options de lancemement",
+            "title": "Options Avancées (Variables d'Environnement):"
+        },
+        "gameargs": {
+            "placeholder": "Insérez ici les arguments de lancement",
+            "title": "Arguments de jeu (À lancer après la commande):"
+        }
     },
-    "install": {
-      "canceled": "Installation Annulée",
-      "finished": "Installation Terminée"
+    "placeholder": {
+        "egs-prefix": "Prefix où EGS est installé"
     },
-    "moved": "Déplacement Terminé",
-    "refreshed": "bibliothèque mise à jour",
-    "refreshing": "Actualisation",
-    "uninstalled": "Désinstallé",
-    "update": {
-      "canceled": "Mise à jour Annulée",
-      "finished": "Mise à jour Terminée"
-    }
-  },
-  "options": {
-    "advanced": {
-      "placeholder": "Insérez ici les autres options de lancemement",
-      "title": "Options Avancées (Variables d'Environnement):"
+    "Ready": "Installé",
+    "Return": "Retour",
+    "search": "Entrez le nom du jeu ici...",
+    "setting": {
+        "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
+        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
+        "autosync": "Sauvegardes Autosync",
+        "customWineProton": "Chemins pour les Wine/Proton Custom",
+        "darktray": "Utiliser Dark Tray Icon (nécessite un redémarrage)",
+        "default-install-path": "Chemin par défaut de l'installation",
+        "egs-sync": "Synchroniser avec l'installation d'Epic Games",
+        "exit-to-tray": "Quitter vers System Tray",
+        "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
+        "language": "Choix de la langue",
+        "mangohud": "Activer Mangohud (Mangohud doit être installé)",
+        "manualsync": {
+            "download": "Download",
+            "forcedownload": "Force Download",
+            "forceupload": "Force Upload",
+            "sync": "Sync",
+            "syncing": "Syncing",
+            "title": "Synchronisation manuelle des auvegardes",
+            "upload": "Upload"
+        },
+        "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
+        "offlinemode": "Lancer le jeu hors ligne",
+        "primerun": "Enable Nvidia Prime Render",
+        "runexe": {
+            "message": "Glissez et déposez les fichiers ici",
+            "title": "Utiliser un EXE pour le Prefix"
+        },
+        "savefolder": {
+            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
+            "title": "Écraser le dossier de synchronisation Cloud"
+        },
+        "showfps": "Afficher les FPS (DX9, 10 et 11)",
+        "wineprefix": "Dossier WinePrefix",
+        "wineversion": "Version de Wine"
     },
-    "gameargs": {
-      "placeholder": "Insérez ici les arguments de lancement",
-      "title": "Arguments de jeu (À lancer après la commande):"
-    }
-  },
-  "placeholder": {
-    "egs-prefix": "Prefix où EGS est installé"
-  },
-  "Ready": "Installé",
-  "Return": "Retour",
-  "search": "Entrez le nom du jeu ici...",
-  "setting": {
-    "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
-    "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
-    "autosync": "Sauvegardes Autosync",
-    "customWineProton": "Chemins pour les Wine/Proton Custom",
-    "darktray": "Utiliser Dark Tray Icon (nécessite un redémarrage)",
-    "default-install-path": "Chemin par défaut de l'installation",
-    "egs-sync": "Synchroniser avec l'installation d'Epic Games",
-    "exit-to-tray": "Quitter vers System Tray",
-    "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
-    "language": "Choix de la langue",
-    "mangohud": "Activer Mangohud (Mangohud doit être installé)",
-    "manualsync": {
-      "download": "Download",
-      "forcedownload": "Force Download",
-      "forceupload": "Force Upload",
-      "sync": "Sync",
-      "syncing": "Syncing",
-      "title": "Synchronisation manuelle des auvegardes",
-      "upload": "Upload"
+    "Settings": "Options",
+    "settings": {
+        "navbar": {
+            "general": "Général",
+            "other": "Autre",
+            "sync": "Save-Sync"
+        }
     },
-    "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
-    "offlinemode": "Lancer le jeu hors ligne",
-    "runexe": {
-      "message": "Glissez et déposez les fichiers ici",
-      "title": "Utiliser un EXE pour le Prefix"
+    "store": "Store",
+    "tooltip": {
+        "addpath": "Ajouter un nouveau chemin",
+        "removepath": "Supprimer le chemin"
     },
-    "savefolder": {
-      "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
-      "title": "Écraser le dossier de synchronisation Cloud"
+    "Total Games": "Nombre total de jeux",
+    "tray": {
+        "about": "À propos",
+        "quit": "Quitter",
+        "reload": "Recharger",
+        "show": "Voir",
+        "support": "Nous supporter"
     },
-    "showfps": "Afficher les FPS (DX9, 10 et 11)",
-    "wineprefix": "Dossier WinePrefix",
-    "wineversion": "Version de Wine"
-  },
-  "Settings": "Options",
-  "settings": {
-    "navbar": {
-      "general": "Général",
-      "other": "Autre",
-      "sync": "Save-Sync"
-    }
-  },
-  "store": "Store",
-  "tooltip": {
-    "addpath": "Ajouter un nouveau chemin",
-    "removepath": "Supprimer le chemin"
-  },
-  "Total Games": "Nombre total de jeux",
-  "tray": {
-    "about": "À propos",
-    "quit": "Quitter",
-    "reload": "Recharger",
-    "show": "Voir",
-    "support": "Nous supporter"
-  },
-  "userselector": {
-    "about": "À propos",
-    "discord": "Discord",
-    "logout": "Déconnexion",
-    "quit": "Quitter",
-    "refresh": "Actualiser la bibliothèque",
-    "support": "Nous supporter"
-  }
+    "Unreal Marketplace": "",
+    "Updates": "Updates",
+    "userselector": {
+        "about": "À propos",
+        "discord": "Discord",
+        "logout": "Déconnexion",
+        "logout_confirmation": "Logout?",
+        "quit": "Quitter",
+        "refresh": "Actualiser la bibliothèque",
+        "support": "Nous supporter"
+    },
+    "wiki": "Wiki"
 }

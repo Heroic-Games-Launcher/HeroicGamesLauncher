@@ -11,6 +11,7 @@ interface Props {
   launcherArgs: string
   offlineMode: boolean
   otherOptions: string
+  primeRun: boolean
   setLauncherArgs: (value: string) => void
   setOtherOptions: (value: string) => void
   showFps: boolean
@@ -19,6 +20,7 @@ interface Props {
   toggleFps: () => void
   toggleMangoHud: () => void
   toggleOffline: () => void
+  togglePrimeRun: () => void
   toggleUseGameMode: () => void
   useGameMode: boolean
 }
@@ -38,7 +40,9 @@ export default function OtherSettings({
   toggleAudioFix,
   showMangohud,
   toggleMangoHud,
-  isDefault
+  isDefault,
+  primeRun,
+  togglePrimeRun
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -64,6 +68,12 @@ export default function OtherSettings({
         <span className="toggleWrapper">
           {t('setting.gamemode')}
           <ToggleSwitch value={useGameMode} handleChange={toggleUseGameMode} />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.primerun', 'Enable Nvidia Prime Render')}
+          <ToggleSwitch value={primeRun} handleChange={togglePrimeRun} />
         </span>
       </span>
       <span className="setting">

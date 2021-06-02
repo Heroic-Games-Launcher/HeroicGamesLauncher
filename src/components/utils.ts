@@ -5,10 +5,10 @@ import {
   install
 } from 'src/helpers'
 
-import { GameStatus } from 'src/types'
+import { AppSettings, GameStatus, InstallProgress } from 'src/types'
 import { TFunction } from 'react-i18next'
 
-const { remote } = window.require('electron')
+const { ipcRenderer, remote } = window.require('electron')
 const {
   dialog: { showOpenDialog }
 } = remote
@@ -18,6 +18,7 @@ interface Install {
   handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: 'import' | 'default' | 'another'
   isInstalling: boolean
+  progress: InstallProgress
   t: TFunction<'gamepage'>
 }
 
@@ -26,15 +27,25 @@ export async function handleInstall({
   isInstalling,
   installPath,
   handleGameStatus,
-  t
+  t,
+  progress
 }: Install) {
+  const config: AppSettings = await ipcRenderer.invoke(
+    'requestSettings',
+    'default'
+  )
+
   if (isInstalling) {
     const { folder_name } = await getGameInfo(appName)
-    return handleStopInstallation(appName, [installPath, folder_name], t)
+    let path: string = installPath
+    if (installPath === 'default'){
+      path = config.defaultInstallPath
+    }
+    return handleStopInstallation(appName, [path, folder_name], t, progress)
   }
 
   if (installPath === 'default') {
-    const path = 'default'
+    const path = config.defaultInstallPath
     await handleGameStatus({ appName, status: 'installing' })
     await install({ appName, path })
     return await handleGameStatus({ appName, status: 'done' })
@@ -43,7 +54,7 @@ export async function handleInstall({
   if (installPath === 'import') {
     const { filePaths } = await showOpenDialog({
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['gamepage:openDirectory'],
+      properties: ['openDirectory'],
       title: t('gamepage:box.importpath')
     })
 

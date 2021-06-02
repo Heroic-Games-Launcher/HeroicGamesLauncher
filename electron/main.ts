@@ -265,6 +265,7 @@ ipcMain.on('lock', () => {
     writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
     if (!powerId) {
       powerId = powerSaveBlocker.start('prevent-app-suspension')
+      return powerId
     }
   }
 })
@@ -274,7 +275,7 @@ ipcMain.on('unlock', () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     unlinkSync(`${heroicGamesConfigPath}/lock`)
     if (powerId) {
-      powerSaveBlocker.stop(powerId)
+      return powerSaveBlocker.stop(powerId)
     }
   }
 })
@@ -411,7 +412,7 @@ ipcMain.handle('readConfig', async (event, config_class) =>  {
 ipcMain.handle('requestSettings', async (event, appName) => {
   Logger.info({message: 'Attempting to request settings ', service: 'ipcMain::requestSettings'});
   if (appName === 'default') {
-    return await GlobalConfig.get().config
+    return GlobalConfig.get().config
   }
   // We can't use .config since apparently its not loaded fast enough.
   return await GameConfig.get(appName).getSettings()
@@ -517,14 +518,29 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `"${heroicGamesConfigPath}${appName}.log"`
   const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
   const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
-  const { stdout: progress_result } = await execAsync(progress_command)
-  const { stdout: downloaded_result } = await execAsync(downloaded_command)
-  const [percent, eta] = progress_result.split(' ')
-  const bytes = downloaded_result + 'MiB'
+  const progress = {
+    bytes: '0.00MiB',
+    eta: '00:00:00',
+    percent: '0.00%'
+  }
 
-  const progress = { bytes, eta, percent }
-  Logger.info({message: `Game progress: ${appName} ${progress.percent}/${progress.bytes}/${eta} `, service: 'ipcMain::requestGameProgress'});
-  return progress
+  try {
+    const { stdout: progress_result } = await execAsync(progress_command)
+    const { stdout: downloaded_result } = await execAsync(downloaded_command)
+
+    progress.bytes = downloaded_result + 'MiB'
+    progress.eta = progress_result.split(' ')[1]
+    progress.percent = progress_result.split(' ')[0]
+
+    console.log(
+      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`
+    )
+
+    return progress
+  } catch (error) {
+    console.log(error);
+    return progress
+  }
 })
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {

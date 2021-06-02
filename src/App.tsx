@@ -14,7 +14,7 @@ const Login = lazy(() => import('./screens/Login'))
 function App() {
   const context = useContext(ContextProvider)
 
-  const { user, data: library, refresh, handleFilter, handleLayout } = context
+  const { user, data: library, refresh } = context
 
   if (!user && !library.length) {
     return <Login refresh={refresh} />
@@ -32,9 +32,7 @@ function App() {
               <Header
                 goTo={''}
                 renderBackButton={false}
-                handleFilter={handleFilter}
                 numberOfGames={numberOfGames}
-                handleLayout={handleLayout}
               />
               <div id="top"></div>
               <Library library={library} />

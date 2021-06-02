@@ -16,10 +16,12 @@ export default function NavBar() {
     lang = 'pt-BR'
   }
   const epicStore = `https://www.epicgames.com/store/${lang}/`
+  const wiki = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   return (
     <div className="NavBar">
       <div className="Links">
         <NavLink
+          data-testid="library"
           activeStyle={{ color: '#FFA800', fontWeight: 500 }}
           isActive={(match, location) => {
             if (match) {
@@ -33,6 +35,7 @@ export default function NavBar() {
           {t('Library')}
         </NavLink>
         <NavLink
+          data-testid="settings"
           activeStyle={{ color: '#FFA800', fontWeight: 500 }}
           isActive={(match, location) => location.pathname.includes('settings')}
           to={{
@@ -42,10 +45,18 @@ export default function NavBar() {
           {t('Settings')}
         </NavLink>
         <a
+          data-testid="store"
           style={{ cursor: 'pointer' }}
           onClick={() => createNewWindow(epicStore)}
         >
           {t('store', 'Store')}
+        </a>
+        <a
+          data-testid="wiki"
+          style={{ cursor: 'pointer' }}
+          onClick={() => createNewWindow(wiki)}
+        >
+          {t('wiki', 'Wiki')}
         </a>
       </div>
       <SearchBar />

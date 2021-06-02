@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as axios from 'axios'
 
-import { app, dialog } from 'electron'
+import { app, dialog, net } from 'electron'
 
 import { exec } from 'child_process'
 import { existsSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
-import isOnline from 'is-online'
 
 import { heroicGamesConfigPath, icon } from './constants'
 
@@ -15,6 +13,10 @@ const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
+
+async function isOnline() {
+  return net.isOnline
+}
 
 async function checkForUpdates() {
   if (!(await isOnline())) {
@@ -39,7 +41,7 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Magelan`,
+    applicationVersion: `${app.getVersion()} Moria`,
     copyright: 'GPL V3',
     iconPath: icon,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher'
