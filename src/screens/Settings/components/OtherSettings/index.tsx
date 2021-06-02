@@ -1,12 +1,12 @@
 import React, {
   ChangeEvent,
   useContext
-} from 'react';
+} from 'react'
 
-import { useTranslation } from 'react-i18next';
-import ContextProvider from 'src/state/ContextProvider';
-import InfoBox from 'src/components/UI/InfoBox';
-import ToggleSwitch from 'src/components/UI/ToggleSwitch';
+import { useTranslation } from 'react-i18next'
+import ContextProvider from 'src/state/ContextProvider'
+import InfoBox from 'src/components/UI/InfoBox'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 interface Props {
   audioFix: boolean

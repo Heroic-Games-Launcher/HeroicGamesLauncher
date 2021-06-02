@@ -1,6 +1,5 @@
 import './index.css'
 
-/* eslint-disable complexity */
 import React, {
   useContext,
   useEffect,

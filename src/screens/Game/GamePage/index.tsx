@@ -1,16 +1,16 @@
-import './index.css';
+import './index.css'
 
 import React, {
   Fragment,
   useContext,
   useEffect,
   useState
-} from 'react';
+} from 'react'
 
 import {
   IpcRenderer,
   Remote
-} from 'electron';
+} from 'electron'
 import {
   fixSaveFolder,
   getGameInfo,
@@ -22,24 +22,24 @@ import {
   sendKill,
   syncSaves,
   updateGame
-} from 'src/helpers';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import ContextProvider from 'src/state/ContextProvider';
-import Header from 'src/components/UI/Header';
-import InfoBox from 'src/components/UI/InfoBox';
-import UpdateComponent from 'src/components/UI/UpdateComponent';
-/* eslint-disable complexity */
+} from 'src/helpers'
+import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import ContextProvider from 'src/state/ContextProvider'
+import Header from 'src/components/UI/Header'
+import InfoBox from 'src/components/UI/InfoBox'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
+
 import {
   AppSettings,
   GameInfo,
   GameStatus,
   InstallProgress
-} from 'src/types';
+} from 'src/types'
 
-import Settings from '@material-ui/icons/Settings';
+import Settings from '@material-ui/icons/Settings'
 
-import GamesSubmenu from '../GameSubMenu';
+import GamesSubmenu from '../GameSubMenu'
 
 const storage: Storage = window.localStorage
 
