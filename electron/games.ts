@@ -268,17 +268,6 @@ class LegendaryGame implements Game {
     return await execAsync(command)
   }
 
-  public async launchWin(){
-    const {
-      launcherArgs = ''
-
-    } = await this.getSettings()
-    const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
-    console.log('\n Launch Command:', command)
-
-    return await execAsync(command)
-  }
-
   public async launch() {
     let envVars = ''
     let gameMode: string
@@ -295,6 +284,12 @@ class LegendaryGame implements Game {
       audioFix,
       autoInstallDxvk
     } = await this.getSettings()
+
+    if (isWindows) {
+      const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
+      console.log('\n Launch Command:', command)
+      return await execAsync(command)
+    }
 
     const fixedWinePrefix = winePrefix.replace('~', home)
     let wineCommand = `--wine ${wineVersion.bin}`

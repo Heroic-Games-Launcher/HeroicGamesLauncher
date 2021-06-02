@@ -435,10 +435,6 @@ ipcMain.handle('refreshLibrary', async () => {
 ipcMain.handle('launch', (event, game) => {
   console.log('launching', game)
 
-  if (isWindows) {
-    return LegendaryGame.get(game).launchWin()
-  }
-
   return LegendaryGame.get(game).launch().then(({ stderr }) => {
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
