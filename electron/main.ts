@@ -435,7 +435,7 @@ ipcMain.handle('refreshLibrary', async () => {
 })
 
 ipcMain.handle('launch', (event, game) => {
-  Logger.info({message: `Attempting to launch game ${game} `, service: 'ipcMain::launch'});
+  Logger.info({message: `Attempting to launch game ${game} `, service: 'Game::launch'});
   return LegendaryGame.get(game).launch().then(({ stderr }) => {
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
@@ -443,7 +443,7 @@ ipcMain.handle('launch', (event, game) => {
       () => 'done'
     )
     if (stderr.includes('Errno')) {
-      Logger.error({message: `Error while launching  ${game}\n${stderr} `, service: 'ipcMain::launch'});
+      Logger.error({message: `Error while launching  ${game}\n${stderr} `, service: 'Game::launch'});
       showErrorBox(
         i18next.t('box.error', 'Something Went Wrong'),
         i18next.t(
@@ -456,7 +456,7 @@ ipcMain.handle('launch', (event, game) => {
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
-      () => {Logger.error({message: `written lastplay log with ERROR\n${stderr} `, service: 'ipcMain::launch'}); 'done'}
+      () => {Logger.error({message: `written lastplay log with ERROR\n${stderr} `, service: 'Game::launch'}); 'done'}
     )
     return stderr
   })
@@ -464,51 +464,51 @@ ipcMain.handle('launch', (event, game) => {
 
 
 ipcMain.handle('install', async (event, args) => {
-  Logger.info({message: `Attempting to install game ${args.game}`, service: 'ipcMain::install'});
+  Logger.info({message: `Attempting to install game ${args.game}`, service: 'Game::install'});
   const { appName: game, path } = args
   if (!(await isOnline())) {
-    Logger.info({message: `App offline, giving up on installing game ${game}`, service: 'ipcMain::install'});
+    Logger.info({message: `App offline, giving up on installing game ${game}`, service: 'Game::install'});
     return
   }
   return LegendaryGame.get(game).install(path).then(
-    () => Logger.info({message: `Installed ${game}` , service: 'ipcMain::install'})
-  ).catch((res) => {Logger.error({message: `Failed to install game ${game} with:\n${res} `, service: 'ipcMain::install'}); res})
+    () => Logger.info({message: `Installed ${game}` , service: 'Game::install'})
+  ).catch((res) => {Logger.error({message: `Failed to install game ${game} with:\n${res} `, service: 'Game::install'}); res})
 })
 
 ipcMain.handle('uninstall', async (event, game) => {
-  Logger.info({message: `Attempting to uninstall ${game}`, service: 'ipcMain::uninstall'});
+  Logger.info({message: `Attempting to uninstall ${game}`, service: 'Game::uninstall'});
   return LegendaryGame.get(game).uninstall().then(
-    () => Logger.info({message: `Finished uninstall ${game}`, service: 'ipcMain::uninstall'})
-  ).catch((err) => Logger.error({message: `Failed to uninstall ${game} with ERROR\n${err}`, service: 'ipcMain::uninstall'}))
+    () => Logger.info({message: `Finished uninstall ${game}`, service: 'Game::uninstall'})
+  ).catch((err) => Logger.error({message: `Failed to uninstall ${game} with ERROR\n${err}`, service: 'Game::uninstall'}))
 })
 
 ipcMain.handle('repair', async (event, game) => {
-  Logger.info({message: `Attempting to repair ${game}`, service: 'ipcMain::repair'});
+  Logger.info({message: `Attempting to repair ${game}`, service: 'Game::repair'});
   if (!(await isOnline())) {
-    Logger.info({message: `App offline, giving up on repairing game ${game}`, service: 'ipcMain::repair'});
+    Logger.info({message: `App offline, giving up on repairing game ${game}`, service: 'Game::repair'});
     return
   }
   return LegendaryGame.get(game).repair().then(
-    () => {Logger.info({message: `Finished repairing ${game}`, service: 'ipcMain::repair'});}
-  ).catch((err) => Logger.error({message: `Failed to repair game ${game} with ERROR\n${err}`, service: 'ipcMain::repair'}) )
+    () => {Logger.info({message: `Finished repairing ${game}`, service: 'Game::repair'});}
+  ).catch((err) => Logger.error({message: `Failed to repair game ${game} with ERROR\n${err}`, service: 'Game::repair'}) )
 })
 
 ipcMain.handle('importGame', async (event, args) => {
-  Logger.info({message: `Trying to import ${args.game}`, service: 'ipcMain::importGame'});
+  Logger.info({message: `Trying to import ${args.game}`, service: 'Game::importGame'});
   const { appName: game, path } = args
   const {stderr, stdout} = await LegendaryGame.get(game).import(path)
-  Logger.info({message: `${stdout} - ${stderr}`, service: 'ipcMain::importGame' })
+  Logger.info({message: `${stdout} - ${stderr}`, service: 'Game::importGame' })
 })
 
 ipcMain.handle('updateGame', async (e, game) => {
-  Logger.info({message: `Attempting to update ${game}`, service: 'ipcMain::updateGame'});
+  Logger.info({message: `Attempting to update ${game}`, service: 'Game::updateGame'});
   if (!(await isOnline())) {
-    Logger.info({message: `App offline, giving p on updating ${game}`, service: 'ipcMain::updateGame'})
+    Logger.info({message: `App offline, giving p on updating ${game}`, service: 'Game::updateGame'})
     return
   }
   return LegendaryGame.get(game).update().then(
-    () => Logger.info({message: `Finished updating ${game}`, service: 'ipcMain::updateGame'})
-  ).catch((res) => Logger.error({message: `Failed to update ${game} with ERROR\n${res}`, service: 'ipcMain::updateGame'}))
+    () => Logger.info({message: `Finished updating ${game}`, service: 'Game::updateGame'})
+  ).catch((res) => Logger.error({message: `Failed to update ${game} with ERROR\n${res}`, service: 'Game::updateGame'}))
 })
 
 // TODO(adityaruplaha): Use UNIX sockets to refactor this.
@@ -543,15 +543,15 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 })
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  Logger.info({message: `Attempting to move install of ${appName} to ${path}`, service: 'ipcMain::moveInstall'});
+  Logger.info({message: `Attempting to move install of ${appName} to ${path}`, service: 'Game::moveInstall'});
   const newPath = await LegendaryGame.get(appName).moveInstall(path)
-  Logger.info({message: `Moved ${appName} to ${newPath}`, service: 'ipcMain::moveInstall'});
+  Logger.info({message: `Moved ${appName} to ${newPath}`, service: 'Game::moveInstall'});
 })
 
 ipcMain.handle('changeInstallPath', async (event, [appName, newPath]: string[]) => {
-  Logger.info({message: `Trying to change install path of ${appName} to ${newPath}`, service: 'ipcMain::changeInstallPath'});
+  Logger.info({message: `Trying to change install path of ${appName} to ${newPath}`, service: 'Game::changeInstallPath'});
   Library.get().changeGameInstallPath(appName, newPath)
-  Logger.info({message: `Finished moving ${appName} to ${newPath}`, service: 'ipcMain::changeInstallPath'});
+  Logger.info({message: `Finished moving ${appName} to ${newPath}`, service: 'Game::changeInstallPath'});
 })
 
 ipcMain.handle('egsSync', async (event, args) => {
@@ -574,13 +574,13 @@ ipcMain.handle('egsSync', async (event, args) => {
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
-  Logger.info({message: `Attempting to sync saves for ${args.sync}`, service: 'ipcMain::syncSaves'});
+  Logger.info({message: `Attempting to sync saves for ${args.sync}`, service: 'Game::syncSaves'});
   const [arg = '', path, appName] = args
   if (!(await isOnline())) {
-    Logger.info({message: `App offline, giving up on syncing saves for ${appName}`, service: 'ipcMain::syncSaves'});
+    Logger.info({message: `App offline, giving up on syncing saves for ${appName}`, service: 'Game::syncSaves'});
     return
   }
   const { stderr, stdout } = await LegendaryGame.get(appName).syncSaves(arg, path)
-  Logger.info({message: `${stdout} - ${stderr}`, service: 'ipcMain::syncSaves'})
+  Logger.info({message: `${stdout} - ${stderr}`, service: 'Game::syncSaves'})
   return `\n ${stdout} - ${stderr}`
 })
