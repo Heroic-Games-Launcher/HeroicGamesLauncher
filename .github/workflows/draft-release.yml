@@ -16,4 +16,6 @@ jobs:
         with:
           node-version: '14'
       - run: yarn install
-      - run: GH_TOKEN="${{ secrets.WORKFLOW_TOKEN }}" yarn ci-build
+      - run: yarn ci-build
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
