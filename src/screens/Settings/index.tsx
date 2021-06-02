@@ -134,7 +134,7 @@ function Settings() {
         'requestSettings',
         appName
       )
-      setUseNvidiaPrime(config.nvidiaPrime || false)
+      setAutoSyncSaves(config.autoSyncSaves)
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
       setShowOffline(config.offlineMode || false)
@@ -145,6 +145,7 @@ function Settings() {
       setWinePrefix(config.winePrefix)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
+      setUseNvidiaPrime(config.nvidiaPrime || false)
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
       setExitToTray(config.exitToTray || false)
@@ -161,7 +162,6 @@ function Settings() {
           title: gameTitle
         } = await getGameInfo(appName)
         setTitle(gameTitle)
-        setAutoSyncSaves(config.autoSyncSaves || cloudSaveEnabled)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
