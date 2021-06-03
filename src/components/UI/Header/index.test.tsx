@@ -48,6 +48,7 @@ function getHeader(props: Partial<{ args: Partial<Props>, context: Partial<Conte
     handleSearch: () => { return; },
     layout: 'grid',
     libraryStatus: [],
+    platform: 'linux',
     refresh: () => Promise.resolve(),
     refreshLibrary: () => Promise.resolve(),
     refreshing: false,

@@ -1,8 +1,16 @@
 import './index.css'
 
-import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
-import { IpcRenderer, Remote } from 'electron'
-/* eslint-disable complexity */
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+
+import {
+  IpcRenderer,
+  Remote
+} from 'electron'
 import {
   fixSaveFolder,
   getGameInfo,
@@ -15,16 +23,24 @@ import {
   syncSaves,
   updateGame
 } from 'src/helpers'
-import React, { Fragment, useContext, useEffect, useState } from 'react'
-
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import GamesSubmenu from '../GameSubMenu'
 import Header from 'src/components/UI/Header'
 import InfoBox from 'src/components/UI/InfoBox'
-import Settings from '@material-ui/icons/Settings'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
+
+import {
+  AppSettings,
+  GameInfo,
+  GameStatus,
+  InstallProgress
+} from 'src/types'
+
+import Settings from '@material-ui/icons/Settings'
+
+import GamesSubmenu from '../GameSubMenu'
+
 const storage: Storage = window.localStorage
 
 const { ipcRenderer, remote } = window.require('electron') as {
@@ -354,7 +370,7 @@ export default function GamePage(): JSX.Element | null {
       </>
     )
   }
-  return null
+  return <UpdateComponent />
 
   function getPlayBtnClass() {
     if (isUpdating) {
@@ -509,11 +525,15 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (installPath === 'import' && gameInfo.is_game) {
-        const { filePaths } = await showOpenDialog({
+        const { filePaths, canceled } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
           title: t('box.importpath')
         })
+
+        if (canceled) {
+          return
+        }
 
         if (filePaths[0]) {
           const path = filePaths[0]
@@ -524,11 +544,15 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (installPath === 'another' || !gameInfo.is_game) {
-        const { filePaths } = await showOpenDialog({
+        const { filePaths, canceled } = await showOpenDialog({
           buttonLabel: t('box.choose'),
           properties: ['openDirectory'],
           title: t('box.installpath')
         })
+
+        if (canceled) {
+          return
+        }
 
         if (filePaths[0]) {
           const path = `'${filePaths[0]}'`

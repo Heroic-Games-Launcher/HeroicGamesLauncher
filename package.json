@@ -16,6 +16,7 @@
   },
   "build": {
     "appId": "com.electron.heroic",
+    "productName": "Heroic Games Launcher",
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -23,7 +24,9 @@
     "asarUnpack": [
       "build/bin/linux/legendary",
       "build/bin/darwin/legendary",
+      "build/bin/win32/legendary.exe",
       "build/icon.png",
+      "build/win_icon.ico",
       "build/icon-dark.png",
       "build/icon-light.png"
     ],
@@ -39,6 +42,9 @@
       }
     ],
     "icon": "build/icon.icns",
+    "win": {
+      "icon": "build/win_icon.ico"
+    },
     "linux": {
       "category": "Game",
       "icon": "build/icon.icns",
@@ -89,12 +95,16 @@
     "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
     "electron": "yarn build-electron && electron .",
     "react-start": "BROWSER=none react-scripts start",
+    "react-start:win": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "jest --maxWorkers=50%",
+    "test-watch": "jest --watch --maxWorkers=25%",
+    "test:ci": "jest --runInBand",
     "eject": "react-scripts eject",
-    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
+    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "dist-mac": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",
+    "dist-win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
     "build-electron": "tsc --project electron/tsconfig.json",
@@ -123,7 +133,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "electron": "^13.0.1",
-    "electron-builder": "^22.11.3",
+    "electron-builder": "^22.10.5",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^7.18.0",
     "eslint-plugin-react": "^7.22.0",

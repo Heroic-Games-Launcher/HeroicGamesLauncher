@@ -1,16 +1,19 @@
 import * as path from 'path'
-
 import {
   BrowserWindow,
   Menu,
   Notification,
   Tray,
   app,
+  dialog,
   ipcMain,
   powerSaveBlocker,
   protocol
 } from 'electron'
-import { cpus } from 'os'
+import {
+  cpus,
+  platform
+} from 'os'
 import {
   exec,
   spawn
@@ -21,7 +24,6 @@ import {
   unlinkSync,
   writeFile
 } from 'graceful-fs'
-
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import isDev from 'electron-is-dev'
@@ -31,7 +33,7 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryGame } from './games'
 import { Library } from './legendary_utils/library'
-import { User } from './legendary_utils/user';
+import { User } from './legendary_utils/user'
 import {
   checkForUpdates,
   execAsync,
@@ -40,9 +42,9 @@ import {
   openUrlOrFile,
   showAboutWindow
 } from './utils'
-import { dialog } from 'electron'
 import {
   discordLink,
+  getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
   home,
@@ -56,6 +58,7 @@ import {
 import { handleProtocol } from './protocol'
 
 const { showErrorBox } = dialog
+const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
 
@@ -74,7 +77,9 @@ function createWindow(): BrowserWindow {
   })
 
   setTimeout(() => {
-    DXVK.getLatest()
+    if (process.platform === 'linux') {
+      DXVK.getLatest()
+    }
   }, 2500)
 
   GlobalConfig.get()
@@ -501,32 +506,50 @@ ipcMain.handle('updateGame', async (e, game) => {
 
 // TODO(adityaruplaha): Use UNIX sockets to refactor this.
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `"${heroicGamesConfigPath}${appName}.log"`
-  const progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
-  const downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
-  const progress = {
-    bytes: '0.00MiB',
-    eta: '00:00:00',
-    percent: '0.00%'
+  const logPath = `${heroicGamesConfigPath}${appName}.log`
+
+  if(!existsSync(logPath)){
+    return {}
   }
 
-  try {
-    const { stdout: progress_result } = await execAsync(progress_command)
-    const { stdout: downloaded_result } = await execAsync(downloaded_command)
+  const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
+  const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
+  const progress_command = isWindows
+    ? win_progress_command
+    : unix_progress_command
 
-    progress.bytes = downloaded_result + 'MiB'
-    progress.eta = progress_result.split(' ')[1]
-    progress.percent = progress_result.split(' ')[0]
+  const unix_downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
+  const win_downloaded_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Downloaded:'`
+  const downloaded_command = isWindows
+    ? win_downloaded_command
+    : unix_downloaded_command
 
-    console.log(
-      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`
-    )
+  const { stdout: progress_result } = await execAsync(progress_command, {
+    shell: getShell()
+  })
+  const { stdout: downloaded_result } = await execAsync(downloaded_command, {
+    shell: getShell()
+  })
 
-    return progress
-  } catch (error) {
-    console.log(error);
-    return progress
+  let percent = ''
+  let eta = ''
+  let bytes = ''
+  if (isWindows) {
+    percent = progress_result.split(' ')[4]
+    eta = progress_result.split(' ')[10]
+    bytes = downloaded_result.split(' ')[5] + 'MiB'
   }
+
+  if (!isWindows) {
+    [percent, eta] = progress_result.split(' ')
+    bytes = downloaded_result + 'MiB'
+  }
+
+  const progress = { bytes, eta, percent }
+  console.log(
+    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+  )
+  return progress
 })
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {

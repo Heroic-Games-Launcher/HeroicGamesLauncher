@@ -1,19 +1,35 @@
-import React, { useEffect, useState } from 'react'
-
-import { IpcRenderer } from 'electron'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-
 import './index.css'
-import { AppSettings, WineInstallation } from 'src/types'
-import { getGameInfo, writeConfig } from 'src/helpers'
+
+import React, {
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+
+import {
+  AppSettings,
+  WineInstallation
+} from 'src/types'
+import { IpcRenderer } from 'electron'
+import {
+  NavLink,
+  useLocation,
+  useParams
+} from 'react-router-dom'
+import {
+  getGameInfo,
+  writeConfig
+} from 'src/helpers'
 import { useToggle } from 'src/hooks'
-import GeneralSettings from './components/GeneralSettings'
+import { useTranslation } from 'react-i18next'
+import ContextProvider from 'src/state/ContextProvider'
 import Header from 'src/components/UI/Header'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
+
+import GeneralSettings from './components/GeneralSettings'
 import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
 import WineSettings from './components/WineSettings'
 
 interface ElectronProps {
@@ -36,6 +52,8 @@ interface LocationState {
 function Settings() {
   const { t, i18n } = useTranslation()
   const { state } = useLocation() as { state: LocationState }
+  const { platform } = useContext(ContextProvider)
+  const isWin = platform === 'win32'
 
   const [wineVersion, setWineVersion] = useState({
     bin: '/usr/bin/wine',
@@ -116,7 +134,7 @@ function Settings() {
         'requestSettings',
         appName
       )
-      setUseNvidiaPrime(config.nvidiaPrime || false)
+      setAutoSyncSaves(config.autoSyncSaves)
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
       setShowOffline(config.offlineMode || false)
@@ -127,9 +145,9 @@ function Settings() {
       setWinePrefix(config.winePrefix)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
+      setUseNvidiaPrime(config.nvidiaPrime || false)
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
-      setAutoSyncSaves(config.autoSyncSaves)
       setExitToTray(config.exitToTray || false)
       setDarkTrayIcon(config.darkTrayIcon || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
@@ -216,15 +234,21 @@ function Settings() {
               {t('settings.navbar.general')}
             </NavLink>
           )}
-          <NavLink to={{ pathname: `/settings/${appName}/wine` }}>Wine</NavLink>
+          {!isWin && (
+            <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
+              Wine
+            </NavLink>
+          )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink to={{ pathname: `/settings/${appName}/sync` }}>
               {t('settings.navbar.sync')}
             </NavLink>
           )}
-          <NavLink to={{ pathname: `/settings/${appName}/other` }}>
-            {t('settings.navbar.other')}
-          </NavLink>
+          {
+            <NavLink to={{ pathname: `/settings/${appName}/other` }}>
+              {t('settings.navbar.other')}
+            </NavLink>
+          }
         </div>
         <div className="settingsWrapper">
           {isGeneralSettings && (
@@ -291,8 +315,7 @@ function Settings() {
               appName={appName}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
-              defaultFolder={winePrefix}
-              isProton={wineVersion.name.includes('Proton')}
+              isProton={!isWin && wineVersion.name.includes('Proton')}
               winePrefix={winePrefix}
             />
           )}

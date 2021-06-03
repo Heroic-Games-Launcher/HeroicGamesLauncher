@@ -1,27 +1,28 @@
+import { User } from './legendary_utils/user'
 import {
   existsSync,
   mkdirSync,
   readFileSync,
   readdirSync,
   writeFileSync
-} from 'graceful-fs';
-import { userInfo as user } from 'os';
+} from 'graceful-fs'
+import { userInfo as user } from 'os'
 
 import {
   AppSettings,
   GlobalConfigVersion,
   WineInstallation
-} from './types';
-import { User } from './legendary_utils/user';
+} from './types'
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
   heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
-  home
-} from './constants';
-import { execAsync } from './utils';
+  home,
+  isWindows
+} from './constants'
+import { execAsync } from './utils'
 
 /**
  * This class does config handling.
@@ -78,10 +79,10 @@ abstract class GlobalConfig {
     switch (version) {
     case 'v0':
       GlobalConfig.globalInstance = new GlobalConfigV0()
-      break;
+      break
     default:
       console.log(`GlobalConfig: Invalid config version '${version}' requested.`)
-      break;
+      break
     }
     // Try to upgrade outdated config.
     if (GlobalConfig.globalInstance.upgrade()) {
@@ -101,6 +102,11 @@ abstract class GlobalConfig {
    * @returns An Array of Wine/Proton installations.
    */
   public async getAlternativeWine(scanCustom = true): Promise<WineInstallation[]> {
+    let defaultWine = { bin: '', name: '' }
+    if (isWindows) {
+      return [defaultWine]
+    }
+
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, {recursive: true})
     }
@@ -110,7 +116,7 @@ abstract class GlobalConfig {
     }
 
 
-    const defaultWine = { bin: '', name: 'Default Wine - Not Found' }
+    defaultWine = { bin: '', name: 'Default Wine - Not Found' }
     await execAsync(`which wine`)
       .then(async ({ stdout }) => {
         defaultWine.bin = stdout.split('\n')[0]
@@ -305,6 +311,7 @@ class GlobalConfigV0 extends GlobalConfig {
     const [defaultWine] = await this.getAlternativeWine(false)
 
     return {
+      customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
       language: 'en',
       maxWorkers: 0,
@@ -316,8 +323,8 @@ class GlobalConfigV0 extends GlobalConfig {
         epicId: account_id,
         name: userName
       },
-      winePrefix: `${home}/.wine`,
-      wineVersion: defaultWine
+      winePrefix: isWindows ? defaultWine : `${home}/.wine`,
+      wineVersion: isWindows ? defaultWine : {}
     } as AppSettings
   }
 
@@ -334,4 +341,4 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 }
 
-export { GlobalConfig };
+export { GlobalConfig }

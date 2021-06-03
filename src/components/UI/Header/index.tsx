@@ -56,10 +56,21 @@ export default function Header({
   ]
 
   function toggleCategory(newCategory: string) {
-    if (category != newCategory) {
+    if (category !== newCategory) {
       handleCategory(newCategory)
       handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
     }
+  }
+
+  if (renderBackButton) {
+    return (
+      <div className={cx({ header: !title }, { headerSettings: title })}>
+        <Link className="returnLink" to={link} onClick={handleClick}>
+          <ArrowBack className="material-icons" />
+          {t('Return')}
+        </Link>
+      </div>
+    )
   }
 
   return (
@@ -193,12 +204,6 @@ export default function Header({
             onClick={() => handleLayout('list')}
           ></List>
         </div>
-        {renderBackButton && (
-          <Link className="returnLink" to={link} onClick={handleClick}>
-            <ArrowBack className="material-icons" />
-            {t('Return')}
-          </Link>
-        )}
       </div>
     </>
   )

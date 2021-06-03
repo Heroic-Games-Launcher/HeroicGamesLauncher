@@ -1,7 +1,10 @@
 import './index.css'
 
-/* eslint-disable complexity */
-import React, { useContext, useEffect, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { GameStatus } from 'src/types'
@@ -10,7 +13,12 @@ import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
-import { getProgress, launch, sendKill, updateGame } from 'src/helpers'
+import {
+  getProgress,
+  launch,
+  sendKill,
+  updateGame
+} from 'src/helpers'
 import { handleInstall } from 'src/components/utils'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
@@ -62,9 +70,10 @@ const GameCard = ({
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
 
-  const { libraryStatus, layout, handleGameStatus } = useContext(
+  const { libraryStatus, layout, handleGameStatus, platform } = useContext(
     ContextProvider
   )
+  const isWin = platform === 'win32'
 
   const grid = layout === 'grid'
 
@@ -186,7 +195,9 @@ const GameCard = ({
                 {isInstalled && isGame && (
                   <Link
                     to={{
-                      pathname: `/settings/${appName}/wine`,
+                      pathname: isWin
+                        ? `/settings/${appName}/other`
+                        : `/settings/${appName}/wine`,
                       state: { fromGameCard: true }
                     }}
                   >

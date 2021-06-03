@@ -1,13 +1,23 @@
 import * as axios from 'axios'
-
-import { app, dialog, net } from 'electron'
-
+import {
+  app,
+  dialog,
+  net,
+  shell
+} from 'electron'
 import { exec } from 'child_process'
-import { existsSync, stat } from 'graceful-fs'
+import {
+  existsSync,
+  stat
+} from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 
-import { heroicGamesConfigPath, icon } from './constants'
+import {
+  heroicGamesConfigPath,
+  icon,
+  isWindows
+} from './constants'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -15,10 +25,13 @@ const statAsync = promisify(stat)
 const { showErrorBox, showMessageBox } = dialog
 
 async function isOnline() {
-  return net.isOnline
+  return net.isOnline()
 }
 
 async function checkForUpdates() {
+  if (isWindows) {
+    return
+  }
   if (!(await isOnline())) {
     console.log('Version check failed, app is offline.')
     return false
@@ -96,12 +109,8 @@ function genericErrorMessage(): void {
   )
 }
 
-function openUrlOrFile(url: string): void {
-  if (process.platform === 'darwin') {
-    exec(`open ${url}`)
-  } else {
-    exec(`xdg-open ${url}`)
-  }
+function openUrlOrFile(url: string): Promise<string> {
+  return shell.openPath(url)
 }
 
 export {
