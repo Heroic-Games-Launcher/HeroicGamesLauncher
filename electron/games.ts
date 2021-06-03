@@ -2,13 +2,14 @@ import {
   existsSync,
   mkdirSync
 } from 'graceful-fs'
-import axios from 'axios';
+import axios from 'axios'
 
 import { DXVK } from './dxvk'
-import { ExtraInfo, GameInfo, GameSettings, GameStatus } from './types';
-import { GameConfig } from './game_config';
-import { GlobalConfig } from './config';
+import { ExtraInfo, GameInfo, GameSettings, GameStatus } from './types'
+import { GameConfig } from './game_config'
+import { GlobalConfig } from './config'
 import { Library } from './legendary_utils/library'
+import { User } from './legendary_utils/user'
 import {
   errorHandler,
   execAsync,
@@ -18,6 +19,7 @@ import {
   execOptions,
   heroicGamesConfigPath,
   home,
+  isWindows,
   legendaryBin
 } from './constants'
 
@@ -58,6 +60,9 @@ class LegendaryGame implements Game {
    * Alias for `Library.listUpdateableGames`
    */
   public static async checkGameUpdates() {
+    if (!User.isLoggedIn()){
+      return []
+    }
     return await Library.get().listUpdateableGames()
   }
 
@@ -199,12 +204,15 @@ class LegendaryGame implements Game {
   public async install(path : string) {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-
+    //TODO(flavioislima):
+    // Need to fix convertion from utf8 to win1252 or vice-versa
+    // const selectiveDownloads = sdl ? `echo ${sdl.join(' ')}` : `echo 'hd_textures'`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const sockPath = `"/tmp/heroic/install-${this.appName}.sock"`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y |& tee ${logPath} ${sockPath}`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
     console.log(`Installing ${this.appName} with:`, command)
-    // TODO(adityaruplaha):Create a socket connection for requestGameProgress
+
     try {
       Library.get().installState(this.appName, true)
       return await execAsync(command, execOptions)
@@ -251,8 +259,8 @@ class LegendaryGame implements Game {
    * @returns Result of execAsync.
    */
   public async syncSaves(arg : string, path : string) {
-    const fixedPath = path.replaceAll("'", '')
-    const command = `${legendaryBin} sync-saves --save-path "${fixedPath}" ${arg} ${this.appName} -y`
+    const fixedPath = isWindows ? path.replaceAll("'", '').slice(0, -1) : path.replaceAll("'", '')
+    const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = `${home}/legendary/.saves`
 
     //workaround error when no .saves folder exists
@@ -280,6 +288,12 @@ class LegendaryGame implements Game {
       audioFix,
       autoInstallDxvk
     } = await this.getSettings()
+
+    if (isWindows) {
+      const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
+      console.log('\n Launch Command:', command)
+      return await execAsync(command)
+    }
 
     const fixedWinePrefix = winePrefix.replace('~', home)
     let wineCommand = `--wine ${wineVersion.bin}`

@@ -36,6 +36,7 @@ function renderUserSelector(props: Partial<ContextType> = {}) {
     handleSearch: () => null,
     layout: 'grid',
     libraryStatus: [],
+    platform: 'linux',
     refresh: () => Promise.resolve(),
     refreshLibrary: () => Promise.resolve(),
     refreshing: false,

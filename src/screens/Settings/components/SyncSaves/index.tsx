@@ -1,27 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import { Remote } from 'electron'
+import React, {
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
-import { Path, SyncType } from 'src/types'
-import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
+import {
+  Path,
+  SyncType
+} from 'src/types'
+import {
+  fixSaveFolder,
+  getGameInfo,
+  syncSaves
+} from 'src/helpers'
 import { useTranslation } from 'react-i18next'
+
+const { remote } = window.require('electron') as {
+  remote: Remote
+}
+const { showMessageBox, showOpenDialog } = remote.dialog
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 import Backspace from '@material-ui/icons/Backspace'
+import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-
-const {
-  remote: { dialog }
-} = window.require('electron')
-
 interface Props {
   appName: string
   autoSyncSaves: boolean
-  defaultFolder: string
-  isProton: boolean
+  isProton?: boolean
   savesPath: string
   setAutoSyncSaves: (value: boolean) => void
   setSavesPath: (value: string) => void
-  winePrefix: string
+  winePrefix?: string
 }
 
 export default function SyncSaves({
@@ -30,24 +42,25 @@ export default function SyncSaves({
   appName,
   autoSyncSaves,
   setAutoSyncSaves,
-  defaultFolder,
   isProton,
   winePrefix
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
   const { t } = useTranslation()
+  const { platform } = useContext(ContextProvider)
+  const isWin = platform === 'win32'
 
   useEffect(() => {
     const getSyncFolder = async () => {
-      const { save_folder, install:{install_path} } = await getGameInfo(appName)
-
+      const { save_folder, install: { install_path } } = await getGameInfo(appName)
       setAutoSyncSaves(autoSyncSaves)
-      let folder = await fixSaveFolder(save_folder, winePrefix, isProton)
+      let folder = await fixSaveFolder(save_folder, winePrefix = '', isProton = false)
       folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
+      const fixedPath = isWin ? path.replaceAll('/', '\\') : path // invert slashes and remove latest on windows
 
-      setSavesPath(path)
+      setSavesPath(fixedPath)
     }
     getSyncFolder()
   }, [winePrefix, isProton])
@@ -59,6 +72,7 @@ export default function SyncSaves({
     t('setting.manualsync.forcedownload'),
     t('setting.manualsync.forceupload')
   ]
+
   async function handleSync() {
     setIsSyncing(true)
     const command = {
@@ -69,7 +83,7 @@ export default function SyncSaves({
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
-      dialog.showMessageBox({ message: res, title: 'Saves Sync' })
+      showMessageBox({ message: res, title: 'Saves Sync' })
     )
     setIsSyncing(false)
   }
@@ -94,15 +108,13 @@ export default function SyncSaves({
               onClick={() =>
                 isLinked
                   ? ''
-                  : dialog
-                    .showOpenDialog({
-                      buttonLabel: t('box.sync.button'),
-                      defaultPath: defaultFolder,
-                      properties: ['openDirectory'],
-                      title: t('box.sync.title')
-                    })
+                  : showOpenDialog({
+                    buttonLabel: t('box.sync.button'),
+                    properties: ['openDirectory'],
+                    title: t('box.sync.title')
+                  })
                     .then(({ filePaths }: Path) =>
-                      setSavesPath(filePaths[0] ? `${filePaths[0]}` : '')
+                      setSavesPath(filePaths[0] ? `${filePaths[0]}\\` : '')
                     )
               }
             />
@@ -137,14 +149,12 @@ export default function SyncSaves({
           <button
             onClick={() => handleSync()}
             disabled={isSyncing || !savesPath.length}
-            className={`button is-small ${
-              isSyncing ? 'is-primary' : 'settings'
+            className={`button is-small ${isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${
-              isSyncing
-                ? t('setting.manualsync.syncing')
-                : t('setting.manualsync.sync')
+            {`${isSyncing
+              ? t('setting.manualsync.syncing')
+              : t('setting.manualsync.sync')
             }`}
           </button>
         </span>
@@ -162,7 +172,7 @@ export default function SyncSaves({
       <InfoBox text="infobox.help">
         <ul>
           <li>{t('help.sync.part1')}</li>
-          <li>{t('help.sync.part2')}</li>
+          {!isWin && <li>{t('help.sync.part2')}</li>}
           <li>{t('help.sync.part3')}</li>
           <li>{t('help.sync.part4')}</li>
         </ul>

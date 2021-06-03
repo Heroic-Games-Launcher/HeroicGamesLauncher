@@ -38,6 +38,7 @@ export interface ContextType {
   handleSearch: (input: string) => void
   layout: string
   libraryStatus: GameStatus[]
+  platform: string
   refresh: () => Promise<void>
   refreshLibrary: () => void
   refreshing: boolean

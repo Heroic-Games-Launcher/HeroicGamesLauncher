@@ -16,7 +16,7 @@ import ContextProvider from './ContextProvider'
 
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
-const { dialog } = remote
+const { dialog, process } = remote
 const { showMessageBox } = dialog
 
 const renderer: IpcRenderer = ipcRenderer
@@ -114,6 +114,8 @@ export class GlobalState extends PureComponent<Props> {
                currentApp.status === 'moving'
           )
         })
+      case 'updates':
+        return library.filter(game => this.state.gameUpdates.includes(game.app_name))
       case 'unreal':
         return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
       case 'asset':
@@ -305,6 +307,7 @@ export class GlobalState extends PureComponent<Props> {
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handleSearch: this.handleSearch,
+          platform: process.platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary
         }}

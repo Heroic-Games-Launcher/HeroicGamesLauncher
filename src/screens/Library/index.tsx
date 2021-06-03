@@ -1,6 +1,9 @@
 import './index.css'
 
-import React, { lazy, useContext } from 'react'
+import React, {
+  lazy,
+  useContext
+} from 'react'
 
 import { GameInfo } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
