@@ -16,7 +16,7 @@ import ContextProvider from './ContextProvider'
 
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
-const { dialog } = remote
+const { dialog, process } = remote
 const { showMessageBox } = dialog
 
 const renderer: IpcRenderer = ipcRenderer
@@ -28,6 +28,7 @@ interface Props {
 }
 
 interface StateProps {
+  category: string
   data: GameInfo[]
   error: boolean
   filter: string
@@ -42,6 +43,7 @@ interface StateProps {
 
 export class GlobalState extends PureComponent<Props> {
   state: StateProps = {
+    category: 'games',
     data: [],
     error: false,
     filter: 'all',
@@ -80,34 +82,51 @@ export class GlobalState extends PureComponent<Props> {
   handleSearch = (input: string) => this.setState({ filterText: input })
   handleFilter = (filter: string) => this.setState({ filter })
   handleLayout = (layout: string) => this.setState({ layout })
+  handleCategory = (category: string) => this.setState({ category })
 
   filterLibrary = (library: GameInfo[], filter: string) => {
-    switch (filter) {
-    case 'installed':
-      return library.filter((game) => game.is_installed && game.is_game)
-    case 'uninstalled':
-      return library.filter((game) => !game.is_installed && game.is_game)
-    case 'downloading':
+    if (filter.includes('UE_')) {
       return library.filter((game) => {
-        const currentApp = this.state.libraryStatus.filter(
-          (app) => app.appName === game.app_name
-        )[0]
-        if (!currentApp) {
-          return false
+        if(!game.compatible_apps) {
+          return false;
         }
-        return (
-          currentApp.status === 'installing' ||
-            currentApp.status === 'repairing' ||
-            currentApp.status === 'updating' ||
-            currentApp.status === 'moving'
-        )
+        return game.compatible_apps.includes(filter)
       })
-    case 'unreal':
-      return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
-    case 'updates':
-      return library.filter(game => this.state.gameUpdates.includes(game.app_name))
-    default:
-      return library.filter((game) => game.is_game)
+
+    } else {
+      switch (filter) {
+      case 'installed':
+        return library.filter((game) => game.is_installed && game.is_game)
+      case 'uninstalled':
+        return library.filter((game) => !game.is_installed && game.is_game)
+      case 'downloading':
+        return library.filter((game) => {
+          const currentApp = this.state.libraryStatus.filter(
+            (app) => app.appName === game.app_name
+          )[0]
+          if (!currentApp || !game.is_game) {
+            return false
+          }
+          return (
+            currentApp.status === 'installing' ||
+              currentApp.status === 'repairing' ||
+              currentApp.status === 'updating' ||
+               currentApp.status === 'moving'
+          )
+        })
+      case 'updates':
+        return library.filter(game => this.state.gameUpdates.includes(game.app_name))
+      case 'unreal':
+        return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
+      case 'asset':
+        return library.filter((game) => game.is_ue_asset)
+      case 'plugin':
+        return library.filter((game) => game.is_ue_plugin)
+      case 'project':
+        return library.filter((game) => game.is_ue_project)
+      default:
+        return library.filter((game) => game.is_game)
+      }
     }
   }
 
@@ -232,11 +251,12 @@ export class GlobalState extends PureComponent<Props> {
   async componentDidMount() {
     const { i18n } = this.props
 
+    const category = storage.getItem('category') || 'games'
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
     i18n.changeLanguage(language)
-    this.setState({ filter, language, layout })
+    this.setState({ category, filter, language, layout })
 
     setTimeout(() => {
       this.checkVersion()
@@ -251,8 +271,9 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { filter, libraryStatus, layout } = this.state
+    const { filter, libraryStatus, layout, category } = this.state
 
+    storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
@@ -281,10 +302,12 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           data: filteredLibrary,
+          handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handleSearch: this.handleSearch,
+          platform: process.platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary
         }}

@@ -77,13 +77,13 @@ abstract class GameConfig {
     switch (version) {
     case 'v0':
       GameConfig.instances.set(appName, new GameConfigV0(appName))
-      break;
+      break
     case 'v0.1':
       GameConfig.instances.set(appName, new GameConfigV0_1(appName))
-      break;
+      break
     default:
       console.log(`GameConfig(${appName}): Invalid config version '${version}' requested.`)
-      break;
+      break
     }
     // Try to upgrade outdated config.
     if (GameConfig.instances.get(appName).upgrade()) {

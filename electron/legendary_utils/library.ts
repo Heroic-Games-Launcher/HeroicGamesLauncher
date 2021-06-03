@@ -1,11 +1,29 @@
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'graceful-fs'
-import prettyBytes from 'pretty-bytes'
+import {
+  existsSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync
+} from 'graceful-fs';
+import prettyBytes from 'pretty-bytes';
 
-import { GameConfig } from '../game_config'
-import { GameInfo, InstalledInfo, KeyImage, RawGameJSON } from '../types'
-import { LegendaryGame } from '../games'
-import { execAsync, isOnline } from '../utils'
-import { installed, legendaryBin, legendaryConfigPath, libraryPath } from '../constants'
+import { GameConfig } from '../game_config';
+import {
+  GameInfo,
+  InstalledInfo,
+  KeyImage,
+  RawGameJSON
+} from '../types';
+import { LegendaryGame } from '../games';
+import {
+  execAsync,
+  isOnline
+} from '../utils';
+import {
+  installed,
+  legendaryBin,
+  legendaryConfigPath,
+  libraryPath
+} from '../constants';
 
 /**
  * Legendary Library.
@@ -125,9 +143,14 @@ class Library {
       console.log('App offline, skipping checking game updates.')
       return []
     }
-    const command = `${legendaryBin} list-installed --check-updates --tsv | grep True | awk '{print $1}'`
+
+    const command = `${legendaryBin} list-installed --check-updates --tsv`
     const { stdout } = await execAsync(command)
-    const result = stdout.split('\n')
+    const result = stdout
+      .split('\n')
+      .filter((item) => item.includes('True'))
+      .map((item) => item.split('\t')[0])
+
     result.pop()
     return result
   }
@@ -393,4 +416,4 @@ class Library {
   }
 }
 
-export { Library }
+export { Library };
