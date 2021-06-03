@@ -75,7 +75,7 @@ export default function WineSettings({
   function removeCustomPath() {
     const newPaths = customWinePaths.filter((path) => path !== selectedPath)
     setCustomWinePaths(newPaths)
-    return setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
+    return setSelectedPath(newPaths.length ? newPaths[0] : '')
   }
 
   return (
@@ -84,12 +84,14 @@ export default function WineSettings({
         <span className="settingText">{t('setting.wineprefix')}</span>
         <span>
           <input
+            data-testid="selectWinePrefix"
             type="text"
             value={winePrefix}
             className="settingSelect"
             onChange={(event) => setWinePrefix(event.target.value)}
           />
           <CreateNewFolder
+            data-testid="addWinePrefix"
             className="material-icons settings folder"
             onClick={() =>
               dialog
@@ -112,6 +114,7 @@ export default function WineSettings({
           </span>
           <span className="settingInputWithButton">
             <select
+              data-testid="selectWinePath"
               disabled={!customWinePaths.length}
               className="settingSelect"
               defaultValue={selectedPath}
@@ -124,6 +127,7 @@ export default function WineSettings({
             </select>
             <div className="iconsWrapper">
               <RemoveCircleIcon
+                data-testid="removeWinePath"
                 onClick={() => removeCustomPath()}
                 style={{
                   color: selectedPath ? 'var(--danger)' : 'var(--background)',
@@ -133,6 +137,7 @@ export default function WineSettings({
                 titleAccess={t('tooltip.removepath', 'Remove Path')}
               />{' '}
               <AddBoxIcon
+                data-testid="addWinePath"
                 onClick={() => selectCustomPath()}
                 className={`is-primary`}
                 style={{ color: 'var(--success)', cursor: 'pointer' }}
@@ -146,6 +151,7 @@ export default function WineSettings({
       <span className="setting">
         <span className="settingText">{t('setting.wineversion')}</span>
         <select
+          data-testid="setWineVersion"
           onChange={(event) =>
             setWineVersion(
               altWine.filter(({ name }) => name === event.target.value)[0]
