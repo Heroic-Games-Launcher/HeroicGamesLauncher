@@ -118,7 +118,7 @@ function Settings() {
     cloudSaveEnabled: false,
     saveFolder: ''
   })
-  const [autoSyncSaves, setAutoSyncSaves] = useState(true)
+  const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const { appName, type } = useParams() as RouteParams
