@@ -272,10 +272,10 @@ class Library {
     const gameBoxTall = is_game ?
       keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
       gameBox
-    
+
     const gameBoxStore = is_game ?
       keyImages.filter(({ type }: KeyImage) => type === 'dieselStoreFrontTall' )[0] :
-      gameBox 
+      gameBox
 
     const logo = is_game ?
       keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
