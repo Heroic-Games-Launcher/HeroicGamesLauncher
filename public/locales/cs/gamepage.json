@@ -1,0 +1,96 @@
+{
+    "box": {
+        "change": {
+            "message": "Tímto se změní umístění instalace této hry, jste si jisti?",
+            "path": "Vyberte novou cestu pro instalaci",
+            "title": "Změnit cestu instalace her"
+        },
+        "choose": "Vybrat",
+        "importpath": "Vybrerte složku hry pro importování",
+        "installpath": "Vybrat cestu pro instalaci",
+        "move": {
+            "message": "Toto může chvíli trvat, jste si jisti?",
+            "path": "Vyberte, kam chcete hru přesunout",
+            "title": "Přesunout instalaci hry"
+        },
+        "no": "NE",
+        "repair": {
+            "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
+            "title": "Zkontrolovat a opravit"
+        },
+        "stopInstall": {
+            "keepInstalling": "Pokračovat v instalaci",
+            "message": "Chcete ponechat stažené soubory?",
+            "title": "Zastavit instalaci"
+        },
+        "uninstall": {
+            "message": "Chcete odinstalovat tuto hru?",
+            "title": "Odinstalovat"
+        },
+        "update": {
+            "message": "Tato hra má aktualizaci, přejete si ji aktualizovat teď?",
+            "title": "Hra vyžaduje akualizaci"
+        },
+        "yes": "ANO"
+    },
+    "button": {
+        "cancel": "Zrušit",
+        "continue": "Continue Download",
+        "import": "Importovat",
+        "install": "Instalovat",
+        "uninstall": "Odinstalovat"
+    },
+    "disabled": "Zakázáno",
+    "enabled": "Povoleno",
+    "gamecard": {
+        "moving": "Přesouvám",
+        "repairing": "Opravuji"
+    },
+    "info": {
+        "path": "Cesta pro instalaci",
+        "size": "Velikost",
+        "syncsaves": "Synchronizovat uložené soubory",
+        "version": "Verze"
+    },
+    "install": {
+        "another": "Instalovat na jinou cestu",
+        "default": "Instalovat do",
+        "import": "Importovat hru"
+    },
+    "label": {
+        "cancel": {
+            "update": "Zrušit aktualizaci"
+        },
+        "playing": {
+            "start": "Hrát",
+            "stop": "Hraji (Zastavit)"
+        },
+        "saves": {
+            "syncing": "Synchronizuji uložené soubory"
+        }
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Doporučené"
+    },
+    "status": {
+        "hasUpdates": "Nová verze dostupná!",
+        "installed": "Nainstalováno",
+        "installing": "Instaluji",
+        "moving": "Přesouvám instalaci, čekejte prosím",
+        "notinstalled": "Tato hra není nainstalována",
+        "reparing": "Opravuji hru, čekejte prosím",
+        "totalDownloaded": "Total Downloaded",
+        "updating": "Aktualizuji hru"
+    },
+    "submenu": {
+        "change": "Změnit cestu instalace",
+        "log": "Nejnovější záznam",
+        "move": "Přesunout hru",
+        "protondb": "Zkontrolovat kompatibilitu",
+        "settings": "Nastavení",
+        "store": "Stránka obchodu",
+        "update": "Aktualizovat hru",
+        "verify": "Zkontrolovat a opravit"
+    }
+}

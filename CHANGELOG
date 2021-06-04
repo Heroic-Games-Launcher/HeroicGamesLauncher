@@ -1,0 +1,15 @@
+## Version 1.7.0
+
+### New Features
+- Heroic now will continue the download status from where it stopped instead of getting back from 0% everytime.
+- Added option to enable Nvidia Prime Render Offload on settings
+- Added a Wiki button to NavBar
+
+### Bugfixes
+- Fixed an old bug where big installations could be interrupted #195
+- Fixed another old bug where Heroic wasn't finding Steam Proton on Ubuntu and derivatives #359
+- Fixed missing Unreal Marketplace Assets introduced on 1.6.1 #367
+
+### Other Stuff
+- Updated Electron to version 12, making it use less resources. In some cases almost 15% less RAM (from around 140MB to 115MB sometimes)
+- Removed some other dependencies that might give some better performance overall as well.

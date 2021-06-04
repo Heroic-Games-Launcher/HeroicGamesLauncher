@@ -1,18 +1,26 @@
 import React from 'react'
-import { ContextType } from '../types'
+
+const { remote: { process } } = window.require('electron')
+import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
-  user: '',
+  category: 'games',
   data: [],
-  libraryStatus: [],
-  refreshing: false,
-  filter: 'all',
   error: false,
-  refresh: () => null,
-  refreshLibrary: () => null,
-  handleGameStatus: () => null,
-  handleSearch: () => null,
+  filter: 'all',
+  gameUpdates: [],
+  handleCategory: () => null,
   handleFilter: () => null,
+  handleGameStatus: () => Promise.resolve(),
+  handleLayout: () => null,
+  handleSearch: () => null,
+  layout: 'grid',
+  libraryStatus: [],
+  platform: process?.platform || 'linux',
+  refresh: () => Promise.resolve(),
+  refreshLibrary: () => Promise.resolve(),
+  refreshing: false,
+  user: ''
 }
 
 export default React.createContext(initialContext)

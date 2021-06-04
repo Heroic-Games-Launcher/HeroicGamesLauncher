@@ -1,0 +1,24 @@
+{
+    "button": {
+        "login": "Entrar"
+    },
+    "input": {
+        "placeholder": "Cole o número SID aqui"
+    },
+    "message": {
+        "part1": "Para que você possa entrar e instalar os teus jogos, é necessário seguir os seguintes passos:",
+        "part2": "Abra a",
+        "part3": "Loja da Epic aqui",
+        "part4": ", entre na tua conta e copie o",
+        "part5": "\"sid\" exibido",
+        "part6": "Cole apenas o",
+        "part7": "código \"sid\"",
+        "part8": "na caixa abaixo e clique em Entrar."
+    },
+    "status": {
+        "error": "Erro",
+        "loading": "Carregando lista de jogos",
+        "logging": "Entrando..."
+    },
+    "welcome": "Bem Vindo!"
+}

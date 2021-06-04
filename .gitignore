@@ -24,7 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 .eslintcache
 
-public/main.js
-public/types.js
-public/utils.js
+public/**/*.js
 .vscode/settings.json

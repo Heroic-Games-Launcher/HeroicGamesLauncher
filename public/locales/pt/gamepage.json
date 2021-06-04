@@ -1,0 +1,96 @@
+{
+    "box": {
+        "change": {
+            "message": "Isso irá alterar o local the instalação do jogo, você tem certeza?",
+            "path": "Selecione a pasta",
+            "title": "Modificar local de instalação do Jogo"
+        },
+        "choose": "Selecionar",
+        "importpath": "Escolha a pasta do jogo para importar",
+        "installpath": "Escolha a pasta de instalação",
+        "move": {
+            "message": "Isso pode levar bastante tempo, continuar?",
+            "path": "Escolha a pasta de destino",
+            "title": "Mover Games para outra pasta"
+        },
+        "no": "NÃO",
+        "repair": {
+            "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo.",
+            "title": "Verificar e Reparar"
+        },
+        "stopInstall": {
+            "keepInstalling": "Continuar Instalação",
+            "message": "Deseja manter os arquivos baixados?",
+            "title": "Cancelar Instalação"
+        },
+        "uninstall": {
+            "message": "Você deseja desinstalar esse jogo?",
+            "title": "Desinstalar"
+        },
+        "update": {
+            "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
+            "title": "Atualização!"
+        },
+        "yes": "SIM"
+    },
+    "button": {
+        "cancel": "Cancelar",
+        "continue": "Continuar Download",
+        "import": "Importar",
+        "install": "Instalar",
+        "uninstall": "Desinstalar"
+    },
+    "disabled": "Desabilitado",
+    "enabled": "Habilitado",
+    "gamecard": {
+        "moving": "Movendo",
+        "repairing": "Reparando"
+    },
+    "info": {
+        "path": "Pasta de Instalação",
+        "size": "Tamanho",
+        "syncsaves": "Sincronização em Nuvem",
+        "version": "Versão"
+    },
+    "install": {
+        "another": "Instalar em outro local",
+        "default": "Instalar em",
+        "import": "Importar Jogo"
+    },
+    "label": {
+        "cancel": {
+            "update": "Cancelar"
+        },
+        "playing": {
+            "start": "Jogar",
+            "stop": "Jogando (Parar)"
+        },
+        "saves": {
+            "syncing": "Sincronizando"
+        }
+    },
+    "specs": {
+        "minimum": "Mínimo",
+        "recommended": "Recomendado"
+    },
+    "status": {
+        "hasUpdates": "Nova versão disponível!",
+        "installed": "Jogo Instalado",
+        "installing": "Instalando",
+        "moving": "Movendo Jogo, por favor espere",
+        "notinstalled": "Jogo não instalado",
+        "reparing": "Reparando jogo, por favor espere",
+        "totalDownloaded": "Total Baixado",
+        "updating": "Atualizando jogo"
+    },
+    "submenu": {
+        "change": "Modificar local de instalação",
+        "log": "Último Log",
+        "move": "Mover Jogo",
+        "protondb": "Compatibilidade",
+        "settings": "Configurações",
+        "store": "Página da Loja",
+        "update": "Atualizar Jogo",
+        "verify": "Verificar e Reparar"
+    }
+}

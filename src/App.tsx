@@ -1,39 +1,42 @@
-import React, { useContext } from 'react'
+import React, { lazy, useContext } from 'react'
 
 import './App.css'
-import { Library } from './components/Library'
-import Login from './components/Login'
-import { HashRouter, Switch, Route } from 'react-router-dom'
-import NavBar from './components/NavBar'
-import Settings from './components/Settings'
-import GamePage from './components/GamePage/GamePage'
-import Header from './components/UI/Header'
+import { HashRouter, Route, Switch } from 'react-router-dom'
+import { Library } from './screens/Library'
 import ContextProvider from './state/ContextProvider'
+
+const NavBar = lazy(() => import('./components/Navbar'))
+const Settings = lazy(() => import('./screens/Settings'))
+const GamePage = lazy(() => import('./screens/Game/GamePage'))
+const Header = lazy(() => import('./components/UI/Header'))
+const Login = lazy(() => import('./screens/Login'))
 
 function App() {
   const context = useContext(ContextProvider)
 
-  const { user, data: library, refresh, handleFilter } = context
+  const { user, data: library, refresh } = context
 
   if (!user && !library.length) {
     return <Login refresh={refresh} />
   }
 
-  const numberOfGames = library.length
-
+  const dlcCount = library.filter((lib) => lib.install.is_dlc)
+  const numberOfGames = library.length - dlcCount.length
   return (
     <div className="App">
       <HashRouter>
         <NavBar />
         <Switch>
           <Route exact path="/">
-            <Header
-              goTo={''}
-              renderBackButton={false}
-              handleFilter={handleFilter}
-              numberOfGames={numberOfGames}
-            />
-            <Library library={library} />
+            <div className="content">
+              <Header
+                goTo={''}
+                renderBackButton={false}
+                numberOfGames={numberOfGames}
+              />
+              <div id="top"></div>
+              <Library library={library} />
+            </div>
           </Route>
           <Route exact path="/gameconfig/:appName" component={GamePage} />
           <Route path="/settings/:appName/:type" component={Settings} />

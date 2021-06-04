@@ -1,0 +1,186 @@
+{
+    "All": "Tümü",
+    "box": {
+        "appupdate": {
+            "message": "Heroic'in yeni sürümü mevcut, şimdi güncellemek ister misin?",
+            "title": "Güncelleme Mevcut"
+        },
+        "choose": "Seç",
+        "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
+        "customWine": "Wine ya da Proton Dosyasını Seçin",
+        "default-install-path": "Varsayılan Yükleme Yerini Seçin",
+        "error": {
+            "diskspace": {
+                "message": "Yeterli alan mevcut değil",
+                "title": "Alan Yok"
+            },
+            "generic": {
+                "message": "Bilinmeyen bir hata oluştu",
+                "title": "Bilinmeyen hata"
+            },
+            "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!"
+        },
+        "no": "HAYIR",
+        "quit": {
+            "message": "Bitmemiş işlemler var, emin misin?",
+            "title": "Çık"
+        },
+        "runexe": {
+            "title": "Çalıştırılacak EXE'yi Seçin"
+        },
+        "select": "Seç",
+        "sync": {
+            "button": "Seç",
+            "error": "Geçersiz Yol",
+            "title": "Kayıtların olduğu klasörü seçin"
+        },
+        "wineprefix": "Wine Klasörünü Seçin",
+        "yes": "EVET"
+    },
+    "button": {
+        "sync": "Eşzamanla",
+        "syncing": "Eşzamanlanıyor",
+        "unsync": "Eşzamanlamayı kaldır"
+    },
+    "Downloading": "İndiriliyor",
+    "Filter": "Filtre",
+    "globalSettings": "Genel Ayarlar",
+    "help": {
+        "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
+        "other": {
+            "part1": "Oyun başlatılmadan önce çağırılması için ",
+            "part2": "Gelişmiş Seçenekler",
+            "part3": "'i kullanın; ",
+            "part4": "Oyunu başlatma komutuna eklenmesi için ",
+            "part5": "Oyun Parametleri",
+            "part6": " 'ni kullanın, örneğin bazı oyunlarda başlatıcıyı atlamak için: ",
+            "part7": " gibi."
+        },
+        "sync": {
+            "part1": "Heroic doğru kayıt klasörünü algılamaya çalışır ve bu çoğu zaman çalışıyor. Eğer klasör yanlışsa, değiştirmek için geçersiz kıl kutucuğunu kullan.",
+            "part2": "Wine ya da Proton klasörünü değiştirmek isterseniz, Proton farklı bir yol (/pfx) ve kullanıcı adı (steamuser) kullandığı için yolu tekrar gözden geçirmeniz gerekecek. Heroic'in doğru klasörü bir kez daha tahmin etmesi için basitçe eşzamanlama ayarlarından geçerli yolu silebilir ve tekrar geri dönebilirsiniz.",
+            "part3": "Elle Eşzamanla: Bulutta depolanan oyun kayıtlarını indirmek için İndir seçeneğini seçin. Yerel kayıtları buluta yüklemek için Karşıya Yükle seçeneğini seçin. İndirmeye Zorla ve Karşıya Yüklemeye Zorla yerel veya buluttaki sürümü dikkate almayacaktır.",
+            "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
+        },
+        "wine": {
+            "part1": "Heroic Wine ve Proton sürümlerini şu klasörlerde arar:",
+            "part2": "Diğer yerler için bu klasörlerden birisine sembolik link kullanın"
+        }
+    },
+    "info": {
+        "settings": "Ayarlar otomatik kaydedilir"
+    },
+    "infobox": {
+        "help": "Yardım",
+        "requirements": "Sistem Gereksinimleri"
+    },
+    "Library": "Kütüphane",
+    "message": {
+        "sync": "Eşzamanlama Tamamlandı",
+        "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
+    },
+    "nogames": "Oyun Bulunamadı",
+    "Not Ready": "Hazır Değil",
+    "notify": {
+        "finished": {
+            "reparing": "Onarım Tamamlandı"
+        },
+        "install": {
+            "canceled": "Yükleme İptal Edildi",
+            "finished": "Yükleme Tamamlandı"
+        },
+        "moved": "Taşıma Tamamlandı",
+        "refreshed": "Kütüphane Yenilendi",
+        "refreshing": "Yenileniyor",
+        "uninstalled": "Kaldırıldı",
+        "update": {
+            "canceled": "Güncelleme İptal Edildi",
+            "finished": "Güncelleme Tamamlandı"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "Diğer başlatma seçeneklerini buraya girin",
+            "title": "Gelişmiş Seçenekler (Ortam Değişkenleri):"
+        },
+        "gameargs": {
+            "placeholder": "Başlatma Parametrelerini buraya girin",
+            "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):"
+        }
+    },
+    "placeholder": {
+        "egs-prefix": "EGS'nin kurulu olduğu yer"
+    },
+    "Ready": "Hazır",
+    "Return": "Geri",
+    "search": "Buraya oyun adı girin...",
+    "setting": {
+        "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
+        "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
+        "autosync": "Kayıtları Otomatik Eşzamanla",
+        "customWineProton": "Özel Wine/Proton Yolları",
+        "darktray": "Karanlık Tepsi İkonu Kullan (yeniden başlatma gerektirir)",
+        "default-install-path": "Varsayılan Kurulum Yeri",
+        "egs-sync": "Kurulu Epic Games ile Eşzamanla",
+        "exit-to-tray": "Sistem Tepsisine Küçült",
+        "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
+        "language": "Uygulama Dilini Seç",
+        "mangohud": "Mangohud'u Etkinleştir (Mangohud yüklü olmalıdır)",
+        "manualsync": {
+            "download": "İndir",
+            "forcedownload": "İndirmeye Zorla",
+            "forceupload": "Karşıya Yüklemeye Zorla",
+            "sync": "Eşzamanla",
+            "syncing": "Eşzamanlanıyor",
+            "title": "Kayıtları Elle Eşzamanla",
+            "upload": "Karşıya Yükle"
+        },
+        "maxworkers": "İndirirken Maksimum İşçi Sayısı",
+        "offlinemode": "Oyunu Çevrimdışı Çalıştır",
+        "primerun": "Nvidia Prime Render'ı Etkinleştir",
+        "runexe": {
+            "message": "Dosyaları buraya Sürükle ve Bırak",
+            "title": "Exe Çalıştır"
+        },
+        "savefolder": {
+            "placeholder": "Tam oyun kaydetme klasörünü seçin",
+            "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
+        },
+        "showfps": "FPS'i Göster (DX9, 10 and 11)",
+        "wineprefix": "WinePrefix klasörü",
+        "wineversion": "Wine Versiyonu"
+    },
+    "Settings": "Ayarlar",
+    "settings": {
+        "navbar": {
+            "general": "Genel",
+            "other": "Diğer",
+            "sync": "Kaydet-Eşzamanla"
+        }
+    },
+    "store": "Mağaza",
+    "tooltip": {
+        "addpath": "Yeni Yol Ekle",
+        "removepath": "Yolu Kaldır"
+    },
+    "Total Games": "Toplam Oyun",
+    "tray": {
+        "about": "Hakkında",
+        "quit": "Çık",
+        "reload": "Yenile",
+        "show": "Göster",
+        "support": "Bizi Destekle"
+    },
+    "Unreal Marketplace": "Unreal Mağazası",
+    "Updates": "Güncellemeler",
+    "userselector": {
+        "about": "Hakkında",
+        "discord": "Discord",
+        "logout": "Çıkış Yap",
+        "logout_confirmation": "Logout?",
+        "quit": "Çık",
+        "refresh": "Kütüphaneyi Yenile",
+        "support": "Bizi Destekle"
+    },
+    "wiki": "Wiki"
+}
