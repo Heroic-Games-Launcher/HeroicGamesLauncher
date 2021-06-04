@@ -338,7 +338,7 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     }, 2000)
   }
 
-  const folderToDelete = `${path}/${folderName}`
+  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
   return setTimeout(() => {
     rmdirSync(folderToDelete, {recursive: true})
   }, 2000)
