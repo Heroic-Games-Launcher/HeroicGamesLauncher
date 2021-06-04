@@ -42,6 +42,7 @@ export default function WineSettings({
   isDefault
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
+  const isProton = wineVersion.name.includes('Proton')
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -158,6 +159,7 @@ export default function WineSettings({
             <option key={name}>{name}</option>
           ))}
         </select>
+        {isProton && <span className="warning">{t('warning.proton', 'Proton outside of Steam is not supported. Do not open issues or ask support about it.')}</span>}
       </span>
       <span className="setting">
         <span className="toggleWrapper">

@@ -134,3 +134,11 @@
   font-size: 28px;
   margin-left: 6px;
 }
+
+.warning {
+  color: yellow;
+  font-size: 12px;
+  width: 513px;
+  white-space: break-spaces;
+  padding-top: 4px;
+}
