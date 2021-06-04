@@ -1,5 +1,6 @@
 {
     "All": "Tümü",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Heroic'in yeni sürümü mevcut, şimdi güncellemek ister misin?",
@@ -44,6 +45,7 @@
     },
     "Downloading": "İndiriliyor",
     "Filter": "Filtre",
+    "Games": "Games",
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -111,6 +113,8 @@
     "placeholder": {
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Hazır",
     "Return": "Geri",
     "search": "Buraya oyun adı girin...",
@@ -181,6 +185,9 @@
         "quit": "Çık",
         "refresh": "Kütüphaneyi Yenile",
         "support": "Bizi Destekle"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask support about it."
     },
     "wiki": "Wiki"
 }

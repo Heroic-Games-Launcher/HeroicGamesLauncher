@@ -1,5 +1,6 @@
 {
     "All": "Todos",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
@@ -44,6 +45,7 @@
     },
     "Downloading": "Descargando",
     "Filter": "Filtrar",
+    "Games": "Games",
     "globalSettings": "Ajustes globales",
     "help": {
         "general": "Sincronice con EGS en caso de que tenga una instalación funcional de EGS en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -111,6 +113,8 @@
     "placeholder": {
         "egs-prefix": "Prefix donde está instalado EGS"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Listo",
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
@@ -181,6 +185,9 @@
         "quit": "Salir",
         "refresh": "Refresar Biblioteca",
         "support": "Apoyanos"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask support about it."
     },
     "wiki": "Wiki"
 }

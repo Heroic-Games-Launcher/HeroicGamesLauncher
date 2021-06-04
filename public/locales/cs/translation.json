@@ -1,5 +1,6 @@
 {
     "All": "All",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "K dispozici je nová aktualizace pro Heroic, chcete aktualizovat nyní?",
@@ -44,6 +45,7 @@
     },
     "Downloading": "Stahování",
     "Filter": "Filtr",
+    "Games": "Games",
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -111,6 +113,8 @@
     "placeholder": {
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Připraveno",
     "Return": "Zpět",
     "search": "Zde zadejte název hry...",
@@ -181,6 +185,9 @@
         "quit": "Ukončit",
         "refresh": "Obnovit knihovnu",
         "support": "Podpořte nás"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask support about it."
     },
     "wiki": "Wiki"
 }

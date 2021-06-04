@@ -1,5 +1,6 @@
 {
     "All": "Tudo",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Nove versão do Heroic lançada. Deseja atualizar agora?",
@@ -44,6 +45,7 @@
     },
     "Downloading": "Baixando",
     "Filter": "Filtro",
+    "Games": "Games",
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
@@ -111,6 +113,8 @@
     "placeholder": {
         "egs-prefix": "Prefix onde a Epic Games está instalada"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Baixados",
     "Return": "Voltar",
     "search": "Digite o nome do jogo...",
@@ -181,6 +185,9 @@
         "quit": "Fechar",
         "refresh": "Atualizar Biblioteca",
         "support": "Apoie-nos"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask support about it."
     },
     "wiki": "Wiki"
 }

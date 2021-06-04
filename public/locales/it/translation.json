@@ -1,5 +1,6 @@
 {
     "All": "Tutto",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "C'è una nuova versione di Heroic disponibile, vuoi aggiornare ora?",
@@ -44,6 +45,7 @@
     },
     "Downloading": "Download in corso",
     "Filter": "Filtra",
+    "Games": "Games",
     "globalSettings": "Impostazioni globali",
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
@@ -111,6 +113,8 @@
     "placeholder": {
         "egs-prefix": "Prefix dove è installato EGS"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Pronto",
     "Return": "Torna indietro",
     "search": "Inserisci qui il nome del gioco...",
@@ -181,6 +185,9 @@
         "quit": "Esci",
         "refresh": "Aggiorna libreria",
         "support": "Supportaci"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask support about it."
     },
     "wiki": "Wiki"
 }

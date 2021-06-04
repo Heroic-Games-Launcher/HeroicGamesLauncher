@@ -1,5 +1,6 @@
 {
     "All": "Összes",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
@@ -44,6 +45,7 @@
     },
     "Downloading": "Letöltés",
     "Filter": "Szűrő",
+    "Games": "Games",
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -111,6 +113,8 @@
     "placeholder": {
         "egs-prefix": "Prefix ahol EGS telepítve van"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Kész",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
@@ -181,6 +185,9 @@
         "quit": "Kilépés",
         "refresh": "Könyvtár frissítése",
         "support": "Támogass minket"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask support about it."
     },
     "wiki": "Wiki"
 }

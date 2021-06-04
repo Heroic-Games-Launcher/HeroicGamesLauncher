@@ -82,14 +82,14 @@ export default function Header({
             className={category === 'games' ? 'selected' : ''}
             onClick={() => toggleCategory('games')}
           >
-            {t('Games')}
+            {t('Games', 'Games')}
           </span>
           <span
             data-testid="unrealCategory"
             className={category === 'unreal' ? 'selected' : ''}
             onClick={() => toggleCategory('unreal')}
           >
-            {t('Unreal')}
+            {t('Unreal Marketplace', 'Unreal Marketplace')}
           </span>
         </span>
         {category === 'games' && (
@@ -147,21 +147,21 @@ export default function Header({
               className={filter === 'asset' ? 'selected' : ''}
               onClick={() => handleFilter('asset')}
             >
-              {t('Assets')}
+              {t('Assets', 'Assets')}
             </span>
             <span
               data-testid="plugin"
               className={filter === 'plugin' ? 'selected' : ''}
               onClick={() => handleFilter('plugin')}
             >
-              {t('Plugins')}
+              {t('Plugins', 'Plugins')}
             </span>
             <span
               data-testid="project"
               className={filter === 'project' ? 'selected' : ''}
               onClick={() => handleFilter('project')}
             >
-              {t('Projects')}
+              {t('Projects', 'Projects')}
             </span>
             <select
               data-testid="ueVersionSelect"
