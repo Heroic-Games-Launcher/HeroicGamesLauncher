@@ -94,6 +94,7 @@ export default function SyncSaves({
         <span className="settingText">{t('setting.savefolder.title')}</span>
         <span>
           <input
+            data-testid="inputSavePath"
             type="text"
             placeholder={t('setting.savefolder.placeholder')}
             className="settingSelect"
@@ -101,25 +102,25 @@ export default function SyncSaves({
             disabled={isSyncing}
             onChange={(event) => setSavesPath(event.target.value)}
           />
-          {!savesPath.length ? (
+          {!isLinked ? (
             <CreateNewFolder
+              data-testid="selectSavePath"
               className="material-icons settings folder"
               style={{ color: '#B0ABB6' }}
               onClick={() =>
-                isLinked
-                  ? ''
-                  : showOpenDialog({
-                    buttonLabel: t('box.sync.button'),
-                    properties: ['openDirectory'],
-                    title: t('box.sync.title')
-                  })
-                    .then(({ filePaths }: Path) =>
-                      setSavesPath(filePaths[0] ? `${filePaths[0]}\\` : '')
-                    )
+                showOpenDialog({
+                  buttonLabel: t('box.sync.button'),
+                  properties: ['openDirectory'],
+                  title: t('box.sync.title')
+                })
+                  .then(({ filePaths }: Path) =>
+                    setSavesPath(filePaths[0] ? filePaths[0] : '')
+                  )
               }
             />
           ) : (
             <Backspace
+              data-testid="removeSavePath"
               className="material-icons settings folder"
               onClick={() => setSavesPath('')}
               style={{ color: '#B0ABB6' }}
@@ -137,6 +138,7 @@ export default function SyncSaves({
           }}
         >
           <select
+            data-testid="selectSyncType"
             onChange={(event) => setSyncType(event.target.value as SyncType)}
             value={syncType}
             disabled={!savesPath.length}
@@ -147,6 +149,7 @@ export default function SyncSaves({
             ))}
           </select>
           <button
+            data-testid="setSync"
             onClick={() => handleSync()}
             disabled={isSyncing || !savesPath.length}
             className={`button is-small ${isSyncing ? 'is-primary' : 'settings'

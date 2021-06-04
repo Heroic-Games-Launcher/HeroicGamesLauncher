@@ -29,7 +29,7 @@ const game: GameInfo = {
   is_ue_plugin: false,
   is_ue_project: false,
   namespace: null,
-  save_folder: 'save_folder',
+  save_folder: '{appdata}/../locallow',
   title: 'title'
 };
 

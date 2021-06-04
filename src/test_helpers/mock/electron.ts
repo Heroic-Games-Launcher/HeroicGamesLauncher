@@ -8,5 +8,8 @@ export const remote = {
     showErrorBox: jest.fn(),
     showMessageBox: jest.fn(),
     showOpenDialog: jest.fn()
+  },
+  process: {
+    platform: 'linux'
   }
 };
