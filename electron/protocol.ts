@@ -1,7 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { LegendaryGame } from './games'
 
-// TODO(adityaruplaha): Translate strings used here.
 export async function handleProtocol(window : BrowserWindow, url : string) {
   const [scheme, path] = url.split('://')
   if (!url || scheme !== 'heroic' || !path) {
@@ -13,7 +12,6 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
     return console.log('Received ping!', appName)
   }
   const game = LegendaryGame.get(appName)
-  console.log({appName, game});
   if (command === 'launch') {
     const { is_installed } = await game.getGameInfo()
     if (!is_installed) {
