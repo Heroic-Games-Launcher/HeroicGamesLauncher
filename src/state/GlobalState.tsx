@@ -131,7 +131,7 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   handleGameStatus = async ({ appName, status }: GameStatus) => {
-    const { libraryStatus } = this.state
+    const { libraryStatus, gameUpdates } = this.state
     const { t } = this.props
     const currentApp =
       libraryStatus.filter((game) => game.appName === appName)[0] || {}
@@ -173,7 +173,8 @@ export class GlobalState extends PureComponent<Props> {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
-      this.setState({ libraryStatus: updatedLibraryStatus })
+      const updatedGamesUpdates = gameUpdates.filter(game => game !== appName)
+      this.setState({ gameUpdates: updatedGamesUpdates, libraryStatus: updatedLibraryStatus })
 
       const progress = await renderer.invoke('requestGameProgress', appName)
       const percent = getProgress(progress)
@@ -250,32 +251,32 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n } = this.props
+    const { gameUpdates } = this.state
 
     const category = storage.getItem('category') || 'games'
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
+    if (!gameUpdates.length){
+      const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
+      this.setState({gameUpdates: storedGameUpdates})
+    }
     i18n.changeLanguage(language)
     this.setState({ category, filter, language, layout })
 
     setTimeout(() => {
       this.checkVersion()
     }, 4500)
-
-    await this.refresh()
-
-    const { data, user } = this.state
-    if (user && !data.length) {
-      this.refreshLibrary()
-    }
+    this.refreshLibrary(true)
   }
 
   componentDidUpdate() {
-    const { filter, libraryStatus, layout, category } = this.state
+    const { filter, gameUpdates, libraryStatus, layout, category } = this.state
 
     storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
+    storage.setItem('updates', JSON.stringify(gameUpdates))
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
       .length
     if (pendingOps) {
