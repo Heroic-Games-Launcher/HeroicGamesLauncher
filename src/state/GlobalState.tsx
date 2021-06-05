@@ -207,7 +207,7 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ libraryStatus: updatedLibraryStatus })
       notify([title, t('notify.uninstalled')])
 
-      return this.refresh()
+      return this.refreshLibrary()
     }
 
     if (currentApp && currentApp.status === 'moving' && status === 'done') {

@@ -118,7 +118,6 @@ async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void
       )
     }
   }
-  return genericErrorMessage()
 }
 
 function genericErrorMessage(): void {

@@ -1,4 +1,4 @@
-import { GameInfo, GameStatus, InstallProgress } from 'src/types'
+import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer, Remote } from 'electron'
 
 import { TFunction } from 'react-i18next'
@@ -34,6 +34,7 @@ type InstallArgs = {
 
 async function install({appName, installPath, t, progress, isInstalling, handleGameStatus, previousProgress, setInstallPath}: InstallArgs) {
   const {folder_name, is_game, is_installed}: GameInfo = await getGameInfo(appName)
+  //Fix  Remove files when canceling (again)
   if (isInstalling) {
     return handleStopInstallation(appName, [installPath, folder_name], t, progress)
   }
@@ -74,12 +75,12 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
 
     if (filePaths[0]) {
       const path = `'${filePaths[0]}'`
+      setInstallPath && setInstallPath(path)
       // If the user changed the previous folder, the percentage should start from zero again.
       if (previousProgress.folder !== path) {
         storage.removeItem(appName)
       }
       handleGameStatus({ appName, status: 'installing' })
-      setInstallPath && setInstallPath(path)
       await ipcRenderer.invoke('install', { appName, path })
 
       if (progress.percent === '100%') {
@@ -91,6 +92,10 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
 
   if (is_game) {
     // If the user changed the previous folder, the percentage should start from zero again.
+    const {
+      defaultInstallPath: installPath
+    }: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
+
     if (previousProgress.folder !== installPath) {
       storage.removeItem(appName)
     }
