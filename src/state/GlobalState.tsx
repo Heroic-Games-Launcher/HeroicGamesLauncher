@@ -254,7 +254,10 @@ export class GlobalState extends PureComponent<Props> {
   async componentDidMount() {
     const { i18n, t } = this.props
     const { gameUpdates } = this.state
-    ipcRenderer.once('launchGame', async (e, appName) => await launch(appName, t, this.handleGameStatus))
+    ipcRenderer.once('launchGame', async (e, appName) => {
+      await this.handleGameStatus({ appName, status: 'playing' })
+      await launch(appName, t, this.handleGameStatus)
+    })
 
     const category = storage.getItem('category') || 'games'
     const filter = storage.getItem('filter') || 'all'
