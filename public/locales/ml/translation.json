@@ -11,6 +11,10 @@
         "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ തറരേഖ(Binary file) നല്‍കൂ",
         "default-install-path": "പൊതു ഇന്‍സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "തകിടില്‍(disk) ആവശ്യത്തിന് സ്ഥലമില്ലല്ലോ",
                 "title": "സ്ഥലമില്ല"
@@ -19,7 +23,8 @@
                 "message": "എന്തോ കുഴപ്പം പറ്റിയിട്ടുണ്ട്",
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
-            "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!"
+            "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "വേണ്ട",
         "quit": {

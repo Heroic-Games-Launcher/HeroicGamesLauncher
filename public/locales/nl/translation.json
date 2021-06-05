@@ -11,6 +11,10 @@
         "customWine": "Selecteer de Wine of Proton Binary",
         "default-install-path": "Kies een standaard map",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Geen ruimte beschikbaar op de harde schijf",
                 "title": "Niet genoeg opslag"
@@ -19,7 +23,8 @@
                 "message": "Er is een onbekende fout opgetreden",
                 "title": "Onbekende fout"
             },
-            "launch": "Een probleem tijdens het lanceren van een spel, check de logs!"
+            "launch": "Een probleem tijdens het lanceren van een spel, check de logs!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "NEE",
         "quit": {

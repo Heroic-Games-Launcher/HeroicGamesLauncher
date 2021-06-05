@@ -11,6 +11,10 @@
         "customWine": "Wine ya da Proton Dosyasını Seçin",
         "default-install-path": "Varsayılan Yükleme Yerini Seçin",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Yeterli alan mevcut değil",
                 "title": "Alan Yok"
@@ -19,7 +23,8 @@
                 "message": "Bilinmeyen bir hata oluştu",
                 "title": "Bilinmeyen hata"
             },
-            "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!"
+            "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "HAYIR",
         "quit": {

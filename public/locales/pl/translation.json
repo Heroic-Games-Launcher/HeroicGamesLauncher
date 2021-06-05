@@ -11,6 +11,10 @@
         "customWine": "Wybierz plik uruchomieniowy Wine albo Proton",
         "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Za mało miejsca na dysku",
                 "title": "Brak miejsca"
@@ -19,7 +23,8 @@
                 "message": "Bilinmeyen bir hata oluştu",
                 "title": "Bilinmeyen hata"
             },
-            "launch": "Błąd przy uruchamianiu gry, sprawdź logi!"
+            "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "NIE",
         "quit": {

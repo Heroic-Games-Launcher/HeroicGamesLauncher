@@ -11,6 +11,10 @@
         "customWine": "Välj wine eller proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Det finns inte tillräckligt med hårdiskutrymme",
                 "title": "Inget utrymme"
@@ -19,7 +23,8 @@
                 "message": "Ett okänt fel har inträffat",
                 "title": "Okänt fel"
             },
-            "launch": "Fel vid uppstar av spelet, kontrollera loggarna!"
+            "launch": "Fel vid uppstar av spelet, kontrollera loggarna!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "Nej",
         "quit": {

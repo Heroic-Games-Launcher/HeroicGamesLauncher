@@ -11,6 +11,10 @@
         "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Nincs elég elérhető lemezterület",
                 "title": "Nincs hely"
@@ -19,7 +23,8 @@
                 "message": "Ismeretlen hiba lépett fel",
                 "title": "Ismeretlen hiba"
             },
-            "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!"
+            "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "NEM",
         "quit": {

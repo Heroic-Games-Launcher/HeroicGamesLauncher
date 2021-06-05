@@ -11,6 +11,10 @@
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Nedostatek místa na disku",
                 "title": "Nedostatek místa"
@@ -19,7 +23,8 @@
                 "message": "Nastala neočekávaná chyba",
                 "title": "Neočekávaná chyba"
             },
-            "launch": "Chyba při spouštění hry, zkontrolujte záznamy!"
+            "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "NE",
         "quit": {

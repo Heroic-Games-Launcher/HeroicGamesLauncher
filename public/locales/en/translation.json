@@ -11,6 +11,10 @@
         "customWine": "Select the Wine or Proton Binary",
         "default-install-path": "Choose Default Install Path",
         "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Not enough available disk space",
                 "title": "No Space"
@@ -19,7 +23,8 @@
                 "message": "An Unknown Error has occurred",
                 "title": "Unknown Error"
             },
-            "launch": "Error when launching the game, check the logs!"
+            "launch": "Error when launching the game, check the logs!",
+            "python": "Python needs to be higher than 3.8 for Heroic to work"
         },
         "no": "NO",
         "quit": {
