@@ -36,6 +36,7 @@ import { Library } from './legendary_utils/library'
 import { User } from './legendary_utils/user'
 import {
   checkForUpdates,
+  errorHandler,
   execAsync,
   handleExit,
   isOnline,
@@ -458,6 +459,8 @@ ipcMain.handle('launch', (event, game) => {
       )
     }
   }).catch(async ({ stderr }) => {
+    errorHandler({error: stderr})
+
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
