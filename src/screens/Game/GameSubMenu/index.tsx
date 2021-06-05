@@ -91,17 +91,9 @@ export default function GamesSubmenu({
   }
 
   async function handleUpdate() {
-    const { response } = await showMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.update.message'),
-      title: t('box.update.title')
-    })
-
-    if (response === 0) {
-      await handleGameStatus({ appName, status: 'updating' })
-      await updateGame(appName)
-      await handleGameStatus({ appName, status: 'done' })
-    }
+    await handleGameStatus({ appName, status: 'updating' })
+    await updateGame(appName)
+    await handleGameStatus({ appName, status: 'done' })
   }
 
   async function handleRepair(appName: string) {
