@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog } from 'electron'
+import { BrowserWindow } from 'electron'
 import { LegendaryGame } from './games'
 
 // TODO(adityaruplaha): Translate strings used here.
@@ -15,23 +15,12 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
   const game = LegendaryGame.get(appName)
   console.log({appName, game});
   if (command === 'launch') {
-    const { title, is_installed } = await game.getGameInfo()
+    const { is_installed } = await game.getGameInfo()
     if (!is_installed) {
       console.log(`ProtocolHandler: "${appName}" not installed, ignoring launch request.`)
       return
     }
-    const { response } = await dialog.showMessageBox(window, {
-      'buttons': [
-        'No', 'Yes'
-      ],
-      'cancelId': 0,
-      'message': `Launch ${title}?`,
-      'type': 'question'
-    })
-    if (response === 1) {
-      return window.webContents.send('launchGame', appName)
-    }
-    return
+    return window.webContents.send('launchGame', appName)
   }
   // Lets wait for a second interation for the install command
   // if (command === 'install') {
