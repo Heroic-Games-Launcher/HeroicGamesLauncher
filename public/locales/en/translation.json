@@ -115,6 +115,9 @@
             "title": "Game Arguments (To run after the command):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix where EGS is installed"
     },

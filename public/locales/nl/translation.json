@@ -115,6 +115,9 @@
             "title": "Spel argumenten (Om na het commando te runnen)"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix waar EGS zijn geïnstalleerd"
     },

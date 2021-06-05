@@ -115,6 +115,9 @@
             "title": "കളി വാദങ്ങള്‍ ആജ്ഞക്കു(command) ശേഷം ഒടിക്കാന്‍:"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
     },

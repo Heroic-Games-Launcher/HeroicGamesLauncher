@@ -115,6 +115,9 @@
             "title": "Argument eller flaggor (körs efter startkommandot):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix där EGS är installerad"
     },

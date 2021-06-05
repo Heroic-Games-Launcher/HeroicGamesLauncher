@@ -115,6 +115,9 @@
             "title": "Аргументы игры (Для запуска после команды):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Префикс куда установлен EGS"
     },

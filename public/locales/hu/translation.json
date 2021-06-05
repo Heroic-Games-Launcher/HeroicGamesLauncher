@@ -115,6 +115,9 @@
             "title": "Játék Argumentumok (amik a parancs után fussanak le):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix ahol EGS telepítve van"
     },

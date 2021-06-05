@@ -115,6 +115,9 @@
             "title": "Argumentos del juego (para ejecutar después del comando):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix donde está instalado EGS"
     },

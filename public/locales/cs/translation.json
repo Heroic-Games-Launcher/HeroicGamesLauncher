@@ -115,6 +115,9 @@
             "title": "Herní argumenty (Pro spuštění po příkazu):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },

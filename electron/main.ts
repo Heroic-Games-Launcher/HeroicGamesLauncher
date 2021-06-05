@@ -54,7 +54,8 @@ import {
   legendaryBin,
   loginUrl,
   sidInfoUrl,
-  supportURL
+  supportURL,
+  weblateUrl
 } from './constants'
 import { handleProtocol } from './protocol'
 
@@ -319,23 +320,17 @@ app.on('open-url', (event, url) => {
 })
 
 ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
-
 ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
-
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
-
+ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
-
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
-
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
-
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
 )
-
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {

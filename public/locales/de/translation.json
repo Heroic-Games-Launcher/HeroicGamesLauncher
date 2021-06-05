@@ -115,6 +115,9 @@
             "title": "Spiel-Argumente (Zur Ausführung nach dem Befehl):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix, wo EGS installiert ist"
     },

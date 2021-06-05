@@ -115,6 +115,9 @@
             "title": "Argumentos do Jogo:"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix onde a Epic Games está instalada"
     },

@@ -115,6 +115,9 @@
             "title": "Arguments de jeu (À lancer après la commande):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix où EGS est installé"
     },

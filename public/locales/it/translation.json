@@ -115,6 +115,9 @@
             "title": "Opzioni di gioco (da eseguire dopo il comando):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "Prefix dove è installato EGS"
     },

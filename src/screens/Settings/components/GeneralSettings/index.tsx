@@ -114,6 +114,10 @@ export default function GeneralSettings({
     setLanguage(language)
   }
 
+  function handleWeblate() {
+    return ipcRenderer.send('openWeblate')
+  }
+
   return (
     <>
       <span className="setting">
@@ -122,6 +126,7 @@ export default function GeneralSettings({
           handleLanguageChange={handleChangeLanguage}
           currentLanguage={language}
         />
+        <a onClick={handleWeblate} className="smallMessage">{t('other.weblate', 'Help Improve this translation.')}</a>
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>

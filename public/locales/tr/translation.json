@@ -115,6 +115,9 @@
             "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):"
         }
     },
+    "other": {
+        "weblate": "Help Improve this translation."
+    },
     "placeholder": {
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
