@@ -253,10 +253,15 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { gameUpdates } = this.state
+    const { gameUpdates, libraryStatus } = this.state
+
+    // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.once('launchGame', async (e, appName) => {
-      await this.handleGameStatus({ appName, status: 'playing' })
-      await launch(appName, t, this.handleGameStatus)
+      const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
+      if (!currentApp) {
+        await this.handleGameStatus({ appName, status: 'playing' })
+        await launch(appName, t, this.handleGameStatus)
+      }
     })
 
     const category = storage.getItem('category') || 'games'
