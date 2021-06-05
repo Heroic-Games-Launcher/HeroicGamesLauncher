@@ -56,10 +56,10 @@ export class GlobalState extends PureComponent<Props> {
     user: ''
   }
 
-  refresh = async (): Promise<void> => {
+  refresh = async (checkUpdates?: boolean): Promise<void> => {
     this.setState({ refreshing: true })
     const { user, library } = await getLegendaryConfig()
-    const updates = await renderer.invoke('checkGameUpdates')
+    const updates = checkUpdates ? await renderer.invoke('checkGameUpdates') : this.state.gameUpdates
 
     this.setState({
       data: library,
@@ -70,13 +70,13 @@ export class GlobalState extends PureComponent<Props> {
     })
   }
 
-  refreshLibrary = async (): Promise<void> => {
+  refreshLibrary = async (checkUpdates?: boolean): Promise<void> => {
     const { t } = this.props
     this.setState({ refreshing: true })
     await renderer.invoke('refreshLibrary')
 
-    this.refresh()
-    notify([t('notify.refreshing'), t('notify.refreshed')])
+    this.refresh(checkUpdates)
+    checkUpdates && notify([t('notify.refreshing'), t('notify.refreshed')])
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
