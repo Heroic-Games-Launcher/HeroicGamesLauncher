@@ -15,10 +15,11 @@ import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
 import {
   getProgress,
+  install,
   launch,
   sendKill
 } from 'src/helpers'
-import { handleInstall } from 'src/components/utils'
+
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
@@ -231,11 +232,12 @@ const GameCard = ({
 
   async function handlePlay() {
     if (!isInstalled) {
-      return await handleInstall({
+      return await install({
         appName,
         handleGameStatus,
         installPath: 'default',
         isInstalling,
+        previousProgress,
         progress,
         t
       })
