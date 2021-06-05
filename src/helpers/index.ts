@@ -42,9 +42,9 @@ const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (ga
       err.includes('ERROR: Game is out of date')
       ) {
         const { response } = await showMessageBox({
-          buttons: [t('box.yes'), t('box.no')],
-          message: t('box.update.message'),
-          title: t('box.update.title')
+          buttons: [t('gamepage:box.yes'), t('box.no')],
+          message: t('gamepage:box.update.message'),
+          title: t('gamepage:box.update.title')
         })
 
         if (response === 0) {
