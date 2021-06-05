@@ -1,4 +1,5 @@
-import { GameInfo, InstallProgress } from 'src/types'
+// import * as React from 'react'
+import { GameInfo, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer, Remote } from 'electron'
 
 import { TFunction } from 'react-i18next'
@@ -29,8 +30,34 @@ const install = async (args: {
 const repair = async (appName: string): Promise<void> =>
   await ipcRenderer.invoke('repair', appName)
 
-const launch = (args: string): Promise<string> =>
-  ipcRenderer.invoke('launch', args).then((res: string): string => res)
+const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (game: GameStatus) => Promise<void>): Promise<void> =>
+  ipcRenderer.invoke('launch', appName)
+    .then(async (err: string | string[]) => {
+      if (!err) {
+        return
+      }
+
+      if (
+        typeof err === 'string' &&
+      err.includes('ERROR: Game is out of date')
+      ) {
+        const { response } = await showMessageBox({
+          buttons: [t('box.yes'), t('box.no')],
+          message: t('box.update.message'),
+          title: t('box.update.title')
+        })
+
+        if (response === 0) {
+          await handleGameStatus({ appName, status: 'done' })
+          await handleGameStatus({ appName, status: 'updating' })
+          await updateGame(appName)
+          return await handleGameStatus({ appName, status: 'done' })
+        }
+        await handleGameStatus({ appName, status: 'playing' })
+        await ipcRenderer.invoke('launch', `${appName} --skip-version-check`)
+        return await handleGameStatus({ appName, status: 'done' })
+      }
+    })
 
 const updateGame = (appName: string): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName)
