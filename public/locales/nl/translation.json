@@ -173,7 +173,7 @@
     "store": "Store",
     "tooltip": {
         "addpath": "Voeg een nieuw pad toe",
-        "removepath": "Pad verwijderen "
+        "removepath": "Pad verwijderen"
     },
     "Total Games": "Hoeveelheid spellen",
     "tray": {
@@ -183,7 +183,7 @@
         "show": "Laten zien",
         "support": "Steun ons"
     },
-    "Unreal Marketplace": "",
+    "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",
     "userselector": {
         "about": "Over",

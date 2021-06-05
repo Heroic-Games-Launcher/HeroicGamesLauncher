@@ -64,7 +64,7 @@
             "part7": " um den Launcher in einigen Spielen zu überspringen, usw."
         },
         "sync": {
-            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu Überschreiben",
+            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu Überschreiben.",
             "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren und Heroic wird den Ordner erneut mit dem richtigen Prefix versuchen zu finden.",
             "part3": "Manuelle Synchronisierung: Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
@@ -140,16 +140,16 @@
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
             "download": "Download",
-            "forcedownload": "Force Download",
-            "forceupload": "Force Upload",
-            "sync": "Sync",
-            "syncing": "Syncing",
+            "forcedownload": "Download erzwingen",
+            "forceupload": "Upload erzwingen",
+            "sync": "Synchronisieren",
+            "syncing": "Synchronisiere",
             "title": "Spielstände manuell synchronisieren",
             "upload": "Upload"
         },
         "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
         "offlinemode": "Spiel offline ausführen",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Nvidia Prime Render aktivieren",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"
@@ -183,7 +183,7 @@
         "show": "Anzeigen",
         "support": "Unterstütze uns"
     },
-    "Unreal Marketplace": "",
+    "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",
     "userselector": {
         "about": "Über Heroic",
