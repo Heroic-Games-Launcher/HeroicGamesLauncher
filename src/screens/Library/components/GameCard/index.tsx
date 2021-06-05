@@ -16,8 +16,7 @@ import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
 import {
   getProgress,
   launch,
-  sendKill,
-  updateGame
+  sendKill
 } from 'src/helpers'
 import { handleInstall } from 'src/components/utils'
 import { useTranslation } from 'react-i18next'
@@ -25,10 +24,7 @@ import ContextProvider from 'src/state/ContextProvider'
 
 import NewReleasesIcon from '@material-ui/icons/NewReleases'
 
-const { ipcRenderer, remote } = window.require('electron')
-const {
-  dialog: { showMessageBox }
-} = remote
+const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
 
 interface Card {
@@ -250,34 +246,7 @@ const GameCard = ({
     }
 
     await handleGameStatus({ appName, status: 'playing' })
-    await launch(appName).then(async (err: string | string[]) => {
-      if (!err) {
-        return
-      }
-
-      if (
-        typeof err === 'string' &&
-        err.includes('ERROR: Game is out of date')
-      ) {
-        const { response } = await showMessageBox({
-          buttons: [t('box.yes'), t('box.no')],
-          message: t('box.update.message'),
-          title: t('box.update.title')
-        })
-
-        if (response === 0) {
-          await handleGameStatus({ appName, status: 'done' })
-          await handleGameStatus({ appName, status: 'updating' })
-          await updateGame(appName)
-          return await handleGameStatus({ appName, status: 'done' })
-        }
-        await handleGameStatus({ appName, status: 'playing' })
-        await launch(`${appName} --skip-version-check`)
-        return await handleGameStatus({ appName, status: 'done' })
-      }
-    })
-
-    return await handleGameStatus({ appName, status: 'done' })
+    return await launch(appName, t, handleGameStatus)
   }
 }
 

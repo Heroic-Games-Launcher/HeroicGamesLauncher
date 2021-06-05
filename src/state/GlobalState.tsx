@@ -7,6 +7,7 @@ import {
   getGameInfo,
   getLegendaryConfig,
   getProgress,
+  launch,
   notify
 } from 'src/helpers'
 import { i18n } from 'i18next'
@@ -21,10 +22,11 @@ const { showMessageBox } = dialog
 
 const renderer: IpcRenderer = ipcRenderer
 
+type T = TFunction<'gamepage'> & TFunction<'translations'>
 interface Props {
   children: React.ReactNode
   i18n: i18n
-  t: TFunction
+  t: T
 }
 
 interface StateProps {
@@ -250,8 +252,9 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   async componentDidMount() {
-    const { i18n } = this.props
+    const { i18n, t } = this.props
     const { gameUpdates } = this.state
+    ipcRenderer.once('launchGame', async (e, appName) => await launch(appName, t, this.handleGameStatus))
 
     const category = storage.getItem('category') || 'games'
     const filter = storage.getItem('filter') || 'all'

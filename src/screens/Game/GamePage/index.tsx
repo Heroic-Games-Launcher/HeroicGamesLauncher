@@ -20,8 +20,7 @@ import {
   install,
   launch,
   sendKill,
-  syncSaves,
-  updateGame
+  syncSaves
 } from 'src/helpers'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -472,33 +471,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       await handleGameStatus({ appName, status: 'playing' })
-      await launch(appName).then(
-        async (err: void | string): Promise<void> => {
-          if (!err) {
-            return
-          }
-          if (
-            typeof err === 'string' &&
-            err.includes('ERROR: Game is out of date')
-          ) {
-            const { response } = await showMessageBox({
-              buttons: [t('box.yes'), t('box.no')],
-              message: t('box.update.message'),
-              title: t('box.update.title')
-            })
-
-            if (response === 0) {
-              await handleGameStatus({ appName, status: 'done' })
-              handleGameStatus({ appName, status: 'updating' })
-              await updateGame(appName)
-              return await handleGameStatus({ appName, status: 'done' })
-            }
-            handleGameStatus({ appName, status: 'playing' })
-            await launch(`${appName} --skip-version-check`)
-            return await handleGameStatus({ appName, status: 'done' })
-          }
-        }
-      )
+      await launch(appName, t, handleGameStatus)
 
       if (autoSyncSaves) {
         setIsSyncing(true)
