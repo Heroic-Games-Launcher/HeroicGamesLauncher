@@ -35,7 +35,7 @@
     },
     "button": {
         "cancel": "İptal",
-        "continue": "Continue Download",
+        "continue": "İndirmeye Devam Et",
         "import": "İçeri Aktar",
         "install": "Yükle",
         "uninstall": "Kaldır"
@@ -53,8 +53,8 @@
         "version": "Versiyon"
     },
     "install": {
-        "another": "Farklı bir yere yükle",
-        "default": "Şuraya yükle: ",
+        "another": "Farklı bir yere kur",
+        "default": "Kurulum konumu",
         "import": "Oyunu içe aktar"
     },
     "label": {
@@ -80,7 +80,7 @@
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun yüklü değil",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"
     },
     "submenu": {
