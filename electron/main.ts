@@ -206,6 +206,7 @@ if (!gotTheLock) {
       supportedLngs: [
         'cs',
         'de',
+        'el',
         'en',
         'es',
         'fr',
