@@ -137,7 +137,7 @@
         },
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Aktivera Nvidia Prime Render",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"
@@ -171,8 +171,8 @@
         "show": "Visa",
         "support": "Stöd oss"
     },
-    "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Unreal Marketplace": "Unreal marknadsplats",
+    "Updates": "Uppdateringar",
     "userselector": {
         "about": "Om",
         "discord": "Discord",
