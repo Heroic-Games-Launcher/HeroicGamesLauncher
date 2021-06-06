@@ -1,7 +1,7 @@
 import '@testing-library/react'
 
 import { AppSettings, GameStatus, InstallProgress } from 'src/types';
-import { handleInstall } from './utils';
+import { install } from 'src/helpers';
 
 import { ipcRenderer, remote } from 'src/test_helpers/mock/electron';
 
@@ -11,8 +11,10 @@ interface Install {
   appName: string
   handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: 'import' | 'default' | 'another'
-  isInstalling: boolean,
+  isInstalling: boolean
+  previousProgress: InstallProgress
   progress: InstallProgress
+  setInstallPath?: (path: string) => void
   t: (str: string) => string
 }
 
@@ -47,6 +49,12 @@ async function callHandleInstall(props: Partial<{ app: Partial<AppSettings>, ins
     handleGameStatus: () => new Promise(() => { return; }),
     installPath: 'default',
     isInstalling: false,
+    previousProgress: {
+      bytes: '0',
+      eta: '0',
+      folder: '/',
+      percent: '0'
+    },
     progress: {
       bytes: '0',
       eta: '0',
@@ -56,18 +64,15 @@ async function callHandleInstall(props: Partial<{ app: Partial<AppSettings>, ins
   };
 
   ipcRenderer.invoke.mockReturnValueOnce({ ...defaultpropsApp, ...props.app });
-  const returnvalue = await handleInstall({ ...defaultpropsInstall, ...props.install });
-  expect(ipcRenderer.invoke).toBeCalledWith('requestSettings', 'default');
+  const returnvalue = await install({ ...defaultpropsInstall, ...props.install });
+  expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
   return returnvalue;
 }
 
 describe('handleInstall', () => {
   test('install game on default path', async () => {
-    const onHandleGameStatus = jest.fn();
-    await callHandleInstall({ install: { handleGameStatus: onHandleGameStatus } });
-    expect(onHandleGameStatus).toBeCalledWith({ 'appName': 'game', 'status': 'installing' });
+    await callHandleInstall();
     expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', 'path': 'defaultInstallPath' });
-    expect(onHandleGameStatus).toBeCalledWith({ 'appName': 'game', 'status': 'done' });
   })
 
   test('stop game installing on default path', async () => {
@@ -133,7 +138,7 @@ describe('handleInstall', () => {
   test('install game on another path with invalid path does nothing', async () => {
     remote.dialog.showOpenDialog.mockReturnValue({ filePaths: [] });
     const onHandleGameStatus = jest.fn();
-    await callHandleInstall({ install: { handleGameStatus: onHandleGameStatus, installPath: 'another' } });
+    await callHandleInstall({ install: { handleGameStatus: onHandleGameStatus } });
     expect(onHandleGameStatus).not.toBeCalledWith();
     expect(ipcRenderer.invoke).toBeCalledTimes(1);
   })
