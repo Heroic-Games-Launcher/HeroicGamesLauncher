@@ -59,7 +59,7 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 
-const { showErrorBox } = dialog
+const { showErrorBox, showMessageBox,showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
@@ -464,6 +464,21 @@ ipcMain.handle('launch', (event, game) => {
     )
     return stderr
   })
+})
+
+ipcMain.handle('openDialog', async (e, args) => {
+  const { filePaths, canceled } = await showOpenDialog({
+    ...args
+  })
+  if (filePaths[0]){
+    return { path: `'${filePaths[0]}'` }
+  }
+  return {canceled}
+})
+
+ipcMain.handle('openMessageBox', async (e, args) => {
+  const { response } = await showMessageBox({...args})
+  return {response}
 })
 
 

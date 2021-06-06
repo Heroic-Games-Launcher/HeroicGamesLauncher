@@ -1,15 +1,11 @@
 import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
-import { IpcRenderer, Remote } from 'electron'
+import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
 import { getGameInfo, sendKill } from './index'
 
-const { ipcRenderer, remote } = window.require('electron') as {
+const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
-  remote: Remote
 }
-const {
-  dialog: { showMessageBox, showOpenDialog }
-} = remote
 
 const storage: Storage = window.localStorage
 
@@ -35,17 +31,16 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
     return uninstall({appName, handleGameStatus, t})
   }
 
-  if (installPath === 'defaut' && is_game) {
+  if (installPath === 'default' && is_game) {
     // If the user changed the previous folder, the percentage should start from zero again.
-    const {
-      defaultInstallPath: installPath
-    }: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
-
-    if (previousProgress.folder !== installPath) {
+    const {defaultInstallPath}: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
+    const path = defaultInstallPath
+    if (previousProgress.folder !== path) {
       storage.removeItem(appName)
     }
+    console.log('installing', path);
     await handleGameStatus({ appName, status: 'installing' })
-    await ipcRenderer.invoke('install', { appName, path: installPath })
+    await ipcRenderer.invoke('install', { appName, path })
 
     if (progress.percent === '100%') {
       storage.removeItem(appName)
@@ -55,18 +50,17 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
   }
 
   if (installPath === 'import' && is_game) {
-    const { filePaths, canceled } = await showOpenDialog({
+    const args = {
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['openDirectory'],
       title: t('gamepage:box.importpath')
-    })
+    }
+    const { path, canceled } = await ipcRenderer.invoke('openDialog', args)
 
     if (canceled) {
       return
     }
 
-    if (filePaths[0]) {
-      const path = `'${filePaths[0]}'`
+    if (path) {
       handleGameStatus({ appName, status: 'installing' })
       await importGame({ appName, path })
       return await handleGameStatus({ appName, status: 'done' })
@@ -74,18 +68,18 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
   }
 
   if (installPath === 'another' || !is_game) {
-    const { filePaths, canceled } = await showOpenDialog({
+    const args = {
       buttonLabel: t('gamepage:box.choose'),
       properties: ['openDirectory'],
       title: t('gamepage:box.installpath')
-    })
+    }
+    const { path, canceled } = await ipcRenderer.invoke('openDialog', args)
 
     if (canceled) {
       return
     }
 
-    if (filePaths[0]) {
-      const path = `'${filePaths[0]}'`
+    if (path) {
       setInstallPath && setInstallPath(path)
       // If the user changed the previous folder, the percentage should start from zero again.
       if (previousProgress.folder !== path) {
@@ -114,15 +108,17 @@ type UninstallArgs = {
 }
 
 async function uninstall({appName, handleGameStatus, t}: UninstallArgs) {
-  const { response } = await showMessageBox({
+  const args = {
     buttons: [t('box.yes'), t('box.no')],
     message: t('gamepage:box.uninstall.message'),
     title: t('gamepage:box.uninstall.title'),
     type: 'warning'
-  })
+  }
+
+  handleGameStatus({ appName, status: 'uninstalling' })
+  const { response } = await ipcRenderer.invoke('openMessageBox', args)
 
   if (response === 0) {
-    handleGameStatus({ appName, status: 'uninstalling' })
     await ipcRenderer.invoke('uninstall', appName)
     storage.removeItem(appName)
     return await handleGameStatus({ appName, status: 'done' })
@@ -136,7 +132,8 @@ async function handleStopInstallation(
   t: TFunction<'gamepage'>,
   progress: InstallProgress
 ) {
-  const { response } = await showMessageBox({
+
+  const args = {
     buttons: [
       t('gamepage:box.stopInstall.keepInstalling'),
       t('box.yes'),
@@ -144,7 +141,10 @@ async function handleStopInstallation(
     ],
     message: t('gamepage:box.stopInstall.message'),
     title: t('gamepage:box.stopInstall.title')
-  })
+  }
+
+  const { response } = await ipcRenderer.invoke('openMessageBox', args)
+
   if (response === 1) {
     storage.setItem(appName, JSON.stringify({...progress, folder: path}))
     return sendKill(appName)
@@ -169,11 +169,13 @@ const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (ga
         typeof err === 'string' &&
       err.includes('ERROR: Game is out of date')
       ) {
-        const { response } = await showMessageBox({
+        const args = {
           buttons: [t('gamepage:box.yes'), t('box.no')],
           message: t('gamepage:box.update.message'),
           title: t('gamepage:box.update.title')
-        })
+        }
+
+        const { response } = await ipcRenderer.invoke('openMessageBox', args)
 
         if (response === 0) {
           await handleGameStatus({ appName, status: 'done' })
