@@ -31,24 +31,6 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
     return uninstall({appName, handleGameStatus, t})
   }
 
-  if (installPath === 'default' && is_game) {
-    // If the user changed the previous folder, the percentage should start from zero again.
-    const {defaultInstallPath}: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
-    const path = defaultInstallPath
-    if (previousProgress.folder !== path) {
-      storage.removeItem(appName)
-    }
-    console.log('installing', path);
-    await handleGameStatus({ appName, status: 'installing' })
-    await ipcRenderer.invoke('install', { appName, path })
-
-    if (progress.percent === '100%') {
-      storage.removeItem(appName)
-    }
-
-    return await handleGameStatus({ appName, status: 'done' })
-  }
-
   if (installPath === 'import' && is_game) {
     const args = {
       buttonLabel: t('gamepage:box.choose'),
@@ -86,7 +68,7 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
         storage.removeItem(appName)
       }
       handleGameStatus({ appName, status: 'installing' })
-      await ipcRenderer.invoke('install', { appName, path })
+      await ipcRenderer.invoke('install', { appName, path: `'${path}'` })
 
       if (progress.percent === '100%') {
         storage.removeItem(appName)
@@ -94,6 +76,28 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
       return await handleGameStatus({ appName, status: 'done' })
     }
   }
+
+  if (is_game) {
+    // If the user changed the previous folder, the percentage should start from zero again.
+    let path = installPath
+    if (installPath === 'default') {
+      const {defaultInstallPath}: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
+      path = defaultInstallPath
+    }
+    if (previousProgress.folder !== path) {
+      storage.removeItem(appName)
+    }
+
+    await handleGameStatus({ appName, status: 'installing' })
+    await ipcRenderer.invoke('install', { appName, path })
+
+    if (progress.percent === '100%') {
+      storage.removeItem(appName)
+    }
+
+    return await handleGameStatus({ appName, status: 'done' })
+  }
+
 }
 
 const importGame = async (args: {
