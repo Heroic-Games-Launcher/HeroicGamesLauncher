@@ -83,7 +83,7 @@ export default function SyncSaves({
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
-      ipcRenderer.invoke('showMessageBox', { message: res, title: 'Saves Sync' })
+      ipcRenderer.invoke('openMessageBox', { message: res, title: 'Saves Sync' })
     )
     setIsSyncing(false)
   }
@@ -113,8 +113,8 @@ export default function SyncSaves({
                     properties: ['openDirectory'],
                     title: t('box.sync.title')
                   })
-                    .then(({ filePaths }: Path) =>
-                      setSavesPath(filePaths[0] ? `${filePaths[0]}\\` : '')
+                    .then(({ path }: Path) =>
+                      setSavesPath(path ? `${path}\\` : '')
                     )
               }
             />

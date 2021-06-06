@@ -471,7 +471,7 @@ ipcMain.handle('openDialog', async (e, args) => {
     ...args
   })
   if (filePaths[0]){
-    return { path: `'${filePaths[0]}'` }
+    return { path: filePaths[0]}
   }
   return {canceled}
 })

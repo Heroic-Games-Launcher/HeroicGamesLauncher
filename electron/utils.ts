@@ -133,7 +133,7 @@ function openUrlOrFile(url: string): Promise<string> {
     exec(`open ${url}`)
     break;
   case 'linux':
-    exec(`xdg-open ${url}`)
+    exec(`xdg-open '${url}'`)
     break
   default:
     return shell.openPath(url)

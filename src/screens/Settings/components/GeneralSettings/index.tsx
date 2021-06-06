@@ -77,7 +77,7 @@ export default function GeneralSettings({
     setIsSyncing(true)
     if (isLinked) {
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
-        await ipcRenderer.invoke('showMessageBox', {
+        await ipcRenderer.invoke('openMessageBox', {
           message: t('message.unsync'),
           title: 'EGS Sync'
         })
@@ -98,7 +98,7 @@ export default function GeneralSettings({
           setEgsPath('')
           return
         }
-        await ipcRenderer.invoke('showMessageBox', {
+        await ipcRenderer.invoke('openMessageBox', {
           message: t('message.sync'),
           title: 'EGS Sync'
         })
