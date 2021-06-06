@@ -11,14 +11,14 @@ import InfoBox from 'src/components/UI/InfoBox'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
+import { IpcRenderer } from 'electron'
 import Backspace from '@material-ui/icons/Backspace'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 
 const {
-  ipcRenderer,
-  remote: { dialog }
-} = window.require('electron')
-const { showErrorBox, showMessageBox, showOpenDialog } = dialog
+  ipcRenderer
+} = window.require('electron') as {ipcRenderer: IpcRenderer}
+
 const storage: Storage = window.localStorage
 
 interface Props {
@@ -77,7 +77,7 @@ export default function GeneralSettings({
     setIsSyncing(true)
     if (isLinked) {
       return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
-        await showMessageBox({
+        await ipcRenderer.invoke('showMessageBox', {
           message: t('message.unsync'),
           title: 'EGS Sync'
         })
@@ -93,12 +93,12 @@ export default function GeneralSettings({
       .then(async (res: string) => {
         if (res === 'Error') {
           setIsSyncing(false)
-          showErrorBox(t('box.error'), t('box.sync.error'))
+          ipcRenderer.invoke('showErrorBox', {content: t('box.sync.error'), title: t('box.error')})
           setEgsLinkedPath('')
           setEgsPath('')
           return
         }
-        await dialog.showMessageBox({
+        await ipcRenderer.invoke('showMessageBox', {
           message: t('message.sync'),
           title: 'EGS Sync'
         })
@@ -141,12 +141,12 @@ export default function GeneralSettings({
           <CreateNewFolder
             className="material-icons settings folder"
             onClick={() =>
-              showOpenDialog({
+              ipcRenderer.invoke('openDialog', {
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
                 title: t('box.default-install-path')
-              }).then(({ filePaths }: Path) =>
-                setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+              }).then(({ path }: Path) =>
+                setDefaultInstallPath(path ? `'${path}'` : '')
               )
             }
           />
@@ -170,14 +170,14 @@ export default function GeneralSettings({
               onClick={() =>
                 isLinked
                   ? ''
-                  : dialog
-                    .showOpenDialog({
+                  : ipcRenderer.invoke(
+                    'openDialog', {
                       buttonLabel: t('box.choose'),
                       properties: ['openDirectory'],
                       title: t('box.choose-egs-prefix')
                     })
-                    .then(({ filePaths }: Path) =>
-                      setEgsPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                    .then(({ path }: Path) =>
+                      setEgsPath(path ? `'${path}'` : '')
                     )
               }
             />

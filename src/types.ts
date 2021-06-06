@@ -105,7 +105,7 @@ export interface KeyImage {
 }
 
 export interface Path {
-  filePaths: string[]
+  path: string
 }
 interface Reqs {
   minimum: string

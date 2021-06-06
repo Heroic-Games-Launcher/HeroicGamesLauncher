@@ -17,8 +17,7 @@ import ContextProvider from './ContextProvider'
 
 const storage: Storage = window.localStorage
 const { remote, ipcRenderer } = window.require('electron')
-const { dialog, process } = remote
-const { showMessageBox } = dialog
+const { process } = remote
 
 const renderer: IpcRenderer = ipcRenderer
 
@@ -236,7 +235,7 @@ export class GlobalState extends PureComponent<Props> {
     const { t } = this.props
     const newVersion = await renderer.invoke('checkVersion')
     if (newVersion) {
-      const { response } = await showMessageBox({
+      const { response } = await ipcRenderer.invoke('openMessageBox', {
         buttons: [t('box.yes'), t('box.no')],
         message: t(
           'box.appupdate.message',
