@@ -298,6 +298,10 @@ class Library {
       keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
       gameBox
 
+    const gameBoxStore = is_game ?
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselStoreFrontTall' )[0] :
+      gameBox
+
     const logo = is_game ?
       keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
       keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail' )[0]
@@ -307,7 +311,8 @@ class Library {
 
     const art_cover = gameBox ? gameBox.url : null
     const art_logo = logo ? logo.url : null
-    const art_square = gameBoxTall ? gameBoxTall.url : fallBackImage
+    const art_square = gameBoxTall ? gameBoxTall.url : null
+    const art_square_front = gameBoxStore ? gameBoxStore.url : null
 
     const info = this.installedGames.get(app_name)
     const {
@@ -323,9 +328,9 @@ class Library {
 
     this.library.set(app_name, {
       app_name,
-      art_cover: art_cover || art_square,
+      art_cover: art_cover || art_square || fallBackImage,
       art_logo,
-      art_square: art_square || art_cover,
+      art_square: art_square || art_square_front || art_cover || fallBackImage,
       cloud_save_enabled,
       compatible_apps,
       developer,
