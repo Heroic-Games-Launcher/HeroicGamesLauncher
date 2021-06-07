@@ -12,7 +12,7 @@
         "default-install-path": "Kies een standaard map",
         "error": {
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "message": "Your credentials have expired, please logout and login again.",
                 "title": "Expired Credentials"
             },
             "diskspace": {
@@ -24,7 +24,7 @@
                 "title": "Onbekende fout"
             },
             "launch": "Een probleem tijdens het lanceren van een spel, check de logs!",
-            "python": "Python needs to be higher than 3.8 for Heroic to work"
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEE",
         "quit": {

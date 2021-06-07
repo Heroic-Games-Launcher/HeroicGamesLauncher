@@ -12,7 +12,7 @@
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
         "error": {
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "message": "Your credentials have expired, please logout and login again.",
                 "title": "Expired Credentials"
             },
             "diskspace": {
@@ -24,7 +24,7 @@
                 "title": "Άγνωστο σφάλμα"
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
-            "python": "Python needs to be higher than 3.8 for Heroic to work"
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "ΟΧΙ",
         "quit": {

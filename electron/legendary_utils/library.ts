@@ -76,7 +76,7 @@ class Library {
         this.refreshInstalled()
         this.loadAll()
       })
-      .catch(() => console.log('No credentials. Missing Login?')      )
+      .catch(() => console.log('No credentials. Missing Login?'))
   }
 
   /**

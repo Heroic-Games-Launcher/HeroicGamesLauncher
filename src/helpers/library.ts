@@ -22,7 +22,6 @@ type InstallArgs = {
 
 async function install({appName, installPath, t, progress, isInstalling, handleGameStatus, previousProgress, setInstallPath}: InstallArgs) {
   const {folder_name, is_game, is_installed}: GameInfo = await getGameInfo(appName)
-  //Fix  Remove files when canceling (again)
   if (isInstalling) {
     return handleStopInstallation(appName, [installPath, folder_name], t, progress)
   }
