@@ -83,23 +83,41 @@ const handleExit = async () => {
   app.exit()
 }
 
-async function errorHandler(logPath: string): Promise<void> {
+type ErrorHandlerMessage = {
+  error?: {stderr: string, stdout: string}
+  logPath?: string
+}
+
+async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
-  return execAsync(`tail ${logPath} | grep 'disk space'`)
-    .then(({ stdout }) => {
-      if (stdout.includes(noSpaceMsg)) {
-        console.log(noSpaceMsg)
-        return showErrorBox(
-          i18next.t('box.error.diskspace.title', 'No Space'),
-          i18next.t(
-            'box.error.diskspace.message',
-            'Not enough available disk space'
+  const noCredentialsError = 'No saved credentials'
+  if (logPath){
+    execAsync(`tail ${logPath} | grep 'disk space'`)
+      .then(({ stdout }) => {
+        if (stdout.includes(noSpaceMsg)) {
+          console.log(noSpaceMsg)
+          return showErrorBox(
+            i18next.t('box.error.diskspace.title', 'No Space'),
+            i18next.t(
+              'box.error.diskspace.message',
+              'Not enough available disk space'
+            )
           )
+        }
+      })
+      .catch(() => console.log('operation interrupted'))
+  }
+  if (error){
+    if (error.stderr.includes(noCredentialsError)){
+      return showErrorBox(
+        i18next.t('box.error.credentials.title', 'Expired Credentials'),
+        i18next.t(
+          'box.error.credentials.message',
+          'Your Crendentials have expired, Logout and Login Again!'
         )
-      }
-      return genericErrorMessage()
-    })
-    .catch(() => console.log('operation interrupted'))
+      )
+    }
+  }
 }
 
 function genericErrorMessage(): void {
@@ -110,7 +128,16 @@ function genericErrorMessage(): void {
 }
 
 function openUrlOrFile(url: string): Promise<string> {
-  return shell.openPath(url)
+  switch (process.platform) {
+  case 'darwin':
+    exec(`open ${url}`)
+    break;
+  case 'linux':
+    exec(`xdg-open '${url}'`)
+    break
+  default:
+    return shell.openPath(url)
+  }
 }
 
 export {

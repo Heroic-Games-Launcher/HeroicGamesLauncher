@@ -36,6 +36,7 @@ import { Library } from './legendary_utils/library'
 import { User } from './legendary_utils/user'
 import {
   checkForUpdates,
+  errorHandler,
   execAsync,
   handleExit,
   isOnline,
@@ -53,11 +54,12 @@ import {
   legendaryBin,
   loginUrl,
   sidInfoUrl,
-  supportURL
+  supportURL,
+  weblateUrl
 } from './constants'
 import { handleProtocol } from './protocol'
 
-const { showErrorBox } = dialog
+const { showErrorBox, showMessageBox,showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
@@ -189,6 +191,8 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
+    const {stdout: pythonInfo} = await execAsync('python --version')
+    const pythonVersion = parseFloat(pythonInfo.split(' ')[1].replace('\n', ''))
 
     await i18next.use(Backend).init({
       backend: {
@@ -202,6 +206,7 @@ if (!gotTheLock) {
       supportedLngs: [
         'cs',
         'de',
+        'el',
         'en',
         'es',
         'fr',
@@ -246,6 +251,11 @@ if (!gotTheLock) {
       await i18next.changeLanguage(language)
       appIcon.setContextMenu(contextMenu())
     })
+
+    if (pythonVersion < 3.8) {
+      console.log(`Python Version incompatible. Python needed: >= 3.8, Python found: ${pythonVersion}`);
+      dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Python needs to be higher than 3.8 for Heroic to work')}`)
+    }
 
     return
   })
@@ -311,23 +321,17 @@ app.on('open-url', (event, url) => {
 })
 
 ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
-
 ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
-
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
-
+ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
-
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
-
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
-
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
 )
-
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
@@ -338,7 +342,7 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     }, 2000)
   }
 
-  const folderToDelete = `${path}/${folderName}`
+  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
   return setTimeout(() => {
     rmdirSync(folderToDelete, {recursive: true})
   }, 2000)
@@ -451,6 +455,8 @@ ipcMain.handle('launch', (event, game) => {
       )
     }
   }).catch(async ({ stderr }) => {
+    errorHandler({error: stderr})
+
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
@@ -458,6 +464,21 @@ ipcMain.handle('launch', (event, game) => {
     )
     return stderr
   })
+})
+
+ipcMain.handle('openDialog', async (e, args) => {
+  const { filePaths, canceled } = await showOpenDialog({
+    ...args
+  })
+  if (filePaths[0]){
+    return { path: filePaths[0]}
+  }
+  return {canceled}
+})
+
+ipcMain.handle('openMessageBox', async (e, args) => {
+  const { response } = await showMessageBox({...args})
+  return {response}
 })
 
 

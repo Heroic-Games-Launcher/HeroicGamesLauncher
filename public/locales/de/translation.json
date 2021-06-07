@@ -1,5 +1,6 @@
 {
     "All": "Alle",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Es ist eine neue Version von Heroic verfügbar, möchten Sie diese jetzt installieren?",
@@ -10,6 +11,10 @@
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
                 "title": "Kein Speicherplatz"
@@ -18,7 +23,8 @@
                 "message": "Ein unbekannter Fehler ist aufgetreten",
                 "title": "Unbekannter Fehler"
             },
-            "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!"
+            "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEIN",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "Am herunterladen",
     "Filter": "Filter",
+    "Games": "Games",
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -57,7 +64,7 @@
             "part7": " um den Launcher in einigen Spielen zu überspringen, usw."
         },
         "sync": {
-            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu Überschreiben",
+            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu Überschreiben.",
             "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren und Heroic wird den Ordner erneut mit dem richtigen Prefix versuchen zu finden.",
             "part3": "Manuelle Synchronisierung: Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
@@ -108,9 +115,14 @@
             "title": "Spiel-Argumente (Zur Ausführung nach dem Befehl):"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "Prefix, wo EGS installiert ist"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Installiert",
     "Return": "Zurück",
     "search": "Geben Sie hier den Namen des Spiels ein...",
@@ -128,16 +140,16 @@
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
             "download": "Download",
-            "forcedownload": "Force Download",
-            "forceupload": "Force Upload",
-            "sync": "Sync",
-            "syncing": "Syncing",
+            "forcedownload": "Download erzwingen",
+            "forceupload": "Upload erzwingen",
+            "sync": "Synchronisieren",
+            "syncing": "Synchronisiere",
             "title": "Spielstände manuell synchronisieren",
             "upload": "Upload"
         },
         "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
         "offlinemode": "Spiel offline ausführen",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Nvidia Prime Render aktivieren",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"
@@ -171,7 +183,7 @@
         "show": "Anzeigen",
         "support": "Unterstütze uns"
     },
-    "Unreal Marketplace": "",
+    "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",
     "userselector": {
         "about": "Über Heroic",
@@ -181,6 +193,9 @@
         "quit": "Beenden",
         "refresh": "Bibliothek aktualisieren",
         "support": "Unterstütze uns"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

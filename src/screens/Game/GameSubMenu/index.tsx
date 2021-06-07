@@ -13,10 +13,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
-const { ipcRenderer, remote } = window.require('electron')
-const {
-  dialog: { showMessageBox, showOpenDialog }
-} = remote
+const { ipcRenderer } = window.require('electron')
 
 const renderer: IpcRenderer = ipcRenderer
 
@@ -48,19 +45,18 @@ export default function GamesSubmenu({
   const hasUpdate = gameUpdates.includes(appName)
 
   async function handleMoveInstall() {
-    const { response } = await showMessageBox({
+    const { response } = await ipcRenderer.invoke('openMessageBox', {
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.move.message'),
       title: t('box.move.title')
     })
     if (response === 0) {
-      const { filePaths } = await showOpenDialog({
+      const { path } = await ipcRenderer.invoke('openDialog',{
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.move.path')
       })
-      if (filePaths[0]) {
-        const path = filePaths[0]
+      if (path) {
         await handleGameStatus({ appName, status: 'moving' })
         await renderer.invoke('moveInstall', [appName, path])
         await handleGameStatus({ appName, status: 'done' })
@@ -69,19 +65,18 @@ export default function GamesSubmenu({
   }
 
   async function handleChangeInstall() {
-    const { response } = await showMessageBox({
+    const { response } = await ipcRenderer.invoke('openMessageBox', {
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.change.message'),
       title: t('box.change.title')
     })
     if (response === 0) {
-      const { filePaths } = await showOpenDialog({
+      const { path } = await ipcRenderer.invoke('openDialog',{
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.change.path')
       })
-      if (filePaths[0]) {
-        const path = filePaths[0]
+      if (path) {
         await renderer.invoke('changeInstallPath', [appName, path])
         await refresh()
       }
@@ -91,21 +86,13 @@ export default function GamesSubmenu({
   }
 
   async function handleUpdate() {
-    const { response } = await showMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.update.message'),
-      title: t('box.update.title')
-    })
-
-    if (response === 0) {
-      await handleGameStatus({ appName, status: 'updating' })
-      await updateGame(appName)
-      await handleGameStatus({ appName, status: 'done' })
-    }
+    await handleGameStatus({ appName, status: 'updating' })
+    await updateGame(appName)
+    await handleGameStatus({ appName, status: 'done' })
   }
 
   async function handleRepair(appName: string) {
-    const { response } = await showMessageBox({
+    const { response } = await ipcRenderer.invoke('openMessageBox', {
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.repair.message'),
       title: t('box.repair.title')

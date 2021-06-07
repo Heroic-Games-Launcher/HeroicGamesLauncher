@@ -1,5 +1,6 @@
 {
     "All": "Összes",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
@@ -10,6 +11,10 @@
         "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Nincs elég elérhető lemezterület",
                 "title": "Nincs hely"
@@ -18,7 +23,8 @@
                 "message": "Ismeretlen hiba lépett fel",
                 "title": "Ismeretlen hiba"
             },
-            "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!"
+            "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEM",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "Letöltés",
     "Filter": "Szűrő",
+    "Games": "Games",
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -108,9 +115,14 @@
             "title": "Játék Argumentumok (amik a parancs után fussanak le):"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "Prefix ahol EGS telepítve van"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Kész",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
@@ -181,6 +193,9 @@
         "quit": "Kilépés",
         "refresh": "Könyvtár frissítése",
         "support": "Támogass minket"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }
