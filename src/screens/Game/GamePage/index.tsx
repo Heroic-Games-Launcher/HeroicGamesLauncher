@@ -8,20 +8,16 @@ import React, {
 } from 'react'
 
 import {
-  IpcRenderer,
-  Remote
+  IpcRenderer
 } from 'electron'
 import {
   fixSaveFolder,
   getGameInfo,
   getProgress,
-  handleStopInstallation,
-  importGame,
   install,
   launch,
   sendKill,
-  syncSaves,
-  updateGame
+  syncSaves
 } from 'src/helpers'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -43,13 +39,9 @@ import GamesSubmenu from '../GameSubMenu'
 
 const storage: Storage = window.localStorage
 
-const { ipcRenderer, remote } = window.require('electron') as {
+const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
-  remote: Remote
 }
-const {
-  dialog: { showOpenDialog, showMessageBox }
-} = remote
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
@@ -61,7 +53,6 @@ export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
   const {
-    refresh,
     libraryStatus,
     handleGameStatus,
     data,
@@ -313,7 +304,7 @@ export default function GamePage(): JSX.Element | null {
                       </>
                     )}
                     <button
-                      onClick={handleInstall(is_installed)}
+                      onClick={() => handleInstall()}
                       disabled={
                         isPlaying || isUpdating || isReparing || isMoving
                       }
@@ -472,33 +463,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       await handleGameStatus({ appName, status: 'playing' })
-      await launch(appName).then(
-        async (err: void | string): Promise<void> => {
-          if (!err) {
-            return
-          }
-          if (
-            typeof err === 'string' &&
-            err.includes('ERROR: Game is out of date')
-          ) {
-            const { response } = await showMessageBox({
-              buttons: [t('box.yes'), t('box.no')],
-              message: t('box.update.message'),
-              title: t('box.update.title')
-            })
-
-            if (response === 0) {
-              await handleGameStatus({ appName, status: 'done' })
-              handleGameStatus({ appName, status: 'updating' })
-              await updateGame(appName)
-              return await handleGameStatus({ appName, status: 'done' })
-            }
-            handleGameStatus({ appName, status: 'playing' })
-            await launch(`${appName} --skip-version-check`)
-            return await handleGameStatus({ appName, status: 'done' })
-          }
-        }
-      )
+      await launch(appName, t, handleGameStatus)
 
       if (autoSyncSaves) {
         setIsSyncing(true)
@@ -510,98 +475,16 @@ export default function GamePage(): JSX.Element | null {
     }
   }
 
-  function handleInstall(
-    is_installed: boolean
-  ): () => Promise<void | NodeJS.Timeout> {
-    return async () => {
-      if (isInstalling) {
-        const { folder_name } = await getGameInfo(appName)
-        return handleStopInstallation(appName, [installPath, folder_name], t, progress)
-      }
-
-      if (is_installed) {
-        await handleUninstall()
-        return refresh()
-      }
-
-      if (installPath === 'import' && gameInfo.is_game) {
-        const { filePaths, canceled } = await showOpenDialog({
-          buttonLabel: t('box.choose'),
-          properties: ['openDirectory'],
-          title: t('box.importpath')
-        })
-
-        if (canceled) {
-          return
-        }
-
-        if (filePaths[0]) {
-          const path = filePaths[0]
-          handleGameStatus({ appName, status: 'installing' })
-          await importGame({ appName, path })
-          return await handleGameStatus({ appName, status: 'done' })
-        }
-      }
-
-      if (installPath === 'another' || !gameInfo.is_game) {
-        const { filePaths, canceled } = await showOpenDialog({
-          buttonLabel: t('box.choose'),
-          properties: ['openDirectory'],
-          title: t('box.installpath')
-        })
-
-        if (canceled) {
-          return
-        }
-
-        if (filePaths[0]) {
-          const path = `'${filePaths[0]}'`
-          // If the user changed the previous folder, the percentage should start from zero again.
-          if (previousProgress.folder !== path) {
-            storage.removeItem(appName)
-          }
-          handleGameStatus({ appName, status: 'installing' })
-          setInstallPath(path)
-          await install({ appName, path })
-
-          if (progress.percent === '100%') {
-            storage.removeItem(appName)
-          }
-          return await handleGameStatus({ appName, status: 'done' })
-        }
-      }
-
-      if (gameInfo.is_game) {
-        // If the user changed the previous folder, the percentage should start from zero again.
-        if (previousProgress.folder !== installPath) {
-          storage.removeItem(appName)
-        }
-        await handleGameStatus({ appName, status: 'installing' })
-        await install({ appName, path: installPath })
-
-        if (progress.percent === '100%') {
-          storage.removeItem(appName)
-        }
-
-        return await handleGameStatus({ appName, status: 'done' })
-      }
-    }
-  }
-
-  async function handleUninstall() {
-    const { response } = await showMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.uninstall.message'),
-      title: t('box.uninstall.title'),
-      type: 'warning'
+  async function handleInstall(){
+    return await install({
+      appName,
+      handleGameStatus,
+      installPath,
+      isInstalling,
+      previousProgress,
+      progress,
+      setInstallPath,
+      t
     })
-
-    if (response === 0) {
-      handleGameStatus({ appName, status: 'uninstalling' })
-      await ipcRenderer.invoke('uninstall', appName)
-      storage.removeItem(appName)
-      return await handleGameStatus({ appName, status: 'done' })
-    }
-    return
   }
 }

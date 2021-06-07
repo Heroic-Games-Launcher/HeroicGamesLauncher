@@ -1,5 +1,6 @@
 {
     "All": "Allemaal",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Er is een nieuwe versie van Heroic beschikbaar, wil je hem nu updaten?",
@@ -10,6 +11,10 @@
         "customWine": "Selecteer de Wine of Proton Binary",
         "default-install-path": "Kies een standaard map",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Geen ruimte beschikbaar op de harde schijf",
                 "title": "Niet genoeg opslag"
@@ -18,7 +23,8 @@
                 "message": "Er is een onbekende fout opgetreden",
                 "title": "Onbekende fout"
             },
-            "launch": "Een probleem tijdens het lanceren van een spel, check de logs!"
+            "launch": "Een probleem tijdens het lanceren van een spel, check de logs!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEE",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "Downloads",
     "Filter": "Filter",
+    "Games": "Games",
     "globalSettings": "Algemene instellingen",
     "help": {
         "general": "Synchronisatie met EGS voor het geval je elders een werkende installatie van de Epic Games Store hebt en je games wilt importeren om ze opnieuw te downloaden.",
@@ -108,9 +115,14 @@
             "title": "Spel argumenten (Om na het commando te runnen)"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "Prefix waar EGS zijn geïnstalleerd"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Geïnstalleerd",
     "Return": "Terug",
     "search": "Voor je spel naam hier in...",
@@ -181,6 +193,9 @@
         "quit": "Sluiten",
         "refresh": "Herladen",
         "support": "Steun ons"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

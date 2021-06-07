@@ -1,5 +1,6 @@
 {
     "All": "Все",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Доступна новая версия Heroic, обновить сейчас?",
@@ -10,6 +11,10 @@
         "customWine": "Выберите исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
                 "title": "Нет места"
@@ -18,7 +23,8 @@
                 "message": "Произошла неизвестная ошибка",
                 "title": "Неизвестная ошибка"
             },
-            "launch": "Ошибка при запуске игры, посмотрите логи!"
+            "launch": "Ошибка при запуске игры, посмотрите логи!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "НЕТ",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "Скачивается",
     "Filter": "Фильтр",
+    "Games": "Games",
     "globalSettings": "Глобальные настройки",
     "help": {
         "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
@@ -108,9 +115,14 @@
             "title": "Аргументы игры (Для запуска после команды):"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "Префикс куда установлен EGS"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Готово",
     "Return": "Вернуться",
     "search": "Напишите сюда имя игры...",
@@ -181,6 +193,9 @@
         "quit": "Выйти",
         "refresh": "Обновить библиотеку",
         "support": "Поддержать нас"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

@@ -1,5 +1,6 @@
 {
     "All": "Todos",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
@@ -10,6 +11,10 @@
         "customWine": "Seleccione el Wine o Proton binario",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "No hay suficiente espacio disponible en disco",
                 "title": "No espacio"
@@ -18,7 +23,8 @@
                 "message": "Un error desconocido a ocurrido",
                 "title": "Error desconocido"
             },
-            "launch": "Error al iniciar el juego, ¡revisa los registros!"
+            "launch": "Error al iniciar el juego, ¡revisa los registros!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "No",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "Descargando",
     "Filter": "Filtrar",
+    "Games": "Games",
     "globalSettings": "Ajustes globales",
     "help": {
         "general": "Sincronice con EGS en caso de que tenga una instalación funcional de EGS en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -108,9 +115,14 @@
             "title": "Argumentos del juego (para ejecutar después del comando):"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "Prefix donde está instalado EGS"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Listo",
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
@@ -181,6 +193,9 @@
         "quit": "Salir",
         "refresh": "Refresar Biblioteca",
         "support": "Apoyanos"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

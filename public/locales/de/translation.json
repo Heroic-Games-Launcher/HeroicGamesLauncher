@@ -1,5 +1,6 @@
 {
     "All": "Alle",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "Es ist eine neue Version von Heroic verfügbar, möchten Sie diese jetzt installieren?",
@@ -10,6 +11,10 @@
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
                 "title": "Kein Speicherplatz"
@@ -18,7 +23,8 @@
                 "message": "Ein unbekannter Fehler ist aufgetreten",
                 "title": "Unbekannter Fehler"
             },
-            "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!"
+            "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEIN",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "Am herunterladen",
     "Filter": "Filter",
+    "Games": "Games",
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -108,9 +115,14 @@
             "title": "Spiel-Argumente (Zur Ausführung nach dem Befehl):"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "Prefix, wo EGS installiert ist"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Installiert",
     "Return": "Zurück",
     "search": "Geben Sie hier den Namen des Spiels ein...",
@@ -181,6 +193,9 @@
         "quit": "Beenden",
         "refresh": "Bibliothek aktualisieren",
         "support": "Unterstütze uns"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

@@ -191,7 +191,7 @@ class LegendaryGame implements Game {
     try {
       return await execAsync(command, execOptions)
     } catch (error) {
-      return await errorHandler(logPath)
+      return await errorHandler({error})
     }
   }
 
@@ -218,7 +218,7 @@ class LegendaryGame implements Game {
       return await execAsync(command, execOptions)
     } catch (error) {
       Library.get().installState(this.appName, false)
-      return errorHandler(logPath)
+      return errorHandler({error, logPath})
     }
   }
 

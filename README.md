@@ -59,6 +59,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Dutch
 - French
 - German
+- Greek
 - Hungarian
 - Italian
 - Malayalam

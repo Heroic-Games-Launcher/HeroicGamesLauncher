@@ -1,4 +1,4 @@
-import { Remote } from 'electron'
+import { IpcRenderer } from 'electron'
 import React, {
   useContext,
   useEffect,
@@ -16,10 +16,9 @@ import {
 } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
-const { remote } = window.require('electron') as {
-  remote: Remote
+const { ipcRenderer } = window.require('electron') as {
+  ipcRenderer: IpcRenderer
 }
-const { showMessageBox, showOpenDialog } = remote.dialog
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
@@ -55,7 +54,8 @@ export default function SyncSaves({
     const getSyncFolder = async () => {
       const { save_folder, install: { install_path } } = await getGameInfo(appName)
       setAutoSyncSaves(autoSyncSaves)
-      let folder = await fixSaveFolder(save_folder, winePrefix = '', isProton = false)
+      const prefix = winePrefix ? winePrefix : ''
+      let folder = await fixSaveFolder(save_folder, prefix, isProton = false)
       folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
       const fixedPath = isWin ? path.replaceAll('/', '\\') : path // invert slashes and remove latest on windows
@@ -83,7 +83,7 @@ export default function SyncSaves({
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
-      showMessageBox({ message: res, title: 'Saves Sync' })
+      ipcRenderer.invoke('openMessageBox', { message: res, title: 'Saves Sync' })
     )
     setIsSyncing(false)
   }
@@ -108,13 +108,13 @@ export default function SyncSaves({
               onClick={() =>
                 isLinked
                   ? ''
-                  : showOpenDialog({
+                  : ipcRenderer.invoke('openDialog', {
                     buttonLabel: t('box.sync.button'),
                     properties: ['openDirectory'],
                     title: t('box.sync.title')
                   })
-                    .then(({ filePaths }: Path) =>
-                      setSavesPath(filePaths[0] ? `${filePaths[0]}\\` : '')
+                    .then(({ path }: Path) =>
+                      setSavesPath(path ? `${path}\\` : '')
                     )
               }
             />
