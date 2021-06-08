@@ -3,7 +3,7 @@
 [![Discord](https://img.shields.io/discord/812703221789097985.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=7389D8)](https://discord.gg/rHJ2uqdquK) [![GitHub release](https://img.shields.io/github/release/Heroic-Games-Launcher/HeroicGamesLauncher.svg?label=Release)](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/) [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/COPYING) [![Design](https://img.shields.io/badge/Design%20Research-Biliane%20Moreira-blue?style=flat&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xOCA0VjNjMC0uNTUtLjQ1LTEtMS0xSDVjLS41NSAwLTEgLjQ1LTEgMXY0YzAgLjU1LjQ1IDEgMSAxaDEyYy41NSAwIDEtLjQ1IDEtMVY2aDF2NEg5djExYzAgLjU1LjQ1IDEgMSAxaDJjLjU1IDAgMS0uNDUgMS0xdi05aDhWNGgtM3oiLz48L3N2Zz4=)](https://bilianemoreira.com/projects/heroic) [![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dheroicgameslauncher%26type%3Dpatrons&style=flat&label=Patreon)](https://patreon.com/heroicgameslauncher) [![kofi](https://img.shields.io/badge/Ko--Fi-Donate-orange?style=flat&logo=ko-fi)](https://ko-fi.com/flavioislima)
 
 
-Heroic is an Open Source Game Launcher for Linux.
+Heroic is an Open Source Game Launcher for Linux, Windows (Beta) and limited support to MacOS.
 Right now it supports launching game from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), a Linux CLI alternative to launch epic games.
 Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electron.
 
@@ -23,7 +23,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ## How to use it
 
-- [Download and Install](#installation) the package for your distro or the universal AppImage file on the Releases Page;
+- [Download and Install](#installation) the package for your distro, the universal AppImage for Linux or the exe for Windows on the Releases Page;
 - If you used Legendary before, it loads your library and installed games. If not, it will ask you to login first. Just follow the instructions.
 
 ## Feature available right now
@@ -31,14 +31,13 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Login with an existing Epic Games account
 - Install/Uninstall Games
 - Import an already installed game
-- Play online (EAC not supported)
+- Play online (EAC not supported on Linux)
 - Update installed Games
 - Repair installed Games
 - Move installed games to different folders
-- Multiple downloads at the same time
-- Play games using the default wine and default prefix
-- Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs)
-- Run games on custom wine prefix
+- Play games using the default wine and default prefix (Linux)
+- Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs) (Linux)
+- Run games on custom wine prefix (Linux)
 - Check basic information about your Games
 - Open game page on Epic Store
 - Search for the game on ProtonDB
@@ -48,7 +47,6 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 ## Planned features
 
 - Better Login System
-- Get the Free game of the week
 - Add Games outside Epic Games
 - Integration with other stores (GOG, ITCH.IO, Humble Bundle)
 
@@ -71,7 +69,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Turkish
 ### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
-## Installation
+## Linux Installation
 
 ### Debian
 
