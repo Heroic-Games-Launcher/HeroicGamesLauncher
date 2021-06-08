@@ -121,7 +121,8 @@ async function fixSaveFolder(
 ) {
   const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
-  const isWin = await getPlatform() === 'win32';
+  const platform = await getPlatform()
+  const isWin = platform === 'win32';
   let winePrefix = prefix ? prefix.replaceAll("'", '') : ''
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
   const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`

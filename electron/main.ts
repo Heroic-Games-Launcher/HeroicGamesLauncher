@@ -254,7 +254,7 @@ if (!gotTheLock) {
       const pythonVersion: number | null = pythonInfo ? parseFloat(pythonInfo.split(' ')[1].replace('\n', '')) : null
       if (pythonVersion < 3.8) {
         console.log(`Python Version incompatible. Python needed: >= 3.8, Python found: ${pythonVersion}`);
-        dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Python needs to be higher than 3.8 for Heroic to work')}`)
+        dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Heroic requires Python 3.8 or newer.')}`)
       }
     }
 
