@@ -8,15 +8,9 @@ import {
 
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { createNewWindow } from 'src/helpers';
+import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { useTranslation } from 'react-i18next';
 import NavBar from './index';
-
-// Fixme: Don't mock this function. Better mock electron -> BrowserWindow
-// Todo: Find out how to mock classes like BrowserWindow
-jest.mock('src/helpers', () => ({
-  createNewWindow: jest.fn()
-}));
 
 let selectedLanguage = 'custom';
 jest.mock('react-i18next', () => ({
@@ -78,12 +72,12 @@ describe('NavBar', () => {
     const storeLink = getByTestId('store');
     expect(storeLink).toHaveTextContent('store');
     fireEvent.click(storeLink);
-    expect(createNewWindow).toBeCalledWith('https://www.epicgames.com/store/' + i18n.language + '/');
+    expect(ipcRenderer.send).toBeCalledWith('createNewWindow', 'https://www.epicgames.com/store/' + i18n.language + '/');
 
     const wikiLink = getByTestId('wiki');
     expect(wikiLink).toHaveTextContent('wiki');
     fireEvent.click(wikiLink);
-    expect(createNewWindow).toBeCalledWith('https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki');
+    expect(ipcRenderer.send).toBeCalledWith('createNewWindow', 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki');
   })
 
   test('changing language to pt changes store link', async () => {
@@ -95,6 +89,6 @@ describe('NavBar', () => {
     const storeLink = getByTestId('store');
     expect(storeLink).toHaveTextContent('store');
     fireEvent.click(storeLink);
-    expect(createNewWindow).toBeCalledWith('https://www.epicgames.com/store/pt-BR/');
+    expect(ipcRenderer.send).toBeCalledWith('createNewWindow', 'https://www.epicgames.com/store/pt-BR/');
   })
 })
