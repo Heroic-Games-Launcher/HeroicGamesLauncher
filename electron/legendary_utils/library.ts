@@ -148,13 +148,11 @@ class Library {
 
     const command = `${legendaryBin} list-installed --check-updates --tsv`
     const { stdout } = await execAsync(command)
-    const result = stdout
+    return stdout
       .split('\n')
       .filter((item) => item.includes('True'))
       .map((item) => item.split('\t')[0])
-
-    result.pop()
-    return result
+      .filter((item) => item.length > 1)
   }
 
   /**

@@ -185,8 +185,11 @@ class LegendaryGame implements Game {
    * @returns Result of execAsync.
    */
   public async update() {
-    const logPath = `${heroicGamesConfigPath}${this.appName}.log`
-    const command = `${legendaryBin} update ${this.appName} -y &> ${logPath}`
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+    const command = `${legendaryBin} update ${this.appName} ${workers} -y ${writeLog}`
 
     try {
       return await execAsync(command, execOptions)
@@ -238,9 +241,10 @@ class LegendaryGame implements Game {
   public async repair() {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
-
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const command = `${legendaryBin} repair ${this.appName} ${workers} -y &> ${logPath}`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+
+    const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
 
     console.log(`Repairing ${this.appName} with:`, command)
     return await execAsync(command, execOptions)
