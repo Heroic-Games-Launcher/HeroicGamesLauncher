@@ -33,19 +33,18 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
   if (installPath === 'import' && is_game) {
     const args = {
       buttonLabel: t('gamepage:box.choose'),
+      properties: ['openDirectory'],
       title: t('gamepage:box.importpath')
     }
     const { path, canceled } = await ipcRenderer.invoke('openDialog', args)
 
-    if (canceled) {
+    if (canceled || !path) {
       return
     }
 
-    if (path) {
-      handleGameStatus({ appName, status: 'installing' })
-      await importGame({ appName, path })
-      return await handleGameStatus({ appName, status: 'done' })
-    }
+    handleGameStatus({ appName, status: 'installing' })
+    await importGame({ appName, path })
+    return await handleGameStatus({ appName, status: 'done' })
   }
 
   if (installPath === 'another' || !is_game) {
@@ -56,24 +55,22 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
     }
     const { path, canceled } = await ipcRenderer.invoke('openDialog', args)
 
-    if (canceled) {
+    if (canceled || !path) {
       return
     }
 
-    if (path) {
-      setInstallPath && setInstallPath(path)
-      // If the user changed the previous folder, the percentage should start from zero again.
-      if (previousProgress.folder !== path) {
-        storage.removeItem(appName)
-      }
-      handleGameStatus({ appName, status: 'installing' })
-      await ipcRenderer.invoke('install', { appName, path: `'${path}'` })
-
-      if (progress.percent === '100%') {
-        storage.removeItem(appName)
-      }
-      return await handleGameStatus({ appName, status: 'done' })
+    setInstallPath && setInstallPath(path)
+    // If the user changed the previous folder, the percentage should start from zero again.
+    if (previousProgress.folder !== path) {
+      storage.removeItem(appName)
     }
+    handleGameStatus({ appName, status: 'installing' })
+    await ipcRenderer.invoke('install', { appName, path: `'${path}'` })
+
+    if (progress.percent === '100%') {
+      storage.removeItem(appName)
+    }
+    return await handleGameStatus({ appName, status: 'done' })
   }
 
   if (is_game) {
@@ -195,11 +192,22 @@ const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (ga
 const updateGame = (appName: string): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName)
 
+// Todo: Get Back to update all games
+function updateAllGames(
+  gameList: Array<string>,
+  handleGameStatus: (game: GameStatus) => Promise<void>) {
+  gameList.forEach(async (appName) => {
+    await handleGameStatus({appName, status: 'updating'})
+    await updateGame(appName)
+  })
+}
+
 export {
   handleStopInstallation,
   install,
   launch,
   repair,
   uninstall,
+  updateAllGames,
   updateGame
 }

@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -132,7 +132,7 @@
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
-    "electron": "^13.0.1",
+    "electron": "^13.1.1",
     "electron-builder": "^22.10.5",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^7.27.0",
@@ -144,7 +144,6 @@
     "foreman": "^3.0.1",
     "husky": "^6.0.0",
     "i18next-parser": "^4.2.0",
-    "npm": "^7.14.0",
     "ts-jest": "^26.5.6",
     "typescript": "^4.3.2"
   },

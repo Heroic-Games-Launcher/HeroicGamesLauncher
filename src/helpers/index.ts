@@ -1,14 +1,9 @@
 import { GameInfo, InstallProgress } from 'src/types'
-import { IpcRenderer, Remote } from 'electron'
+import { IpcRenderer } from 'electron'
 import {install, launch, repair, updateGame} from './library'
-const { ipcRenderer, remote } = window.require('electron') as {
+const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
-  remote: Remote
 }
-const {
-  BrowserWindow,
-  process
-} = remote
 
 const readFile = async (file: string) =>
   await ipcRenderer.invoke('readConfig', file)
@@ -17,11 +12,12 @@ const writeConfig = async (
   data: [appName: string, x: unknown]
 ): Promise<void> => await ipcRenderer.invoke('writeConfig', data)
 
-
 const notify = ([title, message]: [title: string, message: string]): void =>
   ipcRenderer.send('Notify', [title, message])
 
 const loginPage = (): void => ipcRenderer.send('openLoginPage')
+
+const getPlatform = async () => await ipcRenderer.invoke('getPlatform')
 
 const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
 
@@ -104,8 +100,7 @@ const handleSavePath = async (game: string) => {
   return { cloud_save_enabled, save_folder }
 }
 
-const createNewWindow = (url: string) =>
-  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
+const createNewWindow = (url: string) => ipcRenderer.send('createNewWindow', url)
 
 const formatStoreUrl = (title: string, lang: string) => {
   const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
@@ -126,7 +121,8 @@ async function fixSaveFolder(
 ) {
   const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
-  const isWin = process.platform === 'win32';
+  const platform = await getPlatform()
+  const isWin = platform === 'win32';
   let winePrefix = prefix ? prefix.replaceAll("'", '') : ''
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
   const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`
@@ -220,6 +216,7 @@ export {
   formatStoreUrl,
   getGameInfo,
   getLegendaryConfig,
+  getPlatform,
   getProgress,
   handleKofi,
   handleQuit,

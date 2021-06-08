@@ -1,6 +1,5 @@
 import React from 'react'
 
-const { remote: { process } } = window.require('electron')
 import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
@@ -16,7 +15,7 @@ const initialContext: ContextType = {
   handleSearch: () => null,
   layout: 'grid',
   libraryStatus: [],
-  platform: process?.platform || 'linux',
+  platform: '',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
   refreshing: false,

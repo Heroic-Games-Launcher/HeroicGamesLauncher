@@ -6,6 +6,7 @@ import { TFunction, withTranslation } from 'react-i18next'
 import {
   getGameInfo,
   getLegendaryConfig,
+  getPlatform,
   getProgress,
   launch,
   notify
@@ -16,8 +17,7 @@ import UpdateComponent from 'src/components/UI/UpdateComponent'
 import ContextProvider from './ContextProvider'
 
 const storage: Storage = window.localStorage
-const { remote, ipcRenderer } = window.require('electron')
-const { process } = remote
+const { ipcRenderer } = window.require('electron')
 
 const renderer: IpcRenderer = ipcRenderer
 
@@ -38,6 +38,7 @@ interface StateProps {
   language: string
   layout: string
   libraryStatus: GameStatus[]
+  platform: string
   refreshing: boolean
   user: string
 }
@@ -53,6 +54,7 @@ export class GlobalState extends PureComponent<Props> {
     language: '',
     layout: 'grid',
     libraryStatus: [],
+    platform: '',
     refreshing: false,
     user: ''
   }
@@ -263,16 +265,19 @@ export class GlobalState extends PureComponent<Props> {
       }
     })
 
+    const platform = await getPlatform()
     const category = storage.getItem('category') || 'games'
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
+
     if (!gameUpdates.length){
       const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
       this.setState({gameUpdates: storedGameUpdates})
     }
+
     i18n.changeLanguage(language)
-    this.setState({ category, filter, language, layout })
+    this.setState({ category, filter, language, layout, platform })
 
     setTimeout(() => {
       this.checkVersion()
@@ -298,7 +303,7 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, filterText, filter, refreshing } = this.state
+    const { data, filterText, filter, platform, refreshing } = this.state
 
     if (refreshing) {
       return <UpdateComponent />
@@ -318,7 +323,7 @@ export class GlobalState extends PureComponent<Props> {
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handleSearch: this.handleSearch,
-          platform: process.platform,
+          platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary
         }}
