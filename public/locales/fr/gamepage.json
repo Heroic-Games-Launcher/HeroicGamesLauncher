@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Cela va changer le chemin d’installation pour ce jeu, êtes-vous sûrs?",
+            "message": "Cela va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
             "path": "Choisir un nouveau chemin d'installation",
             "title": "Changer le chemin d'installation du Jeu"
         },
@@ -9,33 +9,33 @@
         "importpath": "Choisir le jeu à importer",
         "installpath": "Choisir le chemin d'installation",
         "move": {
-            "message": "Cela peut prendre un moment, êtes-vous sûrs?",
+            "message": "Ce traitement peut prendre longtemps, êtes-vous certain(e) de vouloir continuer ?",
             "path": "Choisir où le déplacer",
             "title": "Déplacer l'installation du jeu"
         },
         "no": "NON",
         "repair": {
-            "message": "Voulez-vous essayer de réparer ce jeu? Cela peut prendre un moment.",
+            "message": "Voulez-vous essayer de réparer ce jeu ? Cela peut prendre un moment.",
             "title": "Vérifier et Réparer"
         },
         "stopInstall": {
             "keepInstalling": "Continuer l'installation",
-            "message": "Voulez-vous continuer à télécharger les fichiers?",
+            "message": "Voulez-vous CONSERVER les fichiers téléchargés ?",
             "title": "Arrêter l'installation"
         },
         "uninstall": {
-            "message": "Voulez-vous désinstaller ce jeu?",
+            "message": "Voulez-vous désinstaller ce jeu ?",
             "title": "Désinstaller"
         },
         "update": {
-            "message": "Une mise à jour est disponible, faire la mise à jour maintenant?",
-            "title": "Mise à jour nécessaire"
+            "message": "Une mise-à-jour est disponible pour ce jeu. Voulez-vous le mettre à jour maintenant ?",
+            "title": "Mise-à-jour nécessaire"
         },
         "yes": "OUI"
     },
     "button": {
         "cancel": "Annuler",
-        "continue": "Continue Download",
+        "continue": "Continuer le téléchargement",
         "import": "Importer",
         "install": "Installer",
         "uninstall": "Désinstaller"
@@ -74,13 +74,13 @@
         "recommended": "Recommandée"
     },
     "status": {
-        "hasUpdates": "Nouvelle version disponible!",
+        "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
         "installing": "Installation",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
         "reparing": "Réparation du jeu, veuillez patienter",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Total Téléchargé",
         "updating": "Mise à jour du jeu"
     },
     "submenu": {
