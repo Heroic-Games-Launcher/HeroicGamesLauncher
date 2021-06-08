@@ -191,8 +191,6 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
-    const {stdout: pythonInfo} = await execAsync('python --version')
-    const pythonVersion = parseFloat(pythonInfo.split(' ')[1].replace('\n', ''))
 
     await i18next.use(Backend).init({
       backend: {
@@ -252,9 +250,13 @@ if (!gotTheLock) {
       appIcon.setContextMenu(contextMenu())
     })
 
-    if (pythonVersion < 3.8) {
-      console.log(`Python Version incompatible. Python needed: >= 3.8, Python found: ${pythonVersion}`);
-      dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Python needs to be higher than 3.8 for Heroic to work')}`)
+    if (process.platform === 'linux'){
+      const {stdout: pythonInfo} = await execAsync('python --version')
+      const pythonVersion: number | null = pythonInfo ? parseFloat(pythonInfo.split(' ')[1].replace('\n', '')) : null
+      if (pythonVersion < 3.8) {
+        console.log(`Python Version incompatible. Python needed: >= 3.8, Python found: ${pythonVersion}`);
+        dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Python needs to be higher than 3.8 for Heroic to work')}`)
+      }
     }
 
     return
