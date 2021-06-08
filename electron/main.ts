@@ -72,7 +72,6 @@ function createWindow(): BrowserWindow {
     minWidth: 1200,
     webPreferences: {
       contextIsolation: false,
-      enableRemoteModule: true,
       nodeIntegration: true
     },
     width: isDev ? 1800 : 1280
@@ -380,10 +379,14 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
 /// IPC handlers begin here.
 
 ipcMain.handle('checkGameUpdates', () => LegendaryGame.checkGameUpdates())
-
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.handle('getPlatform', () => process.platform)
+
+ipcMain.on('createNewWindow', (e, url) =>
+  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
+)
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   const obj = LegendaryGame.get(game)
