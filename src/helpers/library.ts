@@ -21,6 +21,11 @@ type InstallArgs = {
 }
 
 async function install({appName, installPath, t, progress, isInstalling, handleGameStatus, previousProgress, setInstallPath}: InstallArgs) {
+  if(!installPath)
+  {
+    return;
+  }
+
   const {folder_name, is_game, is_installed}: GameInfo = await getGameInfo(appName)
   if (isInstalling) {
     return handleStopInstallation(appName, [installPath, folder_name], t, progress)

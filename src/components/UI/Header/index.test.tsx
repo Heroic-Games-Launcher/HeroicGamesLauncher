@@ -10,7 +10,7 @@ import {
 
 
 import { ContextType } from 'src/types';
-import { game, plugin } from 'src/test_helpers/testDefaultVariables';
+import { test_game, test_plugin } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import Header from './index';
 
@@ -112,16 +112,16 @@ describe('Header', () => {
 
   test('filtering games works', () => {
     const context = {
-      data: [game, plugin],
+      data: [test_game, test_plugin],
       filter: 'all',
-      gameUpdates: [plugin.app_name],
+      gameUpdates: [test_plugin.app_name],
       handleFilter: jest.fn(),
       libraryStatus: [{
-        appName: game.app_name,
+        appName: test_game.app_name,
         status: 'installing' as const
       },
       {
-        appName: plugin.app_name,
+        appName: test_plugin.app_name,
         status: 'updating' as const
       }]
     }
