@@ -6,20 +6,9 @@ import {
   waitFor
 } from '@testing-library/react';
 
-import { ipcRenderer, remote } from 'src/test_helpers/mock/electron';
+import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
+import { resetTestTypes, test_egssync_response, test_opendialog } from 'src/test_helpers/testTypes';
 import GeneralSettings from './index';
-
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: () => new Promise(() => {return;})
-      },
-      t: (str: string) => str
-    };
-  }
-}));
 
 interface Props {
     darkTrayIcon: boolean
@@ -56,13 +45,17 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     toggleDarkTrayIcon: () => {return;},
     toggleTray: () => {return;}
   };
-  ipcRenderer.invoke.mockReturnValueOnce(props.maxWorkers || defaultprops.maxWorkers);
   const returnvalue = await render(<GeneralSettings {...{...defaultprops, ...props}} />);
   expect(ipcRenderer.invoke).toBeCalledWith('getMaxCpus');
   return returnvalue;
 }
 
 describe('GeneralSettings', () => {
+  beforeEach(() => {
+    resetTestTypes();
+    initElectronMocks();
+  })
+
   test('renders', async () => {
     return await renderGeneralSettings();
   })
@@ -74,12 +67,12 @@ describe('GeneralSettings', () => {
     fireEvent.change(installPathInput, {target: { value: 'new/install/path'}});
     expect(onSetDefaultInstallPath).toBeCalledWith('new/install/path');
 
-    remote.dialog.showOpenDialog.mockImplementationOnce(() => Promise.resolve({filePaths: ['another/install/path']}));
+    test_opendialog.set({path: 'another/install/path'});
     const installPathButton = getByTestId('setinstallpathbutton');
     fireEvent.click(installPathButton);
-    await waitFor(() => expect(onSetDefaultInstallPath).toBeCalledWith('another/install/path'));
+    await waitFor(() => expect(onSetDefaultInstallPath).toBeCalledWith('\'another/install/path\''));
 
-    remote.dialog.showOpenDialog.mockImplementationOnce(() => Promise.resolve({filePaths: []}));
+    test_opendialog.set({path: ''});
     fireEvent.click(installPathButton);
     await waitFor(() => expect(onSetDefaultInstallPath).toBeCalledWith(''));
   })
@@ -91,12 +84,12 @@ describe('GeneralSettings', () => {
     fireEvent.change(syncPathInput, {target: { value: 'new/sync/path'}});
     await waitFor(() => expect(onSetEgsPath).toBeCalledWith('new/sync/path'));
 
-    remote.dialog.showOpenDialog.mockImplementationOnce(() => Promise.resolve({filePaths: ['another/sync/path']}));
+    test_opendialog.set({path: 'another/sync/path'});
     const syncPathButton = getByTestId('setEpicSyncPathButton');
     fireEvent.click(syncPathButton);
-    await waitFor(() => expect(onSetEgsPath).toBeCalledWith('another/sync/path'));
+    await waitFor(() => expect(onSetEgsPath).toBeCalledWith('\'another/sync/path\''));
 
-    remote.dialog.showOpenDialog.mockImplementationOnce(() => Promise.resolve({filePaths: []}));
+    test_opendialog.set({path: ''});
     fireEvent.click(syncPathButton);
     await waitFor(() => expect(onSetEgsPath).toBeCalledWith(''));
 
@@ -116,7 +109,7 @@ describe('GeneralSettings', () => {
     fireEvent.change(syncPathInput, {target: { value: 'new/sync/path'}});
     await waitFor(() => expect(syncPathInput).toHaveValue('linked/path'));
 
-    remote.dialog.showOpenDialog.mockImplementationOnce(() => Promise.resolve({filePaths: ['another/sync/path']}));
+    test_opendialog.set({path: 'another/sync/path'});
     const syncPathButton = getByTestId('setEpicSyncPathButton');
     fireEvent.click(syncPathButton);
     await waitFor(() => expect(onSetEgsPath).not.toBeCalledWith('another/sync/path'));
@@ -139,9 +132,9 @@ describe('GeneralSettings', () => {
       });
     const syncButton = getByTestId('syncButton');
 
-    ipcRenderer.invoke.mockResolvedValueOnce('Success');
     fireEvent.click(syncButton);
-    await waitFor(() => expect(remote.dialog.showMessageBox).toBeCalledWith({'message': 'message.sync', 'title': 'EGS Sync'}));
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('openMessageBox', {'message': 'message.sync', 'title': 'EGS Sync'}));
+    expect(() => expect(ipcRenderer.invoke).toBeCalledWith('egsSync', 'unlink'));
     expect(onSetegsLinkedPath).toBeCalledWith('path/to/sync');
   })
 
@@ -157,9 +150,9 @@ describe('GeneralSettings', () => {
       });
     const syncButton = getByTestId('syncButton');
 
-    ipcRenderer.invoke.mockResolvedValueOnce('Error');
+    test_egssync_response.set('Error');
     fireEvent.click(syncButton);
-    await waitFor(() => expect(remote.dialog.showErrorBox).toBeCalledWith('box.error', 'box.sync.error'));
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('showErrorBox', {'content': 'box.sync.error', 'title': 'box.error'}));
     expect(onSetegsLinkedPath).toBeCalledWith('');
     expect(onSetEgsPath).toBeCalledWith('');
   })
@@ -176,9 +169,8 @@ describe('GeneralSettings', () => {
       });
     const syncButton = getByTestId('syncButton');
 
-    ipcRenderer.invoke.mockResolvedValueOnce({});
     fireEvent.click(syncButton);
-    await waitFor(() => expect(remote.dialog.showMessageBox).toBeCalledWith({'message': 'message.unsync', 'title': 'EGS Sync'}));
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('openMessageBox', {'message': 'message.unsync', 'title': 'EGS Sync'}));
     expect(onSetegsLinkedPath).toBeCalledWith('');
     expect(onSetEgsPath).toBeCalledWith('');
   })
@@ -187,10 +179,14 @@ describe('GeneralSettings', () => {
     const onSetLanguage = jest.fn();
     const { getByTestId } = await renderGeneralSettings({ setLanguage: onSetLanguage});
     const languageSelector = getByTestId('languageSelector');
+    const buttonWeblate = getByTestId('buttonWeblate');
 
     fireEvent.change(languageSelector, { target: { value: 'de' }});
     expect(ipcRenderer.send).toBeCalledWith('changeLanguage', 'de');
     expect(onSetLanguage).toBeCalledWith('de');
+
+    fireEvent.click(buttonWeblate);
+    expect(ipcRenderer.send).toBeCalledWith('openWeblate');
   })
 
   test('change max workers', async () => {

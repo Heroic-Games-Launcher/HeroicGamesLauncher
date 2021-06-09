@@ -7,20 +7,9 @@ import {
 } from '@testing-library/react';
 
 import { WineInstallation } from 'src/types';
-import { remote } from 'src/test_helpers/mock/electron';
+import { ipcRenderer } from 'src/test_helpers/mock/electron';
+import { test_opendialog, test_wineinstallation } from 'src/test_helpers/testTypes';
 import WineSettings from './index';
-
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: () => new Promise(() => {return;})
-      },
-      t: (str: string) => str
-    };
-  }
-}));
 
 interface Props {
     altWine: WineInstallation[]
@@ -39,12 +28,9 @@ interface Props {
 function renderWineSettings(props: Partial<Props> = {})
 {
   const defaultProps: Props = {
-    altWine: [{
-      bin: 'path/to/wine/bin',
-      name: 'wine'
-    }],
+    altWine: [test_wineinstallation.get()],
     autoInstallDxvk: false,
-    customWinePaths: ['customWinePaths'],
+    customWinePaths: ['custom/wine/path'],
     isDefault: false,
     setAltWine: () => {return;},
     setCustomWinePaths: () => {return;},
@@ -78,12 +64,15 @@ describe('WineSettings', () => {
     const onSetWinePrefix = jest.fn();
     const { getByTestId } = renderWineSettings({setWinePrefix: onSetWinePrefix});
     const addWinePrefix = getByTestId('addWinePrefix');
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({ filePaths: []});
+    test_opendialog.set({path: ''});
     fireEvent.click(addWinePrefix);
-    await waitFor(() => expect(remote.dialog.showOpenDialog).toBeCalledWith(
-      {'buttonLabel': 'box.choose',
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.choose',
         'properties': ['openDirectory'],
-        'title': 'box.wineprefix'}));
+        'title': 'box.wineprefix'
+      }));
     expect(onSetWinePrefix).toBeCalledWith('~/.wine')
   })
 
@@ -91,21 +80,24 @@ describe('WineSettings', () => {
     const onSetWinePrefix = jest.fn();
     const { getByTestId } = renderWineSettings({setWinePrefix: onSetWinePrefix});
     const addWinePrefix = getByTestId('addWinePrefix');
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({ filePaths: ['newPrefixPath']});
+    test_opendialog.set({path: 'new/prefix/path'});
     fireEvent.click(addWinePrefix);
-    await waitFor(() => expect(remote.dialog.showOpenDialog).toBeCalledWith(
-      {'buttonLabel': 'box.choose',
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.choose',
         'properties': ['openDirectory'],
-        'title': 'box.wineprefix'}));
-    expect(onSetWinePrefix).toBeCalledWith('newPrefixPath')
+        'title': 'box.wineprefix'
+      }));
+    expect(onSetWinePrefix).toBeCalledWith('new/prefix/path')
   })
 
   test('select wine prefix search path invokes setSelectPath', async () => {
     const { getByTestId } = renderWineSettings({isDefault: true});
     const selectWinePath = getByTestId('selectWinePath');
     expect(selectWinePath).toHaveValue(undefined);
-    fireEvent.change(selectWinePath, { target: { value: 'customWinePaths'}});
-    await waitFor(() => expect(selectWinePath).toHaveValue('customWinePaths'));
+    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path'}});
+    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'));
   })
 
   test('remove last wine prefix search path invokes removeCustomPath with empty path', async () => {
@@ -115,8 +107,8 @@ describe('WineSettings', () => {
     const selectWinePath = getByTestId('selectWinePath');
 
     expect(selectWinePath).toHaveValue(undefined);
-    fireEvent.change(selectWinePath, { target: { value: 'customWinePaths'}});
-    await waitFor(() => expect(selectWinePath).toHaveValue('customWinePaths'));
+    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path'}});
+    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'));
 
     fireEvent.click(removeWinePath);
     await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith([]));
@@ -125,15 +117,15 @@ describe('WineSettings', () => {
   test('remove not last wine prefix search path invokes removeCustomPath with remaining paths', async () => {
     const onSetCustomWinePaths = jest.fn();
     const { getByTestId } = renderWineSettings({
-      customWinePaths: ['customWinePaths', 'remainingWinePaths'],
+      customWinePaths: ['custom/wine/path', 'remainingWinePaths'],
       isDefault: true,
       setCustomWinePaths: onSetCustomWinePaths});
     const removeWinePath = getByTestId('removeWinePath');
     const selectWinePath = getByTestId('selectWinePath');
 
     expect(selectWinePath).toHaveValue(undefined);
-    fireEvent.change(selectWinePath, { target: { value: 'customWinePaths'}});
-    await waitFor(() => expect(selectWinePath).toHaveValue('customWinePaths'));
+    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path'}});
+    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'));
 
     fireEvent.click(removeWinePath);
     await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['remainingWinePaths']));
@@ -147,22 +139,28 @@ describe('WineSettings', () => {
       setCustomWinePaths: onSetCustomWinePaths});
     const addWinePath = getByTestId('addWinePath');
 
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({filePaths: []});
+    test_opendialog.set({ path: ''});
     fireEvent.click(addWinePath);
     await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith([]));
-    expect(remote.dialog.showOpenDialog).toBeCalledWith({
-      'buttonLabel': 'box.choose',
-      'properties': ['openFile'],
-      'title': 'box.customWine'});
+    expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.choose',
+        'properties': ['openFile'],
+        'title': 'box.customWine'
+      });
 
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({filePaths: ['newWinePaths']});
+    test_opendialog.set({ path: 'new/wine/path'});
     fireEvent.click(addWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['newWinePaths']));
-    expect(remote.dialog.showOpenDialog).toBeCalledWith({
-      'buttonLabel': 'box.choose',
-      'properties': ['openFile'],
-      'title': 'box.customWine'});
-
+    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['new/wine/path']));
+    expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.choose',
+        'properties': ['openFile'],
+        'title': 'box.customWine'
+      }
+    );
   })
 
   test('add valid custom wine path invokes setCustomWinePath with path', async () => {
@@ -173,13 +171,17 @@ describe('WineSettings', () => {
       setCustomWinePaths: onSetCustomWinePaths});
     const addWinePath = getByTestId('addWinePath');
 
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({filePaths: ['newWinePaths']});
+    test_opendialog.set({ path: 'new/wine/path'});
     fireEvent.click(addWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['newWinePaths']));
-    expect(remote.dialog.showOpenDialog).toBeCalledWith({
-      'buttonLabel': 'box.choose',
-      'properties': ['openFile'],
-      'title': 'box.customWine'});
+    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['new/wine/path']));
+    expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.choose',
+        'properties': ['openFile'],
+        'title': 'box.customWine'
+      }
+    );
   })
 
   test('add already existing custom wine path does not invoke setCustomWinePath', async () => {
@@ -189,13 +191,17 @@ describe('WineSettings', () => {
       setCustomWinePaths: onSetCustomWinePaths});
     const addWinePath = getByTestId('addWinePath');
 
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({filePaths: ['customWinePaths']});
+    test_opendialog.set({path: 'custom/wine/path'})
     fireEvent.click(addWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).not.toBeCalledWith());
-    expect(remote.dialog.showOpenDialog).toBeCalledWith({
-      'buttonLabel': 'box.choose',
-      'properties': ['openFile'],
-      'title': 'box.customWine'});
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.choose',
+        'properties': ['openFile'],
+        'title': 'box.customWine'
+      }
+    ));
+    expect(onSetCustomWinePaths).not.toBeCalled();
   })
 
   test('change wine version invokes setWineVersion', async () => {
@@ -205,5 +211,11 @@ describe('WineSettings', () => {
 
     fireEvent.change(setWineVersion, {target: {value: 'wine'}});
     await waitFor(() => expect(onSetWineVersion).toBeCalledWith({'bin': 'path/to/wine/bin', 'name': 'wine'}));
+  })
+
+  test('if wine version is proton a warning is printed', async () => {
+    const { getByTestId } = renderWineSettings({wineVersion: { bin: 'path/to/bin', name: 'Proton-custom'}});
+    const protonWarning = getByTestId('protonWarning');
+    expect(protonWarning).toHaveTextContent('warning.proton');
   })
 })

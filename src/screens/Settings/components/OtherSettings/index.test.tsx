@@ -7,18 +7,6 @@ import {
 
 import OtherSettings from './index';
 
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: () => new Promise(() => {return;})
-      },
-      t: (str: string) => str
-    };
-  }
-}));
-
 interface Props {
     audioFix: boolean
     isDefault: boolean

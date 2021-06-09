@@ -126,7 +126,7 @@ export default function GeneralSettings({
           handleLanguageChange={handleChangeLanguage}
           currentLanguage={language}
         />
-        <a onClick={handleWeblate} className="smallMessage">{t('other.weblate', 'Help Improve this translation.')}</a>
+        <a data-testid="buttonWeblate" onClick={handleWeblate} className="smallMessage">{t('other.weblate', 'Help Improve this translation.')}</a>
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>

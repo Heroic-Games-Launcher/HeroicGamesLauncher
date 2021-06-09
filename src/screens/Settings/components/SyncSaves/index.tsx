@@ -108,16 +108,14 @@ export default function SyncSaves({
               className="material-icons settings folder"
               style={{ color: '#B0ABB6' }}
               onClick={() =>
-                isLinked
-                  ? ''
-                  : ipcRenderer.invoke('openDialog', {
-                    buttonLabel: t('box.sync.button'),
-                    properties: ['openDirectory'],
-                    title: t('box.sync.title')
-                  })
-                    .then(({ path }: Path) =>
-                      setSavesPath(path ? `${path}\\` : '')
-                    )
+                ipcRenderer.invoke('openDialog', {
+                  buttonLabel: t('box.sync.button'),
+                  properties: ['openDirectory'],
+                  title: t('box.sync.title')
+                })
+                  .then(({ path }: Path) =>
+                    setSavesPath(path ? `${path}` : '')
+                  )
               }
             />
           ) : (

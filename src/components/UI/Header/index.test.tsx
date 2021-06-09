@@ -14,18 +14,6 @@ import { test_game, test_plugin } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import Header from './index';
 
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: () => new Promise(() => { return; })
-      },
-      t: (str: string) => str
-    };
-  }
-}));
-
 interface Props {
   goTo: string,
   numberOfGames: number,
@@ -112,16 +100,16 @@ describe('Header', () => {
 
   test('filtering games works', () => {
     const context = {
-      data: [test_game, test_plugin],
+      data: [test_game.get(), test_plugin.get()],
       filter: 'all',
-      gameUpdates: [test_plugin.app_name],
+      gameUpdates: [test_plugin.get().app_name],
       handleFilter: jest.fn(),
       libraryStatus: [{
-        appName: test_game.app_name,
+        appName: test_game.get().app_name,
         status: 'installing' as const
       },
       {
-        appName: test_plugin.app_name,
+        appName: test_plugin.get().app_name,
         status: 'updating' as const
       }]
     }

@@ -7,32 +7,22 @@ import {
 } from '@testing-library/react';
 
 import { WineInstallation } from 'src/types';
-import { ipcRenderer, remote } from 'src/test_helpers/mock/electron';
+import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
+import { resetTestTypes, test_opendialog, test_wineinstallation } from 'src/test_helpers/testTypes';
 import Tools from './index';
-
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: () => new Promise(() => {return;})
-      },
-      t: (str: string) => str
-    };
-  }
-}));
 
 function renderTools(wineVersion: Partial<WineInstallation> = {}, winePrefix = 'winePrefix')
 {
-  const defaultProps: WineInstallation = {
-    bin: 'path/to/wine/bin',
-    name: 'wine'
-  };
   return render(
-    <Tools winePrefix={ winePrefix } wineVersion={{...defaultProps, ...wineVersion}}/>);
+    <Tools winePrefix={ winePrefix } wineVersion={{...test_wineinstallation.get(), ...wineVersion}}/>);
 }
 
 describe('Tools', () => {
+  beforeEach(() => {
+    resetTestTypes();
+    initElectronMocks();
+  })
+
   test('renders', async () => {
     renderTools();
   })
@@ -122,24 +112,30 @@ describe('Tools', () => {
   test('click on drag catches empty path', async () => {
     const { getByTestId } = renderTools();
     const toolsDrag = getByTestId('toolsDrag');
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({filePaths: []});
+    test_opendialog.set({path: ''});
     fireEvent.click(toolsDrag);
-    await waitFor(() => expect(remote.dialog.showOpenDialog).toBeCalledWith(
-      {'buttonLabel': 'box.select',
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.select',
         'filters': [{'extensions': ['exe', 'msi'], 'name': 'Binaries'}],
-        'properties': ['openFile'], 'title': 'box.runexe.title'}));
+        'properties': ['openFile'],
+        'title': 'box.runexe.title'}));
     expect(ipcRenderer.send).not.toBeCalled();
   })
 
   test('click on drag invokes ipcRenderer', async () => {
     const { getByTestId } = renderTools();
     const toolsDrag = getByTestId('toolsDrag');
-    remote.dialog.showOpenDialog.mockResolvedValueOnce({filePaths: ['file.exe']});
+    test_opendialog.set({path: 'file.exe'});
     fireEvent.click(toolsDrag);
-    await waitFor(() => expect(remote.dialog.showOpenDialog).toBeCalledWith(
-      {'buttonLabel': 'box.select',
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
+      'openDialog',
+      {
+        'buttonLabel': 'box.select',
         'filters': [{'extensions': ['exe', 'msi'], 'name': 'Binaries'}],
-        'properties': ['openFile'], 'title': 'box.runexe.title'}));
+        'properties': ['openFile'],
+        'title': 'box.runexe.title'}));
     expect(ipcRenderer.send).toBeCalledWith(
       'callTool',
       {'exe': 'file.exe', 'prefix': 'winePrefix', 'tool': 'runExe', 'wine': 'path/to/wine/bin'}

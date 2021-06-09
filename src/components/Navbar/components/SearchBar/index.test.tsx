@@ -9,18 +9,6 @@ import { ContextType } from 'src/types';
 import ContextProvider from 'src/state/ContextProvider';
 import SearchBar from './index';
 
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: () => new Promise(() => { return; })
-      },
-      t: (str: string) => str
-    };
-  }
-}));
-
 function renderSearchBar(props: Partial<ContextType> = {}) {
   const defaultProps: ContextType = {
     category: 'games',
