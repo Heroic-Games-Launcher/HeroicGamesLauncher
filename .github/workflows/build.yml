@@ -25,10 +25,16 @@ jobs:
       - name: Build artifacts.
         run: |
           sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools
-          yarn dist appimage --publish=never
+          yarn dist appimage pacman --publish=never
       - name: Upload AppImage.
         uses: actions/upload-artifact@v2
         with:
           name: linux-appimage
           path: dist/Heroic-*.AppImage
+          retention-days: 7
+      - name: Upload pacman binary.
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-pacman
+          path: dist/Heroic-*.pacman
           retention-days: 7
