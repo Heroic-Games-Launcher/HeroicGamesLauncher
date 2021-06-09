@@ -2,13 +2,11 @@ import './index.css'
 
 import React from 'react'
 
+import { IpcRenderer } from 'electron'
 import { WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
 
-const { ipcRenderer, remote } = window.require('electron')
-const {
-  dialog: { showOpenDialog }
-} = remote
+const { ipcRenderer } = window.require('electron') as {ipcRenderer: IpcRenderer}
 
 interface Props {
   winePrefix: string
@@ -28,14 +26,14 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
 
   const handleRunExe = async () => {
     let exe = ''
-    const { filePaths } = await showOpenDialog({
+    const { path } = await ipcRenderer.invoke('openDialog', {
       buttonLabel: t('box.select'),
       filters: [ { extensions: ['exe', 'msi'], name: 'Binaries' }],
       properties: ['openFile'],
       title: t('box.runexe.title')
     })
-    if (filePaths[0]) {
-      exe = filePaths[0]
+    if (path) {
+      exe = path
       return callTools('runExe', exe)
     }
     return

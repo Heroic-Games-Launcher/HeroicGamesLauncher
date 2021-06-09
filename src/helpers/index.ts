@@ -1,18 +1,9 @@
 import { GameInfo, InstallProgress } from 'src/types'
-import { IpcRenderer, Remote } from 'electron'
-
-import { TFunction } from 'react-i18next'
-const storage: Storage = window.localStorage
-
-const { ipcRenderer, remote } = window.require('electron') as {
+import { IpcRenderer } from 'electron'
+import {install, launch, repair, updateGame} from './library'
+const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
-  remote: Remote
 }
-const {
-  BrowserWindow,
-  dialog: { showMessageBox },
-  process
-} = remote
 
 const readFile = async (file: string) =>
   await ipcRenderer.invoke('readConfig', file)
@@ -21,35 +12,18 @@ const writeConfig = async (
   data: [appName: string, x: unknown]
 ): Promise<void> => await ipcRenderer.invoke('writeConfig', data)
 
-const install = async (args: {
-  appName: string
-  path: string
-}): Promise<void> => await ipcRenderer.invoke('install', args)
-
-const repair = async (appName: string): Promise<void> =>
-  await ipcRenderer.invoke('repair', appName)
-
-const launch = (args: string): Promise<string> =>
-  ipcRenderer.invoke('launch', args).then((res: string): string => res)
-
-const updateGame = (appName: string): Promise<void> =>
-  ipcRenderer.invoke('updateGame', appName)
-
 const notify = ([title, message]: [title: string, message: string]): void =>
   ipcRenderer.send('Notify', [title, message])
 
 const loginPage = (): void => ipcRenderer.send('openLoginPage')
+
+const getPlatform = async () => await ipcRenderer.invoke('getPlatform')
 
 const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
 
 const handleKofi = (): void => ipcRenderer.send('openSupportPage')
 
 const handleQuit = (): void => ipcRenderer.send('quit')
-
-const importGame = async (args: {
-  appName: string
-  path: string
-}): Promise<void> => await ipcRenderer.invoke('importGame', args)
 
 const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
@@ -126,8 +100,7 @@ const handleSavePath = async (game: string) => {
   return { cloud_save_enabled, save_folder }
 }
 
-const createNewWindow = (url: string) =>
-  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
+const createNewWindow = (url: string) => ipcRenderer.send('createNewWindow', url)
 
 const formatStoreUrl = (title: string, lang: string) => {
   const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
@@ -148,7 +121,8 @@ async function fixSaveFolder(
 ) {
   const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
-  const isWin = process.platform === 'win32';
+  const platform = await getPlatform()
+  const isWin = platform === 'win32';
   let winePrefix = prefix ? prefix.replaceAll("'", '') : ''
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
   const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`
@@ -236,43 +210,17 @@ async function fixSaveFolder(
   return folder
 }
 
-async function handleStopInstallation(
-  appName: string,
-  [path, folderName]: string[],
-  t: TFunction<'gamepage'>,
-  progress: InstallProgress
-) {
-  const { response } = await showMessageBox({
-    buttons: [
-      t('gamepage:box.stopInstall.keepInstalling'),
-      t('box.yes'),
-      t('box.no')
-    ],
-    message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title')
-  })
-  if (response === 1) {
-    storage.setItem(appName, JSON.stringify({...progress, folder: path}))
-    return sendKill(appName)
-  } else if (response === 2) {
-    sendKill(appName)
-    storage.removeItem(appName)
-    return ipcRenderer.send('removeFolder', [path, folderName])
-  }
-}
-
 export {
   createNewWindow,
   fixSaveFolder,
   formatStoreUrl,
   getGameInfo,
   getLegendaryConfig,
+  getPlatform,
   getProgress,
   handleKofi,
   handleQuit,
   handleSavePath,
-  handleStopInstallation,
-  importGame,
   install,
   isLoggedIn,
   launch,

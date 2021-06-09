@@ -1,5 +1,6 @@
 {
     "All": "എല്ലാം",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "ഹീറോക്കടയുടെ പുതിയ പതിപ്പിറങ്ങിയിട്ടുണ്ട്, പുതുക്കട്ടെ?",
@@ -10,6 +11,10 @@
         "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ തറരേഖ(Binary file) നല്‍കൂ",
         "default-install-path": "പൊതു ഇന്‍സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "തകിടില്‍(disk) ആവശ്യത്തിന് സ്ഥലമില്ലല്ലോ",
                 "title": "സ്ഥലമില്ല"
@@ -18,7 +23,8 @@
                 "message": "എന്തോ കുഴപ്പം പറ്റിയിട്ടുണ്ട്",
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
-            "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!"
+            "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "വേണ്ട",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "ഇറക്കുന്നവ",
     "Filter": "അരിപ്പ",
+    "Games": "Games",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്‍",
     "help": {
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു സ്ഥാപനം മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്‍ നിങ്ങളുടെ കളികള്‍ വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക",
@@ -108,9 +115,14 @@
             "title": "കളി വാദങ്ങള്‍ ആജ്ഞക്കു(command) ശേഷം ഒടിക്കാന്‍:"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "തയ്യാറായവ",
     "Return": "തിരിച്ചുപോകൂ",
     "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
@@ -181,6 +193,9 @@
         "quit": "പുറത്തുകടക്കൂ",
         "refresh": "കളിശാല പുതുക്കൂ",
         "support": "ഞങ്ങളെ പിന്താങ്ങൂ"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

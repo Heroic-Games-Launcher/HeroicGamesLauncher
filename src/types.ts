@@ -40,7 +40,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   platform: string
   refresh: () => Promise<void>
-  refreshLibrary: () => void
+  refreshLibrary: (checkUpdates?: boolean) => void
   refreshing: boolean
   user: string
 }
@@ -77,12 +77,14 @@ export interface GameStatus {
   status:
     | 'installing'
     | 'updating'
+    | 'launching'
     | 'playing'
     | 'uninstalling'
     | 'repairing'
     | 'done'
     | 'canceled'
     | 'moving'
+    | 'queued'
 }
 
 export interface InstallProgress {
@@ -104,7 +106,7 @@ export interface KeyImage {
 }
 
 export interface Path {
-  filePaths: string[]
+  path: string
 }
 interface Reqs {
   minimum: string

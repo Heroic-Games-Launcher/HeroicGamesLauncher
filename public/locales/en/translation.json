@@ -1,5 +1,6 @@
 {
     "All": "All",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "There is a new version of Heroic Available, do you want to update now?",
@@ -10,6 +11,10 @@
         "customWine": "Select the Wine or Proton Binary",
         "default-install-path": "Choose Default Install Path",
         "error": {
+            "credentials": {
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
+            },
             "diskspace": {
                 "message": "Not enough available disk space",
                 "title": "No Space"
@@ -18,7 +23,8 @@
                 "message": "An Unknown Error has occurred",
                 "title": "Unknown Error"
             },
-            "launch": "Error when launching the game, check the logs!"
+            "launch": "Error when launching the game, check the logs!",
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NO",
         "quit": {
@@ -44,6 +50,7 @@
     },
     "Downloading": "Downloading",
     "Filter": "Filter",
+    "Games": "Games",
     "globalSettings": "Global Settings",
     "help": {
         "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
@@ -108,9 +115,14 @@
             "title": "Game Arguments (To run after the command):"
         }
     },
+    "other": {
+        "weblate": "Help translate Heroic."
+    },
     "placeholder": {
         "egs-prefix": "Prefix where EGS is installed"
     },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Ready",
     "Return": "Return",
     "search": "Enter the game name here...",
@@ -181,6 +193,9 @@
         "quit": "Quit",
         "refresh": "Refresh Library",
         "support": "Support Us"
+    },
+    "warning": {
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

@@ -36,6 +36,7 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
+const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
 
 function getShell() {
   switch (process.platform) {
@@ -81,5 +82,6 @@ export {
   loginUrl,
   sidInfoUrl,
   supportURL,
-  userInfo
+  userInfo,
+  weblateUrl
 }

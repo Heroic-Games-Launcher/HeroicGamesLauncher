@@ -22,6 +22,7 @@ export default function LanguageSelector({
   const languageLabels: { [key: string]: string } = {
     cs: 'Čeština',
     de: 'Deutsch',
+    el: 'Greek',
     en: 'English',
     es: 'Español',
     fr: 'Français',
@@ -39,6 +40,7 @@ export default function LanguageSelector({
   const languageFlags: { [key: string]: string } = {
     cs: '🇨🇿',
     de: '🇩🇪',
+    el: '🇬🇷',
     en: '🇬🇧',
     es: '🇪🇸',
     fr: '🇫🇷',
