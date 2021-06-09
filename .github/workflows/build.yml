@@ -36,5 +36,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: linux-pacman
-          path: dist/Heroic-*.pacman
+          path: dist/heroic-*.pacman
           retention-days: 7
