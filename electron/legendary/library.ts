@@ -13,7 +13,7 @@ import {
   KeyImage,
   RawGameJSON
 } from '../types';
-import { LegendaryGame } from '../games';
+import { LegendaryGame } from './games';
 import {
   execAsync,
   isOnline
@@ -26,20 +26,20 @@ import {
 } from '../constants';
 
 /**
- * Legendary Library.
+ * Legendary LegendaryLibrary.
  *
  * For multi-account support, the single global instance will need to become a instance map.
  * @see GameConfig
  */
-class Library {
-  private static globalInstance: Library = null
+class LegendaryLibrary {
+  private static globalInstance: LegendaryLibrary = null
 
   private library: Map<string, null | GameInfo> = new Map()
 
   private installedGames : Map<string, RawGameJSON>
 
   /**
-   * Private constructor for Library since we don't really want it to be constructible from outside.
+   * Private constructor for LegendaryLibrary since we don't really want it to be constructible from outside.
    *
    * @param lazy_load Whether the library loads data lazily or in advance.
    */
@@ -58,11 +58,11 @@ class Library {
    * Get the global library instance, and if it doesn't exist, create one.
    *
    * @param lazy_load Whether the library loads data lazily or in advance. Default: TRUE.
-   * @returns Library instance.
+   * @returns LegendaryLibrary instance.
    */
   public static get(lazy_load = true) {
     if (this.globalInstance === null) {
-      Library.globalInstance = new Library(lazy_load)
+      LegendaryLibrary.globalInstance = new LegendaryLibrary(lazy_load)
     }
     return this.globalInstance
   }
@@ -416,4 +416,4 @@ class Library {
   }
 }
 
-export { Library };
+export { LegendaryLibrary }

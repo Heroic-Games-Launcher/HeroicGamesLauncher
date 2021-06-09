@@ -27,6 +27,7 @@ export interface AppSettings {
   wineVersion: WineInstallation
 }
 
+export type ExecResult = void | {stderr : string, stdout : string}
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
@@ -76,6 +77,7 @@ export interface GameStatus {
   status:
     | 'installing'
     | 'updating'
+    | 'launching'
     | 'playing'
     | 'uninstalling'
     | 'repairing'

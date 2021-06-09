@@ -1,4 +1,3 @@
-import { User } from './legendary_utils/user'
 import {
   existsSync,
   mkdirSync,
@@ -12,7 +11,8 @@ import {
   AppSettings,
   GlobalConfigVersion,
   WineInstallation
-} from './types'
+} from './types';
+import { LegendaryUser } from './legendary/user';
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
@@ -306,7 +306,7 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getFactoryDefaults(): Promise<AppSettings> {
-    const { account_id } = User.getUserInfo()
+    const { account_id } = await LegendaryUser.getUserInfo()
     const userName = user().username
     const [defaultWine] = await this.getAlternativeWine(false)
 
