@@ -433,7 +433,7 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
   }
 })
 
-ipcMain.handle('refreshLegendaryLibrary', async () => {
+ipcMain.handle('refreshLibrary', async () => {
   return await LegendaryLibrary.get().refresh()
 })
 
@@ -455,9 +455,10 @@ ipcMain.handle('launch', (event, game) => {
         )
       )
     }
-  }).catch(async ({ stderr }) => {
-    errorHandler({error: stderr})
-
+  }).catch(async (exception) => {
+    // This stuff is completely borken, I have no idea what the hell we should do here.
+    const stderr = `${exception.name} - ${exception.message}`
+    errorHandler({error: {stderr, stdout: ''}})
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
