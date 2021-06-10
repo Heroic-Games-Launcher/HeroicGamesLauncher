@@ -31,6 +31,10 @@ class LegendaryGame extends Game {
   private constructor(appName: string) {
     super()
     this.appName = appName
+    this.state = {
+      appName: appName,
+      status: 'done'
+    }
   }
 
   public static get(appName: string) {
