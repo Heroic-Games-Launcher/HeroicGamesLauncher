@@ -246,10 +246,26 @@ if (!gotTheLock) {
     })
 
     if (process.platform === 'linux'){
-      const {stdout: pythonInfo} = await execAsync('python --version')
-      const pythonVersion: number | null = pythonInfo ? parseFloat(pythonInfo.split(' ')[1].replace('\n', '')) : null
-      if (pythonVersion < 3.8) {
-        console.log(`Python Version incompatible. Python needed: >= 3.8, Python found: ${pythonVersion}`);
+      let found = false
+      let version: number | null = null
+      for(const value of ['python', 'python3']){
+        try {
+          const {stdout: pythonInfo} = await execAsync(value + ' --version')
+          version = pythonInfo ? parseFloat(pythonInfo.split(' ')[1].replace('\n', '')) : null
+          if (version >= 3.8) {
+            console.log('Found python version ' + version)
+            found = true
+            break
+          }
+        }
+        catch (error){
+          console.log('Catched ' + value + ' with: \n' + error)
+        }
+      }
+
+      if(!found)
+      {
+        console.log(`Python Version incompatible. Python needed: >= 3.8, Python found: ${version}`);
         dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Heroic requires Python 3.8 or newer.')}`)
       }
     }
