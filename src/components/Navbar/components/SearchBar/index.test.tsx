@@ -5,45 +5,32 @@ import {
   render
 } from '@testing-library/react'
 
-import { ContextType } from 'src/types';
+import { initElectronMocks } from 'src/test_helpers/mock/electron';
+import { resetTestTypes, test_context } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import SearchBar from './index';
 
-function renderSearchBar(props: Partial<ContextType> = {}) {
-  const defaultProps: ContextType = {
-    category: 'games',
-    data: [],
-    error: false,
-    filter: 'all',
-    gameUpdates: [],
-    handleCategory: () => null,
-    handleFilter: () => null,
-    handleGameStatus: () => Promise.resolve(),
-    handleLayout: () => null,
-    handleSearch: () => null,
-    layout: 'grid',
-    libraryStatus: [],
-    platform: 'linux',
-    refresh: () => Promise.resolve(),
-    refreshLibrary: () => Promise.resolve(),
-    refreshing: false,
-    user: 'user'
-  };
-
+function renderSearchBar() {
   return render(
-    <ContextProvider.Provider value={{ ...defaultProps, ...props }}>
+    <ContextProvider.Provider value={test_context.get()}>
       <SearchBar />
     </ContextProvider.Provider>);
 }
 
 describe('SearchBar', () => {
+  beforeEach(() => {
+    resetTestTypes();
+    initElectronMocks();
+  })
+
   test('renders', () => {
     renderSearchBar();
   })
 
   test('set text in input field and calls handle search', () => {
     const onHandleSearch = jest.fn();
-    const { getByTestId } = renderSearchBar({ handleSearch: onHandleSearch});
+    test_context.set({handleSearch: onHandleSearch})
+    const { getByTestId } = renderSearchBar();
     const searchInput = getByTestId('searchInput');
     fireEvent.change(searchInput, {target: { value: 'Test Search'}});
     expect(searchInput).toHaveValue('Test Search');
@@ -52,7 +39,8 @@ describe('SearchBar', () => {
 
   test('calls handle search by clicking on search', () => {
     const onHandleSearch = jest.fn();
-    const { getByTestId } = renderSearchBar({ handleSearch: onHandleSearch});
+    test_context.set({handleSearch: onHandleSearch})
+    const { getByTestId } = renderSearchBar();
     const searchButton = getByTestId('searchButton');
     fireEvent.click(searchButton);
     expect(onHandleSearch).toBeCalledWith('');
@@ -60,7 +48,8 @@ describe('SearchBar', () => {
 
   test('calls handle search with empty string by clicking on cancel', () => {
     const onHandleSearch = jest.fn();
-    const { getByTestId } = renderSearchBar({ handleSearch: onHandleSearch});
+    test_context.set({handleSearch: onHandleSearch})
+    const { getByTestId } = renderSearchBar();
     const searchInput = getByTestId('searchInput');
     fireEvent.change(searchInput, {target: { value: 'Test Search'}});
     const closeButton = getByTestId('closeButton');

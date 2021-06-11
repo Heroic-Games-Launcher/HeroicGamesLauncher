@@ -58,7 +58,7 @@ export default function OtherSettings({
   return (
     <>
       {!isWin && <>
-        <span className="setting">
+        <span data-testid="otherSettings" className="setting">
           <span className="toggleWrapper">
             {t('setting.showfps')}
             <ToggleSwitch value={showFps} handleChange={toggleFps} />

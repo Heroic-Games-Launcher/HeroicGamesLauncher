@@ -6,9 +6,8 @@ import {
   waitFor
 } from '@testing-library/react';
 
-import { ContextType } from 'src/types';
 import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
-import { resetTestTypes, test_appsettings, test_game, test_opendialog, test_platform } from 'src/test_helpers/testTypes';
+import { resetTestTypes, test_appsettings, test_context, test_game, test_opendialog } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import SyncSaves from './index';
 
@@ -22,28 +21,8 @@ interface Props {
   winePrefix?: string
 }
 
-async function renderSyncSaves(props: Partial<Props> = {}, context: Partial<ContextType> = {})
+async function renderSyncSaves(props: Partial<Props> = {})
 {
-  const defaultContext: ContextType = {
-    category: 'games',
-    data: [],
-    error: false,
-    filter: 'all',
-    gameUpdates: [],
-    handleCategory: () => null,
-    handleFilter: () => null,
-    handleGameStatus: () => Promise.resolve(),
-    handleLayout: () => null,
-    handleSearch: () => null,
-    layout: 'grid',
-    libraryStatus: [],
-    platform: test_platform.get(),
-    refresh: () => Promise.resolve(),
-    refreshLibrary: () => Promise.resolve(),
-    refreshing: false,
-    user: 'user'
-  };
-
   const defaultProps: Props = {
     appName: test_game.get().app_name,
     autoSyncSaves: false,
@@ -54,11 +33,10 @@ async function renderSyncSaves(props: Partial<Props> = {}, context: Partial<Cont
     winePrefix: test_appsettings.get().winePrefix
   };
 
-  const returnvalue = await render(
-    <ContextProvider.Provider value={{...defaultContext, ...context}}>
+  return await waitFor(() => render(
+    <ContextProvider.Provider value={test_context.get()}>
       <SyncSaves {...{...defaultProps, ...props}}/>
-    </ContextProvider.Provider>)
-  return returnvalue;
+    </ContextProvider.Provider>))
 }
 
 describe('SyncSaves', () => {
@@ -86,7 +64,7 @@ describe('SyncSaves', () => {
 
   test('renders invoke setSavePath with backslash path under windows', async () => {
     const onSetSavePath = jest.fn();
-    test_platform.set('win32');
+    test_context.set({platform: 'win32'});
     await renderSyncSaves({savesPath: 'my/save/path', setSavesPath: onSetSavePath});
     await waitFor(() => expect(onSetSavePath).toBeCalledWith('my\\save\\path'));
   })

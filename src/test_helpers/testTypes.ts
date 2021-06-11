@@ -1,5 +1,4 @@
-import { AppSettings, GameInfo } from 'src/types';
-import { UserInfo } from './../../electron/types';
+import { AppSettings, ContextType, GameInfo } from 'src/types';
 import { WineInstallation } from './../types';
 import { initElectronMocks } from 'src/test_helpers/mock/electron';
 
@@ -160,6 +159,13 @@ const test_wineinstallation = new TestType<WineInstallation>({
 });
 
 // test user info
+interface UserInfo {
+  account_id?: string
+  displayName?: string
+  epicId?: string
+  name?: string
+}
+
 const test_userinfo = new TestType<UserInfo>({
   account_id: 'account_id',
   displayName: 'displayName',
@@ -167,19 +173,37 @@ const test_userinfo = new TestType<UserInfo>({
   name: 'name'
 });
 
-// test platform
-const test_platform = new TestType<string>('linux');
+// test context
+const test_context = new TestType<ContextType>({
+  category: 'games',
+  data: [],
+  error: false,
+  filter: 'all',
+  gameUpdates: [],
+  handleCategory: () => { return; },
+  handleFilter: () => { return; },
+  handleGameStatus: () => Promise.resolve(),
+  handleLayout: () => { return; },
+  handleSearch: () => { return; },
+  layout: 'grid',
+  libraryStatus: [],
+  platform: 'linux',
+  refresh: () => Promise.resolve(),
+  refreshLibrary: () => Promise.resolve(),
+  refreshing: false,
+  user: 'user'
+})
 
 // reset all types to default
 function resetTestTypes()
 {
   test_appsettings.reset();
+  test_context.reset();
   test_egssync_response.reset();
   test_game.reset();
   test_maxcpus.reset();
   test_opendialog.reset();
   test_openmessagebox_response.reset();
-  test_platform.reset();
   test_plugin.reset();
   test_userinfo.reset();
   test_wineinstallation.reset();
@@ -188,12 +212,12 @@ function resetTestTypes()
 export {
   resetTestTypes,
   test_appsettings,
+  test_context,
   test_egssync_response,
   test_game,
   test_maxcpus,
   test_opendialog,
   test_openmessagebox_response,
-  test_platform,
   test_plugin,
   test_userinfo,
   test_wineinstallation

@@ -79,7 +79,7 @@ export default function WineSettings({
 
   return (
     <>
-      <span className="setting">
+      <span data-testid="wineSettings" className="setting">
         <span className="settingText">{t('setting.wineprefix')}</span>
         <span>
           <input

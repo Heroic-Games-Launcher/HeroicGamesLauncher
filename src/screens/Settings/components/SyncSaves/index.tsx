@@ -90,7 +90,7 @@ export default function SyncSaves({
 
   return (
     <>
-      <span className="setting">
+      <span data-testid="syncSettings" className="setting">
         <span className="settingText">{t('setting.savefolder.title')}</span>
         <span>
           <input

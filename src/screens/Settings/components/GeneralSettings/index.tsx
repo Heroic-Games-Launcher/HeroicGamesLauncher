@@ -120,7 +120,7 @@ export default function GeneralSettings({
 
   return (
     <>
-      <span className="setting">
+      <span className="setting" data-testid="generalSettings">
         <span className="settingText">{t('setting.language')}</span>
         <LanguageSelector
           handleLanguageChange={handleChangeLanguage}

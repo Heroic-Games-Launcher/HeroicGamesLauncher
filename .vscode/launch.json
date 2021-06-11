@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "yarn test -i --watchAll --coverage",
+      "command": "yarn test -i --watchAll",
       "name": "Debug yarn test",
       "request": "launch",
       "type": "node-terminal"

@@ -63,7 +63,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
 
   return (
     <>
-      <div className="settingsTools">
+      <div data-testid="toolsSettings" className="settingsTools">
         <div className="toolsWrapper">
           <span
             data-testid="wineCFG"
