@@ -220,12 +220,12 @@ if (!gotTheLock) {
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
-        Logger.info({message: 'Registered protocol with OS', service: 'ipcMain::registerheroicprotocol'})
+        Logger.info({message: 'Registered protocol with OS', service: 'ipcMain::registerHeroicProtocol'})
       } else {
-        Logger.error({message: 'Failed to register protocol with OS', service: 'ipcMain::registerheroicprotocol'})
+        Logger.error({message: 'Failed to register protocol with OS', service: 'ipcMain::registerHeroicProtocol'})
       }
     } else {
-      Logger.info({message: 'Protocol already registered with OS', service: 'ipcMain::registerheroicprotocol'})
+      Logger.info({message: 'Protocol already registered with OS', service: 'ipcMain::registerHeroicProtocol'})
     }
     if (process.argv[1]) {
       const url = process.argv[1]
@@ -299,7 +299,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('open-url', (event, url) => {
-  Logger.info({message: `Attempting to run open url ${url} `, service: 'ipcMain::open-url'})
+  Logger.info({message: `Attempting to run open url ${url} `, service: 'ipcMain::openUrl'})
   event.preventDefault()
   handleProtocol(mainWindow, url)
 })
@@ -312,7 +312,7 @@ ipcMain.on('openReleases', () => {Logger.info({message: 'Attempting to show rele
 
 ipcMain.on('showAboutWindow', () => {Logger.info({message: 'Attempting to show about window ', service: 'ipcMain::showAboutWindow'}); showAboutWindow()})
 
-ipcMain.on('openLoginPage', () => {Logger.info({message: 'Attempting to open login page ', service: 'ipcMain::openLoginpage'}); openUrlOrFile(loginUrl)})
+ipcMain.on('openLoginPage', () => {Logger.info({message: 'Attempting to open login page ', service: 'ipcMain::openLoginPage'}); openUrlOrFile(loginUrl)})
 
 ipcMain.on('openDiscordLink', () => {Logger.info({message: 'Attempting to open discord link ', service: 'ipcMain::openDiscordLink'}); openUrlOrFile(discordLink)})
 
