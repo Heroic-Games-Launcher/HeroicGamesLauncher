@@ -62,10 +62,10 @@ let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
   listenStdout().then((arr) => {
-    const str = arr.join("\n")
+    const str = arr.join('\n')
     const date = new Date().toDateString()
-    const path = `${app.getPath("crashDumps")}/${date}`
-    console.log("Saving log file to " + path)
+    const path = `${app.getPath('crashDumps')}/${date}`
+    console.log('Saving log file to ' + path)
     writeFile(path, str, null, null)
   })
   // Create the browser window.
