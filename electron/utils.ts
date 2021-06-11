@@ -1,13 +1,23 @@
 import * as axios from 'axios'
-
-import { app, dialog, net } from 'electron'
-
+import {
+  app,
+  dialog,
+  net,
+  shell
+} from 'electron'
 import { exec } from 'child_process'
-import { existsSync, stat } from 'graceful-fs'
+import {
+  existsSync,
+  stat
+} from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 
-import { heroicGamesConfigPath, icon } from './constants'
+import {
+  heroicGamesConfigPath,
+  icon,
+  isWindows
+} from './constants'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -15,10 +25,13 @@ const statAsync = promisify(stat)
 const { showErrorBox, showMessageBox } = dialog
 
 async function isOnline() {
-  return net.isOnline
+  return net.isOnline()
 }
 
 async function checkForUpdates() {
+  if (isWindows) {
+    return
+  }
   if (!(await isOnline())) {
     console.log('Version check failed, app is offline.')
     return false
@@ -70,23 +83,41 @@ const handleExit = async () => {
   app.exit()
 }
 
-async function errorHandler(logPath: string): Promise<void> {
+type ErrorHandlerMessage = {
+  error?: {stderr: string, stdout: string}
+  logPath?: string
+}
+
+async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
-  return execAsync(`tail ${logPath} | grep 'disk space'`)
-    .then(({ stdout }) => {
-      if (stdout.includes(noSpaceMsg)) {
-        console.log(noSpaceMsg)
-        return showErrorBox(
-          i18next.t('box.error.diskspace.title', 'No Space'),
-          i18next.t(
-            'box.error.diskspace.message',
-            'Not enough available disk space'
+  const noCredentialsError = 'No saved credentials'
+  if (logPath){
+    execAsync(`tail ${logPath} | grep 'disk space'`)
+      .then(({ stdout }) => {
+        if (stdout.includes(noSpaceMsg)) {
+          console.log(noSpaceMsg)
+          return showErrorBox(
+            i18next.t('box.error.diskspace.title', 'No Space'),
+            i18next.t(
+              'box.error.diskspace.message',
+              'Not enough available disk space'
+            )
           )
+        }
+      })
+      .catch(() => console.log('operation interrupted'))
+  }
+  if (error){
+    if (error.stderr.includes(noCredentialsError)){
+      return showErrorBox(
+        i18next.t('box.error.credentials.title', 'Expired Credentials'),
+        i18next.t(
+          'box.error.credentials.message',
+          'Your Crendentials have expired, Logout and Login Again!'
         )
-      }
-      return genericErrorMessage()
-    })
-    .catch(() => console.log('operation interrupted'))
+      )
+    }
+  }
 }
 
 function genericErrorMessage(): void {
@@ -96,11 +127,16 @@ function genericErrorMessage(): void {
   )
 }
 
-function openUrlOrFile(url: string): void {
-  if (process.platform === 'darwin') {
+function openUrlOrFile(url: string): Promise<string> {
+  switch (process.platform) {
+  case 'darwin':
     exec(`open ${url}`)
-  } else {
-    exec(`xdg-open ${url}`)
+    break;
+  case 'linux':
+    exec(`xdg-open '${url}'`)
+    break
+  default:
+    return shell.openPath(url)
   }
 }
 

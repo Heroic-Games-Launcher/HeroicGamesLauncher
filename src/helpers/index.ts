@@ -1,17 +1,9 @@
 import { GameInfo, InstallProgress } from 'src/types'
-import { IpcRenderer, Remote } from 'electron'
-
-import { TFunction } from 'react-i18next'
-const storage: Storage = window.localStorage
-
-const { ipcRenderer, remote } = window.require('electron') as {
+import { IpcRenderer } from 'electron'
+import {install, launch, repair, updateGame} from './library'
+const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
-  remote: Remote
 }
-const {
-  BrowserWindow,
-  dialog: { showMessageBox }
-} = remote
 
 const readFile = async (file: string) =>
   await ipcRenderer.invoke('readConfig', file)
@@ -20,35 +12,18 @@ const writeConfig = async (
   data: [appName: string, x: unknown]
 ): Promise<void> => await ipcRenderer.invoke('writeConfig', data)
 
-const install = async (args: {
-  appName: string
-  path: string
-}): Promise<void> => await ipcRenderer.invoke('install', args)
-
-const repair = async (appName: string): Promise<void> =>
-  await ipcRenderer.invoke('repair', appName)
-
-const launch = (args: string): Promise<string> =>
-  ipcRenderer.invoke('launch', args).then((res: string): string => res)
-
-const updateGame = (appName: string): Promise<void> =>
-  ipcRenderer.invoke('updateGame', appName)
-
 const notify = ([title, message]: [title: string, message: string]): void =>
   ipcRenderer.send('Notify', [title, message])
 
 const loginPage = (): void => ipcRenderer.send('openLoginPage')
+
+const getPlatform = async () => await ipcRenderer.invoke('getPlatform')
 
 const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
 
 const handleKofi = (): void => ipcRenderer.send('openSupportPage')
 
 const handleQuit = (): void => ipcRenderer.send('quit')
-
-const importGame = async (args: {
-  appName: string
-  path: string
-}): Promise<void> => await ipcRenderer.invoke('importGame', args)
 
 const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
@@ -83,9 +58,7 @@ const syncSaves = async (
   arg?: string
 ): Promise<string> => {
   const { user } = await ipcRenderer.invoke('getUserInfo')
-
   const path = savesPath.replace('~', `/home/${user}`)
-  console.log(path)
 
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
@@ -127,8 +100,7 @@ const handleSavePath = async (game: string) => {
   return { cloud_save_enabled, save_folder }
 }
 
-const createNewWindow = (url: string) =>
-  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
+const createNewWindow = (url: string) => ipcRenderer.send('createNewWindow', url)
 
 const formatStoreUrl = (title: string, lang: string) => {
   const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
@@ -147,10 +119,13 @@ async function fixSaveFolder(
   prefix: string,
   isProton: boolean
 ) {
-  const { user, epicId } = await ipcRenderer.invoke('getUserInfo')
+  const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
-  let winePrefix = prefix.replaceAll("'", '')
+  const platform = await getPlatform()
+  const isWin = platform === 'win32';
+  let winePrefix = prefix ? prefix.replaceAll("'", '') : ''
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
+  const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`
 
   folder = folder.replace('{EpicID}', epicId)
   folder = folder.replace('{EpicId}', epicId)
@@ -158,106 +133,81 @@ async function fixSaveFolder(
   if (folder.includes('locallow')) {
     return folder.replace(
       '{appdata}/../locallow',
-      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+      `${driveC}/users/${username}/AppData/LocalLow`
     )
   }
 
   if (folder.includes('LocalLow')) {
     return folder.replace(
       '{AppData}/../LocalLow',
-      `${winePrefix}/drive_c/users/${username}/AppData/LocalLow`
+      `${driveC}/users/${username}/AppData/LocalLow`
     )
   }
 
   if (folder.includes('{UserSavedGames}')) {
     return folder.replace(
       '{UserSavedGames}',
-      `${winePrefix}/drive_c/users/${username}/Saved Games`
+      `${driveC}/users/${username}/Saved Games`
     )
   }
 
   if (folder.includes('{usersavedgames}')) {
     return folder.replace(
       '{usersavedgames}',
-      `${winePrefix}/drive_c/users/${username}/Saved Games`
+      `${driveC}/users/${username}/Saved Games`
     )
   }
 
   if (folder.includes('roaming')) {
     return folder.replace(
       '{appdata}/../roaming/',
-      `${winePrefix}/drive_c/users/${username}/Application Data/`
+      `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('{appdata}/../Roaming/')) {
     return folder.replace(
       '{appdata}/../Roaming/',
-      `${winePrefix}/drive_c/users/${username}/Application Data/`
+      `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('Roaming')) {
     return folder.replace(
       '{AppData}/../Roaming/',
-      `${winePrefix}/drive_c/users/${username}/Application Data/`
+      `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('{AppData}')) {
     return folder.replace(
       '{AppData}',
-      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+      `${driveC}/users/${username}/Local Settings/Application Data`
     )
   }
 
   if (folder.includes('{appdata}')) {
     return folder.replace(
       '{appdata}',
-      `${winePrefix}/drive_c/users/${username}/Local Settings/Application Data`
+      `${driveC}/users/${username}/Local Settings/Application Data`
     )
   }
 
   if (folder.includes('{userdir}')) {
     return folder.replace(
       '{userdir}',
-      `${winePrefix}/drive_c/users/${username}/My Documents`
+      `/users/${username}/My Documents`
     )
   }
 
   if (folder.includes('{UserDir}')) {
     return folder.replace(
       '{UserDir}',
-      `${winePrefix}/drive_c/users/${username}/My Documents`
+      `${driveC}/users/${username}/My Documents`
     )
   }
 
   return folder
-}
-
-async function handleStopInstallation(
-  appName: string,
-  [path, folderName]: string[],
-  t: TFunction<'gamepage'>,
-  progress: InstallProgress
-) {
-  const { response } = await showMessageBox({
-    buttons: [
-      t('gamepage:box.stopInstall.keepInstalling'),
-      t('box.yes'),
-      t('box.no')
-    ],
-    message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title')
-  })
-  if (response === 1) {
-    storage.setItem(appName, JSON.stringify({...progress, folder: path}))
-    return sendKill(appName)
-  } else if (response === 2) {
-    sendKill(appName)
-    storage.removeItem(appName)
-    return ipcRenderer.send('removeFolder', [path, folderName])
-  }
 }
 
 export {
@@ -266,12 +216,11 @@ export {
   formatStoreUrl,
   getGameInfo,
   getLegendaryConfig,
+  getPlatform,
   getProgress,
   handleKofi,
   handleQuit,
   handleSavePath,
-  handleStopInstallation,
-  importGame,
   install,
   isLoggedIn,
   launch,

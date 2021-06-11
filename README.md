@@ -59,6 +59,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Dutch
 - French
 - German
+- Greek
 - Hungarian
 - Italian
 - Malayalam
@@ -118,18 +119,37 @@ To run it use:
 ./heroic-x.x.x.AppImage
 ```
 
-### Build binaries locally
+### Build binaries locally for Linux, Windows and Mac
 
-Requires NodeJS to build
+- All Platforms:
+Requires NodeJS to build \
+Use yarn or npm
 
 ```bash
 git clone https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher.git
 
 cd HeroicGamesLauncher
+```
 
+- Build for Linux:
+```bash
 yarn
 
-yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm)
+yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm, AppImage)
+```
+
+- Build for Windows (Beta):
+```bash
+yarn.cmd (or npm install)
+
+yarn.cmd (or npm run) dist-win {package to create} (eg: nsis, msi, 7z, zip)
+```
+
+- Build for Mac (Alpha):
+```bash
+yarn (or npm install)
+
+yarn (or npm run) dist-mac {package to create} (eg: dmg, pkg, mas, zip, 7z)
 ```
 
 ## Screenshots

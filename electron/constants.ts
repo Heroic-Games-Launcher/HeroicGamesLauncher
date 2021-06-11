@@ -1,8 +1,16 @@
-import { GameConfigVersion, GlobalConfigVersion } from './types';
 import { fixPathForAsarUnpack } from 'electron-util'
-import { homedir } from 'os'
+import {
+  homedir,
+  platform
+} from 'os'
 import { join } from 'path'
 
+import {
+  GameConfigVersion,
+  GlobalConfigVersion
+} from './types'
+
+const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
 const home = homedir()
@@ -13,7 +21,7 @@ const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, '/legendary'))
+const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
 const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
 const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
 const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
@@ -28,12 +36,26 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
-const shell = process.platform === 'darwin' ? '/bin/zsh' : '/bin/bash'
+const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
+
+function getShell() {
+  switch (process.platform) {
+  case 'win32':
+    return 'powershell.exe'
+  case 'linux':
+    return '/bin/bash'
+  case 'darwin':
+    return '/bin/zsh'
+  default:
+    return '/bin/bash'
+  }
+}
+
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
 
 const execOptions = {
   maxBuffer: MAX_BUFFER,
-  shell
+  shell: getShell()
 }
 
 export {
@@ -41,6 +63,7 @@ export {
   currentGlobalConfigVersion,
   discordLink,
   execOptions,
+  getShell,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
@@ -52,12 +75,13 @@ export {
   iconDark,
   iconLight,
   installed,
+  isWindows,
   legendaryBin,
   legendaryConfigPath,
   libraryPath,
   loginUrl,
-  shell,
   sidInfoUrl,
   supportURL,
-  userInfo
+  userInfo,
+  weblateUrl
 }

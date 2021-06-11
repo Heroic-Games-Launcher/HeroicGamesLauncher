@@ -15,6 +15,7 @@ const initialContext: ContextType = {
   handleSearch: () => null,
   layout: 'grid',
   libraryStatus: [],
+  platform: '',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
   refreshing: false,

@@ -10,8 +10,7 @@ import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
 const {
-  ipcRenderer,
-  remote: { dialog }
+  ipcRenderer
 } = window.require('electron')
 
 interface Props {
@@ -42,6 +41,7 @@ export default function WineSettings({
   isDefault
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
+  const isProton = wineVersion?.name?.includes('Proton')
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -57,16 +57,15 @@ export default function WineSettings({
   const { t } = useTranslation()
 
   function selectCustomPath() {
-    dialog
-      .showOpenDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openFile'],
-        title: t('box.customWine', 'Select the Wine or Proton Binary')
-      })
-      .then(({ filePaths }: Path) => {
-        if (!customWinePaths.includes(filePaths[0])) {
+    ipcRenderer.invoke('openDialog',{
+      buttonLabel: t('box.choose'),
+      properties: ['openFile'],
+      title: t('box.customWine', 'Select the Wine or Proton Binary')
+    })
+      .then(({ path }: Path) => {
+        if (!customWinePaths.includes(path)) {
           setCustomWinePaths(
-            filePaths[0] ? [...customWinePaths, filePaths[0]] : customWinePaths
+            path ? [...customWinePaths, path] : customWinePaths
           )
         }
       })
@@ -92,14 +91,13 @@ export default function WineSettings({
           <CreateNewFolder
             className="material-icons settings folder"
             onClick={() =>
-              dialog
-                .showOpenDialog({
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                  title: t('box.wineprefix')
-                })
-                .then(({ filePaths }: Path) =>
-                  setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')
+              ipcRenderer.invoke('openDialog',{
+                buttonLabel: t('box.choose'),
+                properties: ['openDirectory'],
+                title: t('box.wineprefix')
+              })
+                .then(({ path }: Path) =>
+                  setWinePrefix(path ? `${path}` : '~/.wine')
                 )
             }
           />
@@ -158,6 +156,7 @@ export default function WineSettings({
             <option key={name}>{name}</option>
           ))}
         </select>
+        {isProton && <span className="warning">{t('warning.proton', 'Proton outside of Steam is not supported. Do not open issues or ask for support about it.')}</span>}
       </span>
       <span className="setting">
         <span className="toggleWrapper">
