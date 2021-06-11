@@ -8,6 +8,7 @@ export interface AppSettings {
   autoSyncSaves: boolean
   customWinePaths: Array<string>
   darkTrayIcon: boolean
+  discordrpc: boolean
   defaultInstallPath: string
   egsLinkedPath: string
   exitToTray: boolean

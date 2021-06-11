@@ -333,9 +333,14 @@ class LegendaryGame extends Game {
       autoInstallDxvk
     } = await this.getSettings()
 
+	const { discordrpc } = (await GlobalConfig.get().getSettings())
+
     if (isWindows) {
-      const gameInfo = await this.getGameInfo()
-      this.showDiscordRPC(gameInfo.title)
+
+      if (discordrpc) {
+        const gameInfo = await this.getGameInfo()
+        this.showDiscordRPC(gameInfo.title)
+      }
       const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
       console.log('\n Launch Command:', command)
       return await execAsync(command)
@@ -402,8 +407,10 @@ class LegendaryGame extends Game {
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
     console.log('\n Launch Command:', command)
 
-    const gameInfo = await this.getGameInfo()
-    this.showDiscordRPC(gameInfo.title)
+    if (discordrpc) {
+      const gameInfo = await this.getGameInfo()
+      this.showDiscordRPC(gameInfo.title)
+    }
 
     return await execAsync(command).then((v) => {
       this.state.status = 'playing'
@@ -420,7 +427,7 @@ class LegendaryGame extends Game {
 
     const { install : { install_path, executable} } = await this.getGameInfo()
     const exe = install_path + '/' + executable
-    console.log('stopping discord rich presence')
+    console.log('stopping discord rich presence if running')
     DiscordRPC.disconnect()
     console.log('killing', this.appName)
     return await execAsync(`pkill -ef ${exe}`).then((v) => {

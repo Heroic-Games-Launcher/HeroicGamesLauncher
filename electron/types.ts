@@ -10,6 +10,7 @@ export interface AppSettings {
   customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
+  discordrpc: boolean
   egsLinkedPath: string
   exitToTray: boolean
   language: string
