@@ -37,6 +37,7 @@ import {
   handleExit,
   isOnline,
   openUrlOrFile,
+  semverGt,
   showAboutWindow
 } from './utils'
 import {
@@ -246,10 +247,19 @@ if (!gotTheLock) {
     })
 
     if (process.platform === 'linux'){
-      const {stdout: pythonInfo} = await execAsync('python --version')
-      const pythonVersion: number | null = pythonInfo ? parseFloat(pythonInfo.split(' ')[1].replace('\n', '')) : null
-      if (pythonVersion < 3.8) {
-        console.log(`Python Version incompatible. Python needed: >= 3.8, Python found: ${pythonVersion}`);
+      let pythonFound = false
+      for (const python of ['python', 'python3']) {
+        const { stdout } = await execAsync(python + ' --version')
+        const pythonVersion: string | null = stdout.includes('Python ') ? stdout.replace('\n', '').split(' ')[1] : null
+        if (!pythonVersion) {
+          console.log(`Python '${python}' not found.`);
+          continue
+        } else {
+          console.log(`Python '${python}' found. Version: '${pythonVersion}'`)
+          pythonFound ||= semverGt(pythonVersion, '3.8.0') || pythonVersion === '3.8.0'
+        }
+      }
+      if (!pythonFound) {
         dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Heroic requires Python 3.8 or newer.')}`)
       }
     }
