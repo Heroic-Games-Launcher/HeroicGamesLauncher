@@ -23,7 +23,7 @@ abstract class Game {
   abstract moveInstall(newInstallPath : string) : Promise<string>
   abstract repair() : Promise<ExecResult>
   abstract state: GameStatus
-  abstract stop(): Promise<ExecResult>
+  abstract stop(): void
   abstract syncSaves(arg : string, path : string) : Promise<ExecResult>
   abstract uninstall() : Promise<ExecResult>
   abstract update() : Promise<ExecResult>
