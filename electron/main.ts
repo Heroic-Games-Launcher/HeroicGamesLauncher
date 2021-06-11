@@ -54,13 +54,20 @@ import {
   weblateUrl
 } from './constants'
 import { handleProtocol } from './protocol'
-
+import { listenStdout } from './logger'
 const { showErrorBox, showMessageBox,showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
+  listenStdout().then((arr) => {
+    const str = arr.join("\n")
+    const date = new Date().toDateString()
+    const path = `${app.getPath("crashDumps")}/${date}`
+    console.log("Saving log file to " + path)
+    writeFile(path, str, null, null)
+  })
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: isDev ? 1200 : 720,
