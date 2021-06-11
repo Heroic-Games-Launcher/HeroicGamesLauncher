@@ -479,7 +479,7 @@ ipcMain.handle('launch', (event, appName) => {
     writeFile(
       `${heroicGamesConfigPath}${appName}-lastPlay.log`,
       stderr,
-      () => {Logger.error({message: `written lastplay log with ERROR\n${stderr} `, service: 'Game::launch'}); 'done'}
+      () => {Logger.error({message: `written lastPlay log with ERROR\n${stderr} `, service: 'Game::launch'}); 'done'}
     )
     return stderr
   })
