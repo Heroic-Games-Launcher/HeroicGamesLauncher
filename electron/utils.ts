@@ -24,21 +24,6 @@ const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
-/**
- * Compares 2 SemVer strings following "major.minor.patch".
- * Checks if target is newer than base.
- */
-function semverGt(target : string, base : string) {
-  const [bmajor, bminor, bpatch] = base.split('.').map(Number)
-  const [tmajor, tminor, tpatch] = target.split('.').map(Number)
-  let isGE = false
-  // A pretty nice piece of logic if you ask me. :P
-  isGE ||= tmajor > bmajor
-  isGE ||= tmajor === bmajor && tminor > bminor
-  isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
-  return isGE
-}
-
 async function isOnline() {
   return net.isOnline()
 }
@@ -57,10 +42,10 @@ async function checkForUpdates() {
     } = await axios.default.get(
       'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
     )
-    const newVersion = tag_name.replace('v', '')
-    const currentVersion = app.getVersion()
+    const newVersion = tag_name.replace('v', '').replaceAll('.', '')
+    const currentVersion = app.getVersion().replaceAll('.', '')
 
-    return semverGt(newVersion, currentVersion)
+    return newVersion > currentVersion
   } catch (error) {
     console.log('Could not check for new version of heroic')
   }
@@ -163,7 +148,6 @@ export {
   handleExit,
   isOnline,
   openUrlOrFile,
-  semverGt,
   showAboutWindow,
   statAsync
 }
