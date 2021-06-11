@@ -333,7 +333,7 @@ class LegendaryGame extends Game {
       autoInstallDxvk
     } = await this.getSettings()
 
-	const { discordrpc } = (await GlobalConfig.get().getSettings())
+    const { discordrpc } = (await GlobalConfig.get().getSettings())
 
     if (isWindows) {
 
