@@ -333,7 +333,7 @@ ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('getLog', (event, appName) =>
-  openUrlOrFile(`${heroicGamesConfigPath}/${appName}-lastPlay.log`)
+  openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
 )
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
