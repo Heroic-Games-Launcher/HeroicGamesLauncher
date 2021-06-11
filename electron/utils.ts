@@ -57,8 +57,8 @@ async function checkForUpdates() {
     } = await axios.default.get(
       'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
     )
-    const newVersion = tag_name.replace('v', '').replaceAll('.', '')
-    const currentVersion = app.getVersion().replaceAll('.', '')
+    const newVersion = tag_name.replace('v', '')
+    const currentVersion = app.getVersion()
 
     return semverGt(newVersion, currentVersion)
   } catch (error) {
