@@ -3,6 +3,8 @@ import {
   mkdirSync
 } from 'graceful-fs'
 import axios from 'axios';
+import makeClient from 'discord-rich-presence-typescript';
+const DiscordRPC = makeClient('852942976564723722');
 
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus } from '../types';
@@ -292,6 +294,26 @@ class LegendaryGame extends Game {
     return await execAsync(command)
   }
 
+  private showDiscordRPC(gameTitle : string) {
+    let os = 'Unknown'
+
+    if (process.platform === 'linux') {
+      os = 'Linux'
+    } else if (process.platform === 'win32') {
+      os = 'Windows'
+    } else if (process.platform === 'darwin') {
+      os = 'MacOS'
+    }
+    DiscordRPC.updatePresence({
+      details: gameTitle,
+      instance: true,
+      largeImageKey: 'icon',
+      large_text: gameTitle,
+      startTimestamp: Date.now(),
+      state: 'via Heroic on ' + os
+    })
+  }
+
   public async launch() {
     this.state.status = 'launching'
 
@@ -312,6 +334,8 @@ class LegendaryGame extends Game {
     } = await this.getSettings()
 
     if (isWindows) {
+      const gameInfo = await this.getGameInfo()
+      this.showDiscordRPC(gameInfo.title)
       const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
       console.log('\n Launch Command:', command)
       return await execAsync(command)
@@ -378,6 +402,9 @@ class LegendaryGame extends Game {
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
     console.log('\n Launch Command:', command)
 
+    const gameInfo = await this.getGameInfo()
+    this.showDiscordRPC(gameInfo.title)
+
     return await execAsync(command).then((v) => {
       this.state.status = 'playing'
       return v
@@ -393,6 +420,8 @@ class LegendaryGame extends Game {
 
     const { install : { install_path, executable} } = await this.getGameInfo()
     const exe = install_path + '/' + executable
+    console.log('stopping discord rich presence')
+    DiscordRPC.disconnect()
     console.log('killing', this.appName)
     return await execAsync(`pkill -ef ${exe}`).then((v) => {
       this.state.status = 'done'
