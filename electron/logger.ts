@@ -2,18 +2,24 @@ import {
   createLogger,
   format
 } from 'winston'
+import { heroicFolder } from './constants'
 import DailyRotateFile from 'winston-daily-rotate-file'
+import isDev from 'electron-is-dev'
+// If we're developing, logs will be in ./logs for easy access, in production they'll be in the user's heroic folder
+const logsFolder: string = isDev ? './logs/' : heroicFolder + 'logs/'
+const heroicLogsFolder: string = logsFolder + 'heroic'
+
 // Need real-world data on how big these logs realistically get so the maxsize of them aren't just guesses (right they are)
 const heroicCrashes = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
-  dirname: './logs/heroic',
+  dirname: heroicLogsFolder,
   filename: 'crashes-%DATE%.log',
   maxFiles: '2d',
   maxSize: '2m'
 })
 const heroicDebug = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
-  dirname: './logs/heroic',
+  dirname: heroicLogsFolder,
   filename: 'debug-%DATE%.log',
   level: 'debug',
   maxFiles: '1d',
@@ -21,7 +27,7 @@ const heroicDebug = new DailyRotateFile({
 })
 const heroicErrors = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
-  dirname: './logs/heroic',
+  dirname: heroicLogsFolder,
   filename: 'errors-%DATE%.log',
   level: 'warn',
   maxFiles: '5d',
@@ -29,7 +35,7 @@ const heroicErrors = new DailyRotateFile({
 })
 const heroicInfo = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
-  dirname: './logs/heroic',
+  dirname: heroicLogsFolder,
   filename: 'info-%DATE%.log',
   level: 'info',
   maxFiles: '2d',
