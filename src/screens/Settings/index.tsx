@@ -240,7 +240,7 @@ function Settings() {
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
-            <NavLink to={{ pathname: `/settings/${appName}/sync` }}>
+            <NavLink data-testid='linkSync' to={{ pathname: `/settings/${appName}/sync` }}>
               {t('settings.navbar.sync')}
             </NavLink>
           )}
