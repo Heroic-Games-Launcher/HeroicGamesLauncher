@@ -3,7 +3,7 @@ import '@testing-library/react'
 import { GameStatus, InstallProgress } from 'src/types';
 import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
 import { install } from 'src/helpers';
-import { resetTestTypes, setTestOpenDialog, setTestOpenMessageBoxResponse } from 'src/test_helpers/testTypes';
+import { resetTestTypes, test_opendialog, test_openmessagebox_response } from 'src/test_helpers/testTypes';
 interface Props {
   appName: string
   handleGameStatus: (game: GameStatus) => Promise<void>
@@ -57,13 +57,13 @@ describe('handleInstall', () => {
     const onHandleGameStatus = jest.fn();
 
     // call sendkill
-    setTestOpenMessageBoxResponse(1);
+    test_openmessagebox_response.set(1);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
 
     // remove folder
-    setTestOpenMessageBoxResponse(2);
+    test_openmessagebox_response.set(2);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
@@ -72,7 +72,7 @@ describe('handleInstall', () => {
 
   test('install game on import path', async () => {
     const onHandleGameStatus = jest.fn();
-    setTestOpenDialog({path: 'import/path'});
+    test_opendialog.set({path: 'import/path'});
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'import' });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.invoke).toBeCalledWith('importGame', { 'appName': 'game', 'path': 'import/path' });
@@ -82,7 +82,7 @@ describe('handleInstall', () => {
 
   test('install game on import path with invalid path does nothing', async () => {
     const onHandleGameStatus = jest.fn();
-    setTestOpenDialog({path: undefined});
+    test_opendialog.set({path: undefined});
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'import' });
     expect(onHandleGameStatus).not.toBeCalled();
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
@@ -97,7 +97,7 @@ describe('handleInstall', () => {
 
   test('install game on import path with cancel openDialog does nothing', async () => {
     const onHandleGameStatus = jest.fn();
-    setTestOpenDialog({canceled: true});
+    test_opendialog.set({canceled: true});
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'import' });
     expect(onHandleGameStatus).not.toBeCalled();
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
@@ -114,13 +114,13 @@ describe('handleInstall', () => {
     const onHandleGameStatus = jest.fn();
 
     // call sendkill
-    setTestOpenMessageBoxResponse(1);
+    test_openmessagebox_response.set(1);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'import', isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
 
     // remove folder
-    setTestOpenMessageBoxResponse(2);
+    test_openmessagebox_response.set(2);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'import', isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.send).toBeCalledWith('removeFolder', ['import', 'folder_name']);
@@ -128,7 +128,7 @@ describe('handleInstall', () => {
 
   test('install game on another path', async () => {
     const onHandleGameStatus = jest.fn();
-    setTestOpenDialog({path: 'another/path'});
+    test_opendialog.set({path: 'another/path'});
     await callHandleInstall({  handleGameStatus: onHandleGameStatus, installPath: 'another' });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', 'path': '\'another/path\'' });
@@ -145,7 +145,7 @@ describe('handleInstall', () => {
 
   test('install game on another path with invalid path does nothing', async () => {
     const onHandleGameStatus = jest.fn();
-    setTestOpenDialog({ path: undefined });
+    test_opendialog.set({ path: undefined });
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'another' });
     expect(onHandleGameStatus).not.toBeCalledWith();
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
@@ -160,7 +160,7 @@ describe('handleInstall', () => {
 
   test('install game on another path with cancel openDialog does nothing', async () => {
     const onHandleGameStatus = jest.fn();
-    setTestOpenDialog({ canceled: true });
+    test_opendialog.set({ canceled: true });
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'another' });
     expect(onHandleGameStatus).not.toBeCalledWith();
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
@@ -177,13 +177,13 @@ describe('handleInstall', () => {
     const onHandleGameStatus = jest.fn();
 
     // call sendkill
-    setTestOpenMessageBoxResponse(1);
+    test_openmessagebox_response.set(1);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'another', isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
 
     // remove folder
-    setTestOpenMessageBoxResponse(2);
+    test_openmessagebox_response.set(2);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'another', isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.send).toBeCalledWith('removeFolder', ['another', 'folder_name']);
