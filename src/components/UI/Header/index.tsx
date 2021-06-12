@@ -65,7 +65,7 @@ export default function Header({
   if (renderBackButton) {
     return (
       <div className={cx({ header: !title }, { headerSettings: title })}>
-        <Link className="returnLink" to={link} onClick={handleClick}>
+        <Link data-testid="returnLink" className="returnLink" to={link} onClick={handleClick}>
           <ArrowBack className="material-icons" />
           {t('Return')}
         </Link>

@@ -41,7 +41,7 @@ export default function WineSettings({
   isDefault
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
-  const isProton = wineVersion?.name?.includes('Proton')
+  const isProton = wineVersion.name.includes('Proton')
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -79,16 +79,18 @@ export default function WineSettings({
 
   return (
     <>
-      <span className="setting">
+      <span data-testid="wineSettings" className="setting">
         <span className="settingText">{t('setting.wineprefix')}</span>
         <span>
           <input
+            data-testid="selectWinePrefix"
             type="text"
             value={winePrefix}
             className="settingSelect"
             onChange={(event) => setWinePrefix(event.target.value)}
           />
           <CreateNewFolder
+            data-testid="addWinePrefix"
             className="material-icons settings folder"
             onClick={() =>
               ipcRenderer.invoke('openDialog',{
@@ -110,6 +112,7 @@ export default function WineSettings({
           </span>
           <span className="settingInputWithButton">
             <select
+              data-testid="selectWinePath"
               disabled={!customWinePaths.length}
               className="settingSelect"
               defaultValue={selectedPath}
@@ -122,6 +125,7 @@ export default function WineSettings({
             </select>
             <div className="iconsWrapper">
               <RemoveCircleIcon
+                data-testid="removeWinePath"
                 onClick={() => removeCustomPath()}
                 style={{
                   color: selectedPath ? 'var(--danger)' : 'var(--background)',
@@ -131,6 +135,7 @@ export default function WineSettings({
                 titleAccess={t('tooltip.removepath', 'Remove Path')}
               />{' '}
               <AddBoxIcon
+                data-testid="addWinePath"
                 onClick={() => selectCustomPath()}
                 className={`is-primary`}
                 style={{ color: 'var(--success)', cursor: 'pointer' }}
@@ -144,6 +149,7 @@ export default function WineSettings({
       <span className="setting">
         <span className="settingText">{t('setting.wineversion')}</span>
         <select
+          data-testid="setWineVersion"
           onChange={(event) =>
             setWineVersion(
               altWine.filter(({ name }) => name === event.target.value)[0]
@@ -156,7 +162,7 @@ export default function WineSettings({
             <option key={name}>{name}</option>
           ))}
         </select>
-        {isProton && <span className="warning">{t('warning.proton', 'Proton outside of Steam is not supported. Do not open issues or ask for support about it.')}</span>}
+        {isProton && <span data-testid="protonWarning" className="warning">{t('warning.proton', 'Proton outside of Steam is not supported. Do not open issues or ask for support about it.')}</span>}
       </span>
       <span className="setting">
         <span className="toggleWrapper">

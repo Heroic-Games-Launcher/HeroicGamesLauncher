@@ -97,7 +97,7 @@
     "react-start": "BROWSER=none react-scripts start",
     "react-start:win": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --maxWorkers=50%",
+    "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand",
     "eject": "react-scripts eject",

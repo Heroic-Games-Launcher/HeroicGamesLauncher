@@ -58,7 +58,7 @@ export default function OtherSettings({
   return (
     <>
       {!isWin && <>
-        <span className="setting">
+        <span data-testid="otherSettings" className="setting">
           <span className="toggleWrapper">
             {t('setting.showfps')}
             <ToggleSwitch value={showFps} handleChange={toggleFps} />
@@ -100,6 +100,7 @@ export default function OtherSettings({
         <span className="settingText">{t('options.advanced.title')}</span>
         <span>
           <input
+            data-testid="otheroptions"
             id="otherOptions"
             type="text"
             placeholder={t('options.advanced.placeholder')}
@@ -114,6 +115,7 @@ export default function OtherSettings({
           <span className="settingText">{t('options.gameargs.title')}</span>
           <span>
             <input
+              data-testid="launcherargs"
               id="launcherArgs"
               type="text"
               placeholder={t('options.gameargs.placeholder')}
