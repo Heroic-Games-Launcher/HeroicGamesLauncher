@@ -4,7 +4,6 @@ import {
   test_context,
   test_egssync_response,
   test_game,
-  test_maxcpus,
   test_opendialog,
   test_openmessagebox_response,
   test_plugin,
@@ -24,7 +23,7 @@ export function initElectronMocks()
     .calledWith('getGameInfo', test_plugin.get().app_name).mockResolvedValue(test_plugin.get())
     .calledWith('getUserInfo').mockResolvedValue({...test_userinfo.get(), user: 'user'})
     .calledWith('getPlatform').mockResolvedValue(test_context.get().platform)
-    .calledWith('getMaxCpus').mockResolvedValue(test_maxcpus.get())
+    .calledWith('getMaxCpus').mockResolvedValue(1)
     .calledWith(stringAtIndex(0, 'egsSync')).mockResolvedValue(test_egssync_response.get())
     .calledWith('getAlternativeWine').mockResolvedValue([test_wineinstallation.get()])
     .calledWith(stringAtIndex(0, 'openMessageBox')).mockResolvedValue({response: test_openmessagebox_response.get()})
