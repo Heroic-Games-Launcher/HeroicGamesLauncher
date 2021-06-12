@@ -10,6 +10,7 @@ import {
   powerSaveBlocker,
   protocol
 } from 'electron'
+import { Logger } from './logger'
 import {
   cpus,
   platform
@@ -90,7 +91,7 @@ function createWindow(): BrowserWindow {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        console.log('An error occurred: ', err)
+        Logger.error({message: `An error has occurred:${err}`, service: 'electron::devtools'})
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -224,12 +225,12 @@ if (!gotTheLock) {
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
-        console.log('Registered protocol with OS.')
+        Logger.info({message: 'Registered protocol with OS', service: 'ipcMain::registerHeroicProtocol'})
       } else {
-        console.log('Failed to register protocol with OS.')
+        Logger.warn({message: 'Failed to register protocol with OS', service: 'ipcMain::registerHeroicProtocol'})
       }
     } else {
-      console.log('Protocol already registered.')
+      Logger.info({message: 'Protocol already registered with OS', service: 'ipcMain::registerHeroicProtocol'})
     }
     if (process.argv[1]) {
       const url = process.argv[1]
@@ -278,11 +279,6 @@ ipcMain.on('Notify', (event, args) => {
   notify.show()
 })
 
-// Maybe this can help with white screens
-process.on('uncaughtException', (err) => {
-  console.log(err)
-})
-
 let powerId: number | null
 ipcMain.on('lock', () => {
   if (!existsSync(`${heroicGamesConfigPath}/lock`)) {
@@ -304,6 +300,7 @@ ipcMain.on('unlock', () => {
 })
 
 ipcMain.on('kill', async (event, appName) => {
+  await Logger.info({message: `Attempting to kill app ${appName} `, service: 'ipcMain::kill'})
   return await Game.get(appName).stop()
 })
 
@@ -336,7 +333,12 @@ ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
 )
 
+/*
+  Used to remove the game folder if someone stops game installation and chooses not to keep the files
+  Doesn't currently work (for me at least)
+*/
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  //await Logger.info({message: `Removing folder ${folderName} `, service: 'ipcMain::removeFolder'})
   if (path === 'default') {
     const defaultInstallPath = (await GlobalConfig.get()).config.defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${defaultInstallPath}/${folderName}`
@@ -359,7 +361,9 @@ interface Tools {
   wine: string
 }
 
+// Neither of these want to work anyway on my distro so I can't test this
 ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
+  Logger.info({message: `Attempting to run tool ${tool}`, service: 'ipcMain::callTool::creatingCommand'})
   const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
   let winePrefix: string = prefix.replace('~', home)
 
@@ -374,57 +378,88 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
-  console.log({ command })
+  Logger.info({message: `Trying to run command ${command}`, service: 'ipcMain::callTool::executingCommand'})
   return await execAsync(command)
 })
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', () => LegendaryLibrary.get().listUpdateableGames())
+ipcMain.handle('checkGameUpdates', async () => {
+  await Logger.info({message: 'Checking all apps for updates', service: 'ipcMain::checkGameUpdates'})
+  return LegendaryLibrary.get().listUpdateableGames()
+})
 
 // Not ready to be used safely yet.
-ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
+ipcMain.handle('updateAll', async () => {
+  await Logger.info({message: 'Updating all apps', service:'Game::updateAllGames'})
+  return LegendaryLibrary.get().updateAllGames()
+})
 
-ipcMain.handle('checkVersion', () => checkForUpdates())
+ipcMain.handle('checkVersion', async () => {
+  await Logger.info({message: 'Checking for a newer heroic version', service: 'ipcMain::checkVersion'})
+  return checkForUpdates()
+})
 
-ipcMain.handle('getMaxCpus', () => cpus().length)
-ipcMain.handle('getPlatform', () => process.platform)
+ipcMain.handle('getMaxCpus', () => {
+  return cpus().length
+})
+ipcMain.handle('getPlatform', () => {
+  return process.platform
+})
 
-ipcMain.on('createNewWindow', (e, url) =>
-  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
-)
+ipcMain.on('createNewWindow', (e, url) =>{
+  return new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
+})
 
-ipcMain.handle('getGameInfo', async (event, game) => {
-  const obj = Game.get(game)
+ipcMain.handle('getGameInfo', async (event, appName) => {
+  await Logger.info({message: `Getting app info for ${appName} `, service: 'ipcMain::getGameInfo'})
+  const obj = Game.get(appName)
   const info = await obj.getGameInfo()
   info.extra = await obj.getExtraInfo(info.namespace)
   return info
 })
 
-ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
+ipcMain.handle('getUserInfo', async () => {
+  await Logger.info({message: 'Getting user info', service: 'ipcMain::getUserInfo'})
+  return await LegendaryUser.getUserInfo()
+})
 
 // Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', async () => await LegendaryUser.isLoggedIn())
+ipcMain.handle('isLoggedIn', async () => {
+  await Logger.info({message: 'Checking if a user is logged in', service: 'ipcMain::isLoggedIn'})
+  return await LegendaryUser.isLoggedIn()
+})
 
-ipcMain.handle('login', async (event, sid) => await LegendaryUser.login(sid))
+ipcMain.handle('login', async (event, sid) => {
+  await Logger.info({message: 'Logging user in', service: 'ipcMain::login'})
+  return await LegendaryUser.login(sid)
+})
 
-ipcMain.handle('logout', async () => await LegendaryUser.logout())
+ipcMain.handle('logout', async () =>  {
+  await Logger.info({message: 'Logging user out', service: 'ipcMain::logout'})
+  return await LegendaryUser.logout()
+})
 
-ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
+ipcMain.handle('getAlternativeWine', async () => {
+  await Logger.info({message: 'Looking for alternative wine(s) ', service: 'ipcMain::getAlternativeWine'})
+  return GlobalConfig.get().getAlternativeWine()
+})
 
 ipcMain.handle('readConfig', async (event, config_class) =>  {
+  await Logger.info({message: `Reading config for: ${config_class}`, service: 'ipcMain::readConfig'})
   switch (config_class) {
   case 'library':
     return await LegendaryLibrary.get().getGames('info')
   case 'user':
     return (await LegendaryUser.getUserInfo()).displayName
   default:
-    console.log(`Which idiot requested '${config_class}' using readConfig?`)
+    await Logger.warn({message: `Which idiot requested '${config_class}' using readConfig?`, service: 'ipcMain::readConfig'})
     return {}
   }
 })
 
 ipcMain.handle('requestSettings', async (event, appName) => {
+  await Logger.info({message: `Requesting settings for: ${appName}`, service: 'ipcMain::requestSettings'})
   if (appName === 'default') {
     return GlobalConfig.get().config
   }
@@ -432,7 +467,8 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return await GameConfig.get(appName).getSettings()
 })
 
-ipcMain.handle('writeConfig', (event, [appName, config]) => {
+ipcMain.handle('writeConfig', async (event, [appName, config]) => {
+  await Logger.info({message: `Writing config for: ${appName}`, service: 'ipcMain::writeConfig'})
   if (appName === 'default') {
     GlobalConfig.get().config = config
     GlobalConfig.get().flush()
@@ -444,19 +480,20 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
 })
 
 ipcMain.handle('refreshLibrary', async () => {
+  await Logger.info({message: 'Refreshing library', service: 'ipcMain::refreshLibrary'})
   return await LegendaryLibrary.get().refresh()
 })
 
-ipcMain.handle('launch', (event, game) => {
-  console.log('launching', game)
-
-  return Game.get(game).launch().then(({ stderr }) => {
+ipcMain.handle('launch', async (event, appName) => {
+  await Logger.info({message: `launching app: ${appName} `, service: 'Game::launch'})
+  return Game.get(appName).launch().then(async ({ stderr }) => {
     writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      `${heroicGamesConfigPath}${appName}-lastPlay.log`,
       stderr,
       () => 'done'
     )
     if (stderr.includes('Errno')) {
+      await Logger.error({message: `Error while launching: ${appName}${stderr} `, service: 'Game::launch'})
       showErrorBox(
         i18next.t('box.error', 'Something Went Wrong'),
         i18next.t(
@@ -469,8 +506,9 @@ ipcMain.handle('launch', (event, game) => {
     // This stuff is completely borken, I have no idea what the hell we should do here.
     const stderr = `${exception.name} - ${exception.message}`
     errorHandler({error: {stderr, stdout: ''}})
+    await Logger.error({message: `Written lastplay log with ERROR${exception.name}:${exception.message} `, service: 'Game::launch'})
     writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      `${heroicGamesConfigPath}${appName}-lastPlay.log`,
       stderr,
       () => 'done'
     )
@@ -496,45 +534,68 @@ ipcMain.handle('openMessageBox', async (e, args) => {
 
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
+  await Logger.info({message: `Installing: ${game}`, service: 'Game::install'})
   if (!(await isOnline())) {
-    console.log(`App offline, skipping install for game '${game}'.`)
+    await Logger.info({message: `Offline, giving up installing: ${args.game}`, service: 'Game::install'})
     return
   }
   return Game.get(game).install(path).then(
-    () => { console.log('finished installing') }
-  ).catch((res) => res)
+    async () => {
+      await Logger.info({message: `Installed: ${game}` , service: 'Game::install'})
+    }
+  ).catch(async (res) => {
+    await Logger.error({message: `Failed to install: ${game} ERROR${res} `, service: 'Game::install'})
+    return res
+  })
 })
 
-ipcMain.handle('uninstall', async (event, game) => {
-  return Game.get(game).uninstall().then(
-    () => { console.log('finished uninstalling') }
-  ).catch(console.log)
+ipcMain.handle('uninstall', async (event, appName) => {
+  await Logger.info({message: `Uninstalling: ${appName}`, service: 'Game::uninstall'})
+  return Game.get(appName).uninstall().then(
+    () => {
+      Logger.info({message: `Finished uninstall of: ${appName}`, service: 'Game::uninstall'})
+    }
+  ).catch((err) => {
+    Logger.error({message: `Failed to uninstall: ${appName} with ERROR${err}`, service: 'Game::uninstall'})
+  })
 })
 
-ipcMain.handle('repair', async (event, game) => {
+ipcMain.handle('repair', async (event, appName) => {
+  await Logger.info({message: `Attempting to repair ${appName}`, service: 'Game::repair'})
   if (!(await isOnline())) {
-    console.log(`App offline, skipping repair for game '${game}'.`)
+    await Logger.info({message: `Offline, giving up on repairing: ${appName}`, service: 'Game::repair'})
     return
   }
-  return Game.get(game).repair().then(
-    () => console.log('finished repairing')
-  ).catch(console.log)
+  return Game.get(appName).repair().then(
+    async () => {
+      await Logger.info({message: `Finished repairing ${appName}`, service: 'Game::repair'})
+    }
+  ).catch((err) => {
+    Logger.error({message: `Failed to repair: ${appName} with ERROR${err}`, service: 'Game::repair'})
+  })
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
+  await Logger.info({message: `Trying to import: ${game} from: ${path}}`, service: 'Game::importGame'})
   const {stderr, stdout} = await Game.get(game).import(path)
-  console.log(`${stdout} - ${stderr}`)
+  await Logger.info({message: `${stdout} - ${stderr}`, service: 'Game::importGame' })
 })
 
-ipcMain.handle('updateGame', async (e, game) => {
+ipcMain.handle('updateGame', async (e, appName) => {
+  await Logger.info({message: `Attempting to update: ${appName}`, service: 'Game::updateGame'})
   if (!(await isOnline())) {
-    console.log(`App offline, skipping install for game '${game}'.`)
+    await Logger.info({message: `Offline, giving up on updating: ${appName}`, service: 'Game::updateGame'})
     return
   }
-  return Game.get(game).update().then(
-    () => { console.log('finished updating') }
-  ).catch((res) => res)
+  return Game.get(appName).update().then(
+    async () => {
+      await Logger.info({message: `Finished updating: ${appName}`, service: 'Game::updateGame'})
+    }
+  ).catch(async (res) => {
+    await Logger.error({message: `Failed to update: ${appName} with ERROR${res}`, service: 'Game::updateGame'})
+    return res
+  })
 })
 
 // TODO(adityaruplaha): Use UNIX sockets to refactor this.
@@ -586,19 +647,19 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 })
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
+  await Logger.info({message: `Moving install of: ${appName} to ${path}`, service: 'Game::moveInstall'})
   const newPath = await Game.get(appName).moveInstall(path)
-  console.log(`Finished moving ${appName} to ${newPath}.`)
+  await Logger.info({message: `Moved ${appName} to ${newPath}`, service: 'Game::moveInstall'})
 })
 
-ipcMain.handle(
-  'changeInstallPath',
-  async (event, [appName, newPath]: string[]) => {
-    LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
-    console.log(`Finished moving ${appName} to ${newPath}.`)
-  }
-)
+ipcMain.handle('changeInstallPath', async (event, [appName, newPath]: string[]) => {
+  await Logger.info({message: `Changing install path of: ${appName} to ${newPath}`, service: 'Game::changeInstallPath'})
+  LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
+  await Logger.info({message: `Changed install path of: ${appName} to ${newPath}`, service: 'Game::moveInstall'})
+})
 
 ipcMain.handle('egsSync', async (event, args) => {
+  await Logger.info({message: `Syncing with epic games prefix`, service: 'ipcMain::egsSync'})
   const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
   const unlinkArgs = `--unlink`
   const isLink = args !== 'unlink'
@@ -608,21 +669,22 @@ ipcMain.handle('egsSync', async (event, args) => {
     const { stderr, stdout } = await execAsync(
       `${legendaryBin} egl-sync ${command} -y`
     )
-    console.log(`${stdout} - ${stderr}`)
+    await Logger.info({message: `${stdout} - ${stderr}`, service: 'ipcMain::egsSync'})
     return `${stdout} - ${stderr}`
-  } catch (error) {
+  } catch (err) {
+    await Logger.error({message: `Failed to sync with epic with ERROR ${err}`, service: 'ipcMain::egsSync'})
     return 'Error'
   }
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
+  await Logger.info({message: `Syncing saves for ${appName}`, service: 'Game::syncSaves'})
   if (!(await isOnline())) {
-    console.log(`App offline, skipping syncing saves for game '${appName}'.`)
+    console.log(`Offline, giving up on '${appName}'.`)
     return
   }
-
   const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
-  console.log(`${stdout} - ${stderr}`)
+  await Logger.info({message: `${stdout} - ${stderr}`, service: 'Game::syncSaves'})
   return `\n ${stdout} - ${stderr}`
 })
