@@ -427,7 +427,7 @@ class LegendaryGame extends Game {
 
     const { install : { install_path, executable} } = await this.getGameInfo()
     const exe = install_path + '/' + executable
-    console.log('stopping discord rich presence if running')
+    console.log('Stopping Discord Rich Presence if running...')
     DiscordRPC.disconnect()
     console.log('killing', this.appName)
     return await execAsync(`pkill -ef ${exe}`).then((v) => {
