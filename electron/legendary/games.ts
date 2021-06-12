@@ -24,6 +24,7 @@ import {
   legendaryBin
 } from '../constants'
 import { spawn } from 'child_process';
+
 class LegendaryGame extends Game {
   public appName: string
   public state : GameStatus
