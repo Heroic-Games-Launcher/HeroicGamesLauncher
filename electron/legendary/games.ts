@@ -50,7 +50,8 @@ class LegendaryGame extends Game {
    * Alias for `LegendaryLibrary.listUpdateableGames`
    */
   public static async checkGameUpdates() {
-    if (!LegendaryUser.isLoggedIn()){
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    if (!isLoggedIn){
       return []
     }
     return await LegendaryLibrary.get().listUpdateableGames()
