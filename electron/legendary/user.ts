@@ -28,8 +28,9 @@ export class LegendaryUser {
     )
   }
 
-  public static getUserInfo() : UserInfo {
-    if (LegendaryUser.isLoggedIn()) {
+  public static async getUserInfo() : Promise<UserInfo> {
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    if (isLoggedIn) {
       return {...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username}
     }
     return { account_id: '', displayName: null }
