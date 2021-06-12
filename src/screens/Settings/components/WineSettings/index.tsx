@@ -74,7 +74,7 @@ export default function WineSettings({
   function removeCustomPath() {
     const newPaths = customWinePaths.filter((path) => path !== selectedPath)
     setCustomWinePaths(newPaths)
-    return setSelectedPath(newPaths.length ? newPaths[0] : '')
+    return setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
   }
 
   return (
