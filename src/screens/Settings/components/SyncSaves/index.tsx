@@ -55,7 +55,7 @@ export default function SyncSaves({
       const { save_folder, install: { install_path } } = await getGameInfo(appName)
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
-      let folder = await fixSaveFolder(save_folder, prefix, isProton = false)
+      let folder = await fixSaveFolder(save_folder, prefix, isProton || false)
       folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
       const fixedPath = isWin ? path.replaceAll('/', '\\') : path // invert slashes and remove latest on windows

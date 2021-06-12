@@ -88,7 +88,9 @@
     "react-i18next": "^11.8.15",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "tslib": "^2.2.0"
+    "tslib": "^2.2.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
   },
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
