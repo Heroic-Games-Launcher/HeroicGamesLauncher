@@ -334,13 +334,12 @@ class LegendaryGame extends Game {
     } = await this.getSettings()
 
     const { discordrpc } = (await GlobalConfig.get().getSettings())
+    if (discordrpc) {
+      const gameInfo = await this.getGameInfo()
+      this.showDiscordRPC(gameInfo.title)
+    }
 
     if (isWindows) {
-
-      if (discordrpc) {
-        const gameInfo = await this.getGameInfo()
-        this.showDiscordRPC(gameInfo.title)
-      }
       const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
       console.log('\n Launch Command:', command)
       return await execAsync(command)
@@ -406,11 +405,6 @@ class LegendaryGame extends Game {
 
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
     console.log('\n Launch Command:', command)
-
-    if (discordrpc) {
-      const gameInfo = await this.getGameInfo()
-      this.showDiscordRPC(gameInfo.title)
-    }
 
     return await execAsync(command).then((v) => {
       this.state.status = 'playing'
