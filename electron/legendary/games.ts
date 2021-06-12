@@ -385,14 +385,17 @@ class LegendaryGame extends Game {
     })
   }
 
-  public async stop() {
+  public stop() {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'darwin' ? 'legendary' : this.appName
     console.log('killing', pattern)
-    return spawn('pkill', ['-f', pattern])
+    const child =  spawn('pkill', ['-f', pattern])
+    child.on('exit', () => {
+      return console.log(`${pattern} killed`);
+    })
   }
 }
 
