@@ -21,12 +21,12 @@ export interface AppSettings {
   offlineMode: boolean,
   otherOptions: string,
   savesPath: string,
-  useGameMode: boolean
-  userInfo: UserInfo
-  winePrefix: string
-  wineVersion: WineInstallation,
   showFps: boolean,
   showMangohud: boolean,
+  useGameMode: boolean,
+  userInfo: UserInfo,
+  winePrefix: string,
+  wineVersion: WineInstallation
 }
 
 export type ExecResult = void | {stderr : string, stdout : string}
