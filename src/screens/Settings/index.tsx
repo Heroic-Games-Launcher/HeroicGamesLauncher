@@ -109,9 +109,9 @@ function Settings() {
     setOn: setDarkTrayIcon
   } = useToggle(false)
   const {
-    on: discordrpc,
-    toggle: toggleDiscordrpc,
-    setOn: setDiscordrpc
+    on: discordRPC,
+    toggle: toggleDiscordRPC,
+    setOn: setDiscordRPC
   } = useToggle(false)
   const {
     on: autoInstallDxvk,
@@ -155,7 +155,7 @@ function Settings() {
       setEgsPath(config.egsLinkedPath || '')
       setExitToTray(config.exitToTray || false)
       setDarkTrayIcon(config.darkTrayIcon || false)
-      setDiscordrpc(config.discordrpc || false)
+      setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 2)
@@ -184,7 +184,7 @@ function Settings() {
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
-    discordrpc,
+    discordRPC,
     egsLinkedPath,
     exitToTray,
     language,
@@ -274,8 +274,8 @@ function Settings() {
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              toggleDiscordrpc={toggleDiscordrpc}
-              discordrpc={discordrpc}
+              toggleDiscordRPC={toggleDiscordRPC}
+              discordRPC={discordRPC}
             />
           )}
           {isWineSettings && (
