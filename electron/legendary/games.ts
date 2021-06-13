@@ -1,6 +1,7 @@
 import {
   existsSync,
-  mkdirSync
+  mkdirSync,
+  writeFile
 } from 'graceful-fs'
 import axios from 'axios';
 
@@ -11,6 +12,7 @@ import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user';
+import { app } from 'electron';
 import {
   errorHandler,
   execAsync,
@@ -215,12 +217,38 @@ class LegendaryGame extends Game {
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
+    const gameInfo = await this.getGameInfo()
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
     console.log(`Installing ${this.appName} with:`, command)
     try {
       LegendaryLibrary.get().installState(this.appName, true)
       return await execAsync(command, execOptions).then((v) => {
         this.state.status = 'done'
+        // Add shortcut to desktop folder
+        const desktopFolder = app.getPath('desktop')
+        switch(process.platform) {
+        case 'linux': {
+          const linuxShortcut = `[Desktop Entry]
+Name=${gameInfo.title}
+Exec=${legendaryBin} ${gameInfo.app_name}
+Terminal=false
+Type=Application
+Icon=${gameInfo.art_square}
+Categories=Game;
+`
+          writeFile(desktopFolder, linuxShortcut, (err) => {
+            if(err) console.error(err)
+            console.log("Couldn't save shortcut to " + desktopFolder)
+          })
+          writeFile('/usr/share/applications', linuxShortcut, (err) => {
+            if(err) console.error(err)
+            console.log("Couldn't save shortcut to /usr/share/applications")
+          })
+          break; }
+        default:
+          console.error("Shortcuts haven't been implemented in the current platform.")
+          break;
+        }
         return v
       })
     } catch (error) {
