@@ -230,7 +230,7 @@ if (!gotTheLock) {
         Logger.warn({message: 'Failed to register protocol with OS', service: 'ipcMain::registerHeroicProtocol'})
       }
     } else {
-      Logger.info({message: 'Protocol already registered with OS', service: 'ipcMain::registerHeroicProtocol'})
+      // this means the protocol is already registered with the system
     }
     if (process.argv[1]) {
       const url = process.argv[1]
@@ -333,12 +333,7 @@ ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
 )
 
-/*
-  Used to remove the game folder if someone stops game installation and chooses not to keep the files
-  Doesn't currently work (for me at least)
-*/
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
-  //await Logger.info({message: `Removing folder ${folderName} `, service: 'ipcMain::removeFolder'})
   if (path === 'default') {
     const defaultInstallPath = (await GlobalConfig.get()).config.defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${defaultInstallPath}/${folderName}`
