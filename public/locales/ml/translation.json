@@ -24,6 +24,10 @@
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "വേണ്ട",

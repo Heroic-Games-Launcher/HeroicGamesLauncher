@@ -256,14 +256,18 @@ if (!gotTheLock) {
     if (process.platform === 'linux'){
       let pythonFound = false
       for (const python of ['python', 'python3']) {
-        const { stdout } = await execAsync(python + ' --version')
-        const pythonVersion: string | null = stdout.includes('Python ') ? stdout.replace('\n', '').split(' ')[1] : null
-        if (!pythonVersion) {
-          console.log(`Python '${python}' not found.`);
-          continue
-        } else {
-          console.log(`Python '${python}' found. Version: '${pythonVersion}'`)
-          pythonFound ||= semverGt(pythonVersion, '3.8.0') || pythonVersion === '3.8.0'
+        try {
+          const { stdout } = await execAsync(python + ' --version')
+          const pythonVersion: string | null = stdout.includes('Python ') ? stdout.replace('\n', '').split(' ')[1] : null
+          if (!pythonVersion) {
+            console.log(`Python '${python}' not found.`);
+            continue
+          } else {
+            console.log(`Python '${python}' found. Version: '${pythonVersion}'`)
+            pythonFound ||= semverGt(pythonVersion, '3.8.0') || pythonVersion === '3.8.0'
+          }
+        } catch (error) {
+          console.log(`${python} command not found`);
         }
       }
       if (!pythonFound) {
@@ -340,7 +344,7 @@ ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('getLog', (event, appName) =>
-  openUrlOrFile(`"${heroicGamesConfigPath}/${appName}-lastPlay.log"`)
+  openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
 )
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {

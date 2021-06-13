@@ -23,6 +23,8 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
+import { spawn } from 'child_process';
+
 class LegendaryGame extends Game {
   public appName: string
   public state : GameStatus
@@ -48,7 +50,8 @@ class LegendaryGame extends Game {
    * Alias for `LegendaryLibrary.listUpdateableGames`
    */
   public static async checkGameUpdates() {
-    if (!LegendaryUser.isLoggedIn()){
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    if (!isLoggedIn){
       return []
     }
     return await LegendaryLibrary.get().listUpdateableGames()
@@ -183,7 +186,7 @@ class LegendaryGame extends Game {
     const command = `${legendaryBin} update ${this.appName} ${workers} -y ${writeLog}`
 
     try {
-      return await execAsync(command, { shell: '/bin/bash' }).then((v) => {
+      return await execAsync(command, execOptions).then((v) => {
         this.state.status = 'done'
         return v
       })
@@ -384,19 +387,16 @@ class LegendaryGame extends Game {
     })
   }
 
-  public async stop() {
+  public stop() {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
-    //const pattern = process.platform === 'darwin' ? 'legendary' : this.appName
-
-    const { install : { install_path, executable} } = await this.getGameInfo()
-    const exe = install_path + '/' + executable
-    console.log('killing', this.appName)
-    return await execAsync(`pkill -ef ${exe}`).then((v) => {
-      this.state.status = 'done'
-      return v
+    const pattern = process.platform === 'darwin' ? 'legendary' : this.appName
+    console.log('killing', pattern)
+    const child =  spawn('pkill', ['-f', pattern])
+    child.on('exit', () => {
+      return console.log(`${pattern} killed`);
     })
   }
 }

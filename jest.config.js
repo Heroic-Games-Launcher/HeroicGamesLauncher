@@ -9,7 +9,6 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules>',
     '<rootDir>/public',
-    '<rootDir>/electron',
     '<rootDir>/dist',
     '<rootDir>/build',
     '<rootDir>/coverage'
@@ -27,7 +26,8 @@ module.exports = {
 
   moduleNameMapper: {
     '\\.css$': '<rootDir>/src/test_helpers/mock/css.ts',
-    'electron': '<rootDir>/src/test_helpers/mock/electron.ts'
+    'electron': '<rootDir>/src/test_helpers/mock/electron.ts',
+    'react-i18next': '<rootDir>/src/test_helpers/mock/react-i18next.ts'
   },
 
   resetMocks: true,

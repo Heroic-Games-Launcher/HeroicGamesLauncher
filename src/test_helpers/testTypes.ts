@@ -1,8 +1,44 @@
-import { AppSettings, GameInfo } from 'src/types';
+import { AppSettings, ContextType, GameInfo } from 'src/types';
+import { WineInstallation } from './../types';
 import { initElectronMocks } from 'src/test_helpers/mock/electron';
 
-// default game
-const default_test_game: GameInfo = {
+// template class to define test types
+class TestType<Type> {
+  private default: Type;
+  private actual: Type;
+
+  constructor(props: Type) {
+    this.default = props;
+    this.actual = this.default;
+  }
+
+  public set(props: Partial<Type> = {})
+  {
+    if( typeof props === 'number' || typeof props === 'string')
+    {
+      this.actual = props;
+    }
+    else
+    {
+      this.actual = {...this.actual, ...props};
+    }
+    initElectronMocks();
+  }
+
+  public reset()
+  {
+    this.actual = this.default;
+    initElectronMocks();
+  }
+
+  public get()
+  {
+    return this.actual;
+  }
+}
+
+// test game
+const test_game = new TestType<GameInfo>({
   app_name: 'game',
   art_cover: 'art_cover',
   art_logo: 'art_logo',
@@ -31,20 +67,12 @@ const default_test_game: GameInfo = {
   is_ue_plugin: false,
   is_ue_project: false,
   namespace: null,
-  save_folder: 'save_folder',
+  save_folder: '{appdata}/../locallow',
   title: 'title'
-};
+});
 
-let test_game = default_test_game;
-
-function setTestGame(props: Partial<GameInfo> = {})
-{
-  test_game = {...test_game, ...props};
-  initElectronMocks();
-}
-
-// default plugin
-const default_test_plugin: GameInfo = {
+// test plugin
+const test_plugin = new TestType<GameInfo>({
   app_name: 'plugin',
   art_cover: 'art_cover',
   art_logo: 'art_logo',
@@ -75,18 +103,10 @@ const default_test_plugin: GameInfo = {
   namespace: null,
   save_folder: 'save_folder',
   title: 'title'
-};
+});
 
-let test_plugin = default_test_plugin;
-
-function setTestPlugin(props: Partial<GameInfo> = {})
-{
-  test_plugin = {...test_plugin, ...props};
-  initElectronMocks();
-}
-
-// default app settings
-const default_test_appsettings: AppSettings = {
+// test app settings
+const test_appsettings = new TestType<AppSettings>({
   audioFix: false,
   autoInstallDxvk: false,
   autoSyncSaves: false,
@@ -110,80 +130,95 @@ const default_test_appsettings: AppSettings = {
     bin: 'bin',
     name: 'wine'
   }
-};
+});
 
-let test_appsettings = default_test_appsettings;
-
-function setTestAppSettings(props: Partial<AppSettings> = {})
-{
-  test_appsettings = {...test_appsettings, ...props};
-  initElectronMocks();
-}
-
-// default dialog
+// test dialog
 interface onOpenDialog {
   canceled: boolean;
   path: string;
 }
 
-const default_test_opendialog: onOpenDialog = {
+const test_opendialog = new TestType<onOpenDialog>({
   canceled: false,
   path: 'default/dialog/path'
-};
+});
 
-let test_opendialog = default_test_opendialog;
+// test max cpus
+const test_maxcpus = new TestType<number>(1);
 
-function setTestOpenDialog(props: Partial<onOpenDialog> = {})
-{
-  test_opendialog = {...test_opendialog, ...props};
-  initElectronMocks();
+// test response
+const test_openmessagebox_response = new TestType<number>(0);
+
+// test egssync response
+const test_egssync_response = new TestType<string>('Success');
+
+// test wine installation
+const test_wineinstallation = new TestType<WineInstallation>({
+  bin: 'path/to/wine/bin',
+  name: 'wine'
+});
+
+// test user info
+interface UserInfo {
+  account_id?: string
+  displayName?: string
+  epicId?: string
+  name?: string
 }
 
-// default max cpus
-const default_test_maxcpus = 1;
+const test_userinfo = new TestType<UserInfo>({
+  account_id: 'account_id',
+  displayName: 'displayName',
+  epicId: 'epicId',
+  name: 'name'
+});
 
-let test_maxcpus = default_test_maxcpus;
-
-function setTestMaxCpus(cpus: number)
-{
-  test_maxcpus = cpus;
-  initElectronMocks();
-}
-
-// default response
-const default_test_openmessagebox_response = 0;
-
-let test_openmessagebox_response = default_test_openmessagebox_response;
-
-function setTestOpenMessageBoxResponse(response: number)
-{
-  test_openmessagebox_response = response;
-  initElectronMocks();
-}
+// test context
+const test_context = new TestType<ContextType>({
+  category: 'games',
+  data: [],
+  error: false,
+  filter: 'all',
+  gameUpdates: [],
+  handleCategory: () => { return; },
+  handleFilter: () => { return; },
+  handleGameStatus: () => Promise.resolve(),
+  handleLayout: () => { return; },
+  handleSearch: () => { return; },
+  layout: 'grid',
+  libraryStatus: [],
+  platform: 'linux',
+  refresh: () => Promise.resolve(),
+  refreshLibrary: () => Promise.resolve(),
+  refreshing: false,
+  user: 'user'
+})
 
 // reset all types to default
 function resetTestTypes()
 {
-  test_game = default_test_game;
-  test_plugin = default_test_plugin;
-  test_appsettings = default_test_appsettings;
-  test_opendialog = default_test_opendialog;
-  test_maxcpus = default_test_maxcpus;
-  test_openmessagebox_response = default_test_openmessagebox_response;
+  test_appsettings.reset();
+  test_context.reset();
+  test_egssync_response.reset();
+  test_game.reset();
+  test_maxcpus.reset();
+  test_opendialog.reset();
+  test_openmessagebox_response.reset();
+  test_plugin.reset();
+  test_userinfo.reset();
+  test_wineinstallation.reset();
 }
 
 export {
   resetTestTypes,
-  setTestAppSettings,
-  setTestGame,
-  setTestMaxCpus,
-  setTestOpenDialog,
-  setTestOpenMessageBoxResponse,
-  setTestPlugin,
   test_appsettings,
+  test_context,
+  test_egssync_response,
   test_game,
   test_maxcpus,
   test_opendialog,
   test_openmessagebox_response,
-  test_plugin
+  test_plugin,
+  test_userinfo,
+  test_wineinstallation
 };
