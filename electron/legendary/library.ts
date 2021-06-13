@@ -14,6 +14,7 @@ import {
   RawGameJSON
 } from '../types';
 import { LegendaryGame } from './games';
+import { LegendaryUser } from './user';
 import {
   execAsync,
   isOnline
@@ -141,7 +142,9 @@ class LegendaryLibrary {
    * @returns App names of updateable games.
    */
   public async listUpdateableGames() {
-    if (!(await isOnline())) {
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    const online = await isOnline()
+    if (!isLoggedIn || !(online)) {
       console.log('App offline, skipping checking game updates.')
       return []
     }

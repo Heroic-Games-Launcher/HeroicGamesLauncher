@@ -12,20 +12,6 @@ import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { useTranslation } from 'react-i18next';
 import NavBar from './index';
 
-let selectedLanguage = 'custom';
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: (lang: string) => selectedLanguage = lang,
-        language: selectedLanguage
-      },
-      t: (str: string) => str
-    };
-  }
-}));
-
 async function renderNavBar()
 {
   const history = createMemoryHistory();

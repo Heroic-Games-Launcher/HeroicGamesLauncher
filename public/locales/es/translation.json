@@ -12,8 +12,8 @@
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Tus credenciales han caducado, por favor cierre la sesión y vuelva a iniciar.",
+                "title": "Credenciales caducadas"
             },
             "diskspace": {
                 "message": "No hay suficiente espacio disponible en disco",
@@ -24,7 +24,11 @@
                 "title": "Error desconocido"
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
+            "python": "Heroic necesita Python 3.8 o superior para funcionar."
         },
         "no": "No",
         "quit": {
