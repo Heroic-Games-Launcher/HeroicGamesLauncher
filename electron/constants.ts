@@ -45,7 +45,7 @@ function getShell() {
   default:
     // $SHELL is set by login
     // If it's 0-value, use bash
-    return process.env.SHELL || "/usr/bin/bash"
+    return process.env.SHELL || '/usr/bin/bash'
   }
 }
 
