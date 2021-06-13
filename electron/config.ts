@@ -97,14 +97,34 @@ abstract class GlobalConfig {
   }
 
   /**
+   * Loads the default wine installation path and version.
+   *
+   * @returns Promise<WineInstallation>
+   */
+  public async getDefaultWine(): Promise<WineInstallation> {
+    return execAsync(`which wine`)
+      .then(async ({ stdout }) => {
+        const defaultWine: WineInstallation = { bin: '', name: 'Default Wine - Not Found' }
+        defaultWine.bin = stdout.split('\n')[0]
+        const { stdout: out } = await execAsync(`wine --version`)
+        const version = out.split('\n')[0]
+        defaultWine.name = `Wine Default - ${version}`
+        return defaultWine
+      })
+      .catch(() => {
+        const defaultWine: WineInstallation = { bin: '', name: 'Default Wine - Not Found' }
+        return defaultWine
+      })
+  }
+
+  /**
    * Detects Wine/Proton on the user's system.
    *
    * @returns An Array of Wine/Proton installations.
    */
   public async getAlternativeWine(scanCustom = true): Promise<WineInstallation[]> {
-    let defaultWine = { bin: '', name: '' }
     if (isWindows) {
-      return [defaultWine]
+      return [{ bin: '', name: '' }]
     }
 
     if (!existsSync(`${heroicToolsPath}/wine`)) {
@@ -114,17 +134,6 @@ abstract class GlobalConfig {
     if (!existsSync(`${heroicToolsPath}/proton`)) {
       mkdirSync(`${heroicToolsPath}/proton`, {recursive: true})
     }
-
-
-    defaultWine = { bin: '', name: 'Default Wine - Not Found' }
-    await execAsync(`which wine`)
-      .then(async ({ stdout }) => {
-        defaultWine.bin = stdout.split('\n')[0]
-        const { stdout: out } = await execAsync(`wine --version`)
-        const version = out.split('\n')[0]
-        defaultWine.name = `Wine - ${version}`
-      })
-      .catch(() => console.log('Default Wine not installed'))
 
     const altWine: Set<WineInstallation> = new Set()
 
@@ -177,6 +186,8 @@ abstract class GlobalConfig {
         })
       }
     })
+
+    const defaultWine = await this.getDefaultWine();
 
     if(!scanCustom) {
       return [defaultWine, ...altWine, ...proton]
@@ -308,7 +319,7 @@ class GlobalConfigV0 extends GlobalConfig {
   public async getFactoryDefaults(): Promise<AppSettings> {
     const { account_id } = await LegendaryUser.getUserInfo()
     const userName = user().username
-    const [defaultWine] = await this.getAlternativeWine(false)
+    const defaultWine = await this.getDefaultWine()
 
     return {
       customWinePaths: isWindows ? null : [],
@@ -324,7 +335,7 @@ class GlobalConfigV0 extends GlobalConfig {
         name: userName
       },
       winePrefix: isWindows ? defaultWine : `${home}/.wine`,
-      wineVersion: isWindows ? defaultWine : {}
+      wineVersion: isWindows ? {} : defaultWine
     } as AppSettings
   }
 
