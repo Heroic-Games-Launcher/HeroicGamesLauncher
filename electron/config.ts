@@ -123,10 +123,6 @@ abstract class GlobalConfig {
    * @returns An Array of Wine/Proton installations.
    */
   public async getAlternativeWine(scanCustom = true): Promise<WineInstallation[]> {
-    if (isWindows) {
-      return [{ bin: '', name: '' }]
-    }
-
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, {recursive: true})
     }
@@ -319,7 +315,7 @@ class GlobalConfigV0 extends GlobalConfig {
   public async getFactoryDefaults(): Promise<AppSettings> {
     const { account_id } = await LegendaryUser.getUserInfo()
     const userName = user().username
-    const defaultWine = await this.getDefaultWine()
+    const defaultWine = isWindows ? {} : await this.getDefaultWine()
 
     return {
       customWinePaths: isWindows ? null : [],

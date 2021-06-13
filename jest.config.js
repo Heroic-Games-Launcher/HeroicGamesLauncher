@@ -9,7 +9,6 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules>',
     '<rootDir>/public',
-    '<rootDir>/electron',
     '<rootDir>/dist',
     '<rootDir>/build',
     '<rootDir>/coverage'

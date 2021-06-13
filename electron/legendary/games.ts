@@ -186,7 +186,7 @@ class LegendaryGame extends Game {
     const command = `${legendaryBin} update ${this.appName} ${workers} -y ${writeLog}`
 
     try {
-      return await execAsync(command, { shell: '/bin/bash' }).then((v) => {
+      return await execAsync(command, execOptions).then((v) => {
         this.state.status = 'done'
         return v
       })
