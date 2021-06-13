@@ -236,14 +236,21 @@ Type=Application
 Icon=${gameInfo.art_square}
 Categories=Game;
 `
-          writeFile(desktopFolder, linuxShortcut, (err) => {
-            if(err) console.error(err)
-            console.log("Couldn't save shortcut to " + desktopFolder)
-          })
-          writeFile('/usr/share/applications', linuxShortcut, (err) => {
-            if(err) console.error(err)
-            console.log("Couldn't save shortcut to /usr/share/applications")
-          })
+          const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
+          const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
+
+          if (enabledInDesktop === true || enabledInDesktop === undefined) {
+            writeFile(desktopFolder, linuxShortcut, (err) => {
+              if(err) console.error(err)
+              console.log("Couldn't save shortcut to " + desktopFolder)
+            })
+          }
+          if (enabledInStartMenu === true || enabledInStartMenu === undefined) {
+            writeFile('/usr/share/applications', linuxShortcut, (err) => {
+              if(err) console.error(err)
+              console.log("Couldn't save shortcut to /usr/share/applications")
+            })
+          }
           break; }
         default:
           console.error("Shortcuts haven't been implemented in the current platform.")

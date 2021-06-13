@@ -11,20 +11,22 @@ export interface AppSettings {
   darkTrayIcon: boolean
   defaultInstallPath: string
   egsLinkedPath: string
-  exitToTray: boolean
-  language: string
-  launcherArgs: string
-  maxWorkers: number
-  nvidiaPrime: boolean
-  offlineMode: boolean
-  otherOptions: string
-  savesPath: string
-  showFps: boolean
-  showMangohud: boolean
+  enableDesktopShortcutsOnDesktop: boolean,
+  enableDesktopShortcutsOnStartMenu: boolean,
+  exitToTray: boolean,
+  language: string,
+  launcherArgs: string,
+  maxWorkers: number,
+  nvidiaPrime: boolean,
+  offlineMode: boolean,
+  otherOptions: string,
+  savesPath: string,
   useGameMode: boolean
   userInfo: UserInfo
   winePrefix: string
-  wineVersion: WineInstallation
+  wineVersion: WineInstallation,
+  showFps: boolean,
+  showMangohud: boolean,
 }
 
 export type ExecResult = void | {stderr : string, stdout : string}
