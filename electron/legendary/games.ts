@@ -322,18 +322,18 @@ class LegendaryGame extends Game {
       let os: string
 
       switch (process.platform) {
-        case 'linux':
-          os = 'Linux'
-          break
-        case 'win32':
-          os = 'Windows'
-          break
-        case 'darwin':
-          os = 'MacOS'
-          break
-        default:
-          os = 'Unknown OS'
-          break
+      case 'linux':
+        os = 'Linux'
+        break
+      case 'win32':
+        os = 'Windows'
+        break
+      case 'darwin':
+        os = 'MacOS'
+        break
+      default:
+        os = 'Unknown OS'
+        break
       }
 
       DiscordRPC.updatePresence({
