@@ -6,8 +6,8 @@ import { heroicFolder } from './constants'
 import DailyRotateFile from 'winston-daily-rotate-file'
 import isDev from 'electron-is-dev'
 // If we're developing, logs will be in ./logs for easy access, in production they'll be in the user's heroic folder
-const logsFolder: string = isDev ? './logs/' : heroicFolder + 'logs/'
-const heroicLogsFolder: string = logsFolder + 'heroic'
+const logsFolder: string = isDev ? './logs/' : `${heroicFolder}logs/`
+const heroicLogsFolder = `${logsFolder}heroic`
 
 // Need real-world data on how big these logs realistically get so the maxsize of them aren't just guesses (right they are)
 const heroicCrashes = new DailyRotateFile({
