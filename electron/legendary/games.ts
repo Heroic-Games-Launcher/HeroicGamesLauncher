@@ -230,7 +230,7 @@ class LegendaryGame extends Game {
         case 'linux': {
           const linuxShortcut = `[Desktop Entry]
 Name=${gameInfo.title}
-Exec=xdg-open heroic://launch?appName=${gameInfo.app_name}
+Exec=xdg-open heroic://launch/${gameInfo.app_name}
 Terminal=false
 Type=Application
 Icon=${gameInfo.art_square}
