@@ -142,17 +142,22 @@ function genericErrorMessage(): void {
   )
 }
 
-function openUrlOrFile(url: string): Promise<string> {
-  switch (process.platform) {
-  case 'darwin':
-    exec(`open ${url}`)
-    break;
-  case 'linux':
-    exec(`xdg-open '${url}'`)
-    break
-  default:
-    return shell.openPath(url)
+async function openUrlOrFile(url: string): Promise<string> {
+  if (process.platform === 'darwin'){
+    try {
+      await execAsync(`open ${url}`)
+    } catch (error) {
+      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+    }
   }
+  if (process.platform === 'linux'){
+    try {
+      await execAsync(`xdg-open '${url}'`)
+    } catch (error) {
+      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+    }
+  }
+  return shell.openPath(url)
 }
 
 export {
