@@ -6,17 +6,17 @@
  */
 
 
-export function debug(...text: string[] | String[]) {
+export function debug(...text: string[]) {
   console.log(`DEBUG: ${text.join(' ')}`)
 }
 
 
 export const error = console.error;
 
-export function info(...text: string[] | String[]) {
+export function info(...text: string[]) {
   console.log(`INFO: ${text.join(' ')}`)
 }
 
-export function warning(...text: string[] | String[]) {
+export function warning(...text: string[]) {
   console.log(`WARNING: ${text.join(' ')}`)
 }
