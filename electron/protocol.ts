@@ -6,24 +6,18 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
   if (!url || scheme !== 'heroic' || !path) {
     return
   }
-  const [command, args_string] = path.split('?')
-  const args = new Map<string, string>()
-  args_string.split(',').forEach((arg) => {
-    const [k, v] = arg.split('=')
-    args.set(k, v)
-  })
+  const [command, arg] = path.split("/")
   console.log(`ProtocolHandler: received '${url}'`)
   if (command === 'ping') {
-    return console.log('Received ping!', args)
+    return console.log('Received ping! Arg:', arg)
   }
-  const appName = args.get('appName')
-  const game = Game.get(appName)
   if (command === 'launch') {
+    const game = Game.get(arg)
     const { is_installed } = await game.getGameInfo()
     if (!is_installed) {
-      console.log(`ProtocolHandler: "${appName}" not installed, ignoring launch request.`)
+      console.log(`ProtocolHandler: "${arg}" not installed, ignoring launch request.`)
       return
     }
-    return window.webContents.send('launchGame', appName)
+    return window.webContents.send('launchGame', arg)
   }
 }
