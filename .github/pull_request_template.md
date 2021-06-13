@@ -3,8 +3,11 @@
 ----------------------------------
 
 Use the following Checklist if you have changed something on the Backend or Frontend:
-Tested on a Clean Install with AppImage:
+
 - [ ] Created / Updated Tests
+- [ ] Created / Updated documentation
+
+Tested on a Clean Install with AppImage:
 - [ ] Login
 - [ ] Download a Game
 - [ ] Import a Game
