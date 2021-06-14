@@ -239,13 +239,13 @@ Categories=Game;
           const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
           const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
 
-          if (enabledInDesktop === true || enabledInDesktop === undefined) {
+          if (enabledInDesktop || enabledInDesktop === undefined) {
             writeFile(desktopFolder, linuxShortcut, (err) => {
               if(err) console.error(err)
               console.log("Couldn't save shortcut to " + desktopFolder)
             })
           }
-          if (enabledInStartMenu === true || enabledInStartMenu === undefined) {
+          if (enabledInStartMenu || enabledInStartMenu === undefined) {
             writeFile('/usr/share/applications', linuxShortcut, (err) => {
               if(err) console.error(err)
               console.log("Couldn't save shortcut to /usr/share/applications")
