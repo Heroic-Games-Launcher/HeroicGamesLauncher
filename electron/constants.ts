@@ -42,12 +42,10 @@ function getShell() {
   switch (process.platform) {
   case 'win32':
     return 'powershell.exe'
-  case 'linux':
-    return '/bin/bash'
-  case 'darwin':
-    return '/bin/zsh'
   default:
-    return '/bin/bash'
+    // $SHELL is set by login
+    // If it's 0-value, use bash
+    return process.env.SHELL || '/usr/bin/bash'
   }
 }
 
