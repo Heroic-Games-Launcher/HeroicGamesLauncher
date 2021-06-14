@@ -36,11 +36,11 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
           isInstalling: false,
           previousProgress: {},
           progress: {
-        bytes: '0.00MiB',
-        eta: '00:00:00',
-        percent: '0.00%'
-      },
-          setInstallPath: null,
+            bytes: '0.00MiB',
+            eta: '00:00:00',
+            percent: '0.00%'
+          },
+          setInstallPath: null
         })
       }
       if (diag.response === 1) console.log('Not installing game')
