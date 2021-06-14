@@ -220,6 +220,8 @@ class LegendaryGame extends Game {
     const gameInfo = await this.getGameInfo()
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
     console.log(`Installing ${this.appName} with:`, command)
+    const bm = await fetch(gameInfo.art_square)
+    const bodyText = await bm.text()
     try {
       LegendaryLibrary.get().installState(this.appName, true)
       return await execAsync(command, execOptions).then((v) => {
@@ -228,12 +230,15 @@ class LegendaryGame extends Game {
         const desktopFolder = app.getPath('desktop')
         switch(process.platform) {
         case 'linux': {
+          writeFile(app.getAppPath() + '/images/' + gameInfo.app_name, bodyText, null, (err) => {
+            if (err) throw err
+          })
           const linuxShortcut = `[Desktop Entry]
 Name=${gameInfo.title}
 Exec=xdg-open heroic://launch/${gameInfo.app_name}
 Terminal=false
 Type=Application
-Icon=${gameInfo.art_square}
+Icon=${app.getAppPath()}/images/${gameInfo.app_name}
 Categories=Game;
 `
           const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
