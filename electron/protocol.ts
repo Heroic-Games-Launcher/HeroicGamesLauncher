@@ -6,7 +6,11 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
   if (!url || scheme !== 'heroic' || !path) {
     return
   }
-  const [command, arg] = path.split('/')
+  let [command, arg] = path?.split('/')
+  if (!command || !arg) {
+    command = path
+    arg = null
+  }
   console.log(`ProtocolHandler: received '${url}'`)
   if (command === 'ping') {
     return console.log('Received ping! Arg:', arg)
