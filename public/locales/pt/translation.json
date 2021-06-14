@@ -24,6 +24,10 @@
                 "title": "Erro Desconhecido"
             },
             "launch": "Houve um erro ao rodar o jogo, veja os Logs para ver o que aconteceu!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NÃO",
