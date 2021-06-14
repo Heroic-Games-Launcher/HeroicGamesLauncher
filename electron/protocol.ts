@@ -21,16 +21,16 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
     if (!is_installed) {
       console.log(`ProtocolHandler: "${arg}" not installed.`)
       const diag = await dialog.showMessageBox(window, {
-        title: title,
-        message: `${title} is not installed. Install it now?`,
         buttons: ['OK', 'Not now'],
-        icon: nativeImage.createFromDataURL(art_logo),
         cancelId: 1,
+        icon: nativeImage.createFromDataURL(art_logo),
+        message: `${title} is not installed. Install it now?`,
+        title: title
       })
       if (diag.response === 0) {
         game.install(`${process.env.HOME}/Games`)
       }
-      if (diag.response === 1) console.log("Not installing game")
+      if (diag.response === 1) console.log('Not installing game')
       return
     }
     return window.webContents.send('launchGame', arg)
