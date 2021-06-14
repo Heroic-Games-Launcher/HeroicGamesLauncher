@@ -67,7 +67,9 @@ function createWindow(): BrowserWindow {
     const date = new Date().toDateString()
     const path = `${app.getPath('crashDumps')}/${date}.txt`
     console.log('Saving log file to ' + path)
-    writeFile(path, str, null, null)
+    writeFile(path, str, {}, (err) => {
+      throw err
+    })
   })
   // Create the browser window.
   mainWindow = new BrowserWindow({
