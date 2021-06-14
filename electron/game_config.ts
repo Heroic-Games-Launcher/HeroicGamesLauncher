@@ -24,7 +24,24 @@ abstract class GameConfig {
 
   public abstract version : GameConfigVersion
 
-  public config : GameSettings
+  public config : GameSettings = {
+    audioFix: false,
+    autoInstallDxvk: false,
+    autoSyncSaves: false,
+    launcherArgs: '',
+    nvidiaPrime: false,
+    offlineMode: false,
+    otherOptions: '',
+    savesPath: '',
+    showFps: false,
+    showMangohud: false,
+    useGameMode: false,
+    winePrefix: '',
+    wineVersion: {
+      bin: '',
+      name: ''
+    }
+  }
 
   readonly appName : string
   readonly path : string
