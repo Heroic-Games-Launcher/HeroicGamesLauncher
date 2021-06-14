@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, dialog, nativeImage } from 'electron'
 import { Game } from './games'
 
 export async function handleProtocol(window : BrowserWindow, url : string) {
@@ -17,9 +17,20 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
   }
   if (command === 'launch') {
     const game = Game.get(arg)
-    const { is_installed } = await game.getGameInfo()
+    const { is_installed, title, art_logo } = await game.getGameInfo()
     if (!is_installed) {
-      console.log(`ProtocolHandler: "${arg}" not installed, ignoring launch request.`)
+      console.log(`ProtocolHandler: "${arg}" not installed.`)
+      const diag = await dialog.showMessageBox(window, {
+        title: title,
+        message: `${title} is not installed. Install it now?`,
+        buttons: ['OK', 'Not now'],
+        icon: nativeImage.createFromDataURL(art_logo),
+        cancelId: 1,
+      })
+      if (diag.response === 0) {
+        game.install(`${process.env.HOME}/Games`)
+      }
+      if (diag.response === 1) console.log("Not installing game")
       return
     }
     return window.webContents.send('launchGame', arg)
