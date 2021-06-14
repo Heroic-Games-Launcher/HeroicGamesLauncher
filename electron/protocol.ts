@@ -28,7 +28,7 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
         title: title
       })
       if (diag.response === 0) {
-        game.install(`${process.env.HOME}/Games`)
+        game.install('default')
       }
       if (diag.response === 1) console.log('Not installing game')
       return
