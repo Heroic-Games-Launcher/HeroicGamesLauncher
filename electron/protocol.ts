@@ -1,5 +1,6 @@
 import { BrowserWindow, dialog, nativeImage } from 'electron'
 import { Game } from './games'
+import i18next from 'i18next'
 
 export async function handleProtocol(window : BrowserWindow, url : string) {
   const [scheme, path] = url.split('://')
@@ -21,10 +22,10 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
     if (!is_installed) {
       console.log(`ProtocolHandler: "${arg}" not installed.`)
       const diag = await dialog.showMessageBox(window, {
-        buttons: ['OK', 'Not now'],
+        buttons: [i18next.t('box.yes'), i18next.t('box.no')],
         cancelId: 1,
         icon: nativeImage.createFromDataURL(art_logo),
-        message: `${title} is not installed. Install it now?`,
+        message: `${title} ${i18next.t('box.protocol.install.not_installed')}`,
         title: title
       })
       if (diag.response === 0) {
