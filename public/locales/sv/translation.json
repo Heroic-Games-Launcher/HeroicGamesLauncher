@@ -31,6 +31,11 @@
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "Nej",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Det finns pågående nedladdningar, är du säker?",
             "title": "Avbryt"
@@ -101,8 +106,6 @@
             "finished": "Installation klar"
         },
         "moved": "Flytta klar",
-        "refreshed": "Biblioter uppdaterat",
-        "refreshing": "Uppdaterar",
         "uninstalled": "Avinstallerad",
         "update": {
             "canceled": "Updatering avbruten",
