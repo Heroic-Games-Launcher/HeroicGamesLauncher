@@ -1,6 +1,6 @@
 
 module.exports = {
-  displayName: 'Frontend Tests',
+  displayName: 'Frontend',
 
   globals: {
     'ts-jest': {

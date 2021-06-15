@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'Backend Tests',
+  displayName: 'Backend',
 
   globals: {
     'ts-jest': {
@@ -14,11 +14,6 @@ module.exports = {
 
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-
-  moduleNameMapper: {
-    '\\.css$': '<rootDir>/src/test_helpers/mock/css.ts',
-    'react-i18next': '<rootDir>/src/test_helpers/mock/react-i18next.ts'
-  },
 
   resetMocks: true,
 
