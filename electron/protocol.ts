@@ -1,29 +1,39 @@
-import { BrowserWindow } from 'electron'
-import { LegendaryGame } from './games'
+import { BrowserWindow, dialog, nativeImage } from 'electron'
+import { Game } from './games'
+import i18next from 'i18next'
 
 export async function handleProtocol(window : BrowserWindow, url : string) {
   const [scheme, path] = url.split('://')
   if (!url || scheme !== 'heroic' || !path) {
     return
   }
-  const [command, args_string] = path.split('?')
-  const args = new Map<string, string>()
-  args_string.split(',').forEach((arg) => {
-    const [k, v] = arg.split('=')
-    args.set(k, v)
-  })
+  let [command, arg] = path?.split('/')
+  if (!command || !arg) {
+    command = path
+    arg = null
+  }
   console.log(`ProtocolHandler: received '${url}'`)
   if (command === 'ping') {
-    return console.log('Received ping!', args)
+    return console.log('Received ping! Arg:', arg)
   }
-  const appName = args.get('appName')
-  const game = LegendaryGame.get(appName)
   if (command === 'launch') {
-    const { is_installed } = await game.getGameInfo()
+    const game = Game.get(arg)
+    const { is_installed, title, art_logo, app_name } = await game.getGameInfo()
     if (!is_installed) {
-      console.log(`ProtocolHandler: "${appName}" not installed, ignoring launch request.`)
+      console.log(`ProtocolHandler: "${arg}" not installed.`)
+      const diag = await dialog.showMessageBox(window, {
+        buttons: [i18next.t('box.yes'), i18next.t('box.no')],
+        cancelId: 1,
+        icon: nativeImage.createFromDataURL(art_logo),
+        message: `${title} ${i18next.t('box.protocol.install.not_installed')}`,
+        title: title
+      })
+      if (diag.response === 0) {
+        window.webContents.send('install', app_name)
+      }
+      if (diag.response === 1) console.log('Not installing game')
       return
     }
-    return window.webContents.send('launchGame', appName)
+    return window.webContents.send('launchGame', arg)
   }
 }

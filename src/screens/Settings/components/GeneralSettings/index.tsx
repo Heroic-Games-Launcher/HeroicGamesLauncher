@@ -120,18 +120,19 @@ export default function GeneralSettings({
 
   return (
     <>
-      <span className="setting">
+      <span className="setting" data-testid="generalSettings">
         <span className="settingText">{t('setting.language')}</span>
         <LanguageSelector
           handleLanguageChange={handleChangeLanguage}
           currentLanguage={language}
         />
-        <a onClick={handleWeblate} className="smallMessage">{t('other.weblate', 'Help Improve this translation.')}</a>
+        <a data-testid="buttonWeblate" onClick={handleWeblate} className="smallMessage">{t('other.weblate', 'Help Improve this translation.')}</a>
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>
         <span>
           <input
+            data-testid="setinstallpath"
             type="text"
             value={defaultInstallPath}
             className="settingSelect"
@@ -139,6 +140,7 @@ export default function GeneralSettings({
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
           <CreateNewFolder
+            data-testid="setinstallpathbutton"
             className="material-icons settings folder"
             onClick={() =>
               ipcRenderer.invoke('openDialog', {
@@ -156,6 +158,7 @@ export default function GeneralSettings({
         <span className="settingText">{t('setting.egs-sync')}</span>
         <span className="settingInputWithButton">
           <input
+            data-testid="setEpicSyncPath"
             type="text"
             placeholder={t('placeholder.egs-prefix')}
             className="settingSelect"
@@ -165,6 +168,7 @@ export default function GeneralSettings({
           />
           {!egsPath.length ? (
             <CreateNewFolder
+              data-testid="setEpicSyncPathButton"
               className="material-icons settings folder"
               style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
               onClick={() =>
@@ -183,6 +187,7 @@ export default function GeneralSettings({
             />
           ) : (
             <Backspace
+              data-testid="setEpicSyncPathBackspace"
               className="material-icons settings folder"
               onClick={() => (isLinked ? '' : setEgsPath(''))}
               style={
@@ -193,6 +198,7 @@ export default function GeneralSettings({
             />
           )}
           <button
+            data-testid="syncButton"
             onClick={() => handleSync()}
             disabled={isSyncing || !egsPath.length}
             className={`button is-small ${
@@ -228,6 +234,7 @@ export default function GeneralSettings({
         <span className="toggleWrapper">
           {t('setting.maxworkers')}
           <select
+            data-testid="setMaxWorkers"
             onChange={(event) => setMaxWorkers(Number(event.target.value))}
             value={maxWorkers}
             className="settingSelect smaller"

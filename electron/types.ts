@@ -11,22 +11,25 @@ export interface AppSettings {
   darkTrayIcon: boolean
   defaultInstallPath: string
   egsLinkedPath: string
-  exitToTray: boolean
-  language: string
-  launcherArgs: string
-  maxWorkers: number
-  nvidiaPrime: boolean
-  offlineMode: boolean
-  otherOptions: string
-  savesPath: string
-  showFps: boolean
-  showMangohud: boolean
-  useGameMode: boolean
-  userInfo: UserInfo
-  winePrefix: string
+  enableDesktopShortcutsOnDesktop: boolean,
+  enableDesktopShortcutsOnStartMenu: boolean,
+  exitToTray: boolean,
+  language: string,
+  launcherArgs: string,
+  maxWorkers: number,
+  nvidiaPrime: boolean,
+  offlineMode: boolean,
+  otherOptions: string,
+  savesPath: string,
+  showFps: boolean,
+  showMangohud: boolean,
+  useGameMode: boolean,
+  userInfo: UserInfo,
+  winePrefix: string,
   wineVersion: WineInstallation
 }
 
+export type ExecResult = void | {stderr : string, stdout : string}
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
@@ -76,6 +79,7 @@ export interface GameStatus {
   status:
     | 'installing'
     | 'updating'
+    | 'launching'
     | 'playing'
     | 'uninstalling'
     | 'repairing'

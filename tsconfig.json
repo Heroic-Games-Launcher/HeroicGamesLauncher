@@ -38,5 +38,8 @@
     "public/*.js",
     "dist"
   ],
-  "include": ["src", "src/types.ts"]
+  "include": [
+    "src", 
+    "src/types.ts",
+    "./typings-custom/**/*.ts"]
 }

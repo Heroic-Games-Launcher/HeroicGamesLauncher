@@ -24,6 +24,21 @@ const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
+/**
+ * Compares 2 SemVer strings following "major.minor.patch".
+ * Checks if target is newer than base.
+ */
+function semverGt(target : string, base : string) {
+  const [bmajor, bminor, bpatch] = base.split('.').map(Number)
+  const [tmajor, tminor, tpatch] = target.split('.').map(Number)
+  let isGE = false
+  // A pretty nice piece of logic if you ask me. :P
+  isGE ||= tmajor > bmajor
+  isGE ||= tmajor === bmajor && tminor > bminor
+  isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
+  return isGE
+}
+
 async function isOnline() {
   return net.isOnline()
 }
@@ -42,10 +57,10 @@ async function checkForUpdates() {
     } = await axios.default.get(
       'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
     )
-    const newVersion = tag_name.replace('v', '').replaceAll('.', '')
-    const currentVersion = app.getVersion().replaceAll('.', '')
+    const newVersion = tag_name.replace('v', '')
+    const currentVersion = app.getVersion()
 
-    return newVersion > currentVersion
+    return semverGt(newVersion, currentVersion)
   } catch (error) {
     console.log('Could not check for new version of heroic')
   }
@@ -127,17 +142,22 @@ function genericErrorMessage(): void {
   )
 }
 
-function openUrlOrFile(url: string): Promise<string> {
-  switch (process.platform) {
-  case 'darwin':
-    exec(`open ${url}`)
-    break;
-  case 'linux':
-    exec(`xdg-open '${url}'`)
-    break
-  default:
-    return shell.openPath(url)
+async function openUrlOrFile(url: string): Promise<string> {
+  if (process.platform === 'darwin'){
+    try {
+      await execAsync(`open ${url}`)
+    } catch (error) {
+      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+    }
   }
+  if (process.platform === 'linux'){
+    try {
+      await execAsync(`xdg-open '${url}'`)
+    } catch (error) {
+      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+    }
+  }
+  return shell.openPath(url)
 }
 
 export {
@@ -148,6 +168,7 @@ export {
   handleExit,
   isOnline,
   openUrlOrFile,
+  semverGt,
   showAboutWindow,
   statAsync
 }
