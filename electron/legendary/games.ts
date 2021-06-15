@@ -5,6 +5,7 @@ import {
 } from 'graceful-fs'
 import axios from 'axios';
 
+import { BrowserWindow, app } from 'electron';
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus } from '../types';
 import { Game } from '../games';
@@ -12,7 +13,6 @@ import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user';
-import { app } from 'electron';
 import {
   errorHandler,
   execAsync,
@@ -337,6 +337,8 @@ Categories=Game;
 
   public async launch() {
     this.state.status = 'launching'
+    // Get main window
+    BrowserWindow.getAllWindows()[0].webContents.send('addGameToRecent', this.appName)
 
     let envVars = ''
     let gameMode: string
