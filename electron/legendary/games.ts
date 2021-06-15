@@ -170,6 +170,7 @@ class LegendaryGame extends Game {
       })
       .catch(console.log)
     this.state.status = 'done'
+    this.addDesktopShortcut()
     return newInstallPath
   }
 
