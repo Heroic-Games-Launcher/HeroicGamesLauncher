@@ -24,6 +24,10 @@
                 "title": "Erreur inconnue"
             },
             "launch": "Erreur lors du lancement du jeu, consultez le rapport",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NON",

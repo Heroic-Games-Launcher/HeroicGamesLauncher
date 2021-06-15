@@ -55,13 +55,22 @@ import {
   weblateUrl
 } from './constants'
 import { handleProtocol } from './protocol'
-
+import { listenStdout } from './logger'
 const { showErrorBox, showMessageBox,showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
 
 function createWindow(): BrowserWindow {
+  listenStdout().then((arr) => {
+    const str = arr.join('\n')
+    const date = new Date().toDateString()
+    const path = `${app.getPath('crashDumps')}/${date}.txt`
+    console.log('Saving log file to ' + path)
+    writeFile(path, str, {}, (err) => {
+      throw err
+    })
+  })
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: isDev ? 1200 : 720,
@@ -249,14 +258,18 @@ if (!gotTheLock) {
     if (process.platform === 'linux'){
       let pythonFound = false
       for (const python of ['python', 'python3']) {
-        const { stdout } = await execAsync(python + ' --version')
-        const pythonVersion: string | null = stdout.includes('Python ') ? stdout.replace('\n', '').split(' ')[1] : null
-        if (!pythonVersion) {
-          console.log(`Python '${python}' not found.`);
-          continue
-        } else {
-          console.log(`Python '${python}' found. Version: '${pythonVersion}'`)
-          pythonFound ||= semverGt(pythonVersion, '3.8.0') || pythonVersion === '3.8.0'
+        try {
+          const { stdout } = await execAsync(python + ' --version')
+          const pythonVersion: string | null = stdout.includes('Python ') ? stdout.replace('\n', '').split(' ')[1] : null
+          if (!pythonVersion) {
+            console.log(`Python '${python}' not found.`);
+            continue
+          } else {
+            console.log(`Python '${python}' found. Version: '${pythonVersion}'`)
+            pythonFound ||= semverGt(pythonVersion, '3.8.0') || pythonVersion === '3.8.0'
+          }
+        } catch (error) {
+          console.log(`${python} command not found`);
         }
       }
       if (!pythonFound) {
