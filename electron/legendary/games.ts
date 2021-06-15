@@ -205,45 +205,39 @@ class LegendaryGame extends Game {
    * so that the game can be opened from the start menu and the desktop folder.
    * Both can be disabled with enableDesktopShortcutsOnDesktop and enableDesktopShortcutsOnStartMenu
    * @async
-   * @private
+   * @public
    */
-  private async addDesktopShortcut() {
+  public async addDesktopShortcut() {
     const gameInfo = await this.getGameInfo()
-    const bm = await fetch(gameInfo.art_square)
-    const bodyText = await bm.text()
-
     const desktopFolder = app.getPath('desktop')
-    let linuxShortcut;
+    let shortcut;
 
     switch(process.platform) {
     case 'linux': {
-      writeFile(app.getAppPath() + '/images/' + gameInfo.app_name, bodyText, null, (err) => {
-        if (err) throw err
-      })
-      linuxShortcut = `[Desktop Entry]
+      shortcut = `[Desktop Entry]
 Name=${gameInfo.title}
 Exec=xdg-open heroic://launch/${gameInfo.app_name}
 Terminal=false
 Type=Application
-Icon=${app.getAppPath()}/images/${gameInfo.app_name}
+Icon=${app.getAppPath()}/app.asar.unpacked/build/icon.png
 Categories=Game;
 `
       break; }
     default:
       console.error("Shortcuts haven't been implemented in the current platform.")
-      break;
+      return
     }
     const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
     const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
 
     if (enabledInDesktop || enabledInDesktop === undefined) {
-      writeFile(desktopFolder, linuxShortcut, (err) => {
+      writeFile(desktopFolder, shortcut, (err) => {
         if(err) console.error(err)
         console.log("Couldn't save shortcut to " + desktopFolder)
       })
     }
     if (enabledInStartMenu || enabledInStartMenu === undefined) {
-      writeFile('/usr/share/applications', linuxShortcut, (err) => {
+      writeFile('/usr/share/applications', shortcut, (err) => {
         if(err) console.error(err)
         console.log("Couldn't save shortcut to /usr/share/applications")
       })

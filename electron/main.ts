@@ -639,3 +639,9 @@ ipcMain.handle('syncSaves', async (event, args) => {
   console.log(`${stdout} - ${stderr}`)
   return `\n ${stdout} - ${stderr}`
 })
+
+ipcMain.on('addShortcut', async(event, args) => {
+  const [appName] = args
+  const game = Game.get(appName)
+  game.addDesktopShortcut()
+})
