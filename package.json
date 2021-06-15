@@ -96,7 +96,7 @@
     "electron": "yarn build-electron && electron .",
     "react-start": "BROWSER=none react-scripts start",
     "react-start:win": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn check-types && react-scripts build",
     "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand",
@@ -110,7 +110,8 @@
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
     "i18n": "i18next",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "check-types": "tsc"
   },
   "eslintConfig": {
     "extends": [

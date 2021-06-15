@@ -13,6 +13,7 @@ import {
 import { promisify } from 'util'
 import i18next from 'i18next'
 
+import { error } from 'console'
 import {
   heroicGamesConfigPath,
   icon,
@@ -61,8 +62,9 @@ async function checkForUpdates() {
     const currentVersion = app.getVersion()
 
     return semverGt(newVersion, currentVersion)
-  } catch (error) {
-    console.log('Could not check for new version of heroic')
+  } catch (err) {
+    error(['Could not check for new version of heroic!', 'Failed with ' + err])
+    return
   }
 }
 
