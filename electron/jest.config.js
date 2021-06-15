@@ -1,0 +1,41 @@
+module.exports = {
+  displayName: 'Backend Tests',
+
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/electron/tsconfig.json'
+    }
+  },
+
+  moduleDirectories: [
+    'node_modules',
+    '<rootDir>'
+  ],
+
+  // Module file extensions for importing
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+
+  moduleNameMapper: {
+    '\\.css$': '<rootDir>/src/test_helpers/mock/css.ts',
+    'react-i18next': '<rootDir>/src/test_helpers/mock/react-i18next.ts'
+  },
+
+  resetMocks: true,
+
+  rootDir: '..',
+
+  // The root of your source code, typically /src
+  // `<rootDir>` is a token Jest substitutes
+  roots: ['<rootDir>/electron'],
+
+  // Test spec file resolution pattern
+  // should contain `test` or `spec`.
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+
+  // Jest transformations -- this adds support for TypeScript
+  // using ts-jest
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest'
+  }
+};
+
