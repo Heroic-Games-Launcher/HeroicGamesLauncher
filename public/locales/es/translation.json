@@ -12,7 +12,7 @@
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "Tus credenciales han caducado, por favor cierre la sesión y vuelva a iniciar.",
+                "message": "Tus credenciales han expirado, por favor reinicia la sesión.",
                 "title": "Credenciales caducadas"
             },
             "diskspace": {
@@ -120,13 +120,13 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Ayuda a traducir Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix donde está instalado EGS"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Proyectos",
     "Ready": "Listo",
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
@@ -153,7 +153,7 @@
         },
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Habilitar Nvidia Prime Render",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"
