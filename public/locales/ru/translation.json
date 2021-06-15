@@ -31,6 +31,11 @@
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "НЕТ",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Есть незавершенные операции, вы уверены?",
             "title": "Выйти"
@@ -101,8 +106,6 @@
             "finished": "Установка завершена"
         },
         "moved": "Перемещение завершено",
-        "refreshed": "Библиотека обновлена",
-        "refreshing": "Обновление",
         "uninstalled": "Удалено",
         "update": {
             "canceled": "Обновление прервано",
