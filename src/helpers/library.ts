@@ -14,7 +14,7 @@ type InstallArgs = {
   handleGameStatus: (game: GameStatus) =>  Promise<void>
   installPath: string
   isInstalling: boolean
-  previousProgress: InstallProgress
+  previousProgress: InstallProgress | null
   progress: InstallProgress
   setInstallPath?: (path: string) => void
   t: TFunction<'gamepage'>
@@ -66,7 +66,7 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
 
     setInstallPath && setInstallPath(path)
     // If the user changed the previous folder, the percentage should start from zero again.
-    if (previousProgress.folder !== path) {
+    if (previousProgress && previousProgress.folder !== path) {
       storage.removeItem(appName)
     }
     handleGameStatus({ appName, status: 'installing' })
@@ -85,7 +85,7 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
       const {defaultInstallPath}: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
       path = defaultInstallPath
     }
-    if (previousProgress.folder !== path) {
+    if (previousProgress && previousProgress.folder !== path) {
       storage.removeItem(appName)
     }
 
