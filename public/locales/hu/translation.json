@@ -31,6 +31,11 @@
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEM",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Függőben lévő műveletek vannak, biztos vagy benne?",
             "title": "Kilépés"
@@ -101,8 +106,6 @@
             "finished": "Telepítés Befejezve"
         },
         "moved": "Áthelyezés Befejezve",
-        "refreshed": "Könyvtár Frissítve",
-        "refreshing": "Frissítés",
         "uninstalled": "Eltávolítva",
         "update": {
             "canceled": "Frissítés Visszavonva",
