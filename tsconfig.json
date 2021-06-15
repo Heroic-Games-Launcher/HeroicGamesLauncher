@@ -8,7 +8,7 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
-    "rootDir": "src",
+    "rootDir": ".",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -39,6 +39,7 @@
     "dist"
   ],
   "include": [
+    "electron",
     "src", 
     "src/types.ts",
     "./typings-custom/**/*.ts"]

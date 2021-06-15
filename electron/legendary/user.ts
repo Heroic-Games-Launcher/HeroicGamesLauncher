@@ -33,6 +33,6 @@ export class LegendaryUser {
     if (isLoggedIn) {
       return {...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username}
     }
-    return { account_id: '', displayName: null }
+    return { account_id: '', displayName: '' }
   }
 }

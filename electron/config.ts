@@ -36,7 +36,34 @@ abstract class GlobalConfig {
 
   public abstract version : GlobalConfigVersion
 
-  public config : AppSettings
+  public config : AppSettings = {
+    audioFix: false,
+    autoInstallDxvk: false,
+    autoSyncSaves: false,
+    customWinePaths: [],
+    darkTrayIcon: false,
+    defaultInstallPath: '',
+    egsLinkedPath: '',
+    enableDesktopShortcutsOnDesktop: false,
+    enableDesktopShortcutsOnStartMenu: false,
+    exitToTray: false,
+    language: '',
+    launcherArgs: '',
+    maxWorkers: 0,
+    nvidiaPrime: false,
+    offlineMode: false,
+    otherOptions: '',
+    savesPath: '',
+    showFps: false,
+    showMangohud: false,
+    useGameMode: false,
+    userInfo: {},
+    winePrefix: '',
+    wineVersion: {
+      bin: '',
+      name: ''
+    }
+  }
 
   /**
    * Get the global configuartion handler.

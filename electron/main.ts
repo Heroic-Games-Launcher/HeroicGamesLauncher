@@ -305,6 +305,7 @@ ipcMain.on('lock', () => {
       return powerId
     }
   }
+  return
 })
 
 ipcMain.on('unlock', () => {
