@@ -113,6 +113,7 @@ const test_appsettings = new TestType<AppSettings>({
   customWinePaths: ['customWinePaths'],
   darkTrayIcon: false,
   defaultInstallPath: 'defaultInstallPath',
+  discordRPC: true,
   egsLinkedPath: 'egLinkedPath',
   exitToTray: false,
   language: 'en',

@@ -23,7 +23,8 @@ const storage: Storage = window.localStorage
 
 interface Props {
   darkTrayIcon: boolean
-  defaultInstallPath: string
+  defaultInstallPath: string,
+  discordRPC: boolean,
   egsLinkedPath: string
   egsPath: string
   exitToTray: boolean
@@ -35,6 +36,7 @@ interface Props {
   setLanguage: (value: string) => void
   setMaxWorkers: (value: number) => void
   toggleDarkTrayIcon: () => void
+  toggleDiscordRPC: () => void
   toggleTray: () => void
 }
 
@@ -52,7 +54,9 @@ export default function GeneralSettings({
   maxWorkers,
   setMaxWorkers,
   darkTrayIcon,
-  toggleDarkTrayIcon
+  toggleDarkTrayIcon,
+  discordRPC,
+  toggleDiscordRPC
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -237,6 +241,15 @@ export default function GeneralSettings({
           <ToggleSwitch
             value={darkTrayIcon}
             handleChange={toggleDarkTrayIcon}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.discordRPC', 'Enable Discord Rich Presence')}
+          <ToggleSwitch
+            value={discordRPC}
+            handleChange={toggleDiscordRPC}
           />
         </span>
       </span>
