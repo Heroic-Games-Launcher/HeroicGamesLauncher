@@ -107,7 +107,7 @@ export default function GeneralSettings({
       .then(async (res: string) => {
         if (res === 'Error') {
           setIsSyncing(false)
-          ipcRenderer.invoke('showErrorBox', {content: t('box.sync.error'), title: t('box.error')})
+          ipcRenderer.invoke('showErrorBox', [t('box.error.title', 'Error'), t('box.sync.error')])
           setEgsLinkedPath('')
           setEgsPath('')
           return
