@@ -52,6 +52,8 @@ interface RouteParams {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
+  const notSupported = appName === 'Fortnite' || appName === 'Ginger'
+
   const {
     libraryStatus,
     handleGameStatus,
@@ -72,7 +74,7 @@ export default function GamePage(): JSX.Element | null {
     percent: '0.00%'
   } as InstallProgress)
   const [defaultPath, setDefaultPath] = useState('...')
-  const [installPath, setInstallPath] = useState('default')
+  const [installPath, setInstallPath] = useState(notSupported ? 'import' : 'default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -284,10 +286,10 @@ export default function GamePage(): JSX.Element | null {
                       value={installPath}
                       className="settingSelect"
                     >
-                      <option value={'default'}>{`${t(
+                      {!notSupported && <option value={'default'}>{`${t(
                         'install.default'
-                      )} ${defaultPath.replaceAll("'", '')}`}</option>
-                      <option value={'another'}>{t('install.another')}</option>
+                      )} ${defaultPath.replaceAll("'", '')}`}</option>}
+                      {!notSupported && <option value={'another'}>{t('install.another')}</option>}
                       <option value={'import'}>{t('install.import')}</option>
                     </select>
                   )}
@@ -387,6 +389,10 @@ export default function GamePage(): JSX.Element | null {
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
 
+    if (notSupported && !is_installed){
+      return  `${t('status.notSupported', 'This game can only be imported')}`
+    }
+
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
@@ -437,7 +443,7 @@ export default function GamePage(): JSX.Element | null {
     if (previousProgress.folder === installPath && !isInstalling) {
       return t('button.continue', 'Continue Download')
     }
-    if (installPath === 'import') {
+    if (installPath === 'import' && !is_installed) {
       return t('button.import')
     }
     if (is_installed) {
