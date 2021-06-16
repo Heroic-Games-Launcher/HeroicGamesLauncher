@@ -1,6 +1,7 @@
 import {
   existsSync,
-  mkdirSync
+  mkdirSync,
+  writeFile
 } from 'graceful-fs'
 import axios from 'axios';
 import makeClient from 'discord-rich-presence-typescript';
@@ -12,6 +13,7 @@ import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user';
+import { app } from 'electron';
 import {
   errorHandler,
   execAsync,
@@ -216,12 +218,50 @@ class LegendaryGame extends Game {
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
+    const gameInfo = await this.getGameInfo()
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
     console.log(`Installing ${this.appName} with:`, command)
+    const bm = await fetch(gameInfo.art_square)
+    const bodyText = await bm.text()
     try {
       LegendaryLibrary.get().installState(this.appName, true)
       return await execAsync(command, execOptions).then((v) => {
         this.state.status = 'done'
+        // Add shortcut to desktop folder
+        const desktopFolder = app.getPath('desktop')
+        switch(process.platform) {
+        case 'linux': {
+          writeFile(app.getAppPath() + '/images/' + gameInfo.app_name, bodyText, null, (err) => {
+            if (err) throw err
+          })
+          const linuxShortcut = `[Desktop Entry]
+Name=${gameInfo.title}
+Exec=xdg-open heroic://launch/${gameInfo.app_name}
+Terminal=false
+Type=Application
+Icon=${app.getAppPath()}/images/${gameInfo.app_name}
+Categories=Game;
+`
+          const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
+          const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
+
+          if (enabledInDesktop || enabledInDesktop === undefined) {
+            writeFile(desktopFolder, linuxShortcut, (err) => {
+              if(err) console.error(err)
+              console.log("Couldn't save shortcut to " + desktopFolder)
+            })
+          }
+          if (enabledInStartMenu || enabledInStartMenu === undefined) {
+            writeFile('/usr/share/applications', linuxShortcut, (err) => {
+              if(err) console.error(err)
+              console.log("Couldn't save shortcut to /usr/share/applications")
+            })
+          }
+          break; }
+        default:
+          console.error("Shortcuts haven't been implemented in the current platform.")
+          break;
+        }
         return v
       })
     } catch (error) {
@@ -438,10 +478,19 @@ class LegendaryGame extends Game {
   public stop() {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
-
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
-    const pattern = process.platform === 'darwin' ? 'legendary' : this.appName
+    const pattern = process.platform === 'linux' ? this.appName : 'legendary'
     console.log('killing', pattern)
+
+    if (process.platform === 'win32'){
+      try {
+        execAsync(`Stop-Process -name  ${pattern}`, execOptions)
+        return console.log(`${pattern} killed`);
+      } catch (error) {
+        return console.log(`not possible to kill ${pattern}`, error);
+      }
+    }
+
     const child =  spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
       return console.log(`${pattern} killed`);

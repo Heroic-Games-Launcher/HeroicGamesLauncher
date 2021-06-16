@@ -8,6 +8,7 @@ import {
   getLegendaryConfig,
   getPlatform,
   getProgress,
+  install,
   launch,
   notify
 } from 'src/helpers'
@@ -74,12 +75,9 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   refreshLibrary = async (checkUpdates?: boolean): Promise<void> => {
-    const { t } = this.props
     this.setState({ refreshing: true })
     await renderer.invoke('refreshLibrary')
-
     this.refresh(checkUpdates)
-    checkUpdates && notify([t('notify.refreshing'), t('notify.refreshed')])
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
@@ -261,7 +259,20 @@ export class GlobalState extends PureComponent<Props> {
       const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
       if (!currentApp) {
         await this.handleGameStatus({ appName, status: 'playing' })
-        await launch(appName, t, this.handleGameStatus)
+        return launch(appName, t, this.handleGameStatus)
+      }
+    })
+
+    ipcRenderer.once('installGame', async (e, appName) => {
+      const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
+      if (!currentApp || currentApp && currentApp.status !== 'installing') {
+        await this.handleGameStatus({ appName, status: 'installing' })
+        return install({appName,
+          handleGameStatus: this.handleGameStatus, installPath: 'default', isInstalling: false, previousProgress: null, progress: {
+            bytes: '0.00MiB',
+            eta: '00:00:00',
+            percent: '0.00%'
+          }, t})
       }
     })
 

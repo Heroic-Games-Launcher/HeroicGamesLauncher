@@ -12,7 +12,7 @@
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "Tus credenciales han caducado, por favor cierre la sesión y vuelva a iniciar.",
+                "message": "Tus credenciales han expirado, por favor reinicia la sesión.",
                 "title": "Credenciales caducadas"
             },
             "diskspace": {
@@ -31,6 +31,11 @@
             "python": "Heroic necesita Python 3.8 o superior para funcionar."
         },
         "no": "No",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Hay operaciones pendientes, ¿estás seguro?",
             "title": "Salir"
@@ -101,8 +106,6 @@
             "finished": "Instalación terminado"
         },
         "moved": "Movimiento terminado",
-        "refreshed": "Biblioteca actualizada",
-        "refreshing": "Actualizando",
         "uninstalled": "Desinstalado",
         "update": {
             "canceled": "Actualizacion cancelado",
@@ -120,13 +123,13 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Ayuda a traducir Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix donde está instalado EGS"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Proyectos",
     "Ready": "Listo",
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
@@ -153,7 +156,7 @@
         },
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Habilitar Nvidia Prime Render",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"

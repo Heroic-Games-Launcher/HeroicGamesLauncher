@@ -69,7 +69,7 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Moria`,
+    applicationVersion: `${app.getVersion()} Arlong`,
     copyright: 'GPL V3',
     iconPath: icon,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher'
