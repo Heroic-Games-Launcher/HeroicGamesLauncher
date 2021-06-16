@@ -64,10 +64,11 @@ export default function GeneralSettings({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const { refreshLibrary, platform } = useContext(ContextProvider)
+  const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isLinux = platform === 'linux'
+  const isWindows = platform === 'win32'
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -113,9 +114,24 @@ export default function GeneralSettings({
         })
 
         setIsSyncing(false)
-        setEgsLinkedPath(egsPath)
+        setEgsLinkedPath(isWindows ? 'windows' : egsPath)
         refreshLibrary()
       })
+  }
+
+  function handleEgsFolder(){
+    if (isLinked) {
+      return ''
+    }
+    return ipcRenderer.invoke(
+      'openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openDirectory'],
+        title: t('box.choose-egs-prefix')
+      })
+      .then(({ path }: Path) =>
+        setEgsPath(path ? `'${path}'` : '')
+      )
   }
 
   async function handleChangeLanguage(language: string) {
@@ -163,7 +179,7 @@ export default function GeneralSettings({
           />
         </span>
       </span>
-      <span className="setting">
+      {!isWindows && <span className="setting">
         <span className="settingText">{t('setting.egs-sync')}</span>
         <span className="settingInputWithButton">
           <input
@@ -180,19 +196,7 @@ export default function GeneralSettings({
               data-testid="setEpicSyncPathButton"
               className="material-icons settings folder"
               style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
-              onClick={() =>
-                isLinked
-                  ? ''
-                  : ipcRenderer.invoke(
-                    'openDialog', {
-                      buttonLabel: t('box.choose'),
-                      properties: ['openDirectory'],
-                      title: t('box.choose-egs-prefix')
-                    })
-                    .then(({ path }: Path) =>
-                      setEgsPath(path ? `'${path}'` : '')
-                    )
-              }
+              onClick={() => handleEgsFolder()}
             />
           ) : (
             <Backspace
@@ -223,7 +227,13 @@ export default function GeneralSettings({
             }`}
           </button>
         </span>
-      </span>
+      </span>}
+      {isWindows && <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.egs-sync')}
+          <ToggleSwitch dataTestId="syncToggle" value={isLinked} handleChange={handleSync} />
+        </span>
+      </span>}
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}

@@ -2,9 +2,9 @@ import './index.css'
 import React from 'react'
 
 interface Props {
-  dataTestId?: string,
-  disabled?: boolean,
-  handleChange: () => void,
+  dataTestId?: string
+  disabled?: boolean
+  handleChange: () => void
   value: boolean
 }
 
