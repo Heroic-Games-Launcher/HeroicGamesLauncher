@@ -7,7 +7,8 @@ import {
 } from '@testing-library/react';
 
 import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
-import { resetTestTypes, test_egssync_response, test_opendialog } from 'src/test_helpers/testTypes';
+import { resetTestTypes, test_context, test_egssync_response, test_opendialog } from 'src/test_helpers/testTypes';
+import ContextProvider from 'src/state/ContextProvider'
 import GeneralSettings from './index';
 
 interface Props {
@@ -45,9 +46,12 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     toggleDarkTrayIcon: () => {return;},
     toggleTray: () => {return;}
   };
-  const returnvalue = render(<GeneralSettings {...{...defaultprops, ...props}} />);
-  expect(ipcRenderer.invoke).toBeCalledWith('getMaxCpus');
-  return returnvalue;
+  return  await waitFor(() => render(
+    <ContextProvider.Provider value={test_context.get()}>
+      <GeneralSettings {...{...defaultprops, ...props}} />
+    </ContextProvider.Provider>))
+  // expect(ipcRenderer.invoke).toBeCalledWith('getMaxCpus');
+  // return returnvalue;
 }
 
 describe('GeneralSettings', () => {
@@ -122,7 +126,7 @@ describe('GeneralSettings', () => {
     await waitFor(() => expect(onSetEgsPath).not.toBeCalledTimes(2));
   })
 
-  test('sync succesfully with epic path', async () => {
+  test('Linux: sync succesfully with epic path', async () => {
     const onSetegsLinkedPath = jest.fn();
     const { getByTestId } = await renderGeneralSettings(
       {
@@ -136,6 +140,36 @@ describe('GeneralSettings', () => {
     await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('openMessageBox', {'message': 'message.sync', 'title': 'EGS Sync'}));
     expect(() => expect(ipcRenderer.invoke).toBeCalledWith('egsSync', 'unlink'));
     expect(onSetegsLinkedPath).toBeCalledWith('path/to/sync');
+  })
+
+  test('Windows: sync succesfully with epic path', async () => {
+    const onSetegsLinkedPath = jest.fn();
+    test_context.set({platform: 'win32'})
+    const { getByTestId } = await renderGeneralSettings(
+      {
+        egsLinkedPath: '',
+        egsPath: '',
+        setEgsLinkedPath: onSetegsLinkedPath
+      });
+    const syncToggle = getByTestId('syncToggle');
+
+    fireEvent.click(syncToggle);
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('openMessageBox', {'message': 'message.sync', 'title': 'EGS Sync'}));
+    expect(() => expect(ipcRenderer.invoke).toBeCalledWith('egsSync', 'unlink'));
+    expect(onSetegsLinkedPath).toBeCalledWith('windows');
+  })
+
+  test('Windows: Should show a toggle for egs sync', async () => {
+    const onSetegsLinkedPath = jest.fn();
+    test_context.set({platform: 'win32'})
+    const { getByTestId } = await renderGeneralSettings(
+      {
+        egsLinkedPath: '',
+        egsPath: '',
+        setEgsLinkedPath: onSetegsLinkedPath
+      });
+    const syncToggle = getByTestId('syncToggle');
+    expect(syncToggle).toBeDefined();
   })
 
   test('sync fails with epic path', async () => {

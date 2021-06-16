@@ -56,7 +56,7 @@ export default function GeneralSettings({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const { platform ,refreshLibrary } = useContext(ContextProvider)
+  const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
@@ -222,7 +222,7 @@ export default function GeneralSettings({
       {isWindows && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.egs-sync')}
-          <ToggleSwitch value={isLinked} handleChange={handleSync} />
+          <ToggleSwitch dataTestId="syncToggle" value={isLinked} handleChange={handleSync} />
         </span>
       </span>}
       <span className="setting">
