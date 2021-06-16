@@ -38,7 +38,7 @@ export interface ContextType {
   handleSearch: (input: string) => void
   layout: string
   libraryStatus: GameStatus[]
-  platform: NodeJS.Platform | 'unknown'
+  platform: NodeJS.Platform | string
   refresh: () => Promise<void>
   refreshLibrary: (checkUpdates?: boolean) => void
   refreshing: boolean
