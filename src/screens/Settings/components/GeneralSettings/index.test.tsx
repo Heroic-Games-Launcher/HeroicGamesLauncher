@@ -6,7 +6,7 @@ import {
   waitFor
 } from '@testing-library/react';
 
-import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
+import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_egssync_response, test_opendialog } from 'src/test_helpers/testTypes';
 import GeneralSettings from './index';
 
@@ -53,7 +53,6 @@ async function renderGeneralSettings(props: Partial<Props> = {})
 describe('GeneralSettings', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
   test('renders', async () => {
@@ -152,7 +151,7 @@ describe('GeneralSettings', () => {
 
     test_egssync_response.set('Error');
     fireEvent.click(syncButton);
-    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('showErrorBox', {'content': 'box.sync.error', 'title': 'box.error'}));
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('showErrorBox', ['box.error.title', 'box.sync.error']));
     expect(onSetegsLinkedPath).toBeCalledWith('');
     expect(onSetEgsPath).toBeCalledWith('');
   })

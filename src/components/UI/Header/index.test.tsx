@@ -9,7 +9,6 @@ import {
 } from '@testing-library/react';
 
 
-import { initElectronMocks } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_context, test_game, test_plugin } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import Header from './index';
@@ -39,7 +38,6 @@ function getHeader(props: Partial<Props> = {}) {
 describe('Header', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
 

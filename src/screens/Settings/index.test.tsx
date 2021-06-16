@@ -8,7 +8,7 @@ import {
 
 import { Route, Router} from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
+import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_appsettings, test_context, test_game } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import Settings from './index';
@@ -31,7 +31,6 @@ async function renderSettings(type = 'game', gamecard = false)
 describe('Settings', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
   test('renders', async () => {

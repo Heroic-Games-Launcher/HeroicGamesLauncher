@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 
 import { WineInstallation } from 'src/types';
-import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
+import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_opendialog, test_wineinstallation } from 'src/test_helpers/testTypes';
 import Tools from './index';
 
@@ -20,7 +20,6 @@ function renderTools(wineVersion: Partial<WineInstallation> = {}, winePrefix = '
 describe('Tools', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
   test('renders', async () => {

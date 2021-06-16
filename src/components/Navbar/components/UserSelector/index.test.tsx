@@ -5,7 +5,6 @@ import {
   render
 } from '@testing-library/react';
 
-import { initElectronMocks } from 'src/test_helpers/mock/electron';
 import { ipcRenderer } from 'electron';
 import { resetTestTypes, test_context } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
@@ -21,7 +20,6 @@ function renderUserSelector() {
 describe('UserSelector', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
   test('render', () => {

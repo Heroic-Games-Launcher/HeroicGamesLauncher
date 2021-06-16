@@ -16,6 +16,7 @@ import { initElectronMocks } from 'src/test_helpers/mock/electron';
  * The initial property values of given Type are needed.
  * Provides functionality of setting/getting property values
  * of the config.
+ * @class TestType<Type>
  * @example
  * // custom Type
  * interface CustomType {
@@ -296,6 +297,8 @@ function resetTestTypes()
   test_plugin.reset();
   test_userinfo.reset();
   test_wineinstallation.reset();
+
+  initElectronMocks();
 }
 
 export {

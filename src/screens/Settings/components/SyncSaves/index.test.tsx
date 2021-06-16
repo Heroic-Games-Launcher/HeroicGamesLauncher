@@ -6,7 +6,7 @@ import {
   waitFor
 } from '@testing-library/react';
 
-import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
+import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_appsettings, test_context, test_game, test_opendialog } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import SyncSaves from './index';
@@ -42,7 +42,6 @@ async function renderSyncSaves(props: Partial<Props> = {})
 describe('SyncSaves', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
   test('renders', async () => {

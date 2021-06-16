@@ -8,7 +8,7 @@ import {
 
 import { WineInstallation } from 'src/types';
 import { ipcRenderer } from 'src/test_helpers/mock/electron';
-import { test_opendialog, test_wineinstallation } from 'src/test_helpers/testTypes';
+import { resetTestTypes, test_opendialog, test_wineinstallation } from 'src/test_helpers/testTypes';
 import WineSettings from './index';
 
 interface Props {
@@ -48,6 +48,10 @@ function renderWineSettings(props: Partial<Props> = {})
 }
 
 describe('WineSettings', () => {
+  beforeEach(() => {
+    resetTestTypes();
+  })
+
   test('renders', () => {
     renderWineSettings();
   })

@@ -1,3 +1,8 @@
+/**
+ * @file Mocks the react-i18next module to use it in test's
+ */
+
+// default language
 let i18n_language = 'en'
 
 export function useTranslation() {
