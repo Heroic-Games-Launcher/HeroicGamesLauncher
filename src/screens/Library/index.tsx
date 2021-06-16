@@ -5,6 +5,8 @@ import React, {
   useContext
 } from 'react'
 
+const { ipcRenderer } = window.require('electron')
+
 import { GameInfo } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
 import cx from 'classnames'
@@ -22,6 +24,28 @@ window.onscroll = () => {
     document.documentElement.scrollTop || document.body.scrollTop
   const btn = document.getElementById('backToTopBtn')
   if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden'
+}
+
+window.onload = () => {
+  ipcRenderer.on('addGameToRecent', (e, args) => {
+    const [appName] = args
+    let recentGames: string[] = JSON.parse(localStorage.getItem('games.recent') as string)
+    if (!recentGames) {
+      recentGames = []
+    }
+    if (!recentGames.includes(appName)) {
+      recentGames = [...recentGames, appName]
+    } else {
+      recentGames.forEach((val, index, arr) => {
+        if (val === appName) {
+          delete arr[index]
+          recentGames = [...arr, arr[index]]
+        }
+      })
+    }
+    console.table(recentGames)
+    localStorage.setItem('games.recent', JSON.stringify(recentGames))
+  })
 }
 
 export const Library = ({ library }: Props) => {
