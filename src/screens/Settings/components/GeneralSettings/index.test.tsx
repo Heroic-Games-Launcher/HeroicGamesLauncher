@@ -13,6 +13,7 @@ import GeneralSettings from './index';
 interface Props {
     darkTrayIcon: boolean
     defaultInstallPath: string
+    discordRPC: boolean
     egsLinkedPath: string
     egsPath: string
     exitToTray: boolean
@@ -24,6 +25,7 @@ interface Props {
     setLanguage: (value: string) => void
     setMaxWorkers: (value: number) => void
     toggleDarkTrayIcon: () => void
+    toggleDiscordRPC: () => void
     toggleTray: () => void
   }
 
@@ -32,6 +34,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
   const defaultprops: Props = {
     darkTrayIcon: false,
     defaultInstallPath: 'defaultInstallPath',
+    discordRPC: true,
     egsLinkedPath: 'egsLinkedPath',
     egsPath: 'egsPath',
     exitToTray: false,
@@ -43,6 +46,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     setLanguage: (value: string) => value,
     setMaxWorkers: (value: number) => value,
     toggleDarkTrayIcon: () => {return;},
+    toggleDiscordRPC: () => {return;},
     toggleTray: () => {return;}
   };
   const returnvalue = await render(<GeneralSettings {...{...defaultprops, ...props}} />);
