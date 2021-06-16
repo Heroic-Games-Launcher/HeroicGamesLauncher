@@ -50,7 +50,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     toggleDiscordRPC: () => {return;},
     toggleTray: () => {return;}
   };
-  return  await waitFor(() => render(
+  return await waitFor(() => render(
     <ContextProvider.Provider value={test_context.get()}>
       <GeneralSettings {...{...defaultprops, ...props}} />
     </ContextProvider.Provider>))
