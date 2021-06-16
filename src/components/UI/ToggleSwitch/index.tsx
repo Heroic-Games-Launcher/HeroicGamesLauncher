@@ -8,11 +8,11 @@ interface Props {
   value: boolean
 }
 
-export default function ToggleSwitch({ handleChange, value, disabled, dataTestId }: Props) {
+export default function ToggleSwitch({ handleChange, value, disabled, dataTestId = 'toggleSwitch' }: Props) {
   return (
     <label className="switch">
       <input
-        data-testid={dataTestId ? dataTestId : 'toggleSwitch'}
+        data-testid={dataTestId}
         disabled={disabled}
         checked={value}
         type="checkbox"
