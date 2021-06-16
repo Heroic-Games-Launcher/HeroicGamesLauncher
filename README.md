@@ -23,7 +23,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ## How to use it
 
-- [Download and Install](#installation) the package for your distro, the universal AppImage for Linux or the exe for Windows on the Releases Page;
+- [Download and Install](#installation) the package for your distro, the universal AppImage for Linux or the executable for Windows on the Releases Page;
 - If you used Legendary before, it loads your library and installed games. If not, it will ask you to login first. Just follow the instructions.
 
 ## Feature available right now
@@ -31,17 +31,16 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Login with an existing Epic Games account
 - Install/Uninstall Games
 - Import an already installed game
-- Play online (EAC not supported on Linux)
+- Play online [EAC not supported on Linux]
 - Update installed Games
 - Repair installed Games
 - Move installed games to different folders
-- Play games using the default wine and default prefix (Linux)
-- Play game with custom wine (Lutris Wine/Proton maybe but can lead to bugs) (Linux)
-- Run games on custom wine prefix (Linux)
+- Play games using the default wine and default prefix [Linux]
+- Play game with custom wine and prefix [Linux]
 - Check basic information about your Games
 - Open game page on Epic Store
-- Search for the game on ProtonDB
-- Sync installed games with an existing Epic Games instalation folder
+- Search for the game on ProtonDB [Linux]
+- Sync installed games with an existing Epic Games instalation
 - Sync saves with the cloud
 
 ## Planned features
