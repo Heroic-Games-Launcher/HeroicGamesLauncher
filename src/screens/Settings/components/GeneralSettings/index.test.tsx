@@ -45,7 +45,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     toggleDarkTrayIcon: () => {return;},
     toggleTray: () => {return;}
   };
-  const returnvalue = await render(<GeneralSettings {...{...defaultprops, ...props}} />);
+  const returnvalue = render(<GeneralSettings {...{...defaultprops, ...props}} />);
   expect(ipcRenderer.invoke).toBeCalledWith('getMaxCpus');
   return returnvalue;
 }
@@ -152,7 +152,7 @@ describe('GeneralSettings', () => {
 
     test_egssync_response.set('Error');
     fireEvent.click(syncButton);
-    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('showErrorBox', {'content': 'box.sync.error', 'title': 'box.error'}));
+    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith('showErrorBox', ['box.error.title', 'box.sync.error']));
     expect(onSetegsLinkedPath).toBeCalledWith('');
     expect(onSetEgsPath).toBeCalledWith('');
   })
