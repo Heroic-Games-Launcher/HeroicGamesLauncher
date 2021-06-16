@@ -59,7 +59,7 @@
     },
     "label": {
         "cancel": {
-            "update": "Update abbrechen"
+            "update": "Aktualisierung abbrechen"
         },
         "playing": {
             "start": "Jetzt spielen",
@@ -86,7 +86,7 @@
     },
     "submenu": {
         "change": "Installationspfad ändern",
-        "log": "Neuester Log",
+        "log": "Neuestes Protokoll",
         "move": "Spiel verschieben",
         "protondb": "Kompatibilität überprüfen",
         "settings": "Einstellungen",
