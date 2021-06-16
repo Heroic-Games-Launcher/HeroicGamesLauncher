@@ -26,6 +26,7 @@ interface Props {
   addGamesToStartMenu: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
+  discordRPC: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
@@ -39,6 +40,7 @@ interface Props {
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
   toggleDarkTrayIcon: () => void,
+  toggleDiscordRPC: () => void
   toggleTray: () => void
 }
 
@@ -60,7 +62,9 @@ export default function GeneralSettings({
   addDesktopShortcuts,
   addGamesToStartMenu,
   toggleAddDesktopShortcuts,
-  toggleAddGamesToStartMenu
+  toggleAddGamesToStartMenu,
+  discordRPC,
+  toggleDiscordRPC
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -271,6 +275,15 @@ export default function GeneralSettings({
           </span>
         </span>
       </>}
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.discordRPC', 'Enable Discord Rich Presence')}
+          <ToggleSwitch
+            value={discordRPC}
+            handleChange={toggleDiscordRPC}
+          />
+        </span>
+      </span>
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.maxworkers')}

@@ -363,7 +363,6 @@ Categories=Game;
       autoInstallDxvk
     } = await this.getSettings()
 
-
     const DiscordRPC = makeClient('852942976564723722')
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())

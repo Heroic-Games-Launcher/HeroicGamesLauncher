@@ -16,6 +16,7 @@ interface Props {
   addGamesToStartMenu: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
+  discordRPC: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
@@ -29,6 +30,7 @@ interface Props {
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
   toggleDarkTrayIcon: () => void,
+  toggleDiscordRPC: () => void,
   toggleTray: () => void
   }
 
@@ -39,6 +41,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     addGamesToStartMenu: true,
     darkTrayIcon: false,
     defaultInstallPath: 'defaultInstallPath',
+    discordRPC: true,
     egsLinkedPath: 'egsLinkedPath',
     egsPath: 'egsPath',
     exitToTray: false,
@@ -52,6 +55,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     toggleAddDesktopShortcuts: () => {return},
     toggleAddGamesToStartMenu: () => {return},
     toggleDarkTrayIcon: () => {return;},
+    toggleDiscordRPC: () => {return;},
     toggleTray: () => {return;}
   };
   return  await waitFor(() => render(
