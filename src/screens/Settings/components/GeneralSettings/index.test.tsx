@@ -50,8 +50,6 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     <ContextProvider.Provider value={test_context.get()}>
       <GeneralSettings {...{...defaultprops, ...props}} />
     </ContextProvider.Provider>))
-  // expect(ipcRenderer.invoke).toBeCalledWith('getMaxCpus');
-  // return returnvalue;
 }
 
 describe('GeneralSettings', () => {
