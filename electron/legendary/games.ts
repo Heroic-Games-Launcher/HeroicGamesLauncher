@@ -430,10 +430,19 @@ Categories=Game;
   public stop() {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
-
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
-    const pattern = process.platform === 'darwin' ? 'legendary' : this.appName
+    const pattern = process.platform === 'linux' ? this.appName : 'legendary'
     console.log('killing', pattern)
+
+    if (process.platform === 'win32'){
+      try {
+        execAsync(`Stop-Process -name  ${pattern}`, execOptions)
+        return console.log(`${pattern} killed`);
+      } catch (error) {
+        return console.log(`not possible to kill ${pattern}`, error);
+      }
+    }
+
     const child =  spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
       return console.log(`${pattern} killed`);
