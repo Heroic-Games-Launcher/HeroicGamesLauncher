@@ -79,6 +79,7 @@
         "installing": "Installation",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
+        "notSupported": "This game can only be imported",
         "reparing": "Réparation du jeu, veuillez patienter",
         "totalDownloaded": "Total Téléchargé",
         "updating": "Mise à jour du jeu"

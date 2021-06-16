@@ -24,9 +24,18 @@
                 "title": "Bilinmeyen hata"
             },
             "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "HAYIR",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Bitmemiş işlemler var, emin misin?",
             "title": "Çık"
@@ -97,8 +106,6 @@
             "finished": "Yükleme Tamamlandı"
         },
         "moved": "Taşıma Tamamlandı",
-        "refreshed": "Kütüphane Yenilendi",
-        "refreshing": "Yenileniyor",
         "uninstalled": "Kaldırıldı",
         "update": {
             "canceled": "Güncelleme İptal Edildi",

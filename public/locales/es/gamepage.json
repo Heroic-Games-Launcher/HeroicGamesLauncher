@@ -2,16 +2,16 @@
     "box": {
         "change": {
             "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
-            "path": "Seleccione la carpeta",
+            "path": "Seleccione la carpeta de instalación",
             "title": "Modificar la ubicación de instalación del juego"
         },
         "choose": "Escoger",
         "importpath": "Elija la carpeta del juego para importar",
         "installpath": "Elija la ruta de instalación",
         "move": {
-            "message": "Esto puede tomar mucho tiempo, ¿estás seguro?",
-            "path": "Elige a donde quieres moverlo",
-            "title": "Instalación del juego en movimiento"
+            "message": "Esto puede llevar mucho tiempo, ¿estás seguro?",
+            "path": "Elige la ubicación de destino",
+            "title": "Mover carpeta del juego"
         },
         "no": "No",
         "repair": {
@@ -35,7 +35,7 @@
     },
     "button": {
         "cancel": "Cancelar",
-        "continue": "Continue Download",
+        "continue": "Continuar Descarga",
         "import": "Importar",
         "install": "Instalar",
         "uninstall": "Desinstalar"
@@ -79,8 +79,9 @@
         "installing": "Instalando",
         "moving": "Instalación en movimiento, espere",
         "notinstalled": "Este juego no está instalado",
+        "notSupported": "This game can only be imported",
         "reparing": "Reparando juego, espera",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Total Descargado",
         "updating": "Actualización de juego"
     },
     "submenu": {

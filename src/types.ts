@@ -77,6 +77,7 @@ export interface GameStatus {
   status:
     | 'installing'
     | 'updating'
+    | 'launching'
     | 'playing'
     | 'uninstalling'
     | 'repairing'

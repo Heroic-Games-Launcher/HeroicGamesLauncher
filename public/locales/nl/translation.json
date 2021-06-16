@@ -24,9 +24,18 @@
                 "title": "Onbekende fout"
             },
             "launch": "Een probleem tijdens het lanceren van een spel, check de logs!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEE",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Er zijn lopende processen, weet je het zeker?",
             "title": "Stoppen"
@@ -97,8 +106,6 @@
             "finished": "Installatie is voltooid"
         },
         "moved": "Klaar met verplaatsing",
-        "refreshed": "Bibliotheek vernieuwd",
-        "refreshing": "Vernieuwen",
         "uninstalled": "Klaar met deinstallatie",
         "update": {
             "canceled": "Update geannuleerd",

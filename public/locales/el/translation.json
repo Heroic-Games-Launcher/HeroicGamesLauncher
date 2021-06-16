@@ -24,9 +24,18 @@
                 "title": "Άγνωστο σφάλμα"
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "ΟΧΙ",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Υπάρχουν εκκρεμείς διεργασίες, είστε σίγουροι;",
             "title": "Έξοδος"
@@ -97,8 +106,6 @@
             "finished": "Η εγκατάσταση ολοκληρώθηκε"
         },
         "moved": "Η μετακίνηση ολοκληρώθηκε",
-        "refreshed": "Η Βιβλιοθήκη ανανεώθηκε",
-        "refreshing": "Ανανέωση",
         "uninstalled": "Απεγκαταστάθηκε",
         "update": {
             "canceled": "Η ενημέρωση ακυρώθηκε",

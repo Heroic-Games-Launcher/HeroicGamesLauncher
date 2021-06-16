@@ -24,9 +24,18 @@
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "വേണ്ട",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "ചെയ്തുതീര്‍ക്കാത്ത പണികളുണ്ട്, ഉറപ്പല്ലേ?",
             "title": "പുറത്തിറക്ക്"
@@ -97,8 +106,6 @@
             "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
-        "refreshed": "കളിശാല പുതുക്കി",
-        "refreshing": "താള്‍ പുതുക്കുന്നു",
         "uninstalled": "എടുത്തുനീക്കി",
         "update": {
             "canceled": "പുതുക്കല്‍ റദ്ദാക്കി",

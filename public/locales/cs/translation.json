@@ -24,9 +24,18 @@
                 "title": "Neočekávaná chyba"
             },
             "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NE",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Existují nevyřízené operace, jste si jisti?",
             "title": "Ukončit"
@@ -97,8 +106,6 @@
             "finished": "Instalace dokončena"
         },
         "moved": "Přesun dokončen",
-        "refreshed": "Knihovna obnovena",
-        "refreshing": "Obnovuji",
         "uninstalled": "Odinstalováno",
         "update": {
             "canceled": "Aktualizace zrušena",

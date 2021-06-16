@@ -24,9 +24,18 @@
                 "title": "Unbekannter Fehler"
             },
             "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
             "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NEIN",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
         "quit": {
             "message": "Es gibt anstehende Operationen, möchten Sie wirklich fortfahren?",
             "title": "Beenden"
@@ -97,8 +106,6 @@
             "finished": "Installation abgeschlossen"
         },
         "moved": "Verschieben abgeschlossen",
-        "refreshed": "Bibliothek aktualisiert",
-        "refreshing": "Bibliothek-Aktualisierung",
         "uninstalled": "Deinstalliert",
         "update": {
             "canceled": "Update abgebrochen",
