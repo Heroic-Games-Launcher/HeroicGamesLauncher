@@ -110,6 +110,21 @@ export default function GeneralSettings({
       })
   }
 
+  function handleEgsFolder(){
+    if (isLinked) {
+      return ''
+    }
+    return ipcRenderer.invoke(
+      'openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openDirectory'],
+        title: t('box.choose-egs-prefix')
+      })
+      .then(({ path }: Path) =>
+        setEgsPath(path ? `'${path}'` : '')
+      )
+  }
+
   async function handleChangeLanguage(language: string) {
     ipcRenderer.send('changeLanguage', language)
     setLanguage(language)
@@ -172,19 +187,7 @@ export default function GeneralSettings({
               data-testid="setEpicSyncPathButton"
               className="material-icons settings folder"
               style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
-              onClick={() =>
-                isLinked
-                  ? ''
-                  : ipcRenderer.invoke(
-                    'openDialog', {
-                      buttonLabel: t('box.choose'),
-                      properties: ['openDirectory'],
-                      title: t('box.choose-egs-prefix')
-                    })
-                    .then(({ path }: Path) =>
-                      setEgsPath(path ? `'${path}'` : '')
-                    )
-              }
+              onClick={() => handleEgsFolder()}
             />
           ) : (
             <Backspace
