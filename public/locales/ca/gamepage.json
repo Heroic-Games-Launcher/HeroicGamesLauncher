@@ -1,1 +1,96 @@
-{}
+{
+    "box": {
+        "change": {
+            "message": "Això canviarà l'ubicació d'aquest joc, estàs completament segur?",
+            "path": "Triï una nova ubicació d'instal·lació",
+            "title": "Canviï l'ubicació del joc"
+        },
+        "choose": "Triar",
+        "importpath": "Triï una carpeta per importar",
+        "installpath": "Triï una ubicació d'instal·lació",
+        "move": {
+            "message": "Això pot tardat MOLT. Ho dic seriosament. Estàs ben segur?",
+            "path": "Triï on el vols moure",
+            "title": "Moure l'ubicació de l'instal·lació del joc"
+        },
+        "no": "No",
+        "repair": {
+            "message": "Vols intentar reparar aquest joc? Això pot tardar bastant de temps.",
+            "title": "Verificar i reparar"
+        },
+        "stopInstall": {
+            "keepInstalling": "Segueix instal·lant",
+            "message": "Segur que vols seguir descarregant els arxius?",
+            "title": "Atura l'instal·lació"
+        },
+        "uninstall": {
+            "message": "Vols desinstal·lar aquest joc?",
+            "title": "Desinstal·lar"
+        },
+        "update": {
+            "message": "Hi ha una actualització disponible per aquest joc. Vols actualitzar-lo ara?",
+            "title": "Aquest joc necessita una actualització"
+        },
+        "yes": "Sí"
+    },
+    "button": {
+        "cancel": "Cancel·lar",
+        "continue": "Continuar descarregant",
+        "import": "Importar",
+        "install": "Instal·lar",
+        "uninstall": "Desinstal·lar"
+    },
+    "disabled": "Desactivat",
+    "enabled": "Activat",
+    "gamecard": {
+        "moving": "Movent",
+        "repairing": "Reparant"
+    },
+    "info": {
+        "path": "Ubicació de l'instal·lació",
+        "size": "Mida",
+        "syncsaves": "Sincronitzar guardats",
+        "version": "Versió"
+    },
+    "install": {
+        "another": "Instal·lar a una altra ruta",
+        "default": "Instal·lar a",
+        "import": "Importar joc"
+    },
+    "label": {
+        "cancel": {
+            "update": "Cancelar actualització"
+        },
+        "playing": {
+            "start": "Juga",
+            "stop": "Atura"
+        },
+        "saves": {
+            "syncing": "Sincronitzant Guardats"
+        }
+    },
+    "specs": {
+        "minimum": "Mínim",
+        "recommended": "Recomenat"
+    },
+    "status": {
+        "hasUpdates": "Hi ha una nova versió disponible!",
+        "installed": "Instal·lat",
+        "installing": "Instal·lant",
+        "moving": "Movent joc, si us plau esperi",
+        "notinstalled": "Aquest joc no està instal·lat",
+        "reparing": "Reparant joc, si us plau esperi",
+        "totalDownloaded": "Total descarregat",
+        "updating": "Actualitzant joc"
+    },
+    "submenu": {
+        "change": "Canvïa el lloc d'instal·lació",
+        "log": "Últim registre",
+        "move": "Mou el joc",
+        "protondb": "Check Compatibility",
+        "settings": "Configuració",
+        "store": "Botiga",
+        "update": "Actualitzar joc",
+        "verify": "Verifica i repara"
+    }
+}
