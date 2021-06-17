@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Cela va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
+            "message": "Ceci va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
             "path": "Choisir un nouveau chemin d'installation",
             "title": "Changer le chemin d'installation du Jeu"
         },
@@ -15,8 +15,8 @@
         },
         "no": "NON",
         "repair": {
-            "message": "Voulez-vous essayer de réparer ce jeu ? Cela peut prendre un moment.",
-            "title": "Vérifier et Réparer"
+            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un moment.",
+            "title": "Vérifier et réparer"
         },
         "stopInstall": {
             "keepInstalling": "Continuer l'installation",
@@ -28,8 +28,8 @@
             "title": "Désinstaller"
         },
         "update": {
-            "message": "Une mise-à-jour est disponible pour ce jeu. Voulez-vous le mettre à jour maintenant ?",
-            "title": "Mise-à-jour nécessaire"
+            "message": "Une mise à jour est disponible pour ce jeu. Voulez-vous le mettre à jour maintenant ?",
+            "title": "Mise à jour nécessaire"
         },
         "yes": "OUI"
     },
@@ -44,7 +44,7 @@
     "enabled": "Activé",
     "gamecard": {
         "moving": "En cours de déplacement",
-        "repairing": "En cours de réparation"
+        "repairing": "Réparation en cours"
     },
     "info": {
         "path": "Chemin d'installation",
@@ -81,7 +81,7 @@
         "notinstalled": "Ce jeu n'est pas installé",
         "notSupported": "This game can only be imported",
         "reparing": "Réparation du jeu, veuillez patienter",
-        "totalDownloaded": "Total Téléchargé",
+        "totalDownloaded": "Total téléchargé",
         "updating": "Mise à jour du jeu"
     },
     "submenu": {
@@ -92,6 +92,6 @@
         "settings": "Options",
         "store": "Page du magasin",
         "update": "Mettre à jour le jeu",
-        "verify": "Vérifier et Réparer"
+        "verify": "Vérifier et réparer"
     }
 }

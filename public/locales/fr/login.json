@@ -18,7 +18,7 @@
     "status": {
         "error": "Erreur",
         "loading": "Chargement de la liste de vos jeux, veuillez patienter",
-        "logging": "Connexion..."
+        "logging": "Connexion…"
     },
     "welcome": "Bienvenue !"
 }
