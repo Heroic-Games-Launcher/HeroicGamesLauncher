@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.8.0",
+  "version": "1.8.0rc2",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -75,6 +75,7 @@
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "discord-rich-presence-typescript": "^0.0.8",
     "electron-is-dev": "^2.0.0",
     "electron-util": "^0.16.0",
     "graceful-fs": "^4.2.6",

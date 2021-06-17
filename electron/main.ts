@@ -16,6 +16,7 @@ import {
 } from 'os'
 import {
   existsSync,
+  mkdirSync,
   rmdirSync,
   unlinkSync,
   writeFile
@@ -506,6 +507,10 @@ ipcMain.handle('openMessageBox', async (e, args) => {
   return {response}
 })
 
+ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string]) => {
+  const [title, content] = args
+  return  showErrorBox(title, content)
+})
 
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
@@ -612,7 +617,15 @@ ipcMain.handle(
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
+  const egl_manifestPath = 'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
+
+  if (isWindows){
+    if (!existsSync(egl_manifestPath)){
+      mkdirSync(egl_manifestPath)
+    }
+  }
+
+  const linkArgs = isWindows ? `--enable-sync` : `--enable-sync --egl-wine-prefix ${args}`
   const unlinkArgs = `--unlink`
   const isLink = args !== 'unlink'
   const command = isLink ? linkArgs : unlinkArgs

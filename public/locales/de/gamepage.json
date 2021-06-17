@@ -59,7 +59,7 @@
     },
     "label": {
         "cancel": {
-            "update": "Update abbrechen"
+            "update": "Aktualisierung abbrechen"
         },
         "playing": {
             "start": "Jetzt spielen",
@@ -79,13 +79,14 @@
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
+        "notSupported": "This game can only be imported",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"
     },
     "submenu": {
         "change": "Installationspfad ändern",
-        "log": "Neuester Log",
+        "log": "Neuestes Protokoll",
         "move": "Spiel verschieben",
         "protondb": "Kompatibilität überprüfen",
         "settings": "Einstellungen",

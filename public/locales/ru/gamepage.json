@@ -79,6 +79,7 @@
         "installing": "Устанавливается",
         "moving": "Перемещаю игру, пожалуйста подождите",
         "notinstalled": "Игра не установлена",
+        "notSupported": "This game can only be imported",
         "reparing": "Восстанавливаю игру, пожалуйста подождите",
         "totalDownloaded": "Total Downloaded",
         "updating": "Обновляю игру"
