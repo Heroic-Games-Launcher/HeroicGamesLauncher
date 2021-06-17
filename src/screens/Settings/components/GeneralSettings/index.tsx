@@ -243,6 +243,7 @@ export default function GeneralSettings({
           {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
           <ToggleSwitch
             value={addDesktopShortcuts}
+            disabled={!navigator.platform.startsWith('Linux')}
             handleChange={toggleAddDesktopShortcuts}
           />
         </span>
@@ -252,6 +253,7 @@ export default function GeneralSettings({
           {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
           <ToggleSwitch
             value={addGamesToStartMenu}
+            disabled={!navigator.platform.startsWith('Linux')}
             handleChange={toggleAddGamesToStartMenu}
           />
         </span>
