@@ -630,8 +630,6 @@ ipcMain.handle('egsSync', async (event, args) => {
   const isLink = args !== 'unlink'
   const command = isLink ? linkArgs : unlinkArgs
 
-  console.log({command});
-
   try {
     const { stderr, stdout } = await execAsync(
       `${legendaryBin} egl-sync ${command} -y`
