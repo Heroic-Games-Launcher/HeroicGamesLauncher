@@ -70,8 +70,8 @@ function Settings() {
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
-  const [addDesktopShortcuts, setAddDesktopShortcuts] = useState(true)
-  const [addGamesToStartMenu, setAddGamesToStartMenu] = useState(true)
+  const toggleAddDesktopShortcuts = useToggle()
+  const toggleAddGamesToStartMenu = useToggle()
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
   const {
@@ -269,10 +269,10 @@ function Settings() {
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              addGamesToStartMenu={addGamesToStartMenu}
-              addDesktopShortcuts={addDesktopShortcuts}
-              toggleAddDesktopShortcuts={() => setAddDesktopShortcuts(!addDesktopShortcuts)}
-              toggleAddGamesToStartMenu={() => setAddGamesToStartMenu(!addGamesToStartMenu)}
+              addDesktopShortcuts={toggleAddDesktopShortcuts.on}
+              addGamesToStartMenu={toggleAddGamesToStartMenu.on}
+              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts.toggle}
+              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu.toggle}
             />
           )}
           {isWineSettings && (
