@@ -140,6 +140,12 @@ export default function GamesSubmenu({
           >
             {t('submenu.log')}
           </span>
+          <span
+            onClick={() => ipcRenderer.send('addShortcut', appName)}
+            className="hidden link"
+          >
+            {t('submenu.addShortcut', 'Add shortcut')}
+          </span>
         </>
       )}
       <span

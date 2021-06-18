@@ -22,19 +22,23 @@ const {
 const storage: Storage = window.localStorage
 
 interface Props {
-  darkTrayIcon: boolean
-  defaultInstallPath: string
-  egsLinkedPath: string
-  egsPath: string
-  exitToTray: boolean
-  language: string
-  maxWorkers: number
-  setDefaultInstallPath: (value: string) => void
-  setEgsLinkedPath: (value: string) => void
-  setEgsPath: (value: string) => void
-  setLanguage: (value: string) => void
-  setMaxWorkers: (value: number) => void
-  toggleDarkTrayIcon: () => void
+  addDesktopShortcuts: boolean,
+  addGamesToStartMenu: boolean,
+  darkTrayIcon: boolean,
+  defaultInstallPath: string,
+  egsLinkedPath: string,
+  egsPath: string,
+  exitToTray: boolean,
+  language: string,
+  maxWorkers: number,
+  setDefaultInstallPath: (value: string) => void,
+  setEgsLinkedPath: (value: string) => void,
+  setEgsPath: (value: string) => void,
+  setLanguage: (value: string) => void,
+  setMaxWorkers: (value: number) => void,
+  toggleAddDesktopShortcuts: () => void,
+  toggleAddGamesToStartMenu: () => void,
+  toggleDarkTrayIcon: () => void,
   toggleTray: () => void
 }
 
@@ -52,7 +56,11 @@ export default function GeneralSettings({
   maxWorkers,
   setMaxWorkers,
   darkTrayIcon,
-  toggleDarkTrayIcon
+  toggleDarkTrayIcon,
+  addDesktopShortcuts,
+  addGamesToStartMenu,
+  toggleAddDesktopShortcuts,
+  toggleAddGamesToStartMenu
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -227,6 +235,26 @@ export default function GeneralSettings({
           <ToggleSwitch
             value={darkTrayIcon}
             handleChange={toggleDarkTrayIcon}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
+          <ToggleSwitch
+            value={addDesktopShortcuts}
+            disabled={!navigator.platform.startsWith('Linux')}
+            handleChange={toggleAddDesktopShortcuts}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
+          <ToggleSwitch
+            value={addGamesToStartMenu}
+            disabled={!navigator.platform.startsWith('Linux')}
+            handleChange={toggleAddGamesToStartMenu}
           />
         </span>
       </span>
