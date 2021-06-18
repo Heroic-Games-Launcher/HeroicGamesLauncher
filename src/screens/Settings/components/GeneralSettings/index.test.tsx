@@ -11,25 +11,31 @@ import { resetTestTypes, test_egssync_response, test_opendialog } from 'src/test
 import GeneralSettings from './index';
 
 interface Props {
-    darkTrayIcon: boolean
-    defaultInstallPath: string
-    egsLinkedPath: string
-    egsPath: string
-    exitToTray: boolean
-    language: string
-    maxWorkers: number
-    setDefaultInstallPath: (value: string) => void
-    setEgsLinkedPath: (value: string) => void
-    setEgsPath: (value: string) => void
-    setLanguage: (value: string) => void
-    setMaxWorkers: (value: number) => void
-    toggleDarkTrayIcon: () => void
-    toggleTray: () => void
+  addDesktopShortcuts: boolean,
+  addGamesToStartMenu: boolean,
+  darkTrayIcon: boolean,
+  defaultInstallPath: string,
+  egsLinkedPath: string,
+  egsPath: string,
+  exitToTray: boolean,
+  language: string,
+  maxWorkers: number,
+  setDefaultInstallPath: (value: string) => void,
+  setEgsLinkedPath: (value: string) => void,
+  setEgsPath: (value: string) => void,
+  setLanguage: (value: string) => void,
+  setMaxWorkers: (value: number) => void,
+  toggleAddDesktopShortcuts: () => void,
+  toggleAddGamesToStartMenu: () => void,
+  toggleDarkTrayIcon: () => void,
+  toggleTray: () => void
   }
 
 async function renderGeneralSettings(props: Partial<Props> = {})
 {
   const defaultprops: Props = {
+    addDesktopShortcuts: true,
+    addGamesToStartMenu: true,
     darkTrayIcon: false,
     defaultInstallPath: 'defaultInstallPath',
     egsLinkedPath: 'egsLinkedPath',
@@ -42,6 +48,8 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     setEgsPath: (value: string) => value,
     setLanguage: (value: string) => value,
     setMaxWorkers: (value: number) => value,
+    toggleAddDesktopShortcuts: () => {return},
+    toggleAddGamesToStartMenu: () => {return},
     toggleDarkTrayIcon: () => {return;},
     toggleTray: () => {return;}
   };
