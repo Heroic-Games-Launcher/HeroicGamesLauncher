@@ -1,6 +1,6 @@
 {
     "All": "Tutto",
-    "Assets": "Asset",
+    "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "C'è una nuova versione di Heroic disponibile, vuoi aggiornare ora?",
@@ -12,8 +12,8 @@
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "error": {
             "credentials": {
-                "message": "Le tue credenziali sono scadute, esci e accedi di nuovo.",
-                "title": "Credenziali scadute"
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
             },
             "diskspace": {
                 "message": "Spazio su disco insufficiente",
@@ -23,21 +23,21 @@
                 "message": "Si è verificato un errore sconosciuto",
                 "title": "Errore sconosciuto"
             },
-            "launch": "Errore durante l'avvio del gioco, controlla i registri!",
+            "launch": "Errore durante l'avvio del gioco, controlla i logs!",
             "log": {
-                "message": "Nessun registro trovato per questo gioco",
-                "title": "Registro non trovato"
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
             },
-            "python": "Heroic richiede Python 3.8 o più recente per funzionare."
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NO",
         "protocol": {
             "install": {
-                "not_installed": "Non è installato, vuoi installarlo?"
+                "not_installed": "Is Not Installed, do you wish to Install it?"
             }
         },
         "quit": {
-            "message": "Ci sono operazioni in sospeso, sei sicuro/a?",
+            "message": "Ci sono operazioni in sospeso, sei sicuro?",
             "title": "Esci"
         },
         "runexe": {
@@ -50,16 +50,16 @@
             "title": "Seleziona la cartella dei salvataggi"
         },
         "wineprefix": "Seleziona la cartella del prefix di Wine",
-        "yes": "SÌ"
+        "yes": "SI"
     },
     "button": {
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione"
     },
-    "Downloading": "Scaricamento in corso",
+    "Downloading": "Download in corso",
     "Filter": "Filtra",
-    "Games": "Giochi",
+    "Games": "Games",
     "globalSettings": "Impostazioni globali",
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
@@ -75,7 +75,7 @@
         "sync": {
             "part1": "Heroic proverà ad indovinare la giusta cartella di salvataggio e funzionerà nella maggior parte dei casi. Se la cartella dovesse essere sbagliata, usa la casella di override per cambiarla.",
             "part2": "Nel caso tu cambiassi la cartella del prefix per Wine o Proton, dovrai controllare di nuovo il percorso, in quanto Proton utilizza un prefix differente (/pfx) cosi' come il nome utente (steamuser). Basterà cancellare il percorso attuale, uscire dalla pagina delle impostazioni della sincronizzazione e tornarci in modo da permettere ad Heroic di indovinare la cartella con il giusto prefisso.",
-            "part3": "Sincronizzazione manuale: seleziona Scarica per scaricare i salvataggi dei giochi presenti sul cloud. Carica per caricare quelli locali sul cloud. Forza scaricamento e Forza caricamento ignoreranno la versione che è presente localmente o sul cloud.",
+            "part3": "Sincronizzazione manuale: Seleziona Download per scaricare i salvataggi dei giochi presenti sul cloud. Upload per caricare quelli locali sul cloud. Forza Download e Forza Upload ignoreranno la versione che è presente localmente o sul cloud.",
             "part4": "Sincronizza i salvataggi automaticamente sincronizzerà i salvataggi ogni volta che andrai ad avviare un gioco e dopo che avrai finito di giocarci."
         },
         "wine": {
@@ -123,16 +123,16 @@
         }
     },
     "other": {
-        "weblate": "Aiuta a tradurre Heroic."
+        "weblate": "Help translate Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix dove è installato EGS"
     },
-    "Plugins": "Estensioni",
-    "Projects": "Progetti",
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Pronto",
     "Return": "Torna indietro",
-    "search": "Inserisci qui il nome del gioco…",
+    "search": "Inserisci qui il nome del gioco...",
     "setting": {
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",
@@ -146,17 +146,17 @@
         "language": "Seleziona il linguaggio dell'app",
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
         "manualsync": {
-            "download": "Scarica",
-            "forcedownload": "Forza scaricamento",
-            "forceupload": "Forzare caricamento",
+            "download": "Download",
+            "forcedownload": "Forza Download",
+            "forceupload": "Forza Upload",
             "sync": "Sincronizza",
             "syncing": "Sincronizzazione in corso",
             "title": "Sincronizza i salvataggi manualmente",
-            "upload": "Carica"
+            "upload": "Upload"
         },
-        "maxworkers": "Numero massimo di connessioni durante lo scaricamento",
+        "maxworkers": "Numero massimo di connessioni durante il download",
         "offlinemode": "Avvia il gioco in modalità offline",
-        "primerun": "Abilita Nvidia Prime Render",
+        "primerun": "Enable Nvidia Prime Render",
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"
@@ -202,7 +202,7 @@
         "support": "Supportaci"
     },
     "warning": {
-        "proton": "Proton al di fuori di Steam non è supportato. Non segnalare problemi o chiedere supporto su di esso."
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

@@ -4,7 +4,6 @@ import {
   writeFile
 } from 'graceful-fs'
 import axios from 'axios';
-import makeClient from 'discord-rich-presence-typescript';
 
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus } from '../types';
@@ -363,50 +362,10 @@ Categories=Game;
       autoInstallDxvk
     } = await this.getSettings()
 
-    const DiscordRPC = makeClient('852942976564723722')
-
-    const { discordRPC } = (await GlobalConfig.get().getSettings())
-    if (discordRPC) {
-      // Show DiscordRPC
-      // This seems to run when a game is updated, even though the game doesn't start after updating.
-      const gameInfo = await this.getGameInfo()
-      let os: string
-
-      switch (process.platform) {
-      case 'linux':
-        os = 'Linux'
-        break
-      case 'win32':
-        os = 'Windows'
-        break
-      case 'darwin':
-        os = 'MacOS'
-        break
-      default:
-        os = 'Unknown OS'
-        break
-      }
-
-      DiscordRPC.updatePresence({
-        details: gameInfo.title,
-        instance: true,
-        largeImageKey: 'icon',
-        large_text: gameInfo.title,
-        startTimestamp: Date.now(),
-        state: 'via Heroic on ' + os
-      })
-    }
-
     if (isWindows) {
       const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
       console.log('\n Launch Command:', command)
-      const v = await execAsync(command)
-
-      console.log('Stopping Discord Rich Presence if running...')
-      DiscordRPC.disconnect()
-      console.log('Stopped Discord Rich Presence.')
-
-      return v
+      return await execAsync(command)
     }
 
     const fixedWinePrefix = winePrefix.replace('~', home)
@@ -470,35 +429,19 @@ Categories=Game;
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
     console.log('\n Launch Command:', command)
 
-    const v = await execAsync(command).then((v) => {
-
+    return await execAsync(command).then((v) => {
       this.state.status = 'playing'
       return v
     })
-
-    console.log('Stopping Discord Rich Presence if running...')
-    DiscordRPC.disconnect()
-    console.log('Stopped Discord Rich Presence.')
-
-    return v
   }
 
   public stop() {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
+
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
-    const pattern = process.platform === 'linux' ? this.appName : 'legendary'
+    const pattern = process.platform === 'darwin' ? 'legendary' : this.appName
     console.log('killing', pattern)
-
-    if (process.platform === 'win32'){
-      try {
-        execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return console.log(`${pattern} killed`);
-      } catch (error) {
-        return console.log(`not possible to kill ${pattern}`, error);
-      }
-    }
-
     const child =  spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
       return console.log(`${pattern} killed`);

@@ -10,7 +10,6 @@ export interface AppSettings {
   customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
-  discordRPC: boolean
   egsLinkedPath: string
   enableDesktopShortcutsOnDesktop: boolean,
   enableDesktopShortcutsOnStartMenu: boolean,

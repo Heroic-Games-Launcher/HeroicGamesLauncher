@@ -8,8 +8,7 @@ export interface AppSettings {
   autoSyncSaves: boolean
   customWinePaths: Array<string>
   darkTrayIcon: boolean
-  defaultInstallPath: string,
-  discordRPC: boolean,
+  defaultInstallPath: string
   egsLinkedPath: string
   exitToTray: boolean
   language: string
@@ -39,7 +38,7 @@ export interface ContextType {
   handleSearch: (input: string) => void
   layout: string
   libraryStatus: GameStatus[]
-  platform: NodeJS.Platform | string
+  platform: string
   refresh: () => Promise<void>
   refreshLibrary: (checkUpdates?: boolean) => void
   refreshing: boolean

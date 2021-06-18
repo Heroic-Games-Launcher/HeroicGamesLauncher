@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Questo cambierà il percorso d'installazione del gioco, sei sicuro/a?",
+            "message": "Questo cambierà il percorso d'installazione del gioco, sei sicuro?",
             "path": "Seleziona un nuovo percorso d'installazione",
             "title": "Cambia il percorso d'installazione del gioco"
         },
@@ -9,7 +9,7 @@
         "importpath": "Seleziona la cartella del gioco da importare",
         "installpath": "Seleziona il percorso d'installazione",
         "move": {
-            "message": "Quest'operazione può richiedere molto tempo, sei sicuro/a?",
+            "message": "Quest'operazione può richiedere molto tempo, sei sicuro?",
             "path": "Seleziona dove vuoi muoverla",
             "title": "Muovi l'installazione del gioco"
         },
@@ -20,7 +20,7 @@
         },
         "stopInstall": {
             "keepInstalling": "Continua l'installazione",
-            "message": "Desideri TENERE i file scaricati?",
+            "message": "Desideri tenere i files scaricati?",
             "title": "Ferma l'installazione"
         },
         "uninstall": {
@@ -31,11 +31,11 @@
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
             "title": "Il gioco richiede un aggiornamento"
         },
-        "yes": "SÌ"
+        "yes": "SI"
     },
     "button": {
         "cancel": "Annulla",
-        "continue": "Continua a scaricare",
+        "continue": "Continue Download",
         "import": "Importa",
         "install": "Installa",
         "uninstall": "Disinstalla"
@@ -63,7 +63,7 @@
         },
         "playing": {
             "start": "Esegui ora",
-            "stop": "In esecuzione (Ferma)"
+            "stop": "In esecuzione (Stop)"
         },
         "saves": {
             "syncing": "Sincronizzando i salvataggi"
@@ -79,14 +79,13 @@
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
-        "notSupported": "This game can only be imported",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
-        "totalDownloaded": "Totale scaricato",
+        "totalDownloaded": "Total Downloaded",
         "updating": "Aggiornamento in corso"
     },
     "submenu": {
         "change": "Cambia percorso d'installazione",
-        "log": "Ultimo registro",
+        "log": "Ultimo Log",
         "move": "Muovi gioco",
         "protondb": "Controlla compatibilità",
         "settings": "Impostazioni",
