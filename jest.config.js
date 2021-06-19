@@ -7,7 +7,7 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
 
   coveragePathIgnorePatterns: [
-    '<rootDir>/node_modules>',
+    '<rootDir>/node_modules',
     '<rootDir>/public',
     '<rootDir>/dist',
     '<rootDir>/build',
