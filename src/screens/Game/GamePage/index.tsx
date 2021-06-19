@@ -75,7 +75,6 @@ export default function GamePage(): JSX.Element | null {
   } as InstallProgress)
   const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(notSupported ? 'import' : 'default')
-  const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
