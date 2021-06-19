@@ -52,6 +52,8 @@ interface RouteParams {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
+  const notSupported = appName === 'Fortnite' || appName === 'Ginger'
+
   const {
     libraryStatus,
     handleGameStatus,
@@ -72,6 +74,7 @@ export default function GamePage(): JSX.Element | null {
     percent: '0.00%'
   } as InstallProgress)
   const [defaultPath, setDefaultPath] = useState('...')
+  const [installPath, setInstallPath] = useState(notSupported ? 'import' : 'default')
   const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
