@@ -84,6 +84,7 @@
         "updating": "കളി പുതുക്കുന്നു"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "സ്ഥാപനയിടം മാറ്റുന്നു",
         "log": "അവസാന കുറി(log)",
         "move": "കളി മാറ്റൂ",

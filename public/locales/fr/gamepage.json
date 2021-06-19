@@ -84,6 +84,7 @@
         "updating": "Mise à jour du jeu"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Changer le chemin d'installation",
         "log": "Dernier rapport",
         "move": "Déplacer le jeu",

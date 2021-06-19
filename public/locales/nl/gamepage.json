@@ -84,6 +84,7 @@
         "updating": "Spel updaten"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Wijzig installatiepad",
         "log": "Laatste log",
         "move": "Spel verplaatsen",

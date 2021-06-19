@@ -84,6 +84,7 @@
         "updating": "Aktualizuji hru"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Změnit cestu instalace",
         "log": "Nejnovější záznam",
         "move": "Přesunout hru",

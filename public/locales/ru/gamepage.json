@@ -84,6 +84,7 @@
         "updating": "Обновляю игру"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Изменить путь установки",
         "log": "Последние логи",
         "move": "Переместить игру",

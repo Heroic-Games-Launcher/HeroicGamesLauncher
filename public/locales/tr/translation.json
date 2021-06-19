@@ -134,6 +134,8 @@
     "Return": "Geri",
     "search": "Buraya oyun adı girin...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",

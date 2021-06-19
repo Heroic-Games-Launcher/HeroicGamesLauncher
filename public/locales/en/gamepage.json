@@ -84,6 +84,7 @@
         "updating": "Updating Game"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Change install path",
         "log": "Latest Log",
         "move": "Move Game",

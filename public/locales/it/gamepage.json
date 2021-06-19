@@ -84,6 +84,7 @@
         "updating": "Aggiornamento in corso"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Cambia percorso d'installazione",
         "log": "Ultimo Log",
         "move": "Muovi gioco",

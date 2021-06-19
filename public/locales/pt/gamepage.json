@@ -84,6 +84,7 @@
         "updating": "Atualizando jogo"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Modificar local de instalação",
         "log": "Último Log",
         "move": "Mover Jogo",

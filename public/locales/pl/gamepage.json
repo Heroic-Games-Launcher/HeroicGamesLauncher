@@ -84,6 +84,7 @@
         "updating": "Aktualizowanie gry"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Zmień ścieżkę instalacji",
         "log": "Ostatni log",
         "move": "Przenieś grę",

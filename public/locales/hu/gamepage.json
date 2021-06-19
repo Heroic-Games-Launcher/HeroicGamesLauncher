@@ -84,6 +84,7 @@
         "updating": "Játék Frissítése"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Telepítési útvonal megváltoztatása",
         "log": "Legutóbbi Naplózás (Log)",
         "move": "Játék áthelyezése",
