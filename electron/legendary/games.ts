@@ -4,7 +4,6 @@ import {
   writeFile
 } from 'graceful-fs'
 import axios from 'axios';
-import makeClient from 'discord-rich-presence-typescript';
 
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus } from '../types';
@@ -27,6 +26,7 @@ import {
   legendaryBin
 } from '../constants'
 import { spawn } from 'child_process';
+import makeClient from 'discord-rich-presence-typescript';
 
 class LegendaryGame extends Game {
   public appName: string
@@ -171,6 +171,7 @@ class LegendaryGame extends Game {
       })
       .catch(console.log)
     this.state.status = 'done'
+    this.addDesktopShortcut()
     return newInstallPath
   }
 
@@ -202,6 +203,51 @@ class LegendaryGame extends Game {
   }
 
   /**
+   * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
+   * so that the game can be opened from the start menu and the desktop folder.
+   * Both can be disabled with enableDesktopShortcutsOnDesktop and enableDesktopShortcutsOnStartMenu
+   * @async
+   * @public
+   */
+  public async addDesktopShortcut() {
+    const gameInfo = await this.getGameInfo()
+    const desktopFolder = app.getPath('desktop')
+    let shortcut;
+
+    switch(process.platform) {
+    case 'linux': {
+      shortcut = `[Desktop Entry]
+Name=${gameInfo.title}
+Exec=xdg-open heroic://launch/${gameInfo.app_name}
+Terminal=false
+Type=Application
+Icon=${app.getAppPath()}/app.asar.unpacked/build/icon.png
+Categories=Game;
+`
+      break; }
+    default:
+      console.error("Shortcuts haven't been implemented in the current platform.")
+      return
+    }
+    const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
+    const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
+
+    if (enabledInDesktop || enabledInDesktop === undefined) {
+      writeFile(desktopFolder, shortcut, (err) => {
+        if(err) console.error(err)
+        console.log("Couldn't save shortcut to " + desktopFolder)
+      })
+    }
+    if (enabledInStartMenu || enabledInStartMenu === undefined) {
+      writeFile('/usr/share/applications', shortcut, (err) => {
+        if(err) console.error(err)
+        console.log("Couldn't save shortcut to /usr/share/applications")
+      })
+    }
+
+  }
+
+  /**
    * Install game.
    * Does NOT check for online connectivity.
    *
@@ -217,51 +263,13 @@ class LegendaryGame extends Game {
     // const selectiveDownloads = sdl ? `echo ${sdl.join(' ')}` : `echo 'hd_textures'`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-
-    const gameInfo = await this.getGameInfo()
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
     console.log(`Installing ${this.appName} with:`, command)
-    const bm = await fetch(gameInfo.art_square)
-    const bodyText = await bm.text()
     try {
       LegendaryLibrary.get().installState(this.appName, true)
       return await execAsync(command, execOptions).then((v) => {
         this.state.status = 'done'
-        // Add shortcut to desktop folder
-        const desktopFolder = app.getPath('desktop')
-        switch(process.platform) {
-        case 'linux': {
-          writeFile(app.getAppPath() + '/images/' + gameInfo.app_name, bodyText, null, (err) => {
-            if (err) throw err
-          })
-          const linuxShortcut = `[Desktop Entry]
-Name=${gameInfo.title}
-Exec=xdg-open heroic://launch/${gameInfo.app_name}
-Terminal=false
-Type=Application
-Icon=${app.getAppPath()}/images/${gameInfo.app_name}
-Categories=Game;
-`
-          const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
-          const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
-
-          if (enabledInDesktop || enabledInDesktop === undefined) {
-            writeFile(desktopFolder, linuxShortcut, (err) => {
-              if(err) console.error(err)
-              console.log("Couldn't save shortcut to " + desktopFolder)
-            })
-          }
-          if (enabledInStartMenu || enabledInStartMenu === undefined) {
-            writeFile('/usr/share/applications', linuxShortcut, (err) => {
-              if(err) console.error(err)
-              console.log("Couldn't save shortcut to /usr/share/applications")
-            })
-          }
-          break; }
-        default:
-          console.error("Shortcuts haven't been implemented in the current platform.")
-          break;
-        }
+        this.addDesktopShortcut()
         return v
       })
     } catch (error) {
@@ -354,6 +362,7 @@ Categories=Game;
       audioFix,
       autoInstallDxvk
     } = await this.getSettings()
+
 
     const DiscordRPC = makeClient('852942976564723722')
 
@@ -461,9 +470,7 @@ Categories=Game;
 
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
     console.log('\n Launch Command:', command)
-
     const v = await execAsync(command).then((v) => {
-
       this.state.status = 'playing'
       return v
     })
@@ -478,6 +485,7 @@ Categories=Game;
   public stop() {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
+
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
     console.log('killing', pattern)

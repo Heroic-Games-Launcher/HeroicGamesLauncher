@@ -134,6 +134,8 @@
     "Return": "Επιστροφή",
     "search": "Εισαγάγετε όνομα παιχνιδιού...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",

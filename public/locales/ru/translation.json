@@ -134,6 +134,8 @@
     "Return": "Вернуться",
     "search": "Напишите сюда имя игры...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоустановка/обновление DXVK на префикс",
         "autosync": "Автосинхронизация сохранений",

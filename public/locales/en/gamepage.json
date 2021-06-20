@@ -79,12 +79,12 @@
         "installing": "Installing",
         "moving": "Moving Installation, please wait",
         "notinstalled": "This game is not installed",
-        "notSupported": "This game can only be imported",
         "reparing": "Repairing Game, please wait",
         "totalDownloaded": "Total Downloaded",
         "updating": "Updating Game"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Change install path",
         "log": "Latest Log",
         "move": "Move Game",
