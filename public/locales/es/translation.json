@@ -134,6 +134,8 @@
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",

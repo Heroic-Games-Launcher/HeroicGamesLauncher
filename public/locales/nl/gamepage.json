@@ -79,12 +79,12 @@
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
-        "notSupported": "This game can only be imported",
         "reparing": "Spel repareren, geduld alstublieft",
         "totalDownloaded": "Total Downloaded",
         "updating": "Spel updaten"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Wijzig installatiepad",
         "log": "Laatste log",
         "move": "Spel verplaatsen",

@@ -507,6 +507,7 @@ ipcMain.handle('openMessageBox', async (e, args) => {
   return {response}
 })
 
+
 ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string]) => {
   const [title, content] = args
   return  showErrorBox(title, content)
@@ -641,6 +642,12 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
+ipcMain.on('addShortcut', async(event, args) => {
+  const [appName] = args
+  const game = Game.get(appName)
+  game.addDesktopShortcut()
+})
+
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
   if (!(await isOnline())) {
@@ -651,4 +658,10 @@ ipcMain.handle('syncSaves', async (event, args) => {
   const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
   console.log(`${stdout} - ${stderr}`)
   return `\n ${stdout} - ${stderr}`
+})
+
+ipcMain.on('addShortcut', async(event, args) => {
+  const [appName] = args
+  const game = Game.get(appName)
+  game.addDesktopShortcut()
 })
