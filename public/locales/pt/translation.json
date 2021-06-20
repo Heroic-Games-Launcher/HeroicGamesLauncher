@@ -3,7 +3,7 @@
     "Assets": "Assets",
     "box": {
         "appupdate": {
-            "message": "Nove versão do Heroic lançada. Deseja atualizar agora?",
+            "message": "Nova versão do Heroic lançada. Deseja atualizar agora?",
             "title": "Nova Versão Disponível"
         },
         "choose": "Selecionar",
@@ -12,8 +12,8 @@
         "default-install-path": "Selecione o Local de instalação padrão",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Suas credenciais expiraram, por favor faça logout e login novamente.",
+                "title": "Credenciais Expiradas"
             },
             "diskspace": {
                 "message": "Sem espaço disponível no disco",
@@ -25,15 +25,15 @@
             },
             "launch": "Houve um erro ao rodar o jogo, veja os Logs para ver o que aconteceu!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Nenhum log foi encontrado para este jogo",
+                "title": "Log não encontrado"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic necessita de Python 3.8 ou mais novo."
         },
         "no": "NÃO",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "O jogo não está instalado, deseja instalar?"
             }
         },
         "quit": {
@@ -123,13 +123,13 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Ajude a traduzir o Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix onde a Epic Games está instalada"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Projetos",
     "Ready": "Baixados",
     "Return": "Voltar",
     "search": "Digite o nome do jogo...",
@@ -204,7 +204,7 @@
         "support": "Apoie-nos"
     },
     "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
+        "proton": "Proton fora da Steam não é suportado. Por favor, evite pedir suporte quando usá-lo."
     },
     "wiki": "Wiki"
 }

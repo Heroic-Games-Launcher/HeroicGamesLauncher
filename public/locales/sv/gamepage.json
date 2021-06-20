@@ -79,7 +79,8 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, var god dröj",
         "notinstalled": "Detta spelet är inte installerat",
-        "reparing": "Reparerar speler, var god dröj",
+        "notSupported": "Detta spel kan endast importeras",
+        "reparing": "Reparerar spelet, var god dröj",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"
     },
