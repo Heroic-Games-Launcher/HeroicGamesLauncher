@@ -155,6 +155,11 @@ export default function WineSettings({
               altWine.filter(({ name }) => name === event.target.value)[0]
             )
           }
+          onClick={() => {
+            if (altWine.length < 2){
+              setWineVersion(altWine[0])
+            }
+          }}
           value={wineVersion.name}
           className="settingSelect"
         >
