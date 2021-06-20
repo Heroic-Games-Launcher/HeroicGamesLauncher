@@ -134,6 +134,8 @@
     "Return": "Return",
     "search": "Enter the game name here...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",

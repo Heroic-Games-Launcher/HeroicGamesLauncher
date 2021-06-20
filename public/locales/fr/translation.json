@@ -12,8 +12,8 @@
         "default-install-path": "Choisir le chemin par défaut",
         "error": {
             "credentials": {
-                "message": "Vos informations d'identification ont expiré, veuillez vous déconnecter et vous reconnecter.",
-                "title": "Identifiants expirés"
+                "message": "Your credentials have expired, please logout and login again.",
+                "title": "Expired Credentials"
             },
             "diskspace": {
                 "message": "Espace disque nécessaire insuffisant",
@@ -23,17 +23,17 @@
                 "message": "Une erreur inconnue s'est produite",
                 "title": "Erreur inconnue"
             },
-            "launch": "Erreur lors du lancement du jeu, consultez les journaux !",
+            "launch": "Erreur lors du lancement du jeu, consultez le rapport",
             "log": {
-                "message": "Aucun journal n'a été trouvé pour ce jeu",
-                "title": "Journal non trouvé"
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
             },
-            "python": "Heroic nécessite Python 3.8 ou plus récent pour fonctionner."
+            "python": "Heroic requires Python 3.8 or newer to work."
         },
         "no": "NON",
         "protocol": {
             "install": {
-                "not_installed": "n'est pas installé, voulez-vous l'installer ?"
+                "not_installed": "Is Not Installed, do you wish to Install it?"
             }
         },
         "quit": {
@@ -57,9 +57,9 @@
         "syncing": "Synchronisation",
         "unsync": "Désynchroniser"
     },
-    "Downloading": "Téléchargement",
+    "Downloading": "Téléchargements",
     "Filter": "Filtre",
-    "Games": "Jeux",
+    "Games": "Games",
     "globalSettings": "Paramètres globaux",
     "help": {
         "general": "Synchronisation avec EGS dans le cas où vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
@@ -68,14 +68,14 @@
             "part2": "Options avancées",
             "part3": "pour être averti avant le lancement du jeu ; ",
             "part4": "Utilise les ",
-            "part5": "Arguments de jeu",
+            "part5": "Arguments de Jeu",
             "part6": " pour être averti après la commande, par exemple : ",
             "part7": " pour passer le launcher dans certains jeux, etc."
         },
         "sync": {
             "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle : choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Téléversez pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle : Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Téléversez pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
@@ -92,30 +92,30 @@
     },
     "Library": "Bibliothèque",
     "message": {
-        "sync": "Synchronisation terminée",
-        "unsync": "Désynchronisation terminée"
+        "sync": "Synchronisation Complète",
+        "unsync": "Désynchronisation Complète"
     },
     "nogames": "Aucun jeu trouvé",
     "Not Ready": "Non installé",
     "notify": {
         "finished": {
-            "reparing": "Réparation terminée"
+            "reparing": "Réparation Terminée"
         },
         "install": {
-            "canceled": "Installation annulée",
-            "finished": "Installation terminée"
+            "canceled": "Installation Annulée",
+            "finished": "Installation Terminée"
         },
-        "moved": "Déplacement terminé",
+        "moved": "Déplacement Terminé",
         "uninstalled": "Désinstallé",
         "update": {
-            "canceled": "Mise à jour annulée",
-            "finished": "Mise à jour terminée"
+            "canceled": "Mise à jour Annulée",
+            "finished": "Mise à jour Terminée"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "Insérez ici les autres options de lancement",
-            "title": "Options avancées (Variables d'environnement) :"
+            "placeholder": "Insérez ici les autres options de lancemement",
+            "title": "Options Avancées (Variables d'Environnement) :"
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
@@ -123,17 +123,19 @@
         }
     },
     "other": {
-        "weblate": "Aidez à traduire Heroic."
+        "weblate": "Help translate Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix où EGS est installé"
     },
-    "Plugins": "Extensions",
-    "Projects": "Projets",
+    "Plugins": "Plugins",
+    "Projects": "Projects",
     "Ready": "Installé",
     "Return": "Retour",
-    "search": "Entrez le nom du jeu ici…",
+    "search": "Entrez le nom du jeu ici...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
@@ -146,13 +148,13 @@
         "language": "Choix de la langue",
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
         "manualsync": {
-            "download": "Télécharger",
-            "forcedownload": "Forcer le téléchargement",
-            "forceupload": "Forcer le téléversement",
+            "download": "Download",
+            "forcedownload": "Forcer le Téléchargement",
+            "forceupload": "Forcer le Téléversement",
             "sync": "Synchronisation",
             "syncing": "Synchronisation en cours",
             "title": "Synchronisation manuelle des auvegardes",
-            "upload": "Téléverser"
+            "upload": "Upload"
         },
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "offlinemode": "Lancer le jeu hors ligne",
@@ -188,21 +190,21 @@
         "quit": "Quitter",
         "reload": "Recharger",
         "show": "Voir",
-        "support": "Soutenez-nous"
+        "support": "Nous supporter"
     },
     "Unreal Marketplace": "Marché Unreal",
-    "Updates": "Mises à jour",
+    "Updates": "Mises-à-jour",
     "userselector": {
         "about": "À propos",
         "discord": "Discord",
-        "logout": "Se déconnecter",
+        "logout": "Déconnexion",
         "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
         "quit": "Quitter",
         "refresh": "Actualiser la bibliothèque",
-        "support": "Soutenez-nous"
+        "support": "Nous supporter"
     },
     "warning": {
-        "proton": "Proton n'est pas pris en charge en dehors de Steam. Ne signalez pas de problèmes et ne demandez pas d'assistance à ce sujet."
+        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

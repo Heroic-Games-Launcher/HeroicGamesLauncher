@@ -134,6 +134,8 @@
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",

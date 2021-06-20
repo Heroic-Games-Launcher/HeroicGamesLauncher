@@ -134,6 +134,8 @@
     "Return": "Zpět",
     "search": "Zde zadejte název hry...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
         "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",

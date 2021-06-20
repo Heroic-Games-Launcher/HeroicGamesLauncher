@@ -1,6 +1,6 @@
 {
     "All": "Alla",
-    "Assets": "Assets",
+    "Assets": "Tillgångar",
     "box": {
         "appupdate": {
             "message": "Det finns en ny version av Heroic tillgänglig, Vill du uppdatera nu?",
@@ -12,8 +12,8 @@
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Din autentisering har upphört, var god logga ut och logga sedan in igen.",
+                "title": "Utgången autentisering"
             },
             "diskspace": {
                 "message": "Det finns inte tillräckligt med hårdiskutrymme",
@@ -25,15 +25,15 @@
             },
             "launch": "Fel vid uppstar av spelet, kontrollera loggarna!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Ingen logg hittades för detta spel",
+                "title": "Ingen logg hittades"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic kräver Python 3.8 eller senare."
         },
         "no": "Nej",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Är inte installerad, vill du installera?"
             }
         },
         "quit": {
@@ -123,17 +123,19 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Hjälp till med översättning av Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix där EGS är installerad"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Projekt",
     "Ready": "Nedladdade",
     "Return": "Tillbaka",
     "search": "Skriv in spelets namn här...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
@@ -202,7 +204,7 @@
         "support": "Stöd oss"
     },
     "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
+        "proton": "Proton utanför Steam stöds ej. Skapa ingen buggrapport eller fråga efter den funktionen."
     },
     "wiki": "Wiki"
 }

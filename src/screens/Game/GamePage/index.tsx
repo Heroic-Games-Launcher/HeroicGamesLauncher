@@ -286,10 +286,10 @@ export default function GamePage(): JSX.Element | null {
                       value={installPath}
                       className="settingSelect"
                     >
-                      {!notSupported && <option value={'default'}>{`${t(
+                      <option value={'default'}>{`${t(
                         'install.default'
-                      )} ${defaultPath.replaceAll("'", '')}`}</option>}
-                      {!notSupported && <option value={'another'}>{t('install.another')}</option>}
+                      )} ${defaultPath.replaceAll("'", '')}`}</option>
+                      <option value={'another'}>{t('install.another')}</option>
                       <option value={'import'}>{t('install.import')}</option>
                     </select>
                   )}
@@ -389,10 +389,6 @@ export default function GamePage(): JSX.Element | null {
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
 
-    if (notSupported && !is_installed){
-      return  `${t('status.notSupported', 'This game can only be imported')}`
-    }
-
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
@@ -443,7 +439,7 @@ export default function GamePage(): JSX.Element | null {
     if (previousProgress.folder === installPath && !isInstalling) {
       return t('button.continue', 'Continue Download')
     }
-    if (installPath === 'import' && !is_installed) {
+    if (installPath === 'import') {
       return t('button.import')
     }
     if (is_installed) {

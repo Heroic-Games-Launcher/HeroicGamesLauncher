@@ -71,6 +71,8 @@ function Settings() {
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
+  const toggleAddDesktopShortcuts = useToggle()
+  const toggleAddGamesToStartMenu = useToggle()
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
   const {
@@ -108,11 +110,6 @@ function Settings() {
     on: darkTrayIcon,
     toggle: toggleDarkTrayIcon,
     setOn: setDarkTrayIcon
-  } = useToggle(false)
-  const {
-    on: discordRPC,
-    toggle: toggleDiscordRPC,
-    setOn: setDiscordRPC
   } = useToggle(false)
   const {
     on: autoInstallDxvk,
@@ -156,7 +153,6 @@ function Settings() {
       setEgsPath(config.egsLinkedPath || '')
       setExitToTray(config.exitToTray || false)
       setDarkTrayIcon(config.darkTrayIcon || false)
-      setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 2)
@@ -215,7 +211,6 @@ function Settings() {
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
-    discordRPC,
     egsLinkedPath,
     exitToTray,
     language,
@@ -318,8 +313,10 @@ function Settings() {
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              toggleDiscordRPC={toggleDiscordRPC}
-              discordRPC={discordRPC}
+              addDesktopShortcuts={toggleAddDesktopShortcuts.on}
+              addGamesToStartMenu={toggleAddGamesToStartMenu.on}
+              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts.toggle}
+              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu.toggle}
             />
           )}
           {isWineSettings && (
