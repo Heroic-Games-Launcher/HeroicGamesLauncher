@@ -35,7 +35,7 @@
     },
     "button": {
         "cancel": "Отменить",
-        "continue": "Continue Download",
+        "continue": "Продолжить загрузку",
         "import": "Импорт",
         "install": "Установить",
         "uninstall": "Удалить"
@@ -79,9 +79,9 @@
         "installing": "Устанавливается",
         "moving": "Перемещаю игру, пожалуйста подождите",
         "notinstalled": "Игра не установлена",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Эта игра может быть только импортирована",
         "reparing": "Восстанавливаю игру, пожалуйста подождите",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Всего загружено",
         "updating": "Обновляю игру"
     },
     "submenu": {
