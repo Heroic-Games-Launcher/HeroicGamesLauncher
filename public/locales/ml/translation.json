@@ -134,6 +134,8 @@
     "Return": "തിരിച്ചുപോകൂ",
     "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്‍സ് ഓഡിയോ ലാറ്റന്‍സി)",
         "autodxvk": "ഉപസഗ്ഗ഻ത്തില്‍(പ്രഫിക്സില്‍) DXVK തന്നത്താന്‍ സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്‍",

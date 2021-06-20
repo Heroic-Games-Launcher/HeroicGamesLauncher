@@ -79,12 +79,12 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "notSupported": "This game can only be imported",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Total Downloaded",
         "updating": "Játék Frissítése"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Telepítési útvonal megváltoztatása",
         "log": "Legutóbbi Naplózás (Log)",
         "move": "Játék áthelyezése",
