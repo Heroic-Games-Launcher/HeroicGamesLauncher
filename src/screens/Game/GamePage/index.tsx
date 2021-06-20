@@ -149,7 +149,7 @@ export default function GamePage(): JSX.Element | null {
       }
     }, 500)
     return () => clearInterval(progressInterval)
-  }, [appName, isInstalling, isUpdating, isReparing])
+  }, [appName, isInstalling, isUpdating, isReparing, handleGameStatus, status, previousProgress])
 
   const hasUpdate = gameUpdates.includes(appName)
 
@@ -469,7 +469,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       await handleGameStatus({ appName, status: 'playing' })
-      await launch(appName, t, handleGameStatus)
+      await launch({appName, handleGameStatus, t})
 
       if (autoSyncSaves) {
         setIsSyncing(true)

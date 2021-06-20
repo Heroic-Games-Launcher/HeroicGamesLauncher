@@ -3,6 +3,7 @@ import './index.css'
 import React, {
   useContext,
   useEffect,
+  useMemo,
   useState
 } from 'react'
 
@@ -171,10 +172,40 @@ function Settings() {
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
-  }, [appName, type, isDefault, i18n.language])
+  }, [appName,
+    type,
+    isDefault,
+    i18n.language,
+    setUseGameMode,
+    setShowFps,
+    setShowOffline,
+    setAudioFix,
+    setShowMangoHud,
+    setUseNvidiaPrime,
+    setExitToTray,
+    setDarkTrayIcon,
+    setAutoInstallDxvk,
+    t])
 
-  const GlobalSettings = {
-    audioFix,
+  const GlobalSettings = useMemo(() => {
+    return { audioFix,
+      customWinePaths,
+      darkTrayIcon,
+      defaultInstallPath,
+      egsLinkedPath,
+      exitToTray,
+      language,
+      maxWorkers,
+      nvidiaPrime,
+      offlineMode,
+      otherOptions,
+      showFps,
+      showMangohud,
+      useGameMode,
+      winePrefix,
+      wineVersion
+    } as AppSettings
+  }, [audioFix,
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
@@ -189,11 +220,25 @@ function Settings() {
     showMangohud,
     useGameMode,
     winePrefix,
-    wineVersion
-  } as AppSettings
+    wineVersion])
 
-  const GameSettings = {
-    audioFix,
+  const GameSettings = useMemo(() => {
+    return {
+      audioFix,
+      autoInstallDxvk,
+      autoSyncSaves,
+      launcherArgs,
+      nvidiaPrime,
+      offlineMode,
+      otherOptions,
+      savesPath,
+      showFps,
+      showMangohud,
+      useGameMode,
+      winePrefix,
+      wineVersion
+    } as AppSettings
+  }, [audioFix,
     autoInstallDxvk,
     autoSyncSaves,
     launcherArgs,
@@ -205,8 +250,7 @@ function Settings() {
     showMangohud,
     useGameMode,
     winePrefix,
-    wineVersion
-  } as AppSettings
+    wineVersion])
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
@@ -218,7 +262,7 @@ function Settings() {
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
-  }, [GlobalSettings, GameSettings, appName])
+  }, [GlobalSettings, GameSettings, appName, settingsToSave])
 
   if (!title) {
     return <UpdateComponent />

@@ -181,6 +181,7 @@ const test_context = new TestType<ContextType>({
   filter: 'all',
   gameUpdates: [],
   handleCategory: () => { return; },
+  handleError: () => { return; },
   handleFilter: () => { return; },
   handleGameStatus: () => Promise.resolve(),
   handleLayout: () => { return; },
