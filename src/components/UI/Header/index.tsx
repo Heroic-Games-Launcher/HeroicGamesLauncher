@@ -157,8 +157,12 @@ export default function Header({
             <select
               className={filter.includes('UE_') ? 'selected' : ''}
               id='ueVersionSelect'
+              defaultValue={ueVersions[0]}
               onChange={(event) => handleFilter(event.target.value)}
             >
+              {ueVersions.map((version: string, key) => (
+                <option key={key} value={'UE_' + version}>{version}</option>
+              ))}
             </select>
           </span>
         )}
