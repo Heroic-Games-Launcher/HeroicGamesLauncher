@@ -100,7 +100,7 @@ function openUrlOrFile(url: string): void {
   if (process.platform === 'darwin') {
     exec(`open ${url}`)
   } else {
-    exec(`xdg-open ${url}`)
+    exec(`xdg-open '${url}'`)
   }
 }
 

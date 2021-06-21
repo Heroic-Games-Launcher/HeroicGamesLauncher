@@ -165,7 +165,7 @@ class LegendaryGame implements Game {
     const info = await this.getGameInfo()
     newInstallPath += '/' + info.install.install_path.split('/').slice(-1)[0]
     const installpath = info.install.install_path
-    await execAsync(`mv -f ${installpath} ${newInstallPath}`)
+    await execAsync(`mv -f ${installpath} '${newInstallPath}'`)
       .then(() => {
         Library.get().changeGameInstallPath(this.appName, newInstallPath)
       })

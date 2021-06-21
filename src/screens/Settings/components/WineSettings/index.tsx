@@ -103,7 +103,7 @@ export default function WineSettings({
                   title: t('box.wineprefix')
                 })
                 .then(({ filePaths }: Path) =>
-                  setWinePrefix(filePaths[0] ? `${filePaths[0]}` : '~/.wine')
+                  setWinePrefix(filePaths[0] ? `${filePaths[0]}` : winePrefix)
                 )
             }
           />
