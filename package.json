@@ -95,7 +95,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
+    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "dist-mac": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
