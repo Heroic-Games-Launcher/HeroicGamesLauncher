@@ -7,6 +7,7 @@ import {
   getGameInfo,
   getLegendaryConfig,
   getProgress,
+  launch,
   notify
 } from 'src/helpers'
 import { i18n } from 'i18next'
@@ -231,6 +232,17 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n } = this.props
+    const { libraryStatus } = this.state
+
+    // Deals launching from protocol. Also checks if the game is already running
+    ipcRenderer.once('launchGame', async (e, appName) => {
+      const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
+      if (!currentApp) {
+        await this.handleGameStatus({ appName, status: 'playing' })
+        await launch(appName)
+        await this.handleGameStatus({ appName, status: 'done' })
+      }
+    })
 
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
