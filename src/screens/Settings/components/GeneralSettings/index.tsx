@@ -137,7 +137,7 @@ export default function GeneralSettings({
                 properties: ['openDirectory'],
                 title: t('box.default-install-path')
               }).then(({ filePaths }: Path) =>
-                setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : '')
+                setDefaultInstallPath(filePaths[0] ? `'${filePaths[0]}'` : defaultInstallPath)
               )
             }
           />

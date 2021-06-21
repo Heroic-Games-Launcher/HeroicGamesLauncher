@@ -49,6 +49,10 @@ export default function WineSettings({
         'getAlternativeWine'
       )
       setAltWine(wineList)
+      // Avoids not updating wine config when having one wine install only
+      if (altWine.length === 1){
+        setWineVersion(altWine[0])
+      }
     }
     getAltWine()
     setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')

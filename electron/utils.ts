@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 
-import { app, dialog } from 'electron'
+import { app, dialog, net } from 'electron'
 
 import { exec } from 'child_process'
 import { existsSync, stat } from 'graceful-fs'
@@ -15,7 +15,7 @@ const statAsync = promisify(stat)
 const { showErrorBox, showMessageBox } = dialog
 
 async function isOnline() {
-  return navigator.onLine
+  return net.isOnline()
 }
 
 async function checkForUpdates() {
