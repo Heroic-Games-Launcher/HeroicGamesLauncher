@@ -1,0 +1,43 @@
+{
+    "button": {
+        "uninstall": "Poista",
+        "install": "Asenna",
+        "import": "Tuo",
+        "continue": "Jatka Lataamista",
+        "cancel": "Peruuta"
+    },
+    "box": {
+        "yes": "KYLLÄ",
+        "update": {
+            "title": "Peli Tarvitsee Päivityksen",
+            "message": "Tällä pelillä on päivitys, haluatko päivittää nyt?"
+        },
+        "uninstall": {
+            "title": "Poista",
+            "message": "Haluatko poistaa pelin?"
+        },
+        "stopInstall": {
+            "title": "Pysäytä Asennus",
+            "message": "Haluatko PITÄÄ ladatut tiedostot?",
+            "keepInstalling": "Jatka Asentamista"
+        },
+        "repair": {
+            "title": "Vahvista ja Korjaa",
+            "message": "Haluatko yrittää korjata tämän pelin? Tämä prosessi voi viedä paljon aikaa."
+        },
+        "no": "EI",
+        "move": {
+            "title": "Siirrä Pelin Asennus",
+            "path": "Valitse, minne haluat siirtää",
+            "message": "Tämä prosessi voi viedä paljon aikaa, haluatko jatkaa?"
+        },
+        "change": {
+            "title": "Vaihda Pelin Asennussijainti",
+            "path": "Valitse uusi asennussijainti",
+            "message": "Tämä tulee vaihtaa pelin asennussijainnin, haluatko jatkaa?"
+        },
+        "installpath": "Valitse Asennussijainti",
+        "importpath": "Valitse pelin kansio tuotavaksi",
+        "choose": "Valitse"
+    }
+}

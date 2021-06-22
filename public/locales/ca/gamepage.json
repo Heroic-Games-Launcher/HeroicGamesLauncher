@@ -7,7 +7,8 @@
         "protondb": "Comprova la compatibilitat",
         "move": "Mou el joc",
         "log": "Últim registre",
-        "change": "Mou la ruta d'instal·lació"
+        "change": "Mou la ruta d'instal·lació",
+        "addShortcut": "Afegir drecera"
     },
     "status": {
         "updating": "Actualitzant joc",
