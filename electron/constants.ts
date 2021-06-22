@@ -1,4 +1,3 @@
-import { fixPathForAsarUnpack } from 'electron-util'
 import {
   homedir,
   platform
@@ -9,6 +8,7 @@ import {
   GameConfigVersion,
   GlobalConfigVersion
 } from './types'
+
 
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
@@ -21,10 +21,10 @@ const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
-const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
-const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
-const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
+const legendaryBin = join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary').replace('app.asar', 'app.asar.unpacked')
+const icon = join(__dirname, '/icon.png').replace('app.asar', 'app.asar.unpacked')
+const iconDark = join(__dirname, '/icon-dark.png').replace('app.asar', 'app.asar.unpacked')
+const iconLight = join(__dirname, '/icon-light.png').replace('app.asar', 'app.asar.unpacked')
 const installed = `${legendaryConfigPath}/installed.json`
 const libraryPath = `${legendaryConfigPath}/metadata/`
 const loginUrl =
