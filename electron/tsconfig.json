@@ -9,5 +9,8 @@
     "skipLibCheck": true,
     "target": "ES2021"
   },
-  "include": ["."]
+  "include": ["."],
+  "exclude": [
+    "__tests__"
+  ]
 }
