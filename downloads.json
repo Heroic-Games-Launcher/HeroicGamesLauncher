@@ -1,0 +1,718 @@
+[
+  {
+    "name": "1.8.0 RC1 - Windows Support (Beta) - Ui Improvements - Bugfixes",
+    "pkgs": [
+      {
+        "pkg": "heroic_1.8.0-rc1_amd64.deb",
+        "downloads": 344
+      },
+      {
+        "pkg": "Heroic-1.8.0-rc1.AppImage",
+        "downloads": 142
+      },
+      {
+        "pkg": "heroic-1.8.0-rc1.x86_64.rpm",
+        "downloads": 107
+      },
+      {
+        "pkg": "heroic-1.8.0-rc1.pacman",
+        "downloads": 87
+      },
+      {
+        "pkg": "Heroic.Games.Launcher.1.8.0-rc1-portable.exe",
+        "downloads": 8
+      }
+    ],
+    "total": 688
+  },
+  {
+    "name": "1.7.0 \"Moria\" - Optimizations + Major Bugfixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.7.0.pacman",
+        "downloads": 2337
+      },
+      {
+        "pkg": "heroic_1.7.0_amd64.deb",
+        "downloads": 1869
+      },
+      {
+        "pkg": "heroic-1.7.0.AppImage",
+        "downloads": 1123
+      },
+      {
+        "pkg": "heroic-1.7.0.x86_64.rpm",
+        "downloads": 183
+      }
+    ],
+    "total": 5512
+  },
+  {
+    "name": "1.6.1 - More Fixes and UI improvements",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.6.1.pacman",
+        "downloads": 1636
+      },
+      {
+        "pkg": "heroic_1.6.1_amd64.deb",
+        "downloads": 953
+      },
+      {
+        "pkg": "heroic-1.6.1.AppImage",
+        "downloads": 494
+      },
+      {
+        "pkg": "heroic-1.6.1.x86_64.rpm",
+        "downloads": 91
+      }
+    ],
+    "total": 3174
+  },
+  {
+    "name": "1.6.0 - Small Fixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.6.0.pacman",
+        "downloads": 613
+      },
+      {
+        "pkg": "heroic_1.6.0_amd64.deb",
+        "downloads": 198
+      },
+      {
+        "pkg": "heroic-1.6.0.AppImage",
+        "downloads": 100
+      },
+      {
+        "pkg": "heroic-1.6.0.x86_64.rpm",
+        "downloads": 20
+      }
+    ],
+    "total": 931
+  },
+  {
+    "name": "1.5.9 - Support for Unreal Marketplace + fixes and  optimizations",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.9.pacman",
+        "downloads": 1324
+      },
+      {
+        "pkg": "heroic_1.5.9_amd64.deb",
+        "downloads": 710
+      },
+      {
+        "pkg": "heroic-1.5.9.AppImage",
+        "downloads": 390
+      },
+      {
+        "pkg": "heroic-1.5.9.x86_64.rpm",
+        "downloads": 70
+      }
+    ],
+    "total": 2494
+  },
+  {
+    "name": "1.5.7 Some Fixes for new Installs",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.7.pacman",
+        "downloads": 2519
+      },
+      {
+        "pkg": "heroic_1.5.7_amd64.deb",
+        "downloads": 2132
+      },
+      {
+        "pkg": "heroic-1.5.7.AppImage",
+        "downloads": 1089
+      },
+      {
+        "pkg": "heroic-1.5.7.x86_64.rpm",
+        "downloads": 235
+      }
+    ],
+    "total": 5975
+  },
+  {
+    "name": "v1.5.6 Add Custom Wine/Proton + Offline Mode + More",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.6.pacman",
+        "downloads": 503
+      },
+      {
+        "pkg": "heroic_1.5.6_amd64.deb",
+        "downloads": 196
+      },
+      {
+        "pkg": "heroic-1.5.6.AppImage",
+        "downloads": 165
+      },
+      {
+        "pkg": "heroic-1.5.6.x86_64.rpm",
+        "downloads": 28
+      }
+    ],
+    "total": 892
+  },
+  {
+    "name": "1.5.5 - New Languages and Improvements",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.5.pacman",
+        "downloads": 1535
+      },
+      {
+        "pkg": "heroic_1.5.5_amd64.deb",
+        "downloads": 913
+      },
+      {
+        "pkg": "heroic-1.5.5.AppImage",
+        "downloads": 623
+      },
+      {
+        "pkg": "heroic-1.5.5.x86_64.rpm",
+        "downloads": 118
+      }
+    ],
+    "total": 3189
+  },
+  {
+    "name": "1.5.4 Last Fixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.4.pacman",
+        "downloads": 993
+      },
+      {
+        "pkg": "heroic_1.5.4_amd64.deb",
+        "downloads": 422
+      },
+      {
+        "pkg": "heroic-1.5.4.AppImage",
+        "downloads": 279
+      },
+      {
+        "pkg": "heroic-1.5.4.x86_64.rpm",
+        "downloads": 54
+      }
+    ],
+    "total": 1748
+  },
+  {
+    "name": "v1.5.3 'Magelan' More Fixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.3.pacman",
+        "downloads": 677
+      },
+      {
+        "pkg": "heroic_1.5.3_amd64.deb",
+        "downloads": 264
+      },
+      {
+        "pkg": "heroic-1.5.3.AppImage",
+        "downloads": 176
+      },
+      {
+        "pkg": "heroic-1.5.3.x86_64.rpm",
+        "downloads": 40
+      }
+    ],
+    "total": 1157
+  },
+  {
+    "name": "1.5.2 'Magelan' Hotfix",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.2.pacman",
+        "downloads": 442
+      },
+      {
+        "pkg": "heroic_1.5.2_amd64.deb",
+        "downloads": 148
+      },
+      {
+        "pkg": "heroic-1.5.2.AppImage",
+        "downloads": 122
+      },
+      {
+        "pkg": "heroic-1.5.2.x86_64.rpm",
+        "downloads": 19
+      }
+    ],
+    "total": 731
+  },
+  {
+    "name": "v1.5.1 'Magelan' New translation + New View and features",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.5.1.pacman",
+        "downloads": 355
+      },
+      {
+        "pkg": "heroic-1.5.1.AppImage",
+        "downloads": 96
+      },
+      {
+        "pkg": "heroic_1.5.1_amd64.deb",
+        "downloads": 89
+      },
+      {
+        "pkg": "heroic-1.5.1.x86_64.rpm",
+        "downloads": 13
+      }
+    ],
+    "total": 553
+  },
+  {
+    "name": "1.4.0 'Katakuri'",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.4.0.pacman",
+        "downloads": 1090
+      },
+      {
+        "pkg": "heroic_1.4.0_amd64.deb",
+        "downloads": 506
+      },
+      {
+        "pkg": "heroic-1.4.0.AppImage",
+        "downloads": 339
+      },
+      {
+        "pkg": "heroic-1.4.0.x86_64.rpm",
+        "downloads": 61
+      }
+    ],
+    "total": 1996
+  },
+  {
+    "name": "1.3.1 'Doflamingo' Hotfix",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.3.1.pacman",
+        "downloads": 957
+      },
+      {
+        "pkg": "heroic_1.3.1_amd64.deb",
+        "downloads": 482
+      },
+      {
+        "pkg": "heroic-1.3.1.AppImage",
+        "downloads": 351
+      },
+      {
+        "pkg": "heroic-1.3.1.x86_64.rpm",
+        "downloads": 56
+      }
+    ],
+    "total": 1846
+  },
+  {
+    "name": "v1.3.0 'Doflamingo' New Save Features + Fixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.3.0.pacman",
+        "downloads": 52
+      },
+      {
+        "pkg": "heroic_1.3.0_amd64.deb",
+        "downloads": 32
+      },
+      {
+        "pkg": "heroic-1.3.0.AppImage",
+        "downloads": 19
+      },
+      {
+        "pkg": "heroic-1.3.0.x86_64.rpm",
+        "downloads": 5
+      }
+    ],
+    "total": 108
+  },
+  {
+    "name": "1.2.2 New Settings and BugFixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.2.2.pacman",
+        "downloads": 680
+      },
+      {
+        "pkg": "heroic_1.2.2_amd64.deb",
+        "downloads": 278
+      },
+      {
+        "pkg": "heroic-1.2.2.AppImage",
+        "downloads": 254
+      },
+      {
+        "pkg": "heroic-1.2.2.x86_64.rpm",
+        "downloads": 47
+      }
+    ],
+    "total": 1259
+  },
+  {
+    "name": "1.2.1 Bugfixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.2.1.pacman",
+        "downloads": 545
+      },
+      {
+        "pkg": "heroic_1.2.1_amd64.deb",
+        "downloads": 140
+      },
+      {
+        "pkg": "heroic-1.2.1.AppImage",
+        "downloads": 127
+      },
+      {
+        "pkg": "heroic-1.2.1.x86_64.rpm",
+        "downloads": 34
+      },
+      {
+        "pkg": "heroic-1.2.1.tar.xz",
+        "downloads": 10
+      }
+    ],
+    "total": 856
+  },
+  {
+    "name": "1.2.0 'Absalom'",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.2.0.pacman",
+        "downloads": 404
+      },
+      {
+        "pkg": "heroic_1.2.0_amd64.deb",
+        "downloads": 122
+      },
+      {
+        "pkg": "heroic-1.2.0.AppImage",
+        "downloads": 95
+      },
+      {
+        "pkg": "heroic-1.2.0.x86_64.rpm",
+        "downloads": 24
+      },
+      {
+        "pkg": "heroic-1.2.0.tar.xz",
+        "downloads": 11
+      }
+    ],
+    "total": 656
+  },
+  {
+    "name": "1.1.3 - Other Bugfixes and Update Notification",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.1.3.pacman",
+        "downloads": 666
+      },
+      {
+        "pkg": "heroic_1.1.3_amd64.deb",
+        "downloads": 325
+      },
+      {
+        "pkg": "heroic-1.1.3.AppImage",
+        "downloads": 227
+      },
+      {
+        "pkg": "heroic-1.1.3.x86_64.rpm",
+        "downloads": 49
+      },
+      {
+        "pkg": "heroic-1.1.3.tar.xz",
+        "downloads": 17
+      }
+    ],
+    "total": 1284
+  },
+  {
+    "name": "1.1.2 - Game Update and BugFixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.1.2.pacman",
+        "downloads": 304
+      },
+      {
+        "pkg": "heroic_1.1.2_amd64.deb",
+        "downloads": 73
+      },
+      {
+        "pkg": "heroic-1.1.2.AppImage",
+        "downloads": 69
+      },
+      {
+        "pkg": "heroic-1.1.2.x86_64.rpm",
+        "downloads": 8
+      },
+      {
+        "pkg": "heroic-1.1.2.tar.xz",
+        "downloads": 2
+      }
+    ],
+    "total": 456
+  },
+  {
+    "name": "1.1.1 'Crocodile' Bugfixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.1.1.pacman",
+        "downloads": 931
+      },
+      {
+        "pkg": "heroic_1.1.1_amd64.deb",
+        "downloads": 382
+      },
+      {
+        "pkg": "heroic-1.1.1.AppImage",
+        "downloads": 245
+      },
+      {
+        "pkg": "heroic-1.1.1.x86_64.rpm",
+        "downloads": 67
+      },
+      {
+        "pkg": "heroic-1.1.1.tar.xz",
+        "downloads": 21
+      }
+    ],
+    "total": 1646
+  },
+  {
+    "name": "1.1 'Crocodile'",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.1.0.pacman",
+        "downloads": 260
+      },
+      {
+        "pkg": "heroic_1.1.0_amd64.deb",
+        "downloads": 119
+      },
+      {
+        "pkg": "heroic-1.1.0.AppImage",
+        "downloads": 74
+      },
+      {
+        "pkg": "heroic-1.1.0.x86_64.rpm",
+        "downloads": 17
+      },
+      {
+        "pkg": "heroic-1.1.0.tar.xz",
+        "downloads": 7
+      }
+    ],
+    "total": 477
+  },
+  {
+    "name": "1.0.3 - BugFixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.0.3.pacman",
+        "downloads": 511
+      },
+      {
+        "pkg": "heroic_1.0.3_amd64.deb",
+        "downloads": 278
+      },
+      {
+        "pkg": "heroic-1.0.3.AppImage",
+        "downloads": 190
+      },
+      {
+        "pkg": "heroic-1.0.3.x86_64.rpm",
+        "downloads": 37
+      },
+      {
+        "pkg": "heroic-1.0.3.tar.xz",
+        "downloads": 21
+      }
+    ],
+    "total": 1037
+  },
+  {
+    "name": "1.0.1 - Bugfixes and small tweaks",
+    "pkgs": [
+      {
+        "pkg": "heroic-1.0.1.pacman",
+        "downloads": 293
+      },
+      {
+        "pkg": "heroic_1.0.1_amd64.deb",
+        "downloads": 88
+      },
+      {
+        "pkg": "heroic-1.0.1.AppImage",
+        "downloads": 86
+      },
+      {
+        "pkg": "heroic-1.0.1.x86_64.rpm",
+        "downloads": 9
+      },
+      {
+        "pkg": "heroic-1.0.1.tar.xz",
+        "downloads": 6
+      }
+    ],
+    "total": 482
+  },
+  {
+    "name": "1.0 'Enel'",
+    "pkgs": [
+      {
+        "pkg": "heroic_1.0.0_amd64.deb",
+        "downloads": 183
+      },
+      {
+        "pkg": "heroic-1.0.0.AppImage",
+        "downloads": 159
+      },
+      {
+        "pkg": "heroic-1.0.0.pacman",
+        "downloads": 148
+      },
+      {
+        "pkg": "heroic-1.0.0.tar.xz",
+        "downloads": 33
+      },
+      {
+        "pkg": "heroic-1.0.0.x86_64.rpm",
+        "downloads": 31
+      }
+    ],
+    "total": 554
+  },
+  {
+    "name": "0.4.1-beta Bugfixes",
+    "pkgs": [
+      {
+        "pkg": "heroic-0.4.1-beta.pacman",
+        "downloads": 419
+      },
+      {
+        "pkg": "heroic-0.4.1-beta.AppImage",
+        "downloads": 251
+      },
+      {
+        "pkg": "heroic_0.4.1-beta_amd64.deb",
+        "downloads": 227
+      },
+      {
+        "pkg": "heroic-0.4.1-beta.x86_64.rpm",
+        "downloads": 42
+      },
+      {
+        "pkg": "heroic-0.4.1-beta.tar.xz",
+        "downloads": 14
+      }
+    ],
+    "total": 953
+  },
+  {
+    "name": "0.4.0-beta",
+    "pkgs": [
+      {
+        "pkg": "heroic-0.4.0-beta.pacman",
+        "downloads": 230
+      },
+      {
+        "pkg": "heroic-0.4.0-beta.AppImage",
+        "downloads": 125
+      },
+      {
+        "pkg": "heroic_0.4.0-beta_amd64.deb",
+        "downloads": 96
+      },
+      {
+        "pkg": "heroic-0.4.0-beta.x86_64.rpm",
+        "downloads": 14
+      },
+      {
+        "pkg": "heroic-0.4.0-beta.tar.xz",
+        "downloads": 8
+      }
+    ],
+    "total": 473
+  },
+  {
+    "name": "0.3.2 Beta",
+    "pkgs": [
+      {
+        "pkg": "heroic-0.3.2-beta.pacman",
+        "downloads": 56
+      },
+      {
+        "pkg": "heroic-0.3.2-beta.AppImage",
+        "downloads": 32
+      },
+      {
+        "pkg": "heroic_0.3.2-beta_amd64.deb",
+        "downloads": 8
+      },
+      {
+        "pkg": "heroic-0.3.2-beta.x86_64.rpm",
+        "downloads": 5
+      },
+      {
+        "pkg": "heroic-0.3.2-beta.tar.xz",
+        "downloads": 3
+      }
+    ],
+    "total": 104
+  },
+  {
+    "name": "New: RPM file + Removed Sync-Saves and Winetricks button",
+    "pkgs": [
+      {
+        "pkg": "heroic-0.3.1-beta.pacman",
+        "downloads": 94
+      },
+      {
+        "pkg": "heroic-0.3.1-beta.AppImage",
+        "downloads": 79
+      },
+      {
+        "pkg": "heroic_0.3.1-beta_amd64.deb",
+        "downloads": 31
+      },
+      {
+        "pkg": "heroic-0.3.1-beta.tar.xz",
+        "downloads": 6
+      },
+      {
+        "pkg": "heroic-0.3.1-beta.x86_64.rpm",
+        "downloads": 6
+      }
+    ],
+    "total": 216
+  },
+  {
+    "name": "Added Legendary and new packages types",
+    "pkgs": [
+      {
+        "pkg": "heroic_0.3.0-beta_amd64.deb",
+        "downloads": 6
+      },
+      {
+        "pkg": "heroic-0.3.0-beta.AppImage",
+        "downloads": 4
+      },
+      {
+        "pkg": "heroic-0.3.0-beta.pacman",
+        "downloads": 4
+      },
+      {
+        "pkg": "heroic-0.3.0-beta.tar.xz",
+        "downloads": 2
+      }
+    ],
+    "total": 16
+  }
+]

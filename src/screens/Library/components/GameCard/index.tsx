@@ -107,7 +107,7 @@ const GameCard = ({
       }
     }, 500)
     return () => clearInterval(progressInterval)
-  }, [isInstalling, appName])
+  }, [isInstalling, appName, previousProgress])
 
   const { percent } = progress
   const effectPercent = isInstalling
@@ -248,7 +248,7 @@ const GameCard = ({
     }
 
     await handleGameStatus({ appName, status: 'playing' })
-    return await launch(appName, t, handleGameStatus)
+    return await launch({appName, handleGameStatus, t})
   }
 }
 

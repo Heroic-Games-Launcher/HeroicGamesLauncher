@@ -63,7 +63,7 @@ export default function SyncSaves({
       setSavesPath(fixedPath)
     }
     getSyncFolder()
-  }, [winePrefix, isProton])
+  }, [winePrefix, isProton, appName, setAutoSyncSaves, autoSyncSaves, savesPath, isWin, setSavesPath])
 
   const isLinked = Boolean(savesPath.length)
   const syncTypes: SyncType[] = [

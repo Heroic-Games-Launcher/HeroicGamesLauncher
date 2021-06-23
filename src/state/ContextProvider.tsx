@@ -9,6 +9,7 @@ const initialContext: ContextType = {
   filter: 'all',
   gameUpdates: [],
   handleCategory: () => null,
+  handleError: () => null,
   handleFilter: () => null,
   handleGameStatus: () => Promise.resolve(),
   handleLayout: () => null,

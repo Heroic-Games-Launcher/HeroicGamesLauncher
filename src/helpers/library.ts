@@ -17,12 +17,11 @@ type InstallArgs = {
   previousProgress: InstallProgress | null
   progress: InstallProgress
   setInstallPath?: (path: string) => void
-  t: TFunction<'gamepage'>
+  t: TFunction<'gamepage'> | TFunction<string[]>,
 }
 
 async function install({appName, installPath, t, progress, isInstalling, handleGameStatus, previousProgress, setInstallPath}: InstallArgs) {
-  if(!installPath)
-  {
+  if(!installPath) {
     return;
   }
 
@@ -69,7 +68,9 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
     if (previousProgress && previousProgress.folder !== path) {
       storage.removeItem(appName)
     }
-    handleGameStatus({ appName, status: 'installing' })
+    await handleGameStatus({ appName, status: 'queued' })
+    // await handleQueue(appName, queue)
+    await handleGameStatus({ appName, status: 'installing' })
     await ipcRenderer.invoke('install', { appName, path: `'${path}'` })
 
     if (progress.percent === '100%') {
@@ -89,6 +90,8 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
       storage.removeItem(appName)
     }
 
+    await handleGameStatus({ appName, status: 'queued' })
+    // await handleQueue(appName, queue)
     await handleGameStatus({ appName, status: 'installing' })
     await ipcRenderer.invoke('install', { appName, path })
 
@@ -109,7 +112,7 @@ const importGame = async (args: {
 type UninstallArgs = {
   appName: string
   handleGameStatus: (game: GameStatus) =>  Promise<void>
-  t: TFunction<'gamepage'>
+  t: TFunction<'gamepage'> | TFunction<string[]>,
 }
 
 async function uninstall({appName, handleGameStatus, t}: UninstallArgs) {
@@ -134,7 +137,7 @@ async function uninstall({appName, handleGameStatus, t}: UninstallArgs) {
 async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
-  t: TFunction<'gamepage'>,
+  t: TFunction<'gamepage'> | TFunction<string[]>,
   progress: InstallProgress
 ) {
 
@@ -163,7 +166,13 @@ async function handleStopInstallation(
 const repair = async (appName: string): Promise<void> =>
   await ipcRenderer.invoke('repair', appName)
 
-const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (game: GameStatus) => Promise<void>): Promise<void> =>
+type launchArgs = {
+  appName: string
+  handleGameStatus: (game: GameStatus) =>  Promise<void>
+  t: TFunction<'gamepage'> | TFunction<string[]>,
+}
+
+const launch = ({appName, t, handleGameStatus}: launchArgs): Promise<void> =>
   ipcRenderer.invoke('launch', appName)
     .then(async (err: string | string[]) => {
       if (!err) {
@@ -205,6 +214,22 @@ function updateAllGames(
     await handleGameStatus({appName, status: 'updating'})
     await updateGame(appName)
   })
+}
+
+export async function handleQueue(appName: string, queue: string[]): Promise<boolean>{
+  console.log('queue', queue);
+  // const isBusy = libraryStatus.filter(game => game.status === 'installing' || game.status === 'updating').length
+
+  await new Promise((resolve) => {
+    setInterval(() => {
+      if(!queue.includes(appName)){
+        console.log({appName, queue});
+        resolve(true)
+      }
+    }, 5000)
+  })
+  clearInterval()
+  return true
 }
 
 export {
