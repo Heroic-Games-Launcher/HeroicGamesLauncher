@@ -1,1 +1,24 @@
-{}
+{
+    "welcome": "Tervettuloa!",
+    "status": {
+        "logging": "Kirjaudutaan sisään...",
+        "loading": "Ladataan Peli listaa, odottakaa",
+        "error": "Virhe"
+    },
+    "message": {
+        "part8": "syöttöruutun, klikkaa \"kirjaudu sisään\" näppäintä ja odota.",
+        "part7": "SID-numero",
+        "part6": "Liitä",
+        "part5": "SID-tietonumeron",
+        "part4": ", kirjaudu sisään omaan käyttäjääsi ja kopioi sinun",
+        "part3": "Epic Store tässä",
+        "part2": "Avaa",
+        "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, seuraa alla olevia vaiheita:"
+    },
+    "input": {
+        "placeholder": "Liitä SID numero tähän"
+    },
+    "button": {
+        "login": "Kirjaudu sisään"
+    }
+}
