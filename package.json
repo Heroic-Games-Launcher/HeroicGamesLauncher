@@ -19,12 +19,11 @@
     "productName": "Heroic",
     "files": [
       "build/**/*",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "build/bin/legendary.LICENSE",
+      "!build/bin/*"
     ],
     "asarUnpack": [
-      "build/bin/linux/legendary",
-      "build/bin/darwin/legendary",
-      "build/bin/win32/legendary.exe",
       "build/icon.png",
       "build/win_icon.ico",
       "build/icon-dark.png",
@@ -43,7 +42,13 @@
     ],
     "icon": "build/icon.icns",
     "win": {
-      "icon": "build/win_icon.ico"
+      "icon": "build/win_icon.ico",
+      "asarUnpack": ["build/bin/win32/legendary.exe"],
+      "files": ["build/bin/win32/*"]
+    },
+    "mac": {
+      "asarUnpack": ["build/bin/darwin/legendary"],
+      "files": ["build/bin/darwin/*"]
     },
     "linux": {
       "category": "Game",
@@ -51,7 +56,9 @@
       "description": "A native Epic Games launcher for Linux",
       "desktop": {
         "Name": "Heroic Games Launcher"
-      }
+      },
+      "asarUnpack": ["build/bin/linux/legendary"],
+      "files": ["build/bin/linux/*"]
     },
     "deb": {
       "packageCategory": "games",

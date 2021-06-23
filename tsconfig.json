@@ -33,10 +33,11 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts",
+    "src/test_helpers/**/*",
     "public/start-react.js",
     "public/*.js",
-    "dist"
+    "dist",
+    "*.test.tsx"
   ],
   "include": [
     "src", 
