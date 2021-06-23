@@ -23,7 +23,6 @@ describe('Constants - getShell', () => {
 
     // get back to original shell
     process.env.SHELL = stored_shell;
-    expect(process.env.SHELL).toBe(stored_shell);
   })
 
   test('get default shell for unix os', () => {
@@ -36,7 +35,6 @@ describe('Constants - getShell', () => {
 
     // get back to original shell
     process.env.SHELL = stored_shell;
-    expect(process.env.SHELL).toBe(stored_shell);
   })
 
   test('get powershell windows', () => {
