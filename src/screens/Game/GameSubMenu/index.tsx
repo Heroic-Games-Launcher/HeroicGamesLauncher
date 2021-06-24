@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom'
 import {
   createNewWindow,
   formatStoreUrl,
-  repair,
-  updateGame
+  repair
 } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
@@ -30,7 +29,7 @@ export default function GamesSubmenu({
   title,
   clicked
 }: Props) {
-  const { handleGameStatus, refresh, gameUpdates, platform } = useContext(
+  const { handleGameStatus, refresh, platform } = useContext(
     ContextProvider
   )
   const isWin = platform === 'win32'
@@ -42,7 +41,6 @@ export default function GamesSubmenu({
   }
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
-  const hasUpdate = gameUpdates.includes(appName)
 
   async function handleMoveInstall() {
     const { response } = await ipcRenderer.invoke('openMessageBox', {
@@ -85,12 +83,6 @@ export default function GamesSubmenu({
     return
   }
 
-  async function handleUpdate() {
-    await handleGameStatus({ appName, status: 'updating' })
-    await updateGame(appName)
-    await handleGameStatus({ appName, status: 'done' })
-  }
-
   async function handleRepair(appName: string) {
     const { response } = await ipcRenderer.invoke('openMessageBox', {
       buttons: [t('box.yes'), t('box.no')],
@@ -120,11 +112,6 @@ export default function GamesSubmenu({
           >
             {t('submenu.settings')}
           </Link>
-          {hasUpdate && (
-            <span onClick={() => handleUpdate()} className="hidden link">
-              {t('submenu.update', 'Update Game')}
-            </span>
-          )}
           <span onClick={() => handleRepair(appName)} className="hidden link">
             {t('submenu.verify')}
           </span>{' '}

@@ -27,6 +27,10 @@ import InfoBox from 'src/components/UI/InfoBox'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import {
+  updateGame
+} from 'src/helpers'
+
+import {
   AppSettings,
   GameInfo,
   GameStatus,
@@ -47,6 +51,17 @@ const { ipcRenderer } = window.require('electron') as {
 
 interface RouteParams {
   appName: string
+}
+
+async function handleUpdate() {
+  const { appName } = useParams() as RouteParams
+  const {
+    handleGameStatus
+  } = useContext(ContextProvider)
+
+  await handleGameStatus({ appName, status: 'updating' })
+  await updateGame(appName)
+  await handleGameStatus({ appName, status: 'done' })
 }
 
 export default function GamePage(): JSX.Element | null {
@@ -294,7 +309,7 @@ export default function GamePage(): JSX.Element | null {
                     </select>
                   )}
                   <div className="buttonsWrapper">
-                    {is_installed && is_game && (
+                    {!hasUpdate && is_installed && is_game && (
                       <>
                         <button
                           disabled={isReparing || isMoving}
@@ -302,6 +317,17 @@ export default function GamePage(): JSX.Element | null {
                           className={`button ${getPlayBtnClass()}`}
                         >
                           {getPlayLabel()}
+                        </button>
+                      </>
+                    )}
+                    {hasUpdate && is_installed && is_game && (
+                      <>
+                        <button
+                          disabled={isReparing || isMoving}
+                          onClick={() => handleUpdate()}
+                          className="button"
+                        >
+                          {t('submenu.update', 'Update')}
                         </button>
                       </>
                     )}
