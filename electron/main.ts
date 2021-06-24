@@ -25,6 +25,7 @@ import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import isDev from 'electron-is-dev'
 
+import {  } from 'console'
 import { DXVK } from './dxvk'
 import { Game } from './games'
 import { GameConfig } from './game_config'
@@ -32,13 +33,13 @@ import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user';
 import {
+  checkCommandVersion,
   checkForUpdates,
   errorHandler,
   execAsync,
   handleExit,
   isOnline,
   openUrlOrFile,
-  semverGt,
   showAboutWindow
 } from './utils'
 import {
@@ -57,6 +58,7 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
+import { logError, logInfo, logWarning } from './logger'
 const { showErrorBox, showMessageBox,showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
@@ -67,7 +69,7 @@ function createWindow(): BrowserWindow {
     const str = arr.join('\n')
     const date = new Date().toDateString()
     const path = `${app.getPath('crashDumps')}/${date}.txt`
-    console.log('Saving log file to ' + path)
+    logInfo('Saving log file to ' + path)
     writeFile(path, str, {}, (err) => {
       throw err
     })
@@ -100,7 +102,7 @@ function createWindow(): BrowserWindow {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        console.log('An error occurred: ', err)
+        logError('An error occurred: ', err)
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -234,12 +236,12 @@ if (!gotTheLock) {
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
-        console.log('Registered protocol with OS.')
+        logInfo('Registered protocol with OS.')
       } else {
-        console.log('Failed to register protocol with OS.')
+        logError('Failed to register protocol with OS.')
       }
     } else {
-      console.log('Protocol already registered.')
+      logWarning('Protocol already registered.')
     }
     if (process.argv[1]) {
       const url = process.argv[1]
@@ -257,24 +259,14 @@ if (!gotTheLock) {
     })
 
     if (process.platform === 'linux'){
-      let pythonFound = false
-      for (const python of ['python', 'python3']) {
-        try {
-          const { stdout } = await execAsync(python + ' --version')
-          const pythonVersion: string | null = stdout.includes('Python ') ? stdout.replace('\n', '').split(' ')[1] : null
-          if (!pythonVersion) {
-            console.log(`Python '${python}' not found.`);
-            continue
-          } else {
-            console.log(`Python '${python}' found. Version: '${pythonVersion}'`)
-            pythonFound ||= semverGt(pythonVersion, '3.8.0') || pythonVersion === '3.8.0'
-          }
-        } catch (error) {
-          console.log(`${python} command not found`);
-        }
-      }
-      if (!pythonFound) {
-        dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Heroic requires Python 3.8 or newer.')}`)
+      const found = await checkCommandVersion(
+        ['python', 'python3'],
+        '3.8.0',
+        false);
+
+      if(!found)
+      {
+        logError('Heroic requires Python 3.8 or newer.');
       }
     }
 
@@ -294,7 +286,7 @@ ipcMain.on('Notify', (event, args) => {
 
 // Maybe this can help with white screens
 process.on('uncaughtException', (err) => {
-  console.log(err)
+  logError(`${err.name}: ${err.message}`)
 })
 
 let powerId: number | null
@@ -388,7 +380,7 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
-  console.log({ command })
+  logInfo(command)
   return await execAsync(command)
 })
 
@@ -433,7 +425,7 @@ ipcMain.handle('readConfig', async (event, config_class) =>  {
   case 'user':
     return (await LegendaryUser.getUserInfo()).displayName
   default:
-    console.log(`Which idiot requested '${config_class}' using readConfig?`)
+    logError(`Which idiot requested '${config_class}' using readConfig?`)
     return {}
   }
 })
@@ -462,7 +454,7 @@ ipcMain.handle('refreshLibrary', async () => {
 })
 
 ipcMain.handle('launch', (event, game) => {
-  console.log('launching', game)
+  logInfo('launching', game)
 
   return Game.get(game).launch().then(({ stderr }) => {
     writeFile(
@@ -516,43 +508,44 @@ ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string])
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
   if (!(await isOnline())) {
-    console.log(`App offline, skipping install for game '${game}'.`)
+    logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
   return Game.get(game).install(path).then(
-    () => { console.log('finished installing') }
+    () => { logInfo('finished installing') }
   ).catch((res) => res)
 })
 
 ipcMain.handle('uninstall', async (event, game) => {
   return Game.get(game).uninstall().then(
-    () => { console.log('finished uninstalling') }
-  ).catch(console.log)
+    () => { logInfo('finished uninstalling') }
+  ).catch(logError)
 })
 
 ipcMain.handle('repair', async (event, game) => {
   if (!(await isOnline())) {
-    console.log(`App offline, skipping repair for game '${game}'.`)
+    logWarning(`App offline, skipping repair for game '${game}'.`)
     return
   }
   return Game.get(game).repair().then(
-    () => console.log('finished repairing')
-  ).catch(console.log)
+    () => logInfo('finished repairing')
+  ).catch(logError)
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const {stderr, stdout} = await Game.get(game).import(path)
-  console.log(`${stdout} - ${stderr}`)
+  logInfo(`${stdout}`)
+  logError(`${stderr}`)
 })
 
 ipcMain.handle('updateGame', async (e, game) => {
   if (!(await isOnline())) {
-    console.log(`App offline, skipping install for game '${game}'.`)
+    logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
   return Game.get(game).update().then(
-    () => { console.log('finished updating') }
+    () => { logInfo('finished updating') }
   ).catch((res) => res)
 })
 
@@ -598,7 +591,7 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   }
 
   const progress = { bytes, eta, percent }
-  console.log(
+  logInfo(
     `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
   )
   return progress
@@ -606,14 +599,14 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   const newPath = await Game.get(appName).moveInstall(path)
-  console.log(`Finished moving ${appName} to ${newPath}.`)
+  logInfo(`Finished moving ${appName} to ${newPath}.`)
 })
 
 ipcMain.handle(
   'changeInstallPath',
   async (event, [appName, newPath]: string[]) => {
     LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
-    console.log(`Finished moving ${appName} to ${newPath}.`)
+    logInfo(`Finished moving ${appName} to ${newPath}.`)
   }
 )
 
@@ -635,7 +628,8 @@ ipcMain.handle('egsSync', async (event, args) => {
     const { stderr, stdout } = await execAsync(
       `${legendaryBin} egl-sync ${command} -y`
     )
-    console.log(`${stdout} - ${stderr}`)
+    logInfo(`${stdout}`)
+    logError(`${stderr}`)
     return `${stdout} - ${stderr}`
   } catch (error) {
     return 'Error'
@@ -651,12 +645,13 @@ ipcMain.on('addShortcut', async(event, args) => {
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
   if (!(await isOnline())) {
-    console.log(`App offline, skipping syncing saves for game '${appName}'.`)
+    logWarning(`App offline, skipping syncing saves for game '${appName}'.`)
     return
   }
 
   const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
-  console.log(`${stdout} - ${stderr}`)
+  logInfo(`${stdout}`)
+  logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`
 })
 
