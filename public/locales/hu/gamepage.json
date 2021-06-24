@@ -79,6 +79,7 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
+        "notSupported": "This game can only be imported",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Total Downloaded",
         "updating": "Játék Frissítése"
