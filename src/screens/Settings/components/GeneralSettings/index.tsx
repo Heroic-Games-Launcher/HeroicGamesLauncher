@@ -64,9 +64,10 @@ export default function GeneralSettings({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, platform } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
+  const isLinux = platform === 'linux'
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -238,26 +239,28 @@ export default function GeneralSettings({
           />
         </span>
       </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
-          <ToggleSwitch
-            value={addDesktopShortcuts}
-            disabled={!navigator.platform.startsWith('Linux')}
-            handleChange={toggleAddDesktopShortcuts}
-          />
+      {isLinux && <>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
+            <ToggleSwitch
+              value={addDesktopShortcuts}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddDesktopShortcuts}
+            />
+          </span>
         </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
-          <ToggleSwitch
-            value={addGamesToStartMenu}
-            disabled={!navigator.platform.startsWith('Linux')}
-            handleChange={toggleAddGamesToStartMenu}
-          />
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
+            <ToggleSwitch
+              value={addGamesToStartMenu}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddGamesToStartMenu}
+            />
+          </span>
         </span>
-      </span>
+      </>}
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.maxworkers')}
