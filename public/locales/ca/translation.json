@@ -1,0 +1,78 @@
+{
+    "Assets": "Assets",
+    "All": "Tot",
+    "help": {
+        "sync": {
+            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, \"get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.\"."
+        },
+        "other": {
+            "part7": " per saltar el launcher a alguns jocs, etc.",
+            "part5": "Arguments del joc",
+            "part4": "Empra el/la ",
+            "part3": "per ser llençat abans de llençar el joc; ",
+            "part2": "Configuració avançada",
+            "part1": "Empra el/la "
+        },
+        "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS."
+    },
+    "globalSettings": "Configuració global",
+    "Games": "Jocs",
+    "Filter": "Filtra",
+    "Downloading": "Descarregant",
+    "button": {
+        "unsync": "Des-sincronitza",
+        "syncing": "Sincronitzant",
+        "sync": "Sincronitza"
+    },
+    "box": {
+        "yes": "Sí",
+        "wineprefix": "Tria la carpeta de wine prefix",
+        "sync": {
+            "title": "Eligeix el directori de guardats",
+            "error": "Ruta invàl·lida",
+            "button": "Tria"
+        },
+        "select": "Selecciona",
+        "runexe": {
+            "title": "Selecciona un EXE per llençar"
+        },
+        "quit": {
+            "title": "Sortir",
+            "message": "Hi ha operacions pendents, estàs del tot segur?"
+        },
+        "protocol": {
+            "install": {
+                "not_installed": "no està instal·lat, vols instalar-lo?"
+            }
+        },
+        "no": "No",
+        "error": {
+            "python": "Heroic necessita Python 3.8+ per funcionar.",
+            "log": {
+                "title": "El registre no s'ha trobat",
+                "message": "No s'ha trobat cap registre per aquest joc"
+            },
+            "launch": "Ha sorgit un error mentres s'intentava iniciar el joc, mira el registre!",
+            "generic": {
+                "title": "Error desconegut",
+                "message": "Un error desconegut ha ocorregut"
+            },
+            "diskspace": {
+                "title": "Sense espai del disc dur",
+                "message": "No hi ha prou espai del disc"
+            },
+            "credentials": {
+                "title": "Les credencials han expirat",
+                "message": "Les teves credencials han expirat, si us plau tanqui sessió i iniciï sessió de nou."
+            }
+        },
+        "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
+        "customWine": "Selecciona el binary de wine o proton",
+        "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
+        "choose": "Tria",
+        "appupdate": {
+            "title": "Actualització disponible",
+            "message": "Hi ha una nova versió d'Heroic disponible, vols actualitzar-ho?"
+        }
+    }
+}

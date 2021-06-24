@@ -4,7 +4,7 @@
     "box": {
         "appupdate": {
             "message": "Es ist eine neue Version von Heroic verfügbar, möchten Sie diese jetzt installieren?",
-            "title": "Aktualisierung verfügbar"
+            "title": "Update verfügbar"
         },
         "choose": "Auswählen",
         "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
@@ -12,8 +12,8 @@
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
         "error": {
             "credentials": {
-                "message": "Ihre Anmeldedaten sind abgelaufen, bitte melden Sie sich ab und melden Sie sich erneut an.",
-                "title": "Abgelaufene Anmeldeinformationen"
+                "message": "Ihre Anmeldedaten sind abgelaufen, bitte loggen Sie sich aus und melden Sie sich erneut an.",
+                "title": "Abgelaufene Anmeldedaten"
             },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
@@ -23,10 +23,10 @@
                 "message": "Ein unbekannter Fehler ist aufgetreten",
                 "title": "Unbekannter Fehler"
             },
-            "launch": "Fehler beim Starten des Spiels, prüfen Sie die Protokolle!",
+            "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
             "log": {
-                "message": "Es wurde kein Protokoll für dieses Spiel gefunden",
-                "title": "Protokoll nicht gefunden"
+                "message": "Es wurde kein Log für dieses Spiel gefunden",
+                "title": "Log nicht gefunden"
             },
             "python": "Heroic benötigt Python 3.8 oder neuer, um zu funktionieren."
         },
@@ -57,7 +57,7 @@
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren"
     },
-    "Downloading": "Wird heruntergeladen",
+    "Downloading": "Am herunterladen",
     "Filter": "Filter",
     "Games": "Games",
     "globalSettings": "Globale Einstellungen",
@@ -75,7 +75,7 @@
         "sync": {
             "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu Überschreiben.",
             "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren und Heroic wird den Ordner erneut mit dem richtigen Prefix versuchen zu finden.",
-            "part3": "Manuelle Synchronisierung: Wählen Sie Herunterladen, um die in der Cloud gespeicherten Spielstände herunterzuladen. Hochladen, um die lokalen in die Cloud hochzuladen. Herunterladen erzwingen und Hochladen erzwingen ignorieren die Version, die sich lokal oder in der Cloud befindet.",
+            "part3": "Manuelle Synchronisierung: Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
         },
         "wine": {
@@ -108,8 +108,8 @@
         "moved": "Verschieben abgeschlossen",
         "uninstalled": "Deinstalliert",
         "update": {
-            "canceled": "Aktualisierung abgebrochen",
-            "finished": "Aktualisierung abgeschlossen"
+            "canceled": "Update abgebrochen",
+            "finished": "Update abgeschlossen"
         }
     },
     "options": {
@@ -123,7 +123,7 @@
         }
     },
     "other": {
-        "weblate": "Helfen Sie mit, Heroisch zu übersetzen."
+        "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix, wo EGS installiert ist"
@@ -132,8 +132,10 @@
     "Projects": "Projekte",
     "Ready": "Installiert",
     "Return": "Zurück",
-    "search": "Geben Sie hier den Namen des Spiels ein …",
+    "search": "Geben Sie hier den Namen des Spiels ein...",
     "setting": {
+        "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
+        "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
@@ -143,16 +145,16 @@
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
-        "language": "Anwendungssprache auswählen",
+        "language": "App Sprache auswählen",
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
-            "download": "Herunterladen",
-            "forcedownload": "Herunterladen erzwingen",
-            "forceupload": "Hochladen erzwingen",
+            "download": "Download",
+            "forcedownload": "Download erzwingen",
+            "forceupload": "Upload erzwingen",
             "sync": "Synchronisieren",
             "syncing": "Synchronisiere",
             "title": "Spielstände manuell synchronisieren",
-            "upload": "Hochladen"
+            "upload": "Upload"
         },
         "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
         "offlinemode": "Spiel offline ausführen",
@@ -167,7 +169,7 @@
         },
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "wineprefix": "WinePrefix Ordner",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine-Version"
     },
     "Settings": "Einstellungen",
     "settings": {
@@ -191,7 +193,7 @@
         "support": "Unterstütze uns"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Aktualisierungen",
+    "Updates": "Updates",
     "userselector": {
         "about": "Über Heroic",
         "discord": "Discord",
@@ -202,7 +204,7 @@
         "support": "Unterstütze uns"
     },
     "warning": {
-        "proton": "Proton wird außerhalb von Steam nicht unterstützt. Öffnen Sie keine Probleme oder fragen Sie nicht nach Hilfe dafür."
+        "proton": "Proton wird außerhalb von Steam nicht unterstützt. Öffnen Sie keine Tickets oder fragen Sie nicht nach Support dafür."
     },
     "wiki": "Wiki"
 }

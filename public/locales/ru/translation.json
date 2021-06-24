@@ -1,6 +1,6 @@
 {
     "All": "Все",
-    "Assets": "Assets",
+    "Assets": "Ресурсы",
     "box": {
         "appupdate": {
             "message": "Доступна новая версия Heroic, обновить сейчас?",
@@ -12,8 +12,8 @@
         "default-install-path": "Выбрать стандартный путь установки",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Срок действия ваших учетных данных истек, пожалуйста, выйдите из системы и войдите снова.",
+                "title": "Удостоверения с истекшим сроком действия"
             },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
@@ -25,15 +25,15 @@
             },
             "launch": "Ошибка при запуске игры, посмотрите логи!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Журнал для этой игры не найден",
+                "title": "Журнал не найден"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Для работы Heroic требуется Python 3.8 или более новая версия."
         },
         "no": "НЕТ",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Не установлен, хотите ли вы установить его?"
             }
         },
         "quit": {
@@ -80,7 +80,7 @@
         },
         "wine": {
             "part1": "Heroic ищет версии Wine и Proton в следующих папках:",
-            "part2": "Для других мест используйте символическую ссылку на одну из этих папок."
+            "part2": "Для других мест используйте символическую ссылку на одну из этих папок"
         }
     },
     "info": {
@@ -123,17 +123,19 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Помогите перевести Heroic."
     },
     "placeholder": {
         "egs-prefix": "Префикс куда установлен EGS"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Проекты",
     "Ready": "Готово",
     "Return": "Вернуться",
     "search": "Напишите сюда имя игры...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоустановка/обновление DXVK на префикс",
         "autosync": "Автосинхронизация сохранений",
@@ -156,7 +158,7 @@
         },
         "maxworkers": "Максимальное количество потоков при скачивании",
         "offlinemode": "Запустить игру в автономном режиме",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Включить Nvidia Prime Render",
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE на префиксе"
@@ -191,18 +193,18 @@
         "support": "Поддержать нас"
     },
     "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Updates": "Обновления",
     "userselector": {
         "about": "О программе",
         "discord": "Дискорд",
         "logout": "Разлогиниться",
-        "logout_confirmation": "Logout?",
+        "logout_confirmation": "Вы уверены, что хотите выйти из системы?",
         "quit": "Выйти",
         "refresh": "Обновить библиотеку",
         "support": "Поддержать нас"
     },
     "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
+        "proton": "Proton за пределами Steam не поддерживается. Не открывайте проблемы и не обращайтесь за поддержкой по этому поводу."
     },
-    "wiki": "Wiki"
+    "wiki": "Вики"
 }

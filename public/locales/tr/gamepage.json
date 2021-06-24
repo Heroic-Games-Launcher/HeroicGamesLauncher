@@ -85,6 +85,7 @@
         "updating": "Oyun Güncelleniyor"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Kurulum yerini değiştir",
         "log": "Güncel Log",
         "move": "Oyunu Taşı",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Path, WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
@@ -6,6 +6,7 @@ import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 import AddBoxIcon from '@material-ui/icons/AddBox'
+import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
@@ -42,6 +43,8 @@ export default function WineSettings({
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const isProton = wineVersion.name.includes('Proton')
+  const { platform } = useContext(ContextProvider)
+  const isLinux = platform === 'linux'
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -164,7 +167,7 @@ export default function WineSettings({
         </select>
         {isProton && <span data-testid="protonWarning" className="warning">{t('warning.proton', 'Proton outside of Steam is not supported. Do not open issues or ask for support about it.')}</span>}
       </span>
-      <span className="setting">
+      {isLinux && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
           <ToggleSwitch
@@ -172,7 +175,7 @@ export default function WineSettings({
             handleChange={toggleAutoInstallDxvk}
           />
         </span>
-      </span>
+      </span>}
       <InfoBox text="infobox.help">
         <span>{t('help.wine.part1')}</span>
         <ul>

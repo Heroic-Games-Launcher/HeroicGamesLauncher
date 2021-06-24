@@ -1,10 +1,10 @@
 {
     "All": "Wszystkie",
-    "Assets": "Assets",
+    "Assets": "Assety",
     "box": {
         "appupdate": {
             "message": "Dostępna jest nowa wersja Heroic do pobrania, czy chcesz aktualizować?",
-            "title": "Dostępna Nowa Wersja"
+            "title": "Dostępna aktualizacja"
         },
         "choose": "Wybierz",
         "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
@@ -12,28 +12,28 @@
         "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Twoje dane uwierzytelniające wygasły, wyloguj się i zaloguj ponownie.",
+                "title": "Wygasły poświadczenia"
             },
             "diskspace": {
                 "message": "Za mało miejsca na dysku",
                 "title": "Brak miejsca"
             },
             "generic": {
-                "message": "Bilinmeyen bir hata oluştu",
-                "title": "Bilinmeyen hata"
+                "message": "Wystąpił nieznany błąd",
+                "title": "Nieznany błąd"
             },
             "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Nie znaleziono logów dla tej gry",
+                "title": "Nie znaleziono logu"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic wymaga do działania Pythona 3.8 lub nowszego."
         },
         "no": "NIE",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Nie jest zainstalowany, czy chcesz go zainstalować?"
             }
         },
         "quit": {
@@ -41,9 +41,9 @@
             "title": "Wyjście"
         },
         "runexe": {
-            "title": "Wybierz EXE"
+            "title": "Wybierz plik EXE do uruchomienia"
         },
-        "select": "Wybierz",
+        "select": "Zaznacz",
         "sync": {
             "button": "Wybierz",
             "error": "Nieprawidłowa ścieżka",
@@ -62,25 +62,25 @@
     "Games": "Games",
     "globalSettings": "Ustawienia Globalne",
     "help": {
-        "general": "Synchronizuj z EGS gdy masz zainstalowane Epic Games Store w innym miejscu i nie chcesz ich pobierać ponownie",
+        "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
         "other": {
-            "part1": "Wpisz ",
+            "part1": "Użyj ",
             "part2": "Opcje zaawansowane",
             "part3": "które będą użyte przed uruchomieniem gry; ",
-            "part4": "Wpisz ",
+            "part4": "Użyj ",
             "part5": "Argumenty gry",
             "part6": " które będą dodane do wywołania gry, na przykład: ",
-            "part7": " żeby ominąć launcher w niektórych grach, etc."
+            "part7": " żeby pominąć launcher w niektórych grach, etc."
         },
         "sync": {
-            "part1": "Heroic próbuje odgadnąć właściwy folder zapisów gier. To działa w większości przypadków. Jeżeli jednak folder nie istnieje, użyj pola\"Nadpisz\" aby to zmienić",
-            "part2": "Jeżeli zmieniłeś prefiks folderu Wine albo Proton, musisz sprawdzić scieżkę ponownie ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Musisz usunąć aktualną ścieżkę, wyjść z opcji synchronizacji i powrócić do Heroic aby wybrać właściwy folder prefiksu",
-            "part3": "Manualna synchronizacja: Wybierz \"Pobierz\" aby pobrać zapisy gier przechowywane w chmurze. Wybierz \"Wgraj\" aby przesłać lokalne zapisy gry do chmury. Wymuszone Pobranie i Wymuszone Wgranie powoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmuze",
-            "part4": "Automatyczna synchronizacja zapisów będzie aktualizować zapisy za każdym razem kiedy uruchmisz albo zamkniesz grę."
+            "part1": "Heroic próbuje odgadnąć właściwy folder zapisów stanów gier. To działa w większości przypadków poprawnie. Jeżeli jednak folder jest błędny, użyj pola \"Nadpisz\" aby to zmienić.",
+            "part2": "W przypadku zmiany folderu prefiksu dla Wine lub Proton, będziesz musiał ponownie sprawdzić ścieżkę, ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Możesz więc po prostu usunąć bieżącą ścieżkę, wyjść ze strony ustawień synchronizacji i wrócić ponownie, aby Heroic jeszcze raz odgadł folder z odpowiednim prefiksem.",
+            "part3": "Manualna synchronizacja: Kliknij \"Pobierz\" aby pobrać zapisy gier przechowywane w chmurze. Wybierz \"Prześlij\" aby przesłać lokalne zapisy gry do chmury. Wymuszone Pobranie i Wymuszone Wgranie powoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmurze.",
+            "part4": "Automatyczna synchronizacja zapisów będzie aktualizować zapisy za każdym razem kiedy uruchomisz albo zamkniesz grę."
         },
         "wine": {
             "part1": "Heroic szuka wersji Wine i Proton w poniższych lokalizacjach:",
-            "part2": "W przypadku innych lokalizacji stwórz przypisanie symboliczne."
+            "part2": "W przypadku innych lokalizacji użyj przypisania symbolicznego do jednego z tych folderów"
         }
     },
     "info": {
@@ -108,7 +108,7 @@
         "moved": "Przenoszenie zakończone",
         "uninstalled": "Odinstalowane",
         "update": {
-            "canceled": "Anulowane",
+            "canceled": "Aktualizacja przerwana",
             "finished": "Aktualizacja zakończona"
         }
     },
@@ -123,17 +123,19 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Pomóż przetłumaczyć Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefiks instalacji EGS"
     },
-    "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Plugins": "Rozszerzenia",
+    "Projects": "Projekty",
     "Ready": "Zainstalowane",
     "Return": "Powrót",
     "search": "Wpisz nazwę gry...",
     "setting": {
+        "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
+        "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
@@ -147,16 +149,16 @@
         "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",
         "manualsync": {
             "download": "Download",
-            "forcedownload": "Force Download",
-            "forceupload": "Force Upload",
-            "sync": "Sync",
-            "syncing": "Syncing",
+            "forcedownload": "Wymuś pobieranie",
+            "forceupload": "Wymuś wysyłanie",
+            "sync": "Synchronizuj",
+            "syncing": "Synchronizuje",
             "title": "Manualnie synchronizuj zapisy",
             "upload": "Upload"
         },
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "offlinemode": "Uruchom grę w trybie offline",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Włącz renderowanie Nvidia Prime",
         "runexe": {
             "message": "Upuść pliki tutaj",
             "title": "Uruchom EXE w prefiksie"
@@ -177,32 +179,32 @@
             "sync": "Synchronizasja zapisów"
         }
     },
-    "store": "Store",
+    "store": "Sklep",
     "tooltip": {
         "addpath": "Dodaj nową ścieżkę",
         "removepath": "Usuń ścieżkę"
     },
     "Total Games": "Ilość gier",
     "tray": {
-        "about": "O Heroic",
+        "about": "O programie",
         "quit": "Wyjdź",
         "reload": "Przeładuj",
         "show": "Pokaż",
-        "support": "Wesprzyj"
+        "support": "Wesprzyj Nas"
     },
-    "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Unreal Marketplace": "Sklep Assetów dla Unreal",
+    "Updates": "Aktualizacje",
     "userselector": {
-        "about": "O Heroic",
+        "about": "O programie",
         "discord": "Discord",
         "logout": "Wyloguj",
-        "logout_confirmation": "Logout?",
+        "logout_confirmation": "Czy na pewno chcesz się wylogować?",
         "quit": "Wyjdź",
         "refresh": "Odśwież bibliotekę",
         "support": "Wesprzyj nas"
     },
     "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
+        "proton": "Proton poza Steam nie jest obsługiwany. Nie zgłaszaj problemów ani nie proś o wsparcie w tym zakresie."
     },
     "wiki": "Wiki"
 }

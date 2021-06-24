@@ -22,20 +22,24 @@ const {
 const storage: Storage = window.localStorage
 
 interface Props {
-  darkTrayIcon: boolean
+  addDesktopShortcuts: boolean,
+  addGamesToStartMenu: boolean,
+  darkTrayIcon: boolean,
   defaultInstallPath: string,
   discordRPC: boolean,
-  egsLinkedPath: string
-  egsPath: string
-  exitToTray: boolean
-  language: string
-  maxWorkers: number
-  setDefaultInstallPath: (value: string) => void
-  setEgsLinkedPath: (value: string) => void
-  setEgsPath: (value: string) => void
-  setLanguage: (value: string) => void
-  setMaxWorkers: (value: number) => void
-  toggleDarkTrayIcon: () => void
+  egsLinkedPath: string,
+  egsPath: string,
+  exitToTray: boolean,
+  language: string,
+  maxWorkers: number,
+  setDefaultInstallPath: (value: string) => void,
+  setEgsLinkedPath: (value: string) => void,
+  setEgsPath: (value: string) => void,
+  setLanguage: (value: string) => void,
+  setMaxWorkers: (value: number) => void,
+  toggleAddDesktopShortcuts: () => void,
+  toggleAddGamesToStartMenu: () => void,
+  toggleDarkTrayIcon: () => void,
   toggleDiscordRPC: () => void
   toggleTray: () => void
 }
@@ -55,6 +59,10 @@ export default function GeneralSettings({
   setMaxWorkers,
   darkTrayIcon,
   toggleDarkTrayIcon,
+  addDesktopShortcuts,
+  addGamesToStartMenu,
+  toggleAddDesktopShortcuts,
+  toggleAddGamesToStartMenu,
   discordRPC,
   toggleDiscordRPC
 }: Props) {
@@ -63,6 +71,7 @@ export default function GeneralSettings({
   const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
+  const isLinux = platform === 'linux'
   const isWindows = platform === 'win32'
 
   useEffect(() => {
@@ -244,6 +253,28 @@ export default function GeneralSettings({
           />
         </span>
       </span>
+      {isLinux && <>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
+            <ToggleSwitch
+              value={addDesktopShortcuts}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddDesktopShortcuts}
+            />
+          </span>
+        </span>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
+            <ToggleSwitch
+              value={addGamesToStartMenu}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddGamesToStartMenu}
+            />
+          </span>
+        </span>
+      </>}
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.discordRPC', 'Enable Discord Rich Presence')}

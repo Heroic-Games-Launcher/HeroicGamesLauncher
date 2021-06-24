@@ -11,7 +11,6 @@ module.exports = {
     'node_modules',
     '<rootDir>'
   ],
-
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 
@@ -26,7 +25,6 @@ module.exports = {
   // Test spec file resolution pattern
   // should contain `test` or `spec`.
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
-
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {

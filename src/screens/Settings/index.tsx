@@ -70,6 +70,8 @@ function Settings() {
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
+  const toggleAddDesktopShortcuts = useToggle()
+  const toggleAddGamesToStartMenu = useToggle()
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
   const {
@@ -274,6 +276,10 @@ function Settings() {
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
+              addDesktopShortcuts={toggleAddDesktopShortcuts.on}
+              addGamesToStartMenu={toggleAddGamesToStartMenu.on}
+              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts.toggle}
+              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu.toggle}
               toggleDiscordRPC={toggleDiscordRPC}
               discordRPC={discordRPC}
             />
