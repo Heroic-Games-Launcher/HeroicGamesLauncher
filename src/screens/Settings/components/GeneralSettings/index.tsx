@@ -26,6 +26,7 @@ interface Props {
   addGamesToStartMenu: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
+  discordRPC: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
@@ -39,6 +40,7 @@ interface Props {
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
   toggleDarkTrayIcon: () => void,
+  toggleDiscordRPC: () => void
   toggleTray: () => void
 }
 
@@ -60,13 +62,17 @@ export default function GeneralSettings({
   addDesktopShortcuts,
   addGamesToStartMenu,
   toggleAddDesktopShortcuts,
-  toggleAddGamesToStartMenu
+  toggleAddGamesToStartMenu,
+  discordRPC,
+  toggleDiscordRPC
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
+  const isLinux = platform === 'linux'
+  const isWindows = platform === 'win32'
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -101,7 +107,7 @@ export default function GeneralSettings({
       .then(async (res: string) => {
         if (res === 'Error') {
           setIsSyncing(false)
-          ipcRenderer.invoke('showErrorBox', {content: t('box.sync.error'), title: t('box.error')})
+          ipcRenderer.invoke('showErrorBox', [t('box.error.title', 'Error'), t('box.sync.error')])
           setEgsLinkedPath('')
           setEgsPath('')
           return
@@ -112,9 +118,24 @@ export default function GeneralSettings({
         })
 
         setIsSyncing(false)
-        setEgsLinkedPath(egsPath)
+        setEgsLinkedPath(isWindows ? 'windows' : egsPath)
         refreshLibrary()
       })
+  }
+
+  function handleEgsFolder(){
+    if (isLinked) {
+      return ''
+    }
+    return ipcRenderer.invoke(
+      'openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openDirectory'],
+        title: t('box.choose-egs-prefix')
+      })
+      .then(({ path }: Path) =>
+        setEgsPath(path ? `'${path}'` : '')
+      )
   }
 
   async function handleChangeLanguage(language: string) {
@@ -162,7 +183,7 @@ export default function GeneralSettings({
           />
         </span>
       </span>
-      <span className="setting">
+      {!isWindows && <span className="setting">
         <span className="settingText">{t('setting.egs-sync')}</span>
         <span className="settingInputWithButton">
           <input
@@ -179,19 +200,7 @@ export default function GeneralSettings({
               data-testid="setEpicSyncPathButton"
               className="material-icons settings folder"
               style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
-              onClick={() =>
-                isLinked
-                  ? ''
-                  : ipcRenderer.invoke(
-                    'openDialog', {
-                      buttonLabel: t('box.choose'),
-                      properties: ['openDirectory'],
-                      title: t('box.choose-egs-prefix')
-                    })
-                    .then(({ path }: Path) =>
-                      setEgsPath(path ? `'${path}'` : '')
-                    )
-              }
+              onClick={() => handleEgsFolder()}
             />
           ) : (
             <Backspace
@@ -222,7 +231,13 @@ export default function GeneralSettings({
             }`}
           </button>
         </span>
-      </span>
+      </span>}
+      {isWindows && <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.egs-sync')}
+          <ToggleSwitch dataTestId="syncToggle" value={isLinked} handleChange={handleSync} />
+        </span>
+      </span>}
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}
@@ -238,23 +253,34 @@ export default function GeneralSettings({
           />
         </span>
       </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
-          <ToggleSwitch
-            value={addDesktopShortcuts}
-            disabled={!navigator.platform.startsWith('Linux')}
-            handleChange={toggleAddDesktopShortcuts}
-          />
+      {isLinux && <>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
+            <ToggleSwitch
+              value={addDesktopShortcuts}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddDesktopShortcuts}
+            />
+          </span>
         </span>
-      </span>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
+            <ToggleSwitch
+              value={addGamesToStartMenu}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddGamesToStartMenu}
+            />
+          </span>
+        </span>
+      </>}
       <span className="setting">
         <span className="toggleWrapper">
-          {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
+          {t('setting.discordRPC', 'Enable Discord Rich Presence')}
           <ToggleSwitch
-            value={addGamesToStartMenu}
-            disabled={!navigator.platform.startsWith('Linux')}
-            handleChange={toggleAddGamesToStartMenu}
+            value={discordRPC}
+            handleChange={toggleDiscordRPC}
           />
         </span>
       </span>

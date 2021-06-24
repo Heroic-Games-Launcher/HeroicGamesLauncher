@@ -54,10 +54,11 @@ export default function OtherSettings({
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const isLinux = platform === 'linux'
 
   return (
     <>
-      {!isWin && <>
+      {isLinux && <>
         <span data-testid="otherSettings" className="setting">
           <span className="toggleWrapper">
             {t('setting.showfps')}
