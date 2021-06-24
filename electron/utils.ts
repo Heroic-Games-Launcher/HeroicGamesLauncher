@@ -169,7 +169,7 @@ async function openUrlOrFile(url: string): Promise<string> {
  * @param version       minimum version to check against
  * @param all_fullfil   Can be set to false if only one command should fullfil
  *                      version requirement. (default: true)
- * @returns void
+ * @returns true if verrsion fullfil, else false
  */
 async function checkCommandVersion(
   commands: string[],
@@ -179,7 +179,7 @@ async function checkCommandVersion(
   for (const command of commands) {
     try{
       const {stdout} = await execAsync(command + ' --version');
-      const commandVersion: string | null = stdout ? stdout.match(/^[1-9]\d*(\.[1-9]\d*){0,3}$/)[0] : null
+      const commandVersion = stdout ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0] : null;
 
       if(semverGt(commandVersion, version) || commandVersion === version) {
         logInfo(`Command '${command}' found. Version: '${commandVersion}'`)
