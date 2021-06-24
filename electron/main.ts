@@ -25,7 +25,6 @@ import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import isDev from 'electron-is-dev'
 
-import {  } from 'console'
 import { DXVK } from './dxvk'
 import { Game } from './games'
 import { GameConfig } from './game_config'
