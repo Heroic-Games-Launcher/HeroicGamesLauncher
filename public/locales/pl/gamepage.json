@@ -24,27 +24,27 @@
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
-            "message": "Czy chcesz usunąć grę?",
-            "title": "Usuń"
+            "message": "Czy chcesz odinstalować tę grę?",
+            "title": "Odinstaluj"
         },
         "update": {
-            "message": "Ta gra ma nowszą wersję, czy chesz aktualizować?",
-            "title": "Gra Potrzebuje Aktualizacji"
+            "message": "Ta gra ma dostępną aktualizację, czy chcesz zaktualizować ją teraz?",
+            "title": "Gra wymaga aktualizacji"
         },
         "yes": "TAK"
     },
     "button": {
         "cancel": "Anuluj",
-        "continue": "Continue Download",
+        "continue": "Kontynuuj pobieranie",
         "import": "Importuj",
         "install": "Instaluj",
-        "uninstall": "Usuń"
+        "uninstall": "Odinstaluj"
     },
     "disabled": "Wyłączona",
     "enabled": "Włączona",
     "gamecard": {
-        "moving": "Moving",
-        "repairing": "Repairing"
+        "moving": "Przenoszenie",
+        "repairing": "Naprawianie"
     },
     "info": {
         "path": "Ścieżka instalacyjna",
@@ -53,7 +53,7 @@
         "version": "Wersja"
     },
     "install": {
-        "another": "Instaluj w innej ścieżką",
+        "another": "Instaluj w innej ścieżce",
         "default": "Instaluj w domyślnej ścieżce",
         "import": "Importuj grę"
     },
@@ -81,11 +81,11 @@
         "notinstalled": "Ta gra nie jest zainstalowana",
         "notSupported": "This game can only be imported",
         "reparing": "Naprawianie gry, proszę czekać",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Wszystkie pobrane",
         "updating": "Aktualizowanie gry"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Dodaj skrót",
         "change": "Zmień ścieżkę instalacji",
         "log": "Ostatni log",
         "move": "Przenieś grę",
