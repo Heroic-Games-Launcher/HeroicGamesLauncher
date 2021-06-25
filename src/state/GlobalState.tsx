@@ -182,7 +182,7 @@ export class GlobalState extends PureComponent<Props> {
       const message =
         percent < 95 ? t('notify.update.canceled') : t('notify.update.finished')
       notify([title, message])
-      return this.refresh()
+      return this.refreshLibrary(true)
     }
 
     if (currentApp && currentApp.status === 'repairing' && status === 'done') {

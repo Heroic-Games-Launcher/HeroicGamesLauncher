@@ -60,7 +60,7 @@ describe('WineSettings', () => {
     expect(onSetWinePrefix).toBeCalledWith('newPrefix');
   })
 
-  test('add empty wine prefix invokes setWinePrefix with default value', async () => {
+  test('add empty wine prefix invokes setWinePrefix with the current winePrefix set', async () => {
     const onSetWinePrefix = jest.fn();
     const { getByTestId } = renderWineSettings({setWinePrefix: onSetWinePrefix});
     const addWinePrefix = getByTestId('addWinePrefix');
@@ -73,7 +73,7 @@ describe('WineSettings', () => {
         'properties': ['openDirectory'],
         'title': 'box.wineprefix'
       }));
-    expect(onSetWinePrefix).toBeCalledWith('~/.wine')
+    expect(onSetWinePrefix).toBeCalledWith('winePrefix')
   })
 
   test('add valid wine prefix invokes setWinePrefix with path', async () => {
@@ -211,11 +211,5 @@ describe('WineSettings', () => {
 
     fireEvent.change(setWineVersion, {target: {value: 'wine'}});
     await waitFor(() => expect(onSetWineVersion).toBeCalledWith({'bin': 'path/to/wine/bin', 'name': 'wine'}));
-  })
-
-  test('if wine version is proton a warning is printed', async () => {
-    const { getByTestId } = renderWineSettings({wineVersion: { bin: 'path/to/bin', name: 'Proton-custom'}});
-    const protonWarning = getByTestId('protonWarning');
-    expect(protonWarning).toHaveTextContent('warning.proton');
   })
 })
