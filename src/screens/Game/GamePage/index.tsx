@@ -53,17 +53,6 @@ interface RouteParams {
   appName: string
 }
 
-async function handleUpdate() {
-  const { appName } = useParams() as RouteParams
-  const {
-    handleGameStatus
-  } = useContext(ContextProvider)
-
-  await handleGameStatus({ appName, status: 'updating' })
-  await updateGame(appName)
-  await handleGameStatus({ appName, status: 'done' })
-}
-
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
@@ -165,6 +154,12 @@ export default function GamePage(): JSX.Element | null {
     }, 500)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
+
+  async function handleUpdate() {
+    await handleGameStatus({ appName, status: 'updating' })
+    await updateGame(appName)
+    await handleGameStatus({ appName, status: 'done' })
+  }
 
   const hasUpdate = gameUpdates.includes(appName)
 
@@ -309,7 +304,7 @@ export default function GamePage(): JSX.Element | null {
                     </select>
                   )}
                   <div className="buttonsWrapper">
-                    {!hasUpdate && is_installed && is_game && (
+                    {is_installed && is_game && (
                       <>
                         <button
                           disabled={isReparing || isMoving}
@@ -317,17 +312,6 @@ export default function GamePage(): JSX.Element | null {
                           className={`button ${getPlayBtnClass()}`}
                         >
                           {getPlayLabel()}
-                        </button>
-                      </>
-                    )}
-                    {hasUpdate && is_installed && is_game && (
-                      <>
-                        <button
-                          disabled={isReparing || isMoving}
-                          onClick={() => handleUpdate()}
-                          className="button"
-                        >
-                          {t('submenu.update', 'Update')}
                         </button>
                       </>
                     )}
@@ -440,10 +424,14 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (hasUpdate) {
-      return `${t('status.installed')} - ${t(
-        'status.hasUpdates',
-        'New Version Available!'
-      )}`
+      return (
+        <span onClick={() => handleUpdate()} className='updateText' >
+          {`${t('status.installed')} - ${t(
+            'status.hasUpdates',
+            'New Version Available!'
+          )} (${t('status.clickToUpdate', 'Click to Update')})`}
+        </span>
+      )
     }
 
     if (is_installed) {

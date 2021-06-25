@@ -134,6 +134,13 @@ table span.text {
   place-items: baseline;
 }
 
+.updateText {
+  cursor: pointer;
+}
+.updateText:hover {
+  color: var(--text-secondary);
+}
+
 @keyframes animate-stripes {
   100% {
     background-position: -100px 0px;
