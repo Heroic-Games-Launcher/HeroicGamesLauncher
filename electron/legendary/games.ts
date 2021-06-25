@@ -165,7 +165,7 @@ class LegendaryGame extends Game {
     const info = await this.getGameInfo()
     newInstallPath += '/' + info.install.install_path.split('/').slice(-1)[0]
     const installpath = info.install.install_path
-    await execAsync(`mv -f ${installpath} ${newInstallPath}`)
+    await execAsync(`mv -f ${installpath} '${newInstallPath}'`)
       .then(() => {
         LegendaryLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
       })
@@ -426,7 +426,7 @@ Categories=Game;
       other: otherOptions ? otherOptions : '',
       prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
-        ? `STEAM_COMPAT_DATA_PATH='${winePrefix
+        ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')
           .replace('~', home)}'`
         : '',

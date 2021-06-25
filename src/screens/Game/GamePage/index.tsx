@@ -170,6 +170,7 @@ export default function GamePage(): JSX.Element | null {
       developer,
       cloud_save_enabled
     }: GameInfo = gameInfo
+    const haveSystemRequirements = Boolean(extra.reqs.length)
 
     if (savesPath.includes('{InstallDir}')) {
       // a little hack to stop ESLint from screaming about install_path being null.
@@ -315,8 +316,8 @@ export default function GamePage(): JSX.Element | null {
                       {`${getButtonLabel(is_installed)}`}
                     </button>
                   </div>
-                  <div className="requirements">
-                    {extra.reqs && is_game && (
+                  <div className="requirements" style={{ marginBottom: haveSystemRequirements ? 0 : '2em' }}>
+                    {haveSystemRequirements && is_game && (
                       <InfoBox text="infobox.requirements">
                         <table>
                           <tbody>
