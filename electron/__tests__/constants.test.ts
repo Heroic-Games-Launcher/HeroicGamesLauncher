@@ -13,7 +13,23 @@ describe('Constants - fixAsarPath', () => {
 })
 
 describe('Constants - getShell', () => {
+
+  function overrideProcessPlatform(os: string): string
+  {
+    const original_os = process.platform;
+
+    // override process.platform
+    Object.defineProperty(process, 'platform', {
+      value: os
+    });
+
+    return original_os;
+  }
+
   test('get enviroment SHELL for unix os', () => {
+    // override platform
+    const originalPlatform = overrideProcessPlatform('linux');
+
     // store original shell
     const stored_shell = process.env.SHELL;
 
@@ -23,9 +39,15 @@ describe('Constants - getShell', () => {
 
     // get back to original shell
     process.env.SHELL = stored_shell;
+
+    // get back to original platform
+    overrideProcessPlatform(originalPlatform);
   })
 
   test('get default shell for unix os', () => {
+    // override platform
+    const originalPlatform = overrideProcessPlatform('linux');
+
     // store original shell
     const stored_shell = process.env.SHELL;
 
@@ -35,22 +57,19 @@ describe('Constants - getShell', () => {
 
     // get back to original shell
     process.env.SHELL = stored_shell;
+
+    // get back to original platform
+    overrideProcessPlatform(originalPlatform);
   })
 
   test('get powershell windows', () => {
-    // store original platform
-    const originalPlatform = process.platform;
+    // override platform
+    const originalPlatform = overrideProcessPlatform('win32');
 
-    Object.defineProperty(process, 'platform', {
-      value: 'win32'
-    });
     const shell = getShell();
     expect(shell).toBe('powershell.exe');
 
     // get back to original platform
-    Object.defineProperty(process, 'platform', {
-      value: originalPlatform
-    });
-    expect(process.platform).toBe(originalPlatform);
+    overrideProcessPlatform(originalPlatform);
   })
 })
