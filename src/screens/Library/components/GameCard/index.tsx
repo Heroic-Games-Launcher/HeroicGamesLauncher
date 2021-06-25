@@ -131,18 +131,18 @@ const GameCard = ({
     return ''
   }
 
-  const renderIcon = () => {
+  const renderIcon = (id: string) => {
     if (isPlaying) {
-      return <StopIconAlt onClick={() => handlePlay()} />
+      return <StopIconAlt onClick={() => handlePlay()} data-testid={id}/>
     }
     if (isInstalling) {
-      return <StopIcon onClick={() => handlePlay()} />
+      return <StopIcon onClick={() => handlePlay()} data-testid={id}/>
     }
     if (isInstalled && isGame) {
-      return <PlayIcon onClick={() => handlePlay()} />
+      return <PlayIcon onClick={() => handlePlay()} data-testid={id}/>
     }
     if (!isInstalled) {
-      return <DownIcon onClick={() => handlePlay()} />
+      return <DownIcon onClick={() => handlePlay()} data-testid={id}/>
     }
     return null
   }
@@ -188,7 +188,7 @@ const GameCard = ({
                   width: isInstalled&&isGame ? '44%' : 'auto'
                 }}
               >
-                {renderIcon()}
+                {renderIcon('renderIcon')}
                 {isInstalled && isGame && (
                   <Link
                     to={{
@@ -210,7 +210,7 @@ const GameCard = ({
             <span className="gameTitleList">{title}</span>
             {
               <span className="icons">
-                {renderIcon()}
+                {renderIcon('renderIcon')}
                 {isInstalled && (
                   <Link
                     to={{
@@ -242,7 +242,9 @@ const GameCard = ({
         t
       })
     }
-    if (status === 'playing' || status === 'updating') {
+    if (status === 'playing'
+      || status === 'updating'
+      || status === 'installing') {
       await handleGameStatus({ appName, status: 'done' })
       return sendKill(appName)
     }

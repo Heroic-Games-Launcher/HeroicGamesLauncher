@@ -31,7 +31,9 @@ export function initElectronMocks()
     .calledWith(stringAtIndex(0, 'openMessageBox')).mockResolvedValue({response: test_openmessagebox_response.get()})
     .calledWith(stringAtIndex(0, 'syncSaves')).mockResolvedValue(test_string_response.get())
     .calledWith(stringAtIndex(0, 'writeConfig')).mockResolvedValue({})
-    .calledWith(stringAtIndex(0, 'login')).mockResolvedValue(test_string_response.get());
+    .calledWith(stringAtIndex(0, 'login')).mockResolvedValue(test_string_response.get())
+    .calledWith(stringAtIndex(0, 'requestGameProgress')).mockResolvedValue(50)
+    .calledWith(stringAtIndex(0, 'launch')).mockResolvedValue(test_string_response.get());
 
   when(ipcRenderer.removeAllListeners).calledWith('requestSettings').mockResolvedValue({});
 
