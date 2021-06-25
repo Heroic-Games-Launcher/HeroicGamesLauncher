@@ -59,6 +59,13 @@ class TestType<Type> {
     {
       this.actual = props;
     }
+    else if(Array.isArray(props))
+    {
+      for(let i = 0; i < props.length; i++)
+      {
+        this.actual[i] = {...this.actual[i], ...props[i]};
+      }
+    }
     else
     {
       this.actual = {...this.actual, ...props};
@@ -237,10 +244,10 @@ const test_egssync_response = new TestType<string>('Success');
  * Test type for a wine installation of type WineInstallation.
  * Can be used in tests to provide/manipulate a wine installation config.
  */
-const test_wineinstallation = new TestType<WineInstallation>({
+const test_wineinstallations = new TestType<WineInstallation[]>([{
   bin: 'path/to/wine/bin',
   name: 'wine'
-});
+}]);
 
 /**
  * Test type for electron invoke 'getUserInfo' response
@@ -297,7 +304,7 @@ function resetTestTypes()
   test_openmessagebox_response.reset();
   test_plugin.reset();
   test_userinfo.reset();
-  test_wineinstallation.reset();
+  test_wineinstallations.reset();
 
   initElectronMocks();
 }
@@ -312,5 +319,5 @@ export {
   test_openmessagebox_response,
   test_plugin,
   test_userinfo,
-  test_wineinstallation
+  test_wineinstallations
 };

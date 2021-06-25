@@ -16,7 +16,7 @@ import {
   test_openmessagebox_response,
   test_plugin,
   test_userinfo,
-  test_wineinstallation
+  test_wineinstallations
 } from 'src/test_helpers/testTypes';
 
 /**
@@ -50,7 +50,7 @@ export function initElectronMocks()
     .calledWith('getPlatform').mockResolvedValue(test_context.get().platform)
     .calledWith('getMaxCpus').mockResolvedValue(1)
     .calledWith(stringAtIndex(0, 'egsSync')).mockResolvedValue(test_egssync_response.get())
-    .calledWith('getAlternativeWine').mockResolvedValue([test_wineinstallation.get()])
+    .calledWith('getAlternativeWine').mockResolvedValue(test_wineinstallations.get())
     .calledWith(stringAtIndex(0, 'openMessageBox')).mockResolvedValue(
       {response: test_openmessagebox_response.get()})
     .calledWith(stringAtIndex(0, 'syncSaves')).mockResolvedValue('success')

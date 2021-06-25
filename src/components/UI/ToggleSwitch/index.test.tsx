@@ -7,14 +7,31 @@ import {
 
 import ToggleSwitch from './index';
 
+interface Props {
+  dataTestId?: string
+  disabled?: boolean
+  handleChange: () => void
+  value: boolean
+}
+
+function renderToggleSwitch(props: Partial<Props> = {})
+{
+  const defaultProps: Props = {
+    handleChange: () => {return;},
+    value: false
+  }
+  return render(
+    <ToggleSwitch {...{...defaultProps, ...props}}/>);
+}
+
 describe('ToggleSwitch', () => {
 
   test('renders', () => {
-    render(<ToggleSwitch handleChange={() => {return;}} value={false}/>);
+    renderToggleSwitch();
   })
 
   test('is clickable', () => {
-    const { getByTestId } = render(<ToggleSwitch handleChange={() => {return;}} value={false}/>);
+    const { getByTestId } = renderToggleSwitch();
     const toggleSwitch = getByTestId('toggleSwitch');
     fireEvent.click(toggleSwitch);
     expect(toggleSwitch).toBeChecked;
@@ -24,7 +41,7 @@ describe('ToggleSwitch', () => {
   })
 
   test('is not clickable if disabled', () => {
-    const { getByTestId } = render(<ToggleSwitch handleChange={() => {return;}} value={false} disabled={true}/>);
+    const { getByTestId } = renderToggleSwitch({disabled: true});
     const toggleSwitch = getByTestId('toggleSwitch');
     fireEvent.click(toggleSwitch);
     expect(toggleSwitch).not.toBeChecked;
@@ -32,7 +49,7 @@ describe('ToggleSwitch', () => {
 
   test('calls handleChange on click', () => {
     const onHandleChange = jest.fn();
-    const { getByTestId } = render(<ToggleSwitch handleChange={onHandleChange} value={false}/>);
+    const { getByTestId } = renderToggleSwitch({handleChange: onHandleChange});
     const toggleSwitch = getByTestId('toggleSwitch');
     fireEvent.click(toggleSwitch);
     expect(onHandleChange).toBeCalled();

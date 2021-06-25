@@ -8,26 +8,43 @@ import {
 
 import InfoBox from './index';
 
+interface Props {
+  children: React.ReactNode
+  text: string
+}
+
+function renderInfoBox(props: Partial<Props> = {})
+{
+  const defaultProps: Props = {
+    children: <div></div>,
+    text: 'text'
+  };
+
+  return render(
+    <InfoBox {... { ...defaultProps, ...props}}/>
+  );
+}
+
 describe('InfoBox', () => {
 
   test('renders', () => {
-    render(<InfoBox text='Test Info' ><div></div></InfoBox>);
+    renderInfoBox();
   })
 
   test('contains text', () => {
-    const { getByTestId } = render(<InfoBox text='Test Info' ><div></div></InfoBox>);
+    const { getByTestId } = renderInfoBox({text: 'Test Info'});
     const spanInfoBox = getByTestId('infoboxSpan');
     expect(spanInfoBox).toHaveTextContent('Test Info');
   })
 
   test('contains children', () => {
-    const { getByTestId } = render(<InfoBox text='' ><div data-testid='children'>Test Info</div></InfoBox>);
+    const { getByTestId } = renderInfoBox({children: <div data-testid='children'>Test Info</div>});
     const children = getByTestId('children');
     expect(children).toHaveTextContent('Test Info');
   })
 
   test('children is visible on click', () => {
-    const { getByTestId } = render(<InfoBox text='' ><div></div></InfoBox>);
+    const { getByTestId } = renderInfoBox();
     const spanInfoBox = getByTestId('infoboxSpan');
     const divInfoBox = getByTestId('infoboxDiv');
     expect(divInfoBox).not.toBeVisible();

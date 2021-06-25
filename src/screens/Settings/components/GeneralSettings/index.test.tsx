@@ -40,10 +40,10 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     addDesktopShortcuts: true,
     addGamesToStartMenu: true,
     darkTrayIcon: false,
-    defaultInstallPath: 'defaultInstallPath',
+    defaultInstallPath: 'default/install/path',
     discordRPC: true,
-    egsLinkedPath: 'egsLinkedPath',
-    egsPath: 'egsPath',
+    egsLinkedPath: 'egs/linked/path',
+    egsPath: 'egs/path',
     exitToTray: false,
     language: 'en',
     maxWorkers: 1,
@@ -70,7 +70,7 @@ describe('GeneralSettings', () => {
   })
 
   test('renders', async () => {
-    return await renderGeneralSettings();
+    await renderGeneralSettings();
   })
 
   test('change default install path', async () => {
