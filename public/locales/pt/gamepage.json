@@ -74,6 +74,7 @@
         "recommended": "Recomendado"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Nova versão disponível!",
         "installed": "Jogo Instalado",
         "installing": "Instalando",
@@ -92,7 +93,6 @@
         "protondb": "Compatibilidade",
         "settings": "Configurações",
         "store": "Página da Loja",
-        "update": "Atualizar Jogo",
         "verify": "Verificar e Reparar"
     }
 }

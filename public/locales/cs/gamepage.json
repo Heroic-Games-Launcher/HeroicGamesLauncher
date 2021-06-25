@@ -74,6 +74,7 @@
         "recommended": "Doporučené"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Nová verze dostupná!",
         "installed": "Nainstalováno",
         "installing": "Instaluji",
@@ -92,7 +93,6 @@
         "protondb": "Zkontrolovat kompatibilitu",
         "settings": "Nastavení",
         "store": "Stránka obchodu",
-        "update": "Aktualizovat hru",
         "verify": "Zkontrolovat a opravit"
     }
 }

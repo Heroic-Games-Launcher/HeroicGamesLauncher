@@ -28,7 +28,8 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic requires Python 3.8 or newer to work.",
+            "title": "Error"
         },
         "no": "NON",
         "protocol": {
@@ -142,6 +143,7 @@
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon (nécessite un redémarrage)",
         "default-install-path": "Chemin par défaut de l'installation",
+        "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "exit-to-tray": "Quitter vers System Tray",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
@@ -202,9 +204,6 @@
         "quit": "Quitter",
         "refresh": "Actualiser la bibliothèque",
         "support": "Nous supporter"
-    },
-    "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

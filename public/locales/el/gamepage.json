@@ -74,6 +74,7 @@
         "recommended": "Προτεινόμενα"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Νέα ενημέρωση διαθέσιμη!",
         "installed": "Εγκατεστημένο",
         "installing": "Εγκατάσταση",
@@ -92,7 +93,6 @@
         "protondb": "Έλεγχος συμβατότητας",
         "settings": "Ρυθμίσεις",
         "store": "Κατάστημα",
-        "update": "Ενημέρωση παιχνιδιού",
         "verify": "Επαλήθευση και Επιδιόρθωση"
     }
 }
