@@ -8,6 +8,7 @@ import {
   test_opendialog,
   test_openmessagebox_response,
   test_plugin,
+  test_string_response,
   test_userinfo,
   test_wineinstallation
 } from 'src/test_helpers/testTypes';
@@ -28,8 +29,9 @@ export function initElectronMocks()
     .calledWith(stringAtIndex(0, 'egsSync')).mockResolvedValue(test_egssync_response.get())
     .calledWith('getAlternativeWine').mockResolvedValue([test_wineinstallation.get()])
     .calledWith(stringAtIndex(0, 'openMessageBox')).mockResolvedValue({response: test_openmessagebox_response.get()})
-    .calledWith(stringAtIndex(0, 'syncSaves')).mockResolvedValue('success')
-    .calledWith(stringAtIndex(0, 'writeConfig')).mockResolvedValue({});
+    .calledWith(stringAtIndex(0, 'syncSaves')).mockResolvedValue(test_string_response.get())
+    .calledWith(stringAtIndex(0, 'writeConfig')).mockResolvedValue({})
+    .calledWith(stringAtIndex(0, 'login')).mockResolvedValue(test_string_response.get());
 
   when(ipcRenderer.removeAllListeners).calledWith('requestSettings').mockResolvedValue({});
 
