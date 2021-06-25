@@ -27,6 +27,10 @@ import InfoBox from 'src/components/UI/InfoBox'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import {
+  updateGame
+} from 'src/helpers'
+
+import {
   AppSettings,
   GameInfo,
   GameStatus,
@@ -150,6 +154,12 @@ export default function GamePage(): JSX.Element | null {
     }, 500)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
+
+  async function handleUpdate() {
+    await handleGameStatus({ appName, status: 'updating' })
+    await updateGame(appName)
+    await handleGameStatus({ appName, status: 'done' })
+  }
 
   const hasUpdate = gameUpdates.includes(appName)
 
@@ -415,10 +425,14 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (hasUpdate) {
-      return `${t('status.installed')} - ${t(
-        'status.hasUpdates',
-        'New Version Available!'
-      )}`
+      return (
+        <span onClick={() => handleUpdate()} className='updateText' >
+          {`${t('status.installed')} - ${t(
+            'status.hasUpdates',
+            'New Version Available!'
+          )} (${t('status.clickToUpdate', 'Click to Update')})`}
+        </span>
+      )
     }
 
     if (is_installed) {

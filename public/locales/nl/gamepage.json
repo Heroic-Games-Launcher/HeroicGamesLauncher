@@ -74,6 +74,7 @@
         "recommended": "Aanbevolen"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Nieuwe versie beschikbaar!",
         "installed": "Geïnstaleerd",
         "installing": "Installeren",
@@ -92,7 +93,6 @@
         "protondb": "Compatibiliteit checken",
         "settings": "Instellingen",
         "store": "Winkel",
-        "update": "Spel updaten",
         "verify": "Verifiëren en repareren"
     }
 }

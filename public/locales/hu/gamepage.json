@@ -74,6 +74,7 @@
         "recommended": "Ajánlott"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Új verzió elérhető!",
         "installed": "Telepítve",
         "installing": "Telepítés",
@@ -92,7 +93,6 @@
         "protondb": "Kompatibilitás ellenőrzése",
         "settings": "Beállítások",
         "store": "Áruházi Oldala",
-        "update": "Játék Frissítése",
         "verify": "Ellenőrzés és Javítás"
     }
 }

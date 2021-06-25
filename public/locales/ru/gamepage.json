@@ -74,6 +74,7 @@
         "recommended": "Рекомендованные"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Доступна новая версия!",
         "installed": "Установлено",
         "installing": "Устанавливается",
@@ -92,7 +93,6 @@
         "protondb": "Проверить совместимость",
         "settings": "Настройки",
         "store": "Страница в магазине",
-        "update": "Обновить игру",
         "verify": "Проверить и восстановить"
     }
 }

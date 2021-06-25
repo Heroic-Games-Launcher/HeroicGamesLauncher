@@ -74,6 +74,7 @@
         "recommended": "Rekommenderad"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Det finns en ny version tillgänglig!",
         "installed": "Installerad",
         "installing": "Installerar",
@@ -92,7 +93,6 @@
         "protondb": "Kontrollera kompatibilitet",
         "settings": "Inställningar",
         "store": "Butikssida",
-        "update": "Updatera Spelet",
         "verify": "Verifiera och reparera"
     }
 }

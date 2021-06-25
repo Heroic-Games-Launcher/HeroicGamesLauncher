@@ -52,7 +52,7 @@ export default function WineSettings({
       )
       setAltWine(wineList)
       // Avoids not updating wine config when having one wine install only
-      if (wineList.length === 1){
+      if (wineList && wineList.length === 1){
         setWineVersion(wineList[0])
       }
     }
