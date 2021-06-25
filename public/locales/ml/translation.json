@@ -1,6 +1,6 @@
 {
     "All": "എല്ലാം",
-    "Assets": "Assets",
+    "Assets": "വഹകള്‍",
     "box": {
         "appupdate": {
             "message": "ഹീറോക്കടയുടെ പുതിയ പതിപ്പിറങ്ങിയിട്ടുണ്ട്, പുതുക്കട്ടെ?",
@@ -12,8 +12,8 @@
         "default-install-path": "പൊതു ഇന്‍സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "നിങ്ങളെക്കുറിച്ചുള്ള വിവരങ്ങള്‍ പഴകിയിരിക്കുന്നു, പുറത്തുകടന്ന് വീണ്ടും പ്രവേശിച്ചുനോക്കൂ.",
+                "title": "പഴകിയ വിവരങ്ങള്‍"
             },
             "diskspace": {
                 "message": "തകിടില്‍(disk) ആവശ്യത്തിന് സ്ഥലമില്ലല്ലോ",
@@ -25,15 +25,15 @@
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല.",
+                "title": "കുറിപ്പുകള്‍ കണ്ടെത്താനായില്ല"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "ഓടുവാനായി ഹീറോയികിന് പൈത്തണ്‍ 3.8ഓ പുതിയതോ ആവശ്യമാണ്"
         },
         "no": "വേണ്ട",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "ഇത് സ്ഥാപിച്ചിട്ടില്ല, സ്ഥാപിക്കണോ?"
             }
         },
         "quit": {

@@ -89,10 +89,11 @@ export const DXVK = {
       return
     }
 
-    const installCommand = `WINEPREFIX=${winePrefix} bash ${dxvkPath}setup_dxvk.sh install`
+    const installCommand = `WINEPREFIX='${winePrefix}' bash ${dxvkPath}setup_dxvk.sh install`
     const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
-    logInfo(`installing DXVK on ${winePrefix}`, installCommand)
-    await execAsync(`WINEPREFIX=${winePrefix} wineboot`)
+
+    logInfo(`installing DXVK on...`, installCommand)
+    await execAsync(`WINEPREFIX='${winePrefix}' wineboot`)
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => exec(echoCommand))
       .catch(() =>
