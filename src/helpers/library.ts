@@ -120,10 +120,10 @@ async function uninstall({appName, handleGameStatus, t}: UninstallArgs) {
     type: 'warning'
   }
 
-  handleGameStatus({ appName, status: 'uninstalling' })
   const { response } = await ipcRenderer.invoke('openMessageBox', args)
 
   if (response === 0) {
+    handleGameStatus({ appName, status: 'uninstalling' })
     await ipcRenderer.invoke('uninstall', appName)
     storage.removeItem(appName)
     return await handleGameStatus({ appName, status: 'done' })
