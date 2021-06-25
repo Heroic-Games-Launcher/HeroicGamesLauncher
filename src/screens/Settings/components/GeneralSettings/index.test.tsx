@@ -87,7 +87,7 @@ describe('GeneralSettings', () => {
 
     test_opendialog.set({path: ''});
     fireEvent.click(installPathButton);
-    await waitFor(() => expect(onSetDefaultInstallPath).toBeCalledWith(''));
+    await waitFor(() => expect(onSetDefaultInstallPath).toBeCalledWith('\'another/install/path\''));
   })
 
   test('change epic sync path', async () => {

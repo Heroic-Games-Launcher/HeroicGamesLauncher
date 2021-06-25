@@ -28,7 +28,8 @@
                 "message": "Ingen logg hittades för detta spel",
                 "title": "Ingen logg hittades"
             },
-            "python": "Heroic kräver Python 3.8 eller senare."
+            "python": "Heroic kräver Python 3.8 eller senare.",
+            "title": "Error"
         },
         "no": "Nej",
         "protocol": {
@@ -142,6 +143,7 @@
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i sytembrickan (kräver omstart)",
         "default-install-path": "Standard installationssökväg",
+        "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "exit-to-tray": "Avsluta till systembrickan",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
@@ -202,9 +204,6 @@
         "quit": "Avsluta",
         "refresh": "Uppdatera bibliotet",
         "support": "Stöd oss"
-    },
-    "warning": {
-        "proton": "Proton utanför Steam stöds ej. Skapa ingen buggrapport eller fråga efter den funktionen."
     },
     "wiki": "Wiki"
 }

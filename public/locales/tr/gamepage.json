@@ -74,6 +74,7 @@
         "recommended": "Önerilen"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Yeni sürüm mevcut!",
         "installed": "Yüklendi",
         "installing": "Yükleniyor",
@@ -92,7 +93,6 @@
         "protondb": "Uyumluluğu Kontrol Et",
         "settings": "Ayarlar",
         "store": "Mağaza Sayfası",
-        "update": "Oyunu Güncelle",
         "verify": "Doğrula ve Onar"
     }
 }

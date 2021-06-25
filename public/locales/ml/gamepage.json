@@ -74,6 +74,7 @@
         "recommended": "ആവശ്യപ്പെടുന്നത്"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "പുതിയ പതിപ്പ് വന്നിട്ടുണ്ട്!",
         "installed": "സ്ഥാപിച്ചു",
         "installing": "സ്ഥാപിക്കുന്നു",
@@ -92,7 +93,6 @@
         "protondb": "പറ്റുമോന്നു നോക്കൂ",
         "settings": "ക്രമികരണങ്ങള്‍",
         "store": "കടത്താള്‍",
-        "update": "കളി പുതുക്കൂ",
         "verify": "കണ്ടെത്തി നന്നാക്കൂ"
     }
 }
