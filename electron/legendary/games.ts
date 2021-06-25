@@ -25,6 +25,7 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
+import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
 import makeClient from 'discord-rich-presence-typescript';
 
@@ -169,7 +170,7 @@ class LegendaryGame extends Game {
       .then(() => {
         LegendaryLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
       })
-      .catch(console.log)
+      .catch(logError)
     this.state.status = 'done'
     this.addDesktopShortcut()
     return newInstallPath
@@ -226,7 +227,7 @@ Categories=Game;
 `
       break; }
     default:
-      console.error("Shortcuts haven't been implemented in the current platform.")
+      logError("Shortcuts haven't been implemented in the current platform.")
       return
     }
     const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
@@ -234,14 +235,20 @@ Categories=Game;
 
     if (enabledInDesktop || enabledInDesktop === undefined) {
       writeFile(desktopFolder, shortcut, (err) => {
-        if(err) console.error(err)
-        console.log("Couldn't save shortcut to " + desktopFolder)
+        if(err)
+        {
+          logError(`${err.name}: ${err.message}`)
+        }
+        logError("Couldn't save shortcut to " + desktopFolder)
       })
     }
     if (enabledInStartMenu || enabledInStartMenu === undefined) {
       writeFile('/usr/share/applications', shortcut, (err) => {
-        if(err) console.error(err)
-        console.log("Couldn't save shortcut to /usr/share/applications")
+        if(err)
+        {
+          logError(`${err.name}: ${err.message}`)
+        }
+        logError("Couldn't save shortcut to /usr/share/applications")
       })
     }
 
@@ -264,7 +271,7 @@ Categories=Game;
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
-    console.log(`Installing ${this.appName} with:`, command)
+    logInfo(`Installing ${this.appName} with:`, command)
     try {
       LegendaryLibrary.get().installState(this.appName, true)
       return await execAsync(command, execOptions).then((v) => {
@@ -284,7 +291,7 @@ Categories=Game;
   public async uninstall() {
     this.state.status = 'uninstalling'
     const command = `${legendaryBin} uninstall ${this.appName} -y`
-    console.log(`Uninstalling ${this.appName} with:`, command)
+    logInfo(`Uninstalling ${this.appName} with:`, command)
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
@@ -308,7 +315,7 @@ Categories=Game;
 
     const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
 
-    console.log(`Repairing ${this.appName} with:`, command)
+    logInfo(`Repairing ${this.appName} with:`, command)
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
       return v
@@ -340,7 +347,7 @@ Categories=Game;
       mkdirSync(legendarySavesPath, { recursive: true })
     }
 
-    console.log('\n syncing saves for ', this.appName)
+    logInfo('\n syncing saves for ', this.appName)
     return await execAsync(command)
   }
 
@@ -399,12 +406,12 @@ Categories=Game;
 
     if (isWindows) {
       const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
-      console.log('\n Launch Command:', command)
+      logInfo('\n Launch Command:', command)
       const v = await execAsync(command)
 
-      console.log('Stopping Discord Rich Presence if running...')
+      logInfo('Stopping Discord Rich Presence if running...')
       DiscordRPC.disconnect()
-      console.log('Stopped Discord Rich Presence.')
+      logInfo('Stopped Discord Rich Presence.')
 
       return v
     }
@@ -435,7 +442,7 @@ Categories=Game;
 
     envVars = Object.values(options).join(' ')
     if (isProton) {
-      console.log(
+      logWarning(
         `\n You are using Proton, this can lead to some bugs,
               please do not open issues with bugs related with games`,
         wineVersion.name
@@ -463,20 +470,20 @@ Categories=Game;
     // check if Gamemode is installed
     await execAsync(`which gamemoderun`)
       .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
-      .catch(() => console.log('GameMode not installed'))
+      .catch(() => logWarning('GameMode not installed'))
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
-    console.log('\n Launch Command:', command)
+    logInfo('\n Launch Command:', command)
     const v = await execAsync(command).then((v) => {
       this.state.status = 'playing'
       return v
     })
 
-    console.log('Stopping Discord Rich Presence if running...')
+    logInfo('Stopping Discord Rich Presence if running...')
     DiscordRPC.disconnect()
-    console.log('Stopped Discord Rich Presence.')
+    logInfo('Stopped Discord Rich Presence.')
 
     return v
   }
@@ -487,20 +494,20 @@ Categories=Game;
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
-    console.log('killing', pattern)
+    logInfo('killing', pattern)
 
     if (process.platform === 'win32'){
       try {
         execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return console.log(`${pattern} killed`);
+        return logInfo(`${pattern} killed`);
       } catch (error) {
-        return console.log(`not possible to kill ${pattern}`, error);
+        return logError(`not possible to kill ${pattern}`, error);
       }
     }
 
     const child =  spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
-      return console.log(`${pattern} killed`);
+      return logInfo(`${pattern} killed`);
     })
   }
 }
