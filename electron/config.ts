@@ -23,6 +23,7 @@ import {
   isWindows
 } from './constants'
 import { execAsync } from './utils'
+import { logError, logInfo } from './logger';
 
 /**
  * This class does config handling.
@@ -81,18 +82,18 @@ abstract class GlobalConfig {
       GlobalConfig.globalInstance = new GlobalConfigV0()
       break
     default:
-      console.log(`GlobalConfig: Invalid config version '${version}' requested.`)
+      logError(`GlobalConfig: Invalid config version '${version}' requested.`)
       break
     }
     // Try to upgrade outdated config.
     if (GlobalConfig.globalInstance.upgrade()) {
       // Upgrade done, we need to fully reload config.
-      console.log(`GlobalConfig: Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`)
+      logInfo(`GlobalConfig: Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`)
       return GlobalConfig.reload(currentGlobalConfigVersion)
     }
     else if (version !== currentGlobalConfigVersion) {
       // Upgrade failed.
-      console.log(`GlobalConfig: Failed to upgrade outdated ${version} config.`)
+      logError(`GlobalConfig: Failed to upgrade outdated ${version} config.`)
     }
   }
 

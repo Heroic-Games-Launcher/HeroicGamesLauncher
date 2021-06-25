@@ -42,5 +42,5 @@
   "include": [
     "src", 
     "src/types.ts",
-    "./typings-custom/**/*.ts"]
+    "src/typings-custom/**/*.ts"]
 }

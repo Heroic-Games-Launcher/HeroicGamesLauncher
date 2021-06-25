@@ -25,6 +25,7 @@ import {
   legendaryConfigPath,
   libraryPath
 } from '../constants';
+import { logError, logWarning } from '../logger';
 
 /**
  * Legendary LegendaryLibrary.
@@ -77,7 +78,7 @@ class LegendaryLibrary {
         this.refreshInstalled()
         this.loadAll()
       })
-      .catch(() => console.log('No credentials. Missing Login?'))
+      .catch(() => logError('No credentials. Missing Login?'))
   }
 
   /**
@@ -145,7 +146,7 @@ class LegendaryLibrary {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
     const online = await isOnline()
     if (!isLoggedIn || !(online)) {
-      console.log('App offline, skipping checking game updates.')
+      logWarning('App offline, skipping checking game updates.')
       return []
     }
 

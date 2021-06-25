@@ -9,6 +9,7 @@ import {
   GlobalConfigVersion
 } from './types'
 
+
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'

@@ -11,12 +11,13 @@ import {
   heroicToolsPath,
   home
 } from './constants'
+import { logError, logInfo, logWarning } from './logger'
 
 
 export const DXVK = {
   getLatest: async () => {
     if (!(await isOnline())) {
-      console.log('App offline, skipping possible DXVK update.')
+      logWarning('App offline, skipping possible DXVK update.')
       return
     }
     const {
@@ -46,18 +47,18 @@ export const DXVK = {
     const echoCommand = `echo ${name} > ${heroicToolsPath}/DXVK/latest_dxvk`
     const cleanCommand = `rm ${dxvkLatest}`
 
-    console.log('Updating DXVK to:', name)
+    logInfo('Updating DXVK to:', name)
 
     return execAsync(downloadCommand)
       .then(async () => {
-        console.log('downloaded DXVK')
-        console.log('extracting DXVK')
+        logInfo('downloaded DXVK')
+        logInfo('extracting DXVK')
         exec(echoCommand)
         await execAsync(extractCommand)
-        console.log('DXVK updated!')
+        logInfo('DXVK updated!')
         exec(cleanCommand)
       })
-      .catch(() => console.log('Error when downloading DXVK'))
+      .catch(() => logError('Error when downloading DXVK'))
   },
 
   install: async (prefix: string) => {
@@ -67,7 +68,7 @@ export const DXVK = {
     const winePrefix = prefix.replace('~', home)
 
     if (!existsSync(`${heroicToolsPath}/DXVK/latest_dxvk`)) {
-      console.log('dxvk not found!')
+      logError('dxvk not found!')
       await DXVK.getLatest()
     }
 
@@ -90,12 +91,13 @@ export const DXVK = {
 
     const installCommand = `WINEPREFIX='${winePrefix}' bash ${dxvkPath}setup_dxvk.sh install`
     const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
-    console.log(`installing DXVK on...`, installCommand)
+
+    logInfo(`installing DXVK on...`, installCommand)
     await execAsync(`WINEPREFIX='${winePrefix}' wineboot`)
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => exec(echoCommand))
       .catch(() =>
-        console.log(
+        logError(
           'error when installing DXVK, please try launching the game again'
         )
       )
