@@ -31,7 +31,7 @@ const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
 let progress: string
 
-const sendKill = (appName: string): void => ipcRenderer.send('kill', appName)
+const sendKill = (appName: string): Promise<void> => ipcRenderer.invoke('kill', appName)
 
 /**
  * Deprecated API to spawn a subprocess with a legendary command.
@@ -123,7 +123,7 @@ async function fixSaveFolder(
   const username = isProton ? 'steamuser' : user
   const platform = await getPlatform()
   const isWin = platform === 'win32';
-  let winePrefix = prefix ? prefix.replaceAll("'", '') : ''
+  let winePrefix = !isWin && prefix ? prefix.replaceAll("'", '') : ''
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
   const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`
 

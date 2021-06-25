@@ -184,10 +184,10 @@ class LegendaryGame extends Game {
   public async update() {
     this.state.status = 'updating'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} update ${this.appName} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
 
     try {
       return await execAsync(command, execOptions).then((v) => {
@@ -481,7 +481,7 @@ Categories=Game;
     return v
   }
 
-  public stop() {
+  public async stop() {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
 
@@ -491,7 +491,7 @@ Categories=Game;
 
     if (process.platform === 'win32'){
       try {
-        execAsync(`Stop-Process -name  ${pattern}`, execOptions)
+        await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
         return console.log(`${pattern} killed`);
       } catch (error) {
         return console.log(`not possible to kill ${pattern}`, error);

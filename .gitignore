@@ -26,4 +26,4 @@ yarn-error.log*
 
 public/**/*.js
 .vscode/settings.json
-downloads.json
+downloads*.json
