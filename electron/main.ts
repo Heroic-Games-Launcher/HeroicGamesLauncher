@@ -342,12 +342,10 @@ ipcMain.on('getLog', (event, appName) =>
 )
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
-  console.log({path});
   if (path === 'default') {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${path}/${folderName}`
-    console.log({folderToDelete});
     return setTimeout(() => {
       rmdirSync(folderToDelete, {recursive: true})
     }, 5000)
