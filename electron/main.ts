@@ -43,7 +43,7 @@ import {
 } from './utils'
 import {
   discordLink,
-  getShell,
+  // getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
   home,
@@ -552,52 +552,52 @@ ipcMain.handle('updateGame', async (e, game) => {
 })
 
 // TODO(adityaruplaha): Use UNIX sockets to refactor this.
-ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `${heroicGamesConfigPath}${appName}.log`
+// ipcMain.handle('requestGameProgress', async (event, appName) => {
+//   const logPath = `${heroicGamesConfigPath}${appName}.log`
 
-  if(!existsSync(logPath)){
-    return {}
-  }
+//   if(!existsSync(logPath)){
+//     return {}
+//   }
 
-  const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
-  const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
-  const progress_command = isWindows
-    ? win_progress_command
-    : unix_progress_command
+//   const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
+//   const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
+//   const progress_command = isWindows
+//     ? win_progress_command
+//     : unix_progress_command
 
-  const unix_downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
-  const win_downloaded_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Downloaded:'`
-  const downloaded_command = isWindows
-    ? win_downloaded_command
-    : unix_downloaded_command
+//   const unix_downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
+//   const win_downloaded_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Downloaded:'`
+//   const downloaded_command = isWindows
+//     ? win_downloaded_command
+//     : unix_downloaded_command
 
-  const { stdout: progress_result } = await execAsync(progress_command, {
-    shell: getShell()
-  })
-  const { stdout: downloaded_result } = await execAsync(downloaded_command, {
-    shell: getShell()
-  })
+//   const { stdout: progress_result } = await execAsync(progress_command, {
+//     shell: getShell()
+//   })
+//   const { stdout: downloaded_result } = await execAsync(downloaded_command, {
+//     shell: getShell()
+//   })
 
-  let percent = ''
-  let eta = ''
-  let bytes = ''
-  if (isWindows) {
-    percent = progress_result.split(' ')[4]
-    eta = progress_result.split(' ')[10]
-    bytes = downloaded_result.split(' ')[5] + 'MiB'
-  }
+//   let percent = ''
+//   let eta = ''
+//   let bytes = ''
+//   if (isWindows) {
+//     percent = progress_result.split(' ')[4]
+//     eta = progress_result.split(' ')[10]
+//     bytes = downloaded_result.split(' ')[5] + 'MiB'
+//   }
 
-  if (!isWindows) {
-    [percent, eta] = progress_result.split(' ')
-    bytes = downloaded_result + 'MiB'
-  }
+//   if (!isWindows) {
+//     [percent, eta] = progress_result.split(' ')
+//     bytes = downloaded_result + 'MiB'
+//   }
 
-  const progress = { bytes, eta, percent }
-  logInfo(
-    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
-  )
-  return progress
-})
+//   const progress = { bytes, eta, percent }
+//   logInfo(
+//     `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+//   )
+//   return progress
+// })
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   const newPath = await Game.get(appName).moveInstall(path)

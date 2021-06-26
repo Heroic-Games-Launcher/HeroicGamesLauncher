@@ -186,9 +186,7 @@ class LegendaryGame extends Game {
     this.state.status = 'updating'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `update ${this.appName}${workers} -y ${writeLog}`.split(' ')
+    const command = `update ${this.appName}${workers} -y`.split(' ')
 
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
@@ -198,14 +196,21 @@ class LegendaryGame extends Game {
         percent: '0.00%'
       }
       ipcMain.handle('requestGameProgress', async (event, appName) => {
-        child.stdout.once('data', (data) => {
+        child.stderr.once('data', (data) => {
+          console.log(`${data}`)
           const isVerifing = `${data}`.includes('Verification')
           if (appName === this.appName){
             if (isVerifing){
               progress.bytes = `${String(data).split(' ')[2]}MiB`
               progress.percent = `${data}`.split(' ')[3].split(')')[0].replace('(', '')
               progress.eta = 'verifying'
+              return progress
             }
+            const percentProgress = `${data}`.split('\n')[0].split(' ')
+            progress.bytes = `${data.split('\n')[1].split(' ')[5]}MiB` ?? progress.bytes
+            progress.percent = percentProgress[4]
+            progress.eta = percentProgress[10]
+            return progress
           }
         })
         console.log({progress})
