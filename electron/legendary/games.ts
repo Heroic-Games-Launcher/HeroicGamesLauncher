@@ -499,7 +499,6 @@ Categories=Game;
     if (process.platform === 'win32'){
       try {
         await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        execAsync(`Stop-Process -name  ${pattern}`, execOptions)
         return logInfo(`${pattern} killed`);
       } catch (error) {
         return logError(`not possible to kill ${pattern}`, error);
