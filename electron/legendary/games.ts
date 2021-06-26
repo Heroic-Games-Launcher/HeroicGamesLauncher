@@ -187,6 +187,7 @@ class LegendaryGame extends Game {
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const command = `update ${this.appName}${workers} -y`.split(' ')
+    let isVerifying = false
 
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
@@ -195,19 +196,21 @@ class LegendaryGame extends Game {
         eta: '00:00:00',
         percent: '0.00%'
       }
-      ipcMain.handle('requestGameProgress', async (event, appName) => {
+      ipcMain.handle('requestUpdateProgress', async (event, appName) => {
         child.stderr.once('data', (data) => {
-          console.log(`${data}`)
-          const isVerifing = `${data}`.includes('Verification')
+          isVerifying = `${data}`.includes('Game needs to be verified')
           if (appName === this.appName){
-            if (isVerifing){
-              progress.bytes = `${String(data).split(' ')[2]}MiB`
-              progress.percent = `${data}`.split(' ')[3].split(')')[0].replace('(', '')
-              progress.eta = 'verifying'
-              return progress
+            if (isVerifying){
+              child.stdout.once('data', (data) => {
+                progress.bytes = `${String(data).split(' ')[2]}MiB`
+                progress.percent = `${data}`.split(' ')[3].split(')')[0].replace('(', '')
+                progress.eta = 'verifying'
+                return progress
+              })
             }
             const percentProgress = `${data}`.split('\n')[0].split(' ')
-            progress.bytes = `${data.split('\n')[1].split(' ')[5]}MiB` ?? progress.bytes
+            const downloadProgress = `${data}`.split('\n')[1].split(' ')
+            progress.bytes = `${downloadProgress[5] || '0.00'}MiB`
             progress.percent = percentProgress[4]
             progress.eta = percentProgress[10]
             return progress
@@ -216,7 +219,7 @@ class LegendaryGame extends Game {
         console.log({progress})
         return progress
       })
-      child.on('close', () => {
+      child.on('exit', () => {
         logInfo('child exiting')
         res('game updated')
       })
