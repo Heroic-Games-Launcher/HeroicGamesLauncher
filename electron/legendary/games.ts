@@ -216,7 +216,7 @@ class LegendaryGame extends Game {
             return progress
           }
         })
-        console.log({progress})
+        logInfo(JSON.stringify(progress))
         return progress
       })
       child.on('exit', () => {
