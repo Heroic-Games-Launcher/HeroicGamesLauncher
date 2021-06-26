@@ -151,7 +151,7 @@ export default function GamePage(): JSX.Element | null {
           status
         })
       }
-    }, 500)
+    }, 1000)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
 
@@ -415,6 +415,9 @@ export default function GamePage(): JSX.Element | null {
     const currentProgress = `${percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'}`
 
     if (isUpdating && is_installed) {
+      if (eta && eta.includes('verifying')){
+        return `${t('status.reparing')}: ${percent} [${bytes}]`
+      }
       return `${t('status.updating')} ${currentProgress}`
     }
 
