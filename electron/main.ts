@@ -364,13 +364,19 @@ interface Tools {
   wine: string
 }
 
-ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
-  const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
+ipcMain.handle('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
+  let wineBin = wine.replace("/proton'", "/dist/bin/wine'")
   let winePrefix: string = prefix.replace('~', home)
 
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')
     winePrefix = `${protonPrefix}/pfx`
+
+    // workaround for proton since newer versions doesnt come with a wine binary anymore.
+    logInfo(`${wineBin} not found for this Proton version, will try using default wine`)
+    if (!existsSync(wineBin)){
+      wineBin = '/usr/bin/wine'
+    }
   }
 
   let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
@@ -379,8 +385,12 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
-  logInfo(command)
-  return await execAsync(command)
+  logInfo('trying to run', command)
+  try {
+    await execAsync(command)
+  } catch (error) {
+    logError(`Something went wrong! Check if ${tool} is available and ${wineBin} exists`)
+  }
 })
 
 /// IPC handlers begin here.
