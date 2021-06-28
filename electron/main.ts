@@ -308,7 +308,7 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.on('kill', async (event, appName) => {
+ipcMain.handle('kill', async (event, appName) => {
   return await Game.get(appName).stop()
 })
 
@@ -343,11 +343,12 @@ ipcMain.on('getLog', (event, appName) =>
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
-    const defaultInstallPath = (await GlobalConfig.get()).config.defaultInstallPath.replaceAll("'", '')
-    const folderToDelete = `${defaultInstallPath}/${folderName}`
+    const { defaultInstallPath } = await GlobalConfig.get().getSettings()
+    const path = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${path}/${folderName}`
     return setTimeout(() => {
       rmdirSync(folderToDelete, {recursive: true})
-    }, 2000)
+    }, 5000)
   }
 
   const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')

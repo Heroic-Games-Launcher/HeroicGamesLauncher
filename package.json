@@ -46,6 +46,10 @@
       "asarUnpack": ["build/bin/win32/legendary.exe"],
       "files": ["build/bin/win32/*"]
     },
+    "nsis": {
+      "oneClick": "false",
+      "allowToChangeInstallationDirectory": "true"
+    },
     "mac": {
       "asarUnpack": ["build/bin/darwin/legendary"],
       "files": ["build/bin/darwin/*"]
