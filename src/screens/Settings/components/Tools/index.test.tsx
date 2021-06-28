@@ -100,7 +100,7 @@ describe('Tools', () => {
         ]
       }
     });
-    expect(ipcRenderer.send).toBeCalledWith(
+    expect(ipcRenderer.invoke).toBeCalledWith(
       'callTool', {
         'exe': 'file.exe',
         'prefix': 'winePrefix',
@@ -136,7 +136,7 @@ describe('Tools', () => {
         'filters': [{'extensions': ['exe', 'msi'], 'name': 'Binaries'}],
         'properties': ['openFile'],
         'title': 'box.runexe.title'}));
-    expect(ipcRenderer.send).toBeCalledWith(
+    expect(ipcRenderer.invoke).toBeCalledWith(
       'callTool',
       {'exe': 'file.exe', 'prefix': 'winePrefix', 'tool': 'runExe', 'wine': 'path/to/wine/bin'}
     );
