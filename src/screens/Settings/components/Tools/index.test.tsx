@@ -31,14 +31,14 @@ describe('Tools', () => {
     const { getByTestId } = renderTools();
     const wineCFG = getByTestId('wineCFG');
     fireEvent.click(wineCFG);
-    expect(ipcRenderer.send).toBeCalledWith('callTool', {'exe': undefined, 'prefix': 'winePrefix', 'tool': 'winecfg', 'wine': 'path/to/wine/bin'});
+    expect(ipcRenderer.invoke).toBeCalledWith('callTool', {'exe': undefined, 'prefix': 'winePrefix', 'tool': 'winecfg', 'wine': 'path/to/wine/bin'});
   })
 
   test('click on winetricks invokes ipcRenderer', () => {
     const { getByTestId } = renderTools();
     const wineTricks = getByTestId('wineTricks');
     fireEvent.click(wineTricks);
-    expect(ipcRenderer.send).toBeCalledWith('callTool', {'exe': undefined, 'prefix': 'winePrefix', 'tool': 'winetricks', 'wine': 'path/to/wine/bin'});
+    expect(ipcRenderer.invoke).toBeCalledWith('callTool', {'exe': undefined, 'prefix': 'winePrefix', 'tool': 'winetricks', 'wine': 'path/to/wine/bin'});
   })
 
   test('on drag over works', () => {
