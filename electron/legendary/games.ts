@@ -6,6 +6,7 @@ import {
 } from 'graceful-fs'
 import axios from 'axios';
 
+import { BrowserWindow, ipcMain } from 'electron';
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus, InstallProgress } from '../types';
 import { Game } from '../games';
@@ -26,7 +27,6 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
-import { ipcMain } from 'electron';
 import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
 import makeClient from 'discord-rich-presence-typescript';
@@ -408,6 +408,7 @@ Categories=Game;
 
   public async launch() {
     this.state.status = 'launching'
+    const mainWindow = BrowserWindow.getAllWindows()[0]
 
     let envVars = ''
     let gameMode: string
@@ -533,6 +534,7 @@ Categories=Game;
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command).then((v) => {
       this.state.status = 'playing'
+      mainWindow.show()
       return v
     })
 
