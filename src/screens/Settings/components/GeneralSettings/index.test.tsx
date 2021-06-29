@@ -6,7 +6,7 @@ import {
   waitFor
 } from '@testing-library/react';
 
-import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
+import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_context, test_egssync_response, test_opendialog } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider'
 import GeneralSettings from './index';
@@ -40,10 +40,10 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     addDesktopShortcuts: true,
     addGamesToStartMenu: true,
     darkTrayIcon: false,
-    defaultInstallPath: 'defaultInstallPath',
+    defaultInstallPath: 'default/install/path',
     discordRPC: true,
-    egsLinkedPath: 'egsLinkedPath',
-    egsPath: 'egsPath',
+    egsLinkedPath: 'egs/linked/path',
+    egsPath: 'egs/path',
     exitToTray: false,
     language: 'en',
     maxWorkers: 1,
@@ -58,7 +58,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     toggleDiscordRPC: () => {return;},
     toggleTray: () => {return;}
   };
-  return  await waitFor(() => render(
+  return await waitFor(() => render(
     <ContextProvider.Provider value={test_context.get()}>
       <GeneralSettings {...{...defaultprops, ...props}} />
     </ContextProvider.Provider>))
@@ -67,11 +67,10 @@ async function renderGeneralSettings(props: Partial<Props> = {})
 describe('GeneralSettings', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
   test('renders', async () => {
-    return await renderGeneralSettings();
+    await renderGeneralSettings();
   })
 
   test('change default install path', async () => {

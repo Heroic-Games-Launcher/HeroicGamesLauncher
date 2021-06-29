@@ -15,7 +15,7 @@ import NavBar from './index';
 async function renderNavBar()
 {
   const history = createMemoryHistory();
-  const renderObject = await render(
+  const renderObject = render(
     <Suspense fallback="">
       <Router history={history}>
         <NavBar />

@@ -5,7 +5,6 @@ import {
   render
 } from '@testing-library/react'
 
-import { initElectronMocks } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_context } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import SearchBar from './index';
@@ -20,7 +19,6 @@ function renderSearchBar() {
 describe('SearchBar', () => {
   beforeEach(() => {
     resetTestTypes();
-    initElectronMocks();
   })
 
   test('renders', () => {
