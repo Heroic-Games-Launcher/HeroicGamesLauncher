@@ -142,11 +142,11 @@ const gotTheLock = app.requestSingleInstanceLock()
 
 const contextMenu = async function () {
   // Recent games are stored in globalThis.recentGames in the main process (a.k.a. backend).
-  let recentGames: MenuItemConstructorOptions[]
+  let recentGamesLocal: MenuItemConstructorOptions[]
   for (let index = 0; index < 2; index++) {
     const appName = global.recentGames[index];
     const { title } = await Game.get(appName).getGameInfo()
-    recentGames[index] = {
+    recentGamesLocal[index] = {
       click() {
         openUrlOrFile(`heroic://launch/${appName}`)
       },
@@ -154,7 +154,7 @@ const contextMenu = async function () {
     };
   }
   return Menu.buildFromTemplate([
-    ...recentGames,
+    ...recentGamesLocal,
     {
       type: 'separator'
     },
