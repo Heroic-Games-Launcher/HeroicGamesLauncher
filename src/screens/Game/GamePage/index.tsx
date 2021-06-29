@@ -37,8 +37,6 @@ import {
   InstallProgress
 } from 'src/types'
 
-import Settings from '@material-ui/icons/Settings'
-
 import GamesSubmenu from '../GameSubMenu'
 
 const storage: Storage = window.localStorage
@@ -82,7 +80,6 @@ export default function GamePage(): JSX.Element | null {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
-  const [clicked, setClicked] = useState(false)
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -132,7 +129,7 @@ export default function GamePage(): JSX.Element | null {
     const progressInterval = setInterval(async () => {
       if (isInstalling || isUpdating || isReparing) {
         const progress: InstallProgress = await ipcRenderer.invoke(
-          'requestGameProgress',
+          isUpdating ? 'requestUpdateProgress' : 'requestGameProgress',
           appName
         )
 
@@ -151,7 +148,7 @@ export default function GamePage(): JSX.Element | null {
           status
         })
       }
-    }, 500)
+    }, 1000)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
 
@@ -200,18 +197,6 @@ export default function GamePage(): JSX.Element | null {
         <div className="gameConfigContainer">
           {title ? (
             <>
-              {is_game && (
-                <Settings
-                  onClick={() => setClicked(!clicked)}
-                  className="material-icons is-secondary dots"
-                />
-              )}
-              <GamesSubmenu
-                appName={appName}
-                clicked={clicked}
-                isInstalled={is_installed}
-                title={title}
-              />
               <div className="gameConfig">
                 <div className="gamePicture">
                   <img
@@ -308,7 +293,7 @@ export default function GamePage(): JSX.Element | null {
                     {is_installed && is_game && (
                       <>
                         <button
-                          disabled={isReparing || isMoving}
+                          disabled={isReparing || isMoving || isUpdating}
                           onClick={handlePlay()}
                           className={`button ${getPlayBtnClass()}`}
                         >
@@ -365,7 +350,13 @@ export default function GamePage(): JSX.Element | null {
                     )}
                   </div>
                 </div>
-              </div>{' '}
+              </div>
+              {is_game && (
+                <GamesSubmenu
+                  appName={appName}
+                  isInstalled={is_installed}
+                  title={title}
+                />)}
             </>
           ) : (
             <UpdateComponent />
@@ -387,9 +378,6 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getPlayLabel(): React.ReactNode {
-    if (isUpdating) {
-      return t('label.cancel.update')
-    }
     if (isSyncing) {
       return t('label.saves.syncing')
     }
@@ -415,6 +403,9 @@ export default function GamePage(): JSX.Element | null {
     const currentProgress = `${percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'}`
 
     if (isUpdating && is_installed) {
+      if (eta && eta.includes('verifying')){
+        return `${t('status.reparing')}: ${percent} [${bytes}]`
+      }
       return `${t('status.updating')} ${currentProgress}`
     }
 

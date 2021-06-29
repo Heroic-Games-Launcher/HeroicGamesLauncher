@@ -18,7 +18,6 @@ const renderer: IpcRenderer = ipcRenderer
 
 interface Props {
   appName: string
-  clicked: boolean
   isInstalled: boolean
   title: string
 }
@@ -26,8 +25,7 @@ interface Props {
 export default function GamesSubmenu({
   appName,
   isInstalled,
-  title,
-  clicked
+  title
 }: Props) {
   const { handleGameStatus, refresh, platform } = useContext(
     ContextProvider
@@ -99,11 +97,11 @@ export default function GamesSubmenu({
   }
 
   return (
-    <div className={`more ${clicked ? 'clicked' : ''}`}>
+    <div className={`more clicked`}>
       {isInstalled && (
         <>
           <Link
-            className="hidden link"
+            className="link"
             to={{
               pathname: isWin
                 ? `/settings/${appName}/other`
@@ -113,24 +111,24 @@ export default function GamesSubmenu({
           >
             {t('submenu.settings')}
           </Link>
-          <span onClick={() => handleRepair(appName)} className="hidden link">
+          <span onClick={() => handleRepair(appName)} className="link">
             {t('submenu.verify')}
           </span>{' '}
-          <span onClick={() => handleMoveInstall()} className="hidden link">
+          <span onClick={() => handleMoveInstall()} className="link">
             {t('submenu.move')}
           </span>{' '}
-          <span onClick={() => handleChangeInstall()} className="hidden link">
+          <span onClick={() => handleChangeInstall()} className="link">
             {t('submenu.change')}
           </span>{' '}
           <span
             onClick={() => renderer.send('getLog', appName)}
-            className="hidden link"
+            className="link"
           >
             {t('submenu.log')}
           </span>
           {isLinux && <span
             onClick={() => ipcRenderer.send('addShortcut', appName)}
-            className="hidden link"
+            className="link"
           >
             {t('submenu.addShortcut', 'Add shortcut')}
           </span>}
@@ -138,13 +136,13 @@ export default function GamesSubmenu({
       )}
       <span
         onClick={() => createNewWindow(formatStoreUrl(title, lang))}
-        className="hidden link"
+        className="link"
       >
         {t('submenu.store')}
       </span>
       {!isWin && <span
         onClick={() => createNewWindow(protonDBurl)}
-        className="hidden link"
+        className="link"
       >
         {t('submenu.protondb')}
       </span>}

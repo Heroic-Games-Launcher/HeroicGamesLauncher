@@ -342,6 +342,7 @@ ipcMain.on('getLog', (event, appName) =>
 )
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  console.log({path});
   if (path === 'default') {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
@@ -559,7 +560,6 @@ ipcMain.handle('updateGame', async (e, game) => {
   ).catch((res) => res)
 })
 
-// TODO(adityaruplaha): Use UNIX sockets to refactor this.
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
 

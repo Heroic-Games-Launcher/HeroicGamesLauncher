@@ -182,7 +182,10 @@ export class GlobalState extends PureComponent<Props> {
       const message =
         percent < 95 ? t('notify.update.canceled') : t('notify.update.finished')
       notify([title, message])
-      return this.refreshLibrary(true)
+      // This avoids calling legendary again before the previous process is killed when canceling
+      setTimeout(() => {
+        return this.refreshLibrary(true)
+      }, 2000);
     }
 
     if (currentApp && currentApp.status === 'repairing' && status === 'done') {
