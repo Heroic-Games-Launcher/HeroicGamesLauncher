@@ -55,7 +55,7 @@ export function initElectronMocks()
       {response: test_openmessagebox_response.get()})
     .calledWith(stringAtIndex(0, 'syncSaves')).mockResolvedValue('success')
     .calledWith(stringAtIndex(0, 'writeConfig')).mockResolvedValue({})
-    .calledWith(stringAtIndex(0, 'callTool')).mockResolvedValue({});;
+    .calledWith(stringAtIndex(0, 'callTool')).mockResolvedValue({});
 
   // setup mocks for ipcRenderer.removeAllListeners
   when(ipcRenderer.removeAllListeners).calledWith('requestSettings').mockResolvedValue({});
@@ -66,7 +66,6 @@ export const ipcRenderer = {
   removeAllListeners: jest.fn(),
   send: jest.fn()
 };
-
 
 
 
