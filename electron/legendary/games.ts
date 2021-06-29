@@ -204,7 +204,7 @@ class LegendaryGame extends Game {
     }
   }
 
-  public async downloadImage(appName: string){
+  public async getIcon(appName: string){
     if (!existsSync(heroicIconFolder)){
       mkdirSync(heroicIconFolder)
     }
@@ -213,7 +213,9 @@ class LegendaryGame extends Game {
     const image = gameInfo.art_square
     const ext = image.split('.').reverse()[0]
     const icon = `${heroicIconFolder}/${appName}.${ext}`
-    await execAsync(`curl ${image} --output ${icon}`)
+    if (!existsSync(icon)) {
+      await execAsync(`curl ${image} --output ${icon}`)
+    }
     return icon
   }
 
@@ -232,7 +234,7 @@ class LegendaryGame extends Game {
     const desktopFolder = `${home}/Desktop/${gameInfo.title}.desktop`
     const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     let shortcut;
-    const icon = await this.downloadImage(gameInfo.app_name)
+    const icon = await this.getIcon(gameInfo.app_name)
 
     switch(process.platform) {
     case 'linux': {
