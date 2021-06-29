@@ -1,6 +1,7 @@
 import {
   existsSync,
   mkdirSync,
+  unlink,
   writeFile
 } from 'graceful-fs'
 import axios from 'axios';
@@ -263,6 +264,19 @@ Categories=Game;
   }
 
   /**
+   * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
+   * @async
+   * @public
+   */
+  public async removeDesktopShortcut() {
+    const gameInfo = await this.getGameInfo()
+    const desktopFile = `${home}/Desktop/${gameInfo.title}.desktop`
+    const applicationsFile = `${home}/.local/share/applications/${gameInfo.title}.desktop`
+    unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
+    unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
+  }
+
+  /**
    * Install game.
    * Does NOT check for online connectivity.
    *
@@ -303,6 +317,7 @@ Categories=Game;
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
+      this.removeDesktopShortcut()
       return v
     })
   }
