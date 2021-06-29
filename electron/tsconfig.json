@@ -7,7 +7,7 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "ES2021"
+    "target": "esnext"
   },
   "include": ["."],
   "exclude": [
