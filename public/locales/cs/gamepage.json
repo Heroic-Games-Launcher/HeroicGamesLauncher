@@ -74,23 +74,25 @@
         "recommended": "Doporučené"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Nová verze dostupná!",
         "installed": "Nainstalováno",
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
+        "notSupported": "This game can only be imported",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Total Downloaded",
         "updating": "Aktualizuji hru"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Změnit cestu instalace",
         "log": "Nejnovější záznam",
         "move": "Přesunout hru",
         "protondb": "Zkontrolovat kompatibilitu",
         "settings": "Nastavení",
         "store": "Stránka obchodu",
-        "update": "Aktualizovat hru",
         "verify": "Zkontrolovat a opravit"
     }
 }

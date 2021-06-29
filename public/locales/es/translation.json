@@ -28,7 +28,8 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic necesita Python 3.8 o superior para funcionar."
+            "python": "Heroic necesita Python 3.8 o superior para funcionar.",
+            "title": "Error"
         },
         "no": "No",
         "protocol": {
@@ -134,12 +135,15 @@
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura (necesita reiniciarse)",
         "default-install-path": "Ruta de instalación predeterminada",
+        "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "exit-to-tray": "Salir a la bandeja del sistema",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
@@ -200,9 +204,6 @@
         "quit": "Salir",
         "refresh": "Refresar Biblioteca",
         "support": "Apoyanos"
-    },
-    "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

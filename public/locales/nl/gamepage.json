@@ -74,23 +74,25 @@
         "recommended": "Aanbevolen"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Nieuwe versie beschikbaar!",
         "installed": "Geïnstaleerd",
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
+        "notSupported": "This game can only be imported",
         "reparing": "Spel repareren, geduld alstublieft",
         "totalDownloaded": "Total Downloaded",
         "updating": "Spel updaten"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Wijzig installatiepad",
         "log": "Laatste log",
         "move": "Spel verplaatsen",
         "protondb": "Compatibiliteit checken",
         "settings": "Instellingen",
         "store": "Winkel",
-        "update": "Spel updaten",
         "verify": "Verifiëren en repareren"
     }
 }

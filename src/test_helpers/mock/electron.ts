@@ -33,7 +33,7 @@ export function initElectronMocks()
 
   when(ipcRenderer.removeAllListeners).calledWith('requestSettings').mockResolvedValue({});
 
-  when(ipcRenderer.send).calledWith(stringAtIndex(0, 'callTool')).mockResolvedValue({});
+  when(ipcRenderer.invoke).calledWith(stringAtIndex(0, 'callTool')).mockResolvedValue({});
 }
 
 export const ipcRenderer = {

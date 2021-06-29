@@ -16,6 +16,7 @@ import {
 } from 'os'
 import {
   existsSync,
+  mkdirSync,
   rmdirSync,
   unlinkSync,
   writeFile
@@ -32,13 +33,13 @@ import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user';
 import { MenuItemConstructorOptions } from 'electron/main'
 import {
+  checkCommandVersion,
   checkForUpdates,
   errorHandler,
   execAsync,
   handleExit,
   isOnline,
   openUrlOrFile,
-  semverGt,
   showAboutWindow
 } from './utils'
 import {
@@ -57,6 +58,7 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
+import { logError, logInfo, logWarning } from './logger'
 const { showErrorBox, showMessageBox,showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
@@ -67,7 +69,7 @@ function createWindow(): BrowserWindow {
     const str = arr.join('\n')
     const date = new Date().toDateString()
     const path = `${app.getPath('crashDumps')}/${date}.txt`
-    console.log('Saving log file to ' + path)
+    logInfo('Saving log file to ' + path)
     writeFile(path, str, {}, (err) => {
       throw err
     })
@@ -100,7 +102,7 @@ function createWindow(): BrowserWindow {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        console.log('An error occurred: ', err)
+        logError('An error occurred: ', err)
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -250,12 +252,12 @@ if (!gotTheLock) {
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
-        console.log('Registered protocol with OS.')
+        logInfo('Registered protocol with OS.')
       } else {
-        console.log('Failed to register protocol with OS.')
+        logError('Failed to register protocol with OS.')
       }
     } else {
-      console.log('Protocol already registered.')
+      logWarning('Protocol already registered.')
     }
     if (process.argv[1]) {
       const url = process.argv[1]
@@ -273,24 +275,14 @@ if (!gotTheLock) {
     })
 
     if (process.platform === 'linux'){
-      let pythonFound = false
-      for (const python of ['python', 'python3']) {
-        try {
-          const { stdout } = await execAsync(python + ' --version')
-          const pythonVersion: string | null = stdout.includes('Python ') ? stdout.replace('\n', '').split(' ')[1] : null
-          if (!pythonVersion) {
-            console.log(`Python '${python}' not found.`);
-            continue
-          } else {
-            console.log(`Python '${python}' found. Version: '${pythonVersion}'`)
-            pythonFound ||= semverGt(pythonVersion, '3.8.0') || pythonVersion === '3.8.0'
-          }
-        } catch (error) {
-          console.log(`${python} command not found`);
-        }
-      }
-      if (!pythonFound) {
-        dialog.showErrorBox('Python Error', `${i18next.t('box.error.python', 'Heroic requires Python 3.8 or newer.')}`)
+      const found = await checkCommandVersion(
+        ['python', 'python3'],
+        '3.8.0',
+        false);
+
+      if(!found)
+      {
+        logError('Heroic requires Python 3.8 or newer.');
       }
     }
 
@@ -310,7 +302,7 @@ ipcMain.on('Notify', (event, args) => {
 
 // Maybe this can help with white screens
 process.on('uncaughtException', (err) => {
-  console.log(err)
+  logError(`${err.name}: ${err.message}`)
 })
 
 let powerId: number | null
@@ -333,7 +325,7 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.on('kill', async (event, appName) => {
+ipcMain.handle('kill', async (event, appName) => {
   return await Game.get(appName).stop()
 })
 
@@ -367,12 +359,14 @@ ipcMain.on('getLog', (event, appName) =>
 )
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  console.log({path});
   if (path === 'default') {
-    const defaultInstallPath = (await GlobalConfig.get()).config.defaultInstallPath.replaceAll("'", '')
-    const folderToDelete = `${defaultInstallPath}/${folderName}`
+    const { defaultInstallPath } = await GlobalConfig.get().getSettings()
+    const path = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${path}/${folderName}`
     return setTimeout(() => {
       rmdirSync(folderToDelete, {recursive: true})
-    }, 2000)
+    }, 5000)
   }
 
   const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
@@ -389,13 +383,19 @@ interface Tools {
   wine: string
 }
 
-ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
-  const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
+ipcMain.handle('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
+  let wineBin = wine.replace("/proton'", "/dist/bin/wine'")
   let winePrefix: string = prefix.replace('~', home)
 
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')
     winePrefix = `${protonPrefix}/pfx`
+
+    // workaround for proton since newer versions doesnt come with a wine binary anymore.
+    logInfo(`${wineBin} not found for this Proton version, will try using default wine`)
+    if (!existsSync(wineBin)){
+      wineBin = '/usr/bin/wine'
+    }
   }
 
   let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
@@ -404,8 +404,12 @@ ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
     command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
-  console.log({ command })
-  return await execAsync(command)
+  logInfo('trying to run', command)
+  try {
+    await execAsync(command)
+  } catch (error) {
+    logError(`Something went wrong! Check if ${tool} is available and ${wineBin} exists`)
+  }
 })
 
 /// IPC handlers begin here.
@@ -449,7 +453,7 @@ ipcMain.handle('readConfig', async (event, config_class) =>  {
   case 'user':
     return (await LegendaryUser.getUserInfo()).displayName
   default:
-    console.log(`Which idiot requested '${config_class}' using readConfig?`)
+    logError(`Which idiot requested '${config_class}' using readConfig?`)
     return {}
   }
 })
@@ -478,7 +482,7 @@ ipcMain.handle('refreshLibrary', async () => {
 })
 
 ipcMain.handle('launch', (event, game) => {
-  console.log('launching', game)
+  logInfo('launching', game)
 
   return Game.get(game).launch().then(({ stderr }) => {
     writeFile(
@@ -524,50 +528,55 @@ ipcMain.handle('openMessageBox', async (e, args) => {
 })
 
 
+ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string]) => {
+  const [title, content] = args
+  return  showErrorBox(title, content)
+})
+
 ipcMain.handle('install', async (event, args) => {
   const { appName: game, path } = args
   if (!(await isOnline())) {
-    console.log(`App offline, skipping install for game '${game}'.`)
+    logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
   return Game.get(game).install(path).then(
-    () => { console.log('finished installing') }
+    () => { logInfo('finished installing') }
   ).catch((res) => res)
 })
 
 ipcMain.handle('uninstall', async (event, game) => {
   return Game.get(game).uninstall().then(
-    () => { console.log('finished uninstalling') }
-  ).catch(console.log)
+    () => { logInfo('finished uninstalling') }
+  ).catch(logError)
 })
 
 ipcMain.handle('repair', async (event, game) => {
   if (!(await isOnline())) {
-    console.log(`App offline, skipping repair for game '${game}'.`)
+    logWarning(`App offline, skipping repair for game '${game}'.`)
     return
   }
   return Game.get(game).repair().then(
-    () => console.log('finished repairing')
-  ).catch(console.log)
+    () => logInfo('finished repairing')
+  ).catch(logError)
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
   const {stderr, stdout} = await Game.get(game).import(path)
-  console.log(`${stdout} - ${stderr}`)
+  logInfo(`${stdout}`)
+  logError(`${stderr}`)
 })
 
 ipcMain.handle('updateGame', async (e, game) => {
   if (!(await isOnline())) {
-    console.log(`App offline, skipping install for game '${game}'.`)
+    logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
   return Game.get(game).update().then(
-    () => { console.log('finished updating') }
+    () => { logInfo('finished updating') }
   ).catch((res) => res)
 })
 
-// TODO(adityaruplaha): Use UNIX sockets to refactor this.
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
 
@@ -609,7 +618,7 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   }
 
   const progress = { bytes, eta, percent }
-  console.log(
+  logInfo(
     `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
   )
   return progress
@@ -617,19 +626,27 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   const newPath = await Game.get(appName).moveInstall(path)
-  console.log(`Finished moving ${appName} to ${newPath}.`)
+  logInfo(`Finished moving ${appName} to ${newPath}.`)
 })
 
 ipcMain.handle(
   'changeInstallPath',
   async (event, [appName, newPath]: string[]) => {
     LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
-    console.log(`Finished moving ${appName} to ${newPath}.`)
+    logInfo(`Finished moving ${appName} to ${newPath}.`)
   }
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
+  const egl_manifestPath = 'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
+
+  if (isWindows){
+    if (!existsSync(egl_manifestPath)){
+      mkdirSync(egl_manifestPath)
+    }
+  }
+
+  const linkArgs = isWindows ? `--enable-sync` : `--enable-sync --egl-wine-prefix ${args}`
   const unlinkArgs = `--unlink`
   const isLink = args !== 'unlink'
   const command = isLink ? linkArgs : unlinkArgs
@@ -638,21 +655,28 @@ ipcMain.handle('egsSync', async (event, args) => {
     const { stderr, stdout } = await execAsync(
       `${legendaryBin} egl-sync ${command} -y`
     )
-    console.log(`${stdout} - ${stderr}`)
+    logInfo(`${stdout}`)
+    logError(`${stderr}`)
     return `${stdout} - ${stderr}`
   } catch (error) {
     return 'Error'
   }
 })
 
+ipcMain.on('addShortcut', async(event, appName) => {
+  const game = Game.get(appName)
+  game.addDesktopShortcut()
+})
+
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
   if (!(await isOnline())) {
-    console.log(`App offline, skipping syncing saves for game '${appName}'.`)
+    logWarning(`App offline, skipping syncing saves for game '${appName}'.`)
     return
   }
 
   const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
-  console.log(`${stdout} - ${stderr}`)
+  logInfo(`${stdout}`)
+  logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`
 })

@@ -1,4 +1,3 @@
-import { fixPathForAsarUnpack } from 'electron-util'
 import {
   homedir,
   platform
@@ -10,6 +9,7 @@ import {
   GlobalConfigVersion
 } from './types'
 
+
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
@@ -19,12 +19,13 @@ const heroicFolder = `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
+const heroicIconFolder = `${heroicFolder}icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixPathForAsarUnpack(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
-const icon = fixPathForAsarUnpack(join(__dirname, '/icon.png'))
-const iconDark = fixPathForAsarUnpack(join(__dirname, '/icon-dark.png'))
-const iconLight = fixPathForAsarUnpack(join(__dirname, '/icon-light.png'))
+const legendaryBin = fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
+const icon = fixAsarPath(join(__dirname, '/icon.png'))
+const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
+const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
 const installed = `${legendaryConfigPath}/installed.json`
 const libraryPath = `${legendaryConfigPath}/metadata/`
 const loginUrl =
@@ -38,6 +39,11 @@ const supportURL =
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
 
+/**
+ * Get shell for different os
+ * @returns Windows: powershell
+ * @returns unix: $SHELL or /usr/bin/bash
+ */
 function getShell() {
   switch (process.platform) {
   case 'win32':
@@ -47,6 +53,19 @@ function getShell() {
     // If it's 0-value, use bash
     return process.env.SHELL || '/usr/bin/bash'
   }
+}
+
+/**
+ * Fix path for packed files with asar, else will do nothing.
+ * @param origin  original path
+ * @returns fixed path
+ */
+function fixAsarPath(origin: string): string {
+  if( !origin.includes('app.asar.unpacked'))
+  {
+    return origin.replace('app.asar', 'app.asar.unpacked');
+  }
+  return origin;
 }
 
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
@@ -61,11 +80,13 @@ export {
   currentGlobalConfigVersion,
   discordLink,
   execOptions,
+  fixAsarPath,
   getShell,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
   heroicGithubURL,
+  heroicIconFolder,
   heroicInstallPath,
   heroicToolsPath,
   home,

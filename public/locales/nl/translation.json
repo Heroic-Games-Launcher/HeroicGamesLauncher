@@ -28,7 +28,8 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic requires Python 3.8 or newer to work.",
+            "title": "Error"
         },
         "no": "NEE",
         "protocol": {
@@ -134,12 +135,15 @@
     "Return": "Terug",
     "search": "Voor je spel naam hier in...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon (vereist opnieuw opstarten)",
         "default-install-path": "Standaard installatie map",
+        "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
         "exit-to-tray": "Stoppen naar systeem tray",
         "gamemode": "Gebruik spel-modus (Feral Game Mode moet zijn geïnstalleerd)",
@@ -200,9 +204,6 @@
         "quit": "Sluiten",
         "refresh": "Herladen",
         "support": "Steun ons"
-    },
-    "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

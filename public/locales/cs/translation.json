@@ -28,7 +28,8 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic requires Python 3.8 or newer to work.",
+            "title": "Error"
         },
         "no": "NE",
         "protocol": {
@@ -134,12 +135,15 @@
     "Return": "Zpět",
     "search": "Zde zadejte název hry...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
         "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti (vyžaduje restart)",
         "default-install-path": "Výchozí cesta pro instalaci",
+        "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
         "exit-to-tray": "Ukončit do systémové oblasti",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
@@ -200,9 +204,6 @@
         "quit": "Ukončit",
         "refresh": "Obnovit knihovnu",
         "support": "Podpořte nás"
-    },
-    "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

@@ -28,7 +28,8 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic requires Python 3.8 or newer to work.",
+            "title": "Error"
         },
         "no": "NEM",
         "protocol": {
@@ -134,12 +135,15 @@
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
+        "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
         "exit-to-tray": "Kilépés a Rendszer Tálcára",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
@@ -200,9 +204,6 @@
         "quit": "Kilépés",
         "refresh": "Könyvtár frissítése",
         "support": "Támogass minket"
-    },
-    "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }

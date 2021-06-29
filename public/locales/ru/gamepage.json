@@ -35,7 +35,7 @@
     },
     "button": {
         "cancel": "Отменить",
-        "continue": "Continue Download",
+        "continue": "Продолжить загрузку",
         "import": "Импорт",
         "install": "Установить",
         "uninstall": "Удалить"
@@ -74,23 +74,25 @@
         "recommended": "Рекомендованные"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Доступна новая версия!",
         "installed": "Установлено",
         "installing": "Устанавливается",
         "moving": "Перемещаю игру, пожалуйста подождите",
         "notinstalled": "Игра не установлена",
+        "notSupported": "Эта игра может быть только импортирована",
         "reparing": "Восстанавливаю игру, пожалуйста подождите",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Всего загружено",
         "updating": "Обновляю игру"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Изменить путь установки",
         "log": "Последние логи",
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",
         "settings": "Настройки",
         "store": "Страница в магазине",
-        "update": "Обновить игру",
         "verify": "Проверить и восстановить"
     }
 }

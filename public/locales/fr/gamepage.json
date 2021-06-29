@@ -74,23 +74,25 @@
         "recommended": "Recommandée"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
         "installing": "Installation",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
+        "notSupported": "This game can only be imported",
         "reparing": "Réparation du jeu, veuillez patienter",
         "totalDownloaded": "Total Téléchargé",
         "updating": "Mise à jour du jeu"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Changer le chemin d'installation",
         "log": "Dernier rapport",
         "move": "Déplacer le jeu",
         "protondb": "Vérifier la compatibilitée",
         "settings": "Options",
         "store": "Page du magasin",
-        "update": "Mettre à jour le jeu",
         "verify": "Vérifier et Réparer"
     }
 }

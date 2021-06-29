@@ -7,7 +7,7 @@ abstract class Game {
       return LegendaryGame.get(appName)
     }
     else if (runner === 'gog') {
-      console.log('GOG integration is unimplemented.')
+      logWarning('GOG integration is unimplemented.')
       return null
     }
   }
@@ -19,17 +19,19 @@ abstract class Game {
   abstract hasUpdate() : Promise<boolean>
   abstract import(path : string) : Promise<ExecResult>
   abstract install(path : string) : Promise<ExecResult>
+  abstract addDesktopShortcut(): Promise<void>
   abstract launch() : Promise<ExecResult>
   abstract moveInstall(newInstallPath : string) : Promise<string>
   abstract repair() : Promise<ExecResult>
   abstract state: GameStatus
-  abstract stop(): void
+  abstract stop(): Promise<void>
   abstract syncSaves(arg : string, path : string) : Promise<ExecResult>
   abstract uninstall() : Promise<ExecResult>
-  abstract update() : Promise<ExecResult>
+  abstract update() : Promise<unknown>
 }
 
 import { LegendaryGame } from './legendary/games'
+import { logWarning } from './logger';
 
 export {
   Game,

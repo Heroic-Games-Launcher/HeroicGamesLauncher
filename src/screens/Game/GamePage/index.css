@@ -4,17 +4,17 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: auto;
-  display: grid;
-  position: relative;
-  place-items: flex-start;
+  display: flex;
 }
 
 .gameConfig {
   display: flex;
   align-self: center;
   min-width: 780px;
-  max-width: 800px;
-  margin: 44px 60px 16px 44px;
+  max-width: 830px;
+  margin: 44px 0 44px 22px;
+  border-right: solid 1px var(--background-transparent);
+  padding-right: 20px;
 }
 
 .gameConfig .title {
@@ -132,6 +132,13 @@ table span.text {
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: baseline;
+}
+
+.updateText {
+  cursor: pointer;
+}
+.updateText:hover {
+  color: var(--text-secondary);
 }
 
 @keyframes animate-stripes {

@@ -74,23 +74,25 @@
         "recommended": "Προτεινόμενα"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Νέα ενημέρωση διαθέσιμη!",
         "installed": "Εγκατεστημένο",
         "installing": "Εγκατάσταση",
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
+        "notSupported": "This game can only be imported",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "updating": "Ενημέρωση παιχνιδιού"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Αλλαγή διαδρομής εγκατάστασης",
         "log": "Τελευταίο αρχείο καταγραφής",
         "move": "Μετακίνηση παιχνιδιού",
         "protondb": "Έλεγχος συμβατότητας",
         "settings": "Ρυθμίσεις",
         "store": "Κατάστημα",
-        "update": "Ενημέρωση παιχνιδιού",
         "verify": "Επαλήθευση και Επιδιόρθωση"
     }
 }

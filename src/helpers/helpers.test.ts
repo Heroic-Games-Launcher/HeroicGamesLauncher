@@ -60,13 +60,13 @@ describe('handleInstall', () => {
     test_openmessagebox_response.set(1);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
-    expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
+    expect(ipcRenderer.invoke).toBeCalledWith('kill', 'game');
 
     // remove folder
     test_openmessagebox_response.set(2);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
-    expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
+    expect(ipcRenderer.invoke).toBeCalledWith('kill', 'game');
     expect(ipcRenderer.send).toBeCalledWith('removeFolder', ['default', 'folder_name']);
   })
 
@@ -117,7 +117,7 @@ describe('handleInstall', () => {
     test_openmessagebox_response.set(1);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'import', isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
-    expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
+    expect(ipcRenderer.invoke).toBeCalledWith('kill', 'game');
 
     // remove folder
     test_openmessagebox_response.set(2);
@@ -180,7 +180,7 @@ describe('handleInstall', () => {
     test_openmessagebox_response.set(1);
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, installPath: 'another', isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
-    expect(ipcRenderer.send).toBeCalledWith('kill', 'game');
+    expect(ipcRenderer.invoke).toBeCalledWith('kill', 'game');
 
     // remove folder
     test_openmessagebox_response.set(2);

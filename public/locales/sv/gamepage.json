@@ -74,23 +74,25 @@
         "recommended": "Rekommenderad"
     },
     "status": {
+        "clickToUpdate": "Click to Update",
         "hasUpdates": "Det finns en ny version tillgänglig!",
         "installed": "Installerad",
         "installing": "Installerar",
         "moving": "Flyttar installationen, var god dröj",
         "notinstalled": "Detta spelet är inte installerat",
-        "reparing": "Reparerar speler, var god dröj",
+        "notSupported": "Detta spel kan endast importeras",
+        "reparing": "Reparerar spelet, var god dröj",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"
     },
     "submenu": {
+        "addShortcut": "Add shortcut",
         "change": "Byt installationssökväg",
         "log": "Senaste loggen",
         "move": "Flytta spelet",
         "protondb": "Kontrollera kompatibilitet",
         "settings": "Inställningar",
         "store": "Butikssida",
-        "update": "Updatera Spelet",
         "verify": "Verifiera och reparera"
     }
 }

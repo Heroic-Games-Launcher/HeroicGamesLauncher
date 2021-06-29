@@ -18,6 +18,7 @@ import {
   icon,
   isWindows
 } from './constants'
+import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -31,11 +32,13 @@ const { showErrorBox, showMessageBox } = dialog
 function semverGt(target : string, base : string) {
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
+
   let isGE = false
   // A pretty nice piece of logic if you ask me. :P
   isGE ||= tmajor > bmajor
   isGE ||= tmajor === bmajor && tminor > bminor
   isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
+  isGE ||= tmajor === bmajor && tminor === bminor && tpatch === bpatch
   return isGE
 }
 
@@ -48,7 +51,7 @@ async function checkForUpdates() {
     return
   }
   if (!(await isOnline())) {
-    console.log('Version check failed, app is offline.')
+    logWarning('Version check failed, app is offline.')
     return false
   }
   try {
@@ -62,14 +65,14 @@ async function checkForUpdates() {
 
     return semverGt(newVersion, currentVersion)
   } catch (error) {
-    console.log('Could not check for new version of heroic')
+    logError('Could not check for new version of heroic')
   }
 }
 
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Moria`,
+    applicationVersion: `${app.getVersion()} Arlong`,
     copyright: 'GPL V3',
     iconPath: icon,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher'
@@ -110,7 +113,7 @@ async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void
     execAsync(`tail ${logPath} | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          console.log(noSpaceMsg)
+          logError(noSpaceMsg)
           return showErrorBox(
             i18next.t('box.error.diskspace.title', 'No Space'),
             i18next.t(
@@ -120,7 +123,7 @@ async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void
           )
         }
       })
-      .catch(() => console.log('operation interrupted'))
+      .catch(() => logInfo('operation interrupted'))
   }
   if (error){
     if (error.stderr.includes(noCredentialsError)){
@@ -160,7 +163,53 @@ async function openUrlOrFile(url: string): Promise<string> {
   return shell.openPath(url)
 }
 
+/**
+ * Checks given commands if they fullfil the given minimum version requirement.
+ * @param commands      string list of commands to check.
+ * @param version       minimum version to check against
+ * @param all_fullfil   Can be set to false if only one command should fullfil
+ *                      version requirement. (default: true)
+ * @returns true if verrsion fullfil, else false
+ */
+async function checkCommandVersion(
+  commands: string[],
+  version: string,
+  all_fullfil = true): Promise<boolean> {
+  let found = false;
+  for (const command of commands) {
+    try{
+      const {stdout} = await execAsync(command + ' --version');
+      const commandVersion = stdout ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0] : null;
+
+      if(semverGt(commandVersion, version) || commandVersion === version) {
+        logInfo(`Command '${command}' found. Version: '${commandVersion}'`)
+        if(!all_fullfil)
+        {
+          return true;
+        }
+        found = true;
+      }
+      else {
+        logWarning(`Command ${command} version '${commandVersion}' not supported.`);
+        if(all_fullfil)
+        {
+          return false;
+        }
+      }
+    }
+    catch {
+      logWarning(`${command} command not found`);
+      if(all_fullfil)
+      {
+        return false;
+      }
+    }
+  }
+  return found;
+}
+
 export {
+  checkCommandVersion,
   checkForUpdates,
   errorHandler,
   execAsync,

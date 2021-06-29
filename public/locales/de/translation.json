@@ -12,8 +12,8 @@
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Ihre Anmeldedaten sind abgelaufen, bitte loggen Sie sich aus und melden Sie sich erneut an.",
+                "title": "Abgelaufene Anmeldedaten"
             },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
@@ -25,15 +25,16 @@
             },
             "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Es wurde kein Log für dieses Spiel gefunden",
+                "title": "Log nicht gefunden"
             },
-            "python": "Heroic requires Python 3.8 or newer to work."
+            "python": "Heroic benötigt Python 3.8 oder neuer, um zu funktionieren.",
+            "title": "Error"
         },
         "no": "NEIN",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
             }
         },
         "quit": {
@@ -123,23 +124,26 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix, wo EGS installiert ist"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Projekte",
     "Ready": "Installiert",
     "Return": "Zurück",
     "search": "Geben Sie hier den Namen des Spiels ein...",
     "setting": {
+        "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
+        "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
         "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
         "default-install-path": "Standard-Installationspfad",
+        "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
@@ -167,7 +171,7 @@
         },
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "wineprefix": "WinePrefix Ordner",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine-Version"
     },
     "Settings": "Einstellungen",
     "settings": {
@@ -200,9 +204,6 @@
         "quit": "Beenden",
         "refresh": "Bibliothek aktualisieren",
         "support": "Unterstütze uns"
-    },
-    "warning": {
-        "proton": "Proton outside of Steam is not supported. Do not open issues or ask for support about it."
     },
     "wiki": "Wiki"
 }
