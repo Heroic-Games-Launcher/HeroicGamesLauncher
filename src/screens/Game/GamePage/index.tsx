@@ -308,7 +308,7 @@ export default function GamePage(): JSX.Element | null {
                     {is_installed && is_game && (
                       <>
                         <button
-                          disabled={isReparing || isMoving}
+                          disabled={isReparing || isMoving || isUpdating}
                           onClick={handlePlay()}
                           className={`button ${getPlayBtnClass()}`}
                         >
@@ -387,9 +387,6 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getPlayLabel(): React.ReactNode {
-    if (isUpdating) {
-      return t('label.cancel.update')
-    }
     if (isSyncing) {
       return t('label.saves.syncing')
     }
