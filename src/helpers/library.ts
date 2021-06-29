@@ -154,7 +154,7 @@ async function handleStopInstallation(
     storage.setItem(appName, JSON.stringify({...progress, folder: path}))
     return sendKill(appName)
   } else if (response === 2) {
-    sendKill(appName)
+    await sendKill(appName)
     storage.removeItem(appName)
     return ipcRenderer.send('removeFolder', [path, folderName])
   }

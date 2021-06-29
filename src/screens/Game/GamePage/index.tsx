@@ -412,16 +412,14 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.moving')}`
     }
 
+    const currentProgress = `${percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'}`
+
     if (isUpdating && is_installed) {
-      return `${t('status.updating')} ${
-        percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
-      }`
+      return `${t('status.updating')} ${currentProgress}`
     }
 
     if (!isUpdating && isInstalling) {
-      return `${t('status.installing')} ${
-        percent ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
-      }`
+      return `${t('status.installing')} ${currentProgress}`
     }
 
     if (hasUpdate) {

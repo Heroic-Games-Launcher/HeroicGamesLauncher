@@ -16,5 +16,5 @@ jobs:
         node-version: '14'
     - name: Install modules.
       run: yarn
-    - name: Test and collect coverage.
-      run: yarn test:ci --coverage
+    - name: Test
+      run: yarn test:ci
