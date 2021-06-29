@@ -1,6 +1,7 @@
 import {
   existsSync,
   mkdirSync,
+  unlink,
   writeFile
 } from 'graceful-fs'
 import axios from 'axios';
@@ -12,7 +13,6 @@ import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user';
-import { app, ipcMain } from 'electron';
 import {
   errorHandler,
   execAsync,
@@ -21,10 +21,12 @@ import {
 import {
   execOptions,
   heroicGamesConfigPath,
+  heroicIconFolder,
   home,
   isWindows,
   legendaryBin
 } from '../constants'
+import { ipcMain } from 'electron';
 import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
 import makeClient from 'discord-rich-presence-typescript';
@@ -226,6 +228,21 @@ class LegendaryGame extends Game {
     })
   }
 
+  public async getIcon(appName: string){
+    if (!existsSync(heroicIconFolder)){
+      mkdirSync(heroicIconFolder)
+    }
+
+    const gameInfo = await this.getGameInfo()
+    const image = gameInfo.art_square
+    const ext = image.split('.').reverse()[0]
+    const icon = `${heroicIconFolder}/${appName}.${ext}`
+    if (!existsSync(icon)) {
+      await execAsync(`curl ${image} --output ${icon}`)
+    }
+    return icon
+  }
+
   /**
    * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
    * so that the game can be opened from the start menu and the desktop folder.
@@ -234,9 +251,14 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addDesktopShortcut() {
+    if (process.platform !== 'linux'){
+      return
+    }
     const gameInfo = await this.getGameInfo()
-    const desktopFolder = app.getPath('desktop')
+    const desktopFolder = `${home}/Desktop/${gameInfo.title}.desktop`
+    const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     let shortcut;
+    const icon = await this.getIcon(gameInfo.app_name)
 
     switch(process.platform) {
     case 'linux': {
@@ -245,7 +267,8 @@ Name=${gameInfo.title}
 Exec=xdg-open heroic://launch/${gameInfo.app_name}
 Terminal=false
 Type=Application
-Icon=${app.getAppPath()}/app.asar.unpacked/build/icon.png
+MimeType=x-scheme-handler/heroic;
+Icon=${icon}
 Categories=Game;
 `
       break; }
@@ -257,24 +280,32 @@ Categories=Game;
     const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
 
     if (enabledInDesktop || enabledInDesktop === undefined) {
-      writeFile(desktopFolder, shortcut, (err) => {
-        if(err)
-        {
-          logError(`${err.name}: ${err.message}`)
-        }
-        logError("Couldn't save shortcut to " + desktopFolder)
+      // spawn('echo', [shortcut, '>', ])
+      writeFile(desktopFolder, shortcut, () => {
+        logInfo('Shortcut saved on ' + desktopFolder)
       })
     }
     if (enabledInStartMenu || enabledInStartMenu === undefined) {
-      writeFile('/usr/share/applications', shortcut, (err) => {
-        if(err)
-        {
-          logError(`${err.name}: ${err.message}`)
-        }
-        logError("Couldn't save shortcut to /usr/share/applications")
+      writeFile(applicationsFolder, shortcut, () => {
+        logInfo('Shortcut saved on ' + applicationsFolder)
       })
     }
+  }
 
+  /**
+   * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
+   * @async
+   * @public
+   */
+  public async removeDesktopShortcut() {
+    if (process.platform !== 'linux'){
+      return
+    }
+    const gameInfo = await this.getGameInfo()
+    const desktopFile = `${home}/Desktop/${gameInfo.title}.desktop`
+    const applicationsFile = `${home}/.local/share/applications/${gameInfo.title}.desktop`
+    unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
+    unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
   }
 
   /**
@@ -318,6 +349,7 @@ Categories=Game;
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
+      this.removeDesktopShortcut()
       return v
     })
   }

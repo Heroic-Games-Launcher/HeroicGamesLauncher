@@ -31,6 +31,7 @@ export default function GamesSubmenu({
     ContextProvider
   )
   const isWin = platform === 'win32'
+  const isLinux = platform === 'linux'
 
   const { t, i18n } = useTranslation('gamepage')
   let lang = i18n.language
@@ -125,12 +126,12 @@ export default function GamesSubmenu({
           >
             {t('submenu.log')}
           </span>
-          <span
+          {isLinux && <span
             onClick={() => ipcRenderer.send('addShortcut', appName)}
             className="link"
           >
             {t('submenu.addShortcut', 'Add shortcut')}
-          </span>
+          </span>}
         </>
       )}
       <span

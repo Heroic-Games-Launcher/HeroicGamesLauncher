@@ -646,8 +646,7 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
-ipcMain.on('addShortcut', async(event, args) => {
-  const [appName] = args
+ipcMain.on('addShortcut', async(event, appName) => {
   const game = Game.get(appName)
   game.addDesktopShortcut()
 })
@@ -663,10 +662,4 @@ ipcMain.handle('syncSaves', async (event, args) => {
   logInfo(`${stdout}`)
   logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`
-})
-
-ipcMain.on('addShortcut', async(event, args) => {
-  const [appName] = args
-  const game = Game.get(appName)
-  game.addDesktopShortcut()
 })

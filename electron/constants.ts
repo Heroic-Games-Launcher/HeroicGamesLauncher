@@ -19,6 +19,7 @@ const heroicFolder = `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
+const heroicIconFolder = `${heroicFolder}icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = `${home}/Games/Heroic`
 const legendaryBin = fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
@@ -85,6 +86,7 @@ export {
   heroicFolder,
   heroicGamesConfigPath,
   heroicGithubURL,
+  heroicIconFolder,
   heroicInstallPath,
   heroicToolsPath,
   home,
