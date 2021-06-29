@@ -6,14 +6,12 @@
   flex-direction: column;
   justify-content: space-around;
   border-radius: 10px;
-  margin-top: 44px;
+  margin-top: 10px;
   transition: 150ms;
-  text-align: center;
-  padding: 10px 20px;
-  background: #1a1b1c;
-  box-shadow: 0px 4px 6px rgb(0 0 0 / 45%);
+  text-align: initial;
+  padding: 20px 8px;
   max-width: 240px;
-  margin: 44px auto;
+  margin: 30px auto;
 }
 
 .dots {
@@ -31,13 +29,13 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: #ffffff;
+  color: var(--secondary);
   margin: 4px;
   cursor: pointer;
 }
 
 .link:hover {
-  color: var(--secondary);
+  color: var(--secondary-hover);
 }
 
 .linkTitle {
