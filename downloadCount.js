@@ -19,7 +19,8 @@ async function getDownloadCount(){
     }, 0)
     return {name: name, pkgs: sorted, total: total}
   })
-  writeFileSync('downloads.json', JSON.stringify(releases, null, 2))
+  const date = new Date()
+  writeFileSync(`downloads-${date.getDate()}-${date.getMonth() + 1}.json`, JSON.stringify(releases, null, 2))
 }
 
 getDownloadCount()

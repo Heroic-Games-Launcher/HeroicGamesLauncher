@@ -54,13 +54,11 @@ export function initElectronMocks()
     .calledWith(stringAtIndex(0, 'openMessageBox')).mockResolvedValue(
       {response: test_openmessagebox_response.get()})
     .calledWith(stringAtIndex(0, 'syncSaves')).mockResolvedValue('success')
-    .calledWith(stringAtIndex(0, 'writeConfig')).mockResolvedValue({});
+    .calledWith(stringAtIndex(0, 'writeConfig')).mockResolvedValue({})
+    .calledWith(stringAtIndex(0, 'callTool')).mockResolvedValue({});;
 
   // setup mocks for ipcRenderer.removeAllListeners
   when(ipcRenderer.removeAllListeners).calledWith('requestSettings').mockResolvedValue({});
-
-  // setup mocks for ipcRenderer.send
-  when(ipcRenderer.send).calledWith(stringAtIndex(0, 'callTool')).mockResolvedValue({});
 }
 
 export const ipcRenderer = {

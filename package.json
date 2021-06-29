@@ -46,6 +46,10 @@
       "asarUnpack": ["build/bin/win32/legendary.exe"],
       "files": ["build/bin/win32/*"]
     },
+    "nsis": {
+      "oneClick": "false",
+      "allowToChangeInstallationDirectory": "true"
+    },
     "mac": {
       "asarUnpack": ["build/bin/darwin/legendary"],
       "files": ["build/bin/darwin/*"]
@@ -106,7 +110,7 @@
     "build": "react-scripts build",
     "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
-    "test:ci": "jest --runInBand",
+    "test:ci": "jest --runInBand --silent",
     "eject": "react-scripts eject",
     "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
