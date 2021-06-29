@@ -4,9 +4,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: auto;
-  display: grid;
-  position: relative;
-  place-items: flex-start;
+  display: flex;
 }
 
 .gameConfig {
@@ -14,7 +12,9 @@
   align-self: center;
   min-width: 780px;
   max-width: 800px;
-  margin: 44px 60px 16px 44px;
+  margin: 44px 0 44px 22px;
+  border-right: solid 1px var(--background-transparent);
+  padding-right: 20px;
 }
 
 .gameConfig .title {

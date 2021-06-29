@@ -1,20 +1,19 @@
 .more {
-  position: absolute;
-  top: 56px;
-  right: 42px;
-  color: var(--secondary);
   font-size: 25px;
-  width: max-content;
+  width: -webkit-fill-available;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: space-around;
   border-radius: 10px;
-  margin: auto;
+  margin-top: 44px;
   transition: 150ms;
   text-align: center;
-  padding: 20px;
+  padding: 10px 20px;
+  background: #1a1b1c;
+  box-shadow: 0px 4px 6px rgb(0 0 0 / 45%);
+  max-width: 240px;
+  margin: 44px auto;
 }
 
 .dots {
@@ -34,6 +33,11 @@
   line-height: 17px;
   color: #ffffff;
   margin: 4px;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: var(--secondary);
 }
 
 .linkTitle {
@@ -43,21 +47,4 @@
   font-size: 16px;
   line-height: 19px;
   color: var(--primary);
-}
-
-.more .hidden {
-  display: none;
-  cursor: default;
-}
-
-.more.clicked {
-  background: #1a1b1c;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
-}
-
-.more.clicked > .hidden {
-  opacity: 1;
-  display: block;
-
-  cursor: pointer;
 }

@@ -37,8 +37,6 @@ import {
   InstallProgress
 } from 'src/types'
 
-import Settings from '@material-ui/icons/Settings'
-
 import GamesSubmenu from '../GameSubMenu'
 
 const storage: Storage = window.localStorage
@@ -82,7 +80,6 @@ export default function GamePage(): JSX.Element | null {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
-  const [clicked, setClicked] = useState(false)
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -200,18 +197,6 @@ export default function GamePage(): JSX.Element | null {
         <div className="gameConfigContainer">
           {title ? (
             <>
-              {is_game && (
-                <Settings
-                  onClick={() => setClicked(!clicked)}
-                  className="material-icons is-secondary dots"
-                />
-              )}
-              <GamesSubmenu
-                appName={appName}
-                clicked={clicked}
-                isInstalled={is_installed}
-                title={title}
-              />
               <div className="gameConfig">
                 <div className="gamePicture">
                   <img
@@ -365,7 +350,13 @@ export default function GamePage(): JSX.Element | null {
                     )}
                   </div>
                 </div>
-              </div>{' '}
+              </div>
+              {is_game && (
+                <GamesSubmenu
+                  appName={appName}
+                  isInstalled={is_installed}
+                  title={title}
+                />)}
             </>
           ) : (
             <UpdateComponent />
