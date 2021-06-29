@@ -84,11 +84,11 @@ export default function Login({ refresh }: Props) {
             <ol>
               <li>
                 {`${t('message.part2')} `}
-                <span onClick={() => loginPage()} className="epicLink">
+                <span onClick={() => loginPage()} data-testid="epicLink" className="epicLink">
                   {t('message.part3')}
                 </span>
                 {`${t('message.part4')} `}
-                <span onClick={() => sidInfoPage()} className="sid">
+                <span onClick={() => sidInfoPage()} data-testid="sid1" className="sid">
                   {`${t('message.part5')}`}
                   <Info
                     style={{ marginLeft: '4px' }}
@@ -99,7 +99,7 @@ export default function Login({ refresh }: Props) {
               </li>
               <li>
                 {`${t('message.part6')} `}
-                <span onClick={() => sidInfoPage()} className="sid">
+                <span onClick={() => sidInfoPage()} data-testid="sid2" className="sid">
                   {`${t('message.part7')}`}
                 </span>
                 {` ${t('message.part8')}`}
@@ -108,18 +108,20 @@ export default function Login({ refresh }: Props) {
           </span>
           <div className="loginForm">
             <input
+              data-testid="loginInput"
               className="loginInput"
               id="sidInput"
               onChange={(event) => setInput(event.target.value)}
               placeholder={t('input.placeholder', 'Paste the SID number here')}
             />
             {loading && (
-              <p className="message">
+              <p className="message" data-testid="message">
                 {message}
                 <Autorenew className="material-icons" />{' '}
               </p>
             )}
             <button
+              data-testid="loginButton"
               onClick={() => handleLogin(input)}
               className="button is-primary"
               disabled={loading || input.length < 30}

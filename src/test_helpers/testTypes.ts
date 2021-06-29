@@ -150,6 +150,9 @@ const test_maxcpus = new TestType<number>(1);
 // test response
 const test_openmessagebox_response = new TestType<number>(0);
 
+// test string response
+const test_string_response = new TestType<string>('success');
+
 // test egssync response
 const test_egssync_response = new TestType<string>('Success');
 
@@ -206,6 +209,7 @@ function resetTestTypes()
   test_opendialog.reset();
   test_openmessagebox_response.reset();
   test_plugin.reset();
+  test_string_response.reset();
   test_userinfo.reset();
   test_wineinstallation.reset();
 }
@@ -220,6 +224,7 @@ export {
   test_opendialog,
   test_openmessagebox_response,
   test_plugin,
+  test_string_response,
   test_userinfo,
   test_wineinstallation
 };
