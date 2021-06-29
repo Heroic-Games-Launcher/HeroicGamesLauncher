@@ -337,8 +337,14 @@ Categories=Game;
 
   public async launch() {
     this.state.status = 'launching'
-    // Get main window
-    BrowserWindow.getAllWindows()[0].webContents.send('addGameToRecent', this.appName)
+    // Get main window and notify about the change
+    let recentGames = globalThis.recentGames
+    recentGames[0] = null
+    recentGames.map((value, index) => {
+      recentGames[index - 1] = value
+    })
+    recentGames[recentGames.length + 1] = this.appName.toString()
+    BrowserWindow.getAllWindows()[0].webContents.send('recent-games-changed', recentGames)
 
     let envVars = ''
     let gameMode: string

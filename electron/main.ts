@@ -30,6 +30,7 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user';
+import { MenuItemConstructorOptions } from 'electron/main'
 import {
   checkForUpdates,
   errorHandler,
@@ -139,8 +140,24 @@ function createWindow(): BrowserWindow {
 let appIcon: Tray = null
 const gotTheLock = app.requestSingleInstanceLock()
 
-const contextMenu = () =>
-  Menu.buildFromTemplate([
+const contextMenu = async function () {
+  // Recent games are stored in globalThis.recentGames in the main process (a.k.a. backend).
+  let recentGames: MenuItemConstructorOptions[]
+  for (let index = 0; index < 2; index++) {
+    const appName = global.recentGames[index];
+    const { title } = await Game.get(appName).getGameInfo()
+    recentGames[index] = {
+      click() {
+        openUrlOrFile(`heroic://launch/${appName}`)
+      },
+      label: title
+    };
+  }
+  return Menu.buildFromTemplate([
+    ...recentGames,
+    {
+      type: 'separator'
+    },
     {
       click: function () {
         mainWindow.show()
@@ -179,7 +196,7 @@ const contextMenu = () =>
       label: i18next.t('tray.quit', 'Quit')
     }
   ])
-
+}
 if (!gotTheLock) {
   app.quit()
 } else {
