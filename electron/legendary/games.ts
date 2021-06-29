@@ -6,13 +6,13 @@ import {
 import axios from 'axios';
 
 import { DXVK } from '../dxvk'
-import { ExtraInfo, GameStatus } from '../types';
+import { ExtraInfo, GameStatus, InstallProgress } from '../types';
 import { Game } from '../games';
 import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user';
-import { app } from 'electron';
+import { app, ipcMain } from 'electron';
 import {
   errorHandler,
   execAsync,
@@ -186,21 +186,44 @@ class LegendaryGame extends Game {
     this.state.status = 'updating'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
+    const command = `update ${this.appName}${workers} -y`.split(' ')
+    let isVerifying = false
 
-    try {
-      return await execAsync(command, execOptions).then((v) => {
-        this.state.status = 'done'
-        return v
+    return new Promise((res) => {
+      const child = spawn(legendaryBin, command)
+      const progress: InstallProgress = {
+        bytes: '0.00MiB',
+        eta: '00:00:00',
+        percent: '0.00%'
+      }
+      ipcMain.handle('requestUpdateProgress', async (event, appName) => {
+        child.stderr.once('data', (data) => {
+          isVerifying = `${data}`.includes('Game needs to be verified')
+          if (appName === this.appName){
+            if (isVerifying){
+              child.stdout.once('data', (data) => {
+                progress.bytes = `${String(data).split(' ')[2]}MiB`
+                progress.percent = `${data}`.split(' ')[3].split(')')[0].replace('(', '')
+                progress.eta = 'verifying'
+                return progress
+              })
+            }
+            const percentProgress = `${data}`.split('\n')[0].split(' ')
+            const downloadProgress = `${data}`.split('\n')[1].split(' ')
+            progress.bytes = `${downloadProgress[5] || '0.00'}MiB`
+            progress.percent = percentProgress[4]
+            progress.eta = percentProgress[10]
+            return progress
+          }
+        })
+        logInfo(JSON.stringify(progress))
+        return progress
       })
-    } catch (error) {
-      return await errorHandler({error}).then((v) => {
-        this.state.status = 'done'
-        return v
+      child.on('exit', () => {
+        logInfo('child exiting')
+        res('game updated')
       })
-    }
+    })
   }
 
   /**
