@@ -241,7 +241,8 @@ if (!gotTheLock) {
         'pt',
         'ru',
         'sv',
-        'tr'
+        'tr',
+        'zh_Hans'
       ]
     })
 
