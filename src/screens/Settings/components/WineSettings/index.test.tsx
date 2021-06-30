@@ -8,7 +8,7 @@ import {
 
 import { WineInstallation } from 'src/types';
 import { ipcRenderer } from 'src/test_helpers/mock/electron';
-import { test_opendialog, test_wineinstallation } from 'src/test_helpers/testTypes';
+import { resetTestTypes, test_opendialog, test_wineinstallations } from 'src/test_helpers/testTypes';
 import WineSettings from './index';
 
 interface Props {
@@ -28,7 +28,7 @@ interface Props {
 function renderWineSettings(props: Partial<Props> = {})
 {
   const defaultProps: Props = {
-    altWine: [test_wineinstallation.get()],
+    altWine: test_wineinstallations.get(),
     autoInstallDxvk: false,
     customWinePaths: ['custom/wine/path'],
     isDefault: false,
@@ -48,6 +48,10 @@ function renderWineSettings(props: Partial<Props> = {})
 }
 
 describe('WineSettings', () => {
+  beforeEach(() => {
+    resetTestTypes();
+  })
+
   test('renders', () => {
     renderWineSettings();
   })
@@ -211,5 +215,23 @@ describe('WineSettings', () => {
 
     fireEvent.change(setWineVersion, {target: {value: 'wine'}});
     await waitFor(() => expect(onSetWineVersion).toBeCalledWith({'bin': 'path/to/wine/bin', 'name': 'wine'}));
+  })
+
+  test('If multiple wines are installed setWineVersion is not invoked by useEffect', async () => {
+    const onSetWineVersion = jest.fn();
+
+    test_wineinstallations.set([
+      {
+        bin: 'wine1/bin',
+        name: 'wine1'
+      },
+      {
+        bin: 'wine2/bin',
+        name: 'wine2'
+      }])
+
+    renderWineSettings({setWineVersion: onSetWineVersion});
+
+    await waitFor(() => expect(onSetWineVersion).not.toBeCalled());
   })
 })
