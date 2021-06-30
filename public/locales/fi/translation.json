@@ -5,7 +5,8 @@
     "Downloading": "Ladataan",
     "button": {
         "syncing": "Synkronoidaan",
-        "sync": "Synkronoi"
+        "sync": "Synkronoi",
+        "unsync": "Älä synkronoi"
     },
     "box": {
         "yes": "KYLLÄ",
@@ -47,7 +48,8 @@
             "credentials": {
                 "title": "Vanhentuneet Tunnustiedot",
                 "message": "Tunnustiedot ovat vanhentuneet, olkaa hyvä ja kirjautukaa ulos ja takas sisään."
-            }
+            },
+            "title": "Virhe"
         },
         "default-install-path": "Valitse Oletus Asennussijainti",
         "customWine": "Valitse Wine tai Proton Binary",
@@ -129,7 +131,9 @@
     "Library": "Kirjasto",
     "help": {
         "sync": {
-            "part1": "Heroic yrittää arvata oikean kansion tallenteita varten. Tämä toimii useimmissa tapauksissa. Jos kansio on väärä, vaihda se ohitusruudun avulla."
+            "part1": "Heroic yrittää arvata oikean kansion tallenteita varten. Tämä toimii useimmissa tapauksissa. Jos kansio on väärä, vaihda se ohitusruudun avulla.",
+            "part3": "Manuaalinen synkronointi: valitsee \"Lataa\" latakseen pelien tallenteet pilvipalvelusta. \"Lähetä\" lähettääkseen paikalliset tallenteet pilvipalveluun. \"Pakota Lataus\" ja \"Pakota Lähetys\" tulee ignooramaan version, jota säilytetään joko paikallisesti tai pilvipalvelussa.",
+            "part2": "Kannattaa uudelleen tarkistaa polku, Jos aijotte vaihtaa Winen tai Protonin prefix-kansion, koska Proton käyttää toista prefixiä (/pfx) ja käyttäjänimeä (steamuser). Joten voitte yksinkertaisesti poistaa nykyisen polun synkronointiasetuksista ja palata takaisin antaakseen Heroicin arvata kansion vielä kerran oikealla prefixillä."
         },
         "other": {
             "part7": " ohittaa käynnistys joissakin peleissä jne.",
