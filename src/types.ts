@@ -14,6 +14,7 @@ export interface AppSettings {
   exitToTray: boolean
   language: string
   launcherArgs: string
+  maxRecentGames: number
   maxWorkers: number
   nvidiaPrime: boolean
   offlineMode: boolean

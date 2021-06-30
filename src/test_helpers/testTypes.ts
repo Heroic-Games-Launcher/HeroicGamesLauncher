@@ -118,6 +118,7 @@ const test_appsettings = new TestType<AppSettings>({
   exitToTray: false,
   language: 'en',
   launcherArgs: 'launcherArgs',
+  maxRecentGames: 5,
   maxWorkers: 1,
   nvidiaPrime: false,
   offlineMode: false,
