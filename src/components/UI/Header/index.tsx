@@ -121,7 +121,7 @@ export default function Header({
               className={filter === 'recent' ? 'selected' : ''}
               onClick={() => handleFilter('recent')}
             >
-              {t('Recent Games')}
+              {t('Recent', 'Recent Games')}
             </span>
             {!!hasDownloads && <span
               data-testid="downloading"

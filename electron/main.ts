@@ -500,7 +500,7 @@ ipcMain.handle('launch', async (event, game: string) => {
     let updatedRecentGames = recentGames.filter(a => a.appName !== game)
     if (updatedRecentGames.length > MAX_RECENT_GAMES){
       const newArr = []
-      for (let i = 0; i < MAX_RECENT_GAMES; i++){
+      for (let i = 0; i <= MAX_RECENT_GAMES; i++){
         newArr.push(updatedRecentGames[i])
       }
       updatedRecentGames = newArr
