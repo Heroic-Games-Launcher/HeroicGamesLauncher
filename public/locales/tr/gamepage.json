@@ -58,9 +58,6 @@
         "import": "Oyunu içe aktar"
     },
     "label": {
-        "cancel": {
-            "update": "Güncellemeyi İptal Et"
-        },
         "playing": {
             "start": "Şimdi Oyna",
             "stop": "Oynanıyor (Durdur)"

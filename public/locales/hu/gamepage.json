@@ -58,9 +58,6 @@
         "import": "Játék Importálása"
     },
     "label": {
-        "cancel": {
-            "update": "Frissítés Visszavonása"
-        },
         "playing": {
             "start": "Indítás Most",
             "stop": "Játékban (Megállítás)"

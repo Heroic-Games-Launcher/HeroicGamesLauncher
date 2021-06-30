@@ -21,11 +21,13 @@ interface Props {
   egsPath: string,
   exitToTray: boolean,
   language: string,
+  maxRecentGames: number,
   maxWorkers: number,
   setDefaultInstallPath: (value: string) => void,
   setEgsLinkedPath: (value: string) => void,
   setEgsPath: (value: string) => void,
   setLanguage: (value: string) => void,
+  setMaxRecentGames: (value: number) => void,
   setMaxWorkers: (value: number) => void,
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
@@ -46,11 +48,13 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     egsPath: 'egs/path',
     exitToTray: false,
     language: 'en',
+    maxRecentGames: 5,
     maxWorkers: 1,
     setDefaultInstallPath: (value: string) => value,
     setEgsLinkedPath: (value: string) => value,
     setEgsPath: (value: string) => value,
     setLanguage: (value: string) => value,
+    setMaxRecentGames: (value: number) => value,
     setMaxWorkers: (value: number) => value,
     toggleAddDesktopShortcuts: () => {return},
     toggleAddGamesToStartMenu: () => {return},
@@ -239,5 +243,14 @@ describe('GeneralSettings', () => {
 
     fireEvent.change(maxWorkers, { target: { value: '8' }});
     waitFor(() => expect(onSetMaxWorkers).toBeCalledWith(8));
+  })
+
+  test('change max recent games', async () => {
+    const onSetMaxRecentGames = jest.fn();
+    const { getByTestId } = await renderGeneralSettings({ setMaxRecentGames: onSetMaxRecentGames});
+    const maxRecentGames = getByTestId('setMaxRecentGames');
+
+    fireEvent.change(maxRecentGames, { target: { value: '10' }});
+    waitFor(() => expect(onSetMaxRecentGames).toBeCalledWith(10));
   })
 })

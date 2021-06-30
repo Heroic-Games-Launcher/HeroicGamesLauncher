@@ -16,13 +16,22 @@ import { i18n } from 'i18next'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import ContextProvider from './ContextProvider'
+import ElectronStore from 'electron-store'
 
 const storage: Storage = window.localStorage
 const { ipcRenderer } = window.require('electron')
+const Store = window.require('electron-store')
+const store: ElectronStore = new Store({
+  cwd: 'store'
+})
 
 const renderer: IpcRenderer = ipcRenderer
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
+type RecentGame = {
+  appName: string
+  title: string
+}
 interface Props {
   children: React.ReactNode
   i18n: i18n
@@ -125,6 +134,12 @@ export class GlobalState extends PureComponent<Props> {
         return library.filter((game) => game.is_ue_plugin)
       case 'project':
         return library.filter((game) => game.is_ue_project)
+      case 'recent':
+        return library.filter((game) => {
+          const recentGames: Array<RecentGame> = store.get('games.recent') as Array<RecentGame>|| []
+          const recentGamesList = recentGames.map(a => a.appName) as string[]
+          return recentGamesList.includes(game.app_name)
+        })
       default:
         return library.filter((game) => game.is_game)
       }

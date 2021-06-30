@@ -58,9 +58,6 @@
         "import": "Importovat hru"
     },
     "label": {
-        "cancel": {
-            "update": "Zrušit aktualizaci"
-        },
         "playing": {
             "start": "Hrát",
             "stop": "Hraji (Zastavit)"
