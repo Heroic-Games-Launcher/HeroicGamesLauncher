@@ -86,7 +86,7 @@
         "updating": "Updaterar spelet"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Skapa genväg",
         "change": "Byt installationssökväg",
         "log": "Senaste loggen",
         "move": "Flytta spelet",
