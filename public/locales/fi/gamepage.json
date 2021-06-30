@@ -59,7 +59,8 @@
         "moving": "Siirretään Asennus, odottakaa",
         "installing": "Asennetaan",
         "installed": "Asennettu",
-        "hasUpdates": "Uusi Versio Saatavilla!"
+        "hasUpdates": "Uusi Versio Saatavilla!",
+        "clickToUpdate": "Päivitä"
     },
     "specs": {
         "recommended": "Suositellaan",
