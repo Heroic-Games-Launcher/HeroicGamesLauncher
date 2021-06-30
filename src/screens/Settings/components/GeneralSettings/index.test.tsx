@@ -244,4 +244,13 @@ describe('GeneralSettings', () => {
     fireEvent.change(maxWorkers, { target: { value: '8' }});
     waitFor(() => expect(onSetMaxWorkers).toBeCalledWith(8));
   })
+
+  test('change max recent games', async () => {
+    const onSetMaxRecentGames = jest.fn();
+    const { getByTestId } = await renderGeneralSettings({ setMaxRecentGames: onSetMaxRecentGames});
+    const maxRecentGames = getByTestId('setMaxRecentGames');
+
+    fireEvent.change(maxRecentGames, { target: { value: '10' }});
+    waitFor(() => expect(onSetMaxRecentGames).toBeCalledWith(10));
+  })
 })
