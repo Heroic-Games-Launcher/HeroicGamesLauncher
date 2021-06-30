@@ -28,7 +28,6 @@
                 "message": "Ingen logg hittades för detta spel",
                 "title": "Ingen logg hittades"
             },
-            "python": "Heroic kräver Python 3.8 eller senare.",
             "title": "Error"
         },
         "no": "Nej",
@@ -132,6 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Ready": "Nedladdade",
+    "Recent": "Recent Games",
     "Return": "Tillbaka",
     "search": "Skriv in spelets namn här...",
     "setting": {
@@ -158,6 +158,7 @@
             "title": "Manuell sparfilssynkronisering",
             "upload": "Ladda upp"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",

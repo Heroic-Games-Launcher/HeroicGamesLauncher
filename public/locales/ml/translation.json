@@ -28,7 +28,6 @@
                 "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല.",
                 "title": "കുറിപ്പുകള്‍ കണ്ടെത്താനായില്ല"
             },
-            "python": "ഓടുവാനായി ഹീറോയികിന് പൈത്തണ്‍ 3.8ഓ പുതിയതോ ആവശ്യമാണ്",
             "title": "Error"
         },
         "no": "വേണ്ട",
@@ -132,6 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "തയ്യാറായവ",
+    "Recent": "Recent Games",
     "Return": "തിരിച്ചുപോകൂ",
     "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
     "setting": {
@@ -158,6 +158,7 @@
             "title": "നിങ്ങള്‍ സൂക്ഷിച്ച ഒന്നിപ്പിക്കലുകള്‍",
             "upload": "കയറ്റിവയ്ക്കുൂ"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള്‍ പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
         "offlinemode": "ഓഫ്‍ലൈനില്‍ കളിക്കുക",
         "primerun": "Enable Nvidia Prime Render",

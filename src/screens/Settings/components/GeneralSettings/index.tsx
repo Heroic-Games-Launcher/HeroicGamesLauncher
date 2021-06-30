@@ -31,11 +31,13 @@ interface Props {
   egsPath: string,
   exitToTray: boolean,
   language: string,
+  maxRecentGames: number,
   maxWorkers: number,
   setDefaultInstallPath: (value: string) => void,
   setEgsLinkedPath: (value: string) => void,
   setEgsPath: (value: string) => void,
   setLanguage: (value: string) => void,
+  setMaxRecentGames: (value: number) => void,
   setMaxWorkers: (value: number) => void,
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
@@ -57,6 +59,8 @@ export default function GeneralSettings({
   setLanguage,
   maxWorkers,
   setMaxWorkers,
+  maxRecentGames,
+  setMaxRecentGames,
   darkTrayIcon,
   toggleDarkTrayIcon,
   addDesktopShortcuts,
@@ -282,6 +286,21 @@ export default function GeneralSettings({
             value={discordRPC}
             handleChange={toggleDiscordRPC}
           />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.maxRecentGames', 'Recent Games to Show')}
+          <select
+            data-testid="setMaxRecentGames"
+            onChange={(event) => setMaxRecentGames(Number(event.target.value))}
+            value={maxRecentGames}
+            className="settingSelect smaller"
+          >
+            {Array.from(Array(10).keys()).map((n) => (
+              <option key={n + 1}>{n + 1}</option>
+            ))}
+          </select>
         </span>
       </span>
       <span className="setting">

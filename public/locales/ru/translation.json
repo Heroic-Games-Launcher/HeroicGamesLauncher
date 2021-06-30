@@ -28,7 +28,6 @@
                 "message": "Журнал для этой игры не найден",
                 "title": "Журнал не найден"
             },
-            "python": "Для работы Heroic требуется Python 3.8 или более новая версия.",
             "title": "Error"
         },
         "no": "НЕТ",
@@ -132,6 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Проекты",
     "Ready": "Готово",
+    "Recent": "Recent Games",
     "Return": "Вернуться",
     "search": "Напишите сюда имя игры...",
     "setting": {
@@ -158,6 +158,7 @@
             "title": "Ручная синхронизация сохранений",
             "upload": "Загрузить"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Максимальное количество потоков при скачивании",
         "offlinemode": "Запустить игру в автономном режиме",
         "primerun": "Включить Nvidia Prime Render",

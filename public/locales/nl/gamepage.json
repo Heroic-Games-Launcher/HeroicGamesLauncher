@@ -58,9 +58,6 @@
         "import": "Importeer spel"
     },
     "label": {
-        "cancel": {
-            "update": "Update annuleren"
-        },
         "playing": {
             "start": "Nu spelen",
             "stop": "Spelen (Stop)"

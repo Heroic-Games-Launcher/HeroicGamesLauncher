@@ -58,10 +58,15 @@ import {
 import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
+import Store from 'electron-store'
+
 const { showErrorBox, showMessageBox,showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
+const store = new Store({
+  cwd: 'store'
+})
 
 function createWindow(): BrowserWindow {
   listenStdout().then((arr) => {
@@ -141,8 +146,18 @@ function createWindow(): BrowserWindow {
 let appIcon: Tray = null
 const gotTheLock = app.requestSingleInstanceLock()
 
-const contextMenu = () =>
-  Menu.buildFromTemplate([
+const contextMenu = () => {
+  const recentGames: Array<RecentGame> = store.get('games.recent') as Array<RecentGame> || []
+  const recentsMenu = recentGames.map(game => {
+    return {
+      click: function() {
+        openUrlOrFile(`heroic://launch/${game.appName}`)
+      },
+      label: game.title
+    }
+  })
+
+  return Menu.buildFromTemplate([
     {
       click: function () {
         mainWindow.show()
@@ -179,8 +194,11 @@ const contextMenu = () =>
         handleExit()
       },
       label: i18next.t('tray.quit', 'Quit')
-    }
+    },
+    { type: 'separator' },
+    ...recentsMenu
   ])
+}
 
 if (!gotTheLock) {
   app.quit()
@@ -256,6 +274,8 @@ if (!gotTheLock) {
       await i18next.changeLanguage(language)
       appIcon.setContextMenu(contextMenu())
     })
+
+    store.onDidAnyChange(() => appIcon.setContextMenu(contextMenu()))
 
     if (process.platform === 'linux'){
       const found = await checkCommandVersion(
@@ -464,8 +484,35 @@ ipcMain.handle('refreshLibrary', async () => {
   return await LegendaryLibrary.get().refresh()
 })
 
-ipcMain.handle('launch', (event, game) => {
-  logInfo('launching', game)
+type RecentGame = {
+  appName: string
+  title: string
+}
+
+ipcMain.handle('launch', async (event, game: string) => {
+  const recentGames = store.get('games.recent') as Array<RecentGame> || []
+  const {title} = await Game.get(game).getGameInfo()
+  const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
+
+  logInfo('launching', title, game)
+
+  if (recentGames.length){
+    let updatedRecentGames = recentGames.filter(a => a.appName !== game)
+    if (updatedRecentGames.length > MAX_RECENT_GAMES){
+      const newArr = []
+      for (let i = 0; i <= MAX_RECENT_GAMES; i++){
+        newArr.push(updatedRecentGames[i])
+      }
+      updatedRecentGames = newArr
+    }
+    if (updatedRecentGames.length === MAX_RECENT_GAMES){
+      updatedRecentGames.pop()
+    }
+    updatedRecentGames.unshift({appName: game, title})
+    store.set('games.recent', updatedRecentGames)
+  } else {
+    store.set('games.recent', [{appName: game, title: title}])
+  }
 
   return Game.get(game).launch().then(({ stderr }) => {
     writeFile(

@@ -28,7 +28,6 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic necesita Python 3.8 o superior para funcionar.",
             "title": "Error"
         },
         "no": "No",
@@ -132,6 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Proyectos",
     "Ready": "Listo",
+    "Recent": "Recent Games",
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
     "setting": {
@@ -158,6 +158,7 @@
             "title": "Guardado de sincronización manual",
             "upload": "Upload"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",

@@ -58,9 +58,6 @@
         "import": "Importar Jogo"
     },
     "label": {
-        "cancel": {
-            "update": "Cancelar"
-        },
         "playing": {
             "start": "Jogar",
             "stop": "Jogando (Parar)"

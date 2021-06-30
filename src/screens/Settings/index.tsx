@@ -66,6 +66,7 @@ function Settings() {
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [title, setTitle] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(0)
+  const [maxRecentGames, setMaxRecentGames] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
@@ -160,7 +161,8 @@ function Settings() {
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
       setSavesPath(config.savesPath || '')
-      setMaxWorkers(config.maxWorkers ?? 2)
+      setMaxWorkers(config.maxWorkers ?? 0)
+      setMaxRecentGames(config.maxRecentGames ?? 5)
       setCustomWinePaths(config.customWinePaths || [])
 
       if (!isDefault) {
@@ -190,6 +192,7 @@ function Settings() {
     egsLinkedPath,
     exitToTray,
     language,
+    maxRecentGames,
     maxWorkers,
     nvidiaPrime,
     offlineMode,
@@ -274,6 +277,8 @@ function Settings() {
               setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
+              maxRecentGames={maxRecentGames}
+              setMaxRecentGames={setMaxRecentGames}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
               addDesktopShortcuts={toggleAddDesktopShortcuts.on}

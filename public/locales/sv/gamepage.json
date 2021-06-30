@@ -58,9 +58,6 @@
         "import": "Importera spel"
     },
     "label": {
-        "cancel": {
-            "update": "Avbryt uppdatering"
-        },
         "playing": {
             "start": "Spela",
             "stop": "Avsluta spel"
