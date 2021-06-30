@@ -43,16 +43,24 @@
     "icon": "build/icon.icns",
     "win": {
       "icon": "build/win_icon.ico",
-      "asarUnpack": ["build/bin/win32/legendary.exe"],
-      "files": ["build/bin/win32/*"]
+      "asarUnpack": [
+        "build/bin/win32/legendary.exe"
+      ],
+      "files": [
+        "build/bin/win32/*"
+      ]
     },
     "nsis": {
       "oneClick": "false",
       "allowToChangeInstallationDirectory": "true"
     },
     "mac": {
-      "asarUnpack": ["build/bin/darwin/legendary"],
-      "files": ["build/bin/darwin/*"]
+      "asarUnpack": [
+        "build/bin/darwin/legendary"
+      ],
+      "files": [
+        "build/bin/darwin/*"
+      ]
     },
     "linux": {
       "category": "Game",
@@ -61,8 +69,12 @@
       "desktop": {
         "Name": "Heroic Games Launcher"
       },
-      "asarUnpack": ["build/bin/linux/legendary"],
-      "files": ["build/bin/linux/*"]
+      "asarUnpack": [
+        "build/bin/linux/legendary"
+      ],
+      "files": [
+        "build/bin/linux/*"
+      ]
     },
     "deb": {
       "packageCategory": "games",
@@ -84,10 +96,12 @@
     "@fontsource/rubik": "^4.2.1",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@types/electron-store": "^3.2.0",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "discord-rich-presence-typescript": "^0.0.8",
     "electron-is-dev": "^2.0.0",
+    "electron-store": "^8.0.0",
     "graceful-fs": "^4.2.6",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.1",
