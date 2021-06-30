@@ -28,7 +28,6 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic requires Python 3.8 or newer to work.",
             "title": "Error"
         },
         "no": "NEM",
@@ -132,6 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "Kész",
+    "Recent Games": "",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
@@ -158,6 +158,7 @@
             "title": "Manuális Mentés Szinkronizálás",
             "upload": "Feltöltés"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximum Dolgozók Száma letöltéskor",
         "offlinemode": "Futtassa a Játékot Offline",
         "primerun": "Enable Nvidia Prime Render",

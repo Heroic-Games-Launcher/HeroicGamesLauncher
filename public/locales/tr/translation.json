@@ -28,7 +28,6 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic requires Python 3.8 or newer to work.",
             "title": "Error"
         },
         "no": "HAYIR",
@@ -132,6 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "Hazır",
+    "Recent Games": "",
     "Return": "Geri",
     "search": "Buraya oyun adı girin...",
     "setting": {
@@ -158,6 +158,7 @@
             "title": "Kayıtları Elle Eşzamanla",
             "upload": "Karşıya Yükle"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "İndirirken Maksimum İşçi Sayısı",
         "offlinemode": "Oyunu Çevrimdışı Çalıştır",
         "primerun": "Nvidia Prime Render'ı Etkinleştir",

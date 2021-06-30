@@ -28,7 +28,6 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": "Heroic requires Python 3.8 or newer to work.",
             "title": "Error"
         },
         "no": "ΟΧΙ",
@@ -132,6 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "Έτοιμο",
+    "Recent Games": "",
     "Return": "Επιστροφή",
     "search": "Εισαγάγετε όνομα παιχνιδιού...",
     "setting": {
@@ -158,6 +158,7 @@
             "title": "Δεδομένα Χειροκίνητου Συγχρονισμού",
             "upload": "Μεταφόρτωση"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Μέγιστος αριθμός εργατών κατά την λήψη",
         "offlinemode": "Τρέξιμο παιχνιδιού εκτός δικτύου",
         "primerun": "Ενεργοποίηση Nvidia Prime Render",
