@@ -1,0 +1,56 @@
+app-id: org.heroic.app
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '20.08'
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node14
+command: run.sh
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --share=network
+build-options:
+  append-path: /usr/lib/sdk/node14/bin
+  cflags: -O2 -g
+  cxxflags: -O2 -g
+  env:
+    NPM_CONFIG_LOGLEVEL: info
+modules:
+  - name: heroic
+    buildsystem: simple
+    build-options:
+      env:
+        XDG_CACHE_HOME: /run/build/heroic/flatpak-node/cache
+        npm_config_cache: /run/build/heroic/flatpak-node/node-cache
+        npm_config_nodedir: /usr/lib/sdk/node14
+        npm_config_offline: 'true'
+    subdir: main
+    sources:
+      #- type: archive
+      #  url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v1.7.2/heroic-1.7.2.tar.xz
+      #  sha256: 38820ba99b899a88a589156f8dd09e7afeb762b32e68572775c02cee7f691325
+      - type: dir
+        path: ..
+        dest: main
+      - generated-sources.json
+      # Wrapper to launch the app
+      - type: script
+        dest-filename: run.sh
+        commands:
+          - zypak-wrapper.sh /app/main/heroic "$@"
+    build-commands:
+      # Install npm dependencies
+      - npm install --offline
+      # Build the app; in this example the `dist` script
+      # in package.json runs electron-builder
+      - |
+        . ../flatpak-node/electron-builder-arch-args.sh
+        npm run dist-flatpak -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
+      # Bundle app and dependencies
+      - cp -a dist/heroic-linux-x64 /app/main
+      # Install app wrapper
+      - install -Dm755 -t /app/bin/ ../run.sh
