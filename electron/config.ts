@@ -165,7 +165,9 @@ abstract class GlobalConfig {
 
     steamPaths.forEach((path) => {
       protonPaths.push(`${path}/steam/steamapps/common/`)
+      protonPaths.push(`${path}/steamapps/common/`)
       protonPaths.push(`${path}/root/compatibilitytools.d/`)
+      protonPaths.push(`${path}/compatibilitytools.d/`)
       return
     })
 
