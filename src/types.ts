@@ -1,107 +1,124 @@
-export interface InstalledInfo {
-  executable: string | null
-  version: string | null
-  install_size: string | null
-  install_path: string | null
-  is_dlc: boolean | null
-}
-
-export interface KeyImage {
-  type: string
-}
-
-interface ExtraInfo {
+interface About {
   description: string
   shortDescription: string
 }
-
-export interface WineProps {
-  name: string
-  bin: string
-}
-
 export interface AppSettings {
-  wineVersion: WineProps
-  winePrefix: string
-  otherOptions: string
-  useGameMode: boolean
-  showFps: boolean
-  egsLinkedPath: string
-  savesPath: string
-  autoSyncSaves: boolean
-  exitToTray: boolean
-  launcherArgs: string
   audioFix: boolean
-  showMangohud: boolean
-  defaultInstallPath: string
-  language: string
-  maxWorkers: number
-  darkTrayIcon: boolean
   autoInstallDxvk: boolean
+  autoSyncSaves: boolean
+  customWinePaths: Array<string>
+  darkTrayIcon: boolean
+  defaultInstallPath: string,
+  discordRPC: boolean,
+  egsLinkedPath: string
+  exitToTray: boolean
+  language: string
+  launcherArgs: string
+  maxRecentGames: number
+  maxWorkers: number
+  nvidiaPrime: boolean
+  offlineMode: boolean
+  otherOptions: string
+  savesPath: string
+  showFps: boolean
+  showMangohud: boolean
+  useGameMode: boolean
+  winePrefix: string
+  wineVersion: WineInstallation
 }
 
-export interface Game {
-  art_cover: string
-  art_square: string
-  app_name: string
-  art_logo: string
-  executable: string
+export interface ContextType {
+  category: string
+  data: GameInfo[]
+  error: boolean
+  filter: string
+  gameUpdates: string[]
+  handleCategory: (value: string) => void
+  handleFilter: (value: string) => void
+  handleGameStatus: (game: GameStatus) => Promise<void>
+  handleLayout: (value: string) => void
+  handleSearch: (input: string) => void
+  layout: string
+  libraryStatus: GameStatus[]
+  platform: NodeJS.Platform | string
+  refresh: () => Promise<void>
+  refreshLibrary: (checkUpdates?: boolean) => void
+  refreshing: boolean
+  user: string
+}
+
+interface ExtraInfo {
+  about: About
+  reqs: Reqs[]
+}
+
+export interface GameInfo {
+  app_name: string,
+  art_cover: string,
+  art_logo: string,
+  art_square: string,
+  cloud_save_enabled: boolean,
+  compatible_apps: string[],
+  developer: string,
+  extra: ExtraInfo,
+  folder_name: string,
+  install: InstalledInfo,
+  is_game: boolean,
+  is_installed: boolean,
+  is_ue_asset: boolean,
+  is_ue_plugin: boolean,
+  is_ue_project: boolean,
+  namespace: unknown,
+  save_folder: string,
   title: string
-  version: string
-  install_size: string
-  install_path: string
-  developer: string
-  isInstalled: boolean
-  cloudSaveEnabled: boolean
-  saveFolder: string
-  folderName: string
-  extraInfo: ExtraInfo
-  dlcs: string[]
-  is_dlc: boolean
-}
-
-export interface InstallProgress {
-  percent: string
-  bytes: string
-  eta: string
-}
-
-export interface Path {
-  filePaths: string[]
-}
-export interface WineProps {
-  name: string
-  bin: string
 }
 
 export interface GameStatus {
   appName: string
+  progress?: number | null
   status:
     | 'installing'
     | 'updating'
+    | 'launching'
     | 'playing'
     | 'uninstalling'
     | 'repairing'
     | 'done'
     | 'canceled'
     | 'moving'
-  progress?: number | null
+    | 'queued'
+}
+
+export interface InstallProgress {
+  bytes: string
+  eta: string
+  folder?: string
+  percent: string
+}
+export interface InstalledInfo {
+  executable: string | null
+  install_path: string | null
+  install_size: string | null
+  is_dlc: boolean | null
+  version: string | null
+}
+
+export interface KeyImage {
+  type: string
+}
+
+export interface Path {
+  path: string
+}
+interface Reqs {
+  minimum: string
+  recommended: string
+  title: string
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
-export interface ContextType {
-  user: string
-  data: Game[]
-  filter: string
-  layout: string
-  refreshing: boolean
-  error: boolean
-  libraryStatus: GameStatus[]
-  refresh: () => Promise<void>
-  refreshLibrary: () => void
-  handleGameStatus: (game: GameStatus) => Promise<void>
-  handleFilter: (value: string) => void
-  handleSearch: (input: string) => void
-  handleLayout: (value: string) => void
+export interface WineInstallation {
+  bin: string
+  name: string
 }

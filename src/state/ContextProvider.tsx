@@ -1,20 +1,25 @@
 import React from 'react'
-import { ContextType } from '../types'
+
+import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
-  user: '',
+  category: 'games',
   data: [],
-  libraryStatus: [],
-  refreshing: false,
-  filter: 'all',
-  layout: 'grid',
   error: false,
+  filter: 'all',
+  gameUpdates: [],
+  handleCategory: () => null,
+  handleFilter: () => null,
+  handleGameStatus: () => Promise.resolve(),
+  handleLayout: () => null,
+  handleSearch: () => null,
+  layout: 'grid',
+  libraryStatus: [],
+  platform: 'unknown',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
-  handleGameStatus: () => Promise.resolve(),
-  handleSearch: () => null,
-  handleFilter: () => null,
-  handleLayout: () => null,
+  refreshing: false,
+  user: ''
 }
 
 export default React.createContext(initialContext)

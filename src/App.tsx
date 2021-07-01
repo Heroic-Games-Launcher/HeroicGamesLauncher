@@ -1,25 +1,27 @@
 import React, { lazy, useContext } from 'react'
 
 import './App.css'
-import { Library } from './components/Library'
-import { HashRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
+import { Library } from './screens/Library'
 import ContextProvider from './state/ContextProvider'
 
-const NavBar = lazy(() => import('./components/NavBar'))
-const Settings = lazy(() => import('./components/Settings'))
-const GamePage = lazy(() => import('./components/GamePage/GamePage'))
+const NavBar = lazy(() => import('./components/Navbar'))
+const Settings = lazy(() => import('./screens/Settings'))
+const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
-const Login = lazy(() => import('./components/Login'))
+const Login = lazy(() => import('./screens/Login'))
 
 function App() {
   const context = useContext(ContextProvider)
 
-  const { user, data: library, refresh, handleFilter, handleLayout } = context
+  const { user, data: library, refresh } = context
 
   if (!user && !library.length) {
     return <Login refresh={refresh} />
   }
-  const numberOfGames = library.length
+
+  const dlcCount = library.filter((lib) => lib.install.is_dlc)
+  const numberOfGames = library.length - dlcCount.length
   return (
     <div className="App">
       <HashRouter>
@@ -30,9 +32,7 @@ function App() {
               <Header
                 goTo={''}
                 renderBackButton={false}
-                handleFilter={handleFilter}
                 numberOfGames={numberOfGames}
-                handleLayout={handleLayout}
               />
               <div id="top"></div>
               <Library library={library} />

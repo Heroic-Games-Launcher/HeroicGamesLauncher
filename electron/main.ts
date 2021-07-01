@@ -1,87 +1,112 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  heroicConfigPath,
-  heroicGamesConfigPath,
-  launchGame,
-  legendaryBin,
-  loginUrl,
-  getAlternativeWine,
-  isLoggedIn,
-  legendaryConfigPath,
-  userInfo,
-  writeGameconfig,
-  home,
-  sidInfoUrl,
-  updateGame,
-  checkForUpdates,
-  showAboutWindow,
-  kofiURL,
-  handleExit,
-  heroicGithubURL,
-  iconDark,
-  getSettings,
-  iconLight,
-  getLatestDxvk,
-} from './utils'
-
-import { spawn, exec } from 'child_process'
 import * as path from 'path'
-import isDev from 'electron-is-dev'
-import i18next from 'i18next'
-import Backend from 'i18next-fs-backend'
-
 import {
-  readFileSync,
-  writeFile,
+  BrowserWindow,
+  Menu,
+  Notification,
+  Tray,
+  app,
+  dialog,
+  ipcMain,
+  powerSaveBlocker,
+  protocol
+} from 'electron'
+import {
+  cpus,
+  platform
+} from 'os'
+import {
   existsSync,
   mkdirSync,
+  rmdirSync,
   unlinkSync,
+  writeFile
 } from 'graceful-fs'
-import { promisify } from 'util'
-import axios from 'axios'
-import { userInfo as user, cpus } from 'os'
+import Backend from 'i18next-fs-backend'
+import i18next from 'i18next'
+import isDev from 'electron-is-dev'
 
-const execAsync = promisify(exec)
-
+import { DXVK } from './dxvk'
+import { Game } from './games'
+import { GameConfig } from './game_config'
+import { GlobalConfig } from './config'
+import { LegendaryLibrary } from './legendary/library'
+import { LegendaryUser } from './legendary/user';
 import {
-  app,
-  BrowserWindow,
-  ipcMain,
-  Notification,
-  Menu,
-  Tray,
-  powerSaveBlocker,
-} from 'electron'
-import { Game } from './types.js'
-import { getLegendaryConfig } from './legendary_utils/library'
+  checkCommandVersion,
+  checkForUpdates,
+  errorHandler,
+  execAsync,
+  handleExit,
+  isOnline,
+  openUrlOrFile,
+  showAboutWindow
+} from './utils'
+import {
+  discordLink,
+  getShell,
+  heroicGamesConfigPath,
+  heroicGithubURL,
+  home,
+  iconDark,
+  iconLight,
+  legendaryBin,
+  loginUrl,
+  sidInfoUrl,
+  supportURL,
+  weblateUrl
+} from './constants'
+import { handleProtocol } from './protocol'
+import { listenStdout } from './logger'
+import { logError, logInfo, logWarning } from './logger'
+import Store from 'electron-store'
+
+const { showErrorBox, showMessageBox,showOpenDialog } = dialog
+const isWindows = platform() === 'win32'
+
 let mainWindow: BrowserWindow = null
+const store = new Store({
+  cwd: 'store'
+})
 
 function createWindow(): BrowserWindow {
+  listenStdout().then((arr) => {
+    const str = arr.join('\n')
+    const date = new Date().toDateString()
+    const path = `${app.getPath('crashDumps')}/${date}.txt`
+    logInfo('Saving log file to ' + path)
+    writeFile(path, str, {}, (err) => {
+      throw err
+    })
+  })
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: isDev ? 1800 : 1280,
     height: isDev ? 1200 : 720,
     minHeight: 700,
     minWidth: 1200,
     webPreferences: {
-      nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true,
+      nodeIntegration: true
     },
+    width: isDev ? 1800 : 1280
   })
 
   setTimeout(() => {
-    getLatestDxvk()
+    if (process.platform === 'linux') {
+      DXVK.getLatest()
+    }
   }, 2500)
 
-  //load the index.html from a url
+  GlobalConfig.get()
+  LegendaryLibrary.get()
+
   if (isDev) {
+    /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: any) => {
-        console.log('An error occurred: ', err)
+      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
+        logError('An error occurred: ', err)
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -90,7 +115,7 @@ function createWindow(): BrowserWindow {
 
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = await getSettings('default')
+      const { exitToTray } = (await GlobalConfig.get().config)
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -101,7 +126,7 @@ function createWindow(): BrowserWindow {
   } else {
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = await getSettings('default')
+      const { exitToTray } = (await GlobalConfig.get().config)
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -121,72 +146,125 @@ function createWindow(): BrowserWindow {
 let appIcon: Tray = null
 const gotTheLock = app.requestSingleInstanceLock()
 
-const contextMenu = () =>
-  Menu.buildFromTemplate([
+const contextMenu = () => {
+  const recentGames: Array<RecentGame> = store.get('games.recent') as Array<RecentGame> || []
+  const recentsMenu = recentGames.map(game => {
+    return {
+      click: function() {
+        openUrlOrFile(`heroic://launch/${game.appName}`)
+      },
+      label: game.title
+    }
+  })
+
+  return Menu.buildFromTemplate([
     {
-      label: i18next.t('tray.show'),
       click: function () {
         mainWindow.show()
       },
+      label: i18next.t('tray.show')
     },
     {
-      label: i18next.t('tray.about', 'About'),
       click: function () {
         showAboutWindow()
       },
+      label: i18next.t('tray.about', 'About')
     },
     {
-      label: 'Github',
       click: function () {
-        exec(`xdg-open ${heroicGithubURL}`)
+        openUrlOrFile(heroicGithubURL)
       },
+      label: 'GitHub'
     },
     {
-      label: i18next.t('tray.support', 'Support Us'),
       click: function () {
-        exec(`xdg-open ${kofiURL}`)
+        openUrlOrFile(supportURL)
       },
+      label: i18next.t('tray.support', 'Support Us')
     },
     {
-      label: i18next.t('tray.reload', 'Reload'),
+      accelerator: 'ctrl + R',
       click: function () {
         mainWindow.reload()
       },
-      accelerator: 'ctrl + R',
+      label: i18next.t('tray.reload', 'Reload')
     },
     {
-      label: i18next.t('tray.quit', 'Quit'),
       click: function () {
         handleExit()
       },
+      label: i18next.t('tray.quit', 'Quit')
     },
+    { type: 'separator' },
+    ...recentsMenu
   ])
+}
 
 if (!gotTheLock) {
   app.quit()
 } else {
-  app.on('second-instance', () => {
+  app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
     if (mainWindow) {
       mainWindow.show()
     }
+    if (argv[1]) {
+      const url = argv[1]
+      handleProtocol(mainWindow, url)
+    }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = await getSettings('default')
+    // We can't use .config since apparently its not loaded fast enough.
+    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
 
     await i18next.use(Backend).init({
-      lng: language,
-      fallbackLng: 'en',
-      supportedLngs: ['en', 'pt', 'de', 'ru', 'fr', 'pl', 'tr'],
-      debug: false,
       backend: {
-        allowMultiLoading: false,
         addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
-        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
+        allowMultiLoading: false,
+        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json')
       },
+      debug: false,
+      fallbackLng: 'en',
+      lng: language,
+      supportedLngs: [
+        'cs',
+        'de',
+        'el',
+        'en',
+        'es',
+        'fr',
+        'hu',
+        'it',
+        'ml',
+        'nl',
+        'pl',
+        'pt',
+        'ru',
+        'sv',
+        'tr',
+        'zh_Hans'
+      ]
     })
 
     createWindow()
+
+    protocol.registerStringProtocol('heroic', (request, callback) => {
+      handleProtocol(mainWindow, request.url)
+      callback('Operation initiated.')
+    })
+    if (!app.isDefaultProtocolClient('heroic')) {
+      if (app.setAsDefaultProtocolClient('heroic')) {
+        logInfo('Registered protocol with OS.')
+      } else {
+        logError('Failed to register protocol with OS.')
+      }
+    } else {
+      logWarning('Protocol already registered.')
+    }
+    if (process.argv[1]) {
+      const url = process.argv[1]
+      handleProtocol(mainWindow, url)
+    }
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
@@ -198,41 +276,37 @@ if (!gotTheLock) {
       appIcon.setContextMenu(contextMenu())
     })
 
+    store.onDidAnyChange(() => appIcon.setContextMenu(contextMenu()))
+
+    if (process.platform === 'linux'){
+      const found = await checkCommandVersion(
+        ['python', 'python3'],
+        '3.8.0',
+        false);
+
+      if(!found)
+      {
+        logError('Heroic requires Python 3.8 or newer.');
+      }
+    }
+
     return
   })
 }
 
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
-    title: args[0],
     body: args[1],
+    title: args[0]
   })
 
   notify.on('click', () => mainWindow.show())
   notify.show()
 })
 
-ipcMain.on('openSupportPage', () => exec(`xdg-open ${kofiURL}`))
-
-ipcMain.on('openReleases', () => exec(`xdg-open ${heroicGithubURL}`))
-
-ipcMain.handle('checkVersion', () => checkForUpdates())
-
-ipcMain.handle('writeFile', (event, args) => {
-  const app = args[0]
-  const config = args[1]
-  if (args[0] === 'default') {
-    return writeFile(
-      heroicConfigPath,
-      JSON.stringify(config, null, 2),
-      () => 'done'
-    )
-  }
-  return writeFile(
-    `${heroicGamesConfigPath}/${app}.json`,
-    JSON.stringify(config, null, 2),
-    () => 'done'
-  )
+// Maybe this can help with white screens
+process.on('uncaughtException', (err) => {
+  logError(`${err.name}: ${err.message}`)
 })
 
 let powerId: number | null
@@ -241,6 +315,7 @@ ipcMain.on('lock', () => {
     writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
     if (!powerId) {
       powerId = powerSaveBlocker.start('prevent-app-suspension')
+      return powerId
     }
   }
 })
@@ -249,216 +324,360 @@ ipcMain.on('unlock', () => {
   if (existsSync(`${heroicGamesConfigPath}/lock`)) {
     unlinkSync(`${heroicGamesConfigPath}/lock`)
     if (powerId) {
-      powerSaveBlocker.stop(powerId)
+      return powerSaveBlocker.stop(powerId)
     }
   }
 })
 
-ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.handle('kill', async (event, appName) => {
+  return await Game.get(appName).stop()
+})
 
 ipcMain.on('quit', async () => handleExit())
 
-/* const storage: Storage = mainWindow.localStorage
-const lang = storage.getItem('language') */
-
-ipcMain.handle('getGameInfo', async (event, game) => {
-  let lang = JSON.parse(readFileSync(heroicConfigPath, 'utf-8')).defaultSettings
-    .language
-  if (lang === 'pt') {
-    lang = 'pt-BR'
-  }
-  const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${game}`
-  try {
-    const response = await axios({
-      url: epicUrl,
-      method: 'GET',
-    })
-    return response.data.pages[0].data.about
-  } catch (error) {
-    return {}
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
   }
 })
 
-ipcMain.handle('launch', (event, appName) => {
-  console.log('launching', appName)
-
-  return launchGame(appName).catch(console.log)
+app.on('open-url', (event, url) => {
+  event.preventDefault()
+  handleProtocol(mainWindow, url)
 })
 
-ipcMain.handle('legendary', async (event, args) => {
-  const command = `${legendaryBin} ${args}`
-  return await execAsync(command)
-    .then(({ stdout, stderr }) => {
-      if (stdout) {
-        return stdout
-      } else if (stderr) {
-        return stderr
-      } else {
-        return 'done'
-      }
-    })
-    .catch((err) => console.log(err))
-})
+ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
+ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
+ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
+ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
+ipcMain.on('showAboutWindow', () => showAboutWindow())
+ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
+ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
+ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
-ipcMain.handle('install', async (event, args) => {
-  const { appName: game, path } = args
-  const { defaultInstallPath, maxWorkers } = await getSettings('default')
-  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+ipcMain.on('getLog', (event, appName) =>
+  openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
+)
 
-  const logPath = `${heroicGamesConfigPath}${game}.log`
-  let command = `${legendaryBin} install ${game} --base-path '${path}' ${workers} -y &> ${logPath}`
+ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  console.log({path});
   if (path === 'default') {
-    command = `${legendaryBin} install ${game} --base-path ${defaultInstallPath} ${workers} -y |& tee ${logPath}`
+    const { defaultInstallPath } = await GlobalConfig.get().getSettings()
+    const path = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${path}/${folderName}`
+    return setTimeout(() => {
+      rmdirSync(folderToDelete, {recursive: true})
+    }, 5000)
   }
-  console.log(`Installing ${game} with:`, command)
-  const noSpaceMsg = 'Not enough available disk space'
-  return await execAsync(command, { shell: '/bin/bash' })
-    .then(() => console.log('finished installing'))
-    .catch(async () => {
-      try {
-        const { stdout } = await execAsync(
-          `tail ${logPath} | grep 'disk space'`
-        )
-        if (stdout.includes(noSpaceMsg)) {
-          console.log(noSpaceMsg)
-          return stdout
-        }
-        console.log('installation canceled or had some error')
-      } catch (err) {
-        return err
-      }
-    })
+
+  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
+  return setTimeout(() => {
+    rmdirSync(folderToDelete, {recursive: true})
+  }, 2000)
 })
-
-ipcMain.handle('repair', async (event, game) => {
-  const { maxWorkers } = await getSettings('default')
-  const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
-
-  const logPath = `${heroicGamesConfigPath}${game}.log`
-  const command = `${legendaryBin} repair ${game} ${workers} -y &> ${logPath}`
-
-  console.log(`Repairing ${game} with:`, command)
-  await execAsync(command, { shell: '/bin/bash' })
-    .then(() => console.log('finished repairing'))
-    .catch(console.log)
-})
-
-ipcMain.handle('importGame', async (event, args) => {
-  const { appName: game, path } = args
-  const command = `${legendaryBin} import-game ${game} '${path}'`
-  const { stderr, stdout } = await execAsync(command, { shell: '/bin/bash' })
-  console.log(`${stdout} - ${stderr}`)
-  return
-})
-
-ipcMain.handle('updateGame', (e, appName) => updateGame(appName))
-
-ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `${heroicGamesConfigPath}${appName}.log`
-  const command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5 $6 $11}'`
-  const { stdout } = await execAsync(command)
-  const status = `${stdout.split('\n')[0]}`.split('(')
-  const percent = status[0]
-  const eta = status[1] ? status[1].split(',')[1] : ''
-  const bytes = status[1] ? status[1].split(',')[0].replace(')', 'MB') : ''
-  if (percent && bytes && eta) {
-    const progress = { percent, bytes, eta }
-    console.log(
-      `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
-    )
-    return progress
-  }
-  return ''
-})
-
-ipcMain.on('kill', (event, game) => {
-  console.log('killing', game)
-  return spawn('pkill', ['-f', game])
-})
-
-ipcMain.on('openFolder', (event, folder) => spawn('xdg-open', [folder]))
-
-ipcMain.handle('getAlternativeWine', () => getAlternativeWine())
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
+  exe: string
+  prefix: string
   tool: string
   wine: string
-  prefix: string
-  exe: string
 }
 
-ipcMain.on('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
-  const wineBin = wine.replace("/proton'", "/dist/bin/wine'")
+ipcMain.handle('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
+  let wineBin = wine.replace("/proton'", "/dist/bin/wine'")
   let winePrefix: string = prefix.replace('~', home)
 
   if (wine.includes('proton')) {
     const protonPrefix = winePrefix.replaceAll("'", '')
-    winePrefix = `'${protonPrefix}/pfx'`
+    winePrefix = `${protonPrefix}/pfx`
+
+    // workaround for proton since newer versions doesnt come with a wine binary anymore.
+    logInfo(`${wineBin} not found for this Proton version, will try using default wine`)
+    if (!existsSync(wineBin)){
+      wineBin = '/usr/bin/wine'
+    }
   }
 
-  let command = `WINE=${wineBin} WINEPREFIX=${winePrefix} ${
-    tool === 'winecfg' ? `${wineBin} ${tool}` : tool
-  }`
+  let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
 
   if (tool === 'runExe') {
-    command = `WINEPREFIX=${winePrefix} ${wineBin} ${exe}`
+    command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
   }
 
-  console.log({ command })
-  return exec(command)
+  logInfo('trying to run', command)
+  try {
+    await execAsync(command)
+  } catch (error) {
+    logError(`Something went wrong! Check if ${tool} is available and ${wineBin} exists`)
+  }
+})
+
+/// IPC handlers begin here.
+
+ipcMain.handle('checkGameUpdates', () => LegendaryLibrary.get().listUpdateableGames())
+
+// Not ready to be used safely yet.
+ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
+
+ipcMain.handle('checkVersion', () => checkForUpdates())
+
+ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.handle('getPlatform', () => process.platform)
+
+ipcMain.on('createNewWindow', (e, url) =>
+  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
+)
+
+ipcMain.handle('getGameInfo', async (event, game) => {
+  const obj = Game.get(game)
+  const info = await obj.getGameInfo()
+  info.extra = await obj.getExtraInfo(info.namespace)
+  return info
+})
+
+ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
+
+// Checks if the user have logged in with Legendary already
+ipcMain.handle('isLoggedIn', async () => await LegendaryUser.isLoggedIn())
+
+ipcMain.handle('login', async (event, sid) => await LegendaryUser.login(sid))
+
+ipcMain.handle('logout', async () => await LegendaryUser.logout())
+
+ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
+
+ipcMain.handle('readConfig', async (event, config_class) =>  {
+  switch (config_class) {
+  case 'library':
+    return await LegendaryLibrary.get().getGames('info')
+  case 'user':
+    return (await LegendaryUser.getUserInfo()).displayName
+  default:
+    logError(`Which idiot requested '${config_class}' using readConfig?`)
+    return {}
+  }
 })
 
 ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
-    return await getSettings('default')
+    return GlobalConfig.get().config
   }
-
-  if (appName !== 'default') {
-    writeGameconfig(appName)
-  }
-
-  return await getSettings(appName)
+  // We can't use .config since apparently its not loaded fast enough.
+  return await GameConfig.get(appName).getSettings()
 })
 
-//Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', () => isLoggedIn())
+ipcMain.handle('writeConfig', (event, [appName, config]) => {
+  if (appName === 'default') {
+    GlobalConfig.get().config = config
+    GlobalConfig.get().flush()
+  }
+  else {
+    GameConfig.get(appName).config = config
+    GameConfig.get(appName).flush()
+  }
+})
 
-ipcMain.on('openLoginPage', () => spawn('xdg-open', [loginUrl]))
+ipcMain.handle('refreshLibrary', async () => {
+  return await LegendaryLibrary.get().refresh()
+})
 
-ipcMain.on('openSidInfoPage', () => spawn('xdg-open', [sidInfoUrl]))
+type RecentGame = {
+  appName: string
+  title: string
+}
 
-ipcMain.on('getLog', (event, appName) =>
-  spawn('xdg-open', [`${heroicGamesConfigPath}/${appName}-lastPlay.log`])
-)
+ipcMain.handle('launch', async (event, game: string) => {
+  const recentGames = store.get('games.recent') as Array<RecentGame> || []
+  const {title} = await Game.get(game).getGameInfo()
+  const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
 
-const installed = `${legendaryConfigPath}/installed.json`
+  logInfo('launching', title, game)
+
+  if (recentGames.length){
+    let updatedRecentGames = recentGames.filter(a => a.appName !== game)
+    if (updatedRecentGames.length > MAX_RECENT_GAMES){
+      const newArr = []
+      for (let i = 0; i <= MAX_RECENT_GAMES; i++){
+        newArr.push(updatedRecentGames[i])
+      }
+      updatedRecentGames = newArr
+    }
+    if (updatedRecentGames.length === MAX_RECENT_GAMES){
+      updatedRecentGames.pop()
+    }
+    updatedRecentGames.unshift({appName: game, title})
+    store.set('games.recent', updatedRecentGames)
+  } else {
+    store.set('games.recent', [{appName: game, title: title}])
+  }
+
+  return Game.get(game).launch().then(({ stderr }) => {
+    writeFile(
+      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      stderr,
+      () => 'done'
+    )
+    if (stderr.includes('Errno')) {
+      showErrorBox(
+        i18next.t('box.error', 'Something Went Wrong'),
+        i18next.t(
+          'box.error.launch',
+          'Error when launching the game, check the logs!'
+        )
+      )
+    }
+  }).catch(async (exception) => {
+    // This stuff is completely borken, I have no idea what the hell we should do here.
+    const stderr = `${exception.name} - ${exception.message}`
+    errorHandler({error: {stderr, stdout: ''}})
+    writeFile(
+      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      stderr,
+      () => 'done'
+    )
+    return stderr
+  })
+})
+
+ipcMain.handle('openDialog', async (e, args) => {
+  const { filePaths, canceled } = await showOpenDialog({
+    ...args
+  })
+  if (filePaths[0]){
+    return { path: filePaths[0]}
+  }
+  return {canceled}
+})
+
+ipcMain.handle('openMessageBox', async (e, args) => {
+  const { response } = await showMessageBox({...args})
+  return {response}
+})
+
+
+ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string]) => {
+  const [title, content] = args
+  return  showErrorBox(title, content)
+})
+
+ipcMain.handle('install', async (event, args) => {
+  const { appName: game, path } = args
+  if (!(await isOnline())) {
+    logWarning(`App offline, skipping install for game '${game}'.`)
+    return
+  }
+  return Game.get(game).install(path).then(
+    () => { logInfo('finished installing') }
+  ).catch((res) => res)
+})
+
+ipcMain.handle('uninstall', async (event, game) => {
+  return Game.get(game).uninstall().then(
+    () => { logInfo('finished uninstalling') }
+  ).catch(logError)
+})
+
+ipcMain.handle('repair', async (event, game) => {
+  if (!(await isOnline())) {
+    logWarning(`App offline, skipping repair for game '${game}'.`)
+    return
+  }
+  return Game.get(game).repair().then(
+    () => logInfo('finished repairing')
+  ).catch(logError)
+})
+
+ipcMain.handle('importGame', async (event, args) => {
+  const { appName: game, path } = args
+  const {stderr, stdout} = await Game.get(game).import(path)
+  logInfo(`${stdout}`)
+  logError(`${stderr}`)
+})
+
+ipcMain.handle('updateGame', async (e, game) => {
+  if (!(await isOnline())) {
+    logWarning(`App offline, skipping install for game '${game}'.`)
+    return
+  }
+  return Game.get(game).update().then(
+    () => { logInfo('finished updating') }
+  ).catch((res) => res)
+})
+
+ipcMain.handle('requestGameProgress', async (event, appName) => {
+  const logPath = `${heroicGamesConfigPath}${appName}.log`
+
+  if(!existsSync(logPath)){
+    return {}
+  }
+
+  const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
+  const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
+  const progress_command = isWindows
+    ? win_progress_command
+    : unix_progress_command
+
+  const unix_downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
+  const win_downloaded_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Downloaded:'`
+  const downloaded_command = isWindows
+    ? win_downloaded_command
+    : unix_downloaded_command
+
+  const { stdout: progress_result } = await execAsync(progress_command, {
+    shell: getShell()
+  })
+  const { stdout: downloaded_result } = await execAsync(downloaded_command, {
+    shell: getShell()
+  })
+
+  let percent = ''
+  let eta = ''
+  let bytes = ''
+  if (isWindows) {
+    percent = progress_result.split(' ')[4]
+    eta = progress_result.split(' ')[10]
+    bytes = downloaded_result.split(' ')[5] + 'MiB'
+  }
+
+  if (!isWindows) {
+    [percent, eta] = progress_result.split(' ')
+    bytes = downloaded_result + 'MiB'
+  }
+
+  const progress = { bytes, eta, percent }
+  logInfo(
+    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+  )
+  return progress
+})
 
 ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  const file = JSON.parse(readFileSync(installed, 'utf8'))
-  const installedGames: Game[] = Object.values(file)
-  const { install_path } = installedGames.filter(
-    (game) => game.app_name === appName
-  )[0]
-
-  const splitPath = install_path.split('/')
-  const installFolder = splitPath[splitPath.length - 1]
-  const newPath = `${path}/${installFolder}`
-  const game: Game = { ...file[appName], install_path: newPath }
-  const modifiedInstall = { ...file, [appName]: game }
-  return await execAsync(`mv -f ${install_path} ${newPath}`)
-    .then(() => {
-      writeFile(installed, JSON.stringify(modifiedInstall, null, 2), () =>
-        console.log(`Finished moving ${appName} to ${newPath}`)
-      )
-    })
-    .catch(console.log)
+  const newPath = await Game.get(appName).moveInstall(path)
+  logInfo(`Finished moving ${appName} to ${newPath}.`)
 })
 
-ipcMain.handle('readFile', async (event, file) => getLegendaryConfig(file))
+ipcMain.handle(
+  'changeInstallPath',
+  async (event, [appName, newPath]: string[]) => {
+    LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
+    logInfo(`Finished moving ${appName} to ${newPath}.`)
+  }
+)
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const linkArgs = `--enable-sync --egl-wine-prefix ${args}`
+  const egl_manifestPath = 'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
+
+  if (isWindows){
+    if (!existsSync(egl_manifestPath)){
+      mkdirSync(egl_manifestPath)
+    }
+  }
+
+  const linkArgs = isWindows ? `--enable-sync` : `--enable-sync --egl-wine-prefix ${args}`
   const unlinkArgs = `--unlink`
   const isLink = args !== 'unlink'
   const command = isLink ? linkArgs : unlinkArgs
@@ -467,68 +686,28 @@ ipcMain.handle('egsSync', async (event, args) => {
     const { stderr, stdout } = await execAsync(
       `${legendaryBin} egl-sync ${command} -y`
     )
-    console.log(`${stdout} - ${stderr}`)
+    logInfo(`${stdout}`)
+    logError(`${stderr}`)
     return `${stdout} - ${stderr}`
   } catch (error) {
     return 'Error'
   }
 })
 
-ipcMain.handle('getUserInfo', () => {
-  const { account_id } = JSON.parse(readFileSync(userInfo, 'utf-8'))
-  return { user: user().username, epicId: account_id }
-})
-
-ipcMain.on('removeFolder', async (e, args: string[]) => {
-  const [path, folderName] = args
-
-  if (path === 'default') {
-    const defaultInstallPath = await (
-      await getSettings('default')
-    ).defaultInstallPath.replaceAll("'", '')
-    const folderToDelete = `${defaultInstallPath}/${folderName}`
-    return setTimeout(() => {
-      exec(`rm -Rf ${folderToDelete}`)
-    }, 2000)
-  }
-
-  const folderToDelete = `${path}/${folderName}`
-  return setTimeout(() => {
-    exec(`rm -Rf ${folderToDelete}`)
-  }, 2000)
+ipcMain.on('addShortcut', async(event, appName) => {
+  const game = Game.get(appName)
+  game.addDesktopShortcut()
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
-
-  const command = `${legendaryBin} sync-saves --save-path "${path}" ${arg} ${appName} -y`
-  const legendarySavesPath = `${home}/legendary/.saves`
-
-  //workaround error when no .saves folder exists
-  if (!existsSync(legendarySavesPath)) {
-    mkdirSync(legendarySavesPath, { recursive: true })
+  if (!(await isOnline())) {
+    logWarning(`App offline, skipping syncing saves for game '${appName}'.`)
+    return
   }
 
-  console.log('\n syncing saves for ', appName)
-  const { stderr, stdout } = await execAsync(command)
-  console.log(`${stdout} - ${stderr}`)
+  const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
+  logInfo(`${stdout}`)
+  logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`
-})
-
-ipcMain.on('showAboutWindow', () => showAboutWindow())
-
-// Maybe this can help with white screens
-process.on('uncaughtException', (err) => {
-  console.log(err)
-})
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
 })

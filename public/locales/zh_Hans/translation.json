@@ -1,0 +1,209 @@
+{
+    "search": "在此处输入游戏名称",
+    "other": {
+        "weblate": "请帮助翻译Heroic启动器。"
+    },
+    "box": {
+        "sync": {
+            "button": "选择",
+            "title": "选择存档的目录",
+            "error": "无效路径"
+        },
+        "yes": "是",
+        "wineprefix": "选择WINEPREFIX的文件夹",
+        "select": "选择",
+        "runexe": {
+            "title": "选择要运行的EXE文件"
+        },
+        "quit": {
+            "title": "退出",
+            "message": "有待处理的操作，您确定吗？"
+        },
+        "protocol": {
+            "install": {
+                "not_installed": "未安装，您是否希望安装它？"
+            }
+        },
+        "no": "否",
+        "error": {
+            "title": "错误",
+            "python": "Heroic启动器需要Python 3.8或更高版本才能工作。",
+            "log": {
+                "title": "未找到日志",
+                "message": "未找到此游戏的日志"
+            },
+            "launch": "启动游戏时出现错误，请检查日志！",
+            "generic": {
+                "title": "未知错误",
+                "message": "发生了未知错误"
+            },
+            "diskspace": {
+                "title": "没有空间",
+                "message": "没有足够的可用磁盘空间"
+            },
+            "credentials": {
+                "title": "过期的登录凭据",
+                "message": "您的凭据已过期，请注销并重新登录。"
+            }
+        },
+        "default-install-path": "选择默认安装路径",
+        "customWine": "选择已编译的Wine或Proton",
+        "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
+        "choose": "请选择",
+        "appupdate": {
+            "title": "有可用更新",
+            "message": "有新版本的Heroic启动器可用，您要立即更新吗？"
+        }
+    },
+    "wiki": "Wiki百科",
+    "userselector": {
+        "support": "支持我们",
+        "refresh": "刷新库",
+        "quit": "退出",
+        "logout_confirmation": "您确定要退出登录吗？",
+        "logout": "退出登录",
+        "discord": "Discord",
+        "about": "关于"
+    },
+    "Updates": "更新",
+    "Unreal Marketplace": "虚幻商城",
+    "tray": {
+        "support": "支持我们",
+        "show": "显示",
+        "reload": "重新加载",
+        "quit": "退出",
+        "about": "关于"
+    },
+    "Total Games": "总游戏数",
+    "tooltip": {
+        "removepath": "删除路径",
+        "addpath": "添加新路径"
+    },
+    "store": "商店",
+    "settings": {
+        "navbar": {
+            "sync": "存档-同步",
+            "other": "其它",
+            "general": "常规"
+        }
+    },
+    "Settings": "设置",
+    "setting": {
+        "wineversion": "WINE版本",
+        "wineprefix": "WINEPREFIX文件夹",
+        "showfps": "显示帧数（Directx 9，10和11）",
+        "savefolder": {
+            "title": "覆盖云端存档文件夹",
+            "placeholder": "选择存档的保存位置"
+        },
+        "runexe": {
+            "title": "在PREFIX上运行exe文件",
+            "message": "将文件拖放到此处"
+        },
+        "primerun": "启用英伟达Prime渲染",
+        "offlinemode": "离线运行游戏",
+        "maxworkers": "下载时的最大Worker数量",
+        "manualsync": {
+            "upload": "上传",
+            "title": "手动同步存档",
+            "syncing": "正在同步",
+            "sync": "同步",
+            "forceupload": "强制上传",
+            "forcedownload": "强制下载",
+            "download": "下载"
+        },
+        "mangohud": "启用MangoHud（需要已安装Mangohud）",
+        "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
+        "language": "选择应用语言",
+        "exit-to-tray": "退出到系统托盘",
+        "egs-sync": "与已安装的Epic Games同步",
+        "discordRPC": "启用Discord的Rich Presence（活动状态）",
+        "default-install-path": "默认安装路径",
+        "darktray": "使用暗色托盘图标（需要重启）",
+        "customWineProton": "自定义Wine/Proton路径",
+        "autosync": "自动同步存档",
+        "autodxvk": "在PREFIX自动安装并更新DXVK",
+        "audiofix": "音频修复（Pulse Audio延迟）",
+        "addgamestostartmenu": "自动添加到启动菜单快捷方式",
+        "adddesktopshortcuts": "自动添加桌面快捷方式"
+    },
+    "Return": "返回",
+    "Ready": "准备就绪",
+    "Projects": "项目",
+    "Plugins": "插件",
+    "placeholder": {
+        "egs-prefix": "Epic Games商城安装位置"
+    },
+    "options": {
+        "gameargs": {
+            "title": "游戏参数（在命令后运行）：",
+            "placeholder": "将启动器参数放在这里"
+        },
+        "advanced": {
+            "title": "高级选项（环境变量）：",
+            "placeholder": "将其他启动选项放在这里"
+        }
+    },
+    "notify": {
+        "update": {
+            "finished": "已更新",
+            "canceled": "已取消更新"
+        },
+        "uninstalled": "已卸载",
+        "moved": "移动完成",
+        "install": {
+            "finished": "安装完成",
+            "canceled": "已取消安装"
+        },
+        "finished": {
+            "reparing": "已完成修复"
+        }
+    },
+    "Not Ready": "尚未就绪",
+    "nogames": "未找到游戏",
+    "message": {
+        "unsync": "取消同步完成",
+        "sync": "同步完成"
+    },
+    "Library": "库",
+    "infobox": {
+        "requirements": "系统要求",
+        "help": "帮助"
+    },
+    "info": {
+        "settings": "设置会自动保存"
+    },
+    "help": {
+        "wine": {
+            "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹",
+            "part1": "Heroic启动器会在以下文件夹中查找现有的Wine和Proton版本："
+        },
+        "sync": {
+            "part4": "自动同步将在你每次开始游戏时和结束游戏后同步存档。",
+            "part3": "手动同步：选择下载以下载存储在云端的存档。选择上传将会把本地存档上传到云端。强制下载将会忽略本地版本，强制上传将会忽略云端版本。",
+            "part2": "如果你改变了Wine或Proton的文件夹，你将需要再次检查路径，因为Proton使用不同的前缀（/pfx）和用户名（steamuser）。很简单，你可以直接删除当前的路径，离开同步设置页面再回来，Heroic会去重新猜测正确PREFIX的文件夹。",
+            "part1": "大多数情况下，Heroic启动器会正确猜测的存档的位置。但如果位置是错误的，请使用覆盖框更改。"
+        },
+        "other": {
+            "part7": " 在某些游戏中跳过启动器等。",
+            "part6": " 在执行启动命令后调用，例如： ",
+            "part5": "游戏参数",
+            "part4": "使用 ",
+            "part3": "在启动游戏前调用； ",
+            "part2": "高级选项",
+            "part1": "使用 "
+        },
+        "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。"
+    },
+    "globalSettings": "全局设置",
+    "Games": "游戏",
+    "Filter": "筛选",
+    "Downloading": "正在下载",
+    "button": {
+        "unsync": "不同步",
+        "syncing": "正在同步",
+        "sync": "同步"
+    },
+    "Assets": "素材",
+    "All": "全部"
+}

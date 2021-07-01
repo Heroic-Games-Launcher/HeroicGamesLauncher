@@ -1,0 +1,124 @@
+.header {
+  display: grid;
+  place-self: center;
+  place-content: center;
+  height: 84px;
+  width: calc(100% - 1vw);
+  padding: 0 4rem 1rem 4rem;
+  grid-template-columns: 5fr 2fr 4fr 1fr;
+  justify-items: baseline;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: clamp(1em, 0.5vw, 2rem);
+  line-height: 17px;
+  color: var(--text-secondary);
+  grid-template-areas: 'filter total category layout';
+}
+
+.headerSettings {
+  grid-template-columns: 1fr 6fr;
+  display: grid;
+  grid-template-areas: 'return title';
+  width: 906px;
+  place-self: center;
+  align-items: center;
+  margin: 22px 0;
+}
+
+.headerSettings > .headerTitle {
+  font-size: 1.5rem;
+  grid-area: title;
+}
+
+.selectFilter {
+  display: flex;
+  width: fit-content;
+  justify-self: auto;
+  justify-content: space-evenly;
+  grid-area: filter;
+}
+
+.selectFilter > .selected {
+  font-size: clamp(1.1em, 0.6vw, 2.1rem);
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.selectFilter > :not(:first-child) {
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.selectFilter > select {
+  font-size: clamp(1em, 0.5vw, 2rem);
+  color: var(--text-secondary);
+  box-sizing: content-box;
+  height: 17px;
+  border: none;
+  background: none;
+}
+
+option {
+  background: var(--background-secondary);
+  color: var(--text-secondary);
+}
+
+.selectCategory {
+  display: flex;
+  width: fit-content;
+  justify-self: end;
+  justify-content: space-evenly;
+  cursor: pointer;
+  grid-area: category;
+}
+
+.selectCategory > .selected {
+  font-size: clamp(1.1em, 0.6vw, 2.1rem);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.selectCategory > :not(:first-child) {
+  padding: 0 8px;
+}
+
+.layoutSelection {
+  place-self: end;
+  grid-area: layout;
+  min-width: 68px;
+}
+
+.selectedLayout {
+  color: var(--secondary);
+}
+
+.layoutSelection > svg:hover {
+  cursor: pointer;
+}
+
+.layoutSelection > svg {
+  margin: 0 0.2em;
+}
+
+.iconsWrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding-left: 6px;
+}
+
+.totalGamesText {
+  right: 55px;
+  top: 108px;
+  grid-area: total;
+}
+
+.returnLink {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: 100px;
+  margin: 0 -25px;
+  height: fit-content;
+}

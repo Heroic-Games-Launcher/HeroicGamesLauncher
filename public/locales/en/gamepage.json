@@ -1,82 +1,95 @@
 {
-  "box": {
-    "choose": "Choose",
-    "importpath": "Choose Game Folder to import",
-    "installpath": "Choose Install Path",
-    "move": {
-      "message": "This can take a long time, are you sure?",
-      "path": "Choose where do you want to move",
-      "title": "Move Game Installation"
+    "box": {
+        "change": {
+            "message": "This will change the install location of this game, are you sure?",
+            "path": "Choose a new install path",
+            "title": "Change Games Install Path"
+        },
+        "choose": "Choose",
+        "importpath": "Choose Game Folder to import",
+        "installpath": "Choose Install Path",
+        "move": {
+            "message": "This can take a long time, are you sure?",
+            "path": "Choose where do you want to move",
+            "title": "Move Game Installation"
+        },
+        "no": "NO",
+        "repair": {
+            "message": "Do you want to try to repair this game? This can take a long time.",
+            "title": "Verify and Repair"
+        },
+        "stopInstall": {
+            "keepInstalling": "Keep Installing",
+            "message": "Do you wish to KEEP downloaded files?",
+            "title": "Stop Installation"
+        },
+        "uninstall": {
+            "message": "Do you want to uninstall this game?",
+            "title": "Uninstall"
+        },
+        "update": {
+            "message": "This game has an update, do you wish to update now?",
+            "title": "Game Needs Update"
+        },
+        "yes": "YES"
     },
-    "no": "NO",
-    "repair": {
-      "message": "Do you want to try to repair this game? This can take a long time.",
-      "title": "Verify and Repair"
+    "button": {
+        "cancel": "Cancel",
+        "continue": "Continue Download",
+        "import": "Import",
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
-    "stopInstall": {
-      "keepInstalling": "Keep Installing",
-      "message": "Do you wish to KEEP downloaded files?",
-      "title": "Stop Installation"
+    "disabled": "Disabled",
+    "enabled": "Enabled",
+    "gamecard": {
+        "moving": "Moving",
+        "repairing": "Repairing"
     },
-    "uninstall": {
-      "message": "Do you want to uninstall this game?",
-      "title": "Uninstall"
+    "info": {
+        "path": "Install Path",
+        "size": "Size",
+        "syncsaves": "Sync Saves",
+        "version": "Version"
     },
-    "update": {
-      "message": "This game has an update, do you wish to update now?",
-      "title": "Game Needs Update"
+    "install": {
+        "another": "Install on another Path",
+        "default": "Install on",
+        "import": "Import Game"
     },
-    "yes": "YES"
-  },
-  "button": {
-    "cancel": "Cancel",
-    "import": "Import",
-    "install": "Install",
-    "uninstall": "Uninstall"
-  },
-  "disabled": "Disabled",
-  "enabled": "Enabled",
-  "gamecard": {
-    "moving": "Moving",
-    "repairing": "Repairing"
-  },
-  "info": {
-    "path": "Install Path",
-    "size": "Size",
-    "syncsaves": "Sync Saves",
-    "version": "Version"
-  },
-  "install": {
-    "another": "Install on another Path",
-    "default": "Install on",
-    "import": "Import Game"
-  },
-  "label": {
-    "cancel": {
-      "update": "Cancel Update"
+    "label": {
+        "playing": {
+            "start": "Play Now",
+            "stop": "Playing (Stop)"
+        },
+        "saves": {
+            "syncing": "Syncing Saves"
+        }
     },
-    "playing": {
-      "start": "Play Now",
-      "stop": "Playing (Stop)"
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Recommended"
     },
-    "saves": {
-      "syncing": "Syncing Saves"
+    "status": {
+        "clickToUpdate": "Click to Update",
+        "hasUpdates": "New Version Available!",
+        "installed": "Installed",
+        "installing": "Installing",
+        "moving": "Moving Installation, please wait",
+        "notinstalled": "This game is not installed",
+        "notSupported": "This game can only be imported",
+        "reparing": "Repairing Game, please wait",
+        "totalDownloaded": "Total Downloaded",
+        "updating": "Updating Game"
+    },
+    "submenu": {
+        "addShortcut": "Add shortcut",
+        "change": "Change install path",
+        "log": "Latest Log",
+        "move": "Move Game",
+        "protondb": "Check Compatibility",
+        "settings": "Settings",
+        "store": "Store Page",
+        "verify": "Verify and Repair"
     }
-  },
-  "status": {
-    "installed": "Installed",
-    "installing": "Installing",
-    "moving": "Moving Installation, please wait",
-    "notinstalled": "This game is not installed",
-    "reparing": "Repairing Game, please wait",
-    "updating": "Updating Game"
-  },
-  "submenu": {
-    "log": "Latest Log",
-    "move": "Move Game",
-    "protondb": "Check Compatibility",
-    "settings": "Settings",
-    "store": "Store Page",
-    "verify": "Verify and Repair"
-  }
 }

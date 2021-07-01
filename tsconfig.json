@@ -23,7 +23,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "."
   },
   "exclude": [
     "node_modules/**/*",
@@ -32,9 +33,14 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts",
+    "src/test_helpers/**/*",
     "public/start-react.js",
-    "public/*.js"
+    "public/*.js",
+    "dist",
+    "*.test.tsx"
   ],
-  "include": ["src", "src/types.ts"]
+  "include": [
+    "src", 
+    "src/types.ts",
+    "src/typings-custom/**/*.ts"]
 }

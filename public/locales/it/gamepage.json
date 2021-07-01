@@ -1,0 +1,95 @@
+{
+    "box": {
+        "change": {
+            "message": "Questo cambierà il percorso d'installazione del gioco, sei sicuro?",
+            "path": "Seleziona un nuovo percorso d'installazione",
+            "title": "Cambia il percorso d'installazione del gioco"
+        },
+        "choose": "Scegli",
+        "importpath": "Seleziona la cartella del gioco da importare",
+        "installpath": "Seleziona il percorso d'installazione",
+        "move": {
+            "message": "Quest'operazione può richiedere molto tempo, sei sicuro?",
+            "path": "Seleziona dove vuoi muoverla",
+            "title": "Muovi l'installazione del gioco"
+        },
+        "no": "NO",
+        "repair": {
+            "message": "Vuoi provare a riparare questo gioco? Potrebbe richiedere molto tempo.",
+            "title": "Verifica e ripara"
+        },
+        "stopInstall": {
+            "keepInstalling": "Continua l'installazione",
+            "message": "Desideri tenere i files scaricati?",
+            "title": "Ferma l'installazione"
+        },
+        "uninstall": {
+            "message": "Vuoi disinstallare questo gioco?",
+            "title": "Disinstalla"
+        },
+        "update": {
+            "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
+            "title": "Il gioco richiede un aggiornamento"
+        },
+        "yes": "SI"
+    },
+    "button": {
+        "cancel": "Annulla",
+        "continue": "Continue Download",
+        "import": "Importa",
+        "install": "Installa",
+        "uninstall": "Disinstalla"
+    },
+    "disabled": "Disattivato",
+    "enabled": "attivato",
+    "gamecard": {
+        "moving": "Spostamento in corso",
+        "repairing": "Riparazione in corso"
+    },
+    "info": {
+        "path": "Percorso d'installazione",
+        "size": "Dimensione",
+        "syncsaves": "Sincronizza i salvataggi",
+        "version": "Versione"
+    },
+    "install": {
+        "another": "Installa in un altro percorso",
+        "default": "Installa su",
+        "import": "Importa gioco"
+    },
+    "label": {
+        "playing": {
+            "start": "Esegui ora",
+            "stop": "In esecuzione (Stop)"
+        },
+        "saves": {
+            "syncing": "Sincronizzando i salvataggi"
+        }
+    },
+    "specs": {
+        "minimum": "Minime",
+        "recommended": "Raccomandate"
+    },
+    "status": {
+        "clickToUpdate": "Click to Update",
+        "hasUpdates": "Nuova versione disponibile!",
+        "installed": "Installata",
+        "installing": "Installazione in corso",
+        "moving": "Spostamento dell'installazione in corso, per favore attendi",
+        "notinstalled": "Questo gioco non è installato",
+        "notSupported": "This game can only be imported",
+        "reparing": "Riparazione del gioco in corso, per favore attendi",
+        "totalDownloaded": "Total Downloaded",
+        "updating": "Aggiornamento in corso"
+    },
+    "submenu": {
+        "addShortcut": "Add shortcut",
+        "change": "Cambia percorso d'installazione",
+        "log": "Ultimo Log",
+        "move": "Muovi gioco",
+        "protondb": "Controlla compatibilità",
+        "settings": "Impostazioni",
+        "store": "Pagina dello store",
+        "verify": "Verifica e ripara"
+    }
+}

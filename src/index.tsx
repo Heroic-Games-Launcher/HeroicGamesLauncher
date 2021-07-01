@@ -1,20 +1,19 @@
-import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom'
-import { I18nextProvider } from 'react-i18next'
-import { initReactI18next } from 'react-i18next'
-import i18next from 'i18next'
+import { I18nextProvider, initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom'
+import i18next from 'i18next'
 
 import './index.css'
-import App from './App'
-import GlobalState from './state/GlobalState'
-import UpdateComponent from './components/UI/UpdateComponent'
+import App from 'src/App'
+import GlobalState from 'src/state/GlobalState'
+import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 const Backend = new HttpApi(null, {
-  allowMultiLoading: false,
   addPath: 'build/locales/{{lng}}/{{ns}}',
-  loadPath: 'locales/{{lng}}/{{ns}}.json',
+  allowMultiLoading: false,
+  loadPath: 'locales/{{lng}}/{{ns}}.json'
 })
 
 i18next
@@ -26,14 +25,15 @@ i18next
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    fallbackLng: 'en',
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
     lng: 'en',
-    fallbackLng: 'en',
     react: {
-      useSuspense: true,
+      useSuspense: true
     },
+    supportedLngs: ['cs', 'de', 'el', 'en', 'es', 'fr', 'hu', 'it', 'ml', 'nl', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh_Hans']
   })
 
 ReactDOM.render(
