@@ -325,7 +325,7 @@ export default function GamePage(): JSX.Element | null {
                                 {t('specs.recommended').toUpperCase()}
                               </td>
                             </tr>
-                            {extra.reqs.map((e) => (
+                            {extra.reqs.map((e) => e && e.title && (
                               <Fragment key={e.title}>
                                 <tr>
                                   <td>
