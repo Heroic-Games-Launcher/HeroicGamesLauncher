@@ -38,7 +38,6 @@ function semverGt(target : string, base : string) {
   isGE ||= tmajor > bmajor
   isGE ||= tmajor === bmajor && tminor > bminor
   isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
-  isGE ||= tmajor === bmajor && tminor === bminor && tpatch === bpatch
   return isGE
 }
 
