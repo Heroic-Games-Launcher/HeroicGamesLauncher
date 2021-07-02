@@ -71,13 +71,13 @@
         "recommended": "Empfohlen"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Klicken zum Aktualisieren",
         "hasUpdates": "Neue Version verfügbar!",
         "installed": "Installiert",
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Dieses Spiel kann nur importiert werden",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"
