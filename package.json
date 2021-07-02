@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.8.0rc2",
+  "version": "1.8.0",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -126,7 +126,7 @@
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "eject": "react-scripts eject",
-    "ci-build": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman",
+    "release": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "dist-mac": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",
     "dist-win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win",
