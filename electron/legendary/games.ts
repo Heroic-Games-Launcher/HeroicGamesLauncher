@@ -279,13 +279,13 @@ Categories=Game;
     const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
     const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
 
-    if (enabledInDesktop || enabledInDesktop === undefined) {
+    if (enabledInDesktop) {
       // spawn('echo', [shortcut, '>', ])
       writeFile(desktopFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + desktopFolder)
       })
     }
-    if (enabledInStartMenu || enabledInStartMenu === undefined) {
+    if (enabledInStartMenu) {
       writeFile(applicationsFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + applicationsFolder)
       })
@@ -423,10 +423,12 @@ Categories=Game;
       launcherArgs = '',
       showMangohud,
       audioFix,
-      autoInstallDxvk
+      autoInstallDxvk,
+      offlineMode
     } = await this.getSettings()
 
     const DiscordRPC = makeClient('852942976564723722')
+    const runOffline = offlineMode ? '--offline' : ''
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
     if (discordRPC) {
@@ -461,7 +463,7 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${legendaryBin} launch ${this.appName} ${launcherArgs}`
+      const command = `${legendaryBin} launch ${this.appName} ${runOffline} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command)
 
@@ -495,6 +497,7 @@ Categories=Game;
         : '',
       showMangohud: showMangohud ? `MANGOHUD=1` : ''
     }
+
 
     envVars = Object.values(options).join(' ')
     if (isProton) {
@@ -530,7 +533,7 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName}  ${wineCommand} ${prefix} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command).then((v) => {
       this.state.status = 'playing'
