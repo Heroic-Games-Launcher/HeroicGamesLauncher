@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "NIE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nie jest zainstalowany, czy chcesz go zainstalować?"
@@ -44,6 +45,10 @@
             "title": "Wybierz plik EXE do uruchomienia"
         },
         "select": "Zaznacz",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Wybierz",
             "error": "Nieprawidłowa ścieżka",

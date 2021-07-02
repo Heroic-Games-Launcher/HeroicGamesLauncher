@@ -234,11 +234,14 @@ class LegendaryGame extends Game {
     }
 
     const gameInfo = await this.getGameInfo()
-    const image = gameInfo.art_square
-    const ext = image.split('.').reverse()[0]
+    const image = gameInfo.art_square.replaceAll(' ', '_')
+    let ext = image.split('.').reverse()[0]
+    if (ext !== 'jpg' && ext !== 'png'){
+      ext = 'jpg'
+    }
     const icon = `${heroicIconFolder}/${appName}.${ext}`
     if (!existsSync(icon)) {
-      await execAsync(`curl ${image} --output ${icon}`)
+      await execAsync(`curl '${image}' --output ${icon}`)
     }
     return icon
   }
@@ -250,7 +253,7 @@ class LegendaryGame extends Game {
    * @async
    * @public
    */
-  public async addDesktopShortcut() {
+  public async addDesktopShortcut(fromMenu?: boolean) {
     if (process.platform !== 'linux'){
       return
     }
@@ -279,13 +282,13 @@ Categories=Game;
     const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
     const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
 
-    if (enabledInDesktop) {
+    if (enabledInDesktop || fromMenu) {
       // spawn('echo', [shortcut, '>', ])
       writeFile(desktopFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + desktopFolder)
       })
     }
-    if (enabledInStartMenu) {
+    if (enabledInStartMenu || fromMenu) {
       writeFile(applicationsFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + applicationsFolder)
       })

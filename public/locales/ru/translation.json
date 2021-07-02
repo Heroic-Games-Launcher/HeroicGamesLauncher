@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "НЕТ",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Не установлен, хотите ли вы установить его?"
@@ -44,6 +45,10 @@
             "title": "Выбрать EXE для запуска"
         },
         "select": "Выбрать",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Выбрать",
             "error": "Неправильный путь",

@@ -58,7 +58,7 @@ export default function SyncSaves({
       let folder = await fixSaveFolder(save_folder, prefix, isProton || false)
       folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
-      const fixedPath = isWin ? path.replaceAll('/', '\\') : path.replaceAll('\\', '/') // invert slashes and remove latest on windows
+      const fixedPath = isWin ? path.replaceAll('/', '\\') : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows
       setSavesPath(fixedPath)
     }
     getSyncFolder()
