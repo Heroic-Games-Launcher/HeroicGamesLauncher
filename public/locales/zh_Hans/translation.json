@@ -125,7 +125,8 @@
         "autodxvk": "在PREFIX自动安装并更新DXVK",
         "audiofix": "音频修复（Pulse Audio延迟）",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
-        "adddesktopshortcuts": "自动添加桌面快捷方式"
+        "adddesktopshortcuts": "自动添加桌面快捷方式",
+        "maxRecentGames": "最近要展示的游戏"
     },
     "Return": "返回",
     "Ready": "准备就绪",
@@ -205,5 +206,6 @@
         "sync": "同步"
     },
     "Assets": "素材",
-    "All": "全部"
+    "All": "全部",
+    "Recent": "最近的游戏"
 }
