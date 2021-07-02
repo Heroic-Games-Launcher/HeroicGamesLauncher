@@ -698,9 +698,9 @@ ipcMain.on('addShortcut', async(event, appName) => {
   const game = Game.get(appName)
   await game.addDesktopShortcut(true)
   dialog.showMessageBox({
-    buttons: ['OK'],
-    message: 'Shortcuts were created on Desktop and Start Menu',
-    title: 'Shortcuts'
+    buttons: i18next.t('box.ok', 'Ok'),
+    message: i18next.t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
+    title: i18next.t('box.shortcuts.title', 'Shortcuts')
   })
 })
 
