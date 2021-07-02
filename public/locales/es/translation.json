@@ -145,6 +145,7 @@
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura (necesita reiniciarse)",
         "default-install-path": "Ruta de instalación predeterminada",

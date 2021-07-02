@@ -145,6 +145,7 @@
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",

@@ -145,6 +145,7 @@
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro (necessita reiniciar)",
         "default-install-path": "Pasta de instalação padrão",

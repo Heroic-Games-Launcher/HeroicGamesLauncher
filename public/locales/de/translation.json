@@ -145,6 +145,7 @@
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
         "default-install-path": "Standard-Installationspfad",

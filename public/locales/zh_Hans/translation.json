@@ -145,6 +145,7 @@
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在PREFIX自动安装并更新DXVK",
         "autosync": "自动同步存档",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "自定义Wine/Proton路径",
         "darktray": "使用暗色托盘图标（需要重启）",
         "default-install-path": "默认安装路径",

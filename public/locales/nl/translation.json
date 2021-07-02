@@ -145,6 +145,7 @@
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon (vereist opnieuw opstarten)",
         "default-install-path": "Standaard installatie map",

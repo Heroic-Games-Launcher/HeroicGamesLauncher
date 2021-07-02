@@ -145,6 +145,7 @@
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon (needs restart)",
         "default-install-path": "Default Installation Path",

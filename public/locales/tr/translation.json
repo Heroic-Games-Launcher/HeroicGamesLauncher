@@ -145,6 +145,7 @@
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan (yeniden başlatma gerektirir)",
         "default-install-path": "Varsayılan Kurulum Yeri",

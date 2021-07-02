@@ -145,6 +145,7 @@
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου (απαιτεί επανεκκίνηση)",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",

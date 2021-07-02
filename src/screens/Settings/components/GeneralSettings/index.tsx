@@ -294,7 +294,7 @@ export default function GeneralSettings({
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          {t('setting.checkForUpdatesOnStartup', 'CheckForUpdatesOnStartup')}
+          {t('setting.checkForUpdatesOnStartup', 'Check For Updates On Startup')}
           <ToggleSwitch
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}

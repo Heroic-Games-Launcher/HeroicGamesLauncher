@@ -145,6 +145,7 @@
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
         "default-install-path": "Domyślna ścieżka instalacyjna",
