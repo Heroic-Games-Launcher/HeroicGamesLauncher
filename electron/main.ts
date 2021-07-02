@@ -696,7 +696,12 @@ ipcMain.handle('egsSync', async (event, args) => {
 
 ipcMain.on('addShortcut', async(event, appName) => {
   const game = Game.get(appName)
-  game.addDesktopShortcut()
+  await game.addDesktopShortcut(true)
+  dialog.showMessageBox({
+    buttons: i18next.t('box.ok', 'Ok'),
+    message: i18next.t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
+    title: i18next.t('box.shortcuts.title', 'Shortcuts')
+  })
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {

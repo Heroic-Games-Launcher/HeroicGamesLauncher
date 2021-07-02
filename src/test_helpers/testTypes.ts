@@ -190,6 +190,8 @@ const test_plugin = new TestType<GameInfo>({
  * Can be used in tests to provide/manipulate the app settings.
  */
 const test_appsettings = new TestType<AppSettings>({
+  addDesktopShortcuts: false,
+  addStartMenuShortcuts: false,
   audioFix: false,
   autoInstallDxvk: false,
   autoSyncSaves: false,

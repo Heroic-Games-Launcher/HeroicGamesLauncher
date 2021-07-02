@@ -23,6 +23,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
+import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import NewReleasesIcon from '@material-ui/icons/NewReleases'
 
 const { ipcRenderer } = window.require('electron')
@@ -66,6 +67,7 @@ const GameCard = ({
     percent: '0.00%'
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
+  const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
 
   const { libraryStatus, layout, handleGameStatus, platform } = useContext(
     ContextProvider
@@ -235,7 +237,7 @@ const GameCard = ({
       return await install({
         appName,
         handleGameStatus,
-        installPath: 'default',
+        installPath: notSupported ? 'import' : 'default',
         isInstalling,
         previousProgress,
         progress,

@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "Nej",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"
@@ -44,6 +45,10 @@
             "title": "Välj EXE-fil att köra"
         },
         "select": "Kör",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",

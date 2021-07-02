@@ -1,98 +1,95 @@
 {
-    "submenu": {
-        "verify": "验证并修复游戏文件",
-        "store": "商店页面",
-        "settings": "设置",
-        "protondb": "检查兼容性",
-        "move": "移动游戏",
-        "log": "最新日志",
-        "change": "更改安装路径",
-        "addShortcut": "添加快捷方式"
-    },
-    "status": {
-        "updating": "游戏更新中",
-        "totalDownloaded": "总共已下载",
-        "reparing": "游戏修复中，请稍等",
-        "notSupported": "此游戏只能被导入",
-        "notinstalled": "未安装此游戏",
-        "moving": "正在移动，请稍等",
-        "installing": "正在安装",
-        "installed": "已安装",
-        "hasUpdates": "新版本可用！",
-        "clickToUpdate": "点击更新"
-    },
-    "specs": {
-        "recommended": "推荐配置",
-        "minimum": "最低配置"
-    },
-    "label": {
-        "saves": {
-            "syncing": "存档同步中"
-        },
-        "playing": {
-            "stop": "停止游戏",
-            "start": "开始游戏"
-        },
-        "cancel": {
-            "update": "取消更新"
-        }
-    },
-    "install": {
-        "import": "导入游戏",
-        "default": "安装至",
-        "another": "安装至其他路径"
-    },
-    "info": {
-        "version": "版本",
-        "syncsaves": "同步存档",
-        "size": "大小",
-        "path": "安装路径"
-    },
-    "gamecard": {
-        "repairing": "修复中",
-        "moving": "移动中"
-    },
-    "enabled": "已启用",
-    "disabled": "已禁用",
-    "button": {
-        "uninstall": "卸载",
-        "install": "安装",
-        "import": "导入",
-        "continue": "继续下载",
-        "cancel": "取消"
-    },
     "box": {
-        "yes": "是",
-        "update": {
-            "title": "游戏需要更新",
-            "message": "此游戏有更新，你希望现在更新吗？"
+        "change": {
+            "message": "这将会更改此游戏的安装位置，确定？",
+            "path": "选择新的安装路径",
+            "title": "更改游戏安装路径"
         },
-        "uninstall": {
-            "title": "卸载",
-            "message": "你希望卸载这个游戏吗？"
-        },
-        "stopInstall": {
-            "title": "停止安装",
-            "message": "要保留已下载的文件吗？",
-            "keepInstalling": "继续安装"
-        },
-        "repair": {
-            "title": "验证并修复游戏文件",
-            "message": "你想尝试修复这个游戏的文件吗？这可能需要很长的时间。"
+        "choose": "请选择",
+        "importpath": "选择要导入的游戏文件夹",
+        "installpath": "选择安装路径",
+        "move": {
+            "message": "这可能需要很长的时间，确定？",
+            "path": "选择要移动的位置",
+            "title": "移动游戏安装"
         },
         "no": "否",
-        "move": {
-            "title": "移动游戏安装",
-            "path": "选择要移动的位置",
-            "message": "这可能需要很长的时间，确定？"
+        "repair": {
+            "message": "你想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
+            "title": "验证并修复游戏文件"
         },
-        "installpath": "选择安装路径",
-        "importpath": "选择要导入的游戏文件夹",
-        "choose": "请选择",
-        "change": {
-            "title": "更改游戏安装路径",
-            "path": "选择新的安装路径",
-            "message": "这将会更改此游戏的安装位置，确定？"
+        "stopInstall": {
+            "keepInstalling": "继续安装",
+            "message": "要保留已下载的文件吗？",
+            "title": "停止安装"
+        },
+        "uninstall": {
+            "message": "你希望卸载这个游戏吗？",
+            "title": "卸载"
+        },
+        "update": {
+            "message": "此游戏有更新，你希望现在更新吗？",
+            "title": "游戏需要更新"
+        },
+        "yes": "是"
+    },
+    "button": {
+        "cancel": "取消",
+        "continue": "继续下载",
+        "import": "导入",
+        "install": "安装",
+        "uninstall": "卸载"
+    },
+    "disabled": "已禁用",
+    "enabled": "已启用",
+    "gamecard": {
+        "moving": "移动中",
+        "repairing": "修复中"
+    },
+    "info": {
+        "path": "安装路径",
+        "size": "大小",
+        "syncsaves": "同步存档",
+        "version": "版本"
+    },
+    "install": {
+        "another": "安装至其他路径",
+        "default": "安装至",
+        "import": "导入游戏"
+    },
+    "label": {
+        "playing": {
+            "start": "开始游戏",
+            "stop": "停止游戏"
+        },
+        "saves": {
+            "syncing": "存档同步中"
         }
+    },
+    "specs": {
+        "minimum": "最低配置",
+        "recommended": "推荐配置"
+    },
+    "status": {
+        "clickToUpdate": "点击更新",
+        "hasUpdates": "新版本可用！",
+        "installed": "已安装",
+        "installing": "正在安装",
+        "moving": "正在移动，请稍等",
+        "notinstalled": "未安装此游戏",
+        "notSupported": "此游戏只能被导入",
+        "reparing": "游戏修复中，请稍等",
+        "totalDownloaded": "总共已下载",
+        "updating": "游戏更新中"
+    },
+    "submenu": {
+        "addShortcut": "添加快捷方式",
+        "change": "更改安装路径",
+        "log": "最新日志",
+        "move": "移动游戏",
+        "protondb": "检查兼容性",
+        "settings": "设置",
+        "store": "商店页面",
+        "verify": "验证并修复游戏文件"
     }
 }

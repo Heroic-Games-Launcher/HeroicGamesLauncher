@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "NO",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -44,6 +45,10 @@
             "title": "Select EXE to Run"
         },
         "select": "Select",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Choose",
             "error": "Invalid Path",

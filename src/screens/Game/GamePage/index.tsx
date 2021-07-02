@@ -11,7 +11,6 @@ import {
   IpcRenderer
 } from 'electron'
 import {
-  fixSaveFolder,
   getGameInfo,
   getProgress,
   install,
@@ -37,6 +36,7 @@ import {
   InstallProgress
 } from 'src/types'
 
+import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import GamesSubmenu from '../GameSubMenu'
 
 const storage: Storage = window.localStorage
@@ -54,7 +54,7 @@ interface RouteParams {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
-  const notSupported = appName === 'Fortnite' || appName === 'Ginger'
+  const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
 
   const {
     libraryStatus,
@@ -94,18 +94,10 @@ export default function GamePage(): JSX.Element | null {
       if (newInfo.cloud_save_enabled) {
         const {
           autoSyncSaves,
-          winePrefix,
-          wineVersion,
           savesPath
         }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-        const isProton = wineVersion?.name?.includes('Proton') || false
         setAutoSyncSaves(autoSyncSaves)
-        const folder = await fixSaveFolder(
-          newInfo.save_folder,
-          winePrefix,
-          isProton
-        )
-        setSavesPath(savesPath || folder)
+        setSavesPath(savesPath)
       }
     }
     updateConfig()
@@ -178,11 +170,6 @@ export default function GamePage(): JSX.Element | null {
       cloud_save_enabled
     }: GameInfo = gameInfo
     const haveSystemRequirements = Boolean(extra.reqs.length)
-
-    if (savesPath.includes('{InstallDir}')) {
-      // a little hack to stop ESLint from screaming about install_path being null.
-      setSavesPath(savesPath.replace('{InstallDir}', `${install_path}`))
-    }
 
     /*
     Other Keys:

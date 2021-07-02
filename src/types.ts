@@ -3,7 +3,9 @@ interface About {
   shortDescription: string
 }
 export interface AppSettings {
-  audioFix: boolean
+  addDesktopShortcuts: boolean,
+  addStartMenuShortcuts: boolean,
+  audioFix: boolean,
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
   customWinePaths: Array<string>
