@@ -36,6 +36,7 @@ import {
   InstallProgress
 } from 'src/types'
 
+import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import GamesSubmenu from '../GameSubMenu'
 
 const storage: Storage = window.localStorage
@@ -53,7 +54,7 @@ interface RouteParams {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
-  const notSupported = appName === 'Fortnite' || appName === 'Ginger'
+  const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
 
   const {
     libraryStatus,
