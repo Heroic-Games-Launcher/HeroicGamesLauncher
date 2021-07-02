@@ -195,6 +195,7 @@ const test_appsettings = new TestType<AppSettings>({
   audioFix: false,
   autoInstallDxvk: false,
   autoSyncSaves: false,
+  checkForUpdatesOnStartup: true,
   customWinePaths: ['custom/wine/path'],
   darkTrayIcon: false,
   defaultInstallPath: 'default/install/path',
