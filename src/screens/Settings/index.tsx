@@ -89,6 +89,11 @@ function Settings() {
     setOn: setUseGameMode
   } = useToggle(false)
   const {
+    on: checkForUpdatesOnStartup,
+    toggle: toggleCheckForUpdatesOnStartup,
+    setOn: setCheckForUpdatesOnStartup
+  } = useToggle(false)
+  const {
     on: nvidiaPrime,
     toggle: toggleNvidiaPrime,
     setOn: setUseNvidiaPrime
@@ -175,6 +180,7 @@ function Settings() {
       setAddDesktopShortcuts(config.addDesktopShortcuts || false)
       setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
+      setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
 
       if (!isDefault) {
         const {
@@ -199,6 +205,7 @@ function Settings() {
     addStartMenuShortcuts,
     audioFix,
     autoInstallDxvk,
+    checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
@@ -301,6 +308,8 @@ function Settings() {
               toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
               toggleDiscordRPC={toggleDiscordRPC}
               discordRPC={discordRPC}
+              toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
+              checkForUpdatesOnStartup={checkForUpdatesOnStartup}
             />
           )}
           {isWineSettings && (
