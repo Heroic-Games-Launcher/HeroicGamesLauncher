@@ -24,6 +24,7 @@ const storage: Storage = window.localStorage
 interface Props {
   addDesktopShortcuts: boolean,
   addGamesToStartMenu: boolean,
+  checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
   discordRPC: boolean,
@@ -41,6 +42,7 @@ interface Props {
   setMaxWorkers: (value: number) => void,
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
+  toggleCheckUpdatesOnStartup: () => void
   toggleDarkTrayIcon: () => void,
   toggleDiscordRPC: () => void
   toggleTray: () => void
@@ -50,6 +52,7 @@ export default function GeneralSettings({
   defaultInstallPath,
   setDefaultInstallPath,
   egsPath,
+  checkForUpdatesOnStartup,
   setEgsPath,
   egsLinkedPath,
   setEgsLinkedPath,
@@ -67,6 +70,7 @@ export default function GeneralSettings({
   addGamesToStartMenu,
   toggleAddDesktopShortcuts,
   toggleAddGamesToStartMenu,
+  toggleCheckUpdatesOnStartup,
   discordRPC,
   toggleDiscordRPC
 }: Props) {
@@ -285,6 +289,15 @@ export default function GeneralSettings({
           <ToggleSwitch
             value={discordRPC}
             handleChange={toggleDiscordRPC}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.checkForUpdatesOnStartup', 'Check For Updates On Startup')}
+          <ToggleSwitch
+            value={checkForUpdatesOnStartup}
+            handleChange={toggleCheckUpdatesOnStartup}
           />
         </span>
       </span>

@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "Nej",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"
@@ -44,6 +45,10 @@
             "title": "Välj EXE-fil att köra"
         },
         "select": "Kör",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
@@ -140,6 +145,7 @@
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i sytembrickan (kräver omstart)",
         "default-install-path": "Standard installationssökväg",

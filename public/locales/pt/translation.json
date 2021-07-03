@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "NÃO",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "O jogo não está instalado, deseja instalar?"
@@ -44,6 +45,10 @@
             "title": "Selecione o EXE"
         },
         "select": "Selecionar",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -140,6 +145,7 @@
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro (necessita reiniciar)",
         "default-install-path": "Pasta de instalação padrão",

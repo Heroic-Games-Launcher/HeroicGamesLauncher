@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "No",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -44,6 +45,10 @@
             "title": "Seleccione EXE para ejecutar"
         },
         "select": "Seleccionar",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Elegir",
             "error": "Ruta no válida",
@@ -140,6 +145,7 @@
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura (necesita reiniciarse)",
         "default-install-path": "Ruta de instalación predeterminada",

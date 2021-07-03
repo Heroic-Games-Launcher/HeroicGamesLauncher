@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "NEE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -44,6 +45,10 @@
             "title": "Selecteer EXE on te lanceren"
         },
         "select": "Selecteren",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Kies",
             "error": "Incorrect map",
@@ -140,6 +145,7 @@
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon (vereist opnieuw opstarten)",
         "default-install-path": "Standaard installatie map",

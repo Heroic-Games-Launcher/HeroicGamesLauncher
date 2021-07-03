@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "NEM",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -44,6 +45,10 @@
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
         "select": "Kiválaszt",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Választ",
             "error": "Érvénytelen útvonal",
@@ -140,6 +145,7 @@
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",

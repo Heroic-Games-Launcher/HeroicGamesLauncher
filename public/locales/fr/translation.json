@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "NON",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -44,6 +45,10 @@
             "title": "Sélectionner le EXE à exécuter"
         },
         "select": "Sélectionner",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Choisir",
             "error": "Chemin invalide",
@@ -140,6 +145,7 @@
         "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon (nécessite un redémarrage)",
         "default-install-path": "Chemin par défaut de l'installation",

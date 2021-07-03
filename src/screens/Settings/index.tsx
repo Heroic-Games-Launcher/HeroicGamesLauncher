@@ -71,14 +71,27 @@ function Settings() {
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
-  const toggleAddDesktopShortcuts = useToggle()
-  const toggleAddGamesToStartMenu = useToggle()
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
+  const {
+    on: addDesktopShortcuts,
+    toggle: toggleAddDesktopShortcuts,
+    setOn: setAddDesktopShortcuts
+  } = useToggle(false)
+  const {
+    on: addStartMenuShortcuts,
+    toggle: toggleAddGamesToStartMenu,
+    setOn: setAddGamesToStartMenu
+  } = useToggle(false)
   const {
     on: useGameMode,
     toggle: toggleUseGameMode,
     setOn: setUseGameMode
+  } = useToggle(false)
+  const {
+    on: checkForUpdatesOnStartup,
+    toggle: toggleCheckForUpdatesOnStartup,
+    setOn: setCheckForUpdatesOnStartup
   } = useToggle(false)
   const {
     on: nvidiaPrime,
@@ -164,6 +177,10 @@ function Settings() {
       setMaxWorkers(config.maxWorkers ?? 0)
       setMaxRecentGames(config.maxRecentGames ?? 5)
       setCustomWinePaths(config.customWinePaths || [])
+      setAddDesktopShortcuts(config.addDesktopShortcuts || false)
+      setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
+      setCustomWinePaths(config.customWinePaths || [])
+      setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
 
       if (!isDefault) {
         const {
@@ -184,7 +201,11 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   const GlobalSettings = {
+    addDesktopShortcuts,
+    addStartMenuShortcuts,
     audioFix,
+    autoInstallDxvk,
+    checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
@@ -281,12 +302,14 @@ function Settings() {
               setMaxRecentGames={setMaxRecentGames}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              addDesktopShortcuts={toggleAddDesktopShortcuts.on}
-              addGamesToStartMenu={toggleAddGamesToStartMenu.on}
-              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts.toggle}
-              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu.toggle}
+              addDesktopShortcuts={addDesktopShortcuts}
+              addGamesToStartMenu={addStartMenuShortcuts}
+              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
+              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
               toggleDiscordRPC={toggleDiscordRPC}
               discordRPC={discordRPC}
+              toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
+              checkForUpdatesOnStartup={checkForUpdatesOnStartup}
             />
           )}
           {isWineSettings && (

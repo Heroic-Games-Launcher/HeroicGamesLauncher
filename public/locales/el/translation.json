@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "ΟΧΙ",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -44,6 +45,10 @@
             "title": "Επιλέξτε EXE για εκτέλεση"
         },
         "select": "Επιλογή",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Επιλέξτε",
             "error": "Μη έγκυρη Διαδρομή",
@@ -140,6 +145,7 @@
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου (απαιτεί επανεκκίνηση)",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",

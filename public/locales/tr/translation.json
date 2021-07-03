@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "HAYIR",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -44,6 +45,10 @@
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
         "select": "Seç",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Seç",
             "error": "Geçersiz Yol",
@@ -140,6 +145,7 @@
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan (yeniden başlatma gerektirir)",
         "default-install-path": "Varsayılan Kurulum Yeri",

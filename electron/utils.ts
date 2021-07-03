@@ -13,11 +13,10 @@ import {
 import { promisify } from 'util'
 import i18next from 'i18next'
 
+import { GlobalConfig } from './config'
 import {
   heroicGamesConfigPath,
-  icon,
-  isWindows
-} from './constants'
+  icon} from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
@@ -38,7 +37,6 @@ function semverGt(target : string, base : string) {
   isGE ||= tmajor > bmajor
   isGE ||= tmajor === bmajor && tminor > bminor
   isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
-  isGE ||= tmajor === bmajor && tminor === bminor && tpatch === bpatch
   return isGE
 }
 
@@ -47,7 +45,10 @@ async function isOnline() {
 }
 
 async function checkForUpdates() {
-  if (isWindows) {
+  const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
+  logInfo('checking for heroic updates');
+  if (!checkForUpdatesOnStartup){
+    logInfo('skipping heroic updates');
     return
   }
   if (!(await isOnline())) {
@@ -62,7 +63,7 @@ async function checkForUpdates() {
     )
     const newVersion = tag_name.replace('v', '')
     const currentVersion = app.getVersion()
-
+    console.log({currentVersion, newVersion});
     return semverGt(newVersion, currentVersion)
   } catch (error) {
     logError('Could not check for new version of heroic')

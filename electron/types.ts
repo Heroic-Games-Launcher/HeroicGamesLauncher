@@ -7,6 +7,7 @@ export interface AppSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
+  checkForUpdatesOnStartup: boolean
   customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string

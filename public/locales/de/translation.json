@@ -31,6 +31,7 @@
             "title": "Error"
         },
         "no": "NEIN",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
@@ -44,6 +45,10 @@
             "title": "EXE zum Starten auswählen"
         },
         "select": "Auswählen",
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
@@ -140,6 +145,7 @@
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
         "default-install-path": "Standard-Installationspfad",
