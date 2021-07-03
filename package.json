@@ -8,7 +8,7 @@
   "description": "A native Epic Games launcher for Linux",
   "repository": {
     "type": "Github",
-    "url": "https://github.com/flavioislima/HeroicGamesLauncher"
+    "url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
   },
   "author": {
     "name": "Flavio F",
