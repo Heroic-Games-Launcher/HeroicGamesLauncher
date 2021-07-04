@@ -151,7 +151,6 @@ export class GlobalState extends PureComponent<Props> {
     const { t } = this.props
     const currentApp =
       libraryStatus.filter((game) => game.appName === appName)[0] || {}
-
     const { title } = await getGameInfo(appName)
 
     if (currentApp && currentApp.status === status) {
@@ -224,7 +223,7 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ libraryStatus: updatedLibraryStatus })
       notify([title, t('notify.uninstalled')])
 
-      return this.refreshLibrary()
+      return this.refreshLibrary(true)
     }
 
     if (currentApp && currentApp.status === 'moving' && status === 'done') {
