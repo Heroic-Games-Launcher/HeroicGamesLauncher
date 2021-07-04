@@ -1,11 +1,11 @@
 {
   "name": "heroic",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
   "license": "GPL-3.0-only",
-  "description": "A native Epic Games launcher for Linux",
+  "description": "An Open Source alternative to the Epic Games launcher",
   "repository": {
     "type": "Github",
     "url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
@@ -50,10 +50,6 @@
         "build/bin/win32/*"
       ]
     },
-    "nsis": {
-      "oneClick": "false",
-      "allowToChangeInstallationDirectory": "true"
-    },
     "mac": {
       "asarUnpack": [
         "build/bin/darwin/legendary"
@@ -65,7 +61,7 @@
     "linux": {
       "category": "Game",
       "icon": "build/icon.icns",
-      "description": "A native Epic Games launcher for Linux",
+      "description": "An Open Source alternative to the Epic Games launcher",
       "desktop": {
         "Name": "Heroic Games Launcher"
       },
