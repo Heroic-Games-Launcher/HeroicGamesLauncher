@@ -3,7 +3,7 @@
     "Assets": "Assets",
     "box": {
         "appupdate": {
-            "message": "Nova versão do Heroic lançada. Deseja atualizar agora?",
+            "message": "Nova versão do Heroic disponível. Deseja atualizar agora?",
             "title": "Nova Versão Disponível"
         },
         "choose": "Selecionar",
@@ -46,8 +46,8 @@
         },
         "select": "Selecionar",
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Atalhos foram criados na área de trabalho e menu inicial",
+            "title": "Atalhos"
         },
         "sync": {
             "button": "Selecionar",
@@ -140,16 +140,16 @@
     "Return": "Voltar",
     "search": "Digite o nome do jogo...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
+        "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro (necessita reiniciar)",
         "default-install-path": "Pasta de instalação padrão",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Habilitar Discord Rich Presence",
         "egs-sync": "Sincronizar com Epic Games Store",
         "exit-to-tray": "Sair para a área de noticação",
         "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
@@ -164,7 +164,7 @@
             "title": "Sincronização manual",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Número de jogos recents a mostrar",
         "maxworkers": "CPUs máximos utilizados ao baixar jogos",
         "offlinemode": "Executar o jogo offline",
         "primerun": "Habilitar Nvidia Prime Render",
