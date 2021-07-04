@@ -29,8 +29,13 @@ import {
 } from '../constants'
 import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
+import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript';
 
+const store = new Store({
+  cwd: 'store',
+  name: 'gameinfo'
+})
 class LegendaryGame extends Game {
   public appName: string
   public state : GameStatus
@@ -98,6 +103,9 @@ class LegendaryGame extends Game {
    * @returns
    */
   public async getExtraInfo(namespace: string | null) : Promise<ExtraInfo> {
+    if (store.has(namespace)){
+      return store.get(namespace) as ExtraInfo
+    }
     if (!(await isOnline())) {
       return {
         about: {},
@@ -125,6 +133,7 @@ class LegendaryGame extends Game {
       const about = response.data.pages.find(
         (e: { type: string }) => e.type === 'productHome'
       )
+      store.set(namespace, {about: about.data.about, reqs: about.data.requirements.systems[0].details})
       return {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details
