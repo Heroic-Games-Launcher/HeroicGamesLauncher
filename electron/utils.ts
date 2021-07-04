@@ -63,7 +63,6 @@ async function checkForUpdates() {
     )
     const newVersion = tag_name.replace('v', '')
     const currentVersion = app.getVersion()
-    console.log({currentVersion, newVersion});
     return semverGt(newVersion, currentVersion)
   } catch (error) {
     logError('Could not check for new version of heroic')

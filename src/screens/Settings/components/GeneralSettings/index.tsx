@@ -264,7 +264,7 @@ export default function GeneralSettings({
       {isLinux && <>
         <span className="setting">
           <span className="toggleWrapper">
-            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
+            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')}
             <ToggleSwitch
               value={addDesktopShortcuts}
               disabled={!navigator.platform.startsWith('Linux')}
@@ -274,7 +274,7 @@ export default function GeneralSettings({
         </span>
         <span className="setting">
           <span className="toggleWrapper">
-            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
+            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')}
             <ToggleSwitch
               value={addGamesToStartMenu}
               disabled={!navigator.platform.startsWith('Linux')}
