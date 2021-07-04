@@ -45,13 +45,16 @@ const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
  * @returns unix: $SHELL or /usr/bin/bash
  */
 function getShell() {
+  // Dont change this logic since Heroic will break when using SH or FISH
   switch (process.platform) {
   case 'win32':
     return 'powershell.exe'
+  case 'linux':
+    return '/bin/bash'
+  case 'darwin':
+    return '/bin/zsh'
   default:
-    // $SHELL is set by login
-    // If it's 0-value, use bash
-    return process.env.SHELL || '/usr/bin/bash'
+    return '/bin/bash'
   }
 }
 
