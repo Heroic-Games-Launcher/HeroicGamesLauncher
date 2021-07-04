@@ -165,14 +165,13 @@ const repair = async (appName: string): Promise<void> =>
 
 const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (game: GameStatus) => Promise<void>): Promise<void> =>
   ipcRenderer.invoke('launch', appName)
-    .then(async (err: string | string[]) => {
-      if (!err) {
-        return
+    .then(async (msg: string | string[]) => {
+      if (msg === 'finished') {
+        return handleGameStatus({appName, status: 'done'})
       }
-
       if (
-        typeof err === 'string' &&
-      err.includes('ERROR: Game is out of date')
+        typeof msg === 'string' &&
+      msg.includes('ERROR: Game is out of date')
       ) {
         const args = {
           buttons: [t('gamepage:box.yes'), t('box.no')],

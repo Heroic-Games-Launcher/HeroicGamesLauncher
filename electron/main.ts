@@ -34,7 +34,6 @@ import { LegendaryUser } from './legendary/user';
 import {
   checkCommandVersion,
   checkForUpdates,
-  errorHandler,
   execAsync,
   handleExit,
   isOnline,
@@ -515,32 +514,7 @@ ipcMain.handle('launch', async (event, game: string) => {
     store.set('games.recent', [{appName: game, title: title}])
   }
 
-  return Game.get(game).launch().then(({ stderr }) => {
-    writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
-      stderr,
-      () => 'done'
-    )
-    if (stderr.includes('Errno')) {
-      showErrorBox(
-        i18next.t('box.error', 'Something Went Wrong'),
-        i18next.t(
-          'box.error.launch',
-          'Error when launching the game, check the logs!'
-        )
-      )
-    }
-  }).catch(async (exception) => {
-    // This stuff is completely borken, I have no idea what the hell we should do here.
-    const stderr = `${exception.name} - ${exception.message}`
-    errorHandler({error: {stderr, stdout: ''}})
-    writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
-      stderr,
-      () => 'done'
-    )
-    return stderr
-  })
+  return Game.get(game).launch()
 })
 
 ipcMain.handle('openDialog', async (e, args) => {
