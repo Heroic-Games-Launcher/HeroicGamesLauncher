@@ -14,6 +14,7 @@ import GeneralSettings from './index';
 interface Props {
   addDesktopShortcuts: boolean,
   addGamesToStartMenu: boolean,
+  checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
   discordRPC: boolean,
@@ -31,6 +32,7 @@ interface Props {
   setMaxWorkers: (value: number) => void,
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
+  toggleCheckUpdatesOnStartup: () => void,
   toggleDarkTrayIcon: () => void,
   toggleDiscordRPC: () => void,
   toggleTray: () => void
@@ -41,6 +43,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
   const defaultprops: Props = {
     addDesktopShortcuts: true,
     addGamesToStartMenu: true,
+    checkForUpdatesOnStartup: true,
     darkTrayIcon: false,
     defaultInstallPath: 'default/install/path',
     discordRPC: true,
@@ -58,6 +61,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     setMaxWorkers: (value: number) => value,
     toggleAddDesktopShortcuts: () => {return},
     toggleAddGamesToStartMenu: () => {return},
+    toggleCheckUpdatesOnStartup: () => {return},
     toggleDarkTrayIcon: () => {return;},
     toggleDiscordRPC: () => {return;},
     toggleTray: () => {return;}
