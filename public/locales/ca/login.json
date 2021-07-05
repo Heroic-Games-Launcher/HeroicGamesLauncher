@@ -17,7 +17,7 @@
     },
     "welcome": "Benvingut/da!",
     "status": {
-        "logging": "Iniciant sessió...",
+        "logging": "Iniciant sessió…",
         "loading": "Cargant la llista de jocs, si us plau esperi",
         "error": "Error"
     }

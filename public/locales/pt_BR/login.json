@@ -1,7 +1,7 @@
 {
     "welcome": "Bem-vindo(a)!",
     "status": {
-        "logging": "Fazendo login...",
+        "logging": "Fazendo login…",
         "loading": "Carregando lista de jogos, por favor aguarde",
         "error": "Erro"
     },

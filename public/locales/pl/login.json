@@ -18,7 +18,7 @@
     "status": {
         "error": "Błąd",
         "loading": "Proszę czekać, wczytywanie listy gier",
-        "logging": "Logowanie..."
+        "logging": "Logowanie…"
     },
     "welcome": "Witaj!"
 }
