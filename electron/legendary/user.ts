@@ -10,7 +10,11 @@ import {
   userInfo
 } from '../constants'
 import {userInfo as user} from 'os'
+import Store from 'electron-store';
 
+const configStore = new Store({
+  cwd: 'store'
+})
 export class LegendaryUser {
   public static async login(sid: string) {
     return (await execAsync(`${legendaryBin} auth --sid ${sid}`)).stdout.includes('Successfully logged in')
@@ -31,7 +35,9 @@ export class LegendaryUser {
   public static async getUserInfo() : Promise<UserInfo> {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
     if (isLoggedIn) {
-      return {...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username}
+      const info = {...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username}
+      configStore.set('userInfo', info)
+      return info
     }
     return { account_id: '', displayName: null }
   }

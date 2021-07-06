@@ -290,8 +290,7 @@ const test_context = new TestType<ContextType>({
   platform: 'linux',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
-  refreshing: false,
-  user: 'user'
+  refreshing: false
 })
 
 /**

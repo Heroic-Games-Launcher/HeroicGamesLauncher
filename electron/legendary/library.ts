@@ -26,6 +26,12 @@ import {
   libraryPath
 } from '../constants';
 import { logError, logWarning } from '../logger';
+import Store from 'electron-store'
+
+const libraryStore = new Store({
+  cwd: 'store',
+  name: 'library'
+})
 
 /**
  * Legendary LegendaryLibrary.
@@ -111,6 +117,7 @@ class LegendaryLibrary {
       }
     )
     if (format === 'info') {
+      libraryStore.set('library', arr)
       return arr
     }
     if (format === 'class') {

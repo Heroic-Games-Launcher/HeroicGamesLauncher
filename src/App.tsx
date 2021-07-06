@@ -4,6 +4,12 @@ import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { Library } from './screens/Library'
 import ContextProvider from './state/ContextProvider'
+import ElectronStore from 'electron-store'
+
+const Store = window.require('electron-store')
+const configStore: ElectronStore = new Store({
+  cwd: 'store'
+})
 
 const NavBar = lazy(() => import('./components/Navbar'))
 const Settings = lazy(() => import('./screens/Settings'))
@@ -13,8 +19,8 @@ const Login = lazy(() => import('./screens/Login'))
 
 function App() {
   const context = useContext(ContextProvider)
-
-  const { user, data: library, refresh } = context
+  const user = configStore.get('userInfo')
+  const { data: library, refresh } = context
 
   if (!user && !library.length) {
     return <Login refresh={refresh} />
