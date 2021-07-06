@@ -431,7 +431,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (previousProgress.folder === installPath && !isInstalling) {
+    if (previousProgress.folder === installPath && !isInstalling && !is_installed) {
       return t('button.continue', 'Continue Download')
     }
     if (installPath === 'import' && !is_installed) {

@@ -158,6 +158,8 @@ const contextMenu = () => {
   })
 
   return Menu.buildFromTemplate([
+    ...recentsMenu,
+    { type: 'separator' },
     {
       click: function () {
         mainWindow.show()
@@ -194,9 +196,7 @@ const contextMenu = () => {
         handleExit()
       },
       label: i18next.t('tray.quit', 'Quit')
-    },
-    { type: 'separator' },
-    ...recentsMenu
+    }
   ])
 }
 
