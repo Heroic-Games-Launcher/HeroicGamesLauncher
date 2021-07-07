@@ -177,6 +177,7 @@
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
+        "start-in-tray": "",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Versiyonu"
     },

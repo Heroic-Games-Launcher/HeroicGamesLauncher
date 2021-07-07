@@ -177,6 +177,7 @@
             "title": "Effettua l'aggiornamento forzato della cartella dei giochi sul cloud"
         },
         "showfps": "Mostra FPS (DX9, 10 e 11)",
+        "start-in-tray": "",
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine"
     },
