@@ -216,7 +216,9 @@ const GameCard = ({
                 {isInstalled && (
                   <Link
                     to={{
-                      pathname: `/settings/${appName}/wine`,
+                      pathname: isWin
+                        ? `/settings/${appName}/other`
+                        : `/settings/${appName}/wine`,
                       state: { fromGameCard: true }
                     }}
                   >
