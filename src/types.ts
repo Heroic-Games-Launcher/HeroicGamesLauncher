@@ -25,6 +25,7 @@ export interface AppSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  startInTray: boolean
   useGameMode: boolean
   winePrefix: string
   wineVersion: WineInstallation

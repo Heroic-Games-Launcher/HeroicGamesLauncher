@@ -177,6 +177,7 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "start-in-tray": "",
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },
