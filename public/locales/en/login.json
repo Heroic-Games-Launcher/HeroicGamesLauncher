@@ -18,7 +18,7 @@
     "status": {
         "error": "Error",
         "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "logging": "Logging In…"
     },
     "welcome": "Welcome!"
 }
