@@ -253,13 +253,21 @@ export default function GeneralSettings({
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}
-          <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
+          <ToggleSwitch
+            dataTestId="exitToTray"
+            value={exitToTray}
+            handleChange={toggleTray}
+          />
         </span>
       </span>
       { exitToTray && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.start-in-tray', 'Start Minimized')}
-          <ToggleSwitch value={startInTray} handleChange={toggleStartInTray} />
+          <ToggleSwitch
+            dataTestId="startInTray"
+            value={startInTray}
+            handleChange={toggleStartInTray}
+          />
         </span>
       </span> }
       <span className="setting">

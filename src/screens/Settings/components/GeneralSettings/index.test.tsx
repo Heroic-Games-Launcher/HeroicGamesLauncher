@@ -261,4 +261,15 @@ describe('GeneralSettings', () => {
     fireEvent.change(maxRecentGames, { target: { value: '10' }});
     waitFor(() => expect(onSetMaxRecentGames).toBeCalledWith(10));
   })
+
+  test('start minimized is hidden when exitToTray is false', async () => {
+    const { getByTestId } = await renderGeneralSettings({ exitToTray: false });
+    expect(()=>getByTestId('startInTray')).toThrow('Unable to find an element')
+  })
+
+  test('start minimized is shown when exitToTray is true', async () => {
+    const { getByTestId } = await renderGeneralSettings({ exitToTray: true });
+    expect(()=>getByTestId('startInTray')).not.toThrow()
+  })
+
 })
