@@ -256,12 +256,12 @@ export default function GeneralSettings({
           <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
         </span>
       </span>
-      <span className="setting">
+      { exitToTray && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.start-in-tray', 'Start Minimized')}
           <ToggleSwitch value={startInTray} handleChange={toggleStartInTray} />
         </span>
-      </span>
+      </span> }
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
