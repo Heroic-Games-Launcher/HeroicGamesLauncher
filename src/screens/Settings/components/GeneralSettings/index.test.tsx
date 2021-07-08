@@ -30,11 +30,13 @@ interface Props {
   setLanguage: (value: string) => void,
   setMaxRecentGames: (value: number) => void,
   setMaxWorkers: (value: number) => void,
+  startInTray: boolean,
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
   toggleCheckUpdatesOnStartup: () => void,
   toggleDarkTrayIcon: () => void,
   toggleDiscordRPC: () => void,
+  toggleStartInTray: () => void,
   toggleTray: () => void
   }
 
@@ -59,11 +61,13 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     setLanguage: (value: string) => value,
     setMaxRecentGames: (value: number) => value,
     setMaxWorkers: (value: number) => value,
+    startInTray: false,
     toggleAddDesktopShortcuts: () => {return},
     toggleAddGamesToStartMenu: () => {return},
     toggleCheckUpdatesOnStartup: () => {return},
     toggleDarkTrayIcon: () => {return;},
     toggleDiscordRPC: () => {return;},
+    toggleStartInTray: () => {return;},
     toggleTray: () => {return;}
   };
   return await waitFor(() => render(
@@ -257,4 +261,15 @@ describe('GeneralSettings', () => {
     fireEvent.change(maxRecentGames, { target: { value: '10' }});
     waitFor(() => expect(onSetMaxRecentGames).toBeCalledWith(10));
   })
+
+  test('start minimized is hidden when exitToTray is false', async () => {
+    const { getByTestId } = await renderGeneralSettings({ exitToTray: false });
+    expect(()=>getByTestId('startInTray')).toThrow('Unable to find an element')
+  })
+
+  test('start minimized is shown when exitToTray is true', async () => {
+    const { getByTestId } = await renderGeneralSettings({ exitToTray: true });
+    expect(()=>getByTestId('startInTray')).not.toThrow()
+  })
+
 })

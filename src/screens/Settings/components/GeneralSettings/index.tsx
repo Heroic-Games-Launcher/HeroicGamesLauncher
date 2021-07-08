@@ -40,11 +40,13 @@ interface Props {
   setLanguage: (value: string) => void,
   setMaxRecentGames: (value: number) => void,
   setMaxWorkers: (value: number) => void,
+  startInTray: boolean,
   toggleAddDesktopShortcuts: () => void,
   toggleAddGamesToStartMenu: () => void,
   toggleCheckUpdatesOnStartup: () => void
   toggleDarkTrayIcon: () => void,
   toggleDiscordRPC: () => void
+  toggleStartInTray: () => void,
   toggleTray: () => void
 }
 
@@ -57,7 +59,9 @@ export default function GeneralSettings({
   egsLinkedPath,
   setEgsLinkedPath,
   exitToTray,
+  startInTray,
   toggleTray,
+  toggleStartInTray,
   language,
   setLanguage,
   maxWorkers,
@@ -249,9 +253,23 @@ export default function GeneralSettings({
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}
-          <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
+          <ToggleSwitch
+            dataTestId="exitToTray"
+            value={exitToTray}
+            handleChange={toggleTray}
+          />
         </span>
       </span>
+      { exitToTray && <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.start-in-tray', 'Start Minimized')}
+          <ToggleSwitch
+            dataTestId="startInTray"
+            value={startInTray}
+            handleChange={toggleStartInTray}
+          />
+        </span>
+      </span> }
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}

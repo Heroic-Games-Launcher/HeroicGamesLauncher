@@ -68,7 +68,7 @@ const store = new Store({
   cwd: 'store'
 })
 
-function createWindow(): BrowserWindow {
+async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
     const str = arr.join('\n')
     const date = new Date().toDateString()
@@ -78,11 +78,15 @@ function createWindow(): BrowserWindow {
       throw err
     })
   })
+
+  const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: isDev ? 1200 : 720,
     minHeight: 700,
     minWidth: 1200,
+    show: !(exitToTray && startInTray),
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true
@@ -246,7 +250,7 @@ if (!gotTheLock) {
       ]
     })
 
-    createWindow()
+    await createWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
       handleProtocol(mainWindow, request.url)
