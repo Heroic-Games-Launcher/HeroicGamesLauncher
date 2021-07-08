@@ -177,6 +177,7 @@
             "title": "Overschijf cloud synchronisatie save map"
         },
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
+        "start-in-tray": "",
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie"
     },

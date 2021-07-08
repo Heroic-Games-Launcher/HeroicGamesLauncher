@@ -212,6 +212,7 @@ const test_appsettings = new TestType<AppSettings>({
   savesPath: 'saves/path',
   showFps: false,
   showMangohud: false,
+  startInTray: false,
   useGameMode: false,
   winePrefix: 'winePrefix',
   wineVersion: {

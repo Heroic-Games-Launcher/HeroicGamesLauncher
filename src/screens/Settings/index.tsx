@@ -120,6 +120,11 @@ function Settings() {
     setOn: setExitToTray
   } = useToggle(false)
   const {
+    on: startInTray,
+    toggle: toggleStartInTray,
+    setOn: setStartInTray
+  } = useToggle(false)
+  const {
     on: darkTrayIcon,
     toggle: toggleDarkTrayIcon,
     setOn: setDarkTrayIcon
@@ -170,6 +175,7 @@ function Settings() {
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
       setExitToTray(config.exitToTray || false)
+      setStartInTray(config.startInTray || false)
       setDarkTrayIcon(config.darkTrayIcon || false)
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
@@ -220,6 +226,7 @@ function Settings() {
     otherOptions,
     showFps,
     showMangohud,
+    startInTray,
     useGameMode,
     winePrefix,
     wineVersion
@@ -293,7 +300,9 @@ function Settings() {
               defaultInstallPath={defaultInstallPath}
               setDefaultInstallPath={setDefaultInstallPath}
               exitToTray={exitToTray}
+              startInTray={startInTray}
               toggleTray={toggleTray}
+              toggleStartInTray={toggleStartInTray}
               language={language}
               setLanguage={setLanguage}
               maxWorkers={maxWorkers}

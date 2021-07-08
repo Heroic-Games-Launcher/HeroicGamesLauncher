@@ -177,6 +177,7 @@
             "title": "Přepsat synchronizaci cloudu"
         },
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
+        "start-in-tray": "",
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
     },
