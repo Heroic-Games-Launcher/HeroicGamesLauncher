@@ -1,0 +1,26 @@
+.SearchBar {
+  grid-area: search;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  place-items: center;
+}
+
+.searchInput {
+  width: 285px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  color: var(--secondary);
+  text-indent: 4px;
+  font-size: 14px;
+  outline: none;
+  background: none;
+}
+
+.SearchBar > label {
+  color: var(--secondary);
+}
+
+.SearchBar > .close:hover {
+  cursor: pointer;
+}
