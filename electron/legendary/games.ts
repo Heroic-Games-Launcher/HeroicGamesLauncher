@@ -284,6 +284,13 @@ Icon=${icon}
 Categories=Game;
 `
       break; }
+    case 'win32': {
+      shortcut = `[InternetShortcut]
+      IDList=
+      IconIndex=0
+      URL=heroic://launch/${gameInfo.app_name}
+      IconFile=${icon}`
+      break; }
     default:
       logError("Shortcuts haven't been implemented in the current platform.")
       return
