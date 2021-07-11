@@ -95,9 +95,8 @@ option {
 .layoutSelection {
   place-self: center;
   grid-area: layout;
-  min-width: 68px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
 }
 
