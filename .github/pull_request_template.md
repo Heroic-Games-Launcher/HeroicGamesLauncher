@@ -1,22 +1,10 @@
 <--- Put the description here --->
 
-----------------------------------
 
+-------------------------------------------------------------
 Use the following Checklist if you have changed something on the Backend or Frontend:
 
-- [ ] Created / Updated Tests
-- [ ] Created / Updated documentation
-
-Tested on a Clean Install with AppImage:
-- [ ] Login
-- [ ] Download a Game
-- [ ] Import a Game
-- [ ] Launch Default config
-- [ ] Launch Personalized Config
-- [ ] Launch wine
-- [ ] Launch Proton
-- [ ] Launch Custom Proton
-- [ ] Launch Tools (Winetricks and Winecfg)
-- [ ] Uninstall Game
-- [ ] Move Game
-- [ ] Languages (Test if no translation stopped working)
+- [ ] Tested the feature and it's working on a current and clean install.
+- [ ] Tested the main App features and they are still working on a current and clean install. (Login, Install, Play, Uninstall, Move games, etc.)
+- [ ] Created / Updated Tests (If necessary)
+- [ ] Created / Updated documentation (If necessary)
