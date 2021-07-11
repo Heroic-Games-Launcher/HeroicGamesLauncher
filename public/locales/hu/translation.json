@@ -1,6 +1,6 @@
 {
     "All": "Összes",
-    "Assets": "Assets",
+    "Assets": "Eszközök",
     "box": {
         "appupdate": {
             "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
@@ -12,8 +12,8 @@
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Lejártak a hitelesítő adataid, jelentkezz ki, majd jelentkezz be újra.",
+                "title": "Lejárt Hitelesítő Adatok"
             },
             "diskspace": {
                 "message": "Nincs elég elérhető lemezterület",
@@ -25,16 +25,16 @@
             },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Nem találtunk feljegyzést ehhez a játékhoz",
+                "title": "Nem találtunk feljegyzést"
             },
-            "title": "Error"
+            "title": "Hiba"
         },
         "no": "NEM",
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Nincs telepítve, szeretnéd telepíteni?"
             }
         },
         "quit": {
@@ -46,8 +46,8 @@
         },
         "select": "Kiválaszt",
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "A parancsikonok létre lettek hozva az Asztalon és a Start Menüben",
+            "title": "Parancsikonok"
         },
         "sync": {
             "button": "Választ",
@@ -128,28 +128,28 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Segíts lefordítani a Heroic-ot."
     },
     "placeholder": {
         "egs-prefix": "Prefix ahol EGS telepítve van"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Projektek",
     "Ready": "Kész",
     "Recent": "Recent Games",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
+        "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
         "exit-to-tray": "Kilépés a Rendszer Tálcára",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
@@ -164,10 +164,10 @@
             "title": "Manuális Mentés Szinkronizálás",
             "upload": "Feltöltés"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Legutóbbi Játékok Mutatása",
         "maxworkers": "Maximum Dolgozók Száma letöltéskor",
         "offlinemode": "Futtassa a Játékot Offline",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Nvidia Prime Render Engedélyezése",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
             "title": "Futtasd az EXE fájlt Prefix-el"
@@ -177,7 +177,7 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
-        "start-in-tray": "",
+        "start-in-tray": "Indítás tálcára téve",
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },
@@ -202,8 +202,8 @@
         "show": "Mutasd",
         "support": "Támogass Minket"
     },
-    "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Unreal Marketplace": "Unreal Piac",
+    "Updates": "Frissítések",
     "userselector": {
         "about": "Névjegy",
         "discord": "Discord",
