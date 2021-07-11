@@ -20,6 +20,7 @@ import {
   isOnline
 } from '../utils';
 import {
+  execOptions,
   installed,
   legendaryBin,
   legendaryConfigPath,
@@ -151,7 +152,7 @@ class LegendaryLibrary {
     }
 
     const command = `${legendaryBin} list-installed --check-updates --tsv`
-    const { stdout } = await execAsync(command)
+    const { stdout } = await execAsync(command, execOptions)
     return stdout
       .split('\n')
       .filter((item) => item.includes('True'))
