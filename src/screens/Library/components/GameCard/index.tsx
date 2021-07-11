@@ -80,6 +80,9 @@ const GameCard = ({
     (game) => game.appName === appName
   )[0]
 
+  const hasDownloads = Boolean(libraryStatus.filter(
+    (game) => game.status === 'installing' || game.status === 'updating'
+  ).length)
   const { status } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
   const isReparing = status === 'repairing'
@@ -143,7 +146,7 @@ const GameCard = ({
     if (isInstalled && isGame) {
       return <PlayIcon onClick={() => handlePlay()} />
     }
-    if (!isInstalled) {
+    if (!isInstalled && !hasDownloads) {
       return <DownIcon onClick={() => handlePlay()} />
     }
     return null
@@ -250,9 +253,11 @@ const GameCard = ({
       await handleGameStatus({ appName, status: 'done' })
       return sendKill(appName)
     }
-
-    await handleGameStatus({ appName, status: 'playing' })
-    return await launch(appName, t, handleGameStatus)
+    if (isInstalled) {
+      await handleGameStatus({ appName, status: 'playing' })
+      return await launch(appName, t, handleGameStatus)
+    }
+    return
   }
 }
 

@@ -36,7 +36,6 @@ export default function Header({
     handleLayout } = useContext(ContextProvider)
 
   const hasDownloads = libraryStatus.filter(
-
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
   const hasUpdates = gameUpdates.length
