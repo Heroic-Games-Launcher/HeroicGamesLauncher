@@ -6,7 +6,7 @@ import {
 } from 'graceful-fs'
 import axios from 'axios';
 
-import { BrowserWindow, ipcMain } from 'electron';
+import { BrowserWindow, app, ipcMain } from 'electron';
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus, InstallProgress } from '../types';
 import { Game } from '../games';
@@ -267,7 +267,7 @@ class LegendaryGame extends Game {
       return
     }
     const gameInfo = await this.getGameInfo()
-    const desktopFolder = `${home}/Desktop/${gameInfo.title}.desktop`
+    const desktopFolder = `${app.getPath('desktop')}/${gameInfo.title}.desktop`
     const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     let shortcut;
     const icon = await this.getIcon(gameInfo.app_name)
