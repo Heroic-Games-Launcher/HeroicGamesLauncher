@@ -263,9 +263,6 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addDesktopShortcut(fromMenu?: boolean) {
-    if (process.platform !== 'linux'){
-      return
-    }
     const gameInfo = await this.getGameInfo()
     const desktopFolder = `${app.getPath('desktop')}/${gameInfo.title}.desktop`
     const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
