@@ -91,7 +91,7 @@ export default function Header({
         {category === 'games' && (
           <span className="selectFilter" >
             <span>{t('Filter')}:</span>
-            <select onChange={(e) => handleFilter(e.target.value)} defaultValue={filter}>
+            <select onChange={(e) => handleFilter(e.target.value)} defaultValue={filter} data-testid="games-filter">
               <option
                 data-testid="all"
                 className={filter === 'all' ? 'selected' : ''}
@@ -140,7 +140,7 @@ export default function Header({
         {category === 'unreal' && (
           <span className="selectFilter">
             <span>{t('Filter')}:</span>
-            <select>
+            <select onChange={(e) => handleFilter(e.target.value)} defaultValue={filter} data-testid="games-filter">
               <option
                 data-testid="unreal"
                 value='unreal'

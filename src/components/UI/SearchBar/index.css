@@ -6,15 +6,17 @@
 }
 
 .searchInput {
-  width: 285px;
-  height: 30px;
-  border-radius: 10px;
+  height: 35px;
+  border-radius: 5px;
   border: none;
   color: var(--secondary);
   text-indent: 4px;
   font-size: 14px;
   outline: none;
-  background: none;
+  background: var(--background-secondary);
+  max-width: 300px;
+  min-width: 150px;
+  width: 28vw;
 }
 
 .SearchBar > label {
