@@ -38,32 +38,23 @@
   justify-content: space-evenly;
   grid-area: filter;
   flex-wrap: wrap;
+  font-size: 16px;
   align-content: center;
 }
 
 .selectFilter > select {
-  outline: none;
-  text-indent: 8px;
-}
-
-.selectFilter > .selected {
-  font-size: clamp(1.1em, 0.6vw, 2.1rem);
-  font-weight: 600;
-  color: var(--secondary);
-}
-
-.selectFilter > :not(:first-child) {
   cursor: pointer;
   padding: 0 8px;
-}
-
-.selectFilter > select {
-  font-size: clamp(1em, 0.5vw, 2rem);
   color: var(--text-secondary);
-  box-sizing: content-box;
-  height: 17px;
   border: none;
   background: none;
+  outline: none;
+  font-size: 16px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  color: var(--text-secondary);
+  width: fit-content;
 }
 
 option {

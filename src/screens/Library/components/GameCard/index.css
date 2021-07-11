@@ -10,6 +10,7 @@
   min-height: 173px;
   overflow: hidden;
   position: relative;
+  border-radius: 0.5rem;
 }
 
 .gameCard > .progress {
@@ -37,6 +38,7 @@
   min-height: 173px;
   object-fit: cover;
   position: absolute;
+  border-radius: 0.5rem;
   top: 0;
   left: 0;
 }
@@ -99,7 +101,7 @@
   width: 210px;
   height: 280px;
   object-fit: cover;
-  border-radius: 0;
+  border-radius: 0.5rem;
 }
 
 .gameListItem {
