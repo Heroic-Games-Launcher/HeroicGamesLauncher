@@ -1,0 +1,66 @@
+app-id: org.hgl.heroic
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '20.08'
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node14
+command: run.sh
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --share=network
+  - --filesystem=host
+  - --talk-name=org.freedesktop.Notifications
+build-options:
+  build-args:
+  - --share=network
+  append-path: /usr/lib/sdk/node14/bin
+  cflags: -O2 -g
+  cxxflags: -O2 -g
+  env:
+    NPM_CONFIG_LOGLEVEL: info
+modules:
+  - name: heroic
+    buildsystem: simple
+    build-commands:
+    - pip3 install requests
+    sources:
+    - type: archive
+      url: https://www.python.org/ftp/python/3.9.1/Python-3.9.1.tar.xz
+      sha256: 991c3f8ac97992f3d308fefeb03a64db462574eadbff34ce8bc5bb583d9903ff
+      # Install npm dependencies
+    build-options:
+      env:
+        XDG_CACHE_HOME: /run/build/heroic/flatpak-node/cache
+        npm_config_cache: /run/build/heroic/flatpak-node/node-cache
+        npm_config_nodedir: /usr/lib/sdk/node14
+        npm_config_offline: 'true'
+    subdir: main
+    sources:
+      #- type: archive
+      #  url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v1.7.2/heroic-1.7.2.tar.xz
+      #  sha256: 38820ba99b899a88a589156f8dd09e7afeb762b32e68572775c02cee7f691325
+      - type: dir
+        path: ..
+        dest: main
+      - generated-sources.json
+      # Wrapper to launch the app
+      - type: script
+        dest-filename: run.sh
+        commands:
+          - zypak-wrapper.sh /app/main/heroic "$@"
+    build-commands:
+      - npm install --offline
+      # Build the app; in this example the `dist` script
+      # in package.json runs electron-builder
+      - |
+        . ../flatpak-node/electron-builder-arch-args.sh
+        npm run dist-flatpak
+      # Bundle app and dependencies
+      - cp -a dist/linux-unpacked /app/main
+      # Install app wrapper
+      - install -Dm755 -t /app/bin/ ../run.sh
