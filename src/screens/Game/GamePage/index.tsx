@@ -86,6 +86,9 @@ export default function GamePage(): JSX.Element | null {
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+  const hasDownloads = Boolean(libraryStatus.filter(
+    (game) => game.status === 'installing' || game.status === 'updating'
+  ).length)
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -291,7 +294,7 @@ export default function GamePage(): JSX.Element | null {
                     <button
                       onClick={() => handleInstall()}
                       disabled={
-                        isPlaying || isUpdating || isReparing || isMoving
+                        isPlaying || isUpdating || isReparing || isMoving || (hasDownloads && !isInstalling)
                       }
                       className={`button ${getButtonClass(is_installed)}`}
                     >
