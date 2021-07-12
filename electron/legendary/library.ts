@@ -25,7 +25,7 @@ import {
   legendaryConfigPath,
   libraryPath
 } from '../constants';
-import { logError, logWarning } from '../logger';
+import { logError } from '../logger';
 
 /**
  * Legendary LegendaryLibrary.
@@ -146,7 +146,6 @@ class LegendaryLibrary {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
     const online = await isOnline()
     if (!isLoggedIn || !(online)) {
-      logWarning('App offline, skipping checking game updates.')
       return []
     }
 
