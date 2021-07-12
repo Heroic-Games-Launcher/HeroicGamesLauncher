@@ -243,7 +243,7 @@ class LegendaryGame extends Game {
     }
 
     const gameInfo = await this.getGameInfo()
-    const image = gameInfo.art_square.replaceAll(' ', '_')
+    const image = gameInfo.art_square.replaceAll(' ', '%20')
     let ext = image.split('.').reverse()[0]
     if (ext !== 'jpg' && ext !== 'png'){
       ext = 'jpg'
@@ -292,7 +292,6 @@ Categories=Game;
     const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
 
     if (enabledInDesktop || fromMenu) {
-      // spawn('echo', [shortcut, '>', ])
       writeFile(desktopFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + desktopFolder)
       })
@@ -302,6 +301,7 @@ Categories=Game;
         logInfo('Shortcut saved on ' + applicationsFolder)
       })
     }
+    return
   }
 
   /**

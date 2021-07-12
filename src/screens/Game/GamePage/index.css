@@ -86,6 +86,9 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   color: var(--text-primary);
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
 .installProgress[value] {

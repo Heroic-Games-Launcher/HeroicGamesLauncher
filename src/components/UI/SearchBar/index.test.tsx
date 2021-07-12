@@ -34,24 +34,4 @@ describe('SearchBar', () => {
     expect(searchInput).toHaveValue('Test Search');
     expect(onHandleSearch).toBeCalledWith('Test Search');
   })
-
-  test('calls handle search by clicking on search', () => {
-    const onHandleSearch = jest.fn();
-    test_context.set({handleSearch: onHandleSearch})
-    const { getByTestId } = renderSearchBar();
-    const searchButton = getByTestId('searchButton');
-    fireEvent.click(searchButton);
-    expect(onHandleSearch).toBeCalledWith('');
-  })
-
-  test('calls handle search with empty string by clicking on cancel', () => {
-    const onHandleSearch = jest.fn();
-    test_context.set({handleSearch: onHandleSearch})
-    const { getByTestId } = renderSearchBar();
-    const searchInput = getByTestId('searchInput');
-    fireEvent.change(searchInput, {target: { value: 'Test Search'}});
-    const closeButton = getByTestId('closeButton');
-    fireEvent.click(closeButton);
-    expect(onHandleSearch).toBeCalledWith('');
-  })
 })

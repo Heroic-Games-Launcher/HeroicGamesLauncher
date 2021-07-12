@@ -107,9 +107,8 @@ describe('Header', () => {
     filters.forEach((value) => {
       test_context.set({filter: value});
       rerender(getHeader());
-      const filter = getByTestId(value);
-      fireEvent.click(filter);
-      expect(filter).toHaveClass('selected');
+      const select = getByTestId('games-filter');
+      fireEvent.change(select, {target: {value}});
       expect(test_context.get().handleFilter).toBeCalledWith(value);
     });
   })
@@ -130,9 +129,8 @@ describe('Header', () => {
     filters.forEach((value) => {
       test_context.set({filter: value});
       rerender(getHeader());
-      const filter = getByTestId(value);
-      fireEvent.click(filter);
-      expect(filter).toHaveClass('selected');
+      const select = getByTestId('games-filter');
+      fireEvent.change(select, {target: {value}});
       expect(test_context.get().handleFilter).toBeCalledWith(value);
     });
   })

@@ -8,7 +8,7 @@ import React, {
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { GameStatus } from 'src/types'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
@@ -72,6 +72,7 @@ const GameCard = ({
   const { libraryStatus, layout, handleGameStatus, platform } = useContext(
     ContextProvider
   )
+  const history = useHistory()
   const isWin = platform === 'win32'
 
   const grid = layout === 'grid'
@@ -89,6 +90,7 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
+  const path = isWin ? `/settings/${appName}/other` : `/settings/${appName}/wine`
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -183,8 +185,10 @@ const GameCard = ({
           </span>
         </Link>
         {grid ? (
-          <div className="gameTitle">
-            <span>{title}</span>
+          <>
+            <div className="gameTitle">
+              <span>{title}</span>
+            </div>
             {
               <span
                 className="icons"
@@ -194,21 +198,10 @@ const GameCard = ({
                 }}
               >
                 {renderIcon()}
-                {isInstalled && isGame && (
-                  <Link
-                    to={{
-                      pathname: isWin
-                        ? `/settings/${appName}/other`
-                        : `/settings/${appName}/wine`,
-                      state: { fromGameCard: true }
-                    }}
-                  >
-                    <SettingsIcon fill={'var(--secondary)'} />
-                  </Link>
-                )}
+                {isInstalled && isGame && <SettingsIcon fill={'var(--secondary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
               </span>
             }
-          </div>
+          </>
         ) : (
           <>
             {<div className="gameListInfo">{isInstalled ? size : '---'}</div>}
@@ -216,18 +209,7 @@ const GameCard = ({
             {
               <span className="icons">
                 {renderIcon()}
-                {isInstalled && (
-                  <Link
-                    to={{
-                      pathname: isWin
-                        ? `/settings/${appName}/other`
-                        : `/settings/${appName}/wine`,
-                      state: { fromGameCard: true }
-                    }}
-                  >
-                    <SettingsIcon fill={'var(--secondary)'} />
-                  </Link>
-                )}
+                {isInstalled && isGame &&  <SettingsIcon fill={'var(--secondary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
               </span>
             }
           </>

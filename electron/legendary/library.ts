@@ -25,7 +25,7 @@ import {
   legendaryConfigPath,
   libraryPath
 } from '../constants';
-import { logError, logWarning } from '../logger';
+import { logError, logInfo } from '../logger';
 
 /**
  * Legendary LegendaryLibrary.
@@ -73,12 +73,17 @@ class LegendaryLibrary {
    * Refresh library.
    */
   public async refresh() {
-    await execAsync(`${legendaryBin} list-games --include-ue`)
-      .then(() => {
-        this.refreshInstalled()
-        this.loadAll()
-      })
-      .catch(() => logError('No credentials. Missing Login?'))
+    const isLoggedIn = LegendaryUser.isLoggedIn()
+    if (isLoggedIn){
+      logInfo('Refreshing the Library...')
+      return await execAsync(`${legendaryBin} list-games --include-ue`)
+        .then(() => {
+          this.refreshInstalled()
+          this.loadAll()
+        })
+        .catch(() => logError('No credentials. Missing Login?'))
+    }
+    return logError('No credentials. Missing Login?')
   }
 
   /**
@@ -146,7 +151,6 @@ class LegendaryLibrary {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
     const online = await isOnline()
     if (!isLoggedIn || !(online)) {
-      logWarning('App offline, skipping checking game updates.')
       return []
     }
 
