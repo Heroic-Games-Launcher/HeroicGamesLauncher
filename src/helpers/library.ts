@@ -28,6 +28,10 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
 
   const {folder_name, is_game, is_installed}: GameInfo = await getGameInfo(appName)
   if (isInstalling) {
+    if (installPath === 'default') {
+      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
+      installPath = defaultInstallPath
+    }
     return handleStopInstallation(appName, [installPath, folder_name], t, progress)
   }
 
