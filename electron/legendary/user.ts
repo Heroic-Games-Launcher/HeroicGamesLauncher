@@ -23,6 +23,7 @@ export class LegendaryUser {
   public static async logout() {
     await execAsync(`${legendaryBin} auth --delete`)
     // Should we do this?
+    configStore.delete('userInfo')
     await execAsync(`${legendaryBin} cleanup`)
   }
 
