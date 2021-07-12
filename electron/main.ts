@@ -19,6 +19,7 @@ import {
   mkdirSync,
   rmdirSync,
   unlinkSync,
+  watch,
   writeFile
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
@@ -49,7 +50,9 @@ import {
   home,
   iconDark,
   iconLight,
+  installed,
   legendaryBin,
+  libraryPath,
   loginUrl,
   sidInfoUrl,
   supportURL,
@@ -69,7 +72,8 @@ const store = new Store({
 })
 const libraryStore = new Store({
   cwd: 'store',
-  name: 'library'
+  name: 'library',
+  watch: true
 })
 
 function createWindow(): BrowserWindow {
@@ -489,8 +493,21 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
   }
 })
 
+// Watch the installed games file and trigger a refresh on the installed games if something changes
+watch(installed, () => {
+  logInfo('Installed game list updated')
+  LegendaryLibrary.get().refreshInstalled()
+})
+
+// Watch the legendary metadata folder and trigger a refresh if something changes
+watch(libraryPath, () => {
+  logInfo('Library of games updated')
+  LegendaryLibrary.get().getGames('info')
+})
+
 ipcMain.handle('refreshLibrary', async () => {
-  return await LegendaryLibrary.get().refresh()
+  // This is a full refresh since everything else will be cached and automated
+  return await LegendaryLibrary.get().getGames('info')
 })
 
 type RecentGame = {
