@@ -71,14 +71,8 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
-    this.setState({refreshing: true})
     const updates = checkUpdates ? await renderer.invoke('checkGameUpdates') : this.state.gameUpdates
-    let library = libraryStore.get('library') as GameInfo[]
-
-    if (!library){
-      await ipcRenderer.invoke('readConfig', 'library')
-      library = libraryStore.get('library') as GameInfo[]
-    }
+    const library = libraryStore.get('library') as GameInfo[]
 
     this.setState({
       data: library,
@@ -89,7 +83,7 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   refreshLibrary = async (checkUpdates?: boolean): Promise<void> => {
-    this.setState({ refreshing: true })
+    this.setState({ refreshing: checkUpdates })
     await renderer.invoke('refreshLibrary')
     this.refresh(checkUpdates)
   }
@@ -278,7 +272,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { gameUpdates, libraryStatus, data } = this.state
+    const { gameUpdates, libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.once('launchGame', async (e, appName) => {
@@ -321,12 +315,11 @@ export class GlobalState extends PureComponent<Props> {
     i18n.changeLanguage(language)
     this.setState({ category, filter, language, layout, platform })
 
+    this.refreshLibrary(true)
+
     setTimeout(() => {
       this.checkVersion()
     }, 4500)
-    if (!data.length) {
-      this.refreshLibrary(false)
-    }
   }
 
   componentDidUpdate() {
@@ -336,6 +329,7 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
+
     const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
       .length
     if (pendingOps) {
@@ -356,7 +350,6 @@ export class GlobalState extends PureComponent<Props> {
     const filterRegex = new RegExp(String(filterText), 'i')
     const textFilter = ({ title }: GameInfo) => filterRegex.test(title)
     const filteredLibrary = this.filterLibrary(data, filter).filter(textFilter)
-    console.log({data, filteredLibrary});
 
     return (
       <ContextProvider.Provider
