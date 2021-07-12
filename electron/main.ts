@@ -72,8 +72,7 @@ const store = new Store({
 })
 const libraryStore = new Store({
   cwd: 'store',
-  name: 'library',
-  watch: true
+  name: 'library'
 })
 
 function createWindow(): BrowserWindow {

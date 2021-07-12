@@ -25,7 +25,7 @@ import {
   legendaryConfigPath,
   libraryPath
 } from '../constants';
-import { logError, logWarning } from '../logger';
+import { logError, logInfo, logWarning } from '../logger';
 import Store from 'electron-store'
 
 const libraryStore = new Store({
@@ -108,7 +108,7 @@ class LegendaryLibrary {
    * @returns Array of objects.
    */
   public async getGames(format: 'info' | 'class' = 'class') : Promise<(LegendaryGame | GameInfo)[]> {
-    await this.loadAllStubs()
+    await this.loadAll()
     const arr = Array.from(this.library.values()).sort(
       (a: { title: string }, b: { title: string }) => {
         const gameA = a.title.toUpperCase()
@@ -117,6 +117,8 @@ class LegendaryLibrary {
       }
     )
     if (format === 'info') {
+      libraryStore.delete('library')
+      logInfo('Updating game list')
       libraryStore.set('library', arr)
       return arr
     }
@@ -159,6 +161,7 @@ class LegendaryLibrary {
 
     const command = `${legendaryBin} list-installed --check-updates --tsv`
     const { stdout } = await execAsync(command)
+    logInfo('Checking for game updates')
     return stdout
       .split('\n')
       .filter((item) => item.includes('True'))
