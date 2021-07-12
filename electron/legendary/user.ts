@@ -29,7 +29,6 @@ export class LegendaryUser {
         res('finished')
       })
     })
-    // return (await execAsync(`${legendaryBin})).stdout.includes('Successfully logged in')
   }
 
   public static async logout() {
