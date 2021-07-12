@@ -43,6 +43,7 @@ import {
 } from './utils'
 import {
   discordLink,
+  execOptions,
   getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
@@ -414,7 +415,7 @@ ipcMain.handle('callTool', async (event, { tool, wine, prefix, exe }: Tools) => 
 
   logInfo('trying to run', command)
   try {
-    await execAsync(command)
+    await execAsync(command, execOptions)
   } catch (error) {
     logError(`Something went wrong! Check if ${tool} is available and ${wineBin} exists`)
   }
