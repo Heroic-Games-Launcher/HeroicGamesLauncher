@@ -20,7 +20,7 @@ abstract class Game {
   abstract import(path : string) : Promise<ExecResult>
   abstract install(path : string) : Promise<ExecResult>
   abstract addDesktopShortcut(): Promise<void>
-  abstract launch() : Promise<ExecResult>
+  abstract launch() : Promise<unknown>
   abstract moveInstall(newInstallPath : string) : Promise<string>
   abstract repair() : Promise<ExecResult>
   abstract state: GameStatus

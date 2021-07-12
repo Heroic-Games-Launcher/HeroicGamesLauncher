@@ -510,7 +510,6 @@ Categories=Game;
       showMangohud: showMangohud ? `MANGOHUD=1` : ''
     }
 
-
     envVars = Object.values(options).join(' ')
     if (isProton) {
       logWarning(
@@ -545,17 +544,29 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
-    logInfo('\n Launch Command:', command)
-    const v = await execAsync(command).then((v) => {
-      this.state.status = 'playing'
-      mainWindow.show()
-      return v
-    })
+    const command = `${envVars} ${runWithGameMode} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix.replaceAll("'", '')} ${launcherArgs}`
+    logInfo(`\n Launch Command: ${legendaryBin}`, command)
 
-    logInfo('Stopping Discord Rich Presence if running...')
-    DiscordRPC.disconnect()
-    logInfo('Stopped Discord Rich Presence.')
+    const v = new Promise((res) => {
+      const spawnArgs = command.split(' ').filter(i => i !== '')
+      console.log({spawnArgs})
+      const run = spawn(legendaryBin, spawnArgs)
+      run.stderr.on('data', (data) => {
+        console.log(`${data}`)
+        if (`${data}`.includes('ERROR: Game is out of date')){
+          res('ERROR: Game is out of date')
+        }
+      })
+      run.on('message', (message) => console.log(`message: ${message}`))
+      run.on('close', () => {
+        res('finished')
+        console.log('closing');
+        logInfo('Stopping Discord Rich Presence if running...')
+        DiscordRPC.disconnect()
+        logInfo('Stopped Discord Rich Presence.')
+        mainWindow.show()
+      })
+    })
 
     return v
   }
