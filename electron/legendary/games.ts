@@ -319,8 +319,9 @@ Categories=Game;
    */
   public async removeDesktopShortcut() {
     const gameInfo = await this.getGameInfo()
-    const desktopFile = `${app.getPath('desktop')}/${gameInfo.title}.desktop`
-    const applicationsFile = `${home}/.local/share/applications/${gameInfo.title}.desktop`
+    const ext = process.platform == 'linux' ? '.desktop' : '.url'
+    const desktopFile = `${app.getPath('desktop')}/${gameInfo.title}${ext}`
+    const applicationsFile = `${home}/.local/share/applications/${gameInfo.title}${ext}`
     unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
     unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
   }
