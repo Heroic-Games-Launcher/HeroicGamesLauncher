@@ -9,11 +9,26 @@ import {
   legendaryBin,
   userInfo
 } from '../constants'
+import { spawn } from 'child_process'
 import {userInfo as user} from 'os'
 
 export class LegendaryUser {
   public static async login(sid: string) {
-    return (await execAsync(`${legendaryBin} auth --sid ${sid}`)).stdout.includes('Successfully logged in')
+    const command = `auth --sid ${sid}`.split(' ')
+    return new Promise((res) => {
+      const child = spawn(legendaryBin, command)
+      child.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`)
+        if (`${data}`.includes('ERROR:')) {
+          return res('error')
+        }
+      })
+      child.stdout.on('data', (data) => console.log(`stdout: ${data}`))
+      child.on('close', () => {
+        console.log('finished login');
+        res('finished')
+      })
+    })
   }
 
   public static async logout() {

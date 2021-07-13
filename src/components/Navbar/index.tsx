@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom'
 import { createNewWindow } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
-const SearchBar = lazy(() => import('./components/SearchBar'))
 const UserSelector = lazy(() => import('./components/UserSelector'))
 
 export default function NavBar() {
@@ -59,7 +58,6 @@ export default function NavBar() {
           {t('wiki', 'Wiki')}
         </a>
       </div>
-      <SearchBar />
       <UserSelector />
     </div>
   )

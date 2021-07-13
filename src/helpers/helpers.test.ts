@@ -67,7 +67,7 @@ describe('handleInstall', () => {
     await callHandleInstall({ handleGameStatus: onHandleGameStatus, isInstalling: true });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.invoke).toBeCalledWith('kill', 'game');
-    expect(ipcRenderer.send).toBeCalledWith('removeFolder', ['default', 'folder_name']);
+    expect(ipcRenderer.send).toBeCalledWith('removeFolder', ['default/install/path', 'folder_name']);
   })
 
   test('install game on import path', async () => {

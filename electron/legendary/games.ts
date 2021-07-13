@@ -243,7 +243,7 @@ class LegendaryGame extends Game {
     }
 
     const gameInfo = await this.getGameInfo()
-    const image = gameInfo.art_square.replaceAll(' ', '_')
+    const image = gameInfo.art_square.replaceAll(' ', '%20')
     let ext = image.split('.').reverse()[0]
     if (ext !== 'jpg' && ext !== 'png'){
       ext = 'jpg'
@@ -300,7 +300,6 @@ Categories=Game;
     const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}${ext}`
 
     if (enabledInDesktop || fromMenu) {
-      // spawn('echo', [shortcut, '>', ])
       writeFile(desktopFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + desktopFolder)
       })
@@ -310,6 +309,7 @@ Categories=Game;
         logInfo('Shortcut saved on ' + applicationsFolder)
       })
     }
+    return
   }
 
   /**
@@ -421,7 +421,7 @@ Categories=Game;
     }
 
     logInfo('\n syncing saves for ', this.appName)
-    return await execAsync(command)
+    return await execAsync(command, execOptions)
   }
 
   public async launch() {
@@ -483,7 +483,7 @@ Categories=Game;
     if (isWindows) {
       const command = `${legendaryBin} launch ${this.appName} ${runOffline} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
-      const v = await execAsync(command)
+      const v = await execAsync(command, execOptions)
 
       logInfo('Stopping Discord Rich Presence if running...')
       DiscordRPC.disconnect()
@@ -529,7 +529,7 @@ Categories=Game;
     // Proton doesn't create a prefix folder so this is a workaround
     if (isProton && !existsSync(fixedWinePrefix)) {
       const command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command)
+      await execAsync(command, execOptions)
     }
 
     // Install DXVK for non Proton Prefixes
@@ -553,7 +553,7 @@ Categories=Game;
 
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
-    const v = await execAsync(command).then((v) => {
+    const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
       mainWindow.show()
       return v

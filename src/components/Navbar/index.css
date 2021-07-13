@@ -7,8 +7,8 @@
   box-shadow: 0px 4.00313px 10.0078px #161616;
   width: 100%;
   display: grid;
-  grid-template-columns: 5fr 5fr 1fr;
-  grid-template-areas: 'links search user';
+  grid-template-columns: 5fr 1fr;
+  grid-template-areas: 'links user';
   z-index: 99;
 }
 
@@ -19,7 +19,7 @@
   line-height: 23.7px;
   font-weight: 400;
   height: 25px;
-  left: 43px;
+  left: 64px;
   top: 26px;
   display: flex;
   font-family: 'Rubik', sans-serif;
