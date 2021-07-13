@@ -20,6 +20,7 @@ export default function LanguageSelector({
   flagPossition = FlagPosition.NONE
 }: Props) {
   const languageLabels: { [key: string]: string } = {
+    ca: 'Català',
     cs: 'Čeština',
     de: 'Deutsch',
     el: 'Greek',
@@ -38,6 +39,9 @@ export default function LanguageSelector({
   }
 
   const languageFlags: { [key: string]: string } = {
+    // Catalan hasn't a flag in the UNICODE standard yet.
+    // See https://emojipedia.org/flag-for-catalonia-esct/
+    ca: '🇪🇸',
     cs: '🇨🇿',
     de: '🇩🇪',
     el: '🇬🇷',
