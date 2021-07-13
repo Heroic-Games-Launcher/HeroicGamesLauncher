@@ -111,7 +111,7 @@ class LegendaryLibrary {
    * @returns Array of objects.
    */
   public async getGames(format: 'info' | 'class' = 'class'): Promise<(LegendaryGame | GameInfo)[]> {
-    logInfo('Refreshing library fully')
+    logInfo('Refreshing library...')
     try {
       await this.refresh()
     } catch (error) {
