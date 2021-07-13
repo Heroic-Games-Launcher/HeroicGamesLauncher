@@ -5,6 +5,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import { Library } from './screens/Library'
 import ContextProvider from './state/ContextProvider'
 import ElectronStore from 'electron-store'
+import Login from './screens/Login'
 
 const Store = window.require('electron-store')
 const configStore: ElectronStore = new Store({
@@ -15,14 +16,13 @@ const NavBar = lazy(() => import('./components/Navbar'))
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
-const Login = lazy(() => import('./screens/Login'))
 
 function App() {
   const context = useContext(ContextProvider)
   const user = configStore.get('userInfo')
   const { data: library, refresh } = context
 
-  if (!user && !library.length) {
+  if (!user) {
     return <Login refresh={refresh} />
   }
 

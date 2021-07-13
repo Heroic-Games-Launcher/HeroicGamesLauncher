@@ -3,13 +3,15 @@ import {
   readFileSync
 } from 'graceful-fs'
 
+import { LegendaryLibrary } from './library'
 import { UserInfo } from '../types'
 import { execAsync } from '../utils'
 import {
   legendaryBin,
   userInfo
 } from '../constants'
-import {userInfo as user} from 'os'
+import { logError, logInfo } from '../logger'
+import { userInfo as user } from 'os'
 import Store from 'electron-store';
 
 const configStore = new Store({
@@ -17,27 +19,39 @@ const configStore = new Store({
 })
 export class LegendaryUser {
   public static async login(sid: string) {
-    return (await execAsync(`${legendaryBin} auth --sid ${sid}`)).stdout.includes('Successfully logged in')
+    try {
+      await execAsync(`${legendaryBin} auth --sid ${sid}`)
+      await this.getUserInfo()
+      return logInfo('Successfully logged in')
+    } catch (error) {
+      logError('Error on Login')
+      logError(error)
+    }
   }
 
   public static async logout() {
     await execAsync(`${legendaryBin} auth --delete`)
-    // Should we do this?
     configStore.delete('userInfo')
-    await execAsync(`${legendaryBin} cleanup`)
   }
 
   public static async isLoggedIn() {
     return existsSync(userInfo) || await execAsync(`${legendaryBin} status`).then(
-      ({stdout}) => !stdout.includes('Epic account: <not logged in>')
+      ({ stdout }) => !stdout.includes('Epic account: <not logged in>')
     )
   }
 
-  public static async getUserInfo() : Promise<UserInfo> {
-    const isLoggedIn = await LegendaryUser.isLoggedIn()
+  public static async getUserInfo(): Promise<UserInfo> {
+    logInfo('Trying to get user information')
+    let isLoggedIn = false
+    try {
+      isLoggedIn = await LegendaryUser.isLoggedIn()
+    } catch (error) {
+      logError(error)
+    }
     if (isLoggedIn) {
-      const info = {...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username}
+      const info = { ...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username }
       configStore.set('userInfo', info)
+      await LegendaryLibrary.get().getGames('info')
       return info
     }
     return { account_id: '', displayName: null }
