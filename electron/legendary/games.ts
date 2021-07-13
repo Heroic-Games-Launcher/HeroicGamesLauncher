@@ -264,13 +264,13 @@ class LegendaryGame extends Game {
    */
   public async addDesktopShortcut(fromMenu?: boolean) {
     const gameInfo = await this.getGameInfo()
-    const desktopFolder = `${app.getPath('desktop')}/${gameInfo.title}.desktop`
-    const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     let shortcut;
+    let ext;
     const icon = await this.getIcon(gameInfo.app_name)
 
     switch(process.platform) {
     case 'linux': {
+      ext = '.desktop'
       shortcut = `[Desktop Entry]
 Name=${gameInfo.title}
 Exec=xdg-open heroic://launch/${gameInfo.app_name}
@@ -282,6 +282,7 @@ Categories=Game;
 `
       break; }
     case 'win32': {
+      ext = '.url'
       shortcut = `[InternetShortcut]
       IDList=
       IconIndex=0
@@ -294,6 +295,9 @@ Categories=Game;
     }
     const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
     const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
+
+    const desktopFolder = `${app.getPath('desktop')}/${gameInfo.title}${ext}`
+    const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}${ext}`
 
     if (enabledInDesktop || fromMenu) {
       // spawn('echo', [shortcut, '>', ])
