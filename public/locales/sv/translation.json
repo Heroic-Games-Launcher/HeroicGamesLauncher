@@ -177,6 +177,7 @@
             "title": "Synkroniseringsmapp för sparfiler"
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
+        "start-in-tray": "",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },

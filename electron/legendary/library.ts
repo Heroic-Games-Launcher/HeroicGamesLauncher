@@ -25,7 +25,7 @@ import {
   legendaryConfigPath,
   libraryPath
 } from '../constants';
-import { logError, logInfo, logWarning } from '../logger';
+import { logError, logInfo } from '../logger';
 import Store from 'electron-store'
 
 const libraryStore = new Store({
@@ -170,7 +170,6 @@ class LegendaryLibrary {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
     const online = await isOnline()
     if (!isLoggedIn || !(online)) {
-      logWarning('App offline, skipping checking game updates.')
       return []
     }
 

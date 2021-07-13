@@ -8,9 +8,9 @@
   height: 10vw;
   max-height: 266px;
   min-height: 173px;
-  border-radius: 1rem;
   overflow: hidden;
   position: relative;
+  border-radius: 0.5rem;
 }
 
 .gameCard > .progress {
@@ -36,9 +36,9 @@
   max-height: 266px;
   min-width: 130px;
   min-height: 173px;
-  border-radius: 0.5rem;
   object-fit: cover;
   position: absolute;
+  border-radius: 0.5rem;
   top: 0;
   left: 0;
 }
@@ -56,7 +56,6 @@
     rgba(0, 0, 0, 0.418) 2.4%,
     rgba(20, 21, 21, 0.863) 30%
   );
-  border-radius: 0px 0px 10px 10px;
   transition: 200ms;
   font-family: Rubik;
   font-size: min(1vw, 1em);
@@ -64,7 +63,11 @@
   color: var(--text-primary);
 }
 
-.gameTitle > .icons {
+.gameTitle > span {
+  display: none;
+}
+
+.icons {
   align-self: flex-end;
   position: absolute;
   right: 6px;
@@ -72,6 +75,7 @@
   width: 44%;
   display: flex;
   justify-content: space-around;
+  z-index: 5;
 }
 
 .icons > a > svg,
@@ -85,6 +89,10 @@
   z-index: 3;
 }
 
+.gameCard:hover > .gameTitle  > span{
+  display: block;
+}
+
 .gameCard .gameTitle span {
   flex-grow: 1;
 }
@@ -92,8 +100,8 @@
 .gameImg {
   width: 210px;
   height: 280px;
-  border-radius: 0.5rem;
   object-fit: cover;
+  border-radius: 0.5rem;
 }
 
 .gameListItem {

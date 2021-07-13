@@ -1,1 +1,44 @@
-{}
+{
+    "enabled": "Habilitado",
+    "disabled": "Desabilitado",
+    "button": {
+        "uninstall": "Desinstalar",
+        "install": "Instalar",
+        "import": "Importar",
+        "continue": "Continuar Download",
+        "cancel": "Cancelar"
+    },
+    "box": {
+        "update": {
+            "title": "Atualização Disponível",
+            "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?"
+        },
+        "uninstall": {
+            "title": "Desinstalar",
+            "message": "Deseja desinstalar este jogo?"
+        },
+        "stopInstall": {
+            "title": "Parar a Instalação",
+            "message": "Deseja MANTER os arquivos baixados?",
+            "keepInstalling": "Continuar a Instalação"
+        },
+        "repair": {
+            "title": "Verificar e Reparar",
+            "message": "Deseja tentar reparar este jogo? Isso pode levar muito tempo."
+        },
+        "move": {
+            "path": "Selecione a pasta de para onde deseja mover",
+            "message": "Isto pode levar um longo tempo, tem certeza disso?"
+        },
+        "installpath": "Selecione a pasta de instalação",
+        "importpath": "Selecione a pasta do jogo a ser importado",
+        "change": {
+            "title": "Mudar o local de instalação do jogo",
+            "path": "Selecione um novo local de instalação",
+            "message": "Isto mudará o local de instalação do jogo, está certo disso?"
+        },
+        "yes": "SIM",
+        "no": "NÃO",
+        "choose": "Selecionar"
+    }
+}

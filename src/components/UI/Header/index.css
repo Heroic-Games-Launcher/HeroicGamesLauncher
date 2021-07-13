@@ -5,7 +5,7 @@
   height: 84px;
   width: calc(100% - 1vw);
   padding: 0 4rem 1rem 4rem;
-  grid-template-columns: 5fr 2fr 4fr 1fr;
+  grid-template-columns: 4fr 5fr 2fr 2fr 1fr;
   justify-items: baseline;
   font-family: Cabin;
   font-style: normal;
@@ -13,7 +13,7 @@
   font-size: clamp(1em, 0.5vw, 2rem);
   line-height: 17px;
   color: var(--text-secondary);
-  grid-template-areas: 'filter total category layout';
+  grid-template-areas: 'filter search total category layout';
 }
 
 .headerSettings {
@@ -37,26 +37,24 @@
   justify-self: auto;
   justify-content: space-evenly;
   grid-area: filter;
-}
-
-.selectFilter > .selected {
-  font-size: clamp(1.1em, 0.6vw, 2.1rem);
-  font-weight: 600;
-  color: var(--secondary);
-}
-
-.selectFilter > :not(:first-child) {
-  cursor: pointer;
-  padding: 0 8px;
+  flex-wrap: wrap;
+  font-size: 16px;
+  align-content: center;
 }
 
 .selectFilter > select {
-  font-size: clamp(1em, 0.5vw, 2rem);
+  cursor: pointer;
+  padding: 0 8px;
   color: var(--text-secondary);
-  box-sizing: content-box;
-  height: 17px;
   border: none;
   background: none;
+  outline: none;
+  font-size: 16px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  color: var(--text-secondary);
+  width: fit-content;
 }
 
 option {
@@ -71,6 +69,8 @@ option {
   justify-content: space-evenly;
   cursor: pointer;
   grid-area: category;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .selectCategory > .selected {
@@ -84,9 +84,11 @@ option {
 }
 
 .layoutSelection {
-  place-self: end;
+  place-self: center;
   grid-area: layout;
-  min-width: 68px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .selectedLayout {
@@ -112,6 +114,7 @@ option {
   right: 55px;
   top: 108px;
   grid-area: total;
+  margin: auto;
 }
 
 .returnLink {

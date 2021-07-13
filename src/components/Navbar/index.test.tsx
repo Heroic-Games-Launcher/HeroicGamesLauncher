@@ -21,7 +21,6 @@ async function renderNavBar()
         <NavBar />
       </Router>
     </Suspense>);
-  await waitFor(() => expect(renderObject.getByTestId('searchBar')));
   await waitFor(() => expect(renderObject.getByTestId('userSelector')));
   return renderObject;
 }

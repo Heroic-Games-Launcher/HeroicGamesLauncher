@@ -35,7 +35,7 @@
     },
     "button": {
         "cancel": "Mégse",
-        "continue": "Continue Download",
+        "continue": "Letöltés folytatása",
         "import": "Importálás",
         "install": "Telepítés",
         "uninstall": "Eltávolítás"
@@ -77,13 +77,13 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Ezt a játékot csak importálni lehet",
         "reparing": "Játék javítása, kérlek várj",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék Frissítése"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Parancsikon hozzáadása",
         "change": "Telepítési útvonal megváltoztatása",
         "log": "Legutóbbi Naplózás (Log)",
         "move": "Játék áthelyezése",

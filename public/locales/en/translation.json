@@ -177,6 +177,7 @@
             "title": "Override Cloud Sync Save folder"
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
+        "start-in-tray": "Start Minimized",
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"
     },

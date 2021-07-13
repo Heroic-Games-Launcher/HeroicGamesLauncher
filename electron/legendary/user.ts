@@ -11,6 +11,7 @@ import {
   userInfo
 } from '../constants'
 import { logError, logInfo } from '../logger'
+import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store';
 
@@ -27,6 +28,21 @@ export class LegendaryUser {
       logError('Error on Login')
       logError(error)
     }
+    const command = `auth --sid ${sid}`.split(' ')
+    return new Promise((res) => {
+      const child = spawn(legendaryBin, command)
+      child.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`)
+        if (`${data}`.includes('ERROR:')) {
+          return res('error')
+        }
+      })
+      child.stdout.on('data', (data) => console.log(`stdout: ${data}`))
+      child.on('close', () => {
+        console.log('finished login');
+        res('finished')
+      })
+    })
   }
 
   public static async logout() {

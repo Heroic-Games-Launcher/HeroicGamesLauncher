@@ -46,8 +46,8 @@
         },
         "select": "选择",
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "在桌面和开始菜单上创建了快捷方式",
+            "title": "快捷方式"
         },
         "sync": {
             "button": "选择",
@@ -55,21 +55,7 @@
             "title": "选择存档的目录"
         },
         "wineprefix": "选择WINEPREFIX的文件夹",
-        "yes": "是",
-        "mangohud": "启用MangoHud（需要已安装Mangohud）",
-        "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
-        "language": "选择应用语言",
-        "exit-to-tray": "退出到系统托盘",
-        "egs-sync": "与已安装的Epic Games同步",
-        "discordRPC": "启用Discord的Rich Presence（活动状态）",
-        "darktray": "使用暗色托盘图标（需要重启）",
-        "customWineProton": "自定义Wine/Proton路径",
-        "autosync": "自动同步存档",
-        "autodxvk": "在PREFIX自动安装并更新DXVK",
-        "audiofix": "音频修复（Pulse Audio延迟）",
-        "addgamestostartmenu": "自动添加到启动菜单快捷方式",
-        "adddesktopshortcuts": "自动添加桌面快捷方式",
-        "maxRecentGames": "最近要展示的游戏"
+        "yes": "是"
     },
     "button": {
         "sync": "同步",
@@ -159,7 +145,7 @@
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在PREFIX自动安装并更新DXVK",
         "autosync": "自动同步存档",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",
         "darktray": "使用暗色托盘图标（需要重启）",
         "default-install-path": "默认安装路径",
@@ -191,6 +177,7 @@
             "title": "覆盖云端存档文件夹"
         },
         "showfps": "显示帧数（Directx 9，10和11）",
+        "start-in-tray": "启动时最小化",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "WINE版本"
     },

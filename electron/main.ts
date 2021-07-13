@@ -44,6 +44,7 @@ import {
 } from './utils'
 import {
   discordLink,
+  execOptions,
   getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
@@ -75,7 +76,7 @@ const libraryStore = new Store({
   name: 'library'
 })
 
-function createWindow(): BrowserWindow {
+async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
     const str = arr.join('\n')
     const date = new Date().toDateString()
@@ -85,11 +86,15 @@ function createWindow(): BrowserWindow {
       throw err
     })
   })
+
+  const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: isDev ? 1200 : 720,
     minHeight: 700,
     minWidth: 1200,
+    show: !(exitToTray && startInTray),
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true
@@ -165,6 +170,8 @@ const contextMenu = () => {
   })
 
   return Menu.buildFromTemplate([
+    ...recentsMenu,
+    { type: 'separator' },
     {
       click: function () {
         mainWindow.show()
@@ -201,9 +208,7 @@ const contextMenu = () => {
         handleExit()
       },
       label: i18next.t('tray.quit', 'Quit')
-    },
-    { type: 'separator' },
-    ...recentsMenu
+    }
   ])
 }
 
@@ -253,7 +258,7 @@ if (!gotTheLock) {
       ]
     })
 
-    createWindow()
+    await createWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
       handleProtocol(mainWindow, request.url)
@@ -416,7 +421,7 @@ ipcMain.handle('callTool', async (event, { tool, wine, prefix, exe }: Tools) => 
 
   logInfo('trying to run', command)
   try {
-    await execAsync(command)
+    await execAsync(command, execOptions)
   } catch (error) {
     logError(`Something went wrong! Check if ${tool} is available and ${wineBin} exists`)
   }
@@ -724,12 +729,13 @@ ipcMain.handle('egsSync', async (event, args) => {
 
 ipcMain.on('addShortcut', async (event, appName) => {
   const game = Game.get(appName)
-  await game.addDesktopShortcut(true)
-  dialog.showMessageBox({
-    buttons: i18next.t('box.ok', 'Ok'),
-    message: i18next.t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
-    title: i18next.t('box.shortcuts.title', 'Shortcuts')
-  })
+  game.addDesktopShortcut(true).then(() =>
+    dialog.showMessageBox({
+      buttons: i18next.t('box.ok', 'Ok'),
+      message: i18next.t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
+      title: i18next.t('box.shortcuts.title', 'Shortcuts')
+    })
+  )
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {

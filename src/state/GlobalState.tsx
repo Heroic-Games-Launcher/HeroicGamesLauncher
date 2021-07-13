@@ -177,7 +177,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
 
-      this.setState({ libraryStatus: updatedLibraryStatus })
+      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
 
       const progress = await ipcRenderer.invoke('requestGameProgress', appName)
       const percent = getProgress(progress)
@@ -199,7 +199,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       const updatedGamesUpdates = gameUpdates.filter(game => game !== appName)
-      this.setState({ gameUpdates: updatedGamesUpdates, libraryStatus: updatedLibraryStatus })
+      this.setState({ filter: 'installed', gameUpdates: updatedGamesUpdates, libraryStatus: updatedLibraryStatus })
 
       const progress = await ipcRenderer.invoke('requestGameProgress', appName)
       const percent = getProgress(progress)
@@ -216,7 +216,7 @@ export class GlobalState extends PureComponent<Props> {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
-      this.setState({ libraryStatus: updatedLibraryStatus })
+      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
       notify([title, t('notify.finished.reparing')])
 
       return this.refresh()
@@ -240,7 +240,7 @@ export class GlobalState extends PureComponent<Props> {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
-      this.setState({ libraryStatus: updatedLibraryStatus })
+      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
       notify([title, t('notify.moved')])
 
       return this.refresh()
