@@ -1,5 +1,7 @@
 html {
   --background: #424546;
+  --background-darker-80: rgba(13, 14, 14, 0.8);
+  --background-darker: rgba(13, 14, 14);
   --background-transparent: rgba(66, 69, 70, 0.9);
   --background-secondary: #323035;
   --searchbar-background: rgba(26, 27, 28, 0.5);
@@ -9,7 +11,7 @@ html {
   --danger: #bd0a0a;
   --success: #0bd58c;
 
-  --primary-hover: #36d1f3;
+  --primary-hover: #23889e;
   --secondary-hover: #a36e04;
   --tertiary-hover: #322b2b;
   --success-hover: #30eca8;

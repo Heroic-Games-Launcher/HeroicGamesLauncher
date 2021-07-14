@@ -53,6 +53,10 @@
   background: var(--primary);
 }
 
+.button.is-primary:hover {
+  background: var(--primary-hover);
+}
+
 .button.is-primary:disabled {
   color: var(--text-secondary);
   background: var(--background-secondary);
