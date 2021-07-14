@@ -20,13 +20,18 @@ import {
   isOnline
 } from '../utils';
 import {
-  execOptions,
   installed,
   legendaryBin,
   legendaryConfigPath,
   libraryPath
 } from '../constants';
 import { logError, logInfo } from '../logger';
+import Store from 'electron-store'
+
+const libraryStore = new Store({
+  cwd: 'store',
+  name: 'library'
+})
 
 /**
  * Legendary LegendaryLibrary.
@@ -39,7 +44,7 @@ class LegendaryLibrary {
 
   private library: Map<string, null | GameInfo> = new Map()
 
-  private installedGames : Map<string, RawGameJSON>
+  private installedGames: Map<string, RawGameJSON>
 
   /**
    * Private constructor for LegendaryLibrary since we don't really want it to be constructible from outside.
@@ -74,17 +79,15 @@ class LegendaryLibrary {
    * Refresh library.
    */
   public async refresh() {
-    const isLoggedIn = LegendaryUser.isLoggedIn()
-    if (isLoggedIn){
-      logInfo('Refreshing the Library...')
-      return await execAsync(`${legendaryBin} list-games --include-ue`)
-        .then(() => {
-          this.refreshInstalled()
-          this.loadAll()
-        })
-        .catch(() => logError('No credentials. Missing Login?'))
-    }
-    return logError('No credentials. Missing Login?')
+    await execAsync(`${legendaryBin} list-games --include-ue`)
+      .then(() => {
+        this.refreshInstalled()
+        this.loadAll()
+      })
+      .catch((err) => {
+        logError('No credentials. Missing Login?')
+        logError(err)
+      })
   }
 
   /**
@@ -107,8 +110,18 @@ class LegendaryLibrary {
    * @param format Return format. 'info' -> GameInfo, 'class' (default) -> LegendaryGame
    * @returns Array of objects.
    */
-  public async getGames(format: 'info' | 'class' = 'class') : Promise<(LegendaryGame | GameInfo)[]> {
-    await this.loadAllStubs()
+  public async getGames(format: 'info' | 'class' = 'class'): Promise<(LegendaryGame | GameInfo)[]> {
+    logInfo('Refreshing library...')
+    try {
+      await this.refresh()
+    } catch (error) {
+      logError(error)
+    }
+    try {
+      await this.loadAll()
+    } catch (error) {
+      logError(error)
+    }
     const arr = Array.from(this.library.values()).sort(
       (a: { title: string }, b: { title: string }) => {
         const gameA = a.title.toUpperCase()
@@ -117,10 +130,15 @@ class LegendaryLibrary {
       }
     )
     if (format === 'info') {
+      if (libraryStore.has('library')) {
+        libraryStore.delete('library')
+      }
+      logInfo('Updating game list')
+      libraryStore.set('library', arr)
       return arr
     }
     if (format === 'class') {
-      return arr.map(({app_name}) => LegendaryGame.get(app_name))
+      return arr.map(({ app_name }) => LegendaryGame.get(app_name))
     }
   }
 
@@ -156,12 +174,17 @@ class LegendaryLibrary {
     }
 
     const command = `${legendaryBin} list-installed --check-updates --tsv`
-    const { stdout } = await execAsync(command, execOptions)
-    return stdout
-      .split('\n')
-      .filter((item) => item.includes('True'))
-      .map((item) => item.split('\t')[0])
-      .filter((item) => item.length > 1)
+    try {
+      const { stdout } = await execAsync(command)
+      logInfo('Checking for game updates')
+      return stdout
+        .split('\n')
+        .filter((item) => item.includes('True'))
+        .map((item) => item.split('\t')[0])
+        .filter((item) => item.length > 1)
+    } catch (error) {
+      logError(error)
+    }
   }
 
   /**
@@ -191,7 +214,7 @@ class LegendaryLibrary {
    * @param appName
    * @param newPath
    */
-  public changeGameInstallPath(appName : string, newPath : string) {
+  public changeGameInstallPath(appName: string, newPath: string) {
     this.library.get(appName).install.install_path = newPath
     this.installedGames.get(appName).install_path = newPath
 
@@ -208,7 +231,7 @@ class LegendaryLibrary {
    * @param appName
    * @param state true if its installed, false otherwise.
    */
-  public installState(appName : string, state : boolean) {
+  public installState(appName: string, state: boolean) {
     if (state) {
       // This assumes that fileName and appName are same.
       // If that changes, this will break.
@@ -236,7 +259,7 @@ class LegendaryLibrary {
    *
    * @returns App name of loaded file.
    */
-  private loadFile(fileName : string) : string {
+  private loadFile(fileName: string): string {
     fileName = `${libraryPath}/${fileName}`
     const { app_name, metadata, asset_info } = JSON.parse(readFileSync(fileName, 'utf-8'))
     const { namespace } = asset_info
@@ -272,7 +295,7 @@ class LegendaryLibrary {
     let is_ue_plugin = false
     if (categories) {
       categories.forEach(
-        (c: { path : string} ) => {
+        (c: { path: string }) => {
           if (c.path == 'projects') {
             is_ue_project = true
           } else if (c.path == 'assets') {
@@ -286,7 +309,7 @@ class LegendaryLibrary {
 
     let compatible_apps: string[] = []
     releaseInfo.forEach(
-      (rI: { appId : string, compatibleApps : string[] } ) => {
+      (rI: { appId: string, compatibleApps: string[] }) => {
         if (rI.appId == app_name) {
           compatible_apps = rI.compatibleApps
         }
@@ -298,20 +321,20 @@ class LegendaryLibrary {
     const installFolder = FolderName ? FolderName.value : app_name
 
     const gameBox = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox' )[0] :
-      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot' )[0]
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox')[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot')[0]
 
     const gameBoxTall = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall')[0] :
       gameBox
 
     const gameBoxStore = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselStoreFrontTall' )[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselStoreFrontTall')[0] :
       gameBox
 
     const logo = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo' )[0] :
-      keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail' )[0]
+      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo')[0] :
+      keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail')[0]
 
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
@@ -342,11 +365,11 @@ class LegendaryLibrary {
       compatible_apps,
       developer,
       extra: {
-        about : {
+        about: {
           description,
           shortDescription
         },
-        reqs : {}
+        reqs: {}
       },
       folder_name: installFolder,
       install: ({
@@ -375,7 +398,7 @@ class LegendaryLibrary {
    *
    * @returns App name of loaded file.
    */
-  private loadFileStub(fileName : string) : string {
+  private loadFileStub(fileName: string): string {
     fileName = `${libraryPath}/${fileName}`
     const { app_name } = JSON.parse(readFileSync(fileName, 'utf-8'))
     this.library.set(app_name, null)
@@ -388,7 +411,7 @@ class LegendaryLibrary {
    *
    * @returns App names of loaded files.
    */
-  private async loadAll() : Promise<string[]> {
+  private async loadAll(): Promise<string[]> {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
         .map((filename) => this.loadFile(filename))
@@ -401,11 +424,11 @@ class LegendaryLibrary {
    *
    * @returns App names of loaded files.
    */
-  public async loadAllStubs() : Promise<string[]> {
+  public async loadAllStubs(): Promise<string[]> {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
         .filter((fileName) => {
-          const app_name =fileName.split('.json')[0]
+          const app_name = fileName.split('.json')[0]
           return (this.library.get(app_name) === null)
         })
         .map((filename) => this.loadFile(filename))
@@ -417,7 +440,7 @@ class LegendaryLibrary {
    *
    * @returns App names of loaded files.
    */
-  private async loadAsStubs() : Promise<string[]> {
+  private async loadAsStubs(): Promise<string[]> {
     if (existsSync(libraryPath)) {
       return readdirSync(libraryPath)
         .map((filename) => this.loadFileStub(filename))

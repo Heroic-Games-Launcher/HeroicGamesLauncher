@@ -48,7 +48,6 @@ export interface ContextType {
   refresh: () => Promise<void>
   refreshLibrary: (checkUpdates?: boolean) => void
   refreshing: boolean
-  user: string
 }
 
 interface ExtraInfo {
@@ -122,6 +121,12 @@ interface Reqs {
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
+export type UserInfo = {
+  account_id?: string
+  displayName?: string
+  epicId?: string
+  name?: string
+}
 export interface WineInstallation {
   bin: string
   name: string
