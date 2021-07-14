@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, {
+import React, {lazy,
   useContext, useState
 } from 'react'
 
@@ -10,7 +10,8 @@ import cx from 'classnames'
 
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 
-import { GameCard, InstallModal } from './components'
+const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
+const InstallModal = lazy(() => import('src/screens/Library/components/InstallModal'))
 
 interface Props {
   library: Array<GameInfo>

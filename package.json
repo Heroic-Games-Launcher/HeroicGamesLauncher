@@ -138,11 +138,6 @@
       "react-app/jest"
     ]
   },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.svg": "svgr/webpack"
-    }
-  },
   "devDependencies": {
     "@testing-library/dom": "^7.31.0",
     "@testing-library/jest-dom": "^5.12.0",
