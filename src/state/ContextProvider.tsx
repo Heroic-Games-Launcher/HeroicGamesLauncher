@@ -18,8 +18,7 @@ const initialContext: ContextType = {
   platform: 'unknown',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
-  refreshing: false,
-  user: ''
+  refreshing: false
 }
 
 export default React.createContext(initialContext)
