@@ -1,0 +1,53 @@
+.modalContainer {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 6;
+}
+
+.backdrop {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 76px;
+    background: #0000008c;
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+  }
+
+  .modal {
+    display: grid;
+    place-items: center;
+    min-width: fit-content;
+    height: 200px;
+    background: rgba(53, 255, 255, 0.95);
+    border-radius: 10px;
+    width: 70vw;
+    max-width: 650px;
+    z-index: 7;
+  }
+
+  .title {
+    color: black;
+    place-self: center;
+    font-family: Cabin;
+    font-size: 18px;
+  }
+
+  .buttonsWrapper {
+    width: 380px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: baseline;
+    margin-right: -22px;
+  }
+
+  .settingSelect {
+    min-width: fit-content;
+    max-width: 500px;
+    width: 52vw;
+    margin-right: -22px;
+  }

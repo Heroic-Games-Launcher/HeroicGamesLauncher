@@ -1,8 +1,7 @@
 import './index.css'
 
 import React, {
-  lazy,
-  useContext
+  useContext, useState
 } from 'react'
 
 import { GameInfo } from 'src/types'
@@ -11,7 +10,7 @@ import cx from 'classnames'
 
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 
-const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
+import { GameCard, InstallModal } from './components'
 
 interface Props {
   library: Array<GameInfo>
@@ -26,14 +25,24 @@ window.onscroll = () => {
 
 export const Library = ({ library }: Props) => {
   const { layout, gameUpdates } = useContext(ContextProvider)
+  const [showModal, setShowModal] = useState({game: '', show: false})
   const backToTop = () => {
     const anchor = document.getElementById('top')
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
+
+  function handleModal(appName: string){
+    setShowModal({game: appName, show: true})
+    console.log(showModal)
+  }
+
   return (
     <>
+      {showModal.show &&
+        <InstallModal appName={showModal.game} backdropClick={() => setShowModal({game: '', show: false})} />
+      }
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({
@@ -74,6 +83,7 @@ export const Library = ({ library }: Props) => {
                   version={`${version}`}
                   size={`${install_size}`}
                   hasUpdate={hasUpdate}
+                  buttonClick={() => handleModal(app_name)}
                 />
               )
             }
