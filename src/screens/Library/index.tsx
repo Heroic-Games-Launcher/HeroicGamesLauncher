@@ -35,7 +35,6 @@ export const Library = ({ library }: Props) => {
 
   function handleModal(appName: string){
     setShowModal({game: appName, show: true})
-    console.log(showModal)
   }
 
   return (
