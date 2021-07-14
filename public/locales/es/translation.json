@@ -177,7 +177,7 @@
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
-        "start-in-tray": "",
+        "start-in-tray": "Start Minimized",
         "wineprefix": "Carpeta WinePrefix",
         "wineversion": "Versión de Wine"
     },

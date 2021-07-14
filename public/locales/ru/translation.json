@@ -177,7 +177,7 @@
             "title": "Перезаписать облачную папку сохранений"
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
-        "start-in-tray": "",
+        "start-in-tray": "Start Minimized",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
     },

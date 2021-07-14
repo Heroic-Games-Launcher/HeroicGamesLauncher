@@ -183,7 +183,6 @@ class LegendaryGame extends Game {
       })
       .catch(logError)
     this.state.status = 'done'
-    this.addDesktopShortcut()
     return newInstallPath
   }
 
@@ -288,15 +287,14 @@ Categories=Game;
       logError("Shortcuts haven't been implemented in the current platform.")
       return
     }
-    const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
-    const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
+    const { addDesktopShortcuts, addStartMenuShortcuts } = await GlobalConfig.get().getSettings()
 
-    if (enabledInDesktop || fromMenu) {
+    if (addDesktopShortcuts || fromMenu) {
       writeFile(desktopFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + desktopFolder)
       })
     }
-    if (enabledInStartMenu || fromMenu) {
+    if (addStartMenuShortcuts || fromMenu) {
       writeFile(applicationsFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + applicationsFolder)
       })
@@ -331,9 +329,6 @@ Categories=Game;
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
-    //TODO(flavioislima):
-    // Need to fix convertion from utf8 to win1252 or vice-versa
-    // const selectiveDownloads = sdl ? `echo ${sdl.join(' ')}` : `echo 'hd_textures'`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
