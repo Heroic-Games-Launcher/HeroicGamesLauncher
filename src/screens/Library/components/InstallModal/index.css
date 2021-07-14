@@ -12,7 +12,7 @@
     place-items: center;
     position: fixed;
     top: 76px;
-    background: #0000008c;
+    background: var(--background-darker-80);
     width: 100%;
     height: 100%;
     z-index: 6;
@@ -23,31 +23,26 @@
     place-items: center;
     min-width: fit-content;
     height: 200px;
-    background: rgba(53, 255, 255, 0.95);
+    background: var(--background-darker);
     border-radius: 10px;
-    width: 70vw;
-    max-width: 650px;
+    width: 48vw;
+    max-width: 560px;
     z-index: 7;
   }
 
   .title {
-    color: black;
+    color: var(--text-primary);
     place-self: center;
     font-family: Cabin;
-    font-size: 18px;
+    font-size: 24px;
+    margin: -10px 16px 0 16px;
   }
 
-  .buttonsWrapper {
-    width: 380px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-items: baseline;
-    margin-right: -22px;
-  }
-
-  .settingSelect {
-    min-width: fit-content;
-    max-width: 500px;
-    width: 52vw;
-    margin-right: -22px;
+  .buttonsContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 16px;
   }

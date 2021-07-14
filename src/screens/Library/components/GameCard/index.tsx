@@ -31,7 +31,7 @@ const storage: Storage = window.localStorage
 
 interface Card {
   appName: string
-  buttonClick: (game: string) => void
+  buttonClick: () => void
   cover: string
   coverList: string
   hasUpdate: boolean
@@ -151,7 +151,7 @@ const GameCard = ({
       return <PlayIcon onClick={() => handlePlay()} />
     }
     if (!isInstalled && !hasDownloads) {
-      return <DownIcon onClick={() => buttonClick(appName)} />
+      return <DownIcon onClick={() => buttonClick()} />
     }
     return null
   }

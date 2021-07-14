@@ -2,15 +2,12 @@ import { getGameInfo, install } from 'src/helpers'
 import React, { useContext, useEffect, useState } from 'react'
 
 import './index.css'
-import { CreateNewFolder } from '@material-ui/icons'
-import { InstallProgress, Path } from 'src/types'
+import { InstallProgress } from 'src/types'
 import { NOT_SUPPORTED_GAMES } from 'src/constants'
 
 import { UpdateComponent } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-
-const {ipcRenderer} = window.require('electron')
 
 type Props = {
   appName: string
@@ -22,8 +19,6 @@ const storage: Storage = window.localStorage
 export default function InstallModal({appName, backdropClick}: Props) {
   const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
   const {handleGameStatus} = useContext(ContextProvider)
-  const [installPath, setInstallPath] = useState('default')
-  const [defaultPath, setDefaultPath] = useState('...')
   const [title, setTitle] = useState('')
 
   const {t} = useTranslation('gamepage')
@@ -46,46 +41,18 @@ export default function InstallModal({appName, backdropClick}: Props) {
     const getInfo = async() => {
       const {title} = await getGameInfo(appName)
       setTitle(title)
-      const { defaultInstallPath } = await ipcRenderer.invoke('requestSettings', 'default')
-      if (installPath === 'default') {
-        setInstallPath(defaultInstallPath)
-      }
-      setDefaultPath(defaultInstallPath.replaceAll("'", ''))
     }
     getInfo()
-  }, [appName, defaultPath])
+  }, [appName])
 
   return (
     <span className="modalContainer">
       {title ?
         <div className="modal">
           <span className="title">{title}</span>
-          <span>
-            <input
-              data-testid="setinstallpath"
-              type="text"
-              value={installPath.replaceAll("'", '')}
-              className="settingSelect"
-              placeholder={defaultPath}
-              onChange={(event) => setInstallPath(event.target.value)}
-            />
-            <CreateNewFolder
-              data-testid="setinstallpathbutton"
-              className="material-icons settings folder"
-              onClick={() =>
-                ipcRenderer.invoke('openDialog', {
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                  title: t('box.default-install-path')
-                }).then(({ path }: Path) =>
-                  setInstallPath(path ? `'${path}'` : defaultPath)
-                )
-              }
-            />
-          </span>
-          <div className="buttonsWrapper">
+          <div className="buttonsContainer">
             {!notSupported && <button
-              onClick={() => handleInstall(installPath)}
+              onClick={() => handleInstall('another')}
               className={`button is-primary`}
             >
               Install
