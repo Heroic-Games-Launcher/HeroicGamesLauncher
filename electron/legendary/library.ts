@@ -112,6 +112,10 @@ class LegendaryLibrary {
    */
   public async getGames(format: 'info' | 'class' = 'class'): Promise<(LegendaryGame | GameInfo)[]> {
     logInfo('Refreshing library...')
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    if (!isLoggedIn){
+      return
+    }
     try {
       await this.refresh()
     } catch (error) {
@@ -135,6 +139,7 @@ class LegendaryLibrary {
       }
       logInfo('Updating game list')
       libraryStore.set('library', arr)
+      logInfo('Game List Updated')
       return arr
     }
     if (format === 'class') {

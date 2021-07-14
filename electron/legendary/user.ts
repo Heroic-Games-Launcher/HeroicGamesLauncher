@@ -3,7 +3,6 @@ import {
   readFileSync
 } from 'graceful-fs'
 
-import { LegendaryLibrary } from './library'
 import { UserInfo } from '../types'
 import { execAsync } from '../utils'
 import {
@@ -20,24 +19,23 @@ const configStore = new Store({
 })
 export class LegendaryUser {
   public static async login(sid: string) {
-    try {
-      await execAsync(`${legendaryBin} auth --sid ${sid}`)
-      await this.getUserInfo()
-      return logInfo('Successfully logged in')
-    } catch (error) {
-      logError('Error on Login')
-      logError(error)
-    }
+    logInfo('Logging with Legendary...')
+
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
       child.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`)
-        if (`${data}`.includes('ERROR:')) {
+        if (`${data}`.includes('ERROR')) {
           return res('error')
         }
       })
-      child.stdout.on('data', (data) => console.log(`stdout: ${data}`))
+      child.stdout.on('data', (data) => {
+        console.log(`stderr: ${data}`)
+        if (`${data}`.includes('ERROR')) {
+          return res('error')
+        }
+      })
       child.on('close', () => {
         console.log('finished login');
         res('finished')
@@ -58,6 +56,8 @@ export class LegendaryUser {
 
   public static async getUserInfo(): Promise<UserInfo> {
     logInfo('Trying to get user information')
+    configStore.delete('userInfo')
+
     let isLoggedIn = false
     try {
       isLoggedIn = await LegendaryUser.isLoggedIn()
@@ -67,7 +67,6 @@ export class LegendaryUser {
     if (isLoggedIn) {
       const info = { ...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username }
       configStore.set('userInfo', info)
-      await LegendaryLibrary.get().getGames('info')
       return info
     }
     return { account_id: '', displayName: null }

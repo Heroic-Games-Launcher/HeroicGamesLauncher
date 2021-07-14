@@ -228,6 +228,12 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+
+    if (!isLoggedIn){
+      logInfo('User Not Found, removing it from Store')
+      store.delete('userinfo')
+    }
 
     await i18next.use(Backend).init({
       backend: {
@@ -445,9 +451,13 @@ ipcMain.on('createNewWindow', (e, url) =>
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   const obj = Game.get(game)
-  const info = await obj.getGameInfo()
-  info.extra = await obj.getExtraInfo(info.namespace)
-  return info
+  try {
+    const info = await obj.getGameInfo()
+    info.extra = await obj.getExtraInfo(info.namespace)
+    return info
+  } catch (error) {
+    logError(error)
+  }
 })
 
 ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
@@ -505,10 +515,12 @@ if (existsSync(installed)) {
 }
 
 // Watch the legendary metadata folder and trigger a refresh if something changes
-watch(libraryPath, () => {
-  logInfo('Library of games updated')
-  LegendaryLibrary.get().getGames('info')
-})
+if (existsSync(installed)) {
+  watch(libraryPath, () => {
+    logInfo('Library of games updated')
+    LegendaryLibrary.get().getGames('info')
+  })
+}
 
 ipcMain.handle('refreshLibrary', async () => {
   // This is a full refresh since everything else will be cached and automated

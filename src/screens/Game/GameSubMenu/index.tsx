@@ -114,8 +114,12 @@ export default function GamesSubmenu({
 
   useEffect(() => {
     const getInfo = async () => {
-      const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-      setInfo({prefix: winePrefix, wine: wineVersion.name})
+      try {
+        const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
+        setInfo({prefix: winePrefix, wine: wineVersion.name})
+      } catch (error) {
+        ipcRenderer.send('logError', error)
+      }
     }
     getInfo()
   }, [appName])
