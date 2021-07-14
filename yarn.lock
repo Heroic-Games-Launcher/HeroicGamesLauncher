@@ -1951,13 +1951,6 @@
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.6.tgz#0b7018723084918a865eff99249c490505df2163"
   integrity sha512-7fDOJFA/x8B+sO1901BmHlf5dE1cxBU8mRXj8QOEDnn16hhGJv/IHxJtZhvsabZsIMn0eLIyeOKAeqSNJJYTpA==
 
-"@types/electron-store@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@types/electron-store/-/electron-store-3.2.0.tgz#7fb722425b8df3560ebab86709eb03864833e9e7"
-  integrity sha512-ocZSu4ZgE38kdAQ0a+QiMB8ZW/BO8HzXFt1YImoHDqN/JgFAOhaO4nL5H++GRuONFPTDJZzR66QmTmZ52E/GEg==
-  dependencies:
-    electron-store "*"
-
 "@types/eslint@^7.2.6":
   version "7.28.0"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.28.0.tgz#7e41f2481d301c68e14f483fe10b017753ce8d5a"
@@ -5235,7 +5228,7 @@ electron-publish@22.11.7:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron-store@*, electron-store@^8.0.0:
+electron-store@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/electron-store/-/electron-store-8.0.0.tgz#81a4e687958e2dae1c5c84cc099a8148be776337"
   integrity sha512-ZgRPUZkfrrjWSqxZeaxu7lEvmYf6tgl49dLMqxXGnEmliSiwv3u4rJPG+mH3fBQP9PBqgSh4TCuxHZImMMUgWg==
