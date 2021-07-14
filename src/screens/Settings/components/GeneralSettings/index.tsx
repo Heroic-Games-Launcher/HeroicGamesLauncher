@@ -175,7 +175,7 @@ export default function GeneralSettings({
           <input
             data-testid="setinstallpath"
             type="text"
-            value={defaultInstallPath}
+            value={defaultInstallPath.replaceAll("'", '')}
             className="settingSelect"
             placeholder={defaultInstallPath}
             onChange={(event) => setDefaultInstallPath(event.target.value)}
