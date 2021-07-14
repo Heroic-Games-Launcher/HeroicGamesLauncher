@@ -177,7 +177,7 @@
             "title": "Sobrescrever diretório de saves automáticos"
         },
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Iniciar Minimizado",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },
