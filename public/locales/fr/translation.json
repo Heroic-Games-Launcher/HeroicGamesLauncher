@@ -177,7 +177,7 @@
             "title": "Écraser le dossier de synchronisation Cloud"
         },
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
-        "start-in-tray": "",
+        "start-in-tray": "Start Minimized",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
     },
