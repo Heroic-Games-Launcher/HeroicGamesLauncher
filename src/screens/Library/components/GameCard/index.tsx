@@ -31,6 +31,7 @@ const storage: Storage = window.localStorage
 
 interface Card {
   appName: string
+  buttonClick: () => void
   cover: string
   coverList: string
   hasUpdate: boolean
@@ -57,7 +58,8 @@ const GameCard = ({
   logo,
   coverList,
   size = '',
-  hasUpdate
+  hasUpdate,
+  buttonClick
 }: Card) => {
   const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
   const [progress, setProgress] = useState(previousProgress ?? {
@@ -149,7 +151,7 @@ const GameCard = ({
       return <PlayIcon onClick={() => handlePlay()} />
     }
     if (!isInstalled && !hasDownloads) {
-      return <DownIcon onClick={() => handlePlay()} />
+      return <DownIcon onClick={() => buttonClick()} />
     }
     return null
   }

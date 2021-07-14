@@ -46,8 +46,8 @@
         },
         "select": "Zaznacz",
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Skróty zostały utworzone na pulpicie i w menu Start",
+            "title": "Skróty"
         },
         "sync": {
             "button": "Wybierz",
@@ -145,11 +145,11 @@
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Sprawdź aktualizacje podczas uruchamiania",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
         "default-install-path": "Domyślna ścieżka instalacyjna",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Włącz Discord Rich Presence",
         "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
         "exit-to-tray": "Wyjście do tacki systemowej",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
@@ -164,7 +164,7 @@
             "title": "Manualnie synchronizuj zapisy",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Pokaż ostatnio używane gry",
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "offlinemode": "Uruchom grę w trybie offline",
         "primerun": "Włącz renderowanie Nvidia Prime",
@@ -177,7 +177,7 @@
             "title": "Pomiń synchronizację z chmurą"
         },
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
-        "start-in-tray": "",
+        "start-in-tray": "Uruchom zminimalizowany",
         "wineprefix": "Folder prefiksu Wine",
         "wineversion": "Wersja Wine"
     },

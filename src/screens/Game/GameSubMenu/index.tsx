@@ -103,6 +103,15 @@ export default function GamesSubmenu({
     }
   }
 
+  function handleShortcuts() {
+    ipcRenderer.send('addShortcut', appName)
+    return ipcRenderer.invoke('openMessageBox', {
+      buttons: [t('box.ok', 'Ok')],
+      message: t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
+      title: t('box.shortcuts.title', 'Shortcuts')
+    })
+  }
+
   useEffect(() => {
     const getInfo = async () => {
       const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
@@ -143,7 +152,7 @@ export default function GamesSubmenu({
               {t('submenu.log')}
             </span>
             {isLinux && <span
-              onClick={() => ipcRenderer.send('addShortcut', appName)}
+              onClick={() => handleShortcuts()}
               className="link"
             >
               {t('submenu.addShortcut', 'Add shortcut')}

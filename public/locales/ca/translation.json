@@ -3,17 +3,23 @@
     "All": "Tot",
     "help": {
         "sync": {
-            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, \"get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.\"."
+            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, \"get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.\".",
+            "part1": "Heroic intenta adivinar la carpeta de guardat i això funcionarà a la majoria de casos. En el cas de que la carpeta estigui malament, canvia-la."
         },
         "other": {
             "part7": " per saltar el launcher a alguns jocs, etc.",
             "part5": "Arguments del joc",
-            "part4": "Empra el/la ",
+            "part4": "Empra la ",
             "part3": "per ser llençat abans de llençar el joc; ",
             "part2": "Configuració avançada",
-            "part1": "Empra el/la "
+            "part1": "Empra la ",
+            "part6": " per ser llençat després d'iniciar el joc, per exemple: "
         },
-        "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS."
+        "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS.",
+        "wine": {
+            "part2": "Per altres llocs, empra un enllaç simbòlic (symlink) a alguna d'aquestes carpetes",
+            "part1": "Heroic busca les versions de wine i proton a les següents carpetes:"
+        }
     },
     "globalSettings": "Configuració global",
     "Games": "Jocs",
@@ -64,7 +70,8 @@
             "credentials": {
                 "title": "Les credencials han expirat",
                 "message": "Les teves credencials han expirat, si us plau tanqui sessió i iniciï sessió de nou."
-            }
+            },
+            "title": "Error"
         },
         "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
         "customWine": "Selecciona el binary de wine o proton",
@@ -73,6 +80,68 @@
         "appupdate": {
             "title": "Actualització disponible",
             "message": "Hi ha una nova versió d'Heroic disponible, vols actualitzar-ho?"
+        },
+        "shortcuts": {
+            "title": "Dreceres",
+            "message": "Les dreceres ja són a l'escriptori i al menú d'inici"
+        },
+        "ok": "Sí"
+    },
+    "setting": {
+        "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
+        "audiofix": "Arreglar l'audio (Latència de pulse audio)",
+        "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
+        "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament"
+    },
+    "search": "Introdueixi el nom del joc aquí...",
+    "Return": "Tornar",
+    "Recent": "Jocs recents",
+    "Ready": "Llest",
+    "Projects": "Projectes",
+    "Plugins": "Plugins",
+    "placeholder": {
+        "egs-prefix": "Prefix a on EGS és instal·lat"
+    },
+    "other": {
+        "weblate": "Ajuda a traduïr Heroic."
+    },
+    "options": {
+        "gameargs": {
+            "title": "Arguments del joc (s'executaràn després de la comanda):",
+            "placeholder": "Posa aquí els arguments del launcher"
+        },
+        "advanced": {
+            "title": "Opcions avançades (Variables d'entorn):",
+            "placeholder": "Posa aquí altres opcions de llençament"
         }
+    },
+    "notify": {
+        "update": {
+            "finished": "Actualització acabada",
+            "canceled": "Actualització cancelada"
+        },
+        "uninstalled": "Des-instal·lat",
+        "moved": "Mudança finalitzada",
+        "install": {
+            "finished": "Instal·lació finalitzada",
+            "canceled": "Instal·lació cancelada"
+        },
+        "finished": {
+            "reparing": "Hem acabat de reparar el joc"
+        }
+    },
+    "Not Ready": "No està llest",
+    "nogames": "No s'han trobat els jocs",
+    "message": {
+        "unsync": "Des-sincronització completa",
+        "sync": "Sincronització completa"
+    },
+    "Library": "Llibreria",
+    "infobox": {
+        "requirements": "Requeriments del sistema",
+        "help": "Ajuda"
+    },
+    "info": {
+        "settings": "La configuració és guardada automàticament"
     }
 }

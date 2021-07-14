@@ -46,8 +46,8 @@
         },
         "select": "Auswählen",
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Verknüpfungen wurden auf dem Desktop und Startmenü erstellt",
+            "title": "Verknüpfungen"
         },
         "sync": {
             "button": "Auswählen",
@@ -145,7 +145,7 @@
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
         "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
         "default-install-path": "Standard-Installationspfad",
@@ -177,7 +177,7 @@
             "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
         },
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
-        "start-in-tray": "",
+        "start-in-tray": "Minimiert starten",
         "wineprefix": "Wine Prefix Ordner",
         "wineversion": "Wine-Version"
     },
@@ -203,7 +203,7 @@
         "support": "Unterstütze uns"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Updates",
+    "Updates": "Aktualisierungen",
     "userselector": {
         "about": "Über Heroic",
         "discord": "Discord",

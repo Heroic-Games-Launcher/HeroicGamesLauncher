@@ -92,7 +92,6 @@
     "@fontsource/rubik": "^4.2.1",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "@types/electron-store": "^3.2.0",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "discord-rich-presence-typescript": "^0.0.8",
@@ -114,7 +113,7 @@
   "scripts": {
     "start": "nf start -p 3000 && electron-start",
     "electron-start": "ELECTRON_IS_DEV=1 node public/start-react",
-    "electron": "yarn build-electron && electron .",
+    "electron": "yarn build-electron && electron . --trace-warnings",
     "react-start": "HOST=localhost BROWSER=none react-scripts start",
     "react-start:win": "react-scripts start",
     "build": "react-scripts build",
