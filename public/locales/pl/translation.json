@@ -177,7 +177,7 @@
             "title": "Pomiń synchronizację z chmurą"
         },
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
-        "start-in-tray": "",
+        "start-in-tray": "Start Minimized",
         "wineprefix": "Folder prefiksu Wine",
         "wineversion": "Wersja Wine"
     },
