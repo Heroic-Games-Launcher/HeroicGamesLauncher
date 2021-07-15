@@ -365,7 +365,7 @@ app.on('open-url', (event, url) => {
   handleProtocol(mainWindow, url)
 })
 
-ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
+ipcMain.once('openFolder', (event, folder) => openUrlOrFile(folder))
 ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
@@ -374,7 +374,7 @@ ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
-ipcMain.on('getLog', (event, appName) =>
+ipcMain.once('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
 )
 
