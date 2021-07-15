@@ -91,7 +91,7 @@ export default function Header({
         {category === 'games' && (
           <span className="selectFilter" >
             <span>{t('Filter')}:</span>
-            <select onChange={(e) => handleFilter(e.target.value)} defaultValue={filter} value={filter} data-testid="games-filter">
+            <select onChange={(e) => handleFilter(e.target.value)} value={filter} data-testid="games-filter">
               <option
                 data-testid="all"
                 className={filter === 'all' ? 'selected' : ''}
