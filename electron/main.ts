@@ -53,7 +53,6 @@ import {
   iconLight,
   installed,
   legendaryBin,
-  libraryPath,
   loginUrl,
   sidInfoUrl,
   supportURL,
@@ -514,17 +513,8 @@ if (existsSync(installed)) {
   })
 }
 
-// Watch the legendary metadata folder and trigger a refresh if something changes
-if (existsSync(installed)) {
-  watch(libraryPath, () => {
-    logInfo('Library of games updated')
-    LegendaryLibrary.get().getGames('info')
-  })
-}
-
-ipcMain.handle('refreshLibrary', async () => {
-  // This is a full refresh since everything else will be cached and automated
-  return await LegendaryLibrary.get().getGames('info')
+ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
+  return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))

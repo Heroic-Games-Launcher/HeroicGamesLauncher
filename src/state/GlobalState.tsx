@@ -84,11 +84,11 @@ export class GlobalState extends PureComponent<Props> {
     })
   }
 
-  refreshLibrary = async (checkUpdates?: boolean): Promise<void> => {
+  refreshLibrary = async (checkUpdates?: boolean, fullRefresh?: boolean): Promise<void> => {
     this.setState({ refreshing: checkUpdates })
     ipcRenderer.send('logInfo', 'Refreshing Library')
     try {
-      await ipcRenderer.invoke('refreshLibrary')
+      await ipcRenderer.invoke('refreshLibrary', fullRefresh)
     } catch (error) {
       ipcRenderer.send('logError', error)
     }
@@ -324,7 +324,7 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ category, filter, language, layout, platform })
 
     if (user){
-      this.refreshLibrary(true)
+      this.refreshLibrary(true, true)
     }
 
     setTimeout(() => {
