@@ -26,6 +26,9 @@ export default function UserSelector() {
     ipcRenderer : IpcRenderer
   }
   const user = configStore.get('userInfo') as UserInfo
+  if (!user){
+    return null
+  }
 
   const { refresh, refreshLibrary } = React.useContext(ContextProvider)
   const handleLogout = async () => {
@@ -38,10 +41,10 @@ export default function UserSelector() {
   return (
     <div className="UserSelector" data-testid="userSelector">
       <span className="userName" data-testid="userName">
-        {user.displayName}
+        {user?.displayName}
         <ArrowDropDown className="material-icons" />
       </span>
-      <div onClick={() => refreshLibrary(true)} className="userName hidden" data-testid="refreshLibrary">
+      <div onClick={() => refreshLibrary(true, true)} className="userName hidden" data-testid="refreshLibrary">
         {t('userselector.refresh')}
       </div>
       <div onClick={() => handleKofi()} className="userName hidden" data-testid="handleKofi">
