@@ -3,8 +3,10 @@
     "All": "Tot",
     "help": {
         "sync": {
-            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, \"get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.\".",
-            "part1": "Heroic intenta adivinar la carpeta de guardat i això funcionarà a la majoria de casos. En el cas de que la carpeta estigui malament, canvia-la."
+            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, surt de la configuració de sincronització i torna per que heroic pugui adivinar la carpeta",
+            "part1": "Heroic intenta adivinar la carpeta de guardat i això funcionarà a la majoria de casos. En el cas de que la carpeta estigui malament, canvia-la.",
+            "part4": "Sincronitza les dades automàticamente sincronitzarà les dades cada vegada que inicis un joc i després de jugar.",
+            "part3": "Sincronització manual: Eligeix \"Descarrega\" per descarregar les dades de guardat que estàn al núvol. Puja per pujar les dades locals al núvol. Força la descarga i força la pujada ignorarà la versió que està localment o al núvol."
         },
         "other": {
             "part7": " per saltar el launcher a alguns jocs, etc.",
@@ -91,7 +93,43 @@
         "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament"
+        "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
+        "wineversion": "Versió de Wine",
+        "wineprefix": "Carpeta wine prefix",
+        "start-in-tray": "Comença minimitzat",
+        "showfps": "Ensenya els FPS (DX9, 10 i 11)",
+        "savefolder": {
+            "title": "Sobreescriu la carpeta de dades de sincronització al núvol",
+            "placeholder": "Selcciona la carpeta de dades exacta"
+        },
+        "runexe": {
+            "title": "Executa EXE al prefix",
+            "message": "Arrastra arxius aquí"
+        },
+        "primerun": "Activa l'Nvidia Prime Render",
+        "offlinemode": "Executa el joc sense connexió",
+        "maxworkers": "Nombre màxim de Workers quan descarreguis",
+        "maxRecentGames": "Jocs recents per ensenyar",
+        "manualsync": {
+            "upload": "Puja",
+            "title": "Dades de sincronització manuals",
+            "syncing": "Sincronitzant",
+            "sync": "Sincronitza",
+            "forceupload": "Força la pujada",
+            "forcedownload": "Força la descarga",
+            "download": "Descarrega"
+        },
+        "mangohud": "Activa Mangohud (Mangohud ha d'estar instal·lat primer)",
+        "language": "Eligeix el llenguatge de l'app",
+        "gamemode": "Empra el game mode (feral gamemode ha d'estar instal·lat)",
+        "exit-to-tray": "Sortir al Tray",
+        "egs-sync": "Sincronitza amb Epic Games",
+        "discordRPC": "Activa la Discord Rich Presence",
+        "default-install-path": "Ruta d'instal·lació predeterminada",
+        "darktray": "Emprar la icona fosca al Tray (cal reiniciar)",
+        "customWineProton": "Rutes de Wine o Proton personalitzades",
+        "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
+        "autosync": "Sincronitza les dades automàticament"
     },
     "search": "Introdueixi el nom del joc aquí...",
     "Return": "Tornar",
@@ -143,5 +181,38 @@
     },
     "info": {
         "settings": "La configuració és guardada automàticament"
-    }
+    },
+    "wiki": "Wiki",
+    "userselector": {
+        "support": "Suporta'ns",
+        "refresh": "Recargar llibrería",
+        "quit": "Sortir",
+        "logout_confirmation": "Estàs ben segur de que vols sortir de la sessió?",
+        "logout": "Sortir de la sessió",
+        "discord": "Discord",
+        "about": "Sobre nosaltres"
+    },
+    "Updates": "Actualitzacions",
+    "Unreal Marketplace": "Botiga d'Unreal",
+    "tray": {
+        "support": "Suporta'ns",
+        "show": "Ensenyar",
+        "reload": "Recargar",
+        "quit": "Sortir",
+        "about": "Sobre nosaltres"
+    },
+    "Total Games": "Jocs en total",
+    "tooltip": {
+        "removepath": "Eliminar ruta",
+        "addpath": "Afegir nova ruta"
+    },
+    "store": "Botiga",
+    "settings": {
+        "navbar": {
+            "sync": "Guardar-Sincronitzar",
+            "other": "Altres",
+            "general": "General"
+        }
+    },
+    "Settings": "Configuració"
 }
