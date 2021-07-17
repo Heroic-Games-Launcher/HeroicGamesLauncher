@@ -508,7 +508,7 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
   watch(installed, () => {
-    logInfo('Installed game list updated')
+    logInfo('Legendary: Installed game list updated')
     LegendaryLibrary.get().refreshInstalled()
   })
 }

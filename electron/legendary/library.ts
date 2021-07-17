@@ -125,6 +125,7 @@ class LegendaryLibrary {
 
     if (fullRefresh){
       try {
+        logInfo('Legendary: Refreshing Epic Games...')
         await this.refresh()
       } catch (error) {
         logError(error)

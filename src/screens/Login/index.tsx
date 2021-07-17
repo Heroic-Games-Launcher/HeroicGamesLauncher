@@ -53,7 +53,7 @@ export default function Login({ refresh }: Props) {
           message: t('status.loading', 'Loading Game list, please wait')
         })
         await ipcRenderer.invoke('getUserInfo')
-        ipcRenderer.invoke('refreshLibrary', true)
+        await ipcRenderer.invoke('refreshLibrary', true)
         return refresh()
       }
 
