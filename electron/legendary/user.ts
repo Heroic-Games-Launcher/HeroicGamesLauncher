@@ -56,19 +56,20 @@ export class LegendaryUser {
 
   public static async getUserInfo(): Promise<UserInfo> {
     logInfo('Trying to get user information')
-    configStore.delete('userInfo')
 
     let isLoggedIn = false
     try {
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
       logError(error)
+      configStore.delete('userInfo')
     }
     if (isLoggedIn) {
       const info = { ...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username }
       configStore.set('userInfo', info)
       return info
     }
+    configStore.delete('userInfo')
     return { account_id: '', displayName: null }
   }
 }
