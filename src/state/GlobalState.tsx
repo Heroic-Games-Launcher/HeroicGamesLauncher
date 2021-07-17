@@ -189,9 +189,9 @@ export class GlobalState extends PureComponent<Props> {
             : t('notify.install.finished')
         notify([title, message])
         this.handleFilter('installed')
-        return this.refreshLibrary(false, true)
+        return this.refreshLibrary()
       }
-      this.refreshLibrary(false, true)
+      this.refreshLibrary()
       return notify([title, 'Game Imported'])
     }
 

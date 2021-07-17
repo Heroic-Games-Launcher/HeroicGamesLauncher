@@ -133,6 +133,7 @@ class LegendaryLibrary {
     }
 
     try {
+      this.refreshInstalled()
       await this.loadAll()
     } catch (error) {
       logError(error)

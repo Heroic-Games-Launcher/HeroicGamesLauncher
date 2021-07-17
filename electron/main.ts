@@ -70,10 +70,6 @@ let mainWindow: BrowserWindow = null
 const store = new Store({
   cwd: 'store'
 })
-const libraryStore = new Store({
-  cwd: 'store',
-  name: 'library'
-})
 
 async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
@@ -480,10 +476,6 @@ ipcMain.handle('readConfig', async (event, config_class) => {
     logError(`Which idiot requested '${config_class}' using readConfig?`)
     return {}
   }
-})
-
-libraryStore.onDidAnyChange(() => {
-  console.log('library updated');
 })
 
 ipcMain.handle('requestSettings', async (event, appName) => {
