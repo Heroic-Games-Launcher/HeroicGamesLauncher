@@ -126,7 +126,7 @@
         "egs-sync": "Sincronitza amb Epic Games",
         "discordRPC": "Activa la Discord Rich Presence",
         "default-install-path": "Ruta d'instal·lació predeterminada",
-        "darktray": "Emprar la icona fosca al Tray (cal reiniciar)",
+        "darktray": "Emprar la icona fosca al Tray",
         "customWineProton": "Rutes de Wine o Proton personalitzades",
         "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
         "autosync": "Sincronitza les dades automàticament"
