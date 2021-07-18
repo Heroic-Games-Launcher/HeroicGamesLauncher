@@ -18,7 +18,9 @@
         "moving": "Movent instal·lació, si us plau esperi",
         "installing": "Instal·lant",
         "installed": "Instal·lat",
-        "hasUpdates": "Hi ha una nova versió disponible!"
+        "hasUpdates": "Hi ha una nova versió disponible!",
+        "notSupported": "Aquest joc només pot ser importat",
+        "clickToUpdate": "Prem click per actualitzar"
     },
     "specs": {
         "recommended": "Recomenat",
