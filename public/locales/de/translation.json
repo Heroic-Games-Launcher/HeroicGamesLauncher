@@ -147,7 +147,7 @@
         "autosync": "Spielstände automatisch synchronisieren",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
-        "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
+        "darktray": "Benutze Dunkles Taskleisten-Icon",
         "default-install-path": "Standard-Installationspfad",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
