@@ -64,7 +64,7 @@
         "egs-sync": "Sincronizar com a Epic Games Store",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "default-install-path": "Local de instalação padrão",
-        "darktray": "Usar o ícone escuro na barra de tarefas (necessita reiniciar o programa)",
+        "darktray": "Usar o ícone escuro na barra de tarefas",
         "customWineProton": "Locais com WINE/Proton Customizados",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "autosync": "Sincronizar saves automaticamente",
