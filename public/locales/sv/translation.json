@@ -147,7 +147,7 @@
         "autosync": "Autosynkronisera sparfiler",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
-        "darktray": "Använd mörk ikon i sytembrickan (kräver omstart)",
+        "darktray": "Använd mörk ikon i sytembrickan",
         "default-install-path": "Standard installationssökväg",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
