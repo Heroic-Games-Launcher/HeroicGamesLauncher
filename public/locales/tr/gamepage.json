@@ -77,13 +77,13 @@
         "installing": "Yükleniyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun yüklü değil",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Bu oyun sadece içeri aktarılabilir",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Kısayol ekle",
         "change": "Kurulum yerini değiştir",
         "log": "Güncel Log",
         "move": "Oyunu Taşı",
