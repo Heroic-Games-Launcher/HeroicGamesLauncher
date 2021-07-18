@@ -147,7 +147,7 @@
         "autosync": "Autosynchronizacja zapisów",
         "checkForUpdatesOnStartup": "Sprawdź aktualizacje podczas uruchamiania",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
-        "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
+        "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",
         "discordRPC": "Włącz Discord Rich Presence",
         "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
