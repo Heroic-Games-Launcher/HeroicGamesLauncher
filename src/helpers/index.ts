@@ -87,6 +87,7 @@ const cleanTitle = (title: string) =>
   title
     .replaceAll(specialCharactersRegex, '')
     .replaceAll(' ', '-')
+    .replaceAll('®', '')
     .toLowerCase()
     .split('--definitive')[0]
 

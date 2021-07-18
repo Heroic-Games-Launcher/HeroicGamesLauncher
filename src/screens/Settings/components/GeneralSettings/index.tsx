@@ -275,7 +275,10 @@ export default function GeneralSettings({
           {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           <ToggleSwitch
             value={darkTrayIcon}
-            handleChange={toggleDarkTrayIcon}
+            handleChange={() => {
+              toggleDarkTrayIcon()
+              return ipcRenderer.send('changeTrayColor')
+            }}
           />
         </span>
       </span>

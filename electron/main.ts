@@ -71,6 +71,11 @@ const store = new Store({
   cwd: 'store'
 })
 
+const gameInfoStore = new Store({
+  cwd: 'store',
+  name: 'gameinfo'
+})
+
 async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
     const str = arr.join('\n')
@@ -285,11 +290,21 @@ if (!gotTheLock) {
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
+      logInfo('Changing Language to:', language)
       await i18next.changeLanguage(language)
+      gameInfoStore.clear()
       appIcon.setContextMenu(contextMenu())
     })
 
-    store.onDidAnyChange(() => appIcon.setContextMenu(contextMenu()))
+    ipcMain.addListener('changeTrayColor', () => {
+      logInfo('Changing Tray icon Color...')
+      setTimeout(async() => {
+        const { darkTrayIcon } = await GlobalConfig.get().getSettings()
+        const trayIcon = darkTrayIcon ? iconDark : iconLight
+        appIcon.setImage(trayIcon)
+        appIcon.setContextMenu(contextMenu())
+      }, 500);
+    })
 
     if (process.platform === 'linux') {
       const found = await checkCommandVersion(
@@ -305,6 +320,8 @@ if (!gotTheLock) {
     return
   })
 }
+
+
 
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
