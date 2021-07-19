@@ -75,6 +75,10 @@ const libraryStore = new Store({
   cwd: 'store',
   name: 'library'
 })
+const tsStore = new Store({
+  cwd: 'store',
+  name: 'timestamp'
+})
 
 async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
@@ -528,6 +532,11 @@ ipcMain.handle('launch', async (event, game: string) => {
   const { title } = await Game.get(game).getGameInfo()
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
 
+  if (!tsStore.has(game)){
+    const date = new Date().toLocaleString()
+    tsStore.set(`${game}.firstPlayed`, date)
+  }
+
   logInfo('launching', title, game)
 
   if (recentGames.length) {
@@ -549,6 +558,8 @@ ipcMain.handle('launch', async (event, game: string) => {
   }
 
   return Game.get(game).launch().then(({ stderr }) => {
+    const date = new Date().toLocaleString()
+    tsStore.set(`${game}.lastPlayed`, date)
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
