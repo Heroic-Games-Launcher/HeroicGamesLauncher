@@ -147,7 +147,7 @@
         "autosync": "Sauvegardes Autosync",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
-        "darktray": "Utiliser Dark Tray Icon (nécessite un redémarrage)",
+        "darktray": "Utiliser Dark Tray Icon",
         "default-install-path": "Chemin par défaut de l'installation",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",

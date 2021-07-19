@@ -46,8 +46,8 @@
         },
         "select": "Kör",
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Genvägar skapades på skrivbordet och startmenyn",
+            "title": "Genvägar"
         },
         "sync": {
             "button": "Ok",
@@ -145,9 +145,9 @@
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
-        "darktray": "Använd mörk ikon i sytembrickan (kräver omstart)",
+        "darktray": "Använd mörk ikon i sytembrickan",
         "default-install-path": "Standard installationssökväg",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
@@ -177,7 +177,7 @@
             "title": "Synkroniseringsmapp för sparfiler"
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Starta minimerad",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },

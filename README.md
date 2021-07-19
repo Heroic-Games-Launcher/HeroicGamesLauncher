@@ -4,13 +4,13 @@
 
 
 Heroic is an Open Source Game Launcher for Linux, Windows (Beta) and MacOS (Limited to Windows games using Wine/Crossover).
-Right now it supports launching game from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), a CLI alternative to launch epic games.
+Right now it supports launching games from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), a CLI alternative to the Epic Games Launcher.
 Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electron.
 
 ## Index
 
 - [How to use it](#how-to-use-it)
-- [Feature available right now](#feature-available-right-now)
+- [Features available right now](#features-available-right-now)
 - [Planned features](#planned-features)
 - [Language Support](#language-support)
 - [Installation](#installation)
@@ -18,7 +18,9 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
   - [Arch (AUR)](#arch-aur)
   - [Fedora](#fedora)
   - [Other Distributions](#other-distributions)
-  - [Build binaries locally](#build-binaries-locally)
+  - [Windows](#windows)
+  - [macOS](#macos)
+  - [Build binaries locally](#build-binaries-locally-all-platforms)
 - [Current Version Screenshots](#screenshots)
 
 ## How to use it
@@ -26,7 +28,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - [Download and Install](#installation) the package for your distro, the universal AppImage for Linux or the executable for Windows on the Releases Page;
 - If you used Legendary before, it loads your library and installed games. If not, it will ask you to login first. Just follow the instructions.
 
-## Feature available right now
+## Features available right now
 
 - Login with an existing Epic Games account
 - Install/Uninstall Games
@@ -70,9 +72,11 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Turkish
 ### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
-## Linux Installation
+## Installation
 
-### Debian
+### Linux
+
+#### Debian
 
 Download the `heroic_x.x.x_amd64.deb` from the Releases section
 
@@ -80,7 +84,7 @@ Download the `heroic_x.x.x_amd64.deb` from the Releases section
 sudo dpkg -i heroic_x.x.x_amd64.deb
 ```
 
-### Arch (AUR)
+#### Arch (AUR)
 
 [![AUR version](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=AUR)](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
 
@@ -98,11 +102,11 @@ makepkg --cleanbuild --syncdeps --install --clean --rmdeps
 
 Otherwise you can install it via your prefered AUR helper, e.g. yay.
 
-### Fedora
+#### Fedora
 
 Heroic for Fedora is available on [the COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/) or as the binary on the releases page.
 
-### Other Distributions
+#### Other Distributions
 
 Download the `heroic-x.x.x.AppImage` from the Releases section.
 
@@ -118,7 +122,15 @@ To run it use:
 ./heroic-x.x.x.AppImage
 ```
 
-### Build binaries locally for Linux, Windows and Mac
+### Windows
+
+Download Heroic.Setup.x.x.x.exe and run it. It will install it to the start menu and desktop, use those to run it.
+
+### macOS
+
+Download  Heroic-x.x.x.dmg and install it.
+
+### Build binaries locally (All platforms)
 
 - All Platforms:
 Requires NodeJS to build \
