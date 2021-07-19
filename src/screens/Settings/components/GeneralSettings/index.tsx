@@ -110,7 +110,7 @@ export default function GeneralSettings({
         setEgsLinkedPath('')
         setEgsPath('')
         setIsSyncing(false)
-        refreshLibrary()
+        refreshLibrary({fullRefresh: true, runInBackground: false})
       })
     }
 
@@ -131,7 +131,7 @@ export default function GeneralSettings({
 
         setIsSyncing(false)
         setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-        refreshLibrary()
+        refreshLibrary({fullRefresh: true, runInBackground: false})
       })
   }
 

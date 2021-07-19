@@ -46,7 +46,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   platform: NodeJS.Platform | string
   refresh: () => Promise<void>
-  refreshLibrary: (checkUpdates?: boolean, fullRefresh?: boolean) => void
+  refreshLibrary: (options: RefreshOptions) => void
   refreshing: boolean
 }
 
@@ -113,6 +113,13 @@ export interface KeyImage {
 export interface Path {
   path: string
 }
+
+export type RefreshOptions = {
+  checkForUpdates?: boolean
+  fullRefresh?: boolean
+  runInBackground?: boolean
+}
+
 interface Reqs {
   minimum: string
   recommended: string

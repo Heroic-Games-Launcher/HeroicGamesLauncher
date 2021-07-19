@@ -44,7 +44,7 @@ export default function UserSelector() {
         {user?.displayName}
         <ArrowDropDown className="material-icons" />
       </span>
-      <div onClick={() => refreshLibrary(true, true)} className="userName hidden" data-testid="refreshLibrary">
+      <div onClick={() => refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: false})} className="userName hidden" data-testid="refreshLibrary">
         {t('userselector.refresh')}
       </div>
       <div onClick={() => handleKofi()} className="userName hidden" data-testid="handleKofi">

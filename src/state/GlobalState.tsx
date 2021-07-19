@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import { GameInfo, GameStatus } from 'src/types'
+import { GameInfo, GameStatus, RefreshOptions } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getGameInfo,
@@ -84,15 +84,15 @@ export class GlobalState extends PureComponent<Props> {
     })
   }
 
-  refreshLibrary = async (checkUpdates?: boolean, fullRefresh?: boolean): Promise<void> => {
-    this.setState({ refreshing: checkUpdates })
+  refreshLibrary = async ({checkForUpdates, fullRefresh, runInBackground = true}: RefreshOptions): Promise<void> => {
+    this.setState({ refreshing: !runInBackground })
     ipcRenderer.send('logInfo', 'Refreshing Library')
     try {
       await ipcRenderer.invoke('refreshLibrary', fullRefresh)
     } catch (error) {
       ipcRenderer.send('logError', error)
     }
-    this.refresh(checkUpdates)
+    this.refresh(checkForUpdates)
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
@@ -189,9 +189,9 @@ export class GlobalState extends PureComponent<Props> {
             : t('notify.install.finished')
         notify([title, message])
         this.handleFilter('installed')
-        return this.refreshLibrary()
+        return this.refreshLibrary({})
       }
-      this.refreshLibrary()
+      this.refreshLibrary({})
       return notify([title, 'Game Imported'])
     }
 
@@ -209,7 +209,7 @@ export class GlobalState extends PureComponent<Props> {
       notify([title, message])
       // This avoids calling legendary again before the previous process is killed when canceling
       setTimeout(() => {
-        return this.refreshLibrary(true)
+        return this.refreshLibrary({checkForUpdates: true})
       }, 2000);
     }
 
@@ -234,7 +234,7 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ libraryStatus: updatedLibraryStatus })
       notify([title, t('notify.uninstalled')])
 
-      return this.refreshLibrary()
+      return this.refreshLibrary({})
     }
 
     if (currentApp && currentApp.status === 'moving' && status === 'done') {
@@ -324,7 +324,7 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ category, filter, language, layout, platform })
 
     if (user){
-      this.refreshLibrary(true, true)
+      this.refreshLibrary({checkForUpdates: true, fullRefresh: true})
     }
 
     setTimeout(() => {
