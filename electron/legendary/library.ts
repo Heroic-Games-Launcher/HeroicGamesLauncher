@@ -194,11 +194,13 @@ class LegendaryLibrary {
     try {
       const { stdout } = await execAsync(command)
       logInfo('Checking for game updates')
-      return stdout
+      const updates =  stdout
         .split('\n')
         .filter((item) => item.includes('True'))
         .map((item) => item.split('\t')[0])
         .filter((item) => item.length > 1)
+      logInfo(`Found ${updates.length} games to update`)
+      return updates
     } catch (error) {
       logError(error)
     }
