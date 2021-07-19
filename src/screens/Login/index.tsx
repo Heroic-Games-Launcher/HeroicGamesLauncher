@@ -46,11 +46,14 @@ export default function Login({ refresh }: Props) {
 
     await ipcRenderer.invoke('login', sid).then(async (res) => {
       ipcRenderer.send('logInfo', 'Called Login')
+      console.log(res)
       if (res !== 'error') {
         setStatus({
           loading: true,
           message: t('status.loading', 'Loading Game list, please wait')
         })
+        await ipcRenderer.invoke('getUserInfo')
+        await ipcRenderer.invoke('refreshLibrary', true)
         return refresh()
       }
 

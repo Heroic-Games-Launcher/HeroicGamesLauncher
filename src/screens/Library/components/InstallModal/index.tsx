@@ -24,8 +24,9 @@ export default function InstallModal({appName, backdropClick}: Props) {
   const {t} = useTranslation('gamepage')
   const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
 
-  function handleInstall(path: string){
-    install({
+  async function handleInstall(path: string){
+    backdropClick()
+    return await install({
       appName,
       handleGameStatus,
       installPath: path,
@@ -34,7 +35,6 @@ export default function InstallModal({appName, backdropClick}: Props) {
       progress: previousProgress,
       t
     })
-    backdropClick()
   }
 
   useEffect(() => {

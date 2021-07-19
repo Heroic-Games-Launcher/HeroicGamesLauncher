@@ -434,10 +434,10 @@ Categories=Game;
       offlineMode
     } = await this.getSettings()
 
-    const DiscordRPC = makeClient('852942976564723722')
+    const { discordRPC } = (await GlobalConfig.get().getSettings())
+    const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = offlineMode ? '--offline' : ''
 
-    const { discordRPC } = (await GlobalConfig.get().getSettings())
     if (discordRPC) {
       // Show DiscordRPC
       // This seems to run when a game is updated, even though the game doesn't start after updating.
@@ -459,6 +459,7 @@ Categories=Game;
         break
       }
 
+      logInfo('Updating Discord Rich Presence information...')
       DiscordRPC.updatePresence({
         details: gameInfo.title,
         instance: true,
@@ -475,7 +476,7 @@ Categories=Game;
       const v = await execAsync(command, execOptions)
 
       logInfo('Stopping Discord Rich Presence if running...')
-      DiscordRPC.disconnect()
+      discordRPC && DiscordRPC.disconnect()
       logInfo('Stopped Discord Rich Presence.')
 
       return v
