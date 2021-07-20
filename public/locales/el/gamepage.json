@@ -14,9 +14,14 @@
             "title": "Μετακίνηση εγκατάστασης παιχνιδιού"
         },
         "no": "ΟΧΙ",
+        "ok": "Ok",
         "repair": {
             "message": "Θέλετε να δοκιμάσετε να επιδιορθώσετε αυτό το παιχνίδι; Αυτό μπορεί να πάρει πολύ ώρα.",
             "title": "Επαλήθευση και Επιδιόρθωση"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Συνέχιση εγκατάστασης",
@@ -42,6 +47,12 @@
     },
     "disabled": "Απενεργοποιημένο",
     "enabled": "Ενεργοποιημένο",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Μετακίνηση",
         "repairing": "Επιδιόρθωση"

@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NÃO",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "O jogo não está instalado, deseja instalar?"
@@ -45,10 +44,6 @@
             "title": "Selecione o EXE"
         },
         "select": "Selecionar",
-        "shortcuts": {
-            "message": "Atalhos foram criados na área de trabalho e menu inicial",
-            "title": "Atalhos"
-        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",

@@ -31,7 +31,6 @@
             "title": "错误"
         },
         "no": "否",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "未安装，您是否希望安装它？"
@@ -45,10 +44,6 @@
             "title": "选择要运行的EXE文件"
         },
         "select": "选择",
-        "shortcuts": {
-            "message": "在桌面和开始菜单上创建了快捷方式",
-            "title": "快捷方式"
-        },
         "sync": {
             "button": "选择",
             "error": "无效路径",

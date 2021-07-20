@@ -14,9 +14,14 @@
             "title": "移动游戏安装"
         },
         "no": "否",
+        "ok": "Ok",
         "repair": {
             "message": "你想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
             "title": "验证并修复游戏文件"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "继续安装",
@@ -42,6 +47,12 @@
     },
     "disabled": "已禁用",
     "enabled": "已启用",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "移动中",
         "repairing": "修复中"

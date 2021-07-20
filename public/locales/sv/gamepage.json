@@ -14,9 +14,14 @@
             "title": "Flytta var spelet är installerat"
         },
         "no": "Nej",
+        "ok": "Ok",
         "repair": {
             "message": "Vill du försöka reparera spelet? Det kan ta lång tid.",
             "title": "Verifiera och reparera"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
@@ -42,6 +47,12 @@
     },
     "disabled": "Inaktiverad",
     "enabled": "Aktiverad",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Flyttar",
         "repairing": "Reparerar"

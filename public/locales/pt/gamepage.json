@@ -14,9 +14,14 @@
             "title": "Mover Games para outra pasta"
         },
         "no": "NÃO",
+        "ok": "Ok",
         "repair": {
             "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo.",
             "title": "Verificar e Reparar"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Continuar Instalação",
@@ -42,6 +47,12 @@
     },
     "disabled": "Desabilitado",
     "enabled": "Habilitado",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Movendo",
         "repairing": "Reparando"

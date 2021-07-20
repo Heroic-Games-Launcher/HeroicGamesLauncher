@@ -14,9 +14,14 @@
             "title": "Move Game Installation"
         },
         "no": "NO",
+        "ok": "Ok",
         "repair": {
             "message": "Do you want to try to repair this game? This can take a long time.",
             "title": "Verify and Repair"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Keep Installing",
@@ -42,6 +47,12 @@
     },
     "disabled": "Disabled",
     "enabled": "Enabled",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Moving",
         "repairing": "Repairing"

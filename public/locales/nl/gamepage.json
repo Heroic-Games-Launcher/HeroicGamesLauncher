@@ -14,9 +14,14 @@
             "title": "Spel installatie verplatsen"
         },
         "no": "NEE",
+        "ok": "Ok",
         "repair": {
             "message": "Wil je dit spel proberen te repareren? Dit kan lang duren.",
             "title": "Verifiëren en repareren"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Doorgaan met installeren",
@@ -42,6 +47,12 @@
     },
     "disabled": "Uitgeschakeld",
     "enabled": "Ingeschakeld",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Verplaatsen",
         "repairing": "Repareren"

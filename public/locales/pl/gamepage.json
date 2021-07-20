@@ -14,9 +14,14 @@
             "title": "Przeniesienie plików gry"
         },
         "no": "NIE",
+        "ok": "Ok",
         "repair": {
             "message": "Chesz spróbować naprawć tą grę? To może zająć dużo czasu.",
             "title": "Sprawdź i napraw"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Kontunuuj instalację",
@@ -42,6 +47,12 @@
     },
     "disabled": "Wyłączona",
     "enabled": "Włączona",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Przenoszenie",
         "repairing": "Naprawianie"

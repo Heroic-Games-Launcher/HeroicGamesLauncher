@@ -44,7 +44,7 @@ function TimeContainer({game}: Props) {
   return <div className="info">
     <SmallInfo title={`${t('game.firstPlayed', 'First Played')}:`} subtitle={firstDate}/>
     <SmallInfo title={`${t('game.lastPlayed', 'Last Played')}:`} subtitle={lastDate}/>
-    <SmallInfo title={`${t('game.totalPlayed', `Time Played`)}:`} subtitle={`${totalPlayed}h`}/>
+    <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}h`}/>
   </div>
 }
 

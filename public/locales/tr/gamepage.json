@@ -14,9 +14,14 @@
             "title": "Oyun kurulumunu taşı"
         },
         "no": "HAYIR",
+        "ok": "Ok",
         "repair": {
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Yüklemeyi Sürdür",
@@ -42,6 +47,12 @@
     },
     "disabled": "Devre dışı",
     "enabled": "Etkin",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Taşınıyor",
         "repairing": "Onarılıyor"

@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NEE",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -45,10 +44,6 @@
             "title": "Selecteer EXE on te lanceren"
         },
         "select": "Selecteren",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Kies",
             "error": "Incorrect map",
