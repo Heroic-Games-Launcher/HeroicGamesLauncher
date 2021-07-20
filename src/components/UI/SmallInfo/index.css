@@ -11,3 +11,13 @@
   font-size: 12px;
   color: var(--text-primary);
 }
+
+.clickable {
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.clickable:hover {
+  color: var(--secondary-hover);
+  transition: 300ms;
+}

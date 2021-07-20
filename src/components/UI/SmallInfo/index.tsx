@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 
 import './index.css'
 
@@ -13,7 +14,7 @@ export default function SmallInfo({handleclick, subtitle, title}: Props) {
     return handleclick ? handleclick() : null
   }
   return (
-    <div className="smallInfo" onClick={handleOnClick} style={{cursor: handleclick ? 'pointer' :  'unset'}}>
+    <div className={cx('smallInfo', {clickable: handleclick})} onClick={handleOnClick}>
       <span className="smallTitle">{title}</span> <br />
       <span className="smallsubtitle">{subtitle}</span>
     </div>
