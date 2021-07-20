@@ -144,6 +144,13 @@ table span.text {
   color: var(--text-secondary);
 }
 
+.pictureTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-height: 400px;
+}
+
 @keyframes animate-stripes {
   100% {
     background-position: -100px 0px;

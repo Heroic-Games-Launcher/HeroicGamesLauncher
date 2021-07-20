@@ -37,7 +37,9 @@ import {
 } from 'src/types'
 
 import { NOT_SUPPORTED_GAMES } from 'src/constants'
+import GamePicture from '../GamePicture'
 import GamesSubmenu from '../GameSubMenu'
+import TimeContainer from '../TimeContainer'
 
 const storage: Storage = window.localStorage
 
@@ -50,6 +52,7 @@ const { ipcRenderer } = window.require('electron') as {
 interface RouteParams {
   appName: string
 }
+
 
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
@@ -188,19 +191,9 @@ export default function GamePage(): JSX.Element | null {
           {title ? (
             <>
               <div className="gameConfig">
-                <div className="gamePicture">
-                  <img
-                    alt="cover-art"
-                    src={`${art_square}?h=400&resize=1&w=300`}
-                    className="gameImg"
-                  />
-                  {art_logo && (
-                    <img
-                      alt="cover-art"
-                      src={`${art_logo}?h=100&resize=1&w=200`}
-                      className="gameLogo"
-                    />
-                  )}
+                <div className="pictureTimeContainer">
+                  <GamePicture art_square={art_square} art_logo={art_logo} />
+                  <TimeContainer game={appName} />
                 </div>
                 <div className="gameInfo">
                   <div className="title">{title}</div>

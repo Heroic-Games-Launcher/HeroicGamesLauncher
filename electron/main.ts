@@ -533,7 +533,7 @@ ipcMain.handle('launch', async (event, game: string) => {
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
 
   if (!tsStore.has(game)){
-    const date = new Date().toLocaleString()
+    const date = new Date()
     tsStore.set(`${game}.firstPlayed`, date)
   }
 
@@ -558,7 +558,7 @@ ipcMain.handle('launch', async (event, game: string) => {
   }
 
   return Game.get(game).launch().then(({ stderr }) => {
-    const date = new Date().toLocaleString()
+    const date = new Date()
     tsStore.set(`${game}.lastPlayed`, date)
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
