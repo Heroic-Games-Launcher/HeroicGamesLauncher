@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './index.css'
+
 type Props = {
   art_logo: string,
   art_square: string

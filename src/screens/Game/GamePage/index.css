@@ -24,22 +24,6 @@
   color: #f79707;
 }
 
-.gameConfig > .gamePicture {
-  max-width: 210px;
-  max-height: 280px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  position: relative;
-}
-
-.gamePicture > .gameLogo {
-  position: absolute;
-  bottom: 0;
-  width: 70%;
-  min-width: 140px;
-}
-
 .gameImg {
   width: 210px;
   height: 280px;
