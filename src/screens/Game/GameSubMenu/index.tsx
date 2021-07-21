@@ -117,9 +117,11 @@ export default function GamesSubmenu({
     const getInfo = async () => {
       try {
         const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-        const wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
+        let wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
+        if (wine.includes('Default')){
+          wine = wine.split('-')[0]
+        }
         setInfo({prefix: winePrefix, wine})
-        setInfo({prefix: winePrefix, wine: wineVersion.name})
       } catch (error) {
         ipcRenderer.send('logError', error)
       }

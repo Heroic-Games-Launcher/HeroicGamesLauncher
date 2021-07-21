@@ -599,6 +599,7 @@ ipcMain.handle('launch', async (event, game: string) => {
       stderr,
       () => 'done'
     )
+    logError(stderr)
     return stderr
   })
 })
