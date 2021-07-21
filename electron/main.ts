@@ -53,7 +53,6 @@ import {
   iconLight,
   installed,
   legendaryBin,
-  libraryPath,
   loginUrl,
   sidInfoUrl,
   supportURL,
@@ -71,9 +70,10 @@ let mainWindow: BrowserWindow = null
 const store = new Store({
   cwd: 'store'
 })
-const libraryStore = new Store({
+
+const gameInfoStore = new Store({
   cwd: 'store',
-  name: 'library'
+  name: 'gameinfo'
 })
 const tsStore = new Store({
   cwd: 'store',
@@ -232,6 +232,12 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+
+    if (!isLoggedIn){
+      logInfo('User Not Found, removing it from Store')
+      store.delete('userinfo')
+    }
 
     await i18next.use(Backend).init({
       backend: {
@@ -288,11 +294,21 @@ if (!gotTheLock) {
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
+      logInfo('Changing Language to:', language)
       await i18next.changeLanguage(language)
+      gameInfoStore.clear()
       appIcon.setContextMenu(contextMenu())
     })
 
-    store.onDidAnyChange(() => appIcon.setContextMenu(contextMenu()))
+    ipcMain.addListener('changeTrayColor', () => {
+      logInfo('Changing Tray icon Color...')
+      setTimeout(async() => {
+        const { darkTrayIcon } = await GlobalConfig.get().getSettings()
+        const trayIcon = darkTrayIcon ? iconDark : iconLight
+        appIcon.setImage(trayIcon)
+        appIcon.setContextMenu(contextMenu())
+      }, 500);
+    })
 
     if (process.platform === 'linux') {
       const found = await checkCommandVersion(
@@ -308,6 +324,8 @@ if (!gotTheLock) {
     return
   })
 }
+
+
 
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
@@ -449,9 +467,13 @@ ipcMain.on('createNewWindow', (e, url) =>
 
 ipcMain.handle('getGameInfo', async (event, game) => {
   const obj = Game.get(game)
-  const info = await obj.getGameInfo()
-  info.extra = await obj.getExtraInfo(info.namespace)
-  return info
+  try {
+    const info = await obj.getGameInfo()
+    info.extra = await obj.getExtraInfo(info.namespace)
+    return info
+  } catch (error) {
+    logError(error)
+  }
 })
 
 ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
@@ -477,10 +499,6 @@ ipcMain.handle('readConfig', async (event, config_class) => {
   }
 })
 
-libraryStore.onDidAnyChange(() => {
-  console.log('library updated');
-})
-
 ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
     return GlobalConfig.get().config
@@ -503,20 +521,13 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
   watch(installed, () => {
-    logInfo('Installed game list updated')
+    logInfo('Legendary: Installed game list updated')
     LegendaryLibrary.get().refreshInstalled()
   })
 }
 
-// Watch the legendary metadata folder and trigger a refresh if something changes
-watch(libraryPath, () => {
-  logInfo('Library of games updated')
-  LegendaryLibrary.get().getGames('info')
-})
-
-ipcMain.handle('refreshLibrary', async () => {
-  // This is a full refresh since everything else will be cached and automated
-  return await LegendaryLibrary.get().getGames('info')
+ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
+  return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))

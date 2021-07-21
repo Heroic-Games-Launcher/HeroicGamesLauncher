@@ -1,6 +1,6 @@
 {
     "All": "Tümü",
-    "Assets": "Assets",
+    "Assets": "Assetler",
     "box": {
         "appupdate": {
             "message": "Heroic'in yeni sürümü mevcut, şimdi güncellemek ister misin?",
@@ -12,8 +12,8 @@
         "default-install-path": "Varsayılan Yükleme Yerini Seçin",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Kimlik bilgilerinin süresi doldu, lütfen çıkış yapın ve tekrar giriş yapın.",
+                "title": "Süresi Dolmuş Kimlik Bilgileri"
             },
             "diskspace": {
                 "message": "Yeterli alan mevcut değil",
@@ -25,15 +25,16 @@
             },
             "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Bu oyun için log bulunamadı",
+                "title": "Log Bulunamadı"
             },
-            "title": "Error"
+            "title": "Hata"
         },
         "no": "HAYIR",
+        "ok": "Tamam",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Yüklenmemiş, yüklemek ister misin?"
             }
         },
         "quit": {
@@ -44,6 +45,10 @@
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
         "select": "Seç",
+        "shortcuts": {
+            "message": "Kısayollar masaüstü ve başlangıç menüsünde oluşturuldu",
+            "title": "Kısayollar"
+        },
         "sync": {
             "button": "Seç",
             "error": "Geçersiz Yol",
@@ -123,28 +128,28 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
     "placeholder": {
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Projeler",
     "Ready": "Hazır",
     "Recent": "Recent Games",
     "Return": "Geri",
     "search": "Buraya oyun adı girin...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
+        "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
-        "darktray": "Karanlık Tepsi İkonu Kullan (yeniden başlatma gerektirir)",
+        "darktray": "Karanlık Tepsi İkonu Kullan",
         "default-install-path": "Varsayılan Kurulum Yeri",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "exit-to-tray": "Sistem Tepsisine Küçült",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
@@ -159,7 +164,7 @@
             "title": "Kayıtları Elle Eşzamanla",
             "upload": "Karşıya Yükle"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Gösterilecek Son Oyunlar",
         "maxworkers": "İndirirken Maksimum İşçi Sayısı",
         "offlinemode": "Oyunu Çevrimdışı Çalıştır",
         "primerun": "Nvidia Prime Render'ı Etkinleştir",
@@ -172,7 +177,7 @@
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Simge Durumuna Küçültülmüş Başla",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Versiyonu"
     },

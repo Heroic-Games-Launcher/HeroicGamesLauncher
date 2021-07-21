@@ -142,7 +142,7 @@
         "autosync": "自动同步存档",
         "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",
-        "darktray": "使用暗色托盘图标（需要重启）",
+        "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的Epic Games同步",

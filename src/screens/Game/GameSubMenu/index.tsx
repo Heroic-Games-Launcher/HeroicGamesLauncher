@@ -115,9 +115,14 @@ export default function GamesSubmenu({
 
   useEffect(() => {
     const getInfo = async () => {
-      const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-      const wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
-      setInfo({prefix: winePrefix, wine})
+      try {
+        const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
+        const wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
+        setInfo({prefix: winePrefix, wine})
+        setInfo({prefix: winePrefix, wine: wineVersion.name})
+      } catch (error) {
+        ipcRenderer.send('logError', error)
+      }
     }
     getInfo()
   }, [appName])

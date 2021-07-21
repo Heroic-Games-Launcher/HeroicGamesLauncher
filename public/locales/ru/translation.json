@@ -142,7 +142,7 @@
         "autosync": "Автосинхронизация сохранений",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Пользовательские пути Wine/Proton",
-        "darktray": "Использовать темную иконку в трее (нужен перезапуск)",
+        "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",

@@ -142,7 +142,7 @@
         "autosync": "Ativar Sincronização Automática",
         "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
-        "darktray": "Usar ícone escuro (necessita reiniciar)",
+        "darktray": "Usar ícone escuro",
         "default-install-path": "Pasta de instalação padrão",
         "discordRPC": "Habilitar Discord Rich Presence",
         "egs-sync": "Sincronizar com Epic Games Store",

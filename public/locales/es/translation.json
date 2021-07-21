@@ -142,7 +142,7 @@
         "autosync": "Autosyncronizar guardados",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
-        "darktray": "Utilice el icono de bandeja oscura (necesita reiniciarse)",
+        "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",

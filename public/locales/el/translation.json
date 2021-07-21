@@ -142,7 +142,7 @@
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
-        "darktray": "Χρήση σκοτεινού εικονιδίου (απαιτεί επανεκκίνηση)",
+        "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",

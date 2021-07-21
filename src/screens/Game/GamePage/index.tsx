@@ -98,12 +98,16 @@ export default function GamePage(): JSX.Element | null {
       const newInfo = await getGameInfo(appName)
       setGameInfo(newInfo)
       if (newInfo.cloud_save_enabled) {
-        const {
-          autoSyncSaves,
-          savesPath
-        }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-        setAutoSyncSaves(autoSyncSaves)
-        setSavesPath(savesPath)
+        try {
+          const {
+            autoSyncSaves,
+            savesPath
+          }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
+          setAutoSyncSaves(autoSyncSaves)
+          setSavesPath(savesPath)
+        } catch (error) {
+          ipcRenderer.send('logError', error)
+        }
       }
     }
     updateConfig()

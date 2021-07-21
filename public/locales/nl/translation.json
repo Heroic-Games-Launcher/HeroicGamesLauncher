@@ -142,7 +142,7 @@
         "autosync": "Automatisch Synchroniseren van saves",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Aangepaste wijn- of protonpaden",
-        "darktray": "Gebruik donker tray icoon (vereist opnieuw opstarten)",
+        "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie map",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",

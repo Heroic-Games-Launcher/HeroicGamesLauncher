@@ -142,7 +142,7 @@
         "autosync": "Mentések Automatikus Szinkronizálása",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
-        "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
+        "darktray": "Sötét Tálca Ikon Használata",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
