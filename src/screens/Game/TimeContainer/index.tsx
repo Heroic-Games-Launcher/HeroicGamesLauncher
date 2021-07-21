@@ -39,13 +39,13 @@ function TimeContainer({game}: Props) {
   const firstPlayed = new Date(tsInfo.firstPlayed)
   const firstDate = new Intl.DateTimeFormat(storage.getItem('language') || 'en', options).format(firstPlayed);
   const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
-  const totalPlayed = tsInfo.totalPlayed ? (tsInfo.totalPlayed / 1000 / 60 / 60).toFixed(1) : null
+  const totalPlayed = tsInfo.totalPlayed ? tsInfo.totalPlayed.toFixed(1) : null
   const lastDate = new Intl.DateTimeFormat(storage.getItem('language') || 'en', options).format(lastPlayed || new Date());
 
   return <div className="info">
     <SmallInfo title={`${t('game.firstPlayed', 'First Played')}:`} subtitle={firstDate}/>
     {lastPlayed && <SmallInfo title={`${t('game.lastPlayed', 'Last Played')}:`} subtitle={lastDate}/>}
-    {lastPlayed && <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}h`}/>}
+    {totalPlayed && <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}h`}/>}
   </div>
 }
 
