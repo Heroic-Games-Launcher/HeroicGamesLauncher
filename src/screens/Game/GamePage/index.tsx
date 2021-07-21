@@ -196,7 +196,7 @@ export default function GamePage(): JSX.Element | null {
                   <TimeContainer game={appName} />
                 </div>
                 <div className="gameInfo">
-                  <div className="title">{title}</div>
+                  <div className="gametitle">{title}</div>
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     {!is_game && (
