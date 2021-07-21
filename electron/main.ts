@@ -364,7 +364,7 @@ app.on('open-url', (event, url) => {
   handleProtocol(mainWindow, url)
 })
 
-ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
+ipcMain.once('openFolder', (event, folder) => openUrlOrFile(folder))
 ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
@@ -373,7 +373,7 @@ ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
-ipcMain.on('getLog', (event, appName) =>
+ipcMain.once('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
 )
 
@@ -531,10 +531,10 @@ ipcMain.handle('launch', async (event, game: string) => {
   const recentGames = store.get('games.recent') as Array<RecentGame> || []
   const { title } = await Game.get(game).getGameInfo()
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
+  const startPlayingDate = new Date()
 
   if (!tsStore.has(game)){
-    const date = new Date()
-    tsStore.set(`${game}.firstPlayed`, date)
+    tsStore.set(`${game}.firstPlayed`, startPlayingDate)
   }
 
   logInfo('launching', title, game)
@@ -558,8 +558,12 @@ ipcMain.handle('launch', async (event, game: string) => {
   }
 
   return Game.get(game).launch().then(({ stderr }) => {
-    const date = new Date()
-    tsStore.set(`${game}.lastPlayed`, date)
+    const finishedPlayingDate = new Date()
+    tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
+    const sessionPlayingTime = Number(finishedPlayingDate) - Number(startPlayingDate)
+    const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
+    tsStore.set(`${game}.totalPlayed`, totalPlayedTime)
+
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,

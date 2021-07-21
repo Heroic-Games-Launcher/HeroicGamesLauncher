@@ -18,6 +18,7 @@ type Props = {
 type TimeStamp = {
   firstPlayed: Date
   lastPlayed: Date
+  totalPlayed: number
 }
 
 function TimeContainer({game}: Props) {
@@ -37,14 +38,14 @@ function TimeContainer({game}: Props) {
   };
   const firstPlayed = new Date(tsInfo.firstPlayed)
   const firstDate = new Intl.DateTimeFormat(storage.getItem('language') || 'en', options).format(firstPlayed);
-  const lastPlayed = new Date(tsInfo.lastPlayed || '')
-  const lastDate = new Intl.DateTimeFormat(storage.getItem('language') || 'en', options).format(lastPlayed);
-  const totalPlayed = ((Number(lastPlayed) - Number(firstPlayed)) / 1000 / 60 / 60).toFixed(1)
+  const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
+  const totalPlayed = tsInfo.totalPlayed ? (tsInfo.totalPlayed / 1000 / 60 / 60).toFixed(1) : null
+  const lastDate = new Intl.DateTimeFormat(storage.getItem('language') || 'en', options).format(lastPlayed || new Date());
 
   return <div className="info">
     <SmallInfo title={`${t('game.firstPlayed', 'First Played')}:`} subtitle={firstDate}/>
-    <SmallInfo title={`${t('game.lastPlayed', 'Last Played')}:`} subtitle={lastDate}/>
-    <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}h`}/>
+    {lastPlayed && <SmallInfo title={`${t('game.lastPlayed', 'Last Played')}:`} subtitle={lastDate}/>}
+    {lastPlayed && <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}h`}/>}
   </div>
 }
 
