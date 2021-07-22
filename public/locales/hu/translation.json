@@ -31,7 +31,6 @@
             "title": "Hiba"
         },
         "no": "NEM",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nincs telepítve, szeretnéd telepíteni?"
@@ -45,10 +44,6 @@
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
         "select": "Kiválaszt",
-        "shortcuts": {
-            "message": "A parancsikonok létre lettek hozva az Asztalon és a Start Menüben",
-            "title": "Parancsikonok"
-        },
         "sync": {
             "button": "Választ",
             "error": "Érvénytelen útvonal",

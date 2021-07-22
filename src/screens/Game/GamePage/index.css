@@ -17,27 +17,11 @@
   padding-right: 20px;
 }
 
-.gameConfig .title {
+.gametitle {
   font-weight: 500;
   font-size: 25px;
   line-height: 30px;
   color: #f79707;
-}
-
-.gameConfig > .gamePicture {
-  max-width: 210px;
-  max-height: 280px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  position: relative;
-}
-
-.gamePicture > .gameLogo {
-  position: absolute;
-  bottom: 0;
-  width: 70%;
-  min-width: 140px;
 }
 
 .gameImg {
@@ -142,6 +126,12 @@ table span.text {
 }
 .updateText:hover {
   color: var(--text-secondary);
+}
+
+.pictureTimeContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
 }
 
 @keyframes animate-stripes {

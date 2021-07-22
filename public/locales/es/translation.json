@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "No",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -45,10 +44,6 @@
             "title": "Seleccione EXE para ejecutar"
         },
         "select": "Seleccionar",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Elegir",
             "error": "Ruta no válida",

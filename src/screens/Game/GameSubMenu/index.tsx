@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppSettings } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { Link } from 'react-router-dom'
+import { SmallInfo } from 'src/components/UI'
 import {
   createNewWindow,
   formatStoreUrl,
@@ -116,7 +117,11 @@ export default function GamesSubmenu({
     const getInfo = async () => {
       try {
         const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-        setInfo({prefix: winePrefix, wine: wineVersion.name})
+        let wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
+        if (wine.includes('Default')){
+          wine = wine.split('-')[0]
+        }
+        setInfo({prefix: winePrefix, wine})
       } catch (error) {
         ipcRenderer.send('logError', error)
       }
@@ -176,10 +181,10 @@ export default function GamesSubmenu({
           {t('submenu.protondb')}
         </span>}
       </div>
-      {!isWin && <span className="otherInfo" onClick={() => ipcRenderer.send('openFolder', info.prefix)}>
-        <span>Wine:</span> {info.wine} <br />
-        <span>Prefix: </span> {info.prefix}
-      </span>}
+      {!isWin && <div className="otherInfo">
+        <SmallInfo title="Wine:" subtitle={info.wine} />
+        <SmallInfo title="Prefix:" subtitle={info.prefix} handleclick={() => ipcRenderer.send('openFolder', info.prefix)} />
+      </div>}
     </div>
   )
 }

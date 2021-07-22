@@ -14,9 +14,14 @@
             "title": "Přesunout instalaci hry"
         },
         "no": "NE",
+        "ok": "Ok",
         "repair": {
             "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
             "title": "Zkontrolovat a opravit"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
@@ -42,6 +47,12 @@
     },
     "disabled": "Zakázáno",
     "enabled": "Povoleno",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Přesouvám",
         "repairing": "Opravuji"

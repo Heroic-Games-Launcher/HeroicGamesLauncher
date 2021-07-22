@@ -75,6 +75,10 @@ const gameInfoStore = new Store({
   cwd: 'store',
   name: 'gameinfo'
 })
+const tsStore = new Store({
+  cwd: 'store',
+  name: 'timestamp'
+})
 
 async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
@@ -538,6 +542,11 @@ ipcMain.handle('launch', async (event, game: string) => {
   const recentGames = store.get('games.recent') as Array<RecentGame> || []
   const { title } = await Game.get(game).getGameInfo()
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
+  const startPlayingDate = new Date()
+
+  if (!tsStore.has(game)){
+    tsStore.set(`${game}.firstPlayed`, startPlayingDate)
+  }
 
   logInfo('launching', title, game)
 
@@ -560,6 +569,13 @@ ipcMain.handle('launch', async (event, game: string) => {
   }
 
   return Game.get(game).launch().then(({ stderr }) => {
+    const finishedPlayingDate = new Date()
+    tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
+    const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60 / 60
+    const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
+    // I'll send the calculated time here because then the user can set it manually on the file if desired
+    tsStore.set(`${game}.totalPlayed`, totalPlayedTime)
+
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
@@ -583,6 +599,7 @@ ipcMain.handle('launch', async (event, game: string) => {
       stderr,
       () => 'done'
     )
+    logError(stderr)
     return stderr
   })
 })

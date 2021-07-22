@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "Nej",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"

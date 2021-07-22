@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NEIN",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
@@ -45,10 +44,6 @@
             "title": "EXE zum Starten auswählen"
         },
         "select": "Auswählen",
-        "shortcuts": {
-            "message": "Verknüpfungen wurden auf dem Desktop und Startmenü erstellt",
-            "title": "Verknüpfungen"
-        },
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",

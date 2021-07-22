@@ -550,7 +550,7 @@ Categories=Game;
     })
 
     logInfo('Stopping Discord Rich Presence if running...')
-    DiscordRPC.disconnect()
+    discordRPC && DiscordRPC.disconnect()
     logInfo('Stopped Discord Rich Presence.')
 
     return v
