@@ -2,6 +2,10 @@
   display: grid;
   place-self: center;
   place-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--background-darker);
   height: 84px;
   width: calc(100% - 1vw);
   padding: 0 4rem 1rem 4rem;

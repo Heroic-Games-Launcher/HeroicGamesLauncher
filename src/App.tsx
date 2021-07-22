@@ -2,17 +2,17 @@ import React, { lazy, useContext } from 'react'
 
 import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Library } from './screens/Library'
-import ContextProvider from './state/ContextProvider'
+import { Library } from 'src/screens/Library'
+import ContextProvider from 'src/state/ContextProvider'
 import ElectronStore from 'electron-store'
-import Login from './screens/Login'
+import Login from 'src/screens/Login'
+import Sidebar from 'src/components/UI/Sidebar'
 
 const Store = window.require('electron-store')
 const configStore: ElectronStore = new Store({
   cwd: 'store'
 })
 
-const NavBar = lazy(() => import('./components/Navbar'))
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
@@ -31,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <HashRouter>
-        <NavBar />
+        <Sidebar />
         <Switch>
           <Route exact path="/">
             <div className="content">
@@ -40,7 +40,6 @@ function App() {
                 renderBackButton={false}
                 numberOfGames={numberOfGames}
               />
-              <div id="top"></div>
               <Library library={library} />
             </div>
           </Route>
