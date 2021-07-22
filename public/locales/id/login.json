@@ -1,0 +1,21 @@
+{
+    "welcome": "Selamat Datang!",
+    "status": {
+        "loading": "Memuat daftar permainan, mohon tunggu",
+        "error": "Kesalahan"
+    },
+    "message": {
+        "part7": "Nomor SID",
+        "part6": "Tempel",
+        "part5": "Nomor informasi SID",
+        "part3": "Toko Epic disini",
+        "part2": "Buka",
+        "part1": "Untuk bisa masuk ke akunmu dan menginstall permainanmu, kamu harus mengikuti langkah-langkah di bawah:"
+    },
+    "input": {
+        "placeholder": "Tempel nomor SID disini"
+    },
+    "button": {
+        "login": "Masuk"
+    }
+}
