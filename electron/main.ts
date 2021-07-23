@@ -571,10 +571,10 @@ ipcMain.handle('launch', async (event, game: string) => {
   return Game.get(game).launch().then(({ stderr }) => {
     const finishedPlayingDate = new Date()
     tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
-    const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60 / 60
+    const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
     const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
     // I'll send the calculated time here because then the user can set it manually on the file if desired
-    tsStore.set(`${game}.totalPlayed`, totalPlayedTime)
+    tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
 
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,
