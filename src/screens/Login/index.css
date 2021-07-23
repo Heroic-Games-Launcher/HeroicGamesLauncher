@@ -135,7 +135,7 @@
   margin-bottom: 13px;
 }
 
-.button {
+.loginForm > button {
   margin-top: 16px;
   font-weight: 700;
 }
