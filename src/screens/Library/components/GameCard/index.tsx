@@ -188,16 +188,12 @@ const GameCard = ({
         </Link>
         {grid ? (
           <>
-            <div className="gameTitle">
+            <div className="gameTitle" onClick={() => history.push(`/gameconfig/${appName}`)}>
               <span>{title}</span>
             </div>
             {
               <span
                 className="icons"
-                style={{
-                  flexDirection: 'row',
-                  width: isInstalled&&isGame ? '44%' : 'auto'
-                }}
               >
                 {renderIcon()}
                 {isInstalled && isGame && <SettingsIcon fill={'var(--secondary)'} onClick={() => history.push(path, {fromGameCard: true})} />}

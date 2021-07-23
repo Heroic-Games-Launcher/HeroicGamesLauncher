@@ -3,6 +3,7 @@ html {
   --background-darker-80: rgba(13, 14, 14, 0.8);
   --background-darker: rgba(13, 14, 14);
   --background-transparent: rgba(66, 69, 70, 0.9);
+  --background-transparent-62: rgba(66, 69, 70, 0.62);
   --background-secondary: #323035;
   --searchbar-background: rgba(26, 27, 28, 0.5);
   --primary: #07c5ef;
