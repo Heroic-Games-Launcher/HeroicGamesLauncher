@@ -7,6 +7,7 @@ import { UserInfo } from '../types'
 import { execAsync } from '../utils'
 import {
   legendaryBin,
+  spawnOptions,
   userInfo
 } from '../constants'
 import { logError, logInfo } from '../logger'
@@ -23,7 +24,7 @@ export class LegendaryUser {
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const child = spawn(legendaryBin, command)
+      const child = spawn(legendaryBin, command, spawnOptions)
       child.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
@@ -49,9 +50,7 @@ export class LegendaryUser {
   }
 
   public static async isLoggedIn() {
-    return existsSync(userInfo) || await execAsync(`${legendaryBin} status`).then(
-      ({ stdout }) => !stdout.includes('Epic account: <not logged in>')
-    )
+    return existsSync(userInfo)
   }
 
   public static async getUserInfo(): Promise<UserInfo> {

@@ -23,7 +23,8 @@ import {
   installed,
   legendaryBin,
   legendaryConfigPath,
-  libraryPath
+  libraryPath,
+  spawnOptions
 } from '../constants';
 import { logError, logInfo } from '../logger';
 import { spawn } from 'child_process';
@@ -81,7 +82,7 @@ class LegendaryLibrary {
   public async refresh() {
     logInfo('Refreshing Epic Games...')
     return new Promise((res, rej) => {
-      const child = spawn(legendaryBin, ['list-games', '--include-ue'])
+      const child = spawn(legendaryBin, ['list-games', '--include-ue'], spawnOptions)
       child.stderr.on('data', (data) => {
         console.log(`${data}`)}
       )

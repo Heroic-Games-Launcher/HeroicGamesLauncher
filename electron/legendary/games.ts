@@ -25,7 +25,8 @@ import {
   heroicIconFolder,
   home,
   isWindows,
-  legendaryBin
+  legendaryBin,
+  spawnOptions
 } from '../constants'
 import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
@@ -200,7 +201,7 @@ class LegendaryGame extends Game {
     let isVerifying = false
 
     return new Promise((res) => {
-      const child = spawn(legendaryBin, command)
+      const child = spawn(legendaryBin, command, spawnOptions)
       const progress: InstallProgress = {
         bytes: '0.00MiB',
         eta: '00:00:00',
