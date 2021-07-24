@@ -65,6 +65,7 @@ export default function Header({
           <ArrowBack className="material-icons" />
           {t('Return')}
         </Link>
+        {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
       </div>
     )
   }
@@ -187,7 +188,6 @@ export default function Header({
         {numberOfGames !== undefined && numberOfGames === 0 && (
           <div className="totalGamesText" data-testid="totalGamesText">{t('nogames')}</div>
         )}
-        {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
         <div className="layoutSelection">
           <Apps
             data-testid="grid"
