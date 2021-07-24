@@ -12,7 +12,7 @@
         "default-install-path": "Choisir le chemin par défaut",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
+                "message": "Vos informations d'identification ont expiré, veuillez vous reconnecter.",
                 "title": "Expired Credentials"
             },
             "diskspace": {
@@ -23,7 +23,7 @@
                 "message": "Une erreur inconnue s'est produite",
                 "title": "Erreur inconnue"
             },
-            "launch": "Erreur lors du lancement du jeu, consultez le rapport",
+            "launch": "Erreur lors du lancement du jeu, consultez les logs!",
             "log": {
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
