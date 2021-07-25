@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NE",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -45,10 +44,6 @@
             "title": "Vyberte soubor EXE pro spuštění"
         },
         "select": "Vybrat",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Vybrat",
             "error": "Neplatná cesta",
@@ -147,10 +142,11 @@
         "autosync": "Automaticky synchronizovat uložené soubory",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
-        "darktray": "Použít tmavou ikonu v systémové oblasti (vyžaduje restart)",
+        "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Ukončit do systémové oblasti",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",

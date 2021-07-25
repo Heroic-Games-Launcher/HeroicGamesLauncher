@@ -14,9 +14,14 @@
             "title": "Játék telepítés áthelyezése"
         },
         "no": "NEM",
+        "ok": "Ok",
         "repair": {
             "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
             "title": "Ellenőrzés és Javítás"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
@@ -42,6 +47,12 @@
     },
     "disabled": "Letiltva",
     "enabled": "Engedélyezve",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Áthelyezés",
         "repairing": "Javítás"

@@ -14,12 +14,17 @@
             "title": "Przeniesienie plików gry"
         },
         "no": "NIE",
+        "ok": "Ok",
         "repair": {
             "message": "Chesz spróbować naprawć tą grę? To może zająć dużo czasu.",
             "title": "Sprawdź i napraw"
         },
+        "shortcuts": {
+            "message": "Skróty zostały utworzone na Pulpicie i w Menu Start",
+            "title": "Skróty"
+        },
         "stopInstall": {
-            "keepInstalling": "Kontunuuj instalację",
+            "keepInstalling": "Kontynuuj instalację",
             "message": "Czy chcesz zachować pobrane pliki?",
             "title": "Zatrzymaj instalację"
         },
@@ -42,6 +47,12 @@
     },
     "disabled": "Wyłączona",
     "enabled": "Włączona",
+    "game": {
+        "firstPlayed": "Pierwsza Gra",
+        "lastPlayed": "Ostatnia Gra",
+        "neverPlayed": "Nigdy",
+        "totalPlayed": "Czas Gry"
+    },
     "gamecard": {
         "moving": "Przenoszenie",
         "repairing": "Naprawianie"
@@ -71,7 +82,7 @@
         "recommended": "Zalecana"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Kliknij by zaktualizować",
         "hasUpdates": "Nowa wersja dostępna!",
         "installed": "Zainstalowane",
         "installing": "W trakcie instalacji",

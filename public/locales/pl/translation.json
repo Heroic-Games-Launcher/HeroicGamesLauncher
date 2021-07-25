@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NIE",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nie jest zainstalowany, czy chcesz go zainstalować?"
@@ -45,10 +44,6 @@
             "title": "Wybierz plik EXE do uruchomienia"
         },
         "select": "Zaznacz",
-        "shortcuts": {
-            "message": "Skróty zostały utworzone na pulpicie i w menu Start",
-            "title": "Skróty"
-        },
         "sync": {
             "button": "Wybierz",
             "error": "Nieprawidłowa ścieżka",
@@ -147,10 +142,11 @@
         "autosync": "Autosynchronizacja zapisów",
         "checkForUpdatesOnStartup": "Sprawdź aktualizacje podczas uruchamiania",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
-        "darktray": "Użyj ciemnego motywu ikony (wymagany restart)",
+        "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",
         "discordRPC": "Włącz Discord Rich Presence",
         "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Wyjście do tacki systemowej",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",

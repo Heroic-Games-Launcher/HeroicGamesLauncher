@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NÃO",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "O jogo não está instalado, deseja instalar?"
@@ -45,10 +44,6 @@
             "title": "Selecione o EXE"
         },
         "select": "Selecionar",
-        "shortcuts": {
-            "message": "Atalhos foram criados na área de trabalho e menu inicial",
-            "title": "Atalhos"
-        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -147,10 +142,11 @@
         "autosync": "Ativar Sincronização Automática",
         "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
-        "darktray": "Usar ícone escuro (necessita reiniciar)",
+        "darktray": "Usar ícone escuro",
         "default-install-path": "Pasta de instalação padrão",
         "discordRPC": "Habilitar Discord Rich Presence",
         "egs-sync": "Sincronizar com Epic Games Store",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Sair para a área de noticação",
         "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
         "language": "Selecionar idioma",

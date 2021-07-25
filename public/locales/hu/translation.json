@@ -31,7 +31,6 @@
             "title": "Hiba"
         },
         "no": "NEM",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nincs telepítve, szeretnéd telepíteni?"
@@ -45,10 +44,6 @@
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
         "select": "Kiválaszt",
-        "shortcuts": {
-            "message": "A parancsikonok létre lettek hozva az Asztalon és a Start Menüben",
-            "title": "Parancsikonok"
-        },
         "sync": {
             "button": "Választ",
             "error": "Érvénytelen útvonal",
@@ -147,10 +142,11 @@
         "autosync": "Mentések Automatikus Szinkronizálása",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
-        "darktray": "Sötét Tálca Ikon Használata (újraindítás szükséges)",
+        "darktray": "Sötét Tálca Ikon Használata",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Kilépés a Rendszer Tálcára",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",

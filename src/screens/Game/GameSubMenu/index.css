@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-height: 522px;
+  max-height: 510px;
 }
 
 .submenu {
@@ -55,15 +55,6 @@
 }
 
 .otherInfo {
-  font-size: 14px;
-  color: var(--text-secondary);
-  text-align: left;
   padding: 20px 12px;
   margin-bottom: 36px;
-  cursor: pointer;
-}
-
-.otherInfo span {
-  font-weight: 700;
-  color: var(--text-primary);
 }

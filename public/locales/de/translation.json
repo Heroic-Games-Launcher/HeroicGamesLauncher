@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NEIN",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
@@ -45,10 +44,6 @@
             "title": "EXE zum Starten auswählen"
         },
         "select": "Auswählen",
-        "shortcuts": {
-            "message": "Verknüpfungen wurden auf dem Desktop und Startmenü erstellt",
-            "title": "Verknüpfungen"
-        },
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
@@ -147,10 +142,11 @@
         "autosync": "Spielstände automatisch synchronisieren",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
-        "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
+        "darktray": "Benutze Dunkles Taskleisten-Icon",
         "default-install-path": "Standard-Installationspfad",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",

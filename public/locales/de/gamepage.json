@@ -14,9 +14,14 @@
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
+        "ok": "Ok",
         "repair": {
             "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und Reparieren"
+        },
+        "shortcuts": {
+            "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
+            "title": "Verknüpfungen"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
@@ -42,6 +47,12 @@
     },
     "disabled": "Deaktiviert",
     "enabled": "Aktiviert",
+    "game": {
+        "firstPlayed": "Erstmals gespielt",
+        "lastPlayed": "Zuletzt gespielt",
+        "neverPlayed": "Nie",
+        "totalPlayed": "Spielzeit"
+    },
     "gamecard": {
         "moving": "Verschiebe",
         "repairing": "Repariere"

@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "വേണ്ട",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "ഇത് സ്ഥാപിച്ചിട്ടില്ല, സ്ഥാപിക്കണോ?"
@@ -45,10 +44,6 @@
             "title": "ഓടിക്കുവാനുള്ള EXE നല്‍കൂ"
         },
         "select": "എടുക്കൂ",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "തിരഞ്ഞെടുക്കൂ",
             "error": "ഇത് ശരിയല്ലല്ലോ",
@@ -147,10 +142,11 @@
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്‍",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്‍ത്ത വൈന്‍/പ്രോട്ടോണ്‍ അറകള്‍",
-        "darktray": "താലത്തില്‍(ട്രേയില്‍) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക (needs restart)",
+        "darktray": "താലത്തില്‍(ട്രേയില്‍) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",

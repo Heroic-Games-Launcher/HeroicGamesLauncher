@@ -23,9 +23,11 @@ import {
   installed,
   legendaryBin,
   legendaryConfigPath,
-  libraryPath
+  libraryPath,
+  spawnOptions
 } from '../constants';
 import { logError, logInfo } from '../logger';
+import { spawn } from 'child_process';
 import Store from 'electron-store'
 
 const libraryStore = new Store({
@@ -59,7 +61,6 @@ class LegendaryLibrary {
     else {
       this.loadAsStubs()
     }
-    this.loadGameConfigs()
   }
 
   /**
@@ -79,15 +80,20 @@ class LegendaryLibrary {
    * Refresh library.
    */
   public async refresh() {
-    await execAsync(`${legendaryBin} list-games --include-ue`)
-      .then(() => {
-        this.refreshInstalled()
-        this.loadAll()
-      })
-      .catch((err) => {
-        logError('No credentials. Missing Login?')
-        logError(err)
-      })
+    logInfo('Refreshing Epic Games...')
+    return new Promise((res, rej) => {
+      const child = spawn(legendaryBin, ['list-games', '--include-ue'], spawnOptions)
+      child.stderr.on('data', (data) => {
+        console.log(`${data}`)}
+      )
+      child.on('error', (err) => rej(`${err}`))
+      child.on('close', () => res('finished'))
+    }).then(() => {
+      this.refreshInstalled()
+      this.loadAll()
+    }).catch((err) => {
+      logError(err)
+    })
   }
 
   /**
@@ -108,16 +114,27 @@ class LegendaryLibrary {
    * Please note this loads all library data, thus making lazy loading kind of pointless.
    *
    * @param format Return format. 'info' -> GameInfo, 'class' (default) -> LegendaryGame
+   * @param fullRefresh Reload from Legendary.
    * @returns Array of objects.
    */
-  public async getGames(format: 'info' | 'class' = 'class'): Promise<(LegendaryGame | GameInfo)[]> {
+  public async getGames(format: 'info' | 'class' = 'class', fullRefresh?: boolean): Promise<(LegendaryGame | GameInfo)[]> {
     logInfo('Refreshing library...')
-    try {
-      await this.refresh()
-    } catch (error) {
-      logError(error)
+    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    if (!isLoggedIn){
+      return
     }
+
+    if (fullRefresh){
+      try {
+        logInfo('Legendary: Refreshing Epic Games...')
+        await this.refresh()
+      } catch (error) {
+        logError(error)
+      }
+    }
+
     try {
+      this.refreshInstalled()
       await this.loadAll()
     } catch (error) {
       logError(error)
@@ -135,6 +152,7 @@ class LegendaryLibrary {
       }
       logInfo('Updating game list')
       libraryStore.set('library', arr)
+      logInfo('Game List Updated')
       return arr
     }
     if (format === 'class') {
@@ -177,11 +195,13 @@ class LegendaryLibrary {
     try {
       const { stdout } = await execAsync(command)
       logInfo('Checking for game updates')
-      return stdout
+      const updates =  stdout
         .split('\n')
         .filter((item) => item.includes('True'))
         .map((item) => item.split('\t')[0])
         .filter((item) => item.length > 1)
+      logInfo(`Found ${updates.length} game(s) to update`)
+      return updates
     } catch (error) {
       logError(error)
     }

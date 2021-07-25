@@ -1,0 +1,23 @@
+{
+    "box": {
+        "move": {
+            "path": "Pilih dimana kamu ingin pindahkan",
+            "message": "Ini bisa memakan waktu yang lama, apa kamu yakin?",
+            "title": "Pindahkan instalasi permainan"
+        },
+        "choose": "Pilih",
+        "yes": "IYA",
+        "no": "TIDAK"
+    },
+    "gamecard": {
+        "repairing": "Memperbaiki"
+    },
+    "info": {
+        "version": "Versi"
+    },
+    "button": {
+        "import": "Impor",
+        "continue": "Lanjutkan Mengunduh",
+        "cancel": "Batalkan"
+    }
+}

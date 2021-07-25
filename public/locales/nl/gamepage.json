@@ -1,66 +1,77 @@
 {
     "box": {
         "change": {
-            "message": "Dit zal de installatielocatie van dit spel veranderen, weet je het zeker?",
-            "path": "Kies een nieuw installatiepad",
-            "title": "Verander het installatiepad van games"
+            "message": "Dit zal de installatielocatie van dit spel veranderen, weet u het zeker?",
+            "path": "Selecteer een nieuw installatiepad",
+            "title": "Verander het installatiepad van spellen"
         },
-        "choose": "Kies",
-        "importpath": "Kies een spel-map om te importeren",
-        "installpath": "Kies installatie map",
+        "choose": "Selecteer",
+        "importpath": "Selecteer een spel-map om te importeren",
+        "installpath": "Selecteer installatie map",
         "move": {
-            "message": "Dit kan lang duren, weet je het zeker?",
-            "path": "Kies waar je de spel installatie naar wilt verplaatsen",
-            "title": "Spel installatie verplatsen"
+            "message": "Dit kan lang duren, weet u het zeker?",
+            "path": "Selecteer de locatie waar u het naartoe wilt verplaatsen",
+            "title": "Spel installatie verplaatsen"
         },
         "no": "NEE",
+        "ok": "Ok",
         "repair": {
             "message": "Wil je dit spel proberen te repareren? Dit kan lang duren.",
             "title": "Verifiëren en repareren"
         },
+        "shortcuts": {
+            "message": "Snelkoppeling zijn aangemaakt op Desktop en Start Menu",
+            "title": "Snelkoppelingen"
+        },
         "stopInstall": {
             "keepInstalling": "Doorgaan met installeren",
-            "message": "Wilt je de gedownloade bestanden bewaren?",
+            "message": "Wilt u de gedownloade bestanden bewaren?",
             "title": "Installatie stoppen"
         },
         "uninstall": {
-            "message": "Wilt je dit spel deinstalleren?",
-            "title": "Deinstalleren"
+            "message": "Wilt u dit spel verwijderen?",
+            "title": "Verwijderen"
         },
         "update": {
-            "message": "Dit spel heeft een updated, wil je hem nu updaten?",
-            "title": "Het spel heeft een update"
+            "message": "Dit spel heeft een update, wilt u het nu updaten?",
+            "title": "Het spel heeft een update nodig"
         },
-        "yes": "YES"
+        "yes": "JA"
     },
     "button": {
-        "cancel": "Annulleren",
-        "continue": "Continue Download",
+        "cancel": "Annuleren",
+        "continue": "Doorgaan met Download",
         "import": "Importeren",
         "install": "Installeren",
-        "uninstall": "Deinstalleren"
+        "uninstall": "Verwijderen"
     },
     "disabled": "Uitgeschakeld",
     "enabled": "Ingeschakeld",
+    "game": {
+        "firstPlayed": "Eerst gespeeld",
+        "lastPlayed": "Laatst gespeeld",
+        "neverPlayed": "Nooit",
+        "totalPlayed": "Tijd gespeeld"
+    },
     "gamecard": {
-        "moving": "Verplaatsen",
-        "repairing": "Repareren"
+        "moving": "Aan het verplaatsen",
+        "repairing": "Aan het repareren"
     },
     "info": {
-        "path": "Installatie map",
+        "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
         "version": "Versie"
     },
     "install": {
-        "another": "Installeer op een specifiek map",
+        "another": "Installeer op een specifieke pad",
         "default": "Installeer op",
         "import": "Importeer spel"
     },
     "label": {
         "playing": {
             "start": "Nu spelen",
-            "stop": "Spelen (Stop)"
+            "stop": "Aan het spelen (Stoppen)"
         },
         "saves": {
             "syncing": "Saves synchroniseren"
@@ -71,23 +82,23 @@
         "recommended": "Aanbevolen"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Klik om te Updaten",
         "hasUpdates": "Nieuwe versie beschikbaar!",
-        "installed": "Geïnstaleerd",
+        "installed": "Geïnstalleerd",
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
-        "notSupported": "This game can only be imported",
-        "reparing": "Spel repareren, geduld alstublieft",
-        "totalDownloaded": "Total Downloaded",
-        "updating": "Spel updaten"
+        "notSupported": "Dit spel kan alleen worden geïmporteerd",
+        "reparing": "Spel aan het repareren, even geduld",
+        "totalDownloaded": "Totaal gedownload",
+        "updating": "Spel aan het updaten"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Snelkoppeling toevoegen",
         "change": "Wijzig installatiepad",
         "log": "Laatste log",
         "move": "Spel verplaatsen",
-        "protondb": "Compatibiliteit checken",
+        "protondb": "Compatibiliteit controleren",
         "settings": "Instellingen",
         "store": "Winkel",
         "verify": "Verifiëren en repareren"

@@ -51,31 +51,32 @@
   padding: 0.3vw;
   color: #e4deea;
   display: flex;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    rgba(20, 21, 21, 0.863) 30%
-  );
+  background: var(--background-gradient);
   transition: 200ms;
   font-family: Cabin;
   font-size: 14px;
+  font-weight: 700;
   line-height: 17px;
   color: var(--text-primary);
 }
 
 .gameTitle > span {
+  bottom: 0;
   display: none;
+  z-index: 3;
 }
 
 .icons {
   align-self: flex-end;
-  position: absolute;
-  right: 6px;
-  bottom: 6px;
-  width: 44%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   z-index: 5;
+  padding: 6px;
+}
+
+.gameList > .gameCard > .icons {
+  background: var(--background-gradient);
 }
 
 .icons > a > svg,
@@ -89,6 +90,7 @@
 .gameCard:hover > .gameTitle {
   bottom: 0;
   z-index: 3;
+  cursor: pointer;
 }
 
 .gameCard:hover > .gameTitle  > span{
@@ -171,11 +173,7 @@
   z-index: 5;
   grid-area: cover;
   font-weight: 500;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    rgba(20, 21, 21, 0.863) 30%
-  );
+  background: var(--background-gradient);
   padding: 2px 5px;
   border-radius: 4px;
   color: var(--success);
@@ -190,9 +188,10 @@
 }
 
 .gameImg > .gameLogo {
-  width: min(7vw, 70%);
+  width: min(7vw, 60%);
   position: relative;
-  top: 50%;
+  top: 35%;
+  min-width: 79px;
   z-index: 2;
-  left: 16%;
+  left: 21%;
 }

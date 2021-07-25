@@ -202,6 +202,7 @@ const test_appsettings = new TestType<AppSettings>({
   discordRPC: true,
   egsLinkedPath: 'egs/linked/path',
   exitToTray: false,
+  enableFSR: false,
   language: 'en',
   launcherArgs: 'launcherArgs',
   maxRecentGames: 5,

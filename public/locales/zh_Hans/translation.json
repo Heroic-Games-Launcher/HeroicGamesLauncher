@@ -31,7 +31,6 @@
             "title": "错误"
         },
         "no": "否",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "未安装，您是否希望安装它？"
@@ -45,10 +44,6 @@
             "title": "选择要运行的EXE文件"
         },
         "select": "选择",
-        "shortcuts": {
-            "message": "在桌面和开始菜单上创建了快捷方式",
-            "title": "快捷方式"
-        },
         "sync": {
             "button": "选择",
             "error": "无效路径",
@@ -147,10 +142,11 @@
         "autosync": "自动同步存档",
         "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",
-        "darktray": "使用暗色托盘图标（需要重启）",
+        "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的Epic Games同步",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "退出到系统托盘",
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",

@@ -25,7 +25,8 @@ import {
   heroicIconFolder,
   home,
   isWindows,
-  legendaryBin
+  legendaryBin,
+  spawnOptions
 } from '../constants'
 import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
@@ -200,7 +201,7 @@ class LegendaryGame extends Game {
     let isVerifying = false
 
     return new Promise((res) => {
-      const child = spawn(legendaryBin, command)
+      const child = spawn(legendaryBin, command, spawnOptions)
       const progress: InstallProgress = {
         bytes: '0.00MiB',
         eta: '00:00:00',
@@ -437,13 +438,14 @@ Categories=Game;
       showMangohud,
       audioFix,
       autoInstallDxvk,
-      offlineMode
+      offlineMode,
+      enableFSR
     } = await this.getSettings()
 
-    const DiscordRPC = makeClient('852942976564723722')
+    const { discordRPC } = (await GlobalConfig.get().getSettings())
+    const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = offlineMode ? '--offline' : ''
 
-    const { discordRPC } = (await GlobalConfig.get().getSettings())
     if (discordRPC) {
       // Show DiscordRPC
       // This seems to run when a game is updated, even though the game doesn't start after updating.
@@ -465,6 +467,7 @@ Categories=Game;
         break
       }
 
+      logInfo('Updating Discord Rich Presence information...')
       DiscordRPC.updatePresence({
         details: gameInfo.title,
         instance: true,
@@ -481,7 +484,7 @@ Categories=Game;
       const v = await execAsync(command, execOptions)
 
       logInfo('Stopping Discord Rich Presence if running...')
-      DiscordRPC.disconnect()
+      discordRPC && DiscordRPC.disconnect()
       logInfo('Stopped Discord Rich Presence.')
 
       return v
@@ -502,6 +505,7 @@ Categories=Game;
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
       other: otherOptions ? otherOptions : '',
+      fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1': '',
       prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
         ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
@@ -555,7 +559,7 @@ Categories=Game;
     })
 
     logInfo('Stopping Discord Rich Presence if running...')
-    DiscordRPC.disconnect()
+    discordRPC && DiscordRPC.disconnect()
     logInfo('Stopped Discord Rich Presence.')
 
     return v

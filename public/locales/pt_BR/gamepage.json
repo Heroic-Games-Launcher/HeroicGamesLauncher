@@ -28,7 +28,8 @@
         },
         "move": {
             "path": "Selecione a pasta de para onde deseja mover",
-            "message": "Isto pode levar um longo tempo, tem certeza disso?"
+            "message": "Isto pode levar um longo tempo, tem certeza disso?",
+            "title": "Mover a pasta de instalação de jogos"
         },
         "installpath": "Selecione a pasta de instalação",
         "importpath": "Selecione a pasta do jogo a ser importado",
@@ -39,6 +40,67 @@
         },
         "yes": "SIM",
         "no": "NÃO",
-        "choose": "Selecionar"
+        "choose": "Selecionar",
+        "shortcuts": {
+            "title": "Atalhos",
+            "message": "Atalhos foram criados na área de trabalho e menu"
+        },
+        "ok": "Ok"
+    },
+    "status": {
+        "notinstalled": "Este Jogo Não está Instalado",
+        "totalDownloaded": "Total Baixado",
+        "reparing": "Reparando Jogo, Por favor Aguarde",
+        "notSupported": "Este Jogo Pode apenas ser importado",
+        "moving": "Movendo Instalação,Por favor Aguarde",
+        "updating": "Atualizando Jogo",
+        "installed": "Instalado",
+        "hasUpdates": "Nova Versão Disponível!",
+        "clickToUpdate": "CLIQUE PARA ATUALIZAR",
+        "installing": "Instalando"
+    },
+    "label": {
+        "saves": {
+            "syncing": "Sincronizando Saves"
+        },
+        "playing": {
+            "start": "Jogar",
+            "stop": "Jogando (Parar)"
+        }
+    },
+    "install": {
+        "another": "Instalar em Outra Pasta",
+        "import": "Importar Jogo",
+        "default": "Instalar em"
+    },
+    "specs": {
+        "minimum": "MÍNIMO",
+        "recommended": "RECOMENDADO"
+    },
+    "info": {
+        "syncsaves": "Sincronizar Saves",
+        "path": "Pasta de Instalação",
+        "version": "Versão",
+        "size": "Tamanho"
+    },
+    "submenu": {
+        "protondb": "Verificar Compatibilidade",
+        "change": "Modificar Local de Instalação",
+        "verify": "Verificar e Reparar",
+        "store": "Loja",
+        "settings": "Configurações",
+        "move": "Mover o Jogo",
+        "log": "Último Log",
+        "addShortcut": "Adicionar Atalho"
+    },
+    "gamecard": {
+        "repairing": "Reparando",
+        "moving": "Movendo"
+    },
+    "game": {
+        "totalPlayed": "Tempo de jogo",
+        "neverPlayed": "Nunca",
+        "lastPlayed": "Jogado pela última vez em",
+        "firstPlayed": "Jogado inicialmente em"
     }
 }

@@ -22,7 +22,7 @@ const heroicToolsPath = `${heroicFolder}tools`
 const heroicIconFolder = `${heroicFolder}icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows ? `${home}\\Games\\Heroic` : `${home}/Games/Heroic`
-const legendaryBin = fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
+const legendaryBin = `${fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))}`
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
 const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
@@ -78,6 +78,10 @@ const execOptions = {
   shell: getShell()
 }
 
+const spawnOptions = {
+  shell: getShell(), windowsVerbatimArguments: true
+}
+
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
@@ -103,6 +107,7 @@ export {
   libraryPath,
   loginUrl,
   sidInfoUrl,
+  spawnOptions,
   supportURL,
   userInfo,
   weblateUrl

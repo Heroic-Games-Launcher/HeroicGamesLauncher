@@ -12,7 +12,7 @@
         "default-install-path": "Choose Default Install Path",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
+                "message": "Your credentials have expired, please log out and log in again.",
                 "title": "Expired Credentials"
             },
             "diskspace": {
@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NO",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -45,10 +44,6 @@
             "title": "Select EXE to Run"
         },
         "select": "Select",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Choose",
             "error": "Invalid Path",
@@ -147,10 +142,11 @@
         "autosync": "Autosync Saves",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
-        "darktray": "Use Dark Tray Icon (needs restart)",
+        "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sync with Installed Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Exit to System Tray",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",

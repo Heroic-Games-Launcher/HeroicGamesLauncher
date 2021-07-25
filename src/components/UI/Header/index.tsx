@@ -65,6 +65,7 @@ export default function Header({
           <ArrowBack className="material-icons" />
           {t('Return')}
         </Link>
+        {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
       </div>
     )
   }
@@ -91,7 +92,7 @@ export default function Header({
         {category === 'games' && (
           <span className="selectFilter" >
             <span>{t('Filter')}:</span>
-            <select onChange={(e) => handleFilter(e.target.value)} defaultValue={filter} value={filter} data-testid="games-filter">
+            <select onChange={(e) => handleFilter(e.target.value)} value={filter} data-testid="games-filter">
               <option
                 data-testid="all"
                 className={filter === 'all' ? 'selected' : ''}
@@ -137,6 +138,7 @@ export default function Header({
             </select>
           </span>
         )}
+        {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
         {category === 'unreal' && (
           <span className="selectFilter">
             <span>{t('Filter')}:</span>
@@ -187,7 +189,6 @@ export default function Header({
         {numberOfGames !== undefined && numberOfGames === 0 && (
           <div className="totalGamesText" data-testid="totalGamesText">{t('nogames')}</div>
         )}
-        {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
         <div className="layoutSelection">
           <Apps
             data-testid="grid"
