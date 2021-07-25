@@ -6,7 +6,7 @@
             "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u het nu updaten?",
             "title": "Update beschikbaar"
         },
-        "choose": "Kies",
+        "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
         "customWine": "Selecteer de Wine of Proton Binary",
         "default-install-path": "Selecteer een standaard map",
