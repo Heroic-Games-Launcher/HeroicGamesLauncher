@@ -11,7 +11,7 @@
     "url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
   },
   "author": {
-    "name": "Flavio F",
+    "name": "Heroic",
     "email": "flavioislima@gmail.com"
   },
   "build": {
@@ -25,6 +25,7 @@
     ],
     "asarUnpack": [
       "build/icon.png",
+      "build/icon.icns",
       "build/win_icon.ico",
       "build/icon-dark.png",
       "build/icon-light.png"
@@ -40,7 +41,6 @@
         ]
       }
     ],
-    "icon": "build/icon.icns",
     "win": {
       "icon": "build/win_icon.ico",
       "asarUnpack": [
@@ -51,6 +51,7 @@
       ]
     },
     "mac": {
+      "icon": "build/icon.icns",
       "asarUnpack": [
         "build/bin/darwin/legendary"
       ],
@@ -124,7 +125,7 @@
     "release": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux deb AppImage rpm pacman tar.xz",
     "dist": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "dist-mac": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",
-    "dist-win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win",
+    "dist-win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win portable",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
     "build-electron": "tsc --project electron/tsconfig.json",
