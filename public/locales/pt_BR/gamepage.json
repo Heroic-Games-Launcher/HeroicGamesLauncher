@@ -40,7 +40,12 @@
         },
         "yes": "SIM",
         "no": "NÃO",
-        "choose": "Selecionar"
+        "choose": "Selecionar",
+        "shortcuts": {
+            "title": "Atalhos",
+            "message": "Atalhos foram criados na área de trabalho e menu"
+        },
+        "ok": "Ok"
     },
     "status": {
         "notinstalled": "Este Jogo Não está Instalado",
@@ -91,5 +96,11 @@
     "gamecard": {
         "repairing": "Reparando",
         "moving": "Movendo"
+    },
+    "game": {
+        "totalPlayed": "Tempo de jogo",
+        "neverPlayed": "Nunca",
+        "lastPlayed": "Jogado pela última vez em",
+        "firstPlayed": "Jogado inicialmente em"
     }
 }

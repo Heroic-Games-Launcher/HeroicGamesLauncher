@@ -20,8 +20,8 @@
             "title": "验证并修复游戏文件"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "已在桌面和开始菜单上创建了快捷方式",
+            "title": "快捷方式"
         },
         "stopInstall": {
             "keepInstalling": "继续安装",
@@ -48,10 +48,10 @@
     "disabled": "已禁用",
     "enabled": "已启用",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "firstPlayed": "首次游玩",
+        "lastPlayed": "上次游玩",
+        "neverPlayed": "从未游玩",
+        "totalPlayed": "游玩时间"
     },
     "gamecard": {
         "moving": "移动中",
