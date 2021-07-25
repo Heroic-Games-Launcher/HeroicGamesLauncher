@@ -146,6 +146,7 @@
         "default-install-path": "തനത് സ്ഥാപനയിടം",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",

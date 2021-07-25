@@ -44,10 +44,6 @@
             "title": "Επιλέξτε EXE για εκτέλεση"
         },
         "select": "Επιλογή",
-        "shortcuts": {
-            "message": "Δημιουργήθηκαν συντομεύσεις στην Επιφάνεια Εργασίας και το Μενού Εκκίνησης",
-            "title": "Συντομεύσεις"
-        },
         "sync": {
             "button": "Επιλέξτε",
             "error": "Μη έγκυρη Διαδρομή",
@@ -150,6 +146,7 @@
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",

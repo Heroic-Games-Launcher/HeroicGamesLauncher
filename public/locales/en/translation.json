@@ -146,6 +146,7 @@
         "default-install-path": "Default Installation Path",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sync with Installed Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Exit to System Tray",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",

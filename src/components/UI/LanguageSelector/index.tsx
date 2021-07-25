@@ -33,8 +33,10 @@ export default function LanguageSelector({
     nl: 'Nederlands',
     pl: 'Polski',
     pt: 'Português',
+    pt_BR: 'Português (Brasil)',
     ru: 'Русский',
     sv: 'Svenska',
+    ta: 'தமிழ்',
     tr: 'Türkçe',
     zh_Hans: '简化字'
   }
@@ -54,8 +56,10 @@ export default function LanguageSelector({
     nl: '🇳🇱',
     pl: '🇵🇱',
     pt: '🇵🇹',
+    pt_BR: '🇧🇷',
     ru: '🇷🇺',
     sv: '🇸🇪',
+    ta: '🇮🇳',
     tr: '🇹🇷',
     zh_Hans: '🇨🇳'
   }

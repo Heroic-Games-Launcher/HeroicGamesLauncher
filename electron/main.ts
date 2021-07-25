@@ -262,8 +262,10 @@ if (!gotTheLock) {
         'nl',
         'pl',
         'pt',
+        'pt_BR',
         'ru',
         'sv',
+        'ta',
         'tr',
         'zh_Hans'
       ]

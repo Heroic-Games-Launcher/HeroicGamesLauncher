@@ -146,6 +146,7 @@
         "default-install-path": "Výchozí cesta pro instalaci",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Ukončit do systémové oblasti",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",

@@ -138,6 +138,7 @@ export default function Header({
             </select>
           </span>
         )}
+        {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
         {category === 'unreal' && (
           <span className="selectFilter">
             <span>{t('Filter')}:</span>

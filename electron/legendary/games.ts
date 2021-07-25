@@ -432,7 +432,8 @@ Categories=Game;
       showMangohud,
       audioFix,
       autoInstallDxvk,
-      offlineMode
+      offlineMode,
+      enableFSR
     } = await this.getSettings()
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
@@ -498,6 +499,7 @@ Categories=Game;
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
       other: otherOptions ? otherOptions : '',
+      fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1': '',
       prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
         ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix

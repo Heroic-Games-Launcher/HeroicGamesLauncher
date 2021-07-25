@@ -146,6 +146,7 @@
         "default-install-path": "Standaard installatie map",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Stoppen naar systeem tray",
         "gamemode": "Gebruik spel-modus (Feral Game Mode moet zijn geïnstalleerd)",
         "language": "Kies een App taal",

@@ -16,11 +16,13 @@ interface Props {
     autoInstallDxvk: boolean
     customWinePaths: string[]
     isDefault: boolean
+    enableFSR: boolean
     setAltWine: (altWine: WineInstallation[]) => void
     setCustomWinePaths: (value: string[]) => void
     setWinePrefix: (value: string) => void
     setWineVersion: (wine: WineInstallation) => void
     toggleAutoInstallDxvk: () => void
+    toggleFSR: () => void
     winePrefix: string
     wineVersion: WineInstallation
   }
@@ -31,12 +33,14 @@ function renderWineSettings(props: Partial<Props> = {})
     altWine: test_wineinstallations.get(),
     autoInstallDxvk: false,
     customWinePaths: ['custom/wine/path'],
+    enableFSR: false,
     isDefault: false,
     setAltWine: () => {return;},
     setCustomWinePaths: () => {return;},
     setWinePrefix: () => {return;},
     setWineVersion: () => {return;},
     toggleAutoInstallDxvk: () => {return;},
+    toggleFSR: () => {return;},
     winePrefix: 'winePrefix',
     wineVersion: {
       bin: 'path/to/wine/bin',

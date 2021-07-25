@@ -24,8 +24,10 @@ interface Props {
   setWinePrefix: (value: string) => void
   setWineVersion: (wine: WineInstallation) => void
   toggleAutoInstallDxvk: () => void
+  toggleFSR: () => void
   winePrefix: string
   wineVersion: WineInstallation
+  enableFSR: boolean
 }
 
 export default function WineSettings({
@@ -36,6 +38,8 @@ export default function WineSettings({
   wineVersion,
   altWine,
   toggleAutoInstallDxvk,
+  enableFSR,
+  toggleFSR,
   autoInstallDxvk,
   customWinePaths,
   setCustomWinePaths,
@@ -178,6 +182,15 @@ export default function WineSettings({
           />
         </span>
       </span>}
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.enableFSRHack', 'Enable FSR Hack (Wine version needs to support it)')}
+          <ToggleSwitch
+            value={enableFSR || false}
+            handleChange={toggleFSR}
+          />
+        </span>
+      </span>
       <InfoBox text="infobox.help">
         <span>{t('help.wine.part1')}</span>
         <ul>

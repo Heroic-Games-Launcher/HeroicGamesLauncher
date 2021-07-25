@@ -139,6 +139,11 @@ function Settings() {
     toggle: toggleAutoInstallDxvk,
     setOn: setAutoInstallDxvk
   } = useToggle(false)
+  const {
+    on: enableFSR,
+    toggle: toggleFSR,
+    setOn: setEnableFSR
+  } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -160,7 +165,7 @@ function Settings() {
         'requestSettings',
         appName
       )
-      setAutoSyncSaves(config.autoSyncSaves)
+      setAutoSyncSaves(config.autoSyncSaves || false)
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
       setShowOffline(config.offlineMode || false)
@@ -179,6 +184,7 @@ function Settings() {
       setDarkTrayIcon(config.darkTrayIcon || false)
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
+      setEnableFSR(config.enableFSR || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 0)
       setMaxRecentGames(config.maxRecentGames ?? 5)
@@ -236,6 +242,7 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoSyncSaves,
+    enableFSR,
     launcherArgs,
     nvidiaPrime,
     offlineMode,
@@ -334,6 +341,8 @@ function Settings() {
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
+              enableFSR={enableFSR}
+              toggleFSR={toggleFSR}
             />
           )}
           {isWineSettings && (
