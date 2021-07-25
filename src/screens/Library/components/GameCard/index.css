@@ -51,7 +51,7 @@
   padding: 0.3vw;
   color: #e4deea;
   display: flex;
-  background-color: var(--background-transparent-62);
+  background: var(--background-gradient);
   transition: 200ms;
   font-family: Cabin;
   font-size: 14px;
@@ -76,7 +76,7 @@
 }
 
 .gameList > .gameCard > .icons {
-  background-color: var(--background-transparent);
+  background: var(--background-gradient);
 }
 
 .icons > a > svg,
@@ -173,11 +173,7 @@
   z-index: 5;
   grid-area: cover;
   font-weight: 500;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    rgba(20, 21, 21, 0.863) 30%
-  );
+  background: var(--background-gradient);
   padding: 2px 5px;
   border-radius: 4px;
   color: var(--success);

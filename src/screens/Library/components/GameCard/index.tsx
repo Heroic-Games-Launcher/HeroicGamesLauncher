@@ -195,8 +195,8 @@ const GameCard = ({
               <span
                 className="icons"
               >
-                {renderIcon()}
                 {isInstalled && isGame && <SettingsIcon fill={'var(--secondary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
+                {renderIcon()}
               </span>
             }
           </>

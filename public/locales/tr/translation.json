@@ -31,7 +31,6 @@
             "title": "Hata"
         },
         "no": "HAYIR",
-        "ok": "Tamam",
         "protocol": {
             "install": {
                 "not_installed": "Yüklenmemiş, yüklemek ister misin?"
@@ -45,10 +44,6 @@
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
         "select": "Seç",
-        "shortcuts": {
-            "message": "Kısayollar masaüstü ve başlangıç menüsünde oluşturuldu",
-            "title": "Kısayollar"
-        },
         "sync": {
             "button": "Seç",
             "error": "Geçersiz Yol",
@@ -151,6 +146,7 @@
         "default-install-path": "Varsayılan Kurulum Yeri",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Sistem Tepsisine Küçült",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",

@@ -200,7 +200,7 @@ class LegendaryLibrary {
         .filter((item) => item.includes('True'))
         .map((item) => item.split('\t')[0])
         .filter((item) => item.length > 1)
-      logInfo(`Found ${updates.length} games to update`)
+      logInfo(`Found ${updates.length} game(s) to update`)
       return updates
     } catch (error) {
       logError(error)

@@ -15,6 +15,7 @@ export interface AppSettings {
   discordRPC: boolean,
   egsLinkedPath: string
   exitToTray: boolean
+  enableFSR: boolean,
   language: string
   launcherArgs: string
   maxRecentGames: number

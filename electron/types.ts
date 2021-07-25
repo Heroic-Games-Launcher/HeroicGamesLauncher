@@ -16,6 +16,7 @@ export interface AppSettings {
   discordRPC: boolean,
   egsLinkedPath: string,
   exitToTray: boolean,
+  enableFSR: boolean,
   language: string,
   launcherArgs: string,
   maxRecentGames: number,
@@ -65,6 +66,7 @@ export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
+  enableFSR: boolean
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean

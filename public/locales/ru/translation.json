@@ -146,6 +146,7 @@
         "default-install-path": "Стандартный путь установки",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Сворачивать в системный трей",
         "gamemode": "Использовать GameMode (Нужен Feral Game Mode)",
         "language": "Выберите язык приложения",

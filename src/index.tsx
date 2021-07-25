@@ -33,7 +33,7 @@ i18next
     react: {
       useSuspense: true
     },
-    supportedLngs: ['ca', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hu', 'it', 'ml', 'nl', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh_Hans']
+    supportedLngs: ['ca', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hu', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans']
   })
 
 ReactDOM.render(

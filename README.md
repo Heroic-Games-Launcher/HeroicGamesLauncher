@@ -9,19 +9,23 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ## Index
 
-- [How to use it](#how-to-use-it)
-- [Features available right now](#features-available-right-now)
-- [Planned features](#planned-features)
-- [Language Support](#language-support)
-- [Installation](#installation)
-  - [Debian](#debian)
-  - [Arch (AUR)](#arch-aur)
-  - [Fedora](#fedora)
-  - [Other Distributions](#other-distributions)
-  - [Windows](#windows)
-  - [macOS](#macos)
-  - [Build binaries locally](#build-binaries-locally-all-platforms)
-- [Current Version Screenshots](#screenshots)
+- [Heroic Games Launcher](#heroic-games-launcher)
+  - [Index](#index)
+  - [How to use it](#how-to-use-it)
+  - [Features available right now](#features-available-right-now)
+  - [Planned features](#planned-features)
+  - [Language Support](#language-support)
+    - [Help with Translations Here](#help-with-translations-here)
+  - [Installation](#installation)
+    - [Linux](#linux)
+      - [Debian](#debian)
+      - [Arch (AUR)](#arch-aur)
+      - [Fedora](#fedora)
+      - [Other Distributions](#other-distributions)
+    - [Windows](#windows)
+    - [macOS](#macos)
+    - [Build binaries locally (All platforms)](#build-binaries-locally-all-platforms)
+  - [Screenshots](#screenshots)
 
 ## How to use it
 
@@ -53,8 +57,8 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ## Language Support
 
-- Catalan
 - English
+- Catalan
 - Czech
 - Simplified Chinese
 - Dutch
@@ -66,9 +70,11 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Malayalam
 - Polish
 - Portuguese
+- Portuguese (Brazil)
 - Russian
 - Spanish
 - Swedish
+- Tamil
 - Turkish
 ### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
