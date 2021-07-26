@@ -83,9 +83,8 @@ const tsStore = new Store({
 })
 
 // Trigger the autoUpdater every 10 minutes
-// TODO(dragonDScript): Use a setting instead of fixed minutes
 // TODO(dragonDScript): Make it possible to disable updates
-setInterval(() => checkUpdates(), 600000)
+setInterval(() => checkUpdates(), GlobalConfig.get().config.checkUpdatesInterval * 60000) // Converts minutes to milliseconds
 
 async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
