@@ -37,7 +37,12 @@ interface Props {
   toggleDarkTrayIcon: () => void,
   toggleDiscordRPC: () => void,
   toggleStartInTray: () => void,
-  toggleTray: () => void
+  toggleTray: () => void,
+  checkUpdatesInterval: number,
+  setCheckUpdatesInterval: (value: number) => void,
+  updatesEnabled: boolean,
+  toggleUpdatesEnabled: () => void,
+  setUpdatesEnabled: (value: boolean) => void
   }
 
 async function renderGeneralSettings(props: Partial<Props> = {})
@@ -68,7 +73,12 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     toggleDarkTrayIcon: () => {return;},
     toggleDiscordRPC: () => {return;},
     toggleStartInTray: () => {return;},
-    toggleTray: () => {return;}
+    toggleTray: () => {return;},
+    checkUpdatesInterval: 10,
+    setCheckUpdatesInterval: () => {return;},
+    updatesEnabled: true,
+    toggleUpdatesEnabled: () => {return;},
+    setUpdatesEnabled: () => {return;}
   };
   return await waitFor(() => render(
     <ContextProvider.Provider value={test_context.get()}>
