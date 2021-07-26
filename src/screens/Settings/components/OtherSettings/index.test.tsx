@@ -8,24 +8,32 @@ import {
 import OtherSettings from './index';
 
 interface Props {
-    audioFix: boolean
-    isDefault: boolean
-    launcherArgs: string
-    offlineMode: boolean
-    otherOptions: string
-    primeRun: boolean
-    setLauncherArgs: (value: string) => void
-    setOtherOptions: (value: string) => void
-    showFps: boolean
-    showMangohud: boolean
-    toggleAudioFix: () => void
-    toggleFps: () => void
-    toggleMangoHud: () => void
-    toggleOffline: () => void
-    togglePrimeRun: () => void
-    toggleUseGameMode: () => void
-    useGameMode: boolean
-  }
+  audioFix: boolean
+  isDefault: boolean
+  launcherArgs: string
+  offlineMode: boolean
+  otherOptions: string
+  primeRun: boolean
+  addDesktopShortcuts: boolean
+  addGamesToStartMenu: boolean
+  discordRPC: boolean
+  setLauncherArgs: (value: string) => void
+  setOtherOptions: (value: string) => void
+  setMaxRecentGames: (value: number) => void
+  showFps: boolean
+  showMangohud: boolean
+  maxRecentGames: number
+  toggleAudioFix: () => void
+  toggleFps: () => void
+  toggleMangoHud: () => void
+  toggleOffline: () => void
+  togglePrimeRun: () => void
+  toggleUseGameMode: () => void
+  toggleAddDesktopShortcuts: () => void
+  toggleAddGamesToStartMenu: () => void
+  toggleDiscordRPC: () => void
+  useGameMode: boolean
+}
 
 function renderOtherSettings(props: Partial<Props> = {})
 {
@@ -36,16 +44,24 @@ function renderOtherSettings(props: Partial<Props> = {})
     offlineMode: false,
     otherOptions: 'otherOptions',
     primeRun: false,
+    maxRecentGames: 5,
+    addDesktopShortcuts: false,
+    addGamesToStartMenu: false,
+    discordRPC: false,
     setLauncherArgs: (value: string) => value,
     setOtherOptions: (value: string) => value,
     showFps: false,
     showMangohud: false,
+    setMaxRecentGames: (value: number) => value,
     toggleAudioFix: () => {return;},
     toggleFps: () => {return;},
     toggleMangoHud: () => {return;},
     toggleOffline: () => {return;},
     togglePrimeRun: () => {return;},
     toggleUseGameMode: () => {return;},
+    toggleAddDesktopShortcuts: () => {return;},
+    toggleDiscordRPC: () => {return;},
+    toggleAddGamesToStartMenu: () => {return;},
     useGameMode: false
   };
   return render(<OtherSettings {...{...defaultprops, ...props}} />);
@@ -62,6 +78,15 @@ describe('OtherSettings', () => {
     const otherOptions = getByTestId('otheroptions');
     fireEvent.change(otherOptions, {target: { value: 'new option'}});
     expect(onSetOtherOptions).toBeCalledWith('new option');
+  })
+
+  test('change max recent games', () => {
+    const onSetMaxRecentGames = jest.fn();
+    const { getByTestId } = renderOtherSettings({ setMaxRecentGames: onSetMaxRecentGames});
+    const maxRecentGames = getByTestId('setMaxRecentGames');
+
+    fireEvent.change(maxRecentGames, { target: { value: '10' }});
+    expect(onSetMaxRecentGames).toBeCalledWith(10);
   })
 
   test('change launch args on change', () => {

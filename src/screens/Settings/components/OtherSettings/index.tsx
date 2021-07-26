@@ -15,16 +15,24 @@ interface Props {
   offlineMode: boolean
   otherOptions: string
   primeRun: boolean
+  addDesktopShortcuts: boolean
+  addGamesToStartMenu: boolean
+  discordRPC: boolean
   setLauncherArgs: (value: string) => void
   setOtherOptions: (value: string) => void
+  setMaxRecentGames: (value: number) => void
   showFps: boolean
   showMangohud: boolean
+  maxRecentGames: number
   toggleAudioFix: () => void
   toggleFps: () => void
   toggleMangoHud: () => void
   toggleOffline: () => void
   togglePrimeRun: () => void
   toggleUseGameMode: () => void
+  toggleAddDesktopShortcuts: () => void
+  toggleAddGamesToStartMenu: () => void
+  toggleDiscordRPC: () => void
   useGameMode: boolean
 }
 
@@ -45,7 +53,15 @@ export default function OtherSettings({
   toggleMangoHud,
   isDefault,
   primeRun,
-  togglePrimeRun
+  togglePrimeRun,
+  setMaxRecentGames,
+  addDesktopShortcuts,
+  addGamesToStartMenu,
+  toggleAddDesktopShortcuts,
+  toggleAddGamesToStartMenu,
+  discordRPC,
+  toggleDiscordRPC,
+  maxRecentGames
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -95,6 +111,52 @@ export default function OtherSettings({
         <span className="toggleWrapper">
           {t('setting.offlinemode')}
           <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
+        </span>
+      </span>
+      {isLinux && <>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')}
+            <ToggleSwitch
+              value={addDesktopShortcuts}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddDesktopShortcuts}
+            />
+          </span>
+        </span>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')}
+            <ToggleSwitch
+              value={addGamesToStartMenu}
+              disabled={!navigator.platform.startsWith('Linux')}
+              handleChange={toggleAddGamesToStartMenu}
+            />
+          </span>
+        </span>
+      </>}
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.discordRPC', 'Enable Discord Rich Presence')}
+          <ToggleSwitch
+            value={discordRPC}
+            handleChange={toggleDiscordRPC}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.maxRecentGames', 'Recent Games to Show')}
+          <select
+            data-testid="setMaxRecentGames"
+            onChange={(event) => setMaxRecentGames(Number(event.target.value))}
+            value={maxRecentGames}
+            className="settingSelect smaller"
+          >
+            {Array.from(Array(10).keys()).map((n) => (
+              <option key={n + 1}>{n + 1}</option>
+            ))}
+          </select>
         </span>
       </span>
       {!isWin && <span className="setting">
