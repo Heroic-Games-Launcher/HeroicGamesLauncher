@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog } from 'electron'
+import { app, dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
 
 autoUpdater.on('error', (err) => {
@@ -16,26 +16,8 @@ autoUpdater.on('update-available', async (result) => {
   autoUpdater.downloadUpdate(result.cancellationToken)
 })
 
-const progressBar = new BrowserWindow({
-  width: 240,
-  height: 120,
-  center: true,
-  resizable: false,
-  closable: true,
-  minimizable: false,
-  maximizable: false,
-  webPreferences: {
-    contextIsolation: false,
-    nodeIntegration: true
-  },
-  show: false
-})
-
-progressBar.loadFile('../update-renderer/index.html')
-
 autoUpdater.on('download-progress', async (progress, bytesPsec, percent, total, transferred) => {
-  if (!progressBar.isVisible()) progressBar.show()
-  progressBar.webContents.send('update-progbar', progress, bytesPsec, percent, total, transferred)
+  console.log(`Updating Heroic: ${progress} ${bytesPsec} ${percent}% / ${total} ${transferred}`)
 })
 
 autoUpdater.on('update-downloaded', async () => {
@@ -46,7 +28,6 @@ autoUpdater.on('update-downloaded', async () => {
     buttons: ['Restart', 'Remind me later']
   })
   if (diag.response === 1) return
-  progressBar.close()
   app.relaunch()
   app.quit()
 })
