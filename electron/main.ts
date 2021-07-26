@@ -63,6 +63,8 @@ import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
 
+import { checkUpdates } from './updater'
+
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
@@ -79,6 +81,11 @@ const tsStore = new Store({
   cwd: 'store',
   name: 'timestamp'
 })
+
+// Trigger the autoUpdater every 10 minutes
+// TODO(dragonDScript): Use a setting instead of fixed minutes
+// TODO(dragonDScript): Make it possible to disable updates
+setInterval(() => checkUpdates(), 600000)
 
 async function createWindow(): Promise<BrowserWindow> {
   listenStdout().then((arr) => {
