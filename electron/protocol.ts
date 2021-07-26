@@ -2,6 +2,7 @@ import { BrowserWindow, dialog } from 'electron'
 import { Game } from './games'
 import { logInfo } from './logger'
 import i18next from 'i18next'
+import { checkUpdates } from 'updater'
 
 export async function handleProtocol(window : BrowserWindow, url : string) {
   const mainWindow = BrowserWindow.getAllWindows()[0]
@@ -18,7 +19,8 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
   if (command === 'ping') {
     return logInfo('Received ping! Arg:', arg)
   }
-  if (command === 'launch') {
+  switch (command) {
+  case 'launch': {
     const game = Game.get(arg)
     const { is_installed, title, app_name } = await game.getGameInfo()
     setTimeout(async () => {
@@ -41,5 +43,10 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
       mainWindow.hide()
       window.webContents.send('launchGame', arg)
     }, 3000);
+    break;
+  }
+  case 'update':
+    checkUpdates()
+    break;
   }
 }
