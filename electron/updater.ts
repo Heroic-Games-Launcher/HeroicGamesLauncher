@@ -30,6 +30,8 @@ const progressBar = new BrowserWindow({
   }
 })
 
+progressBar.loadFile('../update-renderer/index.html')
+
 autoUpdater.on('download-progress', async (progress, bytesPsec, percent, total, transferred) => {
   progressBar.webContents.send('update-progbar', progress, bytesPsec, percent, total, transferred)
 })
