@@ -144,6 +144,12 @@ function Settings() {
     toggle: toggleFSR,
     setOn: setEnableFSR
   } = useToggle(false)
+  const {
+    on: updatesEnabled,
+    toggle: toggleUpdatesEnabled,
+    setOn: setUpdatesEnabled
+  } = useToggle(true)
+  const [checkUpdatesInterval, setCheckUpdatesInterval] = useState(10)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -326,6 +332,11 @@ function Settings() {
               discordRPC={discordRPC}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+              checkUpdatesInterval={checkUpdatesInterval}
+              setCheckUpdatesInterval={setCheckUpdatesInterval}
+              toggleUpdatesEnabled={toggleUpdatesEnabled}
+              setUpdatesEnabled={setUpdatesEnabled}
+              updatesEnabled={updatesEnabled}
             />
           )}
           {isWineSettings && (

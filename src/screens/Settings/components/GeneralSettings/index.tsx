@@ -52,6 +52,7 @@ interface Props {
   setCheckUpdatesInterval: (value: number) => void,
   updatesEnabled: boolean,
   toggleUpdatesEnabled: () => void,
+  setUpdatesEnabled: (value: boolean) => void,
 }
 
 export default function GeneralSettings({
