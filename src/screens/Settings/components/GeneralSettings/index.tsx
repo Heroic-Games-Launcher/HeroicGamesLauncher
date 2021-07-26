@@ -47,7 +47,11 @@ interface Props {
   toggleDarkTrayIcon: () => void,
   toggleDiscordRPC: () => void
   toggleStartInTray: () => void,
-  toggleTray: () => void
+  toggleTray: () => void,
+  checkUpdatesInterval: number,
+  setCheckUpdatesInterval: (value: number) => void,
+  updatesEnabled: boolean,
+  toggleUpdatesEnabled: () => void,
 }
 
 export default function GeneralSettings({
@@ -76,7 +80,11 @@ export default function GeneralSettings({
   toggleAddGamesToStartMenu,
   toggleCheckUpdatesOnStartup,
   discordRPC,
-  toggleDiscordRPC
+  toggleDiscordRPC,
+  checkUpdatesInterval,
+  setCheckUpdatesInterval,
+  updatesEnabled,
+  toggleUpdatesEnabled
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -353,6 +361,25 @@ export default function GeneralSettings({
               Max
             </option>
           </select>
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.updateInterval', 'Check updates interval')}
+          <input type="number" onChange={(e) => setCheckUpdatesInterval(
+            Number(e.currentTarget.value)
+          )}>
+            {checkUpdatesInterval}
+          </input>
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.updatesEnabled', 'Enable automatic updates')}
+          <ToggleSwitch
+            value={updatesEnabled}
+            handleChange={toggleUpdatesEnabled}
+          />
         </span>
       </span>
       <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
