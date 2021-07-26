@@ -27,12 +27,14 @@ const progressBar = new BrowserWindow({
   webPreferences: {
     contextIsolation: false,
     nodeIntegration: true
-  }
+  },
+  show: false
 })
 
 progressBar.loadFile('../update-renderer/index.html')
 
 autoUpdater.on('download-progress', async (progress, bytesPsec, percent, total, transferred) => {
+  if (!progressBar.isVisible()) progressBar.show()
   progressBar.webContents.send('update-progbar', progress, bytesPsec, percent, total, transferred)
 })
 
@@ -44,6 +46,7 @@ autoUpdater.on('update-downloaded', async () => {
     buttons: ['Restart', 'Remind me later']
   })
   if (diag.response === 1) return
+  progressBar.close()
   app.relaunch()
   app.quit()
 })
