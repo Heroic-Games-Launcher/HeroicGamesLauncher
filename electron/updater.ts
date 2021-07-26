@@ -46,8 +46,6 @@ autoUpdater.on('update-downloaded', async () => {
   app.quit()
 })
 
-function checkUpdates() {
+export function checkUpdates() {
   autoUpdater.checkForUpdates()
 }
-
-export default { checkUpdates }
