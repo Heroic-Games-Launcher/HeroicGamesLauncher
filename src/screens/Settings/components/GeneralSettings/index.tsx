@@ -22,32 +22,24 @@ const {
 const storage: Storage = window.localStorage
 
 interface Props {
-  addDesktopShortcuts: boolean,
-  addGamesToStartMenu: boolean,
   checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
-  discordRPC: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
   language: string,
-  maxRecentGames: number,
   maxWorkers: number,
   setDefaultInstallPath: (value: string) => void,
   setEgsLinkedPath: (value: string) => void,
   setEgsPath: (value: string) => void,
   setLanguage: (value: string) => void,
-  setMaxRecentGames: (value: number) => void,
   setMaxWorkers: (value: number) => void,
   startInTray: boolean,
-  toggleAddDesktopShortcuts: () => void,
-  toggleAddGamesToStartMenu: () => void,
-  toggleCheckUpdatesOnStartup: () => void
   toggleDarkTrayIcon: () => void,
-  toggleDiscordRPC: () => void
   toggleStartInTray: () => void,
   toggleTray: () => void,
+  toggleCheckUpdatesOnStartup: () => void,
   checkUpdatesInterval: number,
   setCheckUpdatesInterval: (value: number) => void,
   updatesEnabled: boolean,
@@ -71,8 +63,6 @@ export default function GeneralSettings({
   setLanguage,
   maxWorkers,
   setMaxWorkers,
-  maxRecentGames,
-  setMaxRecentGames,
   darkTrayIcon,
   toggleDarkTrayIcon,
   addDesktopShortcuts,
@@ -85,14 +75,14 @@ export default function GeneralSettings({
   checkUpdatesInterval,
   setCheckUpdatesInterval,
   updatesEnabled,
-  toggleUpdatesEnabled
+  toggleUpdatesEnabled,
+  toggleCheckUpdatesOnStartup
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
-  const isLinux = platform === 'linux'
   const isWindows = platform === 'win32'
 
   useEffect(() => {
@@ -291,37 +281,6 @@ export default function GeneralSettings({
           />
         </span>
       </span>
-      {isLinux && <>
-        <span className="setting">
-          <span className="toggleWrapper">
-            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')}
-            <ToggleSwitch
-              value={addDesktopShortcuts}
-              disabled={!navigator.platform.startsWith('Linux')}
-              handleChange={toggleAddDesktopShortcuts}
-            />
-          </span>
-        </span>
-        <span className="setting">
-          <span className="toggleWrapper">
-            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')}
-            <ToggleSwitch
-              value={addGamesToStartMenu}
-              disabled={!navigator.platform.startsWith('Linux')}
-              handleChange={toggleAddGamesToStartMenu}
-            />
-          </span>
-        </span>
-      </>}
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.discordRPC', 'Enable Discord Rich Presence')}
-          <ToggleSwitch
-            value={discordRPC}
-            handleChange={toggleDiscordRPC}
-          />
-        </span>
-      </span>
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.checkForUpdatesOnStartup', 'Check For Updates On Startup')}
@@ -329,21 +288,6 @@ export default function GeneralSettings({
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}
           />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.maxRecentGames', 'Recent Games to Show')}
-          <select
-            data-testid="setMaxRecentGames"
-            onChange={(event) => setMaxRecentGames(Number(event.target.value))}
-            value={maxRecentGames}
-            className="settingSelect smaller"
-          >
-            {Array.from(Array(10).keys()).map((n) => (
-              <option key={n + 1}>{n + 1}</option>
-            ))}
-          </select>
         </span>
       </span>
       <span className="setting">

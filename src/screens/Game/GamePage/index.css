@@ -1,6 +1,6 @@
 .gameConfigContainer {
   width: 1110px;
-  background: var(--background-darker-80);
+  background: var(--background-transparent);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: auto;
@@ -35,7 +35,7 @@
   text-align: initial;
   padding-left: 3.5rem;
   font-size: 1rem;
-  color: #e4deea;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -47,7 +47,7 @@
 }
 
 .gameInfo .infoWrapper {
-  color: #b0abb6;
+  color: var(--text-primary);
   flex-grow: 1;
 }
 
@@ -57,7 +57,7 @@
 
 .gameInfo .developer {
   padding: 1rem 0 1rem 0;
-  color: #e4deea;
+  color: var(--text-secondary);
 }
 
 .gameInfo .summary {
@@ -101,7 +101,7 @@ table td.specs {
 }
 
 .requirements table span.title {
-  color: var(--background);
+  color: var(--text-secondary);
   font-size: 1em;
 }
 table span.text {

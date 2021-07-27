@@ -1,3 +1,34 @@
+## 1.9.0
+
+### General
+- Improved Heroic performance by caching library information and making requests in background. Making Heroic opening almost instantly and navigation more responsive.
+- Added Play time tracker, nice to know how long you've been playing a game :P
+- Remade Login Screen according to new design.
+- When clicking install from the library, Heroic will show a window with the options to install or import the game.
+- Added better quality Tray Icons.
+- Added option to start Heroic minimized.
+- Changed main theme to shades of blue.
+- Changed sevel UI elements like the Gamecard that now always shows the title, install, settings and play buttons.
+- Changed the filter to be a list since it was growing in size.
+- Changed the position of the search bar to the header instead of the navbar.
+- Its not necessary to restart Heroic anymore after changing the Tray Icon color.
+- Several functions were refactored to improve Heroics performance and stability.
+- Running Heroic from terminal should have even more logs now, great to debug.
+- Removed the ability to downloads several games at the same time since this was causing some of them to appear as not installed (will evolve to a Queue at some point).
+- Moved some settings from General to Other.
+- **Linux**: Added FSR Hack toggle and Sharpness strength to Wine settings (needs support in wine).
+- **Linux**: Added resizable bar toggle to Wine settings (needs support in wine and NVIDIA RTX to work).
+- **Linux/OSX**: Added Wine and Prefix information on the game page.
+
+### Bugfixes
+- Windows: Fixed major bug that caused Heroic to not open on some configurations.
+- Windows: Fixed clicking on the settings icon when using list view going to the Wine settings.
+- Windows: Fixed default install path using wrong slashes.
+
+### New Translations:
+- Portuguese (Brazil)
+- Tamil
+
 ## 1.8.0
 
 ### Bugfixes

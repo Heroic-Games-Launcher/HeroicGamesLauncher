@@ -203,6 +203,8 @@ const test_appsettings = new TestType<AppSettings>({
   egsLinkedPath: 'egs/linked/path',
   exitToTray: false,
   enableFSR: false,
+  enableResizableBar: false,
+  maxSharpness: 5,
   language: 'en',
   launcherArgs: 'launcherArgs',
   maxRecentGames: 5,

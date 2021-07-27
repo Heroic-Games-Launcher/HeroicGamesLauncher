@@ -125,7 +125,7 @@ const GameCard = ({
 
   function getStatus() {
     if (isInstalling) {
-      return percent
+      return t('status.installing') + ` ${percent}`
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -137,28 +137,31 @@ const GameCard = ({
       return <NewReleasesIcon />
     }
 
-    return ''
+    return t('status.installing') + ' 50%'
   }
 
   const renderIcon = () => {
     if (isPlaying) {
-      return <StopIconAlt onClick={() => handlePlay()} />
+      return <StopIconAlt className="cancelIcon" onClick={() => handlePlay()} />
     }
     if (isInstalling) {
       return <StopIcon onClick={() => handlePlay()} />
     }
     if (isInstalled && isGame) {
-      return <PlayIcon onClick={() => handlePlay()} />
+      return <PlayIcon className="playIcon" onClick={() => handlePlay()} />
     }
-    if (!isInstalled && !hasDownloads) {
-      return <DownIcon onClick={() => buttonClick()} />
+    if (!isInstalled) {
+      if (hasDownloads) {
+        return <DownIcon className="iconDisabled" />
+      }
+      return <DownIcon className="downIcon" onClick={() => buttonClick()} />
     }
     return null
   }
   return (
     <>
       <div className={grid ? 'gameCard' : 'gameListItem'}>
-        {haveStatus && <span className="progress">{getStatus()}</span>}
+        {haveStatus && <span className='progress'>{getStatus()}</span>}
         <Link
           to={{
             pathname: `/gameconfig/${appName}`
@@ -195,8 +198,8 @@ const GameCard = ({
               <span
                 className="icons"
               >
-                {isInstalled && isGame && <SettingsIcon fill={'var(--secondary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
                 {renderIcon()}
+                {isInstalled && isGame && <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
               </span>
             }
           </>
@@ -207,7 +210,7 @@ const GameCard = ({
             {
               <span className="icons">
                 {renderIcon()}
-                {isInstalled && isGame &&  <SettingsIcon fill={'var(--secondary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
+                {isInstalled && isGame &&  <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
               </span>
             }
           </>

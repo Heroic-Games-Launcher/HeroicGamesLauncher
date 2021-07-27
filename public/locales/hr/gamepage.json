@@ -56,7 +56,7 @@
         "firstPlayed": "Prvo odigrano"
     },
     "enabled": "Omogućeno",
-    "disabled": "Onemogućenu",
+    "disabled": "Onemogućeno",
     "button": {
         "uninstall": "Deinstaliraj",
         "install": "Instaliraj",
@@ -68,38 +68,38 @@
         "yes": "DA",
         "update": {
             "title": "Igrica treba ažuriranje",
-            "message": "Ova igrica ima ažuriranje, želiš li ažurirati sada?"
+            "message": "Ova igrica ima ažuriranje, želite li ažurirati sada?"
         },
         "uninstall": {
             "title": "Deinstaliraj",
-            "message": "Želiš li deinstalirati ovu igricu?"
+            "message": "Želite li deinstalirati igricu?"
         },
         "stopInstall": {
             "title": "Zaustavi instalaciju",
-            "message": "Želiš li ZADRŽATI preuzete datoteke?",
-            "keepInstalling": "Nastavi instalaciju"
+            "message": "Želite li ZADRŽATI preuzete datoteke?",
+            "keepInstalling": "Nastavite instalaciju"
         },
         "shortcuts": {
             "title": "Prečaci",
-            "message": "Prečaci su napravljenu na Radnoj Površini i Izborniku Start"
+            "message": "Prečaci su napravljeni na Radnoj Površini i Izborniku Start"
         },
         "repair": {
             "title": "Provjeri i Popravi",
-            "message": "Želiš li probati popraviti ovu igricu? Ovo može potrajati."
+            "message": "Želite li probati popraviti ovu igricu? Ovo može potrajati."
         },
         "ok": "Ok",
         "no": "NE",
         "move": {
-            "title": "Premjesti instalaciju igrice",
-            "path": "Odaberi gdje želite premjestiti",
+            "title": "Premjestite instalaciju igrice",
+            "path": "Odaberite gdje želite premjestiti",
             "message": "Ovo može protrajati, jeste li sigurni?"
         },
         "installpath": "Odaberi lokaciju instalacije",
         "importpath": "Odaberi mapu igre za uvesti",
         "choose": "Odaberi",
         "change": {
-            "title": "Promijeni lokaciju instalacije igrica",
-            "path": "Odaberi novu lokaciju za instalaciju",
+            "title": "Promijenite lokaciju instalacije igrica",
+            "path": "Odaberite novu lokaciju za instalaciju",
             "message": "Ovo će promijeniti lokaciju instalacije za igru, jeste li sigurni?"
         }
     }

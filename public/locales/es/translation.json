@@ -25,15 +25,15 @@
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "No se encontró el registro para este juego",
+                "title": "Registro no encontrado"
             },
             "title": "Error"
         },
         "no": "No",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "No está instalado, ¿quieres instalarlo?"
             }
         },
         "quit": {
@@ -135,19 +135,20 @@
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
+        "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
         "exit-to-tray": "Salir a la bandeja del sistema",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
@@ -160,10 +161,11 @@
             "title": "Guardado de sincronización manual",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Juegos recientes mostrados",
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"
@@ -173,7 +175,7 @@
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Iniciar minimizado",
         "wineprefix": "Carpeta WinePrefix",
         "wineversion": "Versión de Wine"
     },

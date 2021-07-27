@@ -16,13 +16,17 @@ interface Props {
     autoInstallDxvk: boolean
     customWinePaths: string[]
     isDefault: boolean
+    maxSharpness: number
     enableFSR: boolean
+    enableResizableBar: boolean
     setAltWine: (altWine: WineInstallation[]) => void
     setCustomWinePaths: (value: string[]) => void
     setWinePrefix: (value: string) => void
     setWineVersion: (wine: WineInstallation) => void
+    setFsrSharpness: (value: number) => void
     toggleAutoInstallDxvk: () => void
     toggleFSR: () => void
+    toggleResizableBar: () => void
     winePrefix: string
     wineVersion: WineInstallation
   }
@@ -35,12 +39,16 @@ function renderWineSettings(props: Partial<Props> = {})
     customWinePaths: ['custom/wine/path'],
     enableFSR: false,
     isDefault: false,
+    maxSharpness:5,
+    enableResizableBar:false,
     setAltWine: () => {return;},
     setCustomWinePaths: () => {return;},
     setWinePrefix: () => {return;},
     setWineVersion: () => {return;},
+    setFsrSharpness: () => {return;},
     toggleAutoInstallDxvk: () => {return;},
     toggleFSR: () => {return;},
+    toggleResizableBar: () => {return;},
     winePrefix: 'winePrefix',
     wineVersion: {
       bin: 'path/to/wine/bin',
