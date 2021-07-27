@@ -9,11 +9,11 @@
   height: 35px;
   border-radius: 5px;
   border: none;
-  color: var(--secondary);
+  color: var(--text-primary);
   text-indent: 4px;
   font-size: 14px;
   outline: none;
-  background: var(--background-secondary);
+  background: var(--searchbar-background);
   max-width: 300px;
   min-width: 150px;
   width: 28vw;

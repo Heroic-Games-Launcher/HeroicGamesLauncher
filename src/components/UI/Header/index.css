@@ -20,7 +20,9 @@
   grid-template-columns: 1fr 6fr;
   display: grid;
   grid-template-areas: 'return title';
-  width: 906px;
+  width: 70vw;
+  min-width: 513px;
+  max-width: 912px;
   place-self: center;
   align-items: center;
   margin: 22px 0;
@@ -29,6 +31,7 @@
 .headerSettings > .headerTitle {
   font-size: 1.5rem;
   grid-area: title;
+  margin-left: -100px;
 }
 
 .selectFilter {
@@ -58,7 +61,7 @@
 }
 
 option {
-  background: var(--background-secondary);
+  background: var(--background);
   color: var(--text-secondary);
 }
 
@@ -122,6 +125,6 @@ option {
   place-items: center;
   grid-template-columns: 1fr 1fr;
   width: 100px;
-  margin: 0 -25px;
+  margin: 0 -10px;
   height: fit-content;
 }

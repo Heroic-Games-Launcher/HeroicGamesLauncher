@@ -314,16 +314,8 @@ function Settings() {
               setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
-              maxRecentGames={maxRecentGames}
-              setMaxRecentGames={setMaxRecentGames}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              addDesktopShortcuts={addDesktopShortcuts}
-              addGamesToStartMenu={addStartMenuShortcuts}
-              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
-              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
-              toggleDiscordRPC={toggleDiscordRPC}
-              discordRPC={discordRPC}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
             />
@@ -367,6 +359,14 @@ function Settings() {
               showMangohud={showMangohud}
               toggleMangoHud={toggleMangoHud}
               isDefault={isDefault}
+              maxRecentGames={maxRecentGames}
+              setMaxRecentGames={setMaxRecentGames}
+              addDesktopShortcuts={addDesktopShortcuts}
+              addGamesToStartMenu={addStartMenuShortcuts}
+              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
+              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
+              toggleDiscordRPC={toggleDiscordRPC}
+              discordRPC={discordRPC}
             />
           )}
           {isSyncSettings && (
