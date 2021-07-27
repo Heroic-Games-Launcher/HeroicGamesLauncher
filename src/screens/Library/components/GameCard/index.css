@@ -199,7 +199,7 @@
   width: 120px;
 }
 
-.gameListItem > .status {
+.gameListItem > .progress {
   z-index: 5;
   grid-area: cover;
   font-weight: 500;
@@ -208,8 +208,19 @@
   border-radius: 4px;
   color: var(--success);
   position: relative;
-  bottom: 28px;
-  left: -52px;
+  bottom: -38px;
+  left: -38px;
+  color: var(--success);
+  font-family: Rubik;
+  font-style: italic;
+  font-weight: normal;
+  line-height: 12px;
+}
+
+.gameListItem > .progress > .MuiSvgIcon-root{
+  position: relative;
+  bottom: 0;
+  top: 0;
 }
 
 .gameListInfo {
@@ -224,4 +235,9 @@
   min-width: 79px;
   z-index: 2;
   left: 21%;
+}
+
+.progress > .MuiSvgIcon-root{
+  position: relative;
+  bottom: 130px;
 }
