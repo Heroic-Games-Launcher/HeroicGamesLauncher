@@ -367,11 +367,11 @@ export default function GeneralSettings({
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.updateInterval', 'Check updates interval')}
-          <input type="number" onChange={(e) => setCheckUpdatesInterval(
-            Number(e.currentTarget.value)
-          )}>
-            {checkUpdatesInterval}
-          </input>
+          <input type="number" onChange={(e) => {
+            setCheckUpdatesInterval(
+              Number(e.currentTarget.value)
+            )
+          }} value={checkUpdatesInterval}></input>
         </span>
       </span>
       <span className="setting">
