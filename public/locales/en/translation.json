@@ -148,6 +148,7 @@
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Exit to System Tray",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",
         "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
@@ -164,6 +165,7 @@
         "maxworkers": "Maximum Number of Workers when downloading",
         "offlinemode": "Run Game Offline",
         "primerun": "Enable Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Drag and Drop Files here",
             "title": "Run EXE on Prefix"

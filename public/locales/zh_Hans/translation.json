@@ -148,6 +148,7 @@
         "egs-sync": "与已安装的Epic Games同步",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "退出到系统托盘",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",
         "mangohud": "启用MangoHud（需要已安装Mangohud）",
@@ -164,6 +165,7 @@
         "maxworkers": "下载时的最大Worker数量",
         "offlinemode": "离线运行游戏",
         "primerun": "启用英伟达Prime渲染",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在PREFIX上运行exe文件"

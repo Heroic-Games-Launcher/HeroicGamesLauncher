@@ -82,7 +82,7 @@ describe('OtherSettings', () => {
 
   test('change max recent games', () => {
     const onSetMaxRecentGames = jest.fn();
-    const { getByTestId } = renderOtherSettings({ setMaxRecentGames: onSetMaxRecentGames});
+    const { getByTestId } = renderOtherSettings({ setMaxRecentGames: onSetMaxRecentGames, isDefault: true});
     const maxRecentGames = getByTestId('setMaxRecentGames');
 
     fireEvent.change(maxRecentGames, { target: { value: '10' }});

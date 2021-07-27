@@ -3,22 +3,24 @@ interface About {
   shortDescription: string
 }
 export interface AppSettings {
-  addDesktopShortcuts: boolean,
-  addStartMenuShortcuts: boolean,
-  audioFix: boolean,
+  addDesktopShortcuts: boolean
+  addStartMenuShortcuts: boolean
+  audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
   darkTrayIcon: boolean
-  defaultInstallPath: string,
-  discordRPC: boolean,
+  defaultInstallPath: string
+  discordRPC: boolean
   egsLinkedPath: string
   exitToTray: boolean
-  enableFSR: boolean,
+  enableFSR: boolean
+  enableResizableBar: boolean
   language: string
   launcherArgs: string
   maxRecentGames: number
+  maxSharpness: number
   maxWorkers: number
   nvidiaPrime: boolean
   offlineMode: boolean
@@ -57,23 +59,23 @@ interface ExtraInfo {
 }
 
 export interface GameInfo {
-  app_name: string,
-  art_cover: string,
-  art_logo: string,
-  art_square: string,
-  cloud_save_enabled: boolean,
-  compatible_apps: string[],
-  developer: string,
-  extra: ExtraInfo,
-  folder_name: string,
-  install: InstalledInfo,
-  is_game: boolean,
-  is_installed: boolean,
-  is_ue_asset: boolean,
-  is_ue_plugin: boolean,
-  is_ue_project: boolean,
-  namespace: unknown,
-  save_folder: string,
+  app_name: string
+  art_cover: string
+  art_logo: string
+  art_square: string
+  cloud_save_enabled: boolean
+  compatible_apps: string[]
+  developer: string
+  extra: ExtraInfo
+  folder_name: string
+  install: InstalledInfo
+  is_game: boolean
+  is_installed: boolean
+  is_ue_asset: boolean
+  is_ue_plugin: boolean
+  is_ue_project: boolean
+  namespace: unknown
+  save_folder: string
   title: string
 }
 

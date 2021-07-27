@@ -148,6 +148,7 @@
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Sistem Tepsisine Küçült",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
         "mangohud": "Mangohud'u Etkinleştir (Mangohud yüklü olmalıdır)",
@@ -164,6 +165,7 @@
         "maxworkers": "İndirirken Maksimum İşçi Sayısı",
         "offlinemode": "Oyunu Çevrimdışı Çalıştır",
         "primerun": "Nvidia Prime Render'ı Etkinleştir",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Exe Çalıştır"

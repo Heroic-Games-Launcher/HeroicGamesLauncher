@@ -4,33 +4,35 @@ interface About {
 }
 
 export interface AppSettings {
-  addDesktopShortcuts: boolean,
-  addStartMenuShortcuts: boolean,
-  audioFix: boolean,
-  autoInstallDxvk: boolean,
-  autoSyncSaves: boolean,
-  checkForUpdatesOnStartup: boolean,
-  customWinePaths: string[],
-  darkTrayIcon: boolean,
-  defaultInstallPath: string,
-  discordRPC: boolean,
-  egsLinkedPath: string,
-  exitToTray: boolean,
-  enableFSR: boolean,
-  language: string,
-  launcherArgs: string,
-  maxRecentGames: number,
-  maxWorkers: number,
-  nvidiaPrime: boolean,
-  offlineMode: boolean,
-  otherOptions: string,
-  savesPath: string,
-  showFps: boolean,
-  showMangohud: boolean,
-  startInTray: boolean,
-  useGameMode: boolean,
-  userInfo: UserInfo,
-  winePrefix: string,
+  addDesktopShortcuts: boolean
+  addStartMenuShortcuts: boolean
+  audioFix: boolean
+  autoInstallDxvk: boolean
+  autoSyncSaves: boolean
+  checkForUpdatesOnStartup: boolean
+  customWinePaths: string[]
+  darkTrayIcon: boolean
+  defaultInstallPath: string
+  discordRPC: boolean
+  egsLinkedPath: string
+  exitToTray: boolean
+  enableFSR: boolean
+  enableResizableBar: boolean
+  language: string
+  launcherArgs: string
+  maxRecentGames: number
+  maxSharpness: number
+  maxWorkers: number
+  nvidiaPrime: boolean
+  offlineMode: boolean
+  otherOptions: string
+  savesPath: string
+  showFps: boolean
+  showMangohud: boolean
+  startInTray: boolean
+  useGameMode: boolean
+  userInfo: UserInfo
+  winePrefix: string
   wineVersion: WineInstallation
 }
 
@@ -42,23 +44,23 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 export interface GameInfo {
-  app_name: string,
-  art_cover: string,
-  art_logo: string,
-  art_square: string,
-  cloud_save_enabled: boolean,
-  compatible_apps: string[],
-  developer: string,
-  extra: ExtraInfo,
-  folder_name: string,
-  install: InstalledInfo,
-  is_game: boolean,
-  is_installed: boolean,
-  is_ue_asset: boolean,
-  is_ue_plugin: boolean,
-  is_ue_project: boolean,
-  namespace: string,
-  save_folder: string,
+  app_name: string
+  art_cover: string
+  art_logo: string
+  art_square: string
+  cloud_save_enabled: boolean
+  compatible_apps: string[]
+  developer: string
+  extra: ExtraInfo
+  folder_name: string
+  install: InstalledInfo
+  is_game: boolean
+  is_installed: boolean
+  is_ue_asset: boolean
+  is_ue_plugin: boolean
+  is_ue_project: boolean
+  namespace: string
+  save_folder: string
   title: string
 }
 
@@ -67,6 +69,8 @@ export interface GameSettings {
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
   enableFSR: boolean
+  enableResizableBar: boolean
+  maxSharpness: number
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
