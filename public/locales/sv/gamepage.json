@@ -20,8 +20,8 @@
             "title": "Verifiera och reparera"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Genvägar skapades på skrivbordet och startmenyn",
+            "title": "Genvägar"
         },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
@@ -50,7 +50,7 @@
     "game": {
         "firstPlayed": "First Played",
         "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
+        "neverPlayed": "Aldrig",
         "totalPlayed": "Time Played"
     },
     "gamecard": {
