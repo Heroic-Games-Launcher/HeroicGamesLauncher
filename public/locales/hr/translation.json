@@ -167,7 +167,8 @@
         "autodxvk": "Automatski instaliraj/ažuriraj DXVK na put",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
-        "adddesktopshortcuts": "Dodaje prečace automatski"
+        "adddesktopshortcuts": "Dodaje prečace automatski",
+        "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)"
     },
     "placeholder": {
         "egs-prefix": "Put gdje je EGS instaliran"
