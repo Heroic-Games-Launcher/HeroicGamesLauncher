@@ -148,6 +148,7 @@
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
         "exit-to-tray": "Salir a la bandeja del sistema",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
@@ -164,6 +165,7 @@
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"

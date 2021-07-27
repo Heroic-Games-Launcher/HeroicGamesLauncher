@@ -148,6 +148,7 @@
         "egs-sync": "Sincronitza amb Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Sortir al Tray",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Empra el game mode (feral gamemode ha d'estar instal·lat)",
         "language": "Eligeix el llenguatge de l'app",
         "mangohud": "Activa Mangohud (Mangohud ha d'estar instal·lat primer)",
@@ -164,6 +165,7 @@
         "maxworkers": "Nombre màxim de Workers quan descarreguis",
         "offlinemode": "Executa el joc sense connexió",
         "primerun": "Activa l'Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Arrastra arxius aquí",
             "title": "Executa EXE al prefix"
