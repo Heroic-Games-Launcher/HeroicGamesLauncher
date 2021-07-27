@@ -16,7 +16,8 @@
 - Running Heroic from terminal should have even more logs now, great to debug.
 - Removed the ability to downloads several games at the same time since this was causing some of them to appear as not installed (will evolve to a Queue at some point).
 - Moved some settings from General to Other.
-- **Linux**: Added FSR Hack toggle to Wine settings (needs support in wine).
+- **Linux**: Added FSR Hack toggle and Sharpness strength to Wine settings (needs support in wine).
+- **Linux**: Added resizable bar toggle to Wine settings (needs support in wine and NVIDIA RTX to work).
 - **Linux/OSX**: Added Wine and Prefix information on the game page.
 
 ### Bugfixes
