@@ -146,7 +146,7 @@
         "default-install-path": "Standard installationssökväg",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
         "exit-to-tray": "Avsluta till systembrickan",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
