@@ -72,7 +72,8 @@
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
-        "start-in-tray": "Iniciar minimizado"
+        "start-in-tray": "Iniciar minimizado",
+        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)"
     },
     "search": "Insira o nome do jogo aqui…",
     "Return": "Voltar",
