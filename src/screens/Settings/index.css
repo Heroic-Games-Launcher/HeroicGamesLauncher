@@ -2,8 +2,13 @@
   display: grid;
   justify-content: center;
   grid-template-columns: 1fr 5fr;
+  background-color: var(--background-transparent);
   place-self: center;
-  width: 906px;
+  width: 70vw;
+  min-width: 513px;
+  max-width: 912px;
+  border-radius: 1rem;
+  padding: 24px;
 }
 
 .settingsNavbar {

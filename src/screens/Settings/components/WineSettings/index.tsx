@@ -138,7 +138,7 @@ export default function WineSettings({
                 data-testid="removeWinePath"
                 onClick={() => removeCustomPath()}
                 style={{
-                  color: selectedPath ? 'var(--danger)' : 'var(--background)',
+                  color: selectedPath ? 'var(--danger)' : 'var(--background-darker)',
                   cursor: selectedPath ? 'pointer' : ''
                 }}
                 fontSize="large"

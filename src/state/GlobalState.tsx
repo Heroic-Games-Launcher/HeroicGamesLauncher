@@ -188,7 +188,7 @@ export class GlobalState extends PureComponent<Props> {
             ? t('notify.install.canceled')
             : t('notify.install.finished')
         notify([title, message])
-        this.handleFilter('installed')
+        this.handleFilter(percent > 95 ? 'installed' : 'all')
         return this.refreshLibrary({})
       }
       this.refreshLibrary({})
