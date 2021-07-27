@@ -433,7 +433,9 @@ Categories=Game;
       audioFix,
       autoInstallDxvk,
       offlineMode,
-      enableFSR
+      enableFSR,
+      maxSharpness,
+      enableResizableBar
     } = await this.getSettings()
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
@@ -498,8 +500,10 @@ Categories=Game;
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
-      other: otherOptions ? otherOptions : '',
       fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1': '',
+      sharpness: enableFSR ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}` : '',
+      resizableBar: enableResizableBar ? `VKD3D_CONFIG=upload_hvv` : '',
+      other: otherOptions ? otherOptions : '',
       prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
         ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix

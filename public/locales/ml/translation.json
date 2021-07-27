@@ -148,6 +148,7 @@
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",
         "mangohud": "മാന്‍ഘൗട്ട് ഉപയോഗിക്കൂ(മാന്‍ഘൗട്ട് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
@@ -164,6 +165,7 @@
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള്‍ പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
         "offlinemode": "ഓഫ്‍ലൈനില്‍ കളിക്കുക",
         "primerun": "Enable Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "രേഖകള്‍ ഇവിടെനിന്നും വലിച്ചെടുക്കുക/ഇടുക",
             "title": "ഉപസഗ്ഗ഻ത്തില്‍ EXE ഓടിക്കുക"

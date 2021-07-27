@@ -113,7 +113,7 @@ export default function OtherSettings({
           <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
         </span>
       </span>
-      {isLinux && <>
+      {isLinux && isDefault && <>
         <span className="setting">
           <span className="toggleWrapper">
             {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')}
@@ -135,7 +135,7 @@ export default function OtherSettings({
           </span>
         </span>
       </>}
-      <span className="setting">
+      {isDefault && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.discordRPC', 'Enable Discord Rich Presence')}
           <ToggleSwitch
@@ -143,8 +143,8 @@ export default function OtherSettings({
             handleChange={toggleDiscordRPC}
           />
         </span>
-      </span>
-      <span className="setting">
+      </span>}
+      {isDefault && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.maxRecentGames', 'Recent Games to Show')}
           <select
@@ -158,7 +158,7 @@ export default function OtherSettings({
             ))}
           </select>
         </span>
-      </span>
+      </span>}
       {!isWin && <span className="setting">
         <span className="settingText">{t('options.advanced.title')}</span>
         <span>

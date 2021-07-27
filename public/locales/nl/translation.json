@@ -148,6 +148,7 @@
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Afsluiten naar systeemvak",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
         "language": "Selecteer een App taal",
         "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
@@ -164,6 +165,7 @@
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
         "offlinemode": "Spel offline draaien",
         "primerun": "Aciveer Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Sleep de bestanden hier",
             "title": "Voer EXE uit op Prefix"
