@@ -1,9 +1,9 @@
 {
     "All": "Tout",
-    "Assets": "Assets",
+    "Assets": "Atouts",
     "box": {
         "appupdate": {
-            "message": "Une nouvelle version de Heroic est disponible, mettre à jour maintenant ?",
+            "message": "Une nouvelle version de Heroic est disponible, voulez-vous mettre à jour maintenant ?",
             "title": "Mise à jour disponible"
         },
         "choose": "Choisir",
@@ -13,7 +13,7 @@
         "error": {
             "credentials": {
                 "message": "Vos informations d'identification ont expiré, veuillez vous reconnecter.",
-                "title": "Expired Credentials"
+                "title": "Informations d'identification expirées"
             },
             "diskspace": {
                 "message": "Espace disque nécessaire insuffisant",
@@ -23,17 +23,17 @@
                 "message": "Une erreur inconnue s'est produite",
                 "title": "Erreur inconnue"
             },
-            "launch": "Erreur lors du lancement du jeu, consultez les logs!",
+            "launch": "Erreur lors du lancement du jeu, consultez les registres!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Aucun registre n'a été trouvé pour ce jeu",
+                "title": "Le registre n'a pas été trouvé"
             },
-            "title": "Error"
+            "title": "Erreur"
         },
         "no": "NON",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "n'est pas installé, voulez-vous l'installer ?"
             }
         },
         "quit": {
@@ -41,7 +41,7 @@
             "title": "Quitter"
         },
         "runexe": {
-            "title": "Sélectionner le EXE à exécuter"
+            "title": "Sélectionner l'EXE à exécuter"
         },
         "select": "Sélectionner",
         "sync": {
@@ -59,10 +59,10 @@
     },
     "Downloading": "Téléchargements",
     "Filter": "Filtre",
-    "Games": "Games",
-    "globalSettings": "Paramètres globaux",
+    "Games": "Jeux",
+    "globalSettings": "Paramètres généraux",
     "help": {
-        "general": "Synchronisation avec EGS dans le cas où vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
+        "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
         "other": {
             "part1": "Utilise l' ",
             "part2": "Options avancées",
@@ -75,7 +75,7 @@
         "sync": {
             "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle : Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Téléversez pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle : Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Chargez les fichiers pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
@@ -123,20 +123,20 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Aidez Heroic à traduire."
     },
     "placeholder": {
         "egs-prefix": "Prefix où EGS est installé"
     },
     "Plugins": "Plugins",
     "Projects": "Projects",
-    "Ready": "Installé",
+    "Ready": "Prêt",
     "Recent": "Recent Games",
     "Return": "Retour",
-    "search": "Entrez le nom du jeu ici...",
+    "search": "Insérez le nom du jeu ici...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Ajouter les raccourcis Bureau automatiquement",
+        "addgamestostartmenu": "Ajoutez les jeux pour lancer le menu automatiquement",
         "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
@@ -160,7 +160,7 @@
             "title": "Synchronisation manuelle des auvegardes",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Jeu récents à montrer",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "offlinemode": "Lancer le jeu hors ligne",
         "primerun": "Activer Nvidia Prime Render",
@@ -173,7 +173,7 @@
             "title": "Écraser le dossier de synchronisation Cloud"
         },
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Démarrage Minimisé",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
     },
@@ -195,7 +195,7 @@
         "about": "À propos",
         "quit": "Quitter",
         "reload": "Recharger",
-        "show": "Voir",
+        "show": "Montrer",
         "support": "Nous supporter"
     },
     "Unreal Marketplace": "Marché Unreal",

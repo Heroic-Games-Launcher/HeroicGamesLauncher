@@ -21,7 +21,7 @@ export default function NavBar() {
       <div className="Links">
         <NavLink
           data-testid="library"
-          activeStyle={{ color: '#FFA800', fontWeight: 500 }}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
           isActive={(match, location) => {
             if (match) {
               return true
@@ -35,7 +35,7 @@ export default function NavBar() {
         </NavLink>
         <NavLink
           data-testid="settings"
-          activeStyle={{ color: '#FFA800', fontWeight: 500 }}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
           isActive={(match, location) => location.pathname.includes('settings')}
           to={{
             pathname: '/settings/default/general'

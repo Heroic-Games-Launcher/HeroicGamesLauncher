@@ -1,5 +1,5 @@
 .gameList {
-  color: #e4deea;
+  color: var(--text-secondary);
   display: grid;
   grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
   grid-gap: 0.5rem 1rem;
@@ -10,7 +10,7 @@
 }
 
 .gameListLayout {
-  background-color: var(--background-secondary);
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
   overflow: hidden;

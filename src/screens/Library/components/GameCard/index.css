@@ -1,5 +1,5 @@
 .gameCard {
-  background-color: var(--background-secondary);
+  background-color: var(--background-darker);
   text-align: left;
   display: flex;
   justify-content: center;
@@ -13,7 +13,7 @@
   border-radius: 0.5rem;
 }
 
-.gameCard > .progress {
+.gameCard > .status {
   position: absolute;
   z-index: 5;
   top: 15px;
@@ -27,6 +27,22 @@
   padding: 2px 5px;
   border-radius: 4px;
   color: var(--success);
+}
+
+.gameCard > .progress {
+  position: absolute;
+  z-index: 5;
+  bottom: 10px;
+  left: 5px;
+  color: var(--success);
+  font-family: Rubik;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  width: fit-content;
+  max-width: 96px;
+  word-wrap: break-word;
 }
 
 .gameCard > a > .gameImg {
@@ -45,11 +61,10 @@
 
 .gameTitle {
   position: absolute;
-  bottom: -92px;
-  height: 92px;
   width: 100%;
+  bottom: 0;
   padding: 0.3vw;
-  color: #e4deea;
+  color: var(--text-secondary);
   display: flex;
   background: var(--background-gradient);
   transition: 200ms;
@@ -58,6 +73,9 @@
   font-weight: 700;
   line-height: 17px;
   color: var(--text-primary);
+  height: 4vw;
+  min-height: 80px;
+  max-height: 85px;
 }
 
 .gameTitle > span {
@@ -70,13 +88,10 @@
   align-self: flex-end;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   z-index: 5;
   padding: 6px;
-}
-
-.gameList > .gameCard > .icons {
-  background: var(--background-gradient);
+  margin-right: 4px;
 }
 
 .icons > a > svg,
@@ -85,15 +100,30 @@
   height: min(calc(1vw + 9px), 36px);
   min-width: 22px;
   min-height: 22px;
+  margin-left: 12px;
 }
 
-.gameCard:hover > .gameTitle {
-  bottom: 0;
-  z-index: 3;
-  cursor: pointer;
+.playIcon > circle {
+  fill: var(--success)
 }
 
-.gameCard:hover > .gameTitle  > span{
+.downIcon > circle {
+  fill: var(--secondary)
+}
+
+.cancelIcon > circle {
+  fill: var(--danger);
+}
+
+.iconDisabled circle {
+  fill: var(--icon-disabled);
+}
+
+.iconDisabled > * {
+  cursor:initial;
+}
+
+.gameCard > .gameTitle  > span{
   display: block;
 }
 
@@ -178,8 +208,19 @@
   border-radius: 4px;
   color: var(--success);
   position: relative;
-  bottom: 28px;
-  left: -52px;
+  bottom: -38px;
+  left: -38px;
+  color: var(--success);
+  font-family: Rubik;
+  font-style: italic;
+  font-weight: normal;
+  line-height: 12px;
+}
+
+.gameListItem > .progress > .MuiSvgIcon-root{
+  position: relative;
+  bottom: 0;
+  top: 0;
 }
 
 .gameListInfo {
@@ -194,4 +235,9 @@
   min-width: 79px;
   z-index: 2;
   left: 21%;
+}
+
+.progress > .MuiSvgIcon-root{
+  position: relative;
+  bottom: 130px;
 }

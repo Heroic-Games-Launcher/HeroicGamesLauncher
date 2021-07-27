@@ -27,7 +27,9 @@
         },
         "sync": {
             "part4": "Sinkroniziranje se automatski svaki put kada krenete igricu i završtite sa igrom.",
-            "part1": "Heroic pokušava pogoditi točnu lokaciju podata i ovo če raditi u večini sličaja. U sličaju da je mapa kriva, koristi premjesti polje da ju promijeniš."
+            "part1": "Heroic pokušava pogoditi točnu lokaciju podata i ovo če raditi u večini sličaja. U sličaju da je mapa kriva, koristi premjesti polje da ju promijeniš.",
+            "part3": "Manualna sinkronizacija: Odaberi Preuzimanje da preuzmeš podatke od igrice sa Cloud-a. Prebacivanje za prebaciti lokalne datoteke u Cloud. Forsirano preuzimanje i prebacivanje če ignorirati lokalne verzije i one u Cloud-u.",
+            "part2": "U sličaju da promijeti mapu podata za WINE/PROTON, morat če te provjeriti pu opet pošto PROTON koristi drugu mapu (/pfx) i korisničko ime (steamuser). Tako da možete jednostavno obrisati trenutni put i pokušati ponovno u postavke sinkronizacije da Heroic pogodi pravi put."
         },
         "general": "Sinkroniziraj sa EGS u slučaju da imaš instalaciju Epic Games trgovine negdje drugdje i želiš uvesti igrice da ih nemoraš preuzimati opet."
     },
@@ -74,6 +76,10 @@
             "diskspace": {
                 "title": "Nema prostora",
                 "message": "Nema dovoljno prostora na disku"
+            },
+            "credentials": {
+                "title": "Istekla prijava",
+                "message": "Tvoja prijava je istekla, molim vas odjavite se i prijavite se opet."
             }
         },
         "default-install-path": "Odaberite zadanu lokaciju instalacije",
@@ -127,7 +133,8 @@
         "start-in-tray": "Pokreni minimizirano",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
         "savefolder": {
-            "placeholder": "Odaberi točnu mapu podataka za igricu"
+            "placeholder": "Odaberi točnu mapu podataka za igricu",
+            "title": "Forsiraj prebacivanje lokalnih podataka"
         },
         "runexe": {
             "title": "Pokreni EXE na putu",
@@ -160,7 +167,8 @@
         "autodxvk": "Automatski instaliraj/ažuriraj DXVK na put",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
-        "adddesktopshortcuts": "Dodaje prečace automatski"
+        "adddesktopshortcuts": "Dodaje prečace automatski",
+        "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)"
     },
     "placeholder": {
         "egs-prefix": "Put gdje je EGS instaliran"
@@ -200,5 +208,6 @@
     "Recent": "Nedavne igrice",
     "Ready": "Spremno",
     "Projects": "Projekti",
-    "Plugins": "Dodaci"
+    "Plugins": "Dodaci",
+    "Assets": "Dodaci"
 }
