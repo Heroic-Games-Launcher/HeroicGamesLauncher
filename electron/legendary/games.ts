@@ -130,16 +130,19 @@ class LegendaryGame extends Game {
         method: 'GET',
         url: epicUrl
       })
-      delete response.data.pages[0].data.requirements.systems[0].details[0]
+
       const about = response.data.pages.find(
         (e: { type: string }) => e.type === 'productHome'
       )
+
       store.set(namespace, {about: about.data.about, reqs: about.data.requirements.systems[0].details})
       return {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details
       } as ExtraInfo
     } catch (error) {
+      store.set(namespace, {about: {}, reqs: []})
+
       return {
         about: {},
         reqs: []

@@ -21,12 +21,16 @@
 - **Linux/OSX**: Added Wine and Prefix information on the game page.
 
 ### Bugfixes
+- Fixed a small bug where the search bar was not keeping the correct state.
+- Fixed some game info caching that wasn't working.
+- Fixed a bug where the game information cache wasn't being updated after changing Heroic's language.
 - Windows: Fixed major bug that caused Heroic to not open on some configurations.
 - Windows: Fixed clicking on the settings icon when using list view going to the Wine settings.
 - Windows: Fixed default install path using wrong slashes.
 
 ### New Translations:
 - Portuguese (Brazil)
+- Catalã
 - Tamil
 
 ## 1.8.0

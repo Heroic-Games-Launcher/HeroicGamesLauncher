@@ -283,6 +283,7 @@ const test_context = new TestType<ContextType>({
   data: [],
   error: false,
   filter: 'all',
+  filterText: '',
   gameUpdates: [],
   handleCategory: () => { return; },
   handleFilter: () => { return; },

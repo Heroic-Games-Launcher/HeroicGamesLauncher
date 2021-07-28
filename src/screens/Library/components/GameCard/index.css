@@ -197,6 +197,8 @@
   height: 100%;
   justify-content: space-around;
   width: 120px;
+  height: 100%;
+  padding: 0 6px;
 }
 
 .gameListItem > .progress {

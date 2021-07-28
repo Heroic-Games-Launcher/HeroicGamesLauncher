@@ -39,6 +39,7 @@ export interface ContextType {
   data: GameInfo[]
   error: boolean
   filter: string
+  filterText: string
   gameUpdates: string[]
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void

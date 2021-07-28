@@ -88,7 +88,7 @@
   place-content: center;
   width: 100%;
   height: 100%;
-  background: rgba(29, 31, 31, 1);
+  background: var(--background-darker);
 }
 
 .loginInstructions {
