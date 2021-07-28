@@ -4,6 +4,8 @@ interface About {
 }
 
 export interface AppSettings {
+  checkUpdatesInterval: number,
+  enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean

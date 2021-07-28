@@ -2,6 +2,7 @@ import { BrowserWindow, dialog } from 'electron'
 import { Game } from './games'
 import { logInfo } from './logger'
 import i18next from 'i18next'
+import { checkUpdates } from './updater'
 
 export async function handleProtocol(window : BrowserWindow, url : string) {
   const mainWindow = BrowserWindow.getAllWindows()[0]
@@ -41,5 +42,8 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
       mainWindow.hide()
       window.webContents.send('launchGame', arg)
     }, 3000);
+  }
+  if (command === 'update') {
+    checkUpdates()
   }
 }
