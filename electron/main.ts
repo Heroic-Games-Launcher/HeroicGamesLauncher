@@ -81,15 +81,19 @@ const tsStore = new Store({
 })
 
 async function createWindow(): Promise<BrowserWindow> {
-  listenStdout().then((arr) => {
-    const str = arr.join('\n')
-    const date = new Date().toDateString()
-    const path = `${app.getPath('crashDumps')}/${date}.txt`
-    logInfo('Saving log file to ' + path)
-    writeFile(path, str, {}, (err) => {
-      throw err
+  listenStdout()
+    .then((arr) => {
+      const str = arr.join('\n')
+      const date = new Date().toDateString()
+      const path = `${app.getPath('crashDumps')}/${date}.txt`
+      logInfo('Saving log file to ' + path)
+      writeFile(path, str, {}, (err) => {
+        if (err) throw err
+      })
     })
-  })
+    .catch((reason) => {
+      throw reason
+    })
 
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
