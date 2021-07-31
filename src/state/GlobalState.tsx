@@ -69,6 +69,8 @@ export class GlobalState extends PureComponent<Props> {
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
+    const currentLibrary = this.state.data
+
     try {
       updates = checkUpdates ? await ipcRenderer.invoke('checkGameUpdates') : this.state.gameUpdates
     } catch (error) {
@@ -82,6 +84,10 @@ export class GlobalState extends PureComponent<Props> {
       gameUpdates: updates,
       refreshing: false
     })
+
+    if (currentLibrary.length === 0 && library.length !== 0){
+      this.forceUpdate()
+    }
   }
 
   refreshLibrary = async ({checkForUpdates, fullRefresh, runInBackground = true}: RefreshOptions): Promise<void> => {
@@ -280,7 +286,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { gameUpdates, libraryStatus } = this.state
+    const {data, gameUpdates, libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.once('launchGame', async (e, appName) => {
@@ -324,7 +330,7 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ category, filter, language, layout, platform })
 
     if (user){
-      this.refreshLibrary({checkForUpdates: true, fullRefresh: true})
+      this.refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: Boolean(data.length)})
     }
 
     setTimeout(() => {

@@ -78,10 +78,6 @@ const execOptions = {
   shell: getShell()
 }
 
-const spawnOptions = {
-  shell: getShell(), windowsVerbatimArguments: true
-}
-
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
@@ -107,7 +103,6 @@ export {
   libraryPath,
   loginUrl,
   sidInfoUrl,
-  spawnOptions,
   supportURL,
   userInfo,
   weblateUrl

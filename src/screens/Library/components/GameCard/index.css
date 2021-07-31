@@ -62,7 +62,7 @@
 .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: -92px;
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;
@@ -76,6 +76,7 @@
   height: 4vw;
   min-height: 80px;
   max-height: 85px;
+  cursor: pointer;
 }
 
 .gameTitle > span {
@@ -92,6 +93,7 @@
   z-index: 5;
   padding: 6px;
   margin-right: 4px;
+  transition: 300ms;
 }
 
 .icons > a > svg,
@@ -123,7 +125,19 @@
   cursor:initial;
 }
 
-.gameCard > .gameTitle  > span{
+.gameCard > .icons {
+  opacity: 0;
+}
+
+.gameCard:hover > .icons {
+  opacity: 1;
+}
+
+.gameCard:hover > .gameTitle {
+  bottom: 0;
+}
+
+.gameCard:hover > .gameTitle  > span {
   display: block;
 }
 
