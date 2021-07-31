@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
 export default function SearchBar() {
-  const { handleSearch } = useContext(ContextProvider)
-  const [textValue, setTextValue] = useState('')
+  const { handleSearch, filterText } = useContext(ContextProvider)
+  const [textValue, setTextValue] = useState(filterText)
   const { t } = useTranslation()
 
   return (

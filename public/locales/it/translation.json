@@ -148,6 +148,7 @@
         "egs-sync": "Sincronizza con l'Epic Games già installato",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Riduci ad icona nell'area di notifica",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
         "language": "Seleziona il linguaggio dell'app",
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
@@ -164,6 +165,7 @@
         "maxworkers": "Numero massimo di connessioni durante il download",
         "offlinemode": "Avvia il gioco in modalità offline",
         "primerun": "Attiva Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"

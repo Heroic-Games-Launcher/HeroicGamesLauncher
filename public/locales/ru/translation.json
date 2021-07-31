@@ -148,6 +148,7 @@
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Сворачивать в системный трей",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Использовать GameMode (Нужен Feral Game Mode)",
         "language": "Выберите язык приложения",
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
@@ -164,6 +165,7 @@
         "maxworkers": "Максимальное количество потоков при скачивании",
         "offlinemode": "Запустить игру в автономном режиме",
         "primerun": "Включить Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE на префиксе"

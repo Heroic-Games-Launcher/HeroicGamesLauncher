@@ -21,14 +21,17 @@ export function listenStdout(): Promise<string[]> {
 
     stdout.on('data', (data) => {
       if (data === null) reject(new Error('data === null is true'))
-      logs += data
+      logs = [...logs, data]
     })
     stderr.on('data', (data) => {
       if (data === null) reject(new Error('data === null is true'))
-      logs += data
+      logs = [...logs, data]
     })
 
     process.on('beforeExit', () => {
+      resolve(logs)
+    })
+    process.on('exit', () => {
       resolve(logs)
     })
   })

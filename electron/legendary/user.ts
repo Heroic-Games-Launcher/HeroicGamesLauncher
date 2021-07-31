@@ -7,7 +7,6 @@ import { UserInfo } from '../types'
 import { execAsync } from '../utils'
 import {
   legendaryBin,
-  spawnOptions,
   userInfo
 } from '../constants'
 import { logError, logInfo } from '../logger'
@@ -24,7 +23,7 @@ export class LegendaryUser {
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const child = spawn(legendaryBin, command, spawnOptions)
+      const child = spawn(legendaryBin, command)
       child.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {

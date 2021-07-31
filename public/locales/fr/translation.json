@@ -148,6 +148,7 @@
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Quitter vers System Tray",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
@@ -164,6 +165,7 @@
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "offlinemode": "Lancer le jeu hors ligne",
         "primerun": "Activer Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Glissez et déposez les fichiers ici",
             "title": "Utiliser un EXE pour le Prefix"

@@ -25,8 +25,7 @@ import {
   heroicIconFolder,
   home,
   isWindows,
-  legendaryBin,
-  spawnOptions
+  legendaryBin
 } from '../constants'
 import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
@@ -130,10 +129,11 @@ class LegendaryGame extends Game {
         method: 'GET',
         url: epicUrl
       })
-      delete response.data.pages[0].data.requirements.systems[0].details[0]
+
       const about = response.data.pages.find(
         (e: { type: string }) => e.type === 'productHome'
       )
+
       store.set(namespace, {about: about.data.about, reqs: about.data.requirements.systems[0].details})
       return {
         about: about.data.about,
@@ -201,7 +201,7 @@ class LegendaryGame extends Game {
     let isVerifying = false
 
     return new Promise((res) => {
-      const child = spawn(legendaryBin, command, spawnOptions)
+      const child = spawn(legendaryBin, command)
       const progress: InstallProgress = {
         bytes: '0.00MiB',
         eta: '00:00:00',
@@ -439,7 +439,9 @@ Categories=Game;
       audioFix,
       autoInstallDxvk,
       offlineMode,
-      enableFSR
+      enableFSR,
+      maxSharpness,
+      enableResizableBar
     } = await this.getSettings()
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
@@ -504,8 +506,10 @@ Categories=Game;
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
-      other: otherOptions ? otherOptions : '',
       fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1': '',
+      sharpness: enableFSR ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}` : '',
+      resizableBar: enableResizableBar ? `VKD3D_CONFIG=upload_hvv` : '',
+      other: otherOptions ? otherOptions : '',
       prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
         ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
