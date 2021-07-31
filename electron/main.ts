@@ -62,6 +62,7 @@ import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
+import { checkUpdates } from './updater'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -79,6 +80,13 @@ const tsStore = new Store({
   cwd: 'store',
   name: 'timestamp'
 })
+
+// Trigger the autoUpdater every X minutes
+const interval = setInterval(() => checkUpdates(), (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000) // Converts minutes to milliseconds
+
+if (GlobalConfig.get().config.enableUpdates === false) {
+  clearInterval(interval)
+}
 
 async function createWindow(): Promise<BrowserWindow> {
   listenStdout()
@@ -397,6 +405,7 @@ ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('updateHeroic', () => checkUpdates())
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)

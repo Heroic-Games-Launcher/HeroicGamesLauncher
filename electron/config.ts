@@ -321,6 +321,8 @@ class GlobalConfigV0 extends GlobalConfig {
     const defaultWine = isWindows ? {} : await this.getDefaultWine()
 
     return {
+      checkUpdatesInterval: 10,
+      enableUpdates: true,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,
