@@ -30,7 +30,7 @@
 
 ### New Translations:
 - Portuguese (Brazil)
-- Catalã
+- Català
 - Tamil
 
 ## 1.8.0
