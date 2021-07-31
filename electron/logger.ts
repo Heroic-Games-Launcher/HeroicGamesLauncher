@@ -31,6 +31,9 @@ export function listenStdout(): Promise<string[]> {
     process.on('beforeExit', () => {
       resolve(logs)
     })
+    process.on('exit', () => {
+      resolve(logs)
+    })
   })
   return promise
 }
