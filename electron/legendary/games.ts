@@ -141,8 +141,6 @@ class LegendaryGame extends Game {
         reqs: about.data.requirements.systems[0].details
       } as ExtraInfo
     } catch (error) {
-      store.set(namespace, {about: {}, reqs: []})
-
       return {
         about: {},
         reqs: []
