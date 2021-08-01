@@ -113,7 +113,7 @@ export default function OtherSettings({
           <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
         </span>
       </span>
-      {isLinux && isDefault && <>
+      {isLinux || isWin && isDefault && <>
         <span className="setting">
           <span className="toggleWrapper">
             {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')}
