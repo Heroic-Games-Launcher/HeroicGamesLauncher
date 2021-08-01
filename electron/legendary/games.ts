@@ -2,7 +2,8 @@ import {
   existsSync,
   mkdirSync,
   unlink,
-  writeFile
+  writeFile,
+  writeFileSync
 } from 'graceful-fs'
 import axios from 'axios';
 
@@ -250,7 +251,11 @@ class LegendaryGame extends Game {
     }
     const icon = `${heroicIconFolder}/${appName}.${ext}`
     if (!existsSync(icon)) {
-      await execAsync(`curl '${image}' --output ${icon}`)
+      const req = await axios.get(image, {
+        method: 'GET',
+        responseType: 'arraybuffer'
+      })
+      writeFileSync(icon, req.data)
     }
     return icon
   }
