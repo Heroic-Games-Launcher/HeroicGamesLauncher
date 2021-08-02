@@ -19,6 +19,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
   - [Installation](#installation)
     - [Linux](#linux)
       - [Debian](#debian)
+      - [Ubuntu (third party `apt` repository)](#ubuntu-third-party-apt-repository)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
       - [Other Distributions](#other-distributions)
@@ -90,6 +91,13 @@ Download the `heroic_x.x.x_amd64.deb` from the Releases section
 sudo dpkg -i heroic_x.x.x_amd64.deb
 ```
 
+#### Ubuntu (third party `apt` repository)
+
+You can add the [**MAD Linux**](https://madlinux.sourceforge.io) [`apt` repository](https://gitlab.com/myawesomedistro/madrepo):
+```
+bash <(wget -O- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/madrepo.sh)
+```
+If you need support on it, get access to **MAD Linux** [**Guilded**](https://guilded.gg/madlinux) server.
 #### Arch (AUR)
 
 [![AUR version](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=AUR)](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
