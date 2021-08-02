@@ -1,6 +1,6 @@
 import { app, dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
-import { logInfo } from 'logger'
+import { logInfo } from './logger'
 
 autoUpdater.on('error', (err) => {
   dialog.showErrorBox('Failed to update Heroic', err)
