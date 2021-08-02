@@ -1,5 +1,6 @@
 import { app, dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
+import { logInfo } from 'logger'
 
 autoUpdater.on('error', (err) => {
   dialog.showErrorBox('Failed to update Heroic', err)
@@ -10,7 +11,7 @@ autoUpdater.on('update-available', async (result) => {
 })
 
 autoUpdater.on('download-progress', async (progress, bytesPsec, percent, total, transferred) => {
-  console.log(`Updating Heroic: Progress: ${progress} B/S: ${bytesPsec} ${percent}% / Total: ${total} Transferred: ${transferred}`)
+  logInfo(`Updating Heroic: Progress: ${progress} B/S: ${bytesPsec} ${percent}% / Total: ${total} Transferred: ${transferred}`)
 })
 
 autoUpdater.on('update-downloaded', async () => {
