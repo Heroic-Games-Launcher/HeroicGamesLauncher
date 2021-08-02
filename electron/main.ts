@@ -84,7 +84,7 @@ const tsStore = new Store({
 // Trigger the autoUpdater every X minutes
 const interval = setInterval(() => checkUpdates(), (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000) // Converts minutes to milliseconds
 
-if (GlobalConfig.get().config.enableUpdates === false) {
+if (!GlobalConfig.get().config.enableUpdates) {
   clearInterval(interval)
 }
 
