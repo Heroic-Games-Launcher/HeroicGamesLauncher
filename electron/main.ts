@@ -62,6 +62,7 @@ import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
+import { checkUpdates } from './updater'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -80,16 +81,27 @@ const tsStore = new Store({
   name: 'timestamp'
 })
 
+// Trigger the autoUpdater every X minutes
+const interval = setInterval(() => checkUpdates(), (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000) // Converts minutes to milliseconds
+
+if (GlobalConfig.get().config.enableUpdates === false) {
+  clearInterval(interval)
+}
+
 async function createWindow(): Promise<BrowserWindow> {
-  listenStdout().then((arr) => {
-    const str = arr.join('\n')
-    const date = new Date().toDateString()
-    const path = `${app.getPath('crashDumps')}/${date}.txt`
-    logInfo('Saving log file to ' + path)
-    writeFile(path, str, {}, (err) => {
-      throw err
+  listenStdout()
+    .then((arr) => {
+      const str = arr.join('\n')
+      const date = new Date().toDateString()
+      const path = `${app.getPath('crashDumps')}/${date}.txt`
+      logInfo('Saving log file to ' + path)
+      writeFile(path, str, {}, (err) => {
+        if (err) throw err
+      })
     })
-  })
+    .catch((reason) => {
+      throw reason
+    })
 
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
@@ -393,6 +405,7 @@ ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('updateHeroic', () => checkUpdates())
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)

@@ -2148,6 +2148,11 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
+"@types/semver@^7.3.5":
+  version "7.3.8"
+  resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.3.8.tgz#508a27995498d7586dcecd77c25e289bfaf90c59"
+  integrity sha512-D/2EJvAlCEtYFEYmmlGwbGXuK886HzyCc3nZX/tkFTQdEU8jZDAgiv08P162yB17y4ZXZoq7yFAnW4GDBb9Now==
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -3535,6 +3540,14 @@ buffer@^5.1.0:
   dependencies:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
+
+builder-util-runtime@8.7.5:
+  version "8.7.5"
+  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.7.5.tgz#fbe59e274818885e0d2e358d5b7017c34ae6b0f5"
+  integrity sha512-fgUFHKtMNjdvH6PDRFntdIGUPgwZ69sXsAqEulCtoiqgWes5agrMq/Ud274zjJRTbckYh2PHh8/1CpFc6dpsbQ==
+  dependencies:
+    debug "^4.3.2"
+    sax "^1.2.4"
 
 builder-util-runtime@8.7.6:
   version "8.7.6"
@@ -5240,6 +5253,20 @@ electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.723:
   version "1.3.774"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.774.tgz#4d6661a23119e35151646c9543b346bb3beca423"
   integrity sha512-Fggh17Q1yyv1uMzq8Qn1Ci58P50qcRXMXd2MBcB9sxo6rJxjUutWcNw8uCm3gFWMdcblBO6mDT5HzX/RVRRECA==
+
+electron-updater@^4.3.9:
+  version "4.3.9"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.3.9.tgz#247c660bafad7c07935e1b81acd3e9a5fd733154"
+  integrity sha512-LCNfedSwZfS4Hza+pDyPR05LqHtGorCStaBgVpRnfKxOlZcvpYEX0AbMeH5XUtbtGRoH2V8osbbf2qKPNb7AsA==
+  dependencies:
+    "@types/semver" "^7.3.5"
+    builder-util-runtime "8.7.5"
+    fs-extra "^10.0.0"
+    js-yaml "^4.1.0"
+    lazy-val "^1.0.4"
+    lodash.escaperegexp "^4.1.2"
+    lodash.isequal "^4.5.0"
+    semver "^7.3.5"
 
 electron@^13.1.6:
   version "13.1.6"
@@ -8576,6 +8603,16 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
+
+lodash.escaperegexp@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
+  integrity sha1-ZHYsSGGAglGKw99Mz11YhtriA0c=
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.memoize@^4.1.2:
   version "4.1.2"
