@@ -266,21 +266,9 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   checkVersion = async () => {
-    const { t } = this.props
     const newVersion = await ipcRenderer.invoke('checkVersion')
     if (newVersion) {
-      const { response } = await ipcRenderer.invoke('openMessageBox', {
-        buttons: [t('box.yes'), t('box.no')],
-        message: t(
-          'box.appupdate.message',
-          'There is a new version of Heroic Available, do you want to update now?'
-        ),
-        title: t('box.appupdate.title', 'Update Available')
-      })
-
-      if (response === 0) {
-        ipcRenderer.send('openReleases')
-      }
+      ipcRenderer.send('updateHeroic')
     }
   }
 
