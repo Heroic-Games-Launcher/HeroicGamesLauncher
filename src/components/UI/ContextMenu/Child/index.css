@@ -1,0 +1,11 @@
+.ctx-menu-child {
+    border-radius: 20px;
+    background-color: transparent;
+    color: white;
+    width: 100%;
+    margin: 0;
+    padding: 0.25em;
+}
+.ctx-menu-child:hover {
+    background-color: rgba(71, 71, 255, 0.575);
+}
