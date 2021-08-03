@@ -20,8 +20,8 @@
             "title": "Doğrula ve Onar"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Kısayollar Masaüstü ve Başlangıç Menüsünde oluşturuldu",
+            "title": "Kısayollar"
         },
         "stopInstall": {
             "keepInstalling": "Yüklemeyi Sürdür",
