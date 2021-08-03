@@ -23,10 +23,10 @@
                 "message": "Une erreur inconnue s'est produite",
                 "title": "Erreur inconnue"
             },
-            "launch": "Erreur lors du lancement du jeu, consultez les registres!",
+            "launch": "Erreur lors du lancement du jeu, consultez les fichiers de journalisation !",
             "log": {
-                "message": "Aucun registre n'a été trouvé pour ce jeu",
-                "title": "Le registre n'a pas été trouvé"
+                "message": "Aucun fichier de journalisation n'a été trouvé pour ce jeu",
+                "title": "Aucun fichier de journalisation n'a été trouvé"
             },
             "title": "Erreur"
         },
@@ -123,32 +123,32 @@
         }
     },
     "other": {
-        "weblate": "Aidez Heroic à traduire."
+        "weblate": "Aidez à traduire Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix où EGS est installé"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Projets",
     "Ready": "Prêt",
     "Recent": "Recent Games",
     "Return": "Retour",
     "search": "Insérez le nom du jeu ici...",
     "setting": {
-        "adddesktopshortcuts": "Ajouter les raccourcis Bureau automatiquement",
-        "addgamestostartmenu": "Ajoutez les jeux pour lancer le menu automatiquement",
+        "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
+        "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
         "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
         "default-install-path": "Chemin par défaut de l'installation",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Activer Rich Presence dans Discord",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
         "exit-to-tray": "Quitter vers System Tray",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
@@ -161,11 +161,11 @@
             "title": "Synchronisation manuelle des auvegardes",
             "upload": "Upload"
         },
-        "maxRecentGames": "Jeu récents à montrer",
+        "maxRecentGames": "Jeux récents à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "offlinemode": "Lancer le jeu hors ligne",
         "primerun": "Activer Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Activer Resizable BAR (NVIDIA RTX 30xx seulement)",
         "runexe": {
             "message": "Glissez et déposez les fichiers ici",
             "title": "Utiliser un EXE pour le Prefix"
@@ -175,7 +175,7 @@
             "title": "Écraser le dossier de synchronisation Cloud"
         },
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
-        "start-in-tray": "Démarrage Minimisé",
+        "start-in-tray": "Réduire au démarrage",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
     },
