@@ -1,26 +1,25 @@
 import React from 'react'
 
 import './index.css'
-import { CHProps, ContextMenuChild } from '../Child/index'
 
 interface Props {
-    children: CHProps[]
+    children?: React.ReactNode
+    isVisible: boolean
     left: string
     top: string
 }
 
-export default function ContextMenuParent({ children, left, top }: Props) {
+export default function ContextMenuParent({ children, left, top, isVisible }: Props) {
   return (
     <div
       className="ctx-menu-parent"
       style={{
         left: left,
-        top: top
+        top: top,
+        display: isVisible ? 'block': 'none'
       }}
     >
-      { children.map((ele: CHProps, index) => {
-        return <ContextMenuChild key={index} title={ele.title} onClick={ele.onClick} />
-      }) }
+      { children }
     </div>
   )
 }

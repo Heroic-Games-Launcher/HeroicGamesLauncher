@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import './index.css'
 
 import React, {
@@ -25,6 +26,7 @@ import ContextProvider from 'src/state/ContextProvider'
 
 import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import NewReleasesIcon from '@material-ui/icons/NewReleases'
+import { ContextMenuChild, ContextMenuParent } from 'src/components/UI'
 
 const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
@@ -158,9 +160,25 @@ const GameCard = ({
     }
     return null
   }
+
+  const [isContextMenuVisible, setContextMenuVisibility] = useState(false)
+  const [ctxMenuCoords, setCtxMenuCoords] = useState({
+    x: '0px',
+    y: '0px'
+  })
   return (
     <>
-      <div className={grid ? 'gameCard' : 'gameListItem'}>
+      <div className={grid ? 'gameCard' : 'gameListItem'} onContextMenu={(e) => {
+        setContextMenuVisibility(true)
+        setCtxMenuCoords({
+          x: `${e.pageX}px`,
+          y: `${e.pageY}px`
+        })
+      }}>
+        <ContextMenuParent isVisible={isContextMenuVisible} top={ctxMenuCoords.y} left={ctxMenuCoords.x}>
+          <ContextMenuChild title='Launch' onClick={() => {}} />
+          <ContextMenuChild title='Launch' onClick={() => {}} />
+        </ContextMenuParent>
         {haveStatus && <span className='progress'>{getStatus()}</span>}
         <Link
           to={{
