@@ -12,7 +12,7 @@
         "default-install-path": "Varsayılan Yükleme Yerini Seçin",
         "error": {
             "credentials": {
-                "message": "Kimlik bilgilerinin süresi doldu, lütfen çıkış yapın ve tekrar giriş yapın.",
+                "message": "Kimlik bilgilerinizin süresi doldu, lütfen çıkış yapın ve tekrar giriş yapın.",
                 "title": "Süresi Dolmuş Kimlik Bilgileri"
             },
             "diskspace": {
@@ -146,9 +146,9 @@
         "default-install-path": "Varsayılan Kurulum Yeri",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "exit-to-tray": "Sistem Tepsisine Küçült",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
         "mangohud": "Mangohud'u Etkinleştir (Mangohud yüklü olmalıdır)",
@@ -165,7 +165,7 @@
         "maxworkers": "İndirirken Maksimum İşçi Sayısı",
         "offlinemode": "Oyunu Çevrimdışı Çalıştır",
         "primerun": "Nvidia Prime Render'ı Etkinleştir",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Yeniden Boyutlandırılabilir Çubuğu Etkinleştir (yalnızca NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Exe Çalıştır"
