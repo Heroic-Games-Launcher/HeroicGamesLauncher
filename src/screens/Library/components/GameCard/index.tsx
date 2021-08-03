@@ -176,8 +176,11 @@ const GameCard = ({
         })
       }}>
         <ContextMenuParent isVisible={isContextMenuVisible} top={ctxMenuCoords.y} left={ctxMenuCoords.x}>
-          <ContextMenuChild title='Launch' onClick={() => {}} />
-          <ContextMenuChild title='Launch' onClick={() => {}} />
+          <ContextMenuChild title='Launch' onClick={() => {ipcRenderer.invoke('launch', appName)}} />
+          <ContextMenuChild title='Configure' onClick={() => history.push(`/gameconfig/${appName}`)} />
+          <ContextMenuChild title='Install' onClick={() => {ipcRenderer.invoke('install', appName)}} />
+          <ContextMenuChild title='Uninstall' onClick={() => {ipcRenderer.invoke('uninstall', appName)}} />
+          <ContextMenuChild title='Update' onClick={() => {ipcRenderer.invoke('updateGame', appName)}} />
         </ContextMenuParent>
         {haveStatus && <span className='progress'>{getStatus()}</span>}
         <Link
