@@ -73,7 +73,9 @@
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "start-in-tray": "Iniciar minimizado",
-        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)"
+        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
+        "resizableBar": "Habilitar Resizable Bar (somente NVIDIA RTX 30xx)",
+        "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR"
     },
     "search": "Insira o nome do jogo aqui…",
     "Return": "Voltar",
