@@ -20,7 +20,7 @@
             "title": "Vérifier et Réparer"
         },
         "shortcuts": {
-            "message": "Les raccourcis ont été crées  au Bureau et au Menu de Démarrage",
+            "message": "Raccourcis créés sur le Bureau et dans le Menu Démarrer",
             "title": "Raccourcis"
         },
         "stopInstall": {
@@ -94,7 +94,7 @@
         "updating": "Mise à jour du jeu"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Ajouter un raccourci",
         "change": "Changer le chemin d'installation",
         "log": "Dernier rapport",
         "move": "Déplacer le jeu",
