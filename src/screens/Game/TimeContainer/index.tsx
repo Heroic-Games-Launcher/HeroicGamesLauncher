@@ -21,11 +21,11 @@ type TimeStamp = {
   totalPlayed: number
 }
 
-function TimeContainer({game}: Props) {
-  const {t} = useTranslation('gamepage')
+function TimeContainer({ game }: Props) {
+  const { t } = useTranslation('gamepage')
   const hasPlayed = store.has(game)
 
-  if (!hasPlayed){
+  if (!hasPlayed) {
     return <SmallInfo
       title={`${t('game.lastPlayed', 'Last Played')}:`}
       subtitle={`${t('game.neverPlayed', 'Never')}`} />
@@ -37,15 +37,16 @@ function TimeContainer({game}: Props) {
     timeStyle: 'short'
   };
   const firstPlayed = new Date(tsInfo.firstPlayed)
-  const firstDate = new Intl.DateTimeFormat(storage.getItem('language') || 'en', options).format(firstPlayed);
+  const language = storage.getItem('language')?.replace('_', '-')
+  const firstDate = new Intl.DateTimeFormat(language || 'en', options).format(firstPlayed);
   const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
   const totalPlayed = tsInfo.totalPlayed ? convertMinsToHrsMins(tsInfo.totalPlayed) : null
-  const lastDate = new Intl.DateTimeFormat(storage.getItem('language') || 'en', options).format(lastPlayed || new Date());
+  const lastDate = new Intl.DateTimeFormat(language || 'en', options).format(lastPlayed || new Date());
 
   return <div className="info">
-    <SmallInfo title={`${t('game.firstPlayed', 'First Played')}:`} subtitle={firstDate}/>
-    {lastPlayed && <SmallInfo title={`${t('game.lastPlayed', 'Last Played')}:`} subtitle={lastDate}/>}
-    {totalPlayed && <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}`}/>}
+    <SmallInfo title={`${t('game.firstPlayed', 'First Played')}:`} subtitle={firstDate} />
+    {lastPlayed && <SmallInfo title={`${t('game.lastPlayed', 'Last Played')}:`} subtitle={lastDate} />}
+    {totalPlayed && <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}`} />}
   </div>
 }
 
