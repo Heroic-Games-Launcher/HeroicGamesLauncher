@@ -37,7 +37,7 @@ function TimeContainer({ game }: Props) {
     timeStyle: 'short'
   };
   const firstPlayed = new Date(tsInfo.firstPlayed)
-  const language = storage.getItem('language')?.replace('_', '-').toLowerCase()
+  const language = storage.getItem('language')?.replace('_', '-')
   const firstDate = new Intl.DateTimeFormat(language || 'en', options).format(firstPlayed);
   const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
   const totalPlayed = tsInfo.totalPlayed ? convertMinsToHrsMins(tsInfo.totalPlayed) : null
