@@ -98,6 +98,14 @@ You can add the [**MAD Linux**](https://madlinux.sourceforge.io) [`apt` reposito
 bash <(wget -O- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/madrepo.sh)
 ```
 If you need support on it, get access to **MAD Linux** [**Guilded**](https://guilded.gg/madlinux) server.
+
+Maybe you want to boost the download speed on updates with [`apt-fast`](https://github.com/ilikenwf/apt-fast):
+```
+sudo add-apt-repository -y ppa:apt-fast/stable
+sudo apt install -y apt-fast
+apt-fast install -y heroic
+```
+
 #### Arch (AUR)
 
 [![AUR version](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=AUR)](https://aur.archlinux.org/packages/heroic-games-launcher-bin/)
