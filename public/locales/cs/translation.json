@@ -1,6 +1,6 @@
 {
-    "All": "All",
-    "Assets": "Assets",
+    "All": "Vše",
+    "Assets": "Assety",
     "box": {
         "appupdate": {
             "message": "K dispozici je nová aktualizace pro Heroic, chcete aktualizovat nyní?",
@@ -12,8 +12,8 @@
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Vaše přihlašovací údaje vypršeli, odhlaste se a přihlašte se znovu prosím.",
+                "title": "Prošlé přihlašovací údaje"
             },
             "diskspace": {
                 "message": "Nedostatek místa na disku",
@@ -25,15 +25,15 @@
             },
             "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Pro tuto hru nebyl nalezen žádný protokol",
+                "title": "Protokol nebyl nalezen"
             },
             "title": "Error"
         },
         "no": "NE",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Není nainstalován, chcete jej nainstalovat?"
             }
         },
         "quit": {
@@ -123,32 +123,32 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Pomozte s překladem Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Projekty",
     "Ready": "Připraveno",
     "Recent": "Recent Games",
     "Return": "Zpět",
     "search": "Zde zadejte název hry...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
+        "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
         "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Zjišťovat dostupnost aktualizací po spuštění",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Povolit Discord Rich Presence",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
         "exit-to-tray": "Ukončit do systémové oblasti",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Síla ostrosti FSR",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
@@ -161,11 +161,11 @@
             "title": "Ručně synchronizovat uložené soubory",
             "upload": "Nahrát"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Max. nedávno hraných her k zobrazení",
         "maxworkers": "Maximální počet vláken při stahování",
         "offlinemode": "Spustit hru offline",
-        "primerun": "Enable Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "primerun": "Povolení vykreslování Nvidia Prime",
+        "resizableBar": "Používat Resizable Bar (pouze s NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Přetáhněte soubory sem",
             "title": "Spustit EXE na prefixu"
@@ -175,7 +175,7 @@
             "title": "Přepsat synchronizaci cloudu"
         },
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Spustit minimalizované",
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
     },
@@ -200,8 +200,8 @@
         "show": "Zobrazit",
         "support": "Podpořte nás"
     },
-    "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Unreal Marketplace": "Unreal Marketplace",
+    "Updates": "Aktualizace",
     "userselector": {
         "about": "O aplikaci",
         "discord": "Discord",
