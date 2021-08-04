@@ -168,7 +168,9 @@
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
         "adddesktopshortcuts": "Dodaje prečace automatski",
-        "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)"
+        "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)",
+        "resizableBar": "Omogući Resizable Bar (samo NVIDIA RTX 30xx)",
+        "FsrSharpnessStrenght": "Snaga FSR Oštrine"
     },
     "placeholder": {
         "egs-prefix": "Put gdje je EGS instaliran"
