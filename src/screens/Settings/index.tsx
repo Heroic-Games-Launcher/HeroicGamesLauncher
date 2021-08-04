@@ -191,7 +191,7 @@ function Settings() {
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
       setEnableFSR(config.enableFSR || false)
-      setFsrSharpness(config.maxSharpness || 5)
+      setFsrSharpness(config.maxSharpness || 2)
       setResizableBar(config.enableResizableBar || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 0)
