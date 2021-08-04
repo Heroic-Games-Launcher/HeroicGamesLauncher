@@ -50,7 +50,24 @@
             "title": "Selecione a pasta de saves"
         },
         "wineprefix": "Selecione a pasta do WINE Prefix",
-        "yes": "SIM"
+        "yes": "SIM",
+        "language": "Selecione o idioma do app",
+        "gamemode": "Usar o GameMode (Necessita ter gamemode instalado)",
+        "exit-to-tray": "Fechar para a barra de tarefas",
+        "egs-sync": "Sincronizar com a Epic Games Store",
+        "discordRPC": "Habilitar o Discord Rich Presence",
+        "darktray": "Usar o ícone escuro na barra de tarefas",
+        "customWineProton": "Locais com WINE/Proton Customizados",
+        "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
+        "autosync": "Sincronizar saves automaticamente",
+        "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefix",
+        "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
+        "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
+        "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
+        "start-in-tray": "Iniciar minimizado",
+        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
+        "resizableBar": "Habilitar Resizable Bar (somente NVIDIA RTX 30xx)",
+        "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR"
     },
     "button": {
         "sync": "Sincronizar",

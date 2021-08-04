@@ -148,7 +148,7 @@
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Schärfestärke",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
@@ -165,7 +165,7 @@
         "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
         "offlinemode": "Spiel offline ausführen",
         "primerun": "Nvidia Prime Render aktivieren",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Resizable Bar aktivieren (nur NVIDIA RTX)",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"
