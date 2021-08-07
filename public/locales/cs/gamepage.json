@@ -43,7 +43,8 @@
         "continue": "Pokračovat ve stahování",
         "import": "Importovat",
         "install": "Instalovat",
-        "uninstall": "Odinstalovat"
+        "uninstall": "Odinstalovat",
+        "update": "Update"
     },
     "disabled": "Zakázáno",
     "enabled": "Povoleno",

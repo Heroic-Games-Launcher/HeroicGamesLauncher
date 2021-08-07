@@ -322,7 +322,7 @@ class GlobalConfigV0 extends GlobalConfig {
 
     return {
       checkUpdatesInterval: 10,
-      enableUpdates: true,
+      enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,

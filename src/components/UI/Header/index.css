@@ -1,130 +1,135 @@
 .header {
-  display: grid;
-  place-self: center;
-  place-content: center;
-  height: 84px;
-  width: calc(100% - 1vw);
-  padding: 0 4rem 1rem 4rem;
-  grid-template-columns: 4fr 5fr 2fr 2fr 1fr;
-  justify-items: baseline;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: clamp(1em, 0.5vw, 2rem);
-  line-height: 17px;
-  color: var(--text-secondary);
-  grid-template-areas: 'filter search total category layout';
+    display: grid;
+    place-self: center;
+    place-content: center;
+    height: 84px;
+    width: calc(100% - 1vw);
+    padding: 0 4rem 1rem 4rem;
+    grid-template-columns: 4fr 5fr 2fr 2fr 1fr;
+    justify-items: baseline;
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    font-size: clamp(1em, 0.5vw, 2rem);
+    line-height: 17px;
+    color: var(--text-secondary);
+    grid-template-areas: 'filter search total category layout';
 }
 
 .headerSettings {
-  grid-template-columns: 1fr 6fr;
-  display: grid;
-  grid-template-areas: 'return title';
-  width: 70vw;
-  min-width: 513px;
-  max-width: 912px;
-  place-self: center;
-  align-items: center;
-  margin: 22px 0;
+    grid-template-columns: 1fr 6fr;
+    display: grid;
+    grid-template-areas: 'return title';
+    width: 70vw;
+    min-width: 513px;
+    max-width: 912px;
+    place-self: center;
+    align-items: center;
+    margin: 22px 0;
 }
 
-.headerSettings > .headerTitle {
-  font-size: 1.5rem;
-  grid-area: title;
-  margin-left: -100px;
+.headerSettings>.headerTitle {
+    font-size: 1.5rem;
+    grid-area: title;
+    margin-left: -100px;
 }
 
 .selectFilter {
-  display: flex;
-  width: fit-content;
-  justify-self: auto;
-  justify-content: space-evenly;
-  grid-area: filter;
-  flex-wrap: wrap;
-  font-size: 16px;
-  align-content: center;
+    display: flex;
+    width: fit-content;
+    justify-self: auto;
+    justify-content: space-evenly;
+    grid-area: filter;
+    flex-wrap: wrap;
+    font-size: 16px;
+    align-content: center;
 }
 
-.selectFilter > select {
-  cursor: pointer;
-  padding: 0 8px;
-  color: var(--text-secondary);
-  border: none;
-  background: none;
-  outline: none;
-  font-size: 16px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  color: var(--text-secondary);
-  width: fit-content;
+.selectFilter>select {
+    cursor: pointer;
+    padding: 0 8px;
+    color: var(--text-secondary);
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16px;
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    color: var(--text-secondary);
+    width: fit-content;
 }
 
 option {
-  background: var(--background);
-  color: var(--text-secondary);
+    background: var(--background);
+    color: var(--text-secondary);
 }
 
 .selectCategory {
-  display: flex;
-  width: fit-content;
-  justify-self: end;
-  justify-content: space-evenly;
-  cursor: pointer;
-  grid-area: category;
-  align-content: center;
-  flex-wrap: wrap;
+    display: flex;
+    width: fit-content;
+    justify-self: end;
+    justify-content: space-evenly;
+    cursor: pointer;
+    grid-area: category;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
-.selectCategory > .selected {
-  font-size: clamp(1.1em, 0.6vw, 2.1rem);
-  font-weight: 600;
-  color: var(--primary);
+.selectCategory>span:hover {
+    color: var(--secondary)
 }
 
-.selectCategory > :not(:first-child) {
-  padding: 0 8px;
+.selectCategory>.selected {
+    font-size: clamp(1.1em, 0.6vw, 2.1rem);
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.selectCategory> :not(:first-child) {
+    padding: 0 8px;
 }
 
 .layoutSelection {
-  place-self: center;
-  grid-area: layout;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+    place-self: center;
+    grid-area: layout;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .selectedLayout {
-  color: var(--secondary);
+    color: var(--secondary);
 }
 
-.layoutSelection > svg:hover {
-  cursor: pointer;
+.layoutSelection>svg:hover {
+    cursor: pointer;
+    fill: var(--secondary);
 }
 
-.layoutSelection > svg {
-  margin: 0 0.2em;
+.layoutSelection>svg {
+    margin: 0 0.2em;
 }
 
 .iconsWrapper {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  padding-left: 6px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-left: 6px;
 }
 
 .totalGamesText {
-  right: 55px;
-  top: 108px;
-  grid-area: total;
-  margin: auto;
+    right: 55px;
+    top: 108px;
+    grid-area: total;
+    margin: auto;
 }
 
 .returnLink {
-  display: grid;
-  place-items: center;
-  grid-template-columns: 1fr 1fr;
-  width: 100px;
-  margin: 0 -10px;
-  height: fit-content;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr;
+    width: 100px;
+    margin: 0 -10px;
+    height: fit-content;
 }

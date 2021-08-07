@@ -43,7 +43,8 @@
         "continue": "Continue Download",
         "import": "കൊണ്ടുവരൂ",
         "install": "സ്ഥാപിക്കൂ",
-        "uninstall": "എടുത്തുനീക്കൂ"
+        "uninstall": "എടുത്തുനീക്കൂ",
+        "update": "Update"
     },
     "disabled": "പ്രവര്‍ത്തനരഹിതം",
     "enabled": "പ്രവര്‍ത്തനക്ഷമം",

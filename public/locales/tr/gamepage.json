@@ -43,7 +43,8 @@
         "continue": "İndirmeye Devam Et",
         "import": "İçeri Aktar",
         "install": "Yükle",
-        "uninstall": "Kaldır"
+        "uninstall": "Kaldır",
+        "update": "Update"
     },
     "disabled": "Devre dışı",
     "enabled": "Etkin",

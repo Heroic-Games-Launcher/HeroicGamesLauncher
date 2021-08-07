@@ -43,7 +43,8 @@
         "continue": "Продолжить загрузку",
         "import": "Импорт",
         "install": "Установить",
-        "uninstall": "Удалить"
+        "uninstall": "Удалить",
+        "update": "Update"
     },
     "disabled": "Выключено",
     "enabled": "Включено",
