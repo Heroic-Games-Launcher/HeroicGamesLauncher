@@ -43,7 +43,8 @@
         "continue": "Letöltés folytatása",
         "import": "Importálás",
         "install": "Telepítés",
-        "uninstall": "Eltávolítás"
+        "uninstall": "Eltávolítás",
+        "update": "Update"
     },
     "disabled": "Letiltva",
     "enabled": "Engedélyezve",

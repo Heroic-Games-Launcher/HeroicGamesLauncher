@@ -219,7 +219,7 @@ const GameCard = ({
           )}
         </div>
         {!grid ? <hr style={{ opacity: 0.1, width: '90%' }} /> : ''}
-        <ContextMenu id={appName}>
+        <ContextMenu id={appName} className="contextMenu">
           {isInstalled && <>
             <MenuItem onClick={() => handlePlay()}>
               {t('label.playing.start')}
@@ -236,7 +236,7 @@ const GameCard = ({
             </MenuItem>
           </>
           }
-          {!isInstalled && <MenuItem className={hasDownloads ? 'disabled' : 'menuItem'} onClick={() => !hasDownloads ? buttonClick() : () => null}>
+          {!isInstalled && <MenuItem className={hasDownloads ? 'menuItem disabled' : 'menuItem'} onClick={() => !hasDownloads ? buttonClick() : () => null}>
             {t('button.install')}
           </MenuItem>}
           {isInstalling && <MenuItem onClick={() => handlePlay()}>

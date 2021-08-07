@@ -264,7 +264,7 @@
 .react-contextmenu-item {
     color: var(--text-primary);
     font-size: 14px;
-    line-height: 22px;
+    line-height: 26px;
     font-family: Rubik;
     cursor: pointer;
     text-align: left;
