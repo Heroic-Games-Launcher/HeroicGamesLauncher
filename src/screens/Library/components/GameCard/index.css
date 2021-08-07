@@ -39,6 +39,8 @@
     width: fit-content;
     max-width: 96px;
     word-wrap: break-word;
+    padding: 2px;
+    background: var(--background-gradient);
 }
 
 .gameCard>a>.gameImg {
@@ -135,6 +137,10 @@
 
 .gameCard:hover>.gameTitle>span {
     display: block;
+}
+
+.gameCard:hover>.progress {
+    background: none;
 }
 
 .gameCard .gameTitle span {

@@ -227,7 +227,6 @@ const GameCard = ({
             <MenuItem onClick={() => history.push(path, {fromGameCard: true})}>
               {t('submenu.settings')}
             </MenuItem>
-            <MenuItem divider />
             {hasUpdate && <MenuItem onClick={() => updateGame(appName)}>
               {t('button.update', 'Update')}
             </MenuItem>}
