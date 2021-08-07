@@ -106,6 +106,7 @@
     "i18next-http-backend": "^1.2.2",
     "pretty-bytes": "^5.6.0",
     "react": "^17.0.2",
+    "react-contextmenu": "^2.14.0",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.8.15",
     "react-router-dom": "^5.2.0",

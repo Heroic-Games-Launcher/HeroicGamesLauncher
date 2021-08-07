@@ -19,12 +19,13 @@ import {
   launch,
   sendKill
 } from 'src/helpers'
-
+import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
 import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import NewReleasesIcon from '@material-ui/icons/NewReleases'
+import { uninstall, updateGame } from 'src/helpers/library'
 
 const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
@@ -160,63 +161,89 @@ const GameCard = ({
   }
   return (
     <>
-      <div className={grid ? 'gameCard' : 'gameListItem'}>
-        {haveStatus && <span className='progress'>{getStatus()}</span>}
-        <Link
-          to={{
-            pathname: `/gameconfig/${appName}`
-          }}
-        >
-          <span
-            style={{
-              backgroundImage: `url('${
-                grid ? cover : coverList
-              }?h=400&resize=1&w=300')`,
-              backgroundSize: 'cover',
-              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
+      <ContextMenuTrigger id={appName}>
+        <div className={grid ? 'gameCard' : 'gameListItem'}>
+          {haveStatus && <span className='progress'>{getStatus()}</span>}
+          <Link
+            to={{
+              pathname: `/gameconfig/${appName}`
             }}
-            className={grid ? 'gameImg' : 'gameImgList'}
           >
-            {logo && (
-              <img
-                alt="logo"
-                src={`${logo}?h=400&resize=1&w=300`}
-                style={{
-                  filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
-                }}
-                className="gameLogo"
-              />
-            )}
-          </span>
-        </Link>
-        {grid ? (
-          <>
-            <div className="gameTitle" onClick={() => history.push(`/gameconfig/${appName}`)}>
-              <span>{title}</span>
-            </div>
-            {
-              <span
-                className="icons"
-              >
-                {renderIcon()}
-                {isInstalled && isGame && <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
-              </span>
-            }
+            <span
+              style={{
+                backgroundImage: `url('${
+                  grid ? cover : coverList
+                }?h=400&resize=1&w=300')`,
+                backgroundSize: 'cover',
+                filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
+              }}
+              className={grid ? 'gameImg' : 'gameImgList'}
+            >
+              {logo && (
+                <img
+                  alt="logo"
+                  src={`${logo}?h=400&resize=1&w=300`}
+                  style={{
+                    filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
+                  }}
+                  className="gameLogo"
+                />
+              )}
+            </span>
+          </Link>
+          {grid ? (
+            <>
+              <div className="gameTitle" onClick={() => history.push(`/gameconfig/${appName}`)}>
+                <span>{title}</span>
+              </div>
+              {
+                <span
+                  className="icons"
+                >
+                  {renderIcon()}
+                  {isInstalled && isGame && <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
+                </span>
+              }
+            </>
+          ) : (
+            <>
+              {<div className="gameListInfo">{isInstalled ? size : '---'}</div>}
+              <span className="gameTitleList">{title}</span>
+              {
+                <span className="icons">
+                  {renderIcon()}
+                  {isInstalled && isGame &&  <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
+                </span>
+              }
+            </>
+          )}
+        </div>
+        {!grid ? <hr style={{ opacity: 0.1, width: '90%' }} /> : ''}
+        <ContextMenu id={appName}>
+          {isInstalled && <>
+            <MenuItem onClick={() => handlePlay()}>
+              {t('label.playing.start')}
+            </MenuItem>
+            <MenuItem onClick={() => history.push(path, {fromGameCard: true})}>
+              {t('submenu.settings')}
+            </MenuItem>
+            <MenuItem divider />
+            {hasUpdate && <MenuItem onClick={() => updateGame(appName)}>
+              {t('button.update', 'Update')}
+            </MenuItem>}
+            <MenuItem onClick={() => uninstall({appName, handleGameStatus, t})}>
+              {t('button.uninstall')}
+            </MenuItem>
           </>
-        ) : (
-          <>
-            {<div className="gameListInfo">{isInstalled ? size : '---'}</div>}
-            <span className="gameTitleList">{title}</span>
-            {
-              <span className="icons">
-                {renderIcon()}
-                {isInstalled && isGame &&  <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
-              </span>
-            }
-          </>
-        )}
-      </div>
-      {!grid ? <hr style={{ opacity: 0.1, width: '90%' }} /> : ''}
+          }
+          {!isInstalled && <MenuItem className={hasDownloads ? 'disabled' : 'menuItem'} onClick={() => !hasDownloads ? buttonClick() : () => null}>
+            {t('button.install')}
+          </MenuItem>}
+          {isInstalling && <MenuItem onClick={() => handlePlay()}>
+            {t('button.cancel')}
+          </MenuItem>}
+        </ContextMenu>
+      </ContextMenuTrigger>
     </>
   )
 
