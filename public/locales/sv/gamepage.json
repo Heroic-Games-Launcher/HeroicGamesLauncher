@@ -43,7 +43,8 @@
         "continue": "Fortsätt nedladdning",
         "import": "Importera",
         "install": "Installera",
-        "uninstall": "Avinstallera"
+        "uninstall": "Avinstallera",
+        "update": "Update"
     },
     "disabled": "Inaktiverad",
     "enabled": "Aktiverad",

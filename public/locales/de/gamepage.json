@@ -43,7 +43,8 @@
         "continue": "Download fortsetzen",
         "import": "Importieren",
         "install": "Installieren",
-        "uninstall": "Deinstallieren"
+        "uninstall": "Deinstallieren",
+        "update": "Update"
     },
     "disabled": "Deaktiviert",
     "enabled": "Aktiviert",

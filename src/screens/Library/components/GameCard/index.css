@@ -1,259 +1,286 @@
 .gameCard {
-  background-color: var(--background-darker);
-  text-align: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: clamp(130px, 8vw, 200px);
-  height: 10vw;
-  max-height: 266px;
-  min-height: 173px;
-  overflow: hidden;
-  position: relative;
-  border-radius: 0.5rem;
+    background-color: var(--background-darker);
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: clamp(130px, 8vw, 200px);
+    height: 10vw;
+    max-height: 266px;
+    min-height: 173px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 0.5rem;
 }
 
-.gameCard > .status {
-  position: absolute;
-  z-index: 5;
-  top: 15px;
-  left: 13px;
-  font-weight: 600;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    rgba(20, 21, 21, 0.863) 30%
-  );
-  padding: 2px 5px;
-  border-radius: 4px;
-  color: var(--success);
+.gameCard>.status {
+    position: absolute;
+    z-index: 5;
+    top: 15px;
+    left: 13px;
+    font-weight: 600;
+    background: linear-gradient( 180deg, rgba(0, 0, 0, 0.418) 2.4%, rgba(20, 21, 21, 0.863) 30%);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--success);
 }
 
-.gameCard > .progress {
-  position: absolute;
-  z-index: 5;
-  bottom: 10px;
-  left: 5px;
-  color: var(--success);
-  font-family: Rubik;
-  font-style: italic;
-  font-weight: normal;
-  font-size: 10px;
-  line-height: 12px;
-  width: fit-content;
-  max-width: 96px;
-  word-wrap: break-word;
+.gameCard>.progress {
+    position: absolute;
+    z-index: 5;
+    bottom: 10px;
+    left: 5px;
+    color: var(--success);
+    font-family: Rubik;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    width: fit-content;
+    max-width: 96px;
+    word-wrap: break-word;
+    padding: 2px;
+    background: var(--background-gradient);
 }
 
-.gameCard > a > .gameImg {
-  width: 8vw;
-  height: 10vw;
-  max-width: 200px;
-  max-height: 266px;
-  min-width: 130px;
-  min-height: 173px;
-  object-fit: cover;
-  position: absolute;
-  border-radius: 0.5rem;
-  top: 0;
-  left: 0;
+.gameCard>a>.gameImg {
+    width: 8vw;
+    height: 10vw;
+    max-width: 200px;
+    max-height: 266px;
+    min-width: 130px;
+    min-height: 173px;
+    object-fit: cover;
+    position: absolute;
+    border-radius: 0.5rem;
+    top: 0;
+    left: 0;
 }
 
 .gameTitle {
-  position: absolute;
-  width: 100%;
-  bottom: -92px;
-  padding: 0.3vw;
-  color: var(--text-secondary);
-  display: flex;
-  background: var(--background-gradient);
-  transition: 200ms;
-  font-family: Cabin;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 17px;
-  color: var(--text-primary);
-  height: 4vw;
-  min-height: 80px;
-  max-height: 85px;
-  cursor: pointer;
+    position: absolute;
+    width: 100%;
+    bottom: -92px;
+    padding: 0.3vw;
+    color: var(--text-secondary);
+    display: flex;
+    background: var(--background-gradient);
+    transition: 200ms;
+    font-family: Cabin;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    color: var(--text-primary);
+    height: 4vw;
+    min-height: 80px;
+    max-height: 85px;
+    cursor: pointer;
 }
 
-.gameTitle > span {
-  bottom: 0;
-  display: none;
-  z-index: 3;
+.gameTitle>span {
+    bottom: 0;
+    display: none;
+    z-index: 3;
 }
 
 .icons {
-  align-self: flex-end;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  z-index: 5;
-  padding: 6px;
-  margin-right: 4px;
-  transition: 300ms;
+    align-self: flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 5;
+    padding: 6px;
+    margin-right: 4px;
+    transition: 300ms;
 }
 
-.icons > a > svg,
-.icons > svg {
-  width: min(calc(1vw + 9px), 36px);
-  height: min(calc(1vw + 9px), 36px);
-  min-width: 22px;
-  min-height: 22px;
-  margin-left: 12px;
+.icons>a>svg,
+.icons>svg {
+    width: min(calc(1vw + 9px), 36px);
+    height: min(calc(1vw + 9px), 36px);
+    min-width: 22px;
+    min-height: 22px;
+    margin-left: 12px;
 }
 
-.playIcon > circle {
-  fill: var(--success)
+.playIcon>circle {
+    fill: var(--success)
 }
 
-.downIcon > circle {
-  fill: var(--secondary)
+.downIcon>circle {
+    fill: var(--secondary)
 }
 
-.cancelIcon > circle {
-  fill: var(--danger);
+.cancelIcon>circle {
+    fill: var(--danger);
 }
 
 .iconDisabled circle {
-  fill: var(--icon-disabled);
+    fill: var(--icon-disabled);
 }
 
-.iconDisabled > * {
-  cursor:initial;
+.iconDisabled>* {
+    cursor: initial;
 }
 
-.gameCard > .icons {
-  opacity: 0;
+.gameCard>.icons {
+    opacity: 0;
 }
 
-.gameCard:hover > .icons {
-  opacity: 1;
+.gameCard:hover>.icons {
+    opacity: 1;
 }
 
-.gameCard:hover > .gameTitle {
-  bottom: 0;
+.gameCard:hover>.gameTitle {
+    bottom: 0;
 }
 
-.gameCard:hover > .gameTitle  > span {
-  display: block;
+.gameCard:hover>.gameTitle>span {
+    display: block;
+}
+
+.gameCard:hover>.progress {
+    background: none;
 }
 
 .gameCard .gameTitle span {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .gameImg {
-  width: 210px;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 0.5rem;
+    width: 210px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 0.5rem;
 }
 
 .gameListItem {
-  display: grid;
-  grid-template-columns: 2fr 1fr 6fr 1fr;
-  grid-template-areas: 'cover infos name action';
-  height: 8vh;
-  margin: 1em;
-  align-items: center;
-  justify-items: center;
-  position: relative;
-  cursor: default;
-  width: 95%;
-  place-self: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 6fr 1fr;
+    grid-template-areas: 'cover infos name action';
+    height: 8vh;
+    margin: 1em;
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    cursor: default;
+    width: 95%;
+    place-self: center;
 }
 
 .gameImgList {
-  max-width: 15vh;
-  height: inherit;
-  width: inherit;
-  grid-area: cover;
-  border-radius: 0.5rem;
-  contain: content;
-  cursor: pointer;
-  display: block;
+    max-width: 15vh;
+    height: inherit;
+    width: inherit;
+    grid-area: cover;
+    border-radius: 0.5rem;
+    contain: content;
+    cursor: pointer;
+    display: block;
 }
 
-.gameListItem > .gameLogo {
-  width: 3vw;
-  min-width: 45px;
-  position: absolute;
-  z-index: 2;
-  grid-area: cover;
+.gameListItem>.gameLogo {
+    width: 3vw;
+    min-width: 45px;
+    position: absolute;
+    z-index: 2;
+    grid-area: cover;
 }
 
-.gameImgList > .gameLogo {
-  width: 45%;
-  min-width: 60px;
-  position: relative;
-  top: 25px;
-  z-index: 2;
+.gameImgList>.gameLogo {
+    width: 45%;
+    min-width: 60px;
+    position: relative;
+    top: 25px;
+    z-index: 2;
 }
 
 .gameTitleList {
-  grid-area: name;
-  font-size: 1em;
+    grid-area: name;
+    font-size: 1em;
 }
 
-.gameListItem > a {
-  grid-area: cover;
-  max-width: 15vh;
-  width: 100%;
-  height: 100%;
+.gameListItem>a {
+    grid-area: cover;
+    max-width: 15vh;
+    width: 100%;
+    height: 100%;
 }
 
-.gameListItem > .icons {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-around;
-  width: 120px;
-  height: 100%;
-  padding: 0 6px;
+.gameListItem>.icons {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+    width: 120px;
+    height: 100%;
+    padding: 0 6px;
 }
 
-.gameListItem > .progress {
-  z-index: 5;
-  grid-area: cover;
-  font-weight: 500;
-  background: var(--background-gradient);
-  padding: 2px 5px;
-  border-radius: 4px;
-  color: var(--success);
-  position: relative;
-  bottom: -38px;
-  left: -38px;
-  color: var(--success);
-  font-family: Rubik;
-  font-style: italic;
-  font-weight: normal;
-  line-height: 12px;
+.gameListItem>.progress {
+    z-index: 5;
+    grid-area: cover;
+    font-weight: 500;
+    background: var(--background-gradient);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--success);
+    position: relative;
+    bottom: -38px;
+    left: -38px;
+    color: var(--success);
+    font-family: Rubik;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 12px;
 }
 
-.gameListItem > .progress > .MuiSvgIcon-root{
-  position: relative;
-  bottom: 0;
-  top: 0;
+.gameListItem>.progress>.MuiSvgIcon-root {
+    position: relative;
+    bottom: 0;
+    top: 0;
 }
 
 .gameListInfo {
-  font-size: 1em;
-  grid-area: infos;
+    font-size: 1em;
+    grid-area: infos;
 }
 
-.gameImg > .gameLogo {
-  width: min(7vw, 60%);
-  position: relative;
-  top: 35%;
-  min-width: 79px;
-  z-index: 2;
-  left: 21%;
+.gameImg>.gameLogo {
+    width: min(7vw, 60%);
+    position: relative;
+    top: 35%;
+    min-width: 79px;
+    z-index: 2;
+    left: 21%;
 }
 
-.progress > .MuiSvgIcon-root{
-  position: relative;
-  bottom: 130px;
+.progress>.MuiSvgIcon-root {
+    position: relative;
+    bottom: 130px;
+}
+
+.react-contextmenu--visible {
+    background-color: var(--background);
+    padding: 14px 22px;
+    border-radius: 6px;
+    z-index: 99;
+}
+
+.react-contextmenu-item {
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 26px;
+    font-family: Rubik;
+    cursor: pointer;
+    text-align: left;
+}
+
+.react-contextmenu-item:hover {
+    color: var(--secondary);
+}
+
+.react-contextmenu-item.disabled {
+    color: var(--icon-disabled);
+    cursor: initial;
 }

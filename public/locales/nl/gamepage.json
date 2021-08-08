@@ -43,7 +43,8 @@
         "continue": "Doorgaan met Download",
         "import": "Importeren",
         "install": "Installeren",
-        "uninstall": "Verwijderen"
+        "uninstall": "Verwijderen",
+        "update": "Update"
     },
     "disabled": "Uitgeschakeld",
     "enabled": "Ingeschakeld",

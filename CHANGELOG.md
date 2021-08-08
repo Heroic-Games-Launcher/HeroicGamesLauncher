@@ -1,3 +1,12 @@
+## 1.9.1
+
+### General
+- Added a Context Menu to the Gamecard on right click with common functions like Install, Launch, Update, Uninstall, etc.
+- Changed the Gamecard UI again to the old style with hidden buttons.
+### Bugfixes
+- Fixed a bug that the cached library would not load correctly leading to a Blank Screen.
+- Other small UI fixes and inconsistencies.
+
 ## 1.9.0
 
 ### General
