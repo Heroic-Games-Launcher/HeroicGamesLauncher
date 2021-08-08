@@ -71,8 +71,15 @@ export class GlobalState extends PureComponent<Props> {
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
     const currentLibrary = this.state.data
-
-    const library: Array<GameInfo> = (await getLegendaryConfig()).library
+    if (!this.state.data.length) {
+      ipcRenderer.send('logInfo', 'No cache found, getting data from legendary...')
+      const library: Array<GameInfo> = (await getLegendaryConfig()).library
+      this.setState({ data: library })
+      if (currentLibrary.length !== library.length) {
+        ipcRenderer.send('logInfo', 'Force Update')
+        this.forceUpdate()
+      }
+    }
 
     try {
       updates = checkUpdates ? await ipcRenderer.invoke('checkGameUpdates') : this.state.gameUpdates
@@ -81,17 +88,10 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({
-      data: library,
       filterText: '',
       gameUpdates: updates,
       refreshing: false
     })
-
-
-    if (!currentLibrary.length && library.length) {
-      ipcRenderer.send('logInfo', 'Force Update')
-      this.forceUpdate()
-    }
   }
 
   refreshLibrary = async ({ checkForUpdates, fullRefresh, runInBackground = true }: RefreshOptions): Promise<void> => {
