@@ -201,7 +201,7 @@ const GameCard = ({
                   className="icons"
                 >
                   {renderIcon()}
-                  {isInstalled && isGame && <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
+                  {isInstalled && isGame && <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push({pathname: path, state: { fromGameCard: true}})} />}
                 </span>
               }
             </>
@@ -212,7 +212,7 @@ const GameCard = ({
               {
                 <span className="icons">
                   {renderIcon()}
-                  {isInstalled && isGame &&  <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push(path, {fromGameCard: true})} />}
+                  {isInstalled && isGame &&  <SettingsIcon fill={'var(--text-primary)'} onClick={() => history.push({pathname: path, state: { fromGameCard: true}})} />}
                 </span>
               }
             </>
@@ -224,7 +224,7 @@ const GameCard = ({
             <MenuItem onClick={() => handlePlay()}>
               {t('label.playing.start')}
             </MenuItem>
-            <MenuItem onClick={() => history.push(path, {fromGameCard: true})}>
+            <MenuItem onClick={() => history.push({pathname: path, state: { fromGameCard: true}})}>
               {t('submenu.settings')}
             </MenuItem>
             {hasUpdate && <MenuItem onClick={() => updateGame(appName)}>

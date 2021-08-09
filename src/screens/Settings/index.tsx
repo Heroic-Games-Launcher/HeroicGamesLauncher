@@ -268,9 +268,8 @@ function Settings() {
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
   let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
-
   if (state && state.fromGameCard) {
-    returnPath = null
+    returnPath = '/'
   }
 
   useEffect(() => {
