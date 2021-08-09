@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.9.2
+
+### Bugfixes
+
+- Fixes a bug where a game wasn't shown as installed after finishing the installation.
+- Changes default and minimal Heroic window size to acomodate lower resolutions.
+- Fixed a small bug where the return button on settings were leading to the Game page instead of the Library when coming from there.
+
 ## 1.9.1
 
 ### General
