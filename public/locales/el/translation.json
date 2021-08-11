@@ -1,6 +1,6 @@
 {
     "All": "Όλα",
-    "Assets": "Assets",
+    "Assets": "Αντικείμενα",
     "box": {
         "appupdate": {
             "message": "Υπάρχει μια νέα έκδοση του Heroic διαθέσιμη, θέλετε να το ενημερώσετε τώρα;",
@@ -8,12 +8,12 @@
         },
         "choose": "Επιλογή",
         "choose-egs-prefix": "Επιλέξτε πρόθεμα όπου το EGS είναι εγκατεστημένο",
-        "customWine": "Select the Wine or Proton Binary",
+        "customWine": "Επιλέξτε το αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Τα διαπιστευτήριά σας έληξαν, αποσυνδεθείτε και επανασυνδεθείτε.",
+                "title": "Ληγμένα Διαπιστευτήρια"
             },
             "diskspace": {
                 "message": "Δεν υπάρχει αρκετός διαθέσιμος χώρος στο δίσκο",
@@ -25,16 +25,15 @@
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Δεν βρέθηκαν αρχεία καταγραφής για το παιχνίδι",
+                "title": "Δεν βρέθηκε αρχείο καταγραφής"
             },
-            "title": "Error"
+            "title": "Σφάλμα"
         },
         "no": "ΟΧΙ",
-        "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Μη εγκατεστημένο, επιθυμείτε να το εγκαταστήσετε;"
             }
         },
         "quit": {
@@ -45,10 +44,6 @@
             "title": "Επιλέξτε EXE για εκτέλεση"
         },
         "select": "Επιλογή",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Επιλέξτε",
             "error": "Μη έγκυρη Διαδρομή",
@@ -128,30 +123,32 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Βοηθήστε να μεταφραστεί το Heroic."
     },
     "placeholder": {
         "egs-prefix": "Πρόθεμα εγκατάστασης EGS"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Πρότζεκτ",
     "Ready": "Έτοιμο",
     "Recent": "Recent Games",
     "Return": "Επιστροφή",
     "search": "Εισαγάγετε όνομα παιχνιδιού...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
+        "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Έλεγχος για ενημερώσεις κατά την εκκίνηση",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
-        "darktray": "Χρήση σκοτεινού εικονιδίου (απαιτεί επανεκκίνηση)",
+        "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Ενεργοποίηση Discord Rich Presence",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
         "mangohud": "Ενεργοποίηση Mangohud (απαραίτητη η εγκατάσταση του Mangohud)",
@@ -164,10 +161,11 @@
             "title": "Δεδομένα Χειροκίνητου Συγχρονισμού",
             "upload": "Μεταφόρτωση"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Πρόσφατα Παιχνίδια για Προβολή",
         "maxworkers": "Μέγιστος αριθμός εργατών κατά την λήψη",
         "offlinemode": "Τρέξιμο παιχνιδιού εκτός δικτύου",
         "primerun": "Ενεργοποίηση Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Εναποθέστε αρχεία εδώ",
             "title": "Τρέξιμο EXE σε πρόθεμα"
@@ -177,6 +175,7 @@
             "title": "Κατίσχυση φακέλου δεδομένων συγχρονισμού Νέφους"
         },
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
+        "start-in-tray": "Εκκίνηση ελαχιστοποιημένα",
         "wineprefix": "φάκελος προθεμάτων Wine",
         "wineversion": "Έκδοση Wine"
     },

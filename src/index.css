@@ -1,42 +1,43 @@
 html {
-  --background: #424546;
-  --background-transparent: rgba(66, 69, 70, 0.9);
-  --background-secondary: #323035;
-  --searchbar-background: rgba(26, 27, 28, 0.5);
-  --primary: #07c5ef;
-  --secondary: #db9303;
-  --tertiary: #252121;
-  --danger: #bd0a0a;
-  --success: #0bd58c;
-
-  --primary-hover: #36d1f3;
-  --secondary-hover: #a36e04;
-  --tertiary-hover: #322b2b;
-  --success-hover: #30eca8;
-  --danger-hover: #bd0a0a;
-
-  --text-primary: #eae8e5;
-  --text-secondary: #c1c4c3;
-  overflow-y: overlay;
+    --background: #151F3D;
+    --background-transparent: #151f3dcb;
+    --background-transparent-62: rgba(66, 69, 70, 0.62);
+    --background-darker: #0D0F1C;
+    --background-darker-80: #0d0f1ce0;
+    --background-secondary: #323035;
+    --background-gradient: linear-gradient( 180deg, rgba(0, 0, 0, 0.418) 2.4%, #0d0f1cd2 64%);
+    --searchbar-background: #13172A;
+    --primary: #59D0EA;
+    --secondary: #eaa114;
+    --tertiary: #1d1f1f;
+    --danger: #bd0a0a;
+    --success: #0bd58c;
+    --primary-hover: #36d1f3;
+    --secondary-hover: #feba36;
+    --tertiary-hover: #322b2b;
+    --success-hover: #30eca8;
+    --danger-hover: #bd0a0a;
+    --text-primary: #eae8e5;
+    --text-secondary: #c1c4c3;
+    --text-danger: #d22121;
+    --icon-disabled: #625e69;
+    overflow-y: overlay;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, Cabin, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #1d1f1f;
+    margin: 0;
+    font-family: -apple-system, Cabin, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background-darker);
 }
 
 a {
-  color: #e4deea;
-  text-decoration: none;
+    color: var(--text-primary);
+    text-decoration: none;
 }
 
 code {
-  font-family: Cabin, source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: Cabin, source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

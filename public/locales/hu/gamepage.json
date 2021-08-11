@@ -14,9 +14,14 @@
             "title": "Játék telepítés áthelyezése"
         },
         "no": "NEM",
+        "ok": "Ok",
         "repair": {
             "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
             "title": "Ellenőrzés és Javítás"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
@@ -35,13 +40,20 @@
     },
     "button": {
         "cancel": "Mégse",
-        "continue": "Continue Download",
+        "continue": "Letöltés folytatása",
         "import": "Importálás",
         "install": "Telepítés",
-        "uninstall": "Eltávolítás"
+        "uninstall": "Eltávolítás",
+        "update": "Update"
     },
     "disabled": "Letiltva",
     "enabled": "Engedélyezve",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Áthelyezés",
         "repairing": "Javítás"
@@ -77,13 +89,13 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Ezt a játékot csak importálni lehet",
         "reparing": "Játék javítása, kérlek várj",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék Frissítése"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Parancsikon hozzáadása",
         "change": "Telepítési útvonal megváltoztatása",
         "log": "Legutóbbi Naplózás (Log)",
         "move": "Játék áthelyezése",

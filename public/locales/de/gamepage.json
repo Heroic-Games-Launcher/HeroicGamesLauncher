@@ -14,9 +14,14 @@
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
+        "ok": "Ok",
         "repair": {
             "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und Reparieren"
+        },
+        "shortcuts": {
+            "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
+            "title": "Verknüpfungen"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
@@ -38,10 +43,17 @@
         "continue": "Download fortsetzen",
         "import": "Importieren",
         "install": "Installieren",
-        "uninstall": "Deinstallieren"
+        "uninstall": "Deinstallieren",
+        "update": "Update"
     },
     "disabled": "Deaktiviert",
     "enabled": "Aktiviert",
+    "game": {
+        "firstPlayed": "Erstmals gespielt",
+        "lastPlayed": "Zuletzt gespielt",
+        "neverPlayed": "Nie",
+        "totalPlayed": "Spielzeit"
+    },
     "gamecard": {
         "moving": "Verschiebe",
         "repairing": "Repariere"
@@ -71,13 +83,13 @@
         "recommended": "Empfohlen"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Klicken zum Aktualisieren",
         "hasUpdates": "Neue Version verfügbar!",
         "installed": "Installiert",
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Dieses Spiel kann nur importiert werden",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"

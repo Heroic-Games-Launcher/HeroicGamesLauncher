@@ -14,9 +14,14 @@
             "title": "Переместить установленную игру"
         },
         "no": "НЕТ",
+        "ok": "Ok",
         "repair": {
             "message": "Вы хотите попробовать восстановить эту игру? Это может занять много времени.",
             "title": "Проверить и восстановить"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Продолжить установку",
@@ -38,10 +43,17 @@
         "continue": "Продолжить загрузку",
         "import": "Импорт",
         "install": "Установить",
-        "uninstall": "Удалить"
+        "uninstall": "Удалить",
+        "update": "Update"
     },
     "disabled": "Выключено",
     "enabled": "Включено",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Перемещение",
         "repairing": "Восстановление"

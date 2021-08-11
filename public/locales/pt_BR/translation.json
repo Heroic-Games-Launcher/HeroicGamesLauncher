@@ -1,0 +1,215 @@
+{
+    "All": "Todos",
+    "Assets": "Assets",
+    "box": {
+        "appupdate": {
+            "message": "Existe uma nova versão do Heroic disponível, deseja atualizar agora?",
+            "title": "Atualização Disponível"
+        },
+        "choose": "Selecionar",
+        "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
+        "customWine": "Selecione o Binário do WINE ou Proton",
+        "default-install-path": "Selecione o local de instalação padrão",
+        "error": {
+            "credentials": {
+                "message": "Suas credenciais expiraram, por favor faça o logout e entre novamente.",
+                "title": "Credenciais Expiradas"
+            },
+            "diskspace": {
+                "message": "Sem espaço suficiente disponível no disco",
+                "title": "Sem Espaço"
+            },
+            "generic": {
+                "message": "Um erro desconhecido ocorreu",
+                "title": "Erro Desconhecido"
+            },
+            "launch": "Erro ao iniciar o jogo, confira os logs!",
+            "log": {
+                "message": "Nenhum log foi encontrado para esse jogo",
+                "title": "Log Não Encontrado"
+            },
+            "title": "Erro"
+        },
+        "no": "NÃO",
+        "protocol": {
+            "install": {
+                "not_installed": "Não está instalado, deseja instalá-lo?"
+            }
+        },
+        "quit": {
+            "message": "Existem operações pendentes, tem certeza disso?",
+            "title": "Sair"
+        },
+        "runexe": {
+            "title": "Selecione o EXE para iniciar"
+        },
+        "select": "Selecionar",
+        "sync": {
+            "button": "Selecionar",
+            "error": "Caminho Inválido",
+            "title": "Selecione a pasta de saves"
+        },
+        "wineprefix": "Selecione a pasta do WINE Prefix",
+        "yes": "SIM"
+    },
+    "button": {
+        "sync": "Sincronizar",
+        "syncing": "Sincronizando",
+        "unsync": "Dessincronizar"
+    },
+    "Downloading": "Baixando",
+    "Filter": "Filtrar",
+    "Games": "Jogos",
+    "globalSettings": "Configurações Globais",
+    "help": {
+        "general": "Se você tiver uma instalação funcional da Epic Games Store e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
+        "other": {
+            "part1": "Use o ",
+            "part2": "Opções avançadas",
+            "part3": "para variáveis de ambiente que serão utilizadas antes do comando do jogo; ",
+            "part4": "Use os ",
+            "part5": "Argumentos do jogo",
+            "part6": " para que sejam chamados após o commando, por exemplo: ",
+            "part7": " para evitar abrir o launcher de alguns jogos, etc."
+        },
+        "sync": {
+            "part1": "Heroic tenta advinhar a pasta de saves correta e isso funcionará na maioria dos casos. No caso da pasta estar errada, você pode selecioná-la manualmente.",
+            "part2": "Caso você mude sua pasta de prefix para o WINE ou Proton, você precisará conferir o diretório novamente, já que o Proton usa um prefixo (/pfx) e usuário (steamuser) diferentes. Então você pode simplesmente apagar o diretório atual, sair e abrir novamente a página de configuração das sincronizações para que o Heroic tente advinhar novamente a pasta com o prefix correto.",
+            "part3": "Sincronização Manual: Escolha Download para baixar os saves dos jogos salvos em nuvem; Upload para fazer upload dos saves locais para a nuvem. Forçar Download e Forçar Upload ignorarão a versão que está salva localmente ou na nuvem.",
+            "part4": "Sincronizar Saves Automaticamente sincronizará os saves toda vez que você iniciar ou parar de jogar um jogo."
+        },
+        "wine": {
+            "part1": "Heroic busca por versões do WINE e Proton nas pastas a seguir:",
+            "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
+        }
+    },
+    "info": {
+        "settings": "Configurações são salvas automaticamente"
+    },
+    "infobox": {
+        "help": "Ajuda",
+        "requirements": "Requisitos do Sistema"
+    },
+    "Library": "Biblioteca",
+    "message": {
+        "sync": "Sincronização Completa",
+        "unsync": "Dessincronização Completa"
+    },
+    "nogames": "Nenhum Jogo Encontrado",
+    "Not Ready": "Não Instalados",
+    "notify": {
+        "finished": {
+            "reparing": "Reparo Concluído"
+        },
+        "install": {
+            "canceled": "Instalação Cancelada",
+            "finished": "Instalação concluída"
+        },
+        "moved": "Movido com sucesso",
+        "uninstalled": "Desinstalado",
+        "update": {
+            "canceled": "Atualização cancelada",
+            "finished": "Atualização concluída"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "Adicione outras variáveis de ambiente aqui",
+            "title": "Opções avançadas (variáveis de ambiente):"
+        },
+        "gameargs": {
+            "placeholder": "Adicione os argumentos de inicialização aqui",
+            "title": "Argumentos dos jogo (para serem utilizados após o comando):"
+        }
+    },
+    "other": {
+        "weblate": "Ajude a traduzir o Heroic."
+    },
+    "placeholder": {
+        "egs-prefix": "Prefix onde a EGS está instalada"
+    },
+    "Plugins": "Plugins",
+    "Projects": "Projetos",
+    "Ready": "Instalados",
+    "Recent": "Jogos Recentes",
+    "Return": "Voltar",
+    "search": "Insira o nome do jogo aqui…",
+    "setting": {
+        "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
+        "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
+        "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
+        "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefix",
+        "autosync": "Sincronizar saves automaticamente",
+        "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
+        "customWineProton": "Locais com WINE/Proton Customizados",
+        "darktray": "Usar o ícone escuro na barra de tarefas",
+        "default-install-path": "Local de instalação padrão",
+        "discordRPC": "Habilitar o Discord Rich Presence",
+        "egs-sync": "Sincronizar com a Epic Games Store",
+        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
+        "exit-to-tray": "Fechar para a barra de tarefas",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "gamemode": "Usar o GameMode (Necessita ter gamemode instalado)",
+        "language": "Selecione o idioma do app",
+        "mangohud": "Habilitar o MangoHud (mangohud precisa estar instalado)",
+        "manualsync": {
+            "download": "Download",
+            "forcedownload": "Forçar Download",
+            "forceupload": "Forçar Upload",
+            "sync": "Sincronizar",
+            "syncing": "Sincronizando",
+            "title": "Sincronizar manualmente os saves",
+            "upload": "Upload"
+        },
+        "maxRecentGames": "Número de jogos recentes para exibir",
+        "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
+        "offlinemode": "Iniciar o jogo offline",
+        "primerun": "Habilitar o PRIME Render da NVIDIA",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "runexe": {
+            "message": "Arraste e solte arquivos aqui",
+            "title": "Executar EXE no prefix"
+        },
+        "savefolder": {
+            "placeholder": "Selecione a pasta exata com os saves",
+            "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
+        },
+        "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
+        "start-in-tray": "Iniciar minimizado",
+        "wineprefix": "Pasta do prefix WINE",
+        "wineversion": "Versão do WINE"
+    },
+    "Settings": "Configurações",
+    "settings": {
+        "navbar": {
+            "general": "Config. Gerais",
+            "other": "Outros",
+            "sync": "Sincronização"
+        }
+    },
+    "store": "Loja",
+    "tooltip": {
+        "addpath": "Adicionar",
+        "removepath": "Remover"
+    },
+    "Total Games": "Total de jogos",
+    "tray": {
+        "about": "Sobre",
+        "quit": "Fechar",
+        "reload": "Recarregar",
+        "show": "Mostrar",
+        "support": "Apoie-nos"
+    },
+    "Unreal Marketplace": "Loja Unreal",
+    "Updates": "Atualizações",
+    "userselector": {
+        "about": "Sobre",
+        "discord": "Discord",
+        "logout": "Sair da Conta",
+        "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
+        "quit": "Sair",
+        "refresh": "Recarregar biblioteca",
+        "support": "Apoie-nos"
+    },
+    "wiki": "Wiki"
+}

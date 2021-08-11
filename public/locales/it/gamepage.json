@@ -14,9 +14,14 @@
             "title": "Muovi l'installazione del gioco"
         },
         "no": "NO",
+        "ok": "Ok",
         "repair": {
             "message": "Vuoi provare a riparare questo gioco? Potrebbe richiedere molto tempo.",
             "title": "Verifica e ripara"
+        },
+        "shortcuts": {
+            "message": "Le scorciatoie sono state create sul desktop e sul menu di avvio",
+            "title": "Scorciatoie"
         },
         "stopInstall": {
             "keepInstalling": "Continua l'installazione",
@@ -35,13 +40,20 @@
     },
     "button": {
         "cancel": "Annulla",
-        "continue": "Continue Download",
+        "continue": "Continua Download",
         "import": "Importa",
         "install": "Installa",
-        "uninstall": "Disinstalla"
+        "uninstall": "Disinstalla",
+        "update": "Update"
     },
     "disabled": "Disattivato",
     "enabled": "attivato",
+    "game": {
+        "firstPlayed": "Prima giocato",
+        "lastPlayed": "Giocato recentemente",
+        "neverPlayed": "Mai",
+        "totalPlayed": "Tempo giocato"
+    },
     "gamecard": {
         "moving": "Spostamento in corso",
         "repairing": "Riparazione in corso"
@@ -77,13 +89,13 @@
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Questo gioco può solo essere importato",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Totale scaricato",
         "updating": "Aggiornamento in corso"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Aggiungi scorciatoia",
         "change": "Cambia percorso d'installazione",
         "log": "Ultimo Log",
         "move": "Muovi gioco",

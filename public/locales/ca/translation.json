@@ -1,78 +1,215 @@
 {
-    "Assets": "Assets",
     "All": "Tot",
-    "help": {
-        "sync": {
-            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, \"get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.\"."
-        },
-        "other": {
-            "part7": " per saltar el launcher a alguns jocs, etc.",
-            "part5": "Arguments del joc",
-            "part4": "Empra el/la ",
-            "part3": "per ser llençat abans de llençar el joc; ",
-            "part2": "Configuració avançada",
-            "part1": "Empra el/la "
-        },
-        "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS."
-    },
-    "globalSettings": "Configuració global",
-    "Games": "Jocs",
-    "Filter": "Filtra",
-    "Downloading": "Descarregant",
-    "button": {
-        "unsync": "Des-sincronitza",
-        "syncing": "Sincronitzant",
-        "sync": "Sincronitza"
-    },
+    "Assets": "Assets",
     "box": {
-        "yes": "Sí",
-        "wineprefix": "Tria la carpeta de wine prefix",
-        "sync": {
-            "title": "Eligeix el directori de guardats",
-            "error": "Ruta invàl·lida",
-            "button": "Tria"
+        "appupdate": {
+            "message": "Hi ha una nova versió d'Heroic disponible, vols actualitzar-ho?",
+            "title": "Actualització disponible"
         },
-        "select": "Selecciona",
-        "runexe": {
-            "title": "Selecciona un EXE per llençar"
+        "choose": "Tria",
+        "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
+        "customWine": "Selecciona el binary de wine o proton",
+        "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
+        "error": {
+            "credentials": {
+                "message": "Les teves credencials han expirat, si us plau tanqui sessió i iniciï sessió de nou.",
+                "title": "Les credencials han expirat"
+            },
+            "diskspace": {
+                "message": "No hi ha prou espai del disc",
+                "title": "Sense espai del disc dur"
+            },
+            "generic": {
+                "message": "Un error desconegut ha ocorregut",
+                "title": "Error desconegut"
+            },
+            "launch": "Ha sorgit un error mentres s'intentava iniciar el joc, mira el registre!",
+            "log": {
+                "message": "No s'ha trobat cap registre per aquest joc",
+                "title": "El registre no s'ha trobat"
+            },
+            "title": "Error"
         },
-        "quit": {
-            "title": "Sortir",
-            "message": "Hi ha operacions pendents, estàs del tot segur?"
-        },
+        "no": "No",
         "protocol": {
             "install": {
                 "not_installed": "no està instal·lat, vols instalar-lo?"
             }
         },
-        "no": "No",
-        "error": {
-            "python": "Heroic necessita Python 3.8+ per funcionar.",
-            "log": {
-                "title": "El registre no s'ha trobat",
-                "message": "No s'ha trobat cap registre per aquest joc"
-            },
-            "launch": "Ha sorgit un error mentres s'intentava iniciar el joc, mira el registre!",
-            "generic": {
-                "title": "Error desconegut",
-                "message": "Un error desconegut ha ocorregut"
-            },
-            "diskspace": {
-                "title": "Sense espai del disc dur",
-                "message": "No hi ha prou espai del disc"
-            },
-            "credentials": {
-                "title": "Les credencials han expirat",
-                "message": "Les teves credencials han expirat, si us plau tanqui sessió i iniciï sessió de nou."
-            }
+        "quit": {
+            "message": "Hi ha operacions pendents, estàs del tot segur?",
+            "title": "Sortir"
         },
-        "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
-        "customWine": "Selecciona el binary de wine o proton",
-        "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
-        "choose": "Tria",
-        "appupdate": {
-            "title": "Actualització disponible",
-            "message": "Hi ha una nova versió d'Heroic disponible, vols actualitzar-ho?"
+        "runexe": {
+            "title": "Selecciona un EXE per llençar"
+        },
+        "select": "Selecciona",
+        "sync": {
+            "button": "Tria",
+            "error": "Ruta invàl·lida",
+            "title": "Eligeix el directori de guardats"
+        },
+        "wineprefix": "Tria la carpeta de wine prefix",
+        "yes": "Sí"
+    },
+    "button": {
+        "sync": "Sincronitza",
+        "syncing": "Sincronitzant",
+        "unsync": "Des-sincronitza"
+    },
+    "Downloading": "Descarregant",
+    "Filter": "Filtra",
+    "Games": "Jocs",
+    "globalSettings": "Configuració global",
+    "help": {
+        "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS.",
+        "other": {
+            "part1": "Empra la ",
+            "part2": "Configuració avançada",
+            "part3": "per ser llençat abans de llençar el joc; ",
+            "part4": "Empra la ",
+            "part5": "Arguments del joc",
+            "part6": " per ser llençat després d'iniciar el joc, per exemple: ",
+            "part7": " per saltar el launcher a alguns jocs, etc."
+        },
+        "sync": {
+            "part1": "Heroic intenta adivinar la carpeta de guardat i això funcionarà a la majoria de casos. En el cas de que la carpeta estigui malament, canvia-la.",
+            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, surt de la configuració de sincronització i torna per que heroic pugui adivinar la carpeta",
+            "part3": "Sincronització manual: Eligeix \"Descarrega\" per descarregar les dades de guardat que estàn al núvol. Puja per pujar les dades locals al núvol. Força la descarga i força la pujada ignorarà la versió que està localment o al núvol.",
+            "part4": "Sincronitza les dades automàticamente sincronitzarà les dades cada vegada que inicis un joc i després de jugar."
+        },
+        "wine": {
+            "part1": "Heroic busca les versions de wine i proton a les següents carpetes:",
+            "part2": "Per altres llocs, empra un enllaç simbòlic (symlink) a alguna d'aquestes carpetes"
         }
-    }
+    },
+    "info": {
+        "settings": "La configuració és guardada automàticament"
+    },
+    "infobox": {
+        "help": "Ajuda",
+        "requirements": "Requeriments del sistema"
+    },
+    "Library": "Llibreria",
+    "message": {
+        "sync": "Sincronització completa",
+        "unsync": "Des-sincronització completa"
+    },
+    "nogames": "No s'han trobat els jocs",
+    "Not Ready": "No està llest",
+    "notify": {
+        "finished": {
+            "reparing": "Hem acabat de reparar el joc"
+        },
+        "install": {
+            "canceled": "Instal·lació cancelada",
+            "finished": "Instal·lació finalitzada"
+        },
+        "moved": "Mudança finalitzada",
+        "uninstalled": "Des-instal·lat",
+        "update": {
+            "canceled": "Actualització cancelada",
+            "finished": "Actualització acabada"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "Posa aquí altres opcions de llençament",
+            "title": "Opcions avançades (Variables d'entorn):"
+        },
+        "gameargs": {
+            "placeholder": "Posa aquí els arguments del launcher",
+            "title": "Arguments del joc (s'executaràn després de la comanda):"
+        }
+    },
+    "other": {
+        "weblate": "Ajuda a traduïr Heroic."
+    },
+    "placeholder": {
+        "egs-prefix": "Prefix a on EGS és instal·lat"
+    },
+    "Plugins": "Plugins",
+    "Projects": "Projectes",
+    "Ready": "Llest",
+    "Recent": "Jocs recents",
+    "Return": "Tornar",
+    "search": "Introdueixi el nom del joc aquí...",
+    "setting": {
+        "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
+        "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
+        "audiofix": "Arreglar l'audio (Latència de pulse audio)",
+        "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
+        "autosync": "Sincronitza les dades automàticament",
+        "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
+        "customWineProton": "Rutes de Wine o Proton personalitzades",
+        "darktray": "Emprar la icona fosca al Tray",
+        "default-install-path": "Ruta d'instal·lació predeterminada",
+        "discordRPC": "Activa la Discord Rich Presence",
+        "egs-sync": "Sincronitza amb Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "exit-to-tray": "Sortir al Tray",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "gamemode": "Empra el game mode (feral gamemode ha d'estar instal·lat)",
+        "language": "Eligeix el llenguatge de l'app",
+        "mangohud": "Activa Mangohud (Mangohud ha d'estar instal·lat primer)",
+        "manualsync": {
+            "download": "Descarrega",
+            "forcedownload": "Força la descarga",
+            "forceupload": "Força la pujada",
+            "sync": "Sincronitza",
+            "syncing": "Sincronitzant",
+            "title": "Dades de sincronització manuals",
+            "upload": "Puja"
+        },
+        "maxRecentGames": "Jocs recents per ensenyar",
+        "maxworkers": "Nombre màxim de Workers quan descarreguis",
+        "offlinemode": "Executa el joc sense connexió",
+        "primerun": "Activa l'Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "runexe": {
+            "message": "Arrastra arxius aquí",
+            "title": "Executa EXE al prefix"
+        },
+        "savefolder": {
+            "placeholder": "Selcciona la carpeta de dades exacta",
+            "title": "Sobreescriu la carpeta de dades de sincronització al núvol"
+        },
+        "showfps": "Ensenya els FPS (DX9, 10 i 11)",
+        "start-in-tray": "Comença minimitzat",
+        "wineprefix": "Carpeta wine prefix",
+        "wineversion": "Versió de Wine"
+    },
+    "Settings": "Configuració",
+    "settings": {
+        "navbar": {
+            "general": "General",
+            "other": "Altres",
+            "sync": "Guardar-Sincronitzar"
+        }
+    },
+    "store": "Botiga",
+    "tooltip": {
+        "addpath": "Afegir nova ruta",
+        "removepath": "Eliminar ruta"
+    },
+    "Total Games": "Jocs en total",
+    "tray": {
+        "about": "Sobre nosaltres",
+        "quit": "Sortir",
+        "reload": "Recargar",
+        "show": "Ensenyar",
+        "support": "Suporta'ns"
+    },
+    "Unreal Marketplace": "Botiga d'Unreal",
+    "Updates": "Actualitzacions",
+    "userselector": {
+        "about": "Sobre nosaltres",
+        "discord": "Discord",
+        "logout": "Sortir de la sessió",
+        "logout_confirmation": "Estàs ben segur de que vols sortir de la sessió?",
+        "quit": "Sortir",
+        "refresh": "Recargar llibrería",
+        "support": "Suporta'ns"
+    },
+    "wiki": "Wiki"
 }

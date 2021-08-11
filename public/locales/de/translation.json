@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NEIN",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
@@ -45,10 +44,6 @@
             "title": "EXE zum Starten auswählen"
         },
         "select": "Auswählen",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
@@ -64,7 +59,7 @@
     },
     "Downloading": "Am herunterladen",
     "Filter": "Filter",
-    "Games": "Games",
+    "Games": "Spiele",
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -136,7 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekte",
     "Ready": "Installiert",
-    "Recent": "Recent Games",
+    "Recent": "Zuletzt gespielte Spiele",
     "Return": "Zurück",
     "search": "Geben Sie hier den Namen des Spiels ein...",
     "setting": {
@@ -145,13 +140,15 @@
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
-        "customWineProton": "Wähle die Wine oder Proton Binärdatei",
-        "darktray": "Benutze Dunkles Taskleisten-Icon (benötigt Neustart)",
+        "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
+        "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
+        "darktray": "Benutze Dunkles Taskleisten-Icon",
         "default-install-path": "Standard-Installationspfad",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
+        "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
+        "FsrSharpnessStrenght": "FSR Schärfestärke",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
@@ -164,10 +161,11 @@
             "title": "Spielstände manuell synchronisieren",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Zuletzt gespielte Spiele anzeigen",
         "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
         "offlinemode": "Spiel offline ausführen",
         "primerun": "Nvidia Prime Render aktivieren",
+        "resizableBar": "Resizable Bar aktivieren (nur NVIDIA RTX)",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"
@@ -177,7 +175,8 @@
             "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
         },
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
-        "wineprefix": "WinePrefix Ordner",
+        "start-in-tray": "Minimiert starten",
+        "wineprefix": "Wine Prefix Ordner",
         "wineversion": "Wine-Version"
     },
     "Settings": "Einstellungen",
@@ -202,7 +201,7 @@
         "support": "Unterstütze uns"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Updates",
+    "Updates": "Aktualisierungen",
     "userselector": {
         "about": "Über Heroic",
         "discord": "Discord",

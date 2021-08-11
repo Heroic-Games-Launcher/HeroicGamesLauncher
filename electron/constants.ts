@@ -21,8 +21,8 @@ const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
 const heroicIconFolder = `${heroicFolder}icons`
 const userInfo = `${legendaryConfigPath}/user.json`
-const heroicInstallPath = `${home}/Games/Heroic`
-const legendaryBin = fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
+const heroicInstallPath = isWindows ? `${home}\\Games\\Heroic` : `${home}/Games/Heroic`
+const legendaryBin = `${fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))}`
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
 const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
@@ -45,13 +45,16 @@ const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
  * @returns unix: $SHELL or /usr/bin/bash
  */
 function getShell() {
+  // Dont change this logic since Heroic will break when using SH or FISH
   switch (process.platform) {
   case 'win32':
     return 'powershell.exe'
+  case 'linux':
+    return '/bin/bash'
+  case 'darwin':
+    return '/bin/zsh'
   default:
-    // $SHELL is set by login
-    // If it's 0-value, use bash
-    return process.env.SHELL || '/usr/bin/bash'
+    return '/bin/bash'
   }
 }
 

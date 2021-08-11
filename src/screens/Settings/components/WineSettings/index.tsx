@@ -19,13 +19,19 @@ interface Props {
   autoInstallDxvk: boolean
   customWinePaths: string[]
   isDefault: boolean
+  maxSharpness: number
+  enableResizableBar: boolean
   setAltWine: (altWine: WineInstallation[]) => void
   setCustomWinePaths: (value: string[]) => void
   setWinePrefix: (value: string) => void
+  setFsrSharpness: (value: number) => void
   setWineVersion: (wine: WineInstallation) => void
   toggleAutoInstallDxvk: () => void
+  toggleFSR: () => void
+  toggleResizableBar: () => void
   winePrefix: string
   wineVersion: WineInstallation
+  enableFSR: boolean
 }
 
 export default function WineSettings({
@@ -36,10 +42,16 @@ export default function WineSettings({
   wineVersion,
   altWine,
   toggleAutoInstallDxvk,
+  enableFSR,
+  toggleFSR,
   autoInstallDxvk,
   customWinePaths,
   setCustomWinePaths,
-  isDefault
+  isDefault,
+  setFsrSharpness,
+  maxSharpness,
+  enableResizableBar,
+  toggleResizableBar
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
@@ -134,7 +146,7 @@ export default function WineSettings({
                 data-testid="removeWinePath"
                 onClick={() => removeCustomPath()}
                 style={{
-                  color: selectedPath ? 'var(--danger)' : 'var(--background)',
+                  color: selectedPath ? 'var(--danger)' : 'var(--background-darker)',
                   cursor: selectedPath ? 'pointer' : ''
                 }}
                 fontSize="large"
@@ -178,6 +190,39 @@ export default function WineSettings({
           />
         </span>
       </span>}
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.enableFSRHack', 'Enable FSR Hack (Wine version needs to support it)')}
+          <ToggleSwitch
+            value={enableFSR || false}
+            handleChange={toggleFSR}
+          />
+        </span>
+      </span>
+      {enableFSR && <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
+          <select
+            data-testid="setMaxRecentGames"
+            onChange={(event) => setFsrSharpness(Number(event.target.value))}
+            value={maxSharpness}
+            className="settingSelect smaller"
+          >
+            {Array.from(Array(5).keys()).map((n) => (
+              <option key={n + 1}>{n + 1}</option>
+            ))}
+          </select>
+        </span>
+      </span>}
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.resizableBar', 'Enable Resizable Bar (NVIDIA RTX only)')}
+          <ToggleSwitch
+            value={enableResizableBar || false}
+            handleChange={toggleResizableBar}
+          />
+        </span>
+      </span>
       <InfoBox text="infobox.help">
         <span>{t('help.wine.part1')}</span>
         <ul>

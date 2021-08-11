@@ -22,29 +22,23 @@ const {
 const storage: Storage = window.localStorage
 
 interface Props {
-  addDesktopShortcuts: boolean,
-  addGamesToStartMenu: boolean,
   checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
-  discordRPC: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
   language: string,
-  maxRecentGames: number,
   maxWorkers: number,
   setDefaultInstallPath: (value: string) => void,
   setEgsLinkedPath: (value: string) => void,
   setEgsPath: (value: string) => void,
   setLanguage: (value: string) => void,
-  setMaxRecentGames: (value: number) => void,
   setMaxWorkers: (value: number) => void,
-  toggleAddDesktopShortcuts: () => void,
-  toggleAddGamesToStartMenu: () => void,
-  toggleCheckUpdatesOnStartup: () => void
+  startInTray: boolean,
   toggleDarkTrayIcon: () => void,
-  toggleDiscordRPC: () => void
+  toggleStartInTray: () => void,
+  toggleCheckUpdatesOnStartup: () => void
   toggleTray: () => void
 }
 
@@ -57,29 +51,22 @@ export default function GeneralSettings({
   egsLinkedPath,
   setEgsLinkedPath,
   exitToTray,
+  startInTray,
   toggleTray,
+  toggleStartInTray,
   language,
   setLanguage,
   maxWorkers,
   setMaxWorkers,
-  maxRecentGames,
-  setMaxRecentGames,
   darkTrayIcon,
   toggleDarkTrayIcon,
-  addDesktopShortcuts,
-  addGamesToStartMenu,
-  toggleAddDesktopShortcuts,
-  toggleAddGamesToStartMenu,
-  toggleCheckUpdatesOnStartup,
-  discordRPC,
-  toggleDiscordRPC
+  toggleCheckUpdatesOnStartup
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
-  const isLinux = platform === 'linux'
   const isWindows = platform === 'win32'
 
   useEffect(() => {
@@ -106,7 +93,7 @@ export default function GeneralSettings({
         setEgsLinkedPath('')
         setEgsPath('')
         setIsSyncing(false)
-        refreshLibrary()
+        refreshLibrary({fullRefresh: true, runInBackground: false})
       })
     }
 
@@ -127,7 +114,7 @@ export default function GeneralSettings({
 
         setIsSyncing(false)
         setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-        refreshLibrary()
+        refreshLibrary({fullRefresh: true, runInBackground: false})
       })
   }
 
@@ -171,7 +158,7 @@ export default function GeneralSettings({
           <input
             data-testid="setinstallpath"
             type="text"
-            value={defaultInstallPath}
+            value={defaultInstallPath.replaceAll("'", '')}
             className="settingSelect"
             placeholder={defaultInstallPath}
             onChange={(event) => setDefaultInstallPath(event.target.value)}
@@ -249,46 +236,32 @@ export default function GeneralSettings({
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}
-          <ToggleSwitch value={exitToTray} handleChange={toggleTray} />
+          <ToggleSwitch
+            dataTestId="exitToTray"
+            value={exitToTray}
+            handleChange={toggleTray}
+          />
         </span>
       </span>
+      { exitToTray && <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.start-in-tray', 'Start Minimized')}
+          <ToggleSwitch
+            dataTestId="startInTray"
+            value={startInTray}
+            handleChange={toggleStartInTray}
+          />
+        </span>
+      </span> }
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           <ToggleSwitch
             value={darkTrayIcon}
-            handleChange={toggleDarkTrayIcon}
-          />
-        </span>
-      </span>
-      {isLinux && <>
-        <span className="setting">
-          <span className="toggleWrapper">
-            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')} (Linux)
-            <ToggleSwitch
-              value={addDesktopShortcuts}
-              disabled={!navigator.platform.startsWith('Linux')}
-              handleChange={toggleAddDesktopShortcuts}
-            />
-          </span>
-        </span>
-        <span className="setting">
-          <span className="toggleWrapper">
-            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')} (Linux)
-            <ToggleSwitch
-              value={addGamesToStartMenu}
-              disabled={!navigator.platform.startsWith('Linux')}
-              handleChange={toggleAddGamesToStartMenu}
-            />
-          </span>
-        </span>
-      </>}
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.discordRPC', 'Enable Discord Rich Presence')}
-          <ToggleSwitch
-            value={discordRPC}
-            handleChange={toggleDiscordRPC}
+            handleChange={() => {
+              toggleDarkTrayIcon()
+              return ipcRenderer.send('changeTrayColor')
+            }}
           />
         </span>
       </span>
@@ -299,21 +272,6 @@ export default function GeneralSettings({
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}
           />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.maxRecentGames', 'Recent Games to Show')}
-          <select
-            data-testid="setMaxRecentGames"
-            onChange={(event) => setMaxRecentGames(Number(event.target.value))}
-            value={maxRecentGames}
-            className="settingSelect smaller"
-          >
-            {Array.from(Array(10).keys()).map((n) => (
-              <option key={n + 1}>{n + 1}</option>
-            ))}
-          </select>
         </span>
       </span>
       <span className="setting">

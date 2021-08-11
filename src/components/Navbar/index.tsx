@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom'
 import { createNewWindow } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
-const SearchBar = lazy(() => import('./components/SearchBar'))
 const UserSelector = lazy(() => import('./components/UserSelector'))
 
 export default function NavBar() {
@@ -22,7 +21,7 @@ export default function NavBar() {
       <div className="Links">
         <NavLink
           data-testid="library"
-          activeStyle={{ color: '#FFA800', fontWeight: 500 }}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
           isActive={(match, location) => {
             if (match) {
               return true
@@ -36,7 +35,7 @@ export default function NavBar() {
         </NavLink>
         <NavLink
           data-testid="settings"
-          activeStyle={{ color: '#FFA800', fontWeight: 500 }}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
           isActive={(match, location) => location.pathname.includes('settings')}
           to={{
             pathname: '/settings/default/general'
@@ -59,7 +58,6 @@ export default function NavBar() {
           {t('wiki', 'Wiki')}
         </a>
       </div>
-      <SearchBar />
       <UserSelector />
     </div>
   )

@@ -20,11 +20,7 @@
   },
   "plugins": [
     "react",
-    "@typescript-eslint",
-    "sort-imports-es6-autofix",
-    "sort-exports",
-    "sort-keys-fix",
-    "typescript-sort-keys"
+    "@typescript-eslint"
   ],
   "settings": {
     "react": {
@@ -37,14 +33,8 @@
     "@typescript-eslint/no-unused-vars": "error",
     "complexity": "off",
     "comma-dangle": ["error", "never"],
-    "eol-last": ["error", "always"],
     "indent": ["error", 2],
     "no-trailing-spaces": "error",
-    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
-    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
-    "sort-imports-es6-autofix/sort-imports-es6": ["error", {}],
-    "sort-keys-fix/sort-keys-fix": "error",
-    "sort-vars": "error",
-    "typescript-sort-keys/interface": "error"
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }]
   }
 }

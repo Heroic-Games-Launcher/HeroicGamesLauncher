@@ -3,7 +3,7 @@
     "Assets": "Assets",
     "box": {
         "appupdate": {
-            "message": "Nova versão do Heroic lançada. Deseja atualizar agora?",
+            "message": "Nova versão do Heroic disponível. Deseja atualizar agora?",
             "title": "Nova Versão Disponível"
         },
         "choose": "Selecionar",
@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "NÃO",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "O jogo não está instalado, deseja instalar?"
@@ -45,10 +44,6 @@
             "title": "Selecione o EXE"
         },
         "select": "Selecionar",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -140,18 +135,20 @@
     "Return": "Voltar",
     "search": "Digite o nome do jogo...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
+        "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
-        "darktray": "Usar ícone escuro (necessita reiniciar)",
+        "darktray": "Usar ícone escuro",
         "default-install-path": "Pasta de instalação padrão",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Habilitar Discord Rich Presence",
         "egs-sync": "Sincronizar com Epic Games Store",
+        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
         "exit-to-tray": "Sair para a área de noticação",
+        "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR",
         "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
         "language": "Selecionar idioma",
         "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
@@ -164,10 +161,11 @@
             "title": "Sincronização manual",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Número de jogos recents a mostrar",
         "maxworkers": "CPUs máximos utilizados ao baixar jogos",
         "offlinemode": "Executar o jogo offline",
         "primerun": "Habilitar Nvidia Prime Render",
+        "resizableBar": "Habilitar Resizable Bar (somente NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arraste e Solte arquivos aqui",
             "title": "Executar EXE no Prefixo"
@@ -177,6 +175,7 @@
             "title": "Sobrescrever diretório de saves automáticos"
         },
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
+        "start-in-tray": "Iniciar Minimizado",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },

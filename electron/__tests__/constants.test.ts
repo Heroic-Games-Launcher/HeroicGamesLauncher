@@ -30,15 +30,8 @@ describe('Constants - getShell', () => {
     // override platform
     const originalPlatform = overrideProcessPlatform('linux');
 
-    // store original shell
-    const stored_shell = process.env.SHELL;
-
-    process.env.SHELL = 'path/to/bash';
     const shell = getShell();
-    expect(shell).toBe('path/to/bash');
-
-    // get back to original shell
-    process.env.SHELL = stored_shell;
+    expect(shell).toBe('/bin/bash');
 
     // get back to original platform
     overrideProcessPlatform(originalPlatform);
@@ -48,15 +41,8 @@ describe('Constants - getShell', () => {
     // override platform
     const originalPlatform = overrideProcessPlatform('linux');
 
-    // store original shell
-    const stored_shell = process.env.SHELL;
-
-    delete process.env.SHELL;
     const shell = getShell();
-    expect(shell).toBe('/usr/bin/bash');
-
-    // get back to original shell
-    process.env.SHELL = stored_shell;
+    expect(shell).toBe('/bin/bash');
 
     // get back to original platform
     overrideProcessPlatform(originalPlatform);

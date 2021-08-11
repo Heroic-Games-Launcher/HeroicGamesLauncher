@@ -29,12 +29,17 @@ import {
 } from '../constants'
 import { logError, logInfo, logWarning } from '../logger';
 import { spawn } from 'child_process';
+import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript';
 
+const store = new Store({
+  cwd: 'store',
+  name: 'gameinfo'
+})
 class LegendaryGame extends Game {
   public appName: string
-  public state : GameStatus
-  private static instances : Map<string, LegendaryGame> = new Map()
+  public state: GameStatus
+  private static instances: Map<string, LegendaryGame> = new Map()
 
   private constructor(appName: string) {
     super()
@@ -57,7 +62,7 @@ class LegendaryGame extends Game {
    */
   public static async checkGameUpdates() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
-    if (!isLoggedIn){
+    if (!isLoggedIn) {
       return []
     }
     return await LegendaryLibrary.get().listUpdateableGames()
@@ -97,7 +102,10 @@ class LegendaryGame extends Game {
    * @param namespace
    * @returns
    */
-  public async getExtraInfo(namespace: string | null) : Promise<ExtraInfo> {
+  public async getExtraInfo(namespace: string | null): Promise<ExtraInfo> {
+    if (store.has(namespace)) {
+      return store.get(namespace) as ExtraInfo
+    }
     if (!(await isOnline())) {
       return {
         about: {},
@@ -121,15 +129,18 @@ class LegendaryGame extends Game {
         method: 'GET',
         url: epicUrl
       })
-      delete response.data.pages[0].data.requirements.systems[0].details[0]
+
       const about = response.data.pages.find(
         (e: { type: string }) => e.type === 'productHome'
       )
+
+      store.set(namespace, { about: about.data.about, reqs: about.data.requirements.systems[0].details })
       return {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details
       } as ExtraInfo
     } catch (error) {
+      store.set(namespace, { about: {}, reqs: [] })
       return {
         about: {},
         reqs: []
@@ -163,18 +174,17 @@ class LegendaryGame extends Game {
    * @param newInstallPath
    * @returns The amended install path.
    */
-  public async moveInstall(newInstallPath : string) {
+  public async moveInstall(newInstallPath: string) {
     this.state.status = 'moving'
     const info = await this.getGameInfo()
     newInstallPath += '/' + info.install.install_path.split('/').slice(-1)[0]
     const installpath = info.install.install_path
-    await execAsync(`mv -f ${installpath} '${newInstallPath}'`)
+    await execAsync(`mv -f '${installpath}' '${newInstallPath}'`)
       .then(() => {
         LegendaryLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
       })
       .catch(logError)
     this.state.status = 'done'
-    this.addDesktopShortcut()
     return newInstallPath
   }
 
@@ -201,8 +211,8 @@ class LegendaryGame extends Game {
       ipcMain.handle('requestUpdateProgress', async (event, appName) => {
         child.stderr.once('data', (data) => {
           isVerifying = `${data}`.includes('Game needs to be verified')
-          if (appName === this.appName){
-            if (isVerifying){
+          if (appName === this.appName) {
+            if (isVerifying) {
               child.stdout.once('data', (data) => {
                 progress.bytes = `${String(data).split(' ')[2]}MiB`
                 progress.percent = `${data}`.split(' ')[3].split(')')[0].replace('(', '')
@@ -228,15 +238,15 @@ class LegendaryGame extends Game {
     })
   }
 
-  public async getIcon(appName: string){
-    if (!existsSync(heroicIconFolder)){
+  public async getIcon(appName: string) {
+    if (!existsSync(heroicIconFolder)) {
       mkdirSync(heroicIconFolder)
     }
 
     const gameInfo = await this.getGameInfo()
-    const image = gameInfo.art_square.replaceAll(' ', '_')
+    const image = gameInfo.art_square.replaceAll(' ', '%20')
     let ext = image.split('.').reverse()[0]
-    if (ext !== 'jpg' && ext !== 'png'){
+    if (ext !== 'jpg' && ext !== 'png') {
       ext = 'jpg'
     }
     const icon = `${heroicIconFolder}/${appName}.${ext}`
@@ -254,7 +264,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addDesktopShortcut(fromMenu?: boolean) {
-    if (process.platform !== 'linux'){
+    if (process.platform !== 'linux') {
       return
     }
     const gameInfo = await this.getGameInfo()
@@ -263,7 +273,7 @@ class LegendaryGame extends Game {
     let shortcut;
     const icon = await this.getIcon(gameInfo.app_name)
 
-    switch(process.platform) {
+    switch (process.platform) {
     case 'linux': {
       shortcut = `[Desktop Entry]
 Name=${gameInfo.title}
@@ -274,25 +284,25 @@ MimeType=x-scheme-handler/heroic;
 Icon=${icon}
 Categories=Game;
 `
-      break; }
+      break;
+    }
     default:
       logError("Shortcuts haven't been implemented in the current platform.")
       return
     }
-    const enabledInDesktop = GlobalConfig.get().config.enableDesktopShortcutsOnDesktop
-    const enabledInStartMenu = GlobalConfig.get().config.enableDesktopShortcutsOnStartMenu
+    const { addDesktopShortcuts, addStartMenuShortcuts } = await GlobalConfig.get().getSettings()
 
-    if (enabledInDesktop || fromMenu) {
-      // spawn('echo', [shortcut, '>', ])
+    if (addDesktopShortcuts || fromMenu) {
       writeFile(desktopFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + desktopFolder)
       })
     }
-    if (enabledInStartMenu || fromMenu) {
+    if (addStartMenuShortcuts || fromMenu) {
       writeFile(applicationsFolder, shortcut, () => {
         logInfo('Shortcut saved on ' + applicationsFolder)
       })
     }
+    return
   }
 
   /**
@@ -301,7 +311,7 @@ Categories=Game;
    * @public
    */
   public async removeDesktopShortcut() {
-    if (process.platform !== 'linux'){
+    if (process.platform !== 'linux') {
       return
     }
     const gameInfo = await this.getGameInfo()
@@ -317,14 +327,11 @@ Categories=Game;
    *
    * @returns Result of execAsync.
    */
-  public async install(path : string) {
+  public async install(path: string) {
     this.state.status = 'installing'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
 
-    //TODO(flavioislima):
-    // Need to fix convertion from utf8 to win1252 or vice-versa
-    // const selectiveDownloads = sdl ? `echo ${sdl.join(' ')}` : `echo 'hd_textures'`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
@@ -338,7 +345,7 @@ Categories=Game;
       })
     } catch (error) {
       LegendaryLibrary.get().installState(this.appName, false)
-      return errorHandler({error, logPath}).then((v) => {
+      return errorHandler({ error, logPath }).then((v) => {
         this.state.status = 'done'
         return v
       })
@@ -380,7 +387,7 @@ Categories=Game;
     })
   }
 
-  public async import(path : string) {
+  public async import(path: string) {
     this.state.status = 'installing'
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
     return await execAsync(command, execOptions).then((v) => {
@@ -395,7 +402,7 @@ Categories=Game;
    *
    * @returns Result of execAsync.
    */
-  public async syncSaves(arg : string, path : string) {
+  public async syncSaves(arg: string, path: string) {
     const fixedPath = isWindows ? path.replaceAll("'", '').slice(0, -1) : path.replaceAll("'", '')
     const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = `${home}/legendary/.saves`
@@ -406,7 +413,7 @@ Categories=Game;
     }
 
     logInfo('\n syncing saves for ', this.appName)
-    return await execAsync(command)
+    return await execAsync(command, execOptions)
   }
 
   public async launch() {
@@ -427,13 +434,16 @@ Categories=Game;
       showMangohud,
       audioFix,
       autoInstallDxvk,
-      offlineMode
+      offlineMode,
+      enableFSR,
+      maxSharpness,
+      enableResizableBar
     } = await this.getSettings()
 
-    const DiscordRPC = makeClient('852942976564723722')
+    const { discordRPC } = (await GlobalConfig.get().getSettings())
+    const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = offlineMode ? '--offline' : ''
 
-    const { discordRPC } = (await GlobalConfig.get().getSettings())
     if (discordRPC) {
       // Show DiscordRPC
       // This seems to run when a game is updated, even though the game doesn't start after updating.
@@ -455,6 +465,7 @@ Categories=Game;
         break
       }
 
+      logInfo('Updating Discord Rich Presence information...')
       DiscordRPC.updatePresence({
         details: gameInfo.title,
         instance: true,
@@ -468,10 +479,10 @@ Categories=Game;
     if (isWindows) {
       const command = `${legendaryBin} launch ${this.appName} ${runOffline} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
-      const v = await execAsync(command)
+      const v = await execAsync(command, execOptions)
 
       logInfo('Stopping Discord Rich Presence if running...')
-      DiscordRPC.disconnect()
+      discordRPC && DiscordRPC.disconnect()
       logInfo('Stopped Discord Rich Presence.')
 
       return v
@@ -491,6 +502,9 @@ Categories=Game;
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
+      fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1' : '',
+      sharpness: enableFSR ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}` : '',
+      resizableBar: enableResizableBar ? `VKD3D_CONFIG=upload_hvv` : '',
       other: otherOptions ? otherOptions : '',
       prime: nvidiaPrime ? '__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
       proton: isProton
@@ -514,7 +528,7 @@ Categories=Game;
     // Proton doesn't create a prefix folder so this is a workaround
     if (isProton && !existsSync(fixedWinePrefix)) {
       const command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command)
+      await execAsync(command, execOptions)
     }
 
     // Install DXVK for non Proton Prefixes
@@ -538,14 +552,14 @@ Categories=Game;
 
     const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
-    const v = await execAsync(command).then((v) => {
+    const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
       mainWindow.show()
       return v
     })
 
     logInfo('Stopping Discord Rich Presence if running...')
-    DiscordRPC.disconnect()
+    discordRPC && DiscordRPC.disconnect()
     logInfo('Stopped Discord Rich Presence.')
 
     return v
@@ -559,7 +573,7 @@ Categories=Game;
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
     logInfo('killing', pattern)
 
-    if (process.platform === 'win32'){
+    if (process.platform === 'win32') {
       try {
         await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
         return logInfo(`${pattern} killed`);
@@ -568,7 +582,7 @@ Categories=Game;
       }
     }
 
-    const child =  spawn('pkill', ['-f', pattern])
+    const child = spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
       return logInfo(`${pattern} killed`);
     })

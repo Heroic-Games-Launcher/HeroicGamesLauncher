@@ -1,148 +1,144 @@
 .gameConfigContainer {
-  width: 1110px;
-  background: rgba(13, 14, 14, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  margin: auto;
-  display: flex;
+    width: 1110px;
+    background: var(--background-transparent);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    margin: auto;
+    display: flex;
 }
 
 .gameConfig {
-  display: flex;
-  align-self: center;
-  min-width: 780px;
-  max-width: 830px;
-  margin: 44px 0 44px 22px;
-  border-right: solid 1px var(--background-transparent);
-  padding-right: 20px;
+    display: flex;
+    align-self: center;
+    min-width: 780px;
+    max-width: 830px;
+    margin: 44px 0 44px 44px;
+    border-right: solid 1px var(--background-transparent);
+    padding-right: 20px;
 }
 
-.gameConfig .title {
-  font-weight: 500;
-  font-size: 25px;
-  line-height: 30px;
-  color: #f79707;
-}
-
-.gameConfig > .gamePicture {
-  max-width: 210px;
-  max-height: 280px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  position: relative;
-}
-
-.gamePicture > .gameLogo {
-  position: absolute;
-  bottom: 0;
-  width: 70%;
-  min-width: 140px;
+.gametitle {
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    color: #f79707;
 }
 
 .gameImg {
-  width: 210px;
-  height: 280px;
-  border-radius: 0.5rem;
-  object-fit: cover;
+    width: 210px;
+    height: 280px;
+    border-radius: 0.5rem;
+    object-fit: cover;
 }
 
 .gameInfo {
-  text-align: initial;
-  padding-left: 3.5rem;
-  font-size: 1rem;
-  color: #e4deea;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: space-between;
+    text-align: initial;
+    padding-left: 3.5rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
 }
 
-.gameInfo > .settingSelect {
-  margin-bottom: 12px;
+.gameInfo>.settingSelect {
+    margin-bottom: 12px;
 }
 
 .gameInfo .infoWrapper {
-  color: #b0abb6;
-  flex-grow: 1;
+    color: var(--text-primary);
+    flex-grow: 1;
 }
 
 .gameInfo .infoWrapper * {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .gameInfo .developer {
-  padding: 1rem 0 1rem 0;
-  color: #e4deea;
+    padding: 1rem 0 1rem 0;
+    color: var(--text-secondary);
 }
 
 .gameInfo .summary {
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  margin-bottom: 16px;
-  font-size: 16px;
-  line-height: 19px;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  color: var(--text-primary);
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 19px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    color: var(--text-primary);
+    overflow: hidden;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
 }
 
 .installProgress[value] {
-  appearance: none;
-  width: 169px;
-  height: 5px;
+    appearance: none;
+    width: 169px;
+    height: 5px;
 }
 
 .installProgress[value]::-webkit-progress-value {
-  color: var(--success);
-  animation: animate-stripes 5s linear infinite;
+    color: var(--success);
+    animation: animate-stripes 5s linear infinite;
 }
 
 .requirements {
-  margin-top: 2em;
+    margin-top: 2em;
 }
 
 .requirements table td {
-  width: 33.33%;
-  vertical-align: baseline;
-  padding: 0.5em;
+    width: 33.33%;
+    vertical-align: baseline;
+    padding: 0.5em;
 }
+
 table td.specs {
-  color: var(--secondary);
-  opacity: 0.8;
+    color: var(--secondary);
+    opacity: 0.8;
 }
 
 .requirements table span.title {
-  color: var(--background);
-  font-size: 1em;
-}
-table span.text {
-  color: var(--text-secondary);
-  font-size: 0.9em;
+    color: var(--text-secondary);
+    font-size: 1em;
 }
 
-.clickable {
-  cursor: pointer;
-  color: var(--secondary);
+table span.text {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.clickable:hover {
+    cursor: pointer;
+    color: var(--secondary);
 }
 
 .buttonsWrapper {
-  width: 380px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  place-items: baseline;
+    width: 380px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: baseline;
 }
 
 .updateText {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 .updateText:hover {
-  color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.pictureTimeContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
 }
 
 @keyframes animate-stripes {
-  100% {
-    background-position: -100px 0px;
-  }
+    100% {
+        background-position: -100px 0px;
+    }
 }

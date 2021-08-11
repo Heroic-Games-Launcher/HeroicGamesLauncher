@@ -31,7 +31,6 @@
             "title": "错误"
         },
         "no": "否",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "未安装，您是否希望安装它？"
@@ -45,10 +44,6 @@
             "title": "选择要运行的EXE文件"
         },
         "select": "选择",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "选择",
             "error": "无效路径",
@@ -145,13 +140,15 @@
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在PREFIX自动安装并更新DXVK",
         "autosync": "自动同步存档",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",
-        "darktray": "使用暗色托盘图标（需要重启）",
+        "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的Epic Games同步",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "退出到系统托盘",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",
         "mangohud": "启用MangoHud（需要已安装Mangohud）",
@@ -168,6 +165,7 @@
         "maxworkers": "下载时的最大Worker数量",
         "offlinemode": "离线运行游戏",
         "primerun": "启用英伟达Prime渲染",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在PREFIX上运行exe文件"
@@ -177,6 +175,7 @@
             "title": "覆盖云端存档文件夹"
         },
         "showfps": "显示帧数（Directx 9，10和11）",
+        "start-in-tray": "启动时最小化",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "WINE版本"
     },

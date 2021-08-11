@@ -1,24 +1,24 @@
 {
-    "message": {
-        "part1": "Per poder iniciar sessió i començar a instal·lar els teus jocs, primer has de seguir les passes d'aquí avall:",
-        "part8": "a la caixa d'avall, faci clic al botó d'inici de sessió i esperi.",
-        "part7": "nombre SID",
-        "part6": "Enganxi el",
-        "part2": "Obrir",
-        "part5": "nombre SID",
-        "part4": ", iniciï sessió a la seva conta i copii el seu",
-        "part3": "Botiga d'Epic"
+    "button": {
+        "login": "Iniciar sessió"
     },
     "input": {
         "placeholder": "Enganxi l'SID aquí"
     },
-    "button": {
-        "login": "Iniciar sessió"
+    "message": {
+        "part1": "Per poder iniciar sessió i començar a instal·lar els teus jocs, primer has de seguir les passes d'aquí avall:",
+        "part2": "Obrir",
+        "part3": "Botiga d'Epic",
+        "part4": ", iniciï sessió a la seva conta i copii el seu",
+        "part5": "nombre SID",
+        "part6": "Enganxi el",
+        "part7": "nombre SID",
+        "part8": "a la caixa d'avall, faci clic al botó d'inici de sessió i esperi."
     },
-    "welcome": "Benvingut/da!",
     "status": {
-        "logging": "Iniciant sessió...",
+        "error": "Error",
         "loading": "Cargant la llista de jocs, si us plau esperi",
-        "error": "Error"
-    }
+        "logging": "Iniciant sessió…"
+    },
+    "welcome": "Benvingut/da!"
 }

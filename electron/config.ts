@@ -321,12 +321,14 @@ class GlobalConfigV0 extends GlobalConfig {
     const defaultWine = isWindows ? {} : await this.getDefaultWine()
 
     return {
+      checkUpdatesInterval: 10,
+      enableUpdates: false,
+      addDesktopShortcuts: false,
+      addStartMenuShortcuts: false,
       autoInstallDxvk: false,
       checkForUpdatesOnStartup: true,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
-      enableDesktopShortcutsOnDesktop: false,
-      enableDesktopShortcutsOnStartMenu: false,
       language: 'en',
       maxWorkers: 0,
       nvidiaPrime: false,

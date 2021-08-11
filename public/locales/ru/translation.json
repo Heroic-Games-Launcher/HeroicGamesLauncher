@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "НЕТ",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Не установлен, хотите ли вы установить его?"
@@ -45,10 +44,6 @@
             "title": "Выбрать EXE для запуска"
         },
         "select": "Выбрать",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Выбрать",
             "error": "Неправильный путь",
@@ -147,11 +142,13 @@
         "autosync": "Автосинхронизация сохранений",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Пользовательские пути Wine/Proton",
-        "darktray": "Использовать темную иконку в трее (нужен перезапуск)",
+        "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "exit-to-tray": "Сворачивать в системный трей",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Использовать GameMode (Нужен Feral Game Mode)",
         "language": "Выберите язык приложения",
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
@@ -168,6 +165,7 @@
         "maxworkers": "Максимальное количество потоков при скачивании",
         "offlinemode": "Запустить игру в автономном режиме",
         "primerun": "Включить Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE на префиксе"
@@ -177,6 +175,7 @@
             "title": "Перезаписать облачную папку сохранений"
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
+        "start-in-tray": "Start Minimized",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
     },

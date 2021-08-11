@@ -8,18 +8,29 @@ import {
 } from 'src/helpers'
 
 import { IpcRenderer } from 'electron'
+import { UserInfo } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import ContextProvider from 'src/state/ContextProvider'
+import ElectronStore from 'electron-store'
 import React from 'react'
+
+const Store = window.require('electron-store')
+const configStore: ElectronStore = new Store({
+  cwd: 'store'
+})
 
 export default function UserSelector() {
   const { t } = useTranslation()
   const { ipcRenderer } = window.require('electron') as {
     ipcRenderer : IpcRenderer
   }
+  const user = configStore.get('userInfo') as UserInfo
+  if (!user){
+    return null
+  }
 
-  const { user, refresh, refreshLibrary } = React.useContext(ContextProvider)
+  const { refresh, refreshLibrary } = React.useContext(ContextProvider)
   const handleLogout = async () => {
     if (confirm(t('userselector.logout_confirmation', 'Logout?'))) {
       await ipcRenderer.invoke('logout')
@@ -30,10 +41,10 @@ export default function UserSelector() {
   return (
     <div className="UserSelector" data-testid="userSelector">
       <span className="userName" data-testid="userName">
-        {user}
+        {user?.displayName}
         <ArrowDropDown className="material-icons" />
       </span>
-      <div onClick={() => refreshLibrary(true)} className="userName hidden" data-testid="refreshLibrary">
+      <div onClick={() => refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: false})} className="userName hidden" data-testid="refreshLibrary">
         {t('userselector.refresh')}
       </div>
       <div onClick={() => handleKofi()} className="userName hidden" data-testid="handleKofi">

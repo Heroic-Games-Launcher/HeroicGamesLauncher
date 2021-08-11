@@ -67,6 +67,7 @@ function Settings() {
   const [title, setTitle] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(0)
   const [maxRecentGames, setMaxRecentGames] = useState(5)
+  const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
@@ -120,6 +121,11 @@ function Settings() {
     setOn: setExitToTray
   } = useToggle(false)
   const {
+    on: startInTray,
+    toggle: toggleStartInTray,
+    setOn: setStartInTray
+  } = useToggle(false)
+  const {
     on: darkTrayIcon,
     toggle: toggleDarkTrayIcon,
     setOn: setDarkTrayIcon
@@ -133,6 +139,16 @@ function Settings() {
     on: autoInstallDxvk,
     toggle: toggleAutoInstallDxvk,
     setOn: setAutoInstallDxvk
+  } = useToggle(false)
+  const {
+    on: enableFSR,
+    toggle: toggleFSR,
+    setOn: setEnableFSR
+  } = useToggle(false)
+  const {
+    on: enableResizableBar,
+    toggle: toggleResizableBar,
+    setOn: setResizableBar
   } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
@@ -155,7 +171,7 @@ function Settings() {
         'requestSettings',
         appName
       )
-      setAutoSyncSaves(config.autoSyncSaves)
+      setAutoSyncSaves(config.autoSyncSaves || false)
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
       setShowOffline(config.offlineMode || false)
@@ -170,9 +186,13 @@ function Settings() {
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
       setExitToTray(config.exitToTray || false)
+      setStartInTray(config.startInTray || false)
       setDarkTrayIcon(config.darkTrayIcon || false)
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
+      setEnableFSR(config.enableFSR || false)
+      setFsrSharpness(config.maxSharpness || 2)
+      setResizableBar(config.enableResizableBar || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 0)
       setMaxRecentGames(config.maxRecentGames ?? 5)
@@ -220,6 +240,7 @@ function Settings() {
     otherOptions,
     showFps,
     showMangohud,
+    startInTray,
     useGameMode,
     winePrefix,
     wineVersion
@@ -229,6 +250,9 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoSyncSaves,
+    enableFSR,
+    maxSharpness,
+    enableResizableBar,
     launcherArgs,
     nvidiaPrime,
     offlineMode,
@@ -244,9 +268,8 @@ function Settings() {
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
   let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
-
   if (state && state.fromGameCard) {
-    returnPath = null
+    returnPath = '/'
   }
 
   useEffect(() => {
@@ -293,21 +316,15 @@ function Settings() {
               defaultInstallPath={defaultInstallPath}
               setDefaultInstallPath={setDefaultInstallPath}
               exitToTray={exitToTray}
+              startInTray={startInTray}
               toggleTray={toggleTray}
+              toggleStartInTray={toggleStartInTray}
               language={language}
               setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
-              maxRecentGames={maxRecentGames}
-              setMaxRecentGames={setMaxRecentGames}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              addDesktopShortcuts={addDesktopShortcuts}
-              addGamesToStartMenu={addStartMenuShortcuts}
-              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
-              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
-              toggleDiscordRPC={toggleDiscordRPC}
-              discordRPC={discordRPC}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
             />
@@ -325,6 +342,12 @@ function Settings() {
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
+              enableFSR={enableFSR}
+              toggleFSR={toggleFSR}
+              maxSharpness={maxSharpness}
+              setFsrSharpness={setFsrSharpness}
+              enableResizableBar={enableResizableBar}
+              toggleResizableBar={toggleResizableBar}
             />
           )}
           {isWineSettings && (
@@ -349,6 +372,14 @@ function Settings() {
               showMangohud={showMangohud}
               toggleMangoHud={toggleMangoHud}
               isDefault={isDefault}
+              maxRecentGames={maxRecentGames}
+              setMaxRecentGames={setMaxRecentGames}
+              addDesktopShortcuts={addDesktopShortcuts}
+              addGamesToStartMenu={addStartMenuShortcuts}
+              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
+              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
+              toggleDiscordRPC={toggleDiscordRPC}
+              discordRPC={discordRPC}
             />
           )}
           {isSyncSettings && (

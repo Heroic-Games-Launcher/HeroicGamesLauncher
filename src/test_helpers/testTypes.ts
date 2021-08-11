@@ -202,6 +202,9 @@ const test_appsettings = new TestType<AppSettings>({
   discordRPC: true,
   egsLinkedPath: 'egs/linked/path',
   exitToTray: false,
+  enableFSR: false,
+  enableResizableBar: false,
+  maxSharpness: 5,
   language: 'en',
   launcherArgs: 'launcherArgs',
   maxRecentGames: 5,
@@ -212,6 +215,7 @@ const test_appsettings = new TestType<AppSettings>({
   savesPath: 'saves/path',
   showFps: false,
   showMangohud: false,
+  startInTray: false,
   useGameMode: false,
   winePrefix: 'winePrefix',
   wineVersion: {
@@ -279,6 +283,7 @@ const test_context = new TestType<ContextType>({
   data: [],
   error: false,
   filter: 'all',
+  filterText: '',
   gameUpdates: [],
   handleCategory: () => { return; },
   handleFilter: () => { return; },
@@ -290,8 +295,7 @@ const test_context = new TestType<ContextType>({
   platform: 'linux',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
-  refreshing: false,
-  user: 'user'
+  refreshing: false
 })
 
 /**

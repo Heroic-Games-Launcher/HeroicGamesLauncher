@@ -14,9 +14,14 @@
             "title": "Oyun kurulumunu taşı"
         },
         "no": "HAYIR",
+        "ok": "Ok",
         "repair": {
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
+        },
+        "shortcuts": {
+            "message": "Kısayollar Masaüstü ve Başlangıç Menüsünde oluşturuldu",
+            "title": "Kısayollar"
         },
         "stopInstall": {
             "keepInstalling": "Yüklemeyi Sürdür",
@@ -38,10 +43,17 @@
         "continue": "İndirmeye Devam Et",
         "import": "İçeri Aktar",
         "install": "Yükle",
-        "uninstall": "Kaldır"
+        "uninstall": "Kaldır",
+        "update": "Update"
     },
     "disabled": "Devre dışı",
     "enabled": "Etkin",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
     "gamecard": {
         "moving": "Taşınıyor",
         "repairing": "Onarılıyor"
@@ -77,13 +89,13 @@
         "installing": "Yükleniyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun yüklü değil",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Bu oyun sadece içeri aktarılabilir",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Kısayol ekle",
         "change": "Kurulum yerini değiştir",
         "log": "Güncel Log",
         "move": "Oyunu Taşı",

@@ -18,7 +18,7 @@
     "status": {
         "error": "Hata",
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
-        "logging": "Giriş yapılıyor..."
+        "logging": "Giriş yapılıyor…"
     },
     "welcome": "Hoş Geldiniz!"
 }

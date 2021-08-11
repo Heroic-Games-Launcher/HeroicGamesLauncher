@@ -63,7 +63,6 @@ async function checkForUpdates() {
     )
     const newVersion = tag_name.replace('v', '')
     const currentVersion = app.getVersion()
-    console.log({currentVersion, newVersion});
     return semverGt(newVersion, currentVersion)
   } catch (error) {
     logError('Could not check for new version of heroic')
@@ -73,7 +72,7 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Arlong`,
+    applicationVersion: `${app.getVersion()} Mihawk`,
     copyright: 'GPL V3',
     iconPath: icon,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher'

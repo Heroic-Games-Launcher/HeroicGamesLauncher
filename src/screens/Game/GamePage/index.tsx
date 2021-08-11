@@ -37,7 +37,9 @@ import {
 } from 'src/types'
 
 import { NOT_SUPPORTED_GAMES } from 'src/constants'
+import GamePicture from '../GamePicture'
 import GamesSubmenu from '../GameSubMenu'
+import TimeContainer from '../TimeContainer'
 
 const storage: Storage = window.localStorage
 
@@ -50,6 +52,7 @@ const { ipcRenderer } = window.require('electron') as {
 interface RouteParams {
   appName: string
 }
+
 
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
@@ -86,18 +89,25 @@ export default function GamePage(): JSX.Element | null {
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+  const hasDownloads = Boolean(libraryStatus.filter(
+    (game) => game.status === 'installing' || game.status === 'updating'
+  ).length)
 
   useEffect(() => {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName)
       setGameInfo(newInfo)
       if (newInfo.cloud_save_enabled) {
-        const {
-          autoSyncSaves,
-          savesPath
-        }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-        setAutoSyncSaves(autoSyncSaves)
-        setSavesPath(savesPath)
+        try {
+          const {
+            autoSyncSaves,
+            savesPath
+          }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
+          setAutoSyncSaves(autoSyncSaves)
+          setSavesPath(savesPath)
+        } catch (error) {
+          ipcRenderer.send('logError', error)
+        }
       }
     }
     updateConfig()
@@ -185,22 +195,12 @@ export default function GamePage(): JSX.Element | null {
           {title ? (
             <>
               <div className="gameConfig">
-                <div className="gamePicture">
-                  <img
-                    alt="cover-art"
-                    src={`${art_square}?h=400&resize=1&w=300`}
-                    className="gameImg"
-                  />
-                  {art_logo && (
-                    <img
-                      alt="cover-art"
-                      src={`${art_logo}?h=100&resize=1&w=200`}
-                      className="gameLogo"
-                    />
-                  )}
+                <div className="pictureTimeContainer">
+                  <GamePicture art_square={art_square} art_logo={art_logo} />
+                  <TimeContainer game={appName} />
                 </div>
                 <div className="gameInfo">
-                  <div className="title">{title}</div>
+                  <div className="gametitle">{title}</div>
                   <div className="infoWrapper">
                     <div className="developer">{developer}</div>
                     {!is_game && (
@@ -291,7 +291,7 @@ export default function GamePage(): JSX.Element | null {
                     <button
                       onClick={() => handleInstall()}
                       disabled={
-                        isPlaying || isUpdating || isReparing || isMoving
+                        isPlaying || isUpdating || isReparing || isMoving || (hasDownloads && !isInstalling)
                       }
                       className={`button ${getButtonClass(is_installed)}`}
                     >
@@ -361,7 +361,7 @@ export default function GamePage(): JSX.Element | null {
     if (isSyncing) {
       return 'is-primary'
     }
-    return isPlaying ? 'is-tertiary' : 'is-success'
+    return isPlaying ? 'is-tertiary' : 'is-primary'
   }
 
   function getPlayLabel(): React.ReactNode {
@@ -431,7 +431,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (previousProgress.folder === installPath && !isInstalling) {
+    if (previousProgress.folder === installPath && !isInstalling && !is_installed) {
       return t('button.continue', 'Continue Download')
     }
     if (installPath === 'import' && !is_installed) {

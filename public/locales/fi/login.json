@@ -1,8 +1,8 @@
 {
     "welcome": "Tervettuloa!",
     "status": {
-        "logging": "Kirjaudutaan sisään...",
-        "loading": "Ladataan Peli listaa, odottakaa",
+        "logging": "Kirjaudutaan sisään…",
+        "loading": "Ladataan Pelilistaa, odottakaa",
         "error": "Virhe"
     },
     "message": {

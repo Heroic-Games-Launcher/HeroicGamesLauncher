@@ -14,9 +14,14 @@
             "title": "Přesunout instalaci hry"
         },
         "no": "NE",
+        "ok": "Ok",
         "repair": {
             "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
             "title": "Zkontrolovat a opravit"
+        },
+        "shortcuts": {
+            "message": "Skratky byly vytvořeny na ploše a v menu Start",
+            "title": "Skratky"
         },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
@@ -35,13 +40,20 @@
     },
     "button": {
         "cancel": "Zrušit",
-        "continue": "Continue Download",
+        "continue": "Pokračovat ve stahování",
         "import": "Importovat",
         "install": "Instalovat",
-        "uninstall": "Odinstalovat"
+        "uninstall": "Odinstalovat",
+        "update": "Update"
     },
     "disabled": "Zakázáno",
     "enabled": "Povoleno",
+    "game": {
+        "firstPlayed": "Poprvé hráno",
+        "lastPlayed": "Naposledy hráno",
+        "neverPlayed": "Nikdy",
+        "totalPlayed": "Odehraný čas"
+    },
     "gamecard": {
         "moving": "Přesouvám",
         "repairing": "Opravuji"
@@ -77,13 +89,13 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
-        "notSupported": "This game can only be imported",
+        "notSupported": "Tuto hru lze pouze importovat",
         "reparing": "Opravuji hru, čekejte prosím",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Celkově staženo",
         "updating": "Aktualizuji hru"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Přidat zkratku",
         "change": "Změnit cestu instalace",
         "log": "Nejnovější záznam",
         "move": "Přesunout hru",

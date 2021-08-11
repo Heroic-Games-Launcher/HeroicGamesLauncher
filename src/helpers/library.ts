@@ -28,6 +28,10 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
 
   const {folder_name, is_game, is_installed}: GameInfo = await getGameInfo(appName)
   if (isInstalling) {
+    if (installPath === 'default') {
+      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke('requestSettings', 'default')
+      installPath = defaultInstallPath
+    }
     return handleStopInstallation(appName, [installPath, folder_name], t, progress)
   }
 
@@ -123,7 +127,7 @@ async function uninstall({appName, handleGameStatus, t}: UninstallArgs) {
   const { response } = await ipcRenderer.invoke('openMessageBox', args)
 
   if (response === 0) {
-    handleGameStatus({ appName, status: 'uninstalling' })
+    await handleGameStatus({ appName, status: 'uninstalling' })
     await ipcRenderer.invoke('uninstall', appName)
     storage.removeItem(appName)
     return await handleGameStatus({ appName, status: 'done' })

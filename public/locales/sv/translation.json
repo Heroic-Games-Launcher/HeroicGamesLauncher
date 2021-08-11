@@ -31,7 +31,6 @@
             "title": "Error"
         },
         "no": "Nej",
-        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"
@@ -45,10 +44,6 @@
             "title": "Välj EXE-fil att köra"
         },
         "select": "Kör",
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
-        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
@@ -145,13 +140,15 @@
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
-        "darktray": "Använd mörk ikon i sytembrickan (kräver omstart)",
+        "darktray": "Använd mörk ikon i sytembrickan",
         "default-install-path": "Standard installationssökväg",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
+        "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
         "exit-to-tray": "Avsluta till systembrickan",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
@@ -168,6 +165,7 @@
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
+        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"
@@ -177,6 +175,7 @@
             "title": "Synkroniseringsmapp för sparfiler"
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
+        "start-in-tray": "Starta minimerad",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },
