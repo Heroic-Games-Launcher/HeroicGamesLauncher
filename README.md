@@ -85,7 +85,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 1. Download Yarn and Node.js
 2. Download the dependencies with `yarn`
-3. Start Heroic by pressing F5 on vs code or `yarn react-start && yarn electron`
+3. Go to the debug tab on vscode and start the two tasks, 'Start renderer process' and 'Debug main process' or `yarn react-start && yarn electron`
 
 ### Building with VS Code
 
