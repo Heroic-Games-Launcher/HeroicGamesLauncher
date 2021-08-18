@@ -62,7 +62,8 @@
         "install": "Instaliraj",
         "import": "Uvezi",
         "continue": "Nastavi preuzimanje",
-        "cancel": "Otkaži"
+        "cancel": "Otkaži",
+        "update": "Ažuriraj"
     },
     "box": {
         "yes": "DA",
