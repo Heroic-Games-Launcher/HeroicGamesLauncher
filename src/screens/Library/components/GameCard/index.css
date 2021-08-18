@@ -257,7 +257,7 @@
 
 .progress>.MuiSvgIcon-root {
     position: relative;
-    bottom: 130px;
+    bottom: -1px;
 }
 
 .react-contextmenu--visible {
