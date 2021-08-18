@@ -2,8 +2,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "yarn test -i --watchAll",
-      "name": "Debug yarn test",
+      "command": "yarn react-start",
+      "name": "Start renderer process",
       "request": "launch",
       "type": "node-terminal"
     },
