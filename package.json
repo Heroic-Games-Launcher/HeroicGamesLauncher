@@ -33,12 +33,14 @@
         "directories": {
             "buildResources": "public"
         },
-        "protocols": [{
-            "name": "heroic",
-            "schemes": [
-                "heroic"
-            ]
-        }],
+        "protocols": [
+            {
+                "name": "heroic",
+                "schemes": [
+                    "heroic"
+                ]
+            }
+        ],
         "win": {
             "icon": "build/win_icon.ico",
             "asarUnpack": [
@@ -132,8 +134,8 @@
         "watch-electron": "tsc --watch --project electron/tsconfig.json",
         "i18n": "i18next",
         "prepare": "husky install",
-        "prepare-flatpak": "npm i && python3 flatpak/flatpak-node-generator.py npm --xdg-layout package-lock.json",
-        "dist-flatpak": "yarn dist dir"
+        "prepare-flatpak": "npm i --legacy-peer-deps && python3 flatpak/flatpak-node-generator.py npm --xdg-layout package-lock.json && cd flatpak && flatpak-builder build org.heroic.yml --install --force-clean --user",
+        "dist-flatpak": "npm run build-electron && npm run build && electron-builder -c.extraMetadata.main=build/main.js --linux dir"
     },
     "eslintConfig": {
         "extends": [

@@ -9,11 +9,11 @@ import {
   GlobalConfigVersion
 } from './types'
 
-
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
-const home = homedir()
+const isFlatpak = process.execPath === '/app/main/heroic'
+const home = isFlatpak ? `${homedir()}/.var/app/org.hgl.heroic` : homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
 const heroicFolder = `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`

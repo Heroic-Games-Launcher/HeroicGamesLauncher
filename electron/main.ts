@@ -12,6 +12,7 @@ import {
 } from 'electron'
 import {
   cpus,
+  homedir,
   platform
 } from 'os'
 import {
@@ -103,6 +104,13 @@ async function createWindow(): Promise<BrowserWindow> {
     })
 
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
+
+  const nodeHome = homedir()
+  const sandboxed = process.sandboxed
+  const env = process.env
+  const envHome = process.env.HOME
+  const execpath = process.execPath
+  console.log({env, home, nodeHome, envHome, sandboxed, execpath})
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -347,7 +355,7 @@ ipcMain.on('Notify', (event, args) => {
     title: args[0]
   })
 
-  notify.on('click', () => mainWindow.show())
+  notify.on('click', () => mainWindow.focus())
   notify.show()
 })
 

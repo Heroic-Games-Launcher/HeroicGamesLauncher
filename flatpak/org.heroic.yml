@@ -42,7 +42,7 @@ modules:
     subdir: main
     sources:
       #- type: archive
-      #  url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v1.7.2/heroic-1.7.2.tar.xz
+      #  url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v1.9.2/heroic-1.9.2.tar.xz
       #  sha256: 38820ba99b899a88a589156f8dd09e7afeb762b32e68572775c02cee7f691325
       - type: dir
         path: ..
@@ -54,7 +54,7 @@ modules:
         commands:
           - zypak-wrapper.sh /app/main/heroic "$@"
     build-commands:
-      - npm install --offline
+      - npm install --offline --legacy-peer-deps
       # Build the app; in this example the `dist` script
       # in package.json runs electron-builder
       - |
