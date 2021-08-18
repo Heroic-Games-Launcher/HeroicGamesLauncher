@@ -87,6 +87,7 @@ const GameCard = ({
   const hasDownloads = Boolean(libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length)
+
   const { status } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
   const isReparing = status === 'repairing'
@@ -98,8 +99,9 @@ const GameCard = ({
   useEffect(() => {
     const progressInterval = setInterval(async () => {
       if (isInstalling) {
+        const progressToRequest = status === 'updating' ? 'requestUpdateProgress' : 'requestGameProgress'
         const progress = await ipcRenderer.invoke(
-          'requestGameProgress',
+          progressToRequest,
           appName
         )
 
@@ -123,6 +125,12 @@ const GameCard = ({
   const effectPercent = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
+
+  async function handleUpdate(){
+    await handleGameStatus({appName, status: 'updating'})
+    await updateGame(appName)
+    return handleGameStatus({appName, status: 'done'})
+  }
 
   function getStatus() {
     if (isInstalling) {
@@ -159,6 +167,7 @@ const GameCard = ({
     }
     return null
   }
+
   return (
     <>
       <ContextMenuTrigger id={appName}>
@@ -227,7 +236,7 @@ const GameCard = ({
             <MenuItem onClick={() => history.push({pathname: path, state: { fromGameCard: true}})}>
               {t('submenu.settings')}
             </MenuItem>
-            {hasUpdate && <MenuItem onClick={() => updateGame(appName)}>
+            {hasUpdate && <MenuItem onClick={() => handleUpdate()}>
               {t('button.update', 'Update')}
             </MenuItem>}
             <MenuItem onClick={() => uninstall({appName, handleGameStatus, t})}>

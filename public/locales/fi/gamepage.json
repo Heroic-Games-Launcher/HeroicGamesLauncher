@@ -4,7 +4,8 @@
         "install": "Asenna",
         "import": "Tuo",
         "continue": "Jatka latausta",
-        "cancel": "Peruuta"
+        "cancel": "Peruuta",
+        "update": "Päivitä"
     },
     "box": {
         "yes": "KYLLÄ",

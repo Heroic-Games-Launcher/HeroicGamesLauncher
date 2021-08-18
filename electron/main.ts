@@ -106,15 +106,15 @@ async function createWindow(): Promise<BrowserWindow> {
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: isDev ? 1200 : 720,
-    minHeight: 700,
-    minWidth: 1200,
+    height: isDev ? 1200 : 600,
+    minHeight: 500,
+    minWidth: 900,
     show: !(exitToTray && startInTray),
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true
     },
-    width: isDev ? 1800 : 1280
+    width: isDev ? 1800 : 1000
   })
 
   setTimeout(() => {
