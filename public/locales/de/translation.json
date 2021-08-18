@@ -47,7 +47,7 @@
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
-            "title": "Wählen Sie das Spielstände-Verzeichnis"
+            "title": "Wählen Sie das Spielstand-Verzeichnis"
         },
         "wineprefix": "Wählen Sie den Wine Prefix Ordner",
         "yes": "JA"
@@ -57,7 +57,7 @@
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren"
     },
-    "Downloading": "Am herunterladen",
+    "Downloading": "Am Herunterladen",
     "Filter": "Filter",
     "Games": "Spiele",
     "globalSettings": "Globale Einstellungen",
@@ -73,8 +73,8 @@
             "part7": " um den Launcher in einigen Spielen zu überspringen, usw."
         },
         "sync": {
-            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, und das funktioniert in den meisten Fällen. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu Überschreiben.",
-            "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren und Heroic wird den Ordner erneut mit dem richtigen Prefix versuchen zu finden.",
+            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, was in den meisten Fällen auch funktioniert. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu überschreiben.",
+            "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie auch den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren. Heroic wird dann erneut versuchen, den Ordner erneut mit dem richtigen Prefix zu finden.",
             "part3": "Manuelle Synchronisierung: Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
         },
@@ -114,7 +114,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Fügen Sie hier andere Startoptionen ein",
+            "placeholder": "Geben Sie hier andere Startoptionen ein",
             "title": "Erweiterte Optionen (Umgebungsvariablen):"
         },
         "gameargs": {
@@ -126,7 +126,7 @@
         "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
-        "egs-prefix": "Prefix, wo EGS installiert ist"
+        "egs-prefix": "Prefix, in dem EGS installiert ist"
     },
     "Plugins": "Plugins",
     "Projects": "Projekte",
@@ -162,7 +162,7 @@
             "upload": "Upload"
         },
         "maxRecentGames": "Zuletzt gespielte Spiele anzeigen",
-        "maxworkers": "Maximale Anzahl von gleichzeitigem Herunterladen",
+        "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
         "offlinemode": "Spiel offline ausführen",
         "primerun": "Nvidia Prime Render aktivieren",
         "resizableBar": "Resizable Bar aktivieren (nur NVIDIA RTX)",
