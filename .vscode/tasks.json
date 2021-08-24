@@ -28,7 +28,7 @@
 			"script": "dist",
 			"problemMatcher": [],
 			"label": "Build for Windows",
-			"detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win32"
+			"detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win"
 		},
 		{
 			"type": "npm",
