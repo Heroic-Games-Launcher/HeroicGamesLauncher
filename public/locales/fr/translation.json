@@ -54,10 +54,10 @@
     },
     "button": {
         "sync": "Synchroniser",
-        "syncing": "Synchronisation",
+        "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser"
     },
-    "Downloading": "Téléchargements",
+    "Downloading": "Téléchargement en cours",
     "Filter": "Filtre",
     "Games": "Jeux",
     "globalSettings": "Paramètres généraux",
@@ -137,7 +137,7 @@
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
-        "audiofix": "Fixer l'Audio (Latence Pulse Audio)",
+        "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
@@ -192,7 +192,7 @@
         "addpath": "Ajouter un nouveau chemin",
         "removepath": "Supprimer le chemin"
     },
-    "Total Games": "Nombre total de jeux",
+    "Total Games": "Nombre de jeux au total",
     "tray": {
         "about": "À propos",
         "quit": "Quitter",
@@ -201,7 +201,7 @@
         "support": "Nous supporter"
     },
     "Unreal Marketplace": "Marché Unreal",
-    "Updates": "Mises-à-jour",
+    "Updates": "Mises à jour",
     "userselector": {
         "about": "À propos",
         "discord": "Discord",
