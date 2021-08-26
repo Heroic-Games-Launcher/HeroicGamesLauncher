@@ -20,8 +20,8 @@
             "title": "Ellenőrzés és Javítás"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "A parancsikonok létre lettek hozva az Asztalon és a Start Menüben",
+            "title": "Parancsikonok"
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
@@ -49,10 +49,10 @@
     "disabled": "Letiltva",
     "enabled": "Engedélyezve",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "firstPlayed": "Először Játszott",
+        "lastPlayed": "Legutóbb játszott",
+        "neverPlayed": "Soha",
+        "totalPlayed": "Játszott idő"
     },
     "gamecard": {
         "moving": "Áthelyezés",
