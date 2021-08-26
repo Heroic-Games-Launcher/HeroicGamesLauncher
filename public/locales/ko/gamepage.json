@@ -1,1 +1,29 @@
-{}
+{
+    "submenu": {
+        "settings": "설정"
+    },
+    "status": {
+        "hasUpdates": "새 버전이 있습니다!"
+    },
+    "info": {
+        "version": "버전",
+        "size": "크기"
+    },
+    "button": {
+        "import": "들여오기"
+    },
+    "box": {
+        "update": {
+            "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?"
+        },
+        "uninstall": {
+            "message": "이 게임을 제거하시겠습니까?"
+        },
+        "repair": {
+            "message": "이 게임의 복구를 시도하시겠습니까? 이 작업은 긴 시간이 소요될 수 있습니다."
+        },
+        "move": {
+            "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?"
+        }
+    }
+}
