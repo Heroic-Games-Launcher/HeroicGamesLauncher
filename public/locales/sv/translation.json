@@ -131,7 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Ready": "Nedladdade",
-    "Recent": "Recent Games",
+    "Recent": "Senast spelade",
     "Return": "Tillbaka",
     "search": "Skriv in spelets namn här...",
     "setting": {
@@ -148,7 +148,7 @@
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
         "exit-to-tray": "Avsluta till systembrickan",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Skärpanivå",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
