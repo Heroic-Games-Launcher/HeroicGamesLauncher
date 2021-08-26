@@ -84,7 +84,8 @@
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
         "savefolder": {
-            "placeholder": "Valitse täsmällinen pelitallennuksien kansio"
+            "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
+            "title": "Ohita pilvisynkronoinnin tallennuskansio"
         },
         "runexe": {
             "title": "Käynnistä EXE prefixissä",
@@ -103,7 +104,8 @@
         "default-install-path": "Oletus asennussijainti",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
-        "checkForUpdatesOnStartup": "Tarkista päivitysten varalta käynnistyessä"
+        "checkForUpdatesOnStartup": "Tarkista päivitysten varalta käynnistyessä",
+        "maxworkers": "Työntekijöiden enimmäismäärä ladattaessa"
     },
     "search": "Kirjoita tähän pelin nimi...",
     "Return": "Palaa",
@@ -204,9 +206,11 @@
     "settings": {
         "navbar": {
             "other": "Muut",
-            "general": "Yleiset"
+            "general": "Yleiset",
+            "sync": "Tallenna ja synkronoi"
         }
     },
     "Settings": "Asetukset",
-    "Recent": "Viimeisimmät pelit"
+    "Recent": "Viimeisimmät pelit",
+    "Unreal Marketplace": "Unreal Marketplace"
 }
