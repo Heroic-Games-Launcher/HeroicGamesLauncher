@@ -52,7 +52,7 @@
         "firstPlayed": "Joué pour la première fois",
         "lastPlayed": "Joué la dernière fois",
         "neverPlayed": "Jamais",
-        "totalPlayed": "Nombre de fois joué"
+        "totalPlayed": "Temps passé à jouer"
     },
     "gamecard": {
         "moving": "Déplacement en cours",

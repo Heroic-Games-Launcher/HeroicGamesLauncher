@@ -165,7 +165,7 @@
         "maxworkers": "下载时的最大Worker数量",
         "offlinemode": "离线运行游戏",
         "primerun": "启用英伟达Prime渲染",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在PREFIX上运行exe文件"

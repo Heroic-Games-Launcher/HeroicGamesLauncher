@@ -1,0 +1,215 @@
+{
+    "search": "在此處輸入遊戲名稱...",
+    "userselector": {
+        "refresh": "刷新收藏庫",
+        "logout_confirmation": "您確定要登出嗎？",
+        "logout": "登出",
+        "support": "支持我們",
+        "quit": "退出",
+        "discord": "Discord",
+        "about": "關於"
+    },
+    "tray": {
+        "reload": "重新載入",
+        "support": "支持我們",
+        "show": "顯示",
+        "quit": "退出",
+        "about": "關於"
+    },
+    "settings": {
+        "navbar": {
+            "general": "一般",
+            "sync": "存檔-同步",
+            "other": "其它"
+        }
+    },
+    "Settings": "設定",
+    "setting": {
+        "savefolder": {
+            "title": "覆蓋雲端存檔資料夾",
+            "placeholder": "選擇存檔的保存位置"
+        },
+        "runexe": {
+            "title": "在PREFIX上執行exe檔案",
+            "message": "將檔案拖放到此處"
+        },
+        "resizableBar": "啟用 Resizable BAR (僅限 NVIDIA RTX 30xx)",
+        "primerun": "啟用Nvidia Prime渲染",
+        "default-install-path": "預設安裝路徑",
+        "exit-to-tray": "退出到系統列",
+        "darktray": "使用暗色系統列圖示",
+        "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "adddesktopshortcuts": "自動添加桌面捷徑",
+        "wineversion": "WINE版本",
+        "wineprefix": "WINEPREFIX文件夾",
+        "start-in-tray": "啟動時最小化",
+        "showfps": "顯示幀數（Directx 9，10和11）",
+        "offlinemode": "離線運行遊戲",
+        "maxworkers": "下載時的最大Worker數量",
+        "maxRecentGames": "最近要展示的遊戲",
+        "manualsync": {
+            "upload": "上傳",
+            "title": "手動同步存檔",
+            "syncing": "正在同步",
+            "sync": "同步",
+            "forceupload": "強制上傳",
+            "forcedownload": "強制下載",
+            "download": "下載"
+        },
+        "mangohud": "啟用MangoHud（需要已安裝Mangohud）",
+        "language": "選擇應用語言",
+        "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
+        "FsrSharpnessStrenght": "FSR 銳化度",
+        "enableFSRHack": "啟用FSR（需要支持的WINE版本）",
+        "egs-sync": "與已安裝的Epic Games同步",
+        "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
+        "customWineProton": "自定義Wine/Proton路徑",
+        "checkForUpdatesOnStartup": "啟動時檢查更新",
+        "autosync": "自動同步存檔",
+        "autodxvk": "在PREFIX自動安裝並更新DXVK",
+        "audiofix": "音頻修覆（Pulse Audio延遲）"
+    },
+    "Projects": "專案",
+    "Plugins": "外掛插件",
+    "options": {
+        "advanced": {
+            "title": "進階選項（環境變量）：",
+            "placeholder": "將其他啟動選項放在這裏"
+        },
+        "gameargs": {
+            "title": "遊戲參數（在命令後運行）：",
+            "placeholder": "將啟動器參數放在這裏"
+        }
+    },
+    "notify": {
+        "uninstalled": "已解除安裝",
+        "finished": {
+            "reparing": "已完成修復"
+        },
+        "update": {
+            "finished": "已更新",
+            "canceled": "已取消更新"
+        },
+        "moved": "移動完成",
+        "install": {
+            "finished": "安裝完成",
+            "canceled": "已取消安裝"
+        }
+    },
+    "Library": "收藏庫",
+    "info": {
+        "settings": "設定會自動保存"
+    },
+    "help": {
+        "wine": {
+            "part2": "如果在其它位置，請使用軟鏈接連接到這些中的一個資料夾",
+            "part1": "Heroic啟動器會在以下資料夾中搜尋現有的Wine和Proton版本："
+        },
+        "sync": {
+            "part2": "如果你改變了Wine或Proton的文件夾，你將需要再次檢查路徑，因為Proton使用不同的前綴（/pfx）和使用者名稱（steamuser）。很簡單，你可以直接刪除當前的路徑，離開同步設置頁面再回來，Heroic會去重新猜測正確PREFIX的文件夾。",
+            "part4": "自動同步將在你每次開始遊戲時和結束遊戲後同步存檔。",
+            "part3": "手動同步：選擇下載以下載存儲在雲端的存檔。選擇上傳將會把本地存檔上傳到雲端。強制下載將會忽略本地版本，強制上傳將會忽略雲端版本。",
+            "part1": "大多數情況下，Heroic啟動器會正確猜測的存檔的位置。但如果位置是錯誤的，請使用覆蓋框更改。"
+        },
+        "other": {
+            "part7": " 在某些遊戲中跳過啟動器等。",
+            "part6": " 在執行啟動命令後調用，例如： ",
+            "part5": "遊戲參數",
+            "part4": "使用 ",
+            "part3": "在啟動遊戲前調用； ",
+            "part2": "高級選項",
+            "part1": "使用 "
+        },
+        "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。"
+    },
+    "globalSettings": "全域設定",
+    "box": {
+        "wineprefix": "選擇WINEPREFIX的資料夾",
+        "runexe": {
+            "title": "選擇要執行的EXE檔案"
+        },
+        "error": {
+            "log": {
+                "title": "未找到日誌",
+                "message": "未找到此遊戲的日誌"
+            },
+            "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
+            "diskspace": {
+                "title": "空間不足",
+                "message": "磁碟空間不足"
+            },
+            "credentials": {
+                "title": "過期的登入憑據",
+                "message": "您的憑據已過期，請登出並重新登入。"
+            },
+            "title": "錯誤",
+            "generic": {
+                "title": "未知錯誤",
+                "message": "發生了未知錯誤"
+            }
+        },
+        "default-install-path": "選擇預設安裝路徑",
+        "yes": "是",
+        "sync": {
+            "title": "選擇存檔的目錄",
+            "error": "無效路徑",
+            "button": "選擇"
+        },
+        "select": "選擇",
+        "quit": {
+            "title": "退出",
+            "message": "有待處理的操作，您確定嗎？"
+        },
+        "protocol": {
+            "install": {
+                "not_installed": "未安裝，您是否希望安裝它？"
+            }
+        },
+        "no": "否",
+        "customWine": "選擇已編譯的Wine或Proton",
+        "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
+        "choose": "請選擇",
+        "appupdate": {
+            "title": "有可用更新",
+            "message": "有新版本的Heroic啟動器可用，您要立即更新嗎？"
+        }
+    },
+    "wiki": "Wiki百科",
+    "Updates": "更新",
+    "Unreal Marketplace": "虛幻商城",
+    "Total Games": "總遊戲數",
+    "tooltip": {
+        "removepath": "刪除路徑",
+        "addpath": "添加新路徑"
+    },
+    "store": "商店",
+    "Return": "返回",
+    "Recent": "最近的遊戲",
+    "Ready": "準備就緒",
+    "placeholder": {
+        "egs-prefix": "Epic Games商城安裝位置"
+    },
+    "other": {
+        "weblate": "請幫助翻譯Heroic啟動器。"
+    },
+    "Not Ready": "尚未就緒",
+    "nogames": "未找到遊戲",
+    "message": {
+        "unsync": "取消同步完成",
+        "sync": "同步完成"
+    },
+    "infobox": {
+        "requirements": "系統要求",
+        "help": "幫助"
+    },
+    "Games": "遊戲",
+    "Filter": "篩選",
+    "Downloading": "正在下載",
+    "button": {
+        "unsync": "不同步",
+        "syncing": "正在同步",
+        "sync": "同步"
+    },
+    "Assets": "素材",
+    "All": "全部"
+}
