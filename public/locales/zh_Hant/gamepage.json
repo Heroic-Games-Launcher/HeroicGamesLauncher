@@ -1,0 +1,107 @@
+{
+    "submenu": {
+        "verify": "驗證並修復遊戲文件",
+        "settings": "設定",
+        "protondb": "檢查相容性",
+        "log": "最新日誌",
+        "addShortcut": "添加捷徑",
+        "store": "商店頁面",
+        "move": "移動遊戲",
+        "change": "更改安裝路徑"
+    },
+    "status": {
+        "reparing": "遊戲修復中，請稍等",
+        "updating": "遊戲更新中",
+        "totalDownloaded": "總共已下載",
+        "notSupported": "此遊戲只能被導入",
+        "notinstalled": "未安裝此遊戲",
+        "moving": "正在移動，請稍等",
+        "installing": "正在安裝",
+        "installed": "已安裝",
+        "hasUpdates": "新版本可用！",
+        "clickToUpdate": "點擊更新"
+    },
+    "specs": {
+        "recommended": "建議配置",
+        "minimum": "最低配置"
+    },
+    "gamecard": {
+        "repairing": "修復中",
+        "moving": "移動中"
+    },
+    "button": {
+        "update": "更新",
+        "uninstall": "解除安裝",
+        "install": "安裝",
+        "import": "導入",
+        "continue": "繼續下載",
+        "cancel": "取消"
+    },
+    "box": {
+        "uninstall": {
+            "title": "解除安裝",
+            "message": "你希望將這個遊戲解除安裝嗎？"
+        },
+        "stopInstall": {
+            "message": "要保留已下載的檔案嗎？",
+            "title": "停止安裝",
+            "keepInstalling": "繼續安裝"
+        },
+        "shortcuts": {
+            "title": "捷徑",
+            "message": "已經在桌面和開始功能表上建立捷徑"
+        },
+        "repair": {
+            "message": "你想嘗試修復這個遊戲的檔案嗎？這可能需要很長的時間。",
+            "title": "驗證並修復遊戲檔案"
+        },
+        "importpath": "選擇要導入的遊戲資料夾",
+        "yes": "是",
+        "update": {
+            "title": "遊戲需要更新",
+            "message": "此遊戲有更新，你希望現在更新嗎？"
+        },
+        "ok": "Ok",
+        "no": "否",
+        "move": {
+            "title": "移動遊戲安裝",
+            "path": "選擇要移動的位置",
+            "message": "這可能需要很長的時間，確定？"
+        },
+        "installpath": "選擇安裝路徑",
+        "choose": "請選擇",
+        "change": {
+            "title": "更改遊戲安裝路徑",
+            "path": "選擇新的安裝路徑",
+            "message": "這將會更改此遊戲的安裝位置，確定？"
+        }
+    },
+    "label": {
+        "saves": {
+            "syncing": "存檔同步中"
+        },
+        "playing": {
+            "stop": "停止遊戲",
+            "start": "開始遊戲"
+        }
+    },
+    "install": {
+        "import": "導入遊戲",
+        "default": "安裝至",
+        "another": "安裝至其他路徑"
+    },
+    "info": {
+        "version": "版本",
+        "syncsaves": "同步存檔",
+        "size": "大小",
+        "path": "安裝路徑"
+    },
+    "game": {
+        "totalPlayed": "遊玩時間",
+        "neverPlayed": "從未遊玩",
+        "lastPlayed": "上次遊玩",
+        "firstPlayed": "首次遊玩"
+    },
+    "enabled": "已啟用",
+    "disabled": "已禁用"
+}
