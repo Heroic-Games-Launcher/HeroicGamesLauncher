@@ -1,0 +1,79 @@
+{
+    "help": {
+        "sync": {
+            "part2": "Kui te muudate Wine'i või Proton'i prefiksi kausta, peate te tee uuesti kontrollima, kuna Proton kasutab teistsugust prefiksit (/pfx) ja kasutajanime (steamuser). Nii et võite lihtsalt kustutada praeguse faili koha, lahkuda sünkroonimise seadete lehelt ja minna uuesti tagasi, et Heroic saaks arvata veelkord kausta õige eesliitega.",
+            "part1": "Heroic üritab ära arvata õige salvestuskausta ja see toimib enamikul juhtudel. Juhul kui kaust on vale, kasutage selle muutmiseks override-kasti."
+        },
+        "other": {
+            "part7": " et jätta mõnedes mängudes käivitaja vahele jne.",
+            "part6": " kutsutakse pärast käivituskäsku, näiteks: ",
+            "part5": "Mängu argumendid",
+            "part4": "Kasutage ",
+            "part3": "käivitatakse enne mängu alustamist; ",
+            "part2": "Lisavalikud"
+        },
+        "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist."
+    },
+    "globalSettings": "Globaalsed seaded",
+    "Games": "Mängud",
+    "Filter": "Filtreeri",
+    "Downloading": "Allalaadimine",
+    "button": {
+        "unsync": "Mittesünkroniseerimine",
+        "syncing": "Sünkroonimine",
+        "sync": "Sünkrooni"
+    },
+    "box": {
+        "yes": "JAH",
+        "wineprefix": "Valige Wine prefiksi kaust",
+        "sync": {
+            "title": "Valige salvestuste kaust",
+            "error": "Vale koht",
+            "button": "Valige"
+        },
+        "select": "Valige",
+        "runexe": {
+            "title": "Valige EXE mida käivitada"
+        },
+        "quit": {
+            "title": "Välju",
+            "message": "On pooleliolevad toimingud, kas olete kindel?"
+        },
+        "protocol": {
+            "install": {
+                "not_installed": "ei ole paigaldatud, kas soovite selle paigaldada?"
+            }
+        },
+        "no": "EI",
+        "error": {
+            "title": "Viga",
+            "log": {
+                "title": "Logi ei leitud",
+                "message": "Selle mängu logi ei leitud"
+            },
+            "launch": "Viga mängu käivitamisel, kontrollige logisid!",
+            "generic": {
+                "title": "Tundmatu viga",
+                "message": "Tekkinud on tundmatu viga"
+            },
+            "diskspace": {
+                "title": "Ei ole ruumi",
+                "message": "Ei ole piisavalt vaba kettaruumi"
+            },
+            "credentials": {
+                "title": "Aegunud kasutaja andmed",
+                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
+            }
+        },
+        "default-install-path": "Valige Vaikimisi paigalduskoht",
+        "customWine": "Valige Wine või Proton-i binaar",
+        "choose-egs-prefix": "Valige prefiks, kuhu EGS on paigaldatud",
+        "choose": "Valige",
+        "appupdate": {
+            "title": "Uuendus saadaval",
+            "message": "Heroicu uus versioon on saadaval. Kas soovite uuendada kohe?"
+        }
+    },
+    "Assets": "Varamu",
+    "All": "Kõik"
+}

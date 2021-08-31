@@ -1,0 +1,107 @@
+{
+    "submenu": {
+        "verify": "Kontrolli ja paranda",
+        "store": "Poe lehekülg",
+        "settings": "Seaded",
+        "protondb": "Kontrolli ühilduvust",
+        "move": "Liiguta mäng",
+        "log": "Viimane logi",
+        "change": "Muuda paigalduskohta",
+        "addShortcut": "Lisa otsetee"
+    },
+    "status": {
+        "updating": "Mängu uuendamine",
+        "totalDownloaded": "Allalaaditud kokku",
+        "reparing": "Mängu parandamine, palun oodake",
+        "notSupported": "Seda mängu saab ainult importida",
+        "notinstalled": "See mäng ei ole paigaldatud",
+        "moving": "Paigalduse liiguatamine, palun oodake",
+        "installing": "Paigaldamine",
+        "installed": "Installitud",
+        "hasUpdates": "Uus versioon saadaval!",
+        "clickToUpdate": "Uuendamiseks klõpsake"
+    },
+    "specs": {
+        "recommended": "Soovitatav",
+        "minimum": "Miinimum"
+    },
+    "label": {
+        "saves": {
+            "syncing": "Salvestuste sünkroonimine"
+        },
+        "playing": {
+            "stop": "Mängib (Peata)",
+            "start": "Mängi"
+        }
+    },
+    "install": {
+        "import": "Impordi mäng",
+        "default": "Paigalda",
+        "another": "Paigalda teise kohta"
+    },
+    "info": {
+        "version": "Versioon",
+        "syncsaves": "Sünkrooni salvestised",
+        "size": "Suurus",
+        "path": "Paigalduskoht"
+    },
+    "gamecard": {
+        "repairing": "Parandamine",
+        "moving": "Liigutamine"
+    },
+    "game": {
+        "totalPlayed": "Mängitud aeg",
+        "neverPlayed": "Mitte kunagi",
+        "lastPlayed": "Viimati mängitud",
+        "firstPlayed": "Esimest korda mängitud"
+    },
+    "enabled": "Lubatud",
+    "disabled": "Keelatud",
+    "button": {
+        "update": "Uuenda",
+        "uninstall": "Eemalda",
+        "install": "Paigalda",
+        "import": "Impordi",
+        "continue": "Jätka allalaadimist",
+        "cancel": "Tühista"
+    },
+    "box": {
+        "yes": "JAH",
+        "update": {
+            "title": "Mäng vajab uuendust",
+            "message": "Sellel mängul on värskendus. Kas soovite uuendada kohe?"
+        },
+        "uninstall": {
+            "title": "Eemalda",
+            "message": "Kas soovite selle mängu eemaldada?"
+        },
+        "stopInstall": {
+            "title": "Peata paigaldamine",
+            "message": "Kas soovite allalaaditud faile alles hoida?",
+            "keepInstalling": "Jätka installimist"
+        },
+        "shortcuts": {
+            "title": "Otseteed",
+            "message": "Töölauale ja Start Menüüsse on loodud otseteed"
+        },
+        "repair": {
+            "title": "Kontrolli ja paranda",
+            "message": "Kas soovite proovida seda mängu parandada? See võib võtta kaua aega."
+        },
+        "ok": "Ok",
+        "no": "EI",
+        "move": {
+            "title": "Liiguta mängu paigaldus",
+            "path": "Valige, kuhu soovite liigutada",
+            "message": "See võib võtta kaua aega, kas olete kindel?"
+        },
+        "installpath": "Valige paigaldamiskoht",
+        "importpath": "Valige imporditav mängude kaust",
+        "choose": "Valige",
+        "change": {
+            "title": "Muuda mängude paigaldamiskohta",
+            "path": "Valige uus paigalduskoht",
+            "message": "See muudab selle mängu paigaldusasukohta, kas olete kindel?"
+        }
+    }
+}
