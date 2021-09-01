@@ -1,29 +1,107 @@
 {
     "submenu": {
-        "settings": "설정"
+        "settings": "설정",
+        "addShortcut": "바로가기 생성",
+        "verify": "확인 및 복구",
+        "store": "스토어 페이지",
+        "protondb": "호환성 체크",
+        "move": "게임 이동",
+        "log": "최신 로그",
+        "change": "설치 경로 변경"
     },
     "status": {
-        "hasUpdates": "새 버전이 있습니다!"
+        "hasUpdates": "새 버전이 있습니다!",
+        "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
+        "notSupported": "이 게임은 가져오기만 가능합니다",
+        "notinstalled": "이 게임은 설치 되지 않았습니다",
+        "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
+        "installing": "설치 중",
+        "installed": "설치됨",
+        "clickToUpdate": "업데이트하려면 클릭",
+        "updating": "게임 업데이트 중",
+        "totalDownloaded": "총 다운로드"
     },
     "info": {
         "version": "버전",
-        "size": "크기"
+        "size": "크기",
+        "syncsaves": "세이브 동기화",
+        "path": "설치 경로"
     },
     "button": {
-        "import": "들여오기"
+        "import": "들여오기",
+        "update": "업데이트",
+        "uninstall": "설치 제거",
+        "install": "설치",
+        "continue": "계속 다운로드",
+        "cancel": "취소"
     },
     "box": {
         "update": {
-            "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?"
+            "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?",
+            "title": "게임 업데이트 필요"
         },
         "uninstall": {
-            "message": "이 게임을 제거하시겠습니까?"
+            "message": "이 게임을 제거하시겠습니까?",
+            "title": "설치 제거"
         },
         "repair": {
-            "message": "이 게임의 복구를 시도하시겠습니까? 이 작업은 긴 시간이 소요될 수 있습니다."
+            "message": "이 게임의 복구를 시도하시겠습니까? 이 작업은 긴 시간이 소요될 수 있습니다.",
+            "title": "확인 및 복구"
         },
         "move": {
-            "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?"
+            "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?",
+            "title": "게임 설치 이동",
+            "path": "이동하려는 위치 선택"
+        },
+        "stopInstall": {
+            "title": "설치 중지",
+            "message": "다운로드한 파일을 유지하겠습니까?",
+            "keepInstalling": "계속 설치"
+        },
+        "shortcuts": {
+            "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
+            "title": "바로가기"
+        },
+        "yes": "예",
+        "choose": "선택",
+        "ok": "예",
+        "no": "아니오",
+        "installpath": "설치 경로 선택",
+        "importpath": "가져올 게임 폴더 선택",
+        "change": {
+            "title": "게임 설치 경로 변경",
+            "path": "새 설치 경로 선택",
+            "message": "이 작업은 해당 게임의 설치 위치를 변경합니다, 계속하시겠습니까?"
+        }
+    },
+    "install": {
+        "default": "다음에 설치",
+        "another": "다른 경로에 설치",
+        "import": "게임 가져오기"
+    },
+    "game": {
+        "totalPlayed": "플레이 시간",
+        "neverPlayed": "플레이 한 적 없음",
+        "lastPlayed": "마지막 플레이",
+        "firstPlayed": "처음 플레이"
+    },
+    "disabled": "비활성화",
+    "enabled": "활성화",
+    "gamecard": {
+        "repairing": "복구 중",
+        "moving": "옮기는 중"
+    },
+    "specs": {
+        "recommended": "권장 사양",
+        "minimum": "최소 사양"
+    },
+    "label": {
+        "playing": {
+            "start": "지금 실행하기",
+            "stop": "플레이 중지"
+        },
+        "saves": {
+            "syncing": "세이브 동기화 중"
         }
     }
 }
