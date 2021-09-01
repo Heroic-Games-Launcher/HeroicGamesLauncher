@@ -49,10 +49,10 @@
     "disabled": "Inaktiverad",
     "enabled": "Aktiverad",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
+        "firstPlayed": "Först spelad",
+        "lastPlayed": "Senast spelad",
         "neverPlayed": "Aldrig",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "Speltid"
     },
     "gamecard": {
         "moving": "Flyttar",

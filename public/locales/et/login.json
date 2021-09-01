@@ -1,0 +1,23 @@
+{
+    "welcome": "Tere tulemast!",
+    "status": {
+        "logging": "Sisselogimine…",
+        "loading": "Mängu nimekirja laadimine, palun oodake",
+        "error": "Viga"
+    },
+    "message": {
+        "part8": "klõpsake allolevas sisendkastis sisselogimisnuppu ja oodake.",
+        "part7": "SID number",
+        "part6": "Kleepige",
+        "part5": "SID infonumber",
+        "part4": ", logige oma kontole sisse ja kopeerige oma",
+        "part3": "Epic Store siin",
+        "part1": "Selleks, et saaksite sisse logida ja mänge installida, peate kõigepealt järgima alljärgnevaid samme:"
+    },
+    "input": {
+        "placeholder": "Sisestage SID-number siia"
+    },
+    "button": {
+        "login": "Logi sisse"
+    }
+}
