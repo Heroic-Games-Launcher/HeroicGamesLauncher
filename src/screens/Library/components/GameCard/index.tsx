@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
 import { NOT_SUPPORTED_GAMES } from 'src/constants'
-import NewReleasesIcon from '@material-ui/icons/NewReleases'
+import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import { uninstall, updateGame } from 'src/helpers/library'
 
 const { ipcRenderer } = window.require('electron')
@@ -99,9 +99,8 @@ const GameCard = ({
   useEffect(() => {
     const progressInterval = setInterval(async () => {
       if (isInstalling) {
-        const progressToRequest = status === 'updating' ? 'requestUpdateProgress' : 'requestGameProgress'
         const progress = await ipcRenderer.invoke(
-          progressToRequest,
+          'requestGameProgress',
           appName
         )
 
@@ -143,7 +142,7 @@ const GameCard = ({
       return t('gamecard.repairing', 'Repairing')
     }
     if (hasUpdate) {
-      return <NewReleasesIcon />
+      return <SystemUpdateAltIcon />
     }
 
     return t('status.installing') + ' 50%'

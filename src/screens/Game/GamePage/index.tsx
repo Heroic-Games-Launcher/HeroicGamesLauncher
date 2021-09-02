@@ -131,7 +131,7 @@ export default function GamePage(): JSX.Element | null {
     const progressInterval = setInterval(async () => {
       if (isInstalling || isUpdating || isReparing) {
         const progress: InstallProgress = await ipcRenderer.invoke(
-          isUpdating ? 'requestUpdateProgress' : 'requestGameProgress',
+          'requestGameProgress',
           appName
         )
 

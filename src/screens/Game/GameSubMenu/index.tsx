@@ -114,7 +114,10 @@ export default function GamesSubmenu({
   }
 
   useEffect(() => {
-    const getInfo = async () => {
+    if (isWin){
+      return
+    }
+    const getWineInfo = async () => {
       try {
         const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
         let wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
@@ -126,7 +129,7 @@ export default function GamesSubmenu({
         ipcRenderer.send('logError', error)
       }
     }
-    getInfo()
+    getWineInfo()
   }, [appName])
 
   return (
