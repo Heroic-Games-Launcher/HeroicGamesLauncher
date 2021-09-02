@@ -70,12 +70,13 @@ export class GlobalState extends PureComponent<Props> {
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
-    const currentLibraryLength = this.state.data.length
-    let library: Array<GameInfo> = libraryStore.get('library') as Array<GameInfo>
+    const currentLibraryLength = this.state.data?.length
+    let library: Array<GameInfo> = libraryStore.get('library') as Array<GameInfo> || []
 
-    if (!this.state.data.length) {
+    if (!library.length || !this.state.data.length) {
       ipcRenderer.send('logInfo', 'No cache found, getting data from legendary...')
-      library = (await getLegendaryConfig()).library
+      const {library: legendaryLibrary} = await getLegendaryConfig()
+      library = legendaryLibrary
     }
 
     try {
