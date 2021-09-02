@@ -28,6 +28,8 @@ export default function LanguageSelector({
     es: 'Español',
     fr: 'Français',
     hu: 'Magyar',
+    hr: 'Hrvatski',
+    ko: '한국어/韓國語',
     it: 'Italiano',
     ml: 'മലയാളം',
     nl: 'Nederlands',
@@ -38,7 +40,8 @@ export default function LanguageSelector({
     sv: 'Svenska',
     ta: 'தமிழ்',
     tr: 'Türkçe',
-    zh_Hans: '简化字'
+    zh_Hans: '简化字',
+    zh_Hant: '漢語'
   }
 
   const languageFlags: { [key: string]: string } = {
@@ -51,6 +54,8 @@ export default function LanguageSelector({
     es: '🇪🇸',
     fr: '🇫🇷',
     hu: '🇭🇺',
+    hr: '🇭🇷',
+    ko: '🇰🇷',
     it: '🇮🇹',
     ml: '🇮🇳',
     nl: '🇳🇱',
@@ -61,7 +66,8 @@ export default function LanguageSelector({
     sv: '🇸🇪',
     ta: '🇮🇳',
     tr: '🇹🇷',
-    zh_Hans: '🇨🇳'
+    zh_Hans: '🇨🇳',
+    zh_Hant: '🇨🇳'
   }
 
   const renderOption = (lang: string) => {
