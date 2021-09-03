@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.9.3
+
+### General
+
+- Added Korean, Croatian and Traditional Chinese languages.
+- Other translations updates and fixes.
+### Bugfixes
+- Fixed Update game from context menu not working.
+- Fixed Update icon misplaced on game card.
+- Fixed (probably) rare issue that could cause a Heroic to show only a blank screen when trying to load games from cache.
+
 ## 1.9.2
 
 ### Bugfixes
