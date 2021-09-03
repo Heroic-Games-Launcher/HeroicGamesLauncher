@@ -165,7 +165,7 @@
         "maxworkers": "Nombre màxim de Workers quan descarreguis",
         "offlinemode": "Executa el joc sense connexió",
         "primerun": "Activa l'Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Arrastra arxius aquí",
             "title": "Executa EXE al prefix"

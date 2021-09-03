@@ -165,7 +165,7 @@
         "maxworkers": "Maximální počet vláken při stahování",
         "offlinemode": "Spustit hru offline",
         "primerun": "Povolení vykreslování Nvidia Prime",
-        "resizableBar": "Používat Resizable Bar (pouze s NVIDIA RTX 30xx)",
+        "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Přetáhněte soubory sem",
             "title": "Spustit EXE na prefixu"

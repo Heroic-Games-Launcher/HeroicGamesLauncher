@@ -165,7 +165,7 @@
         "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
         "offlinemode": "Iniciar o jogo offline",
         "primerun": "Habilitar o PRIME Render da NVIDIA",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
             "title": "Executar EXE no prefix"

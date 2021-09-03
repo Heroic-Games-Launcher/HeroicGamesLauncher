@@ -165,7 +165,7 @@
         "maxworkers": "Maximum Number of Workers when downloading",
         "offlinemode": "Run Game Offline",
         "primerun": "Enable Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX 30xx only)",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX 30xx only)",
         "runexe": {
             "message": "Drag and Drop Files here",
             "title": "Run EXE on Prefix"

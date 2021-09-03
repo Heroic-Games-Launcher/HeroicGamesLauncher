@@ -165,7 +165,7 @@
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "offlinemode": "Uruchom grę w trybie offline",
         "primerun": "Włącz renderowanie Nvidia Prime",
-        "resizableBar": "Włącz Resizable Bar (Tylko dla kart NVIDIA RTX)",
+        "resizableBar": "Włącz Resizable BAR (Tylko dla kart NVIDIA RTX)",
         "runexe": {
             "message": "Upuść pliki tutaj",
             "title": "Uruchom EXE w prefiksie"

@@ -165,7 +165,7 @@
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
-        "resizableBar": "Aktivera Resizable Bar (NVIDIA RTX endast)",
+        "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"

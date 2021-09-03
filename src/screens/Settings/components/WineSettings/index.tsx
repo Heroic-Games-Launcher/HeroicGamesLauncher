@@ -216,7 +216,7 @@ export default function WineSettings({
       </span>}
       <span className="setting">
         <span className="toggleWrapper">
-          {t('setting.resizableBar', 'Enable Resizable Bar (NVIDIA RTX only)')}
+          {t('setting.resizableBar', 'Enable Resizable BAR (NVIDIA RTX only)')}
           <ToggleSwitch
             value={enableResizableBar || false}
             handleChange={toggleResizableBar}

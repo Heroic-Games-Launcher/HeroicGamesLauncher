@@ -165,7 +165,7 @@
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
         "offlinemode": "Spel offline draaien",
         "primerun": "Aciveer Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Sleep de bestanden hier",
             "title": "Voer EXE uit op Prefix"

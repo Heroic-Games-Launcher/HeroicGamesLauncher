@@ -165,7 +165,7 @@
         "maxworkers": "Maximum Dolgozók Száma letöltéskor",
         "offlinemode": "Futtassa a Játékot Offline",
         "primerun": "Nvidia Prime Render Engedélyezése",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
             "title": "Futtasd az EXE fájlt Prefix-el"

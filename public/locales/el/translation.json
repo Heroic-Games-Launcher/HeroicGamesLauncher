@@ -165,7 +165,7 @@
         "maxworkers": "Μέγιστος αριθμός εργατών κατά την λήψη",
         "offlinemode": "Τρέξιμο παιχνιδιού εκτός δικτύου",
         "primerun": "Ενεργοποίηση Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Εναποθέστε αρχεία εδώ",
             "title": "Τρέξιμο EXE σε πρόθεμα"
