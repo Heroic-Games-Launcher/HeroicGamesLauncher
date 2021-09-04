@@ -29,7 +29,7 @@ export default function LanguageSelector({
     fr: 'Français',
     hu: 'Magyar',
     hr: 'Hrvatski',
-    ko: '한국어/韓國語',
+    ko: '한국어',
     it: 'Italiano',
     ml: 'മലയാളം',
     nl: 'Nederlands',
