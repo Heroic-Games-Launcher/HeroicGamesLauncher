@@ -12,24 +12,28 @@ import { resetTestTypes, test_opendialog, test_wineinstallations } from 'src/tes
 import WineSettings from './index';
 
 interface Props {
-    altWine: WineInstallation[]
-    autoInstallDxvk: boolean
-    customWinePaths: string[]
-    isDefault: boolean
-    maxSharpness: number
-    enableFSR: boolean
-    enableResizableBar: boolean
-    setAltWine: (altWine: WineInstallation[]) => void
-    setCustomWinePaths: (value: string[]) => void
-    setWinePrefix: (value: string) => void
-    setWineVersion: (wine: WineInstallation) => void
-    setFsrSharpness: (value: number) => void
-    toggleAutoInstallDxvk: () => void
-    toggleFSR: () => void
-    toggleResizableBar: () => void
-    winePrefix: string
-    wineVersion: WineInstallation
-  }
+  altWine: WineInstallation[]
+  autoInstallDxvk: boolean
+  customWinePaths: string[]
+  isDefault: boolean
+  maxSharpness: number
+  enableFSR: boolean
+  enableEsync: boolean
+  enableFsync: boolean
+  enableResizableBar: boolean
+  setAltWine: (altWine: WineInstallation[]) => void
+  setCustomWinePaths: (value: string[]) => void
+  setWinePrefix: (value: string) => void
+  setWineVersion: (wine: WineInstallation) => void
+  setFsrSharpness: (value: number) => void
+  toggleAutoInstallDxvk: () => void
+  toggleFSR: () => void
+  toggleResizableBar: () => void
+  toggleEsync: () => void
+  toggleFsync: () => void
+  winePrefix: string
+  wineVersion: WineInstallation
+}
 
 function renderWineSettings(props: Partial<Props> = {})
 {
@@ -38,9 +42,11 @@ function renderWineSettings(props: Partial<Props> = {})
     autoInstallDxvk: false,
     customWinePaths: ['custom/wine/path'],
     enableFSR: false,
+    enableEsync: false,
+    enableFsync: false,
     isDefault: false,
-    maxSharpness:5,
-    enableResizableBar:false,
+    maxSharpness: 5,
+    enableResizableBar: false,
     setAltWine: () => {return;},
     setCustomWinePaths: () => {return;},
     setWinePrefix: () => {return;},
@@ -49,6 +55,8 @@ function renderWineSettings(props: Partial<Props> = {})
     toggleAutoInstallDxvk: () => {return;},
     toggleFSR: () => {return;},
     toggleResizableBar: () => {return;},
+    toggleEsync: () => {return;},
+    toggleFsync: () => {return;},
     winePrefix: 'winePrefix',
     wineVersion: {
       bin: 'path/to/wine/bin',
@@ -245,5 +253,23 @@ describe('WineSettings', () => {
     renderWineSettings({setWineVersion: onSetWineVersion});
 
     await waitFor(() => expect(onSetWineVersion).not.toBeCalled());
+  })
+
+  test('esync toggle triggers correct function upon click', async () => {
+    const toggleEsync = jest.fn();
+    const { getByTestId } = renderWineSettings({ toggleEsync: toggleEsync });
+    const esyncToggle = getByTestId('esyncToggle');
+    fireEvent.click(esyncToggle);
+
+    await waitFor(() => expect(toggleEsync).toBeCalled());
+  })
+
+  test('fsync toggle triggers correct function upon click', async () => {
+    const toggleFsync = jest.fn();
+    const { getByTestId } = renderWineSettings({ toggleFsync: toggleFsync });
+    const fsyncToggle = getByTestId('fsyncToggle');
+    fireEvent.click(fsyncToggle);
+
+    await waitFor(() => expect(toggleFsync).toBeCalled());
   })
 })

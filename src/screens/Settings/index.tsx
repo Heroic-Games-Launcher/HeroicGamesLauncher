@@ -150,6 +150,17 @@ function Settings() {
     toggle: toggleResizableBar,
     setOn: setResizableBar
   } = useToggle(false)
+  const {
+    on: enableEsync,
+    toggle: toggleEsync,
+    setOn: setEnableEsync
+  } = useToggle(false)
+  const {
+    on: enableFsync,
+    toggle: toggleFsync,
+    setOn: setEnableFsync
+  } = useToggle(false)
+
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -190,6 +201,8 @@ function Settings() {
       setDarkTrayIcon(config.darkTrayIcon || false)
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
+      setEnableEsync(config.enableEsync || false)
+      setEnableFsync(config.enableFsync || false)
       setEnableFSR(config.enableFSR || false)
       setFsrSharpness(config.maxSharpness || 2)
       setResizableBar(config.enableResizableBar || false)
@@ -250,7 +263,9 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoSyncSaves,
+    enableEsync,
     enableFSR,
+    enableFsync,
     maxSharpness,
     enableResizableBar,
     launcherArgs,
@@ -344,6 +359,10 @@ function Settings() {
               isDefault={isDefault}
               enableFSR={enableFSR}
               toggleFSR={toggleFSR}
+              enableEsync={enableEsync}
+              toggleEsync={toggleEsync}
+              enableFsync={enableFsync}
+              toggleFsync={toggleFsync}
               maxSharpness={maxSharpness}
               setFsrSharpness={setFsrSharpness}
               enableResizableBar={enableResizableBar}
