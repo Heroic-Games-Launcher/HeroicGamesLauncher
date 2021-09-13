@@ -182,7 +182,7 @@ const GameCard = ({
                 backgroundImage: `url('${
                   grid ? cover : coverList
                 }?h=400&resize=1&w=300')`,
-                backgroundSize: 'cover',
+                backgroundSize: '100% 100%',
                 filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
               }}
               className={grid ? 'gameImg' : 'gameImgList'}
