@@ -72,5 +72,13 @@
     "globalSettings": "Глобальні налаштування",
     "Games": "Ігри",
     "Filter": "Фільтр",
-    "Downloading": "Завантаження"
+    "Downloading": "Завантаження",
+    "message": {
+        "sync": "Синхронізація Завершена"
+    },
+    "Library": "Бібліотека",
+    "infobox": {
+        "requirements": "Системні вимоги",
+        "help": "Допомога"
+    }
 }
