@@ -15,7 +15,7 @@
             "title": "Изпълняване на EXE в префикс",
             "message": "Хванете и пуснете файловете тук"
         },
-        "resizableBar": "Включване на Преоразмеряемата лента (Само за NVIDIA RTX 30xx)",
+        "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "primerun": "Включване на „Nvidia Prime Render“",
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "maxRecentGames": "Скорошни игри за показване",
