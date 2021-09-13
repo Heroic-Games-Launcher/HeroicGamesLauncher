@@ -1,3 +1,51 @@
 {
-    "All": "Dena"
+    "All": "Dena",
+    "box": {
+        "sync": {
+            "button": "Aukeratu"
+        },
+        "select": "Hautatu",
+        "runexe": {
+            "title": "Hautatu EXE exekutatzeko"
+        },
+        "quit": {
+            "title": "Irten",
+            "message": "Oraindik eragiketa batzuk egiteko daude, ziur zaude?"
+        },
+        "protocol": {
+            "install": {
+                "not_installed": "Ez dago instalatuta, instalatu nahi duzu?"
+            }
+        },
+        "no": "EZ",
+        "error": {
+            "title": "Errorea",
+            "log": {
+                "title": "Erregistroa ez da aurkitu",
+                "message": "Ez zen aurkitu joko honetarako erregistroa"
+            },
+            "launch": "Errorea bideojokoa hastean; berrikusi erregistroak!",
+            "generic": {
+                "title": "Errore ezezaguna",
+                "message": "Errore ezezagun bat gertatu da"
+            },
+            "diskspace": {
+                "title": "Espaziorik ez",
+                "message": "Ez dago espazio nahikorik diskoan"
+            },
+            "credentials": {
+                "title": "Iraungitako egiaztagiriak",
+                "message": "Zure kredentzialak amaitu dira. Mesedez, amaitu saioa eta hasi berriro saioa."
+            }
+        },
+        "default-install-path": "Aukeratu lehenetsitako instalazio-ibilbidea",
+        "customWine": "Aukeratu Wine edo Proton bitarra",
+        "appupdate": {
+            "message": "Heroicen bertsio berri bat dago eskuragarri. Eguneratu nahi duzu orain?",
+            "title": "Eguneratze erabilgarria"
+        },
+        "choose": "Aukeratu",
+        "choose-egs-prefix": "Aukeratu EGS instalatuta dagoen Wine-Preferx"
+    },
+    "Assets": "Assets"
 }
