@@ -165,7 +165,7 @@
         "maxworkers": "CPUs máximos utilizados ao baixar jogos",
         "offlinemode": "Executar o jogo offline",
         "primerun": "Habilitar Nvidia Prime Render",
-        "resizableBar": "Ativar barra redimensionável (apenas NVIDIA RTX 30xx)",
+        "resizableBar": "Ativar BARRA redimensionável (apenas NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arraste e Solte arquivos aqui",
             "title": "Executar EXE no Prefixo"
