@@ -17,10 +17,10 @@
             },
             "diskspace": {
                 "message": "No hay suficiente espacio disponible en disco",
-                "title": "No espacio"
+                "title": "Sin espacio"
             },
             "generic": {
-                "message": "Un error desconocido a ocurrido",
+                "message": "Ha ocurrido un error desconocido",
                 "title": "Error desconocido"
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
@@ -165,7 +165,7 @@
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "resizableBar": "Habilitar BAR Reescalable (sólo NVIDIA RTX 30xx )",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"
