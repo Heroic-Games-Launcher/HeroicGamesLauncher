@@ -36,8 +36,10 @@ async function fetchData(tag?: string): Promise<ReleaseData> {
     logInfo(`Fetch wine-ge tag from ${url}`);
     const data = await axios.default.get(url);
 
-    if (!data.data.tag_name) {
-      logError(`Could not fetch given tag (${tag}) of wine-ge`)
+    if ((tag && data.data.tag_name !== tag) || !data.data.tag_name) {
+      tag
+        ? logError(`Could not fetch given tag (${tag}) of wine-ge`)
+        : logError(`Could not fetch latest wine-ge`)
       return;
     }
 
@@ -57,14 +59,16 @@ async function fetchData(tag?: string): Promise<ReleaseData> {
   }
   catch (error) {
     logError(error);
-    logError(`Could not fetch given tag (${tag}) of wine-ge`)
+    tag
+      ? logError(`Could not fetch given tag (${tag}) of wine-ge`)
+      : logError('Could not fetch latest wine-ge')
     return;
   }
 }
 
 /**
  * Fetches all available wine-ge releases.
- * @param count max pages to fetch for available releases (default: 100)
+ * @param count max releases to fetch for (default: 100)
  * @returns string list of available releases
  */
 async function fetchReleases(count = '100'): Promise<string[]> {
@@ -78,6 +82,7 @@ async function fetchReleases(count = '100'): Promise<string[]> {
   catch (error) {
     logError(error);
     logError('Could not fetch available wine-ge versions.');
+    return;
   }
   return releases;
 }
