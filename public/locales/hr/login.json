@@ -1,24 +1,24 @@
 {
-    "message": {
-        "part3": "Epic Store ovdje",
-        "part2": "Otvori",
-        "part1": "Da se možete prijaviti i instalirati svoje igrice, prvo morate pratiti ove korake ispod:",
-        "part8": "u polje ispod, kliknite na gumb za prijavu i čekajte.",
-        "part7": "SID broj",
-        "part6": "Kopirajte",
-        "part5": "SID informacijski broj",
-        "part4": ", prijavite se u svoj račun i kopirajte svoj"
+    "button": {
+        "login": "Prijava"
     },
     "input": {
         "placeholder": "Zalijepite SID broj ovdje"
     },
-    "button": {
-        "login": "Prijava"
+    "message": {
+        "part1": "Da se možete prijaviti i instalirati svoje igrice, prvo morate pratiti ove korake ispod:",
+        "part2": "Otvori",
+        "part3": "Epic Store ovdje",
+        "part4": ", prijavite se u svoj račun i kopirajte svoj",
+        "part5": "SID informacijski broj",
+        "part6": "Kopirajte",
+        "part7": "SID broj",
+        "part8": "u polje ispod, kliknite na gumb za prijavu i čekajte."
     },
-    "welcome": "Dobrodošli!",
     "status": {
-        "logging": "Prijavljivljanje…",
+        "error": "Greška",
         "loading": "Učitavanje liste Igrica, pričekajte",
-        "error": "Greška"
-    }
+        "logging": "Prijavljivljanje…"
+    },
+    "welcome": "Dobrodošli!"
 }

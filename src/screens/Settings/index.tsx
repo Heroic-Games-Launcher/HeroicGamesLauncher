@@ -244,6 +244,8 @@ function Settings() {
     defaultInstallPath,
     discordRPC,
     egsLinkedPath,
+    enableEsync,
+    enableFsync,
     exitToTray,
     language,
     maxRecentGames,
