@@ -15,6 +15,7 @@ interface Props {
   checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
+  displayFreeProductsOnStartup: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
@@ -28,6 +29,7 @@ interface Props {
   startInTray: boolean,
   toggleCheckUpdatesOnStartup: () => void,
   toggleDarkTrayIcon: () => void,
+  toggleDisplayFreeProductsOnStartup: () => void,
   toggleStartInTray: () => void,
   toggleTray: () => void
   }
@@ -38,6 +40,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     checkForUpdatesOnStartup: true,
     darkTrayIcon: false,
     defaultInstallPath: 'default/install/path',
+    displayFreeProductsOnStartup: true,
     egsLinkedPath: 'egs/linked/path',
     egsPath: 'egs/path',
     exitToTray: false,
@@ -51,6 +54,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     startInTray: false,
     toggleCheckUpdatesOnStartup: () => {return},
     toggleDarkTrayIcon: () => {return;},
+    toggleDisplayFreeProductsOnStartup: () => {return;},
     toggleStartInTray: () => {return;},
     toggleTray: () => {return;}
   };
@@ -245,6 +249,14 @@ describe('GeneralSettings', () => {
   test('start minimized is shown when exitToTray is true', async () => {
     const { getByTestId } = await renderGeneralSettings({ exitToTray: true });
     expect(()=>getByTestId('startInTray')).not.toThrow()
+  })
+
+  test('toggle display free products invokes correct function', async () => {
+    const toggleDisplayFreeProductsOnStartup = jest.fn();
+    const { getByTestId } = await renderGeneralSettings({toggleDisplayFreeProductsOnStartup: toggleDisplayFreeProductsOnStartup});
+    const toggleSwitch = getByTestId('toggleDisplayFreeProducts');
+    fireEvent.click(toggleSwitch);
+    await waitFor(() => expect(toggleDisplayFreeProductsOnStartup).toHaveBeenCalledTimes(1));
   })
 
 })

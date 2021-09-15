@@ -145,6 +145,7 @@
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
         "discordRPC": "Habilitar o Discord Rich Presence",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
         "esync": "Enable Esync",

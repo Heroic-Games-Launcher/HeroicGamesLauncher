@@ -145,6 +145,7 @@
         "darktray": "താലത്തില്‍(ട്രേയില്‍) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",
         "discordRPC": "ഡിസ്കോര്‍ഡ് റിച്ച് പ്രെസന്‍സ് വക്കൂ",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
         "enableFSRHack": "എഫ്എസ്ആര്‍ ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
         "esync": "Enable Esync",

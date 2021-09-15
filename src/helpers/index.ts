@@ -29,6 +29,8 @@ const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
 const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
+const openFreeProductsPage = (): void => ipcRenderer.send('openEGSFreeProducts')
+
 let progress: string
 
 const sendKill = (appName: string): Promise<void> => ipcRenderer.invoke('kill', appName)
@@ -230,6 +232,7 @@ export {
   notify,
   openAboutWindow,
   openDiscordLink,
+  openFreeProductsPage,
   progress,
   repair,
   sendKill,

@@ -329,6 +329,7 @@ class GlobalConfigV0 extends GlobalConfig {
       checkForUpdatesOnStartup: true,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
+      displayFreeProductsOnStartup: true,
       language: 'en',
       maxWorkers: 0,
       nvidiaPrime: false,

@@ -145,6 +145,7 @@
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",

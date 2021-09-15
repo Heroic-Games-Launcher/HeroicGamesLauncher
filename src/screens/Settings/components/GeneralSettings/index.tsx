@@ -25,6 +25,7 @@ interface Props {
   checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
+  displayFreeProductsOnStartup: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
@@ -38,7 +39,8 @@ interface Props {
   startInTray: boolean,
   toggleDarkTrayIcon: () => void,
   toggleStartInTray: () => void,
-  toggleCheckUpdatesOnStartup: () => void
+  toggleCheckUpdatesOnStartup: () => void,
+  toggleDisplayFreeProductsOnStartup: () => void,
   toggleTray: () => void
 }
 
@@ -60,7 +62,9 @@ export default function GeneralSettings({
   setMaxWorkers,
   darkTrayIcon,
   toggleDarkTrayIcon,
-  toggleCheckUpdatesOnStartup
+  toggleCheckUpdatesOnStartup,
+  displayFreeProductsOnStartup,
+  toggleDisplayFreeProductsOnStartup
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -271,6 +275,16 @@ export default function GeneralSettings({
           <ToggleSwitch
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.displayFreeProductsOnStartup', 'Display EGS Free Games Popup On Startup')}
+          <ToggleSwitch
+            value={displayFreeProductsOnStartup}
+            handleChange={toggleDisplayFreeProductsOnStartup}
+            dataTestId='toggleDisplayFreeProducts'
           />
         </span>
       </span>

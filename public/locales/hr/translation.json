@@ -145,6 +145,7 @@
         "darktray": "Koristi tamnu ikonu",
         "default-install-path": "Zadani put instalacije",
         "discordRPC": "Omogući Discord Rich Presence",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "Sinkroniziraj sa instaliranim Epic Games",
         "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)",
         "esync": "Enable Esync",

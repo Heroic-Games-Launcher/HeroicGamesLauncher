@@ -56,7 +56,8 @@ import {
   loginUrl,
   sidInfoUrl,
   supportURL,
-  weblateUrl
+  weblateUrl,
+  epicStoreURL
 } from './constants'
 import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
@@ -386,6 +387,13 @@ ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 ipcMain.on('updateHeroic', () => checkUpdates())
+ipcMain.on('openEGSFreeProducts', () => {
+  const { displayFreeProductsOnStartup, language } = GlobalConfig.get().config
+  if (displayFreeProductsOnStartup) {
+    const freeProductsUrl = `${epicStoreURL}${language}/free-games`
+    new BrowserWindow({ height: 700, width: 1200 }).loadURL(freeProductsUrl)
+  }
+})
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)

@@ -145,6 +145,7 @@
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "与已安装的Epic Games同步",
         "enableFSRHack": "启用FSR（需要支持的WINE版本）",
         "esync": "Enable Esync",

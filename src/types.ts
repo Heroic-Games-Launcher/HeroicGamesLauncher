@@ -13,6 +13,7 @@ export interface AppSettings {
   darkTrayIcon: boolean
   defaultInstallPath: string
   discordRPC: boolean
+  displayFreeProductsOnStartup: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean

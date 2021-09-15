@@ -160,7 +160,11 @@ function Settings() {
     toggle: toggleFsync,
     setOn: setEnableFsync
   } = useToggle(false)
-
+  const {
+    on: displayFreeProductsOnStartup,
+    toggle: toggleDisplayFreeProductsOnStartup,
+    setOn: setdisplayFreeProductsOnStartup
+  } = useToggle(true)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -213,7 +217,8 @@ function Settings() {
       setAddDesktopShortcuts(config.addDesktopShortcuts || false)
       setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
-      setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
+      setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || false)
+      setdisplayFreeProductsOnStartup(config.displayFreeProductsOnStartup || false)
 
       if (!isDefault) {
         const {
@@ -243,6 +248,7 @@ function Settings() {
     darkTrayIcon,
     defaultInstallPath,
     discordRPC,
+    displayFreeProductsOnStartup,
     egsLinkedPath,
     enableEsync,
     enableFsync,
@@ -344,6 +350,8 @@ function Settings() {
               darkTrayIcon={darkTrayIcon}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+              displayFreeProductsOnStartup={displayFreeProductsOnStartup}
+              toggleDisplayFreeProductsOnStartup={toggleDisplayFreeProductsOnStartup}
             />
           )}
           {isWineSettings && (

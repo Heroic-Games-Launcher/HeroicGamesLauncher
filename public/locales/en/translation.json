@@ -145,6 +145,7 @@
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
         "discordRPC": "Enable Discord Rich Presence",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",

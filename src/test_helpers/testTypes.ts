@@ -200,6 +200,7 @@ const test_appsettings = new TestType<AppSettings>({
   darkTrayIcon: false,
   defaultInstallPath: 'default/install/path',
   discordRPC: true,
+  displayFreeProductsOnStartup: true,
   egsLinkedPath: 'egs/linked/path',
   exitToTray: false,
   enableEsync: false,

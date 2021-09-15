@@ -1,8 +1,9 @@
-import React, { lazy, useContext } from 'react'
+import React, { lazy, useContext, useEffect } from 'react'
 
 import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { Library } from './screens/Library'
+import { openFreeProductsPage } from 'src/helpers';
 import ContextProvider from './state/ContextProvider'
 import ElectronStore from 'electron-store'
 import Login from './screens/Login'
@@ -21,6 +22,9 @@ function App() {
   const context = useContext(ContextProvider)
   const user = configStore.get('userInfo')
   const { data: library, refresh } = context
+  useEffect(() => {
+    openFreeProductsPage();
+  }, []);
 
   if (!user) {
     return <Login refresh={refresh} />

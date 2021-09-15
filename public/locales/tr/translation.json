@@ -145,6 +145,7 @@
         "darktray": "Karanlık Tepsi İkonu Kullan",
         "default-install-path": "Varsayılan Kurulum Yeri",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "esync": "Enable Esync",

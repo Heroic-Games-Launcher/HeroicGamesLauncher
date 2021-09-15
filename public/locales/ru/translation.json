@@ -145,6 +145,7 @@
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
         "discordRPC": "Enable Discord Rich Presence",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",

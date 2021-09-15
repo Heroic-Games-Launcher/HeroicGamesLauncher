@@ -38,6 +38,7 @@ const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
+const epicStoreURL = 'https://www.epicgames.com/store/'
 
 /**
  * Get shell for different os
@@ -105,5 +106,6 @@ export {
   sidInfoUrl,
   supportURL,
   userInfo,
-  weblateUrl
+  weblateUrl,
+  epicStoreURL
 }

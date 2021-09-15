@@ -145,6 +145,7 @@
         "darktray": "Använd mörk ikon i systembrickan",
         "default-install-path": "Standard installationssökväg",
         "discordRPC": "Aktivera Discord Rich Presence",
+        "displayFreeProductsOnStartup": "Display EGS Free Games Popup On Startup",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
         "esync": "Enable Esync",
