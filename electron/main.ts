@@ -37,6 +37,7 @@ import {
   checkForUpdates,
   errorHandler,
   execAsync,
+  fetchFreeProducts,
   handleExit,
   isOnline,
   openUrlOrFile,
@@ -493,6 +494,11 @@ ipcMain.handle('readConfig', async (event, config_class) => {
     logError(`Which idiot requested '${config_class}' using readConfig?`)
     return {}
   }
+})
+
+ipcMain.handle('requestFreeProducts', async () => {
+  const { data } =  await fetchFreeProducts()
+  return data
 })
 
 ipcMain.handle('requestSettings', async (event, appName) => {

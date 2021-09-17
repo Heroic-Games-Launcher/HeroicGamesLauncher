@@ -189,7 +189,7 @@
             "sync": "Save-Sync"
         }
     },
-    "store": "Store",
+    "shop": "Shop",
     "tooltip": {
         "addpath": "Add New Path",
         "removepath": "Remove Path"

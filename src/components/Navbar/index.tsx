@@ -50,6 +50,16 @@ export default function NavBar() {
         >
           {t('store', 'Store')}
         </a>
+        <NavLink
+          data-testid="settings"
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+          isActive={(match, location) => location.pathname.includes('free-products')}
+          to={{
+            pathname: '/shop/free-products'
+          }}
+        >
+          Free Products
+        </NavLink>
         <a
           data-testid="wiki"
           style={{ cursor: 'pointer' }}

@@ -189,7 +189,7 @@
             "sync": "Spielstände-Synchronisation"
         }
     },
-    "store": "Store",
+    "shop": "Shop",
     "tooltip": {
         "addpath": "Neuen Pfad hinzufügen",
         "removepath": "Pfad entfernen"

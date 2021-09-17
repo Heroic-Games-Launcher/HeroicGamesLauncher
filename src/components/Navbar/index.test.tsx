@@ -56,7 +56,7 @@ describe.skip('NavBar', () => {
     const { i18n } = useTranslation();
 
     const storeLink = getByTestId('store');
-    expect(storeLink).toHaveTextContent('store');
+    expect(storeLink).toHaveTextContent('shop');
     fireEvent.click(storeLink);
     expect(ipcRenderer.send).toBeCalledWith('createNewWindow', 'https://www.epicgames.com/store/' + i18n.language + '/');
 
@@ -73,7 +73,7 @@ describe.skip('NavBar', () => {
     const { getByTestId } = await renderNavBar();
 
     const storeLink = getByTestId('store');
-    expect(storeLink).toHaveTextContent('store');
+    expect(storeLink).toHaveTextContent('shop');
     fireEvent.click(storeLink);
     expect(ipcRenderer.send).toBeCalledWith('createNewWindow', 'https://www.epicgames.com/store/pt-BR/');
   })

@@ -208,11 +208,19 @@ async function checkCommandVersion(
   return found;
 }
 
+async function fetchFreeProducts() {
+  return await axios.default.get(
+    'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions'
+  )
+
+}
+
 export {
   checkCommandVersion,
   checkForUpdates,
   errorHandler,
   execAsync,
+  fetchFreeProducts,
   genericErrorMessage,
   handleExit,
   isOnline,

@@ -16,6 +16,7 @@ const NavBar = lazy(() => import('./components/Navbar'))
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
+const FreeProducts = lazy(() => import('./screens/FreeProducts'))
 
 function App() {
   const context = useContext(ContextProvider)
@@ -46,6 +47,7 @@ function App() {
           </Route>
           <Route exact path="/gameconfig/:appName" component={GamePage} />
           <Route path="/settings/:appName/:type" component={Settings} />
+          <Route exact path="/shop/free-products" component={FreeProducts} />
         </Switch>
       </HashRouter>
     </div>
