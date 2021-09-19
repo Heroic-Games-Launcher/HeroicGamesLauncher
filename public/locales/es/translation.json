@@ -8,7 +8,7 @@
         },
         "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-        "customWine": "Seleccione el Wine o Proton binario",
+        "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
