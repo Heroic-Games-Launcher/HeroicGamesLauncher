@@ -33,12 +33,14 @@
         "directories": {
             "buildResources": "public"
         },
-        "protocols": [{
-            "name": "heroic",
-            "schemes": [
-                "heroic"
-            ]
-        }],
+        "protocols": [
+            {
+                "name": "heroic",
+                "schemes": [
+                    "heroic"
+                ]
+            }
+        ],
         "win": {
             "icon": "build/win_icon.ico",
             "asarUnpack": [
