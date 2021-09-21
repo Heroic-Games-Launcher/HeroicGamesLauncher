@@ -85,7 +85,7 @@
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
         "savefolder": {
             "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
-            "title": "Ohita pilvisynkronoinnin tallennuskansio"
+            "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
         },
         "runexe": {
             "title": "Käynnistä EXE prefixissä",

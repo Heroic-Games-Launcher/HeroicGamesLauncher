@@ -1,6 +1,6 @@
 {
     "All": "Todos",
-    "Assets": "Assets",
+    "Assets": "Recursos",
     "box": {
         "appupdate": {
             "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
@@ -8,12 +8,12 @@
         },
         "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-        "customWine": "Seleccione el Wine o Proton binario",
+        "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "Tus credenciales han expirado, por favor reinicia la sesión.",
-                "title": "Credenciales caducadas"
+                "message": "Tus credenciales han expirado, por favor, reinicia la sesión.",
+                "title": "Credenciales expiradas"
             },
             "diskspace": {
                 "message": "No hay suficiente espacio disponible en disco",
@@ -144,11 +144,12 @@
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
@@ -165,7 +166,7 @@
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
-        "resizableBar": "Habilitar BAR Reescalable (sólo NVIDIA RTX 30xx )",
+        "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"
@@ -200,7 +201,7 @@
         "show": "Mostrar",
         "support": "Apoyanos"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
+    "Unreal Marketplace": "Tienda de Unreal",
     "Updates": "Actualizaciones",
     "userselector": {
         "about": "Acerca",

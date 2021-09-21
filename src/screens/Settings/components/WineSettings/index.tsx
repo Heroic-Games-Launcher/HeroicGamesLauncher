@@ -32,6 +32,10 @@ interface Props {
   winePrefix: string
   wineVersion: WineInstallation
   enableFSR: boolean
+  enableEsync: boolean
+  toggleEsync: () => void
+  enableFsync: boolean
+  toggleFsync: () => void
 }
 
 export default function WineSettings({
@@ -51,7 +55,11 @@ export default function WineSettings({
   setFsrSharpness,
   maxSharpness,
   enableResizableBar,
-  toggleResizableBar
+  toggleResizableBar,
+  enableEsync,
+  toggleEsync,
+  enableFsync,
+  toggleFsync
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
@@ -220,6 +228,26 @@ export default function WineSettings({
           <ToggleSwitch
             value={enableResizableBar || false}
             handleChange={toggleResizableBar}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.esync', 'Enable Esync')}
+          <ToggleSwitch
+            value={enableEsync || false}
+            handleChange={toggleEsync}
+            dataTestId='esyncToggle'
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.fsync', 'Enable Fsync')}
+          <ToggleSwitch
+            value={enableFsync || false}
+            handleChange={toggleFsync}
+            dataTestId='fsyncToggle'
           />
         </span>
       </span>

@@ -414,7 +414,9 @@ Categories=Game;
       offlineMode,
       enableFSR,
       maxSharpness,
-      enableResizableBar
+      enableResizableBar,
+      enableEsync,
+      enableFsync
     } = await this.getSettings()
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
@@ -480,6 +482,8 @@ Categories=Game;
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
       fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1' : '',
+      esync: enableEsync ? 'WINEESYNC=1' : '',
+      fsync: enableFsync ? 'WINEFSYNC=1' : '',
       sharpness: enableFSR ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}` : '',
       resizableBar: enableResizableBar ? `VKD3D_CONFIG=upload_hvv` : '',
       other: otherOptions ? otherOptions : '',
