@@ -60,6 +60,7 @@ function Settings() {
     name: 'Wine Default'
   } as WineInstallation)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
+  const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
@@ -191,6 +192,7 @@ function Settings() {
       setDefaultInstallPath(config.defaultInstallPath)
       setWineVersion(config.wineVersion)
       setWinePrefix(config.winePrefix)
+      setWineCrossoverBottle(config.wineCrossoverBottle)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
       setUseNvidiaPrime(config.nvidiaPrime || false)
@@ -257,6 +259,7 @@ function Settings() {
     showMangohud,
     startInTray,
     useGameMode,
+    wineCrossoverBottle,
     winePrefix,
     wineVersion
   } as AppSettings
@@ -278,6 +281,7 @@ function Settings() {
     showFps,
     showMangohud,
     useGameMode,
+    wineCrossoverBottle,
     winePrefix,
     wineVersion
   } as AppSettings
@@ -354,6 +358,8 @@ function Settings() {
               winePrefix={winePrefix}
               setWineVersion={setWineVersion}
               setWinePrefix={setWinePrefix}
+              wineCrossoverBottle={wineCrossoverBottle}
+              setWineCrossoverBottle={setWineCrossoverBottle}
               autoInstallDxvk={autoInstallDxvk}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}
               customWinePaths={customWinePaths}

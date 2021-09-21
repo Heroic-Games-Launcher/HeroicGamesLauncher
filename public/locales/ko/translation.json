@@ -178,6 +178,7 @@
         },
         "showfps": "FPS 표시 (DX9, 10 및 11)",
         "start-in-tray": "최소화로 시작",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine Prefix 폴더",
         "wineversion": "Wine 버전"
     },

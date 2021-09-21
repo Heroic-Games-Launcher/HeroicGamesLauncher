@@ -382,6 +382,7 @@ class GlobalConfigV0 extends GlobalConfig {
         epicId: account_id,
         name: userName
       },
+      wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? defaultWine : `${home}/.wine`,
       wineVersion: isWindows ? {} : defaultWine
     } as AppSettings

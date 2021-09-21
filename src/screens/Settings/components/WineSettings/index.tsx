@@ -23,12 +23,14 @@ interface Props {
   enableResizableBar: boolean
   setAltWine: (altWine: WineInstallation[]) => void
   setCustomWinePaths: (value: string[]) => void
+  setWineCrossoverBottle: (value: string) => void
   setWinePrefix: (value: string) => void
   setFsrSharpness: (value: number) => void
   setWineVersion: (wine: WineInstallation) => void
   toggleAutoInstallDxvk: () => void
   toggleFSR: () => void
   toggleResizableBar: () => void
+  wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
   enableFSR: boolean
@@ -51,6 +53,8 @@ export default function WineSettings({
   autoInstallDxvk,
   customWinePaths,
   setCustomWinePaths,
+  wineCrossoverBottle,
+  setWineCrossoverBottle,
   isDefault,
   setFsrSharpness,
   maxSharpness,
@@ -189,6 +193,18 @@ export default function WineSettings({
           ))}
         </select>
       </span>
+      {wineVersion.name.includes('CrossOver') && <span className="setting">
+        <span className="settingText">{t('setting.winecrossoverbottle', 'CrossOver Bottle')}</span>
+        <span>
+          <input
+            data-testid="crossoverBottle"
+            type="text"
+            value={wineCrossoverBottle}
+            className="settingSelect"
+            onChange={(event) => setWineCrossoverBottle(event.target.value)}
+          />
+        </span>
+      </span>}
       {isLinux && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}

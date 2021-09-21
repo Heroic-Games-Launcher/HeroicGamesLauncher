@@ -178,6 +178,7 @@
         },
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
         "start-in-tray": "Start Geminimaliseerd",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie"
     },
