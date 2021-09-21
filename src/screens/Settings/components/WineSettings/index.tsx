@@ -262,6 +262,8 @@ export default function WineSettings({
             <li>~/.local/share/lutris/runners/wine</li>
             <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
             <li>/usr/share/steam</li>
+            <li>Everywhere on the system (CrossOver Mac)</li>
+            <li>/opt/cxoffice (CrossOver Linux)</li>
           </i>
         </ul>
         <span>{t('help.wine.part2')}</span>
