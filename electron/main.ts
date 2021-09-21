@@ -63,6 +63,7 @@ import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
 import { checkUpdates } from './updater'
+import { initWebLogging } from './web_log'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -263,7 +264,8 @@ if (!gotTheLock) {
 
     })
 
-    await createWindow()
+    const win = await createWindow()
+    initWebLogging(win)
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
       handleProtocol(mainWindow, request.url)
