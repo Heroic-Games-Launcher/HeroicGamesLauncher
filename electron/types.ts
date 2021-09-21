@@ -18,7 +18,9 @@ export interface AppSettings {
   discordRPC: boolean
   egsLinkedPath: string
   exitToTray: boolean
+  enableEsync: boolean
   enableFSR: boolean
+  enableFsync: boolean
   enableResizableBar: boolean
   language: string
   launcherArgs: string
@@ -70,7 +72,9 @@ export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
+  enableEsync: boolean
   enableFSR: boolean
+  enableFsync: boolean
   enableResizableBar: boolean
   maxSharpness: number
   launcherArgs: string

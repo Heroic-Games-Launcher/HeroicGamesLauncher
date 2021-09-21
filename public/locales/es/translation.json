@@ -147,6 +147,7 @@
         "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
