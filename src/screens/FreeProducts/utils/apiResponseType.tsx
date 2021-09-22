@@ -61,7 +61,7 @@ interface DiscountSetting {
 
 interface AppliedRule {
     id: string;
-    endDate: Date;
+    endDate: Date | string;
     discountSetting: DiscountSetting;
 }
 
@@ -79,9 +79,9 @@ interface DiscountSetting2 {
     discountPercentage: number;
 }
 
-export interface PromotionalOffer2 {
-    startDate: Date;
-    endDate: Date;
+interface PromotionalOffer2 {
+    startDate: Date | string;
+    endDate: Date | string;
     discountSetting: DiscountSetting2;
 }
 
@@ -95,8 +95,8 @@ interface DiscountSetting3 {
 }
 
 interface PromotionalOffer3 {
-    startDate: Date;
-    endDate: Date;
+    startDate: Date | string;
+    endDate: Date | string;
     discountSetting: DiscountSetting3;
 }
 
@@ -114,7 +114,7 @@ export interface Element {
     id: string;
     namespace: string;
     description: string;
-    effectiveDate: Date;
+    effectiveDate: Date | string;
     offerType: string;
     expiryDate?: string | null;
     status: string;
@@ -131,7 +131,7 @@ export interface Element {
     catalogNs: CatalogNs;
     offerMappings: never[];
     price: Price;
-    promotions: Promotions;
+    promotions: Promotions | null;
 }
 
 export interface RootObject {

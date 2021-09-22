@@ -45,9 +45,13 @@ function App() {
               <Library library={library} />
             </div>
           </Route>
+          <Route exact path="/free-games">
+            <div className="content">
+              <FreeProducts />
+            </div>
+          </Route>
           <Route exact path="/gameconfig/:appName" component={GamePage} />
           <Route path="/settings/:appName/:type" component={Settings} />
-          <Route exact path="/shop/free-products" component={FreeProducts} />
         </Switch>
       </HashRouter>
     </div>

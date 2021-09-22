@@ -4,6 +4,7 @@ import React, { lazy } from 'react'
 
 import { NavLink } from 'react-router-dom'
 import { createNewWindow } from 'src/helpers'
+import { EPIC_STORE_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 
 const UserSelector = lazy(() => import('./components/UserSelector'))
@@ -14,7 +15,7 @@ export default function NavBar() {
   if (i18n.language === 'pt') {
     lang = 'pt-BR'
   }
-  const epicStore = `https://www.epicgames.com/store/${lang}/`
+  const epicStore = `${EPIC_STORE_URL}/${lang}/`
   const wiki = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   return (
     <div className="NavBar">
@@ -53,12 +54,12 @@ export default function NavBar() {
         <NavLink
           data-testid="settings"
           activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
-          isActive={(match, location) => location.pathname.includes('free-products')}
+          isActive={(match, location) => location.pathname.includes('free-games')}
           to={{
-            pathname: '/shop/free-products'
+            pathname: '/free-games'
           }}
         >
-          Free Products
+          {t('freeGames', 'Free Games')}
         </NavLink>
         <a
           data-testid="wiki"
