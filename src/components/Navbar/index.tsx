@@ -34,6 +34,16 @@ export default function NavBar() {
           {t('Library')}
         </NavLink>
         <NavLink
+          data-testid="wine-ge"
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+          isActive={(match, location) => location.pathname.includes('wine-ge')}
+          to={{
+            pathname: '/wine-ge'
+          }}
+        >
+          {t('Wine GE')}
+        </NavLink>
+        <NavLink
           data-testid="settings"
           activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
           isActive={(match, location) => location.pathname.includes('settings')}

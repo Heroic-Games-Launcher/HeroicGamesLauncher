@@ -63,6 +63,7 @@ import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
 import { checkUpdates } from './updater'
+import { fetchReleases } from './wineup/api'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -524,6 +525,10 @@ if (existsSync(installed)) {
 
 ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
+})
+
+ipcMain.handle('refreshWineGE', async () => {
+  return await fetchReleases();
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))

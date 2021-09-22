@@ -144,3 +144,11 @@ export interface WineInstallation {
   bin: string
   name: string
 }
+
+export interface WineGEReleaseData {
+  version:    string;
+  date:       string;
+  download:   string;
+  size:       number;
+  checksum:   string;
+}
