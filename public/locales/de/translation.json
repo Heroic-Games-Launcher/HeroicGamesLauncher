@@ -59,6 +59,10 @@
     },
     "Downloading": "Am Herunterladen",
     "Filter": "Filter",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Spiele",
     "globalSettings": "Globale Einstellungen",
     "help": {
@@ -189,7 +193,7 @@
             "sync": "Spielstände-Synchronisation"
         }
     },
-    "shop": "Shop",
+    "store": "Store",
     "tooltip": {
         "addpath": "Neuen Pfad hinzufügen",
         "removepath": "Pfad entfernen"

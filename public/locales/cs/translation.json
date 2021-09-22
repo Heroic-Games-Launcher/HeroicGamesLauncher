@@ -59,6 +59,10 @@
     },
     "Downloading": "Stahování",
     "Filter": "Filtr",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Games",
     "globalSettings": "Globální nastavení",
     "help": {

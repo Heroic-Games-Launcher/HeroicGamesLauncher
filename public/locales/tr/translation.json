@@ -59,6 +59,10 @@
     },
     "Downloading": "İndiriliyor",
     "Filter": "Filtre",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Oyunlar",
     "globalSettings": "Genel Ayarlar",
     "help": {

@@ -59,6 +59,10 @@
     },
     "Downloading": "Laddar ner",
     "Filter": "Filtrera",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Games",
     "globalSettings": "Globala inställningar",
     "help": {

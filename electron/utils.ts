@@ -212,7 +212,6 @@ async function fetchFreeProducts() {
   return await axios.default.get(
     'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions'
   )
-
 }
 
 export {

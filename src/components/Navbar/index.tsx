@@ -52,7 +52,7 @@ export default function NavBar() {
           {t('store', 'Store')}
         </a>
         <NavLink
-          data-testid="settings"
+          data-testid="freegames"
           activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
           isActive={(match, location) => location.pathname.includes('free-games')}
           to={{

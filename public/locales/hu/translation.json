@@ -59,6 +59,10 @@
     },
     "Downloading": "Letöltés",
     "Filter": "Szűrő",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Games",
     "globalSettings": "Globális beállítások",
     "help": {

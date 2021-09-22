@@ -59,6 +59,10 @@
     },
     "Downloading": "다운로드 중",
     "Filter": "필터",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "게임",
     "globalSettings": "글로벌 설정",
     "help": {

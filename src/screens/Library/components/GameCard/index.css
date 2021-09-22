@@ -147,7 +147,7 @@
     flex-grow: 1;
 }
 
-.productImg {
+.gameImg {
     width: 210px;
     height: 280px;
     object-fit: cover;

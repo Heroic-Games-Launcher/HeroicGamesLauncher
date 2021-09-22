@@ -59,6 +59,10 @@
     },
     "Downloading": "Downloading",
     "Filter": "Filter",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Games",
     "globalSettings": "Global Settings",
     "help": {
@@ -189,7 +193,7 @@
             "sync": "Save-Sync"
         }
     },
-    "shop": "Shop",
+    "store": "Store",
     "tooltip": {
         "addpath": "Add New Path",
         "removepath": "Remove Path"

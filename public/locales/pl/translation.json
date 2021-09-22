@@ -59,6 +59,10 @@
     },
     "Downloading": "Pobieranie",
     "Filter": "Filtr",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Games",
     "globalSettings": "Ustawienia Globalne",
     "help": {

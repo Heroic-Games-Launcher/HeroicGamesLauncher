@@ -59,6 +59,10 @@
     },
     "Downloading": "Preuzima se",
     "Filter": "Filter",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Igrice",
     "globalSettings": "Globalne Postavke",
     "help": {

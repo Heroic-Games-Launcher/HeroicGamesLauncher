@@ -1,3 +1,7 @@
+/**
+ * @file  Type definitions for Epic Store's promotion API
+ */
+
 interface KeyImage {
     type: string;
     url: string;

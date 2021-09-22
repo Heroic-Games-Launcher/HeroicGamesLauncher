@@ -59,6 +59,10 @@
     },
     "Downloading": "正在下載",
     "Filter": "篩選",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "遊戲",
     "globalSettings": "全域設定",
     "help": {

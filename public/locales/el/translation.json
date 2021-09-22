@@ -59,6 +59,10 @@
     },
     "Downloading": "Λήψη",
     "Filter": "Φίλτρο",
+    "freeGames": "Free Games",
+    "freeproducts": {
+        "title": "Free This Week"
+    },
     "Games": "Games",
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
     "help": {
