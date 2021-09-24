@@ -178,6 +178,7 @@
         },
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
         "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",
         "wineversion": "Wine பதிப்பு"
     },

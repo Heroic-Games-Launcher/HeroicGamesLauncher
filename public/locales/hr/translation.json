@@ -178,6 +178,7 @@
         },
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
         "start-in-tray": "Pokreni minimizirano",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePut mapa",
         "wineversion": "Wine Verzija"
     },

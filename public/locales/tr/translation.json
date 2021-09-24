@@ -178,6 +178,7 @@
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "start-in-tray": "Simge Durumuna Küçültülmüş Başla",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü"
     },

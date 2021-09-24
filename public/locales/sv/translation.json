@@ -178,6 +178,7 @@
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "start-in-tray": "Starta minimerad",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },

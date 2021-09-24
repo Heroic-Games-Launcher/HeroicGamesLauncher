@@ -36,6 +36,7 @@ export interface AppSettings {
   startInTray: boolean
   useGameMode: boolean
   userInfo: UserInfo
+  wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
 }
@@ -85,6 +86,7 @@ export interface GameSettings {
   showFps: boolean
   showMangohud: boolean
   useGameMode: boolean
+  wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
 }

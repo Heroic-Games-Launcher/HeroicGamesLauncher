@@ -10,6 +10,7 @@ import {
 } from './types'
 
 
+const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
@@ -97,6 +98,7 @@ export {
   iconDark,
   iconLight,
   installed,
+  isMac,
   isWindows,
   legendaryBin,
   legendaryConfigPath,
