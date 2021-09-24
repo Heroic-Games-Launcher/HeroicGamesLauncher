@@ -41,7 +41,7 @@ export default function NavBar() {
             pathname: '/wine-ge'
           }}
         >
-          {t('Wine GE')}
+          {t('WineGE')}
         </NavLink>
         <NavLink
           data-testid="settings"

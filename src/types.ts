@@ -1,3 +1,4 @@
+
 interface About {
   description: string
   shortDescription: string
@@ -40,6 +41,7 @@ export interface AppSettings {
 export interface ContextType {
   category: string
   data: GameInfo[]
+  winege: WineGEInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -54,6 +56,7 @@ export interface ContextType {
   platform: NodeJS.Platform | string
   refresh: () => Promise<void>
   refreshLibrary: (options: RefreshOptions) => void
+  refreshWineGE: () => void
   refreshing: boolean
 }
 
@@ -146,10 +149,14 @@ export interface WineInstallation {
   name: string
 }
 
-export interface WineGEReleaseData {
-  version:    string;
-  date:       string;
-  download:   string;
-  size:       number;
-  checksum:   string;
+export interface WineGEInfo {
+  version:      string;
+  date:         string;
+  download:     string;
+  downsize:     number;
+  disksize:     number;
+  checksum:     string;
+  isInstalled:  boolean;
+  hasUpdate:    boolean;
+  installDir:   string;
 }

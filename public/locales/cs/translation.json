@@ -214,5 +214,11 @@
         "refresh": "Obnovit knihovnu",
         "support": "Podpořte nás"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

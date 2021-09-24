@@ -63,7 +63,7 @@ import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
 import { checkUpdates } from './updater'
-import { fetchReleases } from './wineup/api'
+import { fetchReleases } from './winege/api'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'

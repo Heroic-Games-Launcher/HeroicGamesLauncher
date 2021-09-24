@@ -214,5 +214,11 @@
         "refresh": "Könyvtár frissítése",
         "support": "Támogass minket"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

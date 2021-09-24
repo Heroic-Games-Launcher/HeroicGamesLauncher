@@ -2,17 +2,23 @@ import './index.css'
 
 import React from 'react'
 
-import { WineGEReleaseData } from 'src/types'
+import { WineGEInfo } from 'src/types'
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
+import { useTranslation } from 'react-i18next'
 
 const WineGECard = ({
   version,
   date,
-  size,
-  download
+  downsize,
+  disksize,
+  download,
   //checksum
-}: WineGEReleaseData) => {
+  isInstalled
+  //hasUpdate
+  //installDir
+}: WineGEInfo) => {
+  const { t } = useTranslation()
 
   const renderIcon = () => {
     return <DownIcon className="downIcon" onClick={() => {console.log(download)}} />
@@ -29,7 +35,12 @@ const WineGECard = ({
         <div className="winegeListItem">
           <span className="winegeTitleList">{version}</span>
           <div className="winegeListDate">{date}</div>
-          <div className="winegeListSize">{getSizeInMB(size).toString() + ' MB'}</div>
+          <div className="winegeListSize">
+            {isInstalled ?
+              t('winege.diskspace') + ': ' + getSizeInMB(disksize).toString() + ' MB':
+              t('winege.download') + ': ' + getSizeInMB(downsize).toString() + ' MB'
+            }
+          </div>
           <span className="icons">
             {renderIcon()}
           </span>

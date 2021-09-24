@@ -214,5 +214,11 @@
         "refresh": "Ανανέωση Βιβλιοθήκης",
         "support": "Υποστηρίξτε μας"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

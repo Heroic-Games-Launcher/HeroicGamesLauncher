@@ -214,5 +214,11 @@
         "refresh": "Uppdatera bibliotet",
         "support": "Stöd oss"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

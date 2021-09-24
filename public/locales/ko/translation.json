@@ -214,5 +214,11 @@
         "refresh": "라이브러리 새로고침",
         "support": "당신의 도움이 필요합니다"
     },
-    "wiki": "위키"
+    "wiki": "위키",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

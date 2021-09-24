@@ -150,6 +150,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
+        "fsync": "Enable Fsync",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
@@ -213,5 +214,11 @@
         "refresh": "Refresar Biblioteca",
         "support": "Apoyanos"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

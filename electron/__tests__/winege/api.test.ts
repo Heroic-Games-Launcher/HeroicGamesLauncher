@@ -1,4 +1,4 @@
-import { fetchReleases } from '../api';
+import { fetchReleases } from '../../winege/api';
 import { test_data_release_list } from './github-api-test-data.json';
 import * as axios from 'axios'
 

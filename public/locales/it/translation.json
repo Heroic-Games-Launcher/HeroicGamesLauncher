@@ -214,5 +214,11 @@
         "refresh": "Aggiorna libreria",
         "support": "Supportaci"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

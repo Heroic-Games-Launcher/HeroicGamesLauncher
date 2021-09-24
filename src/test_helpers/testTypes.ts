@@ -284,6 +284,7 @@ const test_userinfo = new TestType<{
 const test_context = new TestType<ContextType>({
   category: 'games',
   data: [],
+  winege: [],
   error: false,
   filter: 'all',
   filterText: '',
@@ -298,6 +299,7 @@ const test_context = new TestType<ContextType>({
   platform: 'linux',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
+  refreshWineGE: () => Promise.resolve(),
   refreshing: false
 })
 

@@ -214,5 +214,11 @@
         "refresh": "刷新库",
         "support": "支持我们"
     },
-    "wiki": "Wiki百科"
+    "wiki": "Wiki百科",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

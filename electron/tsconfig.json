@@ -12,7 +12,6 @@
   },
   "include": ["."],
   "exclude": [
-    "__tests__",
-    "wineup/__tests__"
+    "__tests__"
   ]
 }

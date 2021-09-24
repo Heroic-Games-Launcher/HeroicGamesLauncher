@@ -214,5 +214,11 @@
         "refresh": "Kütüphaneyi Yenile",
         "support": "Bizi Destekleyin"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }

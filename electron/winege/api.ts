@@ -3,39 +3,34 @@
  *        wine-ge releases.
  */
 
-import * as axios from 'axios'
+import * as axios from 'axios';
+import Store from 'electron-store';
 import { WINEGE_URL } from './constants';
-import { logError } from '../logger';
+import { logError, logInfo } from '../logger';
+import { WineGEInfo } from './types';
 
-/**
- * Interface contains information about a release
- * - version
- * - date
- * - download link
- * - checksum link
- * - size
- */
-interface ReleaseData {
-    version:    string;
-    date:       string;
-    download:   string;
-    size:       number;
-    checksum:   string;
-}
+const wineGEStore = new Store({
+  cwd: 'store',
+  name: 'winege'
+})
 
 /**
  * Fetches all available wine-ge releases.
  * @param count max releases to fetch for (default: 100)
  * @returns ReleaseData list of available releases
  */
-async function fetchReleases(count = '100'): Promise<ReleaseData[]> {
-  const releases :ReleaseData[] = [];
+async function fetchReleases(count = '100'): Promise<WineGEInfo[]> {
+  const releases :WineGEInfo[] = [];
   try {
     const data = await axios.default.get(WINEGE_URL + '?per_page=' + count)
+
     for (const release of data.data) {
-      const release_data = {} as ReleaseData;
+      const release_data = {} as WineGEInfo;
       release_data.version = release.tag_name;
       release_data.date = release.published_at.split('T')[0];
+      release_data.disksize = 0;
+      release_data.hasUpdate = false;
+      release_data.isInstalled = false;
 
       for (const asset of release.assets) {
         if (asset.name.endsWith('sha512sum')) {
@@ -43,7 +38,7 @@ async function fetchReleases(count = '100'): Promise<ReleaseData[]> {
         }
         else if (asset.name.endsWith('tar.gz') || asset.name.endsWith('tar.xz')) {
           release_data.download = asset.browser_download_url;
-          release_data.size = asset.size;
+          release_data.downsize = asset.size;
         }
       }
 
@@ -55,6 +50,40 @@ async function fetchReleases(count = '100'): Promise<ReleaseData[]> {
     logError('Could not fetch available wine-ge versions.');
     return;
   }
+
+  logInfo('Updating wine-ge list')
+
+  if(wineGEStore.has('winege'))
+  {
+    const old_releases = wineGEStore.get('winege') as WineGEInfo[];
+
+    old_releases.forEach((old) =>
+    {
+      const index = releases.findIndex((release) => {
+        return release.version === old.version;
+      })
+
+      if(index)
+      {
+        releases[index].installDir = old.installDir;
+        releases[index].isInstalled = old.isInstalled;
+        if(releases[index].checksum !== old.checksum)
+        {
+          releases[index].hasUpdate = true;
+        }
+      }
+      else
+      {
+        releases.push(old);
+      }
+    });
+
+    wineGEStore.delete('winege');
+  }
+
+  wineGEStore.set('winege', releases);
+
+  logInfo('wine-ge list updated');
   return releases;
 }
 

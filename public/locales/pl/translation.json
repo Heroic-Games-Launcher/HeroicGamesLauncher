@@ -214,5 +214,11 @@
         "refresh": "Odśwież bibliotekę",
         "support": "Wesprzyj nas"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": ""
+    }
 }
