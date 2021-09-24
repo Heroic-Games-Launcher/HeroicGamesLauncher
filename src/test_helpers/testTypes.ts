@@ -219,6 +219,7 @@ const test_appsettings = new TestType<AppSettings>({
   showMangohud: false,
   startInTray: false,
   useGameMode: false,
+  wineCrossoverBottle: 'bottle',
   winePrefix: 'winePrefix',
   wineVersion: {
     bin: 'bin',

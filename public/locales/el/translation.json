@@ -178,6 +178,7 @@
         },
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
         "start-in-tray": "Εκκίνηση ελαχιστοποιημένα",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "φάκελος προθεμάτων Wine",
         "wineversion": "Έκδοση Wine"
     },

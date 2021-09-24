@@ -178,6 +178,7 @@
         },
         "showfps": "显示帧数（Directx 9，10和11）",
         "start-in-tray": "启动时最小化",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "WINE版本"
     },

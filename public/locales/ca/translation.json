@@ -178,6 +178,7 @@
         },
         "showfps": "Ensenya els FPS (DX9, 10 i 11)",
         "start-in-tray": "Comença minimitzat",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta wine prefix",
         "wineversion": "Versió de Wine"
     },

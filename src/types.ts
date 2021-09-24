@@ -32,6 +32,7 @@ export interface AppSettings {
   showMangohud: boolean
   startInTray: boolean
   useGameMode: boolean
+  wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
 }

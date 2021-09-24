@@ -178,6 +178,7 @@
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
         "start-in-tray": "Indítás tálcára téve",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },

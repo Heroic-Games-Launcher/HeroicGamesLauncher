@@ -178,6 +178,7 @@
         },
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "start-in-tray": "Iniciar Minimizado",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },

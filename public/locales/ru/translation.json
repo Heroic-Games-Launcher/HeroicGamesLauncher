@@ -178,6 +178,7 @@
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
         "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
     },

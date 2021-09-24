@@ -178,6 +178,7 @@
         },
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
         "start-in-tray": "Spustit minimalizované",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
     },
