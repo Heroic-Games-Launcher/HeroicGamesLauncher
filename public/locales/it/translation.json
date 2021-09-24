@@ -1,6 +1,6 @@
 {
     "All": "Tutto",
-    "Assets": "Assets",
+    "Assets": "Asset",
     "box": {
         "appupdate": {
             "message": "C'è una nuova versione di Heroic disponibile, vuoi aggiornare ora?",
@@ -12,8 +12,8 @@
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Le tue credenziali non sono più valide, per favore rifai il login.",
+                "title": "Credenziali scaduti"
             },
             "diskspace": {
                 "message": "Spazio su disco insufficiente",
@@ -25,15 +25,15 @@
             },
             "launch": "Errore durante l'avvio del gioco, controlla i logs!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Nessun log per questo gioco è stato trovato",
+                "title": "Log non trovato"
             },
-            "title": "Error"
+            "title": "Errore"
         },
         "no": "NO",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Non è installato, desideri installarlo?"
             }
         },
         "quit": {
@@ -123,30 +123,34 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Aiuta a tradurre Heroic."
     },
     "placeholder": {
         "egs-prefix": "Prefix dove è installato EGS"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Projects": "Progetti",
     "Ready": "Pronto",
     "Recent": "Recent Games",
     "Return": "Torna indietro",
     "search": "Inserisci qui il nome del gioco...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
+        "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Verificare la disponibilità di aggiornamenti all'avvio",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
         "default-install-path": "Percorso d'installazione predefinito",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Attiva \"Discord Rich Presence\"",
         "egs-sync": "Sincronizza con l'Epic Games già installato",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Riduci ad icona nell'area di notifica",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
         "language": "Seleziona il linguaggio dell'app",
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
@@ -159,10 +163,11 @@
             "title": "Sincronizza i salvataggi manualmente",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Giochi recenti da mostrare",
         "maxworkers": "Numero massimo di connessioni durante il download",
         "offlinemode": "Avvia il gioco in modalità offline",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Attiva Nvidia Prime Render",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"
@@ -172,7 +177,8 @@
             "title": "Effettua l'aggiornamento forzato della cartella dei giochi sul cloud"
         },
         "showfps": "Mostra FPS (DX9, 10 e 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Avvio Minimizzato",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine"
     },
@@ -197,7 +203,7 @@
         "show": "Mostra",
         "support": "Supportaci"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
+    "Unreal Marketplace": "Mercato Unreal",
     "Updates": "Aggiornamenti",
     "userselector": {
         "about": "Informazioni su",

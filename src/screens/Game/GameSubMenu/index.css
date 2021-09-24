@@ -1,60 +1,62 @@
 .subMenuContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  max-height: 510px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 510px;
 }
 
 .submenu {
-  font-size: 25px;
-  width: -webkit-fill-available;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  border-radius: 10px;
-  margin-top: 10px;
-  transition: 150ms;
-  text-align: initial;
-  padding: 20px 8px;
-  max-width: 240px;
-  margin: 30px auto;
+    font-size: 25px;
+    width: -webkit-fill-available;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: 150ms;
+    text-align: initial;
+    padding: 20px 8px;
+    max-width: 240px;
+    margin: 30px auto;
 }
 
 .dots {
-  position: absolute;
-  right: 46px;
-  top: 64px;
-  width: 25px;
-  z-index: 1;
-  cursor: pointer;
+    position: absolute;
+    right: 46px;
+    top: 64px;
+    width: 25px;
+    z-index: 1;
+    cursor: pointer;
 }
 
 .link {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: var(--secondary);
-  margin: 4px;
-  cursor: pointer;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--secondary);
+    margin: 4px;
+    cursor: pointer;
 }
 
 .link:hover {
-  color: var(--secondary-hover);
+    color: var(--secondary-hover);
 }
 
 .linkTitle {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--primary);
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--primary);
 }
 
 .otherInfo {
-  padding: 20px 12px;
-  margin-bottom: 36px;
+    width: 210px;
+    margin-left: 12px;
+    margin-bottom: 36px;
+    word-break: break-word;
 }

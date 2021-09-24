@@ -20,6 +20,7 @@ export default function LanguageSelector({
   flagPossition = FlagPosition.NONE
 }: Props) {
   const languageLabels: { [key: string]: string } = {
+    ca: 'Català',
     cs: 'Čeština',
     de: 'Deutsch',
     el: 'Greek',
@@ -27,18 +28,25 @@ export default function LanguageSelector({
     es: 'Español',
     fr: 'Français',
     hu: 'Magyar',
+    hr: 'Hrvatski',
+    ko: '한국어',
     it: 'Italiano',
     ml: 'മലയാളം',
     nl: 'Nederlands',
     pl: 'Polski',
     pt: 'Português',
+    pt_BR: 'Português (Brasil)',
     ru: 'Русский',
     sv: 'Svenska',
+    ta: 'தமிழ்',
     tr: 'Türkçe',
-    zh_Hans: '简化字'
+    zh_Hans: '简化字',
+    zh_Hant: '漢語'
   }
 
   const languageFlags: { [key: string]: string } = {
+    // Catalan isn't a sovereign state (yet). So it hasn't a flag in the unicode standard.
+    ca: '🇪🇸',
     cs: '🇨🇿',
     de: '🇩🇪',
     el: '🇬🇷',
@@ -46,15 +54,20 @@ export default function LanguageSelector({
     es: '🇪🇸',
     fr: '🇫🇷',
     hu: '🇭🇺',
+    hr: '🇭🇷',
+    ko: '🇰🇷',
     it: '🇮🇹',
     ml: '🇮🇳',
     nl: '🇳🇱',
     pl: '🇵🇱',
     pt: '🇵🇹',
+    pt_BR: '🇧🇷',
     ru: '🇷🇺',
     sv: '🇸🇪',
+    ta: '🇮🇳',
     tr: '🇹🇷',
-    zh_Hans: '🇨🇳'
+    zh_Hans: '🇨🇳',
+    zh_Hant: '🇨🇳'
   }
 
   const renderOption = (lang: string) => {

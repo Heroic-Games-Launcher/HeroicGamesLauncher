@@ -20,8 +20,8 @@
             "title": "Verifiera och reparera"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Genvägar skapades på skrivbordet och startmenyn",
+            "title": "Genvägar"
         },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
@@ -43,15 +43,16 @@
         "continue": "Fortsätt nedladdning",
         "import": "Importera",
         "install": "Installera",
-        "uninstall": "Avinstallera"
+        "uninstall": "Avinstallera",
+        "update": "Update"
     },
     "disabled": "Inaktiverad",
     "enabled": "Aktiverad",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "firstPlayed": "Först spelad",
+        "lastPlayed": "Senast spelad",
+        "neverPlayed": "Aldrig",
+        "totalPlayed": "Speltid"
     },
     "gamecard": {
         "moving": "Flyttar",

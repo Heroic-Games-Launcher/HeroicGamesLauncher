@@ -131,7 +131,7 @@ export default function GamePage(): JSX.Element | null {
     const progressInterval = setInterval(async () => {
       if (isInstalling || isUpdating || isReparing) {
         const progress: InstallProgress = await ipcRenderer.invoke(
-          isUpdating ? 'requestUpdateProgress' : 'requestGameProgress',
+          'requestGameProgress',
           appName
         )
 
@@ -361,7 +361,7 @@ export default function GamePage(): JSX.Element | null {
     if (isSyncing) {
       return 'is-primary'
     }
-    return isPlaying ? 'is-tertiary' : 'is-success'
+    return isPlaying ? 'is-tertiary' : 'is-primary'
   }
 
   function getPlayLabel(): React.ReactNode {

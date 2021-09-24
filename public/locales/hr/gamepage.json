@@ -1,0 +1,107 @@
+{
+    "box": {
+        "change": {
+            "message": "Ovo će promijeniti lokaciju instalacije za igru, jeste li sigurni?",
+            "path": "Odaberite novu lokaciju za instalaciju",
+            "title": "Promijenite lokaciju instalacije igrica"
+        },
+        "choose": "Odaberi",
+        "importpath": "Odaberi mapu igre za uvesti",
+        "installpath": "Odaberi lokaciju instalacije",
+        "move": {
+            "message": "Ovo može protrajati, jeste li sigurni?",
+            "path": "Odaberite gdje želite premjestiti",
+            "title": "Premjestite instalaciju igrice"
+        },
+        "no": "NE",
+        "ok": "Ok",
+        "repair": {
+            "message": "Želite li probati popraviti ovu igricu? Ovo može potrajati.",
+            "title": "Provjeri i Popravi"
+        },
+        "shortcuts": {
+            "message": "Prečaci su napravljeni na Radnoj Površini i Izborniku Start",
+            "title": "Prečaci"
+        },
+        "stopInstall": {
+            "keepInstalling": "Nastavite instalaciju",
+            "message": "Želite li ZADRŽATI preuzete datoteke?",
+            "title": "Zaustavi instalaciju"
+        },
+        "uninstall": {
+            "message": "Želite li deinstalirati igricu?",
+            "title": "Deinstaliraj"
+        },
+        "update": {
+            "message": "Ova igrica ima ažuriranje, želite li ažurirati sada?",
+            "title": "Igrica treba ažuriranje"
+        },
+        "yes": "DA"
+    },
+    "button": {
+        "cancel": "Otkaži",
+        "continue": "Nastavi preuzimanje",
+        "import": "Uvezi",
+        "install": "Instaliraj",
+        "uninstall": "Deinstaliraj",
+        "update": "Ažuriraj"
+    },
+    "disabled": "Onemogućeno",
+    "enabled": "Omogućeno",
+    "game": {
+        "firstPlayed": "Prvo odigrano",
+        "lastPlayed": "Zadnje odigrano",
+        "neverPlayed": "Nikad",
+        "totalPlayed": "Vrijeme igranja"
+    },
+    "gamecard": {
+        "moving": "Premještanje",
+        "repairing": "Popravljanje"
+    },
+    "info": {
+        "path": "Put instalacije",
+        "size": "Veličina",
+        "syncsaves": "Sinkroniziraj podatke",
+        "version": "Verzija"
+    },
+    "install": {
+        "another": "Instaliraj na drugi put",
+        "default": "Instaliraj na",
+        "import": "Uvezi igricu"
+    },
+    "label": {
+        "playing": {
+            "start": "Igraj Sada",
+            "stop": "Igra se (Prekini)"
+        },
+        "saves": {
+            "syncing": "Sinkoniziranje podataka"
+        }
+    },
+    "specs": {
+        "minimum": "Minimalno",
+        "recommended": "Preporučeno"
+    },
+    "status": {
+        "clickToUpdate": "Klikni za ažuriranje",
+        "hasUpdates": "Nova Verzija Dostupna!",
+        "installed": "Instalirano",
+        "installing": "Instalira se",
+        "moving": "Premještanje instalacije, molim pričekajte",
+        "notinstalled": "Ova igrica nije instalirana",
+        "notSupported": "Ova igrica se jedino može uvesti",
+        "reparing": "Popravljanje igrice, molimo pričekajte",
+        "totalDownloaded": "Sveukupno preuzeto",
+        "updating": "Ažuriranje igrice"
+    },
+    "submenu": {
+        "addShortcut": "Dodaj prečace",
+        "change": "Promijeni put instalacije",
+        "log": "Najnoviji dnevnik",
+        "move": "Premjesti igricu",
+        "protondb": "Provjeri Kompatibilnost",
+        "settings": "Postavke",
+        "store": "Stranica Trgovine",
+        "verify": "Provjeri i popravi"
+    }
+}

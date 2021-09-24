@@ -60,6 +60,7 @@ function Settings() {
     name: 'Wine Default'
   } as WineInstallation)
   const [winePrefix, setWinePrefix] = useState('~/.wine')
+  const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
@@ -67,6 +68,7 @@ function Settings() {
   const [title, setTitle] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(0)
   const [maxRecentGames, setMaxRecentGames] = useState(5)
+  const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
@@ -139,6 +141,27 @@ function Settings() {
     toggle: toggleAutoInstallDxvk,
     setOn: setAutoInstallDxvk
   } = useToggle(false)
+  const {
+    on: enableFSR,
+    toggle: toggleFSR,
+    setOn: setEnableFSR
+  } = useToggle(false)
+  const {
+    on: enableResizableBar,
+    toggle: toggleResizableBar,
+    setOn: setResizableBar
+  } = useToggle(false)
+  const {
+    on: enableEsync,
+    toggle: toggleEsync,
+    setOn: setEnableEsync
+  } = useToggle(false)
+  const {
+    on: enableFsync,
+    toggle: toggleFsync,
+    setOn: setEnableFsync
+  } = useToggle(false)
+
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -160,7 +183,7 @@ function Settings() {
         'requestSettings',
         appName
       )
-      setAutoSyncSaves(config.autoSyncSaves)
+      setAutoSyncSaves(config.autoSyncSaves || false)
       setUseGameMode(config.useGameMode || false)
       setShowFps(config.showFps || false)
       setShowOffline(config.offlineMode || false)
@@ -169,6 +192,7 @@ function Settings() {
       setDefaultInstallPath(config.defaultInstallPath)
       setWineVersion(config.wineVersion)
       setWinePrefix(config.winePrefix)
+      setWineCrossoverBottle(config.wineCrossoverBottle)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
       setUseNvidiaPrime(config.nvidiaPrime || false)
@@ -179,6 +203,11 @@ function Settings() {
       setDarkTrayIcon(config.darkTrayIcon || false)
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
+      setEnableEsync(config.enableEsync || false)
+      setEnableFsync(config.enableFsync || false)
+      setEnableFSR(config.enableFSR || false)
+      setFsrSharpness(config.maxSharpness || 2)
+      setResizableBar(config.enableResizableBar || false)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 0)
       setMaxRecentGames(config.maxRecentGames ?? 5)
@@ -217,6 +246,8 @@ function Settings() {
     defaultInstallPath,
     discordRPC,
     egsLinkedPath,
+    enableEsync,
+    enableFsync,
     exitToTray,
     language,
     maxRecentGames,
@@ -228,6 +259,7 @@ function Settings() {
     showMangohud,
     startInTray,
     useGameMode,
+    wineCrossoverBottle,
     winePrefix,
     wineVersion
   } as AppSettings
@@ -236,6 +268,11 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoSyncSaves,
+    enableEsync,
+    enableFSR,
+    enableFsync,
+    maxSharpness,
+    enableResizableBar,
     launcherArgs,
     nvidiaPrime,
     offlineMode,
@@ -244,6 +281,7 @@ function Settings() {
     showFps,
     showMangohud,
     useGameMode,
+    wineCrossoverBottle,
     winePrefix,
     wineVersion
   } as AppSettings
@@ -251,9 +289,8 @@ function Settings() {
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
   let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
-
   if (state && state.fromGameCard) {
-    returnPath = null
+    returnPath = '/'
   }
 
   useEffect(() => {
@@ -307,16 +344,8 @@ function Settings() {
               setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
-              maxRecentGames={maxRecentGames}
-              setMaxRecentGames={setMaxRecentGames}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              addDesktopShortcuts={addDesktopShortcuts}
-              addGamesToStartMenu={addStartMenuShortcuts}
-              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
-              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
-              toggleDiscordRPC={toggleDiscordRPC}
-              discordRPC={discordRPC}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
             />
@@ -329,11 +358,23 @@ function Settings() {
               winePrefix={winePrefix}
               setWineVersion={setWineVersion}
               setWinePrefix={setWinePrefix}
+              wineCrossoverBottle={wineCrossoverBottle}
+              setWineCrossoverBottle={setWineCrossoverBottle}
               autoInstallDxvk={autoInstallDxvk}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
+              enableFSR={enableFSR}
+              toggleFSR={toggleFSR}
+              enableEsync={enableEsync}
+              toggleEsync={toggleEsync}
+              enableFsync={enableFsync}
+              toggleFsync={toggleFsync}
+              maxSharpness={maxSharpness}
+              setFsrSharpness={setFsrSharpness}
+              enableResizableBar={enableResizableBar}
+              toggleResizableBar={toggleResizableBar}
             />
           )}
           {isWineSettings && (
@@ -358,6 +399,14 @@ function Settings() {
               showMangohud={showMangohud}
               toggleMangoHud={toggleMangoHud}
               isDefault={isDefault}
+              maxRecentGames={maxRecentGames}
+              setMaxRecentGames={setMaxRecentGames}
+              addDesktopShortcuts={addDesktopShortcuts}
+              addGamesToStartMenu={addStartMenuShortcuts}
+              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
+              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
+              toggleDiscordRPC={toggleDiscordRPC}
+              discordRPC={discordRPC}
             />
           )}
           {isSyncSettings && (

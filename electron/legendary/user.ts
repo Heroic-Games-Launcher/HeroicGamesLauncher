@@ -49,9 +49,7 @@ export class LegendaryUser {
   }
 
   public static async isLoggedIn() {
-    return existsSync(userInfo) || await execAsync(`${legendaryBin} status`).then(
-      ({ stdout }) => !stdout.includes('Epic account: <not logged in>')
-    )
+    return existsSync(userInfo)
   }
 
   public static async getUserInfo(): Promise<UserInfo> {

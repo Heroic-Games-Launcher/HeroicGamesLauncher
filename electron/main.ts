@@ -62,6 +62,7 @@ import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
+import { checkUpdates } from './updater'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -80,30 +81,40 @@ const tsStore = new Store({
   name: 'timestamp'
 })
 
+// Trigger the autoUpdater every X minutes
+if (GlobalConfig.get().config?.enableUpdates) {
+  const interval = setInterval(() => checkUpdates(), (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000) // Converts minutes to milliseconds
+  clearInterval(interval)
+}
+
 async function createWindow(): Promise<BrowserWindow> {
-  listenStdout().then((arr) => {
-    const str = arr.join('\n')
-    const date = new Date().toDateString()
-    const path = `${app.getPath('crashDumps')}/${date}.txt`
-    logInfo('Saving log file to ' + path)
-    writeFile(path, str, {}, (err) => {
-      throw err
+  listenStdout()
+    .then((arr) => {
+      const str = arr.join('\n')
+      const date = new Date().toDateString()
+      const path = `${app.getPath('crashDumps')}/${date}.txt`
+      logInfo('Saving log file to ' + path)
+      writeFile(path, str, {}, (err) => {
+        if (err) throw err
+      })
     })
-  })
+    .catch((reason) => {
+      throw reason
+    })
 
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: isDev ? 1200 : 720,
-    minHeight: 700,
-    minWidth: 1200,
+    height: isDev ? 1200 : 600,
+    minHeight: 500,
+    minWidth: 900,
     show: !(exitToTray && startInTray),
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true
     },
-    width: isDev ? 1800 : 1280
+    width: isDev ? 1800 : 1000
   })
 
   setTimeout(() => {
@@ -248,24 +259,8 @@ if (!gotTheLock) {
       debug: false,
       fallbackLng: 'en',
       lng: language,
-      supportedLngs: [
-        'cs',
-        'de',
-        'el',
-        'en',
-        'es',
-        'fr',
-        'hu',
-        'it',
-        'ml',
-        'nl',
-        'pl',
-        'pt',
-        'ru',
-        'sv',
-        'tr',
-        'zh_Hans'
-      ]
+      supportedLngs: ['ca', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hr', 'hu', 'ko', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans', 'zh_Hant']
+
     })
 
     await createWindow()
@@ -382,7 +377,7 @@ app.on('open-url', (event, url) => {
   handleProtocol(mainWindow, url)
 })
 
-ipcMain.once('openFolder', (event, folder) => openUrlOrFile(folder))
+ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
 ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
@@ -390,8 +385,9 @@ ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('updateHeroic', () => checkUpdates())
 
-ipcMain.once('getLog', (event, appName) =>
+ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
 )
 
@@ -571,10 +567,10 @@ ipcMain.handle('launch', async (event, game: string) => {
   return Game.get(game).launch().then(({ stderr }) => {
     const finishedPlayingDate = new Date()
     tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
-    const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60 / 60
+    const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
     const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
     // I'll send the calculated time here because then the user can set it manually on the file if desired
-    tsStore.set(`${game}.totalPlayed`, totalPlayedTime)
+    tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
 
     writeFile(
       `${heroicGamesConfigPath}${game}-lastPlay.log`,

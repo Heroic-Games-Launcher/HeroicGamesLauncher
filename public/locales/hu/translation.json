@@ -146,7 +146,11 @@
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Kilépés a Rendszer Tálcára",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",
         "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
@@ -163,6 +167,7 @@
         "maxworkers": "Maximum Dolgozók Száma letöltéskor",
         "offlinemode": "Futtassa a Játékot Offline",
         "primerun": "Nvidia Prime Render Engedélyezése",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
             "title": "Futtasd az EXE fájlt Prefix-el"
@@ -173,6 +178,7 @@
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
         "start-in-tray": "Indítás tálcára téve",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },

@@ -1,7 +1,7 @@
 {
-    "globalSettings": "Globaali Asetukset",
+    "globalSettings": "Globaalit asetukset",
     "Games": "Pelit",
-    "Filter": "Filtteröi",
+    "Filter": "Suodata",
     "Downloading": "Ladataan",
     "button": {
         "syncing": "Synkronoidaan",
@@ -12,7 +12,7 @@
         "yes": "KYLLÄ",
         "wineprefix": "Valitse Wine Prefiksille Kansio",
         "sync": {
-            "title": "Valitse kansio tallenteille",
+            "title": "Valitse kansio tallennuksille",
             "error": "Virheellinen Polku",
             "button": "Valitse"
         },
@@ -22,21 +22,21 @@
         },
         "quit": {
             "title": "Poistu",
-            "message": "Odottavia toimintoja on, oletko varma?"
+            "message": "On odottavia toimintoja, oletko varma?"
         },
         "protocol": {
             "install": {
-                "not_installed": "Ei Ole Asennettu, haluatteko asentaa sen?"
+                "not_installed": "Ei ole asennettu, haluatteko asentaa sen?"
             }
         },
         "no": "EI",
         "error": {
             "python": "Heroic vaatii Python 3.8 tai uudemman toimiakseen.",
             "log": {
-                "title": "Lokitiedosto Ei Löytynyt",
-                "message": "Tälle pelille ei löytynyt Lokitiedostoja"
+                "title": "Lokitiedostoa ei löytynyt",
+                "message": "Tälle pelille ei löytynyt lokitiedostoja"
             },
-            "launch": "Virhe pelin laukaisussa, tarkista pelin lokitiedostot!",
+            "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
             "generic": {
                 "title": "Tuntematon Virhe",
                 "message": "Tuntematon Virhe on tapahtunut"
@@ -46,8 +46,8 @@
                 "message": "Ei tarpeeksi tilaa levyllä"
             },
             "credentials": {
-                "title": "Vanhentuneet Tunnustiedot",
-                "message": "Tunnustiedot ovat vanhentuneet, olkaa hyvä ja kirjautukaa ulos ja takas sisään."
+                "title": "Vanhentuneet kirjautumistiedot",
+                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään."
             },
             "title": "Virhe"
         },
@@ -65,20 +65,47 @@
     "setting": {
         "manualsync": {
             "upload": "Lähetä",
-            "title": "Manuaalinen Tallenteiden Synkronointi",
+            "title": "Manuaalinen tallennusten synkronointi",
             "syncing": "Synkronoidaan",
             "sync": "Synkronoi",
-            "forceupload": "Pakota Lähetys",
-            "forcedownload": "Pakota Lataus",
+            "forceupload": "Pakota lähetys",
+            "forcedownload": "Pakota lataus",
             "download": "Lataa"
         },
-        "mangohud": "Ota Mangohud käyttöön (Mangohud on asennettava)",
-        "language": "Valitse Applikaation Kieli",
-        "autosync": "Automaattisesti synkronoi Tallenteet",
-        "autodxvk": "Automaattisesti Asenna/Päivitä DXVK Prefiksissä",
-        "audiofix": "Äänikorjaus (Pulse Audio Viive)",
+        "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
+        "language": "Valitse applikaation kieli",
+        "autosync": "Automaattisesti synkronoi tallennukset",
+        "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",
+        "audiofix": "Äänikorjaus (Pulse Audion viive)",
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
-        "adddesktopshortcuts": "Lisää pikakuvakkeet automaattisesti"
+        "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
+        "wineversion": "Winen versio",
+        "wineprefix": "WinePrefixin kansio",
+        "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
+        "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
+        "savefolder": {
+            "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
+            "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
+        },
+        "runexe": {
+            "title": "Käynnistä EXE prefixissä",
+            "message": "Pudota tiedostoja tänne"
+        },
+        "resizableBar": "Ota käyttöön Resizable BAR (Vain NVIDIA RTX 30xx)",
+        "primerun": "Ota käyttöön Nvidia Prime Render",
+        "offlinemode": "Käynnistä peli offline-tilassa",
+        "maxRecentGames": "Viimeisten pelien näytetty lukumäärä",
+        "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
+        "FsrSharpnessStrenght": "FSR terävyyden voimakkuus",
+        "exit-to-tray": "Sulje ilmaisinalueelle",
+        "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",
+        "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
+        "discordRPC": "Ota käyttöön Discord Rich Presence",
+        "default-install-path": "Oletus asennussijainti",
+        "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
+        "customWineProton": "Mukautetut Wine/Proton sijainnit",
+        "checkForUpdatesOnStartup": "Tarkista päivitysten varalta käynnistyessä",
+        "maxworkers": "Työntekijöiden enimmäismäärä ladattaessa"
     },
     "search": "Kirjoita tähän pelin nimi...",
     "Return": "Palaa",
@@ -93,31 +120,31 @@
     },
     "options": {
         "gameargs": {
-            "title": "Pelin Argumentit (Suoritetaan komennon jälkeen):",
-            "placeholder": "Laita tähän Käynnistysargumentit"
+            "title": "Pelin argumentit (suoritetaan komennon jälkeen):",
+            "placeholder": "Laita tähän käynnistysargumentit"
         },
         "advanced": {
             "title": "Lisäasetukset (Ympäristömuuttujat):",
-            "placeholder": "Laita tähän muut käynnistys vaihtoehdot"
+            "placeholder": "Lisää tähän muut käynnistysasetukset"
         }
     },
     "notify": {
         "update": {
-            "finished": "Päivitys Valmis",
-            "canceled": "Päivitys Peruutettu"
+            "finished": "Päivitys valmis",
+            "canceled": "Päivitys peruutettu"
         },
         "uninstalled": "Poistettu",
-        "moved": "Siirto Valmis",
+        "moved": "Siirto valmis",
         "install": {
-            "finished": "Asennus Valmis",
-            "canceled": "Asennus Peruutettu"
+            "finished": "Asennus valmis",
+            "canceled": "Asennus peruutettu"
         },
         "finished": {
-            "reparing": "Korjaus Valmis"
+            "reparing": "Korjaus valmis"
         }
     },
-    "Not Ready": "Ei Ole Valmis",
-    "nogames": "Pelejä Ei Löytynyt",
+    "Not Ready": "Ei valmis",
+    "nogames": "Pelejä ei löydetty",
     "info": {
         "settings": "Asetukset tallennetaan automaattisesti"
     },
@@ -126,24 +153,64 @@
         "help": "Apua"
     },
     "message": {
-        "sync": "Synkronointi Valmis"
+        "sync": "Synkronointi valmis",
+        "unsync": "Synkronoinnin poisto valmis"
     },
     "Library": "Kirjasto",
     "help": {
         "sync": {
             "part1": "Heroic yrittää arvata oikean kansion tallenteita varten. Tämä toimii useimmissa tapauksissa. Jos kansio on väärä, vaihda se ohitusruudun avulla.",
-            "part3": "Manuaalinen synkronointi: valitsee \"Lataa\" latakseen pelien tallenteet pilvipalvelusta. \"Lähetä\" lähettääkseen paikalliset tallenteet pilvipalveluun. \"Pakota Lataus\" ja \"Pakota Lähetys\" tulee ignooramaan version, jota säilytetään joko paikallisesti tai pilvipalvelussa.",
-            "part2": "Kannattaa uudelleen tarkistaa polku, Jos aijotte vaihtaa Winen tai Protonin prefix-kansion, koska Proton käyttää toista prefixiä (/pfx) ja käyttäjänimeä (steamuser). Joten voitte yksinkertaisesti poistaa nykyisen polun synkronointiasetuksista ja palata takaisin antaakseen Heroicin arvata kansion vielä kerran oikealla prefixillä."
+            "part3": "Manuaalinen synkronointi: valitse \"Lataa\" lataaksesi pelien tallennukset pilvipalvelusta. Valitse \"Lähetä\" lähettääksesi paikalliset tallennukset pilvipalveluun. \"Pakota Lataus\" ja \"Pakota Lähetys\" jättävät huomiotta version, jota säilytetään joko paikallisesti tai pilvipalvelussa.",
+            "part2": "Jos aiot vaihtaa Winen tai Protonin prefix-kansiota, polku tulee tarkistaa uudelleen, koska Proton käyttää toista prefixiä (/pfx) ja käyttäjänimeä (steamuser). Voit poistaa nykyisen polun synkronointiasetuksista ja antaa Heroicin arvata kansio vielä kerran oikealla prefixillä.",
+            "part4": "\"Synkronoi tallennukset automaattisesti\" synkronoi tallennukset joka kerta kun käynnistät pelin ja suljet sen."
         },
         "other": {
             "part7": " ohittaa käynnistys joissakin peleissä jne.",
             "part6": " kutsutaan käynnistyskomennon jälkeen, esimerkiksi: ",
-            "part5": "Peli Argumentit",
+            "part5": "Pelin argumentit",
             "part4": "Käytä ",
             "part3": "kutsutaan ennen pelin käynnistämistä; ",
-            "part2": "Edistyneet Asetukset",
+            "part2": "Edistyneet asetukset",
             "part1": "Käytä "
         },
-        "general": "Synkronoi EGS:n kanssa, jos teiltä löytyy toimiva Epic Games Store asennus ja haluatte tuoda omat pelit välttääkseen uudelleen latauksen."
-    }
+        "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
+        "wine": {
+            "part2": "Muille sijainneille käytä symbolista linkkiä kansioon",
+            "part1": "Heroic etsii Wine- ja Proton-versioita seuraavista kansioista:"
+        }
+    },
+    "wiki": "Wiki",
+    "userselector": {
+        "support": "Tue meitä",
+        "refresh": "Päivitä kirjasto",
+        "quit": "Poistu",
+        "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
+        "logout": "Kirjaudu ulos",
+        "discord": "Discord",
+        "about": "Tietoja"
+    },
+    "Updates": "Päivitykset",
+    "tray": {
+        "support": "Tue meitä",
+        "show": "Näytä",
+        "reload": "Lataa uudelleen",
+        "quit": "Poistu",
+        "about": "Tietoja"
+    },
+    "Total Games": "Pelejä yhteensä",
+    "tooltip": {
+        "removepath": "Poista sijainti",
+        "addpath": "Lisää uusi sijainti"
+    },
+    "store": "Kauppa",
+    "settings": {
+        "navbar": {
+            "other": "Muut",
+            "general": "Yleiset",
+            "sync": "Tallenna ja synkronoi"
+        }
+    },
+    "Settings": "Asetukset",
+    "Recent": "Viimeisimmät pelit",
+    "Unreal Marketplace": "Unreal Marketplace"
 }

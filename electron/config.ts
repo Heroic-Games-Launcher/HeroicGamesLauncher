@@ -6,6 +6,7 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { userInfo as user } from 'os'
+import { parse as plistParse, PlistObject } from 'plist'
 
 import {
   AppSettings,
@@ -20,6 +21,7 @@ import {
   heroicInstallPath,
   heroicToolsPath,
   home,
+  isMac,
   isWindows
 } from './constants'
 import { execAsync } from './utils'
@@ -119,6 +121,45 @@ abstract class GlobalConfig {
   }
 
   /**
+   * Detects CrossOver installs on Mac and Linux
+   *
+   * @returns Promise<Set<WineInstallation>>
+   */
+  public async getCrossover(): Promise<Set<WineInstallation>> {
+    const crossover: Set<WineInstallation> = new Set()
+
+    if (isMac)
+    {
+      execAsync('mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"')
+        .then(async ({ stdout }) => {
+          stdout.split('\n').forEach((crossoverMacPath) => {
+            if (crossoverMacPath != '' && existsSync(crossoverMacPath + '/Contents/Info.plist')) {
+              const info = plistParse(readFileSync(crossoverMacPath + '/Contents/Info.plist', 'utf-8')) as PlistObject
+              const version = info['CFBundleShortVersionString'] || ''
+              crossover.add({
+                bin: `'${crossoverMacPath}/Contents/SharedSupport/CrossOver/bin/wine'`,
+                name: `CrossOver ${version} - ${crossoverMacPath}`
+              })
+            }
+          })
+        })
+    }
+    else if (!isWindows)
+    {
+      // Linux
+      const crossoverPath = '/opt/cxoffice'
+      if (existsSync(crossoverPath)) {
+        crossover.add({
+          bin: `'${crossoverPath}/bin/wine'`,
+          name: `CrossOver - ${crossoverPath}`
+        })
+      }
+    }
+
+    return crossover
+  }
+
+  /**
    * Detects Wine/Proton on the user's system.
    *
    * @returns An Array of Wine/Proton installations.
@@ -186,12 +227,14 @@ abstract class GlobalConfig {
       }
     })
 
+    const crossover = await this.getCrossover();
+
     const defaultWine = await this.getDefaultWine();
 
     if(!scanCustom) {
-      return [defaultWine, ...altWine, ...proton]
+      return [defaultWine, ...altWine, ...proton, ...crossover]
     }
-    return [defaultWine, ...altWine, ...proton, ...(await this.getCustomWinePaths())]
+    return [defaultWine, ...altWine, ...proton, ...crossover, ...(await this.getCustomWinePaths())]
   }
 
   /**
@@ -321,6 +364,8 @@ class GlobalConfigV0 extends GlobalConfig {
     const defaultWine = isWindows ? {} : await this.getDefaultWine()
 
     return {
+      checkUpdatesInterval: 10,
+      enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,
@@ -337,6 +382,7 @@ class GlobalConfigV0 extends GlobalConfig {
         epicId: account_id,
         name: userName
       },
+      wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? defaultWine : `${home}/.wine`,
       wineVersion: isWindows ? {} : defaultWine
     } as AppSettings

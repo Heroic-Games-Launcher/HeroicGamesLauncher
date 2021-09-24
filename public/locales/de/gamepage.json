@@ -20,8 +20,8 @@
             "title": "Auf Fehler überprüfen und Reparieren"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
+            "title": "Verknüpfungen"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
@@ -43,15 +43,16 @@
         "continue": "Download fortsetzen",
         "import": "Importieren",
         "install": "Installieren",
-        "uninstall": "Deinstallieren"
+        "uninstall": "Deinstallieren",
+        "update": "Update"
     },
     "disabled": "Deaktiviert",
     "enabled": "Aktiviert",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "firstPlayed": "Erstmals gespielt",
+        "lastPlayed": "Zuletzt gespielt",
+        "neverPlayed": "Nie",
+        "totalPlayed": "Spielzeit"
     },
     "gamecard": {
         "moving": "Verschiebe",

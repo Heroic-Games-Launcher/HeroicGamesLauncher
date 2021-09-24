@@ -14,26 +14,26 @@
             "title": "Oyun kurulumunu taşı"
         },
         "no": "HAYIR",
-        "ok": "Ok",
+        "ok": "Tamam",
         "repair": {
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Kısayollar Masaüstü ve Başlangıç Menüsünde oluşturuldu",
+            "title": "Kısayollar"
         },
         "stopInstall": {
-            "keepInstalling": "Yüklemeyi Sürdür",
+            "keepInstalling": "Kuruluma Devam Et",
             "message": "İndirilen dosyaları SAKLAMAK ister misiniz?",
-            "title": "Yüklemeyi Durdur"
+            "title": "Kurulumu Durdur"
         },
         "uninstall": {
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "title": "Kaldır"
         },
         "update": {
-            "message": "Bu oyun için güncelleme mevcut, şimdi güncellemek ister misiniz?",
+            "message": "Bu oyunun bir güncellemesi var, şimdi güncellemek ister misiniz?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
         "yes": "EVET"
@@ -42,16 +42,17 @@
         "cancel": "İptal",
         "continue": "İndirmeye Devam Et",
         "import": "İçeri Aktar",
-        "install": "Yükle",
-        "uninstall": "Kaldır"
+        "install": "Kur",
+        "uninstall": "Kaldır",
+        "update": "Güncelle"
     },
     "disabled": "Devre dışı",
     "enabled": "Etkin",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "firstPlayed": "İlk Oynanan",
+        "lastPlayed": "Son Oynanan",
+        "neverPlayed": "Hiç Oynanmadı",
+        "totalPlayed": "Oynanan Zaman"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -61,7 +62,7 @@
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
-        "version": "Versiyon"
+        "version": "Sürüm"
     },
     "install": {
         "another": "Farklı bir yere kur",
@@ -78,16 +79,16 @@
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Önerilen"
+        "minimum": "Asgari",
+        "recommended": "Tavsiye edilen"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
-        "hasUpdates": "Yeni sürüm mevcut!",
-        "installed": "Yüklendi",
-        "installing": "Yükleniyor",
+        "clickToUpdate": "Güncellemek için tıklayın",
+        "hasUpdates": "Yeni sürüm var!",
+        "installed": "Kuruldu",
+        "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
-        "notinstalled": "Bu oyun yüklü değil",
+        "notinstalled": "Bu oyun kurulu değil",
         "notSupported": "Bu oyun sadece içeri aktarılabilir",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
@@ -98,7 +99,7 @@
         "change": "Kurulum yerini değiştir",
         "log": "Güncel Log",
         "move": "Oyunu Taşı",
-        "protondb": "Uyumluluğu Kontrol Et",
+        "protondb": "Uyumluluğu Denetle",
         "settings": "Ayarlar",
         "store": "Mağaza Sayfası",
         "verify": "Doğrula ve Onar"

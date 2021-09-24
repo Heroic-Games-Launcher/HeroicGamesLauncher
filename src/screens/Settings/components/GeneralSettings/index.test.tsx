@@ -12,30 +12,22 @@ import ContextProvider from 'src/state/ContextProvider'
 import GeneralSettings from './index';
 
 interface Props {
-  addDesktopShortcuts: boolean,
-  addGamesToStartMenu: boolean,
   checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
-  discordRPC: boolean,
   egsLinkedPath: string,
   egsPath: string,
   exitToTray: boolean,
   language: string,
-  maxRecentGames: number,
   maxWorkers: number,
   setDefaultInstallPath: (value: string) => void,
   setEgsLinkedPath: (value: string) => void,
   setEgsPath: (value: string) => void,
   setLanguage: (value: string) => void,
-  setMaxRecentGames: (value: number) => void,
   setMaxWorkers: (value: number) => void,
   startInTray: boolean,
-  toggleAddDesktopShortcuts: () => void,
-  toggleAddGamesToStartMenu: () => void,
   toggleCheckUpdatesOnStartup: () => void,
   toggleDarkTrayIcon: () => void,
-  toggleDiscordRPC: () => void,
   toggleStartInTray: () => void,
   toggleTray: () => void
   }
@@ -43,30 +35,22 @@ interface Props {
 async function renderGeneralSettings(props: Partial<Props> = {})
 {
   const defaultprops: Props = {
-    addDesktopShortcuts: true,
-    addGamesToStartMenu: true,
     checkForUpdatesOnStartup: true,
     darkTrayIcon: false,
     defaultInstallPath: 'default/install/path',
-    discordRPC: true,
     egsLinkedPath: 'egs/linked/path',
     egsPath: 'egs/path',
     exitToTray: false,
     language: 'en',
-    maxRecentGames: 5,
     maxWorkers: 1,
     setDefaultInstallPath: (value: string) => value,
     setEgsLinkedPath: (value: string) => value,
     setEgsPath: (value: string) => value,
     setLanguage: (value: string) => value,
-    setMaxRecentGames: (value: number) => value,
     setMaxWorkers: (value: number) => value,
     startInTray: false,
-    toggleAddDesktopShortcuts: () => {return},
-    toggleAddGamesToStartMenu: () => {return},
     toggleCheckUpdatesOnStartup: () => {return},
     toggleDarkTrayIcon: () => {return;},
-    toggleDiscordRPC: () => {return;},
     toggleStartInTray: () => {return;},
     toggleTray: () => {return;}
   };
@@ -251,15 +235,6 @@ describe('GeneralSettings', () => {
 
     fireEvent.change(maxWorkers, { target: { value: '8' }});
     waitFor(() => expect(onSetMaxWorkers).toBeCalledWith(8));
-  })
-
-  test('change max recent games', async () => {
-    const onSetMaxRecentGames = jest.fn();
-    const { getByTestId } = await renderGeneralSettings({ setMaxRecentGames: onSetMaxRecentGames});
-    const maxRecentGames = getByTestId('setMaxRecentGames');
-
-    fireEvent.change(maxRecentGames, { target: { value: '10' }});
-    waitFor(() => expect(onSetMaxRecentGames).toBeCalledWith(10));
   })
 
   test('start minimized is hidden when exitToTray is false', async () => {

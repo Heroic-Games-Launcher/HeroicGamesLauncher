@@ -7,6 +7,7 @@ const initialContext: ContextType = {
   data: [],
   error: false,
   filter: 'all',
+  filterText: '',
   gameUpdates: [],
   handleCategory: () => null,
   handleFilter: () => null,

@@ -1,95 +1,107 @@
 {
-    "enabled": "Habilitado",
-    "disabled": "Desabilitado",
-    "button": {
-        "uninstall": "Desinstalar",
-        "install": "Instalar",
-        "import": "Importar",
-        "continue": "Continuar Download",
-        "cancel": "Cancelar"
-    },
     "box": {
-        "update": {
-            "title": "Atualização Disponível",
-            "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?"
+        "change": {
+            "message": "Isto mudará o local de instalação do jogo, está certo disso?",
+            "path": "Selecione um novo local de instalação",
+            "title": "Mudar o local de instalação do jogo"
         },
-        "uninstall": {
-            "title": "Desinstalar",
-            "message": "Deseja desinstalar este jogo?"
-        },
-        "stopInstall": {
-            "title": "Parar a Instalação",
-            "message": "Deseja MANTER os arquivos baixados?",
-            "keepInstalling": "Continuar a Instalação"
-        },
-        "repair": {
-            "title": "Verificar e Reparar",
-            "message": "Deseja tentar reparar este jogo? Isso pode levar muito tempo."
-        },
+        "choose": "Selecionar",
+        "importpath": "Selecione a pasta do jogo a ser importado",
+        "installpath": "Selecione a pasta de instalação",
         "move": {
-            "path": "Selecione a pasta de para onde deseja mover",
             "message": "Isto pode levar um longo tempo, tem certeza disso?",
+            "path": "Selecione a pasta de para onde deseja mover",
             "title": "Mover a pasta de instalação de jogos"
         },
-        "installpath": "Selecione a pasta de instalação",
-        "importpath": "Selecione a pasta do jogo a ser importado",
-        "change": {
-            "title": "Mudar o local de instalação do jogo",
-            "path": "Selecione um novo local de instalação",
-            "message": "Isto mudará o local de instalação do jogo, está certo disso?"
-        },
-        "yes": "SIM",
         "no": "NÃO",
-        "choose": "Selecionar"
-    },
-    "status": {
-        "notinstalled": "Este Jogo Não está Instalado",
-        "totalDownloaded": "Total Baixado",
-        "reparing": "Reparando Jogo, Por favor Aguarde",
-        "notSupported": "Este Jogo Pode apenas ser importado",
-        "moving": "Movendo Instalação,Por favor Aguarde",
-        "updating": "Atualizando Jogo",
-        "installed": "Instalado",
-        "hasUpdates": "Nova Versão Disponível!",
-        "clickToUpdate": "CLIQUE PARA ATUALIZAR",
-        "installing": "Instalando"
-    },
-    "label": {
-        "saves": {
-            "syncing": "Sincronizando Saves"
+        "ok": "Ok",
+        "repair": {
+            "message": "Deseja tentar reparar este jogo? Isso pode levar muito tempo.",
+            "title": "Verificar e Reparar"
         },
-        "playing": {
-            "start": "Jogar",
-            "stop": "Jogando (Parar)"
-        }
+        "shortcuts": {
+            "message": "Atalhos foram criados na área de trabalho e menu",
+            "title": "Atalhos"
+        },
+        "stopInstall": {
+            "keepInstalling": "Continuar a Instalação",
+            "message": "Deseja MANTER os arquivos baixados?",
+            "title": "Parar a Instalação"
+        },
+        "uninstall": {
+            "message": "Deseja desinstalar este jogo?",
+            "title": "Desinstalar"
+        },
+        "update": {
+            "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?",
+            "title": "Atualização Disponível"
+        },
+        "yes": "SIM"
+    },
+    "button": {
+        "cancel": "Cancelar",
+        "continue": "Continuar Download",
+        "import": "Importar",
+        "install": "Instalar",
+        "uninstall": "Desinstalar",
+        "update": "Update"
+    },
+    "disabled": "Desabilitado",
+    "enabled": "Habilitado",
+    "game": {
+        "firstPlayed": "Jogado inicialmente em",
+        "lastPlayed": "Jogado pela última vez em",
+        "neverPlayed": "Nunca",
+        "totalPlayed": "Tempo de jogo"
+    },
+    "gamecard": {
+        "moving": "Movendo",
+        "repairing": "Reparando"
+    },
+    "info": {
+        "path": "Pasta de Instalação",
+        "size": "Tamanho",
+        "syncsaves": "Sincronizar Saves",
+        "version": "Versão"
     },
     "install": {
         "another": "Instalar em Outra Pasta",
-        "import": "Importar Jogo",
-        "default": "Instalar em"
+        "default": "Instalar em",
+        "import": "Importar Jogo"
+    },
+    "label": {
+        "playing": {
+            "start": "Jogar",
+            "stop": "Jogando (Parar)"
+        },
+        "saves": {
+            "syncing": "Sincronizando Saves"
+        }
     },
     "specs": {
         "minimum": "MÍNIMO",
         "recommended": "RECOMENDADO"
     },
-    "info": {
-        "syncsaves": "Sincronizar Saves",
-        "path": "Pasta de Instalação",
-        "version": "Versão",
-        "size": "Tamanho"
+    "status": {
+        "clickToUpdate": "CLIQUE PARA ATUALIZAR",
+        "hasUpdates": "Nova Versão Disponível!",
+        "installed": "Instalado",
+        "installing": "Instalando",
+        "moving": "Movendo Instalação,Por favor Aguarde",
+        "notinstalled": "Este Jogo Não está Instalado",
+        "notSupported": "Este Jogo Pode apenas ser importado",
+        "reparing": "Reparando Jogo, Por favor Aguarde",
+        "totalDownloaded": "Total Baixado",
+        "updating": "Atualizando Jogo"
     },
     "submenu": {
-        "protondb": "Verificar Compatibilidade",
+        "addShortcut": "Adicionar Atalho",
         "change": "Modificar Local de Instalação",
-        "verify": "Verificar e Reparar",
-        "store": "Loja",
-        "settings": "Configurações",
-        "move": "Mover o Jogo",
         "log": "Último Log",
-        "addShortcut": "Adicionar Atalho"
-    },
-    "gamecard": {
-        "repairing": "Reparando",
-        "moving": "Movendo"
+        "move": "Mover o Jogo",
+        "protondb": "Verificar Compatibilidade",
+        "settings": "Configurações",
+        "store": "Loja",
+        "verify": "Verificar e Reparar"
     }
 }

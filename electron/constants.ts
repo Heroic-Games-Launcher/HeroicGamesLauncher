@@ -10,6 +10,7 @@ import {
 } from './types'
 
 
+const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
@@ -22,7 +23,7 @@ const heroicToolsPath = `${heroicFolder}tools`
 const heroicIconFolder = `${heroicFolder}icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows ? `${home}\\Games\\Heroic` : `${home}/Games/Heroic`
-const legendaryBin = fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))
+const legendaryBin = `${fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))}`
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
 const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
@@ -97,6 +98,7 @@ export {
   iconDark,
   iconLight,
   installed,
+  isMac,
   isWindows,
   legendaryBin,
   legendaryConfigPath,

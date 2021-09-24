@@ -7,17 +7,101 @@
         },
         "choose": "Pilih",
         "yes": "IYA",
-        "no": "TIDAK"
+        "no": "TIDAK",
+        "change": {
+            "path": "Pilih jalur instal baru",
+            "title": "Ubah Jalur Instalasi Gim",
+            "message": "Ini akan mengubah lokasi pemasangan gim ini, kamu yakin?"
+        },
+        "installpath": "Pilih Jalur Instal",
+        "importpath": "Pilih Folder Gim untuk diimpor",
+        "update": {
+            "message": "Gim ini memiliki pembaruan, apakah Anda ingin memperbarui sekarang?",
+            "title": "Gim perlu diperbarui"
+        },
+        "uninstall": {
+            "title": "Copot instalasi",
+            "message": "Apakah Anda ingin mencopot instalasi gim ini?"
+        },
+        "stopInstall": {
+            "title": "Hentikan Instalasi",
+            "message": "Apakah Anda ingin MENYIMPAN file yang diunduh?",
+            "keepInstalling": "Tetap Menginstal"
+        },
+        "shortcuts": {
+            "title": "Pintasan",
+            "message": "Pintasan dibuat pada Desktop dan Menu Mulai"
+        },
+        "repair": {
+            "title": "Verifikasi dan Perbaiki",
+            "message": "Apakah Anda ingin mencoba memperbaiki gim ini? Ini bisa memakan waktu lama."
+        },
+        "ok": "Oke"
     },
     "gamecard": {
-        "repairing": "Memperbaiki"
+        "repairing": "Memperbaiki",
+        "moving": "Memindahkan"
     },
     "info": {
-        "version": "Versi"
+        "version": "Versi",
+        "syncsaves": "Sinkronkan Simpanan",
+        "path": "Jalur instal",
+        "size": "Ukuran"
     },
     "button": {
         "import": "Impor",
         "continue": "Lanjutkan Mengunduh",
-        "cancel": "Batalkan"
-    }
+        "cancel": "Batalkan",
+        "update": "Perbarui",
+        "uninstall": "Copot",
+        "install": "Instal"
+    },
+    "install": {
+        "default": "Instal di",
+        "another": "Instal di Jalur lain",
+        "import": "Impor gim"
+    },
+    "status": {
+        "updating": "Memperbarui gim",
+        "totalDownloaded": "Jumlah yang Diunduh",
+        "reparing": "Memperbaiki Gim, harap tunggu",
+        "notSupported": "Gim ini hanya dapat diimpor",
+        "notinstalled": "Gim ini tidak diinstal",
+        "moving": "Memindahkan Instalasi, harap tunggu",
+        "hasUpdates": "Versi Baru Tersedia!",
+        "clickToUpdate": "Klik untuk Memperbarui",
+        "installing": "Menginstal",
+        "installed": "Terinstal"
+    },
+    "submenu": {
+        "move": "Pindahkan gim",
+        "log": "Log Terbaru",
+        "change": "Ubah jalur instal",
+        "addShortcut": "Tambah pintasan",
+        "protondb": "Periksa Kompatibilitas",
+        "verify": "Verifikasi dan Perbaiki",
+        "store": "Halaman Toko",
+        "settings": "Pengaturan"
+    },
+    "specs": {
+        "recommended": "Direkomendasikan",
+        "minimum": "Minimum"
+    },
+    "label": {
+        "saves": {
+            "syncing": "Menyinkronkan Simpanan"
+        },
+        "playing": {
+            "stop": "Memainkan (Berhenti)",
+            "start": "Mainkan sekarang"
+        }
+    },
+    "game": {
+        "totalPlayed": "Waktu Dimainkan",
+        "neverPlayed": "Tak pernah",
+        "lastPlayed": "Terakhir Dimainkan",
+        "firstPlayed": "Pertama Dimainkan"
+    },
+    "enabled": "Aktifkan",
+    "disabled": "Nonaktifkan"
 }

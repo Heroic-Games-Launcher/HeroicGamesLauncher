@@ -1,99 +1,107 @@
 {
-    "submenu": {
-        "verify": "Verifica i repara",
-        "update": "Actualitza el joc",
-        "store": "Botiga",
-        "settings": "Configuració",
-        "protondb": "Comprova la compatibilitat",
-        "move": "Mou el joc",
-        "log": "Últim registre",
-        "change": "Mou la ruta d'instal·lació",
-        "addShortcut": "Afegir drecera"
-    },
-    "status": {
-        "updating": "Actualitzant joc",
-        "totalDownloaded": "Total descarregat",
-        "reparing": "Reparant joc, si us plau esperi",
-        "notinstalled": "Aquest joc no està instal·lat",
-        "moving": "Movent instal·lació, si us plau esperi",
-        "installing": "Instal·lant",
-        "installed": "Instal·lat",
-        "hasUpdates": "Hi ha una nova versió disponible!",
-        "notSupported": "Aquest joc només pot ser importat",
-        "clickToUpdate": "Prem click per actualitzar"
-    },
-    "specs": {
-        "recommended": "Recomenat",
-        "minimum": "Mínim"
-    },
-    "label": {
-        "saves": {
-            "syncing": "Sincronitzant guardats"
-        },
-        "playing": {
-            "stop": "Atura",
-            "start": "Juga'l ara"
-        },
-        "cancel": {
-            "update": "Cancel·la l'actualització"
-        }
-    },
-    "install": {
-        "import": "Importar joc",
-        "default": "Instal·la a",
-        "another": "Instal·la-ho a una altra ruta"
-    },
-    "info": {
-        "version": "Versió",
-        "syncsaves": "Sincronitza els guardats",
-        "size": "Mida",
-        "path": "Ruta d'instal·lació"
-    },
-    "gamecard": {
-        "repairing": "Reparant",
-        "moving": "Movent"
-    },
-    "enabled": "Activat",
-    "disabled": "Desactivat",
-    "button": {
-        "uninstall": "Desinstal·lar",
-        "install": "Instal·lar",
-        "import": "Importar",
-        "continue": "Continuar descarregant",
-        "cancel": "Cancelar"
-    },
     "box": {
-        "yes": "Sí",
-        "update": {
-            "title": "El joc necessita actualitzar-se",
-            "message": "Hi ha una actualització disponible per a aquest joc, vols actualitzar-ho ara?"
+        "change": {
+            "message": "Això canviarà la ruta d'instal·lació d'aquest joc, estàs ben segur?",
+            "path": "Tria una nova ruta d'instal·lació",
+            "title": "Canvia la ruta d'instal·lació dels jocs"
         },
-        "uninstall": {
-            "title": "Desinstal·lar",
-            "message": "Vols desinstal·lar aquest joc?"
-        },
-        "stopInstall": {
-            "title": "Atura la descarga",
-            "message": "Vols mantenir els arxius descargats?",
-            "keepInstalling": "Segueix instal·lant-lo"
-        },
-        "repair": {
-            "title": "Verifica i repara",
-            "message": "Vols intentar reparar aquest joc? Això pot tardar molt de temps."
+        "choose": "Tria",
+        "importpath": "Tria una carpeta per a importar",
+        "installpath": "Tria una ruta d'instal·lació",
+        "move": {
+            "message": "Això pot tardat MOLT de temps, estàs segur?",
+            "path": "Tria a on vols moure el joc",
+            "title": "Mou la ruta d'instal·lació del joc"
         },
         "no": "No",
-        "move": {
-            "title": "Mou la ruta d'instal·lació del joc",
-            "path": "Tria a on vols moure el joc",
-            "message": "Això pot tardat MOLT de temps, estàs segur?"
+        "ok": "Ok",
+        "repair": {
+            "message": "Vols intentar reparar aquest joc? Això pot tardar molt de temps.",
+            "title": "Verifica i repara"
         },
-        "installpath": "Tria una ruta d'instal·lació",
-        "change": {
-            "title": "Canvia la ruta d'instal·lació dels jocs",
-            "message": "Això canviarà la ruta d'instal·lació d'aquest joc, estàs ben segur?",
-            "path": "Tria una nova ruta d'instal·lació"
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
-        "importpath": "Tria una carpeta per a importar",
-        "choose": "Tria"
+        "stopInstall": {
+            "keepInstalling": "Segueix instal·lant-lo",
+            "message": "Vols mantenir els arxius descargats?",
+            "title": "Atura la descarga"
+        },
+        "uninstall": {
+            "message": "Vols desinstal·lar aquest joc?",
+            "title": "Desinstal·lar"
+        },
+        "update": {
+            "message": "Hi ha una actualització disponible per a aquest joc, vols actualitzar-ho ara?",
+            "title": "El joc necessita actualitzar-se"
+        },
+        "yes": "Sí"
+    },
+    "button": {
+        "cancel": "Cancelar",
+        "continue": "Continuar descarregant",
+        "import": "Importar",
+        "install": "Instal·lar",
+        "uninstall": "Desinstal·lar",
+        "update": "Update"
+    },
+    "disabled": "Desactivat",
+    "enabled": "Activat",
+    "game": {
+        "firstPlayed": "First Played",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "totalPlayed": "Time Played"
+    },
+    "gamecard": {
+        "moving": "Movent",
+        "repairing": "Reparant"
+    },
+    "info": {
+        "path": "Ruta d'instal·lació",
+        "size": "Mida",
+        "syncsaves": "Sincronitza els guardats",
+        "version": "Versió"
+    },
+    "install": {
+        "another": "Instal·la-ho a una altra ruta",
+        "default": "Instal·la a",
+        "import": "Importar joc"
+    },
+    "label": {
+        "playing": {
+            "start": "Juga'l ara",
+            "stop": "Atura"
+        },
+        "saves": {
+            "syncing": "Sincronitzant guardats"
+        }
+    },
+    "specs": {
+        "minimum": "Mínim",
+        "recommended": "Recomenat"
+    },
+    "status": {
+        "clickToUpdate": "Prem click per actualitzar",
+        "hasUpdates": "Hi ha una nova versió disponible!",
+        "installed": "Instal·lat",
+        "installing": "Instal·lant",
+        "moving": "Movent instal·lació, si us plau esperi",
+        "notinstalled": "Aquest joc no està instal·lat",
+        "notSupported": "Aquest joc només pot ser importat",
+        "reparing": "Reparant joc, si us plau esperi",
+        "totalDownloaded": "Total descarregat",
+        "updating": "Actualitzant joc"
+    },
+    "submenu": {
+        "addShortcut": "Afegir drecera",
+        "change": "Mou la ruta d'instal·lació",
+        "log": "Últim registre",
+        "move": "Mou el joc",
+        "protondb": "Comprova la compatibilitat",
+        "settings": "Configuració",
+        "store": "Botiga",
+        "verify": "Verifica i repara"
     }
 }

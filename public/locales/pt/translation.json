@@ -146,7 +146,11 @@
         "default-install-path": "Pasta de instalação padrão",
         "discordRPC": "Habilitar Discord Rich Presence",
         "egs-sync": "Sincronizar com Epic Games Store",
+        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Sair para a área de noticação",
+        "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR",
+        "fsync": "Enable Fsync",
         "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
         "language": "Selecionar idioma",
         "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
@@ -163,6 +167,7 @@
         "maxworkers": "CPUs máximos utilizados ao baixar jogos",
         "offlinemode": "Executar o jogo offline",
         "primerun": "Habilitar Nvidia Prime Render",
+        "resizableBar": "Ativar BARRA redimensionável (apenas NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arraste e Solte arquivos aqui",
             "title": "Executar EXE no Prefixo"
@@ -173,6 +178,7 @@
         },
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "start-in-tray": "Iniciar Minimizado",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },

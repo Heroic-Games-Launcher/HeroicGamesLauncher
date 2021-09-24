@@ -1,6 +1,6 @@
 {
     "All": "Todos",
-    "Assets": "Assets",
+    "Assets": "Recursos",
     "box": {
         "appupdate": {
             "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
@@ -8,32 +8,32 @@
         },
         "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-        "customWine": "Seleccione el Wine o Proton binario",
+        "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "Tus credenciales han expirado, por favor reinicia la sesión.",
-                "title": "Credenciales caducadas"
+                "message": "Tus credenciales han expirado, por favor, reinicia la sesión.",
+                "title": "Credenciales expiradas"
             },
             "diskspace": {
                 "message": "No hay suficiente espacio disponible en disco",
-                "title": "No espacio"
+                "title": "Sin espacio"
             },
             "generic": {
-                "message": "Un error desconocido a ocurrido",
+                "message": "Ha ocurrido un error desconocido",
                 "title": "Error desconocido"
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "No se encontró el registro para este juego",
+                "title": "Registro no encontrado"
             },
             "title": "Error"
         },
         "no": "No",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "No está instalado, ¿quieres instalarlo?"
             }
         },
         "quit": {
@@ -135,18 +135,21 @@
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
+        "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
+        "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
+        "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
@@ -159,10 +162,11 @@
             "title": "Guardado de sincronización manual",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Juegos recientes mostrados",
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
+        "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"
@@ -172,7 +176,8 @@
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Iniciar minimizado",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
         "wineversion": "Versión de Wine"
     },
@@ -197,7 +202,7 @@
         "show": "Mostrar",
         "support": "Apoyanos"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
+    "Unreal Marketplace": "Tienda de Unreal",
     "Updates": "Actualizaciones",
     "userselector": {
         "about": "Acerca",

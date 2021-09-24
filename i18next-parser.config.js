@@ -42,18 +42,16 @@ module.exports = {
   // see below for more details
   lexers: {
     ts: ['JavascriptLexer'],
-    tsx: [
-      {
-        attr: 'i18nKey', // Attribute for the keys
-        lexer: 'JsxLexer'
-      }
-    ]
+    tsx: [{
+      attr: 'i18nKey', // Attribute for the keys
+      lexer: 'JsxLexer'
+    }]
   },
 
   lineEnding: 'auto',
   // Control the line ending. See options at https://github.com/ryanve/eol
 
-  locales: ['de', 'el', 'en', 'es', 'fr', 'nl', 'pl', 'pt', 'ru', 'cs', 'tr', 'hu', 'it', 'ml', 'sv', 'zh_Hans'],
+  locales: ['ca', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hr', 'hu', 'ko', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans', 'zh_Hant'],
   // An array of the locales in your applications
 
   namespaceSeparator: ':',

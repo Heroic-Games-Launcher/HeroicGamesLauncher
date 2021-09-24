@@ -3,21 +3,26 @@ interface About {
   shortDescription: string
 }
 export interface AppSettings {
-  addDesktopShortcuts: boolean,
-  addStartMenuShortcuts: boolean,
-  audioFix: boolean,
+  addDesktopShortcuts: boolean
+  addStartMenuShortcuts: boolean
+  audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
   darkTrayIcon: boolean
-  defaultInstallPath: string,
-  discordRPC: boolean,
+  defaultInstallPath: string
+  discordRPC: boolean
   egsLinkedPath: string
   exitToTray: boolean
+  enableEsync: boolean
+  enableFSR: boolean
+  enableFsync: boolean
+  enableResizableBar: boolean
   language: string
   launcherArgs: string
   maxRecentGames: number
+  maxSharpness: number
   maxWorkers: number
   nvidiaPrime: boolean
   offlineMode: boolean
@@ -27,6 +32,7 @@ export interface AppSettings {
   showMangohud: boolean
   startInTray: boolean
   useGameMode: boolean
+  wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
 }
@@ -36,6 +42,7 @@ export interface ContextType {
   data: GameInfo[]
   error: boolean
   filter: string
+  filterText: string
   gameUpdates: string[]
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void
@@ -56,23 +63,23 @@ interface ExtraInfo {
 }
 
 export interface GameInfo {
-  app_name: string,
-  art_cover: string,
-  art_logo: string,
-  art_square: string,
-  cloud_save_enabled: boolean,
-  compatible_apps: string[],
-  developer: string,
-  extra: ExtraInfo,
-  folder_name: string,
-  install: InstalledInfo,
-  is_game: boolean,
-  is_installed: boolean,
-  is_ue_asset: boolean,
-  is_ue_plugin: boolean,
-  is_ue_project: boolean,
-  namespace: unknown,
-  save_folder: string,
+  app_name: string
+  art_cover: string
+  art_logo: string
+  art_square: string
+  cloud_save_enabled: boolean
+  compatible_apps: string[]
+  developer: string
+  extra: ExtraInfo
+  folder_name: string
+  install: InstalledInfo
+  is_game: boolean
+  is_installed: boolean
+  is_ue_asset: boolean
+  is_ue_plugin: boolean
+  is_ue_project: boolean
+  namespace: unknown
+  save_folder: string
   title: string
 }
 

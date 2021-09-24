@@ -3,96 +3,109 @@
         "uninstall": "Poista",
         "install": "Asenna",
         "import": "Tuo",
-        "continue": "Jatka Lataamista",
-        "cancel": "Peruuta"
+        "continue": "Jatka latausta",
+        "cancel": "Peruuta",
+        "update": "Päivitä"
     },
     "box": {
         "yes": "KYLLÄ",
         "update": {
-            "title": "Peli Tarvitsee Päivityksen",
-            "message": "Tällä pelillä on päivitys, haluatko päivittää nyt?"
+            "title": "Peli tarvitsee päivityksen",
+            "message": "Tälle pelille on saatavilla päivitys, haluatko päivittää sen nyt?"
         },
         "uninstall": {
             "title": "Poista",
             "message": "Haluatko poistaa pelin?"
         },
         "stopInstall": {
-            "title": "Pysäytä Asennus",
-            "message": "Haluatko PITÄÄ ladatut tiedostot?",
-            "keepInstalling": "Jatka Asentamista"
+            "title": "Pysäytä asennus",
+            "message": "Haluatko SÄILYTTÄÄ ladatut tiedostot?",
+            "keepInstalling": "Jatka asennusta"
         },
         "repair": {
-            "title": "Vahvista ja Korjaa",
+            "title": "Vahvista ja korjaa",
             "message": "Haluatko yrittää korjata tämän pelin? Tämä prosessi voi viedä paljon aikaa."
         },
         "no": "EI",
         "move": {
-            "title": "Siirrä Pelin Asennus",
+            "title": "Siirrä pelin asennus",
             "path": "Valitse, minne haluat siirtää",
             "message": "Tämä prosessi voi viedä paljon aikaa, haluatko jatkaa?"
         },
         "change": {
-            "title": "Vaihda Pelin Asennussijainti",
-            "path": "Valitse uusi asennussijainti",
-            "message": "Tämä tulee vaihtaa pelin asennussijainnin, haluatko jatkaa?"
+            "title": "Vaihda pelin asennuksen sijaintia",
+            "path": "Valitse uusi sijainti asennukselle",
+            "message": "Tämä vaihtaa pelin asennuksen sijaintia, haluatko jatkaa?"
         },
-        "installpath": "Valitse Asennussijainti",
-        "importpath": "Valitse pelin kansio tuotavaksi",
-        "choose": "Valitse"
+        "installpath": "Valitse asennuksen sijainti",
+        "importpath": "Valitse tuotavan pelin kansio",
+        "choose": "Valitse",
+        "shortcuts": {
+            "title": "Pikakuvakkeet",
+            "message": "Pikakuvakkeet tehtiin työpöydälle sekä aloitusvalikkoon"
+        },
+        "ok": "Ok"
     },
     "submenu": {
-        "verify": "Vahvista ja Korjaa",
+        "verify": "Vahvista ja korjaa",
         "update": "Päivitä Peli",
-        "store": "Kaupan Sivu",
+        "store": "Kauppasivu",
         "settings": "Asetukset",
-        "protondb": "Tarkista Yhteensopivuus",
-        "move": "Siirrä Peli",
-        "log": "Uusin Lokitiedosto",
-        "change": "Vaihda asennussijainti",
+        "protondb": "Tarkista yhteensopivuus",
+        "move": "Siirrä peli",
+        "log": "Uusin lokitiedosto",
+        "change": "Vaihda asennussijaintia",
         "addShortcut": "Lisää pikakuvake"
     },
     "status": {
-        "updating": "Päivitetään Peliä",
-        "totalDownloaded": "Ladattu Yhteensä",
-        "reparing": "Korjataan Peliä, odottakaa",
-        "notinstalled": "Tämä peli ei ole asennettu",
-        "moving": "Siirretään Asennus, odottakaa",
+        "updating": "Päivitetään peliä",
+        "totalDownloaded": "Ladattu yhteensä",
+        "reparing": "Korjataan peliä, odota",
+        "notinstalled": "Tätä peliä ei ole asennettu",
+        "moving": "Siirretään asennusta, odota",
         "installing": "Asennetaan",
         "installed": "Asennettu",
-        "hasUpdates": "Uusi Versio Saatavilla!",
-        "clickToUpdate": "Päivitä"
+        "hasUpdates": "Uusi versio saatavilla!",
+        "clickToUpdate": "Päivitä",
+        "notSupported": "Tämä peli voidaan vain tuoda"
     },
     "specs": {
-        "recommended": "Suositellaan",
+        "recommended": "Suositeltu",
         "minimum": "Minimi"
     },
     "info": {
-        "syncsaves": "Synkronoi Tallenteet",
+        "syncsaves": "Synkronoi tallennukset",
         "version": "Versio",
         "size": "Koko",
-        "path": "Asennussijainti"
+        "path": "Asennuksen sijainti"
     },
     "label": {
         "saves": {
-            "syncing": "Synkronoidaan Tallenteet"
+            "syncing": "Synkronoidaan tallennuksia"
         },
         "playing": {
-            "stop": "Pelataan (Pysäytä)",
-            "start": "Pelaa Nyt"
+            "stop": "Pelataan (pysäytä)",
+            "start": "Pelaa nyt"
         },
         "cancel": {
             "update": "Peruuta Päivitys"
         }
     },
     "install": {
-        "import": "Tuo Peli",
-        "default": "Asentaa",
-        "another": "Asenna toiselle Sijainille"
+        "import": "Tuo peli",
+        "default": "Asenna sijaintiin",
+        "another": "Asenna toiseen sijaintiin"
     },
     "gamecard": {
         "repairing": "Korjataan",
         "moving": "Siirretään"
     },
     "enabled": "Käytössä",
-    "disabled": "Pois käytöstä"
+    "disabled": "Pois käytöstä",
+    "game": {
+        "totalPlayed": "Pelattu aika",
+        "neverPlayed": "Ei koskaan",
+        "lastPlayed": "Viimeksi pelattu",
+        "firstPlayed": "Ensimmäisen kerran pelattu"
+    }
 }

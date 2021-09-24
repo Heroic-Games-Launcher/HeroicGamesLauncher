@@ -44,10 +44,6 @@
             "title": "Välj EXE-fil att köra"
         },
         "select": "Kör",
-        "shortcuts": {
-            "message": "Genvägar skapades på skrivbordet och startmenyn",
-            "title": "Genvägar"
-        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
@@ -135,7 +131,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Ready": "Nedladdade",
-    "Recent": "Recent Games",
+    "Recent": "Senast spelade",
     "Return": "Tillbaka",
     "search": "Skriv in spelets namn här...",
     "setting": {
@@ -146,11 +142,15 @@
         "autosync": "Autosynkronisera sparfiler",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
-        "darktray": "Använd mörk ikon i sytembrickan",
+        "darktray": "Använd mörk ikon i systembrickan",
         "default-install-path": "Standard installationssökväg",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
+        "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Avsluta till systembrickan",
+        "FsrSharpnessStrenght": "FSR Skärpanivå",
+        "fsync": "Enable Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
@@ -163,10 +163,11 @@
             "title": "Manuell sparfilssynkronisering",
             "upload": "Ladda upp"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Antal senaste spel som visas",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
+        "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"
@@ -177,6 +178,7 @@
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "start-in-tray": "Starta minimerad",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },

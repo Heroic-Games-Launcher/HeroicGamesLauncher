@@ -3,80 +3,80 @@
     "Assets": "Assets",
     "box": {
         "appupdate": {
-            "message": "Er is een nieuwe versie van Heroic beschikbaar, wil je hem nu updaten?",
+            "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u het nu updaten?",
             "title": "Update beschikbaar"
         },
-        "choose": "Kies",
-        "choose-egs-prefix": "Kies een prefix waar EGS zijn geïnstalleerd",
+        "choose": "Selecteer",
+        "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
         "customWine": "Selecteer de Wine of Proton Binary",
-        "default-install-path": "Kies een standaard map",
+        "default-install-path": "Selecteer een standaard map",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
-                "title": "Expired Credentials"
+                "message": "Uw inloggegevens zijn verlopen, gelieven uit te loggen en weer inloggen.",
+                "title": "Verlopen Inloggegevens"
             },
             "diskspace": {
-                "message": "Geen ruimte beschikbaar op de harde schijf",
+                "message": "Niet genoeg ruimte beschikbaar op de harde schijf",
                 "title": "Niet genoeg opslag"
             },
             "generic": {
                 "message": "Er is een onbekende fout opgetreden",
                 "title": "Onbekende fout"
             },
-            "launch": "Een probleem tijdens het lanceren van een spel, check de logs!",
+            "launch": "Een probleem tijdens het lanceren van het spel, check de logs!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Geen Log was gevonden voor dit spel",
+                "title": "Geen Log gevonden"
             },
             "title": "Error"
         },
         "no": "NEE",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Is niet geïnstalleerd, wilt u het installeren?"
             }
         },
         "quit": {
-            "message": "Er zijn lopende processen, weet je het zeker?",
-            "title": "Stoppen"
+            "message": "Er zijn processen in afwachting, weet u het zeker?",
+            "title": "Sluiten"
         },
         "runexe": {
             "title": "Selecteer EXE on te lanceren"
         },
         "select": "Selecteren",
         "sync": {
-            "button": "Kies",
-            "error": "Incorrect map",
-            "title": "Kies de saves map"
+            "button": "Selecteer",
+            "error": "Ongeldig Pad",
+            "title": "Selecteer de saves directory"
         },
-        "wineprefix": "Kies een Wine prefix map",
-        "yes": "Ja"
+        "wineprefix": "Selecteer een Wine Prefix Folder",
+        "yes": "JA"
     },
     "button": {
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren"
     },
-    "Downloading": "Downloads",
+    "Downloading": "Aan het downloaden",
     "Filter": "Filter",
-    "Games": "Games",
+    "Games": "Spellen",
     "globalSettings": "Algemene instellingen",
     "help": {
-        "general": "Synchronisatie met EGS voor het geval je elders een werkende installatie van de Epic Games Store hebt en je games wilt importeren om ze opnieuw te downloaden.",
+        "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "other": {
             "part1": "Gebruik de ",
-            "part2": "Geavanceerde opties",
-            "part3": "voor opdrachten of parameters voor het lanceren van het spel; ",
+            "part2": "Geavanceerde Opties",
+            "part3": "om opgeroept te worden voordat het spel gelanceerd wordt; ",
             "part4": "Gebruik de ",
-            "part5": "Spel argumenten",
-            "part6": "voor opdrachten of parameters na het lanceren van het spel, voor bijvoorbeeld: ",
-            "part7": " om de launcher in sommige games over te slaan."
+            "part5": "Spel Argumenten",
+            "part6": " om opgeroept te worden na het lanceer commando, bijvoorbeeld: ",
+            "part7": " om de launcher in sommige spellen over te slaan."
         },
         "sync": {
-            "part1": "Heroic probeert de juiste opslagmap te vinden en dit zal over het algemeen werken. wanneer dit niet werkt, gebruik de overschijf-box om het te wijzigen.",
-            "part2": "Als je de prefix map voor Wine of Proton wijzigt, moet je het pad opnieuw controleren sinds Proton een ander prefix (/pfx) en gebruikersnaam (steamuser) gebruikt. Je kunt dus eenvoudig het huidige pad wissen dat je uitkomt uit de pagina Synchronisatie-instellingen en weer terug te gaan voor Heroic om de map nog een keer met het juiste voorvoegsel te raden.",
+            "part1": "Heroic probeert de juiste opslagmap te raden en dit zal over het algemeen werken. wanneer dit niet werkt, gebruik de overschijf-box om het te wijzigen.",
+            "part2": "Als je de prefix map voor Wine of Proton wijzigt, moet u het pad opnieuw controleren sinds Proton een ander prefix (/pfx) en gebruikersnaam (steamuser) gebruikt. u kunt dus het huidige pad wissen dat u uitkomt uit de pagina Synchronisatie-instellingen en weer terug te gaan voor Heroic om de map alweer met het juiste voorvoegsel te raden.",
             "part3": "Handmatige synchronisatie: Kies 'Downloaden' om de spel saves te downloaden die zijn opgeslagen in de cloud. 'Upload' om de lokale saves te uploaden naar de cloud. 'Force Download' en 'Force Upload' negeert de versie die lokaal of in de cloud is.",
-            "part4": "Synchroniseren van saves synchroniseerd elke keer wanneer je een spel start of nadat je een spel afsluit"
+            "part4": "Automatishe synchronisatie van saves synchroniseerd elke keer wanneer u een spel start of afsluit."
         },
         "wine": {
             "part1": "Heroic zoekt naar versies van Wine en Proton op de volgende mappen:",
@@ -88,7 +88,7 @@
     },
     "infobox": {
         "help": "Help",
-        "requirements": "Systeem Vereisten"
+        "requirements": "Systeemvereisingen"
     },
     "Library": "Bibliotheek",
     "message": {
@@ -96,17 +96,17 @@
         "unsync": "De-synchronisatie compleet"
     },
     "nogames": "Geen spellen gevonden",
-    "Not Ready": "Beschikbaar",
+    "Not Ready": "Niet klaar",
     "notify": {
         "finished": {
-            "reparing": "Klaar met reparatie"
+            "reparing": "Klaar met de reparatie"
         },
         "install": {
             "canceled": "Installatie geannuleerd",
             "finished": "Installatie is voltooid"
         },
         "moved": "Klaar met verplaatsing",
-        "uninstalled": "Klaar met deinstallatie",
+        "uninstalled": "Verwijderd",
         "update": {
             "canceled": "Update geannuleerd",
             "finished": "Update is voltooid"
@@ -119,60 +119,66 @@
         },
         "gameargs": {
             "placeholder": "Hier je lanceer opties plaatsen",
-            "title": "Spel argumenten (Om na het commando te runnen)"
+            "title": "Spel argumenten (Om na het commando te draaien):"
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "weblate": "Help met het vertalen van Heroic."
     },
     "placeholder": {
-        "egs-prefix": "Prefix waar EGS zijn geïnstalleerd"
+        "egs-prefix": "Prefix waar EGS is geïnstalleerd"
     },
     "Plugins": "Plugins",
-    "Projects": "Projects",
-    "Ready": "Geïnstalleerd",
-    "Recent": "Recent Games",
+    "Projects": "Projecten",
+    "Ready": "Gereed",
+    "Recent": "Recente Spellen",
     "Return": "Terug",
     "search": "Voor je spel naam hier in...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
+        "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
-        "default-install-path": "Standaard installatie map",
-        "discordRPC": "Enable Discord Rich Presence",
+        "default-install-path": "Standaard installatie pad",
+        "discordRPC": "\"Discord Rich Presence\" inschakelen",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
-        "exit-to-tray": "Stoppen naar systeem tray",
-        "gamemode": "Gebruik spel-modus (Feral Game Mode moet zijn geïnstalleerd)",
-        "language": "Kies een App taal",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "esync": "Enable Esync",
+        "exit-to-tray": "Afsluiten naar systeemvak",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
+        "language": "Selecteer een App taal",
         "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
         "manualsync": {
             "download": "Download",
-            "forcedownload": "Force Download",
-            "forceupload": "Force Upload",
-            "sync": "Sync",
-            "syncing": "Syncing",
+            "forcedownload": "Forceer Download",
+            "forceupload": "Forceer Upload",
+            "sync": "Synchroniseren",
+            "syncing": "Synchroniseren",
             "title": "Handmatige synchronisatie van saves",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Recente spellen om te tonen",
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
-        "offlinemode": "Spel offline spelen",
-        "primerun": "Enable Nvidia Prime Render",
+        "offlinemode": "Spel offline draaien",
+        "primerun": "Aciveer Nvidia Prime Render",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Sleep de bestanden hier",
-            "title": "Voer EXE ui op Prefix"
+            "title": "Voer EXE uit op Prefix"
         },
         "savefolder": {
             "placeholder": "Selecteer de exacte opslagmap",
             "title": "Overschijf cloud synchronisatie save map"
         },
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
-        "start-in-tray": "Start Minimized",
+        "start-in-tray": "Start Geminimaliseerd",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie"
     },
@@ -181,10 +187,10 @@
         "navbar": {
             "general": "Algemeen",
             "other": "Overig",
-            "sync": "Synchronisatie"
+            "sync": "Save-synchronisatie"
         }
     },
-    "store": "Store",
+    "store": "Winkel",
     "tooltip": {
         "addpath": "Voeg een nieuw pad toe",
         "removepath": "Pad verwijderen"
@@ -194,18 +200,18 @@
         "about": "Over",
         "quit": "Stoppen",
         "reload": "Herladen",
-        "show": "Laten zien",
+        "show": "Tonen",
         "support": "Steun ons"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
+    "Unreal Marketplace": "Unreal Marktplaats",
     "Updates": "Updates",
     "userselector": {
         "about": "Over",
         "discord": "Discord",
         "logout": "Log uit",
-        "logout_confirmation": "Logout?",
+        "logout_confirmation": "weet u zeker dat u wil uitloggen?",
         "quit": "Sluiten",
-        "refresh": "Herladen",
+        "refresh": "Bibliotheek herladen",
         "support": "Steun ons"
     },
     "wiki": "Wiki"

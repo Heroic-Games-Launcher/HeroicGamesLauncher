@@ -20,8 +20,8 @@
             "title": "Verificar e Reparar"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Atalhos foram criados na Área de trabalho and Menu de aplicações",
+            "title": "Atalhos"
         },
         "stopInstall": {
             "keepInstalling": "Continuar Instalação",
@@ -43,15 +43,16 @@
         "continue": "Continuar Download",
         "import": "Importar",
         "install": "Instalar",
-        "uninstall": "Desinstalar"
+        "uninstall": "Desinstalar",
+        "update": "Update"
     },
     "disabled": "Desabilitado",
     "enabled": "Habilitado",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "firstPlayed": "Jogado pela primeira vez",
+        "lastPlayed": "Jogado pela última vez",
+        "neverPlayed": "Nunca",
+        "totalPlayed": "Tempo de Jogo"
     },
     "gamecard": {
         "moving": "Movendo",

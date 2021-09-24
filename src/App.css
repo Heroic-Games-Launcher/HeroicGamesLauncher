@@ -25,7 +25,7 @@
   cursor: pointer;
   padding: 0.75rem;
   border-radius: 10px;
-  background: var(--background-secondary);
+  background: var(--background);
   color: #1a1b1c;
   text-transform: uppercase;
   font-family: Rubik;
@@ -89,12 +89,12 @@
 .button.is-success:hover:disabled,
 .button.is-success:disabled {
   background: var(--background);
-  color: #b0abb6;
+  color: var(--text-primary);
 }
 
 .button.is-danger {
   background: var(--tertiary);
-  color: var(--danger);
+  color: var(--text-danger);
 }
 
 .button.is-danger:hover {
@@ -103,7 +103,7 @@
 
 .button.is-danger:disabled {
   background: var(--background);
-  color: #b0abb6;
+  color: var(--text-primary);
 }
 
 .material-icons.is-primary {

@@ -12,7 +12,7 @@
         "default-install-path": "Choose Default Install Path",
         "error": {
             "credentials": {
-                "message": "Your credentials have expired, please logout and login again.",
+                "message": "Your credentials have expired, please log out and log in again.",
                 "title": "Expired Credentials"
             },
             "diskspace": {
@@ -79,7 +79,7 @@
             "part4": "Sync Saves Automatically will sync the saves every time you Start a Game and after finishing playing."
         },
         "wine": {
-            "part1": "Heroic searches for versions of Wine and Proton on the following folders:",
+            "part1": "Heroic searches for versions of Wine, Proton, and CrossOver in the following folders:",
             "part2": "For other places, use a symbolic link to one of these folders"
         }
     },
@@ -146,7 +146,11 @@
         "default-install-path": "Default Installation Path",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sync with Installed Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",
         "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
@@ -163,6 +167,7 @@
         "maxworkers": "Maximum Number of Workers when downloading",
         "offlinemode": "Run Game Offline",
         "primerun": "Enable Nvidia Prime Render",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX 30xx only)",
         "runexe": {
             "message": "Drag and Drop Files here",
             "title": "Run EXE on Prefix"
@@ -173,6 +178,7 @@
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
         "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"
     },
