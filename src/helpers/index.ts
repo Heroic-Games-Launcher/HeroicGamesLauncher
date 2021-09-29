@@ -161,21 +161,21 @@ async function fixSaveFolder(
 
   if (folder.includes('roaming')) {
     return folder.replace(
-      '{appdata}/../roaming/',
+      '{appdata}/../roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('{appdata}/../Roaming/')) {
     return folder.replace(
-      '{appdata}/../Roaming/',
+      '{appdata}/../Roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('Roaming')) {
     return folder.replace(
-      '{AppData}/../Roaming/',
+      '{AppData}/../Roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
