@@ -21,7 +21,6 @@ import {
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import Header from 'src/components/UI/Header'
 import InfoBox from 'src/components/UI/InfoBox'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
@@ -190,7 +189,6 @@ export default function GamePage(): JSX.Element | null {
 
     return (
       <>
-        <Header goTo={'/'} renderBackButton />
         <div className="gameConfigContainer">
           {title ? (
             <>

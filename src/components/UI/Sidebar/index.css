@@ -1,12 +1,58 @@
 .sidebar {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 275px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background: var(--background-secondary);
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
-  box-shadow: 0px 4.00313px 10.0078px #161616;
+    height: 100%;
+    width: 275px;
+    position: fixed;
+    z-index: 1;
+    background: var(--background-secondary);
+    overflow-x: hidden;
+    padding-top: 20px;
+    box-shadow: 0px 4.00313px 10.0078px #161616;
+    display: grid;
+    grid-template-rows: 5fr 2fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'links' 'utils' 'user';
+    grid-area: sidebar;
+}
+
+.sidebar .Links {
+    font-size: 20px;
+    line-height: 23.7px;
+    font-weight: 400;
+    height: fit-content;
+    font-family: 'Rubik', sans-serif;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    grid-area: links;
+    text-align: left;
+    margin-left: 24px;
+    line-height: 36px;
+}
+
+.subItem {
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 14px;
+    line-height: 28px;
+}
+
+.subItem:hover {
+    color: var(--secondary);
+    transition: 300ms;
+}
+
+.subItem::before {
+    content: '- ';
+}
+
+.subItem.selected {
+    color: var(--secondary)
+}
+
+.sidebar .UserSelector {
+    grid-area: user;
+}
+
+a:hover {
+    color: var(--primary);
 }

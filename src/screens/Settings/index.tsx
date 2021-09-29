@@ -13,7 +13,7 @@ import {
 import { IpcRenderer } from 'electron'
 import {
   NavLink,
-  useLocation,
+  // useLocation,
   useParams
 } from 'react-router-dom'
 import {
@@ -23,7 +23,6 @@ import {
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import Header from 'src/components/UI/Header'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import GeneralSettings from './components/GeneralSettings'
@@ -43,15 +42,15 @@ interface RouteParams {
   type: string
 }
 
-interface LocationState {
-  fromGameCard: boolean
-}
+// interface LocationState {
+//   fromGameCard: boolean
+// }
 
 // TODO: add feedback when launching winecfg and winetricks
 
 function Settings() {
   const { t, i18n } = useTranslation()
-  const { state } = useLocation() as { state: LocationState }
+  // const { state } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -288,10 +287,10 @@ function Settings() {
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
-  let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
-  if (state && state.fromGameCard) {
-    returnPath = '/'
-  }
+  // let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
+  // if (state && state.fromGameCard) {
+  //   returnPath = '/'
+  // }
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
@@ -303,7 +302,6 @@ function Settings() {
 
   return (
     <>
-      <Header goTo={returnPath} renderBackButton title={title} />
       <div className="Settings">
         <div className="settingsNavbar">
           {isDefault && (
@@ -328,6 +326,7 @@ function Settings() {
           }
         </div>
         <div className="settingsWrapper">
+          {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
           {isGeneralSettings && (
             <GeneralSettings
               egsPath={egsPath}
