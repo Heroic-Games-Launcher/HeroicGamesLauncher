@@ -111,6 +111,7 @@ async function createWindow(): Promise<BrowserWindow> {
     minWidth: 1100,
     show: !(exitToTray && startInTray),
     webPreferences: {
+      webviewTag: true,
       contextIsolation: false,
       nodeIntegration: true
     },
