@@ -36,7 +36,6 @@ import {
   InstallProgress
 } from 'src/types'
 
-import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import GamePicture from '../GamePicture'
 import GamesSubmenu from '../GameSubMenu'
 import TimeContainer from '../TimeContainer'
@@ -57,7 +56,6 @@ interface RouteParams {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
-  const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
 
   const {
     libraryStatus,
@@ -79,7 +77,7 @@ export default function GamePage(): JSX.Element | null {
     percent: '0.00%'
   } as InstallProgress)
   const [defaultPath, setDefaultPath] = useState('...')
-  const [installPath, setInstallPath] = useState(notSupported ? 'import' : 'default')
+  const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -269,10 +267,10 @@ export default function GamePage(): JSX.Element | null {
                       value={installPath}
                       className="settingSelect"
                     >
-                      {!notSupported && <option value={'default'}>{`${t(
+                      <option value={'default'}>{`${t(
                         'install.default'
-                      )} ${defaultPath.replaceAll("'", '')}`}</option>}
-                      {!notSupported && <option value={'another'}>{t('install.another')}</option>}
+                      )} ${defaultPath.replaceAll("'", '')}`}</option>
+                      <option value={'another'}>{t('install.another')}</option>
                       <option value={'import'}>{t('install.import')}</option>
                     </select>
                   )}
@@ -374,10 +372,6 @@ export default function GamePage(): JSX.Element | null {
 
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
-
-    if (notSupported && !is_installed){
-      return  `${t('status.notSupported', 'This game can only be imported')}`
-    }
 
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`

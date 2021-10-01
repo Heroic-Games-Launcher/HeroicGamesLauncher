@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import './index.css'
 import { InstallProgress } from 'src/types'
-import { NOT_SUPPORTED_GAMES } from 'src/constants'
 
 import { UpdateComponent } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
@@ -17,7 +16,6 @@ type Props = {
 const storage: Storage = window.localStorage
 
 export default function InstallModal({appName, backdropClick}: Props) {
-  const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
   const {handleGameStatus} = useContext(ContextProvider)
   const [title, setTitle] = useState('')
 
@@ -51,12 +49,12 @@ export default function InstallModal({appName, backdropClick}: Props) {
         <div className="modal">
           <span className="title">{title}</span>
           <div className="buttonsContainer">
-            {!notSupported && <button
+            <button
               onClick={() => handleInstall('another')}
               className={`button is-primary`}
             >
               Install
-            </button>}
+            </button>
             <button
               onClick={() => handleInstall('import')}
               className={`button is-tertiary`}

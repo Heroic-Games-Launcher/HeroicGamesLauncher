@@ -311,7 +311,7 @@ Categories=Game;
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} --skip-sdl ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
     try {
       LegendaryLibrary.get().installState(this.appName, true)
