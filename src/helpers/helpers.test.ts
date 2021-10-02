@@ -12,7 +12,9 @@ interface Props {
   previousProgress: InstallProgress
   progress: InstallProgress
   setInstallPath?: (path: string) => void
-  t: (str: string) => string
+  t: (str: string) => string,
+  installDlcs: boolean,
+  sdlList: Array<string>
 }
 
 async function callHandleInstall(props: Partial<Props> = {}) {
@@ -21,6 +23,8 @@ async function callHandleInstall(props: Partial<Props> = {}) {
     handleGameStatus: () => new Promise(() => { return; }),
     installPath: 'default',
     isInstalling: false,
+    installDlcs: false,
+    sdlList: [],
     previousProgress: {
       bytes: '0',
       eta: '0',
@@ -46,7 +50,7 @@ describe('handleInstall', () => {
   test('install game on default path', async () => {
     const onHandleGameStatus = jest.fn();
     await callHandleInstall({handleGameStatus: onHandleGameStatus});
-    expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', 'path': 'default/install/path' });
+    expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', installDlcs: false, 'path': 'default/install/path', sdlList: [] });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.invoke).toBeCalledWith('requestSettings', 'default');
     expect(onHandleGameStatus).toBeCalledWith({'appName': 'game', 'status': 'installing'});
@@ -131,7 +135,7 @@ describe('handleInstall', () => {
     test_opendialog.set({path: 'another/path'});
     await callHandleInstall({  handleGameStatus: onHandleGameStatus, installPath: 'another' });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
-    expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', 'path': '\'another/path\'' });
+    expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', 'path': '\'another/path\'', installDlcs: false, sdlList: [] });
     expect(onHandleGameStatus).toBeCalledWith({ 'appName': 'game', 'status': 'installing' });
     expect(onHandleGameStatus).toBeCalledWith({ 'appName': 'game', 'status': 'done' });
     expect(ipcRenderer.invoke).toBeCalledWith(
