@@ -298,6 +298,10 @@ Categories=Game;
     unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
   }
 
+  private getSdlList(sdlList: Array<string>){
+    return sdlList.map(tag => `--install-tag ${tag}`).join(' ').replaceAll("'", '')
+  }
+
   /**
    * Install game.
    * Does NOT check for online connectivity.
@@ -309,7 +313,7 @@ Categories=Game;
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' :''
-    const installSdl = sdlList.length ? `--install-tag ${sdlList.join(' ')}` : '--skip-sdl'
+    const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
