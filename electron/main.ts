@@ -1,3 +1,4 @@
+import { InstallParams } from './types';
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -622,13 +623,14 @@ ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string])
   return showErrorBox(title, content)
 })
 
-ipcMain.handle('install', async (event, args) => {
-  const { appName: game, path } = args
+
+ipcMain.handle('install', async (event, params) => {
+  const { appName: game, path, installDlcs, sdlList } = params as InstallParams
   if (!(await isOnline())) {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return Game.get(game).install(path).then(
+  return Game.get(game).install({path, installDlcs, sdlList}).then(
     () => { logInfo('finished installing') }
   ).catch((res) => res)
 })

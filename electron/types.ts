@@ -166,3 +166,16 @@ export interface WineInstallation {
   bin: string
   name: string
 }
+
+export interface InstallArgs {
+  path: string
+  installDlcs?: boolean
+  sdlList?: Array<string>
+}
+
+export interface InstallParams {
+  appName: string
+  path: string
+  installDlcs?: boolean
+  sdlList?: Array<string>
+}

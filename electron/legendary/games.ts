@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import { BrowserWindow } from 'electron';
 import { DXVK } from '../dxvk'
-import { ExtraInfo, GameStatus } from '../types';
+import { ExtraInfo, GameStatus, InstallArgs } from '../types';
 import { Game } from '../games';
 import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
@@ -304,14 +304,16 @@ Categories=Game;
    *
    * @returns Result of execAsync.
    */
-  public async install(path: string) {
+  public async install({path, installDlcs, sdlList}: InstallArgs) {
     this.state.status = 'installing'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const withDlcs = installDlcs ? '--with-dlcs' :''
+    const installSdl = sdlList.length ? `--install-tag ${sdlList.join(' ')}` : '--skip-sdl'
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} --skip-sdl ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
     try {
       LegendaryLibrary.get().installState(this.appName, true)
