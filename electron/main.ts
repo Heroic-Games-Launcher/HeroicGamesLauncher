@@ -581,7 +581,7 @@ ipcMain.handle('launch', async (event, game: string) => {
     )
     if (stderr.includes('Errno')) {
       showErrorBox(
-        i18next.t('box.error', 'Something Went Wrong'),
+        i18next.t('box.error.title', 'Something Went Wrong'),
         i18next.t(
           'box.error.launch',
           'Error when launching the game, check the logs!'
