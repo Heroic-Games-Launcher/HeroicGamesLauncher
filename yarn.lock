@@ -5267,7 +5267,7 @@ electron-publish@22.11.7:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron-store@^8.0.0:
+electron-store@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/electron-store/-/electron-store-8.0.1.tgz#9b598c1d2edeffebee9d8c1cd957ad368c528925"
   integrity sha512-ZyLvNywiqSpbwC/pp89O/AycVWY/UJIkmtyzF2Bd0Nm/rLmcFc0NTGuLdg6+LE8mS8qsiK5JMoe4PnrecLHH5w==
@@ -5294,10 +5294,10 @@ electron-updater@^4.3.9:
     lodash.isequal "^4.5.0"
     semver "^7.3.5"
 
-electron@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-15.0.0.tgz#b1b6244b1cffddf348c27c54b1310b3a3680246e"
-  integrity sha512-LlBjN5nCJoC7EDrgfDQwEGSGSAo/o08nSP5uJxN2m+ZtNA69SxpnWv4yPgo1K08X/iQPoGhoZu6C8LYYlk1Dtg==
+electron@^15.1.0:
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-15.1.0.tgz#a57f6978b5e8ef1918429b8c62f918868258f5a3"
+  integrity sha512-QZJKZdrOG2G9lyOrDpCHh+arMrj7ZVVBulrukhNXwCeCEHgNLTVULEQzMOB9AVXUbIs+FthcddlMgcgpaErohw==
   dependencies:
     "@electron/get" "^1.13.0"
     "@types/node" "^14.6.2"
@@ -6594,7 +6594,7 @@ graceful-fs@^4.0.0, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
 
-graceful-fs@^4.2.6:
+graceful-fs@^4.2.8:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.8.tgz#e412b8d33f5e006593cbd3cee6df9f2cebbe802a"
   integrity sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==
@@ -12847,7 +12847,7 @@ tslib@^2.0.3, tslib@^2.1.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
 
-tslib@^2.2.0:
+tslib@^2.2.0, tslib@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==

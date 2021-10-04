@@ -1,6 +1,6 @@
 {
     "name": "heroic",
-    "version": "1.9.3",
+    "version": "1.10.0",
     "private": true,
     "main": "public/main.js",
     "homepage": "./",
@@ -33,12 +33,14 @@
         "directories": {
             "buildResources": "public"
         },
-        "protocols": [{
-            "name": "heroic",
-            "schemes": [
-                "heroic"
-            ]
-        }],
+        "protocols": [
+            {
+                "name": "heroic",
+                "schemes": [
+                    "heroic"
+                ]
+            }
+        ],
         "win": {
             "icon": "build/win_icon.ico",
             "asarUnpack": [
@@ -155,7 +157,7 @@
         "@types/react-router-dom": "^5.1.6",
         "@typescript-eslint/eslint-plugin": "^4.26.0",
         "@typescript-eslint/parser": "^4.26.0",
-        "electron": "^15.0.0",
+        "electron": "^15.1.0",
         "electron-builder": "^22.11.7",
         "electron-devtools-installer": "^3.2.0",
         "eslint": "^7.27.0",
