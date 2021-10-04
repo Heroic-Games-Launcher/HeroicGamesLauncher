@@ -78,6 +78,9 @@
             "syncing": "Saves synchroniseren"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Aanbevolen"
@@ -89,7 +92,6 @@
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
-        "notSupported": "Dit spel kan alleen worden geïmporteerd",
         "reparing": "Spel aan het repareren, even geduld",
         "totalDownloaded": "Totaal gedownload",
         "updating": "Spel aan het updaten"

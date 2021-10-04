@@ -78,6 +78,9 @@
             "syncing": "Sinkoniziranje podataka"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimalno",
         "recommended": "Preporučeno"
@@ -89,7 +92,6 @@
         "installing": "Instalira se",
         "moving": "Premještanje instalacije, molim pričekajte",
         "notinstalled": "Ova igrica nije instalirana",
-        "notSupported": "Ova igrica se jedino može uvesti",
         "reparing": "Popravljanje igrice, molimo pričekajte",
         "totalDownloaded": "Sveukupno preuzeto",
         "updating": "Ažuriranje igrice"

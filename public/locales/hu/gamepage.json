@@ -78,6 +78,9 @@
             "syncing": "Mentések szinkronizálása"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Ajánlott"
@@ -89,7 +92,6 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "notSupported": "Ezt a játékot csak importálni lehet",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék Frissítése"

@@ -78,6 +78,9 @@
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Asgari",
         "recommended": "Tavsiye edilen"
@@ -89,7 +92,6 @@
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
-        "notSupported": "Bu oyun sadece içeri aktarılabilir",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"

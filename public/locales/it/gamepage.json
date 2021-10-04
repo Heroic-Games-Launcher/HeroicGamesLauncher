@@ -78,6 +78,9 @@
             "syncing": "Sincronizzando i salvataggi"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minime",
         "recommended": "Raccomandate"
@@ -89,7 +92,6 @@
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
-        "notSupported": "Questo gioco può solo essere importato",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
         "totalDownloaded": "Totale scaricato",
         "updating": "Aggiornamento in corso"

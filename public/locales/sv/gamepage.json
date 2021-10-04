@@ -78,6 +78,9 @@
             "syncing": "Synkroniserar sparfiler"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Rekommenderad"
@@ -89,7 +92,6 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, var god dröj",
         "notinstalled": "Detta spelet är inte installerat",
-        "notSupported": "Detta spel kan endast importeras",
         "reparing": "Reparerar spelet, var god dröj",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

@@ -78,6 +78,9 @@
             "syncing": "Sincronizando Saves"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "MÍNIMO",
         "recommended": "RECOMENDADO"
@@ -89,7 +92,6 @@
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este Jogo Não está Instalado",
-        "notSupported": "Este Jogo Pode apenas ser importado",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"

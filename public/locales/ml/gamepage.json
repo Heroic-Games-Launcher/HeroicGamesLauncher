@@ -78,6 +78,9 @@
             "syncing": "സൂക്ഷിപ്പുകള്‍ ഒന്നിപ്പിക്കുന്നു"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "കുറഞ്ഞത്",
         "recommended": "വേണ്ടുന്നത്"
@@ -89,7 +92,6 @@
         "installing": "നടുന്നു",
         "moving": "നടീലിടം മാറ്റുന്നു, ഇത്തിരി കാക്കൂ",
         "notinstalled": "ഈ കളി നട്ടിട്ടില്ല",
-        "notSupported": "ഈ കളി ഇറക്കിയെടുക്കുവാനേ പറ്റൂ",
         "reparing": "കളി നന്നാക്കുന്നു, ഒന്നു കാക്കൂ",
         "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
         "updating": "കളി പുതുക്കുന്നു"

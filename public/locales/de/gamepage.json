@@ -78,6 +78,9 @@
             "syncing": "Spielstände werden synchronisiert"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimal",
         "recommended": "Empfohlen"
@@ -89,7 +92,6 @@
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
-        "notSupported": "Dieses Spiel kann nur importiert werden",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"

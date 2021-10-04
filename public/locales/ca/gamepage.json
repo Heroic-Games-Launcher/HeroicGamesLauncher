@@ -78,6 +78,9 @@
             "syncing": "Sincronitzant guardats"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Mínim",
         "recommended": "Recomenat"
@@ -89,7 +92,6 @@
         "installing": "Instal·lant",
         "moving": "Movent instal·lació, si us plau esperi",
         "notinstalled": "Aquest joc no està instal·lat",
-        "notSupported": "Aquest joc només pot ser importat",
         "reparing": "Reparant joc, si us plau esperi",
         "totalDownloaded": "Total descarregat",
         "updating": "Actualitzant joc"

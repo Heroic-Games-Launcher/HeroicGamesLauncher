@@ -78,6 +78,9 @@
             "syncing": "存档同步中"
         }
     },
+    "sdl": {
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "最低配置",
         "recommended": "推荐配置"
@@ -89,7 +92,6 @@
         "installing": "正在安装",
         "moving": "正在移动，请稍等",
         "notinstalled": "未安装此游戏",
-        "notSupported": "此游戏只能被导入",
         "reparing": "游戏修复中，请稍等",
         "totalDownloaded": "总共已下载",
         "updating": "游戏更新中"
