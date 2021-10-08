@@ -12,6 +12,7 @@ import {
 } from 'electron'
 import {
   getGameInfo,
+  getInstallInfo,
   getProgress,
   install,
   launch,
@@ -33,12 +34,16 @@ import {
   AppSettings,
   GameInfo,
   GameStatus,
+  InstallInfo,
   InstallProgress
 } from 'src/types'
 
 import GamePicture from '../GamePicture'
 import GamesSubmenu from '../GameSubMenu'
 import TimeContainer from '../TimeContainer'
+import prettyBytes from 'pretty-bytes'
+import { Checkbox } from '@material-ui/core'
+import { SDL_GAMES, SelectiveDownload } from 'src/screens/Library/components/InstallModal/selective_dl'
 
 const storage: Storage = window.localStorage
 
@@ -81,6 +86,10 @@ export default function GamePage(): JSX.Element | null {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
+  const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
+  const [installDlcs, setInstallDlcs] = useState(false)
+  const [showSDL, setShowSDL] = useState(false)
+  const [sdlList, setSdlList] = useState([] as Array<string>)
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -94,6 +103,8 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       const newInfo = await getGameInfo(appName)
+      getInstallInfo(appName)
+        .then((info) => setGameInstallInfo(info))
       setGameInfo(newInfo)
       if (newInfo.cloud_save_enabled) {
         try {
@@ -158,6 +169,22 @@ export default function GamePage(): JSX.Element | null {
     await handleGameStatus({ appName, status: 'done' })
   }
 
+  function handleSdl(tags: Array<string>){
+    let updatedList: Array<string> = [...sdlList]
+    tags.forEach(tag => {
+      if (updatedList.includes(tag)){
+        return updatedList = updatedList.filter((tagx) => {
+          return tagx !== tag})
+      }
+      return updatedList.push(tag)
+    })
+    setSdlList([...updatedList])
+  }
+
+  function handleDlcs() {
+    setInstallDlcs(!installDlcs)
+  }
+
   const hasUpdate = gameUpdates.includes(appName)
 
   if (gameInfo && gameInfo.install) {
@@ -178,7 +205,11 @@ export default function GamePage(): JSX.Element | null {
       cloud_save_enabled
     }: GameInfo = gameInfo
     const haveSystemRequirements = Boolean(extra.reqs.length)
-
+    const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
+    const haveSDL = Boolean(SDL_GAMES[appName])
+    const DLCList = gameInstallInfo?.game?.owned_dlc
+    const downloadSize  = gameInstallInfo?.manifest?.download_size && prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+    const installSize  = gameInstallInfo?.manifest?.disk_size && prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
     /*
     Other Keys:
     t('box.stopInstall.title')
@@ -213,7 +244,7 @@ export default function GamePage(): JSX.Element | null {
                             : ''
                         : ''}
                     </div>
-                    {cloud_save_enabled && is_game && (
+                    {is_installed && cloud_save_enabled && is_game && (
                       <div
                         style={{
                           color: autoSyncSaves ? '#07C5EF' : ''
@@ -222,6 +253,36 @@ export default function GamePage(): JSX.Element | null {
                         {t('info.syncsaves')}:{' '}
                         {autoSyncSaves ? t('enabled') : t('disabled')}
                       </div>
+                    )}
+                    {!is_installed && (
+                      <>
+                        <div>
+                          {t('game.downloadSize', 'Download Size')}: {downloadSize ?? '...'}
+                        </div>
+                        <div>
+                          {t('game.installSize', 'Install Size')}: {installSize ?? '...'}
+                        </div>
+                        {haveDLCs && (<div className="itemContainer">
+                          <div className="dlcTitle">{t('dlc.title', 'Owned DLCs')}</div>
+                          {DLCList.map(({app_name, title}) => <span key={app_name} className="dlcTitle">{title}</span>)}
+                          <span className="checkBox">
+                            <span className="sdlName">{t('dlc.installDlcs', 'Install all DLCs')}</span>
+                            <Checkbox color='primary' checked={installDlcs} size="small" onChange={() => handleDlcs()} />
+                          </span>
+                        </div>)}
+                        {haveSDL && <div className="itemContainer">
+                          <p className="sdlTitle" onClick={() => setShowSDL(!showSDL)} >{t('sdl.showList', 'Click to Show Extra Components')}</p>
+                          {showSDL && SDL_GAMES[appName].map(({name, tags}: SelectiveDownload) => {
+                            return (
+                              <div key={name} className="item">
+                                <span className="sdlName">{name}</span>
+                                <Checkbox className="checkbox" color='primary' size="small" onChange={() => handleSdl(tags)} />
+                              </div>)
+                          }
+                          )}
+                        </div>}
+                        <br />
+                      </>
                     )}
                     {is_installed && (
                       <>
@@ -475,7 +536,9 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       setInstallPath,
-      t
+      t,
+      installDlcs,
+      sdlList
     })
   }
 }

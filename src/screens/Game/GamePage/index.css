@@ -51,10 +51,6 @@
     flex-grow: 1;
 }
 
-.gameInfo .infoWrapper * {
-    margin-bottom: 0.5rem;
-}
-
 .gameInfo .developer {
     padding: 1rem 0 1rem 0;
     color: var(--text-secondary);
@@ -135,6 +131,51 @@ table span.text {
     display: flex;
     flex-direction: column;
     max-height: 400px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infoWrapper.itemContainer {
+    place-content: center;
+    text-align: initial;
+    width: 20vw;
+    min-width: fit-content;
+    max-width: 290px;
+    margin-bottom: 12px;
+}
+
+.itemTitle {
+    font-weight: 700;
+    text-align: center;
+}
+
+.checkBox {
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+    margin-top: 6px;
+}
+
+.dlcTitle {
+    font-weight: 700;
+}
+
+.sdlTitle {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.MuiIconButton-colorPrimary,
+.MuiCheckbox-colorPrimary.Mui-checked {
+    color: var(--secondary)
+}
+
+.PrivateSwitchBase-root-1 {
+    padding: 2px;
 }
 
 @keyframes animate-stripes {
