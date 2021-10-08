@@ -3,7 +3,7 @@
         "change": {
             "message": "To zmieni miejsce gdzie gra jest zainstalowana. Czy jesteś pewien?",
             "path": "Wybierz nową ścieżkę instalacji",
-            "title": "Wybierz Ścieżkę Instalacji Gier"
+            "title": "Zmień Ścieżkę Instalacji Gier"
         },
         "choose": "Wybierz",
         "importpath": "Wybierz folder gry do importowania",
