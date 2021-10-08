@@ -39,7 +39,7 @@
         "yes": "YES"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Pause/Cancel",
         "continue": "Continue Download",
         "import": "Import",
         "install": "Install",

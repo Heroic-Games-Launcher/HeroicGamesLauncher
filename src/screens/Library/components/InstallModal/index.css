@@ -52,11 +52,11 @@
 
 .installInfo {
     margin: 16px;
+    white-space: nowrap;
 }
 
 .item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -69,13 +69,19 @@
     margin: 12px;
 }
 
-.itemTitle {
+.sizeInfo {
     font-weight: 700;
-    text-align: center;
+    margin: 0 10px;
+    color: var(--secondary);
 }
 
-.dlcTitle {
+.itemTitle {
     font-weight: 700;
+    margin: 0 0 10px 10px
+}
+
+.itemName {
+    margin: 0 10px
 }
 
 .MuiIconButton-colorPrimary,

@@ -133,12 +133,6 @@ table span.text {
     max-height: 400px;
 }
 
-.item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .infoWrapper.itemContainer {
     place-content: center;
     text-align: initial;
@@ -155,18 +149,26 @@ table span.text {
 
 .checkBox {
     display: flex;
-    justify-content: space-between;
-    height: 42px;
     margin-top: 6px;
+    align-items: center;
 }
 
 .dlcTitle {
     font-weight: 700;
+    margin-top: 16px;
 }
 
 .sdlTitle {
     cursor: pointer;
     font-weight: 700;
+}
+
+.sdlTitle:hover {
+    color: var(--secondary);
+}
+
+.itemName {
+    margin-left: 4px;
 }
 
 .MuiIconButton-colorPrimary,

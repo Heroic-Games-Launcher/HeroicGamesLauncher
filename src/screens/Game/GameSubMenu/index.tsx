@@ -184,7 +184,7 @@ export default function GamesSubmenu({
           {t('submenu.protondb')}
         </span>}
       </div>
-      {!isWin && <div className="otherInfo">
+      {isInstalled && !isWin && <div className="otherInfo">
         <SmallInfo title="Wine:" subtitle={info.wine} />
         <SmallInfo title="Prefix:" subtitle={info.prefix} handleclick={() => ipcRenderer.send('openFolder', info.prefix)} />
       </div>}
