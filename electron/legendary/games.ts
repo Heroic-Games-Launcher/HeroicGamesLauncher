@@ -322,7 +322,7 @@ Categories=Game;
     this.state.status = 'installing'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-    const withDlcs = installDlcs ? '--with-dlcs' :''
+    const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
