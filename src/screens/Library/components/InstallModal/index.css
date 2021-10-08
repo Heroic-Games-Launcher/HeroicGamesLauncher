@@ -22,7 +22,6 @@
     display: grid;
     place-items: center;
     min-width: fit-content;
-    height: fit-content;
     background: var(--background-darker);
     border-radius: 10px;
     width: 48vw;
@@ -31,6 +30,7 @@
     padding: 32px;
     height: fit-content;
     min-height: 225px;
+    border: solid 1px var(--background);
 }
 
 .title {
@@ -50,21 +50,35 @@
     margin: 0 16px;
 }
 
-.sdlContainer {
-    margin-bottom: 24px;
-    place-content: center;
-    text-align: initial;
-    width: 15vw;
-    min-width: fit-content;
-    max-width: 290px;
+.installInfo {
+    margin: 16px;
 }
 
-.sdlTitle {
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.installInfo.itemContainer {
+    place-content: center;
+    text-align: initial;
+    width: 20vw;
+    min-width: fit-content;
+    max-width: 290px;
+    margin: 12px;
+}
+
+.itemTitle {
     font-weight: 700;
     text-align: center;
 }
 
-.sdlItem {
-    display: flex;
-    justify-content: space-between;
+.dlcTitle {
+    font-weight: 700;
+}
+
+.MuiIconButton-colorPrimary,
+.MuiCheckbox-colorPrimary.Mui-checked {
+    color: var(--secondary)
 }
