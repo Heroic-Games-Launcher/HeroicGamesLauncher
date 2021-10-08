@@ -79,7 +79,7 @@
             "part4": "自动同步将在你每次开始游戏时和结束游戏后同步存档。"
         },
         "wine": {
-            "part1": "Heroic启动器会在以下文件夹中查找现有的Wine和Proton版本：",
+            "part1": "Heroic启动器会在以下文件夹中查找现有的Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         }
     },
@@ -147,10 +147,10 @@
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的Epic Games同步",
         "enableFSRHack": "启用FSR（需要支持的WINE版本）",
-        "esync": "Enable Esync",
+        "esync": "启用Esync",
         "exit-to-tray": "退出到系统托盘",
         "FsrSharpnessStrenght": "FSR 锐化度",
-        "fsync": "Enable Fsync",
+        "fsync": "启用Fsync",
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",
         "mangohud": "启用MangoHud（需要已安装Mangohud）",
