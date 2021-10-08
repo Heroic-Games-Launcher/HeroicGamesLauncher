@@ -60,7 +60,7 @@
     align-items: center;
 }
 
-.installInfo.itemContainer {
+.installInfo>.itemContainer {
     place-content: center;
     text-align: initial;
     width: 20vw;
