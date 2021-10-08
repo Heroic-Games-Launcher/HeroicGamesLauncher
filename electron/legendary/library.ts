@@ -10,6 +10,7 @@ import { GameConfig } from '../game_config';
 import {
   GameInfo,
   InstalledInfo,
+  InstallInfo,
   KeyImage,
   RawGameJSON
 } from '../types';
@@ -32,6 +33,11 @@ import Store from 'electron-store'
 const libraryStore = new Store({
   cwd: 'store',
   name: 'library'
+})
+
+const installStore = new Store({
+  cwd: 'store',
+  name: 'installInfo'
 })
 
 /**
@@ -177,6 +183,25 @@ class LegendaryLibrary {
     }
     return this.library.get(appName)
   }
+
+  /**
+   * Get game info for a particular game.
+   *
+   * @param appName
+   * @returns InstallInfo
+   */
+  public async getInstallInfo(appName: string) {
+    const cache = installStore.get(appName) as InstallInfo
+    if (cache){
+      return cache
+    }
+    const {stdout} = await execAsync(`${legendaryBin} -J info ${appName} --json`)
+    const info: InstallInfo = JSON.parse(stdout)
+    installStore.set(appName, info)
+
+    return info
+  }
+
 
   /**
    * Obtain a list of updateable games.
@@ -369,7 +394,7 @@ class LegendaryLibrary {
       version = null,
       install_size = null,
       install_path = null,
-      is_dlc = dlcs.includes(app_name)
+      is_dlc = metadata.categories.filter(({path}: {path: string}) => path === 'dlc').length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
     const convertedSize =

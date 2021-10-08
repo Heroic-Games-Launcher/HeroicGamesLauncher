@@ -77,6 +77,16 @@ class LegendaryGame extends Game {
     return await LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
+
+  /**
+   * Alias for `LegendaryLibrary.getInstallInfo(this.appName)`
+   *
+   * @returns InstallInfo
+   */
+  public async getInstallInfo() {
+    return await LegendaryLibrary.get().getInstallInfo(this.appName)
+  }
+
   private async getProductSlug(namespace: string) {
     const graphql = JSON.stringify({
       query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,

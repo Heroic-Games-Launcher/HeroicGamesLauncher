@@ -1,4 +1,4 @@
-import { ExecResult, ExtraInfo, GameInfo, GameSettings, GameStatus, InstallArgs } from './types';
+import { ExecResult, ExtraInfo, GameInfo, GameSettings, GameStatus, InstallArgs, InstallInfo } from './types';
 
 type Runner = 'legendary' | 'gog'
 abstract class Game {
@@ -15,6 +15,7 @@ abstract class Game {
   abstract appName: string
   abstract getExtraInfo(namespace : string) : Promise<ExtraInfo>
   abstract getGameInfo() : Promise<GameInfo>
+  abstract getInstallInfo() : Promise<InstallInfo>
   abstract getSettings() : Promise<GameSettings>
   abstract hasUpdate() : Promise<boolean>
   abstract import(path : string) : Promise<ExecResult>

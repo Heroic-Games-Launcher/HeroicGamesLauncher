@@ -464,10 +464,18 @@ ipcMain.on('createNewWindow', (e, url) =>
 )
 
 ipcMain.handle('getGameInfo', async (event, game) => {
-  const obj = Game.get(game)
   try {
-    const info = await obj.getGameInfo()
-    info.extra = await obj.getExtraInfo(info.namespace)
+    const info = await Game.get(game).getGameInfo()
+    info.extra = await Game.get(game).getExtraInfo(info.namespace)
+    return info
+  } catch (error) {
+    logError(error)
+  }
+})
+
+ipcMain.handle('getInstallInfo', async (event, game) => {
+  try {
+    const info = await Game.get(game).getInstallInfo()
     return info
   } catch (error) {
     logError(error)
@@ -538,15 +546,16 @@ type RecentGame = {
 
 ipcMain.handle('launch', async (event, game: string) => {
   const recentGames = store.get('games.recent') as Array<RecentGame> || []
-  const { title } = await Game.get(game).getGameInfo()
+  const appName = game.split(' ')[0]
+  const { title } = await Game.get(appName).getGameInfo()
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
   const startPlayingDate = new Date()
 
-  if (!tsStore.has(game)){
-    tsStore.set(`${game}.firstPlayed`, startPlayingDate)
+  if (!tsStore.has(appName)){
+    tsStore.set(`${appName}.firstPlayed`, startPlayingDate)
   }
 
-  logInfo('launching', title, game)
+  logInfo('launching', title, appName)
 
   if (recentGames.length) {
     let updatedRecentGames = recentGames.filter(a => a.appName !== game)
@@ -568,14 +577,14 @@ ipcMain.handle('launch', async (event, game: string) => {
 
   return Game.get(game).launch().then(({ stderr }) => {
     const finishedPlayingDate = new Date()
-    tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate)
     const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
-    const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
+    const totalPlayedTime: number = tsStore.has(`${appName}.totalPlayed`) ? tsStore.get(`${appName}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
     // I'll send the calculated time here because then the user can set it manually on the file if desired
-    tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
+    tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlayedTime))
 
     writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      `${heroicGamesConfigPath}${appName}-lastPlay.log`,
       stderr,
       () => 'done'
     )
@@ -589,7 +598,6 @@ ipcMain.handle('launch', async (event, game: string) => {
       )
     }
   }).catch(async (exception) => {
-    // This stuff is completely borken, I have no idea what the hell we should do here.
     const stderr = `${exception.name} - ${exception.message}`
     errorHandler({ error: { stderr, stdout: '' } })
     writeFile(
