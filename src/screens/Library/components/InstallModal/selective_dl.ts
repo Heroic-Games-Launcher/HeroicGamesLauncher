@@ -1,6 +1,7 @@
 export interface SelectiveDownload {
   tags: Array<string>
   name: string
+  mandatory?: boolean
 }
 
 export const CYBERPUNK_SDL: Array<SelectiveDownload> = [
@@ -17,7 +18,7 @@ export const CYBERPUNK_SDL: Array<SelectiveDownload> = [
 ]
 
 export const FORTNITE_SDL: Array<SelectiveDownload> = [
-  {'tags': ['chunk0', 'chunk10'], 'name': 'Fortnite Core'},
+  {'tags': ['chunk0', 'chunk10'], 'name': 'Fortnite Core', 'mandatory': true},
   {'tags': ['chunk11', 'chunk11optional'], 'name': 'Fortnite Save the World'},
   {'tags': ['chunk10optional'], 'name': 'High Resolution Textures'},
   {'tags': ['chunk2'], 'name': '(Language Pack) Deutsch'},

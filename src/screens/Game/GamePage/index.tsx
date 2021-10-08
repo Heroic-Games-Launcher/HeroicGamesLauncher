@@ -89,7 +89,10 @@ export default function GamePage(): JSX.Element | null {
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
   const [showSDL, setShowSDL] = useState(false)
-  const [sdlList, setSdlList] = useState([] as Array<string>)
+
+  const haveSDL = Boolean(SDL_GAMES[appName])
+  const mandatoryTags: Array<string> =  haveSDL ? SDL_GAMES[appName].filter((el: SelectiveDownload) => el.mandatory).map((el: SelectiveDownload) => el.tags)[0] : []
+  const [sdlList, setSdlList] = useState([...mandatoryTags])
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -263,22 +266,21 @@ export default function GamePage(): JSX.Element | null {
                           {t('game.installSize', 'Install Size')}: {installSize ?? '...'}
                         </div>
                         {haveDLCs && (<div className="itemContainer">
-                          <div className="dlcTitle">{t('dlc.title', 'Owned DLCs')}</div>
+                          <div className="dlcTitle">{t('dlc.title', 'DLCs')}</div>
                           {DLCList.map(({app_name, title}) => <span key={app_name} className="dlcTitle">{title}</span>)}
                           <span className="checkBox">
-                            <span className="sdlName">{t('dlc.installDlcs', 'Install all DLCs')}</span>
                             <Checkbox color='primary' checked={installDlcs} size="small" onChange={() => handleDlcs()} />
+                            <span className="itemName">{t('dlc.installDlcs', 'Install all DLCs')}</span>
                           </span>
                         </div>)}
                         {haveSDL && <div className="itemContainer">
-                          <p className="sdlTitle" onClick={() => setShowSDL(!showSDL)} >{t('sdl.showList', 'Click to Show Extra Components')}</p>
-                          {showSDL && SDL_GAMES[appName].map(({name, tags}: SelectiveDownload) => {
-                            return (
-                              <div key={name} className="item">
-                                <span className="sdlName">{name}</span>
+                          <p className="sdlTitle" onClick={() => setShowSDL(!showSDL)} >{t('sdl.showList', 'Click to Show/Hide Extra Components')}</p>
+                          {showSDL && SDL_GAMES[appName].map(({name, tags, mandatory}: SelectiveDownload) =>
+                            !mandatory && (
+                              <div key={name} className="checkBox">
                                 <Checkbox className="checkbox" color='primary' size="small" onChange={() => handleSdl(tags)} />
+                                <span className="itemName">{name}</span>
                               </div>)
-                          }
                           )}
                         </div>}
                         <br />

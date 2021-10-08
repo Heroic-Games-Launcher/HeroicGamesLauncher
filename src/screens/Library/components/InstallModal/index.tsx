@@ -22,9 +22,11 @@ const storage: Storage = window.localStorage
 export default function InstallModal({appName, backdropClick}: Props) {
   const {handleGameStatus} = useContext(ContextProvider)
   const [gameInfo, setGameInfo] = useState({} as InstallInfo)
-  const [sdlList, setSdlList] = useState([] as Array<string>)
   const [installDlcs, setInstallDlcs] = useState(false)
+
   const haveSDL = Boolean(SDL_GAMES[appName])
+  const mandatoryTags: Array<string> =  haveSDL ? SDL_GAMES[appName].filter((el: SelectiveDownload) => el.mandatory).map((el: SelectiveDownload) => el.tags)[0] : []
+  const [sdlList, setSdlList] = useState([...mandatoryTags])
 
   const {t} = useTranslation('gamepage')
   const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
@@ -80,41 +82,40 @@ export default function InstallModal({appName, backdropClick}: Props) {
           <span className="title">{gameInfo?.game?.title}</span>
           <div className="installInfo">
             <div className="itemContainer">
-              <span className="item"><span className="itemTitle">{t('game.downloadSize', 'Download Size')}</span><span>{downloadSize}</span></span>
-              <span className="item"><span className="itemTitle">{t('game.installSize', 'Install Size')}</span><span>{installSize}</span></span>
+              <span className="item"><span className="sizeInfo">{t('game.downloadSize', 'Download Size')}:</span> <span>{downloadSize}</span></span>
+              <span className="item"><span className="sizeInfo">{t('game.installSize', 'Install Size')}:</span> <span>{installSize}</span></span>
             </div>
             {haveDLCs && (<div className="itemContainer">
-              <div className="dlcTitle">{t('dlc.title', 'Owned DLCs')}</div>
-              {DLCList.map(({app_name, title}) => <span key={app_name} className="dlcTitle">{title}</span>)}
+              <div className="itemTitle">{t('dlc.title', 'DLCs')}</div>
+              {DLCList.map(({app_name, title}) => <span key={app_name} className="itemName">{title}</span>)}
               <span className="item">
-                <span className="sdlName">{t('dlc.installDlcs', 'Install all DLCs')}</span>
                 <Checkbox color='primary' checked={installDlcs} size="small" onChange={() => handleDlcs()} />
+                <span>{t('dlc.installDlcs', 'Install all DLCs')}</span>
               </span>
             </div>)}
             {haveSDL && <div className="itemContainer">
               <p className="itemTitle" >{t('sdl.title', 'Select components to Install')}</p>
-              {SDL_GAMES[appName].map(({name, tags}: SelectiveDownload) => {
-                return (
+              {SDL_GAMES[appName].map(({name, tags, mandatory}: SelectiveDownload) =>
+                !mandatory && (
                   <span key={name} className="item">
-                    <span className="sdlName">{name}</span>
-                    <Checkbox color='primary' size="small" onChange={() => handleSdl(tags)} />
+                    <Checkbox color='primary' checked={mandatory} disabled={mandatory} size="small" onChange={() => handleSdl(tags)} />
+                    <span>{name}</span>
                   </span>)
-              }
               )}
             </div>}
           </div>
           <div className="buttonsContainer">
             <button
-              onClick={() => handleInstall('another')}
-              className={`button is-primary`}
-            >
-              {t('button.install')}
-            </button>
-            <button
               onClick={() => handleInstall('import')}
-              className={`button is-tertiary`}
+              className={`button is-tertiary outline`}
             >
               {t('button.import')}
+            </button>
+            <button
+              onClick={() => handleInstall('another')}
+              className={`button is-tertiary`}
+            >
+              {t('button.install')}
             </button>
           </div>
         </div>
