@@ -35,6 +35,7 @@ export interface AppSettings {
   showMangohud: boolean
   startInTray: boolean
   useGameMode: boolean
+  targetExe: string
   userInfo: UserInfo
   wineCrossoverBottle: string
   winePrefix: string
@@ -118,6 +119,7 @@ export interface GameSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  targetExe: string
   useGameMode: boolean
   wineCrossoverBottle: string
   winePrefix: string

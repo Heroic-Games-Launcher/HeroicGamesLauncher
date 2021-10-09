@@ -218,6 +218,7 @@ const test_appsettings = new TestType<AppSettings>({
   showFps: false,
   showMangohud: false,
   startInTray: false,
+  targetExe: 'Default',
   useGameMode: false,
   wineCrossoverBottle: 'bottle',
   winePrefix: 'winePrefix',

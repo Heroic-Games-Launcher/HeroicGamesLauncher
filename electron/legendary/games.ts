@@ -428,12 +428,14 @@ Categories=Game;
       maxSharpness,
       enableResizableBar,
       enableEsync,
-      enableFsync
+      enableFsync,
+      targetExe
     } = await this.getSettings()
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = offlineMode ? '--offline' : ''
+    const exe = targetExe !== 'Default' ? `--override-exe ${targetExe}` : ''
 
     if (discordRPC) {
       // Show DiscordRPC
@@ -468,7 +470,7 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${legendaryBin} launch ${this.appName} ${runOffline} ${launcherArgs}`
+      const command = `${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
 
@@ -546,7 +548,7 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
