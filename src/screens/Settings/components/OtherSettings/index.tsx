@@ -10,6 +10,7 @@ import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
+import Backspace from '@material-ui/icons/Backspace'
 
 const {
   ipcRenderer
@@ -84,7 +85,7 @@ export default function OtherSettings({
 
   return (
     <>
-      {isDefault && <span className="setting">
+      {!isDefault && <span className="setting">
         <span className="settingText">{t('setting.change-target-exe', 'Select an alternative EXE to run')}</span>
         <span>
           <input
@@ -95,7 +96,7 @@ export default function OtherSettings({
             placeholder={targetExe || t('box.select-exe.placeholder', 'Select EXE...')}
             onChange={(event) => setTargetExe(event.target.value)}
           />
-          <CreateNewFolder
+          {!targetExe.length ? <CreateNewFolder
             data-testid="setinstallpathbutton"
             className="material-icons settings folder"
             onClick={() =>
@@ -108,7 +109,13 @@ export default function OtherSettings({
                 setTargetExe(path ? `'${path}'` : targetExe)
               )
             }
-          />
+          /> : (
+            <Backspace
+              data-testid="setEpicSyncPathBackspace"
+              className="material-icons settings folder"
+              onClick={() => (setTargetExe(''))}
+            />
+          )}
         </span>
       </span>}
       {isLinux && <>
