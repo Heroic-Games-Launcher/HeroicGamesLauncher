@@ -79,7 +79,7 @@
             "part4": "Synkronisera spelspraningar automatisk kommer synkronisera sparfiler var gång ett spel startas samt avslutas."
         },
         "wine": {
-            "part1": "Heroic söker efter versioner av Wine och Proton i följade mappar:",
+            "part1": "Heroic söker efter versioner av Wine, Proton och CrossOver i följade mappar:",
             "part2": "För andra platser, använd en symbolisk länk till en av mapparna"
         }
     },

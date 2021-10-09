@@ -79,7 +79,7 @@
             "part4": "Automatyczna synchronizacja zapisów będzie aktualizować zapisy za każdym razem kiedy uruchomisz albo zamkniesz grę."
         },
         "wine": {
-            "part1": "Heroic szuka wersji Wine i Proton w poniższych lokalizacjach:",
+            "part1": "Heroic szuka wersji Wine, Proton oraz CrossOver w poniższych lokalizacjach:",
             "part2": "W przypadku innych lokalizacji użyj przypisania symbolicznego do jednego z tych folderów"
         }
     },
@@ -147,10 +147,10 @@
         "discordRPC": "Włącz Discord Rich Presence",
         "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
-        "esync": "Enable Esync",
+        "esync": "Włącz Esync",
         "exit-to-tray": "Wyjście do tacki systemowej",
         "FsrSharpnessStrenght": "Ostrość FSR",
-        "fsync": "Enable Fsync",
+        "fsync": "Włącz Fsync",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",
         "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",

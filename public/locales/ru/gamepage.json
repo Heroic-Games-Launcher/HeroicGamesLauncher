@@ -20,8 +20,8 @@
             "title": "Проверить и восстановить"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Ярлыки добавлены на Рабочий стол и в Меню приложений",
+            "title": "Ярлыки"
         },
         "stopInstall": {
             "keepInstalling": "Продолжить установку",
@@ -49,10 +49,10 @@
     "disabled": "Выключено",
     "enabled": "Включено",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "firstPlayed": "Первый запуск",
+        "lastPlayed": "Последний запуск",
+        "neverPlayed": "Никогда",
+        "totalPlayed": "Проведено в игре"
     },
     "gamecard": {
         "moving": "Перемещение",
@@ -97,7 +97,7 @@
         "updating": "Обновляю игру"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Создать ярлык",
         "change": "Изменить путь установки",
         "log": "Последние логи",
         "move": "Переместить игру",

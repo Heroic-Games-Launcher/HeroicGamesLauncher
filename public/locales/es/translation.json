@@ -79,7 +79,7 @@
             "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
         },
         "wine": {
-            "part1": "Búsquedas de versiones de Wine y Proton en las siguientes carpetas:",
+            "part1": "Búsquedas de versiones de Wine, Proton y CrossOver en las siguientes carpetas:",
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
         }
     },
@@ -180,7 +180,8 @@
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
-        "wineversion": "Versión de Wine"
+        "wineversion": "Versión de Wine",
+        "fsync": "Habilitar Fsync"
     },
     "Settings": "Ajustes",
     "settings": {
