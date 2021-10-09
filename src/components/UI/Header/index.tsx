@@ -30,7 +30,7 @@ export default function Header({
   const {
     category,
     filter,
-    gameUpdates,
+    gameUpdates = [],
     layout,
     libraryStatus,
     handleCategory,

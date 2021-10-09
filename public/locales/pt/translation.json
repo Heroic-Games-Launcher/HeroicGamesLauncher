@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Selecione o EXE"
         },
-        "select": "Selecionar",
+        "select": {
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -140,6 +142,7 @@
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro",

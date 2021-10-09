@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Inaktiverad",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Aktiverad",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Först spelad",
+        "installSize": "Install Size",
         "lastPlayed": "Senast spelad",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Speltid"
@@ -78,6 +84,10 @@
             "syncing": "Synkroniserar sparfiler"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Rekommenderad"
@@ -89,7 +99,6 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, var god dröj",
         "notinstalled": "Detta spelet är inte installerat",
-        "notSupported": "Detta spel kan endast importeras",
         "reparing": "Reparerar spelet, var god dröj",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

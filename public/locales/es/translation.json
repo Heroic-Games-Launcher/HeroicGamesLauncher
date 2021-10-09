@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Seleccione EXE para ejecutar"
         },
-        "select": "Seleccionar",
+        "select": {
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Elegir",
             "error": "Ruta no válida",
@@ -140,6 +142,7 @@
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
@@ -150,6 +153,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
+        "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
@@ -179,8 +183,7 @@
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
-        "wineversion": "Versión de Wine",
-        "fsync": "Habilitar Fsync"
+        "wineversion": "Versión de Wine"
     },
     "Settings": "Ajustes",
     "settings": {

@@ -17,10 +17,12 @@ type InstallArgs = {
   previousProgress: InstallProgress | null
   progress: InstallProgress
   setInstallPath?: (path: string) => void
-  t: TFunction<'gamepage'>
+  t: TFunction<'gamepage'>,
+  installDlcs?: boolean,
+  sdlList?: Array<string>
 }
 
-async function install({appName, installPath, t, progress, isInstalling, handleGameStatus, previousProgress, setInstallPath}: InstallArgs) {
+async function install({appName, installPath, t, progress, isInstalling, handleGameStatus, previousProgress, setInstallPath, sdlList = [], installDlcs = false}: InstallArgs) {
   if(!installPath)
   {
     return;
@@ -74,7 +76,11 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
       storage.removeItem(appName)
     }
     handleGameStatus({ appName, status: 'installing' })
-    await ipcRenderer.invoke('install', { appName, path: `'${path}'` })
+    const result = await ipcRenderer.invoke('install', { appName, path: `'${path}'`, installDlcs, sdlList })
+
+    if (result && result.status === 'error'){
+      return await handleGameStatus({ appName, status: 'error' })
+    }
 
     if (progress.percent === '100%') {
       storage.removeItem(appName)
@@ -94,7 +100,12 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
     }
 
     await handleGameStatus({ appName, status: 'installing' })
-    await ipcRenderer.invoke('install', { appName, path })
+
+    const result = await ipcRenderer.invoke('install', { appName, path: `'${path}'`, installDlcs, sdlList })
+
+    if (result && result.status === 'error'){
+      return await handleGameStatus({ appName, status: 'error' })
+    }
 
     if (progress.percent === '100%') {
       storage.removeItem(appName)

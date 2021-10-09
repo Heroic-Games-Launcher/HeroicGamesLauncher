@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import { BrowserWindow } from 'electron';
 import { DXVK } from '../dxvk'
-import { ExtraInfo, GameStatus } from '../types';
+import { ExtraInfo, GameStatus, InstallArgs } from '../types';
 import { Game } from '../games';
 import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
@@ -75,6 +75,16 @@ class LegendaryGame extends Game {
    */
   public async getGameInfo() {
     return await LegendaryLibrary.get().getGameInfo(this.appName)
+  }
+
+
+  /**
+   * Alias for `LegendaryLibrary.getInstallInfo(this.appName)`
+   *
+   * @returns InstallInfo
+   */
+  public async getInstallInfo() {
+    return await LegendaryLibrary.get().getInstallInfo(this.appName)
   }
 
   private async getProductSlug(namespace: string) {
@@ -298,35 +308,36 @@ Categories=Game;
     unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
   }
 
+  private getSdlList(sdlList: Array<string>){
+    return sdlList.map(tag => `--install-tag ${tag}`).join(' ').replaceAll("'", '')
+  }
+
   /**
    * Install game.
    * Does NOT check for online connectivity.
    *
    * @returns Result of execAsync.
    */
-  public async install(path: string) {
+  public async install({path, installDlcs, sdlList}: InstallArgs) {
     this.state.status = 'installing'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
+    const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
-    try {
-      LegendaryLibrary.get().installState(this.appName, true)
-      return await execAsync(command, execOptions).then((v) => {
-        this.state.status = 'done'
+    return execAsync(command, execOptions)
+      .then(async ({stdout, stderr}) => {
+        if (stdout.includes('ERROR')){
+          errorHandler({error: {stdout, stderr}, logPath})
+          return {status: 'error'}
+        }
         this.addDesktopShortcut()
-        return v
+        return {status: 'done'}
       })
-    } catch (error) {
-      LegendaryLibrary.get().installState(this.appName, false)
-      return errorHandler({ error, logPath }).then((v) => {
-        this.state.status = 'done'
-        return v
-      })
-    }
   }
 
   public async uninstall() {
@@ -417,12 +428,14 @@ Categories=Game;
       maxSharpness,
       enableResizableBar,
       enableEsync,
-      enableFsync
+      enableFsync,
+      targetExe
     } = await this.getSettings()
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = offlineMode ? '--offline' : ''
+    const exe = targetExe ? `--override-exe ${targetExe}` : ''
 
     if (discordRPC) {
       // Show DiscordRPC
@@ -457,7 +470,7 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${legendaryBin} launch ${this.appName} ${runOffline} ${launcherArgs}`
+      const command = `${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
 
@@ -535,7 +548,7 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'

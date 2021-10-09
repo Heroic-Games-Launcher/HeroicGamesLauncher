@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Deaktiviert",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Aktiviert",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Erstmals gespielt",
+        "installSize": "Install Size",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
         "totalPlayed": "Spielzeit"
@@ -78,6 +84,10 @@
             "syncing": "Spielstände werden synchronisiert"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimal",
         "recommended": "Empfohlen"
@@ -89,7 +99,6 @@
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
-        "notSupported": "Dieses Spiel kann nur importiert werden",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"

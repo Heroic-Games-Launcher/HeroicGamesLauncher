@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Выбрать EXE для запуска"
         },
-        "select": "Выбрать",
+        "select": {
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Выбрать",
             "error": "Неправильный путь",
@@ -140,6 +142,7 @@
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоустановка/обновление DXVK на префикс",
         "autosync": "Автосинхронизация сохранений",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",

@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Выключено",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Включено",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Первый запуск",
+        "installSize": "Install Size",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
         "totalPlayed": "Проведено в игре"
@@ -78,6 +84,10 @@
             "syncing": "Синхронизации сохранений"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Минимальные",
         "recommended": "Рекомендованные"
@@ -89,7 +99,6 @@
         "installing": "Устанавливается",
         "moving": "Перемещаю игру, пожалуйста подождите",
         "notinstalled": "Игра не установлена",
-        "notSupported": "Эта игра может быть только импортирована",
         "reparing": "Восстанавливаю игру, пожалуйста подождите",
         "totalDownloaded": "Всего загружено",
         "updating": "Обновляю игру"

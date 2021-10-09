@@ -43,7 +43,9 @@
         "runexe": {
             "title": "실행할 EXE 선택"
         },
-        "select": "선택",
+        "select": {
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "선택",
             "error": "유효하지 않은 경로",
@@ -140,6 +142,7 @@
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "Prefix에 DXVK 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "시작할 때 업데이트 확인",
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",

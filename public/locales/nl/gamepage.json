@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Uitgeschakeld",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Ingeschakeld",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Eerst gespeeld",
+        "installSize": "Install Size",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "totalPlayed": "Tijd gespeeld"
@@ -78,6 +84,10 @@
             "syncing": "Saves synchroniseren"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Aanbevolen"
@@ -89,7 +99,6 @@
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
-        "notSupported": "Dit spel kan alleen worden geïmporteerd",
         "reparing": "Spel aan het repareren, even geduld",
         "totalDownloaded": "Totaal gedownload",
         "updating": "Spel aan het updaten"

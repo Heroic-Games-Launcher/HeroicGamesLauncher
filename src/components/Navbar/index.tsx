@@ -3,19 +3,12 @@ import './index.css'
 import React, { lazy } from 'react'
 
 import { NavLink } from 'react-router-dom'
-import { createNewWindow } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
 const UserSelector = lazy(() => import('./components/UserSelector'))
 
 export default function NavBar() {
-  const { t, i18n } = useTranslation()
-  let lang = i18n.language
-  if (i18n.language === 'pt') {
-    lang = 'pt-BR'
-  }
-  const epicStore = `https://www.epicgames.com/store/${lang}/`
-  const wiki = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
+  const { t } = useTranslation()
   return (
     <div className="NavBar">
       <div className="Links">
@@ -43,20 +36,26 @@ export default function NavBar() {
         >
           {t('Settings')}
         </NavLink>
-        <a
+        <NavLink
           data-testid="store"
-          style={{ cursor: 'pointer' }}
-          onClick={() => createNewWindow(epicStore)}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+          isActive={(match, location) => location.pathname.includes('epicstore')}
+          to={{
+            pathname: '/epicstore'
+          }}
         >
           {t('store', 'Store')}
-        </a>
-        <a
+        </NavLink>
+        <NavLink
           data-testid="wiki"
-          style={{ cursor: 'pointer' }}
-          onClick={() => createNewWindow(wiki)}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+          isActive={(match, location) => location.pathname.includes('wiki')}
+          to={{
+            pathname: '/wiki'
+          }}
         >
           {t('wiki', 'Wiki')}
-        </a>
+        </NavLink>
       </div>
       <UserSelector />
     </div>

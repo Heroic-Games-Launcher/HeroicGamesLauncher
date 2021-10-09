@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Seleziona l'EXE da avviare"
         },
-        "select": "Seleziona",
+        "select": {
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Scegli",
             "error": "Percorso non valido",
@@ -140,6 +142,7 @@
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Verificare la disponibilità di aggiornamenti all'avvio",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",

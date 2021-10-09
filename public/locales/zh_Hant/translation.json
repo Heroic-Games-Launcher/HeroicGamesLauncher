@@ -43,7 +43,9 @@
         "runexe": {
             "title": "選擇要執行的EXE檔案"
         },
-        "select": "選擇",
+        "select": {
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "選擇",
             "error": "無效路徑",
@@ -140,6 +142,7 @@
         "audiofix": "音頻修覆（Pulse Audio延遲）",
         "autodxvk": "在PREFIX自動安裝並更新DXVK",
         "autosync": "自動同步存檔",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "啟動時檢查更新",
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
