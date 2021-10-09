@@ -62,6 +62,7 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
@@ -216,6 +217,7 @@ function Settings() {
       setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
+      setTargetExe(config.targetExe || '')
 
       if (!isDefault) {
         const {
@@ -280,6 +282,7 @@ function Settings() {
     savesPath,
     showFps,
     showMangohud,
+    targetExe,
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
@@ -407,6 +410,8 @@ function Settings() {
               toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
               toggleDiscordRPC={toggleDiscordRPC}
               discordRPC={discordRPC}
+              targetExe={targetExe}
+              setTargetExe={setTargetExe}
             />
           )}
           {isSyncSettings && (
@@ -421,6 +426,7 @@ function Settings() {
             />
           )}
           <span className="save">{t('info.settings')}</span>
+          <span className="appName">AppName: {appName}</span>
         </div>
       </div>
     </>

@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Letiltva",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Engedélyezve",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Először Játszott",
+        "installSize": "Install Size",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
         "totalPlayed": "Játszott idő"
@@ -78,6 +84,10 @@
             "syncing": "Mentések szinkronizálása"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Ajánlott"
@@ -89,7 +99,6 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "notSupported": "Ezt a játékot csak importálni lehet",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék Frissítése"

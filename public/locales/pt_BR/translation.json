@@ -43,7 +43,12 @@
         "runexe": {
             "title": "Selecione o EXE para iniciar"
         },
-        "select": "Selecionar",
+        "select": {
+            "exe": "Select EXE"
+        },
+        "select-exe": {
+            "placeholder": "Select EXE..."
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -79,7 +84,7 @@
             "part4": "Sincronizar Saves Automaticamente sincronizará os saves toda vez que você iniciar ou parar de jogar um jogo."
         },
         "wine": {
-            "part1": "Heroic busca por versões do WINE e Proton nas pastas a seguir:",
+            "part1": "O Heroic busca por versões do WINE, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
         }
     },
@@ -140,6 +145,7 @@
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefix",
         "autosync": "Sincronizar saves automaticamente",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com WINE/Proton Customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
@@ -147,10 +153,10 @@
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
-        "esync": "Enable Esync",
+        "esync": "Habilitar Esync",
         "exit-to-tray": "Fechar para a barra de tarefas",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
+        "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (Necessita ter gamemode instalado)",
         "language": "Selecione o idioma do app",
         "mangohud": "Habilitar o MangoHud (mangohud precisa estar instalado)",

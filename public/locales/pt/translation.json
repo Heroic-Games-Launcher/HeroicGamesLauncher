@@ -43,7 +43,12 @@
         "runexe": {
             "title": "Selecione o EXE"
         },
-        "select": "Selecionar",
+        "select": {
+            "exe": "Select EXE"
+        },
+        "select-exe": {
+            "placeholder": "Select EXE..."
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -79,7 +84,7 @@
             "part4": "Sincronizar Saves Automaticamente: ativando essa opção, toda a vez que você iniciar uma sessão de jogos ou terminar de jogar, o Heroic irá realizar uma sincronização. Dessa forma seus saves sempre estarão atualizados."
         },
         "wine": {
-            "part1": "Heroic procura por versões do Wine e do Proton nas seguntes pastas:",
+            "part1": "Heroic procura versões de Wine, Proton e CrossOver nas seguintes pastas:",
             "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
         }
     },
@@ -140,6 +145,7 @@
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro",

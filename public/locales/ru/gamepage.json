@@ -20,8 +20,8 @@
             "title": "Проверить и восстановить"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Ярлыки добавлены на Рабочий стол и в Меню приложений",
+            "title": "Ярлыки"
         },
         "stopInstall": {
             "keepInstalling": "Продолжить установку",
@@ -47,12 +47,18 @@
         "update": "Update"
     },
     "disabled": "Выключено",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Включено",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "Download Size",
+        "firstPlayed": "Первый запуск",
+        "installSize": "Install Size",
+        "lastPlayed": "Последний запуск",
+        "neverPlayed": "Никогда",
+        "totalPlayed": "Проведено в игре"
     },
     "gamecard": {
         "moving": "Перемещение",
@@ -78,6 +84,10 @@
             "syncing": "Синхронизации сохранений"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Минимальные",
         "recommended": "Рекомендованные"
@@ -89,13 +99,12 @@
         "installing": "Устанавливается",
         "moving": "Перемещаю игру, пожалуйста подождите",
         "notinstalled": "Игра не установлена",
-        "notSupported": "Эта игра может быть только импортирована",
         "reparing": "Восстанавливаю игру, пожалуйста подождите",
         "totalDownloaded": "Всего загружено",
         "updating": "Обновляю игру"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Создать ярлык",
         "change": "Изменить путь установки",
         "log": "Последние логи",
         "move": "Переместить игру",

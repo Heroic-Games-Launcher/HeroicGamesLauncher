@@ -1,4 +1,4 @@
-import { GameInfo, InstallProgress } from 'src/types'
+import { GameInfo, InstallInfo, InstallProgress } from 'src/types'
 import { IpcRenderer } from 'electron'
 import {install, launch, repair, updateGame} from './library'
 const { ipcRenderer } = window.require('electron') as {
@@ -95,6 +95,10 @@ const getGameInfo = async (appName: string) : Promise<GameInfo> => {
   return await ipcRenderer.invoke('getGameInfo', appName)
 }
 
+const getInstallInfo = async (appName: string) : Promise<InstallInfo> => {
+  return await ipcRenderer.invoke('getInstallInfo', appName)
+}
+
 const handleSavePath = async (game: string) => {
   const { cloud_save_enabled, save_folder } = await getGameInfo(game)
 
@@ -161,21 +165,21 @@ async function fixSaveFolder(
 
   if (folder.includes('roaming')) {
     return folder.replace(
-      '{appdata}/../roaming/',
+      '{appdata}/../roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('{appdata}/../Roaming/')) {
     return folder.replace(
-      '{appdata}/../Roaming/',
+      '{appdata}/../Roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('Roaming')) {
     return folder.replace(
-      '{AppData}/../Roaming/',
+      '{AppData}/../Roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
@@ -216,6 +220,7 @@ export {
   fixSaveFolder,
   formatStoreUrl,
   getGameInfo,
+  getInstallInfo,
   getLegendaryConfig,
   getPlatform,
   getProgress,

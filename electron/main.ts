@@ -1,3 +1,4 @@
+import { InstallParams } from './types';
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -106,15 +107,16 @@ async function createWindow(): Promise<BrowserWindow> {
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: isDev ? 1200 : 600,
-    minHeight: 500,
-    minWidth: 900,
+    height: 690,
+    minHeight: 650,
+    minWidth: 1100,
     show: !(exitToTray && startInTray),
     webPreferences: {
+      webviewTag: true,
       contextIsolation: false,
       nodeIntegration: true
     },
-    width: isDev ? 1800 : 1000
+    width: 1200
   })
 
   setTimeout(() => {
@@ -259,7 +261,7 @@ if (!gotTheLock) {
       debug: false,
       fallbackLng: 'en',
       lng: language,
-      supportedLngs: ['ca', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hr', 'hu', 'ko', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans', 'zh_Hant']
+      supportedLngs: ['ca', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hr', 'hu', 'ja', 'ko', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans', 'zh_Hant']
 
     })
 
@@ -462,10 +464,18 @@ ipcMain.on('createNewWindow', (e, url) =>
 )
 
 ipcMain.handle('getGameInfo', async (event, game) => {
-  const obj = Game.get(game)
   try {
-    const info = await obj.getGameInfo()
-    info.extra = await obj.getExtraInfo(info.namespace)
+    const info = await Game.get(game).getGameInfo()
+    info.extra = await Game.get(game).getExtraInfo(info.namespace)
+    return info
+  } catch (error) {
+    logError(error)
+  }
+})
+
+ipcMain.handle('getInstallInfo', async (event, game) => {
+  try {
+    const info = await Game.get(game).getInstallInfo()
     return info
   } catch (error) {
     logError(error)
@@ -536,15 +546,16 @@ type RecentGame = {
 
 ipcMain.handle('launch', async (event, game: string) => {
   const recentGames = store.get('games.recent') as Array<RecentGame> || []
-  const { title } = await Game.get(game).getGameInfo()
+  const appName = game.split(' ')[0]
+  const { title } = await Game.get(appName).getGameInfo()
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
   const startPlayingDate = new Date()
 
-  if (!tsStore.has(game)){
-    tsStore.set(`${game}.firstPlayed`, startPlayingDate)
+  if (!tsStore.has(appName)){
+    tsStore.set(`${appName}.firstPlayed`, startPlayingDate)
   }
 
-  logInfo('launching', title, game)
+  logInfo('launching', title, appName)
 
   if (recentGames.length) {
     let updatedRecentGames = recentGames.filter(a => a.appName !== game)
@@ -566,20 +577,20 @@ ipcMain.handle('launch', async (event, game: string) => {
 
   return Game.get(game).launch().then(({ stderr }) => {
     const finishedPlayingDate = new Date()
-    tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate)
     const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
-    const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
+    const totalPlayedTime: number = tsStore.has(`${appName}.totalPlayed`) ? tsStore.get(`${appName}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
     // I'll send the calculated time here because then the user can set it manually on the file if desired
-    tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
+    tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlayedTime))
 
     writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
+      `${heroicGamesConfigPath}${appName}-lastPlay.log`,
       stderr,
       () => 'done'
     )
     if (stderr.includes('Errno')) {
       showErrorBox(
-        i18next.t('box.error', 'Something Went Wrong'),
+        i18next.t('box.error.title', 'Something Went Wrong'),
         i18next.t(
           'box.error.launch',
           'Error when launching the game, check the logs!'
@@ -587,7 +598,6 @@ ipcMain.handle('launch', async (event, game: string) => {
       )
     }
   }).catch(async (exception) => {
-    // This stuff is completely borken, I have no idea what the hell we should do here.
     const stderr = `${exception.name} - ${exception.message}`
     errorHandler({ error: { stderr, stdout: '' } })
     writeFile(
@@ -621,15 +631,18 @@ ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string])
   return showErrorBox(title, content)
 })
 
-ipcMain.handle('install', async (event, args) => {
-  const { appName: game, path } = args
+
+ipcMain.handle('install', async (event, params) => {
+  const { appName: game, path, installDlcs, sdlList } = params as InstallParams
   if (!(await isOnline())) {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return Game.get(game).install(path).then(
-    () => { logInfo('finished installing') }
-  ).catch((res) => res)
+  return Game.get(game).install({path, installDlcs, sdlList})
+    .then((res) => {
+      logInfo('finished installing');
+      return res
+    }).catch((res) => res)
 })
 
 ipcMain.handle('uninstall', async (event, game) => {

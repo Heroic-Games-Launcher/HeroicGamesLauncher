@@ -23,7 +23,6 @@ import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
-import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import { uninstall, updateGame } from 'src/helpers/library'
 
@@ -70,7 +69,6 @@ const GameCard = ({
     percent: '0.00%'
   } as InstallProgress)
   const { t } = useTranslation('gamepage')
-  const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
 
   const { libraryStatus, layout, handleGameStatus, platform } = useContext(
     ContextProvider
@@ -259,7 +257,7 @@ const GameCard = ({
       return await install({
         appName,
         handleGameStatus,
-        installPath: notSupported ? 'import' : 'default',
+        installPath: 'default',
         isInstalling,
         previousProgress,
         progress,

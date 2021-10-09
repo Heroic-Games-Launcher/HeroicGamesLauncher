@@ -1,6 +1,6 @@
 {
     "name": "heroic",
-    "version": "1.9.3",
+    "version": "1.10.0",
     "private": true,
     "main": "public/main.js",
     "homepage": "./",
@@ -95,9 +95,9 @@
         "classnames": "^2.2.6",
         "discord-rich-presence-typescript": "^0.0.8",
         "electron-is-dev": "^2.0.0",
-        "electron-store": "^8.0.0",
+        "electron-store": "^8.0.1",
         "electron-updater": "^4.3.9",
-        "graceful-fs": "^4.2.6",
+        "graceful-fs": "^4.2.8",
         "i18next": "^20.2.2",
         "i18next-browser-languagedetector": "^6.1.1",
         "i18next-fs-backend": "^1.1.1",
@@ -110,7 +110,7 @@
         "react-i18next": "^11.8.15",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
-        "tslib": "^2.2.0"
+        "tslib": "^2.3.1"
     },
     "scripts": {
         "start": "nf start -p 3000 && electron-start",
@@ -155,7 +155,7 @@
         "@types/react-router-dom": "^5.1.6",
         "@typescript-eslint/eslint-plugin": "^4.26.0",
         "@typescript-eslint/parser": "^4.26.0",
-        "electron": "^13.2.1",
+        "electron": "^15.1.0",
         "electron-builder": "^22.11.7",
         "electron-devtools-installer": "^3.2.0",
         "eslint": "^7.27.0",

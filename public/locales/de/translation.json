@@ -43,7 +43,12 @@
         "runexe": {
             "title": "EXE zum Starten auswählen"
         },
-        "select": "Auswählen",
+        "select": {
+            "exe": "Select EXE"
+        },
+        "select-exe": {
+            "placeholder": "Select EXE..."
+        },
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
@@ -140,6 +145,7 @@
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
         "darktray": "Benutze Dunkles Taskleisten-Icon",

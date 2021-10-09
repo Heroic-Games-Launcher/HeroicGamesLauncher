@@ -43,7 +43,12 @@
         "runexe": {
             "title": "Select EXE to Run"
         },
-        "select": "Select",
+        "select": {
+            "exe": "Select EXE"
+        },
+        "select-exe": {
+            "placeholder": "Select EXE..."
+        },
         "sync": {
             "button": "Choose",
             "error": "Invalid Path",
@@ -140,6 +145,7 @@
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",

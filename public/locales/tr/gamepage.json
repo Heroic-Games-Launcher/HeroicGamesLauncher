@@ -47,9 +47,15 @@
         "update": "Güncelle"
     },
     "disabled": "Devre dışı",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Etkin",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "İlk Oynanan",
+        "installSize": "Install Size",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "totalPlayed": "Oynanan Zaman"
@@ -78,6 +84,10 @@
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Asgari",
         "recommended": "Tavsiye edilen"
@@ -89,7 +99,6 @@
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
-        "notSupported": "Bu oyun sadece içeri aktarılabilir",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"

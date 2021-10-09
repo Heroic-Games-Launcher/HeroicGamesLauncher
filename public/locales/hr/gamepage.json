@@ -47,9 +47,15 @@
         "update": "Ažuriraj"
     },
     "disabled": "Onemogućeno",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Omogućeno",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Prvo odigrano",
+        "installSize": "Install Size",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "totalPlayed": "Vrijeme igranja"
@@ -78,6 +84,10 @@
             "syncing": "Sinkoniziranje podataka"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimalno",
         "recommended": "Preporučeno"
@@ -89,7 +99,6 @@
         "installing": "Instalira se",
         "moving": "Premještanje instalacije, molim pričekajte",
         "notinstalled": "Ova igrica nije instalirana",
-        "notSupported": "Ova igrica se jedino može uvesti",
         "reparing": "Popravljanje igrice, molimo pričekajte",
         "totalDownloaded": "Sveukupno preuzeto",
         "updating": "Ažuriranje igrice"

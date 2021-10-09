@@ -32,6 +32,7 @@ export interface AppSettings {
   showMangohud: boolean
   startInTray: boolean
   useGameMode: boolean
+  targetExe: string
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -83,6 +84,38 @@ export interface GameInfo {
   title: string
 }
 
+type DLCInfo = {
+  app_name: string
+  title: string
+}
+
+type GameInstallInfo = {
+  app_name: string
+  launch_options: Array<string>
+  owned_dlc: Array<DLCInfo>
+  title: string
+  version: string
+}
+
+type Prerequisites = {
+  args: string
+  name: string
+  path: string
+}
+
+type GameManifest = {
+  app_name: string
+  disk_size: number
+  download_size: number
+  install_tags: Array<string>
+  launch_exe: string
+  prerequisites: Prerequisites
+}
+export interface InstallInfo {
+  game: GameInstallInfo
+  manifest: GameManifest
+}
+
 export interface GameStatus {
   appName: string
   progress?: number | null
@@ -97,6 +130,7 @@ export interface GameStatus {
     | 'canceled'
     | 'moving'
     | 'queued'
+    | 'error'
 }
 
 export interface InstallProgress {

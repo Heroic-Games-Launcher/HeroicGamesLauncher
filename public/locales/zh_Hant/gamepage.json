@@ -47,9 +47,15 @@
         "update": "更新"
     },
     "disabled": "已禁用",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "已啟用",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "首次遊玩",
+        "installSize": "Install Size",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
         "totalPlayed": "遊玩時間"
@@ -78,6 +84,10 @@
             "syncing": "存檔同步中"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "最低配置",
         "recommended": "建議配置"
@@ -89,7 +99,6 @@
         "installing": "正在安裝",
         "moving": "正在移動，請稍等",
         "notinstalled": "未安裝此遊戲",
-        "notSupported": "此遊戲只能被導入",
         "reparing": "遊戲修復中，請稍等",
         "totalDownloaded": "總共已下載",
         "updating": "遊戲更新中"

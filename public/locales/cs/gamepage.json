@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Zakázáno",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Povoleno",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Poprvé hráno",
+        "installSize": "Install Size",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "totalPlayed": "Odehraný čas"
@@ -78,6 +84,10 @@
             "syncing": "Synchronizuji uložené soubory"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Doporučené"
@@ -89,7 +99,6 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
-        "notSupported": "Tuto hru lze pouze importovat",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
         "updating": "Aktualizuji hru"

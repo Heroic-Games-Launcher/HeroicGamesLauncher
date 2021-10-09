@@ -43,7 +43,12 @@
         "runexe": {
             "title": "Seleccione EXE para ejecutar"
         },
-        "select": "Seleccionar",
+        "select": {
+            "exe": "Select EXE"
+        },
+        "select-exe": {
+            "placeholder": "Select EXE..."
+        },
         "sync": {
             "button": "Elegir",
             "error": "Ruta no válida",
@@ -79,7 +84,7 @@
             "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
         },
         "wine": {
-            "part1": "Búsquedas de versiones de Wine y Proton en las siguientes carpetas:",
+            "part1": "Búsquedas de versiones de Wine, Proton y CrossOver en las siguientes carpetas:",
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
         }
     },
@@ -140,6 +145,7 @@
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
@@ -150,6 +156,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
+        "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
