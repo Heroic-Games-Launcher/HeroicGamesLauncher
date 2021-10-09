@@ -84,7 +84,7 @@ export default function OtherSettings({
 
   return (
     <>
-      <span className="setting">
+      {isDefault && <span className="setting">
         <span className="settingText">{t('setting.change-target-exe', 'Select an alternative EXE to run')}</span>
         <span>
           <input
@@ -110,7 +110,7 @@ export default function OtherSettings({
             }
           />
         </span>
-      </span>
+      </span>}
       {isLinux && <>
         <span data-testid="otherSettings" className="setting">
           <span className="toggleWrapper">

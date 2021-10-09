@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.10.0
+
+### General
+
+- Heroic now can install components from games that have selective download. (Fortnite, CyberPunk, etc).
+- Now is possible to run the game using an alternative executable.
+- Heroic will list available DLCs and add a toggle to install/import all of them or no.
+- Heroic now will open the Epic Store and the Wiki on the main window instead of a separate one.
+- It's possible to check the download size and install size before installing the game.
+- (Mac/Linux) Heroic will now check for available Crossover bottle and select the right wine binary.
+- (Linux) Added Options to enable or disable Esync/Fsync.
+- Some visual fixes and improvements.
+- Added Japanese Language.
+- Other translations updates and fixes.
+- Updated Electron to version 15.1.
+- Updated Legendary to version 0.20.14.
+
+### Bugfixes
+
+- Fix Heroic not checking available space before installing a game.
+- Fix Heroic not launching a game when skipping an update available.
+- Fix Save folder on Windows missing a `backslash`
+- Fixed card image with wrong size.
+- Fix the Return button that was not clickable sometimes.
+- Other minor fixes and improvements.
+
 ## 1.9.3
 
 ### General

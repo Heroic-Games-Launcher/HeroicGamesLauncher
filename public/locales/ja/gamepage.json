@@ -1,22 +1,11 @@
 {
     "box": {
-        "yes": "はい",
-        "no": "いいえ",
-        "choose": "選ぶ",
-        "stopInstall": {
-            "message": "ダウンロードしたファイルを保持しますか？",
-            "keepInstalling": "インストールを続ける",
-            "title": "インストールを停止する"
-        },
-        "uninstall": {
-            "message": "このゲームをアンインストールしたいですか？",
-            "title": "アンインストール"
-        },
         "change": {
-            "path": "新しいインストールパスを選択します",
             "message": "これにより、このゲームのインストール場所が変更されます、よろしいですか？",
+            "path": "新しいインストールパスを選択します",
             "title": "ゲームのインストールパスを変更します"
         },
+        "choose": "選ぶ",
         "importpath": "インポートするゲームフォルダを選択します",
         "installpath": "インストールパスを選択します",
         "move": {
@@ -24,43 +13,50 @@
             "path": "移動したい場所を選択してください",
             "title": "ゲームのインストールを移動します"
         },
+        "no": "いいえ",
         "ok": "オケ",
         "repair": {
-            "title": "確認と修復",
-            "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。"
+            "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。",
+            "title": "確認と修復"
         },
         "shortcuts": {
             "message": "デスクトップとスタートメニューにショートカットが作成されました",
             "title": "ショートカット"
         },
+        "stopInstall": {
+            "keepInstalling": "インストールを続ける",
+            "message": "ダウンロードしたファイルを保持しますか？",
+            "title": "インストールを停止する"
+        },
+        "uninstall": {
+            "message": "このゲームをアンインストールしたいですか？",
+            "title": "アンインストール"
+        },
         "update": {
-            "title": "ゲームの更新が必要",
-            "message": "このゲームにはアップデートがありますが、今すぐアップデートしたいですか？"
-        }
-    },
-    "submenu": {
-        "verify": "確認と修復",
-        "addShortcut": "ショートカットを追加する",
-        "change": "インストールパスを変更する",
-        "log": "最新のログ",
-        "move": "ゲームを移動する",
-        "settings": "設定",
-        "store": "ストアページ",
-        "protondb": "互換性を確認する"
+            "message": "このゲームにはアップデートがありますが、今すぐアップデートしたいですか？",
+            "title": "ゲームの更新が必要"
+        },
+        "yes": "はい"
     },
     "button": {
         "cancel": "キャンセル",
-        "import": "インポート",
-        "uninstall": "アンインストール",
         "continue": "ダウンロードを続ける",
+        "import": "インポート",
         "install": "インストール",
+        "uninstall": "アンインストール",
         "update": "アップデート"
     },
     "disabled": "無効になっています",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "有効になっています",
     "game": {
-        "lastPlayed": "最後にプレイした",
+        "downloadSize": "Download Size",
         "firstPlayed": "最初にプレイした",
+        "installSize": "Install Size",
+        "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
         "totalPlayed": "プレイ時間"
     },
@@ -75,9 +71,9 @@
         "version": "バージョン"
     },
     "install": {
+        "another": "他のパスにインストールする",
         "default": "インストール",
-        "import": "ゲームをインポートする",
-        "another": "他のパスにインストールする"
+        "import": "ゲームをインポートする"
     },
     "label": {
         "playing": {
@@ -88,20 +84,33 @@
             "syncing": "保存を同期しています"
         }
     },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "最小",
         "recommended": "推奨される"
     },
     "status": {
+        "clickToUpdate": "クリックして更新",
         "hasUpdates": "新しいバージョンが利用可能です！",
         "installed": "インストールされています",
         "installing": "インストールしています",
-        "notinstalled": "このゲームはインストールされていません",
-        "notSupported": "このゲームはインポートのみ可能です",
-        "totalDownloaded": "ダウンロードの総数",
-        "updating": "ゲームを更新しています",
-        "clickToUpdate": "クリックして更新",
         "moving": "インストールを移動しています、お待ちください",
-        "reparing": "ゲームを修復しています、お待ちください"
+        "notinstalled": "このゲームはインストールされていません",
+        "reparing": "ゲームを修復しています、お待ちください",
+        "totalDownloaded": "ダウンロードの総数",
+        "updating": "ゲームを更新しています"
+    },
+    "submenu": {
+        "addShortcut": "ショートカットを追加する",
+        "change": "インストールパスを変更する",
+        "log": "最新のログ",
+        "move": "ゲームを移動する",
+        "protondb": "互換性を確認する",
+        "settings": "設定",
+        "store": "ストアページ",
+        "verify": "確認と修復"
     }
 }

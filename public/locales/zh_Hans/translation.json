@@ -46,6 +46,9 @@
         "select": {
             "exe": "Select EXE"
         },
+        "select-exe": {
+            "placeholder": "Select EXE..."
+        },
         "sync": {
             "button": "选择",
             "error": "无效路径",
