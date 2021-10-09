@@ -183,7 +183,8 @@
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
-        "wineversion": "Versión de Wine"
+        "wineversion": "Versión de Wine",
+        "fsync": "Habilitar Fsync"
     },
     "Settings": "Ajustes",
     "settings": {
