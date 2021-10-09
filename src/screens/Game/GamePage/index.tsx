@@ -275,13 +275,14 @@ export default function GamePage(): JSX.Element | null {
                         </div>)}
                         {haveSDL && <div className="itemContainer">
                           <p className="sdlTitle" onClick={() => setShowSDL(!showSDL)} >{t('sdl.showList', 'Click to Show/Hide Extra Components')}</p>
-                          {showSDL && SDL_GAMES[appName].map(({name, tags, mandatory}: SelectiveDownload) =>
-                            !mandatory && (
+                          {showSDL && SDL_GAMES[appName].map(({name, tags, mandatory}: SelectiveDownload) => {
+                            const checked = sdlList.includes(tags[0])
+                            return !mandatory && (
                               <div key={name} className="checkBox">
-                                <Checkbox className="checkbox" color='primary' size="small" onChange={() => handleSdl(tags)} />
+                                <Checkbox className="checkbox" color='primary' size="small" checked={checked}  onChange={() => handleSdl(tags)} />
                                 <span className="itemName">{name}</span>
                               </div>)
-                          )}
+                          })}
                         </div>}
                         <br />
                       </>
