@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Uitgeschakeld",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Ingeschakeld",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Eerst gespeeld",
+        "installSize": "Install Size",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "totalPlayed": "Tijd gespeeld"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

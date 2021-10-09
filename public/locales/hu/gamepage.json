@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Letiltva",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Engedélyezve",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Először Játszott",
+        "installSize": "Install Size",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
         "totalPlayed": "Játszott idő"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

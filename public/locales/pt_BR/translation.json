@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Selecione o EXE para iniciar"
         },
-        "select": "Selecionar",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -140,6 +142,7 @@
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefix",
         "autosync": "Sincronizar saves automaticamente",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com WINE/Proton Customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",

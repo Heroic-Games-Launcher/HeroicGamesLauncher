@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Επιλέξτε EXE για εκτέλεση"
         },
-        "select": "Επιλογή",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Επιλέξτε",
             "error": "Μη έγκυρη Διαδρομή",
@@ -140,6 +142,7 @@
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Έλεγχος για ενημερώσεις κατά την εκκίνηση",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",

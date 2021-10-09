@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Odaberi EXE za pokrenuti"
         },
-        "select": "Odaberi",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Odaberi",
             "error": "Pogrešni put",
@@ -140,6 +142,7 @@
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
         "autodxvk": "Automatski instaliraj/ažuriraj DXVK na put",
         "autosync": "Automatsko sinkroniziranje podataka",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Provjeri za ažuriranjem na pokretanju",
         "customWineProton": "Prilagođen put za WINE/PROTON",
         "darktray": "Koristi tamnu ikonu",

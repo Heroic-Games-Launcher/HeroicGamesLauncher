@@ -47,9 +47,15 @@
         "update": "Ažuriraj"
     },
     "disabled": "Onemogućeno",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Omogućeno",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Prvo odigrano",
+        "installSize": "Install Size",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "totalPlayed": "Vrijeme igranja"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

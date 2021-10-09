@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
-        "select": "Kiválaszt",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Választ",
             "error": "Érvénytelen útvonal",
@@ -140,6 +142,7 @@
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",

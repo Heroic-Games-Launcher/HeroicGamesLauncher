@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Välj EXE-fil att köra"
         },
-        "select": "Kör",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
@@ -140,6 +142,7 @@
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i systembrickan",

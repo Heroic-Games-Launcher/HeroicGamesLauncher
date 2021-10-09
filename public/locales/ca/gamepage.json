@@ -47,9 +47,15 @@
         "update": "Actualitzar"
     },
     "disabled": "Desactivat",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Activat",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "First Played",
+        "installSize": "Install Size",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

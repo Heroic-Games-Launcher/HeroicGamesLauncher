@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Selecteer EXE on te lanceren"
         },
-        "select": "Selecteren",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Selecteer",
             "error": "Ongeldig Pad",
@@ -140,6 +142,7 @@
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",

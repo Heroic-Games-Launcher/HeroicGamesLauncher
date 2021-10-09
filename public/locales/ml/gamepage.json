@@ -47,9 +47,15 @@
         "update": "പുതുക്കൂ"
     },
     "disabled": "പ്രവര്‍ത്തനരഹിതം",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "പ്രവര്‍ത്തനക്ഷമം",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "ആദ്യം കളിച്ചത്",
+        "installSize": "Install Size",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
         "totalPlayed": "കളിച്ച നേരം"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

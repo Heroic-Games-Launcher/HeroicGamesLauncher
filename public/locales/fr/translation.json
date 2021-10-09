@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Sélectionner l'EXE à exécuter"
         },
-        "select": "Sélectionner",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Choisir",
             "error": "Chemin invalide",
@@ -140,6 +142,7 @@
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",

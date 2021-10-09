@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Zakázáno",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Povoleno",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Poprvé hráno",
+        "installSize": "Install Size",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "totalPlayed": "Odehraný čas"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

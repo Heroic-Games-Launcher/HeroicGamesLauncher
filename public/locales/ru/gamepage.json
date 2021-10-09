@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Выключено",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Включено",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Первый запуск",
+        "installSize": "Install Size",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
         "totalPlayed": "Проведено в игре"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

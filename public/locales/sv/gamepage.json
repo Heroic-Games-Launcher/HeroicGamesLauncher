@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Inaktiverad",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Aktiverad",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Först spelad",
+        "installSize": "Install Size",
         "lastPlayed": "Senast spelad",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Speltid"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

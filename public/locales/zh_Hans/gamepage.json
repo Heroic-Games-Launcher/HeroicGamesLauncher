@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "已禁用",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "已启用",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "首次游玩",
+        "installSize": "Install Size",
         "lastPlayed": "上次游玩",
         "neverPlayed": "从未游玩",
         "totalPlayed": "游玩时间"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

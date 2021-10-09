@@ -47,9 +47,15 @@
         "update": "업데이트"
     },
     "disabled": "비활성화",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "활성화",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "처음 플레이",
+        "installSize": "Install Size",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "totalPlayed": "플레이 시간"
@@ -79,6 +85,7 @@
         }
     },
     "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

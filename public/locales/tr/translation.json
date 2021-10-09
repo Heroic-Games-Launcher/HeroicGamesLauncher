@@ -43,7 +43,9 @@
         "runexe": {
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
-        "select": "Seç",
+        "select": {
+            "target-exe": ""
+        },
         "sync": {
             "button": "Seç",
             "error": "Geçersiz Yol",
@@ -140,6 +142,7 @@
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "change-target-exe": "",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan",
