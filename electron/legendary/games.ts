@@ -435,7 +435,7 @@ Categories=Game;
     const { discordRPC } = (await GlobalConfig.get().getSettings())
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = offlineMode ? '--offline' : ''
-    const exe = targetExe !== 'Default' ? `--override-exe ${targetExe}` : ''
+    const exe = targetExe ? `--override-exe ${targetExe}` : ''
 
     if (discordRPC) {
       // Show DiscordRPC

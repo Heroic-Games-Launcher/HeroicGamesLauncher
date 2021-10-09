@@ -85,14 +85,14 @@ export default function OtherSettings({
   return (
     <>
       <span className="setting">
-        <span className="settingText">{t('setting.change-target-exe')}</span>
+        <span className="settingText">{t('setting.change-target-exe', 'Select an alternative EXE to run')}</span>
         <span>
           <input
             data-testid="setinstallpath"
             type="text"
             value={targetExe.replaceAll("'", '')}
             className="settingSelect"
-            placeholder={targetExe}
+            placeholder={targetExe || t('box.select-exe.placeholder', 'Select EXE...')}
             onChange={(event) => setTargetExe(event.target.value)}
           />
           <CreateNewFolder
@@ -103,7 +103,7 @@ export default function OtherSettings({
                 buttonLabel: t('box.select'),
                 filters: [ { extensions: ['exe'], name: 'Binaries' }],
                 properties: ['openFile'],
-                title: t('box.select.target-exe')
+                title: t('box.select.exe', 'Select EXE')
               }).then(({ path }: Path) =>
                 setTargetExe(path ? `'${path}'` : targetExe)
               )

@@ -62,7 +62,7 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
-  const [targetExe, setTargetExe] = useState('Default')
+  const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
@@ -217,7 +217,7 @@ function Settings() {
       setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
-      setTargetExe(config.targetExe || 'Default')
+      setTargetExe(config.targetExe || '')
 
       if (!isDefault) {
         const {
