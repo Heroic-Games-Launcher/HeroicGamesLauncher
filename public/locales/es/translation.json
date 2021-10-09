@@ -44,7 +44,7 @@
             "title": "Seleccione EXE para ejecutar"
         },
         "select": {
-            "target-exe": ""
+            "exe": "Select EXE"
         },
         "sync": {
             "button": "Elegir",
@@ -142,7 +142,7 @@
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",
-        "change-target-exe": "",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",

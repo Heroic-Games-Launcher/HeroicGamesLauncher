@@ -44,7 +44,7 @@
             "title": "EXE zum Starten auswählen"
         },
         "select": {
-            "target-exe": ""
+            "exe": "Select EXE"
         },
         "sync": {
             "button": "Auswählen",
@@ -142,7 +142,7 @@
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
-        "change-target-exe": "",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
         "darktray": "Benutze Dunkles Taskleisten-Icon",

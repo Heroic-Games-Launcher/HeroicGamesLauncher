@@ -44,7 +44,7 @@
             "title": "Επιλέξτε EXE για εκτέλεση"
         },
         "select": {
-            "target-exe": ""
+            "exe": "Select EXE"
         },
         "sync": {
             "button": "Επιλέξτε",
@@ -142,7 +142,7 @@
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
-        "change-target-exe": "",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Έλεγχος για ενημερώσεις κατά την εκκίνηση",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",

@@ -44,7 +44,7 @@
             "title": "Selecteer EXE on te lanceren"
         },
         "select": {
-            "target-exe": ""
+            "exe": "Select EXE"
         },
         "sync": {
             "button": "Selecteer",
@@ -142,7 +142,7 @@
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
-        "change-target-exe": "",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
