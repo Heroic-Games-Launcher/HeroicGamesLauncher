@@ -50,7 +50,7 @@ describe('handleInstall', () => {
   test('install game on default path', async () => {
     const onHandleGameStatus = jest.fn();
     await callHandleInstall({handleGameStatus: onHandleGameStatus});
-    expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', installDlcs: false, 'path': 'default/install/path', sdlList: [] });
+    expect(ipcRenderer.invoke).toBeCalledWith('install', { 'appName': 'game', installDlcs: false, 'path': "'default/install/path'", sdlList: [] });
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game');
     expect(ipcRenderer.invoke).toBeCalledWith('requestSettings', 'default');
     expect(onHandleGameStatus).toBeCalledWith({'appName': 'game', 'status': 'installing'});

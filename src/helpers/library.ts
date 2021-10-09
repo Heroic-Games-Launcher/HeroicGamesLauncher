@@ -78,7 +78,7 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
     handleGameStatus({ appName, status: 'installing' })
     const result = await ipcRenderer.invoke('install', { appName, path: `'${path}'`, installDlcs, sdlList })
 
-    if (result.status === 'error'){
+    if (result && result.status === 'error'){
       return await handleGameStatus({ appName, status: 'error' })
     }
 
@@ -103,7 +103,7 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
 
     const result = await ipcRenderer.invoke('install', { appName, path: `'${path}'`, installDlcs, sdlList })
 
-    if (result.status === 'error'){
+    if (result && result.status === 'error'){
       return await handleGameStatus({ appName, status: 'error' })
     }
 
