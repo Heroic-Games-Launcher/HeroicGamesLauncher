@@ -79,7 +79,7 @@
             "part4": "Mentések Automatikus Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
         },
         "wine": {
-            "part1": "A Heroic a Wine és Proton verzióit a következő mappákban keresi:",
+            "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
             "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
         }
     },
@@ -146,11 +146,11 @@
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
-        "esync": "Enable Esync",
+        "enableFSRHack": "FSR Hack engedélyezése (Wine verziónak támogatnia kell)",
+        "esync": "Esync engedélyezése",
         "exit-to-tray": "Kilépés a Rendszer Tálcára",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
+        "FsrSharpnessStrenght": "FSR Élesség Erősség",
+        "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",
         "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
@@ -167,7 +167,7 @@
         "maxworkers": "Maximum Dolgozók Száma letöltéskor",
         "offlinemode": "Futtassa a Játékot Offline",
         "primerun": "Nvidia Prime Render Engedélyezése",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyával)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
             "title": "Futtasd az EXE fájlt Prefix-el"
