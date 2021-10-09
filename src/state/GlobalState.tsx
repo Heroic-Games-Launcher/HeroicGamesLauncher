@@ -186,6 +186,18 @@ export class GlobalState extends PureComponent<Props> {
       })
     }
 
+    if (currentApp && currentApp.status === 'installing' && status === 'error') {
+      const updatedLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+
+      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
+      this.refreshLibrary({})
+
+      return notify([title, 'notify.install.error'])
+    }
+
+
     if (currentApp && currentApp.status === 'installing' && status === 'done') {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
@@ -206,7 +218,7 @@ export class GlobalState extends PureComponent<Props> {
         return this.refreshLibrary({})
       }
       this.refreshLibrary({})
-      return notify([title, 'Game Imported'])
+      return notify([title, 'notify.install.imported'])
     }
 
     if (currentApp && currentApp.status === 'updating' && status === 'done') {

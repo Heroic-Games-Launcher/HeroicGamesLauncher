@@ -76,7 +76,11 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
       storage.removeItem(appName)
     }
     handleGameStatus({ appName, status: 'installing' })
-    await ipcRenderer.invoke('install', { appName, path: `'${path}'`, installDlcs, sdlList })
+    const result = await ipcRenderer.invoke('install', { appName, path: `'${path}'`, installDlcs, sdlList })
+
+    if (result.status === 'error'){
+      return await handleGameStatus({ appName, status: 'error' })
+    }
 
     if (progress.percent === '100%') {
       storage.removeItem(appName)
@@ -96,7 +100,12 @@ async function install({appName, installPath, t, progress, isInstalling, handleG
     }
 
     await handleGameStatus({ appName, status: 'installing' })
-    await ipcRenderer.invoke('install', { appName, path, installDlcs, sdlList })
+
+    const result = await ipcRenderer.invoke('install', { appName, path: `'${path}'`, installDlcs, sdlList })
+
+    if (result.status === 'error'){
+      return await handleGameStatus({ appName, status: 'error' })
+    }
 
     if (progress.percent === '100%') {
       storage.removeItem(appName)

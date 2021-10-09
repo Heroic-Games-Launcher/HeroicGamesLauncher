@@ -129,6 +129,7 @@ export interface GameStatus {
     | 'canceled'
     | 'moving'
     | 'queued'
+    | 'error'
 }
 
 export interface InstallProgress {

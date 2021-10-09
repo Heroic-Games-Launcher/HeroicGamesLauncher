@@ -638,9 +638,11 @@ ipcMain.handle('install', async (event, params) => {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return Game.get(game).install({path, installDlcs, sdlList}).then(
-    () => { logInfo('finished installing') }
-  ).catch((res) => res)
+  return Game.get(game).install({path, installDlcs, sdlList})
+    .then((res) => {
+      logInfo('finished installing');
+      return res
+    }).catch((res) => res)
 })
 
 ipcMain.handle('uninstall', async (event, game) => {

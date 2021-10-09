@@ -19,7 +19,7 @@ abstract class Game {
   abstract getSettings() : Promise<GameSettings>
   abstract hasUpdate() : Promise<boolean>
   abstract import(path : string) : Promise<ExecResult>
-  abstract install(args: InstallArgs) : Promise<ExecResult>
+  abstract install(args: InstallArgs) : Promise<{status: string}>
   abstract addDesktopShortcut(): Promise<void>
   abstract launch() : Promise<ExecResult>
   abstract moveInstall(newInstallPath : string) : Promise<string>

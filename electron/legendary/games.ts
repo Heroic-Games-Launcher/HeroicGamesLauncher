@@ -329,20 +329,15 @@ Categories=Game;
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
-    try {
-      LegendaryLibrary.get().installState(this.appName, true)
-      return await execAsync(command, execOptions).then((v) => {
-        this.state.status = 'done'
+    return execAsync(command, execOptions)
+      .then(async ({stdout, stderr}) => {
+        if (stdout.includes('ERROR')){
+          errorHandler({error: {stdout, stderr}, logPath})
+          return {status: 'error'}
+        }
         this.addDesktopShortcut()
-        return v
+        return {status: 'done'}
       })
-    } catch (error) {
-      LegendaryLibrary.get().installState(this.appName, false)
-      return errorHandler({ error, logPath }).then((v) => {
-        this.state.status = 'done'
-        return v
-      })
-    }
   }
 
   public async uninstall() {
