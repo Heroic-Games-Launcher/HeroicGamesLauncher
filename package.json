@@ -1,6 +1,6 @@
 {
     "name": "heroic",
-    "version": "1.10.0rc1",
+    "version": "1.10.0",
     "private": true,
     "main": "public/main.js",
     "homepage": "./",
