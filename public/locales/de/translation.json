@@ -44,8 +44,8 @@
             "title": "EXE zum Starten auswählen"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Auswählen",
+            "exe": "EXE auswählen"
         },
         "sync": {
             "button": "Auswählen",
@@ -82,7 +82,7 @@
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
         },
         "wine": {
-            "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine und Proton:",
+            "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine, Proton und CrossOver:",
             "part2": "Für andere Orte verwenden Sie einen symbolischen Link zu einem dieser Ordner"
         }
     },
@@ -143,18 +143,18 @@
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Wählen Sie eine alternative EXE zum Ausführen",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
-        "darktray": "Benutze Dunkles Taskleisten-Icon",
+        "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
-        "esync": "Enable Esync",
+        "esync": "Esync aktivieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
         "FsrSharpnessStrenght": "FSR Schärfestärke",
-        "fsync": "Enable Fsync",
+        "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
