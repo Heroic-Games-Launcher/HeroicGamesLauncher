@@ -39,7 +39,7 @@
         "yes": "ДА"
     },
     "button": {
-        "cancel": "Отменить",
+        "cancel": "Пауза/Отмена",
         "continue": "Продолжить загрузку",
         "import": "Импорт",
         "install": "Установить",
@@ -48,14 +48,14 @@
     },
     "disabled": "Выключено",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Установить все DLC",
+        "title": "DLC"
     },
     "enabled": "Включено",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Размер загрузки",
         "firstPlayed": "Первый запуск",
-        "installSize": "Install Size",
+        "installSize": "Размер установки",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
         "totalPlayed": "Проведено в игре"
@@ -67,7 +67,7 @@
     "info": {
         "path": "Установочный путь",
         "size": "Размер",
-        "syncsaves": "Синхронизации сохранений",
+        "syncsaves": "Синхронизация сохранений",
         "version": "Версия"
     },
     "install": {
@@ -81,12 +81,12 @@
             "stop": "В игре (Остановить)"
         },
         "saves": {
-            "syncing": "Синхронизации сохранений"
+            "syncing": "Синхронизация сохранений"
         }
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Показать/скрыть дополнительные компоненты",
+        "title": "Выбрать компоненты для установки"
     },
     "specs": {
         "minimum": "Минимальные",
