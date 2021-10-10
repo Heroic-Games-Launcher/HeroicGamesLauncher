@@ -1,56 +1,55 @@
 .gameList {
-  color: var(--text-secondary);
-  display: grid;
-  grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
-  grid-gap: 0.5rem 1rem;
-  padding: 0 4rem 1rem 4rem;
-  max-width: 3382px;
-  place-self: center;
-  width: inherit;
+    color: var(--text-secondary);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
+    grid-gap: 1.2rem;
+    padding: 0 4rem 1rem 4rem;
+    max-width: 3382px;
+    place-self: center;
+    width: inherit;
 }
 
 .gameListLayout {
-  background-color: var(--background);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  padding-top: 1em;
-  min-height: 2vh;
-  min-width: 80vw;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    padding-top: 1em;
+    min-height: 2vh;
+    min-width: 80vw;
 }
 
 #backToTopBtn {
-  border-radius: 100%;
-  width: 5vh;
-  height: 5vh;
-  position: fixed;
-  bottom: 3%;
-  margin: 1em 3em;
-  border: 1px var(--secondary) solid;
-  background-color: transparent;
-  color: var(--secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-end;
-  z-index: 9;
-  visibility: hidden;
+    border-radius: 100%;
+    width: 5vh;
+    height: 5vh;
+    position: fixed;
+    bottom: 3%;
+    margin: 1em 3em;
+    border: 1px var(--secondary) solid;
+    background-color: transparent;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    z-index: 9;
+    visibility: hidden;
 }
 
 #backToTopBtn:hover {
-  cursor: pointer;
-  animation: apparition 0.3s ease-in forwards;
+    cursor: pointer;
+    animation: apparition 0.3s ease-in forwards;
 }
 
 @keyframes apparition {
-  from {
-    color: var(--secondary);
-    background-color: transparent;
-  }
-
-  to {
-    background-color: var(--secondary);
-    color: var(--text-primary);
-  }
+    from {
+        color: var(--secondary);
+        background-color: transparent;
+    }
+    to {
+        background-color: var(--secondary);
+        color: var(--text-primary);
+    }
 }
