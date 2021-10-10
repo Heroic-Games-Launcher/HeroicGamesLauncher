@@ -87,7 +87,7 @@ class LegendaryLibrary {
   public async refresh() {
     logInfo('Refreshing Epic Games...')
     return new Promise((res, rej) => {
-      const child = spawn(legendaryBin, ['list-games', '--include-ue'])
+      const child = spawn(legendaryBin, ['list-games', '--include-ue', '--include-non-installable'])
       child.stderr.on('data', (data) => {
         console.log(`${data}`)}
       )
@@ -323,6 +323,7 @@ class LegendaryLibrary {
     const dlcs: string[] = []
     const CloudSaveFolder = customAttributes?.CloudSaveFolder
     const FolderName = customAttributes?.FolderName
+    const ThirdPartyManagedApp = customAttributes?.ThirdPartyManagedApp?.value
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -430,7 +431,8 @@ class LegendaryLibrary {
       is_ue_project,
       namespace,
       save_folder: saveFolder,
-      title
+      title,
+      isOriginGame: ThirdPartyManagedApp === 'Origin'
     } as GameInfo)
 
     return app_name

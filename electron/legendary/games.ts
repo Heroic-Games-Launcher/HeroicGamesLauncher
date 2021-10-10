@@ -333,6 +333,7 @@ Categories=Game;
       .then(async ({stdout, stderr}) => {
         if (stdout.includes('ERROR')){
           errorHandler({error: {stdout, stderr}, logPath})
+          logError(stdout)
           return {status: 'error'}
         }
         this.addDesktopShortcut()

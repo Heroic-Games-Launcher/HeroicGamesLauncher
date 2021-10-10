@@ -145,7 +145,8 @@ const test_game = new TestType<GameInfo>({
   is_ue_project: false,
   namespace: null,
   save_folder: '{appdata}/../locallow',
-  title: 'title'
+  title: 'title',
+  isOriginGame: false
 });
 
 /**
@@ -182,7 +183,8 @@ const test_plugin = new TestType<GameInfo>({
   is_ue_project: true,
   namespace: null,
   save_folder: '{appdata}/../locallow',
-  title: 'title'
+  title: 'title',
+  isOriginGame: false
 });
 
 /**

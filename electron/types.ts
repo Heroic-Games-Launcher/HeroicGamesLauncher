@@ -68,6 +68,7 @@ export interface GameInfo {
   namespace: string
   save_folder: string
   title: string
+  isOriginGame: boolean
 }
 
 
