@@ -44,10 +44,8 @@
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
         "select": {
+            "button": "Select",
             "exe": "EXE kiválasztása"
-        },
-        "select-exe": {
-            "placeholder": "EXE kiválasztása..."
         },
         "sync": {
             "button": "Választ",

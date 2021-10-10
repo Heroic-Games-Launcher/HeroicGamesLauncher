@@ -44,10 +44,8 @@
             "title": "Selecione o EXE para iniciar"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "Selecionar",

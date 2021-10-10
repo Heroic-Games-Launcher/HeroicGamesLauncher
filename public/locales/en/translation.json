@@ -44,10 +44,8 @@
             "title": "Select EXE to Run"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "Choose",

@@ -116,7 +116,7 @@ describe('Tools', () => {
     await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
       'openDialog',
       {
-        'buttonLabel': 'box.select',
+        'buttonLabel': 'box.select.button',
         'filters': [{'extensions': ['exe', 'msi'], 'name': 'Binaries'}],
         'properties': ['openFile'],
         'title': 'box.runexe.title'}));
@@ -131,7 +131,7 @@ describe('Tools', () => {
     await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
       'openDialog',
       {
-        'buttonLabel': 'box.select',
+        'buttonLabel': 'box.select.button',
         'filters': [{'extensions': ['exe', 'msi'], 'name': 'Binaries'}],
         'properties': ['openFile'],
         'title': 'box.runexe.title'}));

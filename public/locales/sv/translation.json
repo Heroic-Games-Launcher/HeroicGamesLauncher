@@ -44,10 +44,8 @@
             "title": "Välj EXE-fil att köra"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "Ok",

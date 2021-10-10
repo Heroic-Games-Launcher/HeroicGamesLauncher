@@ -44,10 +44,8 @@
             "title": "実行するEXEを選択します"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "選ぶ",

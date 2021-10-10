@@ -44,10 +44,8 @@
             "title": "Seleziona l'EXE da avviare"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "Scegli",

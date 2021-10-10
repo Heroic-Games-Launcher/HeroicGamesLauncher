@@ -44,10 +44,8 @@
             "title": "ഓടിക്കുവാനുള്ള EXE നല്‍കൂ"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "തിരഞ്ഞെടുക്കൂ",

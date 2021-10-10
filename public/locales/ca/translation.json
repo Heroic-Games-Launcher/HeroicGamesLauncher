@@ -44,10 +44,8 @@
             "title": "Selecciona un EXE per llençar"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "Tria",

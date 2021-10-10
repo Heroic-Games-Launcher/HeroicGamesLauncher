@@ -44,10 +44,8 @@
             "title": "Selecteer EXE on te lanceren"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "Selecteer",

@@ -44,10 +44,8 @@
             "title": "실행할 EXE 선택"
         },
         "select": {
+            "button": "Select",
             "exe": "Select EXE"
-        },
-        "select-exe": {
-            "placeholder": "Select EXE..."
         },
         "sync": {
             "button": "선택",

@@ -44,10 +44,8 @@
             "title": "Выбрать EXE для запуска"
         },
         "select": {
+            "button": "Select",
             "exe": "Выбрать EXE"
-        },
-        "select-exe": {
-            "placeholder": "Выбрать EXE..."
         },
         "sync": {
             "button": "Выбрать",
