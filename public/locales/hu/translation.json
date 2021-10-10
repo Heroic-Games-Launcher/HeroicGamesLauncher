@@ -44,10 +44,10 @@
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
         "select": {
-            "exe": "Select EXE"
+            "exe": "EXE kiválasztása"
         },
         "select-exe": {
-            "placeholder": "Select EXE..."
+            "placeholder": "EXE kiválasztása..."
         },
         "sync": {
             "button": "Választ",
@@ -145,7 +145,7 @@
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Válassz alternatív EXE fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",
