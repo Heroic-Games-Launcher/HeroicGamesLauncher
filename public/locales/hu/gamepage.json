@@ -39,7 +39,7 @@
         "yes": "IGEN"
     },
     "button": {
-        "cancel": "Mégse",
+        "cancel": "Szüneteltetés/Mégse",
         "continue": "Letöltés folytatása",
         "import": "Importálás",
         "install": "Telepítés",
@@ -48,14 +48,14 @@
     },
     "disabled": "Letiltva",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Összes DLC telepítése",
         "title": "DLCs"
     },
     "enabled": "Engedélyezve",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Letöltési méret",
         "firstPlayed": "Először Játszott",
-        "installSize": "Install Size",
+        "installSize": "Telepítési méret",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
         "totalPlayed": "Játszott idő"
@@ -85,8 +85,8 @@
         }
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Kattints ide az Extra elemek megjelenítéséhez/elrejtéséhez",
+        "title": "Válasszd ki a telepíteni kívánt elemeket"
     },
     "specs": {
         "minimum": "Minimum",
