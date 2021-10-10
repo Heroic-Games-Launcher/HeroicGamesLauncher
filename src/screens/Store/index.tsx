@@ -11,7 +11,7 @@ export default function EpicStore() {
 
   return (
     <div>
-      <webview id="foo" src={epicStore} style={{width:'100vw', height:'100vh'}}></webview>
+      <webview partition="persist:epicstore" id="foo" src={epicStore} style={{width:'100vw', height:'100vh'}}></webview>
     </div>
   )
 }
