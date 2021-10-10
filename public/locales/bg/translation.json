@@ -46,7 +46,8 @@
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
         "fsync": "Включване на Fsync",
         "esync": "Включване на Esync",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "change-target-exe": "Изберете алтернативен файл EXE за изпълнение"
     },
     "wiki": "Уики",
     "userselector": {
@@ -169,7 +170,10 @@
             "error": "Неправилен път",
             "button": "Избиране"
         },
-        "select": "Избиране",
+        "select": {
+            "exe": "Изберете EXE",
+            "button": "Избиране"
+        },
         "runexe": {
             "title": "Изберете EXE за изпълнение"
         },

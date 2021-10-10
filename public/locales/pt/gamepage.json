@@ -39,7 +39,7 @@
         "yes": "SIM"
     },
     "button": {
-        "cancel": "Cancelar",
+        "cancel": "Pausar/Cancelar",
         "continue": "Continuar Download",
         "import": "Importar",
         "install": "Instalar",
@@ -48,14 +48,14 @@
     },
     "disabled": "Desabilitado",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Instalar todas as DLCs",
         "title": "DLCs"
     },
     "enabled": "Habilitado",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado pela primeira vez",
-        "installSize": "Install Size",
+        "installSize": "Tamanho Instalado",
         "lastPlayed": "Jogado pela última vez",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo de Jogo"
@@ -85,8 +85,8 @@
         }
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Click para Mostrar/Esconder Componentes Extras",
+        "title": "Selecione os componentes para instalar"
     },
     "specs": {
         "minimum": "Mínimo",

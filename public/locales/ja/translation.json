@@ -44,8 +44,8 @@
             "title": "実行するEXEを選択します"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "選択",
+            "exe": "EXEを選択します"
         },
         "sync": {
             "button": "選ぶ",
@@ -143,7 +143,7 @@
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
         "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "実行する代替EXEを選択します",
         "checkForUpdatesOnStartup": "起動時に更新を確認する",
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",

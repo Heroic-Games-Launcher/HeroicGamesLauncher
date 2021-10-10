@@ -44,7 +44,7 @@
             "title": "Выбрать EXE для запуска"
         },
         "select": {
-            "button": "Select",
+            "button": "Выбрать",
             "exe": "Выбрать EXE"
         },
         "sync": {
