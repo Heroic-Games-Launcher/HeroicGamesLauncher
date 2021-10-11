@@ -25,8 +25,8 @@
             },
             "launch": "Erreur lors du lancement du jeu, consultez les fichiers de journalisation !",
             "log": {
-                "message": "Aucun fichier de journalisation n'a été trouvé pour ce jeu",
-                "title": "Aucun fichier de journalisation n'a été trouvé"
+                "message": "Aucun Log n'a été trouvé pour ce jeu",
+                "title": "Aucun fichier d'enregistration n'a été trouvé"
             },
             "title": "Erreur"
         },
@@ -44,8 +44,8 @@
             "title": "Sélectionner l'EXE à exécuter"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Selectionner",
+            "exe": "Choisir l'EXE"
         },
         "sync": {
             "button": "Choisir",
@@ -82,7 +82,7 @@
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
-            "part1": "Heroic recherche des versions de Wine et Proton dans ces dossiers :",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
@@ -143,7 +143,7 @@
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
@@ -151,10 +151,10 @@
         "discordRPC": "Activer Rich Presence dans Discord",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
-        "esync": "Enable Esync",
+        "esync": "Activer Esync",
         "exit-to-tray": "Quitter vers System Tray",
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
-        "fsync": "Enable Fsync",
+        "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",

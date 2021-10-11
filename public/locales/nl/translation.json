@@ -3,7 +3,7 @@
     "Assets": "Assets",
     "box": {
         "appupdate": {
-            "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u het nu updaten?",
+            "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u nu updaten?",
             "title": "Update beschikbaar"
         },
         "choose": "Selecteer",
@@ -44,8 +44,8 @@
             "title": "Selecteer EXE on te lanceren"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Selecteer",
+            "exe": "Selecteer EXE"
         },
         "sync": {
             "button": "Selecteer",
@@ -82,7 +82,7 @@
             "part4": "Automatishe synchronisatie van saves synchroniseerd elke keer wanneer u een spel start of afsluit."
         },
         "wine": {
-            "part1": "Heroic zoekt naar versies van Wine en Proton op de volgende mappen:",
+            "part1": "Heroic zoekt naar versies van Wine, Proton en CrossOver op de volgende mappen:",
             "part2": "Voor andere locaties moet je een symbolische link begruiken naar een van deze mappen"
         }
     },
@@ -143,18 +143,18 @@
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Selecteer een alternatieve EXE om uit te voeren",
         "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie pad",
         "discordRPC": "\"Discord Rich Presence\" inschakelen",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
-        "esync": "Enable Esync",
+        "enableFSRHack": "FSR Hack inschakelen (Wine versie moet dit ondersteunen)",
+        "esync": "Esync inschakelen",
         "exit-to-tray": "Afsluiten naar systeemvak",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
+        "FsrSharpnessStrenght": "FSR Sharpness Sterkte",
+        "fsync": "Fsync inschakelen",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
         "language": "Selecteer een App taal",
         "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
@@ -171,7 +171,7 @@
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
         "offlinemode": "Spel offline draaien",
         "primerun": "Aciveer Nvidia Prime Render",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "resizableBar": "Resizable BAR inschakelen (Alleen voor NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Sleep de bestanden hier",
             "title": "Voer EXE uit op Prefix"
