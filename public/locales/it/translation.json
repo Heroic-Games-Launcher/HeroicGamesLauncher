@@ -44,8 +44,8 @@
             "title": "Seleziona l'EXE da avviare"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Seleziona",
+            "exe": "Seleziona l'EXE"
         },
         "sync": {
             "button": "Scegli",
@@ -82,7 +82,7 @@
             "part4": "Sincronizza i salvataggi automaticamente sincronizzerà i salvataggi ogni volta che andrai ad avviare un gioco e dopo che avrai finito di giocarci."
         },
         "wine": {
-            "part1": "Heroic cercherà possibili versioni di Wine e Proton nelle seguenti cartelle:",
+            "part1": "Heroic cercherà possibili versioni di Wine, Proton, e CrossOver nelle seguenti cartelle:",
             "part2": "Per altre posizioni, utilizza un link simbolico ad una di queste cartelle"
         }
     },
@@ -143,18 +143,18 @@
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
-        "change-target-exe": "Select an alternative EXE to run",
-        "checkForUpdatesOnStartup": "Verificare la disponibilità di aggiornamenti all'avvio",
+        "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
+        "checkForUpdatesOnStartup": "Verifica la disponibilità di aggiornamenti all'avvio",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
         "default-install-path": "Percorso d'installazione predefinito",
         "discordRPC": "Attiva \"Discord Rich Presence\"",
         "egs-sync": "Sincronizza con l'Epic Games già installato",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
-        "esync": "Enable Esync",
+        "enableFSRHack": "Attiva l'FSR Hack (la versione di Wine deve supportarlo)",
+        "esync": "Abilita l'Esync",
         "exit-to-tray": "Riduci ad icona nell'area di notifica",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
+        "FsrSharpnessStrenght": "Forza della nitidezza dell'FSR",
+        "fsync": "Abilita Fsync",
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
         "language": "Seleziona il linguaggio dell'app",
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
@@ -171,7 +171,7 @@
         "maxworkers": "Numero massimo di connessioni durante il download",
         "offlinemode": "Avvia il gioco in modalità offline",
         "primerun": "Attiva Nvidia Prime Render",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "resizableBar": "Abilita Resizable BAR (solo NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"
