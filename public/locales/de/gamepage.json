@@ -84,6 +84,9 @@
             "syncing": "Spielstände werden synchronisiert"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Klicken, um zusätzliche Komponenten ein-/auszublenden",
         "title": "Zu installierende Komponenten auswählen"

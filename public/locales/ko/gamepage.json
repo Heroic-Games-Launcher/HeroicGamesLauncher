@@ -84,6 +84,9 @@
             "syncing": "세이브 동기화 중"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "클릭하여 추가 구성 요소 표시 보이기/숨기기",
         "title": "설치할 구성 요소를 선택합니다"

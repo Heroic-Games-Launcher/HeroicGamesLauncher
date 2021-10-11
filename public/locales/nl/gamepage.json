@@ -84,6 +84,9 @@
             "syncing": "Saves synchroniseren"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"

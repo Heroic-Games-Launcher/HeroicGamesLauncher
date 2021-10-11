@@ -84,6 +84,9 @@
             "syncing": "സൂക്ഷിപ്പുകള്‍ ഒന്നിപ്പിക്കുന്നു"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"

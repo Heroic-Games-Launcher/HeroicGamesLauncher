@@ -84,6 +84,9 @@
             "syncing": "Sincronizando"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Click para Mostrar/Esconder Componentes Extras",
         "title": "Selecione os componentes para instalar"

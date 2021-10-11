@@ -8,6 +8,7 @@
         },
         "choose": "선택",
         "choose-egs-prefix": "Epic Games Store가 설치된 Prefix 선택",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Wine 혹은 Proton 바이너리 선택",
         "default-install-path": "기본 설치 경로 선택",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Heroric 번역을 도와주세요."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Epic Games Store가 설치된 위치 Prefix"
     },
     "Plugins": "플러그인",
@@ -140,6 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "Prefix에 DXVK 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",

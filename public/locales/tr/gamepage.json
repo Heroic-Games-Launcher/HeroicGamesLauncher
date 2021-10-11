@@ -84,6 +84,9 @@
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Ekstra Bileşenleri Göstermek/Gizlemek için Tıkla",
         "title": "Kurulacak bileşenleri seç"
