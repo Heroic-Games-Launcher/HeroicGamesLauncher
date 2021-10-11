@@ -39,7 +39,7 @@
         "yes": "JA"
     },
     "button": {
-        "cancel": "Annuleren",
+        "cancel": "Pauzeren/Annuleren",
         "continue": "Doorgaan met Download",
         "import": "Importeren",
         "install": "Installeren",
@@ -48,14 +48,14 @@
     },
     "disabled": "Uitgeschakeld",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Installeer alle DLC's",
         "title": "DLCs"
     },
     "enabled": "Ingeschakeld",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Downloadgrootte",
         "firstPlayed": "Eerst gespeeld",
-        "installSize": "Install Size",
+        "installSize": "Installatie grootte",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "totalPlayed": "Tijd gespeeld"
@@ -88,8 +88,8 @@
         "options": "Launch Options..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Klik om extra componenten te tonen/verbergen",
+        "title": "Selecteer componenten om te installeren"
     },
     "specs": {
         "minimum": "Minimum",
