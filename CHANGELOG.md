@@ -1,6 +1,20 @@
 # Changelog
 
-## 1.10.0
+## 1.10.2
+
+### General
+
+- Heroic will show Launch options for games that supports it. Eg: Ark.
+- Heroic will try to launch to launch the game even if offline and will also show an information if the game can run offline or not on the Game Page.
+- It's possible to provide an alternative legendary binary for Heroic to use.
+
+### BugFixes
+
+- Fixed an issue with games that have Selective Download not downloading the whole game.
+- Fixed an issue where the integrated store wasn't opening the login popup.
+- Other small fixes and translations update.
+
+## 1.10.1
 
 ### General
 
