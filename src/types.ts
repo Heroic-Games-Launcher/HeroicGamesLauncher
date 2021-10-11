@@ -3,6 +3,7 @@ interface About {
   shortDescription: string
 }
 export interface AppSettings {
+  altLegendaryBin: string
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean

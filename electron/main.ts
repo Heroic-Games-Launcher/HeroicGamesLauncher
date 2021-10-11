@@ -457,6 +457,19 @@ ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.handle('getLegendaryVersion', async() => {
+  const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
+  try {
+    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
+      return 'invalid'
+    }
+    const {stdout} = await execAsync(`${altLegendaryBin || legendaryBin} --version`)
+    return stdout.split('legendary version')[1].replaceAll('"', '').replaceAll(', codename', '')
+  } catch (error) {
+    return 'invalid'
+  }
+})
+
 ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.on('createNewWindow', (e, url) =>
@@ -753,8 +766,9 @@ ipcMain.handle('egsSync', async (event, args) => {
   const command = isLink ? linkArgs : unlinkArgs
 
   try {
+    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
     const { stderr, stdout } = await execAsync(
-      `${legendaryBin} egl-sync ${command} -y`
+      `${altLegendaryBin || legendaryBin} egl-sync ${command} -y`
     )
     logInfo(`${stdout}`)
     logError(`${stderr}`)

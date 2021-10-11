@@ -8,6 +8,7 @@ export interface AppSettings {
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  altLegendaryBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean

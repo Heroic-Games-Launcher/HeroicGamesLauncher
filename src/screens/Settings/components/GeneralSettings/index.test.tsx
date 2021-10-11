@@ -12,6 +12,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import GeneralSettings from './index';
 
 interface Props {
+  altLegendaryBin: string,
   checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
@@ -25,6 +26,7 @@ interface Props {
   setEgsPath: (value: string) => void,
   setLanguage: (value: string) => void,
   setMaxWorkers: (value: number) => void,
+  setAltLegendaryBin: (value: string) => void,
   startInTray: boolean,
   toggleCheckUpdatesOnStartup: () => void,
   toggleDarkTrayIcon: () => void,
@@ -35,6 +37,7 @@ interface Props {
 async function renderGeneralSettings(props: Partial<Props> = {})
 {
   const defaultprops: Props = {
+    altLegendaryBin: '',
     checkForUpdatesOnStartup: true,
     darkTrayIcon: false,
     defaultInstallPath: 'default/install/path',
@@ -45,6 +48,7 @@ async function renderGeneralSettings(props: Partial<Props> = {})
     maxWorkers: 1,
     setDefaultInstallPath: (value: string) => value,
     setEgsLinkedPath: (value: string) => value,
+    setAltLegendaryBin: (value: string) => value,
     setEgsPath: (value: string) => value,
     setLanguage: (value: string) => value,
     setMaxWorkers: (value: number) => value,

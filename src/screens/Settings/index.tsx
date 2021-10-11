@@ -71,6 +71,7 @@ function Settings() {
   const [maxRecentGames, setMaxRecentGames] = useState(5)
   const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
+  const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
@@ -218,6 +219,7 @@ function Settings() {
       setCustomWinePaths(config.customWinePaths || [])
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
       setTargetExe(config.targetExe || '')
+      setAltLegendaryBin(config.altLegendaryBin || '')
 
       if (!isDefault) {
         const {
@@ -238,6 +240,7 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   const GlobalSettings = {
+    altLegendaryBin,
     addDesktopShortcuts,
     addStartMenuShortcuts,
     audioFix,
@@ -351,6 +354,8 @@ function Settings() {
               darkTrayIcon={darkTrayIcon}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+              altLegendaryBin={altLegendaryBin}
+              setAltLegendaryBin={setAltLegendaryBin}
             />
           )}
           {isWineSettings && (
