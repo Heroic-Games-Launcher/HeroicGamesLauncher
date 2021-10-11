@@ -56,9 +56,9 @@
         "downloadSize": "Μέγεθος λήψης",
         "firstPlayed": "Παίχτηκε πρώτη φορά",
         "installSize": "Μέγεθος Εγκατάστασης",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "lastPlayed": "Παίχτηκε Τελευταία φορά",
+        "neverPlayed": "Ποτέ",
+        "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
         "moving": "Μετακίνηση",
@@ -85,8 +85,8 @@
         }
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Πατήστε για να δείτε/κρύψετε επιπλέον στοιχεία",
+        "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
     "specs": {
         "minimum": "Ελάχιστα",
