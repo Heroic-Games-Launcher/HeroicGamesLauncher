@@ -313,7 +313,7 @@ export class GlobalState extends PureComponent<Props> {
       const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
       if (!currentApp) {
         await this.handleGameStatus({ appName, status: 'playing' })
-        return launch(appName, t, this.handleGameStatus)
+        return launch({appName, t, handleGameStatus: this.handleGameStatus})
       }
     })
 

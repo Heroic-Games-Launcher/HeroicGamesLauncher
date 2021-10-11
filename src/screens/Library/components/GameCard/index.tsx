@@ -270,7 +270,7 @@ const GameCard = ({
     }
     if (isInstalled) {
       await handleGameStatus({ appName, status: 'playing' })
-      return await launch(appName, t, handleGameStatus)
+      return await launch({appName, t, handleGameStatus})
     }
     return
   }

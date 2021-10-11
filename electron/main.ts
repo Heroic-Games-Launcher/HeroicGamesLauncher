@@ -557,18 +557,23 @@ type RecentGame = {
   title: string
 }
 
-ipcMain.handle('launch', async (event, game: string) => {
+type LaunchParams = {
+  appName: string
+  launchArguments: string
+}
+
+ipcMain.handle('launch', async (event, {appName, launchArguments}: LaunchParams) => {
   const recentGames = store.get('games.recent') as Array<RecentGame> || []
-  const appName = game.split(' ')[0]
-  const { title } = await Game.get(appName).getGameInfo()
+  const game = appName.split(' ')[0]
+  const { title } = await Game.get(game).getGameInfo()
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
   const startPlayingDate = new Date()
 
-  if (!tsStore.has(appName)){
-    tsStore.set(`${appName}.firstPlayed`, startPlayingDate)
+  if (!tsStore.has(game)){
+    tsStore.set(`${game}.firstPlayed`, startPlayingDate)
   }
 
-  logInfo('launching', title, appName)
+  logInfo('launching', title, game)
 
   if (recentGames.length) {
     let updatedRecentGames = recentGames.filter(a => a.appName !== game)
@@ -585,19 +590,19 @@ ipcMain.handle('launch', async (event, game: string) => {
     updatedRecentGames.unshift({ appName: game, title })
     store.set('games.recent', updatedRecentGames)
   } else {
-    store.set('games.recent', [{ appName: game, title: title }])
+    store.set('games.recent', [{ game, title: title }])
   }
 
-  return Game.get(game).launch().then(({ stderr }) => {
+  return Game.get(appName).launch(launchArguments).then(({ stderr }) => {
     const finishedPlayingDate = new Date()
-    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate)
+    tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
     const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
-    const totalPlayedTime: number = tsStore.has(`${appName}.totalPlayed`) ? tsStore.get(`${appName}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
+    const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
     // I'll send the calculated time here because then the user can set it manually on the file if desired
-    tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlayedTime))
+    tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
 
     writeFile(
-      `${heroicGamesConfigPath}${appName}-lastPlay.log`,
+      `${heroicGamesConfigPath}${game}-lastPlay.log`,
       stderr,
       () => 'done'
     )

@@ -178,8 +178,12 @@ async function handleStopInstallation(
 const repair = async (appName: string): Promise<void> =>
   await ipcRenderer.invoke('repair', appName)
 
-const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (game: GameStatus) => Promise<void>): Promise<void> =>
-  ipcRenderer.invoke('launch', appName)
+type LaunchOptions = {
+  appName: string, t: TFunction<'gamepage'>, handleGameStatus: (game: GameStatus) => Promise<void>, launchArguments?: string
+}
+
+const launch = ({appName, handleGameStatus,t, launchArguments}: LaunchOptions): Promise<void> =>
+  ipcRenderer.invoke('launch', {appName, launchArguments})
     .then(async (err: string | string[]) => {
       if (!err) {
         return
@@ -204,7 +208,7 @@ const launch = (appName: string, t: TFunction<'gamepage'>, handleGameStatus: (ga
           return await handleGameStatus({ appName, status: 'done' })
         }
         await handleGameStatus({ appName, status: 'playing' })
-        await ipcRenderer.invoke('launch', `${appName} --skip-version-check`)
+        await ipcRenderer.invoke('launch', {appName: `${appName} --skip-version-check`, launchArguments})
         return await handleGameStatus({ appName, status: 'done' })
       }
     })

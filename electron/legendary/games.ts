@@ -409,7 +409,7 @@ Categories=Game;
     return await execAsync(command, execOptions)
   }
 
-  public async launch() {
+  public async launch(launchArguments?: string) {
     this.state.status = 'launching'
     const mainWindow = BrowserWindow.getAllWindows()[0]
 
@@ -475,7 +475,7 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${altLegendaryBin || legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launcherArgs}`
+      const command = `${altLegendaryBin || legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
 
@@ -553,7 +553,7 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${altLegendaryBin || legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${altLegendaryBin || legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launchArguments ?? ''} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
