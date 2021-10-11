@@ -463,7 +463,7 @@ ipcMain.handle('getLegendaryVersion', async() => {
     if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
       return 'invalid'
     }
-    const {stdout} = await execAsync(`${altLegendaryBin || legendaryBin} --version`)
+    const {stdout} = await execAsync(`${legendaryBin} --version`)
     return stdout.split('legendary version')[1].replaceAll('"', '').replaceAll(', codename', '')
   } catch (error) {
     return 'invalid'
@@ -771,9 +771,8 @@ ipcMain.handle('egsSync', async (event, args) => {
   const command = isLink ? linkArgs : unlinkArgs
 
   try {
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
     const { stderr, stdout } = await execAsync(
-      `${altLegendaryBin || legendaryBin} egl-sync ${command} -y`
+      `${legendaryBin} egl-sync ${command} -y`
     )
     logInfo(`${stdout}`)
     logError(`${stderr}`)

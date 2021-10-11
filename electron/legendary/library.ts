@@ -29,7 +29,6 @@ import {
 import { logError, logInfo } from '../logger';
 import { spawn } from 'child_process';
 import Store from 'electron-store'
-import { GlobalConfig } from '../config';
 
 const libraryStore = new Store({
   cwd: 'store',
@@ -87,9 +86,9 @@ class LegendaryLibrary {
    */
   public async refresh() {
     logInfo('Refreshing Epic Games...')
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
+
     return new Promise((res, rej) => {
-      const child = spawn(altLegendaryBin || legendaryBin, ['list-games', '--include-ue'])
+      const child = spawn(legendaryBin, ['list-games', '--include-ue'])
       child.stderr.on('data', (data) => {
         console.log(`${data}`)}
       )
@@ -194,11 +193,11 @@ class LegendaryLibrary {
    */
   public async getInstallInfo(appName: string) {
     const cache = installStore.get(appName) as InstallInfo
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
+
     if (cache){
       return cache
     }
-    const {stdout} = await execAsync(`${altLegendaryBin || legendaryBin} -J info ${appName} --json`)
+    const {stdout} = await execAsync(`${legendaryBin} -J info ${appName} --json`)
     const info: InstallInfo = JSON.parse(stdout)
     installStore.set(appName, info)
 
@@ -213,14 +212,14 @@ class LegendaryLibrary {
    */
   public async listUpdateableGames() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
+
 
     const online = await isOnline()
     if (!isLoggedIn || !(online)) {
       return []
     }
 
-    const command = `${altLegendaryBin || legendaryBin} list-installed --check-updates --tsv`
+    const command = `${legendaryBin} list-installed --check-updates --tsv`
     try {
       const { stdout } = await execAsync(command)
       logInfo('Checking for game updates')

@@ -13,7 +13,6 @@ import { logError, logInfo } from '../logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store';
-import { GlobalConfig } from '../config'
 
 const configStore = new Store({
   cwd: 'store'
@@ -21,11 +20,11 @@ const configStore = new Store({
 export class LegendaryUser {
   public static async login(sid: string) {
     logInfo('Logging with Legendary...')
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
+
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const child = spawn(altLegendaryBin || legendaryBin, command)
+      const child = spawn(legendaryBin, command)
       child.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
@@ -46,8 +45,8 @@ export class LegendaryUser {
   }
 
   public static async logout() {
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
-    await execAsync(`${altLegendaryBin || legendaryBin} auth --delete`)
+
+    await execAsync(`${legendaryBin} auth --delete`)
     configStore.delete('userInfo')
   }
 

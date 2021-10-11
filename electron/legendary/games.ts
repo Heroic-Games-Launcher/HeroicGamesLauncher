@@ -206,11 +206,11 @@ class LegendaryGame extends Game {
    */
   public async update() {
     this.state.status = 'updating'
-    const { maxWorkers, altLegendaryBin } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${altLegendaryBin || altLegendaryBin || legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
+    const command = `${legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
 
     try {
       return await execAsync(command, execOptions).then((v) => {
@@ -322,14 +322,14 @@ Categories=Game;
    */
   public async install({path, installDlcs, sdlList}: InstallArgs) {
     this.state.status = 'installing'
-    const { maxWorkers, altLegendaryBin } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${altLegendaryBin || altLegendaryBin || legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
     return execAsync(command, execOptions)
       .then(async ({stdout, stderr}) => {
@@ -344,8 +344,8 @@ Categories=Game;
 
   public async uninstall() {
     this.state.status = 'uninstalling'
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
-    const command = `${altLegendaryBin || legendaryBin} uninstall ${this.appName} -y`
+
+    const command = `${legendaryBin} uninstall ${this.appName} -y`
     logInfo(`Uninstalling ${this.appName} with:`, command)
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
@@ -363,13 +363,13 @@ Categories=Game;
    */
   public async repair() {
     this.state.status = 'repairing'
-    const { maxWorkers, altLegendaryBin } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
-    const command = `${altLegendaryBin || legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
 
     logInfo(`Repairing ${this.appName} with:`, command)
     return await execAsync(command, execOptions).then((v) => {
@@ -380,8 +380,8 @@ Categories=Game;
 
   public async import(path: string) {
     this.state.status = 'installing'
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
-    const command = `${altLegendaryBin || legendaryBin} import-game ${this.appName} '${path}'`
+
+    const command = `${legendaryBin} import-game ${this.appName} '${path}'`
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
       return v
@@ -396,8 +396,8 @@ Categories=Game;
    */
   public async syncSaves(arg: string, path: string) {
     const fixedPath = isWindows ? path.replaceAll("'", '').slice(0, -1) : path.replaceAll("'", '')
-    const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
-    const command = `${altLegendaryBin || legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
+
+    const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = `${home}/legendary/.saves`
 
     //workaround error when no .saves folder exists
@@ -437,7 +437,7 @@ Categories=Game;
       targetExe
     } = await this.getSettings()
 
-    const { discordRPC, altLegendaryBin } = (await GlobalConfig.get().getSettings())
+    const { discordRPC } = (await GlobalConfig.get().getSettings())
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = offlineMode ? '--offline' : ''
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
@@ -475,7 +475,7 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${altLegendaryBin || legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
+      const command = `${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
 
@@ -553,7 +553,7 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${altLegendaryBin || legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launchArguments ?? ''} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launchArguments ?? ''} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
