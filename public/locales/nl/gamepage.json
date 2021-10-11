@@ -84,6 +84,9 @@
             "syncing": "Saves synchroniseren"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Klik om extra componenten te tonen/verbergen",
         "title": "Selecteer componenten om te installeren"

@@ -8,7 +8,8 @@
         },
         "choose": "Επιλογή",
         "choose-egs-prefix": "Επιλέξτε πρόθεμα όπου το EGS είναι εγκατεστημένο",
-        "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
+        "choose-legendary-binary": "Select Legendary Binary",
+        "customWine": "Επιλέξτε το αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
         "error": {
             "credentials": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Βοηθήστε να μεταφραστεί το Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Πρόθεμα εγκατάστασης EGS"
     },
     "Plugins": "Plugins",
@@ -140,6 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",

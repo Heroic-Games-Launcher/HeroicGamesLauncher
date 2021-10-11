@@ -84,6 +84,9 @@
             "syncing": "Synchronizacja zapisów gry"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Kliknij by Pokazać/Ukryć Dodatkowe Komponenty",
         "title": "Wybierz komponenty do Instalacji"

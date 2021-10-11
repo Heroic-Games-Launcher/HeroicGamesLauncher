@@ -3,6 +3,7 @@ interface About {
   shortDescription: string
 }
 export interface AppSettings {
+  altLegendaryBin: string
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean
@@ -89,9 +90,14 @@ type DLCInfo = {
   title: string
 }
 
+type LaunchArguments = {
+  name: string
+  parameters: string
+}
+
 type GameInstallInfo = {
   app_name: string
-  launch_options: Array<string>
+  launch_options: Array<LaunchArguments>
   owned_dlc: Array<DLCInfo>
   title: string
   version: string

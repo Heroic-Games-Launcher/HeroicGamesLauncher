@@ -8,6 +8,7 @@
         },
         "choose": "Ok",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Välj wine eller proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Hjälp till med översättning av Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix där EGS är installerad"
     },
     "Plugins": "Plugins",
@@ -140,6 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",

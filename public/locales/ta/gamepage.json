@@ -84,6 +84,9 @@
             "syncing": "சேமிப்புகள் ஒத்திசைவு செய்யப்படுகிறது"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"

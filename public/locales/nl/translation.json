@@ -8,6 +8,7 @@
         },
         "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Selecteer de Wine of Proton Binary",
         "default-install-path": "Selecteer een standaard map",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Help met het vertalen van Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix waar EGS is geïnstalleerd"
     },
     "Plugins": "Plugins",
@@ -140,6 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",

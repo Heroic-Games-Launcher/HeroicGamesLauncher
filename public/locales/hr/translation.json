@@ -8,6 +8,7 @@
         },
         "choose": "Odaberi",
         "choose-egs-prefix": "Odaberite lokaciju gdje je EGS instaliran",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Odaberite WINE ili PROTON aplikaciju",
         "default-install-path": "Odaberite zadanu lokaciju instalacije",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Pomogni prevesti Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Put gdje je EGS instaliran"
     },
     "Plugins": "Dodaci",
@@ -140,6 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Dodaje prečace automatski",
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
         "autodxvk": "Automatski instaliraj/ažuriraj DXVK na put",
         "autosync": "Automatsko sinkroniziranje podataka",

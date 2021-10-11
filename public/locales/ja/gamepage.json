@@ -84,6 +84,9 @@
             "syncing": "保存を同期しています"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
         "showList": "クリックして追加のコンポーネントを表示/非表示",
         "title": "インストールするコンポーネントを選択します"
