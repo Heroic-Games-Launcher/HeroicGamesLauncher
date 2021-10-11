@@ -1,5 +1,6 @@
 import { fixAsarPath, getShell } from '../constants';
 
+jest.mock('../config', () => '')
 describe('Constants - fixAsarPath', () => {
   test('need to fix path and replace correctly', () => {
     const fixed_path = fixAsarPath('path/app.asar/bin');

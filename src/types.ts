@@ -83,6 +83,7 @@ export interface GameInfo {
   namespace: unknown
   save_folder: string
   title: string
+  canRunOffline: boolean
 }
 
 type DLCInfo = {

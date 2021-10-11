@@ -65,6 +65,7 @@
         "repairing": "修復しています"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "インストールパス",
         "size": "サイズ",
         "syncsaves": "保存を同期",

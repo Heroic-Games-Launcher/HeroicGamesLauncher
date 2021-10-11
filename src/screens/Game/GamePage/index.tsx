@@ -206,7 +206,8 @@ export default function GamePage(): JSX.Element | null {
       compatible_apps,
       extra,
       developer,
-      cloud_save_enabled
+      cloud_save_enabled,
+      canRunOffline
     }: GameInfo = gameInfo
     const haveSystemRequirements = Boolean(extra.reqs.length)
     const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
@@ -297,6 +298,9 @@ export default function GamePage(): JSX.Element | null {
                         </div>
                         <div>
                           {t('info.version')}: {version}
+                        </div>
+                        <div>
+                          {t('info.canRunOffline', 'Run Offline')}: {t(canRunOffline ? 'box.yes' : 'box.no')}
                         </div>
                         <div
                           className="clickable"

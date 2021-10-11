@@ -65,6 +65,7 @@
         "repairing": "Επιδιόρθωση"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Διαδρομή εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός save",

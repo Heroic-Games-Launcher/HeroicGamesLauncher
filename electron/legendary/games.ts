@@ -410,9 +410,8 @@ Categories=Game;
   }
 
   public async launch(launchArguments?: string) {
-    this.state.status = 'launching'
     const mainWindow = BrowserWindow.getAllWindows()[0]
-
+    const isOffline = !(await isOnline())
     let envVars = ''
     let gameMode: string
 
@@ -439,7 +438,7 @@ Categories=Game;
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
-    const runOffline = offlineMode ? '--offline' : ''
+    const runOffline = isOffline || offlineMode ? '--offline' : ''
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
 
     if (discordRPC) {

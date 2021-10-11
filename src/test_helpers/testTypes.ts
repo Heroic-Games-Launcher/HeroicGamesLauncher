@@ -117,6 +117,7 @@ class TestType<Type> {
  */
 const test_game = new TestType<GameInfo>({
   app_name: 'game',
+  canRunOffline: true,
   art_cover: 'art_cover',
   art_logo: 'art_logo',
   art_square: 'art_square',
@@ -154,6 +155,7 @@ const test_game = new TestType<GameInfo>({
  */
 const test_plugin = new TestType<GameInfo>({
   app_name: 'plugin',
+  canRunOffline: true,
   art_cover: 'art_cover',
   art_logo: 'art_logo',
   art_square: 'art_square',

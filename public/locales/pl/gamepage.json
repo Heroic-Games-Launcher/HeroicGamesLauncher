@@ -65,6 +65,7 @@
         "repairing": "Naprawianie"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Ścieżka instalacyjna",
         "size": "Rozmiar",
         "syncsaves": "Synchronizuj zapisy gry",

@@ -65,6 +65,7 @@
         "repairing": "Reparerar"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Installationssökväg",
         "size": "Storlek",
         "syncsaves": "Synkronisera sparfiler",

@@ -487,11 +487,16 @@ ipcMain.handle('getGameInfo', async (event, game) => {
 })
 
 ipcMain.handle('getInstallInfo', async (event, game) => {
+  const online = await isOnline()
+  if (!online){
+    return {game: {}, metadata: {}}
+  }
   try {
     const info = await Game.get(game).getInstallInfo()
     return info
   } catch (error) {
     logError(error)
+    return {}
   }
 })
 

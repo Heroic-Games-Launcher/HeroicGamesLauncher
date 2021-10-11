@@ -65,6 +65,7 @@
         "repairing": "Repariere"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Installations-Pfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",

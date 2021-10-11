@@ -327,6 +327,7 @@ class LegendaryLibrary {
     const dlcs: string[] = []
     const CloudSaveFolder = customAttributes?.CloudSaveFolder
     const FolderName = customAttributes?.FolderName
+    const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -434,7 +435,8 @@ class LegendaryLibrary {
       is_ue_project,
       namespace,
       save_folder: saveFolder,
-      title
+      title,
+      canRunOffline
     } as GameInfo)
 
     return app_name

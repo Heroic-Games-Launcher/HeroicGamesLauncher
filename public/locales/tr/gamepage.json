@@ -65,6 +65,7 @@
         "repairing": "Onarılıyor"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",

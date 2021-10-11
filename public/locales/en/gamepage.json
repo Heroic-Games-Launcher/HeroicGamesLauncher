@@ -65,6 +65,7 @@
         "repairing": "Repairing"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Install Path",
         "size": "Size",
         "syncsaves": "Sync Saves",
