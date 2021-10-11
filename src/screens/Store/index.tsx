@@ -8,10 +8,11 @@ export default function EpicStore() {
     lang = 'pt-BR'
   }
   const epicStore = `https://www.epicgames.com/store/${lang}/`
+  const trueAsStr = 'true' as unknown as boolean | undefined
 
   return (
     <div>
-      <webview partition="persist:epicstore" id="foo" src={epicStore} style={{width:'100vw', height:'100vh'}}></webview>
+      <webview partition="persist:epicstore" id="foo" src={epicStore} style={{width:'100vw', height:'100vh'}} allowpopups={trueAsStr} />
     </div>
   )
 }

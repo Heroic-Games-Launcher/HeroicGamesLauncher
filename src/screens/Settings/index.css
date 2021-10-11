@@ -167,5 +167,12 @@
     width: 513px;
     white-space: break-spaces;
     padding-top: 4px;
+}
+
+.smallLink {
+    font-size: 12px;
+    width: 513px;
+    white-space: break-spaces;
+    padding-top: 4px;
     cursor: pointer;
 }
