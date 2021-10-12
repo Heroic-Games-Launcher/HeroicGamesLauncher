@@ -39,7 +39,7 @@
         "yes": "JA"
     },
     "button": {
-        "cancel": "Annuleren",
+        "cancel": "Pauzeren/Annuleren",
         "continue": "Doorgaan met Download",
         "import": "Importeren",
         "install": "Installeren",
@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Uitgeschakeld",
+    "dlc": {
+        "installDlcs": "Installeer alle DLC's",
+        "title": "DLCs"
+    },
     "enabled": "Ingeschakeld",
     "game": {
+        "downloadSize": "Downloadgrootte",
         "firstPlayed": "Eerst gespeeld",
+        "installSize": "Installatie grootte",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "totalPlayed": "Tijd gespeeld"
@@ -59,6 +65,7 @@
         "repairing": "Aan het repareren"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
@@ -78,6 +85,13 @@
             "syncing": "Saves synchroniseren"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Klik om extra componenten te tonen/verbergen",
+        "title": "Selecteer componenten om te installeren"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Aanbevolen"
@@ -89,7 +103,6 @@
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
-        "notSupported": "Dit spel kan alleen worden geïmporteerd",
         "reparing": "Spel aan het repareren, even geduld",
         "totalDownloaded": "Totaal gedownload",
         "updating": "Spel aan het updaten"

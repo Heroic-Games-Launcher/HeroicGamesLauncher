@@ -39,7 +39,7 @@
         "yes": "EVET"
     },
     "button": {
-        "cancel": "İptal",
+        "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
         "import": "İçeri Aktar",
         "install": "Kur",
@@ -47,9 +47,15 @@
         "update": "Güncelle"
     },
     "disabled": "Devre dışı",
+    "dlc": {
+        "installDlcs": "Tüm DLC'leri kur",
+        "title": "DLCs"
+    },
     "enabled": "Etkin",
     "game": {
+        "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
+        "installSize": "Kurulum Boyutu",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "totalPlayed": "Oynanan Zaman"
@@ -59,6 +65,7 @@
         "repairing": "Onarılıyor"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
@@ -78,6 +85,13 @@
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Ekstra Bileşenleri Göstermek/Gizlemek için Tıkla",
+        "title": "Kurulacak bileşenleri seç"
+    },
     "specs": {
         "minimum": "Asgari",
         "recommended": "Tavsiye edilen"
@@ -89,7 +103,6 @@
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
-        "notSupported": "Bu oyun sadece içeri aktarılabilir",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"

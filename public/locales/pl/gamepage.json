@@ -3,7 +3,7 @@
         "change": {
             "message": "To zmieni miejsce gdzie gra jest zainstalowana. Czy jesteś pewien?",
             "path": "Wybierz nową ścieżkę instalacji",
-            "title": "Wybierz Ścieżkę Instalacji Gier"
+            "title": "Zmień Ścieżkę Instalacji Gier"
         },
         "choose": "Wybierz",
         "importpath": "Wybierz folder gry do importowania",
@@ -39,7 +39,7 @@
         "yes": "TAK"
     },
     "button": {
-        "cancel": "Anuluj",
+        "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
         "import": "Importuj",
         "install": "Instaluj",
@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Wyłączona",
+    "dlc": {
+        "installDlcs": "Zainstaluj wszystkie DLC",
+        "title": "DLCs"
+    },
     "enabled": "Włączona",
     "game": {
+        "downloadSize": "Rozmiar Pobierania",
         "firstPlayed": "Pierwsza Gra",
+        "installSize": "Rozmiar Instalacji",
         "lastPlayed": "Ostatnia Gra",
         "neverPlayed": "Nigdy",
         "totalPlayed": "Czas Gry"
@@ -59,6 +65,7 @@
         "repairing": "Naprawianie"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Ścieżka instalacyjna",
         "size": "Rozmiar",
         "syncsaves": "Synchronizuj zapisy gry",
@@ -78,6 +85,13 @@
             "syncing": "Synchronizacja zapisów gry"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Kliknij by Pokazać/Ukryć Dodatkowe Komponenty",
+        "title": "Wybierz komponenty do Instalacji"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Zalecana"
@@ -89,7 +103,6 @@
         "installing": "W trakcie instalacji",
         "moving": "Przenoszenie gry, proszę czekać",
         "notinstalled": "Ta gra nie jest zainstalowana",
-        "notSupported": "Tę grę można tylko importować",
         "reparing": "Naprawianie gry, proszę czekać",
         "totalDownloaded": "Wszystkie pobrane",
         "updating": "Aktualizowanie gry"

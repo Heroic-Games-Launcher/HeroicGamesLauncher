@@ -1,0 +1,226 @@
+{
+    "All": "全て",
+    "Assets": "資産",
+    "box": {
+        "appupdate": {
+            "message": "Heroic の新しいバージョンが利用可能になりました、今すぐ更新しますか？",
+            "title": "アップデートが利用可能です"
+        },
+        "choose": "選ぶ",
+        "choose-egs-prefix": "EGSがインストールされているプレフィックスを選択します",
+        "choose-legendary-binary": "Select Legendary Binary",
+        "customWine": "WineまたはProtonバイナリを選択します",
+        "default-install-path": "デフォルトのインストールパスを選択します",
+        "error": {
+            "credentials": {
+                "message": "クレデンシャルの有効期限が切れています。ログアウトしてから再度ログインしてください。",
+                "title": "クレデンシャルの有効期限が切れています"
+            },
+            "diskspace": {
+                "message": "使用可能なディスク容量が不足しています",
+                "title": "ディスク容量がありません"
+            },
+            "generic": {
+                "message": "不明なエラーが発生しました",
+                "title": "不明なエラー"
+            },
+            "launch": "ゲームの起動時にエラーが発生しました、ログを確認してください！",
+            "log": {
+                "message": "このゲームのログは見つかりませんでした",
+                "title": "ログが見つかりませんでした"
+            },
+            "title": "エラー"
+        },
+        "no": "いいえ",
+        "protocol": {
+            "install": {
+                "not_installed": "インストールされていませんが、インストールしますか？"
+            }
+        },
+        "quit": {
+            "message": "保留中の操作があります、よろしいですか？",
+            "title": "エグジット"
+        },
+        "runexe": {
+            "title": "実行するEXEを選択します"
+        },
+        "select": {
+            "button": "選択",
+            "exe": "EXEを選択します"
+        },
+        "sync": {
+            "button": "選ぶ",
+            "error": "無効なパス",
+            "title": "保存ディレクトリを選択します"
+        },
+        "wineprefix": "Wineプレフィックスフォルダを選択します",
+        "yes": "はい"
+    },
+    "button": {
+        "sync": "同期",
+        "syncing": "同期しています",
+        "unsync": "非同期"
+    },
+    "Downloading": "ダウンロードしています",
+    "Filter": "フィルター",
+    "Games": "ゲーム",
+    "globalSettings": "全体設定",
+    "help": {
+        "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
+        "other": {
+            "part1": "",
+            "part2": "高度なオプション",
+            "part3": "ゲームを起動する前に呼び出す； ",
+            "part4": "使用： ",
+            "part5": "ゲームの議論",
+            "part6": " 起動コマンドの後に呼び出されます。例： ",
+            "part7": " 一部のゲームなどでランチャーをスキップします。"
+        },
+        "sync": {
+            "part1": "Heroicは正しい保存フォルダを推測しようとしますが、これはほとんどの場合に機能します。フォルダが間違っている場合は、オーバーライドボックスを使用して変更します。",
+            "part2": "WineまたはProtonのプレフィックスフォルダを変更した場合、Protonは別のプレフィックス（/ pfx）とユーザー名（steamuser）を使用するため、パスを再度確認する必要があります。したがって、現在のパスを消去して同期設定ページから抜け出し、Heroicがもう一度戻って、正しいプレフィックスでフォルダをもう一度推測することができます。",
+            "part3": "手動同期：クラウドに保存されているゲームの保存をダウンロードするには、[ダウンロード]を選択します。アップロードして、ローカルのものをクラウドにアップロードします。強制ダウンロードと強制アップロードは、ローカルまたはクラウド上にあるバージョンを無視します。",
+            "part4": "保存を同期すると、自動的にゲームを開始するたび、およびプレイが終了した後に保存が同期されます。"
+        },
+        "wine": {
+            "part1": "Heroicは、次のフォルダーでWine、Proton、およびCrossOverのバージョンを検索します：",
+            "part2": "その他の場所については、これらのフォルダの1つへのシンボリックリンクを使用してください"
+        }
+    },
+    "info": {
+        "settings": "設定は自動的に保存されます"
+    },
+    "infobox": {
+        "help": "ヘルプ",
+        "requirements": "システム要求"
+    },
+    "Library": "ライブラリ",
+    "message": {
+        "sync": "同期が完了しました",
+        "unsync": "非同期が完了しました"
+    },
+    "nogames": "ゲームが見つかりません",
+    "Not Ready": "準備ができていません",
+    "notify": {
+        "finished": {
+            "reparing": "修復が完了しました"
+        },
+        "install": {
+            "canceled": "インストールがキャンセルされました",
+            "finished": "インストールが完了しました"
+        },
+        "moved": "移動が完了しました",
+        "uninstalled": "アンインストールしました",
+        "update": {
+            "canceled": "更新がキャンセルされました",
+            "finished": ""
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "ここに他の起動オプションを入れてください",
+            "title": "高度なオプション（環境変数）："
+        },
+        "gameargs": {
+            "placeholder": "ここにランチャーの引数を入れてください",
+            "title": "ゲームの引数（コマンドの後に実行するため）："
+        }
+    },
+    "other": {
+        "legendary-version": "Legendary Version: ",
+        "weblate": "Heroicの翻訳を手伝ってください。"
+    },
+    "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": "EGSがインストールされているプレフィックス"
+    },
+    "Plugins": "プラグイン",
+    "Projects": "プロジェクト",
+    "Ready": "準備",
+    "Recent": "最近のゲーム",
+    "Return": "戻る",
+    "search": "ここにゲーム名を入力してください...",
+    "setting": {
+        "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
+        "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
+        "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
+        "autosync": "保存を自動的に同期する",
+        "change-target-exe": "実行する代替EXEを選択します",
+        "checkForUpdatesOnStartup": "起動時に更新を確認する",
+        "customWineProton": "カスタムWine/Protonパス",
+        "darktray": "ダークトレイアイコンを使用する",
+        "default-install-path": "デフォルトのインストールパス",
+        "discordRPC": "Discord Rich Presenceを有効にする",
+        "egs-sync": "インストールされているEpic Gamesと同期する",
+        "enableFSRHack": "FSRハックを有効にする（Wineバージョンはそれをサポートする必要があります）",
+        "esync": "Esyncを有効にする",
+        "exit-to-tray": "システムトレイに戻る",
+        "FsrSharpnessStrenght": "FSRシャープネス強度",
+        "fsync": "Fsyncを有効にする",
+        "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
+        "language": "アプリの言語を選択",
+        "mangohud": "Mangohudを有効にする（Mangohudをインストールする必要があります）",
+        "manualsync": {
+            "download": "ダウンロード",
+            "forcedownload": "強制ダウンロード",
+            "forceupload": "強制アップロード",
+            "sync": "同期",
+            "syncing": "同期しています",
+            "title": "手動同期保存",
+            "upload": "アップロード"
+        },
+        "maxRecentGames": "表示する最近のゲーム",
+        "maxworkers": "ダウンロード時のワーカーの最大数",
+        "offlinemode": "ゲームをオフラインで実行する",
+        "primerun": "Nvidia Prime Renderを有効にする",
+        "resizableBar": "サイズ変更可能なBARを有効にする（NVIDIA RTX 30xxのみ）",
+        "runexe": {
+            "message": "ここにファイルをドラッグアンドドロップします",
+            "title": "プレフィックスでEXEを実行する"
+        },
+        "savefolder": {
+            "placeholder": "正確なゲーム保存フォルダを選択してください",
+            "title": "Cloud Syncの保存フォルダーをオーバーライドする"
+        },
+        "showfps": "FPSを表示（DX9、10、11）",
+        "start-in-tray": "最小化を開始",
+        "winecrossoverbottle": "CrossOver ボトル",
+        "wineprefix": "Wineプレフィックスフォルダー",
+        "wineversion": "Wineバージョン"
+    },
+    "Settings": "設定",
+    "settings": {
+        "navbar": {
+            "general": "一般",
+            "other": "他",
+            "sync": "同期を保存"
+        }
+    },
+    "store": "ストア",
+    "tooltip": {
+        "addpath": "新しいパスを追加する",
+        "removepath": "パスを削除する"
+    },
+    "Total Games": "トータルゲーム",
+    "tray": {
+        "about": "について",
+        "quit": "終了",
+        "reload": "リロード",
+        "show": "表示する",
+        "support": "サポートしてください"
+    },
+    "Unreal Marketplace": "Unreal マーケットプレイス",
+    "Updates": "更新",
+    "userselector": {
+        "about": "について",
+        "discord": "Discord",
+        "logout": "ログアウト",
+        "logout_confirmation": "ログアウトしてもよろしいですか？",
+        "quit": "終了",
+        "refresh": "ライブラリを更新する",
+        "support": "サポートしてください"
+    },
+    "wiki": "Wiki"
+}

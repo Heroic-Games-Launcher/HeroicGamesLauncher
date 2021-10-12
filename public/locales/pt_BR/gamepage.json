@@ -39,7 +39,7 @@
         "yes": "SIM"
     },
     "button": {
-        "cancel": "Cancelar",
+        "cancel": "Pausar/Cancelar",
         "continue": "Continuar Download",
         "import": "Importar",
         "install": "Instalar",
@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Desabilitado",
+    "dlc": {
+        "installDlcs": "Instalar DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Habilitado",
     "game": {
+        "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado inicialmente em",
+        "installSize": "Tamanho Instalado",
         "lastPlayed": "Jogado pela última vez em",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo de jogo"
@@ -59,6 +65,7 @@
         "repairing": "Reparando"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Pasta de Instalação",
         "size": "Tamanho",
         "syncsaves": "Sincronizar Saves",
@@ -78,6 +85,13 @@
             "syncing": "Sincronizando Saves"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Click para Mostrar/Esconder Componentes Extras",
+        "title": "Selecione os componentes para instalar"
+    },
     "specs": {
         "minimum": "MÍNIMO",
         "recommended": "RECOMENDADO"
@@ -89,7 +103,6 @@
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este Jogo Não está Instalado",
-        "notSupported": "Este Jogo Pode apenas ser importado",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"

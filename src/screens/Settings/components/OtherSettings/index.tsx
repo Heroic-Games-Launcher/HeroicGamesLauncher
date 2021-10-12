@@ -7,7 +7,14 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import InfoBox from 'src/components/UI/InfoBox'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import { IpcRenderer } from 'electron'
+import { Path } from 'src/types'
+import Backspace from '@material-ui/icons/Backspace'
 
+const {
+  ipcRenderer
+} = window.require('electron') as {ipcRenderer: IpcRenderer}
 interface Props {
   audioFix: boolean
   isDefault: boolean
@@ -21,6 +28,7 @@ interface Props {
   setLauncherArgs: (value: string) => void
   setOtherOptions: (value: string) => void
   setMaxRecentGames: (value: number) => void
+  setTargetExe: (value: string) => void
   showFps: boolean
   showMangohud: boolean
   maxRecentGames: number
@@ -33,6 +41,7 @@ interface Props {
   toggleAddDesktopShortcuts: () => void
   toggleAddGamesToStartMenu: () => void
   toggleDiscordRPC: () => void
+  targetExe: string
   useGameMode: boolean
 }
 
@@ -61,7 +70,9 @@ export default function OtherSettings({
   toggleAddGamesToStartMenu,
   discordRPC,
   toggleDiscordRPC,
-  maxRecentGames
+  maxRecentGames,
+  setTargetExe,
+  targetExe
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -74,6 +85,39 @@ export default function OtherSettings({
 
   return (
     <>
+      {!isDefault && <span className="setting">
+        <span className="settingText">{t('setting.change-target-exe', 'Select an alternative EXE to run')}</span>
+        <span>
+          <input
+            data-testid="setinstallpath"
+            type="text"
+            value={targetExe.replaceAll("'", '')}
+            className="settingSelect"
+            placeholder={targetExe || t('box.select.exe', 'Select EXE...')}
+            onChange={(event) => setTargetExe(event.target.value)}
+          />
+          {!targetExe.length ? <CreateNewFolder
+            data-testid="setinstallpathbutton"
+            className="material-icons settings folder"
+            onClick={() =>
+              ipcRenderer.invoke('openDialog', {
+                buttonLabel: t('box.select.button', 'Select'),
+                filters: [ { extensions: ['exe'], name: 'Binaries' }],
+                properties: ['openFile'],
+                title: t('box.select.exe', 'Select EXE')
+              }).then(({ path }: Path) =>
+                setTargetExe(path ? `'${path}'` : targetExe)
+              )
+            }
+          /> : (
+            <Backspace
+              data-testid="setEpicSyncPathBackspace"
+              className="material-icons settings folder"
+              onClick={() => (setTargetExe(''))}
+            />
+          )}
+        </span>
+      </span>}
       {isLinux && <>
         <span data-testid="otherSettings" className="setting">
           <span className="toggleWrapper">

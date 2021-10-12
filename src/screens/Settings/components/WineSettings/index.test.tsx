@@ -23,6 +23,7 @@ interface Props {
   enableResizableBar: boolean
   setAltWine: (altWine: WineInstallation[]) => void
   setCustomWinePaths: (value: string[]) => void
+  setWineCrossoverBottle: (value: string) => void
   setWinePrefix: (value: string) => void
   setWineVersion: (wine: WineInstallation) => void
   setFsrSharpness: (value: number) => void
@@ -31,6 +32,7 @@ interface Props {
   toggleResizableBar: () => void
   toggleEsync: () => void
   toggleFsync: () => void
+  wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
 }
@@ -49,6 +51,7 @@ function renderWineSettings(props: Partial<Props> = {})
     enableResizableBar: false,
     setAltWine: () => {return;},
     setCustomWinePaths: () => {return;},
+    setWineCrossoverBottle: () => {return;},
     setWinePrefix: () => {return;},
     setWineVersion: () => {return;},
     setFsrSharpness: () => {return;},
@@ -57,6 +60,7 @@ function renderWineSettings(props: Partial<Props> = {})
     toggleResizableBar: () => {return;},
     toggleEsync: () => {return;},
     toggleFsync: () => {return;},
+    wineCrossoverBottle: 'bottle',
     winePrefix: 'winePrefix',
     wineVersion: {
       bin: 'path/to/wine/bin',

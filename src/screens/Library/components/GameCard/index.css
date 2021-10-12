@@ -225,14 +225,12 @@
     padding: 2px 5px;
     border-radius: 4px;
     color: var(--success);
-    position: relative;
-    bottom: -38px;
-    left: -38px;
-    color: var(--success);
     font-family: Rubik;
     font-style: italic;
     font-weight: normal;
     line-height: 12px;
+    align-self: end;
+    font-size: 1.3vh;
 }
 
 .gameListItem>.progress>.MuiSvgIcon-root {

@@ -20,8 +20,8 @@
             "title": "Проверить и восстановить"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Ярлыки добавлены на Рабочий стол и в Меню приложений",
+            "title": "Ярлыки"
         },
         "stopInstall": {
             "keepInstalling": "Продолжить установку",
@@ -39,7 +39,7 @@
         "yes": "ДА"
     },
     "button": {
-        "cancel": "Отменить",
+        "cancel": "Пауза/Отмена",
         "continue": "Продолжить загрузку",
         "import": "Импорт",
         "install": "Установить",
@@ -47,21 +47,28 @@
         "update": "Update"
     },
     "disabled": "Выключено",
+    "dlc": {
+        "installDlcs": "Установить все DLC",
+        "title": "DLC"
+    },
     "enabled": "Включено",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "Размер загрузки",
+        "firstPlayed": "Первый запуск",
+        "installSize": "Размер установки",
+        "lastPlayed": "Последний запуск",
+        "neverPlayed": "Никогда",
+        "totalPlayed": "Проведено в игре"
     },
     "gamecard": {
         "moving": "Перемещение",
         "repairing": "Восстановление"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Установочный путь",
         "size": "Размер",
-        "syncsaves": "Синхронизации сохранений",
+        "syncsaves": "Синхронизация сохранений",
         "version": "Версия"
     },
     "install": {
@@ -75,8 +82,15 @@
             "stop": "В игре (Остановить)"
         },
         "saves": {
-            "syncing": "Синхронизации сохранений"
+            "syncing": "Синхронизация сохранений"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Показать/скрыть дополнительные компоненты",
+        "title": "Выбрать компоненты для установки"
     },
     "specs": {
         "minimum": "Минимальные",
@@ -89,13 +103,12 @@
         "installing": "Устанавливается",
         "moving": "Перемещаю игру, пожалуйста подождите",
         "notinstalled": "Игра не установлена",
-        "notSupported": "Эта игра может быть только импортирована",
         "reparing": "Восстанавливаю игру, пожалуйста подождите",
         "totalDownloaded": "Всего загружено",
         "updating": "Обновляю игру"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Создать ярлык",
         "change": "Изменить путь установки",
         "log": "Последние логи",
         "move": "Переместить игру",

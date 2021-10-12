@@ -96,6 +96,46 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 2. Download the dependencies with `yarn`
 3. Open the tasks. Select "Build with [your OS]"
 
+### Development Using a Container
+
+If you would prefer, we have a docker container defined to develop / build Heroic with (a potential reason being to avoid loading tons of dependencies on your host filesystem). There are two methods, based on whether you use VS Code.
+
+**VS Code**
+
+There is a `.devcontainer` directory containing a definition that VS Code will recognize for automatically opening your local Heroic directory in a container in VS Code. 
+
+**NOTE: this requires that you install the 'Remote - Containers' extension.**
+
+1. Open the root of your local Heroic directory in VS Code.
+2. You should get a prompt in the bottom right to build and open the project in the dev container.
+3. If the above prompt does not occur, on the bottom left, there is a green icon that should be there if the remote extension is installed. Click on it, and select "Reopen in container".
+4. The bottom left green icon should now say: "Dev Container: Heroic Games Launcher".
+
+After the container's package manager runs, open a new terminal session and you should be able to run bash commands from within the container. Any yarn dist builds should also now show up on your host filesystem.
+
+**Manually Building the Docker Image**
+
+If you don't use VS Code or don't want it integrated with the container, you can build and run the container manually using either Docker or Podman.
+
+1. From the root of your local Heroic directory, run:
+```
+docker build -t heroicdevcontainer -f Dockerfile .
+```
+
+2. Assuming all went well, you can now enter the container: 
+
+```
+docker run -it -v ./:/tmp/heroic localhost/heroicdevcontainer:latest
+```
+
+3. The above command will mount your local Heroic dir to `/tmp/heroic` in the container (unless you used a different path). 
+
+```
+cd /tmp/heoric
+```
+
+And you should be good to go, code and build away!
+
 ### Linux
 
 #### Debian, Ubuntu and Derivatives

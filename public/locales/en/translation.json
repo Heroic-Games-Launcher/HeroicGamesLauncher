@@ -8,6 +8,7 @@
         },
         "choose": "Choose",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Select the Wine or Proton Binary",
         "default-install-path": "Choose Default Install Path",
         "error": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "Select EXE to Run"
         },
-        "select": "Select",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Choose",
             "error": "Invalid Path",
@@ -83,7 +87,7 @@
             "part4": "Sync Saves Automatically will sync the saves every time you Start a Game and after finishing playing."
         },
         "wine": {
-            "part1": "Heroic searches for versions of Wine and Proton on the following folders:",
+            "part1": "Heroic searches for versions of Wine, Proton, and CrossOver in the following folders:",
             "part2": "For other places, use a symbolic link to one of these folders"
         }
     },
@@ -127,9 +131,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Help translate Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix where EGS is installed"
     },
     "Plugins": "Plugins",
@@ -141,9 +147,11 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
@@ -182,6 +190,7 @@
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
         "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"
     },

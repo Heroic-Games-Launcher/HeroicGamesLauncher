@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Απενεργοποιημένο",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Ενεργοποιημένο",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "First Played",
+        "installSize": "Install Size",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"
@@ -59,6 +65,7 @@
         "repairing": "Επιδιόρθωση"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Διαδρομή εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός save",
@@ -78,6 +85,13 @@
             "syncing": "Συγχρονισμός save"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Ελάχιστα",
         "recommended": "Προτεινόμενα"
@@ -89,7 +103,6 @@
         "installing": "Εγκατάσταση",
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
-        "notSupported": "Αυτό το παιχνίδι μπορεί μόνον να εισαχθεί",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "updating": "Ενημέρωση παιχνιδιού"

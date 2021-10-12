@@ -1,5 +1,4 @@
 import { RootObject, Element } from './apiResponseType';
-import { EPIC_STORE_URL } from 'src/constants';
 
 const discountType = 'PERCENTAGE'
 
@@ -58,5 +57,6 @@ export const extractValidPromotions = (productData: RootObject): Element[]  => {
  * @returns           Epic Store product page URL
  */
 export const generateLink = (product: Element, lang: string): string => {
-  return `${EPIC_STORE_URL}/${lang}/p/${product.productSlug}`
+  const storeUrl = `https://www.epicgames.com/store/${lang}`
+  return `${storeUrl}/p/${product.productSlug}`
 }

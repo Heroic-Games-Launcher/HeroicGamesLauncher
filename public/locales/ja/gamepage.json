@@ -1,0 +1,120 @@
+{
+    "box": {
+        "change": {
+            "message": "これにより、このゲームのインストール場所が変更されます、よろしいですか？",
+            "path": "新しいインストールパスを選択します",
+            "title": "ゲームのインストールパスを変更します"
+        },
+        "choose": "選ぶ",
+        "importpath": "インポートするゲームフォルダを選択します",
+        "installpath": "インストールパスを選択します",
+        "move": {
+            "message": "これには長い時間がかかることがあります、よろしいですか ？",
+            "path": "移動したい場所を選択してください",
+            "title": "ゲームのインストールを移動します"
+        },
+        "no": "いいえ",
+        "ok": "オケ",
+        "repair": {
+            "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。",
+            "title": "確認と修復"
+        },
+        "shortcuts": {
+            "message": "デスクトップとスタートメニューにショートカットが作成されました",
+            "title": "ショートカット"
+        },
+        "stopInstall": {
+            "keepInstalling": "インストールを続ける",
+            "message": "ダウンロードしたファイルを保持しますか？",
+            "title": "インストールを停止する"
+        },
+        "uninstall": {
+            "message": "このゲームをアンインストールしたいですか？",
+            "title": "アンインストール"
+        },
+        "update": {
+            "message": "このゲームにはアップデートがありますが、今すぐアップデートしたいですか？",
+            "title": "ゲームの更新が必要"
+        },
+        "yes": "はい"
+    },
+    "button": {
+        "cancel": "一時停止/キャンセル",
+        "continue": "ダウンロードを続ける",
+        "import": "インポート",
+        "install": "インストール",
+        "uninstall": "アンインストール",
+        "update": "アップデート"
+    },
+    "disabled": "無効になっています",
+    "dlc": {
+        "installDlcs": "すべてのDLCをインストールします",
+        "title": "DLCs"
+    },
+    "enabled": "有効になっています",
+    "game": {
+        "downloadSize": "ダウンロードサイズ",
+        "firstPlayed": "最初にプレイした",
+        "installSize": "インストールサイズ",
+        "lastPlayed": "最後にプレイした",
+        "neverPlayed": "一度もない",
+        "totalPlayed": "プレイ時間"
+    },
+    "gamecard": {
+        "moving": "移動しています",
+        "repairing": "修復しています"
+    },
+    "info": {
+        "canRunOffline": "Run Offline",
+        "path": "インストールパス",
+        "size": "サイズ",
+        "syncsaves": "保存を同期",
+        "version": "バージョン"
+    },
+    "install": {
+        "another": "他のパスにインストールする",
+        "default": "インストール",
+        "import": "ゲームをインポートする"
+    },
+    "label": {
+        "playing": {
+            "start": "プレイ",
+            "stop": "プレイしています（停止）"
+        },
+        "saves": {
+            "syncing": "保存を同期しています"
+        }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "クリックして追加のコンポーネントを表示/非表示",
+        "title": "インストールするコンポーネントを選択します"
+    },
+    "specs": {
+        "minimum": "最小",
+        "recommended": "推奨される"
+    },
+    "status": {
+        "clickToUpdate": "クリックして更新",
+        "hasUpdates": "新しいバージョンが利用可能です！",
+        "installed": "インストールされています",
+        "installing": "インストールしています",
+        "moving": "インストールを移動しています、お待ちください",
+        "notinstalled": "このゲームはインストールされていません",
+        "reparing": "ゲームを修復しています、お待ちください",
+        "totalDownloaded": "ダウンロードの総数",
+        "updating": "ゲームを更新しています"
+    },
+    "submenu": {
+        "addShortcut": "ショートカットを追加する",
+        "change": "インストールパスを変更する",
+        "log": "最新のログ",
+        "move": "ゲームを移動する",
+        "protondb": "互換性を確認する",
+        "settings": "設定",
+        "store": "ストアページ",
+        "verify": "確認と修復"
+    }
+}

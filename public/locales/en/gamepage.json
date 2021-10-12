@@ -39,7 +39,7 @@
         "yes": "YES"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Pause/Cancel",
         "continue": "Continue Download",
         "import": "Import",
         "install": "Install",
@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Disabled",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Enabled",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "First Played",
+        "installSize": "Install Size",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"
@@ -59,6 +65,7 @@
         "repairing": "Repairing"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Install Path",
         "size": "Size",
         "syncsaves": "Sync Saves",
@@ -78,6 +85,13 @@
             "syncing": "Syncing Saves"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Recommended"
@@ -89,7 +103,6 @@
         "installing": "Installing",
         "moving": "Moving Installation, please wait",
         "notinstalled": "This game is not installed",
-        "notSupported": "This game can only be imported",
         "reparing": "Repairing Game, please wait",
         "totalDownloaded": "Total Downloaded",
         "updating": "Updating Game"

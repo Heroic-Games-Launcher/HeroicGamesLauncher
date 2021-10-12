@@ -8,6 +8,7 @@
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Local de instalação padrão",
         "error": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "Selecione o EXE"
         },
-        "select": "Selecionar",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -83,7 +87,7 @@
             "part4": "Sincronizar Saves Automaticamente: ativando essa opção, toda a vez que você iniciar uma sessão de jogos ou terminar de jogar, o Heroic irá realizar uma sincronização. Dessa forma seus saves sempre estarão atualizados."
         },
         "wine": {
-            "part1": "Heroic procura por versões do Wine e do Proton nas seguntes pastas:",
+            "part1": "Heroic procura versões de Wine, Proton e CrossOver nas seguintes pastas:",
             "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
         }
     },
@@ -127,9 +131,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Ajude a traduzir o Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix onde a Epic Games está instalada"
     },
     "Plugins": "Plugins",
@@ -141,9 +147,11 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro",
@@ -182,6 +190,7 @@
         },
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "start-in-tray": "Iniciar Minimizado",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },

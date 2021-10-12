@@ -8,6 +8,7 @@
         },
         "choose": "Ok",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Välj wine eller proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "Välj EXE-fil att köra"
         },
-        "select": "Kör",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
@@ -83,7 +87,7 @@
             "part4": "Synkronisera spelspraningar automatisk kommer synkronisera sparfiler var gång ett spel startas samt avslutas."
         },
         "wine": {
-            "part1": "Heroic söker efter versioner av Wine och Proton i följade mappar:",
+            "part1": "Heroic söker efter versioner av Wine, Proton och CrossOver i följade mappar:",
             "part2": "För andra platser, använd en symbolisk länk till en av mapparna"
         }
     },
@@ -127,9 +131,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Hjälp till med översättning av Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix där EGS är installerad"
     },
     "Plugins": "Plugins",
@@ -141,9 +147,11 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i systembrickan",
@@ -182,6 +190,7 @@
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "start-in-tray": "Starta minimerad",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },

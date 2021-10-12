@@ -9,7 +9,7 @@
         "importpath": "Choisir le jeu à importer",
         "installpath": "Choisir le chemin d'installation",
         "move": {
-            "message": "Cette opération peut prendre longtemps, êtes-vous certain(e) de vouloir continuer ?",
+            "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
             "path": "Choisir la location de déplacement",
             "title": "Déplacer l'installation du jeu"
         },
@@ -39,17 +39,23 @@
         "yes": "OUI"
     },
     "button": {
-        "cancel": "Annuler",
+        "cancel": "Suspendre/Annuler",
         "continue": "Continuer le téléchargement",
         "import": "Importer",
         "install": "Installer",
         "uninstall": "Désinstaller",
-        "update": "Update"
+        "update": "Mise à jour"
     },
     "disabled": "Désactivé",
+    "dlc": {
+        "installDlcs": "Installer tout le contenu téléchargeable (DLC)",
+        "title": "DLCs"
+    },
     "enabled": "Activé",
     "game": {
+        "downloadSize": "Taille du téléchargement",
         "firstPlayed": "Joué pour la première fois",
+        "installSize": "Taille de l'installation",
         "lastPlayed": "Joué la dernière fois",
         "neverPlayed": "Jamais",
         "totalPlayed": "Temps passé à jouer"
@@ -59,6 +65,7 @@
         "repairing": "Réparation en cours"
     },
     "info": {
+        "canRunOffline": "Run Offline",
         "path": "Chemin d'installation",
         "size": "Poids",
         "syncsaves": "Synchronizer les Sauvegardes",
@@ -72,24 +79,30 @@
     "label": {
         "playing": {
             "start": "Jouer maintenant",
-            "stop": "En cours d'utilisation (Arrêter)"
+            "stop": "Jeu en cours (Arrêter)"
         },
         "saves": {
             "syncing": "Synchronisation des sauvegardes en cours"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
     },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Recommandé"
     },
     "status": {
-        "clickToUpdate": "Cliquez ici pour mettre à jour",
+        "clickToUpdate": "Cliquez ici pour mettre le jeu à jour",
         "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
-        "notSupported": "Ce jeu ne peut qu'être importé",
         "reparing": "Réparation du jeu en cours, veuillez patienter",
         "totalDownloaded": "Total Téléchargé",
         "updating": "Mise à jour du jeu en cours"

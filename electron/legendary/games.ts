@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import { BrowserWindow } from 'electron';
 import { DXVK } from '../dxvk'
-import { ExtraInfo, GameStatus } from '../types';
+import { ExtraInfo, GameStatus, InstallArgs } from '../types';
 import { Game } from '../games';
 import { GameConfig } from '../game_config';
 import { GlobalConfig } from '../config';
@@ -75,6 +75,16 @@ class LegendaryGame extends Game {
    */
   public async getGameInfo() {
     return await LegendaryLibrary.get().getGameInfo(this.appName)
+  }
+
+
+  /**
+   * Alias for `LegendaryLibrary.getInstallInfo(this.appName)`
+   *
+   * @returns InstallInfo
+   */
+  public async getInstallInfo() {
+    return await LegendaryLibrary.get().getInstallInfo(this.appName)
   }
 
   private async getProductSlug(namespace: string) {
@@ -298,39 +308,43 @@ Categories=Game;
     unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
   }
 
+  private getSdlList(sdlList: Array<string>){
+    // Legendary needs an empty tag for it to download the other needed files
+    const defaultTag = ' --install-tag ""'
+    return sdlList.map(tag => `--install-tag ${tag}`).join(' ').replaceAll("'", '').concat(defaultTag)
+  }
+
   /**
    * Install game.
    * Does NOT check for online connectivity.
    *
    * @returns Result of execAsync.
    */
-  public async install(path: string) {
+  public async install({path, installDlcs, sdlList}: InstallArgs) {
     this.state.status = 'installing'
     const { maxWorkers } = (await GlobalConfig.get().getSettings())
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
+    const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
-    try {
-      LegendaryLibrary.get().installState(this.appName, true)
-      return await execAsync(command, execOptions).then((v) => {
-        this.state.status = 'done'
+    return execAsync(command, execOptions)
+      .then(async ({stdout, stderr}) => {
+        if (stdout.includes('ERROR')){
+          errorHandler({error: {stdout, stderr}, logPath})
+          return {status: 'error'}
+        }
         this.addDesktopShortcut()
-        return v
+        return {status: 'done'}
       })
-    } catch (error) {
-      LegendaryLibrary.get().installState(this.appName, false)
-      return errorHandler({ error, logPath }).then((v) => {
-        this.state.status = 'done'
-        return v
-      })
-    }
   }
 
   public async uninstall() {
     this.state.status = 'uninstalling'
+
     const command = `${legendaryBin} uninstall ${this.appName} -y`
     logInfo(`Uninstalling ${this.appName} with:`, command)
     LegendaryLibrary.get().installState(this.appName, false)
@@ -366,6 +380,7 @@ Categories=Game;
 
   public async import(path: string) {
     this.state.status = 'installing'
+
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
@@ -381,6 +396,7 @@ Categories=Game;
    */
   public async syncSaves(arg: string, path: string) {
     const fixedPath = isWindows ? path.replaceAll("'", '').slice(0, -1) : path.replaceAll("'", '')
+
     const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = `${home}/legendary/.saves`
 
@@ -393,16 +409,16 @@ Categories=Game;
     return await execAsync(command, execOptions)
   }
 
-  public async launch() {
-    this.state.status = 'launching'
+  public async launch(launchArguments?: string) {
     const mainWindow = BrowserWindow.getAllWindows()[0]
-
+    const isOffline = !(await isOnline())
     let envVars = ''
     let gameMode: string
 
     const {
       winePrefix,
       wineVersion,
+      wineCrossoverBottle,
       otherOptions,
       useGameMode,
       showFps,
@@ -416,12 +432,14 @@ Categories=Game;
       maxSharpness,
       enableResizableBar,
       enableEsync,
-      enableFsync
+      enableFsync,
+      targetExe
     } = await this.getSettings()
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
-    const runOffline = offlineMode ? '--offline' : ''
+    const runOffline = isOffline || offlineMode ? '--offline' : ''
+    const exe = targetExe ? `--override-exe ${targetExe}` : ''
 
     if (discordRPC) {
       // Show DiscordRPC
@@ -456,7 +474,7 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${legendaryBin} launch ${this.appName} ${runOffline} ${launcherArgs}`
+      const command = `${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
 
@@ -476,10 +494,13 @@ Categories=Game;
     const isProton =
       wineVersion.name.includes('Proton') ||
       wineVersion.name.includes('Steam')
-    prefix = isProton ? '' : prefix
+    const isCrossover =
+      wineVersion.name.includes('CrossOver')
+    prefix = (isProton || isCrossover) ? '' : prefix
 
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
+      crossoverBottle: (isCrossover && wineCrossoverBottle != '') ? `CX_BOTTLE=${wineCrossoverBottle}` : '' ,
       fps: showFps ? `DXVK_HUD=fps` : '',
       fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1' : '',
       esync: enableEsync ? 'WINEESYNC=1' : '',
@@ -512,8 +533,8 @@ Categories=Game;
       await execAsync(command, execOptions)
     }
 
-    // Install DXVK for non Proton Prefixes
-    if (!isProton && autoInstallDxvk) {
+    // Install DXVK for non Proton/CrossOver Prefixes
+    if (!isProton && !isCrossover && autoInstallDxvk) {
       await DXVK.install(winePrefix)
     }
 
@@ -531,7 +552,7 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launchArguments ?? ''} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'

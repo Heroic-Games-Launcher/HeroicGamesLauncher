@@ -1,157 +1,178 @@
 .Settings {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1fr 5fr;
-  background-color: var(--background-transparent);
-  place-self: center;
-  width: 70vw;
-  min-width: 513px;
-  max-width: 912px;
-  border-radius: 1rem;
-  padding: 24px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 5fr;
+    background-color: var(--background-transparent);
+    place-self: center;
+    width: 70vw;
+    min-width: 513px;
+    max-width: 912px;
+    border-radius: 1rem;
+    padding: 24px;
 }
 
 .settingsNavbar {
-  display: flex;
-  flex-direction: column;
-  margin-top: 16px;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--text-primary);
 }
 
-.settingsNavbar > a {
-  padding-bottom: 18px;
+.settingsNavbar>a {
+    padding-bottom: 18px;
 }
 
-.settingsNavbar > a.active {
-  transition: all 350ms ease-out 0s;
-  transform: scale(1.2);
-  color: var(--primary);
-  font-weight: 500;
+.settingsNavbar>a.active {
+    transition: all 350ms ease-out 0s;
+    transform: scale(1.2);
+    color: var(--primary);
+    font-weight: 500;
 }
 
 .settingsWrapper {
-  width: 569px;
-  display: grid;
-  place-self: center;
-  place-items: flex-start;
-  width: 569px;
-  padding-bottom: 8px;
+    width: 569px;
+    display: grid;
+    place-self: center;
+    place-items: flex-start;
+    width: 569px;
+    padding-bottom: 8px;
 }
 
 .settingsTools {
-  margin: 16px auto;
+    margin: 16px auto;
 }
 
 .setting {
-  display: grid;
-  place-items: baseline;
-  margin: 16px;
+    display: grid;
+    place-items: baseline;
+    margin: 16px;
 }
 
 .setting.double {
-  margin: 0 16px;
-  align-content: space-between;
-  text-align: left;
+    margin: 0 16px;
+    align-content: space-between;
+    text-align: left;
 }
 
-.setting.double > span > button,
-.setting.double > span > .small,
-.setting.double > span > input {
-  margin: 16px 0;
+.setting.double>span>button,
+.setting.double>span>.small,
+.setting.double>span>input {
+    margin: 16px 0;
 }
 
 .settingInputWithButton {
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: nowrap;
-  width: 513px;
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    width: 513px;
 }
 
-.settingInputWithButton > .button.is-small {
-  min-width: fit-content;
+.settingInputWithButton>.button.is-small {
+    min-width: fit-content;
 }
 
-.setting > .toggleWrapper {
-  display: grid;
-  grid-template-columns: 93% 10%;
-  place-self: center;
-  width: 512px;
-  justify-items: baseline;
-  align-items: center;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-primary);
+.setting>.toggleWrapper {
+    display: grid;
+    grid-template-columns: 93% 10%;
+    place-self: center;
+    width: 512px;
+    justify-items: baseline;
+    align-items: center;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--text-primary);
 }
 
-.toggleWrapper > .switch {
-  transform: scale(1.5);
+.toggleWrapper>.switch {
+    transform: scale(1.5);
 }
 
 .settingText {
-  margin-bottom: 14px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-primary);
+    margin-bottom: 14px;
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--text-primary);
 }
 
 .settingSelect.small {
-  width: 372px;
+    width: 372px;
 }
 
 .settingSelect.smaller {
-  width: 66px;
-  text-indent: 11px;
-  margin-left: -24px;
+    width: 66px;
+    text-indent: 11px;
+    margin-left: -24px;
 }
 
-.settingSelect > option {
-  background: var(--background);
-  height: 40px;
-  color: var(--text-secondary);
-  text-indent: 22px;
-  font-size: 16px;
-  border-radius: 10px;
+.settingSelect>option {
+    background: var(--background);
+    height: 40px;
+    color: var(--text-secondary);
+    text-indent: 22px;
+    font-size: 16px;
+    border-radius: 10px;
 }
 
 .save {
-  margin: 24px 0 0 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: Cabin;
-  font-style: italic;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-  color: #5a5e5f;
+    margin: 24px 0 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Cabin;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    color: #5a5e5f;
 }
 
-.save > .material-icons {
-  font-size: 28px;
-  margin-left: 6px;
+.appName {
+    margin-left: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Cabin;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    color: #5a5e5f;
+}
+
+.save>.material-icons {
+    font-size: 28px;
+    margin-left: 6px;
 }
 
 .warning {
-  color: yellow;
-  font-size: 12px;
-  width: 513px;
-  white-space: break-spaces;
-  padding-top: 4px;
+    color: yellow;
+    font-size: 12px;
+    width: 513px;
+    white-space: break-spaces;
+    padding-top: 4px;
 }
 
 .smallMessage {
-  font-size: 12px;
-  width: 513px;
-  white-space: break-spaces;
-  padding-top: 4px;
-  cursor: pointer;
+    font-size: 12px;
+    width: 513px;
+    white-space: break-spaces;
+    padding-top: 4px;
+}
+
+.smallLink {
+    font-size: 12px;
+    width: 513px;
+    white-space: break-spaces;
+    padding-top: 4px;
+    cursor: pointer;
 }

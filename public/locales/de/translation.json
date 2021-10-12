@@ -8,6 +8,7 @@
         },
         "choose": "Auswählen",
         "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
         "error": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "EXE zum Starten auswählen"
         },
-        "select": "Auswählen",
+        "select": {
+            "button": "Auswählen",
+            "exe": "EXE auswählen"
+        },
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
@@ -83,7 +87,7 @@
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
         },
         "wine": {
-            "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine und Proton:",
+            "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine, Proton und CrossOver:",
             "part2": "Für andere Orte verwenden Sie einen symbolischen Link zu einem dieser Ordner"
         }
     },
@@ -127,9 +131,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix, in dem EGS installiert ist"
     },
     "Plugins": "Plugins",
@@ -141,20 +147,22 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
+        "change-target-exe": "Wählen Sie eine alternative EXE zum Ausführen",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
-        "darktray": "Benutze Dunkles Taskleisten-Icon",
+        "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
-        "esync": "Enable Esync",
+        "esync": "Esync aktivieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
         "FsrSharpnessStrenght": "FSR Schärfestärke",
-        "fsync": "Enable Fsync",
+        "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
@@ -182,6 +190,7 @@
         },
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "start-in-tray": "Minimiert starten",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine Prefix Ordner",
         "wineversion": "Wine-Version"
     },

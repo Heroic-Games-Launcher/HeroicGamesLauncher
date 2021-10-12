@@ -8,6 +8,7 @@
         },
         "choose": "தேர்வு செய்",
         "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Wine அல்லது Proton இருமத்தை தேர்வு செய்",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
         "error": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "EXE ஐ இயக்க தேர்ந்தெடு"
         },
-        "select": "தேர்ந்தெடு",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "தேர்வு செய்",
             "error": "தவறான பாதை",
@@ -127,9 +131,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு"
     },
     "Plugins": "செருகுநிரல்கள்",
@@ -141,9 +147,11 @@
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
         "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
         "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
@@ -182,6 +190,7 @@
         },
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
         "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",
         "wineversion": "Wine பதிப்பு"
     },

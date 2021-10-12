@@ -8,6 +8,7 @@
         },
         "choose": "Choisir",
         "choose-egs-prefix": "Choisir où le Préfix EGS est installé",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Sélectionner le binaire Wine ou Proton",
         "default-install-path": "Choisir le chemin par défaut",
         "error": {
@@ -25,8 +26,8 @@
             },
             "launch": "Erreur lors du lancement du jeu, consultez les fichiers de journalisation !",
             "log": {
-                "message": "Aucun fichier de journalisation n'a été trouvé pour ce jeu",
-                "title": "Aucun fichier de journalisation n'a été trouvé"
+                "message": "Aucun Log n'a été trouvé pour ce jeu",
+                "title": "Aucun fichier d'enregistration n'a été trouvé"
             },
             "title": "Erreur"
         },
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "Sélectionner l'EXE à exécuter"
         },
-        "select": "Sélectionner",
+        "select": {
+            "button": "Selectionner",
+            "exe": "Choisir l'EXE"
+        },
         "sync": {
             "button": "Choisir",
             "error": "Chemin invalide",
@@ -83,7 +87,7 @@
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
-            "part1": "Heroic recherche des versions de Wine et Proton dans ces dossiers :",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
@@ -127,9 +131,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Aidez à traduire Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix où EGS est installé"
     },
     "Plugins": "Plugins",
@@ -141,9 +147,11 @@
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
+        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
+        "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
@@ -151,10 +159,10 @@
         "discordRPC": "Activer Rich Presence dans Discord",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
-        "esync": "Enable Esync",
+        "esync": "Activer Esync",
         "exit-to-tray": "Quitter vers System Tray",
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
-        "fsync": "Enable Fsync",
+        "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
@@ -182,6 +190,7 @@
         },
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
     },
