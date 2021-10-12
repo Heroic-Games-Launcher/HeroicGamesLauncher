@@ -21,9 +21,6 @@ const FreeProducts = () => {
 
   const fetchProducts = async () => {
     const response = await ipcRenderer.invoke('requestFreeProducts')
-    console.log(response)
-    // const products = response.data.Catalog.searchStore
-    // const validProducts = extractValidPromotions(products)
     setProducts(response)
   }
 
@@ -57,9 +54,9 @@ const FreeProducts = () => {
             </div>
             <div
               key={`text-${p.id}-title`}
-              data-testid='test-free-product-title'
             >
-              <p>{p.title}</p>
+              <h3 data-testid='test-free-product-title'>{p.title}</h3>
+              <p className="description">{p.description}</p>
             </div>
           </>
           )

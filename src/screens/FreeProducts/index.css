@@ -18,15 +18,22 @@
   max-width: 350px;
   max-height: 200px;
   border-radius: 0.5rem;
+  cursor: pointer;
+}
+.description{
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 }
 
 .freeProductsContainer {
   display: grid;
-  justify-content: center;
   background-color: var(--background-transparent);
   grid-template-columns: auto auto;
   place-self: center;
   align-items: center;
+  justify-content: space-around;
   width: 70vw;
   min-width: 513px;
   max-width: 912px;
