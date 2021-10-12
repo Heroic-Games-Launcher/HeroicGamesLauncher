@@ -525,8 +525,7 @@ ipcMain.handle('readConfig', async (event, config_class) => {
 })
 
 ipcMain.handle('requestFreeProducts', async () => {
-  const { data } =  await fetchFreeProducts()
-  return data
+  return await fetchFreeProducts()
 })
 
 ipcMain.handle('requestSettings', async (event, appName) => {

@@ -15,6 +15,7 @@ function getLegendaryBin(){
   return bin
 }
 
+const epicFreeGameUrl = 'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions'
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
@@ -88,6 +89,7 @@ export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
   discordLink,
+  epicFreeGameUrl,
   execOptions,
   fixAsarPath,
   getShell,

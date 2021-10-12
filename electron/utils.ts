@@ -15,9 +15,11 @@ import i18next from 'i18next'
 
 import { GlobalConfig } from './config'
 import {
+  epicFreeGameUrl,
   heroicGamesConfigPath,
   icon} from './constants'
 import { logError, logInfo, logWarning } from './logger'
+import { FreeGameResponse, FreeGameElement } from 'types'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -208,10 +210,66 @@ async function checkCommandVersion(
   return found;
 }
 
+
+
+const discountType = 'PERCENTAGE'
+
+/**
+ * Check whether a promotion is valid for display
+ * Valid promotions have a discount type of PERCENTAGE
+ * and a discountPercentage of 0.
+ *
+ * Valid promotions also need to have valid start and end dates
+ * compared to the current date.
+ * @param product Product to examine (returned from api)
+ * @returns       true if the product has a free and valid promotion
+ */
+const validatePromotion = (product:FreeGameElement): boolean => {
+  let isValidPromotion = false
+  if (product.promotions) {
+    product.promotions.promotionalOffers.forEach((offers) => {
+      offers.promotionalOffers.forEach((o) => {
+        if (o.discountSetting.discountType === discountType
+            && o.discountSetting.discountPercentage === 0)
+        {
+          const startDate = new Date(o.startDate)
+          const endDate = new Date(o.endDate)
+          const now = new Date()
+          isValidPromotion = (now > startDate && now < endDate)
+          if (isValidPromotion) {
+            return
+          }
+        }
+      })
+    })
+  }
+  return isValidPromotion
+}
+
+/**
+ * Iterates through the API response to find valid promotions
+ * @param productData List of products with promotions from the API
+ * @returns           List of products with valid free promotions
+ */
+export const extractValidPromotions = (productData: FreeGameResponse)  => {
+  const freeProducts:FreeGameElement[] = []
+  productData.elements.forEach((element) => {
+    if (validatePromotion(element)) {
+      freeProducts.push(element)
+    }
+  });
+  return Array.from(new Set(freeProducts))
+}
+
 async function fetchFreeProducts() {
-  return await axios.default.get(
-    'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions'
-  )
+  return await axios.default.get(epicFreeGameUrl).then(({ data }) => {
+    const products : FreeGameResponse = data.data.Catalog.searchStore
+    const validProducts = extractValidPromotions(products)
+    return validProducts
+  }).catch((e) => {
+    logError(e, 'Could not fetch free products')
+    return []
+  })
 }
 
 export {

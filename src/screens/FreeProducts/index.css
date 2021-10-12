@@ -1,14 +1,11 @@
 .freeProductItem {
-  text-align: left;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 350px;
   height: 10vw;
   max-height: 266px;
   min-height: 173px;
   overflow: hidden;
-  position: relative;
   border-radius: 0.5rem;
   }
 
@@ -17,16 +14,10 @@
   }
 
 .productImg {
-  width: 30vw !important;
   height: 20vw;
   max-width: 350px;
   max-height: 200px;
-  object-fit: cover;
-  position: absolute;
-  cursor: pointer;
   border-radius: 0.5rem;
-  top: 0;
-  left: 0;
 }
 
 .freeProductsContainer {
@@ -35,10 +26,11 @@
   background-color: var(--background-transparent);
   grid-template-columns: auto auto;
   place-self: center;
+  align-items: center;
   width: 70vw;
   min-width: 513px;
   max-width: 912px;
   border-radius: 1rem;
   padding: 24px;
-  grid-gap: 1rem 6rem;
+  grid-gap: 1rem;
 }

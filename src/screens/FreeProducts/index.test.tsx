@@ -16,7 +16,7 @@ import * as mockFreeProductsApi from 'src/screens/FreeProducts/utils/mockApiResp
 
 
 import FreeProducts from './index';
-import { Element } from './utils/apiResponseType';
+import { FreeGameElement } from 'src/types';
 
 const renderFreeProducts = async () =>
 {
@@ -35,9 +35,9 @@ const renderFreeProducts = async () =>
 describe('Free Products', () => {
 
   beforeEach(() => {
-    const products: Element[] = mockFreeProductsApi.data.Catalog.searchStore.elements
+    const products: FreeGameElement[] = mockFreeProductsApi.data.Catalog.searchStore.elements
     resetDates(products)
-    when(ipcRenderer.invoke).calledWith('requestFreeProducts').mockResolvedValue(mockFreeProductsApi);
+    when(ipcRenderer.invoke).calledWith('requestFreeProducts').mockResolvedValue([products[5], products[9]]);
   })
 
   test('renders with fetch call', async () => {

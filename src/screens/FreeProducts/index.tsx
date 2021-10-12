@@ -2,11 +2,11 @@ import './index.css'
 
 import React, { useState, useEffect } from 'react'
 import { Header } from 'src/components/UI'
-import { Element } from './utils/apiResponseType'
-import { extractValidPromotions, generateLink } from './utils/utils'
+import { generateLink } from './utils/utils'
 import { createNewWindow } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import { IpcRenderer } from 'electron'
+import { FreeGameElement } from 'src/types'
 const { ipcRenderer } = window.require('electron') as {
     ipcRenderer: IpcRenderer
 }
@@ -17,13 +17,14 @@ const FreeProducts = () => {
   if (i18n.language === 'pt') {
     lang = 'pt-BR'
   }
-  const [products, setProducts] = useState<Element[]>([])
+  const [products, setProducts] = useState<FreeGameElement[]>([])
 
   const fetchProducts = async () => {
     const response = await ipcRenderer.invoke('requestFreeProducts')
-    const products = response.data.Catalog.searchStore
-    const validProducts = extractValidPromotions(products)
-    setProducts(validProducts)
+    console.log(response)
+    // const products = response.data.Catalog.searchStore
+    // const validProducts = extractValidPromotions(products)
+    setProducts(response)
   }
 
   useEffect(() => {
@@ -35,9 +36,9 @@ const FreeProducts = () => {
       <Header goTo={'/'} renderBackButton title={t('freeproducts.title', 'Free This Week')} />
       <div className="freeProductsContainer">
         {products.map((p) => {
-          return (
+          return (<>
             <div
-              key={`display-${p.id}`}
+              key={`display-${p.id}-image`}
               className='freeProductItem'
               data-testid='test-free-product-image'
             >
@@ -45,27 +46,22 @@ const FreeProducts = () => {
                 onClick={() => createNewWindow(generateLink(p, lang))}
                 data-testid='test-free-product-link'
               >
-                <span
+                <img
+                  src={p.keyImages.filter(i => i.type === 'DieselStoreFrontWide')[0].url}
                   style={{
-                    backgroundImage:
-                    `url('${p.keyImages.filter(i => i.type === 'DieselStoreFrontWide')[0].url}')`,
                     backgroundSize: '100% 100%',
                     backgroundRepeat: 'no-repeat'
                   }}
-                  className='productImg'>
-                </span>
+                  className='productImg' />
               </a>
             </div>
-          )
-        })}
-        {products.map((p) => {
-          return (
             <div
-              key={`text-${p.id}`}
+              key={`text-${p.id}-title`}
               data-testid='test-free-product-title'
             >
               <p>{p.title}</p>
             </div>
+          </>
           )
         })}
       </div>
