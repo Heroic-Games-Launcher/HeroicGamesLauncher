@@ -41,3 +41,6 @@
   padding: 24px;
   grid-gap: 1rem;
 }
+button.button.is-small.is-primary:hover{
+  background-color: #84d7e9;
+}

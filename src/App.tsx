@@ -47,11 +47,7 @@ function App() {
               <Library library={library} />
             </div>
           </Route>
-          <Route exact path="/free-games">
-            <div className="content">
-              <FreeProducts />
-            </div>
-          </Route>
+          <Route exact path="/free-games" component={FreeProducts} />
           <Route exact path="/epicstore" component={EpicStore} />
           <Route exact path="/wiki" component={Wiki} />
           <Route exact path="/gameconfig/:appName" component={GamePage} />

@@ -65,7 +65,8 @@
     "Filter": "필터",
     "freeGames": "Free Games",
     "freeproducts": {
-        "title": "Free This Week"
+        "title": "Free This Week",
+        "get-it": "Get it"
     },
     "Games": "게임",
     "globalSettings": "글로벌 설정",

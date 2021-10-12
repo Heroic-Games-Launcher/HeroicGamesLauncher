@@ -57,6 +57,7 @@ const FreeProducts = () => {
             >
               <h3 data-testid='test-free-product-title'>{p.title}</h3>
               <p className="description">{p.description}</p>
+              <button className="button is-small is-primary" onClick={() => createNewWindow(generateLink(p, lang))}>{t('freeproducts.get-it', 'Get it')}</button>
             </div>
           </>
           )

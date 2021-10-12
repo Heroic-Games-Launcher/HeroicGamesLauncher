@@ -65,7 +65,8 @@
     "Filter": "Filtrar",
     "freeGames": "Juegos gratis",
     "freeproducts": {
-        "title": "Gratis esta semana"
+        "title": "Gratis esta semana",
+        "get-it": "¡Obtenlo!"
     },
     "Games": "Games",
     "globalSettings": "Ajustes globales",
