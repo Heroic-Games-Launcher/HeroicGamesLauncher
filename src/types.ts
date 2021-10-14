@@ -186,3 +186,12 @@ export interface WineInstallation {
   bin: string
   name: string
 }
+
+export type ElWebview = {
+  goBack: () => void
+  goForward: () => void
+  reload: () => void
+  getURL: () => string
+}
+
+export type Webview = HTMLWebViewElement & ElWebview

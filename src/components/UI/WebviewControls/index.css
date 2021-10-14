@@ -1,0 +1,9 @@
+.webviewControls {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    align-items: center;
+}
+
+.MuiSvgIcon-root {
+    cursor: pointer;
+}
