@@ -238,35 +238,32 @@ export default function WineSettings({
           </select>
         </span>
       </span>}
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.resizableBar', 'Enable Resizable BAR (NVIDIA RTX only)')}
-          <ToggleSwitch
-            value={enableResizableBar || false}
-            handleChange={toggleResizableBar}
-          />
+      {isLinux && <>
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.resizableBar', 'Enable Resizable BAR (NVIDIA RTX only)')}
+            <ToggleSwitch
+              value={enableResizableBar || false}
+              handleChange={toggleResizableBar} />
+          </span>
+        </span><span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.esync', 'Enable Esync')}
+            <ToggleSwitch
+              value={enableEsync || false}
+              handleChange={toggleEsync}
+              dataTestId='esyncToggle' />
+          </span>
+        </span><span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.fsync', 'Enable Fsync')}
+            <ToggleSwitch
+              value={enableFsync || false}
+              handleChange={toggleFsync}
+              dataTestId='fsyncToggle' />
+          </span>
         </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.esync', 'Enable Esync')}
-          <ToggleSwitch
-            value={enableEsync || false}
-            handleChange={toggleEsync}
-            dataTestId='esyncToggle'
-          />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.fsync', 'Enable Fsync')}
-          <ToggleSwitch
-            value={enableFsync || false}
-            handleChange={toggleFsync}
-            dataTestId='fsyncToggle'
-          />
-        </span>
-      </span>
+      </>}
       <InfoBox text="infobox.help">
         <span>{t('help.wine.part1')}</span>
         <ul>

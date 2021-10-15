@@ -130,7 +130,7 @@ abstract class GlobalConfig {
 
     if (isMac)
     {
-      execAsync('mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"')
+      await execAsync('mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"')
         .then(async ({ stdout }) => {
           stdout.split('\n').forEach((crossoverMacPath) => {
             if (crossoverMacPath != '' && existsSync(crossoverMacPath + '/Contents/Info.plist')) {
