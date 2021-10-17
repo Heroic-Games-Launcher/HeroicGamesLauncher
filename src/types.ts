@@ -191,6 +191,7 @@ export type ElWebview = {
   goBack: () => void
   goForward: () => void
   reload: () => void
+  isLoading: () => boolean
   getURL: () => string
 }
 

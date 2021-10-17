@@ -1,15 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import WebviewControls from 'src/components/UI/WebviewControls'
-
-type ElWebview = {
-  goBack: () => void
-  goForward: () => void
-  reload: () => void
-  getURL: () => string
-}
-
-type Webview = HTMLWebViewElement & ElWebview
+import { Webview } from 'src/types'
 
 export default function EpicStore() {
   const { i18n } = useTranslation()
@@ -23,7 +15,7 @@ export default function EpicStore() {
 
   return (
     <div>
-      <WebviewControls webview={webview} />
+      <WebviewControls webview={webview} initURL={epicStore} />
       <webview
         partition="persist:epicstore"
         src={epicStore}

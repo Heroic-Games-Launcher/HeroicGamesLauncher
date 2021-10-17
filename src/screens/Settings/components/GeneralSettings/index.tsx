@@ -205,7 +205,7 @@ export default function GeneralSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">{t('setting.alt-legendary-bin', 'Use an alternative Legendary Binary to use')}</span>
+        <span className="settingText">{t('setting.alt-legendary-bin', 'Choose an alternative Legendary Binary to use')}</span>
         <span>
           <input
             data-testid="setting-alt-legendary"
