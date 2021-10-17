@@ -65,7 +65,7 @@
         "repairing": "Popravljanje"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",

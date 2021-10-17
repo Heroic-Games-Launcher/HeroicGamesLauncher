@@ -300,7 +300,7 @@ export default function GamePage(): JSX.Element | null {
                           {t('info.version')}: {version}
                         </div>
                         <div>
-                          {t('info.canRunOffline', 'Run Offline')}: {t(canRunOffline ? 'box.yes' : 'box.no')}
+                          {t('info.canRunOffline', 'Online Required')}: {t(canRunOffline ? 'box.no' : 'box.yes')}
                         </div>
                         <div
                           className="clickable"

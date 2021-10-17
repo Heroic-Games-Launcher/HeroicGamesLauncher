@@ -65,7 +65,7 @@
         "repairing": "Reparant"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Ruta d'instal·lació",
         "size": "Mida",
         "syncsaves": "Sincronitza els guardats",

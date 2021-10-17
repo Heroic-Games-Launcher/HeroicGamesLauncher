@@ -65,7 +65,7 @@
         "repairing": "Reparando"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Instalar ruta",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",

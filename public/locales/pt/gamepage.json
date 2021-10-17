@@ -65,7 +65,7 @@
         "repairing": "Reparando"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Pasta de Instalação",
         "size": "Tamanho",
         "syncsaves": "Sincronização em Nuvem",

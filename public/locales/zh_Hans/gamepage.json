@@ -65,7 +65,7 @@
         "repairing": "修复中"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "安装路径",
         "size": "大小",
         "syncsaves": "同步存档",
