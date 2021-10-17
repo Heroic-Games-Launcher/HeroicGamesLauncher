@@ -69,7 +69,7 @@ export const Library = ({ library }: Props) => {
               if (is_dlc) {
                 return null
               }
-              const hasUpdate = gameUpdates.includes(app_name)
+              const hasUpdate = gameUpdates?.includes(app_name)
               return (
                 <GameCard
                   key={app_name}

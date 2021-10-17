@@ -189,7 +189,7 @@ export default function GamePage(): JSX.Element | null {
     setInstallDlcs(!installDlcs)
   }
 
-  const hasUpdate = gameUpdates.includes(appName)
+  const hasUpdate = gameUpdates?.includes(appName)
 
   if (gameInfo && gameInfo.install) {
     const {
