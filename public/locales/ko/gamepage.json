@@ -65,7 +65,7 @@
         "repairing": "복구 중"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",

@@ -143,7 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
-        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
         "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",

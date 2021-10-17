@@ -143,7 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
-        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "Prefix에 DXVK 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",

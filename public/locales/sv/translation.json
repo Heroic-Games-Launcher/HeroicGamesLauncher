@@ -143,7 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
-        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
