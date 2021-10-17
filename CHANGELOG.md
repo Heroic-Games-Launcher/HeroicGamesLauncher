@@ -1,5 +1,17 @@
 # Changelog
 
+
+## 1.10.3
+
+### General
+- Added controls to reload, go back and forward on the Store and Wiki webviews;
+- [Linux/MacOS] Improved Wine, Proton and Crossover Searching;
+- [MacOS] Some unused settings were removed;
+
+### BugFixes
+- [MacOS] Fixed an issue on BigSur that was causing Heroic screen to become blank;
+- Other small UI fixes;
+
 ## 1.10.2
 
 ### General
