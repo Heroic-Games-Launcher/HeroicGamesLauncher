@@ -9,7 +9,7 @@
         "choose": "Επιλογή",
         "choose-egs-prefix": "Επιλέξτε πρόθεμα όπου το EGS είναι εγκατεστημένο",
         "choose-legendary-binary": "Select Legendary Binary",
-        "customWine": "Επιλέξτε το αρχείο Wine ή Proton",
+        "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
         "error": {
             "credentials": {
@@ -157,8 +157,13 @@
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
         "esync": "Ενεργοποίηση Esync",
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Ενεργοποίηση Fsync",
+        <<
+        << << < HEAD "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        ===
+        === =
+        "FsrSharpnessStrenght": "Βαθμός οξύτητας FSR",
+        >>>
+        >>> > weblate / main "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
         "mangohud": "Ενεργοποίηση Mangohud (απαραίτητη η εγκατάσταση του Mangohud)",

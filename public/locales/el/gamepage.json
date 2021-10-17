@@ -20,8 +20,8 @@
             "title": "Επαλήθευση και Επιδιόρθωση"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Συντομεύσεις δημιουργήθηκαν στην Επιφάνεια Εργασίας και στο Μενού Έναρξης",
+            "title": "Συντομεύσεις"
         },
         "stopInstall": {
             "keepInstalling": "Συνέχιση εγκατάστασης",
@@ -39,7 +39,7 @@
         "yes": "ΝΑΙ"
     },
     "button": {
-        "cancel": "Ακύρωση",
+        "cancel": "Παύση/Ακύρωση",
         "continue": "Συνέχιση λήψης",
         "import": "Εισαγωγή",
         "install": "Εγκατάσταση",
@@ -48,17 +48,17 @@
     },
     "disabled": "Απενεργοποιημένο",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Εγκατάσταση όλων των DLCs",
         "title": "DLCs"
     },
     "enabled": "Ενεργοποιημένο",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "installSize": "Install Size",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "Μέγεθος λήψης",
+        "firstPlayed": "Παίχτηκε πρώτη φορά",
+        "installSize": "Μέγεθος Εγκατάστασης",
+        "lastPlayed": "Παίχτηκε Τελευταία φορά",
+        "neverPlayed": "Ποτέ",
+        "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
         "moving": "Μετακίνηση",
@@ -89,8 +89,8 @@
         "options": "Launch Options..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Πατήστε για να δείτε/κρύψετε επιπλέον στοιχεία",
+        "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
     "specs": {
         "minimum": "Ελάχιστα",

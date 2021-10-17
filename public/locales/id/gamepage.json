@@ -51,7 +51,7 @@
     "button": {
         "import": "Impor",
         "continue": "Lanjutkan Mengunduh",
-        "cancel": "Batalkan",
+        "cancel": "Batal",
         "update": "Perbarui",
         "uninstall": "Copot",
         "install": "Instal"
@@ -100,8 +100,18 @@
         "totalPlayed": "Waktu Dimainkan",
         "neverPlayed": "Tak pernah",
         "lastPlayed": "Terakhir Dimainkan",
-        "firstPlayed": "Pertama Dimainkan"
+        "firstPlayed": "Pertama Dimainkan",
+        "installSize": "Ukuran Pemasangan",
+        "downloadSize": "Ukuran Unduhan"
     },
     "enabled": "Aktifkan",
-    "disabled": "Nonaktifkan"
+    "disabled": "Nonaktifkan",
+    "dlc": {
+        "title": "DLC",
+        "installDlcs": "Pasang semua DLC"
+    },
+    "sdl": {
+        "showList": "Klik untuk Tampil/Sembunyikan Komponen Ekstra",
+        "title": "Pilih komponen untuk dipasang"
+    }
 }
