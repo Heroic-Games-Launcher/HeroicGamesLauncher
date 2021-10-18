@@ -148,7 +148,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
-        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",

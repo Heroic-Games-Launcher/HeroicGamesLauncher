@@ -65,7 +65,7 @@
         "repairing": "Aan het repareren"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",

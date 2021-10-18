@@ -225,3 +225,12 @@ export interface FreeGameElement {
 export interface FreeGameResponse {
   elements: FreeGameElement[];
 }
+export type ElWebview = {
+  goBack: () => void
+  goForward: () => void
+  reload: () => void
+  isLoading: () => boolean
+  getURL: () => string
+}
+
+export type Webview = HTMLWebViewElement & ElWebview

@@ -9,7 +9,7 @@
         "choose": "Επιλογή",
         "choose-egs-prefix": "Επιλέξτε πρόθεμα όπου το EGS είναι εγκατεστημένο",
         "choose-legendary-binary": "Select Legendary Binary",
-        "customWine": "Επιλέξτε το αρχείο Wine ή Proton",
+        "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
         "error": {
             "credentials": {
@@ -148,7 +148,7 @@
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
-        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
@@ -162,8 +162,13 @@
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
         "esync": "Ενεργοποίηση Esync",
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Ενεργοποίηση Fsync",
+        <<
+        << << < HEAD "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        ===
+        === =
+        "FsrSharpnessStrenght": "Βαθμός οξύτητας FSR",
+        >>>
+        >>> > weblate / main "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
         "mangohud": "Ενεργοποίηση Mangohud (απαραίτητη η εγκατάσταση του Mangohud)",

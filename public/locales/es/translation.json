@@ -45,7 +45,7 @@
             "title": "Seleccione EXE para ejecutar"
         },
         "select": {
-            "button": "Select",
+            "button": "Seleccionar",
             "exe": "Select EXE"
         },
         "sync": {
@@ -148,7 +148,7 @@
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
-        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
         "autosync": "Autosyncronizar guardados",

@@ -65,7 +65,7 @@
         "repairing": "Réparation en cours"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Chemin d'installation",
         "size": "Poids",
         "syncsaves": "Synchronizer les Sauvegardes",

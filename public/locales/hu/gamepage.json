@@ -65,7 +65,7 @@
         "repairing": "Javítás"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Telepítési útvonal",
         "size": "Méret",
         "syncsaves": "Mentések szinkronizálása",

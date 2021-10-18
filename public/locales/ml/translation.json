@@ -50,10 +50,10 @@
         },
         "sync": {
             "button": "തിരഞ്ഞെടുക്കൂ",
-            "error": "ഇത് ശരിയല്ലല്ലോ",
+            "error": "വഴി ശരിയല്ലല്ലോ",
             "title": "സൂക്ഷിക്കാനുള്ള അറ തിരഞ്ഞെടുക്കൂ"
         },
-        "wineprefix": "വൈനിന്റെ ഉപസര്‍ഗ്ഗം(prefix) തിരഞ്ഞെടുക്കൂ",
+        "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി"
     },
     "button": {
@@ -148,7 +148,7 @@
     "setting": {
         "adddesktopshortcuts": "കുറുക്കുവഴികള്‍ മേശപ്പുറത്ത് താനേ ചേര്‍ക്കൂ",
         "addgamestostartmenu": "കളികള്‍ തുടക്കപ്പട്ടികയില്‍ താനേ ചേര്‍ക്കൂ",
-        "alt-legendary-bin": "Use an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്‍സ് ഓഡിയോ ലാറ്റന്‍സി)",
         "autodxvk": "ഉപസഗ്ഗ഻ത്തില്‍(പ്രഫിക്സില്‍) DXVK തന്നത്താന്‍ സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്‍",

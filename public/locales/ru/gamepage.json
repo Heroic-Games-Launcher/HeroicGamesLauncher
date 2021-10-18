@@ -65,7 +65,7 @@
         "repairing": "Восстановление"
     },
     "info": {
-        "canRunOffline": "Run Offline",
+        "canRunOffline": "Online Required",
         "path": "Установочный путь",
         "size": "Размер",
         "syncsaves": "Синхронизация сохранений",
