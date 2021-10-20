@@ -47,7 +47,8 @@
         "fsync": "Включване на Fsync",
         "esync": "Включване на Esync",
         "winecrossoverbottle": "CrossOver Bottle",
-        "change-target-exe": "Изберете алтернативен файл EXE за изпълнение"
+        "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
+        "alt-legendary-bin": "Изберете алтернативен изпълним файл на Legendary"
     },
     "wiki": "Уики",
     "userselector": {
@@ -88,10 +89,12 @@
     "Projects": "Проекти",
     "Plugins": "Добавки",
     "placeholder": {
-        "egs-prefix": "Префикс, където е инсталиран EGS"
+        "egs-prefix": "Префикс, където е инсталиран EGS",
+        "alt-legendary-bin": "Използва се вградената версия на Legendary…"
     },
     "other": {
-        "weblate": "Помогнете за превода на Heroic."
+        "weblate": "Помогнете за превода на Heroic.",
+        "legendary-version": "Версия на Legendary: "
     },
     "options": {
         "gameargs": {
@@ -215,7 +218,8 @@
         "appupdate": {
             "title": "Има ново обновление",
             "message": "Има нова версия на Heroic. Искате ли да го обновите сега?"
-        }
+        },
+        "choose-legendary-binary": "Изберете изпълнимия файл на Legendary"
     },
     "Assets": "Ресурси",
     "All": "Всички"
