@@ -162,13 +162,8 @@
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
         "esync": "Ενεργοποίηση Esync",
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
-        <<
-        << << < HEAD "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        ===
-        === =
         "FsrSharpnessStrenght": "Βαθμός οξύτητας FSR",
-        >>>
-        >>> > weblate / main "fsync": "Ενεργοποίηση Fsync",
+        "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
         "mangohud": "Ενεργοποίηση Mangohud (απαραίτητη η εγκατάσταση του Mangohud)",
