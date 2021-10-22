@@ -21,6 +21,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
       - [Debian](#debian)
       - [Debian (third party `apt` repository)](#-third-party-apt-repository)
       - [Arch (AUR)](#arch-aur)
+      - [XBPS (Template)](#void-linux)
       - [Fedora](#fedora)
       - [Other Distributions](#other-distributions)
     - [Windows](#windows)
@@ -178,6 +179,14 @@ makepkg --cleanbuild --syncdeps --install --clean --rmdeps
 ```
 
 Otherwise you can install it via your prefered AUR helper, e.g. yay.
+
+
+#### Void Linux
+
+XBPS Template: https://github.com/machadofguilherme/heroic-template
+
+To install, configure your environment using the [Void Packages](https://github.com/void-linux/void-packages#quick-start) documentation.
+Follow the necessary steps in the repository(in portuguese).
 
 #### Fedora
 
