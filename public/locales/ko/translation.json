@@ -145,7 +145,7 @@
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
-        "autodxvk": "Prefix에 DXVK 자동 설치/업데이트",
+        "autodxvk": "Prefix에 DXVK/VKD3D 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",
         "change-target-exe": "대체하여 실행할 EXE 선택",
         "checkForUpdatesOnStartup": "시작할 때 업데이트 확인",

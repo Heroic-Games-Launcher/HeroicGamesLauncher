@@ -145,7 +145,7 @@
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
-        "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
+        "autodxvk": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
         "change-target-exe": "実行する代替EXEを選択します",
         "checkForUpdatesOnStartup": "起動時に更新を確認する",

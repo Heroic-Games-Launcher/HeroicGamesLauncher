@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
-        "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
+        "autodxvk": "Automatisch installeren/updated van DXVK/VKD3D op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
         "change-target-exe": "Selecteer een alternatieve EXE om uit te voeren",
         "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",

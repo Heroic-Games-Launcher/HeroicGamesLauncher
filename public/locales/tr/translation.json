@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
-        "autodxvk": "DXVK'yı otomatik kur/güncelle",
+        "autodxvk": "DXVK/VKD3D'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
