@@ -12,6 +12,9 @@ import {
 
 function getLegendaryBin(){
   const bin = GlobalConfig?.get()?.config?.altLegendaryBin ?? `${fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))}`
+  if (bin.includes(' ')){
+    return `"${bin}"`
+  }
   return bin
 }
 

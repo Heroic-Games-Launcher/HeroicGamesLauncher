@@ -202,6 +202,8 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
+  wineboot?: string
+  wineserver?: string
 }
 
 export interface InstallArgs {

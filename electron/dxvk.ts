@@ -20,63 +20,74 @@ export const DXVK = {
       logWarning('App offline, skipping possible DXVK update.')
       return
     }
-    const {
-      data: { assets }
-    } = await axios.default.get(
-      'https://api.github.com/repos/lutris/dxvk/releases/latest'
-    )
-    const current = assets[0]
-    const pkg = current.name
-    const name = pkg.replace('.tar.gz', '')
-    const downloadUrl = current.browser_download_url
 
-    const dxvkLatest = `${heroicToolsPath}/DXVK/${pkg}`
-    const pastVersionCheck = `${heroicToolsPath}/DXVK/latest_dxvk`
-    let pastVersion = ''
+    const tools = [
+      { name: 'vkd3d',
+        url: 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/latest',
+        extractCommand: 'tar -I zstd -xvf'
+      },
+      { name: 'dxvk',
+        url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
+        extractCommand: 'tar -zxf'
+      }
+    ]
 
-    if (existsSync(pastVersionCheck)) {
-      pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
-    }
+    tools.forEach(async (tool) => {
+      const {
+        data: { assets }
+      } = await axios.default.get(tool.url)
 
-    if (pastVersion === name) {
-      return
-    }
+      const {name, browser_download_url: downloadUrl} = assets[0]
+      const pkg = name.replace('.tar.gz', '').replace('.tar.zst', '')
 
-    const downloadCommand = `curl -L ${downloadUrl} -o ${dxvkLatest} --create-dirs`
-    const extractCommand = `tar -zxf ${dxvkLatest} -C ${heroicToolsPath}/DXVK/`
-    const echoCommand = `echo ${name} > ${heroicToolsPath}/DXVK/latest_dxvk`
-    const cleanCommand = `rm ${dxvkLatest}`
+      const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
+      const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
+      let pastVersion = ''
+      if (existsSync(pastVersionCheck)) {
+        pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
+      }
 
-    logInfo('Updating DXVK to:', name)
+      if (pastVersion === pkg) {
+        return
+      }
+      const downloadCommand = `curl -L ${downloadUrl} -o ${latestVersion} --create-dirs`
+      const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${heroicToolsPath}/${tool.name}`
+      const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
+      const cleanCommand = `rm ${latestVersion}`
 
-    return execAsync(downloadCommand)
-      .then(async () => {
-        logInfo('downloaded DXVK')
-        logInfo('extracting DXVK')
-        exec(echoCommand)
-        await execAsync(extractCommand)
-        logInfo('DXVK updated!')
-        exec(cleanCommand)
-      })
-      .catch(() => logError('Error when downloading DXVK'))
+      logInfo(`Updating ${tool.name} to:`, pkg)
+
+      return execAsync(downloadCommand)
+        .then(async () => {
+          logInfo(`downloaded ${tool.name}`)
+          logInfo(`extracting ${tool.name}`)
+          exec(echoCommand)
+          await execAsync(extractCommand)
+          logInfo(`extracting ${tool.name} updated!`)
+          exec(cleanCommand)
+        })
+        .catch((error) => logError(`Error when downloading ${tool.name}`, error))
+    })
+
+
   },
 
-  install: async (prefix: string) => {
+  install: async (prefix: string, tool: 'dxvk' | 'vkd3d') => {
     if (!prefix) {
       return
     }
     const winePrefix = prefix.replace('~', home)
 
-    if (!existsSync(`${heroicToolsPath}/DXVK/latest_dxvk`)) {
+    if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logError('dxvk not found!')
       await DXVK.getLatest()
     }
 
-    const globalVersion = readFileSync(`${heroicToolsPath}/DXVK/latest_dxvk`)
+    const globalVersion = readFileSync(`${heroicToolsPath}/${tool}/latest_${tool}`)
       .toString()
       .split('\n')[0]
-    const dxvkPath = `${heroicToolsPath}/DXVK/${globalVersion}/`
-    const currentVersionCheck = `${winePrefix}/current_dxvk`
+    const toolPath = `${heroicToolsPath}/${tool}/${globalVersion}`
+    const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
     if (existsSync(currentVersionCheck)) {
@@ -89,17 +100,22 @@ export const DXVK = {
       return
     }
 
-    const installCommand = `WINEPREFIX='${winePrefix}' bash ${dxvkPath}setup_dxvk.sh install`
+    const x32Path = `${winePrefix}/drive_c/windows/system32/`
+    const x64Path = `${winePrefix}/drive_c/windows/syswow64/`
+    const x86Fix = tool === 'vkd3d' ? 'x86' : 'x32'
+
+    const installCommand = `ln -sf ${toolPath}/${x86Fix}/* ${x32Path} && ln -sf ${toolPath}/x64/* ${x64Path}`
     const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
 
-    logInfo(`installing DXVK on...`, installCommand)
-    await execAsync(`WINEPREFIX='${winePrefix}' wineboot`)
+    logInfo(`installing ${tool} on...`, prefix)
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => exec(echoCommand))
-      .catch(() =>
+      .catch((error) => {
+        logError(error)
         logError(
           'error when installing DXVK, please try launching the game again'
         )
+      }
       )
   }
 }

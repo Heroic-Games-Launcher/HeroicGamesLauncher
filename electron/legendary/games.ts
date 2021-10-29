@@ -497,7 +497,9 @@ Categories=Game;
     const isCrossover =
       wineVersion.name.includes('CrossOver')
     prefix = (isProton || isCrossover) ? '' : prefix
-
+    const x = wineVersion.bin.split('/')
+    x.pop()
+    const winePath = x.join('/')
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       crossoverBottle: (isCrossover && wineCrossoverBottle != '') ? `CX_BOTTLE=${wineCrossoverBottle}` : '' ,
@@ -533,9 +535,20 @@ Categories=Game;
       await execAsync(command, execOptions)
     }
 
+    if (!existsSync(fixedWinePrefix)){
+      try {
+        const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' ${winePath}/wineboot' -i && ${winePath}/wineserver' --wait`
+        console.log({initPrefixCommand})
+        await execAsync(initPrefixCommand)
+      } catch (error) {
+        console.log({error})
+      }
+    }
+
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
-      await DXVK.install(winePrefix)
+      await DXVK.install(winePrefix, 'dxvk')
+      await DXVK.install(winePrefix, 'vkd3d')
     }
 
     if (wineVersion.name !== 'Wine Default') {
