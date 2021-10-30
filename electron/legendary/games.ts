@@ -529,21 +529,7 @@ Categories=Game;
       )
     }
 
-    // Proton doesn't create a prefix folder so this is a workaround
-    if (isProton && !existsSync(fixedWinePrefix)) {
-      const command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command, execOptions)
-    }
-
-    if (!existsSync(fixedWinePrefix)){
-      try {
-        const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' ${winePath}/wineboot' -i && ${winePath}/wineserver' --wait`
-        console.log({initPrefixCommand})
-        await execAsync(initPrefixCommand)
-      } catch (error) {
-        console.log({error})
-      }
-    }
+    await this.createNewPrefix(isProton, fixedWinePrefix, winePath);
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
@@ -578,6 +564,21 @@ Categories=Game;
     logInfo('Stopped Discord Rich Presence.')
 
     return v
+  }
+
+  private async createNewPrefix(isProton: boolean, fixedWinePrefix: string, winePath: string) {
+    if (isProton && !existsSync(fixedWinePrefix)) {
+      const command = `mkdir '${fixedWinePrefix}' -p`;
+      await execAsync(command, execOptions);
+    }
+
+    if (!existsSync(fixedWinePrefix)) {
+      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' ${winePath}/wineboot' -i &&  ${winePath}/wineserver' --wait`;
+      logInfo('creating new prefix', fixedWinePrefix)
+      return execAsync(initPrefixCommand)
+        .then(() => logInfo('Prefix created succesfuly!'))
+        .catch((error) => logError(error))
+    }
   }
 
   public async stop() {
