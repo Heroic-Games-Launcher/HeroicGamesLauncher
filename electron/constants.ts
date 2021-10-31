@@ -1,3 +1,4 @@
+import { execSync } from 'child_process'
 import { GlobalConfig } from './config'
 import {
   homedir,
@@ -15,10 +16,24 @@ function getLegendaryBin(){
   return bin
 }
 
+// Get the "Desktop" directory with multilingual support, fallback to "~/Desktop"
+function getDesktopPath() {
+  if (platform() === 'linux') {
+    try {
+      return execSync('xdg-user-dir DESKTOP').toString().trim()
+    } catch {
+      return `${homedir()}/Desktop`
+    }
+  } else {
+    return `${homedir()}/Desktop`
+  }
+}
+
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
+const desktopFolder = getDesktopPath()
 const home = homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
 const heroicFolder = `${home}/.config/heroic/`
@@ -87,6 +102,7 @@ const execOptions = {
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
+  desktopFolder,
   discordLink,
   execOptions,
   fixAsarPath,

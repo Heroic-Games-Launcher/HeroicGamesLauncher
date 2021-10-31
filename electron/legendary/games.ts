@@ -21,6 +21,7 @@ import {
 } from '../utils'
 import {
   execOptions,
+  desktopFolder,
   heroicGamesConfigPath,
   heroicIconFolder,
   home,
@@ -255,7 +256,7 @@ class LegendaryGame extends Game {
       return
     }
     const gameInfo = await this.getGameInfo()
-    const desktopFolder = `${home}/Desktop/${gameInfo.title}.desktop`
+    const desktopFile = `${desktopFolder}/${gameInfo.title}.desktop`
     const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     let shortcut;
     const icon = await this.getIcon(gameInfo.app_name)
@@ -280,8 +281,8 @@ Categories=Game;
     const { addDesktopShortcuts, addStartMenuShortcuts } = await GlobalConfig.get().getSettings()
 
     if (addDesktopShortcuts || fromMenu) {
-      writeFile(desktopFolder, shortcut, () => {
-        logInfo('Shortcut saved on ' + desktopFolder)
+      writeFile(desktopFile, shortcut, () => {
+        logInfo('Shortcut saved on ' + desktopFile)
       })
     }
     if (addStartMenuShortcuts || fromMenu) {
@@ -302,7 +303,7 @@ Categories=Game;
       return
     }
     const gameInfo = await this.getGameInfo()
-    const desktopFile = `${home}/Desktop/${gameInfo.title}.desktop`
+    const desktopFile = `${desktopFolder}/${gameInfo.title}.desktop`
     const applicationsFile = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
     unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
