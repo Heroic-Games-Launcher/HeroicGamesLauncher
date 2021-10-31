@@ -38,7 +38,7 @@ export default function GamesSubmenu({
     ContextProvider
   )
   const isWin = platform === 'win32'
-  const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
   const [info, setInfo] = useState({prefix: '', wine: ''} as otherInfo)
 
   const { t, i18n } = useTranslation('gamepage')
@@ -163,7 +163,7 @@ export default function GamesSubmenu({
             >
               {t('submenu.log')}
             </span>
-            {isLinux && <span
+            {!isMac && <span
               onClick={() => handleShortcuts()}
               className="link"
             >
