@@ -1,9 +1,10 @@
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { exec } from 'child_process'
+import { exec, spawn } from 'child_process'
 import {
   existsSync,
-  readFileSync
+  readFileSync,
+  readdirSync
 } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
@@ -105,11 +106,18 @@ export const DXVK = {
     const x86Fix = tool === 'vkd3d' ? 'x86' : 'x32'
 
     const installCommand = `ln -sf ${toolPath}/${x86Fix}/* ${x32Path} && ln -sf ${toolPath}/x64/* ${x64Path}`
-    const echoCommand = `echo '${globalVersion}' > ${currentVersionCheck}`
+    const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
+
+    const filesToBkpx32= readdirSync(`${toolPath}/${x86Fix}`)
+    const filesToBkpx64= readdirSync(`${toolPath}/x64/`)
+
+    logInfo('Backuping original DLLs')
+    backupRestoreDLLs(filesToBkpx32, x32Path)
+    backupRestoreDLLs(filesToBkpx64, x64Path)
 
     logInfo(`installing ${tool} on...`, prefix)
     await execAsync(installCommand, { shell: '/bin/bash' })
-      .then(() => exec(echoCommand))
+      .then(() => exec(updatedVersionfile))
       .catch((error) => {
         logError(error)
         logError(
@@ -118,4 +126,14 @@ export const DXVK = {
       }
       )
   }
+}
+
+function backupRestoreDLLs(filesToBkp: Array<string>, path: string){
+  filesToBkp.forEach(file => {
+    const filePath = `${path}/${file}`
+    if (existsSync(filePath)){
+      spawn('mv', [filePath, `${filePath}.bkp`])
+    }
+    return
+  })
 }

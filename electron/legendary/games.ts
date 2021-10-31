@@ -499,7 +499,7 @@ Categories=Game;
     prefix = (isProton || isCrossover) ? '' : prefix
     const x = wineVersion.bin.split('/')
     x.pop()
-    const winePath = x.join('/')
+    const winePath = x.join('/').replaceAll("'", '')
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       crossoverBottle: (isCrossover && wineCrossoverBottle != '') ? `CX_BOTTLE=${wineCrossoverBottle}` : '' ,
@@ -573,7 +573,7 @@ Categories=Game;
     }
 
     if (!existsSync(fixedWinePrefix)) {
-      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' ${winePath}/wineboot' -i &&  ${winePath}/wineserver' --wait`;
+      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`;
       logInfo('creating new prefix', fixedWinePrefix)
       return execAsync(initPrefixCommand)
         .then(() => logInfo('Prefix created succesfuly!'))
