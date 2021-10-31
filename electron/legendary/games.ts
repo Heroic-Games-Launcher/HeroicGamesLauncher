@@ -6,7 +6,7 @@ import {
 } from 'graceful-fs'
 import axios from 'axios';
 
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, app } from 'electron';
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus, InstallArgs } from '../types';
 import { Game } from '../games';
@@ -21,7 +21,6 @@ import {
 } from '../utils'
 import {
   execOptions,
-  desktopFolder,
   heroicGamesConfigPath,
   heroicIconFolder,
   home,
@@ -256,7 +255,7 @@ class LegendaryGame extends Game {
       return
     }
     const gameInfo = await this.getGameInfo()
-    const desktopFile = `${desktopFolder}/${gameInfo.title}.desktop`
+    const desktopFile = `${app.getPath('desktop')}/${gameInfo.title}.desktop`
     const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     let shortcut;
     const icon = await this.getIcon(gameInfo.app_name)
@@ -303,7 +302,7 @@ Categories=Game;
       return
     }
     const gameInfo = await this.getGameInfo()
-    const desktopFile = `${desktopFolder}/${gameInfo.title}.desktop`
+    const desktopFile = `${app.getPath('desktop')}/${gameInfo.title}.desktop`
     const applicationsFile = `${home}/.local/share/applications/${gameInfo.title}.desktop`
     unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
     unlink(applicationsFile, () => logInfo('Applications shortcut removed'))

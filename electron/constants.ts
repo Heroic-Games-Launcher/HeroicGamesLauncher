@@ -1,5 +1,4 @@
 import { GlobalConfig } from './config'
-import { app } from 'electron'
 import {
   homedir,
   platform
@@ -20,7 +19,6 @@ const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const currentGameConfigVersion : GameConfigVersion = 'v0'
 const currentGlobalConfigVersion : GlobalConfigVersion = 'v0'
-const desktopFolder = app.getPath('desktop')
 const home = homedir()
 const legendaryConfigPath = `${home}/.config/legendary`
 const heroicFolder = `${home}/.config/heroic/`
@@ -89,7 +87,6 @@ const execOptions = {
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
-  desktopFolder,
   discordLink,
   execOptions,
   fixAsarPath,
