@@ -57,7 +57,8 @@ import {
   loginUrl,
   sidInfoUrl,
   supportURL,
-  weblateUrl
+  weblateUrl,
+  wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
@@ -386,6 +387,7 @@ ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
+ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 ipcMain.on('updateHeroic', () => checkUpdates())
 

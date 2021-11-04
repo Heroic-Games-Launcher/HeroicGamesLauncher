@@ -1,190 +1,204 @@
 .Login {
-  display: grid;
-  place-items: stretch;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  height: 100%;
-  position: absolute;
+    display: grid;
+    place-items: stretch;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
 .loginBackground {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: url('../../assets/login-background-1536x864.jpg');
-  background-size: cover;
-  z-index: -1;
-  opacity: 0.4;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url('../../assets/login-background-1536x864.jpg');
+    background-size: cover;
+    z-index: -1;
+    opacity: 0.4;
 }
 
 .language {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .selectedLanguage {
-  color: #07c5ef;
-  font-weight: 600;
+    color: #07c5ef;
+    font-weight: 600;
 }
 
 .heroicLogo {
-  width: 205px;
-  height: 48px;
-  place-self: baseline;
-  margin-bottom: 60px;
+    width: 205px;
+    height: 48px;
+    place-self: baseline;
+    margin-bottom: 60px;
 }
 
 .heroicText {
-  width: 150px;
-  height: 47px;
-  margin-left: 57px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    width: 150px;
+    height: 47px;
+    margin-left: 57px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .heroicTitle {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 25px;
-  line-height: 30px;
-  color: var(--secondary);
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    color: var(--secondary);
 }
 
 .heroicSubTitle {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24.3px;
-  color: var(--text-primary);
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24.3px;
+    color: var(--text-primary);
 }
 
 .logo {
-  background: url('../../assets/heroic-icon.png');
-  background-size: contain;
-  position: absolute;
-  width: 46px;
-  height: 46px;
-  border-radius: 5px;
+    background: url('../../assets/heroic-icon.png');
+    background-size: contain;
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border-radius: 5px;
 }
 
 .aboutWrapper {
-  display: grid;
-  place-items: center;
-  place-content: center;
-  width: 100%;
-  height: 100%;
+    display: grid;
+    place-items: center;
+    place-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .aboutContainer {
-  max-width: 550px;
-  padding: 25px;
+    max-width: 550px;
+    padding: 25px;
 }
 
 .loginFormWrapper {
-  display: grid;
-  place-items: center;
-  place-content: center;
-  width: 100%;
-  height: 100%;
-  background: var(--background-darker);
+    display: grid;
+    place-items: center;
+    place-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--background-darker);
 }
 
 .loginInstructions {
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 27px;
-  color: var(--text-primary);
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 27px;
+    color: var(--text-primary);
 }
 
 .loginInstructions strong {
-  color: var(--text-primary);
+    color: var(--text-primary);
 }
 
 .loginInstructions .epicLink {
-  color: var(--secondary);
-  cursor: pointer;
-  text-decoration: underline;
+    color: var(--secondary);
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .loginInstructions .sid {
-  color: var(--primary);
-  text-decoration: underline;
-  cursor: pointer;
+    color: var(--primary);
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .loginInstructions ol {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 .loginInstructions ol li {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
+
 .loginInstructions p {
-  margin-bottom: 35px;
-  margin-top: 10px;
+    margin-bottom: 35px;
+    margin-top: 10px;
 }
 
 .pastesidtext {
-  color: var(--text-primary);
-  font-weight: 400;
-  font-size: 16px;
-  margin-bottom: 13px;
+    color: var(--text-primary);
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 13px;
 }
 
-.loginForm > button {
-  margin-top: 16px;
-  font-weight: 700;
+.loginForm>button {
+    margin-top: 16px;
+    font-weight: 700;
 }
 
 .loginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 400px;
-  align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 400px;
+    align-self: center;
 }
 
 .loginInput {
-  width: 388px;
-  height: 63px;
-  background: var(--background);
-  border-radius: 10px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  outline: none;
-  color: var(--text-primary);
-  text-align: center;
-  border: none;
-  margin-bottom: 16px;
+    width: 388px;
+    height: 63px;
+    background: var(--background);
+    border-radius: 10px;
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    outline: none;
+    color: var(--text-primary);
+    text-align: center;
+    border: none;
+    margin-bottom: 16px;
 }
 
-.loginForm > .message {
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: var(--primary);
-  display: flex;
-  margin: 0;
+.loginForm>.message {
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--primary);
+    display: flex;
+    margin: 0;
 }
 
-.message > .material-icons {
-  font-size: 16px;
-  margin-left: 4px;
-  animation: refreshing 1.5s infinite;
+.message>.material-icons {
+    font-size: 16px;
+    margin-left: 4px;
+    animation: refreshing 1.5s infinite;
 }
 
 .settingSelect.language-login {
-  width: 140px;
-  height: 30px;
-  text-indent: 10px;
+    width: 140px;
+    height: 30px;
+    text-indent: 10px;
+}
+
+.helpWrapper {
+    margin-top: 24px;
+    text-align: center;
+    color: var(--secondary);
+    width: 96%;
+}
+
+.helpWrapper>.buttonWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

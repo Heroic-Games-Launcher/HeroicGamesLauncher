@@ -46,6 +46,7 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
+const wikiLink = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
 const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
 
 /**
@@ -115,5 +116,6 @@ export {
   sidInfoUrl,
   supportURL,
   userInfo,
-  weblateUrl
+  weblateUrl,
+  wikiLink
 }
