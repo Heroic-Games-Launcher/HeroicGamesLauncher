@@ -531,6 +531,15 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return await GameConfig.get(appName).getSettings()
 })
 
+ipcMain.on('toggleDXVK', (event, [winePrefix, action]) => {
+  if (!existsSync(winePrefix)){
+    return
+  }
+
+  DXVK.installRemove(winePrefix, 'dxvk', action)
+  DXVK.installRemove(winePrefix, 'vkd3d', action)
+})
+
 ipcMain.handle('writeConfig', (event, [appName, config]) => {
   if (appName === 'default') {
     GlobalConfig.get().config = config

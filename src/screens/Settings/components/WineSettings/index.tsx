@@ -210,7 +210,11 @@ export default function WineSettings({
           {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
           <ToggleSwitch
             value={autoInstallDxvk}
-            handleChange={toggleAutoInstallDxvk}
+            handleChange={() => {
+              const action = autoInstallDxvk ? 'restore' : 'backup'
+              ipcRenderer.send('toggleDXVK', [winePrefix, action])
+              return toggleAutoInstallDxvk()
+            }}
           />
         </span>
       </span>}

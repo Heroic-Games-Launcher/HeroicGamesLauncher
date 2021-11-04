@@ -73,7 +73,7 @@ export const DXVK = {
 
   },
 
-  install: async (prefix: string, tool: 'dxvk' | 'vkd3d') => {
+  installRemove: async (prefix: string, tool: 'dxvk' | 'vkd3d', action: 'backup' | 'restore') => {
     if (!prefix) {
       return
     }
@@ -97,10 +97,6 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    if (currentVersion === globalVersion) {
-      return
-    }
-
     const x32Path = `${winePrefix}/drive_c/windows/system32/`
     const x64Path = `${winePrefix}/drive_c/windows/syswow64/`
     const x86Fix = tool === 'vkd3d' ? 'x86' : 'x32'
@@ -111,9 +107,20 @@ export const DXVK = {
     const filesToBkpx32= readdirSync(`${toolPath}/${x86Fix}`)
     const filesToBkpx64= readdirSync(`${toolPath}/x64/`)
 
-    logInfo('Backuping original DLLs')
-    backupRestoreDLLs(filesToBkpx32, x32Path)
-    backupRestoreDLLs(filesToBkpx64, x64Path)
+    logInfo(`${action === 'backup' ? 'Backuping' : 'Restoring'} original DLLs`)
+    backupRestoreDLLs(filesToBkpx32, x32Path, action)
+    backupRestoreDLLs(filesToBkpx64, x64Path, action)
+
+    if(action === 'restore'){
+      logInfo(`Removing ${tool} version information`)
+      const updatedVersionfile = `rm -rf ${currentVersionCheck}`
+      exec(updatedVersionfile)
+      return logInfo(`Removed ${tool} from`, prefix)
+    }
+
+    if (currentVersion === globalVersion) {
+      return
+    }
 
     logInfo(`installing ${tool} on...`, prefix)
     await execAsync(installCommand, { shell: '/bin/bash' })
@@ -128,12 +135,23 @@ export const DXVK = {
   }
 }
 
-function backupRestoreDLLs(filesToBkp: Array<string>, path: string){
-  filesToBkp.forEach(file => {
+export function backupRestoreDLLs(filesToHandle: Array<string>, path: string, action: 'backup' | 'restore'){
+  if (action === 'backup'){
+    return filesToHandle.forEach(file => {
+      const filePath = `${path}/${file}`
+      if (existsSync(filePath)){
+        spawn('mv', [filePath, `${filePath}.bkp`])
+      }
+    })
+  }
+
+  return filesToHandle.forEach(file => {
     const filePath = `${path}/${file}`
     if (existsSync(filePath)){
-      spawn('mv', [filePath, `${filePath}.bkp`])
+      spawn('rm', ['-rf', `${filePath}`])
+      spawn('mv', [`${filePath}.bkp`, `${filePath}`])
     }
-    return
   })
+
+
 }

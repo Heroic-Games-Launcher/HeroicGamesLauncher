@@ -533,8 +533,8 @@ Categories=Game;
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
-      await DXVK.install(winePrefix, 'dxvk')
-      await DXVK.install(winePrefix, 'vkd3d')
+      await DXVK.installRemove(winePrefix, 'dxvk', 'backup')
+      await DXVK.installRemove(winePrefix, 'vkd3d', 'backup')
     }
 
     if (wineVersion.name !== 'Wine Default') {
