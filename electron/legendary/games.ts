@@ -6,7 +6,6 @@ import {
 } from 'graceful-fs'
 import axios from 'axios';
 
-import { BrowserWindow } from 'electron';
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus, InstallArgs } from '../types';
 import { Game } from '../games';
@@ -410,7 +409,6 @@ Categories=Game;
   }
 
   public async launch(launchArguments?: string) {
-    const mainWindow = BrowserWindow.getAllWindows()[0]
     const isOffline = !(await isOnline())
     let envVars = ''
     let gameMode: string
@@ -555,7 +553,6 @@ Categories=Game;
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
-      mainWindow.show()
       return v
     })
 
