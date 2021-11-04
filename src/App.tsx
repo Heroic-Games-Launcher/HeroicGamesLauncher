@@ -6,8 +6,7 @@ import { Library } from './screens/Library'
 import ContextProvider from './state/ContextProvider'
 import ElectronStore from 'electron-store'
 import Login from './screens/Login'
-import EpicStore from './screens/Store'
-import Wiki from './screens/Wiki'
+import WebView from './screens/WebView'
 
 const Store = window.require('electron-store')
 const configStore: ElectronStore = new Store({
@@ -46,8 +45,8 @@ function App() {
               <Library library={library} />
             </div>
           </Route>
-          <Route exact path="/epicstore" component={EpicStore} />
-          <Route exact path="/wiki" component={Wiki} />
+          <Route exact path="/epicstore" component={WebView} />
+          <Route exact path="/wiki" component={WebView} />
           <Route exact path="/gameconfig/:appName" component={GamePage} />
           <Route path="/settings/:appName/:type" component={Settings} />
         </Switch>
