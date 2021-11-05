@@ -1,8 +1,5 @@
 .supportLinks {
     grid-area: support;
-    display: flex;
-    flex-direction: column;
-    top: 17px;
     justify-content: flex-start;
     align-content: center;
     width: max-content;
@@ -17,22 +14,15 @@
     background: none;
     border: solid #646464 0.1em;
     color: white;
-    padding: 4px;
+    padding: 7px 12px;
     border-radius: 2px;
     cursor: pointer;
     transition: 400ms;
     text-transform: capitalize;
     font-weight: 700;
+    margin-left: 8px;
 }
 
 .supportLinks>button:hover {
     background: var(--background-darker);
-}
-
-.supportLinks>button:nth-child(2) {
-    margin-top: 5px;
-}
-
-.supportLinks>button:nth-child(2)>svg {
-    margin-left: -2px;
 }
