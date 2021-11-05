@@ -2,6 +2,9 @@
     "button": {
         "login": "ورود"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "شماره SID را اینجا جایگذاری کنید"
     },

@@ -2,6 +2,9 @@
     "button": {
         "login": "Zaloguj"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "Wpisz numer SID"
     },
