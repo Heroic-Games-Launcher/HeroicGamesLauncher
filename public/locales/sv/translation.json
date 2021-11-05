@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
         "alt-legendary-bin": "Välj en alternativ Legendary binär att använda",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
-        "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
+        "autodxvk": "Automatiskt installera/uppdatera DXVK/VKD3D i prefix",
         "autosync": "Autosynkronisera sparfiler",
         "change-target-exe": "Välj en alternativ EXE att köra",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",

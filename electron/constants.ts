@@ -12,6 +12,9 @@ import {
 
 function getLegendaryBin(){
   const bin = GlobalConfig?.get()?.config?.altLegendaryBin ?? `${fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))}`
+  if (bin.includes(' ')){
+    return `"${bin}"`
+  }
   return bin
 }
 
@@ -43,7 +46,10 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
+const wikiLink = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
 const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
+const kofiPage = 'https://ko-fi.com/heroicgames'
+const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
 
 /**
  * Get shell for different os
@@ -99,6 +105,7 @@ export {
   heroicInstallPath,
   heroicToolsPath,
   home,
+  kofiPage,
   icon,
   iconDark,
   iconLight,
@@ -109,8 +116,10 @@ export {
   legendaryConfigPath,
   libraryPath,
   loginUrl,
+  patreonPage,
   sidInfoUrl,
   supportURL,
   userInfo,
-  weblateUrl
+  weblateUrl,
+  wikiLink
 }

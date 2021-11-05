@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Äänikorjaus (Pulse Audion viive)",
-        "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",
+        "autodxvk": "Asenna automaattisesti/Päivitä DXVK/VKD3D Prefiksissä",
         "autosync": "Automaattisesti synkronoi tallennukset",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Tarkista päivitysten varalta käynnistyessä",

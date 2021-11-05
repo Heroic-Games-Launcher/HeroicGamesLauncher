@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
-        "autodxvk": "Автоустановка/обновление DXVK на префикс",
+        "autodxvk": "Автоустановка/обновление DXVK/VKD3D на префикс",
         "autosync": "Автосинхронизация сохранений",
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",

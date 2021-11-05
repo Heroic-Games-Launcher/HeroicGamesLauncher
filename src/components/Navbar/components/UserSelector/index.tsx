@@ -22,6 +22,7 @@ const configStore: ElectronStore = new Store({
 
 export default function UserSelector() {
   const { t } = useTranslation()
+  const { refresh, refreshLibrary } = React.useContext(ContextProvider)
   const { ipcRenderer } = window.require('electron') as {
     ipcRenderer : IpcRenderer
   }
@@ -30,7 +31,6 @@ export default function UserSelector() {
     return null
   }
 
-  const { refresh, refreshLibrary } = React.useContext(ContextProvider)
   const handleLogout = async () => {
     if (confirm(t('userselector.logout_confirmation', 'Logout?'))) {
       await ipcRenderer.invoke('logout')

@@ -145,7 +145,7 @@
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
-        "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
+        "autodxvk": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",

@@ -6,7 +6,7 @@ import {
 } from 'graceful-fs'
 import axios from 'axios';
 
-import { BrowserWindow, app, shell } from 'electron';
+import { app, shell } from 'electron';
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus, InstallArgs } from '../types';
 import { Game } from '../games';
@@ -447,7 +447,6 @@ Categories=Game;
   }
 
   public async launch(launchArguments?: string) {
-    const mainWindow = BrowserWindow.getAllWindows()[0]
     const isOffline = !(await isOnline())
     let envVars = ''
     let gameMode: string
@@ -534,7 +533,9 @@ Categories=Game;
     const isCrossover =
       wineVersion.name.includes('CrossOver')
     prefix = (isProton || isCrossover) ? '' : prefix
-
+    const x = wineVersion.bin.split('/')
+    x.pop()
+    const winePath = x.join('/').replaceAll("'", '')
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       crossoverBottle: (isCrossover && wineCrossoverBottle != '') ? `CX_BOTTLE=${wineCrossoverBottle}` : '' ,
@@ -564,15 +565,12 @@ Categories=Game;
       )
     }
 
-    // Proton doesn't create a prefix folder so this is a workaround
-    if (isProton && !existsSync(fixedWinePrefix)) {
-      const command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command, execOptions)
-    }
+    await this.createNewPrefix(isProton, fixedWinePrefix, winePath);
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
-      await DXVK.install(winePrefix)
+      await DXVK.installRemove(winePrefix, 'dxvk', 'backup')
+      await DXVK.installRemove(winePrefix, 'vkd3d', 'backup')
     }
 
     if (wineVersion.name !== 'Wine Default') {
@@ -593,7 +591,6 @@ Categories=Game;
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
-      mainWindow.show()
       return v
     })
 
@@ -602,6 +599,21 @@ Categories=Game;
     logInfo('Stopped Discord Rich Presence.')
 
     return v
+  }
+
+  private async createNewPrefix(isProton: boolean, fixedWinePrefix: string, winePath: string) {
+    if (isProton && !existsSync(fixedWinePrefix)) {
+      const command = `mkdir '${fixedWinePrefix}' -p`;
+      await execAsync(command, execOptions);
+    }
+
+    if (!existsSync(fixedWinePrefix)) {
+      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`;
+      logInfo('creating new prefix', fixedWinePrefix)
+      return execAsync(initPrefixCommand)
+        .then(() => logInfo('Prefix created succesfuly!'))
+        .catch((error) => logError(error))
+    }
   }
 
   public async stop() {

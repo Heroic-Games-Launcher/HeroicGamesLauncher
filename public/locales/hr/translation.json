@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
-        "autodxvk": "Automatski instaliraj/ažuriraj DXVK na put",
+        "autodxvk": "Automatski instaliraj/ažuriraj DXVK/VKD3D na put",
         "autosync": "Automatsko sinkroniziranje podataka",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Provjeri za ažuriranjem na pokretanju",

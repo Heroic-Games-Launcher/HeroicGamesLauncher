@@ -2,6 +2,9 @@
     "button": {
         "login": "ログイン"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "ここにSID番号を貼り付けます"
     },

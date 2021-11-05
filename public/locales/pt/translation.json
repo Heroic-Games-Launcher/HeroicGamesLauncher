@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Consertar Audio do Jogo",
-        "autodxvk": "Instalar/Atualizar DXVK automaticamente",
+        "autodxvk": "Instalar/Atualizar DXVK/VKD3D automaticamente",
         "autosync": "Ativar Sincronização Automática",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",

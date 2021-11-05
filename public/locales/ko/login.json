@@ -2,6 +2,9 @@
     "button": {
         "login": "로그인"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "여기에 SID 번호를 붙여 넣으세요"
     },

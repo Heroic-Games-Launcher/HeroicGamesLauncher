@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
-        "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
+        "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK/VKD3D στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
         "checkForUpdatesOnStartup": "Έλεγχος για ενημερώσεις κατά την εκκίνηση",

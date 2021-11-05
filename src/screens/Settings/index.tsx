@@ -431,7 +431,7 @@ function Settings() {
             />
           )}
           <span className="save">{t('info.settings')}</span>
-          <span className="appName">AppName: {appName}</span>
+          {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>
     </>

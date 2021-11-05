@@ -2,6 +2,9 @@
     "button": {
         "login": "Logga in"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "Klistra in SID nummer här"
     },

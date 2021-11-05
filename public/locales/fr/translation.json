@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
         "alt-legendary-bin": "Choisissez un autre fichier binaire Legendary à utiliser",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
-        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
+        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
         "autosync": "Sauvegardes Autosync",
         "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",

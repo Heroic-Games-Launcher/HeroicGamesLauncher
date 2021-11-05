@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
-        "autodxvk": "Автоматично инсталиране/обновяване на DXVK в префикса",
+        "autodxvk": "Автоматично инсталиране/обновяване на DXVK/VKD3D в префикса",
         "autosync": "Автоматично синхронизиране на запазените файлове",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
         "checkForUpdatesOnStartup": "Проверка за обновления при стартиране",

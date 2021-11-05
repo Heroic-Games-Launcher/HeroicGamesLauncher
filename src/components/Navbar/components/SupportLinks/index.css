@@ -1,0 +1,28 @@
+.supportLinks {
+    grid-area: support;
+    justify-content: flex-start;
+    align-content: center;
+    width: max-content;
+    align-self: center;
+    text-align: left;
+    justify-self: right;
+    margin-right: 16px;
+}
+
+.supportLinks>button {
+    text-align: left;
+    background: none;
+    border: solid #646464 0.1em;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: 400ms;
+    text-transform: capitalize;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.supportLinks>button:hover {
+    background: var(--background-darker);
+}

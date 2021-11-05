@@ -145,7 +145,7 @@
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
         "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
-        "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
+        "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
         "change-target-exe": "Válassz alternatív EXE fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",

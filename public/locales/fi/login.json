@@ -2,6 +2,9 @@
     "button": {
         "login": "Kirjaudu sisään"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "Liitä SID numero tähän"
     },
