@@ -65,7 +65,7 @@
         "repairing": "Repariere"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Online erforderlich",
         "path": "Installations-Pfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",
@@ -86,7 +86,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Startoptionen..."
     },
     "sdl": {
         "showList": "Klicken, um zusätzliche Komponenten ein-/auszublenden",

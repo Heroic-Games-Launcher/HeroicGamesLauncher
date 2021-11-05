@@ -1,12 +1,12 @@
 {
-    "All": "",
+    "All": "Semua",
     "Assets": "Assets",
     "box": {
         "appupdate": {
             "message": "There is a new version of Heroic Available, do you want to update now?",
             "title": "Update Available"
         },
-        "choose": "",
+        "choose": "Pilih",
         "choose-egs-prefix": "",
         "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Select the Wine or Proton Binary",
@@ -31,7 +31,7 @@
             },
             "title": "Error"
         },
-        "no": "",
+        "no": "TIDAK",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -42,22 +42,22 @@
             "title": "Exit"
         },
         "runexe": {
-            "title": ""
+            "title": "Pilih EXE untuk menjalankan"
         },
         "select": {
             "button": "Select",
             "exe": "Select EXE"
         },
         "sync": {
-            "button": "",
+            "button": "Pilih",
             "error": "",
-            "title": ""
+            "title": "Pilih direktori penyimpanan"
         },
-        "wineprefix": "",
-        "yes": ""
+        "wineprefix": "Pilih Folder Prefix Winie",
+        "yes": "YA"
     },
     "button": {
-        "sync": "",
+        "sync": "Sinkronkan",
         "syncing": "",
         "unsync": ""
     },

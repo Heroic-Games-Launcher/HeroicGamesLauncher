@@ -8,7 +8,7 @@
         },
         "choose": "Auswählen",
         "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Legendary Binärdatei auswählen",
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
         "error": {
@@ -131,7 +131,7 @@
         "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "Benutze eingebaute Legendary Binärdatei...",
         "egs-prefix": "Prefix, in dem EGS installiert ist"
     },
     "Plugins": "Plugins",
@@ -143,7 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Wählen Sie eine alternative Legendary Binärdatei zur Verwendung",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",

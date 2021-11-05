@@ -5,8 +5,8 @@
             "path": "Choisissez un nouveau chemin d'installation",
             "title": "Changer le chemin d'installation du jeu"
         },
-        "choose": "Choisir",
-        "importpath": "Choisir le jeu à importer",
+        "choose": "Séléctionner",
+        "importpath": "Choisir le répertoire du jeu à importer",
         "installpath": "Choisir le chemin d'installation",
         "move": {
             "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
@@ -65,7 +65,7 @@
         "repairing": "Réparation en cours"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Connexion requise",
         "path": "Chemin d'installation",
         "size": "Poids",
         "syncsaves": "Synchronizer les Sauvegardes",
@@ -86,11 +86,11 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Paramètres de démarrage..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Cliquez pour afficher/masquer les composants supplémentaires",
+        "title": "Sélectionnez les composants à installer"
     },
     "specs": {
         "minimum": "Minimum",
