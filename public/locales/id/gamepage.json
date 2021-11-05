@@ -36,7 +36,7 @@
             "message": "Gim ini memiliki pembaruan, apakah Anda ingin memperbarui sekarang?",
             "title": "Gim perlu diperbarui"
         },
-        "yes": "IYA"
+        "yes": "YA"
     },
     "button": {
         "cancel": "Batal",

@@ -43,7 +43,8 @@
         "version": "Versioon",
         "syncsaves": "Sünkrooni salvestised",
         "size": "Suurus",
-        "path": "Paigalduskoht"
+        "path": "Paigalduskoht",
+        "canRunOffline": "Võrguühendus nõutud"
     },
     "gamecard": {
         "repairing": "Parandamine",
@@ -53,7 +54,9 @@
         "totalPlayed": "Mängitud aeg",
         "neverPlayed": "Mitte kunagi",
         "lastPlayed": "Viimati mängitud",
-        "firstPlayed": "Esimest korda mängitud"
+        "firstPlayed": "Esimest korda mängitud",
+        "downloadSize": "Allalaadimise suurus",
+        "installSize": "Paigaldamise suurus"
     },
     "enabled": "Lubatud",
     "disabled": "Keelatud",
@@ -63,7 +66,7 @@
         "install": "Paigalda",
         "import": "Impordi",
         "continue": "Jätka allalaadimist",
-        "cancel": "Tühista"
+        "cancel": "Peata/Tühista"
     },
     "box": {
         "yes": "JAH",
@@ -103,5 +106,16 @@
             "path": "Valige uus paigalduskoht",
             "message": "See muudab selle mängu paigaldusasukohta, kas olete kindel?"
         }
+    },
+    "launch": {
+        "options": "Käivitusvalikud..."
+    },
+    "sdl": {
+        "showList": "Kliki, et näidata/peita lisakomponendid",
+        "title": "Valige komponendid, mida installida"
+    },
+    "dlc": {
+        "installDlcs": "Paigalda kõik DLC'd",
+        "title": "DLC'd"
     }
 }
