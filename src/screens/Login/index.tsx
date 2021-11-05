@@ -11,12 +11,12 @@ import LanguageSelector, {
 import { Clipboard, IpcRenderer } from 'electron'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
-import logo from 'src//assets/heroic-icon.png'
+import logo from 'src/assets/heroic-icon.png'
 
 const storage: Storage = window.localStorage
 
 interface Props {
-  refresh: () => Promise<void>
+  refresh: (checkUpdates: boolean) => Promise<void>
 }
 
 export default function Login({ refresh }: Props) {
@@ -55,7 +55,7 @@ export default function Login({ refresh }: Props) {
         })
         await ipcRenderer.invoke('getUserInfo')
         await ipcRenderer.invoke('refreshLibrary', true)
-        return refresh()
+        return refresh(true)
       }
 
       setStatus({ loading: true, message: t('status.error', 'Error') })
