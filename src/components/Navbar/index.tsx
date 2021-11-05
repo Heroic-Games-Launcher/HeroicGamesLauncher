@@ -4,6 +4,7 @@ import React, { lazy } from 'react'
 
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import SupportLinks from './components/SupportLinks'
 
 const UserSelector = lazy(() => import('./components/UserSelector'))
 
@@ -57,6 +58,7 @@ export default function NavBar() {
           {t('wiki', 'Wiki')}
         </NavLink>
       </div>
+      <SupportLinks />
       <UserSelector />
     </div>
   )

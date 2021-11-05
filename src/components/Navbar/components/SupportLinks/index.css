@@ -1,0 +1,38 @@
+.supportLinks {
+    grid-area: support;
+    display: flex;
+    flex-direction: column;
+    top: 17px;
+    justify-content: flex-start;
+    align-content: center;
+    width: max-content;
+    align-self: center;
+    text-align: left;
+    justify-self: right;
+    margin-right: 16px;
+}
+
+.supportLinks>button {
+    text-align: left;
+    background: none;
+    border: solid #646464 0.1em;
+    color: white;
+    padding: 4px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: 400ms;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.supportLinks>button:hover {
+    background: var(--background-darker);
+}
+
+.supportLinks>button:nth-child(2) {
+    margin-top: 5px;
+}
+
+.supportLinks>button:nth-child(2)>svg {
+    margin-left: -2px;
+}

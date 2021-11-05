@@ -9,7 +9,8 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol
+  protocol,
+  MenuItem
 } from 'electron'
 import {
   cpus,
@@ -53,8 +54,10 @@ import {
   iconDark,
   iconLight,
   installed,
+  kofiPage,
   legendaryBin,
   loginUrl,
+  patreonPage,
   sidInfoUrl,
   supportURL,
   weblateUrl,
@@ -164,7 +167,29 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-    mainWindow.setMenu(null)
+
+    const menu = new Menu()
+    menu.append(new MenuItem({
+      label: 'Help',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+          click: () => { mainWindow.reload() }
+        },
+        {
+          label: 'Debug',
+          accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+          click: () => { mainWindow.webContents.openDevTools() }
+        },
+        {
+          label: 'Quit',
+          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
+          click: () => { handleExit() }
+        }
+      ]
+    }))
+    mainWindow.setMenu(menu)
 
     return mainWindow
   }
@@ -215,7 +240,7 @@ const contextMenu = () => {
       label: i18next.t('tray.support', 'Support Us')
     },
     {
-      accelerator: 'ctrl + R',
+      accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
       click: function () {
         mainWindow.reload()
       },
@@ -225,7 +250,8 @@ const contextMenu = () => {
       click: function () {
         handleExit()
       },
-      label: i18next.t('tray.quit', 'Quit')
+      label: i18next.t('tray.quit', 'Quit'),
+      accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
     }
   ])
 }
@@ -387,6 +413,8 @@ ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
+ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
+ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 ipcMain.on('updateHeroic', () => checkUpdates())

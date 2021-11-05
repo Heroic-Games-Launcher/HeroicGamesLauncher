@@ -91,6 +91,10 @@
     "dependencies": {
         "@fontsource/cabin": "^4.2.1",
         "@fontsource/rubik": "^4.2.1",
+        "@fortawesome/fontawesome-svg-core": "^1.2.36",
+        "@fortawesome/free-brands-svg-icons": "^5.15.4",
+        "@fortawesome/free-solid-svg-icons": "^5.15.4",
+        "@fortawesome/react-fontawesome": "^0.1.16",
         "@material-ui/core": "^4.11.3",
         "@material-ui/icons": "^4.11.2",
         "axios": "^0.21.1",
