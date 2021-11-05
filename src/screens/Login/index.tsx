@@ -11,6 +11,7 @@ import LanguageSelector, {
 import { Clipboard, IpcRenderer } from 'electron'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
+import logo from 'src//assets/heroic-icon.png'
 
 const storage: Storage = window.localStorage
 
@@ -69,7 +70,7 @@ export default function Login({ refresh }: Props) {
       <div className="aboutWrapper">
         <div className="aboutContainer">
           <div className="heroicLogo">
-            <span className="logo" />
+            <img className="logo" src={logo} width="50px" height="50px"/>
             <div className="heroicText">
               <span className="heroicTitle">Heroic</span>
               <span className="heroicSubTitle">Games Launcher</span>

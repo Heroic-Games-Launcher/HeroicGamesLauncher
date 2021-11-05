@@ -23,10 +23,6 @@ function App() {
   const user = configStore.get('userInfo')
   const { data: library, refresh } = context
 
-  if (!user) {
-    return <Login refresh={refresh} />
-  }
-
   const dlcCount = library.filter((lib) => lib.install.is_dlc)
   const numberOfGames = library.length - dlcCount.length
   return (
@@ -35,7 +31,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path="/">
-            <div className="content">
+            {user ? <div className="content">
               <Header
                 goTo={''}
                 renderBackButton={false}
@@ -43,7 +39,7 @@ function App() {
               />
               <div id="top"></div>
               <Library library={library} />
-            </div>
+            </div> : <Login refresh={refresh} />}
           </Route>
           <Route exact path="/epicstore" component={WebView} />
           <Route exact path="/wiki" component={WebView} />
