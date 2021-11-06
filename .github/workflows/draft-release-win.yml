@@ -1,4 +1,4 @@
-name: Draft Release
+name: Draft Release Windows
 
 on:
   push:
@@ -8,14 +8,13 @@ on:
 
 jobs:
   draft-releases:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
       - run: yarn install
-      - run: yarn release
+      - run: yarn release:win
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
