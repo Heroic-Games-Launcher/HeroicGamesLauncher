@@ -1,6 +1,22 @@
 # Changelog
 
 
+## 1.11.0 Alpha
+
+### General
+- Changed the way Heroic install DXVK/VKD3D completely now removing the DLLs when toggling the feature off.
+- The Navbar is now visible on the Login Page as well, this makes changing the settings and debugging errors easier.
+- Added Window menu + keyboard shortcuts to Quit, Reload and Open the Developer tools.
+- Added Support links on the Navbar.
+- Added discord and wiki links on the login screen.
+- [Windows] Implementend Desktop and Start Menu shortcuts.
+- Updated Legendary to version 0.20.18
+- Updated Electron to version 15.3
+
+### Bugfixes
+- Fix Heroic coming to the front everytime a game was stopped.
+- Fix Desktop shortcuts not being created when the DE had language different from English.
+
 ## 1.10.3
 
 ### General

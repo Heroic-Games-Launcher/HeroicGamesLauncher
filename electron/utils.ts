@@ -72,7 +72,7 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Kizaru`,
+    applicationVersion: `${app.getVersion()} Caesar Clown`,
     copyright: 'GPL V3',
     iconPath: icon,
     website: 'https://github.com/flavioislima/HeroicGamesLauncher'

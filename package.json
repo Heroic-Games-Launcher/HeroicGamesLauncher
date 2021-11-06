@@ -1,6 +1,6 @@
 {
     "name": "heroic",
-    "version": "1.10.4",
+    "version": "1.11.0-alpha",
     "private": true,
     "main": "public/main.js",
     "homepage": "./",
@@ -33,14 +33,12 @@
         "directories": {
             "buildResources": "public"
         },
-        "protocols": [
-            {
-                "name": "heroic",
-                "schemes": [
-                    "heroic"
-                ]
-            }
-        ],
+        "protocols": [{
+            "name": "heroic",
+            "schemes": [
+                "heroic"
+            ]
+        }],
         "win": {
             "icon": "build/win_icon.ico",
             "asarUnpack": [
