@@ -14,9 +14,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+          token: ${{ secrets.WORKFLOW_TOKEN }}
       - run: yarn install
       - run: yarn release:win
-        with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
