@@ -13,9 +13,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           token: ${{ secrets.WORKFLOW_TOKEN }}
-      - run: yarn install
-      - run: yarn release:win
+      - run: npm install
+      - run: npm run release:win
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
