@@ -16,5 +16,7 @@ jobs:
           node-version: '14'
       - run: yarn install
       - run: yarn release:win
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
