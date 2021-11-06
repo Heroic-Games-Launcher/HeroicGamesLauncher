@@ -118,13 +118,13 @@ export default function OtherSettings({
           )}
         </span>
       </span>}
-      {isLinux && <>
-        <span data-testid="otherSettings" className="setting">
-          <span className="toggleWrapper">
-            {t('setting.showfps')}
-            <ToggleSwitch value={showFps} handleChange={toggleFps} />
-          </span>
+      <span data-testid="otherSettings" className="setting">
+        <span className="toggleWrapper">
+          {t('setting.showfps')}
+          <ToggleSwitch value={showFps} handleChange={toggleFps} />
         </span>
+      </span>
+      {isLinux && <>
         <span className="setting">
           <span className="toggleWrapper">
             {t('setting.gamemode')}

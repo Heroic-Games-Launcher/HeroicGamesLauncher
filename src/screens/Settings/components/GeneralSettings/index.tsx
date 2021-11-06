@@ -22,6 +22,7 @@ const {
 const storage: Storage = window.localStorage
 
 interface Props {
+  altLegendaryBin: string
   checkForUpdatesOnStartup: boolean,
   darkTrayIcon: boolean,
   defaultInstallPath: string,
@@ -34,6 +35,7 @@ interface Props {
   setEgsLinkedPath: (value: string) => void,
   setEgsPath: (value: string) => void,
   setLanguage: (value: string) => void,
+  setAltLegendaryBin: (value: string) => void,
   setMaxWorkers: (value: number) => void,
   startInTray: boolean,
   toggleDarkTrayIcon: () => void,
@@ -48,6 +50,8 @@ export default function GeneralSettings({
   egsPath,
   checkForUpdatesOnStartup,
   setEgsPath,
+  altLegendaryBin,
+  setAltLegendaryBin,
   egsLinkedPath,
   setEgsLinkedPath,
   exitToTray,
@@ -64,6 +68,7 @@ export default function GeneralSettings({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
+  const [legendaryVersion, setLegendaryVersion] = useState('')
   const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
@@ -75,12 +80,21 @@ export default function GeneralSettings({
   }, [language])
 
   useEffect(() => {
-    const getMaxCpus = async () => {
+    const getMoreInfo = async () => {
       const cores = await ipcRenderer.invoke('getMaxCpus')
+      const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
       setMaxCpus(cores)
+      if (legendaryVer === 'invalid'){
+        setLegendaryVersion('Invalid')
+        setTimeout(() => {
+          setAltLegendaryBin('')
+          return setLegendaryVersion('')
+        }, 1500);
+      }
+      return setLegendaryVersion(legendaryVer)
     }
-    getMaxCpus()
-  }, [maxWorkers])
+    getMoreInfo()
+  }, [maxWorkers, altLegendaryBin])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -133,6 +147,18 @@ export default function GeneralSettings({
       )
   }
 
+  function handleLegendaryBinary(){
+    return ipcRenderer.invoke(
+      'openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openFile'],
+        title: t('box.choose-legendary-binary', 'Select Legendary Binary')
+      })
+      .then(({ path }: Path) =>
+        setAltLegendaryBin(path ? `'${path}'` : '')
+      )
+  }
+
   async function handleChangeLanguage(language: string) {
     ipcRenderer.send('changeLanguage', language)
     setLanguage(language)
@@ -150,7 +176,7 @@ export default function GeneralSettings({
           handleLanguageChange={handleChangeLanguage}
           currentLanguage={language}
         />
-        <a data-testid="buttonWeblate" onClick={handleWeblate} className="smallMessage">{t('other.weblate', 'Help Improve this translation.')}</a>
+        <a data-testid="buttonWeblate" onClick={handleWeblate} className="smallLink">{t('other.weblate', 'Help Improve this translation.')}</a>
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>
@@ -177,6 +203,35 @@ export default function GeneralSettings({
             }
           />
         </span>
+      </span>
+      <span className="setting">
+        <span className="settingText">{t('setting.alt-legendary-bin', 'Choose an alternative Legendary Binary to use')}</span>
+        <span>
+          <input
+            data-testid="setting-alt-legendary"
+            type="text"
+            placeholder={t('placeholder.alt-legendary-bin', 'Using built-in Legendary binary...')}
+            className="settingSelect"
+            value={altLegendaryBin.replaceAll("'", '')}
+            onChange={(event) => setAltLegendaryBin(event.target.value)}
+          />
+          {!altLegendaryBin.length ? (
+            <CreateNewFolder
+              data-testid="setLegendaryBinaryButton"
+              className="material-icons settings folder"
+              style={{ color: altLegendaryBin.length ? 'transparent' : '#B0ABB6' }}
+              onClick={() => handleLegendaryBinary()}
+            />
+          ) : (
+            <Backspace
+              data-testid="setLegendaryBinaryBackspace"
+              className="material-icons settings folder"
+              onClick={() => (setAltLegendaryBin(''))}
+              style={ { color: '#B0ABB6' }}
+            />
+          )}
+        </span>
+        <span className="smallMessage">{t('other.legendary-version', 'Legendary Version: ')}{legendaryVersion}</span>
       </span>
       {!isWindows && <span className="setting">
         <span className="settingText">{t('setting.egs-sync')}</span>

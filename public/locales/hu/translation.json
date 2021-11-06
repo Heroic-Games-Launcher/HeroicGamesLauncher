@@ -8,6 +8,7 @@
         },
         "choose": "Kiválaszt",
         "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Segíts lefordítani a Heroic-ot."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix ahol EGS telepítve van"
     },
     "Plugins": "Plugins",
@@ -140,8 +143,9 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
-        "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
+        "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
         "change-target-exe": "Válassz alternatív EXE fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",

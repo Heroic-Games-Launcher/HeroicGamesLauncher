@@ -8,6 +8,7 @@
         },
         "choose": "Ok",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
+        "choose-legendary-binary": "Välj Legendary binär",
         "customWine": "Välj wine eller proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
@@ -44,8 +45,8 @@
             "title": "Välj EXE-fil att köra"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Välj",
+            "exe": "Välj EXE"
         },
         "sync": {
             "button": "Ok",
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary version: ",
         "weblate": "Hjälp till med översättning av Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Använd inbyggd Legendary binär...",
         "egs-prefix": "Prefix där EGS är installerad"
     },
     "Plugins": "Plugins",
@@ -140,10 +143,11 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
+        "alt-legendary-bin": "Välj en alternativ Legendary binär att använda",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
-        "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
+        "autodxvk": "Automatiskt installera/uppdatera DXVK/VKD3D i prefix",
         "autosync": "Autosynkronisera sparfiler",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Välj en alternativ EXE att köra",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i systembrickan",
@@ -151,10 +155,10 @@
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
-        "esync": "Enable Esync",
+        "esync": "Aktivera Esync",
         "exit-to-tray": "Avsluta till systembrickan",
         "FsrSharpnessStrenght": "FSR Skärpanivå",
-        "fsync": "Enable Fsync",
+        "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",

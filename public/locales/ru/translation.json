@@ -3,17 +3,18 @@
     "Assets": "Ресурсы",
     "box": {
         "appupdate": {
-            "message": "Доступна новая версия Heroic, обновить сейчас?",
+            "message": "Доступна новая версия Heroic. Обновить сейчас?",
             "title": "Доступно обновление"
         },
         "choose": "Выбрать",
         "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
-        "customWine": "Выберите исполняемый файл Wine или Proton",
+        "choose-legendary-binary": "Выбрать исполняемый файл Legendary",
+        "customWine": "Выбрать исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
         "error": {
             "credentials": {
-                "message": "Срок действия ваших учетных данных истек, пожалуйста, выйдите из системы и войдите снова.",
-                "title": "Удостоверения с истекшим сроком действия"
+                "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова.",
+                "title": "Срок действия учетных данных истек"
             },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
@@ -25,26 +26,26 @@
             },
             "launch": "Ошибка при запуске игры, посмотрите логи!",
             "log": {
-                "message": "Журнал для этой игры не найден",
-                "title": "Журнал не найден"
+                "message": "Лог для этой игры не найден",
+                "title": "Лог не найден"
             },
-            "title": "Error"
+            "title": "Ошибка"
         },
         "no": "НЕТ",
         "protocol": {
             "install": {
-                "not_installed": "Не установлен, хотите ли вы установить его?"
+                "not_installed": "Не установлен. Хотите установить?"
             }
         },
         "quit": {
-            "message": "Есть незавершенные операции, вы уверены?",
+            "message": "Есть незавершенные операции. Вы уверены?",
             "title": "Выйти"
         },
         "runexe": {
             "title": "Выбрать EXE для запуска"
         },
         "select": {
-            "button": "Select",
+            "button": "Выбрать",
             "exe": "Выбрать EXE"
         },
         "sync": {
@@ -117,7 +118,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Вставьте сюда другие опции для запуска",
+            "placeholder": "Вставьте сюда другие параметры запуска",
             "title": "Расширенные настройки (Переменные среды):"
         },
         "gameargs": {
@@ -126,22 +127,25 @@
         }
     },
     "other": {
+        "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Используется встроенный Legendary...",
         "egs-prefix": "Префикс куда установлен EGS"
     },
-    "Plugins": "Plugins",
+    "Plugins": "Плагины",
     "Projects": "Проекты",
     "Ready": "Готово",
     "Recent": "Недавние игры",
     "Return": "Вернуться",
-    "search": "Введите название игры...",
+    "search": "Введите здесь название игры...",
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
+        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
-        "autodxvk": "Автоустановка/обновление DXVK на префикс",
+        "autodxvk": "Автоустановка/обновление DXVK/VKD3D на префикс",
         "autosync": "Автосинхронизация сохранений",
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
@@ -155,7 +159,7 @@
         "exit-to-tray": "Сворачивать в системный трей",
         "FsrSharpnessStrenght": "Усиление резкости FSR",
         "fsync": "Включить Fsync",
-        "gamemode": "Использовать GameMode (Нужен Feral Game Mode)",
+        "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
         "manualsync": {
@@ -169,7 +173,7 @@
         },
         "maxRecentGames": "Показывать недавних игр",
         "maxworkers": "Максимальное количество потоков при скачивании",
-        "offlinemode": "Запустить игру в автономном режиме",
+        "offlinemode": "Запускать игру офлайн",
         "primerun": "Включить Nvidia Prime Render",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
@@ -207,14 +211,14 @@
         "show": "Показать",
         "support": "Поддержать нас"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
+    "Unreal Marketplace": "Unreal Engine",
     "Updates": "Обновления",
     "userselector": {
         "about": "О программе",
         "discord": "Дискорд",
-        "logout": "Разлогиниться",
-        "logout_confirmation": "Вы уверены, что хотите выйти из системы?",
-        "quit": "Выйти",
+        "logout": "Выйти из EGS",
+        "logout_confirmation": "Вы уверены, что хотите выйти?",
+        "quit": "Закрыть Heroic",
         "refresh": "Обновить библиотеку",
         "support": "Поддержать нас"
     },

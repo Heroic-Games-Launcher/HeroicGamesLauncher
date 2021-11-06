@@ -21,6 +21,7 @@ export class LegendaryUser {
   public static async login(sid: string) {
     logInfo('Logging with Legendary...')
 
+
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
@@ -44,6 +45,7 @@ export class LegendaryUser {
   }
 
   public static async logout() {
+
     await execAsync(`${legendaryBin} auth --delete`)
     configStore.delete('userInfo')
   }

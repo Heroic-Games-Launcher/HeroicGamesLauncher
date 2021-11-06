@@ -4,7 +4,7 @@ export interface SelectiveDownload {
   mandatory?: boolean
 }
 
-export const CYBERPUNK_SDL: Array<SelectiveDownload> = [
+const CYBERPUNK_SDL: Array<SelectiveDownload> = [
   {'tags': ['voice_de_de'], 'name': 'Deutsch'},
   {'tags': ['voice_es_es'], 'name': 'español (España)'},
   {'tags': ['voice_fr_fr'], 'name': 'français'},
@@ -17,7 +17,18 @@ export const CYBERPUNK_SDL: Array<SelectiveDownload> = [
   {'tags': ['voice_zh_cn'], 'name': '中文（中国）'}
 ]
 
-export const FORTNITE_SDL: Array<SelectiveDownload> = [
+const LAVENDER_SDL: Array<SelectiveDownload> = [
+  {'tags': ['de'], 'name': '(Language Pack) Deutsch'},
+  {'tags': ['es_es'], 'name': '(Language Pack) español (España)'},
+  {'tags': ['es_mx'], 'name': '(Language Pack) español (Mexico)'},
+  {'tags': ['fr'], 'name': '(Language Pack) français'},
+  {'tags': ['it'], 'name': '(Language Pack) italiano'},
+  {'tags': ['pl'], 'name': '(Language Pack) polski'},
+  {'tags': ['pt_br'], 'name': '(Language Pack) português brasileiro'},
+  {'tags': ['ru'], 'name': '(Language Pack)русский'}
+]
+
+const FORTNITE_SDL: Array<SelectiveDownload> = [
   {'tags': ['chunk0', 'chunk10'], 'name': 'Fortnite Core', 'mandatory': true},
   {'tags': ['chunk11', 'chunk11optional'], 'name': 'Fortnite Save the World'},
   {'tags': ['chunk10optional'], 'name': 'High Resolution Textures'},
@@ -30,5 +41,6 @@ export const FORTNITE_SDL: Array<SelectiveDownload> = [
 
 export const SDL_GAMES = {
   'Fortnite': FORTNITE_SDL,
-  'Ginger': CYBERPUNK_SDL
+  'Ginger': CYBERPUNK_SDL,
+  'Lavender': LAVENDER_SDL
 }

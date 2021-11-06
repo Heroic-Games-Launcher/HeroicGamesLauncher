@@ -39,7 +39,7 @@
         "yes": "JA"
     },
     "button": {
-        "cancel": "Abbrechen",
+        "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
         "import": "Importieren",
         "install": "Installieren",
@@ -48,14 +48,14 @@
     },
     "disabled": "Deaktiviert",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Alle DLCs installieren",
         "title": "DLCs"
     },
     "enabled": "Aktiviert",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Downloadgröße",
         "firstPlayed": "Erstmals gespielt",
-        "installSize": "Install Size",
+        "installSize": "Installierte Größe",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
         "totalPlayed": "Spielzeit"
@@ -65,6 +65,7 @@
         "repairing": "Repariere"
     },
     "info": {
+        "canRunOffline": "Online erforderlich",
         "path": "Installations-Pfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",
@@ -84,9 +85,12 @@
             "syncing": "Spielstände werden synchronisiert"
         }
     },
+    "launch": {
+        "options": "Startoptionen..."
+    },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Klicken, um zusätzliche Komponenten ein-/auszublenden",
+        "title": "Zu installierende Komponenten auswählen"
     },
     "specs": {
         "minimum": "Minimal",

@@ -8,6 +8,7 @@ export interface AppSettings {
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  altLegendaryBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
@@ -69,6 +70,7 @@ export interface GameInfo {
   save_folder: string
   title: string
   isOriginGame: boolean
+  canRunOffline: boolean
 }
 
 
@@ -201,6 +203,8 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
+  wineboot?: string
+  wineserver?: string
 }
 
 export interface InstallArgs {

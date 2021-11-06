@@ -8,6 +8,7 @@
         },
         "choose": "選ぶ",
         "choose-egs-prefix": "EGSがインストールされているプレフィックスを選択します",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "WineまたはProtonバイナリを選択します",
         "default-install-path": "デフォルトのインストールパスを選択します",
         "error": {
@@ -44,8 +45,8 @@
             "title": "実行するEXEを選択します"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "選択",
+            "exe": "EXEを選択します"
         },
         "sync": {
             "button": "選ぶ",
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Heroicの翻訳を手伝ってください。"
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGSがインストールされているプレフィックス"
     },
     "Plugins": "プラグイン",
@@ -140,10 +143,11 @@
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
-        "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
+        "autodxvk": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "実行する代替EXEを選択します",
         "checkForUpdatesOnStartup": "起動時に更新を確認する",
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",

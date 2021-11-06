@@ -2,6 +2,9 @@
     "button": {
         "login": "Anmelden"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "Fügen Sie hier die SID-Nummer ein"
     },

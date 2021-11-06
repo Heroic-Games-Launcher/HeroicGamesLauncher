@@ -8,6 +8,7 @@
         },
         "choose": "Tria",
         "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Selecciona el binary de wine o proton",
         "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Ajuda a traduïr Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix a on EGS és instal·lat"
     },
     "Plugins": "Plugins",
@@ -140,8 +143,9 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
-        "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
+        "autodxvk": "Instal·la/Actualitza DXVK/VKD3D al prefix automàticament",
         "autosync": "Sincronitza les dades automàticament",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",

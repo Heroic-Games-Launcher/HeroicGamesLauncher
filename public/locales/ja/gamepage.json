@@ -39,7 +39,7 @@
         "yes": "はい"
     },
     "button": {
-        "cancel": "キャンセル",
+        "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
         "import": "インポート",
         "install": "インストール",
@@ -48,14 +48,14 @@
     },
     "disabled": "無効になっています",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "すべてのDLCをインストールします",
         "title": "DLCs"
     },
     "enabled": "有効になっています",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "ダウンロードサイズ",
         "firstPlayed": "最初にプレイした",
-        "installSize": "Install Size",
+        "installSize": "インストールサイズ",
         "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
         "totalPlayed": "プレイ時間"
@@ -65,6 +65,7 @@
         "repairing": "修復しています"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "インストールパス",
         "size": "サイズ",
         "syncsaves": "保存を同期",
@@ -84,9 +85,12 @@
             "syncing": "保存を同期しています"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "クリックして追加のコンポーネントを表示/非表示",
+        "title": "インストールするコンポーネントを選択します"
     },
     "specs": {
         "minimum": "最小",

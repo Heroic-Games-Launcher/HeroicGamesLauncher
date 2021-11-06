@@ -86,6 +86,7 @@ class LegendaryLibrary {
    */
   public async refresh() {
     logInfo('Refreshing Epic Games...')
+
     return new Promise((res, rej) => {
       const child = spawn(legendaryBin, ['list-games', '--include-ue', '--include-non-installable'])
       child.stderr.on('data', (data) => {
@@ -192,6 +193,7 @@ class LegendaryLibrary {
    */
   public async getInstallInfo(appName: string) {
     const cache = installStore.get(appName) as InstallInfo
+
     if (cache){
       return cache
     }
@@ -210,6 +212,8 @@ class LegendaryLibrary {
    */
   public async listUpdateableGames() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
+
+
     const online = await isOnline()
     if (!isLoggedIn || !(online)) {
       return []
@@ -324,6 +328,7 @@ class LegendaryLibrary {
     const CloudSaveFolder = customAttributes?.CloudSaveFolder
     const FolderName = customAttributes?.FolderName
     const ThirdPartyManagedApp = customAttributes?.ThirdPartyManagedApp?.value
+    const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -432,7 +437,8 @@ class LegendaryLibrary {
       namespace,
       save_folder: saveFolder,
       title,
-      isOriginGame: ThirdPartyManagedApp === 'Origin'
+      isOriginGame: ThirdPartyManagedApp === 'Origin',
+      canRunOffline
     } as GameInfo)
 
     return app_name

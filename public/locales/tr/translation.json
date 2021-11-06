@@ -8,6 +8,7 @@
         },
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Wine ya da Proton Dosyasını Seçin",
         "default-install-path": "Varsayılan Kurulum Yerini Seçin",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
     "Plugins": "Eklentiler",
@@ -140,8 +143,9 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
-        "autodxvk": "DXVK'yı otomatik kur/güncelle",
+        "autodxvk": "DXVK/VKD3D'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",

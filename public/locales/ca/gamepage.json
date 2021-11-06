@@ -65,6 +65,7 @@
         "repairing": "Reparant"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Ruta d'instal·lació",
         "size": "Mida",
         "syncsaves": "Sincronitza els guardats",
@@ -83,6 +84,9 @@
         "saves": {
             "syncing": "Sincronitzant guardats"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
     },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",

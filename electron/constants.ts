@@ -1,3 +1,4 @@
+import { GlobalConfig } from './config'
 import {
   homedir,
   platform
@@ -9,6 +10,13 @@ import {
   GlobalConfigVersion
 } from './types'
 
+function getLegendaryBin(){
+  const bin = GlobalConfig?.get()?.config?.altLegendaryBin ?? `${fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))}`
+  if (bin.includes(' ')){
+    return `"${bin}"`
+  }
+  return bin
+}
 
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
@@ -23,7 +31,7 @@ const heroicToolsPath = `${heroicFolder}tools`
 const heroicIconFolder = `${heroicFolder}icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows ? `${home}\\Games\\Heroic` : `${home}/Games/Heroic`
-const legendaryBin = `${fixAsarPath(join(__dirname, '/bin/', process.platform, isWindows ? '/legendary.exe' : '/legendary'))}`
+const legendaryBin = getLegendaryBin()
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
 const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
@@ -38,7 +46,10 @@ const heroicGithubURL =
 const supportURL =
   'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
+const wikiLink = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
 const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
+const kofiPage = 'https://ko-fi.com/heroicgames'
+const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
 
 /**
  * Get shell for different os
@@ -94,6 +105,7 @@ export {
   heroicInstallPath,
   heroicToolsPath,
   home,
+  kofiPage,
   icon,
   iconDark,
   iconLight,
@@ -104,8 +116,10 @@ export {
   legendaryConfigPath,
   libraryPath,
   loginUrl,
+  patreonPage,
   sidInfoUrl,
   supportURL,
   userInfo,
-  weblateUrl
+  weblateUrl,
+  wikiLink
 }

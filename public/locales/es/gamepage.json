@@ -65,6 +65,7 @@
         "repairing": "Reparando"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Instalar ruta",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
@@ -83,6 +84,9 @@
         "saves": {
             "syncing": "Sincronización de guardados"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
     },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",

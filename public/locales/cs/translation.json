@@ -8,6 +8,7 @@
         },
         "choose": "Vybrat",
         "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Pomozte s překladem Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },
     "Plugins": "Plugins",
@@ -140,8 +143,9 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
-        "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
+        "autodxvk": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Zjišťovat dostupnost aktualizací po spuštění",

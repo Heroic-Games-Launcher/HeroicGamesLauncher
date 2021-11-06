@@ -65,6 +65,7 @@
         "repairing": "பழுதுபார்க்கப்படுகிறது"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "நிறுவல் பாதை",
         "size": "அளவு",
         "syncsaves": "சேமிப்புகளை ஒத்திசைவு செய்",
@@ -83,6 +84,9 @@
         "saves": {
             "syncing": "சேமிப்புகள் ஒத்திசைவு செய்யப்படுகிறது"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
     },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",

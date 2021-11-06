@@ -39,7 +39,7 @@
         "yes": "DA"
     },
     "button": {
-        "cancel": "Otkaži",
+        "cancel": "Otkaži/Prekini",
         "continue": "Nastavi preuzimanje",
         "import": "Uvezi",
         "install": "Instaliraj",
@@ -65,6 +65,7 @@
         "repairing": "Popravljanje"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
@@ -83,6 +84,9 @@
         "saves": {
             "syncing": "Sinkoniziranje podataka"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
     },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",

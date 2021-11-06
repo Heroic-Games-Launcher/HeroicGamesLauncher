@@ -65,6 +65,7 @@
         "repairing": "修復中"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "安裝路徑",
         "size": "大小",
         "syncsaves": "同步存檔",
@@ -83,6 +84,9 @@
         "saves": {
             "syncing": "存檔同步中"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
     },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",

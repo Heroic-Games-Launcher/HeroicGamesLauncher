@@ -39,7 +39,7 @@
         "yes": "EVET"
     },
     "button": {
-        "cancel": "İptal",
+        "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
         "import": "İçeri Aktar",
         "install": "Kur",
@@ -48,14 +48,14 @@
     },
     "disabled": "Devre dışı",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Tüm DLC'leri kur",
         "title": "DLCs"
     },
     "enabled": "Etkin",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
-        "installSize": "Install Size",
+        "installSize": "Kurulum Boyutu",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "totalPlayed": "Oynanan Zaman"
@@ -65,6 +65,7 @@
         "repairing": "Onarılıyor"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
@@ -84,9 +85,12 @@
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Ekstra Bileşenleri Göstermek/Gizlemek için Tıkla",
+        "title": "Kurulacak bileşenleri seç"
     },
     "specs": {
         "minimum": "Asgari",

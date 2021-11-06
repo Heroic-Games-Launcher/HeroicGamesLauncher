@@ -6,7 +6,7 @@ import {
 } from 'graceful-fs'
 import axios from 'axios';
 
-import { BrowserWindow } from 'electron';
+import { app, shell } from 'electron';
 import { DXVK } from '../dxvk'
 import { ExtraInfo, GameStatus, InstallArgs } from '../types';
 import { Game } from '../games';
@@ -243,6 +243,28 @@ class LegendaryGame extends Game {
     return icon
   }
 
+  private shortcutFiles(gameTitle: string) {
+    let desktopFile
+    let menuFile
+
+    switch (process.platform) {
+    case 'linux': {
+      desktopFile = `${app.getPath('desktop')}/${gameTitle}.desktop`
+      menuFile = `${home}/.local/share/applications/${gameTitle}.desktop`
+      break
+    }
+    case 'win32': {
+      desktopFile = `${app.getPath('desktop')}\\${gameTitle}.lnk`
+      menuFile = `${app.getPath('appData')}\\Microsoft\\Windows\\Start Menu\\Programs\\${gameTitle}.lnk`
+      break
+    }
+    default:
+      logError("Shortcuts haven't been implemented in the current platform.")
+    }
+
+    return [desktopFile, menuFile]
+  }
+
   /**
    * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
    * so that the game can be opened from the start menu and the desktop folder.
@@ -251,45 +273,59 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addDesktopShortcut(fromMenu?: boolean) {
-    if (process.platform !== 'linux') {
+    if (process.platform === 'darwin') {
       return
     }
+
     const gameInfo = await this.getGameInfo()
-    const desktopFolder = `${home}/Desktop/${gameInfo.title}.desktop`
-    const applicationsFolder = `${home}/.local/share/applications/${gameInfo.title}.desktop`
-    let shortcut;
-    const icon = await this.getIcon(gameInfo.app_name)
+    const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
+    const [ desktopFile, menuFile ] = this.shortcutFiles(gameInfo.title)
+    const { addDesktopShortcuts, addStartMenuShortcuts } = await GlobalConfig.get().getSettings()
 
     switch (process.platform) {
     case 'linux': {
-      shortcut = `[Desktop Entry]
+      const icon = await this.getIcon(gameInfo.app_name)
+      const shortcut = `[Desktop Entry]
 Name=${gameInfo.title}
-Exec=xdg-open heroic://launch/${gameInfo.app_name}
+Exec=xdg-open ${launchWithProtocol}
 Terminal=false
 Type=Application
 MimeType=x-scheme-handler/heroic;
 Icon=${icon}
 Categories=Game;
 `
-      break;
+
+      if (addDesktopShortcuts || fromMenu) {
+        writeFile(desktopFile, shortcut, () => {
+          logInfo('Shortcut saved on ' + desktopFile)
+        })
+      }
+      if (addStartMenuShortcuts || fromMenu) {
+        writeFile(menuFile, shortcut, () => {
+          logInfo('Shortcut saved on ' + menuFile)
+        })
+      }
+      break
+    }
+    case 'win32': {
+      const shortcutOptions = {
+        target: launchWithProtocol,
+        icon: `${gameInfo.install.install_path}\\${gameInfo.install.executable}`,
+        iconIndex: 0
+      }
+
+      if (addDesktopShortcuts || fromMenu) {
+        shell.writeShortcutLink(desktopFile, shortcutOptions)
+      }
+
+      if (addStartMenuShortcuts || fromMenu) {
+        shell.writeShortcutLink(menuFile, shortcutOptions)
+      }
+      break
     }
     default:
       logError("Shortcuts haven't been implemented in the current platform.")
-      return
     }
-    const { addDesktopShortcuts, addStartMenuShortcuts } = await GlobalConfig.get().getSettings()
-
-    if (addDesktopShortcuts || fromMenu) {
-      writeFile(desktopFolder, shortcut, () => {
-        logInfo('Shortcut saved on ' + desktopFolder)
-      })
-    }
-    if (addStartMenuShortcuts || fromMenu) {
-      writeFile(applicationsFolder, shortcut, () => {
-        logInfo('Shortcut saved on ' + applicationsFolder)
-      })
-    }
-    return
   }
 
   /**
@@ -298,18 +334,21 @@ Categories=Game;
    * @public
    */
   public async removeDesktopShortcut() {
-    if (process.platform !== 'linux') {
-      return
-    }
     const gameInfo = await this.getGameInfo()
-    const desktopFile = `${home}/Desktop/${gameInfo.title}.desktop`
-    const applicationsFile = `${home}/.local/share/applications/${gameInfo.title}.desktop`
-    unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
-    unlink(applicationsFile, () => logInfo('Applications shortcut removed'))
+    const [ desktopFile, menuFile ] = this.shortcutFiles(gameInfo.title)
+
+    if (desktopFile) {
+      unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
+    }
+    if (menuFile) {
+      unlink(menuFile, () => logInfo('Applications shortcut removed'))
+    }
   }
 
   private getSdlList(sdlList: Array<string>){
-    return sdlList.map(tag => `--install-tag ${tag}`).join(' ').replaceAll("'", '')
+    // Legendary needs an empty tag for it to download the other needed files
+    const defaultTag = ' --install-tag ""'
+    return sdlList.map(tag => `--install-tag ${tag}`).join(' ').replaceAll("'", '').concat(defaultTag)
   }
 
   /**
@@ -343,6 +382,7 @@ Categories=Game;
 
   public async uninstall() {
     this.state.status = 'uninstalling'
+
     const command = `${legendaryBin} uninstall ${this.appName} -y`
     logInfo(`Uninstalling ${this.appName} with:`, command)
     LegendaryLibrary.get().installState(this.appName, false)
@@ -378,6 +418,7 @@ Categories=Game;
 
   public async import(path: string) {
     this.state.status = 'installing'
+
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
@@ -393,6 +434,7 @@ Categories=Game;
    */
   public async syncSaves(arg: string, path: string) {
     const fixedPath = isWindows ? path.replaceAll("'", '').slice(0, -1) : path.replaceAll("'", '')
+
     const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = `${home}/legendary/.saves`
 
@@ -405,10 +447,8 @@ Categories=Game;
     return await execAsync(command, execOptions)
   }
 
-  public async launch() {
-    this.state.status = 'launching'
-    const mainWindow = BrowserWindow.getAllWindows()[0]
-
+  public async launch(launchArguments?: string) {
+    const isOffline = !(await isOnline())
     let envVars = ''
     let gameMode: string
 
@@ -435,7 +475,7 @@ Categories=Game;
 
     const { discordRPC } = (await GlobalConfig.get().getSettings())
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
-    const runOffline = offlineMode ? '--offline' : ''
+    const runOffline = isOffline || offlineMode ? '--offline' : ''
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
 
     if (discordRPC) {
@@ -471,7 +511,7 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launcherArgs}`
+      const command = `${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
 
@@ -494,7 +534,9 @@ Categories=Game;
     const isCrossover =
       wineVersion.name.includes('CrossOver')
     prefix = (isProton || isCrossover) ? '' : prefix
-
+    const x = wineVersion.bin.split('/')
+    x.pop()
+    const winePath = x.join('/').replaceAll("'", '')
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       crossoverBottle: (isCrossover && wineCrossoverBottle != '') ? `CX_BOTTLE=${wineCrossoverBottle}` : '' ,
@@ -524,15 +566,12 @@ Categories=Game;
       )
     }
 
-    // Proton doesn't create a prefix folder so this is a workaround
-    if (isProton && !existsSync(fixedWinePrefix)) {
-      const command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command, execOptions)
-    }
+    await this.createNewPrefix(isProton, fixedWinePrefix, winePath);
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
-      await DXVK.install(winePrefix)
+      await DXVK.installRemove(winePrefix, 'dxvk', 'backup')
+      await DXVK.installRemove(winePrefix, 'vkd3d', 'backup')
     }
 
     if (wineVersion.name !== 'Wine Default') {
@@ -549,11 +588,10 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launchArguments ?? ''} ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
-      mainWindow.show()
       return v
     })
 
@@ -562,6 +600,21 @@ Categories=Game;
     logInfo('Stopped Discord Rich Presence.')
 
     return v
+  }
+
+  private async createNewPrefix(isProton: boolean, fixedWinePrefix: string, winePath: string) {
+    if (isProton && !existsSync(fixedWinePrefix)) {
+      const command = `mkdir '${fixedWinePrefix}' -p`;
+      await execAsync(command, execOptions);
+    }
+
+    if (!existsSync(fixedWinePrefix)) {
+      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`;
+      logInfo('creating new prefix', fixedWinePrefix)
+      return execAsync(initPrefixCommand)
+        .then(() => logInfo('Prefix created succesfuly!'))
+        .catch((error) => logError(error))
+    }
   }
 
   public async stop() {

@@ -39,7 +39,7 @@
         "yes": "TAK"
     },
     "button": {
-        "cancel": "Anuluj",
+        "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
         "import": "Importuj",
         "install": "Instaluj",
@@ -48,14 +48,14 @@
     },
     "disabled": "Wyłączona",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Zainstaluj wszystkie DLC",
         "title": "DLCs"
     },
     "enabled": "Włączona",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Rozmiar Pobierania",
         "firstPlayed": "Pierwsza Gra",
-        "installSize": "Install Size",
+        "installSize": "Rozmiar Instalacji",
         "lastPlayed": "Ostatnia Gra",
         "neverPlayed": "Nigdy",
         "totalPlayed": "Czas Gry"
@@ -65,6 +65,7 @@
         "repairing": "Naprawianie"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Ścieżka instalacyjna",
         "size": "Rozmiar",
         "syncsaves": "Synchronizuj zapisy gry",
@@ -84,9 +85,12 @@
             "syncing": "Synchronizacja zapisów gry"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Kliknij by Pokazać/Ukryć Dodatkowe Komponenty",
+        "title": "Wybierz komponenty do Instalacji"
     },
     "specs": {
         "minimum": "Minimum",

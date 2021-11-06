@@ -65,6 +65,7 @@
         "repairing": "Repairing"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Install Path",
         "size": "Size",
         "syncsaves": "Sync Saves",
@@ -83,6 +84,9 @@
         "saves": {
             "syncing": "Syncing Saves"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
     },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",

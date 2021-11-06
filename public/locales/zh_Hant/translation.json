@@ -8,6 +8,7 @@
         },
         "choose": "請選擇",
         "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
         "error": {
@@ -126,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "請幫助翻譯Heroic啟動器。"
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Epic Games商城安裝位置"
     },
     "Plugins": "外掛插件",
@@ -140,8 +143,9 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
-        "autodxvk": "在PREFIX自動安裝並更新DXVK",
+        "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
         "autosync": "自動同步存檔",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "啟動時檢查更新",

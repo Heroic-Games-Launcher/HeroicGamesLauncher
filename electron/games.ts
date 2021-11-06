@@ -21,7 +21,7 @@ abstract class Game {
   abstract import(path : string) : Promise<ExecResult>
   abstract install(args: InstallArgs) : Promise<{status: string}>
   abstract addDesktopShortcut(): Promise<void>
-  abstract launch() : Promise<ExecResult>
+  abstract launch(launchArguments?: string) : Promise<ExecResult>
   abstract moveInstall(newInstallPath : string) : Promise<string>
   abstract repair() : Promise<ExecResult>
   abstract state: GameStatus

@@ -3,6 +3,7 @@ interface About {
   shortDescription: string
 }
 export interface AppSettings {
+  altLegendaryBin: string
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean
@@ -53,7 +54,7 @@ export interface ContextType {
   layout: string
   libraryStatus: GameStatus[]
   platform: NodeJS.Platform | string
-  refresh: () => Promise<void>
+  refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => void
   refreshing: boolean
 }
@@ -83,6 +84,7 @@ export interface GameInfo {
   save_folder: string
   title: string
   isOriginGame: boolean
+  canRunOffline: boolean
 }
 
 type DLCInfo = {
@@ -90,9 +92,14 @@ type DLCInfo = {
   title: string
 }
 
+type LaunchArguments = {
+  name: string
+  parameters: string
+}
+
 type GameInstallInfo = {
   app_name: string
-  launch_options: Array<string>
+  launch_options: Array<LaunchArguments>
   owned_dlc: Array<DLCInfo>
   title: string
   version: string
@@ -180,3 +187,13 @@ export interface WineInstallation {
   bin: string
   name: string
 }
+
+export type ElWebview = {
+  goBack: () => void
+  goForward: () => void
+  reload: () => void
+  isLoading: () => boolean
+  getURL: () => string
+}
+
+export type Webview = HTMLWebViewElement & ElWebview

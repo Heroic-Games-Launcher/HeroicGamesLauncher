@@ -39,7 +39,7 @@
         "yes": "ശരി"
     },
     "button": {
-        "cancel": "റദ്ദാക്കൂ",
+        "cancel": "നിര്‍ത്തൂ/റദ്ദാക്കൂ",
         "continue": "ഇറക്കല്‍ തുടരൂ",
         "import": "ഇറക്കുമതി ചെയ്യൂ",
         "install": "നടൂ",
@@ -48,14 +48,14 @@
     },
     "disabled": "പ്രവര്‍ത്തനരഹിതം",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ",
         "title": "DLCs"
     },
     "enabled": "പ്രവര്‍ത്തനക്ഷമം",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "ഇറക്കിയെടുപ്പിന്റെ വലുപ്പം",
         "firstPlayed": "ആദ്യം കളിച്ചത്",
-        "installSize": "Install Size",
+        "installSize": "നടീലിന്റെ വലുപ്പം",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
         "totalPlayed": "കളിച്ച നേരം"
@@ -65,6 +65,7 @@
         "repairing": "നന്നാക്കുന്നു"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "നടീലിടം",
         "size": "വലുപ്പം",
         "syncsaves": "സൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്‍",
@@ -84,9 +85,12 @@
             "syncing": "സൂക്ഷിപ്പുകള്‍ ഒന്നിപ്പിക്കുന്നു"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "കൂടുതലായുള്ള ഘടകങ്ങള്‍ കാണിക്കൂ",
+        "title": "നടുവാനുള്ള ഘടകങ്ങള്‍ തിരഞ്ഞെടുക്കൂ"
     },
     "specs": {
         "minimum": "കുറഞ്ഞത്",

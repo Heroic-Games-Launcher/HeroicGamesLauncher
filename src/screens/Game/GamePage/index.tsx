@@ -85,6 +85,7 @@ export default function GamePage(): JSX.Element | null {
   const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
+  const [launchArguments, setLaunchArguments] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
@@ -162,7 +163,7 @@ export default function GamePage(): JSX.Element | null {
           status
         })
       }
-    }, 1000)
+    }, 1500)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
 
@@ -188,7 +189,7 @@ export default function GamePage(): JSX.Element | null {
     setInstallDlcs(!installDlcs)
   }
 
-  const hasUpdate = gameUpdates.includes(appName)
+  const hasUpdate = gameUpdates?.includes(appName)
 
   if (gameInfo && gameInfo.install) {
     const {
@@ -205,7 +206,8 @@ export default function GamePage(): JSX.Element | null {
       compatible_apps,
       extra,
       developer,
-      cloud_save_enabled
+      cloud_save_enabled,
+      canRunOffline
     }: GameInfo = gameInfo
     const haveSystemRequirements = Boolean(extra.reqs.length)
     const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
@@ -213,6 +215,8 @@ export default function GamePage(): JSX.Element | null {
     const DLCList = gameInstallInfo?.game?.owned_dlc
     const downloadSize  = gameInstallInfo?.manifest?.download_size && prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
     const installSize  = gameInstallInfo?.manifest?.disk_size && prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
+    const launchOptions  = gameInstallInfo?.game?.launch_options || []
+
     /*
     Other Keys:
     t('box.stopInstall.title')
@@ -295,6 +299,9 @@ export default function GamePage(): JSX.Element | null {
                         <div>
                           {t('info.version')}: {version}
                         </div>
+                        <div>
+                          {t('info.canRunOffline', 'Online Required')}: {t(canRunOffline ? 'box.no' : 'box.yes')}
+                        </div>
                         <div
                           className="clickable"
                           onClick={() =>
@@ -337,6 +344,18 @@ export default function GamePage(): JSX.Element | null {
                       <option value={'another'}>{t('install.another')}</option>
                       <option value={'import'}>{t('install.import')}</option>
                     </select>
+                  )}
+                  {is_installed && Boolean(launchOptions.length) &&(
+                    <>
+                      <select
+                        onChange={(event) => setLaunchArguments(event.target.value)}
+                        value={launchArguments}
+                        className="settingSelect"
+                      >
+                        <option value=''>{t('launch.options', 'Launch Options...')}</option>
+                        {launchOptions.map(({name, parameters}) => <option key={parameters} value={parameters}>{name}</option>)}
+                      </select>
+                    </>
                   )}
                   <div className="buttonsWrapper">
                     {is_installed && is_game && (
@@ -518,7 +537,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       await handleGameStatus({ appName, status: 'playing' })
-      await launch(appName, t, handleGameStatus)
+      await launch({appName, t, handleGameStatus, launchArguments})
 
       if (autoSyncSaves) {
         setIsSyncing(true)

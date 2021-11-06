@@ -65,6 +65,7 @@
         "repairing": "Reparerar"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Installationssökväg",
         "size": "Storlek",
         "syncsaves": "Synkronisera sparfiler",
@@ -83,6 +84,9 @@
         "saves": {
             "syncing": "Synkroniserar sparfiler"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
     },
     "sdl": {
         "showList": "Click to Show/Hide Extra Components",

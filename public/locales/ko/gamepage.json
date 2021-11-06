@@ -39,7 +39,7 @@
         "yes": "예"
     },
     "button": {
-        "cancel": "취소",
+        "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
         "import": "들여오기",
         "install": "설치",
@@ -48,14 +48,14 @@
     },
     "disabled": "비활성화",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "모든 DLC를 설치합니다",
         "title": "DLCs"
     },
     "enabled": "활성화",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "다운로드 크기",
         "firstPlayed": "처음 플레이",
-        "installSize": "Install Size",
+        "installSize": "설치 크기",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "totalPlayed": "플레이 시간"
@@ -65,6 +65,7 @@
         "repairing": "복구 중"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
@@ -84,9 +85,12 @@
             "syncing": "세이브 동기화 중"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "클릭하여 추가 구성 요소 표시 보이기/숨기기",
+        "title": "설치할 구성 요소를 선택합니다"
     },
     "specs": {
         "minimum": "최소 사양",
