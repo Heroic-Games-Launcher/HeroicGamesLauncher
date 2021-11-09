@@ -268,7 +268,7 @@ class LegendaryGame extends Game {
   /**
    * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
    * so that the game can be opened from the start menu and the desktop folder.
-   * Both can be disabled with enableDesktopShortcutsOnDesktop and enableDesktopShortcutsOnStartMenu
+   * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
    * @async
    * @public
    */
@@ -374,7 +374,6 @@ Categories=Game;
           errorHandler({error: {stdout, stderr}, logPath})
           return {status: 'error'}
         }
-        this.addDesktopShortcut()
         return {status: 'done'}
       })
   }
@@ -387,7 +386,6 @@ Categories=Game;
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
       this.state.status = 'done'
-      this.removeDesktopShortcut()
       return v
     })
   }
