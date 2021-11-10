@@ -1,23 +1,20 @@
 .header {
     display: grid;
-    place-self: center;
-    place-content: center;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 3;
     background: var(--background-darker);
-    height: 84px;
-    width: calc(100% - 1vw);
-    padding: 0 4rem 1rem 4rem;
-    grid-template-columns: 4fr 5fr 2fr 2fr 1fr;
-    justify-items: baseline;
+    grid-template-columns: 3fr 4fr 2fr 1fr;
     font-family: Cabin;
     font-style: normal;
     font-weight: normal;
     font-size: clamp(1em, 0.5vw, 2rem);
     line-height: 17px;
     color: var(--text-secondary);
-    grid-template-areas: 'filter search total category layout';
+    grid-template-areas: 'filter search total refresh';
+    place-content: center;
+    justify-items: center;
+    align-items: center;
 }
 
 .headerSettings {
@@ -96,27 +93,6 @@ option {
     padding: 0 8px;
 }
 
-.layoutSelection {
-    place-self: center;
-    grid-area: layout;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.selectedLayout {
-    color: var(--secondary);
-}
-
-.layoutSelection>svg:hover {
-    cursor: pointer;
-    fill: var(--secondary);
-}
-
-.layoutSelection>svg {
-    margin: 0 0.2em;
-}
-
 .iconsWrapper {
     display: flex;
     align-content: center;
@@ -138,4 +114,13 @@ option {
     width: 100px;
     margin: 0 -10px;
     height: fit-content;
+}
+
+.refreshIcon {
+    grid-area: refresh;
+    cursor: pointer;
+}
+
+.refreshIcon:hover>svg {
+    fill: var(--secondary);
 }

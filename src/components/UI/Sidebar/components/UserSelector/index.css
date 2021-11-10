@@ -3,11 +3,8 @@
     flex-direction: column;
     align-items: flex-start;
     grid-area: user;
-    position: absolute;
-    right: 16px;
-    top: 17px;
     width: max-content;
-    height: 39px;
+    height: fit-content;
     border-radius: 10px;
     margin: auto 10px;
     transition: 250ms;
@@ -26,29 +23,6 @@
     margin-left: 10%;
     padding-right: 30px;
     white-space: nowrap;
-}
-
-.UserSelector .hidden {
-    display: none;
-    color: var(--text-primary);
-    cursor: pointer;
-    transition: 150ms;
-    opacity: 0;
-}
-
-.UserSelector .hidden:hover {
-    color: var(--secondary);
-}
-
-.UserSelector:hover {
-    height: fit-content;
-    background: var(--background);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.45);
-}
-
-.UserSelector:hover>.hidden {
-    display: block;
-    opacity: 1;
 }
 
 .userName>.material-icons {

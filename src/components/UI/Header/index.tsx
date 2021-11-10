@@ -2,13 +2,13 @@ import './index.css'
 
 import { Link, useHistory } from 'react-router-dom'
 import React, { useContext } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { UE_VERSIONS } from './constants'
 import { useTranslation } from 'react-i18next'
-import Apps from '@material-ui/icons/Apps'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import ContextProvider from 'src/state/ContextProvider'
-import List from '@material-ui/icons/List'
 import SearchBar from 'src/components/UI/SearchBar'
 import cx from 'classnames'
 
@@ -31,11 +31,10 @@ export default function Header({
     category,
     filter,
     gameUpdates = [],
-    layout,
     libraryStatus,
-    handleCategory,
     handleFilter,
-    handleLayout } = useContext(ContextProvider)
+    refreshLibrary
+  } = useContext(ContextProvider)
 
   const hasDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
@@ -49,13 +48,6 @@ export default function Header({
       return
     }
     return history.goBack()
-  }
-
-  function toggleCategory(newCategory: string) {
-    if (category !== newCategory) {
-      handleCategory(newCategory)
-      handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
-    }
   }
 
   if (renderBackButton) {
@@ -73,22 +65,6 @@ export default function Header({
   return (
     <>
       <div className={cx({ header: !title }, { headerSettings: title })}>
-        <span className="selectCategory">
-          <span
-            data-testid="gamesCategory"
-            className={category === 'games' ? 'selected' : ''}
-            onClick={() => toggleCategory('games')}
-          >
-            {t('Games', 'Games')}
-          </span>
-          <span
-            data-testid="unrealCategory"
-            className={category === 'unreal' ? 'selected' : ''}
-            onClick={() => toggleCategory('unreal')}
-          >
-            {t('Unreal Marketplace', 'Unreal Marketplace')}
-          </span>
-        </span>
         {category === 'games' && (
           <span className="selectFilter" >
             <span>{t('Filter')}:</span>
@@ -189,26 +165,7 @@ export default function Header({
         {numberOfGames !== undefined && numberOfGames === 0 && (
           <div className="totalGamesText" data-testid="totalGamesText">{t('nogames')}</div>
         )}
-        <div className="layoutSelection">
-          <Apps
-            data-testid="grid"
-            className={
-              layout === 'grid'
-                ? 'selectedLayout material-icons'
-                : 'material-icons'
-            }
-            onClick={() => handleLayout('grid')}
-          />
-          <List
-            data-testid="list"
-            className={
-              layout === 'list'
-                ? 'selectedLayout material-icons'
-                : 'material-icons'
-            }
-            onClick={() => handleLayout('list')}
-          ></List>
-        </div>
+        <FontAwesomeIcon onClick={() => refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: false})} className="refreshIcon" icon={faSyncAlt}/>
       </div>
     </>
   )

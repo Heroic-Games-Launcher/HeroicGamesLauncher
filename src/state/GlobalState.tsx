@@ -12,7 +12,6 @@ import {
   notify
 } from 'src/helpers'
 import { i18n } from 'i18next'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import ContextProvider from './ContextProvider'
 import ElectronStore from 'electron-store'
@@ -379,11 +378,7 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, filterText, filter, platform, refreshing } = this.state
-
-    if (refreshing) {
-      return <UpdateComponent />
-    }
+    const { data, filterText, filter, platform } = this.state
 
     let filteredLibrary = data
 

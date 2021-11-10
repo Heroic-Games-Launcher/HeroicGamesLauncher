@@ -1,12 +1,15 @@
 .supportLinks {
     grid-area: support;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-content: center;
     width: max-content;
     align-self: center;
     text-align: left;
-    justify-self: right;
+    justify-self: center;
     margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 50%;
 }
 
 .supportLinks>button {

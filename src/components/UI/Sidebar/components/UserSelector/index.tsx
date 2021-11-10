@@ -1,16 +1,13 @@
 import './index.css'
 
 import {
-  handleKofi,
   handleQuit,
-  openAboutWindow,
-  openDiscordLink
+  openAboutWindow
 } from 'src/helpers'
 
 import { IpcRenderer } from 'electron'
 import { UserInfo } from 'src/types'
 import { useTranslation } from 'react-i18next'
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import ContextProvider from 'src/state/ContextProvider'
 import ElectronStore from 'electron-store'
 import React from 'react'
@@ -42,24 +39,21 @@ export default function UserSelector() {
     <div className="UserSelector" data-testid="userSelector">
       <span className="userName" data-testid="userName">
         {user?.displayName}
-        <ArrowDropDown className="material-icons" />
       </span>
-      <div onClick={() => refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: false})} className="userName hidden" data-testid="refreshLibrary">
+      <div onClick={() => refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: false})} className="userName" data-testid="refreshLibrary">
         {t('userselector.refresh')}
       </div>
-      <div onClick={() => handleKofi()} className="userName hidden" data-testid="handleKofi">
+      {/* <div onClick={() => handleKofi()} className="userName" data-testid="handleKofi">
         {t('userselector.support')}
-      </div>
-      <div onClick={() => openDiscordLink()} className="userName hidden" data-testid="openDiscordLink">
-        {t('userselector.discord', 'Discord')}
-      </div>
-      <div onClick={() => openAboutWindow()} className="userName hidden" data-testid="openAboutWindow">
+      </div> */}
+
+      <div onClick={() => openAboutWindow()} className="userName" data-testid="openAboutWindow">
         {t('userselector.about')}
       </div>
-      <div onClick={() => handleLogout()} className="userName hidden" data-testid="handleLogout">
+      <div onClick={() => handleLogout()} className="userName" data-testid="handleLogout">
         {t('userselector.logout')}
       </div>
-      <div onClick={() => handleQuit()} className="userName hidden" data-testid="handleQuit">
+      <div onClick={() => handleQuit()} className="userName" data-testid="handleQuit">
         {t('userselector.quit')}
       </div>
     </div>

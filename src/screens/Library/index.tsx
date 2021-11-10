@@ -9,6 +9,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import cx from 'classnames'
 
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
+import { UpdateComponent } from 'src/components/UI'
 
 const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
 const InstallModal = lazy(() => import('src/screens/Library/components/InstallModal'))
@@ -25,7 +26,7 @@ window.onscroll = () => {
 }
 
 export const Library = ({ library }: Props) => {
-  const { layout, gameUpdates } = useContext(ContextProvider)
+  const { layout, gameUpdates, refreshing } = useContext(ContextProvider)
   const [showModal, setShowModal] = useState({game: '', show: false})
   const backToTop = () => {
     const anchor = document.getElementById('top')
@@ -36,6 +37,10 @@ export const Library = ({ library }: Props) => {
 
   function handleModal(appName: string){
     setShowModal({game: appName, show: true})
+  }
+
+  if (refreshing) {
+    return <UpdateComponent />
   }
 
   return (

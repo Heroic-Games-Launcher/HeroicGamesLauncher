@@ -8,7 +8,7 @@
     text-align: center;
     color: var(--text-primary);
     display: grid;
-    grid-template-columns: 275px calc(100vw - 275px);
+    grid-template-columns: 210px 1fr;
     grid-template-areas: 'sidebar content';
     font-family: 'Cabin', sans-serif;
 }
@@ -17,8 +17,15 @@
     display: grid;
     place-content: center;
     height: 100%;
-    width: calc(100vw - 275px);
+    grid-template-rows: 74px 1fr;
     grid-area: content;
+    width: var(--content-width);
+}
+
+.App .content .updateIcon {
+    height: 100vh;
+    position: initial;
+    width: var(--content-width);
 }
 
 .button {

@@ -8,6 +8,7 @@ import { UserSelector } from './components'
 import SupportLinks from './components/SupportLinks'
 
 import './index.css'
+import LayoutSelection from './components/LayoutSelection'
 
 export default function Sidebar() {
   const { t } = useTranslation()
@@ -77,6 +78,7 @@ export default function Sidebar() {
         >
           {t('wiki', 'Wiki')}
         </NavLink>
+        <LayoutSelection />
       </div>
       <SupportLinks />
       <UserSelector />

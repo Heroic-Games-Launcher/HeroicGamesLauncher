@@ -1,0 +1,18 @@
+.layoutSelection {
+    place-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.selectedLayout {
+    color: var(--secondary);
+}
+
+.layoutSelection>svg:hover {
+    cursor: pointer;
+    fill: var(--secondary);
+}
+
+.layoutSelection>svg {
+    margin: 0 0.2em;
+}
