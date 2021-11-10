@@ -1,12 +1,13 @@
 import './index.css'
 
 import React from 'react'
-import Update from '@material-ui/icons/Update'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 
 export default function UpdateComponent() {
   return (
     <div className="updateIcon" data-testid="updateComponent">
-      <Update className="material-icons" />
+      <FontAwesomeIcon className="icon" icon={faSyncAlt}/>
     </div>
   )
 }

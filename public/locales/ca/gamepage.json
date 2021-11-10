@@ -1,12 +1,12 @@
 {
     "box": {
         "change": {
-            "message": "Això canviarà la ruta d'instal·lació d'aquest joc, estàs ben segur?",
+            "message": "Això canviarà la ruta d'instal·lació d'aquest joc, estàs segur?",
             "path": "Tria una nova ruta d'instal·lació",
             "title": "Canvia la ruta d'instal·lació dels jocs"
         },
         "choose": "Tria",
-        "importpath": "Tria una carpeta per a importar",
+        "importpath": "Tria una carpeta per importar",
         "installpath": "Tria una ruta d'instal·lació",
         "move": {
             "message": "Això pot tardat MOLT de temps, estàs segur?",
@@ -14,19 +14,19 @@
             "title": "Mou la ruta d'instal·lació del joc"
         },
         "no": "No",
-        "ok": "Ok",
+        "ok": "Sí",
         "repair": {
             "message": "Vols intentar reparar aquest joc? Això pot tardar molt de temps.",
             "title": "Verifica i repara"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "S'han creat les dreces al menú d'inici i a l'escriptori",
+            "title": "Dreceres"
         },
         "stopInstall": {
-            "keepInstalling": "Segueix instal·lant-lo",
-            "message": "Vols mantenir els arxius descargats?",
-            "title": "Atura la descarga"
+            "keepInstalling": "Segueix instal·lant-ho",
+            "message": "Vols mantenir els arxius descarregats?",
+            "title": "Atura la descarrega"
         },
         "uninstall": {
             "message": "Vols desinstal·lar aquest joc?",
@@ -44,12 +44,18 @@
         "import": "Importar",
         "install": "Instal·lar",
         "uninstall": "Desinstal·lar",
-        "update": "Update"
+        "update": "Actualitzar"
     },
     "disabled": "Desactivat",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Activat",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "First Played",
+        "installSize": "Install Size",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"
@@ -59,6 +65,7 @@
         "repairing": "Reparant"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Ruta d'instal·lació",
         "size": "Mida",
         "syncsaves": "Sincronitza els guardats",
@@ -78,6 +85,13 @@
             "syncing": "Sincronitzant guardats"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "Mínim",
         "recommended": "Recomenat"
@@ -89,7 +103,6 @@
         "installing": "Instal·lant",
         "moving": "Movent instal·lació, si us plau esperi",
         "notinstalled": "Aquest joc no està instal·lat",
-        "notSupported": "Aquest joc només pot ser importat",
         "reparing": "Reparant joc, si us plau esperi",
         "totalDownloaded": "Total descarregat",
         "updating": "Actualitzant joc"

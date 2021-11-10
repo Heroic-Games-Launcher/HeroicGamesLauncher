@@ -8,6 +8,7 @@
         },
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Wine ya da Proton Dosyasını Seçin",
         "default-install-path": "Varsayılan Kurulum Yerini Seçin",
         "error": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
-        "select": "Seç",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Seç",
             "error": "Geçersiz Yol",
@@ -79,7 +83,7 @@
             "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
         },
         "wine": {
-            "part1": "Heroic Wine ve Proton sürümlerini şu klasörlerde arar:",
+            "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
             "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
         }
     },
@@ -123,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
     "Plugins": "Eklentiler",
@@ -137,9 +143,11 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
-        "autodxvk": "DXVK'yı otomatik kur/güncelle",
+        "autodxvk": "DXVK/VKD3D'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan",
@@ -147,10 +155,10 @@
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
-        "esync": "Enable Esync",
+        "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem Tepsisine Küçült",
         "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
-        "fsync": "Enable Fsync",
+        "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",

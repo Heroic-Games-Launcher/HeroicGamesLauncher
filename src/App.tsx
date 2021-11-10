@@ -5,8 +5,9 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import { Library } from 'src/screens/Library'
 import ContextProvider from 'src/state/ContextProvider'
 import ElectronStore from 'electron-store'
-import Login from 'src/screens/Login'
 import Sidebar from 'src/components/UI/Sidebar'
+import Login from './screens/Login'
+import WebView from './screens/WebView'
 
 const Store = window.require('electron-store')
 const configStore: ElectronStore = new Store({
@@ -22,10 +23,6 @@ function App() {
   const user = configStore.get('userInfo')
   const { data: library, refresh } = context
 
-  if (!user) {
-    return <Login refresh={refresh} />
-  }
-
   const dlcCount = library.filter((lib) => lib.install.is_dlc)
   const numberOfGames = library.length - dlcCount.length
   return (
@@ -34,15 +31,17 @@ function App() {
         <Sidebar />
         <Switch>
           <Route exact path="/">
-            <div className="content">
+            {user ? <div className="content">
               <Header
                 goTo={''}
                 renderBackButton={false}
                 numberOfGames={numberOfGames}
               />
               <Library library={library} />
-            </div>
+            </div> : <Login refresh={refresh} />}
           </Route>
+          <Route exact path="/epicstore" component={WebView} />
+          <Route exact path="/wiki" component={WebView} />
           <Route exact path="/gameconfig/:appName" component={GamePage} />
           <Route path="/settings/:appName/:type" component={Settings} />
         </Switch>

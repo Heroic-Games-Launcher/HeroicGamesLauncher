@@ -1,0 +1,14 @@
+.webviewControls {
+    display: grid;
+    grid-template-columns: 2fr 6fr 2fr;
+    align-items: center;
+}
+
+.webviewIcons {
+    margin-left: 12px;
+    justify-self: baseline;
+}
+
+.MuiSvgIcon-root {
+    cursor: pointer;
+}

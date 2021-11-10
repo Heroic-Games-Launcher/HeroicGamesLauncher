@@ -2,18 +2,21 @@
     "button": {
         "login": "Iniciar sessió"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
-        "placeholder": "Enganxi l'SID aquí"
+        "placeholder": "Enganxa l'SID aquí"
     },
     "message": {
         "part1": "Per poder iniciar sessió i començar a instal·lar els teus jocs, primer has de seguir les passes d'aquí avall:",
         "part2": "Obrir",
         "part3": "Botiga d'Epic",
-        "part4": ", iniciï sessió a la seva conta i copii el seu",
+        "part4": ", inicia sessió i copia el teu",
         "part5": "nombre SID",
         "part6": "Enganxi el",
         "part7": "nombre SID",
-        "part8": "a la caixa d'avall, faci clic al botó d'inici de sessió i esperi."
+        "part8": "fés clic al botó d'inici de sessió avall i espera."
     },
     "status": {
         "error": "Error",

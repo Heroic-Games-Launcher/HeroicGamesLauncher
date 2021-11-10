@@ -8,8 +8,9 @@ import {
 
 import { WineInstallation } from 'src/types';
 import { ipcRenderer } from 'src/test_helpers/mock/electron';
-import { resetTestTypes, test_opendialog, test_wineinstallations } from 'src/test_helpers/testTypes';
+import { resetTestTypes, test_context, test_opendialog, test_wineinstallations } from 'src/test_helpers/testTypes';
 import WineSettings from './index';
+import ContextProvider from 'src/state/ContextProvider';
 
 interface Props {
   altWine: WineInstallation[]
@@ -68,7 +69,11 @@ function renderWineSettings(props: Partial<Props> = {})
     }
   }
 
-  return render(<WineSettings {...{...defaultProps, ...props}} />);
+  return render(
+    <ContextProvider.Provider value={test_context.get()}>
+      <WineSettings {...{ ...defaultProps, ...props }} />
+    </ContextProvider.Provider>
+  );
 }
 
 describe('WineSettings', () => {
@@ -260,6 +265,7 @@ describe('WineSettings', () => {
   })
 
   test('esync toggle triggers correct function upon click', async () => {
+    test_context.set({platform: 'linux'})
     const toggleEsync = jest.fn();
     const { getByTestId } = renderWineSettings({ toggleEsync: toggleEsync });
     const esyncToggle = getByTestId('esyncToggle');
@@ -269,6 +275,7 @@ describe('WineSettings', () => {
   })
 
   test('fsync toggle triggers correct function upon click', async () => {
+    test_context.set({platform: 'linux'})
     const toggleFsync = jest.fn();
     const { getByTestId } = renderWineSettings({ toggleFsync: toggleFsync });
     const fsyncToggle = getByTestId('fsyncToggle');

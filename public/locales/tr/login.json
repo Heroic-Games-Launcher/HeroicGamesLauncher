@@ -2,6 +2,9 @@
     "button": {
         "login": "Oturum Aç"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "SID numarasını buraya yapıştırın"
     },

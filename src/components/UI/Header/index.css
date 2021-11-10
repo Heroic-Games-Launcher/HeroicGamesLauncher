@@ -35,7 +35,9 @@
 .headerSettings>.headerTitle {
     font-size: 1.5rem;
     grid-area: title;
-    margin-left: -100px;
+    width: fit-content;
+    place-self: center;
+    padding-right: 100px;
 }
 
 .selectFilter {

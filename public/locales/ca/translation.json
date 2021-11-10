@@ -8,11 +8,12 @@
         },
         "choose": "Tria",
         "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Selecciona el binary de wine o proton",
         "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
         "error": {
             "credentials": {
-                "message": "Les teves credencials han expirat, si us plau tanqui sessió i iniciï sessió de nou.",
+                "message": "Les teves credencials han expirat, si us plau tanca sessió i inicia la sessió una altra vegada.",
                 "title": "Les credencials han expirat"
             },
             "diskspace": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "Selecciona un EXE per llençar"
         },
-        "select": "Selecciona",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Tria",
             "error": "Ruta invàl·lida",
@@ -74,7 +78,7 @@
         },
         "sync": {
             "part1": "Heroic intenta adivinar la carpeta de guardat i això funcionarà a la majoria de casos. En el cas de que la carpeta estigui malament, canvia-la.",
-            "part2": "En el cas de que tu canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, surt de la configuració de sincronització i torna per que heroic pugui adivinar la carpeta",
+            "part2": "En el cas de que canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, sortir de la configuració de sincronització i torna per que heroic pugui adivinar la carpeta",
             "part3": "Sincronització manual: Eligeix \"Descarrega\" per descarregar les dades de guardat que estàn al núvol. Puja per pujar les dades locals al núvol. Força la descarga i força la pujada ignorarà la versió que està localment o al núvol.",
             "part4": "Sincronitza les dades automàticamente sincronitzarà les dades cada vegada que inicis un joc i després de jugar."
         },
@@ -96,7 +100,7 @@
         "unsync": "Des-sincronització completa"
     },
     "nogames": "No s'han trobat els jocs",
-    "Not Ready": "No està llest",
+    "Not Ready": "No llest",
     "notify": {
         "finished": {
             "reparing": "Hem acabat de reparar el joc"
@@ -123,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Ajuda a traduïr Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix a on EGS és instal·lat"
     },
     "Plugins": "Plugins",
@@ -137,9 +143,11 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
-        "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
+        "autodxvk": "Instal·la/Actualitza DXVK/VKD3D al prefix automàticament",
         "autosync": "Sincronitza les dades automàticament",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
         "customWineProton": "Rutes de Wine o Proton personalitzades",
         "darktray": "Emprar la icona fosca al Tray",

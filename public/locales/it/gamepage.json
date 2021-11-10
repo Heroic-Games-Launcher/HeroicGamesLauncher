@@ -39,7 +39,7 @@
         "yes": "SI"
     },
     "button": {
-        "cancel": "Annulla",
+        "cancel": "Pausa/Annulla",
         "continue": "Continua Download",
         "import": "Importa",
         "install": "Installa",
@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "Disattivato",
+    "dlc": {
+        "installDlcs": "Installa tutti i DLC",
+        "title": "DLCs"
+    },
     "enabled": "attivato",
     "game": {
+        "downloadSize": "Dimensione del download",
         "firstPlayed": "Prima giocato",
+        "installSize": "Dimensione dell'installazione",
         "lastPlayed": "Giocato recentemente",
         "neverPlayed": "Mai",
         "totalPlayed": "Tempo giocato"
@@ -59,6 +65,7 @@
         "repairing": "Riparazione in corso"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Percorso d'installazione",
         "size": "Dimensione",
         "syncsaves": "Sincronizza i salvataggi",
@@ -78,6 +85,13 @@
             "syncing": "Sincronizzando i salvataggi"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Clicca per mostrare/nascondere i componenti extra",
+        "title": "Seleziona i componenti da installare"
+    },
     "specs": {
         "minimum": "Minime",
         "recommended": "Raccomandate"
@@ -89,7 +103,6 @@
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
-        "notSupported": "Questo gioco può solo essere importato",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
         "totalDownloaded": "Totale scaricato",
         "updating": "Aggiornamento in corso"

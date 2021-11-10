@@ -19,6 +19,7 @@ interface Props {
   discordRPC: boolean
   setLauncherArgs: (value: string) => void
   setOtherOptions: (value: string) => void
+  setTargetExe: (value: string) => void
   setMaxRecentGames: (value: number) => void
   showFps: boolean
   showMangohud: boolean
@@ -33,6 +34,7 @@ interface Props {
   toggleAddGamesToStartMenu: () => void
   toggleDiscordRPC: () => void
   useGameMode: boolean
+  targetExe: string
 }
 
 function renderOtherSettings(props: Partial<Props> = {})
@@ -50,6 +52,7 @@ function renderOtherSettings(props: Partial<Props> = {})
     discordRPC: false,
     setLauncherArgs: (value: string) => value,
     setOtherOptions: (value: string) => value,
+    setTargetExe: (value: string) => value,
     showFps: false,
     showMangohud: false,
     setMaxRecentGames: (value: number) => value,
@@ -62,6 +65,7 @@ function renderOtherSettings(props: Partial<Props> = {})
     toggleAddDesktopShortcuts: () => {return;},
     toggleDiscordRPC: () => {return;},
     toggleAddGamesToStartMenu: () => {return;},
+    targetExe: 'Default',
     useGameMode: false
   };
   return render(<OtherSettings {...{...defaultprops, ...props}} />);

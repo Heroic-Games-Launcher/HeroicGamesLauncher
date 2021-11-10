@@ -186,6 +186,18 @@ export class GlobalState extends PureComponent<Props> {
       })
     }
 
+    if (currentApp && currentApp.status === 'installing' && status === 'error') {
+      const updatedLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+
+      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
+      this.refreshLibrary({})
+
+      return notify([title, 'notify.install.error'])
+    }
+
+
     if (currentApp && currentApp.status === 'installing' && status === 'done') {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
@@ -206,7 +218,7 @@ export class GlobalState extends PureComponent<Props> {
         return this.refreshLibrary({})
       }
       this.refreshLibrary({})
-      return notify([title, 'Game Imported'])
+      return notify([title, 'notify.install.imported'])
     }
 
     if (currentApp && currentApp.status === 'updating' && status === 'done') {
@@ -294,14 +306,14 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { data, gameUpdates, libraryStatus } = this.state
+    const { data, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName) => {
       const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
       if (!currentApp) {
         await this.handleGameStatus({ appName, status: 'playing' })
-        return launch(appName, t, this.handleGameStatus)
+        return launch({appName, t, handleGameStatus: this.handleGameStatus})
       }
     })
 

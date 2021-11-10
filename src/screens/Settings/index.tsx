@@ -61,6 +61,7 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
@@ -69,6 +70,7 @@ function Settings() {
   const [maxRecentGames, setMaxRecentGames] = useState(5)
   const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
+  const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
@@ -215,6 +217,8 @@ function Settings() {
       setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
+      setTargetExe(config.targetExe || '')
+      setAltLegendaryBin(config.altLegendaryBin || '')
 
       if (!isDefault) {
         const {
@@ -235,6 +239,7 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   const GlobalSettings = {
+    altLegendaryBin,
     addDesktopShortcuts,
     addStartMenuShortcuts,
     audioFix,
@@ -279,6 +284,7 @@ function Settings() {
     savesPath,
     showFps,
     showMangohud,
+    targetExe,
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
@@ -347,6 +353,8 @@ function Settings() {
               darkTrayIcon={darkTrayIcon}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+              altLegendaryBin={altLegendaryBin}
+              setAltLegendaryBin={setAltLegendaryBin}
             />
           )}
           {isWineSettings && (
@@ -406,6 +414,8 @@ function Settings() {
               toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
               toggleDiscordRPC={toggleDiscordRPC}
               discordRPC={discordRPC}
+              targetExe={targetExe}
+              setTargetExe={setTargetExe}
             />
           )}
           {isSyncSettings && (
@@ -420,6 +430,7 @@ function Settings() {
             />
           )}
           <span className="save">{t('info.settings')}</span>
+          {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>
     </>

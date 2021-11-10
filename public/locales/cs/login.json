@@ -2,6 +2,9 @@
     "button": {
         "login": "Přihlásit"
     },
+    "info": {
+        "needHelp": "Need Help?"
+    },
     "input": {
         "placeholder": "Sem vložte číslo SID"
     },

@@ -47,9 +47,15 @@
         "update": "Update"
     },
     "disabled": "முடக்கப்பட்டது",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "இயக்கப்பட்டது",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "First Played",
+        "installSize": "Install Size",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"
@@ -59,6 +65,7 @@
         "repairing": "பழுதுபார்க்கப்படுகிறது"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "நிறுவல் பாதை",
         "size": "அளவு",
         "syncsaves": "சேமிப்புகளை ஒத்திசைவு செய்",
@@ -78,6 +85,13 @@
             "syncing": "சேமிப்புகள் ஒத்திசைவு செய்யப்படுகிறது"
         }
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
+    },
     "specs": {
         "minimum": "குறைந்தபட்சம்",
         "recommended": "பரிந்துரைக்கப்பட்டது"
@@ -89,7 +103,6 @@
         "installing": "நிறுவப்படுகிறது",
         "moving": "நிறுவல் நகர்த்தப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "notinstalled": "இந்த விளையாட்டு நிறுவப்படவில்லை",
-        "notSupported": "இந்த விளையாட்டை இறக்குமதி மட்டும் செய்ய முடியும்",
         "reparing": "விளையாட்டு பழுதுபார்க்கப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "totalDownloaded": "மொத்த பதிவிறக்கம்",
         "updating": "விளையாட்டு புதுப்பிக்கப்படுகிறது"

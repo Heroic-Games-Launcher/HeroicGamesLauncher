@@ -8,6 +8,7 @@
         },
         "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
@@ -43,7 +44,10 @@
         "runexe": {
             "title": "Seleccione EXE para ejecutar"
         },
-        "select": "Seleccionar",
+        "select": {
+            "button": "Seleccionar",
+            "exe": "Select EXE"
+        },
         "sync": {
             "button": "Elegir",
             "error": "Ruta no válida",
@@ -79,7 +83,7 @@
             "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
         },
         "wine": {
-            "part1": "Búsquedas de versiones de Wine y Proton en las siguientes carpetas:",
+            "part1": "Búsquedas de versiones de Wine, Proton y CrossOver en las siguientes carpetas:",
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
         }
     },
@@ -123,9 +127,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Ayuda a traducir Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix donde está instalado EGS"
     },
     "Plugins": "Plugins",
@@ -137,9 +143,11 @@
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
-        "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
+        "autodxvk": "Autoinstalar / actualizar DXVK/VKD3D en el Prefix",
         "autosync": "Autosyncronizar guardados",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
@@ -150,6 +158,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
+        "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",

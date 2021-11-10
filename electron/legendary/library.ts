@@ -10,6 +10,7 @@ import { GameConfig } from '../game_config';
 import {
   GameInfo,
   InstalledInfo,
+  InstallInfo,
   KeyImage,
   RawGameJSON
 } from '../types';
@@ -32,6 +33,11 @@ import Store from 'electron-store'
 const libraryStore = new Store({
   cwd: 'store',
   name: 'library'
+})
+
+const installStore = new Store({
+  cwd: 'store',
+  name: 'installInfo'
 })
 
 /**
@@ -80,6 +86,7 @@ class LegendaryLibrary {
    */
   public async refresh() {
     logInfo('Refreshing Epic Games...')
+
     return new Promise((res, rej) => {
       const child = spawn(legendaryBin, ['list-games', '--include-ue'])
       child.stderr.on('data', (data) => {
@@ -179,12 +186,34 @@ class LegendaryLibrary {
   }
 
   /**
+   * Get game info for a particular game.
+   *
+   * @param appName
+   * @returns InstallInfo
+   */
+  public async getInstallInfo(appName: string) {
+    const cache = installStore.get(appName) as InstallInfo
+
+    if (cache){
+      return cache
+    }
+    const {stdout} = await execAsync(`${legendaryBin} -J info ${appName} --json`)
+    const info: InstallInfo = JSON.parse(stdout)
+    installStore.set(appName, info)
+
+    return info
+  }
+
+
+  /**
    * Obtain a list of updateable games.
    *
    * @returns App names of updateable games.
    */
   public async listUpdateableGames() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
+
+
     const online = await isOnline()
     if (!isLoggedIn || !(online)) {
       return []
@@ -298,6 +327,7 @@ class LegendaryLibrary {
     const dlcs: string[] = []
     const CloudSaveFolder = customAttributes?.CloudSaveFolder
     const FolderName = customAttributes?.FolderName
+    const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -369,7 +399,7 @@ class LegendaryLibrary {
       version = null,
       install_size = null,
       install_path = null,
-      is_dlc = dlcs.includes(app_name)
+      is_dlc = metadata.categories.filter(({path}: {path: string}) => path === 'dlc').length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
     const convertedSize =
@@ -405,7 +435,8 @@ class LegendaryLibrary {
       is_ue_project,
       namespace,
       save_folder: saveFolder,
-      title
+      title,
+      canRunOffline
     } as GameInfo)
 
     return app_name

@@ -3,22 +3,17 @@ import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 import cx from 'classnames'
 
-import { createNewWindow } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
 import { UserSelector } from './components'
+import SupportLinks from './components/SupportLinks'
 
 import './index.css'
 
 export default function Sidebar() {
-  const { t, i18n } = useTranslation()
-  let lang = i18n.language
-  if (i18n.language === 'pt') {
-    lang = 'pt-BR'
-  }
+  const { t } = useTranslation()
+
   const { category, handleCategory, handleFilter } = useContext(ContextProvider)
 
-  const epicStore = `https://www.epicgames.com/store/${lang}/`
-  const wiki = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const location = useLocation() as {pathname: string}
   const isLibrary = location.pathname === '/'
 
@@ -62,21 +57,28 @@ export default function Sidebar() {
         >
           {t('Settings')}
         </NavLink>
-        <a
+        <NavLink
           data-testid="store"
-          style={{ cursor: 'pointer' }}
-          onClick={() => createNewWindow(epicStore)}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+          isActive={(match, location) => location.pathname.includes('epicstore')}
+          to={{
+            pathname: '/epicstore'
+          }}
         >
           {t('store', 'Store')}
-        </a>
-        <a
+        </NavLink>
+        <NavLink
           data-testid="wiki"
-          style={{ cursor: 'pointer' }}
-          onClick={() => createNewWindow(wiki)}
+          activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+          isActive={(match, location) => location.pathname.includes('wiki')}
+          to={{
+            pathname: '/wiki'
+          }}
         >
           {t('wiki', 'Wiki')}
-        </a>
+        </NavLink>
       </div>
+      <SupportLinks />
       <UserSelector />
     </aside>
   )

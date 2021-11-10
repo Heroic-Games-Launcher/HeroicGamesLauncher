@@ -1,3 +1,4 @@
+import { InstallParams } from './types';
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -8,7 +9,8 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol
+  protocol,
+  MenuItem
 } from 'electron'
 import {
   cpus,
@@ -52,11 +54,14 @@ import {
   iconDark,
   iconLight,
   installed,
+  kofiPage,
   legendaryBin,
   loginUrl,
+  patreonPage,
   sidInfoUrl,
   supportURL,
-  weblateUrl
+  weblateUrl,
+  wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
 import { listenStdout } from './logger'
@@ -106,15 +111,16 @@ async function createWindow(): Promise<BrowserWindow> {
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: isDev ? 1200 : 600,
-    minHeight: 500,
-    minWidth: 900,
+    height: 690,
+    minHeight: 650,
+    minWidth: 1100,
     show: !(exitToTray && startInTray),
     webPreferences: {
+      webviewTag: true,
       contextIsolation: false,
       nodeIntegration: true
     },
-    width: isDev ? 1800 : 1000
+    width: 1200
   })
 
   setTimeout(() => {
@@ -161,7 +167,29 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-    mainWindow.setMenu(null)
+
+    const menu = new Menu()
+    menu.append(new MenuItem({
+      label: 'Help',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+          click: () => { mainWindow.reload() }
+        },
+        {
+          label: 'Debug',
+          accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+          click: () => { mainWindow.webContents.openDevTools() }
+        },
+        {
+          label: 'Quit',
+          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
+          click: () => { handleExit() }
+        }
+      ]
+    }))
+    mainWindow.setMenu(menu)
 
     return mainWindow
   }
@@ -212,7 +240,7 @@ const contextMenu = () => {
       label: i18next.t('tray.support', 'Support Us')
     },
     {
-      accelerator: 'ctrl + R',
+      accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
       click: function () {
         mainWindow.reload()
       },
@@ -222,7 +250,8 @@ const contextMenu = () => {
       click: function () {
         handleExit()
       },
-      label: i18next.t('tray.quit', 'Quit')
+      label: i18next.t('tray.quit', 'Quit'),
+      accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
     }
   ])
 }
@@ -259,7 +288,7 @@ if (!gotTheLock) {
       debug: false,
       fallbackLng: 'en',
       lng: language,
-      supportedLngs: ['ca', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hr', 'hu', 'ko', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans', 'zh_Hant']
+      supportedLngs: ['bg', 'ca', 'cs', 'de', 'el', 'en', 'es','fa', 'fi', 'fr', 'hr', 'hu', 'ja', 'ko', 'id', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans', 'zh_Hant']
 
     })
 
@@ -384,6 +413,9 @@ ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
+ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
+ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
+ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 ipcMain.on('updateHeroic', () => checkUpdates())
 
@@ -455,6 +487,19 @@ ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.handle('getLegendaryVersion', async() => {
+  const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
+  try {
+    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
+      return 'invalid'
+    }
+    const {stdout} = await execAsync(`${legendaryBin} --version`)
+    return stdout.split('legendary version')[1].replaceAll('"', '').replaceAll(', codename', '')
+  } catch (error) {
+    return 'invalid'
+  }
+})
+
 ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.on('createNewWindow', (e, url) =>
@@ -462,13 +507,26 @@ ipcMain.on('createNewWindow', (e, url) =>
 )
 
 ipcMain.handle('getGameInfo', async (event, game) => {
-  const obj = Game.get(game)
   try {
-    const info = await obj.getGameInfo()
-    info.extra = await obj.getExtraInfo(info.namespace)
+    const info = await Game.get(game).getGameInfo()
+    info.extra = await Game.get(game).getExtraInfo(info.namespace)
     return info
   } catch (error) {
     logError(error)
+  }
+})
+
+ipcMain.handle('getInstallInfo', async (event, game) => {
+  const online = await isOnline()
+  if (!online){
+    return {game: {}, metadata: {}}
+  }
+  try {
+    const info = await Game.get(game).getInstallInfo()
+    return info
+  } catch (error) {
+    logError(error)
+    return {}
   }
 })
 
@@ -503,6 +561,15 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return await GameConfig.get(appName).getSettings()
 })
 
+ipcMain.on('toggleDXVK', (event, [winePrefix, action]) => {
+  if (!existsSync(winePrefix)){
+    return
+  }
+
+  DXVK.installRemove(winePrefix, 'dxvk', action)
+  DXVK.installRemove(winePrefix, 'vkd3d', action)
+})
+
 ipcMain.handle('writeConfig', (event, [appName, config]) => {
   if (appName === 'default') {
     GlobalConfig.get().config = config
@@ -534,8 +601,14 @@ type RecentGame = {
   title: string
 }
 
-ipcMain.handle('launch', async (event, game: string) => {
+type LaunchParams = {
+  appName: string
+  launchArguments: string
+}
+
+ipcMain.handle('launch', async (event, {appName, launchArguments}: LaunchParams) => {
   const recentGames = store.get('games.recent') as Array<RecentGame> || []
+  const game = appName.split(' ')[0]
   const { title } = await Game.get(game).getGameInfo()
   const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
   const startPlayingDate = new Date()
@@ -561,10 +634,10 @@ ipcMain.handle('launch', async (event, game: string) => {
     updatedRecentGames.unshift({ appName: game, title })
     store.set('games.recent', updatedRecentGames)
   } else {
-    store.set('games.recent', [{ appName: game, title: title }])
+    store.set('games.recent', [{ game, title: title }])
   }
 
-  return Game.get(game).launch().then(({ stderr }) => {
+  return Game.get(appName).launch(launchArguments).then(({ stderr }) => {
     const finishedPlayingDate = new Date()
     tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
     const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
@@ -579,7 +652,7 @@ ipcMain.handle('launch', async (event, game: string) => {
     )
     if (stderr.includes('Errno')) {
       showErrorBox(
-        i18next.t('box.error', 'Something Went Wrong'),
+        i18next.t('box.error.title', 'Something Went Wrong'),
         i18next.t(
           'box.error.launch',
           'Error when launching the game, check the logs!'
@@ -587,7 +660,6 @@ ipcMain.handle('launch', async (event, game: string) => {
       )
     }
   }).catch(async (exception) => {
-    // This stuff is completely borken, I have no idea what the hell we should do here.
     const stderr = `${exception.name} - ${exception.message}`
     errorHandler({ error: { stderr, stdout: '' } })
     writeFile(
@@ -621,15 +693,18 @@ ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string])
   return showErrorBox(title, content)
 })
 
-ipcMain.handle('install', async (event, args) => {
-  const { appName: game, path } = args
+
+ipcMain.handle('install', async (event, params) => {
+  const { appName: game, path, installDlcs, sdlList } = params as InstallParams
   if (!(await isOnline())) {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return Game.get(game).install(path).then(
-    () => { logInfo('finished installing') }
-  ).catch((res) => res)
+  return Game.get(game).install({path, installDlcs, sdlList})
+    .then((res) => {
+      logInfo('finished installing');
+      return res
+    }).catch((res) => res)
 })
 
 ipcMain.handle('uninstall', async (event, game) => {

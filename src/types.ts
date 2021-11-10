@@ -3,6 +3,7 @@ interface About {
   shortDescription: string
 }
 export interface AppSettings {
+  altLegendaryBin: string
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean
@@ -32,6 +33,7 @@ export interface AppSettings {
   showMangohud: boolean
   startInTray: boolean
   useGameMode: boolean
+  targetExe: string
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -52,7 +54,7 @@ export interface ContextType {
   layout: string
   libraryStatus: GameStatus[]
   platform: NodeJS.Platform | string
-  refresh: () => Promise<void>
+  refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => void
   refreshing: boolean
 }
@@ -81,6 +83,44 @@ export interface GameInfo {
   namespace: unknown
   save_folder: string
   title: string
+  canRunOffline: boolean
+}
+
+type DLCInfo = {
+  app_name: string
+  title: string
+}
+
+type LaunchArguments = {
+  name: string
+  parameters: string
+}
+
+type GameInstallInfo = {
+  app_name: string
+  launch_options: Array<LaunchArguments>
+  owned_dlc: Array<DLCInfo>
+  title: string
+  version: string
+}
+
+type Prerequisites = {
+  args: string
+  name: string
+  path: string
+}
+
+type GameManifest = {
+  app_name: string
+  disk_size: number
+  download_size: number
+  install_tags: Array<string>
+  launch_exe: string
+  prerequisites: Prerequisites
+}
+export interface InstallInfo {
+  game: GameInstallInfo
+  manifest: GameManifest
 }
 
 export interface GameStatus {
@@ -97,6 +137,7 @@ export interface GameStatus {
     | 'canceled'
     | 'moving'
     | 'queued'
+    | 'error'
 }
 
 export interface InstallProgress {
@@ -145,3 +186,13 @@ export interface WineInstallation {
   bin: string
   name: string
 }
+
+export type ElWebview = {
+  goBack: () => void
+  goForward: () => void
+  reload: () => void
+  isLoading: () => boolean
+  getURL: () => string
+}
+
+export type Webview = HTMLWebViewElement & ElWebview

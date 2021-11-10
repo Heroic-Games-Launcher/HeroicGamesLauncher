@@ -143,6 +143,20 @@
     color: #5a5e5f;
 }
 
+.appName {
+    margin-left: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Cabin;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    color: #5a5e5f;
+}
+
 .save>.material-icons {
     font-size: 28px;
     margin-left: 6px;
@@ -157,6 +171,13 @@
 }
 
 .smallMessage {
+    font-size: 12px;
+    width: 513px;
+    white-space: break-spaces;
+    padding-top: 4px;
+}
+
+.smallLink {
     font-size: 12px;
     width: 513px;
     white-space: break-spaces;

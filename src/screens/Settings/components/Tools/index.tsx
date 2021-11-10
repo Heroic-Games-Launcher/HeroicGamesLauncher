@@ -40,7 +40,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
   const handleRunExe = async () => {
     let exe = ''
     const { path } = await ipcRenderer.invoke('openDialog', {
-      buttonLabel: t('box.select'),
+      buttonLabel: t('box.select.button', 'Select'),
       filters: [ { extensions: ['exe', 'msi'], name: 'Binaries' }],
       properties: ['openFile'],
       title: t('box.runexe.title')

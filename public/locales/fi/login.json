@@ -1,24 +1,27 @@
 {
-    "welcome": "Tervetuloa!",
-    "status": {
-        "logging": "Kirjaudutaan sisään…",
-        "loading": "Ladataan pelilistaa, odota hetki",
-        "error": "Virhe"
+    "button": {
+        "login": "Kirjaudu sisään"
     },
-    "message": {
-        "part8": "syöttöruutun, klikkaa \"kirjaudu sisään\" näppäintä ja odota.",
-        "part7": "SID-numero",
-        "part6": "Liitä",
-        "part5": "SID-tietonumero",
-        "part4": ", kirjaudu sisään omaan käyttäjääsi ja kopioi sinun",
-        "part3": "Epic Store tässä",
-        "part2": "Avaa",
-        "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, seuraa alla olevia vaiheita:"
+    "info": {
+        "needHelp": "Need Help?"
     },
     "input": {
         "placeholder": "Liitä SID numero tähän"
     },
-    "button": {
-        "login": "Kirjaudu sisään"
-    }
+    "message": {
+        "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, seuraa alla olevia vaiheita:",
+        "part2": "Avaa",
+        "part3": "Epic Store tässä",
+        "part4": ", kirjaudu sisään omaan käyttäjääsi ja kopioi sinun",
+        "part5": "SID-tietonumero",
+        "part6": "Liitä",
+        "part7": "SID-numero",
+        "part8": "syöttöruutun, klikkaa \"kirjaudu sisään\" näppäintä ja odota."
+    },
+    "status": {
+        "error": "Virhe",
+        "loading": "Ladataan pelilistaa, odota hetki",
+        "logging": "Kirjaudutaan sisään…"
+    },
+    "welcome": "Tervetuloa!"
 }

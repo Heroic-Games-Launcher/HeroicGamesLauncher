@@ -1,5 +1,4 @@
 .gameConfigContainer {
-    width: 1110px;
     background: var(--background-transparent);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
@@ -49,10 +48,6 @@
 .gameInfo .infoWrapper {
     color: var(--text-primary);
     flex-grow: 1;
-}
-
-.gameInfo .infoWrapper * {
-    margin-bottom: 0.5rem;
 }
 
 .gameInfo .developer {
@@ -135,6 +130,53 @@ table span.text {
     display: flex;
     flex-direction: column;
     max-height: 400px;
+}
+
+.infoWrapper.itemContainer {
+    place-content: center;
+    text-align: initial;
+    width: 20vw;
+    min-width: fit-content;
+    max-width: 290px;
+    margin-bottom: 12px;
+}
+
+.itemTitle {
+    font-weight: 700;
+    text-align: center;
+}
+
+.checkBox {
+    display: flex;
+    margin-top: 6px;
+    align-items: center;
+}
+
+.dlcTitle {
+    font-weight: 700;
+    margin-top: 16px;
+}
+
+.sdlTitle {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.sdlTitle:hover {
+    color: var(--secondary);
+}
+
+.itemName {
+    margin-left: 4px;
+}
+
+.MuiIconButton-colorPrimary,
+.MuiCheckbox-colorPrimary.Mui-checked {
+    color: var(--secondary)
+}
+
+.PrivateSwitchBase-root-1 {
+    padding: 2px;
 }
 
 @keyframes animate-stripes {
