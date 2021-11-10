@@ -272,7 +272,7 @@ class LegendaryGame extends Game {
    * @async
    * @public
    */
-  public async addDesktopShortcut(fromMenu?: boolean) {
+  public async addShortcuts(fromMenu?: boolean) {
     if (process.platform === 'darwin') {
       return
     }
@@ -333,7 +333,7 @@ Categories=Game;
    * @async
    * @public
    */
-  public async removeDesktopShortcut() {
+  public async removeShortcuts() {
     const gameInfo = await this.getGameInfo()
     const [ desktopFile, menuFile ] = this.shortcutFiles(gameInfo.title)
 

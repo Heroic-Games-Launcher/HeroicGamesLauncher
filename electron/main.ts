@@ -832,7 +832,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 
 ipcMain.on('addShortcut', async (event, appName: string, fromMenu: boolean) => {
   const game = Game.get(appName)
-  game.addDesktopShortcut(fromMenu)
+  game.addShortcuts(fromMenu)
   openMessageBox({
     buttons: [i18next.t('box.ok', 'Ok')],
     message: i18next.t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
@@ -842,7 +842,7 @@ ipcMain.on('addShortcut', async (event, appName: string, fromMenu: boolean) => {
 
 ipcMain.on('removeShortcut', async (event, appName: string) => {
   const game = Game.get(appName)
-  game.removeDesktopShortcut()
+  game.removeShortcuts()
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
