@@ -1,16 +1,20 @@
 .gamePicture {
-  max-width: 210px;
-  max-height: 280px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  position: relative;
-  margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
-.gamePicture > .gameLogo {
-  position: absolute;
-  bottom: 0;
-  width: 70%;
-  min-width: 140px;
+.gamePicture>.gameImg {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+    left: 0px;
+}
+
+.gamePicture>.gameLogo {
+    position: absolute;
+    bottom: 0;
+    width: 70%;
+    min-width: 140px;
 }

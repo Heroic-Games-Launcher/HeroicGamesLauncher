@@ -2,7 +2,7 @@
     display: grid;
     position: sticky;
     top: 0;
-    z-index: 3;
+    z-index: 7;
     background: var(--background-darker);
     grid-template-columns: 3fr 4fr 2fr 1fr;
     font-family: Cabin;
@@ -121,6 +121,16 @@ option {
     cursor: pointer;
 }
 
-.refreshIcon:hover>svg {
-    fill: var(--secondary);
+.refreshIcon:hover {
+    color: var(--secondary);
+    animation: refreshing 2s infinite;
+}
+
+@keyframes refreshing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

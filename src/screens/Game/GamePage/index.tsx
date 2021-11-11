@@ -193,8 +193,7 @@ export default function GamePage(): JSX.Element | null {
   if (gameInfo && gameInfo.install) {
     const {
       title,
-      art_square,
-      art_logo,
+      art_cover,
       install : {
         install_path,
         install_size,
@@ -228,11 +227,14 @@ export default function GamePage(): JSX.Element | null {
         <div className="gameConfigContainer">
           {title ? (
             <>
+              <GamePicture art_square={art_cover} />
               <div className="gameConfig">
-                <div className="pictureTimeContainer">
-                  <GamePicture art_square={art_square} art_logo={art_logo} />
-                  <TimeContainer game={appName} />
-                </div>
+                {is_game && (
+                  <GamesSubmenu
+                    appName={appName}
+                    isInstalled={is_installed}
+                    title={title}
+                  />)}
                 <div className="gameInfo">
                   <div className="gametitle">{title}</div>
                   <div className="infoWrapper">
@@ -312,6 +314,7 @@ export default function GamePage(): JSX.Element | null {
                       </>
                     )}
                   </div>
+                  <TimeContainer game={appName} />
                   <div className="gameStatus">
                     {isInstalling && (
                       <progress
@@ -417,12 +420,6 @@ export default function GamePage(): JSX.Element | null {
                   </div>
                 </div>
               </div>
-              {is_game && (
-                <GamesSubmenu
-                  appName={appName}
-                  isInstalled={is_installed}
-                  title={title}
-                />)}
             </>
           ) : (
             <UpdateComponent />

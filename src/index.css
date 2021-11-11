@@ -21,7 +21,8 @@ html {
     --text-secondary: #c1c4c3;
     --text-danger: #d22121;
     --icon-disabled: #625e69;
-    --content-width: calc(100vw - 210px);
+    --sidebar-width: 210px;
+    --content-width: calc(100vw - var(--sidebar-width));
     overflow-y: overlay;
 }
 

@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next'
 import ElectronStore from 'electron-store'
 
 import { SmallInfo } from 'src/components/UI'
+
+import './index.css'
+
 const storage = window.localStorage
 const Store = window.require('electron-store')
 const store: ElectronStore = new Store({

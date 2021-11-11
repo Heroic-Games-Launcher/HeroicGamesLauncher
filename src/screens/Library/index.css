@@ -26,7 +26,7 @@
     height: 5vh;
     position: fixed;
     bottom: 3%;
-    right: 2%;
+    right: 0;
     margin: 1em 3em;
     border: 1px var(--secondary) solid;
     background-color: transparent;

@@ -1,18 +1,51 @@
 .layoutSelection {
     place-self: flex-start;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
+    grid-area: layout;
+    text-align: left;
+    font-weight: 400;
+    font-family: 'Rubik', sans-serif;
 }
 
-.selectedLayout {
+.layoutSelection>p {
+    margin: 4px 0;
+}
+
+.layoutIcons {
+    display: flex;
+    flex-direction: column;
+}
+
+.layoutIcons>button {
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    padding: 7px 0px;
+    cursor: pointer;
+    transition: 400ms;
+    font-size: clamp(1.5vh, 18px, 20px);
+}
+
+.layoutIcons>button:hover {
+    transition: 250ms;
+    cursor: pointer;
     color: var(--secondary);
 }
 
-.layoutSelection>svg:hover {
-    cursor: pointer;
-    fill: var(--secondary);
+.layoutIcons>button>span {
+    padding-left: 8px;
 }
 
 .layoutSelection>svg {
     margin: 0 0.2em;
+}
+
+.selectedLayout>span,
+.selectedLayout>svg {
+    font-weight: 700;
+    color: var(--secondary);
+    fill: var(--secondary);
 }

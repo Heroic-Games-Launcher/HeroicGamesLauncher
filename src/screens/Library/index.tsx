@@ -48,6 +48,7 @@ export const Library = ({ library }: Props) => {
       {showModal.show &&
         <InstallModal appName={showModal.game} backdropClick={() => setShowModal({game: '', show: false})} />
       }
+      <span id='top' />
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({

@@ -1,0 +1,33 @@
+.SidebarUtils {
+    grid-area: other;
+    justify-content: space-around;
+    width: max-content;
+    align-self: end;
+    display: flex;
+    flex-direction: column;
+    justify-self: start;
+    padding-bottom: 24px;
+}
+
+.SidebarUtils>button {
+    text-align: left;
+    background: none;
+    border: none;
+    color: white;
+    padding: 7px 0;
+    cursor: pointer;
+    transition: 400ms;
+    font-weight: 400;
+    font-family: 'Rubik', sans-serif;
+    font-size: clamp(1.5vh, 18px, 20px);
+    transition: 250ms;
+}
+
+.SidebarUtils>button:hover {
+    color: var(--secondary);
+    fill: var(--secondary);
+}
+
+.SidebarUtils>button>span {
+    padding-left: 2px;
+}
