@@ -62,8 +62,8 @@
         "unsync": "不同步"
     },
     "Downloading": "正在下载",
+    "Epic Games": "Epic Games",
     "Filter": "筛选",
-    "Games": "游戏",
     "globalSettings": "全局设置",
     "help": {
         "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "帮助",
         "requirements": "系统要求"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "库",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "虚幻商城",
     "Updates": "更新",
     "userselector": {
-        "about": "关于",
         "discord": "Discord",
         "logout": "退出登录",
         "logout_confirmation": "您确定要退出登录吗？",
-        "quit": "退出",
-        "refresh": "刷新库",
-        "support": "支持我们"
+        "quit": "退出"
     },
     "wiki": "Wiki百科"
 }

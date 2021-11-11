@@ -62,8 +62,8 @@
         "unsync": "Desynchronizacja"
     },
     "Downloading": "Pobieranie",
+    "Epic Games": "Epic Games",
     "Filter": "Filtr",
-    "Games": "Games",
     "globalSettings": "Ustawienia Globalne",
     "help": {
         "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "Pomoc",
         "requirements": "Wymagania Systemowe"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "Biblioteka",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "Sklep Assetów dla Unreal",
     "Updates": "Aktualizacje",
     "userselector": {
-        "about": "O programie",
         "discord": "Discord",
         "logout": "Wyloguj",
         "logout_confirmation": "Czy na pewno chcesz się wylogować?",
-        "quit": "Wyjdź",
-        "refresh": "Odśwież bibliotekę",
-        "support": "Wesprzyj nas"
+        "quit": "Wyjdź"
     },
     "wiki": "Wiki"
 }

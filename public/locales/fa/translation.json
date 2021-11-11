@@ -62,8 +62,8 @@
         "unsync": "عدم همگام‌سازی"
     },
     "Downloading": "در حال دانلود",
+    "Epic Games": "Epic Games",
     "Filter": "فیلتر",
-    "Games": "بازی‌ها",
     "globalSettings": "تنظیمات عمومی",
     "help": {
         "general": "در صورتی که در جایی فروشگاه اپیک گیمز را به صورت فعال نصب کرده‌اید و می‌خواهید بازی‌های خود را وارد کنید با EGS همگام‌سازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "راهنما",
         "requirements": "نیازمندی‌های سیستم"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "کتابخانه",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "بازار Unreal",
     "Updates": "به‌روزرسانی‌ها",
     "userselector": {
-        "about": "درباره",
         "discord": "Discord",
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا می‌خواهید از حساب خود خارج شوید؟",
-        "quit": "خروج",
-        "refresh": "به‌روزرسانی کتابخانه",
-        "support": "حمایت از ما"
+        "quit": "خروج"
     },
     "wiki": "ویکی"
 }

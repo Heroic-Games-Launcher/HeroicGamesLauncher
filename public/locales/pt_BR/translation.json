@@ -62,8 +62,8 @@
         "unsync": "Dessincronizar"
     },
     "Downloading": "Baixando",
+    "Epic Games": "Epic Games",
     "Filter": "Filtrar",
-    "Games": "Jogos",
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Store e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "Ajuda",
         "requirements": "Requisitos do Sistema"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "Biblioteca",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "Loja Unreal",
     "Updates": "Atualizações",
     "userselector": {
-        "about": "Sobre",
         "discord": "Discord",
         "logout": "Sair da Conta",
         "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
-        "quit": "Sair",
-        "refresh": "Recarregar biblioteca",
-        "support": "Apoie-nos"
+        "quit": "Sair"
     },
     "wiki": "Wiki"
 }

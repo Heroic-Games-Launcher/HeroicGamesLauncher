@@ -62,8 +62,8 @@
         "unsync": "Desynchroniozovat"
     },
     "Downloading": "Stahování",
+    "Epic Games": "Epic Games",
     "Filter": "Filtr",
-    "Games": "Games",
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "Pomoc",
         "requirements": "Systémové požadavky"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "Knihovna",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualizace",
     "userselector": {
-        "about": "O aplikaci",
         "discord": "Discord",
         "logout": "Odhlásit",
         "logout_confirmation": "Logout?",
-        "quit": "Ukončit",
-        "refresh": "Obnovit knihovnu",
-        "support": "Podpořte nás"
+        "quit": "Ukončit"
     },
     "wiki": "Wiki"
 }

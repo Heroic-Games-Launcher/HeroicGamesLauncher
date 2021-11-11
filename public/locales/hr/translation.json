@@ -62,8 +62,8 @@
         "unsync": "Desinkroniziraj"
     },
     "Downloading": "Preuzima se",
+    "Epic Games": "Epic Games",
     "Filter": "Filter",
-    "Games": "Igrice",
     "globalSettings": "Globalne Postavke",
     "help": {
         "general": "Sinkronizirajte sa EGS u slučaju da imate instalaciju Epic Games trgovine negdje drugdje i želiš uvesti igrice da ih nemoraš preuzimati opet.",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "Pomoč",
         "requirements": "Zahtjevi sustava"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "Knižnjica",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "Unreal tržište",
     "Updates": "Ažuriranja",
     "userselector": {
-        "about": "O projektu",
         "discord": "Discord",
         "logout": "Odjavi se",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
-        "quit": "Izađi",
-        "refresh": "Ponovno Učitaj Knižnjicu",
-        "support": "Podržite Nas"
+        "quit": "Izađi"
     },
     "wiki": "Wiki"
 }

@@ -62,8 +62,8 @@
         "unsync": "Nicht mehr synchronisieren"
     },
     "Downloading": "Am Herunterladen",
+    "Epic Games": "Epic Games",
     "Filter": "Filter",
-    "Games": "Spiele",
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "Hilfe",
         "requirements": "Systemanforderungen"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "Bibliothek",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualisierungen",
     "userselector": {
-        "about": "Über Heroic",
         "discord": "Discord",
         "logout": "Abmelden",
         "logout_confirmation": "Logout?",
-        "quit": "Beenden",
-        "refresh": "Bibliothek aktualisieren",
-        "support": "Unterstütze uns"
+        "quit": "Beenden"
     },
     "wiki": "Wiki"
 }

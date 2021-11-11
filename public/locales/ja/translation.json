@@ -62,8 +62,8 @@
         "unsync": "非同期"
     },
     "Downloading": "ダウンロードしています",
+    "Epic Games": "Epic Games",
     "Filter": "フィルター",
-    "Games": "ゲーム",
     "globalSettings": "全体設定",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "ヘルプ",
         "requirements": "システム要求"
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "ライブラリ",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "Unreal マーケットプレイス",
     "Updates": "更新",
     "userselector": {
-        "about": "について",
         "discord": "Discord",
         "logout": "ログアウト",
         "logout_confirmation": "ログアウトしてもよろしいですか？",
-        "quit": "終了",
-        "refresh": "ライブラリを更新する",
-        "support": "サポートしてください"
+        "quit": "終了"
     },
     "wiki": "Wiki"
 }

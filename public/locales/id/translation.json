@@ -62,8 +62,8 @@
         "unsync": ""
     },
     "Downloading": "",
+    "Epic Games": "Epic Games",
     "Filter": "",
-    "Games": "Games",
     "globalSettings": "Global Settings",
     "help": {
         "general": "",
@@ -93,6 +93,11 @@
     "infobox": {
         "help": "",
         "requirements": ""
+    },
+    "layout": {
+        "grid": "Grid",
+        "list": "List",
+        "title": "Layout Selection"
     },
     "Library": "",
     "message": {
@@ -214,13 +219,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",
     "userselector": {
-        "about": "",
         "discord": "Discord",
         "logout": "",
         "logout_confirmation": "Logout?",
-        "quit": "",
-        "refresh": "",
-        "support": ""
+        "quit": ""
     },
     "wiki": "Wiki"
 }
