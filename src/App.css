@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+body,
+html,
+#root,
+.App {
+    height: 100%;
+    overflow: hidden;
+}
+
 .App {
     text-align: center;
     color: var(--text-primary);
@@ -14,12 +22,11 @@
 }
 
 .App .content {
-    display: grid;
-    place-content: center;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    grid-template-rows: 74px 1fr;
-    grid-area: content;
-    width: var(--content-width);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .App .content .updateIcon {

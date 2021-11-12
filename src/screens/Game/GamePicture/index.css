@@ -2,14 +2,29 @@
     display: flex;
     justify-content: center;
     align-content: center;
+    position: relative;
+}
+
+.gamePicture::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0%;
+    top: 0px;
+    height: 100%;
+    width: 100px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0),
+        var(--background-darker) 80%
+    );
 }
 
 .gamePicture>.gameImg {
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    z-index: -1;
-    left: 0px;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    object-fit: cover;
 }
 
 .gamePicture>.gameLogo {

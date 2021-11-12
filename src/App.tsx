@@ -29,22 +29,25 @@ function App() {
     <div className="App">
       <HashRouter>
         <Sidebar />
-        <Switch>
-          <Route exact path="/">
-            {user ? <div className="content">
-              <Header
-                goTo={''}
-                renderBackButton={false}
-                numberOfGames={numberOfGames}
-              />
-              <Library library={library} />
-            </div> : <Login refresh={refresh} />}
-          </Route>
-          <Route exact path="/epicstore" component={WebView} />
-          <Route exact path="/wiki" component={WebView} />
-          <Route exact path="/gameconfig/:appName" component={GamePage} />
-          <Route path="/settings/:appName/:type" component={Settings} />
-        </Switch>
+        <main className="content">
+          <Switch>
+            <Route exact path="/">
+              {user ? <>
+                <Header
+                  goTo={''}
+                  renderBackButton={false}
+                  numberOfGames={numberOfGames}
+                />
+                <Library library={library} />
+              </>
+                : <Login refresh={refresh} />}
+            </Route>
+            <Route exact path="/epicstore" component={WebView} />
+            <Route exact path="/wiki" component={WebView} />
+            <Route exact path="/gameconfig/:appName" component={GamePage} />
+            <Route path="/settings/:appName/:type" component={Settings} />
+          </Switch>
+        </main>
       </HashRouter>
     </div>
   )
