@@ -12,11 +12,11 @@
     right: 0%;
     top: 0px;
     height: 100%;
-    width: 100px;
+    width: 100%;
     background: linear-gradient(
         90deg,
         rgba(0, 0, 0, 0),
-        var(--background-darker) 80%
+        var(--background-darker) 100%
     );
 }
 
