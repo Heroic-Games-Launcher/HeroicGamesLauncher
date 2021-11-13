@@ -126,8 +126,9 @@
 
 .buttonsWrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: min-content min-content;
     place-items: baseline;
+    grid-column-gap: 1em;
 }
 
 .updateText {

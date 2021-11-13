@@ -10,4 +10,6 @@
     overflow: hidden;
     font-family: 'Rubik', sans-serif;
     padding: 0px 16px;
+    position: relative;
+    z-index: 1;
 }
