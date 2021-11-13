@@ -70,6 +70,9 @@
     display: none;
     align-self: flex-start;
     padding: 8vh 2.2em 1.2em 1.2em;
+    min-height: 0px;
+    overflow: auto;
+    max-height: 100%;
 }
 
 .gameTabs {
@@ -97,6 +100,7 @@
     background: none;
     color: var(--text-primary);
     cursor: pointer;
+    font-size: 1em;
 }
 .gameTabs.infoTab button[data-tab='info'],
 .gameTabs.toolsTab button[data-tab='tools'],
@@ -121,7 +125,6 @@
 }
 
 .buttonsWrapper {
-    width: 380px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     place-items: baseline;
