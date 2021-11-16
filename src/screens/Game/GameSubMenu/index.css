@@ -1,8 +1,6 @@
 .subMenuContainer {
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 510px;
 }
 
 .submenu {
@@ -12,13 +10,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    border-radius: 10px;
-    margin-top: 10px;
     transition: 150ms;
     text-align: initial;
-    padding: 20px 8px;
-    max-width: 240px;
-    margin: 30px auto;
 }
 
 .dots {
@@ -37,7 +30,7 @@
     font-size: 14px;
     line-height: 17px;
     color: var(--secondary);
-    margin: 4px;
+    margin: 4px 0px;
     cursor: pointer;
 }
 
@@ -56,7 +49,5 @@
 
 .otherInfo {
     width: 210px;
-    margin-left: 12px;
-    margin-bottom: 36px;
     word-break: break-word;
 }

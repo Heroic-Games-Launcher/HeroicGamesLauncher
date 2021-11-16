@@ -15,6 +15,7 @@
     place-content: center;
     justify-items: center;
     align-items: center;
+    padding: 15px 0;
 }
 
 .headerSettings {
@@ -80,7 +81,7 @@ option {
 }
 
 .selectCategory>span:hover {
-    color: var(--secondary)
+    color: var(--secondary);
 }
 
 .selectCategory>.selected {
@@ -89,7 +90,7 @@ option {
     color: var(--primary);
 }
 
-.selectCategory> :not(:first-child) {
+.selectCategory>:not(:first-child) {
     padding: 0 8px;
 }
 

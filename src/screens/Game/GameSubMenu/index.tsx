@@ -133,7 +133,7 @@ export default function GamesSubmenu({
   }, [appName])
 
   return (
-    <div className="subMenuContainer">
+    <div className="gameTools subMenuContainer">
       <div className={`submenu`}>
         {isInstalled && (
           <>

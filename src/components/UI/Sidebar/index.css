@@ -1,8 +1,5 @@
 .sidebar {
     height: 100%;
-    width: var(--sidebar-width);
-    position: fixed;
-    z-index: 10;
     background: var(--background);
     overflow-x: hidden;
     box-shadow: 0px 4.00313px 10.0078px #161616;
@@ -12,5 +9,7 @@
     grid-area: sidebar;
     overflow: hidden;
     font-family: 'Rubik', sans-serif;
-    padding-left: 16px;
+    padding: 0px 16px;
+    position: relative;
+    z-index: 1;
 }
