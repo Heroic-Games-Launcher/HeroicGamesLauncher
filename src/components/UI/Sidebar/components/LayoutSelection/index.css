@@ -1,12 +1,11 @@
 .layoutSelection {
-    place-self: flex-start;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     grid-area: layout;
     text-align: left;
     font-weight: 400;
     font-family: 'Rubik', sans-serif;
+    padding: 0px var(--sidebar-horizontal-padding);
 }
 
 .layoutSelection>p {
@@ -23,7 +22,6 @@
     background: none;
     border: none;
     color: var(--text-primary);
-    padding: 7px 0px;
     cursor: pointer;
     transition: 400ms;
     font-size: clamp(1.5vh, 18px, 20px);

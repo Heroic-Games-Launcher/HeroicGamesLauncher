@@ -6,6 +6,7 @@ html {
     --background-darker-80: #0d0f1ce0;
     --background-secondary: #323035;
     --background-gradient: linear-gradient( 180deg, rgba(0, 0, 0, 0.418) 2.4%, #0d0f1cd2 64%);
+    --background-light: #17237C;
     --searchbar-background: #13172A;
     --primary: #59D0EA;
     --secondary: #eaa114;
@@ -21,7 +22,7 @@ html {
     --text-secondary: #c1c4c3;
     --text-danger: #d22121;
     --icon-disabled: #625e69;
-    --sidebar-width: 210px;
+    --sidebar-width: 200px;
     --content-width: calc(100vw - var(--sidebar-width));
     overflow-y: overlay;
 }
