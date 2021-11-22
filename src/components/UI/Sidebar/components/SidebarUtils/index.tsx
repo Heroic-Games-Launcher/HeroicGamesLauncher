@@ -31,17 +31,23 @@ export default function SidebarUtils() {
     }
   }
 
+  const quitButton = <button onClick={handleQuit}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faDoorOpen} /> <span>{t('userselector.quit', 'Quit')}</span></button>
+
   return (
     <div className="SidebarUtils">
-      <button onClick={() => () => openDiscordLink()}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faDiscord} /> <span>{t('userselector.discord', 'Discord')}</span></button>
+      <button onClick={() => openDiscordLink()}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faDiscord} /> <span>{t('userselector.discord', 'Discord')}</span></button>
       <button onClick={() => ipcRenderer.send('openPatreonPage')}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faPatreon} /> <span>Patreon</span></button>
       <button onClick={() => ipcRenderer.send('openKofiPage')}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faCoffee} /> <span>Ko-fi</span></button>
       {user && (
-        <>
+        <div className="userDropdownWrapper">
           <button><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faUser} /> <span>{user.displayName}</span></button>
-          <button onClick={() => () => handleLogout()}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faUserSlash} /> <span>{t('userselector.logout', 'Logout')}</span></button>
-        </>)}
-      <button onClick={() => () => handleQuit()}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faDoorOpen} /> <span>{t('userselector.quit', 'Quit')}</span></button>
+          <div className="userDropdown">
+            <button onClick={handleLogout}><FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faUserSlash} /> <span>{t('userselector.logout', 'Logout')}</span></button>
+            {quitButton}
+          </div>
+        </div>
+      )}
+      {!user && quitButton}
     </div>
   )
 }

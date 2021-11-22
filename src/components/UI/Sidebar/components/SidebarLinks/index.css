@@ -1,16 +1,13 @@
 .Links {
     font-size: 20px;
-    line-height: 23.7px;
     font-weight: 400;
     height: fit-content;
     font-family: 'Rubik', sans-serif;
-    justify-content: space-between;
     flex-direction: column;
     display: flex;
     grid-area: links;
     text-align: left;
-    line-height: 36px;
-    padding-top: 24px;
+    padding-top: var(--sidebar-vertical-padding);
 }
 
 .subItem {
@@ -31,7 +28,7 @@
 }
 
 .subItem.selected {
-    color: var(--secondary)
+    color: var(--secondary);
 }
 
 .sidebar .UserSelector {
