@@ -7,7 +7,6 @@ import { SmallInfo } from 'src/components/UI'
 
 import './index.css'
 
-const storage = window.localStorage
 const Store = window.require('electron-store')
 const store: ElectronStore = new Store({
   'cwd': 'store',
@@ -36,15 +35,14 @@ function TimeContainer({ game }: Props) {
 
   const tsInfo = store.get(game) as TimeStamp
   const options: Intl.DateTimeFormatOptions = {
-    dateStyle: 'short',
-    timeStyle: 'short'
+    year: 'numeric', month: 'numeric', day: 'numeric',
+    hour: 'numeric', minute: 'numeric', second: 'numeric'
   };
   const firstPlayed = new Date(tsInfo.firstPlayed)
-  const language = storage.getItem('language')?.replace('_', '-')
-  const firstDate = new Intl.DateTimeFormat(language || 'en', options).format(firstPlayed);
+  const firstDate = new Intl.DateTimeFormat(undefined, options).format(firstPlayed);
   const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
   const totalPlayed = tsInfo.totalPlayed ? convertMinsToHrsMins(tsInfo.totalPlayed) : null
-  const lastDate = new Intl.DateTimeFormat(language || 'en', options).format(lastPlayed || new Date());
+  const lastDate = new Intl.DateTimeFormat(undefined, options).format(lastPlayed || new Date());
 
   return <div className="info">
     <SmallInfo title={`${t('game.firstPlayed', 'First Played')}:`} subtitle={firstDate} />
