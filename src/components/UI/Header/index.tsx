@@ -3,7 +3,7 @@ import './index.css'
 import { Link, useHistory } from 'react-router-dom'
 import React, { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSyncAlt, faBorderAll, faList } from '@fortawesome/free-solid-svg-icons'
 
 import { UE_VERSIONS } from './constants'
 import { useTranslation } from 'react-i18next'
@@ -33,7 +33,9 @@ export default function Header({
     gameUpdates = [],
     libraryStatus,
     handleFilter,
-    refreshLibrary
+    refreshLibrary,
+    handleLayout,
+    layout
   } = useContext(ContextProvider)
 
   const hasDownloads = libraryStatus.filter(
@@ -158,7 +160,11 @@ export default function Header({
         {numberOfGames !== undefined && numberOfGames === 0 && (
           <div className="totalGamesText" data-testid="totalGamesText">{t('nogames')}</div>
         )}
-        <FontAwesomeIcon onClick={() => refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: false})} className="refreshIcon" icon={faSyncAlt}/>
+        <div className="headerIcons">
+          <FontAwesomeIcon onClick={() => handleLayout('grid')} className={cx({selectedLayout: layout === 'grid'})} icon={faBorderAll}/>
+          <FontAwesomeIcon onClick={() => handleLayout('list')} className={cx({selectedLayout: layout === 'list'})} icon={faList}/>
+          <FontAwesomeIcon onClick={() => refreshLibrary({checkForUpdates: true, fullRefresh: true, runInBackground: false})} className="refreshIcon" icon={faSyncAlt}/>
+        </div>
       </div>
     </>
   )
