@@ -218,7 +218,7 @@
 }
 
 .gameListItem>.progress {
-    z-index: 5;
+    z-index: 6;
     grid-area: cover;
     font-weight: 500;
     background: var(--background-gradient);
@@ -233,7 +233,7 @@
     font-size: 1.3vh;
 }
 
-.gameListItem>.progress>.MuiSvgIcon-root {
+.gameListItem>.progress>svg {
     position: relative;
     bottom: 0;
     top: 0;
@@ -253,9 +253,9 @@
     left: 21%;
 }
 
-.progress>.MuiSvgIcon-root {
-    position: relative;
-    bottom: -1px;
+.progress>svg {
+    cursor: pointer;
+    z-index: 7;
 }
 
 .react-contextmenu--visible {

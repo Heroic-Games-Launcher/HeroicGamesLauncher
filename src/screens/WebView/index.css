@@ -5,4 +5,5 @@
 
 .webViewContainer>webview {
     height: 100vh;
+    margin-top: 32px;
 }

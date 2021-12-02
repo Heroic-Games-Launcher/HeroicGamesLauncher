@@ -6,6 +6,9 @@ import React, {
   useState
 } from 'react'
 
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCloudDownloadAlt} from '@fortawesome/free-solid-svg-icons'
+
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { GameStatus } from 'src/types'
 import { Link, useHistory } from 'react-router-dom'
@@ -23,7 +26,6 @@ import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
-import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import { uninstall, updateGame } from 'src/helpers/library'
 
 const { ipcRenderer } = window.require('electron')
@@ -41,6 +43,7 @@ interface Card {
   size: string
   title: string
   version: string
+  forceCard?: boolean
 }
 
 interface InstallProgress {
@@ -59,7 +62,8 @@ const GameCard = ({
   coverList,
   size = '',
   hasUpdate,
-  buttonClick
+  buttonClick,
+  forceCard
 }: Card) => {
   const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
   const [progress, setProgress] = useState(previousProgress ?? {
@@ -76,7 +80,7 @@ const GameCard = ({
   const history = useHistory()
   const isWin = platform === 'win32'
 
-  const grid = layout === 'grid'
+  const grid = forceCard || layout === 'grid'
 
   const gameStatus: GameStatus = libraryStatus.filter(
     (game) => game.appName === appName
@@ -140,10 +144,10 @@ const GameCard = ({
       return t('gamecard.repairing', 'Repairing')
     }
     if (hasUpdate) {
-      return <SystemUpdateAltIcon />
+      return <FontAwesomeIcon size={'2x'} icon={faCloudDownloadAlt} onClick={() => handleUpdate()} />
     }
 
-    return t('status.installing') + ' 50%'
+    return null
   }
 
   const renderIcon = () => {
