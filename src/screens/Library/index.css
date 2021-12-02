@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
     grid-gap: 1.2rem;
-    padding: 0 4rem 1rem 4rem;
+    padding: 0 1rem 1rem 2rem;
 }
 
 .gameListLayout {
@@ -17,7 +17,7 @@
 
 .libraryHeader {
     text-align: left;
-    padding-left: 4rem;
+    padding-left: 2rem;
 }
 
 #backToTopBtn {

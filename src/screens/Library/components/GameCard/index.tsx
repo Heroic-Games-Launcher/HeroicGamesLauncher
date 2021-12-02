@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCloudDownloadAlt} from '@fortawesome/free-solid-svg-icons'
+import {faRepeat} from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { GameStatus } from 'src/types'
@@ -144,7 +144,7 @@ const GameCard = ({
       return t('gamecard.repairing', 'Repairing')
     }
     if (hasUpdate) {
-      return <FontAwesomeIcon size={'2x'} icon={faCloudDownloadAlt} onClick={() => handleUpdate()} />
+      return <FontAwesomeIcon size={'2x'} icon={faRepeat} onClick={() => handleUpdate()} />
     }
 
     return null
@@ -228,7 +228,7 @@ const GameCard = ({
             </>
           )}
         </div>
-        {!grid ? <hr style={{ opacity: 0.1, width: '90%' }} /> : ''}
+        {!grid && <hr />}
         <ContextMenu id={appName} className="contextMenu">
           {isInstalled && <>
             <MenuItem onClick={() => handlePlay()}>

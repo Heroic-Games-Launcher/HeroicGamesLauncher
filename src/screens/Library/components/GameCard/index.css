@@ -75,6 +75,7 @@
     min-height: 80px;
     max-height: 85px;
     cursor: pointer;
+    z-index: 3;
 }
 
 .gameTitle>span {
@@ -88,7 +89,7 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    z-index: 5;
+    z-index: 4;
     padding: 6px;
     margin-right: 4px;
     transition: 300ms;
@@ -159,13 +160,11 @@
     grid-template-columns: 2fr 1fr 6fr 1fr;
     grid-template-areas: 'cover infos name action';
     height: 8vh;
-    margin: 1em;
     align-items: center;
-    justify-items: center;
     position: relative;
     cursor: default;
-    width: 95%;
     place-self: center;
+    padding-left: 2rem;
 }
 
 .gameImgList {
@@ -215,6 +214,7 @@
     width: 58px;
     height: 100%;
     padding: 0 6px;
+    justify-self: center;
 }
 
 .gameListItem>.progress {
@@ -231,6 +231,7 @@
     line-height: 12px;
     align-self: end;
     font-size: 1.3vh;
+    justify-self: baseline;
 }
 
 .gameListItem>.progress>svg {
@@ -281,4 +282,10 @@
 .react-contextmenu-item.disabled {
     color: var(--icon-disabled);
     cursor: initial;
+}
+
+hr {
+    opacity: 0.1;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
