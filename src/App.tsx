@@ -21,10 +21,12 @@ const Header = lazy(() => import('./components/UI/Header'))
 function App() {
   const context = useContext(ContextProvider)
   const user = configStore.get('userInfo')
-  const { data: library, refresh, recentGames } = context
+  const { data: library, refresh, recentGames, category } = context
 
   const dlcCount = library.filter((lib) => lib.install.is_dlc)
   const numberOfGames = library.length - dlcCount.length
+  const showRecentGames = !!recentGames.length && category === 'games'
+
   return (
     <div className="App">
       <HashRouter>
@@ -38,7 +40,7 @@ function App() {
                   renderBackButton={false}
                   numberOfGames={numberOfGames}
                 />
-                {!!recentGames.length && <Library showRecentsOnly library={recentGames} />}
+                {showRecentGames && <Library showRecentsOnly library={recentGames} />}
                 <Library library={library} />
               </>
                 : <Login refresh={refresh} />}
