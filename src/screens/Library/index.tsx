@@ -16,6 +16,7 @@ const InstallModal = lazy(() => import('src/screens/Library/components/InstallMo
 
 interface Props {
   library: Array<GameInfo>
+  showRecentsOnly?: boolean
 }
 
 window.onscroll = () => {
@@ -25,7 +26,7 @@ window.onscroll = () => {
   if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden'
 }
 
-export const Library = ({ library }: Props) => {
+export const Library = ({ library, showRecentsOnly }: Props) => {
   const { layout, gameUpdates, refreshing } = useContext(ContextProvider)
   const [showModal, setShowModal] = useState({game: '', show: false})
   const backToTop = () => {
@@ -49,11 +50,12 @@ export const Library = ({ library }: Props) => {
         <InstallModal appName={showModal.game} backdropClick={() => setShowModal({game: '', show: false})} />
       }
       <span id='top' />
+      <h3 className="libraryHeader">{showRecentsOnly ? 'Recent Games' : 'All Games'}</h3>
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({
-          gameList: layout === 'grid',
-          gameListLayout: layout !== 'grid'
+          gameList: showRecentsOnly || layout === 'grid',
+          gameListLayout: layout !== 'grid' && !showRecentsOnly
         })}
       >
         {!!library.length &&
@@ -90,6 +92,7 @@ export const Library = ({ library }: Props) => {
                   size={`${install_size}`}
                   hasUpdate={hasUpdate}
                   buttonClick={() => handleModal(app_name)}
+                  forceCard={showRecentsOnly}
                 />
               )
             }

@@ -15,6 +15,11 @@
     min-width: 80vw;
 }
 
+.libraryHeader {
+    text-align: left;
+    padding-left: 4rem;
+}
+
 #backToTopBtn {
     border-radius: 100%;
     width: 5vh;

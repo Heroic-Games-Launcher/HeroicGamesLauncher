@@ -2,10 +2,16 @@ import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
 import { getGameInfo, sendKill } from './index'
+import ElectronStore from 'electron-store'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
+
+const Store = window.require('electron-store')
+const configStore: ElectronStore = new Store({
+  cwd: 'store'
+})
 
 const storage: Storage = window.localStorage
 
@@ -226,8 +232,22 @@ function updateAllGames(
   })
 }
 
+type RecentGame = {
+  appName: string
+  title: string
+}
+
+function getRecentGames(library: GameInfo[]) {
+  return library.filter((game) => {
+    const recentGames: Array<RecentGame> = configStore.get('games.recent') as Array<RecentGame> || []
+    const recentGamesList = recentGames.map(a => a.appName) as string[]
+    return recentGamesList.includes(game.app_name)
+  })
+}
+
 export {
   handleStopInstallation,
+  getRecentGames,
   install,
   launch,
   repair,
