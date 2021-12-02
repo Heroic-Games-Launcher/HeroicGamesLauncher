@@ -10,6 +10,8 @@ import cx from 'classnames'
 
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 import { UpdateComponent } from 'src/components/UI'
+import { useTranslation } from 'react-i18next'
+import { getLibraryTitle } from './constants'
 
 const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
 const InstallModal = lazy(() => import('src/screens/Library/components/InstallModal'))
@@ -27,8 +29,10 @@ window.onscroll = () => {
 }
 
 export const Library = ({ library, showRecentsOnly }: Props) => {
-  const { layout, gameUpdates, refreshing } = useContext(ContextProvider)
+  const { layout, gameUpdates, refreshing, category, filter } = useContext(ContextProvider)
   const [showModal, setShowModal] = useState({game: '', show: false})
+  const { t } = useTranslation()
+
   const backToTop = () => {
     const anchor = document.getElementById('top')
     if (anchor) {
@@ -50,7 +54,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
         <InstallModal appName={showModal.game} backdropClick={() => setShowModal({game: '', show: false})} />
       }
       <span id='top' />
-      <h3 className="libraryHeader">{showRecentsOnly ? 'Recent Games' : 'All Games'}</h3>
+      <h3 className="libraryHeader">{showRecentsOnly ? t('Recent', 'Recent Games') : getLibraryTitle(category, filter, t)}</h3>
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({

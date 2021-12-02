@@ -90,13 +90,6 @@ export default function Header({
               >
                 {t('Not Ready')}
               </option>
-              <option
-                data-testid="recent"
-                className={filter === 'recent' ? 'selected' : ''}
-                value='recent'
-              >
-                {t('Recent', 'Recent Games')}
-              </option>
               {!!hasDownloads && <option
                 data-testid="downloading"
                 className={filter === 'downloading' ? 'selected' : ''}
