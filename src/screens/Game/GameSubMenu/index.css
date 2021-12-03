@@ -49,5 +49,6 @@
 
 .otherInfo {
     width: 210px;
+    padding-top: 60px;
     word-break: break-word;
 }

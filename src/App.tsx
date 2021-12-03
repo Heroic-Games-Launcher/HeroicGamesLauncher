@@ -10,9 +10,6 @@ import Login from './screens/Login'
 import WebView from './screens/WebView'
 
 const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
 
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
@@ -20,6 +17,9 @@ const Header = lazy(() => import('./components/UI/Header'))
 
 function App() {
   const context = useContext(ContextProvider)
+  const configStore: ElectronStore = new Store({
+    cwd: 'store'
+  })
   const user = configStore.get('userInfo')
   const { data: library, refresh, recentGames, category } = context
 
