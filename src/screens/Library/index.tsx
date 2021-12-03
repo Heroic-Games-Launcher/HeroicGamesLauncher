@@ -44,7 +44,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     setShowModal({game: appName, show: true})
   }
 
-  if (refreshing) {
+  if (refreshing && !showRecentsOnly) {
     return <UpdateComponent />
   }
 
