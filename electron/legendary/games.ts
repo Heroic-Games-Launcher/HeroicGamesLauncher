@@ -186,12 +186,19 @@ class LegendaryGame extends Game {
    */
   public async moveInstall(newInstallPath: string) {
     this.state.status = 'moving'
-    const info = await this.getGameInfo()
-    newInstallPath += '/' + info.install.install_path.split('/').slice(-1)[0]
-    const installpath = info.install.install_path
-    await execAsync(`mv -f '${installpath}' '${newInstallPath}'`)
+    const {install: {install_path}, title} = await this.getGameInfo()
+
+    if (isWindows){
+      newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
+    } else {
+      newInstallPath += '/' + install_path.split('/').slice(-1)[0]
+    }
+
+    logInfo(`Moving ${title} to ${newInstallPath}`)
+    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
       .then(() => {
         LegendaryLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
+        logInfo(`Finished Moving ${title}`)
       })
       .catch(logError)
     this.state.status = 'done'
