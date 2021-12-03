@@ -20,7 +20,7 @@ import {
   sendKill,
   syncSaves
 } from 'src/helpers'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
@@ -68,7 +68,7 @@ export default function GamePage(): JSX.Element | null {
     libraryStatus,
     handleGameStatus,
     data,
-    gameUpdates
+    gameUpdates, platform
   } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -97,6 +97,7 @@ export default function GamePage(): JSX.Element | null {
   const mandatoryTags: Array<string> =  haveSDL ? SDL_GAMES[appName].filter((el: SelectiveDownload) => el.mandatory).map((el: SelectiveDownload) => el.tags)[0] : []
   const [sdlList, setSdlList] = useState([...mandatoryTags])
 
+  const isWin = platform === 'win32'
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
@@ -216,6 +217,18 @@ export default function GamePage(): JSX.Element | null {
     const downloadSize  = gameInstallInfo?.manifest?.download_size && prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
     const installSize  = gameInstallInfo?.manifest?.disk_size && prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
     const launchOptions  = gameInstallInfo?.game?.launch_options || []
+    const pathname = isWin ? `/settings/${appName}/other` : `/settings/${appName}/wine`
+    {/* <Link
+              className="link"
+              to={{
+                pathname: isWin
+                  ? `/settings/${appName}/other`
+                  : `/settings/${appName}/wine`,
+                state: { fromGameCard: false }
+              }}
+            >
+              {t('submenu.settings')}
+            </Link> */}
 
     /*
     Other Keys:
@@ -379,15 +392,19 @@ export default function GamePage(): JSX.Element | null {
                           </button>
                         </>
                       )}
-                      <button
-                        onClick={() => handleInstall()}
-                        disabled={
-                          isPlaying || isUpdating || isReparing || isMoving || (hasDownloads && !isInstalling)
-                        }
-                        className={`button ${getButtonClass(is_installed)}`}
-                      >
-                        {`${getButtonLabel(is_installed)}`}
-                      </button>
+                      {is_installed ?
+                        <Link to={{pathname, state: { fromGameCard: false }}} className={`button ${getButtonClass(is_installed)}`}>
+                          {`${getButtonLabel(is_installed)}`}
+                        </Link> :
+                        <button
+                          onClick={() => handleInstall()}
+                          disabled={
+                            isPlaying || isUpdating || isReparing || isMoving || (hasDownloads && !isInstalling)
+                          }
+                          className={`button ${getButtonClass(is_installed)}`}
+                        >
+                          {`${getButtonLabel(is_installed)}`}
+                        </button>}
                     </div>
                   </div>
 
@@ -471,8 +488,12 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getButtonClass(is_installed: boolean) {
-    if (is_installed || isInstalling) {
+    if (isInstalling) {
       return 'is-danger'
+    }
+
+    if (is_installed) {
+      return 'is-secondary'
     }
     return 'is-primary'
   }
@@ -485,7 +506,7 @@ export default function GamePage(): JSX.Element | null {
       return t('button.import')
     }
     if (is_installed) {
-      return t('button.uninstall')
+      return t('submenu.settings')
     }
     if (isInstalling) {
       return t('button.cancel')

@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { AppSettings } from 'src/types'
 import { IpcRenderer } from 'electron'
-import { Link } from 'react-router-dom'
 import { SmallInfo } from 'src/components/UI'
 import {
   createNewWindow,
@@ -13,6 +12,7 @@ import {
 } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
+import { uninstall } from 'src/helpers/library'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -137,32 +137,24 @@ export default function GamesSubmenu({
       <div className={`submenu`}>
         {isInstalled && (
           <>
-            <Link
-              className="link"
-              to={{
-                pathname: isWin
-                  ? `/settings/${appName}/other`
-                  : `/settings/${appName}/wine`,
-                state: { fromGameCard: false }
-              }}
-            >
-              {t('submenu.settings')}
-            </Link>
-            <span onClick={() => handleRepair(appName)} className="link">
-              {t('submenu.verify')}
-            </span>{' '}
-            <span onClick={() => handleMoveInstall()} className="link">
-              {t('submenu.move')}
-            </span>{' '}
-            <span onClick={() => handleChangeInstall()} className="link">
-              {t('submenu.change')}
-            </span>{' '}
             <span
               onClick={() => renderer.send('getLog', appName)}
               className="link"
             >
               {t('submenu.log')}
             </span>
+            <span onClick={() => handleMoveInstall()} className="link">
+              {t('submenu.move')}
+            </span>{' '}
+            <span onClick={() => handleChangeInstall()} className="link">
+              {t('submenu.change')}
+            </span>{' '}
+            <span onClick={() => handleRepair(appName)} className="link">
+              {t('submenu.verify')}
+            </span>{' '}
+            <span onClick={() => uninstall({appName, t, handleGameStatus})} className="link">
+              {t('button.uninstall')}
+            </span>{' '}
             {!isMac && <span
               onClick={() => handleShortcuts()}
               className="link"

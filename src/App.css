@@ -79,12 +79,13 @@ html,
     pointer-events: none;
 }
 
-.button.is-tertiary {
+.button.is-secondary {
     background: var(--secondary);
 }
 
-.button.is-tertiary:hover {
+.button.is-secondary:hover {
     background: var(--secondary-hover);
+    color: var(--text-tertiary)
 }
 
 .button.is-empty {
