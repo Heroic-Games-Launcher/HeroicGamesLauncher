@@ -12,7 +12,6 @@ import { resetTestTypes, test_appsettings, test_context, test_game } from 'src/t
 import ContextProvider from 'src/state/ContextProvider';
 import Settings from './index';
 
-
 async function renderSettings(type = 'game', gamecard = false)
 {
   const history = createMemoryHistory();

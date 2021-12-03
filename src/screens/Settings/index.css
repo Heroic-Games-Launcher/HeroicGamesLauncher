@@ -184,3 +184,7 @@
     padding-top: 4px;
     cursor: pointer;
 }
+
+a {
+    cursor: pointer;
+}

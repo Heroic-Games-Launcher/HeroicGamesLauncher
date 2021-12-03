@@ -13,7 +13,7 @@ import {
 import { IpcRenderer } from 'electron'
 import {
   NavLink,
-  // useLocation,
+  useLocation,
   useParams
 } from 'react-router-dom'
 import {
@@ -42,15 +42,13 @@ interface RouteParams {
   type: string
 }
 
-// interface LocationState {
-//   fromGameCard: boolean
-// }
-
-// TODO: add feedback when launching winecfg and winetricks
+interface LocationState {
+  fromGameCard: boolean
+}
 
 function Settings() {
   const { t, i18n } = useTranslation()
-  // const { state } = useLocation() as { state: LocationState }
+  const { state } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -293,10 +291,10 @@ function Settings() {
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
-  // let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
-  // if (state && state.fromGameCard) {
-  //   returnPath = '/'
-  // }
+  let returnPath: string | null = '/'
+  if (state && !state.fromGameCard) {
+    returnPath = `/gameconfig/${appName}`
+  }
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
@@ -330,6 +328,9 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
+          <NavLink to={returnPath} >
+            {t('settings.navbar.back', 'Back')}
+          </NavLink>
         </div>
         <div className="settingsWrapper">
           {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
