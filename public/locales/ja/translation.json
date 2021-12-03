@@ -94,11 +94,6 @@
         "help": "ヘルプ",
         "requirements": "システム要求"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "ライブラリ",
     "message": {
         "sync": "同期が完了しました",
@@ -198,12 +193,24 @@
     "Settings": "設定",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "一般",
             "other": "他",
             "sync": "同期を保存"
         }
     },
     "store": "ストア",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "新しいパスを追加する",
         "removepath": "パスを削除する"

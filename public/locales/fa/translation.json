@@ -94,11 +94,6 @@
         "help": "راهنما",
         "requirements": "نیازمندی‌های سیستم"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "کتابخانه",
     "message": {
         "sync": "همگام‌سازی کامل شد",
@@ -198,12 +193,24 @@
     "Settings": "تنظیمات",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "عمومی",
             "other": "بقیه",
             "sync": "همگام‌سازی ذخیره‌ها"
         }
     },
     "store": "فروشگاه",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "افزودن مسیر جدید",
         "removepath": "حذف مسیر"

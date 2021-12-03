@@ -94,11 +94,6 @@
         "help": "സഹായിക്കൂ",
         "requirements": "ശുപാര്‍ശിക്കുന്ന സംവിധാനങ്ങള്‍"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "കളിശാല",
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -198,12 +193,24 @@
     "Settings": "ക്രമീകരണങ്ങള്‍",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "പൊതുവായവ",
             "other": "മറ്റുള്ളവ",
             "sync": "ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കൂ"
         }
     },
     "store": "കട",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്‍ക്കുക",
         "removepath": "ഇടം നീക്കുക"

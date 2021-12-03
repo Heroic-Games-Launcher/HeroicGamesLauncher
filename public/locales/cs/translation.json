@@ -94,11 +94,6 @@
         "help": "Pomoc",
         "requirements": "Systémové požadavky"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Knihovna",
     "message": {
         "sync": "Synchronizace dokončena",
@@ -198,12 +193,24 @@
     "Settings": "Nastavení",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Obecné",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         }
     },
     "store": "Obchod",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "přidat novou cestu",
         "removepath": "Odstranit cestu"

@@ -94,11 +94,6 @@
         "help": "Pomoč",
         "requirements": "Zahtjevi sustava"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Knižnjica",
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -198,12 +193,24 @@
     "Settings": "Postavke",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Generalno",
             "other": "Ostalo",
             "sync": "Spremi-Podatke"
         }
     },
     "store": "Trgovina",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Dodaj novi put",
         "removepath": "Obriši put"

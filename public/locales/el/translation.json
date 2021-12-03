@@ -94,11 +94,6 @@
         "help": "Βοήθεια",
         "requirements": "Απαιτήσεις Συστήματος"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Βιβλιοθήκη",
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -198,12 +193,24 @@
     "Settings": "Ρυθμίσεις",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Γενικά",
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
         }
     },
     "store": "Κατάστημα",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Προσθήκη Νέας Διαδρομής",
         "removepath": "Αφαίρεση Διαδρομής"

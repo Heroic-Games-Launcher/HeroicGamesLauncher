@@ -94,11 +94,6 @@
         "help": "Hjälp",
         "requirements": "Systemkrav"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Bibliotek",
     "message": {
         "sync": "Synkronisering klar",
@@ -198,12 +193,24 @@
     "Settings": "Inställningar",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Allmänna",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         }
     },
     "store": "Butik",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Lägg till ny sökväg",
         "removepath": "Ta bort sökväg"

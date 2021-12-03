@@ -94,11 +94,6 @@
         "help": "幫助",
         "requirements": "系統要求"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "收藏庫",
     "message": {
         "sync": "同步完成",
@@ -198,12 +193,24 @@
     "Settings": "設定",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "一般",
             "other": "其它",
             "sync": "存檔-同步"
         }
     },
     "store": "商店",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "添加新路徑",
         "removepath": "刪除路徑"

@@ -94,11 +94,6 @@
         "help": "Помощь",
         "requirements": "Системные требования"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Библиотека",
     "message": {
         "sync": "Синхронизация завершена",
@@ -198,12 +193,24 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         }
     },
     "store": "Магазин",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Добавить новый путь",
         "removepath": "Удалить путь"

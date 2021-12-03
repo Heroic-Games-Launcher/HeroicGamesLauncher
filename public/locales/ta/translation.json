@@ -94,11 +94,6 @@
         "help": "உதவி",
         "requirements": "கணினி தேவைப்பாடுகள்"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "விளையாட்டு பட்டியல்",
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
@@ -198,12 +193,24 @@
     "Settings": "அமைப்புகள்",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "பொதுவானவை",
             "other": "மற்றவை",
             "sync": "சேமிப்பு-ஒத்திசைவு"
         }
     },
     "store": "விற்பனைக்கூடம்",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "புதிய பாதையை சேர்",
         "removepath": "பாதையை அகற்று"

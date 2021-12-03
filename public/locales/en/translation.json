@@ -94,11 +94,6 @@
         "help": "Help",
         "requirements": "System Requirements"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Library",
     "message": {
         "sync": "Sync Complete",
@@ -198,12 +193,24 @@
     "Settings": "Settings",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "General",
             "other": "Other",
             "sync": "Save-Sync"
         }
     },
     "store": "Store",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Add New Path",
         "removepath": "Remove Path"

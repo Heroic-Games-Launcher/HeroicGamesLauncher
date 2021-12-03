@@ -94,11 +94,6 @@
         "help": "Помощ",
         "requirements": "Системни изисквания"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Библиотека",
     "message": {
         "sync": "Синхронизацията е завършена",
@@ -198,12 +193,24 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Общи",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"
         }
     },
     "store": "Магазин",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Добавяне на нов път",
         "removepath": "Премахване на пътя"

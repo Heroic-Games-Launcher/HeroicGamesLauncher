@@ -94,11 +94,6 @@
         "help": "Apua",
         "requirements": "Laitteistovaatimukset"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "Kirjasto",
     "message": {
         "sync": "Synkronointi valmis",
@@ -198,12 +193,24 @@
     "Settings": "Asetukset",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Yleiset",
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
         }
     },
     "store": "Kauppa",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Lisää uusi sijainti",
         "removepath": "Poista sijainti"

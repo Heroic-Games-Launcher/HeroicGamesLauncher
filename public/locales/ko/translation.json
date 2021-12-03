@@ -94,11 +94,6 @@
         "help": "도움말",
         "requirements": "시스템 요구 사양"
     },
-    "layout": {
-        "grid": "Grid",
-        "list": "List",
-        "title": "Layout Selection"
-    },
     "Library": "라이브러리",
     "message": {
         "sync": "동기화 완료",
@@ -198,12 +193,24 @@
     "Settings": "설정",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "일반",
             "other": "기타",
             "sync": "세이브-동기화"
         }
     },
     "store": "스토어",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "새 경로 추가",
         "removepath": "경로 삭제"
