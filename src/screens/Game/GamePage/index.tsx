@@ -218,17 +218,6 @@ export default function GamePage(): JSX.Element | null {
     const installSize  = gameInstallInfo?.manifest?.disk_size && prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
     const launchOptions  = gameInstallInfo?.game?.launch_options || []
     const pathname = isWin ? `/settings/${appName}/other` : `/settings/${appName}/wine`
-    {/* <Link
-              className="link"
-              to={{
-                pathname: isWin
-                  ? `/settings/${appName}/other`
-                  : `/settings/${appName}/wine`,
-                state: { fromGameCard: false }
-              }}
-            >
-              {t('submenu.settings')}
-            </Link> */}
 
     /*
     Other Keys:
