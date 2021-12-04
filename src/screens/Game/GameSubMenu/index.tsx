@@ -105,12 +105,7 @@ export default function GamesSubmenu({
   }
 
   function handleShortcuts() {
-    ipcRenderer.send('addShortcut', appName)
-    return ipcRenderer.invoke('openMessageBox', {
-      buttons: [t('box.ok', 'Ok')],
-      message: t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
-      title: t('box.shortcuts.title', 'Shortcuts')
-    })
+    ipcRenderer.send('addShortcut', appName, true)
   }
 
   useEffect(() => {
