@@ -287,7 +287,7 @@ class LegendaryGame extends Game {
     const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
     const sanitizedTitle = gameInfo.title
     const pattern = new RegExp('[:|/|*|?|<|>||]')
-    sanitizedTitle.replaceAll(pattern, ' ')
+    sanitizedTitle.replaceAll(pattern, '')
 
     const [ desktopFile, menuFile ] = this.shortcutFiles(sanitizedTitle)
 
