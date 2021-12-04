@@ -62,8 +62,8 @@
         "unsync": "Dessincronizar"
     },
     "Downloading": "Baixando",
+    "Epic Games": "Epic Games",
     "Filter": "Filtro",
-    "Games": "Games",
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
@@ -193,12 +193,24 @@
     "Settings": "Configurações",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Geral",
             "other": "Outros",
             "sync": "Sincronização"
         }
     },
     "store": "Loja",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Adicionar",
         "removepath": "Remover"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Loja Unreal",
     "Updates": "Atualizações",
     "userselector": {
-        "about": "Sobre",
         "discord": "Discord",
         "logout": "Sair",
         "logout_confirmation": "Logout?",
-        "quit": "Fechar",
-        "refresh": "Atualizar Biblioteca",
-        "support": "Apoie-nos"
+        "quit": "Fechar"
     },
     "wiki": "Wiki"
 }

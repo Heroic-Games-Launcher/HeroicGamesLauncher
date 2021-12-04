@@ -1,44 +1,38 @@
 .gameConfigContainer {
-    background: var(--background-transparent);
+    background: var(--background-darker);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    margin: auto;
     display: flex;
+    height: 100vh;
+    justify-content: stretch;
+    position: relative;
 }
 
 .gameConfig {
     display: flex;
     align-self: center;
-    min-width: 780px;
-    max-width: 830px;
-    margin: 44px 0 44px 44px;
-    border-right: solid 1px var(--background-transparent);
-    padding-right: 20px;
+    max-width: 1000px;
 }
 
-.gametitle {
+.gameConfigContainer .title {
     font-weight: 500;
     font-size: 25px;
     line-height: 30px;
     color: #f79707;
+    text-align: left;
 }
 
-.gameImg {
-    width: 210px;
-    height: 280px;
-    border-radius: 0.5rem;
-    object-fit: cover;
+.gamePicture {
+    flex-basis: 40%;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .gameInfo {
     text-align: initial;
-    padding-left: 3.5rem;
     font-size: 1rem;
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
-    width: 100%;
-    justify-content: space-between;
 }
 
 .gameInfo>.settingSelect {
@@ -70,6 +64,50 @@
     -webkit-box-orient: vertical;
 }
 
+.gameInfo,
+.gameTools,
+.gameRequirements {
+    display: none;
+    align-self: flex-start;
+    padding: 8vh 2.2em 1.2em 1.2em;
+    min-height: 0px;
+    overflow: auto;
+    max-height: 100%;
+}
+
+.gameTabs {
+    flex: 60%;
+    flex-shrink: 0;
+    flex-grow: 0;
+    position: relative;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+}
+
+.gameTabs.infoTab .gameInfo,
+.gameTabs.toolsTab .gameTools,
+.gameTabs.requirementsTab .gameRequirements {
+    display: flex;
+}
+
+.gameTabs nav {
+    text-align: right;
+    padding: 15px;
+}
+.gameTabs nav button {
+    margin-right: 1em;
+    border: none;
+    background: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1em;
+}
+.gameTabs.infoTab button[data-tab='info'],
+.gameTabs.toolsTab button[data-tab='tools'],
+.gameTabs.requirementsTab button[data-tab='requirements'] {
+    color: var(--secondary);
+}
+
 .installProgress[value] {
     appearance: none;
     width: 169px;
@@ -81,41 +119,16 @@
     animation: animate-stripes 5s linear infinite;
 }
 
-.requirements {
-    margin-top: 2em;
-}
-
-.requirements table td {
-    width: 33.33%;
-    vertical-align: baseline;
-    padding: 0.5em;
-}
-
-table td.specs {
-    color: var(--secondary);
-    opacity: 0.8;
-}
-
-.requirements table span.title {
-    color: var(--text-secondary);
-    font-size: 1em;
-}
-
-table span.text {
-    color: var(--text-secondary);
-    font-size: 0.9em;
-}
-
 .clickable:hover {
     cursor: pointer;
     color: var(--secondary);
 }
 
 .buttonsWrapper {
-    width: 380px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: min-content min-content;
     place-items: baseline;
+    grid-column-gap: 1em;
 }
 
 .updateText {
@@ -172,7 +185,7 @@ table span.text {
 
 .MuiIconButton-colorPrimary,
 .MuiCheckbox-colorPrimary.Mui-checked {
-    color: var(--secondary)
+    color: var(--secondary);
 }
 
 .PrivateSwitchBase-root-1 {

@@ -1,30 +1,30 @@
 .infoBox {
-  width: 100%;
-  padding: 10px 20px 20px 20px;
-  font-size: 16px;
-  line-height: 19px;
+    width: 100%;
+    padding: 10px 20px 20px 20px;
+    font-size: 16px;
+    line-height: 19px;
 }
 
 .helpLink {
-  color: var(--secondary);
-  cursor: pointer;
-  display: flex;
-  height: 40px;
-  position: relative;
-  align-items: center;
-  min-width: 45px;
-  width: 100%;
-  justify-content: center;
+    color: var(--secondary);
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    position: relative;
+    align-items: center;
+    min-width: 45px;
+    width: 100%;
+    justify-content: center;
 }
 
-.helpLink > svg {
-  margin-left: 4px;
+.helpLink>svg {
+    margin-left: 4px;
 }
 
-.infoBox > ul {
-  text-align: left;
+.infoBox>ul {
+    text-align: left;
 }
 
-.infoBox > strong {
-  color: var(--primary);
+.infoBox>strong {
+    color: var(--primary);
 }

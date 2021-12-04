@@ -4,18 +4,35 @@
     box-sizing: border-box;
 }
 
+body,
+html,
+#root,
+.App {
+    height: 100%;
+    overflow: hidden;
+}
+
 .App {
     text-align: center;
     color: var(--text-primary);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-areas: 'sidebar content';
     font-family: 'Cabin', sans-serif;
 }
 
 .App .content {
-    display: grid;
-    place-content: center;
-    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.App .content .updateIcon {
+    height: 100vh;
+    position: initial;
+    width: var(--content-width);
 }
 
 .button {
@@ -62,23 +79,13 @@
     pointer-events: none;
 }
 
-.button.is-tertiary {
+.button.is-secondary {
     background: var(--secondary);
 }
 
-.button.is-tertiary.outline {
-    background: transparent;
-    color: var(--secondary);
-    border: 2px solid;
-}
-
-.button.is-tertiary:hover {
+.button.is-secondary:hover {
     background: var(--secondary-hover);
-}
-
-.button.is-tertiary.outline:hover {
-    color: var(--secondary-hover);
-    background: var(--background-transparent);
+    color: var(--text-tertiary)
 }
 
 .button.is-empty {

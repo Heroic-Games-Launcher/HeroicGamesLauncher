@@ -62,8 +62,8 @@
         "unsync": "Älä synkronoi"
     },
     "Downloading": "Ladataan",
+    "Epic Games": "Epic Games",
     "Filter": "Suodata",
-    "Games": "Pelit",
     "globalSettings": "Globaalit asetukset",
     "help": {
         "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
@@ -193,12 +193,24 @@
     "Settings": "Asetukset",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Yleiset",
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
         }
     },
     "store": "Kauppa",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Lisää uusi sijainti",
         "removepath": "Poista sijainti"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Päivitykset",
     "userselector": {
-        "about": "Tietoja",
         "discord": "Discord",
         "logout": "Kirjaudu ulos",
         "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
-        "quit": "Poistu",
-        "refresh": "Päivitä kirjasto",
-        "support": "Tue meitä"
+        "quit": "Poistu"
     },
     "wiki": "Wiki"
 }

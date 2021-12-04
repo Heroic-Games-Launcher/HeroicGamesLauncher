@@ -110,24 +110,12 @@ export default function Login({ refresh }: Props) {
             </ol>
           </div>
         </div>
-        <div
-          style={{
-            bottom: '0',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            marginBottom: '40px',
-            paddingRight: '22px',
-            position: 'absolute',
-            width: '50%'
-          }}
-        >
-          <LanguageSelector
-            handleLanguageChange={handleChangeLanguage}
-            currentLanguage={currentLanguage}
-            flagPossition={FlagPosition.PREPEND}
-            className="settingSelect language-login"
-          />
-        </div>
+        <LanguageSelector
+          handleLanguageChange={handleChangeLanguage}
+          currentLanguage={currentLanguage}
+          flagPossition={FlagPosition.PREPEND}
+          className="settingSelect language-login"
+        />
         <div className="loginBackground"></div>
       </div>
       <div className="loginFormWrapper">
