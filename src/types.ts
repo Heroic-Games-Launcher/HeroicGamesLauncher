@@ -42,6 +42,7 @@ export interface AppSettings {
 export interface ContextType {
   category: string
   data: GameInfo[]
+  recentGames: GameInfo[]
   error: boolean
   filter: string
   filterText: string

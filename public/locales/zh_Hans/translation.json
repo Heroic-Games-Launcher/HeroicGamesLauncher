@@ -62,8 +62,8 @@
         "unsync": "不同步"
     },
     "Downloading": "正在下载",
+    "Epic Games": "Epic Games",
     "Filter": "筛选",
-    "Games": "游戏",
     "globalSettings": "全局设置",
     "help": {
         "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
@@ -193,12 +193,24 @@
     "Settings": "设置",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "常规",
             "other": "其它",
             "sync": "存档-同步"
         }
     },
     "store": "商店",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "添加新路径",
         "removepath": "删除路径"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "虚幻商城",
     "Updates": "更新",
     "userselector": {
-        "about": "关于",
         "discord": "Discord",
         "logout": "退出登录",
         "logout_confirmation": "您确定要退出登录吗？",
-        "quit": "退出",
-        "refresh": "刷新库",
-        "support": "支持我们"
+        "quit": "退出"
     },
     "wiki": "Wiki百科"
 }

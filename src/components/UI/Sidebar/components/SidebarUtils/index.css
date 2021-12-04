@@ -1,0 +1,60 @@
+.SidebarUtils {
+    grid-area: other;
+    align-self: end;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: var(--sidebar-vertical-padding);
+    width: 100%;
+}
+
+.SidebarUtils button {
+    text-align: left;
+    background: none;
+    border: none;
+    color: white;
+    padding: 7px 0;
+    cursor: pointer;
+    transition: 400ms;
+    font-weight: 400;
+    font-family: 'Rubik', sans-serif;
+    font-size: clamp(1.5vh, 18px, 20px);
+    transition: 250ms;
+    display: block;
+}
+
+.SidebarUtils button:hover {
+    color: var(--secondary);
+    fill: var(--secondary);
+}
+
+.SidebarUtils button>span {
+    padding-left: 2px;
+}
+
+.SidebarUtils .userDropdownWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.SidebarUtils .userDropdownWrapper .userDropdown {
+    position: absolute;
+    left: 100%;
+    bottom: 0px;
+    width: max-content;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.SidebarUtils .userDropdownWrapper:hover,
+.SidebarUtils .userDropdownWrapper:focus-within,
+.SidebarUtils .userDropdownWrapper .userDropdown {
+    background: var(--background-light);
+}
+
+.SidebarUtils .userDropdownWrapper:hover .userDropdown,
+.SidebarUtils .userDropdownWrapper:focus-within .userDropdown {
+    opacity: 1;
+    pointer-events: initial;
+}

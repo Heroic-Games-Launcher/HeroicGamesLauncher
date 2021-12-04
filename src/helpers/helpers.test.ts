@@ -4,6 +4,7 @@ import { GameStatus, InstallProgress } from 'src/types';
 import { initElectronMocks, ipcRenderer } from 'src/test_helpers/mock/electron';
 import { install } from 'src/helpers';
 import { resetTestTypes, test_opendialog, test_openmessagebox_response } from 'src/test_helpers/testTypes';
+
 interface Props {
   appName: string
   handleGameStatus: (game: GameStatus) => Promise<void>

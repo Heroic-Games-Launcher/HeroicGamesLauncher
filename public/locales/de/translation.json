@@ -62,8 +62,8 @@
         "unsync": "Nicht mehr synchronisieren"
     },
     "Downloading": "Am Herunterladen",
+    "Epic Games": "Epic Games",
     "Filter": "Filter",
-    "Games": "Spiele",
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -193,12 +193,24 @@
     "Settings": "Einstellungen",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Allgemein",
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         }
     },
     "store": "Store",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Neuen Pfad hinzufügen",
         "removepath": "Pfad entfernen"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualisierungen",
     "userselector": {
-        "about": "Über Heroic",
         "discord": "Discord",
         "logout": "Abmelden",
         "logout_confirmation": "Logout?",
-        "quit": "Beenden",
-        "refresh": "Bibliothek aktualisieren",
-        "support": "Unterstütze uns"
+        "quit": "Beenden"
     },
     "wiki": "Wiki"
 }

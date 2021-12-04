@@ -1,19 +1,21 @@
 .header {
     display: grid;
-    place-self: center;
-    place-content: center;
-    height: 84px;
-    width: calc(100% - 1vw);
-    padding: 0 4rem 1rem 4rem;
-    grid-template-columns: 4fr 5fr 2fr 2fr 1fr;
-    justify-items: baseline;
+    position: sticky;
+    top: 0;
+    z-index: 7;
+    background: var(--background-darker);
+    grid-template-columns: 3fr 4fr 2fr 1fr;
     font-family: Cabin;
     font-style: normal;
     font-weight: normal;
     font-size: clamp(1em, 0.5vw, 2rem);
     line-height: 17px;
     color: var(--text-secondary);
-    grid-template-areas: 'filter search total category layout';
+    grid-template-areas: 'filter search total refresh';
+    place-content: center;
+    justify-items: center;
+    align-items: center;
+    padding: 15px 0;
 }
 
 .headerSettings {
@@ -39,12 +41,13 @@
 .selectFilter {
     display: flex;
     width: fit-content;
-    justify-self: auto;
+    justify-self: baseline;
     justify-content: space-evenly;
     grid-area: filter;
     flex-wrap: wrap;
     font-size: 16px;
     align-content: center;
+    padding-left: 2rem;
 }
 
 .selectFilter>select {
@@ -79,7 +82,7 @@ option {
 }
 
 .selectCategory>span:hover {
-    color: var(--secondary)
+    color: var(--secondary);
 }
 
 .selectCategory>.selected {
@@ -88,29 +91,8 @@ option {
     color: var(--primary);
 }
 
-.selectCategory> :not(:first-child) {
+.selectCategory>:not(:first-child) {
     padding: 0 8px;
-}
-
-.layoutSelection {
-    place-self: center;
-    grid-area: layout;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.selectedLayout {
-    color: var(--secondary);
-}
-
-.layoutSelection>svg:hover {
-    cursor: pointer;
-    fill: var(--secondary);
-}
-
-.layoutSelection>svg {
-    margin: 0 0.2em;
 }
 
 .iconsWrapper {
@@ -134,4 +116,36 @@ option {
     width: 100px;
     margin: 0 -10px;
     height: fit-content;
+}
+
+.headerIcons {
+    width: min(100px, 6vw);
+    display: flex;
+    justify-content: space-around;
+    grid-area: refresh;
+}
+
+.headerIcons>* {
+    cursor: pointer;
+}
+
+.headerIcons>*:hover {
+    color: var(--secondary);
+}
+
+.headerIcons>.selectedLayout {
+    color: var(--secondary);
+}
+
+.refreshIcon:hover {
+    animation: refreshing 2s infinite;
+}
+
+@keyframes refreshing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

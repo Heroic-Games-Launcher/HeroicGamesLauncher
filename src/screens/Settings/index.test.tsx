@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  fireEvent,
   render,
   waitFor
 } from '@testing-library/react';
@@ -12,7 +11,6 @@ import { ipcRenderer } from 'src/test_helpers/mock/electron';
 import { resetTestTypes, test_appsettings, test_context, test_game } from 'src/test_helpers/testTypes';
 import ContextProvider from 'src/state/ContextProvider';
 import Settings from './index';
-
 
 async function renderSettings(type = 'game', gamecard = false)
 {
@@ -81,12 +79,4 @@ describe('Settings', () => {
     await waitFor(() => getByTestId('syncSettings'));
   })
 
-  test('if accesing settings from game card the returnbutton goes back to root on click', async () => {
-    const { history, getByTestId } = await renderSettings('default', true);
-    const returnLink = await waitFor(() => getByTestId('returnLink'));
-    await waitFor(() => expect(history.location.pathname).toBe('/settings/game/default'));
-    fireEvent.click(returnLink);
-    await waitFor(() => expect(history.location.pathname).toBe('/'));
-
-  })
 })

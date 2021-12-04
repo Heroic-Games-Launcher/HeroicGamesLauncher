@@ -1,0 +1,9 @@
+.webViewContainer {
+    grid-area: content;
+    width: var(--content-width);
+}
+
+.webViewContainer>webview {
+    height: 100vh;
+    margin-top: 32px;
+}

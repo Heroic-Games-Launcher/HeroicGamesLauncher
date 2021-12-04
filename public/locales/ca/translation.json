@@ -62,8 +62,8 @@
         "unsync": "Des-sincronitza"
     },
     "Downloading": "Descarregant",
+    "Epic Games": "Epic Games",
     "Filter": "Filtra",
-    "Games": "Jocs",
     "globalSettings": "Configuració global",
     "help": {
         "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS.",
@@ -193,12 +193,24 @@
     "Settings": "Configuració",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "General",
             "other": "Altres",
             "sync": "Guardar-Sincronitzar"
         }
     },
     "store": "Botiga",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Afegir nova ruta",
         "removepath": "Eliminar ruta"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Botiga d'Unreal",
     "Updates": "Actualitzacions",
     "userselector": {
-        "about": "Sobre nosaltres",
         "discord": "Discord",
         "logout": "Sortir de la sessió",
         "logout_confirmation": "Estàs ben segur de que vols sortir de la sessió?",
-        "quit": "Sortir",
-        "refresh": "Recargar llibrería",
-        "support": "Suporta'ns"
+        "quit": "Sortir"
     },
     "wiki": "Wiki"
 }
