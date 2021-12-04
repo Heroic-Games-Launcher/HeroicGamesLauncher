@@ -288,6 +288,7 @@ const test_userinfo = new TestType<{
 const test_context = new TestType<ContextType>({
   category: 'games',
   data: [],
+  recentGames: [],
   error: false,
   filter: 'all',
   filterText: '',

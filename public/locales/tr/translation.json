@@ -62,8 +62,8 @@
         "unsync": "Eşzamanlamayı kaldır"
     },
     "Downloading": "İndiriliyor",
+    "Epic Games": "Epic Games",
     "Filter": "Filtre",
-    "Games": "Oyunlar",
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -193,12 +193,24 @@
     "Settings": "Ayarlar",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Genel",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         }
     },
     "store": "Mağaza",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Unreal Mağazası",
     "Updates": "Güncellemeler",
     "userselector": {
-        "about": "Hakkında",
         "discord": "Discord",
         "logout": "Oturumu Kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
-        "quit": "Çık",
-        "refresh": "Kütüphaneyi Yenile",
-        "support": "Bizi Destekleyin"
+        "quit": "Çık"
     },
     "wiki": "Wiki"
 }

@@ -62,8 +62,8 @@
         "unsync": "Αποσυγχρονισμός"
     },
     "Downloading": "Λήψη",
+    "Epic Games": "Epic Games",
     "Filter": "Φίλτρο",
-    "Games": "Games",
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
@@ -193,12 +193,24 @@
     "Settings": "Ρυθμίσεις",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Γενικά",
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
         }
     },
     "store": "Κατάστημα",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Προσθήκη Νέας Διαδρομής",
         "removepath": "Αφαίρεση Διαδρομής"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Κατάστημα Unreal",
     "Updates": "Ενημερώσεις",
     "userselector": {
-        "about": "Περί",
         "discord": "Discord",
         "logout": "Αποσύνδεση",
         "logout_confirmation": "Θέλετε πράγματι να αποσυνδεθείτε;",
-        "quit": "Έξοδος",
-        "refresh": "Ανανέωση Βιβλιοθήκης",
-        "support": "Υποστηρίξτε μας"
+        "quit": "Έξοδος"
     },
     "wiki": "Wiki"
 }

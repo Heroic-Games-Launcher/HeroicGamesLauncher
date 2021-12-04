@@ -62,8 +62,8 @@
         "unsync": "Desynchroniozovat"
     },
     "Downloading": "Stahování",
+    "Epic Games": "Epic Games",
     "Filter": "Filtr",
-    "Games": "Games",
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -193,12 +193,24 @@
     "Settings": "Nastavení",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Obecné",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         }
     },
     "store": "Obchod",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "přidat novou cestu",
         "removepath": "Odstranit cestu"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualizace",
     "userselector": {
-        "about": "O aplikaci",
         "discord": "Discord",
         "logout": "Odhlásit",
         "logout_confirmation": "Logout?",
-        "quit": "Ukončit",
-        "refresh": "Obnovit knihovnu",
-        "support": "Podpořte nás"
+        "quit": "Ukončit"
     },
     "wiki": "Wiki"
 }

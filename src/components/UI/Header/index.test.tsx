@@ -1,8 +1,6 @@
 import '@testing-library/jest-dom'
 import React from 'react';
 
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import {
   fireEvent,
   render
@@ -43,24 +41,6 @@ describe('Header', () => {
 
   test('renders', () => {
     render(getHeader());
-  })
-
-  test('renders back button and switch to goTo on click', () => {
-    const history = createMemoryHistory();
-    const { getByRole } = render(<Router history={history}> {getHeader({ goTo: '/link', renderBackButton: true })}</Router>);
-    const returnLink = getByRole('link');
-    expect(history.location.pathname).toBe('/');
-    fireEvent.click(returnLink);
-    expect(history.location.pathname).toBe('/link');
-  })
-
-  test('renders back button and call goBack on click if goTo is empty', () => {
-    const history = createMemoryHistory();
-    const { getByRole } = render(<Router history={history}> {getHeader({ goTo: '', renderBackButton: true })}</Router>);
-    const returnLink = getByRole('link');
-    expect(history.location.pathname).toBe('/');
-    fireEvent.click(returnLink);
-    expect(history.location.pathname).toBe('/');
   })
 
   test('shows title', () => {
@@ -147,69 +127,5 @@ describe('Header', () => {
     const ueVersionSelect = getByTestId('ueVersionSelect');
     fireEvent.change(ueVersionSelect, { target: { value: 'UE_4.17' } });
     expect(test_context.get().handleFilter).toBeCalledWith('UE_4.17');
-  })
-
-  test('layout works', () => {
-    test_context.set({
-      category: 'games',
-      handleLayout: jest.fn(),
-      layout: 'grid'
-    });
-
-    const { rerender, getByTestId } = render(getHeader());
-
-    let selectLayoutGrid = getByTestId('grid');
-    let selectLayoutList = getByTestId('list');
-
-    // trigger grid layout
-    fireEvent.click(selectLayoutGrid);
-    expect(test_context.get().handleLayout).toBeCalledWith('grid');
-    expect(selectLayoutGrid).toHaveClass('MuiSvgIcon-root selectedLayout material-icons', { exact: true });
-    expect(selectLayoutList).toHaveClass('MuiSvgIcon-root material-icons', { exact: true });
-
-    //Fixme: wait for useContext to rerender.
-    test_context.set({layout: 'list'});
-    rerender(getHeader());
-
-    // trigger list layout
-    selectLayoutGrid = getByTestId('grid');
-    selectLayoutList = getByTestId('list');
-    fireEvent.click(selectLayoutList);
-    expect(test_context.get().handleLayout).toBeCalledWith('list');
-    expect(selectLayoutGrid).toHaveClass('MuiSvgIcon-root material-icons', { exact: true });
-    expect(selectLayoutList).toHaveClass('MuiSvgIcon-root selectedLayout material-icons', { exact: true });
-
-  })
-
-  test('category works', () => {
-    test_context.set({
-      category: 'games',
-      handleCategory: jest.fn()
-    });
-
-    const { rerender, getByTestId } = render(getHeader());
-
-    let selectGames = getByTestId('gamesCategory');
-    let selectUnreal = getByTestId('unrealCategory');
-
-    // triggering the same category should do nothing
-    fireEvent.click(selectGames);
-    expect(test_context.get().handleCategory).not.toBeCalled();
-
-    // trigger unreal category
-    fireEvent.click(selectUnreal);
-    expect(selectGames).toHaveClass('selected');
-    expect(test_context.get().handleCategory).toBeCalledWith('unreal');
-
-    // Fixme: wait for useContext to rerender.
-    test_context.set({category: 'unreal'});
-    rerender(getHeader());
-
-    // trigger games category
-    selectGames = getByTestId('gamesCategory');
-    selectUnreal = getByTestId('unrealCategory');
-    fireEvent.click(selectGames);
-    expect(selectUnreal).toHaveClass('selected');
-    expect(test_context.get().handleCategory).toBeCalledWith('games');
   })
 })

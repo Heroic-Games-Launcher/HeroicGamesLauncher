@@ -18,6 +18,7 @@ const initialContext: ContextType = {
   libraryStatus: [],
   platform: 'unknown',
   refresh: () => Promise.resolve(),
+  recentGames: [],
   refreshLibrary: () => Promise.resolve(),
   refreshing: false
 }

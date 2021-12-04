@@ -62,8 +62,8 @@
         "unsync": "Рассинхронизировать"
     },
     "Downloading": "Скачивается",
+    "Epic Games": "Epic Games",
     "Filter": "Фильтр",
-    "Games": "Игры",
     "globalSettings": "Глобальные настройки",
     "help": {
         "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
@@ -193,12 +193,24 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         }
     },
     "store": "Магазин",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Добавить новый путь",
         "removepath": "Удалить путь"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Unreal Engine",
     "Updates": "Обновления",
     "userselector": {
-        "about": "О программе",
         "discord": "Дискорд",
         "logout": "Выйти из EGS",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
-        "quit": "Закрыть Heroic",
-        "refresh": "Обновить библиотеку",
-        "support": "Поддержать нас"
+        "quit": "Закрыть Heroic"
     },
     "wiki": "Вики"
 }

@@ -62,8 +62,8 @@
         "unsync": ""
     },
     "Downloading": "",
+    "Epic Games": "Epic Games",
     "Filter": "",
-    "Games": "Games",
     "globalSettings": "Global Settings",
     "help": {
         "general": "",
@@ -193,12 +193,24 @@
     "Settings": "",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "",
             "other": "",
             "sync": ""
         }
     },
     "store": "Store",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Add New Path",
         "removepath": "Remove Path"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",
     "userselector": {
-        "about": "",
         "discord": "Discord",
         "logout": "",
         "logout_confirmation": "Logout?",
-        "quit": "",
-        "refresh": "",
-        "support": ""
+        "quit": ""
     },
     "wiki": "Wiki"
 }

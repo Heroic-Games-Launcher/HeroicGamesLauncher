@@ -4,6 +4,8 @@ import { useLocation } from 'react-router'
 import WebviewControls from 'src/components/UI/WebviewControls'
 import { Webview } from 'src/types'
 
+import './index.css'
+
 export default function WebView() {
   const { i18n } = useTranslation()
   const {pathname} = useLocation()
@@ -23,12 +25,11 @@ export default function WebView() {
   }
 
   return (
-    <div>
+    <div className="webViewContainer">
       <WebviewControls webview={webview} initURL={urls[pathname]} />
       <webview
         partition="persist:epicstore"
         src={urls[pathname]}
-        style={{width:'100vw', height:'100vh'}}
         allowpopups={trueAsStr}
         useragent="Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko"
       />
