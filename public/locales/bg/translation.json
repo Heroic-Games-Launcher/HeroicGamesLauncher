@@ -62,8 +62,8 @@
         "unsync": "Десинхронизиране"
     },
     "Downloading": "Сваляне",
+    "Epic Games": "Epic Games",
     "Filter": "Филтриране",
-    "Games": "Игри",
     "globalSettings": "Глобални настройки",
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Store и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
@@ -193,12 +193,24 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Общи",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"
         }
     },
     "store": "Магазин",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Добавяне на нов път",
         "removepath": "Премахване на пътя"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Пазар на Unreal",
     "Updates": "Обновления",
     "userselector": {
-        "about": "Относно",
         "discord": "Дискорд",
         "logout": "Излизане от акаунта",
         "logout_confirmation": "Наистина ли искате да излезете от акаунта си?",
-        "quit": "Изход",
-        "refresh": "Опресняване на библиотеката",
-        "support": "Подкрепете ни"
+        "quit": "Изход"
     },
     "wiki": "Уики"
 }

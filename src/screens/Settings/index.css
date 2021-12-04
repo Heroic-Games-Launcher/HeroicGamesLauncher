@@ -9,6 +9,8 @@
     max-width: 912px;
     border-radius: 1rem;
     padding: 24px;
+    grid-area: content;
+    margin: 48px;
 }
 
 .settingsNavbar {
@@ -41,6 +43,12 @@
     place-items: flex-start;
     width: 569px;
     padding-bottom: 8px;
+}
+
+.headerTitle {
+    font-size: 2rem;
+    margin: auto;
+    padding: 8px;
 }
 
 .settingsTools {
@@ -174,5 +182,9 @@
     width: 513px;
     white-space: break-spaces;
     padding-top: 4px;
+    cursor: pointer;
+}
+
+a {
     cursor: pointer;
 }

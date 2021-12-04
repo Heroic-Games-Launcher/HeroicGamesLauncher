@@ -55,10 +55,9 @@ export class LegendaryUser {
   }
 
   public static async getUserInfo(): Promise<UserInfo> {
-    logInfo('Trying to get user information')
-
     let isLoggedIn = false
     try {
+      logInfo('Trying to get user information')
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
       logError(error)

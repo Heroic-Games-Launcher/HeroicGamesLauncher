@@ -270,6 +270,8 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
+    logInfo(`Heroic Version ${app.getVersion()}`)
+    logInfo(`Legendary Version ${(await getLegendaryVersion())}`)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
@@ -487,7 +489,8 @@ ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
-ipcMain.handle('getLegendaryVersion', async() => {
+
+export const getLegendaryVersion = async() => {
   const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
   try {
     if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
@@ -498,7 +501,9 @@ ipcMain.handle('getLegendaryVersion', async() => {
   } catch (error) {
     return 'invalid'
   }
-})
+}
+
+ipcMain.handle('getLegendaryVersion', async() => getLegendaryVersion())
 
 ipcMain.handle('getPlatform', () => process.platform)
 

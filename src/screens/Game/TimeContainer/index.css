@@ -1,4 +1,5 @@
 .info {
-  padding: 20px 12px;
-  margin-bottom: 36px;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
 }

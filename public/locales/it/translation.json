@@ -62,8 +62,8 @@
         "unsync": "Annulla sincronizzazione"
     },
     "Downloading": "Download in corso",
+    "Epic Games": "Epic Games",
     "Filter": "Filtra",
-    "Games": "Games",
     "globalSettings": "Impostazioni globali",
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
@@ -193,12 +193,24 @@
     "Settings": "Impostazioni",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Generale",
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi"
         }
     },
     "store": "Negozio",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Aggiungi nuovo percorso",
         "removepath": "Rimuovi percorso"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Mercato Unreal",
     "Updates": "Aggiornamenti",
     "userselector": {
-        "about": "Informazioni su",
         "discord": "Discord",
         "logout": "Disconnetti",
         "logout_confirmation": "Logout?",
-        "quit": "Esci",
-        "refresh": "Aggiorna libreria",
-        "support": "Supportaci"
+        "quit": "Esci"
     },
     "wiki": "Wiki"
 }

@@ -117,7 +117,6 @@ describe('Tools', () => {
       'openDialog',
       {
         'buttonLabel': 'box.select.button',
-        'filters': [{'extensions': ['exe', 'msi'], 'name': 'Binaries'}],
         'properties': ['openFile'],
         'title': 'box.runexe.title'}));
     expect(ipcRenderer.send).not.toBeCalled();
@@ -132,7 +131,6 @@ describe('Tools', () => {
       'openDialog',
       {
         'buttonLabel': 'box.select.button',
-        'filters': [{'extensions': ['exe', 'msi'], 'name': 'Binaries'}],
         'properties': ['openFile'],
         'title': 'box.runexe.title'}));
     expect(ipcRenderer.invoke).toBeCalledWith(

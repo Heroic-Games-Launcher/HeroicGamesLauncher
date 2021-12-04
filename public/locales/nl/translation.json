@@ -62,8 +62,8 @@
         "unsync": "De-synchroniseren"
     },
     "Downloading": "Aan het downloaden",
+    "Epic Games": "Epic Games",
     "Filter": "Filter",
-    "Games": "Spellen",
     "globalSettings": "Algemene instellingen",
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
@@ -193,12 +193,24 @@
     "Settings": "Instellingen",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Algemeen",
             "other": "Overig",
             "sync": "Save-synchronisatie"
         }
     },
     "store": "Winkel",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Voeg een nieuw pad toe",
         "removepath": "Pad verwijderen"
@@ -214,13 +226,10 @@
     "Unreal Marketplace": "Unreal Marktplaats",
     "Updates": "Updates",
     "userselector": {
-        "about": "Over",
         "discord": "Discord",
         "logout": "Log uit",
         "logout_confirmation": "weet u zeker dat u wil uitloggen?",
-        "quit": "Sluiten",
-        "refresh": "Bibliotheek herladen",
-        "support": "Steun ons"
+        "quit": "Sluiten"
     },
     "wiki": "Wiki"
 }
