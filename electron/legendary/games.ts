@@ -285,13 +285,23 @@ class LegendaryGame extends Game {
 
     const gameInfo = await this.getGameInfo()
     const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
-    const [ desktopFile, menuFile ] = this.shortcutFiles(gameInfo.title)
+    const sanitizedTitle = gameInfo.title
+    // TODO: use regexp
+    sanitizedTitle.replaceAll('/', ' ')
+    sanitizedTitle.replaceAll('\\', ' ')
+    sanitizedTitle.replaceAll(':', ' ')
+    sanitizedTitle.replaceAll('*', ' ')
+    sanitizedTitle.replaceAll('?', ' ')
+    sanitizedTitle.replaceAll('<', ' ')
+    sanitizedTitle.replaceAll('>', ' ')
+    sanitizedTitle.replaceAll('|', ' ')
+    const [ desktopFile, menuFile ] = this.shortcutFiles(sanitizedTitle)
 
     switch (process.platform) {
     case 'linux': {
       const icon = await this.getIcon(gameInfo.app_name)
       const shortcut = `[Desktop Entry]
-Name=${gameInfo.title}
+Name=${sanitizedTitle}
 Exec=xdg-open ${launchWithProtocol}
 Terminal=false
 Type=Application
