@@ -82,6 +82,7 @@ export default function OtherSettings({
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
+  const supportsShortcuts = isWin || isLinux
 
   return (
     <>
@@ -157,13 +158,12 @@ export default function OtherSettings({
           <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
         </span>
       </span>
-      {isLinux && isDefault && <>
+      {supportsShortcuts && isDefault && <>
         <span className="setting">
           <span className="toggleWrapper">
             {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')}
             <ToggleSwitch
               value={addDesktopShortcuts}
-              disabled={!navigator.platform.startsWith('Linux')}
               handleChange={toggleAddDesktopShortcuts}
             />
           </span>
@@ -173,7 +173,6 @@ export default function OtherSettings({
             {t('setting.addgamestostartmenu', 'Add games to start menu automatically')}
             <ToggleSwitch
               value={addGamesToStartMenu}
-              disabled={!navigator.platform.startsWith('Linux')}
               handleChange={toggleAddGamesToStartMenu}
             />
           </span>
