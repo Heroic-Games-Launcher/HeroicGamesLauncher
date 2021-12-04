@@ -683,8 +683,8 @@ ipcMain.handle('openDialog', async (e, args) => {
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response } = await showMessageBox({ ...args })
-  return { response }
+  const { response, checkboxChecked } = await showMessageBox({ ...args })
+  return { response, checkboxChecked }
 }
 
 ipcMain.handle('openMessageBox', async (_, args: Electron.MessageBoxOptions) => {
@@ -830,14 +830,12 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
-ipcMain.on('addShortcut', async (event, appName: string, fromMenu: boolean) => {
+ipcMain.on('addShortcut', async (event, appName: string, { desktop, startMenu } : {desktop: boolean, startMenu: boolean}) => {
   const game = Game.get(appName)
-  game.addShortcuts(fromMenu)
-  openMessageBox({
-    buttons: [i18next.t('box.ok', 'Ok')],
-    message: i18next.t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
-    title: i18next.t('box.shortcuts.title', 'Shortcuts')
-  })
+  const opts = {
+    addToDesktop: desktop, addToStartMenu: startMenu
+  }
+  game.addShortcuts(opts)
 })
 
 ipcMain.on('removeShortcut', async (event, appName: string) => {

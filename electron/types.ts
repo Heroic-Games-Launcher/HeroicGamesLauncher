@@ -6,8 +6,6 @@ interface About {
 export interface AppSettings {
   checkUpdatesInterval: number,
   enableUpdates: boolean
-  addDesktopShortcuts: boolean
-  addStartMenuShortcuts: boolean
   altLegendaryBin: string
   audioFix: boolean
   autoInstallDxvk: boolean

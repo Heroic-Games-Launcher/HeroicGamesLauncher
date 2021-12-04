@@ -78,16 +78,6 @@ function Settings() {
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
   const {
-    on: addDesktopShortcuts,
-    toggle: toggleAddDesktopShortcuts,
-    setOn: setAddDesktopShortcuts
-  } = useToggle(false)
-  const {
-    on: addStartMenuShortcuts,
-    toggle: toggleAddGamesToStartMenu,
-    setOn: setAddGamesToStartMenu
-  } = useToggle(false)
-  const {
     on: useGameMode,
     toggle: toggleUseGameMode,
     setOn: setUseGameMode
@@ -214,8 +204,6 @@ function Settings() {
       setMaxWorkers(config.maxWorkers ?? 0)
       setMaxRecentGames(config.maxRecentGames ?? 5)
       setCustomWinePaths(config.customWinePaths || [])
-      setAddDesktopShortcuts(config.addDesktopShortcuts || false)
-      setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
       setTargetExe(config.targetExe || '')
@@ -241,8 +229,6 @@ function Settings() {
 
   const GlobalSettings = {
     altLegendaryBin,
-    addDesktopShortcuts,
-    addStartMenuShortcuts,
     audioFix,
     autoInstallDxvk,
     checkForUpdatesOnStartup,
@@ -409,10 +395,6 @@ function Settings() {
               isDefault={isDefault}
               maxRecentGames={maxRecentGames}
               setMaxRecentGames={setMaxRecentGames}
-              addDesktopShortcuts={addDesktopShortcuts}
-              addGamesToStartMenu={addStartMenuShortcuts}
-              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
-              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
               toggleDiscordRPC={toggleDiscordRPC}
               discordRPC={discordRPC}
               targetExe={targetExe}

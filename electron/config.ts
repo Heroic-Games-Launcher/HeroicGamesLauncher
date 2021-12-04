@@ -378,8 +378,6 @@ class GlobalConfigV0 extends GlobalConfig {
     return {
       checkUpdatesInterval: 10,
       enableUpdates: false,
-      addDesktopShortcuts: false,
-      addStartMenuShortcuts: false,
       autoInstallDxvk: false,
       checkForUpdatesOnStartup: true,
       customWinePaths: isWindows ? null : [],

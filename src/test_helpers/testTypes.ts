@@ -193,8 +193,6 @@ const test_plugin = new TestType<GameInfo>({
  */
 const test_appsettings = new TestType<AppSettings>({
   altLegendaryBin: '',
-  addDesktopShortcuts: false,
-  addStartMenuShortcuts: false,
   audioFix: false,
   autoInstallDxvk: false,
   autoSyncSaves: false,

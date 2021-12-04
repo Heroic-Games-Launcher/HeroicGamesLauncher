@@ -4,8 +4,6 @@ interface About {
 }
 export interface AppSettings {
   altLegendaryBin: string
-  addDesktopShortcuts: boolean
-  addStartMenuShortcuts: boolean
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean

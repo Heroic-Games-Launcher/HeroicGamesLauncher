@@ -22,8 +22,6 @@ interface Props {
   offlineMode: boolean
   otherOptions: string
   primeRun: boolean
-  addDesktopShortcuts: boolean
-  addGamesToStartMenu: boolean
   discordRPC: boolean
   setLauncherArgs: (value: string) => void
   setOtherOptions: (value: string) => void
@@ -38,8 +36,6 @@ interface Props {
   toggleOffline: () => void
   togglePrimeRun: () => void
   toggleUseGameMode: () => void
-  toggleAddDesktopShortcuts: () => void
-  toggleAddGamesToStartMenu: () => void
   toggleDiscordRPC: () => void
   targetExe: string
   useGameMode: boolean
@@ -64,10 +60,6 @@ export default function OtherSettings({
   primeRun,
   togglePrimeRun,
   setMaxRecentGames,
-  addDesktopShortcuts,
-  addGamesToStartMenu,
-  toggleAddDesktopShortcuts,
-  toggleAddGamesToStartMenu,
   discordRPC,
   toggleDiscordRPC,
   maxRecentGames,
@@ -82,7 +74,6 @@ export default function OtherSettings({
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
-  const supportsShortcuts = isWin || isLinux
 
   return (
     <>
@@ -158,26 +149,6 @@ export default function OtherSettings({
           <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
         </span>
       </span>
-      {supportsShortcuts && isDefault && <>
-        <span className="setting">
-          <span className="toggleWrapper">
-            {t('setting.adddesktopshortcuts', 'Add desktop shortcuts automatically')}
-            <ToggleSwitch
-              value={addDesktopShortcuts}
-              handleChange={toggleAddDesktopShortcuts}
-            />
-          </span>
-        </span>
-        <span className="setting">
-          <span className="toggleWrapper">
-            {t('setting.addgamestostartmenu', 'Add games to start menu automatically')}
-            <ToggleSwitch
-              value={addGamesToStartMenu}
-              handleChange={toggleAddGamesToStartMenu}
-            />
-          </span>
-        </span>
-      </>}
       {isDefault && <span className="setting">
         <span className="toggleWrapper">
           {t('setting.discordRPC', 'Enable Discord Rich Presence')}

@@ -20,7 +20,7 @@ abstract class Game {
   abstract hasUpdate() : Promise<boolean>
   abstract import(path : string) : Promise<ExecResult>
   abstract install(args: InstallArgs) : Promise<{status: string}>
-  abstract addShortcuts(): Promise<void>
+  abstract addShortcuts({addToStartMenu, addToDesktop}: {addToStartMenu: boolean, addToDesktop: boolean}): Promise<void>
   abstract launch(launchArguments?: string) : Promise<ExecResult>
   abstract moveInstall(newInstallPath : string) : Promise<string>
   abstract repair() : Promise<ExecResult>

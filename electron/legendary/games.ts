@@ -275,11 +275,10 @@ class LegendaryGame extends Game {
   /**
    * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
    * so that the game can be opened from the start menu and the desktop folder.
-   * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
    * @async
    * @public
    */
-  public async addShortcuts(fromMenu?: boolean) {
+  public async addShortcuts({addToStartMenu, addToDesktop}: {addToStartMenu: boolean, addToDesktop: boolean}) {
     if (process.platform === 'darwin') {
       return
     }
@@ -287,7 +286,6 @@ class LegendaryGame extends Game {
     const gameInfo = await this.getGameInfo()
     const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
     const [ desktopFile, menuFile ] = this.shortcutFiles(gameInfo.title)
-    const { addDesktopShortcuts, addStartMenuShortcuts } = await GlobalConfig.get().getSettings()
 
     switch (process.platform) {
     case 'linux': {
@@ -302,12 +300,12 @@ Icon=${icon}
 Categories=Game;
 `
 
-      if (addDesktopShortcuts || fromMenu) {
+      if (addToDesktop) {
         writeFile(desktopFile, shortcut, () => {
           logInfo('Shortcut saved on ' + desktopFile)
         })
       }
-      if (addStartMenuShortcuts || fromMenu) {
+      if (addToStartMenu) {
         writeFile(menuFile, shortcut, () => {
           logInfo('Shortcut saved on ' + menuFile)
         })
@@ -321,11 +319,11 @@ Categories=Game;
         iconIndex: 0
       }
 
-      if (addDesktopShortcuts || fromMenu) {
+      if (addToDesktop) {
         shell.writeShortcutLink(desktopFile, shortcutOptions)
       }
 
-      if (addStartMenuShortcuts || fromMenu) {
+      if (addToStartMenu) {
         shell.writeShortcutLink(menuFile, shortcutOptions)
       }
       break
