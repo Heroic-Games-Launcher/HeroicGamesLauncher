@@ -39,7 +39,7 @@
         "yes": "Ja"
     },
     "button": {
-        "cancel": "Avbryt",
+        "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
         "import": "Importera",
         "install": "Installera",
@@ -48,14 +48,14 @@
     },
     "disabled": "Inaktiverad",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Installera alla DLC",
         "title": "DLCs"
     },
     "enabled": "Aktiverad",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Nedladdningsstorlek",
         "firstPlayed": "Först spelad",
-        "installSize": "Install Size",
+        "installSize": "Installationsstorlek",
         "lastPlayed": "Senast spelad",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Speltid"
@@ -65,7 +65,7 @@
         "repairing": "Reparerar"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Kräver uppkoppling",
         "path": "Installationssökväg",
         "size": "Storlek",
         "syncsaves": "Synkronisera sparfiler",
@@ -86,11 +86,11 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Startalternativ..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Klicka för att visa/dölja extra komponenter",
+        "title": "Välj komponenter att installera"
     },
     "specs": {
         "minimum": "Minimum",

@@ -90,7 +90,7 @@
     },
     "sdl": {
         "showList": "点击以显示或隐藏额外内容",
-        "title": "Select components to Install"
+        "title": "选择要安装的组件"
     },
     "specs": {
         "minimum": "最低配置",

@@ -65,7 +65,7 @@
         "repairing": "Naprawianie"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Wymagane Online",
         "path": "Ścieżka instalacyjna",
         "size": "Rozmiar",
         "syncsaves": "Synchronizuj zapisy gry",
@@ -86,7 +86,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opcje Uruchamiania..."
     },
     "sdl": {
         "showList": "Kliknij by Pokazać/Ukryć Dodatkowe Komponenty",
