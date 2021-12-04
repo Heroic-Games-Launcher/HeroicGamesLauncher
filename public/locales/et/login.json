@@ -19,5 +19,8 @@
     },
     "button": {
         "login": "Logi sisse"
+    },
+    "info": {
+        "needHelp": "Vajate abi?"
     }
 }

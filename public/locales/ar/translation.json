@@ -1,0 +1,13 @@
+{
+    "All": "الكل",
+    "box": {
+        "appupdate": {
+            "message": "يتوفر تحديث جديد لهرويك، هل تريد تنزيله؟",
+            "title": "يتوفر تحديث"
+        },
+        "choose": "اختر",
+        "customWine": "اختر الملف التنفيذي لواين أو بروتون",
+        "default-install-path": "اختر المسار الافتراضي للتنزيل",
+        "choose-legendary-binary": "اختر الملف التنفيذي لـLegendary"
+    }
+}
