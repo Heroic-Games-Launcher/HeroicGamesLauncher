@@ -286,15 +286,9 @@ class LegendaryGame extends Game {
     const gameInfo = await this.getGameInfo()
     const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
     const sanitizedTitle = gameInfo.title
-    // TODO: use regexp
-    sanitizedTitle.replaceAll('/', ' ')
-    sanitizedTitle.replaceAll('\\', ' ')
-    sanitizedTitle.replaceAll(':', ' ')
-    sanitizedTitle.replaceAll('*', ' ')
-    sanitizedTitle.replaceAll('?', ' ')
-    sanitizedTitle.replaceAll('<', ' ')
-    sanitizedTitle.replaceAll('>', ' ')
-    sanitizedTitle.replaceAll('|', ' ')
+    const pattern = new RegExp('[:|/|*|?|<|>||]')
+    sanitizedTitle.replaceAll(pattern, ' ')
+
     const [ desktopFile, menuFile ] = this.shortcutFiles(sanitizedTitle)
 
     switch (process.platform) {
