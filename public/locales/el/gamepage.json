@@ -65,7 +65,7 @@
         "repairing": "Επιδιόρθωση"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Απαιτείται σύνδεση",
         "path": "Διαδρομή εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός save",
@@ -86,7 +86,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Ρυθμίσεις εκκίνησης..."
     },
     "sdl": {
         "showList": "Πατήστε για να δείτε/κρύψετε επιπλέον στοιχεία",

@@ -8,7 +8,7 @@
         },
         "choose": "Wybierz",
         "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Wybierz plik binarny Legendary",
         "customWine": "Wybierz plik uruchomieniowy Wine albo Proton",
         "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
         "error": {
@@ -127,11 +127,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Wersja Legendary: ",
         "weblate": "Pomóż przetłumaczyć Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "Używanie wbudowanego pliku binarnego Legendary...",
         "egs-prefix": "Prefiks instalacji EGS"
     },
     "Plugins": "Rozszerzenia",
@@ -143,7 +143,7 @@
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary, do użycia",
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK/VKD3D w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",

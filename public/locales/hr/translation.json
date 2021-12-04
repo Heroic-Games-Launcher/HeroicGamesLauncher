@@ -8,7 +8,7 @@
         },
         "choose": "Odaberi",
         "choose-egs-prefix": "Odaberite lokaciju gdje je EGS instaliran",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Odaberite Legendary Aplikaciju",
         "customWine": "Odaberite WINE ili PROTON aplikaciju",
         "default-install-path": "Odaberite zadanu lokaciju instalacije",
         "error": {
@@ -45,8 +45,8 @@
             "title": "Odaberi EXE za pokrenuti"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Odaberi",
+            "exe": "Odaberi EXE"
         },
         "sync": {
             "button": "Odaberi",
@@ -127,11 +127,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Legendary Verzije: ",
         "weblate": "Pomogni prevesti Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "Koristi ugrađenu Legendary verziju...",
         "egs-prefix": "Put gdje je EGS instaliran"
     },
     "Plugins": "Dodaci",
@@ -143,11 +143,11 @@
     "setting": {
         "adddesktopshortcuts": "Dodaje prečace automatski",
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Odaberi drugu Legendary verziju za koristiti",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
         "autodxvk": "Automatski instaliraj/ažuriraj DXVK/VKD3D na put",
         "autosync": "Automatsko sinkroniziranje podataka",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Odaberi drugi EXE za pokrenuti",
         "checkForUpdatesOnStartup": "Provjeri za ažuriranjem na pokretanju",
         "customWineProton": "Prilagođen put za WINE/PROTON",
         "darktray": "Koristi tamnu ikonu",
@@ -155,10 +155,10 @@
         "discordRPC": "Omogući Discord Rich Presence",
         "egs-sync": "Sinkroniziraj sa instaliranim Epic Games",
         "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)",
-        "esync": "Enable Esync",
+        "esync": "Omoguči Esync",
         "exit-to-tray": "Izađi u ikonu na sistemsku ladicu",
         "FsrSharpnessStrenght": "Snaga FSR Oštrine",
-        "fsync": "Enable Fsync",
+        "fsync": "Omoguči Fsync",
         "gamemode": "Koristi GameMode(Feral Game Mode mora biti instaliran)",
         "language": "Odaberi Jezik",
         "mangohud": "Omogući Mangohud (Mangohud mora biti instaliran)",

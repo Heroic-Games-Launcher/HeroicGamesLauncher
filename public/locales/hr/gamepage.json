@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Ovo će promijeniti lokaciju instalacije za igru, jeste li sigurni?",
+            "message": "Ovo će promijeniti lokaciju instalacije za ovu igru, jeste li sigurni?",
             "path": "Odaberite novu lokaciju za instalaciju",
             "title": "Promijenite lokaciju instalacije igrica"
         },
@@ -9,14 +9,14 @@
         "importpath": "Odaberi mapu igre za uvesti",
         "installpath": "Odaberi lokaciju instalacije",
         "move": {
-            "message": "Ovo može protrajati, jeste li sigurni?",
+            "message": "Ovo može potrajati, jeste li sigurni?",
             "path": "Odaberite gdje želite premjestiti",
             "title": "Premjestite instalaciju igrice"
         },
         "no": "NE",
         "ok": "Ok",
         "repair": {
-            "message": "Želite li probati popraviti ovu igricu? Ovo može potrajati.",
+            "message": "Želite li pokušati popraviti ovu igricu? Ovo može potrajati.",
             "title": "Provjeri i Popravi"
         },
         "shortcuts": {
@@ -48,14 +48,14 @@
     },
     "disabled": "Onemogućeno",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Instaliraj sve DLC-eve",
         "title": "DLCs"
     },
     "enabled": "Omogućeno",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Veličina Preuzimanja",
         "firstPlayed": "Prvo odigrano",
-        "installSize": "Install Size",
+        "installSize": "Veličina Instalacije",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "totalPlayed": "Vrijeme igranja"
@@ -65,7 +65,7 @@
         "repairing": "Popravljanje"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Internet Potreban",
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
@@ -86,11 +86,11 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opcije za pokretanje..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Kliknite da Pokažete/Sakrite Dodatne Komponente",
+        "title": "Odaberite kompomente za instalaciju"
     },
     "specs": {
         "minimum": "Minimalno",

@@ -161,7 +161,7 @@
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada",
         "audiofix": "Heliparandus (Pulse Audio Latency)",
-        "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
+        "autodxvk": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "autosync": "Automaatne salvestiste sünkroonimine",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
         "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel"

@@ -65,7 +65,7 @@
         "repairing": "Aan het repareren"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Internetverbinding Verplicht",
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
@@ -86,7 +86,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opstartopties..."
     },
     "sdl": {
         "showList": "Klik om extra componenten te tonen/verbergen",
