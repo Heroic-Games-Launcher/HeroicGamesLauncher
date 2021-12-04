@@ -105,7 +105,7 @@ export default function GamesSubmenu({
   }
 
   function handleShortcuts() {
-    ipcRenderer.send('addShortcut', appName, true)
+    ipcRenderer.send('addShortcut', appName, { desktop: true, startMenu: true })
   }
 
   useEffect(() => {

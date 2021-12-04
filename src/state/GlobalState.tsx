@@ -216,7 +216,7 @@ export class GlobalState extends PureComponent<Props> {
         if (percent > 95) {
           notifyKey = 'finished'
           filter = 'installed'
-          ipcRenderer.send('addShortcut', appName, false)
+          ipcRenderer.send('addShortcut', appName, { desktop: true, startMenu: true })
         }
 
         this.handleFilter(filter)
