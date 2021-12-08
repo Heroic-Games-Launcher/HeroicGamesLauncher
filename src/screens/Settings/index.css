@@ -100,16 +100,6 @@
     transform: scale(1.5);
 }
 
-.settingText {
-    margin-bottom: 14px;
-    font-family: Cabin;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    color: var(--text-primary);
-}
-
 .settingSelect.small {
     width: 372px;
 }
@@ -164,13 +154,6 @@
 
 .warning {
     color: yellow;
-    font-size: 12px;
-    width: 513px;
-    white-space: break-spaces;
-    padding-top: 4px;
-}
-
-.smallMessage {
     font-size: 12px;
     width: 513px;
     white-space: break-spaces;

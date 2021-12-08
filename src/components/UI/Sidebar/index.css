@@ -3,7 +3,6 @@
     --sidebar-vertical-padding: 24px;
     height: 100%;
     background: var(--background);
-    box-shadow: 0px 4.00313px 10.0078px #161616;
     display: grid;
     grid-template-rows: 1fr 15% 1fr;
     grid-template-areas: 'links' 'layout' 'other';
@@ -13,9 +12,11 @@
     position: relative;
     z-index: 10;
 }
+
 .sidebar>* {
     width: 100%;
 }
+
 .sidebar button,
 .sidebar a {
     width: 100%;
