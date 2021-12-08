@@ -39,8 +39,6 @@ async function install({
     return
   }
 
-  console.trace({ installPath, isInstalling })
-
   const { folder_name, is_game, is_installed }: GameInfo = await getGameInfo(
     appName
   )
@@ -52,7 +50,6 @@ async function install({
       )
       installPath = defaultInstallPath
     }
-    console.log({ installPath })
     return handleStopInstallation(
       appName,
       [installPath, folder_name],
@@ -83,7 +80,6 @@ async function install({
   }
 
   if (installPath !== 'default' || !is_game) {
-    console.trace({ installPath, isInstalling })
     setInstallPath && setInstallPath(installPath)
     // If the user changed the previous folder, the percentage should start from zero again.
     if (previousProgress && previousProgress.folder !== installPath) {
