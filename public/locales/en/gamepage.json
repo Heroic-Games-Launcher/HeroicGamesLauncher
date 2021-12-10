@@ -41,7 +41,7 @@
     "button": {
         "cancel": "Pause/Cancel",
         "continue": "Continue Download",
-        "import": "Import",
+        "import": "Import Game",
         "install": "Install",
         "uninstall": "Uninstall",
         "update": "Update"

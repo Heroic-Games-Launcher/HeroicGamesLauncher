@@ -1,14 +1,14 @@
 html {
-    --background: #151F3D;
+    --background: #151f3d;
     --background-transparent: #151f3dcb;
     --background-transparent-62: rgba(66, 69, 70, 0.62);
-    --background-darker: #0D0F1C;
+    --background-darker: #0d0f1c;
     --background-darker-80: #0d0f1ce0;
     --background-secondary: #323035;
     --background-gradient: linear-gradient( 180deg, rgba(0, 0, 0, 0.418) 2.4%, #0d0f1cd2 64%);
-    --background-light: #17237C;
-    --searchbar-background: #13172A;
-    --primary: #59D0EA;
+    --background-light: #17237c;
+    --searchbar-background: #13172a;
+    --primary: #59d0ea;
     --secondary: #eaa114;
     --tertiary: #1d1f1f;
     --danger: #bd0a0a;
