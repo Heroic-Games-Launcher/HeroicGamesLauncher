@@ -313,10 +313,8 @@ class LegendaryLibrary {
    */
   private loadFile(fileName: string): string {
     fileName = `${libraryPath}/${fileName}`
-    const { app_name, metadata, asset_info } = JSON.parse(
-      readFileSync(fileName, 'utf-8')
-    )
-    const { namespace } = asset_info
+    const { app_name, metadata } = JSON.parse(readFileSync(fileName, 'utf-8'))
+    const { namespace } = metadata
     const is_game = namespace !== 'ue' ? true : false
     const {
       description,
@@ -377,20 +375,20 @@ class LegendaryLibrary {
 
     const gameBoxTall = is_game
       ? keyImages.filter(
-        ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-      )[0]
+          ({ type }: KeyImage) => type === 'DieselGameBoxTall'
+        )[0]
       : gameBox
 
     const gameBoxStore = is_game
       ? keyImages.filter(
-        ({ type }: KeyImage) => type === 'DieselStoreFrontTall'
-      )[0]
+          ({ type }: KeyImage) => type === 'DieselStoreFrontTall'
+        )[0]
       : gameBox
 
     const logo = is_game
       ? keyImages.filter(
-        ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-      )[0]
+          ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
+        )[0]
       : keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail')[0]
 
     const fallBackImage =
