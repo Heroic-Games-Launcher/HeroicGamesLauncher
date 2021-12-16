@@ -1,9 +1,12 @@
-import { TFunction } from 'react-i18next';
+import { TFunction } from 'react-i18next'
 
-
-export function getLibraryTitle(category: string, filter: string, t: TFunction<'translation'>){
-  if (category === 'games'){
-    switch(filter){
+export function getLibraryTitle(
+  category: string,
+  filter: string,
+  t: TFunction<'translation'>
+) {
+  if (category === 'games') {
+    switch (filter) {
     case 'installed':
       return t('title.installedGames', 'Installed Games')
     case 'updates':
@@ -17,7 +20,7 @@ export function getLibraryTitle(category: string, filter: string, t: TFunction<'
     }
   }
 
-  switch(filter){
+  switch (filter) {
   case 'asset':
     return t('title.unrealAssets', 'Unreal - Assets')
   case 'plugin':
@@ -27,5 +30,4 @@ export function getLibraryTitle(category: string, filter: string, t: TFunction<'
   default:
     return t('title.allUnreal', 'Unreal - Everything')
   }
-
 }

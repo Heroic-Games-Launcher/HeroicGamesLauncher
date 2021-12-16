@@ -1,188 +1,188 @@
 @import '~@fontsource/rubik/index.css';
 @import '~@fontsource/cabin/index.css';
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body,
 html,
 #root,
 .App {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
 .App {
-    text-align: center;
-    color: var(--text-primary);
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
-    grid-template-areas: 'sidebar content';
-    font-family: 'Cabin', sans-serif;
+  text-align: center;
+  color: var(--text-primary);
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-areas: 'sidebar content';
+  font-family: 'Cabin', sans-serif;
 }
 
 .App .content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .App .content .updateIcon {
-    height: 100vh;
-    position: initial;
-    width: var(--content-width);
+  height: 100vh;
+  position: initial;
+  width: var(--content-width);
 }
 
 .button {
-    cursor: pointer;
-    padding: 0.75rem;
-    border-radius: 10px;
-    background: var(--background);
-    color: #1a1b1c;
-    text-transform: uppercase;
-    font-family: Rubik;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #161616;
-    border: none;
-    outline: none;
-    min-width: 170px;
-    max-height: 40px;
-    text-align: center;
-    transition: 500ms;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background: var(--background);
+  color: #1a1b1c;
+  text-transform: uppercase;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #161616;
+  border: none;
+  outline: none;
+  min-width: 170px;
+  max-height: 40px;
+  text-align: center;
+  transition: 500ms;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .button.is-small {
-    min-width: 130px;
+  min-width: 130px;
 }
 
 .button:hover {
-    background: #58545d;
+  background: #58545d;
 }
 
 .button.is-primary {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 .button.is-primary:hover {
-    background: var(--primary-hover);
+  background: var(--primary-hover);
 }
 
 .button.is-primary:disabled {
-    color: var(--text-secondary);
-    background: var(--background-secondary);
-    pointer-events: none;
+  color: var(--text-secondary);
+  background: var(--background-secondary);
+  pointer-events: none;
 }
 
 .button.is-secondary {
-    background: var(--secondary);
+  background: var(--secondary);
 }
 
 .button.is-secondary:hover {
-    background: var(--secondary-hover);
-    color: var(--text-tertiary)
+  background: var(--secondary-hover);
+  color: var(--text-tertiary);
 }
 
 .button.is-empty {
-    background: transparent;
-    text-decoration: underline;
+  background: transparent;
+  text-decoration: underline;
 }
 
 .button.is-success {
-    background: var(--success);
+  background: var(--success);
 }
 
 .button.button.is-success:hover {
-    background: var(--success-hover);
+  background: var(--success-hover);
 }
 
 .button.is-success:hover:disabled,
 .button.is-success:disabled {
-    background: var(--background);
-    color: var(--text-primary);
+  background: var(--background);
+  color: var(--text-primary);
 }
 
 .button.is-danger {
-    background: var(--tertiary);
-    color: var(--text-danger);
+  background: var(--tertiary);
+  color: var(--text-danger);
 }
 
 .button.is-danger:hover {
-    background: var(--tertiary-hover);
+  background: var(--tertiary-hover);
 }
 
 .button.is-danger:disabled {
-    background: var(--background);
-    color: var(--text-primary);
+  background: var(--background);
+  color: var(--text-primary);
 }
 
 .material-icons.is-primary {
-    color: var(--primary);
+  color: var(--primary);
 }
 
 .material-icons.is-secondary {
-    color: var(--secondary);
+  color: var(--secondary);
 }
 
 .material-icons.is-success {
-    color: var(--success);
+  color: var(--success);
 }
 
 .material-icons.is-danger {
-    color: var(--danger);
+  color: var(--danger);
 }
 
 .material-icons.is-danger:hover {
-    color: var(--danger-hover);
+  color: var(--danger-hover);
 }
 
 .material-icons.settings.folder {
-    position: relative;
-    right: 42px;
-    top: 5px;
-    cursor: pointer;
+  position: relative;
+  right: 42px;
+  top: 5px;
+  cursor: pointer;
 }
 
 .button.settings {
-    margin-left: -12px;
-    background: var(--text-secondary);
+  margin-left: -12px;
+  background: var(--text-secondary);
 }
 
 .button.settings:hover {
-    background: #7c7c7c;
+  background: #7c7c7c;
 }
 
 .button.settings:disabled:hover,
 .button.settings:disabled {
-    background: #7c7c7c;
+  background: #7c7c7c;
 }
 
-.icons>* {
-    cursor: pointer;
+.icons > * {
+  cursor: pointer;
 }
 
 .settingSelect {
-    width: 513px;
-    height: 40px;
-    background: var(--background);
-    border-radius: 10px;
-    font-family: Cabin;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 19px;
-    color: var(--text-secondary);
-    text-indent: 22px;
-    outline: none;
-    border: none;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 513px;
+  height: 40px;
+  background: var(--background);
+  border-radius: 10px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-secondary);
+  text-indent: 22px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 svg.disabled {
-    color: var(--background);
+  color: var(--background);
 }

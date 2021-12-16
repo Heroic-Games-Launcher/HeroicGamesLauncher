@@ -22,7 +22,8 @@ interface Props {
 export default function Login({ refresh }: Props) {
   const { t, i18n } = useTranslation('login')
   const { ipcRenderer, clipboard } = window.require('electron') as {
-    ipcRenderer : IpcRenderer, clipboard: Clipboard
+    ipcRenderer: IpcRenderer
+    clipboard: Clipboard
   }
 
   const [input, setInput] = useState('')
@@ -70,7 +71,7 @@ export default function Login({ refresh }: Props) {
       <div className="aboutWrapper">
         <div className="aboutContainer">
           <div className="heroicLogo">
-            <img className="logo" src={logo} width="50px" height="50px"/>
+            <img className="logo" src={logo} width="50px" height="50px" />
             <div className="heroicText">
               <span className="heroicTitle">Heroic</span>
               <span className="heroicSubTitle">Games Launcher</span>
@@ -120,7 +121,9 @@ export default function Login({ refresh }: Props) {
       </div>
       <div className="loginFormWrapper">
         <div className="loginForm">
-          <span className="pastesidtext">{t('input.placeholder', 'Paste the SID number here')}</span>
+          <span className="pastesidtext">
+            {t('input.placeholder', 'Paste the SID number here')}
+          </span>
           <input
             className="loginInput"
             id="sidInput"
@@ -145,8 +148,18 @@ export default function Login({ refresh }: Props) {
         <div className="helpWrapper">
           <p className="helpTitle">{t('info.needHelp', 'Need Help?')}</p>
           <div className="buttonWrapper">
-            <button onClick={() => ipcRenderer.send('openWikiLink')} className="button is-primary">Wiki</button>
-            <button onClick={() => ipcRenderer.send('openDiscordLink')} className="button is-tertiary">Discord</button>
+            <button
+              onClick={() => ipcRenderer.send('openWikiLink')}
+              className="button is-primary"
+            >
+              Wiki
+            </button>
+            <button
+              onClick={() => ipcRenderer.send('openDiscordLink')}
+              className="button is-tertiary"
+            >
+              Discord
+            </button>
           </div>
         </div>
       </div>

@@ -18,10 +18,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "@typescript-eslint"],
   "settings": {
     "react": {
       "version": "17.0"
@@ -35,6 +32,10 @@
     "comma-dangle": ["error", "never"],
     "indent": ["error", 2],
     "no-trailing-spaces": "error",
-    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }]
+    "quotes": [
+      "error",
+      "single",
+      { "avoidEscape": true, "allowTemplateLiterals": true }
+    ]
   }
 }

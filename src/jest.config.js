@@ -7,17 +7,14 @@ module.exports = {
     }
   },
 
-  moduleDirectories: [
-    'node_modules',
-    '<rootDir>'
-  ],
+  moduleDirectories: ['node_modules', '<rootDir>'],
 
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 
   moduleNameMapper: {
     '\\.css$': '<rootDir>/src/test_helpers/mock/css.ts',
-    'electron': '<rootDir>/src/test_helpers/mock/electron.ts',
+    electron: '<rootDir>/src/test_helpers/mock/electron.ts',
     'react-i18next': '<rootDir>/src/test_helpers/mock/react-i18next.ts'
   },
 
@@ -40,4 +37,4 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   }
-};
+}

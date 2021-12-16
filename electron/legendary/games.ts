@@ -1,24 +1,15 @@
-import {
-  existsSync,
-  mkdirSync,
-  unlink,
-  writeFile
-} from 'graceful-fs'
-import axios from 'axios';
+import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
+import axios from 'axios'
 
-import { app, shell } from 'electron';
+import { app, shell } from 'electron'
 import { DXVK } from '../dxvk'
-import { ExtraInfo, GameStatus, InstallArgs } from '../types';
-import { Game } from '../games';
-import { GameConfig } from '../game_config';
-import { GlobalConfig } from '../config';
+import { ExtraInfo, GameStatus, InstallArgs } from '../types'
+import { Game } from '../games'
+import { GameConfig } from '../game_config'
+import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
-import { LegendaryUser } from './user';
-import {
-  errorHandler,
-  execAsync,
-  isOnline
-} from '../utils'
+import { LegendaryUser } from './user'
+import { errorHandler, execAsync, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
@@ -27,10 +18,10 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
-import { logError, logInfo, logWarning } from '../logger';
-import { spawn } from 'child_process';
+import { logError, logInfo, logWarning } from '../logger'
+import { spawn } from 'child_process'
 import Store from 'electron-store'
-import makeClient from 'discord-rich-presence-typescript';
+import makeClient from 'discord-rich-presence-typescript'
 
 const store = new Store({
   cwd: 'store',
@@ -77,7 +68,6 @@ class LegendaryGame extends Game {
     return await LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
-
   /**
    * Alias for `LegendaryLibrary.getInstallInfo(this.appName)`
    *
@@ -98,7 +88,9 @@ class LegendaryGame extends Game {
       method: 'POST'
     })
     const res = result.data.data.Catalog.catalogOffers
-    const slug = res.elements.find((e: { productSlug: string }) => e.productSlug)
+    const slug = res.elements.find(
+      (e: { productSlug: string }) => e.productSlug
+    )
     if (slug) {
       return slug.productSlug.replace(/(\/.*)/, '')
     } else {
@@ -144,7 +136,10 @@ class LegendaryGame extends Game {
         (e: { type: string }) => e.type === 'productHome'
       )
 
-      store.set(namespace, { about: about.data.about, reqs: about.data.requirements.systems[0].details })
+      store.set(namespace, {
+        about: about.data.about,
+        reqs: about.data.requirements.systems[0].details
+      })
       return {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details
@@ -165,7 +160,10 @@ class LegendaryGame extends Game {
    * @returns GameConfig
    */
   public async getSettings() {
-    return GameConfig.get(this.appName).config || await GameConfig.get(this.appName).getSettings()
+    return (
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
+    )
   }
 
   /**
@@ -174,7 +172,9 @@ class LegendaryGame extends Game {
    * @returns If game has an update.
    */
   public async hasUpdate() {
-    return (await LegendaryLibrary.get().listUpdateableGames()).includes(this.appName)
+    return (await LegendaryLibrary.get().listUpdateableGames()).includes(
+      this.appName
+    )
   }
 
   /**
@@ -186,9 +186,12 @@ class LegendaryGame extends Game {
    */
   public async moveInstall(newInstallPath: string) {
     this.state.status = 'moving'
-    const {install: {install_path}, title} = await this.getGameInfo()
+    const {
+      install: { install_path },
+      title
+    } = await this.getGameInfo()
 
-    if (isWindows){
+    if (isWindows) {
       newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
     } else {
       newInstallPath += '/' + install_path.split('/').slice(-1)[0]
@@ -197,7 +200,10 @@ class LegendaryGame extends Game {
     logInfo(`Moving ${title} to ${newInstallPath}`)
     await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
       .then(() => {
-        LegendaryLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
+        LegendaryLibrary.get().changeGameInstallPath(
+          this.appName,
+          newInstallPath
+        )
         logInfo(`Finished Moving ${title}`)
       })
       .catch(logError)
@@ -213,7 +219,7 @@ class LegendaryGame extends Game {
    */
   public async update() {
     this.state.status = 'updating'
-    const { maxWorkers } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
@@ -225,7 +231,7 @@ class LegendaryGame extends Game {
         return v
       })
     } catch (error) {
-      return await errorHandler({error}).then((v) => {
+      return await errorHandler({ error }).then((v) => {
         this.state.status = 'done'
         return v
       })
@@ -262,7 +268,9 @@ class LegendaryGame extends Game {
     }
     case 'win32': {
       desktopFile = `${app.getPath('desktop')}\\${gameTitle}.lnk`
-      menuFile = `${app.getPath('appData')}\\Microsoft\\Windows\\Start Menu\\Programs\\${gameTitle}.lnk`
+      menuFile = `${app.getPath(
+        'appData'
+      )}\\Microsoft\\Windows\\Start Menu\\Programs\\${gameTitle}.lnk`
       break
     }
     default:
@@ -286,8 +294,9 @@ class LegendaryGame extends Game {
 
     const gameInfo = await this.getGameInfo()
     const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
-    const [ desktopFile, menuFile ] = this.shortcutFiles(gameInfo.title)
-    const { addDesktopShortcuts, addStartMenuShortcuts } = await GlobalConfig.get().getSettings()
+    const [desktopFile, menuFile] = this.shortcutFiles(gameInfo.title)
+    const { addDesktopShortcuts, addStartMenuShortcuts } =
+      await GlobalConfig.get().getSettings()
 
     switch (process.platform) {
     case 'linux': {
@@ -342,7 +351,7 @@ Categories=Game;
    */
   public async removeShortcuts() {
     const gameInfo = await this.getGameInfo()
-    const [ desktopFile, menuFile ] = this.shortcutFiles(gameInfo.title)
+    const [desktopFile, menuFile] = this.shortcutFiles(gameInfo.title)
 
     if (desktopFile) {
       unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
@@ -352,10 +361,14 @@ Categories=Game;
     }
   }
 
-  private getSdlList(sdlList: Array<string>){
+  private getSdlList(sdlList: Array<string>) {
     // Legendary needs an empty tag for it to download the other needed files
     const defaultTag = ' --install-tag ""'
-    return sdlList.map(tag => `--install-tag ${tag}`).join(' ').replaceAll("'", '').concat(defaultTag)
+    return sdlList
+      .map((tag) => `--install-tag ${tag}`)
+      .join(' ')
+      .replaceAll("'", '')
+      .concat(defaultTag)
   }
 
   /**
@@ -364,9 +377,9 @@ Categories=Game;
    *
    * @returns Result of execAsync.
    */
-  public async install({path, installDlcs, sdlList}: InstallArgs) {
+  public async install({ path, installDlcs, sdlList }: InstallArgs) {
     this.state.status = 'installing'
-    const { maxWorkers } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
@@ -375,14 +388,13 @@ Categories=Game;
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
-    return execAsync(command, execOptions)
-      .then(async ({stdout, stderr}) => {
-        if (stdout.includes('ERROR')){
-          errorHandler({error: {stdout, stderr}, logPath})
-          return {status: 'error'}
-        }
-        return {status: 'done'}
-      })
+    return execAsync(command, execOptions).then(async ({ stdout, stderr }) => {
+      if (stdout.includes('ERROR')) {
+        errorHandler({ error: { stdout, stderr }, logPath })
+        return { status: 'error' }
+      }
+      return { status: 'done' }
+    })
   }
 
   public async uninstall() {
@@ -405,7 +417,7 @@ Categories=Game;
    */
   public async repair() {
     this.state.status = 'repairing'
-    const { maxWorkers } = (await GlobalConfig.get().getSettings())
+    const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
@@ -437,7 +449,9 @@ Categories=Game;
    * @returns Result of execAsync.
    */
   public async syncSaves(arg: string, path: string) {
-    const fixedPath = isWindows ? path.replaceAll("'", '').slice(0, -1) : path.replaceAll("'", '')
+    const fixedPath = isWindows
+      ? path.replaceAll("'", '').slice(0, -1)
+      : path.replaceAll("'", '')
 
     const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = `${home}/legendary/.saves`
@@ -477,7 +491,7 @@ Categories=Game;
       targetExe
     } = await this.getSettings()
 
-    const { discordRPC } = (await GlobalConfig.get().getSettings())
+    const { discordRPC } = await GlobalConfig.get().getSettings()
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = isOffline || offlineMode ? '--offline' : ''
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
@@ -515,7 +529,9 @@ Categories=Game;
     }
 
     if (isWindows) {
-      const command = `${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
+      const command = `${legendaryBin} launch ${
+        this.appName
+      } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
 
@@ -533,25 +549,30 @@ Categories=Game;
     let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
 
     const isProton =
-      wineVersion.name.includes('Proton') ||
-      wineVersion.name.includes('Steam')
-    const isCrossover =
-      wineVersion.name.includes('CrossOver')
-    prefix = (isProton || isCrossover) ? '' : prefix
+      wineVersion.name.includes('Proton') || wineVersion.name.includes('Steam')
+    const isCrossover = wineVersion.name.includes('CrossOver')
+    prefix = isProton || isCrossover ? '' : prefix
     const x = wineVersion.bin.split('/')
     x.pop()
     const winePath = x.join('/').replaceAll("'", '')
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
-      crossoverBottle: (isCrossover && wineCrossoverBottle != '') ? `CX_BOTTLE=${wineCrossoverBottle}` : '' ,
+      crossoverBottle:
+        isCrossover && wineCrossoverBottle != ''
+          ? `CX_BOTTLE=${wineCrossoverBottle}`
+          : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
       fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1' : '',
       esync: enableEsync ? 'WINEESYNC=1' : '',
       fsync: enableFsync ? 'WINEFSYNC=1' : '',
-      sharpness: enableFSR ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}` : '',
+      sharpness: enableFSR
+        ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}`
+        : '',
       resizableBar: enableResizableBar ? `VKD3D_CONFIG=upload_hvv` : '',
       other: otherOptions ? otherOptions : '',
-      prime: nvidiaPrime ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia' : '',
+      prime: nvidiaPrime
+        ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
+        : '',
       proton: isProton
         ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')
@@ -559,7 +580,6 @@ Categories=Game;
         : '',
       showMangohud: showMangohud ? `MANGOHUD=1` : ''
     }
-
 
     envVars = Object.values(options).join(' ')
     if (isProton) {
@@ -570,7 +590,7 @@ Categories=Game;
       )
     }
 
-    await this.createNewPrefix(isProton, fixedWinePrefix, winePath);
+    await this.createNewPrefix(isProton, fixedWinePrefix, winePath)
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
@@ -592,7 +612,11 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${this.appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${launchArguments ?? ''} ${launcherArgs}`
+    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${
+      this.appName
+    } ${exe} ${runOffline} ${wineCommand} ${prefix} ${
+      launchArguments ?? ''
+    } ${launcherArgs}`
     logInfo('\n Launch Command:', command)
     const v = await execAsync(command, execOptions).then((v) => {
       this.state.status = 'playing'
@@ -606,14 +630,18 @@ Categories=Game;
     return v
   }
 
-  private async createNewPrefix(isProton: boolean, fixedWinePrefix: string, winePath: string) {
+  private async createNewPrefix(
+    isProton: boolean,
+    fixedWinePrefix: string,
+    winePath: string
+  ) {
     if (isProton && !existsSync(fixedWinePrefix)) {
-      const command = `mkdir '${fixedWinePrefix}' -p`;
-      await execAsync(command, execOptions);
+      const command = `mkdir '${fixedWinePrefix}' -p`
+      await execAsync(command, execOptions)
     }
 
     if (!existsSync(fixedWinePrefix)) {
-      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`;
+      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
       logInfo('creating new prefix', fixedWinePrefix)
       return execAsync(initPrefixCommand)
         .then(() => logInfo('Prefix created succesfuly!'))
@@ -632,19 +660,17 @@ Categories=Game;
     if (process.platform === 'win32') {
       try {
         await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return logInfo(`${pattern} killed`);
+        return logInfo(`${pattern} killed`)
       } catch (error) {
-        return logError(`not possible to kill ${pattern}`, error);
+        return logError(`not possible to kill ${pattern}`, error)
       }
     }
 
     const child = spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
-      return logInfo(`${pattern} killed`);
+      return logInfo(`${pattern} killed`)
     })
   }
 }
 
-export {
-  LegendaryGame
-}
+export { LegendaryGame }

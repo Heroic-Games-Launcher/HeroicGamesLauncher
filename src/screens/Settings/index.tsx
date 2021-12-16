@@ -1,25 +1,11 @@
 import './index.css'
 
-import React, {
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import {
-  AppSettings,
-  WineInstallation
-} from 'src/types'
+import { AppSettings, WineInstallation } from 'src/types'
 import { IpcRenderer } from 'electron'
-import {
-  NavLink,
-  useLocation,
-  useParams
-} from 'react-router-dom'
-import {
-  getGameInfo,
-  writeConfig
-} from 'src/helpers'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
@@ -160,7 +146,6 @@ function Settings() {
     toggle: toggleFsync,
     setOn: setEnableFsync
   } = useToggle(false)
-
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -319,7 +304,10 @@ function Settings() {
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
-            <NavLink data-testid='linkSync' to={{ pathname: `/settings/${appName}/sync` }}>
+            <NavLink
+              data-testid="linkSync"
+              to={{ pathname: `/settings/${appName}/sync` }}
+            >
               {t('settings.navbar.sync')}
             </NavLink>
           )}
@@ -328,12 +316,14 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
-          <NavLink to={returnPath} >
-            {t('settings.navbar.back', 'Back')}
-          </NavLink>
+          <NavLink to={returnPath}>{t('settings.navbar.back', 'Back')}</NavLink>
         </div>
         <div className="settingsWrapper">
-          {title && <div className="headerTitle" data-testid="headerTitle">{title}</div>}
+          {title && (
+            <div className="headerTitle" data-testid="headerTitle">
+              {title}
+            </div>
+          )}
           {isGeneralSettings && (
             <GeneralSettings
               egsPath={egsPath}

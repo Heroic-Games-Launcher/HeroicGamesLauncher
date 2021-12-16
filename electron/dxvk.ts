@@ -1,19 +1,11 @@
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { exec, spawn } from 'child_process'
-import {
-  existsSync,
-  readFileSync,
-  readdirSync
-} from 'graceful-fs'
+import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
-import {
-  heroicToolsPath,
-  home
-} from './constants'
+import { heroicToolsPath, home } from './constants'
 import { logError, logInfo, logWarning } from './logger'
-
 
 export const DXVK = {
   getLatest: async () => {
@@ -23,11 +15,13 @@ export const DXVK = {
     }
 
     const tools = [
-      { name: 'vkd3d',
+      {
+        name: 'vkd3d',
         url: 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/latest',
         extractCommand: 'tar -I zstd -xvf'
       },
-      { name: 'dxvk',
+      {
+        name: 'dxvk',
         url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
         extractCommand: 'tar -zxf'
       }
@@ -38,7 +32,7 @@ export const DXVK = {
         data: { assets }
       } = await axios.default.get(tool.url)
 
-      const {name, browser_download_url: downloadUrl} = assets[0]
+      const { name, browser_download_url: downloadUrl } = assets[0]
       const pkg = name.replace('.tar.gz', '').replace('.tar.zst', '')
 
       const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
@@ -67,13 +61,17 @@ export const DXVK = {
           logInfo(`extracting ${tool.name} updated!`)
           exec(cleanCommand)
         })
-        .catch((error) => logError(`Error when downloading ${tool.name}`, error))
+        .catch((error) =>
+          logError(`Error when downloading ${tool.name}`, error)
+        )
     })
-
-
   },
 
-  installRemove: async (prefix: string, tool: 'dxvk' | 'vkd3d', action: 'backup' | 'restore') => {
+  installRemove: async (
+    prefix: string,
+    tool: 'dxvk' | 'vkd3d',
+    action: 'backup' | 'restore'
+  ) => {
     if (!prefix) {
       return
     }
@@ -84,7 +82,9 @@ export const DXVK = {
       await DXVK.getLatest()
     }
 
-    const globalVersion = readFileSync(`${heroicToolsPath}/${tool}/latest_${tool}`)
+    const globalVersion = readFileSync(
+      `${heroicToolsPath}/${tool}/latest_${tool}`
+    )
       .toString()
       .split('\n')[0]
     const toolPath = `${heroicToolsPath}/${tool}/${globalVersion}`
@@ -104,14 +104,14 @@ export const DXVK = {
     const installCommand = `ln -sf ${toolPath}/${x86Fix}/* ${x32Path} && ln -sf ${toolPath}/x64/* ${x64Path}`
     const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
 
-    const filesToBkpx32= readdirSync(`${toolPath}/${x86Fix}`)
-    const filesToBkpx64= readdirSync(`${toolPath}/x64/`)
+    const filesToBkpx32 = readdirSync(`${toolPath}/${x86Fix}`)
+    const filesToBkpx64 = readdirSync(`${toolPath}/x64/`)
 
     logInfo(`${action === 'backup' ? 'Backuping' : 'Restoring'} original DLLs`)
     backupRestoreDLLs(filesToBkpx32, x32Path, action)
     backupRestoreDLLs(filesToBkpx64, x64Path, action)
 
-    if(action === 'restore'){
+    if (action === 'restore') {
       logInfo(`Removing ${tool} version information`)
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
       exec(updatedVersionfile)
@@ -130,28 +130,29 @@ export const DXVK = {
         logError(
           'error when installing DXVK, please try launching the game again'
         )
-      }
-      )
+      })
   }
 }
 
-export function backupRestoreDLLs(filesToHandle: Array<string>, path: string, action: 'backup' | 'restore'){
-  if (action === 'backup'){
-    return filesToHandle.forEach(file => {
+export function backupRestoreDLLs(
+  filesToHandle: Array<string>,
+  path: string,
+  action: 'backup' | 'restore'
+) {
+  if (action === 'backup') {
+    return filesToHandle.forEach((file) => {
       const filePath = `${path}/${file}`
-      if (existsSync(filePath)){
+      if (existsSync(filePath)) {
         spawn('mv', [filePath, `${filePath}.bkp`])
       }
     })
   }
 
-  return filesToHandle.forEach(file => {
+  return filesToHandle.forEach((file) => {
     const filePath = `${path}/${file}`
-    if (existsSync(filePath)){
+    if (existsSync(filePath)) {
       spawn('rm', ['-rf', `${filePath}`])
       spawn('mv', [`${filePath}.bkp`, `${filePath}`])
     }
   })
-
-
 }

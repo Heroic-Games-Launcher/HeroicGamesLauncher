@@ -9,12 +9,15 @@ type Props = {
   title: string
 }
 
-export default function SmallInfo({handleclick, subtitle, title}: Props) {
+export default function SmallInfo({ handleclick, subtitle, title }: Props) {
   const handleOnClick = () => {
     return handleclick ? handleclick() : null
   }
   return (
-    <div className={cx('smallInfo', {clickable: handleclick})} onClick={handleOnClick}>
+    <div
+      className={cx('smallInfo', { clickable: handleclick })}
+      onClick={handleOnClick}
+    >
       <span className="smallTitle">{title}</span> <br />
       <span className="smallsubtitle">{subtitle}</span>
     </div>

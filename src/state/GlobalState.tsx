@@ -53,7 +53,9 @@ interface StateProps {
 export class GlobalState extends PureComponent<Props> {
   state: StateProps = {
     category: 'games',
-    data: libraryStore.has('library') ? libraryStore.get('library') as GameInfo[] : [],
+    data: libraryStore.has('library')
+      ? (libraryStore.get('library') as GameInfo[])
+      : [],
     error: false,
     filter: 'all',
     filterText: '',
@@ -68,16 +70,22 @@ export class GlobalState extends PureComponent<Props> {
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
     const currentLibraryLength = this.state.data?.length
-    let library: Array<GameInfo> = libraryStore.get('library') as Array<GameInfo> || []
+    let library: Array<GameInfo> =
+      (libraryStore.get('library') as Array<GameInfo>) || []
 
     if (!library.length || !this.state.data.length) {
-      ipcRenderer.send('logInfo', 'No cache found, getting data from legendary...')
-      const {library: legendaryLibrary} = await getLegendaryConfig()
+      ipcRenderer.send(
+        'logInfo',
+        'No cache found, getting data from legendary...'
+      )
+      const { library: legendaryLibrary } = await getLegendaryConfig()
       library = legendaryLibrary
     }
 
     try {
-      updates = checkUpdates ? await ipcRenderer.invoke('checkGameUpdates') : this.state.gameUpdates
+      updates = checkUpdates
+        ? await ipcRenderer.invoke('checkGameUpdates')
+        : this.state.gameUpdates
     } catch (error) {
       ipcRenderer.send('logError', error)
     }
@@ -95,7 +103,11 @@ export class GlobalState extends PureComponent<Props> {
     }
   }
 
-  refreshLibrary = async ({ checkForUpdates, fullRefresh, runInBackground = true }: RefreshOptions): Promise<void> => {
+  refreshLibrary = async ({
+    checkForUpdates,
+    fullRefresh,
+    runInBackground = true
+  }: RefreshOptions): Promise<void> => {
     this.setState({ refreshing: !runInBackground })
     ipcRenderer.send('logInfo', 'Refreshing Library')
     try {
@@ -119,11 +131,10 @@ export class GlobalState extends PureComponent<Props> {
     if (filter.includes('UE_')) {
       return library.filter((game) => {
         if (!game.compatible_apps) {
-          return false;
+          return false
         }
         return game.compatible_apps.includes(filter)
       })
-
     } else {
       switch (filter) {
       case 'installed':
@@ -146,9 +157,14 @@ export class GlobalState extends PureComponent<Props> {
           )
         })
       case 'updates':
-        return library.filter(game => this.state.gameUpdates.includes(game.app_name))
+        return library.filter((game) =>
+          this.state.gameUpdates.includes(game.app_name)
+        )
       case 'unreal':
-        return library.filter((game) => game.is_ue_project || game.is_ue_asset || game.is_ue_plugin)
+        return library.filter(
+          (game) =>
+            game.is_ue_project || game.is_ue_asset || game.is_ue_plugin
+        )
       case 'asset':
         return library.filter((game) => game.is_ue_asset)
       case 'plugin':
@@ -177,24 +193,33 @@ export class GlobalState extends PureComponent<Props> {
       })
     }
 
-    if (currentApp && currentApp.status === 'installing' && status === 'error') {
+    if (
+      currentApp &&
+      currentApp.status === 'installing' &&
+      status === 'error'
+    ) {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
 
-      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
+      this.setState({
+        filter: 'installed',
+        libraryStatus: updatedLibraryStatus
+      })
       this.refreshLibrary({})
 
       return notify([title, 'notify.install.error'])
     }
-
 
     if (currentApp && currentApp.status === 'installing' && status === 'done') {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
 
-      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
+      this.setState({
+        filter: 'installed',
+        libraryStatus: updatedLibraryStatus
+      })
 
       const progress = await ipcRenderer.invoke('requestGameProgress', appName)
       const percent = getProgress(progress)
@@ -221,8 +246,12 @@ export class GlobalState extends PureComponent<Props> {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
-      const updatedGamesUpdates = gameUpdates.filter(game => game !== appName)
-      this.setState({ filter: 'installed', gameUpdates: updatedGamesUpdates, libraryStatus: updatedLibraryStatus })
+      const updatedGamesUpdates = gameUpdates.filter((game) => game !== appName)
+      this.setState({
+        filter: 'installed',
+        gameUpdates: updatedGamesUpdates,
+        libraryStatus: updatedLibraryStatus
+      })
 
       const progress = await ipcRenderer.invoke('requestGameProgress', appName)
       const percent = getProgress(progress)
@@ -232,14 +261,17 @@ export class GlobalState extends PureComponent<Props> {
       // This avoids calling legendary again before the previous process is killed when canceling
       setTimeout(() => {
         return this.refreshLibrary({ checkForUpdates: true })
-      }, 2000);
+      }, 2000)
     }
 
     if (currentApp && currentApp.status === 'repairing' && status === 'done') {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
-      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
+      this.setState({
+        filter: 'installed',
+        libraryStatus: updatedLibraryStatus
+      })
       notify([title, t('notify.finished.reparing')])
 
       return this.refresh()
@@ -264,7 +296,10 @@ export class GlobalState extends PureComponent<Props> {
       const updatedLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName
       )
-      this.setState({ filter: 'installed', libraryStatus: updatedLibraryStatus })
+      this.setState({
+        filter: 'installed',
+        libraryStatus: updatedLibraryStatus
+      })
       notify([title, t('notify.moved')])
 
       return this.refresh()
@@ -307,24 +342,33 @@ export class GlobalState extends PureComponent<Props> {
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName) => {
-      const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
+      const currentApp = libraryStatus.filter(
+        (game) => game.appName === appName
+      )[0]
       if (!currentApp) {
         await this.handleGameStatus({ appName, status: 'playing' })
-        return launch({appName, t, handleGameStatus: this.handleGameStatus})
+        return launch({ appName, t, handleGameStatus: this.handleGameStatus })
       }
     })
 
     ipcRenderer.on('installGame', async (e, appName) => {
-      const currentApp = libraryStatus.filter(game => game.appName === appName)[0]
-      if (!currentApp || currentApp && currentApp.status !== 'installing') {
+      const currentApp = libraryStatus.filter(
+        (game) => game.appName === appName
+      )[0]
+      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
         await this.handleGameStatus({ appName, status: 'installing' })
         return install({
           appName,
-          handleGameStatus: this.handleGameStatus, installPath: 'default', isInstalling: false, previousProgress: null, progress: {
+          handleGameStatus: this.handleGameStatus,
+          installPath: 'default',
+          isInstalling: false,
+          previousProgress: null,
+          progress: {
             bytes: '0.00MiB',
             eta: '00:00:00',
             percent: '0.00%'
-          }, t
+          },
+          t
         })
       }
     })
@@ -349,7 +393,11 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ category, filter, language, layout, platform })
 
     if (user) {
-      this.refreshLibrary({ checkForUpdates: true, fullRefresh: true, runInBackground: Boolean(data.length) })
+      this.refreshLibrary({
+        checkForUpdates: true,
+        fullRefresh: true,
+        runInBackground: Boolean(data.length)
+      })
     }
 
     setTimeout(() => {
@@ -365,8 +413,9 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
 
-    const pendingOps = libraryStatus.filter((game) => game.status !== 'playing')
-      .length
+    const pendingOps = libraryStatus.filter(
+      (game) => game.status !== 'playing'
+    ).length
     if (pendingOps) {
       ipcRenderer.send('lock')
     } else {

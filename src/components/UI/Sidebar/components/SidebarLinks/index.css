@@ -1,45 +1,45 @@
 .Links {
-    font-size: 20px;
-    font-weight: 400;
-    height: fit-content;
-    font-family: 'Rubik', sans-serif;
-    flex-direction: column;
-    display: flex;
-    grid-area: links;
-    text-align: left;
-    padding-top: var(--sidebar-vertical-padding);
+  font-size: 20px;
+  font-weight: 400;
+  height: fit-content;
+  font-family: 'Rubik', sans-serif;
+  flex-direction: column;
+  display: flex;
+  grid-area: links;
+  text-align: left;
+  padding-top: var(--sidebar-vertical-padding);
 }
 
 .subItem {
-    font-size: 14px;
-    cursor: pointer;
-    padding-left: 24px;
-    line-height: 28px;
-    white-space: break-spaces;
+  font-size: 14px;
+  cursor: pointer;
+  padding-left: 24px;
+  line-height: 28px;
+  white-space: break-spaces;
 }
 
 .subItem:hover {
-    transition: 250ms;
-    color: var(--secondary);
+  transition: 250ms;
+  color: var(--secondary);
 }
 
 .subItem::before {
-    content: '- ';
+  content: '- ';
 }
 
 .subItem.selected {
-    color: var(--secondary);
+  color: var(--secondary);
 }
 
 .sidebar .UserSelector {
-    grid-area: user;
+  grid-area: user;
 }
 
 a:hover {
-    transition: 250ms;
-    color: var(--secondary);
+  transition: 250ms;
+  color: var(--secondary);
 }
 
 .Links svg {
-    padding-right: 6px;
+  padding-right: 6px;
 }

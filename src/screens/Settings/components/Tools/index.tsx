@@ -6,7 +6,9 @@ import { IpcRenderer } from 'electron'
 import { WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
 
-const { ipcRenderer } = window.require('electron') as {ipcRenderer: IpcRenderer}
+const { ipcRenderer } = window.require('electron') as {
+  ipcRenderer: IpcRenderer
+}
 
 interface Props {
   winePrefix: string
@@ -19,11 +21,11 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
   const [winetricksRunning, setWinetricksRunning] = useState(false)
 
   type Tool = 'winecfg' | 'winetricks' | string
-  async function callTools(tool: Tool, exe?: string){
-    if (tool === 'winetricks'){
+  async function callTools(tool: Tool, exe?: string) {
+    if (tool === 'winetricks') {
       setWinetricksRunning(true)
     }
-    if (tool === 'winecfg'){
+    if (tool === 'winecfg') {
       setWinecfgRunning(true)
     }
 
@@ -80,15 +82,21 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
           <span
             data-testid="wineCFG"
             className="tools"
-            style={{ color: winecfgRunning ? 'var(--secondary)' : 'var(--primary)'}}
-            onClick={() => callTools('winecfg')}>
+            style={{
+              color: winecfgRunning ? 'var(--secondary)' : 'var(--primary)'
+            }}
+            onClick={() => callTools('winecfg')}
+          >
             Winecfg
           </span>
           <span
             data-testid="wineTricks"
             className="tools"
-            style={{ color: winetricksRunning ? 'var(--secondary)' : 'var(--primary)'}}
-            onClick={() => callTools('winetricks')}>
+            style={{
+              color: winetricksRunning ? 'var(--secondary)' : 'var(--primary)'
+            }}
+            onClick={() => callTools('winetricks')}
+          >
             Winetricks
           </span>
           <span

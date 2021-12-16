@@ -1,8 +1,4 @@
-import {
-  existsSync,
-  readFileSync,
-  writeFileSync
-} from 'graceful-fs'
+import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 
 import { GameConfigVersion, GameSettings } from './types'
 import { GlobalConfig } from './config'
@@ -21,16 +17,16 @@ import { logError, logInfo } from './logger'
  * It also implements all the config features that won't change across versions.
  */
 abstract class GameConfig {
-  protected static instances : Map<string, GameConfig> = new Map()
+  protected static instances: Map<string, GameConfig> = new Map()
 
-  public abstract version : GameConfigVersion
+  public abstract version: GameConfigVersion
 
-  public config : GameSettings
+  public config: GameSettings
 
-  readonly appName : string
-  readonly path : string
+  readonly appName: string
+  readonly path: string
 
-  protected constructor(appName : string) {
+  protected constructor(appName: string) {
     this.appName = appName
     this.path = `${heroicGamesConfigPath}${appName}.json`
   }
@@ -42,8 +38,8 @@ abstract class GameConfig {
    * @param appName Game to get handler of.
    * @returns GameConfig instance.
    */
-  public static get(appName : string) : GameConfig {
-    let version : GameConfigVersion
+  public static get(appName: string): GameConfig {
+    let version: GameConfigVersion
     const path = `${heroicGamesConfigPath}${appName}.json`
     // Config file doesn't already exist, make one with the current version.
     if (!existsSync(path)) {
@@ -73,7 +69,7 @@ abstract class GameConfig {
    * @param version Config version to load file using.
    * @returns void
    */
-  private static reload(appName : string, version : GameConfigVersion) : void {
+  private static reload(appName: string, version: GameConfigVersion): void {
     // Select loader to use.
     switch (version) {
     case 'v0':
@@ -83,18 +79,23 @@ abstract class GameConfig {
       GameConfig.instances.set(appName, new GameConfigV0_1(appName))
       break
     default:
-      logError(`GameConfig(${appName}): Invalid config version '${version}' requested.`)
+      logError(
+        `GameConfig(${appName}): Invalid config version '${version}' requested.`
+      )
       break
     }
     // Try to upgrade outdated config.
     if (GameConfig.instances.get(appName).upgrade()) {
       // Upgrade done, we need to fully reload config.
-      logInfo(`GameConfig(${appName}): Upgraded outdated ${version} config to ${currentGameConfigVersion}.`)
+      logInfo(
+        `GameConfig(${appName}): Upgraded outdated ${version} config to ${currentGameConfigVersion}.`
+      )
       return GameConfig.reload(appName, currentGameConfigVersion)
-    }
-    else if (version !== currentGameConfigVersion) {
+    } else if (version !== currentGameConfigVersion) {
       // Upgrade failed.
-      logError(`GameConfig(${appName}): Failed to upgrade outdated ${version} config.`)
+      logError(
+        `GameConfig(${appName}): Failed to upgrade outdated ${version} config.`
+      )
     }
   }
 
@@ -105,7 +106,7 @@ abstract class GameConfig {
    *
    * @returns Settings present in config file.
    */
-  public abstract getSettings() : Promise<GameSettings>
+  public abstract getSettings(): Promise<GameSettings>
 
   /**
    * Updates this.config, this.version to upgrade the current config file.
@@ -115,14 +116,14 @@ abstract class GameConfig {
    *
    * @returns true if upgrade successful, false if upgrade fails or no upgrade needed.
    */
-  public abstract upgrade() : boolean
+  public abstract upgrade(): boolean
 
   /**
    * Reset `this.config` to global defaults and flush.
    */
-  public abstract resetToDefaults() : void
+  public abstract resetToDefaults(): void
 
-  protected writeToFile(config : Record<string, unknown>) {
+  protected writeToFile(config: Record<string, unknown>) {
     return writeFileSync(this.path, JSON.stringify(config, null, 2))
   }
 
@@ -130,7 +131,7 @@ abstract class GameConfig {
    * Write `this.config` to file.
    * Uses the config version defined in `this.version`.
    */
-  public abstract flush() : void
+  public abstract flush(): void
 
   /**
    * Load the config file, upgrade if needed.
@@ -145,23 +146,22 @@ abstract class GameConfig {
     if (this.version !== currentGameConfigVersion) {
       // Do not load the config.
       // Wait for `upgrade` to be called by `reload`.
-    }
-    else {
+    } else {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGameConfigVersion` at this point.
-      this.config = await this.getSettings() as GameSettings
+      this.config = (await this.getSettings()) as GameSettings
     }
   }
 }
 
 class GameConfigV0 extends GameConfig {
-  public version : GameConfigVersion = 'v0'
+  public version: GameConfigVersion = 'v0'
 
   // True for v0 (legacy) configs.
   // Based on legacy behaviour.
   protected isExplicit = true
 
-  constructor(appName : string) {
+  constructor(appName: string) {
     super(appName)
     this.load()
   }
@@ -171,7 +171,9 @@ class GameConfigV0 extends GameConfig {
     // Not necessary as this version's config structure is identical.
 
     // TODO(adityaruplaha): Continue treating legacy configs as fully explicit?
-    const settings = existsSync(this.path) ? JSON.parse(readFileSync(this.path, 'utf-8')) : {}
+    const settings = existsSync(this.path)
+      ? JSON.parse(readFileSync(this.path, 'utf-8'))
+      : {}
     // settings['explicit'] = true    // Continue treating as explicit.
     // settings['explicit'] = false   // No, convert to ovverides.
     this.writeToFile(settings)
@@ -181,12 +183,15 @@ class GameConfigV0 extends GameConfig {
 
   public async getSettings(): Promise<GameSettings> {
     if (!existsSync(this.path)) {
-      return {...GlobalConfig.get().config} as GameSettings
+      return { ...GlobalConfig.get().config } as GameSettings
     }
     const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
     // Take defaults, then overwrite if explicitly set values exist.
     // The settings defined work as overrides.
-    return {...GlobalConfig.get().config, ...settings[this.appName] } as GameSettings
+    return {
+      ...GlobalConfig.get().config,
+      ...settings[this.appName]
+    } as GameSettings
   }
 
   public async resetToDefaults() {
@@ -195,15 +200,17 @@ class GameConfigV0 extends GameConfig {
   }
 
   public async flush() {
-    const config = new Map(Object.entries({...this.config}))
+    const config = new Map(Object.entries({ ...this.config }))
     if (this.isExplicit) {
       // Explicit mode on. Config is taken as is, missing values are not substituted for defaults.
       // Even if global defaults are changed, this will not be affected.
-      return this.writeToFile(Object.fromEntries([
-        [this.appName, this.config],
-        ['version', 'v0'],
-        ['explicit', this.isExplicit]
-      ]))
+      return this.writeToFile(
+        Object.fromEntries([
+          [this.appName, this.config],
+          ['version', 'v0'],
+          ['explicit', this.isExplicit]
+        ])
+      )
     }
     // Remove explicitly set values which match the defaults.
     // Thus the defaults are never hard set into any game's config.
@@ -212,27 +219,30 @@ class GameConfigV0 extends GameConfig {
     // TODO(adityaruplaha): fix this
     const globalConfig = new Map(Object.entries(GlobalConfig.get().config))
     const defaultedKeys = Object.entries(this.config)
-      .filter(([key, value]) => globalConfig.get(key) === value).map(([k]) => k)
+      .filter(([key, value]) => globalConfig.get(key) === value)
+      .map(([k]) => k)
     for (const key of defaultedKeys) {
       config.delete(key)
     }
-    return this.writeToFile(Object.fromEntries([
-      [this.appName, Object.fromEntries(config)],
-      ['version', 'v0'],
-      ['explicit', this.isExplicit]
-    ]))
+    return this.writeToFile(
+      Object.fromEntries([
+        [this.appName, Object.fromEntries(config)],
+        ['version', 'v0'],
+        ['explicit', this.isExplicit]
+      ])
+    )
   }
 }
 
 // Inheriting cuz almost everything stays the same.
 class GameConfigV0_1 extends GameConfigV0 {
-  public version : GameConfigVersion = 'v0.1'
+  public version: GameConfigVersion = 'v0.1'
 
   // False for v0.1 configs.
   // They are not explicit by default.
   protected isExplicit = false
 
-  constructor(appName : string) {
+  constructor(appName: string) {
     super(appName)
   }
 
@@ -243,6 +253,4 @@ class GameConfigV0_1 extends GameConfigV0 {
   }
 }
 
-export {
-  GameConfig
-}
+export { GameConfig }

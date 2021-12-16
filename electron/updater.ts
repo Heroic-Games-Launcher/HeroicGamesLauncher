@@ -9,9 +9,14 @@ autoUpdater.on('update-available', async (result) => {
   autoUpdater.downloadUpdate(result.cancellationToken)
 })
 
-autoUpdater.on('download-progress', async (progress, bytesPsec, percent, total, transferred) => {
-  console.log(`Updating Heroic: Progress: ${progress} B/S: ${bytesPsec} ${percent}% / Total: ${total} Transferred: ${transferred}`)
-})
+autoUpdater.on(
+  'download-progress',
+  async (progress, bytesPsec, percent, total, transferred) => {
+    console.log(
+      `Updating Heroic: Progress: ${progress} B/S: ${bytesPsec} ${percent}% / Total: ${total} Transferred: ${transferred}`
+    )
+  }
+)
 
 autoUpdater.on('update-downloaded', async () => {
   const diag = await dialog.showMessageBox(null, {
