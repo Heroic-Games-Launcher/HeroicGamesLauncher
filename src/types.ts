@@ -194,6 +194,10 @@ export type ElWebview = {
   reload: () => void
   isLoading: () => boolean
   getURL: () => string
+  copy: () => string
+  selectAll: () => void
+  findInPage: (text: string | RegExp) => void
+  executeJavaScript: (code: string) => void
 }
 
 export type Webview = HTMLWebViewElement & ElWebview
