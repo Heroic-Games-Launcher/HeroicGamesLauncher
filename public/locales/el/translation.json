@@ -193,7 +193,7 @@
     "Settings": "Ρυθμίσεις",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "Επιστροφή",
             "general": "Γενικά",
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
@@ -201,13 +201,13 @@
     },
     "store": "Κατάστημα",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
+        "allGames": "Όλα τα παιχνίδια",
+        "allUnreal": "Unreal - Όλα",
+        "downloading": "Γίνεται λήψη",
+        "installedGames": "Εγκατεστημένα Παιχνίδια",
+        "notInstalledGames": "Μη Εγκατεστημένο",
+        "unrealAssets": "Unreal - Στοιχεία",
+        "unrealPlugins": "Unreal - Πρόσθετα",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
