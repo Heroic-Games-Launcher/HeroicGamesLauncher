@@ -1,0 +1,120 @@
+{
+    "box": {
+        "change": {
+            "message": "Acest lucru va schimba locația de instalare a acestui joc, ești sigur?",
+            "path": "Alegeți o nouă cale de instalare",
+            "title": "Schimbați calea de instalare a jocurilor"
+        },
+        "choose": "Alege",
+        "importpath": "Alege dosarul de joc pentru a importa",
+        "installpath": "Alegeți Calea de instalare",
+        "move": {
+            "message": "Acest lucru poate dura mult timp, ești sigur?",
+            "path": "Alegeți unde doriți să mutați",
+            "title": "Mutați Instalarea Jocului"
+        },
+        "no": "NU",
+        "ok": "Ok",
+        "repair": {
+            "title": "Verifică și Repară",
+            "message": "Vrei să încerci să repari acest joc? Acest lucru poate dura mult timp."
+        },
+        "shortcuts": {
+            "title": "Scurtături",
+            "message": "Scurtăturile au fost create pe Desktop și pe meniul Start"
+        },
+        "stopInstall": {
+            "keepInstalling": "Continuați să instalați",
+            "message": "Doriți să PĂSTRAȚI fișierele descărcate?",
+            "title": "Opriți instalarea"
+        },
+        "uninstall": {
+            "message": "Doriți să dezinstalați acest joc?",
+            "title": "Dezinstalează"
+        },
+        "update": {
+            "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
+            "title": "Jocul necesită actualizare"
+        },
+        "yes": "DA"
+    },
+    "button": {
+        "cancel": "Pauză/Anulează",
+        "continue": "Continuați descărcarea",
+        "import": "Importă Jocul",
+        "install": "Instalează",
+        "uninstall": "Dezinstalează",
+        "update": "Actualizează"
+    },
+    "disabled": "Dezactivat",
+    "dlc": {
+        "installDlcs": "Instalați toate DLC-urile",
+        "title": "DLC-uri"
+    },
+    "enabled": "Activat",
+    "game": {
+        "downloadSize": "Dimensiune descărcare",
+        "firstPlayed": "Prima dată jucat",
+        "installSize": "Mărime Instalare",
+        "lastPlayed": "Ultima Dată Jucat",
+        "neverPlayed": "Niciodată",
+        "totalPlayed": "Timp Jucat"
+    },
+    "gamecard": {
+        "moving": "Mutare",
+        "repairing": "Reparare"
+    },
+    "info": {
+        "canRunOffline": "Online Necesar",
+        "path": "Cale De Instalare",
+        "size": "Mărime",
+        "syncsaves": "Salvări sincronizate",
+        "version": "Versiune"
+    },
+    "install": {
+        "another": "Instalați pe altă cale",
+        "default": "Instalează în",
+        "import": "Importă Joc"
+    },
+    "label": {
+        "playing": {
+            "start": "Joacă Acum",
+            "stop": "în joc (Stop)"
+        },
+        "saves": {
+            "syncing": "Sincronizează Salvările"
+        }
+    },
+    "launch": {
+        "options": "Opțiuni de Lansare..."
+    },
+    "sdl": {
+        "showList": "Faceți clic pentru a afișa/ascunde componentele suplimentare",
+        "title": "Selectați componentele de instalat"
+    },
+    "specs": {
+        "minimum": "Minim",
+        "recommended": "Recomandat"
+    },
+    "status": {
+        "clickToUpdate": "Faceți clic pentru a actualiza",
+        "hasUpdates": "Versiune nouă disponibilă!",
+        "installed": "Instalat",
+        "installing": "Se Instalează",
+        "moving": "Se mută instalarea, așteptați",
+        "notinstalled": "Acest joc nu este instalat",
+        "reparing": "Reparare joc, vă rugăm așteptați",
+        "totalDownloaded": "Descărcat total",
+        "updating": "Joc in curs de actualizare"
+    },
+    "submenu": {
+        "addShortcut": "Adaugă scurtătură",
+        "change": "Schimbați calea de instalare",
+        "log": "Ultimul jurnal",
+        "move": "Mută Jocul",
+        "protondb": "Verificați compatibilitatea",
+        "settings": "Setări",
+        "store": "Pagina magazinului",
+        "verify": "Verificați și Reparați"
+    }
+}

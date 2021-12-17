@@ -54,7 +54,7 @@
     "enabled": "attivato",
     "game": {
         "downloadSize": "Dimensione del download",
-        "firstPlayed": "Prima giocato",
+        "firstPlayed": "Giocato per la prima volta",
         "installSize": "Dimensione dell'installazione",
         "lastPlayed": "Giocato recentemente",
         "neverPlayed": "Mai",
@@ -65,7 +65,7 @@
         "repairing": "Riparazione in corso"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Online richiesto",
         "path": "Percorso d'installazione",
         "size": "Dimensione",
         "syncsaves": "Sincronizza i salvataggi",
@@ -86,7 +86,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opzioni di avvio..."
     },
     "sdl": {
         "showList": "Clicca per mostrare/nascondere i componenti extra",
