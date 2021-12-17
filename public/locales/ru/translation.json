@@ -193,7 +193,7 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "Назад",
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
@@ -201,15 +201,15 @@
     },
     "store": "Магазин",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Все игры",
+        "allUnreal": "Unreal - Все",
+        "downloading": "Скачивание",
+        "installedGames": "Установленные игры",
+        "notInstalledGames": "Не установлено",
+        "unrealAssets": "Unreal - Ресурсы",
+        "unrealPlugins": "Unreal - Плагины",
+        "unrealProjects": "Unreal - Проекты",
+        "updates": "Ожидаемые обновления"
     },
     "tooltip": {
         "addpath": "Добавить новый путь",
