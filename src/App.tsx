@@ -34,16 +34,21 @@ function App() {
         <main className="content">
           <Switch>
             <Route exact path="/">
-              {user ? <>
-                <Header
-                  goTo={''}
-                  renderBackButton={false}
-                  numberOfGames={numberOfGames}
-                />
-                {showRecentGames && <Library showRecentsOnly library={recentGames} />}
-                <Library library={library} />
-              </>
-                : <Login refresh={refresh} />}
+              {user ? (
+                <>
+                  <Header
+                    goTo={''}
+                    renderBackButton={false}
+                    numberOfGames={numberOfGames}
+                  />
+                  {showRecentGames && (
+                    <Library showRecentsOnly library={recentGames} />
+                  )}
+                  <Library library={library} />
+                </>
+              ) : (
+                <Login refresh={refresh} />
+              )}
             </Route>
             <Route exact path="/epicstore" component={WebView} />
             <Route exact path="/wiki" component={WebView} />

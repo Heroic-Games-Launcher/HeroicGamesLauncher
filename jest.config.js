@@ -1,8 +1,5 @@
 module.exports = {
-  collectCoverageFrom: [
-    '**/*.{js,jsx,ts,tsx}',
-    '!**/*.config.js'
-  ],
+  collectCoverageFrom: ['**/*.{js,jsx,ts,tsx}', '!**/*.config.js'],
   coverageDirectory: '<rootDir>/coverage',
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules',
@@ -13,10 +10,7 @@ module.exports = {
     '<rootDir>/coverage'
   ],
   coverageReporters: ['text', 'html'],
-  projects: [
-    '<rootDir>/src',
-    '<rootDir>/electron'
-  ],
+  projects: ['<rootDir>/src', '<rootDir>/electron'],
 
   rootDir: '.'
 }

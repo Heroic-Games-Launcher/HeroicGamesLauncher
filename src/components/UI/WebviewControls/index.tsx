@@ -1,5 +1,9 @@
 import React from 'react'
-import { ArrowBackOutlined, ArrowForwardRounded, Replay10Outlined } from '@material-ui/icons'
+import {
+  ArrowBackOutlined,
+  ArrowForwardRounded,
+  Replay10Outlined
+} from '@material-ui/icons'
 import './index.css'
 import { Webview } from 'src/types'
 
@@ -8,22 +12,24 @@ type Props = {
   initURL: string
 }
 
-export default function index({webview, initURL}: Props) {
+export default function index({ webview, initURL }: Props) {
   const [url, setUrl] = React.useState(initURL)
 
   if (webview) {
-    webview.addEventListener('page-title-updated', () => setUrl(webview.getURL()))
+    webview.addEventListener('page-title-updated', () =>
+      setUrl(webview.getURL())
+    )
   }
 
   function handleButtons(event: 'reload' | 'back' | 'forward') {
     try {
-      if (event === 'reload'){
+      if (event === 'reload') {
         return webview?.reload()
       }
-      if (event === 'back'){
+      if (event === 'back') {
         return webview?.goBack()
       }
-      if (event === 'forward'){
+      if (event === 'forward') {
         return webview?.goForward()
       }
     } catch (error) {
@@ -35,11 +41,10 @@ export default function index({webview, initURL}: Props) {
     <div className="webviewControls">
       <div className="webviewIcons">
         <ArrowBackOutlined onClick={() => handleButtons('back')} />
-        <ArrowForwardRounded onClick={() =>handleButtons('forward')} />
+        <ArrowForwardRounded onClick={() => handleButtons('forward')} />
         <Replay10Outlined onClick={() => handleButtons('reload')} />
       </div>
       <span className="webviewURL"> {url && <span>{url}</span>}</span>
-
     </div>
   )
 }

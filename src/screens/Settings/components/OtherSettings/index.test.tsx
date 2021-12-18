@@ -1,11 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import {
-  fireEvent,
-  render
-} from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react'
 
-import OtherSettings from './index';
+import OtherSettings from './index'
 
 interface Props {
   audioFix: boolean
@@ -37,8 +34,7 @@ interface Props {
   targetExe: string
 }
 
-function renderOtherSettings(props: Partial<Props> = {})
-{
+function renderOtherSettings(props: Partial<Props> = {}) {
   const defaultprops: Props = {
     audioFix: false,
     isDefault: false,
@@ -56,48 +52,73 @@ function renderOtherSettings(props: Partial<Props> = {})
     showFps: false,
     showMangohud: false,
     setMaxRecentGames: (value: number) => value,
-    toggleAudioFix: () => {return;},
-    toggleFps: () => {return;},
-    toggleMangoHud: () => {return;},
-    toggleOffline: () => {return;},
-    togglePrimeRun: () => {return;},
-    toggleUseGameMode: () => {return;},
-    toggleAddDesktopShortcuts: () => {return;},
-    toggleDiscordRPC: () => {return;},
-    toggleAddGamesToStartMenu: () => {return;},
+    toggleAudioFix: () => {
+      return
+    },
+    toggleFps: () => {
+      return
+    },
+    toggleMangoHud: () => {
+      return
+    },
+    toggleOffline: () => {
+      return
+    },
+    togglePrimeRun: () => {
+      return
+    },
+    toggleUseGameMode: () => {
+      return
+    },
+    toggleAddDesktopShortcuts: () => {
+      return
+    },
+    toggleDiscordRPC: () => {
+      return
+    },
+    toggleAddGamesToStartMenu: () => {
+      return
+    },
     targetExe: 'Default',
     useGameMode: false
-  };
-  return render(<OtherSettings {...{...defaultprops, ...props}} />);
+  }
+  return render(<OtherSettings {...{ ...defaultprops, ...props }} />)
 }
 
 describe('OtherSettings', () => {
   test('renders', () => {
-    renderOtherSettings();
+    renderOtherSettings()
   })
 
   test('change options on change', () => {
-    const onSetOtherOptions = jest.fn();
-    const { getByTestId } = renderOtherSettings({setOtherOptions: onSetOtherOptions});
-    const otherOptions = getByTestId('otheroptions');
-    fireEvent.change(otherOptions, {target: { value: 'new option'}});
-    expect(onSetOtherOptions).toBeCalledWith('new option');
+    const onSetOtherOptions = jest.fn()
+    const { getByTestId } = renderOtherSettings({
+      setOtherOptions: onSetOtherOptions
+    })
+    const otherOptions = getByTestId('otheroptions')
+    fireEvent.change(otherOptions, { target: { value: 'new option' } })
+    expect(onSetOtherOptions).toBeCalledWith('new option')
   })
 
   test('change max recent games', () => {
-    const onSetMaxRecentGames = jest.fn();
-    const { getByTestId } = renderOtherSettings({ setMaxRecentGames: onSetMaxRecentGames, isDefault: true});
-    const maxRecentGames = getByTestId('setMaxRecentGames');
+    const onSetMaxRecentGames = jest.fn()
+    const { getByTestId } = renderOtherSettings({
+      setMaxRecentGames: onSetMaxRecentGames,
+      isDefault: true
+    })
+    const maxRecentGames = getByTestId('setMaxRecentGames')
 
-    fireEvent.change(maxRecentGames, { target: { value: '10' }});
-    expect(onSetMaxRecentGames).toBeCalledWith(10);
+    fireEvent.change(maxRecentGames, { target: { value: '10' } })
+    expect(onSetMaxRecentGames).toBeCalledWith(10)
   })
 
   test('change launch args on change', () => {
-    const onSetLauncherArgs = jest.fn();
-    const { getByTestId } = renderOtherSettings({setLauncherArgs: onSetLauncherArgs});
-    const launcherArgs = getByTestId('launcherargs');
-    fireEvent.change(launcherArgs, {target: { value: '--new arg'}});
-    expect(onSetLauncherArgs).toBeCalledWith('--new arg');
+    const onSetLauncherArgs = jest.fn()
+    const { getByTestId } = renderOtherSettings({
+      setLauncherArgs: onSetLauncherArgs
+    })
+    const launcherArgs = getByTestId('launcherargs')
+    fireEvent.change(launcherArgs, { target: { value: '--new arg' } })
+    expect(onSetLauncherArgs).toBeCalledWith('--new arg')
   })
 })

@@ -1,9 +1,9 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "coenraads.bracket-pair-colorizer-2",
     "steoates.autoimport",
     "dsznajder.es7-react-js-snippets",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode"
   ]
 }

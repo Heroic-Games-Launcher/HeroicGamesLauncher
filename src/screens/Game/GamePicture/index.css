@@ -1,35 +1,35 @@
 .gamePicture {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: relative;
 }
 
 .gamePicture::after {
-    content: '';
-    display: block;
-    position: absolute;
-    right: 0%;
-    top: 0px;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0),
-        var(--background-darker) 100%
-    );
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0%;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0),
+    var(--background-darker) 100%
+  );
 }
 
-.gamePicture>.gameImg {
-    height: 100%;
-    width: 100%;
-    border-radius: 0;
-    object-fit: cover;
+.gamePicture > .gameImg {
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  object-fit: cover;
 }
 
-.gamePicture>.gameLogo {
-    position: absolute;
-    bottom: 0;
-    width: 70%;
-    min-width: 140px;
+.gamePicture > .gameLogo {
+  position: absolute;
+  bottom: 0;
+  width: 70%;
+  min-width: 140px;
 }

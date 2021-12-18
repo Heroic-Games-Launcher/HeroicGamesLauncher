@@ -4,7 +4,7 @@ interface About {
 }
 
 export interface AppSettings {
-  checkUpdatesInterval: number,
+  checkUpdatesInterval: number
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
@@ -43,7 +43,7 @@ export interface AppSettings {
   wineVersion: WineInstallation
 }
 
-export type ExecResult = void | {stderr : string, stdout : string}
+export type ExecResult = void | { stderr: string; stdout: string }
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
@@ -71,7 +71,6 @@ export interface GameInfo {
   title: string
   canRunOffline: boolean
 }
-
 
 type DLCInfo = {
   app_name: string
@@ -191,7 +190,6 @@ interface Reqs {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
-
 
 export type UserInfo = {
   account_id?: string

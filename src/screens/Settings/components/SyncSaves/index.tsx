@@ -1,19 +1,8 @@
 import { IpcRenderer } from 'electron'
-import React, {
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import {
-  Path,
-  SyncType
-} from 'src/types'
-import {
-  fixSaveFolder,
-  getGameInfo,
-  syncSaves
-} from 'src/helpers'
+import { Path, SyncType } from 'src/types'
+import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -52,13 +41,18 @@ export default function SyncSaves({
 
   useEffect(() => {
     const getSyncFolder = async () => {
-      const { save_folder, install: { install_path } } = await getGameInfo(appName)
+      const {
+        save_folder,
+        install: { install_path }
+      } = await getGameInfo(appName)
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
       let folder = await fixSaveFolder(save_folder, prefix, isProton || false)
       folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
-      const fixedPath = isWin ? path.replaceAll('/', '\\') : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows
+      const fixedPath = isWin
+        ? path.replaceAll('/', '\\')
+        : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows
       setSavesPath(fixedPath)
     }
     getSyncFolder()
@@ -82,7 +76,10 @@ export default function SyncSaves({
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
-      ipcRenderer.invoke('openMessageBox', { message: res, title: 'Saves Sync' })
+      ipcRenderer.invoke('openMessageBox', {
+        message: res,
+        title: 'Saves Sync'
+      })
     )
     setIsSyncing(false)
   }
@@ -107,14 +104,13 @@ export default function SyncSaves({
               className="material-icons settings folder"
               style={{ color: '#B0ABB6' }}
               onClick={() =>
-                ipcRenderer.invoke('openDialog', {
-                  buttonLabel: t('box.sync.button'),
-                  properties: ['openDirectory'],
-                  title: t('box.sync.title')
-                })
-                  .then(({ path }: Path) =>
-                    setSavesPath(path ? `${path}` : '')
-                  )
+                ipcRenderer
+                  .invoke('openDialog', {
+                    buttonLabel: t('box.sync.button'),
+                    properties: ['openDirectory'],
+                    title: t('box.sync.title')
+                  })
+                  .then(({ path }: Path) => setSavesPath(path ? `${path}` : ''))
               }
             />
           ) : (
@@ -151,12 +147,14 @@ export default function SyncSaves({
             data-testid="setSync"
             onClick={() => handleSync()}
             disabled={isSyncing || !savesPath.length}
-            className={`button is-small ${isSyncing ? 'is-primary' : 'settings'
+            className={`button is-small ${
+              isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${isSyncing
-              ? t('setting.manualsync.syncing')
-              : t('setting.manualsync.sync')
+            {`${
+              isSyncing
+                ? t('setting.manualsync.syncing')
+                : t('setting.manualsync.sync')
             }`}
           </button>
         </span>

@@ -8,13 +8,14 @@ import './index.css'
 
 export default function WebView() {
   const { i18n } = useTranslation()
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
   let lang = i18n.language
   if (i18n.language === 'pt') {
     lang = 'pt-BR'
   }
   const epicStore = `https://www.epicgames.com/store/${lang}/`
-  const wikiURL = 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
+  const wikiURL =
+    'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
 
   const trueAsStr = 'true' as unknown as boolean | undefined
   const webview = document.querySelector('webview') as Webview

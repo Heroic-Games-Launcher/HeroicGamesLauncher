@@ -3,7 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 import cx from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStore, faSlidersH, faBookOpen, faGamepad } from '@fortawesome/free-solid-svg-icons'
+import {
+  faStore,
+  faSlidersH,
+  faBookOpen,
+  faGamepad
+} from '@fortawesome/free-solid-svg-icons'
 
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
@@ -13,7 +18,7 @@ export default function SidebarLinks() {
 
   const { category, handleCategory, handleFilter } = useContext(ContextProvider)
 
-  const location = useLocation() as {pathname: string}
+  const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
 
   function toggleCategory(newCategory: string) {
@@ -37,15 +42,28 @@ export default function SidebarLinks() {
         exact
         to="/"
       >
-        <FontAwesomeIcon style={{width: 'clamp(2vh, 25px, 30px)'}} icon={faGamepad} />
+        <FontAwesomeIcon
+          style={{ width: 'clamp(2vh, 25px, 30px)' }}
+          icon={faGamepad}
+        />
         {t('Library')}
       </NavLink>
-      {isLibrary && (<><span onClick={() => toggleCategory('games')} className={cx('subItem', {['selected']: category === 'games'})}>
-        {t('Epic Games', 'Epic Games')}
-      </span>
-      <span onClick={() => toggleCategory('unreal')} className={cx('subItem', {['selected']: category === 'unreal'})}>
-        {t('Unreal Marketplace', 'Unreal Marketplace')}
-      </span></>)}
+      {isLibrary && (
+        <>
+          <span
+            onClick={() => toggleCategory('games')}
+            className={cx('subItem', { ['selected']: category === 'games' })}
+          >
+            {t('Epic Games', 'Epic Games')}
+          </span>
+          <span
+            onClick={() => toggleCategory('unreal')}
+            className={cx('subItem', { ['selected']: category === 'unreal' })}
+          >
+            {t('Unreal Marketplace', 'Unreal Marketplace')}
+          </span>
+        </>
+      )}
       <NavLink
         data-testid="settings"
         activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
@@ -54,7 +72,10 @@ export default function SidebarLinks() {
           pathname: '/settings/default/general'
         }}
       >
-        <FontAwesomeIcon style={{width: 'clamp(2vh, 22px, 28px)'}} icon={faSlidersH} />
+        <FontAwesomeIcon
+          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          icon={faSlidersH}
+        />
 
         {t('Settings')}
       </NavLink>
@@ -66,7 +87,10 @@ export default function SidebarLinks() {
           pathname: '/epicstore'
         }}
       >
-        <FontAwesomeIcon style={{width: 'clamp(2vh, 22px, 28px)'}} icon={faStore} />
+        <FontAwesomeIcon
+          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          icon={faStore}
+        />
         {t('store', 'Store')}
       </NavLink>
       <NavLink
@@ -77,7 +101,10 @@ export default function SidebarLinks() {
           pathname: '/wiki'
         }}
       >
-        <FontAwesomeIcon style={{width: 'clamp(2vh, 22px, 28px)'}} icon={faBookOpen} />
+        <FontAwesomeIcon
+          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          icon={faBookOpen}
+        />
         {t('wiki', 'Wiki')}
       </NavLink>
     </div>

@@ -17,3 +17,5 @@ jobs:
         run: yarn
       - name: Lint code.
         run: yarn lint
+      - name: Prettier code.
+        run: yarn prettier
