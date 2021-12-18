@@ -588,7 +588,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   async function handleInstall(is_installed: boolean) {
-    if (!is_installed || !isInstalling) {
+    if (!is_installed && !isInstalling) {
       return handleModal()
     }
 
