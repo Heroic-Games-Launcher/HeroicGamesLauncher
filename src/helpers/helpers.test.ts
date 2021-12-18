@@ -12,7 +12,7 @@ import {
 interface Props {
   appName: string
   handleGameStatus: (game: GameStatus) => Promise<void>
-  installPath: 'import' | 'default' | 'another'
+  installPath: string
   isInstalling: boolean
   previousProgress: InstallProgress
   progress: InstallProgress
@@ -183,49 +183,38 @@ describe('handleInstall', () => {
     ])
   })
 
-  test('install game on another path', async () => {
+  test('install game on selected path', async () => {
     const onHandleGameStatus = jest.fn()
-    test_opendialog.set({ path: 'another/path' })
     await callHandleInstall({
       handleGameStatus: onHandleGameStatus,
-      installPath: 'another'
+      installPath: '/test/new/path'
     })
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game')
     expect(ipcRenderer.invoke).toBeCalledWith('install', {
       appName: 'game',
-      path: "'another/path'",
+      path: '/test/new/path',
       installDlcs: false,
       sdlList: []
     })
     expect(onHandleGameStatus).toBeCalledWith({
       appName: 'game',
-      status: 'installing'
+      status: 'installing',
+      folder: '/test/new/path',
+      progress: '0'
     })
     expect(onHandleGameStatus).toBeCalledWith({
       appName: 'game',
       status: 'done'
     })
-    expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
-      buttonLabel: 'gamepage:box.choose',
-      properties: ['openDirectory'],
-      title: 'gamepage:box.installpath'
-    })
   })
 
-  test('install game on another path with invalid path does nothing', async () => {
+  test('install game on selected path with invalid path does nothing', async () => {
     const onHandleGameStatus = jest.fn()
-    test_opendialog.set({ path: undefined })
     await callHandleInstall({
       handleGameStatus: onHandleGameStatus,
-      installPath: 'another'
+      installPath: undefined
     })
     expect(onHandleGameStatus).not.toBeCalledWith()
-    expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game')
-    expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
-      buttonLabel: 'gamepage:box.choose',
-      properties: ['openDirectory'],
-      title: 'gamepage:box.installpath'
-    })
   })
 
   test('install game on another path with cancel openDialog does nothing', async () => {
@@ -237,11 +226,6 @@ describe('handleInstall', () => {
     })
     expect(onHandleGameStatus).not.toBeCalledWith()
     expect(ipcRenderer.invoke).toBeCalledWith('getGameInfo', 'game')
-    expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
-      buttonLabel: 'gamepage:box.choose',
-      properties: ['openDirectory'],
-      title: 'gamepage:box.installpath'
-    })
   })
 
   test('stop game installing on another path', async () => {

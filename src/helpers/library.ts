@@ -79,27 +79,21 @@ async function install({
     return await handleGameStatus({ appName, status: 'done' })
   }
 
-  if (installPath === 'another' || !is_game) {
-    const args = {
-      buttonLabel: t('gamepage:box.choose'),
-      properties: ['openDirectory'],
-      title: t('gamepage:box.installpath')
-    }
-    const { path, canceled } = await ipcRenderer.invoke('openDialog', args)
-
-    if (canceled || !path) {
-      return
-    }
-
-    setInstallPath && setInstallPath(path)
+  if (installPath !== 'default' || !is_game) {
+    setInstallPath && setInstallPath(installPath)
     // If the user changed the previous folder, the percentage should start from zero again.
-    if (previousProgress && previousProgress.folder !== path) {
+    if (previousProgress && previousProgress.folder !== installPath) {
       storage.removeItem(appName)
     }
-    handleGameStatus({ appName, status: 'installing' })
+    handleGameStatus({
+      folder: installPath,
+      appName,
+      status: 'installing',
+      progress: previousProgress?.percent || '0%'
+    })
     const result = await ipcRenderer.invoke('install', {
       appName,
-      path: `'${path}'`,
+      path: `${installPath}`,
       installDlcs,
       sdlList
     })

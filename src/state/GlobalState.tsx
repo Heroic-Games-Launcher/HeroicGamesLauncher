@@ -137,47 +137,52 @@ export class GlobalState extends PureComponent<Props> {
       })
     } else {
       switch (filter) {
-      case 'installed':
-        return library.filter((game) => game.is_installed && game.is_game)
-      case 'uninstalled':
-        return library.filter((game) => !game.is_installed && game.is_game)
-      case 'downloading':
-        return library.filter((game) => {
-          const currentApp = this.state.libraryStatus.filter(
-            (app) => app.appName === game.app_name
-          )[0]
-          if (!currentApp || !game.is_game) {
-            return false
-          }
-          return (
-            currentApp.status === 'installing' ||
+        case 'installed':
+          return library.filter((game) => game.is_installed && game.is_game)
+        case 'uninstalled':
+          return library.filter((game) => !game.is_installed && game.is_game)
+        case 'downloading':
+          return library.filter((game) => {
+            const currentApp = this.state.libraryStatus.filter(
+              (app) => app.appName === game.app_name
+            )[0]
+            if (!currentApp || !game.is_game) {
+              return false
+            }
+            return (
+              currentApp.status === 'installing' ||
               currentApp.status === 'repairing' ||
               currentApp.status === 'updating' ||
               currentApp.status === 'moving'
+            )
+          })
+        case 'updates':
+          return library.filter((game) =>
+            this.state.gameUpdates.includes(game.app_name)
           )
-        })
-      case 'updates':
-        return library.filter((game) =>
-          this.state.gameUpdates.includes(game.app_name)
-        )
-      case 'unreal':
-        return library.filter(
-          (game) =>
-            game.is_ue_project || game.is_ue_asset || game.is_ue_plugin
-        )
-      case 'asset':
-        return library.filter((game) => game.is_ue_asset)
-      case 'plugin':
-        return library.filter((game) => game.is_ue_plugin)
-      case 'project':
-        return library.filter((game) => game.is_ue_project)
-      default:
-        return library.filter((game) => game.is_game)
+        case 'unreal':
+          return library.filter(
+            (game) =>
+              game.is_ue_project || game.is_ue_asset || game.is_ue_plugin
+          )
+        case 'asset':
+          return library.filter((game) => game.is_ue_asset)
+        case 'plugin':
+          return library.filter((game) => game.is_ue_plugin)
+        case 'project':
+          return library.filter((game) => game.is_ue_project)
+        default:
+          return library.filter((game) => game.is_game)
       }
     }
   }
 
-  handleGameStatus = async ({ appName, status }: GameStatus) => {
+  handleGameStatus = async ({
+    appName,
+    status,
+    folder,
+    progress
+  }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
     const { t } = this.props
     const currentApp =
@@ -313,7 +318,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     return this.setState({
-      libraryStatus: [...libraryStatus, { appName, status }]
+      libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
     })
   }
 
@@ -431,7 +436,8 @@ export class GlobalState extends PureComponent<Props> {
 
     try {
       const filterRegex = new RegExp(filterText, 'i')
-      const textFilter = ({ title }: GameInfo) => filterRegex.test(title)
+      const textFilter = ({ title, app_name }: GameInfo) =>
+        filterRegex.test(title) || filterRegex.test(app_name)
       filteredLibrary = this.filterLibrary(data, filter).filter(textFilter)
     } catch (error) {
       console.log(error)

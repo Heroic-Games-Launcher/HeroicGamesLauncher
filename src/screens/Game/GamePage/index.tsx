@@ -43,6 +43,7 @@ import {
 } from 'src/screens/Library/components/InstallModal/selective_dl'
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
+import { InstallModal } from 'src/screens/Library/components'
 
 const storage: Storage = window.localStorage
 
@@ -61,6 +62,7 @@ export default function GamePage(): JSX.Element | null {
   const { t } = useTranslation('gamepage')
 
   const [tabToShow, setTabToShow] = useState('infoTab')
+  const [showModal, setShowModal] = useState({ game: '', show: false })
 
   const { libraryStatus, handleGameStatus, data, gameUpdates, platform } =
     useContext(ContextProvider)
@@ -82,15 +84,13 @@ export default function GamePage(): JSX.Element | null {
         percent: '0.00%'
       } as InstallProgress)
   )
-  const [defaultPath, setDefaultPath] = useState('...')
-  const [installPath, setInstallPath] = useState('default')
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
-  const [launchArguments, setLaunchArguments] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
   const [showSDL, setShowSDL] = useState(false)
+  const [launchArguments, setLaunchArguments] = useState('')
 
   const haveSDL = Boolean(SDL_GAMES[appName])
   const mandatoryTags: Array<string> = haveSDL
@@ -130,20 +130,6 @@ export default function GamePage(): JSX.Element | null {
     }
     updateConfig()
   }, [isInstalling, isPlaying, appName, data])
-
-  useEffect(() => {
-    ipcRenderer
-      .invoke('requestSettings', 'default')
-      .then((config: AppSettings) => {
-        setDefaultPath(config.defaultInstallPath)
-        if (installPath === 'default') {
-          setInstallPath(config.defaultInstallPath)
-        }
-      })
-    return () => {
-      ipcRenderer.removeAllListeners('requestSettings')
-    }
-  }, [appName, installPath])
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -197,6 +183,10 @@ export default function GamePage(): JSX.Element | null {
     setInstallDlcs(!installDlcs)
   }
 
+  function handleModal() {
+    setShowModal({ game: appName, show: true })
+  }
+
   const hasUpdate = gameUpdates?.includes(appName)
 
   if (gameInfo && gameInfo.install) {
@@ -241,6 +231,12 @@ export default function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
+        {showModal.show && (
+          <InstallModal
+            appName={showModal.game}
+            backdropClick={() => setShowModal({ game: '', show: false })}
+          />
+        )}
         {title ? (
           <>
             <GamePicture art_square={art_square} />
@@ -407,21 +403,6 @@ export default function GamePage(): JSX.Element | null {
                         {getInstallLabel(is_installed)}
                       </p>
                     </div>
-                    {!is_installed && !isInstalling && is_game && (
-                      <select
-                        onChange={(event) => setInstallPath(event.target.value)}
-                        value={installPath}
-                        className="settingSelect"
-                      >
-                        <option value={'default'}>{`${t(
-                          'install.default'
-                        )} ${defaultPath.replaceAll("'", '')}`}</option>
-                        <option value={'another'}>
-                          {t('install.another')}
-                        </option>
-                        <option value={'import'}>{t('install.import')}</option>
-                      </select>
-                    )}
                     {is_installed && Boolean(launchOptions?.length) && (
                       <>
                         <select
@@ -463,7 +444,7 @@ export default function GamePage(): JSX.Element | null {
                         </Link>
                       ) : (
                         <button
-                          onClick={() => handleInstall()}
+                          onClick={() => handleInstall(is_installed)}
                           disabled={
                             isPlaying ||
                             isUpdating ||
@@ -504,7 +485,7 @@ export default function GamePage(): JSX.Element | null {
     if (isSyncing) {
       return 'is-primary'
     }
-    return isPlaying ? 'is-tertiary' : 'is-primary'
+    return isPlaying ? 'is-tertiary' : 'is-success'
   }
 
   function getPlayLabel(): React.ReactNode {
@@ -556,14 +537,6 @@ export default function GamePage(): JSX.Element | null {
       return t('status.installed')
     }
 
-    if (previousProgress.folder === installPath) {
-      const currentStatus = `${getProgress(previousProgress)}%`
-      return `${t(
-        'status.totalDownloaded',
-        'Total Downloaded'
-      )} ${currentStatus}`
-    }
-
     return t('status.notinstalled')
   }
 
@@ -573,22 +546,12 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (is_installed) {
-      return 'is-secondary'
+      return 'is-primary'
     }
-    return 'is-primary'
+    return 'is-secondary'
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (
-      previousProgress.folder === installPath &&
-      !isInstalling &&
-      !is_installed
-    ) {
-      return t('button.continue', 'Continue Download')
-    }
-    if (installPath === 'import' && !is_installed) {
-      return t('button.import')
-    }
     if (is_installed) {
       return t('submenu.settings')
     }
@@ -624,15 +587,23 @@ export default function GamePage(): JSX.Element | null {
     }
   }
 
-  async function handleInstall() {
+  async function handleInstall(is_installed: boolean) {
+    if (!is_installed || !isInstalling) {
+      return handleModal()
+    }
+
+    const gameStatus: GameStatus = libraryStatus.filter(
+      (game) => game.appName === appName
+    )[0]
+    const { folder } = gameStatus
+
     return await install({
       appName,
       handleGameStatus,
-      installPath,
+      installPath: folder || 'default',
       isInstalling,
       previousProgress,
       progress,
-      setInstallPath,
       t,
       installDlcs,
       sdlList

@@ -7,7 +7,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "root": true,
   "parser": "@typescript-eslint/parser",
@@ -29,9 +30,6 @@
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "complexity": "off",
-    "comma-dangle": ["error", "never"],
-    "indent": ["error", 2],
-    "no-trailing-spaces": "error",
     "quotes": [
       "error",
       "single",

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
-import { GameStatus } from 'src/types'
+import { GameStatus, InstallProgress } from 'src/types'
 import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
@@ -37,12 +37,6 @@ interface Card {
   forceCard?: boolean
 }
 
-interface InstallProgress {
-  bytes: string
-  eta: string
-  percent: string
-}
-
 const GameCard = ({
   cover,
   title,
@@ -65,7 +59,8 @@ const GameCard = ({
         bytes: '0.00MiB',
         eta: '00:00:00',
         path: '',
-        percent: '0.00%'
+        percent: '0.00%',
+        folder: ''
       } as InstallProgress)
   )
   const { t } = useTranslation('gamepage')
@@ -87,7 +82,7 @@ const GameCard = ({
     ).length
   )
 
-  const { status } = gameStatus || {}
+  const { status, folder } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
@@ -305,10 +300,11 @@ const GameCard = ({
 
   async function handlePlay() {
     if (!isInstalled) {
+      console.log({ folder })
       return await install({
         appName,
         handleGameStatus,
-        installPath: 'default',
+        installPath: folder || 'default',
         isInstalling,
         previousProgress,
         progress,

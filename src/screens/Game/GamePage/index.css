@@ -28,11 +28,12 @@
 }
 
 .gameInfo {
-  text-align: initial;
-  font-size: 1rem;
-  color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
+    text-align: initial;
+    font-size: 1rem;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
 }
 
 .gameInfo > .settingSelect {
@@ -50,18 +51,19 @@
 }
 
 .gameInfo .summary {
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  margin-bottom: 16px;
-  font-size: 16px;
-  line-height: 19px;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  color: var(--text-primary);
-  overflow: hidden;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 16px;
+    font-size: 16px;
+    max-width: 560px;
+    line-height: 19px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    color: var(--text-primary);
+    overflow: hidden;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
 }
 
 .gameInfo,
@@ -91,9 +93,10 @@
 }
 
 .gameTabs nav {
-  text-align: right;
-  padding: 15px;
+    text-align: left;
+    padding: 15px;
 }
+
 .gameTabs nav button {
   margin-right: 1em;
   border: none;
@@ -102,6 +105,7 @@
   cursor: pointer;
   font-size: 1em;
 }
+
 .gameTabs.infoTab button[data-tab='info'],
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
@@ -193,7 +197,7 @@
 }
 
 @keyframes animate-stripes {
-  100% {
-    background-position: -100px 0px;
-  }
+    100% {
+        background-position: -100px 0px;
+    }
 }
