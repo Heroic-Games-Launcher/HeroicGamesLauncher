@@ -139,7 +139,7 @@
     "Ready": "准备就绪",
     "Recent": "最近的游戏",
     "Return": "返回",
-    "search": "在此处输入游戏名称",
+    "search": "在此处输入游戏名称…",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
@@ -193,7 +193,7 @@
     "Settings": "设置",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "返回",
             "general": "常规",
             "other": "其它",
             "sync": "存档-同步"
@@ -201,15 +201,15 @@
     },
     "store": "商店",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "所有游戏",
+        "allUnreal": "Unreal - 所有",
+        "downloading": "下载中",
+        "installedGames": "已安装的游戏",
+        "notInstalledGames": "未安装",
+        "unrealAssets": "Unreal - 资产",
+        "unrealPlugins": "Unreal - 插件",
+        "unrealProjects": "Unreal - 项目",
+        "updates": "待更新"
     },
     "tooltip": {
         "addpath": "添加新路径",

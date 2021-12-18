@@ -41,7 +41,7 @@
     "button": {
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
-        "import": "İçeri Aktar",
+        "import": "Oyunu İçe Aktar",
         "install": "Kur",
         "uninstall": "Kaldır",
         "update": "Güncelle"
@@ -65,7 +65,7 @@
         "repairing": "Onarılıyor"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Çevrim İçi Gerekli",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
@@ -74,7 +74,7 @@
     "install": {
         "another": "Farklı bir yere kur",
         "default": "Kurulum konumu",
-        "import": "Oyunu içe aktar"
+        "import": "Oyunu İçe Aktar"
     },
     "label": {
         "playing": {
@@ -86,7 +86,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Başlatma Seçenekleri..."
     },
     "sdl": {
         "showList": "Ekstra Bileşenleri Göstermek/Gizlemek için Tıkla",

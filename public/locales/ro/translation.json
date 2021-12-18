@@ -1,0 +1,235 @@
+{
+    "other": {
+        "weblate": "Ajută la traducerea Heroic.",
+        "legendary-version": "Versiune Legendary: "
+    },
+    "box": {
+        "appupdate": {
+            "title": "Actualizare disponibila",
+            "message": "Există o nouă versiune de Heroic disponibilă, doriți să actualizați acum?"
+        },
+        "choose": "Alege",
+        "choose-egs-prefix": "Alegeți Prefix unde este instalat EGS",
+        "choose-legendary-binary": "Selectați Legendary Binary",
+        "customWine": "Selectați binarul Wine sau Proton",
+        "default-install-path": "Alegeți Calea de instalare implicită",
+        "error": {
+            "credentials": {
+                "title": "Acreditări expirate",
+                "message": "Acreditările dvs. au expirat, vă rugăm să vă deconectați și să vă conectați din nou."
+            },
+            "diskspace": {
+                "message": "Nu este suficient spațiu disponibil pe disc",
+                "title": "Fără Spațiu"
+            },
+            "generic": {
+                "message": "O Eroare Necunoscută a apărut",
+                "title": "Eroare Necunoscută"
+            },
+            "launch": "Eroare la lansarea jocului, verificați jurnalele!",
+            "log": {
+                "message": "Nu a fost găsit niciun jurnal pentru acest joc",
+                "title": "Jurnalul nu a fost găsit"
+            },
+            "title": "Eroare"
+        },
+        "no": "NU",
+        "protocol": {
+            "install": {
+                "not_installed": "Nu este instalat, doriți să îl instalați?"
+            }
+        },
+        "quit": {
+            "message": "Sunt operațiuni în așteptare, ești sigur?",
+            "title": "Ieșire"
+        },
+        "runexe": {
+            "title": "Selectați EXE pentru a rula"
+        },
+        "select": {
+            "button": "Selectați",
+            "exe": "Selectați EXE"
+        },
+        "sync": {
+            "button": "Alege",
+            "error": "Cale Nevalidă",
+            "title": "Alegeți directorul de salvare"
+        },
+        "wineprefix": "Alegeți dosarul Wine Prefix",
+        "yes": "DA"
+    },
+    "button": {
+        "sync": "Sincronizează",
+        "syncing": "Sincronizare",
+        "unsync": "Desincronizare"
+    },
+    "Downloading": "Descărcare",
+    "Epic Games": "Epic Games",
+    "Filter": "Filtru",
+    "globalSettings": "Setări Globale",
+    "help": {
+        "other": {
+            "part1": "Folosește ",
+            "part2": "Opțiuni Avansate",
+            "part3": "să fie apelat înainte de lansarea jocului; ",
+            "part4": "Folosește ",
+            "part5": "Argumente Joc",
+            "part6": " pentru a fi apelat după comanda de lansare, de exemplu: ",
+            "part7": " pentru a sări peste lansatorul în unele jocuri, etc."
+        },
+        "sync": {
+            "part3": "Sincronizare manuală: alegeți Descărcare pentru a descărca salvările de jocuri stocate pe Cloud. Încărcați pentru a încărca cele locale în cloud. Descărcarea forțată și încărcarea forțată vor ignora versiunea locală sau în cloud.",
+            "part4": "Sincronizarea salvărilor automat va sincroniza salvările de fiecare dată când începeți un joc și după ce terminați jocul.",
+            "part1": "Heroic încearcă să ghicească folderul de salvare corect și acest lucru va funcționa în majoritatea cazurilor. În cazul în care folderul este greșit, utilizați caseta de înlocuire pentru a-l schimba.",
+            "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). Deci, puteți șterge simplu calea curentă, ieșiți din pagina de setări de sincronizare și reveniți din nou pentru ca Heroic să ghicească folderul încă o dată cu prefixul corect."
+        },
+        "wine": {
+            "part1": "Heroic caută pentru versiuni de Wine, Proton și CrossOver în următoarele foldere:",
+            "part2": "Pentru alte locuri, utilizați un link simbolic către unul dintre aceste dosare"
+        },
+        "general": "Sincronizați cu EGS în cazul în care aveți o instalare funcțională a Epic Games Store în altă parte și doriți să vă importați jocurile pentru a evita descărcarea din nou."
+    },
+    "infobox": {
+        "help": "Ajutor",
+        "requirements": "Cerințe de sistem"
+    },
+    "Library": "Bibliotecă",
+    "message": {
+        "sync": "Sincronizare Completă",
+        "unsync": "Desincronizare Completă"
+    },
+    "nogames": "Nu s-au găsit jocuri",
+    "Not Ready": "Nu Este Gata",
+    "notify": {
+        "finished": {
+            "reparing": "Reparație Terminată"
+        },
+        "install": {
+            "canceled": "Instalare Anulată",
+            "finished": "Instalare Finalizată"
+        },
+        "moved": "Mutare Finalizată",
+        "uninstalled": "Dezinstalat",
+        "update": {
+            "canceled": "Actualizare Anulată",
+            "finished": "Actualizare Finalizată"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "Pune aici alte opțiuni de lansare",
+            "title": "Opțiuni avansate (variabile de mediu):"
+        },
+        "gameargs": {
+            "placeholder": "Pune aici Argumentele Lansatorului",
+            "title": "Argumente de joc (Pentru a rula după comandă):"
+        }
+    },
+    "placeholder": {
+        "alt-legendary-bin": "Folosind binarul Legendary încorporat...",
+        "egs-prefix": "Prefixul unde este instalat EGS"
+    },
+    "Projects": "Proiecte",
+    "Ready": "Pregătit",
+    "Recent": "Jocuri Recente",
+    "Return": "Înapoi",
+    "search": "Introdu numele jocului aici...",
+    "setting": {
+        "adddesktopshortcuts": "Adăugați automat comenzi rapide pe desktop",
+        "addgamestostartmenu": "Adăugați jocuri în meniul Start automat",
+        "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
+        "audiofix": "Fixare Audio (Latență în PulseAudio)",
+        "autodxvk": "Instalare/Actualizare automată DXVK/VKD3D în Prefix",
+        "autosync": "Salvări de sincronizare automată",
+        "change-target-exe": "Selectați un EXE alternativ pentru a rula",
+        "checkForUpdatesOnStartup": "Verificare pentru actualizări la pornire",
+        "customWineProton": "Căi personalizate pentru Wine/Proton",
+        "darktray": "Utilizați Tray Icon întunecat",
+        "default-install-path": "Calea de instalare implicită",
+        "egs-sync": "Sincronizare cu Epic Games instalat",
+        "enableFSRHack": "Activați FSR Hack (versiunea Wine trebuie să o accepte)",
+        "esync": "Activați Esync",
+        "exit-to-tray": "Ieșiți în System Tray",
+        "FsrSharpnessStrenght": "Forța de claritate FSR",
+        "fsync": "Activați Fsync",
+        "mangohud": "Activați Mangohud (Mangohud trebuie instalat)",
+        "manualsync": {
+            "download": "Descarcă",
+            "forcedownload": "Forțează descărcarea",
+            "forceupload": "Forțează Încărcarea",
+            "sync": "Sincronizare",
+            "syncing": "Sincronizare în curs",
+            "title": "Salvări cu sincronizare manuală",
+            "upload": "Încărcați"
+        },
+        "offlinemode": "Rulați jocul offline",
+        "primerun": "Activați Nvidia Prime Render",
+        "resizableBar": "Activați BAR redimensionabil (numai pentru NVIDIA RTX 30xx)",
+        "runexe": {
+            "title": "Rulați EXE pe Prefix",
+            "message": "Trageți și plasați fișiere aici"
+        },
+        "savefolder": {
+            "placeholder": "Selectați folderul exact de salvare a jocurilor",
+            "title": "Treceți peste folderul de salvare Cloud Sync"
+        },
+        "showfps": "Afișați FPS (DX9, 10 și 11)",
+        "start-in-tray": "Pornește minimizat",
+        "wineprefix": "dosar WinePrefix",
+        "wineversion": "Versiune Wine",
+        "maxRecentGames": "Jocuri recente de afișat",
+        "discordRPC": "Activați Discord Rich Presence",
+        "language": "Alegeți Limba aplicației",
+        "gamemode": "Utilizați GameMode (Feral GameMode trebuie instalat)",
+        "maxworkers": "Numărul maxim de lucrători la descărcare",
+        "winecrossoverbottle": "CrossOver Bottle"
+    },
+    "Settings": "Setări",
+    "settings": {
+        "navbar": {
+            "back": "Negru",
+            "general": "General",
+            "sync": "Salvare-Sincronizare",
+            "other": "Altele"
+        }
+    },
+    "store": "Magazin",
+    "title": {
+        "allGames": "Toate jocurile",
+        "allUnreal": "Unreal - Totul",
+        "downloading": "Descărcare",
+        "installedGames": "Jocuri instalate",
+        "notInstalledGames": "Nu este instalat",
+        "unrealAssets": "Unreal - Asset-uri",
+        "unrealPlugins": "Unreal - Plugin-uri",
+        "unrealProjects": "Unreal - Proiecte",
+        "updates": "Actualizări în așteptare"
+    },
+    "tooltip": {
+        "addpath": "Adăugați o cale nouă",
+        "removepath": "Eliminați Calea"
+    },
+    "Total Games": "Total jocuri",
+    "tray": {
+        "about": "Despre",
+        "quit": "Părăsește",
+        "show": "Arată",
+        "support": "Ajuta-ne",
+        "reload": "Reîncărcați"
+    },
+    "All": "Toate",
+    "Assets": "Asset-uri",
+    "Unreal Marketplace": "Piața Unreal",
+    "Updates": "Actualizări",
+    "userselector": {
+        "discord": "Discord",
+        "logout": "Deconectare",
+        "logout_confirmation": "Sigur doriți să vă deconectați?",
+        "quit": "Părăsește"
+    },
+    "wiki": "Wiki",
+    "info": {
+        "settings": "Setările sunt salvate automat"
+    },
+    "Plugins": "Pluginuri"
+}

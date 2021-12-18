@@ -193,7 +193,7 @@
     "Settings": "Impostazioni",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "Indietro",
             "general": "Generale",
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi"
@@ -201,15 +201,15 @@
     },
     "store": "Negozio",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Tutti i giochi",
+        "allUnreal": "Unreal - Tutto",
+        "downloading": "Download in corso",
+        "installedGames": "Giochi installati",
+        "notInstalledGames": "Non installato",
+        "unrealAssets": "Unreal - Risorse",
+        "unrealPlugins": "Unreal - Plugin",
+        "unrealProjects": "Unreal - Progetti",
+        "updates": "Aggiornamenti in sospeso"
     },
     "tooltip": {
         "addpath": "Aggiungi nuovo percorso",

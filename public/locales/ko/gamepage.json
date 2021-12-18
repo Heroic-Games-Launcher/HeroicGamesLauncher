@@ -41,7 +41,7 @@
     "button": {
         "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
-        "import": "들여오기",
+        "import": "게임 들여오기",
         "install": "설치",
         "uninstall": "설치 제거",
         "update": "업데이트"
@@ -65,7 +65,7 @@
         "repairing": "복구 중"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "네트워크 연결이 필요합니다",
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
@@ -86,7 +86,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "시작 옵션..."
     },
     "sdl": {
         "showList": "클릭하여 추가 구성 요소 표시 보이기/숨기기",
