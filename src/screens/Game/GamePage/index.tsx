@@ -95,8 +95,8 @@ export default function GamePage(): JSX.Element | null {
   const haveSDL = Boolean(SDL_GAMES[appName])
   const mandatoryTags: Array<string> = haveSDL
     ? SDL_GAMES[appName]
-      .filter((el: SelectiveDownload) => el.mandatory)
-      .map((el: SelectiveDownload) => el.tags)[0]
+        .filter((el: SelectiveDownload) => el.mandatory)
+        .map((el: SelectiveDownload) => el.tags)[0]
     : []
   const [sdlList, setSdlList] = useState([...mandatoryTags])
 
@@ -269,8 +269,8 @@ export default function GamePage(): JSX.Element | null {
                           ? extra.about.shortDescription
                             ? extra.about.shortDescription
                             : extra.about.description
-                              ? extra.about.description
-                              : ''
+                            ? extra.about.description
+                            : ''
                           : ''}
                       </div>
                       {is_installed && cloud_save_enabled && is_game && (

@@ -84,13 +84,13 @@ html,
 }
 
 .button.is-tertiary {
-    background: var(--tertiary);
-    color: white;
+  background: var(--tertiary);
+  color: white;
 }
 
 .button.is-secondary:hover {
-    background: var(--secondary-hover);
-    color: var(--text-tertiary);
+  background: var(--secondary-hover);
+  color: var(--text-tertiary);
 }
 
 .button.is-empty {
@@ -103,7 +103,7 @@ html,
 }
 
 .button.is-success:hover {
-    background: var(--success-hover);
+  background: var(--success-hover);
 }
 
 .button.is-success:hover:disabled,
@@ -189,20 +189,20 @@ html,
 }
 
 .settingText {
-    margin-bottom: 14px;
-    font-family: Cabin;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    color: var(--text-primary);
+  margin-bottom: 14px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-primary);
 }
 
 .smallMessage {
-    font-size: 12px;
-    width: 513px;
-    white-space: break-spaces;
-    padding-top: 4px;
+  font-size: 12px;
+  width: 513px;
+  white-space: break-spaces;
+  padding-top: 4px;
 }
 
 svg.disabled {

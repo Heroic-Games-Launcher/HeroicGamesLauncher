@@ -293,8 +293,8 @@ export default function GeneralSettings({
                 isLinked
                   ? t('button.unsync')
                   : isSyncing
-                    ? t('button.syncing')
-                    : t('button.sync')
+                  ? t('button.syncing')
+                  : t('button.sync')
               }`}
             </button>
           </span>

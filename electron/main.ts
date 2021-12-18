@@ -600,13 +600,13 @@ ipcMain.handle('getAlternativeWine', () =>
 
 ipcMain.handle('readConfig', async (event, config_class) => {
   switch (config_class) {
-  case 'library':
-    return await LegendaryLibrary.get().getGames('info')
-  case 'user':
-    return (await LegendaryUser.getUserInfo()).displayName
-  default:
-    logError(`Which idiot requested '${config_class}' using readConfig?`)
-    return {}
+    case 'library':
+      return await LegendaryLibrary.get().getGames('info')
+    case 'user':
+      return (await LegendaryUser.getUserInfo()).displayName
+    default:
+      logError(`Which idiot requested '${config_class}' using readConfig?`)
+      return {}
   }
 })
 
@@ -858,7 +858,7 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   }
 
   if (!isWindows) {
-    [percent, eta] = progress_result.split(' ')
+    ;[percent, eta] = progress_result.split(' ')
     bytes = downloaded_result + 'MiB'
   }
 

@@ -65,14 +65,14 @@ const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
 function getShell() {
   // Dont change this logic since Heroic will break when using SH or FISH
   switch (process.platform) {
-  case 'win32':
-    return 'powershell.exe'
-  case 'linux':
-    return '/bin/bash'
-  case 'darwin':
-    return '/bin/zsh'
-  default:
-    return '/bin/bash'
+    case 'win32':
+      return 'powershell.exe'
+    case 'linux':
+      return '/bin/bash'
+    case 'darwin':
+      return '/bin/zsh'
+    default:
+      return '/bin/bash'
   }
 }
 

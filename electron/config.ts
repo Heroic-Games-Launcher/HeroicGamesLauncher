@@ -76,12 +76,12 @@ abstract class GlobalConfig {
   private static reload(version: GlobalConfigVersion): void {
     // Select loader to use.
     switch (version) {
-    case 'v0':
-      GlobalConfig.globalInstance = new GlobalConfigV0()
-      break
-    default:
-      logError(`GlobalConfig: Invalid config version '${version}' requested.`)
-      break
+      case 'v0':
+        GlobalConfig.globalInstance = new GlobalConfigV0()
+        break
+      default:
+        logError(`GlobalConfig: Invalid config version '${version}' requested.`)
+        break
     }
     // Try to upgrade outdated config.
     if (GlobalConfig.globalInstance.upgrade()) {

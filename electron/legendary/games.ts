@@ -261,20 +261,20 @@ class LegendaryGame extends Game {
     let menuFile
 
     switch (process.platform) {
-    case 'linux': {
-      desktopFile = `${app.getPath('desktop')}/${gameTitle}.desktop`
-      menuFile = `${home}/.local/share/applications/${gameTitle}.desktop`
-      break
-    }
-    case 'win32': {
-      desktopFile = `${app.getPath('desktop')}\\${gameTitle}.lnk`
-      menuFile = `${app.getPath(
-        'appData'
-      )}\\Microsoft\\Windows\\Start Menu\\Programs\\${gameTitle}.lnk`
-      break
-    }
-    default:
-      logError("Shortcuts haven't been implemented in the current platform.")
+      case 'linux': {
+        desktopFile = `${app.getPath('desktop')}/${gameTitle}.desktop`
+        menuFile = `${home}/.local/share/applications/${gameTitle}.desktop`
+        break
+      }
+      case 'win32': {
+        desktopFile = `${app.getPath('desktop')}\\${gameTitle}.lnk`
+        menuFile = `${app.getPath(
+          'appData'
+        )}\\Microsoft\\Windows\\Start Menu\\Programs\\${gameTitle}.lnk`
+        break
+      }
+      default:
+        logError("Shortcuts haven't been implemented in the current platform.")
     }
 
     return [desktopFile, menuFile]
@@ -299,9 +299,9 @@ class LegendaryGame extends Game {
       await GlobalConfig.get().getSettings()
 
     switch (process.platform) {
-    case 'linux': {
-      const icon = await this.getIcon(gameInfo.app_name)
-      const shortcut = `[Desktop Entry]
+      case 'linux': {
+        const icon = await this.getIcon(gameInfo.app_name)
+        const shortcut = `[Desktop Entry]
 Name=${gameInfo.title}
 Exec=xdg-open ${launchWithProtocol}
 Terminal=false
@@ -311,36 +311,36 @@ Icon=${icon}
 Categories=Game;
 `
 
-      if (addDesktopShortcuts || fromMenu) {
-        writeFile(desktopFile, shortcut, () => {
-          logInfo('Shortcut saved on ' + desktopFile)
-        })
+        if (addDesktopShortcuts || fromMenu) {
+          writeFile(desktopFile, shortcut, () => {
+            logInfo('Shortcut saved on ' + desktopFile)
+          })
+        }
+        if (addStartMenuShortcuts || fromMenu) {
+          writeFile(menuFile, shortcut, () => {
+            logInfo('Shortcut saved on ' + menuFile)
+          })
+        }
+        break
       }
-      if (addStartMenuShortcuts || fromMenu) {
-        writeFile(menuFile, shortcut, () => {
-          logInfo('Shortcut saved on ' + menuFile)
-        })
-      }
-      break
-    }
-    case 'win32': {
-      const shortcutOptions = {
-        target: launchWithProtocol,
-        icon: `${gameInfo.install.install_path}\\${gameInfo.install.executable}`,
-        iconIndex: 0
-      }
+      case 'win32': {
+        const shortcutOptions = {
+          target: launchWithProtocol,
+          icon: `${gameInfo.install.install_path}\\${gameInfo.install.executable}`,
+          iconIndex: 0
+        }
 
-      if (addDesktopShortcuts || fromMenu) {
-        shell.writeShortcutLink(desktopFile, shortcutOptions)
-      }
+        if (addDesktopShortcuts || fromMenu) {
+          shell.writeShortcutLink(desktopFile, shortcutOptions)
+        }
 
-      if (addStartMenuShortcuts || fromMenu) {
-        shell.writeShortcutLink(menuFile, shortcutOptions)
+        if (addStartMenuShortcuts || fromMenu) {
+          shell.writeShortcutLink(menuFile, shortcutOptions)
+        }
+        break
       }
-      break
-    }
-    default:
-      logError("Shortcuts haven't been implemented in the current platform.")
+      default:
+        logError("Shortcuts haven't been implemented in the current platform.")
     }
   }
 
@@ -503,18 +503,18 @@ Categories=Game;
       let os: string
 
       switch (process.platform) {
-      case 'linux':
-        os = 'Linux'
-        break
-      case 'win32':
-        os = 'Windows'
-        break
-      case 'darwin':
-        os = 'MacOS'
-        break
-      default:
-        os = 'Unknown OS'
-        break
+        case 'linux':
+          os = 'Linux'
+          break
+        case 'win32':
+          os = 'Windows'
+          break
+        case 'darwin':
+          os = 'MacOS'
+          break
+        default:
+          os = 'Unknown OS'
+          break
       }
 
       logInfo('Updating Discord Rich Presence information...')
@@ -575,8 +575,8 @@ Categories=Game;
         : '',
       proton: isProton
         ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
-          .replaceAll("'", '')
-          .replace('~', home)}'`
+            .replaceAll("'", '')
+            .replace('~', home)}'`
         : '',
       showMangohud: showMangohud ? `MANGOHUD=1` : ''
     }

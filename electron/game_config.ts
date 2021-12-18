@@ -72,17 +72,17 @@ abstract class GameConfig {
   private static reload(appName: string, version: GameConfigVersion): void {
     // Select loader to use.
     switch (version) {
-    case 'v0':
-      GameConfig.instances.set(appName, new GameConfigV0(appName))
-      break
-    case 'v0.1':
-      GameConfig.instances.set(appName, new GameConfigV0_1(appName))
-      break
-    default:
-      logError(
-        `GameConfig(${appName}): Invalid config version '${version}' requested.`
-      )
-      break
+      case 'v0':
+        GameConfig.instances.set(appName, new GameConfigV0(appName))
+        break
+      case 'v0.1':
+        GameConfig.instances.set(appName, new GameConfigV0_1(appName))
+        break
+      default:
+        logError(
+          `GameConfig(${appName}): Invalid config version '${version}' requested.`
+        )
+        break
     }
     // Try to upgrade outdated config.
     if (GameConfig.instances.get(appName).upgrade()) {
