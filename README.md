@@ -61,12 +61,14 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 ## Language Support
 
 - English
+- Bulgarian
 - Catalan
 - Czech
 - Croatian
 - Simplified Chinese
 - Traditional Chinese
 - Dutch
+- Estonian
 - French
 - German
 - Greek
@@ -74,9 +76,11 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Hungarian
 - Italian
 - Malayalam
+- Persian
 - Polish
 - Portuguese
 - Portuguese (Brazil)
+- Romanian
 - Russian
 - Spanish
 - Swedish

@@ -314,6 +314,7 @@ if (!gotTheLock) {
         'el',
         'en',
         'es',
+        'et',
         'fa',
         'fi',
         'fr',

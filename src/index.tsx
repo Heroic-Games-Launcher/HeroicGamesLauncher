@@ -41,6 +41,7 @@ i18next
       'el',
       'en',
       'es',
+      'et',
       'fa',
       'fi',
       'fr',
