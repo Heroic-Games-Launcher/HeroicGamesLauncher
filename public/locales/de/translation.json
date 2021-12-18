@@ -32,6 +32,7 @@
             "title": "Error"
         },
         "no": "NEIN",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Auswählen",
             "exe": "EXE auswählen"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Auswählen",
@@ -102,12 +107,18 @@
     "nogames": "Keine Spiele gefunden",
     "Not Ready": "Nicht installiert",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Reparatur abgeschlossen"
         },
         "install": {
             "canceled": "Installation abgebrochen",
-            "finished": "Installation abgeschlossen"
+            "finished": "Installation abgeschlossen",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Verschieben abgeschlossen",
         "uninstalled": "Deinstalliert",

@@ -6,22 +6,17 @@
             "title": "更改遊戲安裝路徑"
         },
         "choose": "請選擇",
+        "default-install-path": "",
         "importpath": "選擇要導入的遊戲資料夾",
-        "installpath": "選擇安裝路徑",
         "move": {
             "message": "這可能需要很長的時間，確定？",
             "path": "選擇要移動的位置",
             "title": "移動遊戲安裝"
         },
         "no": "否",
-        "ok": "Ok",
         "repair": {
             "message": "你想嘗試修復這個遊戲的檔案嗎？這可能需要很長的時間。",
             "title": "驗證並修復遊戲檔案"
-        },
-        "shortcuts": {
-            "message": "已經在桌面和開始功能表上建立捷徑",
-            "title": "捷徑"
         },
         "stopInstall": {
             "keepInstalling": "繼續安裝",
@@ -72,9 +67,7 @@
         "version": "版本"
     },
     "install": {
-        "another": "安裝至其他路徑",
-        "default": "安裝至",
-        "import": "導入遊戲"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

@@ -32,6 +32,7 @@
             "title": "Hata"
         },
         "no": "HAYIR",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Kurulu değil, kurmak ister misiniz?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Seç",
             "exe": "EXE'yi seç"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Seç",
@@ -102,12 +107,18 @@
     "nogames": "Oyun Bulunamadı",
     "Not Ready": "Hazır Değil",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Onarım Tamamlandı"
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
-            "finished": "Kurulum Tamamlandı"
+            "finished": "Kurulum Tamamlandı",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Taşıma Tamamlandı",
         "uninstalled": "Kaldırıldı",

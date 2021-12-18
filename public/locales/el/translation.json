@@ -32,6 +32,7 @@
             "title": "Σφάλμα"
         },
         "no": "ΟΧΙ",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Μη εγκατεστημένο, επιθυμείτε να το εγκαταστήσετε;"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Επιλογή",
             "exe": "Επιλογή αρχείου EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Επιλέξτε",
@@ -102,12 +107,18 @@
     "nogames": "Δεν βρέθηκαν παιχνίδια",
     "Not Ready": "Δεν είναι έτοιμο",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Η επισκευή ολοκληρώθηκε"
         },
         "install": {
             "canceled": "Η εγκατάσταση ακυρώθηκε",
-            "finished": "Η εγκατάσταση ολοκληρώθηκε"
+            "finished": "Η εγκατάσταση ολοκληρώθηκε",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Η μετακίνηση ολοκληρώθηκε",
         "uninstalled": "Απεγκαταστάθηκε",

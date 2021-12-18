@@ -32,6 +32,7 @@
             "title": "Ошибка"
         },
         "no": "НЕТ",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Не установлен. Хотите установить?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Выбрать",
             "exe": "Выбрать EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Выбрать",
@@ -102,12 +107,18 @@
     "nogames": "Игры не найдены",
     "Not Ready": "Не готово",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Восстановление завершено"
         },
         "install": {
             "canceled": "Установка прервана",
-            "finished": "Установка завершена"
+            "finished": "Установка завершена",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Перемещение завершено",
         "uninstalled": "Удалено",

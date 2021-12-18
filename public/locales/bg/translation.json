@@ -32,6 +32,7 @@
             "title": "Грешка"
         },
         "no": "НЕ",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Не е инсталирано. Искате ли да го инсталирате?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Избиране",
             "exe": "Изберете EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Избиране",
@@ -102,12 +107,18 @@
     "nogames": "Няма намерени игри",
     "Not Ready": "Не е готово",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Поправката е завършена"
         },
         "install": {
             "canceled": "Инсталирането е преустановено",
-            "finished": "Инсталирането е завършено"
+            "finished": "Инсталирането е завършено",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Преместването е завършено",
         "uninstalled": "Деинсталирано",

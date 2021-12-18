@@ -6,22 +6,17 @@
             "title": "Promijenite lokaciju instalacije igrica"
         },
         "choose": "Odaberi",
+        "default-install-path": "",
         "importpath": "Odaberi mapu igre za uvesti",
-        "installpath": "Odaberi lokaciju instalacije",
         "move": {
             "message": "Ovo može potrajati, jeste li sigurni?",
             "path": "Odaberite gdje želite premjestiti",
             "title": "Premjestite instalaciju igrice"
         },
         "no": "NE",
-        "ok": "Ok",
         "repair": {
             "message": "Želite li pokušati popraviti ovu igricu? Ovo može potrajati.",
             "title": "Provjeri i Popravi"
-        },
-        "shortcuts": {
-            "message": "Prečaci su napravljeni na Radnoj Površini i Izborniku Start",
-            "title": "Prečaci"
         },
         "stopInstall": {
             "keepInstalling": "Nastavite instalaciju",
@@ -72,9 +67,7 @@
         "version": "Verzija"
     },
     "install": {
-        "another": "Instaliraj na drugi put",
-        "default": "Instaliraj na",
-        "import": "Uvezi igricu"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

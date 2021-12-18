@@ -32,6 +32,7 @@
             "title": "오류"
         },
         "no": "아니오",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "이(가) 설치되지 않았습니다, 설치하시겠습니까?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "선택",
             "exe": "EXE 선택"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "선택",
@@ -102,12 +107,18 @@
     "nogames": "게임이 발견되지 않았습니다",
     "Not Ready": "준비되지 않음",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "복구 완료"
         },
         "install": {
             "canceled": "설치 취소됨",
-            "finished": "설치 완료됨"
+            "finished": "설치 완료됨",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "이동 완료됨",
         "uninstalled": "설치 제거됨",

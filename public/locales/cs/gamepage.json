@@ -6,22 +6,17 @@
             "title": "Změnit cestu instalace her"
         },
         "choose": "Vybrat",
+        "default-install-path": "",
         "importpath": "Vybrerte složku hry pro importování",
-        "installpath": "Vybrat cestu pro instalaci",
         "move": {
             "message": "Toto může chvíli trvat, jste si jisti?",
             "path": "Vyberte, kam chcete hru přesunout",
             "title": "Přesunout instalaci hry"
         },
         "no": "NE",
-        "ok": "Ok",
         "repair": {
             "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
             "title": "Zkontrolovat a opravit"
-        },
-        "shortcuts": {
-            "message": "Skratky byly vytvořeny na ploše a v menu Start",
-            "title": "Skratky"
         },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
@@ -72,9 +67,7 @@
         "version": "Verze"
     },
     "install": {
-        "another": "Instalovat na jinou cestu",
-        "default": "Instalovat do",
-        "import": "Importovat hru"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
