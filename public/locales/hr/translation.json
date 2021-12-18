@@ -32,6 +32,7 @@
             "title": "Greška"
         },
         "no": "NE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nije instalirana, želite ju instalirati?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Odaberi",
             "exe": "Odaberi EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Odaberi",
@@ -102,12 +107,18 @@
     "nogames": "Igrice nisu pronađene",
     "Not Ready": "Nije Spremno",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Zavšen popravak"
         },
         "install": {
             "canceled": "Instalacije prekinuta",
-            "finished": "Instalacija gotova"
+            "finished": "Instalacija gotova",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Premještanje gotovo",
         "uninstalled": "Deinstalirano",

@@ -6,22 +6,17 @@
             "title": "Changer le chemin d'installation du jeu"
         },
         "choose": "Séléctionner",
+        "default-install-path": "",
         "importpath": "Choisir le répertoire du jeu à importer",
-        "installpath": "Choisir le chemin d'installation",
         "move": {
             "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
             "path": "Choisir la location de déplacement",
             "title": "Déplacer l'installation du jeu"
         },
         "no": "NON",
-        "ok": "Ok",
         "repair": {
             "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un moment.",
             "title": "Vérifier et réparer"
-        },
-        "shortcuts": {
-            "message": "Raccourcis créés sur le Bureau et dans le Menu Démarrer",
-            "title": "Raccourcis"
         },
         "stopInstall": {
             "keepInstalling": "Continuer l'installation",
@@ -72,9 +67,7 @@
         "version": "Version"
     },
     "install": {
-        "another": "Installer vers un autre chemin",
-        "default": "Installer sur",
-        "import": "Importer le jeu"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

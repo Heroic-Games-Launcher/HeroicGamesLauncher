@@ -32,6 +32,7 @@
             "title": "பிழை"
         },
         "no": "இல்லை",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "நிறுவப்படவில்லை, அதை நிறுவ விரும்புகிறீர்களா?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Select",
             "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "தேர்வு செய்",
@@ -102,12 +107,18 @@
     "nogames": "விளையாட்டுகள் எதுவும் காணப்படவில்லை",
     "Not Ready": "தயார் இல்லை",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
         },
         "install": {
             "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
-            "finished": "நிறுவல் முடிவடைந்தது"
+            "finished": "நிறுவல் முடிவடைந்தது",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "நகர்தல் முடிவடைந்தது",
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",

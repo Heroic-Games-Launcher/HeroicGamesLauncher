@@ -32,6 +32,7 @@
             "title": "Hiba"
         },
         "no": "NEM",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nincs telepítve, szeretnéd telepíteni?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Select",
             "exe": "EXE kiválasztása"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Választ",
@@ -102,12 +107,18 @@
     "nogames": "Nem találtunk játékot",
     "Not Ready": "Nincs kész",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Javítás Befejezve"
         },
         "install": {
             "canceled": "Telepítés Visszavonva",
-            "finished": "Telepítés Befejezve"
+            "finished": "Telepítés Befejezve",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Áthelyezés Befejezve",
         "uninstalled": "Eltávolítva",

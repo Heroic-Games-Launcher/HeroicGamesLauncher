@@ -32,6 +32,7 @@
             "title": "കുഴപ്പം"
         },
         "no": "വേണ്ട",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "ഇത് സ്ഥാപിച്ചിട്ടില്ല, സ്ഥാപിക്കണോ?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "തിരഞ്ഞെടുക്കൂ",
             "exe": "EXE തിരഞ്ഞെടുക്കൂ"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "തിരഞ്ഞെടുക്കൂ",
@@ -102,12 +107,18 @@
     "nogames": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
     "Not Ready": "സജ്ജമല്ലാത്തവ",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "നന്നാക്കിക്കഴിഞ്ഞു"
         },
         "install": {
             "canceled": "സ്ഥാപനം റദ്ദാക്കി",
-            "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു"
+            "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
         "uninstalled": "എടുത്തുനീക്കി",

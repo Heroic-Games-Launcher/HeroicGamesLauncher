@@ -32,6 +32,7 @@
             "title": "错误"
         },
         "no": "否",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "未安装，您是否希望安装它？"
@@ -47,6 +48,10 @@
         "select": {
             "button": "选择",
             "exe": "选择EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "选择",
@@ -102,12 +107,18 @@
     "nogames": "未找到游戏",
     "Not Ready": "尚未就绪",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "已完成修复"
         },
         "install": {
             "canceled": "已取消安装",
-            "finished": "安装完成"
+            "finished": "安装完成",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "移动完成",
         "uninstalled": "已卸载",

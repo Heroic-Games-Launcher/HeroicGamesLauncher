@@ -6,22 +6,17 @@
             "title": "Oyun Kurulum Yerini Değiştir"
         },
         "choose": "Seç",
+        "default-install-path": "",
         "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
-        "installpath": "Kurulum Yerini Seç",
         "move": {
             "message": "Bu uzun sürebilir, emin misin?",
             "path": "Nereye taşımak istediğinizi seçin",
             "title": "Oyun kurulumunu taşı"
         },
         "no": "HAYIR",
-        "ok": "Tamam",
         "repair": {
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
-        },
-        "shortcuts": {
-            "message": "Kısayollar Masaüstü ve Başlangıç Menüsünde oluşturuldu",
-            "title": "Kısayollar"
         },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
@@ -72,9 +67,7 @@
         "version": "Sürüm"
     },
     "install": {
-        "another": "Farklı bir yere kur",
-        "default": "Kurulum konumu",
-        "import": "Oyunu İçe Aktar"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

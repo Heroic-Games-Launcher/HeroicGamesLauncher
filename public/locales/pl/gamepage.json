@@ -6,22 +6,17 @@
             "title": "Zmień Ścieżkę Instalacji Gier"
         },
         "choose": "Wybierz",
+        "default-install-path": "",
         "importpath": "Wybierz folder gry do importowania",
-        "installpath": "Wybierz ścieżkę do zainstalowania",
         "move": {
             "message": "To może chwilę zająć, jesteś pewny?",
             "path": "Wybierz gdzie chcesz przenieść",
             "title": "Przeniesienie plików gry"
         },
         "no": "NIE",
-        "ok": "Ok",
         "repair": {
             "message": "Chesz spróbować naprawć tą grę? To może zająć dużo czasu.",
             "title": "Sprawdź i napraw"
-        },
-        "shortcuts": {
-            "message": "Skróty zostały utworzone na Pulpicie i w Menu Start",
-            "title": "Skróty"
         },
         "stopInstall": {
             "keepInstalling": "Kontynuuj instalację",
@@ -72,9 +67,7 @@
         "version": "Wersja"
     },
     "install": {
-        "another": "Instaluj w innej ścieżce",
-        "default": "Instaluj w domyślnej ścieżce",
-        "import": "Importuj grę"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

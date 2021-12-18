@@ -6,22 +6,17 @@
             "title": "Canvia la ruta d'instal·lació dels jocs"
         },
         "choose": "Tria",
+        "default-install-path": "",
         "importpath": "Tria una carpeta per importar",
-        "installpath": "Tria una ruta d'instal·lació",
         "move": {
             "message": "Això pot tardat MOLT de temps, estàs segur?",
             "path": "Tria a on vols moure el joc",
             "title": "Mou la ruta d'instal·lació del joc"
         },
         "no": "No",
-        "ok": "Sí",
         "repair": {
             "message": "Vols intentar reparar aquest joc? Això pot tardar molt de temps.",
             "title": "Verifica i repara"
-        },
-        "shortcuts": {
-            "message": "S'han creat les dreces al menú d'inici i a l'escriptori",
-            "title": "Dreceres"
         },
         "stopInstall": {
             "keepInstalling": "Segueix instal·lant-ho",
@@ -72,9 +67,7 @@
         "version": "Versió"
     },
     "install": {
-        "another": "Instal·la-ho a una altra ruta",
-        "default": "Instal·la a",
-        "import": "Importar joc"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

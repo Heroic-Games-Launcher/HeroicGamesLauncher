@@ -6,22 +6,17 @@
             "title": "விளையாட்டுகளை நிறுவும் பாதையை மாற்று"
         },
         "choose": "தேர்வு செய்",
+        "default-install-path": "",
         "importpath": "இறக்குமதி செய்ய விளையாட்டு கோப்புறையை தேர்வுசெய்க",
-        "installpath": "நிறுவும் பாதையைத் தேர்வுசெய்க",
         "move": {
             "message": "இது நீண்ட நேரம் எடுக்கலாம், உறுதி செய்யவா?",
             "path": "எங்கு நகர்த்த விரும்புகிறீர்கள் என்பதை தேர்வுசெய்க",
             "title": "விளையாட்டு நிறுவலை நகர்த்து"
         },
         "no": "இல்லை",
-        "ok": "Ok",
         "repair": {
             "message": "இந்த விளையாட்டை சரிசெய்ய விரும்புகிறீர்களா? இது நீண்ட நேரம் எடுக்கலாம்.",
             "title": "சரிபார்த்து சரிசெய்"
-        },
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "நிறுவுவதை தொடரு",
@@ -72,9 +67,7 @@
         "version": "பதிப்பு"
     },
     "install": {
-        "another": "மற்றொரு பாதையில் நிறுவு",
-        "default": "இதில் நிறுவு",
-        "import": "விளையாட்டை இறக்குமதி செய்"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

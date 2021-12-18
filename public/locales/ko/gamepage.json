@@ -6,22 +6,17 @@
             "title": "게임 설치 경로 변경"
         },
         "choose": "선택",
+        "default-install-path": "",
         "importpath": "가져올 게임 폴더 선택",
-        "installpath": "설치 경로 선택",
         "move": {
             "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?",
             "path": "이동하려는 위치 선택",
             "title": "게임 설치 이동"
         },
         "no": "아니오",
-        "ok": "예",
         "repair": {
             "message": "이 게임의 복구를 시도하시겠습니까? 이 작업은 긴 시간이 소요될 수 있습니다.",
             "title": "확인 및 복구"
-        },
-        "shortcuts": {
-            "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
-            "title": "바로가기"
         },
         "stopInstall": {
             "keepInstalling": "계속 설치",
@@ -72,9 +67,7 @@
         "version": "버전"
     },
     "install": {
-        "another": "다른 경로에 설치",
-        "default": "다음에 설치",
-        "import": "게임 가져오기"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

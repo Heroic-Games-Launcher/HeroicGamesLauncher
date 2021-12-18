@@ -132,6 +132,44 @@ async function createWindow(): Promise<BrowserWindow> {
   GlobalConfig.get()
   LegendaryLibrary.get()
 
+  const menu = new Menu()
+  menu.append(
+    new MenuItem({
+      label: 'Menu',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+          click: () => {
+            mainWindow.reload()
+          }
+        },
+        {
+          label: 'Debug',
+          accelerator:
+            process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+          click: () => {
+            mainWindow.webContents.openDevTools()
+          }
+        },
+        {
+          label: 'About',
+          click: () => {
+            showAboutWindow()
+          }
+        },
+        {
+          label: 'Quit',
+          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
+          click: () => {
+            handleExit()
+          }
+        }
+      ]
+    })
+  )
+  mainWindow.setMenu(menu)
+
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
@@ -167,38 +205,6 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-
-    const menu = new Menu()
-    menu.append(
-      new MenuItem({
-        label: 'Help',
-        submenu: [
-          {
-            label: 'Reload',
-            accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-            click: () => {
-              mainWindow.reload()
-            }
-          },
-          {
-            label: 'Debug',
-            accelerator:
-              process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-            click: () => {
-              mainWindow.webContents.openDevTools()
-            }
-          },
-          {
-            label: 'Quit',
-            accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
-            click: () => {
-              handleExit()
-            }
-          }
-        ]
-      })
-    )
-    mainWindow.setMenu(menu)
 
     return mainWindow
   }
@@ -389,6 +395,21 @@ if (!gotTheLock) {
   })
 }
 
+type NotifyType = {
+  title: string
+  body: string
+}
+
+function notify({ body, title }: NotifyType) {
+  const notify = new Notification({
+    body,
+    title
+  })
+
+  notify.on('click', () => mainWindow.show())
+  notify.show()
+}
+
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
     body: args[1],
@@ -462,7 +483,6 @@ ipcMain.on('getLog', (event, appName) =>
 )
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
-  console.log({ path })
   if (path === 'default') {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
@@ -773,19 +793,31 @@ ipcMain.handle('install', async (event, params) => {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
+  const title = (await Game.get(game).getGameInfo()).title
+  notify({
+    title,
+    body: i18next.t('notify.install.startInstall', 'Installation Started')
+  })
   return Game.get(game)
     .install({ path, installDlcs, sdlList })
-    .then((res) => {
+    .then(async (res) => {
+      notify({ title, body: i18next.t('notify.install.finished') })
       logInfo('finished installing')
       return res
     })
-    .catch((res) => res)
+    .catch((res) => {
+      notify({ title, body: i18next.t('notify.install.canceled') })
+      return res
+    })
 })
 
 ipcMain.handle('uninstall', async (event, game) => {
+  const title = (await Game.get(game).getGameInfo()).title
+
   return Game.get(game)
     .uninstall()
     .then(() => {
+      notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling')
     })
     .catch(logError)
@@ -796,17 +828,55 @@ ipcMain.handle('repair', async (event, game) => {
     logWarning(`App offline, skipping repair for game '${game}'.`)
     return
   }
+  const title = (await Game.get(game).getGameInfo()).title
+
   return Game.get(game)
     .repair()
-    .then(() => logInfo('finished repairing'))
-    .catch(logError)
+    .then(() => {
+      notify({ title, body: i18next.t('notify.finished.reparing') })
+      logInfo('finished repairing')
+    })
+    .catch((error) => {
+      notify({
+        title,
+        body: i18next.t('notify.error.reparing', 'Error Repairing')
+      })
+      logError(error)
+    })
+})
+
+ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
+  const title = (await Game.get(appName).getGameInfo()).title
+  try {
+    const newPath = await Game.get(appName).moveInstall(path)
+    notify({ title, body: i18next.t('notify.moved') })
+    logInfo(`Finished moving ${appName} to ${newPath}.`)
+  } catch (error) {
+    notify({
+      title,
+      body: i18next.t('notify.error.move', 'Error Moving the Game')
+    })
+    logError(error)
+  }
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
-  const { stderr, stdout } = await Game.get(game).import(path)
-  logInfo(`${stdout}`)
-  logError(`${stderr}`)
+  const title = (await Game.get(game).getGameInfo()).title
+
+  Game.get(game)
+    .import(path)
+    .then(() => {
+      notify({
+        title,
+        body: i18next.t('notify.install.imported', 'Game Imported')
+      })
+      logInfo(`imported ${title}`)
+    })
+    .catch((err) => {
+      notify({ title, body: i18next.t('notify.install.canceled') })
+      logInfo(err)
+    })
 })
 
 ipcMain.handle('updateGame', async (e, game) => {
@@ -814,17 +884,25 @@ ipcMain.handle('updateGame', async (e, game) => {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
+
+  const title = (await Game.get(game).getGameInfo()).title
+
   return Game.get(game)
     .update()
     .then(() => {
+      notify({ title, body: i18next.t('notify.update.finished') })
       logInfo('finished updating')
     })
-    .catch((res) => res)
+    .catch((res) => {
+      notify({ title, body: i18next.t('notify.update.canceled') })
+      return res
+    })
 })
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
-
+  // eslint-disable-next-line no-debugger
+  debugger
   if (!existsSync(logPath)) {
     return {}
   }
@@ -858,18 +936,16 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   }
 
   if (!isWindows) {
-    ;[percent, eta] = progress_result.split(' ')
+    percent = progress_result.split(' ')[0]
+    eta = progress_result.split(' ')[1]
     bytes = downloaded_result + 'MiB'
   }
 
   const progress = { bytes, eta, percent }
-  logInfo(`Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`)
+  logInfo(
+    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`
+  )
   return progress
-})
-
-ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  const newPath = await Game.get(appName).moveInstall(path)
-  logInfo(`Finished moving ${appName} to ${newPath}.`)
 })
 
 ipcMain.handle(

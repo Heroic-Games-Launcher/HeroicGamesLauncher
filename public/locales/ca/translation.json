@@ -32,6 +32,7 @@
             "title": "Error"
         },
         "no": "No",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "no està instal·lat, vols instalar-lo?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Select",
             "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Tria",
@@ -102,12 +107,18 @@
     "nogames": "No s'han trobat els jocs",
     "Not Ready": "No llest",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Hem acabat de reparar el joc"
         },
         "install": {
             "canceled": "Instal·lació cancelada",
-            "finished": "Instal·lació finalitzada"
+            "finished": "Instal·lació finalitzada",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Mudança finalitzada",
         "uninstalled": "Des-instal·lat",

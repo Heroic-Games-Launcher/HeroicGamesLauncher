@@ -32,6 +32,7 @@
             "title": "Error"
         },
         "no": "TIDAK",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Select",
             "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Pilih",
@@ -102,12 +107,18 @@
     "nogames": "",
     "Not Ready": "",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": ""
         },
         "install": {
             "canceled": "",
-            "finished": ""
+            "finished": "",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "",
         "uninstalled": "",

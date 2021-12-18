@@ -32,6 +32,7 @@
             "title": "Virhe"
         },
         "no": "EI",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Ei ole asennettu, haluatteko asentaa sen?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Select",
             "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Valitse",
@@ -102,12 +107,18 @@
     "nogames": "Pelejä ei löydetty",
     "Not Ready": "Ei valmis",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Korjaus valmis"
         },
         "install": {
             "canceled": "Asennus peruutettu",
-            "finished": "Asennus valmis"
+            "finished": "Asennus valmis",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Siirto valmis",
         "uninstalled": "Poistettu",

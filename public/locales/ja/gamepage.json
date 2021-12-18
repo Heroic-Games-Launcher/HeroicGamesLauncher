@@ -6,22 +6,17 @@
             "title": "ゲームのインストールパスを変更します"
         },
         "choose": "選ぶ",
+        "default-install-path": "",
         "importpath": "インポートするゲームフォルダを選択します",
-        "installpath": "インストールパスを選択します",
         "move": {
             "message": "これには長い時間がかかることがあります、よろしいですか ？",
             "path": "移動したい場所を選択してください",
             "title": "ゲームのインストールを移動します"
         },
         "no": "いいえ",
-        "ok": "オケ",
         "repair": {
             "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。",
             "title": "確認と修復"
-        },
-        "shortcuts": {
-            "message": "デスクトップとスタートメニューにショートカットが作成されました",
-            "title": "ショートカット"
         },
         "stopInstall": {
             "keepInstalling": "インストールを続ける",
@@ -72,9 +67,7 @@
         "version": "バージョン"
     },
     "install": {
-        "another": "他のパスにインストールする",
-        "default": "インストール",
-        "import": "ゲームをインポートする"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

@@ -6,22 +6,17 @@
             "title": "Change Games Install Path"
         },
         "choose": "Choose",
+        "default-install-path": "",
         "importpath": "Choose Game Folder to import",
-        "installpath": "Choose Install Path",
         "move": {
             "message": "This can take a long time, are you sure?",
             "path": "Choose where do you want to move",
             "title": "Move Game Installation"
         },
         "no": "NO",
-        "ok": "Ok",
         "repair": {
             "message": "Do you want to try to repair this game? This can take a long time.",
             "title": "Verify and Repair"
-        },
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Keep Installing",
@@ -72,9 +67,7 @@
         "version": "Version"
     },
     "install": {
-        "another": "Install on another Path",
-        "default": "Install on",
-        "import": "Import Game"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

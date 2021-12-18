@@ -6,22 +6,17 @@
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
+        "default-install-path": "",
         "importpath": "Zu importierenden Spieleordner auswählen",
-        "installpath": "Installations-Pfad auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
             "path": "Wählen Sie einen Ort, an welchen Sie das Spiel verschieben möchten",
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
-        "ok": "Ok",
         "repair": {
             "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und Reparieren"
-        },
-        "shortcuts": {
-            "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
-            "title": "Verknüpfungen"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
@@ -72,9 +67,7 @@
         "version": "Version"
     },
     "install": {
-        "another": "Auf einem anderen Pfad installieren",
-        "default": "Installieren Auf",
-        "import": "Spiel importieren"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
