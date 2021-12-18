@@ -141,7 +141,9 @@
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
     "i18n": "i18next",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier --check .",
+    "prettier-fix": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
