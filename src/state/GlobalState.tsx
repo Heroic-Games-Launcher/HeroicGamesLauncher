@@ -2,15 +2,7 @@ import React, { PureComponent } from 'react'
 
 import { GameInfo, GameStatus, RefreshOptions } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
-import {
-  getGameInfo,
-  getLegendaryConfig,
-  getPlatform,
-  getProgress,
-  install,
-  launch,
-  notify
-} from 'src/helpers'
+import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
 import { i18n } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -184,10 +176,8 @@ export class GlobalState extends PureComponent<Props> {
     progress
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
-    const { t } = this.props
     const currentApp =
       libraryStatus.filter((game) => game.appName === appName)[0] || {}
-    const { title } = await getGameInfo(appName)
 
     if (currentApp && currentApp.status === status) {
       const updatedLibraryStatus = libraryStatus.filter(
@@ -211,9 +201,7 @@ export class GlobalState extends PureComponent<Props> {
         filter: 'installed',
         libraryStatus: updatedLibraryStatus
       })
-      this.refreshLibrary({})
-
-      return notify([title, 'notify.install.error'])
+      return this.refreshLibrary({})
     }
 
     if (currentApp && currentApp.status === 'installing' && status === 'done') {
@@ -226,24 +214,6 @@ export class GlobalState extends PureComponent<Props> {
         libraryStatus: updatedLibraryStatus
       })
 
-      const progress = await ipcRenderer.invoke('requestGameProgress', appName)
-      const percent = getProgress(progress)
-
-      let notifyKey = 'imported'
-      if (percent) {
-        notifyKey = 'canceled'
-        let filter = 'all'
-
-        if (percent > 95) {
-          notifyKey = 'finished'
-          filter = 'installed'
-          ipcRenderer.send('addShortcut', appName, false)
-        }
-
-        this.handleFilter(filter)
-      }
-
-      notify([title, t(`notify.install.${notifyKey}`)])
       return this.refreshLibrary({})
     }
 
@@ -258,11 +228,6 @@ export class GlobalState extends PureComponent<Props> {
         libraryStatus: updatedLibraryStatus
       })
 
-      const progress = await ipcRenderer.invoke('requestGameProgress', appName)
-      const percent = getProgress(progress)
-      const message =
-        percent < 95 ? t('notify.update.canceled') : t('notify.update.finished')
-      notify([title, message])
       // This avoids calling legendary again before the previous process is killed when canceling
       setTimeout(() => {
         return this.refreshLibrary({ checkForUpdates: true })
@@ -277,7 +242,6 @@ export class GlobalState extends PureComponent<Props> {
         filter: 'installed',
         libraryStatus: updatedLibraryStatus
       })
-      notify([title, t('notify.finished.reparing')])
 
       return this.refresh()
     }
@@ -292,7 +256,6 @@ export class GlobalState extends PureComponent<Props> {
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
       ipcRenderer.send('removeShortcut', appName)
-      notify([title, t('notify.uninstalled')])
 
       return this.refreshLibrary({})
     }
@@ -305,7 +268,6 @@ export class GlobalState extends PureComponent<Props> {
         filter: 'installed',
         libraryStatus: updatedLibraryStatus
       })
-      notify([title, t('notify.moved')])
 
       return this.refresh()
     }
