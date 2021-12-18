@@ -118,7 +118,7 @@ const GameCard = ({
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 
-  const { percent } = progress
+  const { percent = '' } = progress
   const effectPercent = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
@@ -300,7 +300,6 @@ const GameCard = ({
 
   async function handlePlay() {
     if (!isInstalled) {
-      console.log({ folder })
       return await install({
         appName,
         handleGameStatus,
