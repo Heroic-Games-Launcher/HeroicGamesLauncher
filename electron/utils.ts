@@ -65,7 +65,7 @@ const showAboutWindow = () => {
     applicationVersion: `${app.getVersion()} Caesar Clown`,
     copyright: 'GPL V3',
     iconPath: icon,
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher'
+    website: 'https://heroicgameslauncher.com'
   })
   return app.showAboutPanel()
 }

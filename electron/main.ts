@@ -132,6 +132,44 @@ async function createWindow(): Promise<BrowserWindow> {
   GlobalConfig.get()
   LegendaryLibrary.get()
 
+  const menu = new Menu()
+  menu.append(
+    new MenuItem({
+      label: 'Menu',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+          click: () => {
+            mainWindow.reload()
+          }
+        },
+        {
+          label: 'Debug',
+          accelerator:
+            process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+          click: () => {
+            mainWindow.webContents.openDevTools()
+          }
+        },
+        {
+          label: 'About',
+          click: () => {
+            showAboutWindow()
+          }
+        },
+        {
+          label: 'Quit',
+          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
+          click: () => {
+            handleExit()
+          }
+        }
+      ]
+    })
+  )
+  mainWindow.setMenu(menu)
+
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
@@ -167,38 +205,6 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-
-    const menu = new Menu()
-    menu.append(
-      new MenuItem({
-        label: 'Help',
-        submenu: [
-          {
-            label: 'Reload',
-            accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-            click: () => {
-              mainWindow.reload()
-            }
-          },
-          {
-            label: 'Debug',
-            accelerator:
-              process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-            click: () => {
-              mainWindow.webContents.openDevTools()
-            }
-          },
-          {
-            label: 'Quit',
-            accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
-            click: () => {
-              handleExit()
-            }
-          }
-        ]
-      })
-    )
-    mainWindow.setMenu(menu)
 
     return mainWindow
   }
@@ -400,7 +406,7 @@ function notify({ body, title }: NotifyType) {
     title
   })
 
-  notify.on('click', () => mainWindow.focus())
+  notify.on('click', () => mainWindow.show())
   notify.show()
 }
 
