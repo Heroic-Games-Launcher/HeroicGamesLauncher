@@ -61,6 +61,7 @@ module.exports = {
     'el',
     'en',
     'es',
+    'et',
     'fa',
     'fi',
     'fr',
