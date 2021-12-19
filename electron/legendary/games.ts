@@ -136,12 +136,13 @@ class LegendaryGame extends Game {
       epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${this.appName}`
     }
     try {
-      const response = await axios({
+      const { data } = await axios({
         method: 'GET',
         url: epicUrl
       })
+      logInfo('Getting Info from Epic API')
 
-      const about = response.data.pages.find(
+      const about = data.pages.find(
         (e: { type: string }) => e.type === 'productHome'
       )
 
@@ -154,6 +155,8 @@ class LegendaryGame extends Game {
         reqs: about.data.requirements.systems[0].details
       } as ExtraInfo
     } catch (error) {
+      logError('Error Getting Info from Epic API')
+
       store.set(namespace, { about: {}, reqs: [] })
       return {
         about: {},

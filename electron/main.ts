@@ -114,13 +114,13 @@ async function createWindow(): Promise<BrowserWindow> {
     height: 690,
     minHeight: 650,
     minWidth: 1100,
+    width: 1200,
     show: !(exitToTray && startInTray),
     webPreferences: {
       webviewTag: true,
       contextIsolation: false,
       nodeIntegration: true
-    },
-    width: 1200
+    }
   })
 
   setTimeout(() => {

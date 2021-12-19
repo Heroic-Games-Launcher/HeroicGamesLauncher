@@ -195,17 +195,21 @@ class LegendaryLibrary {
    */
   public async getInstallInfo(appName: string) {
     const cache = installStore.get(appName) as InstallInfo
-
+    logInfo('Getting More details with Legendary info command... ')
     if (cache) {
       return cache
     }
-    const { stdout } = await execAsync(
-      `${legendaryBin} -J info ${appName} --json`
-    )
-    const info: InstallInfo = JSON.parse(stdout)
-    installStore.set(appName, info)
-
-    return info
+    try {
+      const { stdout } = await execAsync(
+        `${legendaryBin} -J info ${appName} --json`
+      )
+      const info: InstallInfo = JSON.parse(stdout)
+      installStore.set(appName, info)
+      return info
+    } catch (error) {
+      logError('Error running the Legendary Info command')
+      console.log({ error })
+    }
   }
 
   /**

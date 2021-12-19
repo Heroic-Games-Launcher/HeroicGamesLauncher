@@ -13,7 +13,6 @@ import {
   getGameInfo,
   getInstallInfo,
   getProgress,
-  install,
   launch,
   sendKill,
   syncSaves
@@ -37,10 +36,6 @@ import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 import prettyBytes from 'pretty-bytes'
 import { Checkbox } from '@material-ui/core'
-import {
-  SDL_GAMES,
-  SelectiveDownload
-} from 'src/screens/Library/components/InstallModal/selective_dl'
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
@@ -89,16 +84,11 @@ export default function GamePage(): JSX.Element | null {
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
-  const [showSDL, setShowSDL] = useState(false)
   const [launchArguments, setLaunchArguments] = useState('')
-
-  const haveSDL = Boolean(SDL_GAMES[appName])
-  const mandatoryTags: Array<string> = haveSDL
-    ? SDL_GAMES[appName]
-        .filter((el: SelectiveDownload) => el.mandatory)
-        .map((el: SelectiveDownload) => el.tags)[0]
-    : []
-  const [sdlList, setSdlList] = useState([...mandatoryTags])
+  const [hasError, setHasError] = useState<{
+    error: boolean
+    message: string | unknown
+  }>({ error: false, message: '' })
 
   const isWin = platform === 'win32'
   const isInstalling = status === 'installing'
@@ -114,18 +104,30 @@ export default function GamePage(): JSX.Element | null {
 
   useEffect(() => {
     const updateConfig = async () => {
-      const newInfo = await getGameInfo(appName)
-      getInstallInfo(appName).then((info) => setGameInstallInfo(info))
-      setGameInfo(newInfo)
-      if (newInfo.cloud_save_enabled) {
-        try {
-          const { autoSyncSaves, savesPath }: AppSettings =
-            await ipcRenderer.invoke('requestSettings', appName)
-          setAutoSyncSaves(autoSyncSaves)
-          setSavesPath(savesPath)
-        } catch (error) {
-          ipcRenderer.send('logError', error)
+      try {
+        const newInfo = await getGameInfo(appName)
+        setGameInfo(newInfo)
+        getInstallInfo(appName)
+          .then((info) => setGameInstallInfo(info))
+          .catch((error) => {
+            console.error(error)
+            ipcRenderer.send('logError', error)
+            setHasError({ error: true, message: error })
+          })
+        if (newInfo?.cloud_save_enabled) {
+          try {
+            const { autoSyncSaves, savesPath }: AppSettings =
+              await ipcRenderer.invoke('requestSettings', appName)
+            setAutoSyncSaves(autoSyncSaves)
+            return setSavesPath(savesPath)
+          } catch (error) {
+            setHasError({ error: true, message: error })
+            ipcRenderer.send('logError', error)
+          }
         }
+      } catch (error) {
+        console.error({ error })
+        setHasError({ error: true, message: error })
       }
     }
     updateConfig()
@@ -166,19 +168,6 @@ export default function GamePage(): JSX.Element | null {
     await handleGameStatus({ appName, status: 'done' })
   }
 
-  function handleSdl(tags: Array<string>) {
-    let updatedList: Array<string> = [...sdlList]
-    tags.forEach((tag) => {
-      if (updatedList.includes(tag)) {
-        return (updatedList = updatedList.filter((tagx) => {
-          return tagx !== tag
-        }))
-      }
-      return updatedList.push(tag)
-    })
-    setSdlList([...updatedList])
-  }
-
   function handleDlcs() {
     setInstallDlcs(!installDlcs)
   }
@@ -203,7 +192,6 @@ export default function GamePage(): JSX.Element | null {
       canRunOffline
     }: GameInfo = gameInfo
     const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
-    const haveSDL = Boolean(SDL_GAMES[appName])
     const DLCList = gameInstallInfo?.game?.owned_dlc
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -227,6 +215,14 @@ export default function GamePage(): JSX.Element | null {
       const button = event.target as HTMLButtonElement
       const tab = button.dataset.tab
       setTabToShow(`${tab}Tab`)
+    }
+
+    if (hasError.error) {
+      const message =
+        typeof hasError.message === 'string'
+          ? hasError.message
+          : 'Unknown error'
+      return <div>{message}</div>
     }
 
     return (
@@ -314,45 +310,6 @@ export default function GamePage(): JSX.Element | null {
                                   {t('dlc.installDlcs', 'Install all DLCs')}
                                 </span>
                               </span>
-                            </div>
-                          )}
-                          {haveSDL && (
-                            <div className="itemContainer">
-                              <p
-                                className="sdlTitle"
-                                onClick={() => setShowSDL(!showSDL)}
-                              >
-                                {t(
-                                  'sdl.showList',
-                                  'Click to Show/Hide Extra Components'
-                                )}
-                              </p>
-                              {showSDL &&
-                                SDL_GAMES[appName].map(
-                                  ({
-                                    name,
-                                    tags,
-                                    mandatory
-                                  }: SelectiveDownload) => {
-                                    const checked = sdlList.includes(tags[0])
-                                    return (
-                                      !mandatory && (
-                                        <div key={name} className="checkBox">
-                                          <Checkbox
-                                            className="checkbox"
-                                            color="primary"
-                                            size="small"
-                                            checked={checked}
-                                            onChange={() => handleSdl(tags)}
-                                          />
-                                          <span className="itemName">
-                                            {name}
-                                          </span>
-                                        </div>
-                                      )
-                                    )
-                                  }
-                                )}
                             </div>
                           )}
                           <br />
@@ -591,22 +548,5 @@ export default function GamePage(): JSX.Element | null {
     if (!is_installed && !isInstalling) {
       return handleModal()
     }
-
-    const gameStatus: GameStatus = libraryStatus.filter(
-      (game) => game.appName === appName
-    )[0]
-    const { folder } = gameStatus
-
-    return await install({
-      appName,
-      handleGameStatus,
-      installPath: folder || 'default',
-      isInstalling,
-      previousProgress,
-      progress,
-      t,
-      installDlcs,
-      sdlList
-    })
   }
 }

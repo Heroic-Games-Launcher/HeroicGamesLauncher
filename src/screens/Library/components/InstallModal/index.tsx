@@ -54,7 +54,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
   const mandatoryTags: Array<string> = haveSDL
     ? SDL_GAMES[appName]
         .filter((el: SelectiveDownload) => el.mandatory)
-        .map((el: SelectiveDownload) => el.tags)[0]
+        .map((el: SelectiveDownload) => el.tags)
     : []
   const [sdlList, setSdlList] = useState([...mandatoryTags])
 
