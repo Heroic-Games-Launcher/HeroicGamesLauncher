@@ -56,7 +56,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
-  refreshLibrary: (options: RefreshOptions) => void
+  refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshing: boolean
 }
 
