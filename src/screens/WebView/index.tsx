@@ -74,7 +74,6 @@ export default function WebView({ isLogin }: Props) {
               webview.selectAll()
               webview.copy()
               const { sid }: SID = JSON.parse(clipboard.readText())
-              console.log({ sid })
               try {
                 setLoading({
                   refresh: true,
@@ -92,6 +91,7 @@ export default function WebView({ isLogin }: Props) {
                 setLoading({ ...loading, refresh: false })
               } catch (error) {
                 console.error(error)
+                ipcRenderer.send('logError', error)
               }
             }
           })

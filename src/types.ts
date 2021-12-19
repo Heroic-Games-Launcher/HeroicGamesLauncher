@@ -198,7 +198,6 @@ export type ElWebview = {
   copy: () => string
   selectAll: () => void
   findInPage: (text: string | RegExp) => void
-  executeJavaScript: (code: string) => void
 }
 
 export type Webview = HTMLWebViewElement & ElWebview
