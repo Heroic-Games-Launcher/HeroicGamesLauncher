@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import ElectronStore from 'electron-store'
@@ -30,18 +30,17 @@ export default function WebView({ isLogin }: Props) {
   const { i18n } = useTranslation()
   const { pathname } = useLocation()
   const { t } = useTranslation()
+  const { refreshLibrary } = useContext(ContextProvider)
+  const [loading, setLoading] = useState<{
+    refresh: boolean
+    message: string
+  }>({ refresh: true, message: t('loading.website', 'Loading Website') })
   const user = configStore.get('userInfo')
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
     lang = 'pt-BR'
   }
-
-  const [loading, setLoading] = React.useState<{
-    refresh: boolean
-    message: string
-  }>({ refresh: false, message: t('loading.website', 'Loading Website') })
-  const { refreshLibrary } = React.useContext(ContextProvider)
 
   const loginUrl =
     'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
@@ -59,13 +58,9 @@ export default function WebView({ isLogin }: Props) {
     '/login': loginUrl
   }
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const webview = document.querySelector('webview') as Webview
     if (webview) {
-      const loadstart = () => {
-        setLoading({ ...loading, refresh: true })
-      }
-
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
 
@@ -103,20 +98,7 @@ export default function WebView({ isLogin }: Props) {
         }
       }
 
-      const newUrl = () => {
-        console.log('changedUrl')
-        console.log(webview.getURL())
-      }
-
-      const redirectUrl = () => {
-        console.log('redirect')
-        console.log(webview.getURL())
-      }
-
-      webview.addEventListener('did-start-loading', loadstart)
       webview.addEventListener('did-stop-loading', loadstop)
-      webview.addEventListener('did-navigate-in-page', newUrl)
-      webview.addEventListener('did-redirect-navigation', redirectUrl)
     }
   }, [])
 
