@@ -118,10 +118,19 @@ class LegendaryGame extends Game {
     if (lang === 'pt') {
       lang = 'pt-BR'
     }
+    if (lang === 'zh_Hans') {
+      lang = 'zh-CN'
+    }
 
     let epicUrl: string
     if (namespace) {
-      const productSlug: string = await this.getProductSlug(namespace)
+      let productSlug: string
+      try {
+        productSlug = await this.getProductSlug(namespace)
+      } catch (error) {
+        logError(error)
+        productSlug = this.appName
+      }
       epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
     } else {
       epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${this.appName}`
