@@ -1,4 +1,4 @@
-import { InstallParams } from './types';
+import { InstallParams } from './types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -12,10 +12,7 @@ import {
   protocol,
   MenuItem
 } from 'electron'
-import {
-  cpus,
-  platform
-} from 'os'
+import { cpus, platform } from 'os'
 import {
   existsSync,
   mkdirSync,
@@ -33,7 +30,7 @@ import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
-import { LegendaryUser } from './legendary/user';
+import { LegendaryUser } from './legendary/user'
 import {
   checkCommandVersion,
   checkForUpdates,
@@ -88,7 +85,10 @@ const tsStore = new Store({
 
 // Trigger the autoUpdater every X minutes
 if (GlobalConfig.get().config?.enableUpdates) {
-  const interval = setInterval(() => checkUpdates(), (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000) // Converts minutes to milliseconds
+  const interval = setInterval(
+    () => checkUpdates(),
+    (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000
+  ) // Converts minutes to milliseconds
   clearInterval(interval)
 }
 
@@ -114,13 +114,13 @@ async function createWindow(): Promise<BrowserWindow> {
     height: 690,
     minHeight: 650,
     minWidth: 1100,
+    width: 1200,
     show: !(exitToTray && startInTray),
     webPreferences: {
       webviewTag: true,
       contextIsolation: false,
       nodeIntegration: true
-    },
-    width: 1200
+    }
   })
 
   setTimeout(() => {
@@ -131,6 +131,44 @@ async function createWindow(): Promise<BrowserWindow> {
 
   GlobalConfig.get()
   LegendaryLibrary.get()
+
+  const menu = new Menu()
+  menu.append(
+    new MenuItem({
+      label: 'Menu',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+          click: () => {
+            mainWindow.reload()
+          }
+        },
+        {
+          label: 'Debug',
+          accelerator:
+            process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+          click: () => {
+            mainWindow.webContents.openDevTools()
+          }
+        },
+        {
+          label: 'About',
+          click: () => {
+            showAboutWindow()
+          }
+        },
+        {
+          label: 'Quit',
+          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
+          click: () => {
+            handleExit()
+          }
+        }
+      ]
+    })
+  )
+  mainWindow.setMenu(menu)
 
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -148,7 +186,7 @@ async function createWindow(): Promise<BrowserWindow> {
 
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = (await GlobalConfig.get().config)
+      const { exitToTray } = await GlobalConfig.get().config
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -159,7 +197,7 @@ async function createWindow(): Promise<BrowserWindow> {
   } else {
     mainWindow.on('close', async (e) => {
       e.preventDefault()
-      const { exitToTray } = (await GlobalConfig.get().config)
+      const { exitToTray } = await GlobalConfig.get().config
 
       if (exitToTray) {
         return mainWindow.hide()
@@ -167,29 +205,6 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-
-    const menu = new Menu()
-    menu.append(new MenuItem({
-      label: 'Help',
-      submenu: [
-        {
-          label: 'Reload',
-          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-          click: () => { mainWindow.reload() }
-        },
-        {
-          label: 'Debug',
-          accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-          click: () => { mainWindow.webContents.openDevTools() }
-        },
-        {
-          label: 'Quit',
-          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
-          click: () => { handleExit() }
-        }
-      ]
-    }))
-    mainWindow.setMenu(menu)
 
     return mainWindow
   }
@@ -202,8 +217,9 @@ let appIcon: Tray = null
 const gotTheLock = app.requestSingleInstanceLock()
 
 const contextMenu = () => {
-  const recentGames: Array<RecentGame> = store.get('games.recent') as Array<RecentGame> || []
-  const recentsMenu = recentGames.map(game => {
+  const recentGames: Array<RecentGame> =
+    (store.get('games.recent') as Array<RecentGame>) || []
+  const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
         openUrlOrFile(`heroic://launch/${game.appName}`)
@@ -271,12 +287,12 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     logInfo(`Heroic Version ${app.getVersion()}`)
-    logInfo(`Legendary Version ${(await getLegendaryVersion())}`)
+    logInfo(`Legendary Version ${await getLegendaryVersion()}`)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
 
-    if (!isLoggedIn){
+    if (!isLoggedIn) {
       logInfo('User Not Found, removing it from Store')
       store.delete('userinfo')
     }
@@ -290,8 +306,36 @@ if (!gotTheLock) {
       debug: false,
       fallbackLng: 'en',
       lng: language,
-      supportedLngs: ['bg', 'ca', 'cs', 'de', 'el', 'en', 'es','fa', 'fi', 'fr', 'hr', 'hu', 'ja', 'ko', 'id', 'it', 'ml', 'nl', 'pl', 'pt', 'pt_BR', 'ru', 'sv', 'ta', 'tr', 'zh_Hans', 'zh_Hant']
-
+      supportedLngs: [
+        'bg',
+        'ca',
+        'cs',
+        'de',
+        'el',
+        'en',
+        'es',
+        'et',
+        'fa',
+        'fi',
+        'fr',
+        'hr',
+        'hu',
+        'ja',
+        'ko',
+        'id',
+        'it',
+        'ml',
+        'nl',
+        'pl',
+        'pt',
+        'pt_BR',
+        'ru',
+        'sv',
+        'ta',
+        'tr',
+        'zh_Hans',
+        'zh_Hant'
+      ]
     })
 
     await createWindow()
@@ -328,22 +372,23 @@ if (!gotTheLock) {
 
     ipcMain.addListener('changeTrayColor', () => {
       logInfo('Changing Tray icon Color...')
-      setTimeout(async() => {
+      setTimeout(async () => {
         const { darkTrayIcon } = await GlobalConfig.get().getSettings()
         const trayIcon = darkTrayIcon ? iconDark : iconLight
         appIcon.setImage(trayIcon)
         appIcon.setContextMenu(contextMenu())
-      }, 500);
+      }, 500)
     })
 
     if (process.platform === 'linux') {
       const found = await checkCommandVersion(
         ['python', 'python3'],
         '3.8.0',
-        false);
+        false
+      )
 
       if (!found) {
-        logError('Heroic requires Python 3.8 or newer.');
+        logError('Heroic requires Python 3.8 or newer.')
       }
     }
 
@@ -351,7 +396,20 @@ if (!gotTheLock) {
   })
 }
 
+type NotifyType = {
+  title: string
+  body: string
+}
 
+function notify({ body, title }: NotifyType) {
+  const notify = new Notification({
+    body,
+    title
+  })
+
+  notify.on('click', () => mainWindow.show())
+  notify.show()
+}
 
 ipcMain.on('Notify', (event, args) => {
   const notify = new Notification({
@@ -426,7 +484,6 @@ ipcMain.on('getLog', (event, appName) =>
 )
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
-  console.log({ path });
   if (path === 'default') {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
@@ -450,38 +507,49 @@ interface Tools {
   wine: string
 }
 
-ipcMain.handle('callTool', async (event, { tool, wine, prefix, exe }: Tools) => {
-  let wineBin = wine.replace("/proton'", "/dist/bin/wine'")
-  let winePrefix: string = prefix.replace('~', home)
+ipcMain.handle(
+  'callTool',
+  async (event, { tool, wine, prefix, exe }: Tools) => {
+    let wineBin = wine.replace("/proton'", "/dist/bin/wine'")
+    let winePrefix: string = prefix.replace('~', home)
 
-  if (wine.includes('proton')) {
-    const protonPrefix = winePrefix.replaceAll("'", '')
-    winePrefix = `${protonPrefix}/pfx`
+    if (wine.includes('proton')) {
+      const protonPrefix = winePrefix.replaceAll("'", '')
+      winePrefix = `${protonPrefix}/pfx`
 
-    // workaround for proton since newer versions doesnt come with a wine binary anymore.
-    logInfo(`${wineBin} not found for this Proton version, will try using default wine`)
-    if (!existsSync(wineBin)) {
-      wineBin = '/usr/bin/wine'
+      // workaround for proton since newer versions doesnt come with a wine binary anymore.
+      logInfo(
+        `${wineBin} not found for this Proton version, will try using default wine`
+      )
+      if (!existsSync(wineBin)) {
+        wineBin = '/usr/bin/wine'
+      }
+    }
+
+    let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
+      tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+    }`
+
+    if (tool === 'runExe') {
+      command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
+    }
+
+    logInfo('trying to run', command)
+    try {
+      await execAsync(command, execOptions)
+    } catch (error) {
+      logError(
+        `Something went wrong! Check if ${tool} is available and ${wineBin} exists`
+      )
     }
   }
-
-  let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${tool === 'winecfg' ? `${wineBin} ${tool}` : tool}`
-
-  if (tool === 'runExe') {
-    command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
-  }
-
-  logInfo('trying to run', command)
-  try {
-    await execAsync(command, execOptions)
-  } catch (error) {
-    logError(`Something went wrong! Check if ${tool} is available and ${wineBin} exists`)
-  }
-})
+)
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', () => LegendaryLibrary.get().listUpdateableGames())
+ipcMain.handle('checkGameUpdates', () =>
+  LegendaryLibrary.get().listUpdateableGames()
+)
 
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
@@ -490,20 +558,23 @@ ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
-export const getLegendaryVersion = async() => {
-  const { altLegendaryBin } = (await GlobalConfig.get().getSettings())
+export const getLegendaryVersion = async () => {
+  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
   try {
     if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
       return 'invalid'
     }
-    const {stdout} = await execAsync(`${legendaryBin} --version`)
-    return stdout.split('legendary version')[1].replaceAll('"', '').replaceAll(', codename', '')
+    const { stdout } = await execAsync(`${legendaryBin} --version`)
+    return stdout
+      .split('legendary version')[1]
+      .replaceAll('"', '')
+      .replaceAll(', codename', '')
   } catch (error) {
     return 'invalid'
   }
 }
 
-ipcMain.handle('getLegendaryVersion', async() => getLegendaryVersion())
+ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 
 ipcMain.handle('getPlatform', () => process.platform)
 
@@ -523,8 +594,8 @@ ipcMain.handle('getGameInfo', async (event, game) => {
 
 ipcMain.handle('getInstallInfo', async (event, game) => {
   const online = await isOnline()
-  if (!online){
-    return {game: {}, metadata: {}}
+  if (!online) {
+    return { game: {}, metadata: {} }
   }
   try {
     const info = await Game.get(game).getInstallInfo()
@@ -544,17 +615,19 @@ ipcMain.handle('login', async (event, sid) => await LegendaryUser.login(sid))
 
 ipcMain.handle('logout', async () => await LegendaryUser.logout())
 
-ipcMain.handle('getAlternativeWine', () => GlobalConfig.get().getAlternativeWine())
+ipcMain.handle('getAlternativeWine', () =>
+  GlobalConfig.get().getAlternativeWine()
+)
 
 ipcMain.handle('readConfig', async (event, config_class) => {
   switch (config_class) {
-  case 'library':
-    return await LegendaryLibrary.get().getGames('info')
-  case 'user':
-    return (await LegendaryUser.getUserInfo()).displayName
-  default:
-    logError(`Which idiot requested '${config_class}' using readConfig?`)
-    return {}
+    case 'library':
+      return await LegendaryLibrary.get().getGames('info')
+    case 'user':
+      return (await LegendaryUser.getUserInfo()).displayName
+    default:
+      logError(`Which idiot requested '${config_class}' using readConfig?`)
+      return {}
   }
 })
 
@@ -567,7 +640,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
 })
 
 ipcMain.on('toggleDXVK', (event, [winePrefix, action]) => {
-  if (!existsSync(winePrefix)){
+  if (!existsSync(winePrefix)) {
     return
   }
 
@@ -579,8 +652,7 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
   if (appName === 'default') {
     GlobalConfig.get().config = config
     GlobalConfig.get().flush()
-  }
-  else {
+  } else {
     GameConfig.get(appName).config = config
     GameConfig.get(appName).flush()
   }
@@ -611,71 +683,80 @@ type LaunchParams = {
   launchArguments: string
 }
 
-ipcMain.handle('launch', async (event, {appName, launchArguments}: LaunchParams) => {
-  const recentGames = store.get('games.recent') as Array<RecentGame> || []
-  const game = appName.split(' ')[0]
-  const { title } = await Game.get(game).getGameInfo()
-  const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
-  const startPlayingDate = new Date()
+ipcMain.handle(
+  'launch',
+  async (event, { appName, launchArguments }: LaunchParams) => {
+    const recentGames = (store.get('games.recent') as Array<RecentGame>) || []
+    const game = appName.split(' ')[0]
+    const { title } = await Game.get(game).getGameInfo()
+    const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
+    const startPlayingDate = new Date()
 
-  if (!tsStore.has(game)){
-    tsStore.set(`${game}.firstPlayed`, startPlayingDate)
-  }
+    if (!tsStore.has(game)) {
+      tsStore.set(`${game}.firstPlayed`, startPlayingDate)
+    }
 
-  logInfo('launching', title, game)
+    logInfo('launching', title, game)
 
-  if (recentGames.length) {
-    let updatedRecentGames = recentGames.filter(a => a.appName !== game)
-    if (updatedRecentGames.length > MAX_RECENT_GAMES) {
-      const newArr = []
-      for (let i = 0; i <= MAX_RECENT_GAMES; i++) {
-        newArr.push(updatedRecentGames[i])
+    if (recentGames.length) {
+      let updatedRecentGames = recentGames.filter((a) => a.appName !== game)
+      if (updatedRecentGames.length > MAX_RECENT_GAMES) {
+        const newArr = []
+        for (let i = 0; i <= MAX_RECENT_GAMES; i++) {
+          newArr.push(updatedRecentGames[i])
+        }
+        updatedRecentGames = newArr
       }
-      updatedRecentGames = newArr
+      if (updatedRecentGames.length === MAX_RECENT_GAMES) {
+        updatedRecentGames.pop()
+      }
+      updatedRecentGames.unshift({ appName: game, title })
+      store.set('games.recent', updatedRecentGames)
+    } else {
+      store.set('games.recent', [{ game, title: title }])
     }
-    if (updatedRecentGames.length === MAX_RECENT_GAMES) {
-      updatedRecentGames.pop()
-    }
-    updatedRecentGames.unshift({ appName: game, title })
-    store.set('games.recent', updatedRecentGames)
-  } else {
-    store.set('games.recent', [{ game, title: title }])
-  }
 
-  return Game.get(appName).launch(launchArguments).then(({ stderr }) => {
-    const finishedPlayingDate = new Date()
-    tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
-    const sessionPlayingTime = (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
-    const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`) ? tsStore.get(`${game}.totalPlayed`) as number + sessionPlayingTime : sessionPlayingTime
-    // I'll send the calculated time here because then the user can set it manually on the file if desired
-    tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
+    return Game.get(appName)
+      .launch(launchArguments)
+      .then(({ stderr }) => {
+        const finishedPlayingDate = new Date()
+        tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
+        const sessionPlayingTime =
+          (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
+        const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`)
+          ? (tsStore.get(`${game}.totalPlayed`) as number) + sessionPlayingTime
+          : sessionPlayingTime
+        // I'll send the calculated time here because then the user can set it manually on the file if desired
+        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
 
-    writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
-      stderr,
-      () => 'done'
-    )
-    if (stderr.includes('Errno')) {
-      showErrorBox(
-        i18next.t('box.error.title', 'Something Went Wrong'),
-        i18next.t(
-          'box.error.launch',
-          'Error when launching the game, check the logs!'
+        writeFile(
+          `${heroicGamesConfigPath}${game}-lastPlay.log`,
+          stderr,
+          () => 'done'
         )
-      )
-    }
-  }).catch(async (exception) => {
-    const stderr = `${exception.name} - ${exception.message}`
-    errorHandler({ error: { stderr, stdout: '' } })
-    writeFile(
-      `${heroicGamesConfigPath}${game}-lastPlay.log`,
-      stderr,
-      () => 'done'
-    )
-    logError(stderr)
-    return stderr
-  })
-})
+        if (stderr.includes('Errno')) {
+          showErrorBox(
+            i18next.t('box.error.title', 'Something Went Wrong'),
+            i18next.t(
+              'box.error.launch',
+              'Error when launching the game, check the logs!'
+            )
+          )
+        }
+      })
+      .catch(async (exception) => {
+        const stderr = `${exception.name} - ${exception.message}`
+        errorHandler({ error: { stderr, stdout: '' } })
+        writeFile(
+          `${heroicGamesConfigPath}${game}-lastPlay.log`,
+          stderr,
+          () => 'done'
+        )
+        logError(stderr)
+        return stderr
+      })
+  }
+)
 
 ipcMain.handle('openDialog', async (e, args) => {
   const { filePaths, canceled } = await showOpenDialog({
@@ -692,16 +773,20 @@ const openMessageBox = async (args: Electron.MessageBoxOptions) => {
   return { response }
 }
 
-ipcMain.handle('openMessageBox', async (_, args: Electron.MessageBoxOptions) => {
-  return openMessageBox(args)
-})
+ipcMain.handle(
+  'openMessageBox',
+  async (_, args: Electron.MessageBoxOptions) => {
+    return openMessageBox(args)
+  }
+)
 
-
-ipcMain.handle('showErrorBox', async (e, args: [title: string, message: string]) => {
-  const [title, content] = args
-  return showErrorBox(title, content)
-})
-
+ipcMain.handle(
+  'showErrorBox',
+  async (e, args: [title: string, message: string]) => {
+    const [title, content] = args
+    return showErrorBox(title, content)
+  }
+)
 
 ipcMain.handle('install', async (event, params) => {
   const { appName: game, path, installDlcs, sdlList } = params as InstallParams
@@ -709,17 +794,34 @@ ipcMain.handle('install', async (event, params) => {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return Game.get(game).install({path, installDlcs, sdlList})
-    .then((res) => {
-      logInfo('finished installing');
+  const title = (await Game.get(game).getGameInfo()).title
+  notify({
+    title,
+    body: i18next.t('notify.install.startInstall', 'Installation Started')
+  })
+  return Game.get(game)
+    .install({ path, installDlcs, sdlList })
+    .then(async (res) => {
+      notify({ title, body: i18next.t('notify.install.finished') })
+      logInfo('finished installing')
       return res
-    }).catch((res) => res)
+    })
+    .catch((res) => {
+      notify({ title, body: i18next.t('notify.install.canceled') })
+      return res
+    })
 })
 
 ipcMain.handle('uninstall', async (event, game) => {
-  return Game.get(game).uninstall().then(
-    () => { logInfo('finished uninstalling') }
-  ).catch(logError)
+  const title = (await Game.get(game).getGameInfo()).title
+
+  return Game.get(game)
+    .uninstall()
+    .then(() => {
+      notify({ title, body: i18next.t('notify.uninstalled') })
+      logInfo('finished uninstalling')
+    })
+    .catch(logError)
 })
 
 ipcMain.handle('repair', async (event, game) => {
@@ -727,16 +829,55 @@ ipcMain.handle('repair', async (event, game) => {
     logWarning(`App offline, skipping repair for game '${game}'.`)
     return
   }
-  return Game.get(game).repair().then(
-    () => logInfo('finished repairing')
-  ).catch(logError)
+  const title = (await Game.get(game).getGameInfo()).title
+
+  return Game.get(game)
+    .repair()
+    .then(() => {
+      notify({ title, body: i18next.t('notify.finished.reparing') })
+      logInfo('finished repairing')
+    })
+    .catch((error) => {
+      notify({
+        title,
+        body: i18next.t('notify.error.reparing', 'Error Repairing')
+      })
+      logError(error)
+    })
+})
+
+ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
+  const title = (await Game.get(appName).getGameInfo()).title
+  try {
+    const newPath = await Game.get(appName).moveInstall(path)
+    notify({ title, body: i18next.t('notify.moved') })
+    logInfo(`Finished moving ${appName} to ${newPath}.`)
+  } catch (error) {
+    notify({
+      title,
+      body: i18next.t('notify.error.move', 'Error Moving the Game')
+    })
+    logError(error)
+  }
 })
 
 ipcMain.handle('importGame', async (event, args) => {
   const { appName: game, path } = args
-  const { stderr, stdout } = await Game.get(game).import(path)
-  logInfo(`${stdout}`)
-  logError(`${stderr}`)
+  const title = (await Game.get(game).getGameInfo()).title
+
+  Game.get(game)
+    .import(path)
+    .then(() => {
+      notify({
+        title,
+        body: i18next.t('notify.install.imported', 'Game Imported')
+      })
+      logInfo(`imported ${title}`)
+    })
+    .catch((err) => {
+      notify({ title, body: i18next.t('notify.install.canceled') })
+      logInfo(err)
+    })
 })
 
 ipcMain.handle('updateGame', async (e, game) => {
@@ -744,14 +885,25 @@ ipcMain.handle('updateGame', async (e, game) => {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
   }
-  return Game.get(game).update().then(
-    () => { logInfo('finished updating') }
-  ).catch((res) => res)
+
+  const title = (await Game.get(game).getGameInfo()).title
+
+  return Game.get(game)
+    .update()
+    .then(() => {
+      notify({ title, body: i18next.t('notify.update.finished') })
+      logInfo('finished updating')
+    })
+    .catch((res) => {
+      notify({ title, body: i18next.t('notify.update.canceled') })
+      return res
+    })
 })
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `${heroicGamesConfigPath}${appName}.log`
-
+  // eslint-disable-next-line no-debugger
+  debugger
   if (!existsSync(logPath)) {
     return {}
   }
@@ -785,20 +937,16 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   }
 
   if (!isWindows) {
-    [percent, eta] = progress_result.split(' ')
+    percent = progress_result.split(' ')[0]
+    eta = progress_result.split(' ')[1]
     bytes = downloaded_result + 'MiB'
   }
 
   const progress = { bytes, eta, percent }
   logInfo(
-    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${eta}`
+    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`
   )
   return progress
-})
-
-ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  const newPath = await Game.get(appName).moveInstall(path)
-  logInfo(`Finished moving ${appName} to ${newPath}.`)
 })
 
 ipcMain.handle(
@@ -810,7 +958,8 @@ ipcMain.handle(
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const egl_manifestPath = 'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
+  const egl_manifestPath =
+    'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
 
   if (isWindows) {
     if (!existsSync(egl_manifestPath)) {
@@ -818,7 +967,9 @@ ipcMain.handle('egsSync', async (event, args) => {
     }
   }
 
-  const linkArgs = isWindows ? `--enable-sync` : `--enable-sync --egl-wine-prefix ${args}`
+  const linkArgs = isWindows
+    ? `--enable-sync`
+    : `--enable-sync --egl-wine-prefix ${args}`
   const unlinkArgs = `--unlink`
   const isLink = args !== 'unlink'
   const command = isLink ? linkArgs : unlinkArgs
@@ -840,7 +991,10 @@ ipcMain.on('addShortcut', async (event, appName: string, fromMenu: boolean) => {
   game.addShortcuts(fromMenu)
   openMessageBox({
     buttons: [i18next.t('box.ok', 'Ok')],
-    message: i18next.t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
+    message: i18next.t(
+      'box.shortcuts.message',
+      'Shortcuts were created on Desktop and Start Menu'
+    ),
     title: i18next.t('box.shortcuts.title', 'Shortcuts')
   })
 })

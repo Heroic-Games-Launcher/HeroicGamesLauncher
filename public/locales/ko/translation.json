@@ -8,7 +8,7 @@
         },
         "choose": "선택",
         "choose-egs-prefix": "Epic Games Store가 설치된 Prefix 선택",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Legendary 바이너리 파일 선택",
         "customWine": "Wine 혹은 Proton 바이너리 선택",
         "default-install-path": "기본 설치 경로 선택",
         "error": {
@@ -32,6 +32,7 @@
             "title": "오류"
         },
         "no": "아니오",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "이(가) 설치되지 않았습니다, 설치하시겠습니까?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "선택",
             "exe": "EXE 선택"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "선택",
@@ -102,12 +107,18 @@
     "nogames": "게임이 발견되지 않았습니다",
     "Not Ready": "준비되지 않음",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "복구 완료"
         },
         "install": {
             "canceled": "설치 취소됨",
-            "finished": "설치 완료됨"
+            "finished": "설치 완료됨",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "이동 완료됨",
         "uninstalled": "설치 제거됨",
@@ -127,11 +138,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Legendary 버전: ",
         "weblate": "Heroric 번역을 도와주세요."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",
         "egs-prefix": "Epic Games Store가 설치된 위치 Prefix"
     },
     "Plugins": "플러그인",
@@ -143,7 +154,7 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일을 선택하십시오",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "Prefix에 DXVK/VKD3D 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",
@@ -193,7 +204,7 @@
     "Settings": "설정",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "뒤로",
             "general": "일반",
             "other": "기타",
             "sync": "세이브-동기화"
@@ -201,15 +212,15 @@
     },
     "store": "스토어",
     "title": {
-        "allGames": "All Games",
+        "allGames": "모든 게임",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "downloading": "다운로드 중",
+        "installedGames": "설치된 게임",
+        "notInstalledGames": "설치되지 않음",
+        "unrealAssets": "Unreal - 에셋",
+        "unrealPlugins": "Unreal - 플러그인",
+        "unrealProjects": "Unreal - 프로젝트",
+        "updates": "보류 중인 업데이트"
     },
     "tooltip": {
         "addpath": "새 경로 추가",

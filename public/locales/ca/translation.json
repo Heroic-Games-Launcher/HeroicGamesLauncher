@@ -32,6 +32,7 @@
             "title": "Error"
         },
         "no": "No",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "no està instal·lat, vols instalar-lo?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Select",
             "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Tria",
@@ -78,12 +83,12 @@
         },
         "sync": {
             "part1": "Heroic intenta adivinar la carpeta de guardat i això funcionarà a la majoria de casos. En el cas de que la carpeta estigui malament, canvia-la.",
-            "part2": "En el cas de que canviïs la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix diferent (/pfx) i nom d'usuari (nom d'steam). Així que pots borrar la ruta actual, sortir de la configuració de sincronització i torna per que heroic pugui adivinar la carpeta",
+            "part2": "Si canvies la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix (/pfx) i nom d'usuari (nom d'steam) diferent. Pots borrar la ruta actual, sortir de la configuració de sincronització i torna per que heroic pugui adivinar la carpeta",
             "part3": "Sincronització manual: Eligeix \"Descarrega\" per descarregar les dades de guardat que estàn al núvol. Puja per pujar les dades locals al núvol. Força la descarga i força la pujada ignorarà la versió que està localment o al núvol.",
             "part4": "Sincronitza les dades automàticamente sincronitzarà les dades cada vegada que inicis un joc i després de jugar."
         },
         "wine": {
-            "part1": "Heroic busca les versions de wine i proton a les següents carpetes:",
+            "part1": "Heroic busca les versions de Wine, Proton i CrossOver a les següents carpetes:",
             "part2": "Per altres llocs, empra un enllaç simbòlic (symlink) a alguna d'aquestes carpetes"
         }
     },
@@ -102,12 +107,18 @@
     "nogames": "No s'han trobat els jocs",
     "Not Ready": "No llest",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Hem acabat de reparar el joc"
         },
         "install": {
             "canceled": "Instal·lació cancelada",
-            "finished": "Instal·lació finalitzada"
+            "finished": "Instal·lació finalitzada",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Mudança finalitzada",
         "uninstalled": "Des-instal·lat",
@@ -127,11 +138,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Versió de Legendary: ",
         "weblate": "Ajuda a traduïr Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "Usant binari de Legendary per defecte...",
         "egs-prefix": "Prefix a on EGS és instal·lat"
     },
     "Plugins": "Plugins",
@@ -147,7 +158,7 @@
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
         "autodxvk": "Instal·la/Actualitza DXVK/VKD3D al prefix automàticament",
         "autosync": "Sincronitza les dades automàticament",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Selecciona un EXE alternatiu per córrer",
         "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
         "customWineProton": "Rutes de Wine o Proton personalitzades",
         "darktray": "Emprar la icona fosca al Tray",
@@ -158,7 +169,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Sortir al Tray",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
+        "fsync": "Activar Fsync",
         "gamemode": "Empra el game mode (feral gamemode ha d'estar instal·lat)",
         "language": "Eligeix el llenguatge de l'app",
         "mangohud": "Activa Mangohud (Mangohud ha d'estar instal·lat primer)",
@@ -175,7 +186,7 @@
         "maxworkers": "Nombre màxim de Workers quan descarreguis",
         "offlinemode": "Executa el joc sense connexió",
         "primerun": "Activa l'Nvidia Prime Render",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "resizableBar": "Activar Resizable BAR (NVIDIA RTX)",
         "runexe": {
             "message": "Arrastra arxius aquí",
             "title": "Executa EXE al prefix"
@@ -186,14 +197,14 @@
         },
         "showfps": "Ensenya els FPS (DX9, 10 i 11)",
         "start-in-tray": "Comença minimitzat",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Carpeta wine prefix",
         "wineversion": "Versió de Wine"
     },
     "Settings": "Configuració",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "Tornar",
             "general": "General",
             "other": "Altres",
             "sync": "Guardar-Sincronitzar"
@@ -201,15 +212,15 @@
     },
     "store": "Botiga",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Tots els jocs",
+        "allUnreal": "Unreal - Tot",
+        "downloading": "Descarregant",
+        "installedGames": "Jocs instal·lats",
+        "notInstalledGames": "No instal·lat",
+        "unrealAssets": "Unreal - Recursos",
+        "unrealPlugins": "Unreal - Extensions",
+        "unrealProjects": "Unreal - Projectes",
+        "updates": "Actualitzacions pendents"
     },
     "tooltip": {
         "addpath": "Afegir nova ruta",

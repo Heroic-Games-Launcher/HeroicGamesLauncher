@@ -4,7 +4,7 @@ import { logInfo } from './logger'
 import i18next from 'i18next'
 import { checkUpdates } from './updater'
 
-export async function handleProtocol(window : BrowserWindow, url : string) {
+export async function handleProtocol(window: BrowserWindow, url: string) {
   const mainWindow = BrowserWindow.getAllWindows()[0]
   const [scheme, path] = url.split('://')
   if (!url || scheme !== 'heroic' || !path) {
@@ -29,7 +29,10 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
         const { response } = await dialog.showMessageBox({
           buttons: [i18next.t('box.yes'), i18next.t('box.no')],
           cancelId: 1,
-          message: `${title} ${i18next.t('box.protocol.install.not_installed', 'Is Not Installed, do you wish to Install it?')}`,
+          message: `${title} ${i18next.t(
+            'box.protocol.install.not_installed',
+            'Is Not Installed, do you wish to Install it?'
+          )}`,
           title: title
         })
         if (response === 0) {
@@ -41,7 +44,7 @@ export async function handleProtocol(window : BrowserWindow, url : string) {
       }
       mainWindow.hide()
       window.webContents.send('launchGame', arg)
-    }, 3000);
+    }, 3000)
   }
   if (command === 'update') {
     checkUpdates()

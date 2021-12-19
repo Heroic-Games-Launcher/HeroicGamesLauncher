@@ -7,7 +7,7 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 export default function UpdateComponent() {
   return (
     <div className="updateIcon" data-testid="updateComponent">
-      <FontAwesomeIcon className="icon" icon={faSyncAlt}/>
+      <FontAwesomeIcon className="icon" icon={faSyncAlt} />
     </div>
   )
 }

@@ -9,12 +9,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository.
-      uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: Install modules.
-      run: yarn
-    - name: Test
-      run: yarn test:ci
+      - name: Checkout repository.
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install modules.
+        run: yarn
+      - name: Test
+        run: yarn test:ci

@@ -32,6 +32,7 @@
             "title": "Error"
         },
         "no": "NIE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nie jest zainstalowany, czy chcesz go zainstalować?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Wybierz",
             "exe": "Wybierz EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Wybierz",
@@ -102,12 +107,18 @@
     "nogames": "Nie znaleziono żadnej gry",
     "Not Ready": "Dostępne",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Naprawa zakończona"
         },
         "install": {
             "canceled": "Instalacja zatrzymana",
-            "finished": "Instalacja zakończona"
+            "finished": "Instalacja zakończona",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Przenoszenie zakończone",
         "uninstalled": "Odinstalowane",
@@ -143,7 +154,7 @@
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
-        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary, do użycia",
+        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary do użycia",
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK/VKD3D w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
@@ -193,7 +204,7 @@
     "Settings": "Ustawienia",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "Wstecz",
             "general": "Główne",
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
@@ -201,15 +212,15 @@
     },
     "store": "Sklep",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
+        "allGames": "Wszystkie Gry",
+        "allUnreal": "Unreal - Wszystko",
+        "downloading": "Pobieranie",
+        "installedGames": "Zainstalowane Gry",
+        "notInstalledGames": "Nie Zainstalowane",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "updates": "Oczekujące Aktualizacje"
     },
     "tooltip": {
         "addpath": "Dodaj nową ścieżkę",

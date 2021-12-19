@@ -32,6 +32,7 @@
             "title": "错误"
         },
         "no": "否",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "未安装，您是否希望安装它？"
@@ -47,6 +48,10 @@
         "select": {
             "button": "选择",
             "exe": "选择EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "选择",
@@ -102,12 +107,18 @@
     "nogames": "未找到游戏",
     "Not Ready": "尚未就绪",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "已完成修复"
         },
         "install": {
             "canceled": "已取消安装",
-            "finished": "安装完成"
+            "finished": "安装完成",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "移动完成",
         "uninstalled": "已卸载",
@@ -139,7 +150,7 @@
     "Ready": "准备就绪",
     "Recent": "最近的游戏",
     "Return": "返回",
-    "search": "在此处输入游戏名称",
+    "search": "在此处输入游戏名称…",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
@@ -193,7 +204,7 @@
     "Settings": "设置",
     "settings": {
         "navbar": {
-            "back": "Back",
+            "back": "返回",
             "general": "常规",
             "other": "其它",
             "sync": "存档-同步"
@@ -201,15 +212,15 @@
     },
     "store": "商店",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "所有游戏",
+        "allUnreal": "Unreal - 所有",
+        "downloading": "下载中",
+        "installedGames": "已安装的游戏",
+        "notInstalledGames": "未安装",
+        "unrealAssets": "Unreal - 资产",
+        "unrealPlugins": "Unreal - 插件",
+        "unrealProjects": "Unreal - 项目",
+        "updates": "待更新"
     },
     "tooltip": {
         "addpath": "添加新路径",

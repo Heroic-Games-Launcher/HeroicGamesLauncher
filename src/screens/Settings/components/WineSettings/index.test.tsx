@@ -1,16 +1,17 @@
-import React from 'react';
+import React from 'react'
 
+import { fireEvent, render, waitFor } from '@testing-library/react'
+
+import { WineInstallation } from 'src/types'
+import { ipcRenderer } from 'src/test_helpers/mock/electron'
 import {
-  fireEvent,
-  render,
-  waitFor
-} from '@testing-library/react';
-
-import { WineInstallation } from 'src/types';
-import { ipcRenderer } from 'src/test_helpers/mock/electron';
-import { resetTestTypes, test_context, test_opendialog, test_wineinstallations } from 'src/test_helpers/testTypes';
-import WineSettings from './index';
-import ContextProvider from 'src/state/ContextProvider';
+  resetTestTypes,
+  test_context,
+  test_opendialog,
+  test_wineinstallations
+} from 'src/test_helpers/testTypes'
+import WineSettings from './index'
+import ContextProvider from 'src/state/ContextProvider'
 
 interface Props {
   altWine: WineInstallation[]
@@ -38,8 +39,7 @@ interface Props {
   wineVersion: WineInstallation
 }
 
-function renderWineSettings(props: Partial<Props> = {})
-{
+function renderWineSettings(props: Partial<Props> = {}) {
   const defaultProps: Props = {
     altWine: test_wineinstallations.get(),
     autoInstallDxvk: false,
@@ -50,17 +50,39 @@ function renderWineSettings(props: Partial<Props> = {})
     isDefault: false,
     maxSharpness: 5,
     enableResizableBar: false,
-    setAltWine: () => {return;},
-    setCustomWinePaths: () => {return;},
-    setWineCrossoverBottle: () => {return;},
-    setWinePrefix: () => {return;},
-    setWineVersion: () => {return;},
-    setFsrSharpness: () => {return;},
-    toggleAutoInstallDxvk: () => {return;},
-    toggleFSR: () => {return;},
-    toggleResizableBar: () => {return;},
-    toggleEsync: () => {return;},
-    toggleFsync: () => {return;},
+    setAltWine: () => {
+      return
+    },
+    setCustomWinePaths: () => {
+      return
+    },
+    setWineCrossoverBottle: () => {
+      return
+    },
+    setWinePrefix: () => {
+      return
+    },
+    setWineVersion: () => {
+      return
+    },
+    setFsrSharpness: () => {
+      return
+    },
+    toggleAutoInstallDxvk: () => {
+      return
+    },
+    toggleFSR: () => {
+      return
+    },
+    toggleResizableBar: () => {
+      return
+    },
+    toggleEsync: () => {
+      return
+    },
+    toggleFsync: () => {
+      return
+    },
     wineCrossoverBottle: 'bottle',
     winePrefix: 'winePrefix',
     wineVersion: {
@@ -73,181 +95,198 @@ function renderWineSettings(props: Partial<Props> = {})
     <ContextProvider.Provider value={test_context.get()}>
       <WineSettings {...{ ...defaultProps, ...props }} />
     </ContextProvider.Provider>
-  );
+  )
 }
 
 describe('WineSettings', () => {
   beforeEach(() => {
-    resetTestTypes();
+    resetTestTypes()
   })
 
   test('renders', () => {
-    renderWineSettings();
+    renderWineSettings()
   })
 
   test('change wine prefix invokes setWinePrefix', () => {
-    const onSetWinePrefix = jest.fn();
-    const { getByTestId } = renderWineSettings({setWinePrefix: onSetWinePrefix});
-    const inputWinePrefix = getByTestId('selectWinePrefix');
-    fireEvent.change(inputWinePrefix, { target: { value: 'newPrefix' }});
-    expect(onSetWinePrefix).toBeCalledWith('newPrefix');
+    const onSetWinePrefix = jest.fn()
+    const { getByTestId } = renderWineSettings({
+      setWinePrefix: onSetWinePrefix
+    })
+    const inputWinePrefix = getByTestId('selectWinePrefix')
+    fireEvent.change(inputWinePrefix, { target: { value: 'newPrefix' } })
+    expect(onSetWinePrefix).toBeCalledWith('newPrefix')
   })
 
   test('add empty wine prefix invokes setWinePrefix with the current winePrefix set', async () => {
-    const onSetWinePrefix = jest.fn();
-    const { getByTestId } = renderWineSettings({setWinePrefix: onSetWinePrefix});
-    const addWinePrefix = getByTestId('addWinePrefix');
-    test_opendialog.set({path: ''});
-    fireEvent.click(addWinePrefix);
-    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
-      'openDialog',
-      {
-        'buttonLabel': 'box.choose',
-        'properties': ['openDirectory'],
-        'title': 'box.wineprefix'
-      }));
+    const onSetWinePrefix = jest.fn()
+    const { getByTestId } = renderWineSettings({
+      setWinePrefix: onSetWinePrefix
+    })
+    const addWinePrefix = getByTestId('addWinePrefix')
+    test_opendialog.set({ path: '' })
+    fireEvent.click(addWinePrefix)
+    await waitFor(() =>
+      expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
+        buttonLabel: 'box.choose',
+        properties: ['openDirectory'],
+        title: 'box.wineprefix'
+      })
+    )
     expect(onSetWinePrefix).toBeCalledWith('winePrefix')
   })
 
   test('add valid wine prefix invokes setWinePrefix with path', async () => {
-    const onSetWinePrefix = jest.fn();
-    const { getByTestId } = renderWineSettings({setWinePrefix: onSetWinePrefix});
-    const addWinePrefix = getByTestId('addWinePrefix');
-    test_opendialog.set({path: 'new/prefix/path'});
-    fireEvent.click(addWinePrefix);
-    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
-      'openDialog',
-      {
-        'buttonLabel': 'box.choose',
-        'properties': ['openDirectory'],
-        'title': 'box.wineprefix'
-      }));
+    const onSetWinePrefix = jest.fn()
+    const { getByTestId } = renderWineSettings({
+      setWinePrefix: onSetWinePrefix
+    })
+    const addWinePrefix = getByTestId('addWinePrefix')
+    test_opendialog.set({ path: 'new/prefix/path' })
+    fireEvent.click(addWinePrefix)
+    await waitFor(() =>
+      expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
+        buttonLabel: 'box.choose',
+        properties: ['openDirectory'],
+        title: 'box.wineprefix'
+      })
+    )
     expect(onSetWinePrefix).toBeCalledWith('new/prefix/path')
   })
 
   test('select wine prefix search path invokes setSelectPath', async () => {
-    const { getByTestId } = renderWineSettings({isDefault: true});
-    const selectWinePath = getByTestId('selectWinePath');
-    expect(selectWinePath).toHaveValue(undefined);
-    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path'}});
-    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'));
+    const { getByTestId } = renderWineSettings({ isDefault: true })
+    const selectWinePath = getByTestId('selectWinePath')
+    expect(selectWinePath).toHaveValue(undefined)
+    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path' } })
+    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'))
   })
 
   test('remove last wine prefix search path invokes removeCustomPath with empty path', async () => {
-    const onSetCustomWinePaths = jest.fn();
-    const { getByTestId } = renderWineSettings({isDefault: true, setCustomWinePaths: onSetCustomWinePaths});
-    const removeWinePath = getByTestId('removeWinePath');
-    const selectWinePath = getByTestId('selectWinePath');
+    const onSetCustomWinePaths = jest.fn()
+    const { getByTestId } = renderWineSettings({
+      isDefault: true,
+      setCustomWinePaths: onSetCustomWinePaths
+    })
+    const removeWinePath = getByTestId('removeWinePath')
+    const selectWinePath = getByTestId('selectWinePath')
 
-    expect(selectWinePath).toHaveValue(undefined);
-    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path'}});
-    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'));
+    expect(selectWinePath).toHaveValue(undefined)
+    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path' } })
+    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'))
 
-    fireEvent.click(removeWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith([]));
+    fireEvent.click(removeWinePath)
+    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith([]))
   })
 
   test('remove not last wine prefix search path invokes removeCustomPath with remaining paths', async () => {
-    const onSetCustomWinePaths = jest.fn();
+    const onSetCustomWinePaths = jest.fn()
     const { getByTestId } = renderWineSettings({
       customWinePaths: ['custom/wine/path', 'remainingWinePaths'],
       isDefault: true,
-      setCustomWinePaths: onSetCustomWinePaths});
-    const removeWinePath = getByTestId('removeWinePath');
-    const selectWinePath = getByTestId('selectWinePath');
+      setCustomWinePaths: onSetCustomWinePaths
+    })
+    const removeWinePath = getByTestId('removeWinePath')
+    const selectWinePath = getByTestId('selectWinePath')
 
-    expect(selectWinePath).toHaveValue(undefined);
-    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path'}});
-    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'));
+    expect(selectWinePath).toHaveValue(undefined)
+    fireEvent.change(selectWinePath, { target: { value: 'custom/wine/path' } })
+    await waitFor(() => expect(selectWinePath).toHaveValue('custom/wine/path'))
 
-    fireEvent.click(removeWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['remainingWinePaths']));
+    fireEvent.click(removeWinePath)
+    await waitFor(() =>
+      expect(onSetCustomWinePaths).toBeCalledWith(['remainingWinePaths'])
+    )
   })
 
   test('add empty custom wine path invokes setCustomWinePath with empty array', async () => {
-    const onSetCustomWinePaths = jest.fn();
+    const onSetCustomWinePaths = jest.fn()
     const { getByTestId } = renderWineSettings({
       customWinePaths: [],
       isDefault: true,
-      setCustomWinePaths: onSetCustomWinePaths});
-    const addWinePath = getByTestId('addWinePath');
+      setCustomWinePaths: onSetCustomWinePaths
+    })
+    const addWinePath = getByTestId('addWinePath')
 
-    test_opendialog.set({ path: ''});
-    fireEvent.click(addWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith([]));
-    expect(ipcRenderer.invoke).toBeCalledWith(
-      'openDialog',
-      {
-        'buttonLabel': 'box.choose',
-        'properties': ['openFile'],
-        'title': 'box.customWine'
-      });
+    test_opendialog.set({ path: '' })
+    fireEvent.click(addWinePath)
+    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith([]))
+    expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
+      buttonLabel: 'box.choose',
+      properties: ['openFile'],
+      title: 'box.customWine'
+    })
 
-    test_opendialog.set({ path: 'new/wine/path'});
-    fireEvent.click(addWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['new/wine/path']));
-    expect(ipcRenderer.invoke).toBeCalledWith(
-      'openDialog',
-      {
-        'buttonLabel': 'box.choose',
-        'properties': ['openFile'],
-        'title': 'box.customWine'
-      }
-    );
+    test_opendialog.set({ path: 'new/wine/path' })
+    fireEvent.click(addWinePath)
+    await waitFor(() =>
+      expect(onSetCustomWinePaths).toBeCalledWith(['new/wine/path'])
+    )
+    expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
+      buttonLabel: 'box.choose',
+      properties: ['openFile'],
+      title: 'box.customWine'
+    })
   })
 
   test('add valid custom wine path invokes setCustomWinePath with path', async () => {
-    const onSetCustomWinePaths = jest.fn();
+    const onSetCustomWinePaths = jest.fn()
     const { getByTestId } = renderWineSettings({
       customWinePaths: [],
       isDefault: true,
-      setCustomWinePaths: onSetCustomWinePaths});
-    const addWinePath = getByTestId('addWinePath');
+      setCustomWinePaths: onSetCustomWinePaths
+    })
+    const addWinePath = getByTestId('addWinePath')
 
-    test_opendialog.set({ path: 'new/wine/path'});
-    fireEvent.click(addWinePath);
-    await waitFor(() => expect(onSetCustomWinePaths).toBeCalledWith(['new/wine/path']));
-    expect(ipcRenderer.invoke).toBeCalledWith(
-      'openDialog',
-      {
-        'buttonLabel': 'box.choose',
-        'properties': ['openFile'],
-        'title': 'box.customWine'
-      }
-    );
+    test_opendialog.set({ path: 'new/wine/path' })
+    fireEvent.click(addWinePath)
+    await waitFor(() =>
+      expect(onSetCustomWinePaths).toBeCalledWith(['new/wine/path'])
+    )
+    expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
+      buttonLabel: 'box.choose',
+      properties: ['openFile'],
+      title: 'box.customWine'
+    })
   })
 
   test('add already existing custom wine path does not invoke setCustomWinePath', async () => {
-    const onSetCustomWinePaths = jest.fn();
+    const onSetCustomWinePaths = jest.fn()
     const { getByTestId } = renderWineSettings({
       isDefault: true,
-      setCustomWinePaths: onSetCustomWinePaths});
-    const addWinePath = getByTestId('addWinePath');
+      setCustomWinePaths: onSetCustomWinePaths
+    })
+    const addWinePath = getByTestId('addWinePath')
 
-    test_opendialog.set({path: 'custom/wine/path'})
-    fireEvent.click(addWinePath);
-    await waitFor(() => expect(ipcRenderer.invoke).toBeCalledWith(
-      'openDialog',
-      {
-        'buttonLabel': 'box.choose',
-        'properties': ['openFile'],
-        'title': 'box.customWine'
-      }
-    ));
-    expect(onSetCustomWinePaths).not.toBeCalled();
+    test_opendialog.set({ path: 'custom/wine/path' })
+    fireEvent.click(addWinePath)
+    await waitFor(() =>
+      expect(ipcRenderer.invoke).toBeCalledWith('openDialog', {
+        buttonLabel: 'box.choose',
+        properties: ['openFile'],
+        title: 'box.customWine'
+      })
+    )
+    expect(onSetCustomWinePaths).not.toBeCalled()
   })
 
   test('change wine version invokes setWineVersion', async () => {
-    const onSetWineVersion = jest.fn();
-    const { getByTestId } = renderWineSettings({setWineVersion: onSetWineVersion});
-    const setWineVersion = getByTestId('setWineVersion');
+    const onSetWineVersion = jest.fn()
+    const { getByTestId } = renderWineSettings({
+      setWineVersion: onSetWineVersion
+    })
+    const setWineVersion = getByTestId('setWineVersion')
 
-    fireEvent.change(setWineVersion, {target: {value: 'wine'}});
-    await waitFor(() => expect(onSetWineVersion).toBeCalledWith({'bin': 'path/to/wine/bin', 'name': 'wine'}));
+    fireEvent.change(setWineVersion, { target: { value: 'wine' } })
+    await waitFor(() =>
+      expect(onSetWineVersion).toBeCalledWith({
+        bin: 'path/to/wine/bin',
+        name: 'wine'
+      })
+    )
   })
 
   test('If multiple wines are installed setWineVersion is not invoked by useEffect', async () => {
-    const onSetWineVersion = jest.fn();
+    const onSetWineVersion = jest.fn()
 
     test_wineinstallations.set([
       {
@@ -257,30 +296,31 @@ describe('WineSettings', () => {
       {
         bin: 'wine2/bin',
         name: 'wine2'
-      }])
+      }
+    ])
 
-    renderWineSettings({setWineVersion: onSetWineVersion});
+    renderWineSettings({ setWineVersion: onSetWineVersion })
 
-    await waitFor(() => expect(onSetWineVersion).not.toBeCalled());
+    await waitFor(() => expect(onSetWineVersion).not.toBeCalled())
   })
 
   test('esync toggle triggers correct function upon click', async () => {
-    test_context.set({platform: 'linux'})
-    const toggleEsync = jest.fn();
-    const { getByTestId } = renderWineSettings({ toggleEsync: toggleEsync });
-    const esyncToggle = getByTestId('esyncToggle');
-    fireEvent.click(esyncToggle);
+    test_context.set({ platform: 'linux' })
+    const toggleEsync = jest.fn()
+    const { getByTestId } = renderWineSettings({ toggleEsync: toggleEsync })
+    const esyncToggle = getByTestId('esyncToggle')
+    fireEvent.click(esyncToggle)
 
-    await waitFor(() => expect(toggleEsync).toBeCalled());
+    await waitFor(() => expect(toggleEsync).toBeCalled())
   })
 
   test('fsync toggle triggers correct function upon click', async () => {
-    test_context.set({platform: 'linux'})
-    const toggleFsync = jest.fn();
-    const { getByTestId } = renderWineSettings({ toggleFsync: toggleFsync });
-    const fsyncToggle = getByTestId('fsyncToggle');
-    fireEvent.click(fsyncToggle);
+    test_context.set({ platform: 'linux' })
+    const toggleFsync = jest.fn()
+    const { getByTestId } = renderWineSettings({ toggleFsync: toggleFsync })
+    const fsyncToggle = getByTestId('fsyncToggle')
+    fireEvent.click(fsyncToggle)
 
-    await waitFor(() => expect(toggleFsync).toBeCalled());
+    await waitFor(() => expect(toggleFsync).toBeCalled())
   })
 })

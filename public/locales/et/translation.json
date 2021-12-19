@@ -1,194 +1,136 @@
 {
-    "help": {
-        "sync": {
-            "part2": "Kui te muudate Wine'i või Proton'i prefiksi kausta, peate te tee uuesti kontrollima, kuna Proton kasutab teistsugust prefiksit (/pfx) ja kasutajanime (steamuser). Nii et võite lihtsalt kustutada praeguse faili koha, lahkuda sünkroonimise seadete lehelt ja minna uuesti tagasi, et Heroic saaks arvata veelkord kausta õige eesliitega.",
-            "part1": "Heroic üritab ära arvata õige salvestuskausta ja see toimib enamikul juhtudel. Juhul kui kaust on vale, kasutage selle muutmiseks override-kasti.",
-            "part3": "Manuaalne sünkroonimine: Valige Download, et laadida alla pilve salvestatud mängude salvestused. Upload, et laadida kohalikud pilve üles. Force Download ja Force Upload ignoreerivad lokaalselt või pilves olevat versiooni.",
-            "part4": "Automaatne salvestuste sünkroonimine sünkroonib salvestused iga kord, kui alustate mängu ja pärast mängimise lõpetamist."
-        },
-        "other": {
-            "part7": " et jätta mõnedes mängudes käivitaja vahele jne.",
-            "part6": " kutsutakse pärast käivituskäsku, näiteks: ",
-            "part5": "Mängu argumendid",
-            "part4": "Kasutage ",
-            "part3": "käivitatakse enne mängu alustamist; ",
-            "part2": "Lisavalikud",
-            "part1": "Kasuta "
-        },
-        "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
-        "wine": {
-            "part1": "Heroic otsib Wine'i, Proton'i ja CrossOveri versioone järgmistes kaustades:",
-            "part2": "Muude kohtade puhul kasutage sümboolset linki ühele neist kaustadest"
-        }
-    },
-    "globalSettings": "Globaalsed seaded",
-    "Games": "Mängud",
-    "Filter": "Filtreeri",
-    "Downloading": "Allalaadimine",
-    "button": {
-        "unsync": "Mittesünkroniseerimine",
-        "syncing": "Sünkroonimine",
-        "sync": "Sünkrooni"
-    },
+    "All": "Kõik",
+    "Assets": "Varamu",
     "box": {
-        "yes": "JAH",
-        "wineprefix": "Valige Wine prefiksi kaust",
-        "sync": {
-            "title": "Valige salvestuste kaust",
-            "error": "Vale koht",
-            "button": "Valige"
+        "appupdate": {
+            "message": "Heroicu uus versioon on saadaval. Kas soovite uuendada kohe?",
+            "title": "Uuendus saadaval"
         },
-        "select": {
-            "button": "Vali",
-            "exe": "Vali EXE"
+        "choose": "Valige",
+        "choose-egs-prefix": "Valige prefiks, kuhu EGS on paigaldatud",
+        "choose-legendary-binary": "Valige Legendary binaarfail",
+        "customWine": "Valige Wine või Proton-i binaar",
+        "default-install-path": "Valige Vaikimisi paigalduskoht",
+        "error": {
+            "credentials": {
+                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse.",
+                "title": "Aegunud kasutaja andmed"
+            },
+            "diskspace": {
+                "message": "Ei ole piisavalt vaba kettaruumi",
+                "title": "Ei ole ruumi"
+            },
+            "generic": {
+                "message": "Tekkinud on tundmatu viga",
+                "title": "Tundmatu viga"
+            },
+            "launch": "Viga mängu käivitamisel, kontrollige logisid!",
+            "log": {
+                "message": "Selle mängu logi ei leitud",
+                "title": "Logi ei leitud"
+            },
+            "title": "Viga"
         },
-        "runexe": {
-            "title": "Valige EXE mida käivitada"
-        },
-        "quit": {
-            "title": "Välju",
-            "message": "On pooleliolevad toimingud, kas olete kindel?"
-        },
+        "no": "EI",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "ei ole paigaldatud, kas soovite selle paigaldada?"
             }
         },
-        "no": "EI",
-        "error": {
-            "title": "Viga",
-            "log": {
-                "title": "Logi ei leitud",
-                "message": "Selle mängu logi ei leitud"
-            },
-            "launch": "Viga mängu käivitamisel, kontrollige logisid!",
-            "generic": {
-                "title": "Tundmatu viga",
-                "message": "Tekkinud on tundmatu viga"
-            },
-            "diskspace": {
-                "title": "Ei ole ruumi",
-                "message": "Ei ole piisavalt vaba kettaruumi"
-            },
-            "credentials": {
-                "title": "Aegunud kasutaja andmed",
-                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
-            }
+        "quit": {
+            "message": "On pooleliolevad toimingud, kas olete kindel?",
+            "title": "Välju"
         },
-        "default-install-path": "Valige Vaikimisi paigalduskoht",
-        "customWine": "Valige Wine või Proton-i binaar",
-        "choose-egs-prefix": "Valige prefiks, kuhu EGS on paigaldatud",
-        "choose": "Valige",
-        "appupdate": {
-            "title": "Uuendus saadaval",
-            "message": "Heroicu uus versioon on saadaval. Kas soovite uuendada kohe?"
+        "runexe": {
+            "title": "Valige EXE mida käivitada"
         },
-        "choose-legendary-binary": "Valige Legendary binaarfail"
+        "select": {
+            "button": "Vali",
+            "exe": "Vali EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
+        "sync": {
+            "button": "Valige",
+            "error": "Vale koht",
+            "title": "Valige salvestuste kaust"
+        },
+        "wineprefix": "Valige Wine prefiksi kaust",
+        "yes": "JAH"
     },
-    "Assets": "Varamu",
-    "All": "Kõik",
+    "button": {
+        "sync": "Sünkrooni",
+        "syncing": "Sünkroonimine",
+        "unsync": "Mittesünkroniseerimine"
+    },
+    "Downloading": "Allalaadimine",
+    "Epic Games": "Epic Games",
+    "Filter": "Filtreeri",
+    "globalSettings": "Globaalsed seaded",
+    "help": {
+        "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
+        "other": {
+            "part1": "Kasuta ",
+            "part2": "Lisavalikud",
+            "part3": "käivitatakse enne mängu alustamist; ",
+            "part4": "Kasutage ",
+            "part5": "Mängu argumendid",
+            "part6": " kutsutakse pärast käivituskäsku, näiteks: ",
+            "part7": " et jätta mõnedes mängudes käivitaja vahele jne."
+        },
+        "sync": {
+            "part1": "Heroic üritab ära arvata õige salvestuskausta ja see toimib enamikul juhtudel. Juhul kui kaust on vale, kasutage selle muutmiseks override-kasti.",
+            "part2": "Kui te muudate Wine'i või Proton'i prefiksi kausta, peate te tee uuesti kontrollima, kuna Proton kasutab teistsugust prefiksit (/pfx) ja kasutajanime (steamuser). Nii et võite lihtsalt kustutada praeguse faili koha, lahkuda sünkroonimise seadete lehelt ja minna uuesti tagasi, et Heroic saaks arvata veelkord kausta õige eesliitega.",
+            "part3": "Manuaalne sünkroonimine: Valige Download, et laadida alla pilve salvestatud mängude salvestused. Upload, et laadida kohalikud pilve üles. Force Download ja Force Upload ignoreerivad lokaalselt või pilves olevat versiooni.",
+            "part4": "Automaatne salvestuste sünkroonimine sünkroonib salvestused iga kord, kui alustate mängu ja pärast mängimise lõpetamist."
+        },
+        "wine": {
+            "part1": "Heroic otsib Wine'i, Proton'i ja CrossOveri versioone järgmistes kaustades:",
+            "part2": "Muude kohtade puhul kasutage sümboolset linki ühele neist kaustadest"
+        }
+    },
+    "info": {
+        "settings": "Seaded salvestatakse automaatselt"
+    },
+    "infobox": {
+        "help": "Abi",
+        "requirements": "Süsteeminõuded"
+    },
+    "Library": "Varamu",
     "message": {
         "sync": "Sünkroonimine lõpetatud",
         "unsync": "Mittesünkroniseerimine lõpetatud"
     },
     "nogames": "Mänge ei leitud",
-    "infobox": {
-        "help": "Abi",
-        "requirements": "Süsteeminõuded"
-    },
-    "info": {
-        "settings": "Seaded salvestatakse automaatselt"
-    },
+    "Not Ready": "Pole valmis",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Parandamine lõpetatud"
         },
-        "update": {
-            "finished": "Uuendatud lõpetatud",
-            "canceled": "Uuendatud tühistatud"
+        "install": {
+            "canceled": "Paigaldamine tühistatud",
+            "finished": "Paigaldamine lõpetatud",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Teisaldamine on lõpule viidud",
-        "install": {
-            "finished": "Paigaldamine lõpetatud",
-            "canceled": "Paigaldamine tühistatud"
-        },
-        "uninstalled": "Eemaldatud"
+        "uninstalled": "Eemaldatud",
+        "update": {
+            "canceled": "Uuendatud tühistatud",
+            "finished": "Uuendatud lõpetatud"
+        }
     },
-    "Library": "Varamu",
-    "Not Ready": "Pole valmis",
-    "setting": {
-        "manualsync": {
-            "download": "Laadi alla",
-            "sync": "Sünkrooni",
-            "syncing": "Sünkroonimine",
-            "title": "Käsitsi salvestuste sünkroonimine",
-            "forceupload": "Sunni üleslaadimine",
-            "forcedownload": "Sunni alla laadima",
-            "upload": "Laadi üles"
-        },
-        "maxRecentGames": "Hiljutised mängud, mida näidata",
-        "savefolder": {
-            "title": "Asenda salvestuse pilvesünkroonkaust",
-            "placeholder": "Valige täpne mängude salvestiste kaust"
-        },
-        "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
-        "default-install-path": "Vaikimisi paigaldustee",
-        "darktray": "Kasuta tumedat tray-ikooni",
-        "language": "Valige rakenduse keel",
-        "winecrossoverbottle": "CrossOveri pudel",
-        "customWineProton": "Kohandatud Wine/Proton teed",
-        "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
-        "discordRPC": "Luba Discord Rich Presence",
-        "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
-        "esync": "Luba Esync",
-        "exit-to-tray": "Välju süsteemiriiulisse",
-        "FsrSharpnessStrenght": "FSR teravuse tugevus",
-        "fsync": "Luba Fsync",
-        "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
-        "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
-        "wineprefix": "WinePrefiksi kaust",
-        "primerun": "Luba Nvidia Prime Render",
-        "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",
-        "runexe": {
-            "message": "Lohistage failid siia",
-            "title": "Käivita EXE prefiksil"
-        },
-        "wineversion": "Wine'i versioon",
-        "showfps": "Näita FPS-i (DX9, 10 ja 11)",
-        "start-in-tray": "Käivita minimeeritud",
-        "offlinemode": "Käivita mäng võrguühenduseta",
-        "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
-        "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
-        "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada",
-        "audiofix": "Heliparandus (Pulse Audio Latency)",
-        "autodxvk": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile",
-        "autosync": "Automaatne salvestiste sünkroonimine",
-        "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
-        "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel"
-    },
-    "userselector": {
-        "about": "Info",
-        "logout": "Logi välja",
-        "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
-        "refresh": "Värskenda varamut",
-        "discord": "Discord",
-        "quit": "Sulge",
-        "support": "Toeta meid"
-    },
-    "Settings": "Seaded",
-    "tray": {
-        "reload": "Taaslae",
-        "support": "Toeta meid",
-        "about": "Info",
-        "quit": "Sulge",
-        "show": "Näita"
-    },
-    "Plugins": "Pluginad",
-    "Ready": "Valmis",
     "options": {
         "advanced": {
-            "title": "Täpsemad valikud (environment variables):",
-            "placeholder": "Pange siia muud käivitusvalikud"
+            "placeholder": "Pange siia muud käivitusvalikud",
+            "title": "Täpsemad valikud (environment variables):"
         },
         "gameargs": {
             "placeholder": "Pange siia käiviti argumendid",
@@ -196,31 +138,109 @@
         }
     },
     "other": {
-        "weblate": "Aidake tõlkida Heroic'ut.",
-        "legendary-version": "Legendary versioon: "
+        "legendary-version": "Legendary versioon: ",
+        "weblate": "Aidake tõlkida Heroic'ut."
     },
-    "Projects": "Projektid",
     "placeholder": {
-        "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
-        "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail..."
+        "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
+        "egs-prefix": "Prefiks, kuhu EGS on paigaldatud"
     },
+    "Plugins": "Pluginad",
+    "Projects": "Projektid",
+    "Ready": "Valmis",
+    "Recent": "Hiljutised mängud",
+    "Return": "Tagasi",
+    "search": "Sisestage mängu nimi siia...",
+    "setting": {
+        "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
+        "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
+        "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada",
+        "audiofix": "Heliparandus (Pulse Audio Latency)",
+        "autodxvk": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile",
+        "autosync": "Automaatne salvestiste sünkroonimine",
+        "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
+        "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel",
+        "customWineProton": "Kohandatud Wine/Proton teed",
+        "darktray": "Kasuta tumedat tray-ikooni",
+        "default-install-path": "Vaikimisi paigaldustee",
+        "discordRPC": "Luba Discord Rich Presence",
+        "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
+        "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
+        "esync": "Luba Esync",
+        "exit-to-tray": "Välju süsteemiriiulisse",
+        "FsrSharpnessStrenght": "FSR teravuse tugevus",
+        "fsync": "Luba Fsync",
+        "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
+        "language": "Valige rakenduse keel",
+        "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
+        "manualsync": {
+            "download": "Laadi alla",
+            "forcedownload": "Sunni alla laadima",
+            "forceupload": "Sunni üleslaadimine",
+            "sync": "Sünkrooni",
+            "syncing": "Sünkroonimine",
+            "title": "Käsitsi salvestuste sünkroonimine",
+            "upload": "Laadi üles"
+        },
+        "maxRecentGames": "Hiljutised mängud, mida näidata",
+        "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
+        "offlinemode": "Käivita mäng võrguühenduseta",
+        "primerun": "Luba Nvidia Prime Render",
+        "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",
+        "runexe": {
+            "message": "Lohistage failid siia",
+            "title": "Käivita EXE prefiksil"
+        },
+        "savefolder": {
+            "placeholder": "Valige täpne mängude salvestiste kaust",
+            "title": "Asenda salvestuse pilvesünkroonkaust"
+        },
+        "showfps": "Näita FPS-i (DX9, 10 ja 11)",
+        "start-in-tray": "Käivita minimeeritud",
+        "winecrossoverbottle": "CrossOveri pudel",
+        "wineprefix": "WinePrefiksi kaust",
+        "wineversion": "Wine'i versioon"
+    },
+    "Settings": "Seaded",
     "settings": {
         "navbar": {
-            "other": "Muu",
+            "back": "Back",
             "general": "Üldine",
+            "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         }
     },
     "store": "Pood",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Lisa uus tee",
         "removepath": "Eemalda tee"
     },
-    "Unreal Marketplace": "Unreal'i Marketplace",
     "Total Games": "Mänge kokku",
-    "wiki": "Viki",
+    "tray": {
+        "about": "Info",
+        "quit": "Sulge",
+        "reload": "Taaslae",
+        "show": "Näita",
+        "support": "Toeta meid"
+    },
+    "Unreal Marketplace": "Unreal'i Marketplace",
     "Updates": "Uuendused",
-    "Recent": "Hiljutised mängud",
-    "Return": "Tagasi",
-    "search": "Sisestage mängu nimi siia..."
+    "userselector": {
+        "discord": "Discord",
+        "logout": "Logi välja",
+        "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
+        "quit": "Sulge"
+    },
+    "wiki": "Viki"
 }

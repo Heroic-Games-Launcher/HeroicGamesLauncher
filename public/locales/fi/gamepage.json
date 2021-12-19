@@ -6,22 +6,17 @@
             "title": "Vaihda pelin asennuksen sijaintia"
         },
         "choose": "Valitse",
+        "default-install-path": "",
         "importpath": "Valitse tuotavan pelin kansio",
-        "installpath": "Valitse asennuksen sijainti",
         "move": {
             "message": "Tämä prosessi voi viedä paljon aikaa, haluatko jatkaa?",
             "path": "Valitse, minne haluat siirtää",
             "title": "Siirrä pelin asennus"
         },
         "no": "EI",
-        "ok": "Ok",
         "repair": {
             "message": "Haluatko yrittää korjata tämän pelin? Tämä prosessi voi viedä paljon aikaa.",
             "title": "Vahvista ja korjaa"
-        },
-        "shortcuts": {
-            "message": "Pikakuvakkeet tehtiin työpöydälle sekä aloitusvalikkoon",
-            "title": "Pikakuvakkeet"
         },
         "stopInstall": {
             "keepInstalling": "Jatka asennusta",
@@ -72,9 +67,7 @@
         "version": "Versio"
     },
     "install": {
-        "another": "Asenna toiseen sijaintiin",
-        "default": "Asenna sijaintiin",
-        "import": "Tuo peli"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

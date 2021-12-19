@@ -32,6 +32,7 @@
             "title": "Error"
         },
         "no": "NE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Není nainstalován, chcete jej nainstalovat?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Select",
             "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Vybrat",
@@ -102,12 +107,18 @@
     "nogames": "Žádné hry nebyly nalezeny",
     "Not Ready": "Není připraveno",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Oprava dokončena"
         },
         "install": {
             "canceled": "Instalace zrušena",
-            "finished": "Instalace dokončena"
+            "finished": "Instalace dokončena",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Přesun dokončen",
         "uninstalled": "Odinstalováno",

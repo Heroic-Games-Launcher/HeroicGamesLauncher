@@ -6,22 +6,17 @@
             "title": "Cambia il percorso d'installazione del gioco"
         },
         "choose": "Scegli",
+        "default-install-path": "",
         "importpath": "Seleziona la cartella del gioco da importare",
-        "installpath": "Seleziona il percorso d'installazione",
         "move": {
             "message": "Quest'operazione può richiedere molto tempo, sei sicuro?",
             "path": "Seleziona dove vuoi muoverla",
             "title": "Muovi l'installazione del gioco"
         },
         "no": "NO",
-        "ok": "Ok",
         "repair": {
             "message": "Vuoi provare a riparare questo gioco? Potrebbe richiedere molto tempo.",
             "title": "Verifica e ripara"
-        },
-        "shortcuts": {
-            "message": "Le scorciatoie sono state create sul desktop e sul menu di avvio",
-            "title": "Scorciatoie"
         },
         "stopInstall": {
             "keepInstalling": "Continua l'installazione",
@@ -54,7 +49,7 @@
     "enabled": "attivato",
     "game": {
         "downloadSize": "Dimensione del download",
-        "firstPlayed": "Prima giocato",
+        "firstPlayed": "Giocato per la prima volta",
         "installSize": "Dimensione dell'installazione",
         "lastPlayed": "Giocato recentemente",
         "neverPlayed": "Mai",
@@ -65,16 +60,14 @@
         "repairing": "Riparazione in corso"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Online richiesto",
         "path": "Percorso d'installazione",
         "size": "Dimensione",
         "syncsaves": "Sincronizza i salvataggi",
         "version": "Versione"
     },
     "install": {
-        "another": "Installa in un altro percorso",
-        "default": "Installa su",
-        "import": "Importa gioco"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -86,7 +79,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opzioni di avvio..."
     },
     "sdl": {
         "showList": "Clicca per mostrare/nascondere i componenti extra",

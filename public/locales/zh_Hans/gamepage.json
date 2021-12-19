@@ -6,22 +6,17 @@
             "title": "更改游戏安装路径"
         },
         "choose": "请选择",
+        "default-install-path": "",
         "importpath": "选择要导入的游戏文件夹",
-        "installpath": "选择安装路径",
         "move": {
             "message": "这可能需要很长的时间，确定？",
             "path": "选择要移动的位置",
             "title": "移动游戏安装"
         },
         "no": "否",
-        "ok": "Ok",
         "repair": {
             "message": "你想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
             "title": "验证并修复游戏文件"
-        },
-        "shortcuts": {
-            "message": "已在桌面和开始菜单上创建了快捷方式",
-            "title": "快捷方式"
         },
         "stopInstall": {
             "keepInstalling": "继续安装",
@@ -41,7 +36,7 @@
     "button": {
         "cancel": "暂停/取消",
         "continue": "继续下载",
-        "import": "导入",
+        "import": "导入游戏",
         "install": "安装",
         "uninstall": "卸载",
         "update": "Update"
@@ -72,9 +67,7 @@
         "version": "版本"
     },
     "install": {
-        "another": "安装至其他路径",
-        "default": "安装至",
-        "import": "导入游戏"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

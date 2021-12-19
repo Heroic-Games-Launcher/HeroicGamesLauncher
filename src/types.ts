@@ -126,7 +126,8 @@ export interface InstallInfo {
 
 export interface GameStatus {
   appName: string
-  progress?: number | null
+  progress?: string
+  folder?: string
   status:
     | 'installing'
     | 'updating'

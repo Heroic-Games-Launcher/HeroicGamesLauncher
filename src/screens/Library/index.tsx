@@ -1,8 +1,6 @@
 import './index.css'
 
-import React, {lazy,
-  useContext, useState
-} from 'react'
+import React, { lazy, useContext, useState } from 'react'
 
 import { GameInfo } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
@@ -14,7 +12,9 @@ import { useTranslation } from 'react-i18next'
 import { getLibraryTitle } from './constants'
 
 const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
-const InstallModal = lazy(() => import('src/screens/Library/components/InstallModal'))
+const InstallModal = lazy(
+  () => import('src/screens/Library/components/InstallModal')
+)
 
 interface Props {
   library: Array<GameInfo>
@@ -29,8 +29,9 @@ window.onscroll = () => {
 }
 
 export const Library = ({ library, showRecentsOnly }: Props) => {
-  const { layout, gameUpdates, refreshing, category, filter } = useContext(ContextProvider)
-  const [showModal, setShowModal] = useState({game: '', show: false})
+  const { layout, gameUpdates, refreshing, category, filter } =
+    useContext(ContextProvider)
+  const [showModal, setShowModal] = useState({ game: '', show: false })
   const { t } = useTranslation()
 
   const backToTop = () => {
@@ -40,8 +41,8 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     }
   }
 
-  function handleModal(appName: string){
-    setShowModal({game: appName, show: true})
+  function handleModal(appName: string) {
+    setShowModal({ game: appName, show: true })
   }
 
   if (refreshing && !showRecentsOnly) {
@@ -50,11 +51,18 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
 
   return (
     <>
-      {showModal.show &&
-        <InstallModal appName={showModal.game} backdropClick={() => setShowModal({game: '', show: false})} />
-      }
-      <span id='top' />
-      <h3 className="libraryHeader">{showRecentsOnly ? t('Recent', 'Recent Games') : getLibraryTitle(category, filter, t)}</h3>
+      {showModal.show && (
+        <InstallModal
+          appName={showModal.game}
+          backdropClick={() => setShowModal({ game: '', show: false })}
+        />
+      )}
+      <span id="top" />
+      <h3 className="libraryHeader">
+        {showRecentsOnly
+          ? t('Recent', 'Recent Games')
+          : getLibraryTitle(category, filter, t)}
+      </h3>
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
         className={cx({
@@ -72,11 +80,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
               app_name,
               is_installed,
               is_game,
-              install : {
-                version,
-                install_size,
-                is_dlc
-              }
+              install: { version, install_size, is_dlc }
             }: GameInfo) => {
               if (is_dlc) {
                 return null

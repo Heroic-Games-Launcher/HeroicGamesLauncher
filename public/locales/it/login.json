@@ -3,7 +3,7 @@
         "login": "Accedi"
     },
     "info": {
-        "needHelp": "Need Help?"
+        "needHelp": "Ti serve aiuto?"
     },
     "input": {
         "placeholder": "Incolla qui il numero SID"
@@ -20,7 +20,7 @@
     },
     "status": {
         "error": "Errore",
-        "loading": "Caricamento lista giochi, attendi per favore.",
+        "loading": "Caricamento lista giochi, attendi per favore",
         "logging": "Sto accedendo…"
     },
     "welcome": "Benvenuto!"

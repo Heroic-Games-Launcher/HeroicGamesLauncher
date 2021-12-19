@@ -32,6 +32,7 @@
             "title": "エラー"
         },
         "no": "いいえ",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "インストールされていませんが、インストールしますか？"
@@ -47,6 +48,10 @@
         "select": {
             "button": "選択",
             "exe": "EXEを選択します"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "選ぶ",
@@ -102,12 +107,18 @@
     "nogames": "ゲームが見つかりません",
     "Not Ready": "準備ができていません",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "修復が完了しました"
         },
         "install": {
             "canceled": "インストールがキャンセルされました",
-            "finished": "インストールが完了しました"
+            "finished": "インストールが完了しました",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "移動が完了しました",
         "uninstalled": "アンインストールしました",

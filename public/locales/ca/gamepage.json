@@ -6,22 +6,17 @@
             "title": "Canvia la ruta d'instal·lació dels jocs"
         },
         "choose": "Tria",
+        "default-install-path": "",
         "importpath": "Tria una carpeta per importar",
-        "installpath": "Tria una ruta d'instal·lació",
         "move": {
             "message": "Això pot tardat MOLT de temps, estàs segur?",
             "path": "Tria a on vols moure el joc",
             "title": "Mou la ruta d'instal·lació del joc"
         },
         "no": "No",
-        "ok": "Sí",
         "repair": {
             "message": "Vols intentar reparar aquest joc? Això pot tardar molt de temps.",
             "title": "Verifica i repara"
-        },
-        "shortcuts": {
-            "message": "S'han creat les dreces al menú d'inici i a l'escriptori",
-            "title": "Dreceres"
         },
         "stopInstall": {
             "keepInstalling": "Segueix instal·lant-ho",
@@ -39,7 +34,7 @@
         "yes": "Sí"
     },
     "button": {
-        "cancel": "Cancelar",
+        "cancel": "Pausar/Cancel·lar",
         "continue": "Continuar descarregant",
         "import": "Importar",
         "install": "Instal·lar",
@@ -48,33 +43,31 @@
     },
     "disabled": "Desactivat",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Instal·la tots els DLCs",
         "title": "DLCs"
     },
     "enabled": "Activat",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "installSize": "Install Size",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "Mida de la descàrrega",
+        "firstPlayed": "Jugat primer",
+        "installSize": "Mida d'instal·lació",
+        "lastPlayed": "Jugat abans",
+        "neverPlayed": "Mai jugat",
+        "totalPlayed": "Temps jugat"
     },
     "gamecard": {
         "moving": "Movent",
         "repairing": "Reparant"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Internet Requerit",
         "path": "Ruta d'instal·lació",
         "size": "Mida",
         "syncsaves": "Sincronitza els guardats",
         "version": "Versió"
     },
     "install": {
-        "another": "Instal·la-ho a una altra ruta",
-        "default": "Instal·la a",
-        "import": "Importar joc"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -86,11 +79,11 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opcions d'execució ..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
-        "title": "Select components to Install"
+        "showList": "Clica per ensenyar / amagar els components extra",
+        "title": "Selecciona els components a instal·lar"
     },
     "specs": {
         "minimum": "Mínim",

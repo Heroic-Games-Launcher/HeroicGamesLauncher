@@ -1,8 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
@@ -15,31 +11,31 @@ import { IpcRenderer } from 'electron'
 import Backspace from '@material-ui/icons/Backspace'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 
-const {
-  ipcRenderer
-} = window.require('electron') as {ipcRenderer: IpcRenderer}
+const { ipcRenderer } = window.require('electron') as {
+  ipcRenderer: IpcRenderer
+}
 
 const storage: Storage = window.localStorage
 
 interface Props {
   altLegendaryBin: string
-  checkForUpdatesOnStartup: boolean,
-  darkTrayIcon: boolean,
-  defaultInstallPath: string,
-  egsLinkedPath: string,
-  egsPath: string,
-  exitToTray: boolean,
-  language: string,
-  maxWorkers: number,
-  setDefaultInstallPath: (value: string) => void,
-  setEgsLinkedPath: (value: string) => void,
-  setEgsPath: (value: string) => void,
-  setLanguage: (value: string) => void,
-  setAltLegendaryBin: (value: string) => void,
-  setMaxWorkers: (value: number) => void,
-  startInTray: boolean,
-  toggleDarkTrayIcon: () => void,
-  toggleStartInTray: () => void,
+  checkForUpdatesOnStartup: boolean
+  darkTrayIcon: boolean
+  defaultInstallPath: string
+  egsLinkedPath: string
+  egsPath: string
+  exitToTray: boolean
+  language: string
+  maxWorkers: number
+  setDefaultInstallPath: (value: string) => void
+  setEgsLinkedPath: (value: string) => void
+  setEgsPath: (value: string) => void
+  setLanguage: (value: string) => void
+  setAltLegendaryBin: (value: string) => void
+  setMaxWorkers: (value: number) => void
+  startInTray: boolean
+  toggleDarkTrayIcon: () => void
+  toggleStartInTray: () => void
   toggleCheckUpdatesOnStartup: () => void
   toggleTray: () => void
 }
@@ -84,12 +80,12 @@ export default function GeneralSettings({
       const cores = await ipcRenderer.invoke('getMaxCpus')
       const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
       setMaxCpus(cores)
-      if (legendaryVer === 'invalid'){
+      if (legendaryVer === 'invalid') {
         setLegendaryVersion('Invalid')
         setTimeout(() => {
           setAltLegendaryBin('')
           return setLegendaryVersion('')
-        }, 1500);
+        }, 1500)
       }
       return setLegendaryVersion(legendaryVer)
     }
@@ -107,7 +103,7 @@ export default function GeneralSettings({
         setEgsLinkedPath('')
         setEgsPath('')
         setIsSyncing(false)
-        refreshLibrary({fullRefresh: true, runInBackground: false})
+        refreshLibrary({ fullRefresh: true, runInBackground: false })
       })
     }
 
@@ -116,7 +112,10 @@ export default function GeneralSettings({
       .then(async (res: string) => {
         if (res === 'Error') {
           setIsSyncing(false)
-          ipcRenderer.invoke('showErrorBox', [t('box.error.title', 'Error'), t('box.sync.error')])
+          ipcRenderer.invoke('showErrorBox', [
+            t('box.error.title', 'Error'),
+            t('box.sync.error')
+          ])
           setEgsLinkedPath('')
           setEgsPath('')
           return
@@ -128,35 +127,31 @@ export default function GeneralSettings({
 
         setIsSyncing(false)
         setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-        refreshLibrary({fullRefresh: true, runInBackground: false})
+        refreshLibrary({ fullRefresh: true, runInBackground: false })
       })
   }
 
-  function handleEgsFolder(){
+  function handleEgsFolder() {
     if (isLinked) {
       return ''
     }
-    return ipcRenderer.invoke(
-      'openDialog', {
+    return ipcRenderer
+      .invoke('openDialog', {
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.choose-egs-prefix')
       })
-      .then(({ path }: Path) =>
-        setEgsPath(path ? `'${path}'` : '')
-      )
+      .then(({ path }: Path) => setEgsPath(path ? `'${path}'` : ''))
   }
 
-  function handleLegendaryBinary(){
-    return ipcRenderer.invoke(
-      'openDialog', {
+  function handleLegendaryBinary() {
+    return ipcRenderer
+      .invoke('openDialog', {
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
         title: t('box.choose-legendary-binary', 'Select Legendary Binary')
       })
-      .then(({ path }: Path) =>
-        setAltLegendaryBin(path ? `'${path}'` : '')
-      )
+      .then(({ path }: Path) => setAltLegendaryBin(path ? `'${path}'` : ''))
   }
 
   async function handleChangeLanguage(language: string) {
@@ -176,7 +171,13 @@ export default function GeneralSettings({
           handleLanguageChange={handleChangeLanguage}
           currentLanguage={language}
         />
-        <a data-testid="buttonWeblate" onClick={handleWeblate} className="smallLink">{t('other.weblate', 'Help Improve this translation.')}</a>
+        <a
+          data-testid="buttonWeblate"
+          onClick={handleWeblate}
+          className="smallLink"
+        >
+          {t('other.weblate', 'Help Improve this translation.')}
+        </a>
       </span>
       <span className="setting">
         <span className="settingText">{t('setting.default-install-path')}</span>
@@ -193,24 +194,34 @@ export default function GeneralSettings({
             data-testid="setinstallpathbutton"
             className="material-icons settings folder"
             onClick={() =>
-              ipcRenderer.invoke('openDialog', {
-                buttonLabel: t('box.choose'),
-                properties: ['openDirectory'],
-                title: t('box.default-install-path')
-              }).then(({ path }: Path) =>
-                setDefaultInstallPath(path ? `'${path}'` : defaultInstallPath)
-              )
+              ipcRenderer
+                .invoke('openDialog', {
+                  buttonLabel: t('box.choose'),
+                  properties: ['openDirectory'],
+                  title: t('box.default-install-path')
+                })
+                .then(({ path }: Path) =>
+                  setDefaultInstallPath(path ? `'${path}'` : defaultInstallPath)
+                )
             }
           />
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">{t('setting.alt-legendary-bin', 'Choose an alternative Legendary Binary to use')}</span>
+        <span className="settingText">
+          {t(
+            'setting.alt-legendary-bin',
+            'Choose an alternative Legendary Binary to use'
+          )}
+        </span>
         <span>
           <input
             data-testid="setting-alt-legendary"
             type="text"
-            placeholder={t('placeholder.alt-legendary-bin', 'Using built-in Legendary binary...')}
+            placeholder={t(
+              'placeholder.alt-legendary-bin',
+              'Using built-in Legendary binary...'
+            )}
             className="settingSelect"
             value={altLegendaryBin.replaceAll("'", '')}
             onChange={(event) => setAltLegendaryBin(event.target.value)}
@@ -219,75 +230,88 @@ export default function GeneralSettings({
             <CreateNewFolder
               data-testid="setLegendaryBinaryButton"
               className="material-icons settings folder"
-              style={{ color: altLegendaryBin.length ? 'transparent' : '#B0ABB6' }}
+              style={{
+                color: altLegendaryBin.length ? 'transparent' : '#B0ABB6'
+              }}
               onClick={() => handleLegendaryBinary()}
             />
           ) : (
             <Backspace
               data-testid="setLegendaryBinaryBackspace"
               className="material-icons settings folder"
-              onClick={() => (setAltLegendaryBin(''))}
-              style={ { color: '#B0ABB6' }}
+              onClick={() => setAltLegendaryBin('')}
+              style={{ color: '#B0ABB6' }}
             />
           )}
         </span>
-        <span className="smallMessage">{t('other.legendary-version', 'Legendary Version: ')}{legendaryVersion}</span>
+        <span className="smallMessage">
+          {t('other.legendary-version', 'Legendary Version: ')}
+          {legendaryVersion}
+        </span>
       </span>
-      {!isWindows && <span className="setting">
-        <span className="settingText">{t('setting.egs-sync')}</span>
-        <span className="settingInputWithButton">
-          <input
-            data-testid="setEpicSyncPath"
-            type="text"
-            placeholder={t('placeholder.egs-prefix')}
-            className="settingSelect"
-            value={egsPath || egsLinkedPath}
-            disabled={isLinked}
-            onChange={(event) => setEgsPath(event.target.value)}
-          />
-          {!egsPath.length ? (
-            <CreateNewFolder
-              data-testid="setEpicSyncPathButton"
-              className="material-icons settings folder"
-              style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
-              onClick={() => handleEgsFolder()}
+      {!isWindows && (
+        <span className="setting">
+          <span className="settingText">{t('setting.egs-sync')}</span>
+          <span className="settingInputWithButton">
+            <input
+              data-testid="setEpicSyncPath"
+              type="text"
+              placeholder={t('placeholder.egs-prefix')}
+              className="settingSelect"
+              value={egsPath || egsLinkedPath}
+              disabled={isLinked}
+              onChange={(event) => setEgsPath(event.target.value)}
             />
-          ) : (
-            <Backspace
-              data-testid="setEpicSyncPathBackspace"
-              className="material-icons settings folder"
-              onClick={() => (isLinked ? '' : setEgsPath(''))}
-              style={
+            {!egsPath.length ? (
+              <CreateNewFolder
+                data-testid="setEpicSyncPathButton"
+                className="material-icons settings folder"
+                style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
+                onClick={() => handleEgsFolder()}
+              />
+            ) : (
+              <Backspace
+                data-testid="setEpicSyncPathBackspace"
+                className="material-icons settings folder"
+                onClick={() => (isLinked ? '' : setEgsPath(''))}
+                style={
+                  isLinked
+                    ? { color: 'transparent', pointerEvents: 'none' }
+                    : { color: '#B0ABB6' }
+                }
+              />
+            )}
+            <button
+              data-testid="syncButton"
+              onClick={() => handleSync()}
+              disabled={isSyncing || !egsPath.length}
+              className={`button is-small ${
+                isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
+              }`}
+            >
+              {`${
                 isLinked
-                  ? { color: 'transparent', pointerEvents: 'none' }
-                  : { color: '#B0ABB6' }
-              }
-            />
-          )}
-          <button
-            data-testid="syncButton"
-            onClick={() => handleSync()}
-            disabled={isSyncing || !egsPath.length}
-            className={`button is-small ${
-              isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
-            }`}
-          >
-            {`${
-              isLinked
-                ? t('button.unsync')
-                : isSyncing
+                  ? t('button.unsync')
+                  : isSyncing
                   ? t('button.syncing')
                   : t('button.sync')
-            }`}
-          </button>
+              }`}
+            </button>
+          </span>
         </span>
-      </span>}
-      {isWindows && <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.egs-sync')}
-          <ToggleSwitch dataTestId="syncToggle" value={isLinked} handleChange={handleSync} />
+      )}
+      {isWindows && (
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.egs-sync')}
+            <ToggleSwitch
+              dataTestId="syncToggle"
+              value={isLinked}
+              handleChange={handleSync}
+            />
+          </span>
         </span>
-      </span>}
+      )}
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.exit-to-tray')}
@@ -298,16 +322,18 @@ export default function GeneralSettings({
           />
         </span>
       </span>
-      { exitToTray && <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.start-in-tray', 'Start Minimized')}
-          <ToggleSwitch
-            dataTestId="startInTray"
-            value={startInTray}
-            handleChange={toggleStartInTray}
-          />
+      {exitToTray && (
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.start-in-tray', 'Start Minimized')}
+            <ToggleSwitch
+              dataTestId="startInTray"
+              value={startInTray}
+              handleChange={toggleStartInTray}
+            />
+          </span>
         </span>
-      </span> }
+      )}
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
@@ -322,7 +348,10 @@ export default function GeneralSettings({
       </span>
       <span className="setting">
         <span className="toggleWrapper">
-          {t('setting.checkForUpdatesOnStartup', 'Check For Updates On Startup')}
+          {t(
+            'setting.checkForUpdatesOnStartup',
+            'Check For Updates On Startup'
+          )}
           <ToggleSwitch
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}

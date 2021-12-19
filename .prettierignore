@@ -2,3 +2,4 @@ node_modules
 dist
 build
 public/index.html
+public/locales/

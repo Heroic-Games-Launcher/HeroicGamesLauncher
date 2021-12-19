@@ -7,9 +7,9 @@
  *        and export it.
  */
 
-import { AppSettings, ContextType, GameInfo } from 'src/types';
-import { WineInstallation } from './../types';
-import { initElectronMocks } from 'src/test_helpers/mock/electron';
+import { AppSettings, ContextType, GameInfo } from 'src/types'
+import { WineInstallation } from './../types'
+import { initElectronMocks } from 'src/test_helpers/mock/electron'
 
 /**
  * A template class to define a new test type config.
@@ -28,16 +28,16 @@ import { initElectronMocks } from 'src/test_helpers/mock/electron';
  *  new TestType<CustomType>({value1: 'Hello '; value2: 'World'});
  */
 class TestType<Type> {
-  private default: Type;
-  private actual: Type;
+  private default: Type
+  private actual: Type
 
   /**
    * Constructor of template class TestType<Type>
    * @param props initial property values of Type
    */
   constructor(props: Type) {
-    this.default = props;
-    this.actual = this.default;
+    this.default = props
+    this.actual = this.default
   }
 
   /**
@@ -53,24 +53,17 @@ class TestType<Type> {
    * console.log(test_type.get().value1 + test_type.get().value2);
    * @param props the property values which should be set
    */
-  public set(props: Partial<Type> = {})
-  {
-    if( typeof props === 'number' || typeof props === 'string')
-    {
-      this.actual = props;
-    }
-    else if(Array.isArray(props))
-    {
-      for(let i = 0; i < props.length; i++)
-      {
-        this.actual[i] = {...this.actual[i], ...props[i]};
+  public set(props: Partial<Type> = {}) {
+    if (typeof props === 'number' || typeof props === 'string') {
+      this.actual = props
+    } else if (Array.isArray(props)) {
+      for (let i = 0; i < props.length; i++) {
+        this.actual[i] = { ...this.actual[i], ...props[i] }
       }
+    } else {
+      this.actual = { ...this.actual, ...props }
     }
-    else
-    {
-      this.actual = {...this.actual, ...props};
-    }
-    initElectronMocks();
+    initElectronMocks()
   }
 
   /**
@@ -90,10 +83,9 @@ class TestType<Type> {
    * // should log 'Hello World' again
    * console.log(test_type.get().value1 + test_type.get().value2);
    */
-  public reset()
-  {
-    this.actual = this.default;
-    initElectronMocks();
+  public reset() {
+    this.actual = this.default
+    initElectronMocks()
   }
 
   /**
@@ -105,9 +97,8 @@ class TestType<Type> {
    * console.log(test_type.get().value1 + test_type.get().value2);
    * @returns the property values of the test type
    */
-  public get()
-  {
-    return this.actual;
+  public get() {
+    return this.actual
   }
 }
 
@@ -147,7 +138,7 @@ const test_game = new TestType<GameInfo>({
   namespace: null,
   save_folder: '{appdata}/../locallow',
   title: 'title'
-});
+})
 
 /**
  * Test type for a plugin of type GameInfo.
@@ -185,7 +176,7 @@ const test_plugin = new TestType<GameInfo>({
   namespace: null,
   save_folder: '{appdata}/../locallow',
   title: 'title'
-});
+})
 
 /**
  * Test type for the app settings of type AppSettings.
@@ -229,40 +220,42 @@ const test_appsettings = new TestType<AppSettings>({
     bin: 'bin',
     name: 'wine'
   }
-});
+})
 
 /**
  * Test type for the electron openDialog response.
  * Can be used in tests to provide/manipulate the response of
  * electron openDialog.
  */
-const test_opendialog = new TestType<{canceled: boolean; path: string;}>({
+const test_opendialog = new TestType<{ canceled: boolean; path: string }>({
   canceled: false,
   path: 'default/dialog/path'
-});
+})
 
 /**
  * Test type for the electron openMessageBox response.
  * Can be used in tests to provide/manipulate the response of
  * electron openMessageBox.
  */
-const test_openmessagebox_response = new TestType<number>(0);
+const test_openmessagebox_response = new TestType<number>(0)
 
 /**
  * Test type for the electron invoke 'egsSync' response.
  * Can be used in tests to provide/manipulate the response of
  * electron invoke 'egsSync'.
  */
-const test_egssync_response = new TestType<string>('Success');
+const test_egssync_response = new TestType<string>('Success')
 
 /**
  * Test type for a wine installation of type WineInstallation.
  * Can be used in tests to provide/manipulate a wine installation config.
  */
-const test_wineinstallations = new TestType<WineInstallation[]>([{
-  bin: 'path/to/wine/bin',
-  name: 'wine'
-}]);
+const test_wineinstallations = new TestType<WineInstallation[]>([
+  {
+    bin: 'path/to/wine/bin',
+    name: 'wine'
+  }
+])
 
 /**
  * Test type for electron invoke 'getUserInfo' response
@@ -273,12 +266,13 @@ const test_userinfo = new TestType<{
   account_id: string
   displayName: string
   epicId: string
-  name: string}>({
-    account_id: 'account_id',
-    displayName: 'displayName',
-    epicId: 'epicId',
-    name: 'name'
-  });
+  name: string
+}>({
+  account_id: 'account_id',
+  displayName: 'displayName',
+  epicId: 'epicId',
+  name: 'name'
+})
 
 /**
  * Test type for the context of type ContextType.
@@ -293,11 +287,19 @@ const test_context = new TestType<ContextType>({
   filter: 'all',
   filterText: '',
   gameUpdates: [],
-  handleCategory: () => { return; },
-  handleFilter: () => { return; },
+  handleCategory: () => {
+    return
+  },
+  handleFilter: () => {
+    return
+  },
   handleGameStatus: () => Promise.resolve(),
-  handleLayout: () => { return; },
-  handleSearch: () => { return; },
+  handleLayout: () => {
+    return
+  },
+  handleSearch: () => {
+    return
+  },
   layout: 'grid',
   libraryStatus: [],
   platform: 'linux',
@@ -310,19 +312,18 @@ const test_context = new TestType<ContextType>({
  * Resets all defined test types to there initial property
  * values.
  */
-function resetTestTypes()
-{
-  test_appsettings.reset();
-  test_context.reset();
-  test_egssync_response.reset();
-  test_game.reset();
-  test_opendialog.reset();
-  test_openmessagebox_response.reset();
-  test_plugin.reset();
-  test_userinfo.reset();
-  test_wineinstallations.reset();
+function resetTestTypes() {
+  test_appsettings.reset()
+  test_context.reset()
+  test_egssync_response.reset()
+  test_game.reset()
+  test_opendialog.reset()
+  test_openmessagebox_response.reset()
+  test_plugin.reset()
+  test_userinfo.reset()
+  test_wineinstallations.reset()
 
-  initElectronMocks();
+  initElectronMocks()
 }
 
 export {
@@ -336,4 +337,4 @@ export {
   test_plugin,
   test_userinfo,
   test_wineinstallations
-};
+}

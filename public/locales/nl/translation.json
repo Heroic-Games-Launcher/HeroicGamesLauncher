@@ -32,6 +32,7 @@
             "title": "Error"
         },
         "no": "NEE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is niet geïnstalleerd, wilt u het installeren?"
@@ -47,6 +48,10 @@
         "select": {
             "button": "Selecteer",
             "exe": "Selecteer EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
         },
         "sync": {
             "button": "Selecteer",
@@ -102,12 +107,18 @@
     "nogames": "Geen spellen gevonden",
     "Not Ready": "Niet klaar",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Klaar met de reparatie"
         },
         "install": {
             "canceled": "Installatie geannuleerd",
-            "finished": "Installatie is voltooid"
+            "finished": "Installatie is voltooid",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Klaar met verplaatsing",
         "uninstalled": "Verwijderd",

@@ -1,23 +1,23 @@
 .smallInfo {
-    text-align: left;
+  text-align: left;
 }
 
 .smallTitle {
-    font-size: 11px;
-    color: var(--text-secondary);
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 
 .smallSubtitle {
-    font-size: 12px;
-    color: var(--text-primary);
+  font-size: 12px;
+  color: var(--text-primary);
 }
 
 .clickable {
-    color: var(--text-primary);
-    cursor: pointer;
+  color: var(--text-primary);
+  cursor: pointer;
 }
 
 .clickable:hover {
-    color: var(--secondary-hover);
-    transition: 300ms;
+  color: var(--secondary-hover);
+  transition: 300ms;
 }

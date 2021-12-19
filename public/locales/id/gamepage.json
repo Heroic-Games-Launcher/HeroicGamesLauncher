@@ -6,22 +6,17 @@
             "title": "Ubah Jalur Instalasi Gim"
         },
         "choose": "Pilih",
+        "default-install-path": "",
         "importpath": "Pilih Folder Gim untuk diimpor",
-        "installpath": "Pilih Jalur Instal",
         "move": {
             "message": "Ini bisa memakan waktu yang lama, apa kamu yakin?",
             "path": "Pilih dimana kamu ingin pindahkan",
             "title": "Pindahkan instalasi permainan"
         },
         "no": "TIDAK",
-        "ok": "Oke",
         "repair": {
             "message": "Apakah Anda ingin mencoba memperbaiki gim ini? Ini bisa memakan waktu lama.",
             "title": "Verifikasi dan Perbaiki"
-        },
-        "shortcuts": {
-            "message": "Pintasan dibuat pada Desktop dan Menu Mulai",
-            "title": "Pintasan"
         },
         "stopInstall": {
             "keepInstalling": "Tetap Menginstal",
@@ -72,9 +67,7 @@
         "version": "Versi"
     },
     "install": {
-        "another": "Instal di Jalur lain",
-        "default": "Instal di",
-        "import": "Impor gim"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {

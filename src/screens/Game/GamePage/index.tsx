@@ -8,14 +8,11 @@ import React, {
   MouseEvent
 } from 'react'
 
-import {
-  IpcRenderer
-} from 'electron'
+import { IpcRenderer } from 'electron'
 import {
   getGameInfo,
   getInstallInfo,
   getProgress,
-  install,
   launch,
   sendKill,
   syncSaves
@@ -25,9 +22,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
-import {
-  updateGame
-} from 'src/helpers'
+import { updateGame } from 'src/helpers'
 
 import {
   AppSettings,
@@ -41,9 +36,9 @@ import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 import prettyBytes from 'pretty-bytes'
 import { Checkbox } from '@material-ui/core'
-import { SDL_GAMES, SelectiveDownload } from 'src/screens/Library/components/InstallModal/selective_dl'
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
+import { InstallModal } from 'src/screens/Library/components'
 
 const storage: Storage = window.localStorage
 
@@ -57,45 +52,43 @@ interface RouteParams {
   appName: string
 }
 
-
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
 
-  const [ tabToShow, setTabToShow ] = useState('infoTab')
+  const [tabToShow, setTabToShow] = useState('infoTab')
+  const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    data,
-    gameUpdates, platform
-  } = useContext(ContextProvider)
+  const { libraryStatus, handleGameStatus, data, gameUpdates, platform } =
+    useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
 
   const { status } = gameStatus || {}
-  const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
+  const previousProgress = JSON.parse(
+    storage.getItem(appName) || '{}'
+  ) as InstallProgress
 
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
-  const [progress, setProgress] = useState(previousProgress ?? {
-    bytes: '0.00MiB',
-    eta: '00:00:00',
-    percent: '0.00%'
-  } as InstallProgress)
-  const [defaultPath, setDefaultPath] = useState('...')
-  const [installPath, setInstallPath] = useState('default')
+  const [progress, setProgress] = useState(
+    previousProgress ??
+      ({
+        bytes: '0.00MiB',
+        eta: '00:00:00',
+        percent: '0.00%'
+      } as InstallProgress)
+  )
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
-  const [launchArguments, setLaunchArguments] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
-  const [showSDL, setShowSDL] = useState(false)
-
-  const haveSDL = Boolean(SDL_GAMES[appName])
-  const mandatoryTags: Array<string> =  haveSDL ? SDL_GAMES[appName].filter((el: SelectiveDownload) => el.mandatory).map((el: SelectiveDownload) => el.tags)[0] : []
-  const [sdlList, setSdlList] = useState([...mandatoryTags])
+  const [launchArguments, setLaunchArguments] = useState('')
+  const [hasError, setHasError] = useState<{
+    error: boolean
+    message: string | unknown
+  }>({ error: false, message: '' })
 
   const isWin = platform === 'win32'
   const isInstalling = status === 'installing'
@@ -103,45 +96,42 @@ export default function GamePage(): JSX.Element | null {
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
-  const hasDownloads = Boolean(libraryStatus.filter(
-    (game) => game.status === 'installing' || game.status === 'updating'
-  ).length)
+  const hasDownloads = Boolean(
+    libraryStatus.filter(
+      (game) => game.status === 'installing' || game.status === 'updating'
+    ).length
+  )
 
   useEffect(() => {
     const updateConfig = async () => {
-      const newInfo = await getGameInfo(appName)
-      getInstallInfo(appName)
-        .then((info) => setGameInstallInfo(info))
-      setGameInfo(newInfo)
-      if (newInfo.cloud_save_enabled) {
-        try {
-          const {
-            autoSyncSaves,
-            savesPath
-          }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-          setAutoSyncSaves(autoSyncSaves)
-          setSavesPath(savesPath)
-        } catch (error) {
-          ipcRenderer.send('logError', error)
+      try {
+        const newInfo = await getGameInfo(appName)
+        setGameInfo(newInfo)
+        getInstallInfo(appName)
+          .then((info) => setGameInstallInfo(info))
+          .catch((error) => {
+            console.error(error)
+            ipcRenderer.send('logError', error)
+            setHasError({ error: true, message: error })
+          })
+        if (newInfo?.cloud_save_enabled) {
+          try {
+            const { autoSyncSaves, savesPath }: AppSettings =
+              await ipcRenderer.invoke('requestSettings', appName)
+            setAutoSyncSaves(autoSyncSaves)
+            return setSavesPath(savesPath)
+          } catch (error) {
+            setHasError({ error: true, message: error })
+            ipcRenderer.send('logError', error)
+          }
         }
+      } catch (error) {
+        console.error({ error })
+        setHasError({ error: true, message: error })
       }
     }
     updateConfig()
   }, [isInstalling, isPlaying, appName, data])
-
-  useEffect(() => {
-    ipcRenderer
-      .invoke('requestSettings', 'default')
-      .then((config: AppSettings) => {
-        setDefaultPath(config.defaultInstallPath)
-        if (installPath === 'default') {
-          setInstallPath(config.defaultInstallPath)
-        }
-      })
-    return () => {
-      ipcRenderer.removeAllListeners('requestSettings')
-    }
-  }, [appName, installPath])
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -152,10 +142,12 @@ export default function GamePage(): JSX.Element | null {
         )
 
         if (progress) {
-          if (previousProgress){
+          if (previousProgress) {
             const legendaryPercent = getProgress(progress)
             const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round((legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent)
+            const newPercent: number = Math.round(
+              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
+            )
             progress.percent = `${newPercent}%`
           }
           return setProgress(progress)
@@ -176,20 +168,12 @@ export default function GamePage(): JSX.Element | null {
     await handleGameStatus({ appName, status: 'done' })
   }
 
-  function handleSdl(tags: Array<string>){
-    let updatedList: Array<string> = [...sdlList]
-    tags.forEach(tag => {
-      if (updatedList.includes(tag)){
-        return updatedList = updatedList.filter((tagx) => {
-          return tagx !== tag})
-      }
-      return updatedList.push(tag)
-    })
-    setSdlList([...updatedList])
-  }
-
   function handleDlcs() {
     setInstallDlcs(!installDlcs)
+  }
+
+  function handleModal() {
+    setShowModal({ game: appName, show: true })
   }
 
   const hasUpdate = gameUpdates?.includes(appName)
@@ -198,11 +182,7 @@ export default function GamePage(): JSX.Element | null {
     const {
       title,
       art_square,
-      install : {
-        install_path,
-        install_size,
-        version
-      },
+      install: { install_path, install_size, version },
       is_installed,
       is_game,
       compatible_apps,
@@ -212,12 +192,17 @@ export default function GamePage(): JSX.Element | null {
       canRunOffline
     }: GameInfo = gameInfo
     const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
-    const haveSDL = Boolean(SDL_GAMES[appName])
     const DLCList = gameInstallInfo?.game?.owned_dlc
-    const downloadSize  = gameInstallInfo?.manifest?.download_size && prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
-    const installSize  = gameInstallInfo?.manifest?.disk_size && prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
-    const launchOptions  = gameInstallInfo?.game?.launch_options || []
-    const pathname = isWin ? `/settings/${appName}/other` : `/settings/${appName}/wine`
+    const downloadSize =
+      gameInstallInfo?.manifest?.download_size &&
+      prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+    const installSize =
+      gameInstallInfo?.manifest?.disk_size &&
+      prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
+    const launchOptions = gameInstallInfo?.game?.launch_options || []
+    const pathname = isWin
+      ? `/settings/${appName}/other`
+      : `/settings/${appName}/wine`
 
     /*
     Other Keys:
@@ -227,13 +212,27 @@ export default function GamePage(): JSX.Element | null {
     */
 
     const onTabClick = (event: MouseEvent) => {
-      const button = event.target as HTMLButtonElement;
-      const tab = button.dataset.tab;
-      setTabToShow(`${tab}Tab`);
+      const button = event.target as HTMLButtonElement
+      const tab = button.dataset.tab
+      setTabToShow(`${tab}Tab`)
+    }
+
+    if (hasError.error) {
+      const message =
+        typeof hasError.message === 'string'
+          ? hasError.message
+          : 'Unknown error'
+      return <div>{message}</div>
     }
 
     return (
       <div className="gameConfigContainer">
+        {showModal.show && (
+          <InstallModal
+            appName={showModal.game}
+            backdropClick={() => setShowModal({ game: '', show: false })}
+          />
+        )}
         {title ? (
           <>
             <GamePicture art_square={art_square} />
@@ -241,9 +240,15 @@ export default function GamePage(): JSX.Element | null {
               {is_game && (
                 <>
                   <nav>
-                    <button data-tab="info" onClick={onTabClick}>Info</button>
-                    <button data-tab="tools" onClick={onTabClick}>Tools</button>
-                    <button data-tab="requirements" onClick={onTabClick}>System Requirements</button>
+                    <button data-tab="info" onClick={onTabClick}>
+                      Info
+                    </button>
+                    <button data-tab="tools" onClick={onTabClick}>
+                      Tools
+                    </button>
+                    <button data-tab="requirements" onClick={onTabClick}>
+                      System Requirements
+                    </button>
                   </nav>
 
                   <div className="gameInfo">
@@ -251,15 +256,17 @@ export default function GamePage(): JSX.Element | null {
                     <div className="infoWrapper">
                       <div className="developer">{developer}</div>
                       {!is_game && (
-                        <div className="compatibleApps">{compatible_apps.join(', ')}</div>
+                        <div className="compatibleApps">
+                          {compatible_apps.join(', ')}
+                        </div>
                       )}
                       <div className="summary">
                         {extra && extra.about
                           ? extra.about.shortDescription
                             ? extra.about.shortDescription
                             : extra.about.description
-                              ? extra.about.description
-                              : ''
+                            ? extra.about.description
+                            : ''
                           : ''}
                       </div>
                       {is_installed && cloud_save_enabled && is_game && (
@@ -275,30 +282,36 @@ export default function GamePage(): JSX.Element | null {
                       {!is_installed && (
                         <>
                           <div>
-                            {t('game.downloadSize', 'Download Size')}: {downloadSize ?? '...'}
+                            {t('game.downloadSize', 'Download Size')}:{' '}
+                            {downloadSize ?? '...'}
                           </div>
                           <div>
-                            {t('game.installSize', 'Install Size')}: {installSize ?? '...'}
+                            {t('game.installSize', 'Install Size')}:{' '}
+                            {installSize ?? '...'}
                           </div>
-                          {haveDLCs && (<div className="itemContainer">
-                            <div className="dlcTitle">{t('dlc.title', 'DLCs')}</div>
-                            {DLCList.map(({app_name, title}) => <span key={app_name} className="dlcTitle">{title}</span>)}
-                            <span className="checkBox">
-                              <Checkbox color='primary' checked={installDlcs} size="small" onChange={() => handleDlcs()} />
-                              <span className="itemName">{t('dlc.installDlcs', 'Install all DLCs')}</span>
-                            </span>
-                          </div>)}
-                          {haveSDL && <div className="itemContainer">
-                            <p className="sdlTitle" onClick={() => setShowSDL(!showSDL)} >{t('sdl.showList', 'Click to Show/Hide Extra Components')}</p>
-                            {showSDL && SDL_GAMES[appName].map(({name, tags, mandatory}: SelectiveDownload) => {
-                              const checked = sdlList.includes(tags[0])
-                              return !mandatory && (
-                                <div key={name} className="checkBox">
-                                  <Checkbox className="checkbox" color='primary' size="small" checked={checked}  onChange={() => handleSdl(tags)} />
-                                  <span className="itemName">{name}</span>
-                                </div>)
-                            })}
-                          </div>}
+                          {haveDLCs && (
+                            <div className="itemContainer">
+                              <div className="dlcTitle">
+                                {t('dlc.title', 'DLCs')}
+                              </div>
+                              {DLCList.map(({ app_name, title }) => (
+                                <span key={app_name} className="dlcTitle">
+                                  {title}
+                                </span>
+                              ))}
+                              <span className="checkBox">
+                                <Checkbox
+                                  color="primary"
+                                  checked={installDlcs}
+                                  size="small"
+                                  onChange={() => handleDlcs()}
+                                />
+                                <span className="itemName">
+                                  {t('dlc.installDlcs', 'Install all DLCs')}
+                                </span>
+                              </span>
+                            </div>
+                          )}
                           <br />
                         </>
                       )}
@@ -311,7 +324,8 @@ export default function GamePage(): JSX.Element | null {
                             {t('info.version')}: {version}
                           </div>
                           <div>
-                            {t('info.canRunOffline', 'Online Required')}: {t(canRunOffline ? 'box.no' : 'box.yes')}
+                            {t('info.canRunOffline', 'Online Required')}:{' '}
+                            {t(canRunOffline ? 'box.no' : 'box.yes')}
                           </div>
                           <div
                             className="clickable"
@@ -337,35 +351,32 @@ export default function GamePage(): JSX.Element | null {
                       <p
                         style={{
                           color:
-                            is_installed || isInstalling ? '#0BD58C' : '#BD0A0A',
+                            is_installed || isInstalling
+                              ? '#0BD58C'
+                              : '#BD0A0A',
                           fontStyle: 'italic'
                         }}
                       >
                         {getInstallLabel(is_installed)}
                       </p>
                     </div>
-                    {!is_installed && !isInstalling && is_game &&(
-                      <select
-                        onChange={(event) => setInstallPath(event.target.value)}
-                        value={installPath}
-                        className="settingSelect"
-                      >
-                        <option value={'default'}>{`${t(
-                          'install.default'
-                        )} ${defaultPath.replaceAll("'", '')}`}</option>
-                        <option value={'another'}>{t('install.another')}</option>
-                        <option value={'import'}>{t('install.import')}</option>
-                      </select>
-                    )}
-                    {is_installed && Boolean(launchOptions.length) &&(
+                    {is_installed && Boolean(launchOptions?.length) && (
                       <>
                         <select
-                          onChange={(event) => setLaunchArguments(event.target.value)}
+                          onChange={(event) =>
+                            setLaunchArguments(event.target.value)
+                          }
                           value={launchArguments}
                           className="settingSelect"
                         >
-                          <option value=''>{t('launch.options', 'Launch Options...')}</option>
-                          {launchOptions.map(({name, parameters}) => <option key={parameters} value={parameters}>{name}</option>)}
+                          <option value="">
+                            {t('launch.options', 'Launch Options...')}
+                          </option>
+                          {launchOptions.map(({ name, parameters }) => (
+                            <option key={parameters} value={parameters}>
+                              {name}
+                            </option>
+                          ))}
                         </select>
                       </>
                     )}
@@ -381,23 +392,36 @@ export default function GamePage(): JSX.Element | null {
                           </button>
                         </>
                       )}
-                      {is_installed ?
-                        <Link to={{pathname, state: { fromGameCard: false }}} className={`button ${getButtonClass(is_installed)}`}>
+                      {is_installed ? (
+                        <Link
+                          to={{ pathname, state: { fromGameCard: false } }}
+                          className={`button ${getButtonClass(is_installed)}`}
+                        >
                           {`${getButtonLabel(is_installed)}`}
-                        </Link> :
+                        </Link>
+                      ) : (
                         <button
-                          onClick={() => handleInstall()}
+                          onClick={() => handleInstall(is_installed)}
                           disabled={
-                            isPlaying || isUpdating || isReparing || isMoving || (hasDownloads && !isInstalling)
+                            isPlaying ||
+                            isUpdating ||
+                            isReparing ||
+                            isMoving ||
+                            (hasDownloads && !isInstalling)
                           }
                           className={`button ${getButtonClass(is_installed)}`}
                         >
                           {`${getButtonLabel(is_installed)}`}
-                        </button>}
+                        </button>
+                      )}
                     </div>
                   </div>
 
-                  <GameSubMenu appName={appName} isInstalled={is_installed} title={title} />
+                  <GameSubMenu
+                    appName={appName}
+                    isInstalled={is_installed}
+                    title={title}
+                  />
                   <GameRequirements gameInfo={gameInfo} />
                 </>
               )}
@@ -418,7 +442,7 @@ export default function GamePage(): JSX.Element | null {
     if (isSyncing) {
       return 'is-primary'
     }
-    return isPlaying ? 'is-tertiary' : 'is-primary'
+    return isPlaying ? 'is-tertiary' : 'is-success'
   }
 
   function getPlayLabel(): React.ReactNode {
@@ -440,10 +464,12 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.moving')}`
     }
 
-    const currentProgress = `${percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'}`
+    const currentProgress = `${
+      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
+    }`
 
     if (isUpdating && is_installed) {
-      if (eta && eta.includes('verifying')){
+      if (eta && eta.includes('verifying')) {
         return `${t('status.reparing')}: ${percent} [${bytes}]`
       }
       return `${t('status.updating')} ${currentProgress}`
@@ -455,7 +481,7 @@ export default function GamePage(): JSX.Element | null {
 
     if (hasUpdate) {
       return (
-        <span onClick={() => handleUpdate()} className='updateText' >
+        <span onClick={() => handleUpdate()} className="updateText">
           {`${t('status.installed')} - ${t(
             'status.hasUpdates',
             'New Version Available!'
@@ -468,11 +494,6 @@ export default function GamePage(): JSX.Element | null {
       return t('status.installed')
     }
 
-    if (previousProgress.folder === installPath) {
-      const currentStatus = `${getProgress(previousProgress)}%`
-      return `${t('status.totalDownloaded', 'Total Downloaded')} ${currentStatus}`
-    }
-
     return t('status.notinstalled')
   }
 
@@ -482,18 +503,12 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (is_installed) {
-      return 'is-secondary'
+      return 'is-primary'
     }
-    return 'is-primary'
+    return 'is-secondary'
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (previousProgress.folder === installPath && !isInstalling && !is_installed) {
-      return t('button.continue', 'Continue Download')
-    }
-    if (installPath === 'import' && !is_installed) {
-      return t('button.import')
-    }
     if (is_installed) {
       return t('submenu.settings')
     }
@@ -517,7 +532,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       await handleGameStatus({ appName, status: 'playing' })
-      await launch({appName, t, handleGameStatus, launchArguments})
+      await launch({ appName, t, handleGameStatus, launchArguments })
 
       if (autoSyncSaves) {
         setIsSyncing(true)
@@ -529,18 +544,9 @@ export default function GamePage(): JSX.Element | null {
     }
   }
 
-  async function handleInstall(){
-    return await install({
-      appName,
-      handleGameStatus,
-      installPath,
-      isInstalling,
-      previousProgress,
-      progress,
-      setInstallPath,
-      t,
-      installDlcs,
-      sdlList
-    })
+  async function handleInstall(is_installed: boolean) {
+    if (!is_installed && !isInstalling) {
+      return handleModal()
+    }
   }
 }

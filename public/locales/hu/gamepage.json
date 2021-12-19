@@ -6,22 +6,17 @@
             "title": "Játék Telepítési Útvonal Megváltoztatása"
         },
         "choose": "Kiválaszt",
+        "default-install-path": "",
         "importpath": "Válassz Játék Mappát az importáláshoz",
-        "installpath": "Válassz Telepítési Útvonalat",
         "move": {
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
             "path": "Válaszd ki, hova szeretnéd áthelyezni",
             "title": "Játék telepítés áthelyezése"
         },
         "no": "NEM",
-        "ok": "Ok",
         "repair": {
             "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
             "title": "Ellenőrzés és Javítás"
-        },
-        "shortcuts": {
-            "message": "A parancsikonok létre lettek hozva az Asztalon és a Start Menüben",
-            "title": "Parancsikonok"
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
@@ -72,9 +67,7 @@
         "version": "Verzió"
     },
     "install": {
-        "another": "Telepítés másik útvonalra",
-        "default": "Telepítés ide:",
-        "import": "Játék Importálása"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
