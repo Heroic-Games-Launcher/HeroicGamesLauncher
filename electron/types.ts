@@ -70,6 +70,7 @@ export interface GameInfo {
   save_folder: string
   title: string
   canRunOffline: boolean
+  isMacNative: boolean
 }
 
 type DLCInfo = {
@@ -83,6 +84,7 @@ type GameInstallInfo = {
   owned_dlc: Array<DLCInfo>
   title: string
   version: string
+  platform_versions: { Mac: string; Windows: string }
 }
 
 type Prerequisites = {
