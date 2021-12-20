@@ -135,6 +135,7 @@ const test_game = new TestType<GameInfo>({
   is_ue_asset: false,
   is_ue_plugin: false,
   is_ue_project: false,
+  isMacNative: false,
   namespace: null,
   save_folder: '{appdata}/../locallow',
   title: 'title'
@@ -173,6 +174,7 @@ const test_plugin = new TestType<GameInfo>({
   is_ue_asset: true,
   is_ue_plugin: true,
   is_ue_project: true,
+  isMacNative: false,
   namespace: null,
   save_folder: '{appdata}/../locallow',
   title: 'title'
@@ -300,9 +302,14 @@ const test_context = new TestType<ContextType>({
   handleSearch: () => {
     return
   },
+
+  handlePlatformFilter: () => {
+    return
+  },
   layout: 'grid',
   libraryStatus: [],
   platform: 'linux',
+  filterPlatform: 'all',
   refresh: () => Promise.resolve(),
   refreshLibrary: () => Promise.resolve(),
   refreshing: false
