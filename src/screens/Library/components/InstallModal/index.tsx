@@ -1,6 +1,13 @@
 import { getInstallInfo, getProgress, install } from 'src/helpers'
 import React, { useContext, useEffect, useState } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import prettyBytes from 'pretty-bytes'
+import { Checkbox } from '@material-ui/core'
+import { IpcRenderer } from 'electron'
+
 import './index.css'
 import {
   AppSettings,
@@ -15,11 +22,6 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
-import prettyBytes from 'pretty-bytes'
-import { Checkbox } from '@material-ui/core'
-import { IpcRenderer } from 'electron'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -37,7 +39,8 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     storage.getItem(appName) || '{}'
   ) as InstallProgress
 
-  const { libraryStatus, handleGameStatus } = useContext(ContextProvider)
+  const { libraryStatus, handleGameStatus, platform } =
+    useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -50,6 +53,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   const installFolder = gameStatus?.folder || installPath
 
+  const isMac = platform === 'darwin'
   const haveSDL = Boolean(SDL_GAMES[appName])
   const mandatoryTags: Array<string> = haveSDL
     ? SDL_GAMES[appName]
@@ -114,6 +118,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     getInfo()
   }, [appName])
 
+  const isMacNative = isMac && gameInfo?.game?.platform_versions?.Mac
   const haveDLCs = gameInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInfo?.game?.owned_dlc
   const downloadSize =
@@ -140,7 +145,10 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
         <div className="modal">
-          <span className="title">{gameInfo?.game?.title}</span>
+          <span className="title">
+            {gameInfo?.game?.title}
+            <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+          </span>
           <div className="installInfo">
             <div className="itemContainer">
               <span className="item">

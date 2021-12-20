@@ -39,6 +39,9 @@
   font-size: 24px;
   margin: -10px 16px 0 16px;
 }
+.title > svg {
+  padding-left: 16px;
+}
 
 .buttonsContainer {
   width: 100%;
