@@ -135,7 +135,7 @@ const test_game = new TestType<GameInfo>({
   is_ue_asset: false,
   is_ue_plugin: false,
   is_ue_project: false,
-  isMacNative: false,
+  is_mac_native: false,
   namespace: null,
   save_folder: '{appdata}/../locallow',
   title: 'title'
@@ -174,7 +174,7 @@ const test_plugin = new TestType<GameInfo>({
   is_ue_asset: true,
   is_ue_plugin: true,
   is_ue_project: true,
-  isMacNative: false,
+  is_mac_native: false,
   namespace: null,
   save_folder: '{appdata}/../locallow',
   title: 'title'

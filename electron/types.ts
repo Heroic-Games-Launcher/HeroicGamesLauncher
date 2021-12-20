@@ -70,7 +70,7 @@ export interface GameInfo {
   save_folder: string
   title: string
   canRunOffline: boolean
-  isMacNative: boolean
+  is_mac_native: boolean
 }
 
 type DLCInfo = {

@@ -79,7 +79,7 @@ export interface GameInfo {
   folder_name: string
   install: InstalledInfo
   is_game: boolean
-  isMacNative: boolean
+  is_mac_native: boolean
   is_installed: boolean
   is_ue_asset: boolean
   is_ue_plugin: boolean

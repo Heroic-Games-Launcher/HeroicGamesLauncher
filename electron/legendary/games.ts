@@ -15,6 +15,7 @@ import {
   heroicGamesConfigPath,
   heroicIconFolder,
   home,
+  isMac,
   isWindows,
   legendaryBin
 } from '../constants'
@@ -508,7 +509,7 @@ Categories=Game;
     const runOffline = isOffline || offlineMode ? '--offline' : ''
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
     const gameInfo = await this.getGameInfo()
-    const isMacNative = gameInfo.isMacNative
+    const isMacNative = gameInfo.is_mac_native
 
     if (discordRPC) {
       // Show DiscordRPC
@@ -541,7 +542,7 @@ Categories=Game;
       })
     }
 
-    if (isWindows || isMacNative) {
+    if (isWindows || (isMac && isMacNative)) {
       const command = `${legendaryBin} launch ${
         this.appName
       } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`

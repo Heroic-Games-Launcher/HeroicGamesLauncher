@@ -445,7 +445,7 @@ class LegendaryLibrary {
       is_ue_plugin,
       is_ue_project,
       namespace,
-      isMacNative: releaseInfo[0]?.platform.includes('Mac'),
+      is_mac_native: releaseInfo[0]?.platform.includes('Mac'),
       save_folder: saveFolder,
       title,
       canRunOffline

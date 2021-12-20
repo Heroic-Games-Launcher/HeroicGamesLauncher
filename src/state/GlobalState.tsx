@@ -176,9 +176,9 @@ export class GlobalState extends PureComponent<Props> {
   filterPlatform = (library: GameInfo[], filter: string) => {
     switch (filter) {
       case 'win':
-        return library.filter((game) => !game.isMacNative)
+        return library.filter((game) => !game.is_mac_native)
       case 'mac':
-        return library.filter((game) => game.isMacNative)
+        return library.filter((game) => game.is_mac_native)
       default:
         return library.filter((game) => game.is_game)
     }
