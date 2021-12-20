@@ -82,7 +82,6 @@
         "options": "Opstartopties..."
     },
     "sdl": {
-        "showList": "Klik om extra componenten te tonen/verbergen",
         "title": "Selecteer componenten om te installeren"
     },
     "specs": {

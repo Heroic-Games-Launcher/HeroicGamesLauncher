@@ -69,6 +69,9 @@
     "Downloading": "Ladataan",
     "Epic Games": "Epic Games",
     "Filter": "Suodata",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globaalit asetukset",
     "help": {
         "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
@@ -204,7 +207,6 @@
     "Settings": "Asetukset",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Yleiset",
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"

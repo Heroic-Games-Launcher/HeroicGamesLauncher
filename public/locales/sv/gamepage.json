@@ -82,7 +82,6 @@
         "options": "Startalternativ..."
     },
     "sdl": {
-        "showList": "Klicka för att visa/dölja extra komponenter",
         "title": "Välj komponenter att installera"
     },
     "specs": {

@@ -69,6 +69,9 @@
     "Downloading": "Downloading",
     "Epic Games": "Epic Games",
     "Filter": "Filter",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Global Settings",
     "help": {
         "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
@@ -204,7 +207,6 @@
     "Settings": "Settings",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "General",
             "other": "Other",
             "sync": "Save-Sync"

@@ -69,6 +69,9 @@
     "Downloading": "ダウンロードしています",
     "Epic Games": "Epic Games",
     "Filter": "フィルター",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全体設定",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -204,7 +207,6 @@
     "Settings": "設定",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "一般",
             "other": "他",
             "sync": "同期を保存"

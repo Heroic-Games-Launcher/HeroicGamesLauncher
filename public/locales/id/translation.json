@@ -69,6 +69,9 @@
     "Downloading": "",
     "Epic Games": "Epic Games",
     "Filter": "",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Global Settings",
     "help": {
         "general": "",
@@ -204,7 +207,6 @@
     "Settings": "",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "",
             "other": "",
             "sync": ""

@@ -82,7 +82,6 @@
         "options": "Opcions d'execució ..."
     },
     "sdl": {
-        "showList": "Clica per ensenyar / amagar els components extra",
         "title": "Selecciona els components a instal·lar"
     },
     "specs": {

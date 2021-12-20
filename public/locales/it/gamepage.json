@@ -82,7 +82,6 @@
         "options": "Opzioni di avvio..."
     },
     "sdl": {
-        "showList": "Clicca per mostrare/nascondere i componenti extra",
         "title": "Seleziona i componenti da installare"
     },
     "specs": {

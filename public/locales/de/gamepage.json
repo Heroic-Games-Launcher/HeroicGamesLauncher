@@ -82,7 +82,6 @@
         "options": "Startoptionen..."
     },
     "sdl": {
-        "showList": "Klicken, um zusätzliche Komponenten ein-/auszublenden",
         "title": "Zu installierende Komponenten auswählen"
     },
     "specs": {

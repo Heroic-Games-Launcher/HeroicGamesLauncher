@@ -69,6 +69,9 @@
     "Downloading": "Téléchargement en cours",
     "Epic Games": "Epic Games",
     "Filter": "Filtre",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Paramètres généraux",
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
@@ -204,7 +207,6 @@
     "Settings": "Options",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Général",
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes"

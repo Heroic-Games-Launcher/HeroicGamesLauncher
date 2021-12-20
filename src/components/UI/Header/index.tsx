@@ -95,7 +95,7 @@ export default function Header({
                     selectedLayout: filterPlatform === 'all'
                   })}
                 >
-                  {t('ALL')}
+                  {t('All')}
                 </button>
                 <FontAwesomeIcon
                   onClick={() => handlePlatformFilter('win')}
