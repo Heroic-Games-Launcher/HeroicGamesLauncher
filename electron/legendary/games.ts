@@ -507,11 +507,12 @@ Categories=Game;
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = isOffline || offlineMode ? '--offline' : ''
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
+    const gameInfo = await this.getGameInfo()
+    const isMacNative = gameInfo.isMacNative
 
     if (discordRPC) {
       // Show DiscordRPC
       // This seems to run when a game is updated, even though the game doesn't start after updating.
-      const gameInfo = await this.getGameInfo()
       let os: string
 
       switch (process.platform) {
@@ -540,7 +541,7 @@ Categories=Game;
       })
     }
 
-    if (isWindows) {
+    if (isWindows || isMacNative) {
       const command = `${legendaryBin} launch ${
         this.appName
       } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
