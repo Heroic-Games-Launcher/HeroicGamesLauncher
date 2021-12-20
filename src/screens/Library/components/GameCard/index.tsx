@@ -34,6 +34,7 @@ interface Card {
   size: string
   title: string
   version: string
+  isMacNative: boolean
   forceCard?: boolean
 }
 
@@ -48,7 +49,8 @@ const GameCard = ({
   size = '',
   hasUpdate,
   buttonClick,
-  forceCard
+  forceCard,
+  isMacNative
 }: Card) => {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -88,9 +90,10 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
-  const path = isWin
-    ? `/settings/${appName}/other`
-    : `/settings/${appName}/wine`
+  const path =
+    isWin || isMacNative
+      ? `/settings/${appName}/other`
+      : `/settings/${appName}/wine`
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
