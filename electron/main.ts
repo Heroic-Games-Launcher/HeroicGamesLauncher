@@ -1,4 +1,5 @@
 import { InstallParams } from './types'
+import { WineGEInfo } from './winege/types';
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -65,7 +66,7 @@ import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
 import { checkUpdates } from './updater'
-import { fetchReleases } from './winege/api'
+import { fetchWineGEReleases, installWineGE } from './winege/api'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -672,7 +673,11 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
 })
 
 ipcMain.handle('refreshWineGE', async () => {
-  return await fetchReleases();
+  return await fetchWineGEReleases();
+})
+
+ipcMain.handle('installWineGE', async (e, release: WineGEInfo, onProgress) => {
+  return await installWineGE(release, onProgress);
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))

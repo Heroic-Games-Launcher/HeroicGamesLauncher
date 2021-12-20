@@ -5,9 +5,18 @@
 
 import * as axios from 'axios';
 import Store from 'electron-store';
+import
+{
+  existsSync,
+  readFileSync,
+  rmdirSync,
+  unlinkSync
+} from 'graceful-fs';
+import * as crypto from 'crypto';
 import { WINEGE_URL } from './constants';
 import { logError, logInfo } from '../logger';
 import { WineGEInfo } from './types';
+import { downloadFile, unzipFile } from '../utils';
 
 const wineGEStore = new Store({
   cwd: 'store',
@@ -19,7 +28,7 @@ const wineGEStore = new Store({
  * @param count max releases to fetch for (default: 100)
  * @returns ReleaseData list of available releases
  */
-async function fetchReleases(count = '100'): Promise<WineGEInfo[]> {
+async function fetchWineGEReleases(count = '100'): Promise<WineGEInfo[]> {
   const releases :WineGEInfo[] = [];
   try {
     const data = await axios.default.get(WINEGE_URL + '?per_page=' + count)
@@ -87,163 +96,114 @@ async function fetchReleases(count = '100'): Promise<WineGEInfo[]> {
   return releases;
 }
 
-// PROTOTYPE OF DOWNLOAD FUNCTION
+function unlinkFile(filePath: string)
+{
+  try {
+    unlinkSync(filePath);
+    return true;
+  } catch(error) {
+    logError(error);
+    logError(`Failed to remove ${filePath}!`);
+    return false;
+  }
+}
 
-// async function downloadWineGE(releases: ReleaseData[], installDir: string, version?: string): Promise<ReleaseData>
-// {
-//   let release_to_download = undefined;
+async function installWineGE(release: WineGEInfo, onProgress = () => {return}): Promise<boolean>
+{
+  // Check if installDir exist
+  if(!existsSync(release.installDir))
+  {
+    logError(`Installation directory ${release.installDir} doesn't exist!`);
+    return false;
+  }
 
-//   // Check if installDir exist
-//   if(!fs.existsSync(installDir))
-//   {
-//     logError(`Installation directory ${installDir} doesn't exist!`);
-//     return undefined;
-//   }
+  if (!release.download)
+  {
+    logError(`No download link provided for ${release.version}!`)
+    return false;
+  }
 
-//   // check if provided version is avaiable
-//   if(version)
-//   {
-//     for (const release of releases)
-//     {
-//       if(release.version === version)
-//       {
-//         release_to_download = release;
-//         break;
-//       }
-//     }
+  const wineDir = release.installDir + '/Wine-' + release.version;
+  const sourceChecksum = release.checksum
+    ? (await axios.default.get(release.checksum, {responseType: 'text'})).data
+    : undefined
 
-//     if(!release_to_download)
-//     {
-//       logError(`Given version (${version}) is not available to download!`);
-//       return undefined;
-//     }
-//   }
-//   else
-//   {
-//     release_to_download = releases[0]; // latest release by default
-//   }
+  // Check if it already exist and updates are available
+  if (existsSync(wineDir)) {
+    if(!release.hasUpdate)
+    {
+      logInfo(`Wine-${release.version} already installed skip download.`);
+      return true;
+    }
+  }
 
-//   if (!release_to_download.download)
-//   {
-//     logError(`Didn't find binary for ${release_to_download.version}.`)
-//     return undefined;
-//   }
+  // Prepare destination where to download tar file
+  const tarFile = release.installDir + '/' + release.download.split('/').slice(-1)[0];
 
-//   const winedir = installDir + '/Wine-' + release_to_download.version;
-//   const checksum_dir = winedir + '/sha512sum'
-//   // Fixme: axios not fetching the content of the page as text here
-//   // the later checksum check fails
-//   const source_checksum = release_to_download.checksum
-//     ? (await axios.default.get(release_to_download.checksum)).data
-//     : undefined
-//   const local_checksum = fs.existsSync(checksum_dir)
-//     ? fs.readFileSync(checksum_dir).toString()
-//     : undefined
+  if(existsSync(tarFile))
+  {
+    if(!unlinkFile(tarFile))
+    {
+      return false
+    }
+  }
 
-//   // Check if it already exist
-//   if (fs.existsSync(winedir)) {
-//     if (local_checksum && source_checksum) {
-//       if (source_checksum.includes(local_checksum))
-//       {
-//         logInfo(`Proton-${release_to_download.version} already installed`);
-//         logInfo(`No hotfix found`);
-//         return;
-//       }
-//       logInfo('Hotfix available');
-//     }
-//     else
-//     {
-//       logInfo(`Proton-${release_to_download.version} already installed`);
-//       return;
-//     }
-//   }
+  // Download
+  downloadFile(release.download, release.installDir, onProgress)
+    .then((response: string) => {
+      logInfo(response)
+    })
+    .catch((error: string) => {
+      logError(error);
+      logError(`Download of Wine-${release.version} failed!`);
+      return false;
+    });
 
-//   // Prepare destination where to download tar file
-//   const tar_file = installDir + release_to_download.download.split('/').slice(-1)[0];
+  // Check if download checksum is correct
+  const fileBuffer = readFileSync(tarFile);
+  const hashSum = crypto.createHash('sha256');
+  hashSum.update(fileBuffer);
 
-//   if(fs.existsSync(tar_file))
-//   {
-//     try {
-//       fs.unlinkSync(tar_file);
-//     } catch(error) {
-//       logError(error);
-//       logError(`Failed to remove already existing ${tar_file}!`);
-//       return undefined;
-//     }
-//   }
+  const downloadChecksum = hashSum.digest('hex');
+  logInfo(downloadChecksum);
+  logInfo(sourceChecksum);
+  if (!sourceChecksum.includes(downloadChecksum))
+  {
+    logError('Checksum verification failed');
+    unlinkFile(tarFile);
+    return false;
+  }
 
-//   // Download
-//   try {
-//     await execAsync(`curl -L -o ${tar_file} ${release_to_download.download}`);
-//   }
-//   catch (error)
-//   {
-//     logError(error);
-//     logError(`Download of Wine-${release_to_download.version} failed!`);
-//   }
+  // Unzip
+  if (existsSync(wineDir))
+  {
+    try {
+      rmdirSync(wineDir, { recursive: true });
+    } catch(error) {
+      logError(error);
+      logError(`Failed to remove already existing folder ${wineDir}!`);
+      return false;
+    }
+  }
 
-//   // Check if download checksum is correct
-//   const fileBuffer = fs.readFileSync(tar_file);
-//   const hashSum = crypto.createHash('sha256');
-//   hashSum.update(fileBuffer);
+  unzipFile(tarFile, release.installDir, onProgress)
+    .then((response: string) => {
+      logInfo(response);
+    })
+    .catch((error: string) => {
+      logError(error);
+      logError(`Unzip of ${tarFile.split('/').slice(-1)[0]} failed!`);
+      return false;
+    })
 
-//   const download_checksum = hashSum.digest('hex');
-//   logInfo(download_checksum);
-//   logInfo(source_checksum);
-//   if (!source_checksum.includes(download_checksum))
-//   {
-//     logError('Checksum verification failed');
-//     try {
-//       fs.unlinkSync(tar_file);
-//     } catch(error) {
-//       logError(error);
-//     }
-//     return undefined;
-//   }
+  // Clean up
+  unlinkFile(tarFile);
 
-//   // Unzip
-//   if (fs.existsSync(winedir))
-//   {
-//     try {
-//       fs.rmdirSync(winedir, { recursive: true });
-//     } catch(error) {
-//       logError(error);
-//       logError(`Failed to remove already existing folder ${winedir}!`);
-//       return undefined;
-//     }
-//   }
-
-//   try {
-//     if(tar_file.endsWith('tar.gz'))
-//     {
-//       await execAsync(`tar -zxf ${tar_file} --directory ${installDir}`);
-//     }
-//     else if(tar_file.endsWith('tar.xz'))
-//     {
-//       await execAsync(`tar -jxf ${tar_file} --directory ${installDir}`);
-//     }
-//     logInfo(`Unzip ${tar_file.split('/').slice(-1)[0]} succesfully to ${installDir}`);
-//   }
-//   catch (error)
-//   {
-//     logError(error);
-//     logError(`Unzip of ${tar_file.split('/').slice(-1)[0]} failed!`);
-//     return undefined;
-//   }
-
-//   // Clean up
-//   try {
-//     fs.unlinkSync(tar_file);
-//   } catch(error) {
-//     logError(error);
-//     logError(`Failed to remove ${tar_file}!`);
-//   }
-
-//   return release_to_download;
-// }
+  return true;
+}
 
 
 export {
-  //downloadWineGE,
-  fetchReleases
+  installWineGE,
+  fetchWineGEReleases
 }

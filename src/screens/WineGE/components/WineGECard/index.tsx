@@ -4,8 +4,11 @@ import React from 'react'
 
 import { WineGEInfo } from 'src/types'
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
+import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import { useTranslation } from 'react-i18next'
+
+const { ipcRenderer } = window.require('electron')
 
 const WineGECard = ({
   version,
@@ -13,15 +16,49 @@ const WineGECard = ({
   downsize,
   disksize,
   download,
-  //checksum
-  isInstalled
-  //hasUpdate
+  checksum,
+  isInstalled,
+  hasUpdate
   //installDir
 }: WineGEInfo) => {
   const { t } = useTranslation()
 
+  const onProgress = (progress: string) =>
+  {
+    console.log(progress);
+  }
+
+  async function install () {
+    return await ipcRenderer.invoke(
+      'installWineGE',
+      {
+        version: version,
+        date: date,
+        downsize: downsize,
+        disksize: disksize,
+        download: download,
+        checksum: checksum,
+        isInstalled: isInstalled,
+        hasUpdate: hasUpdate,
+        installDir: '~/test'
+      },
+      onProgress
+    );
+  }
+
   const renderIcon = () => {
-    return <DownIcon className="downIcon" onClick={() => {console.log(download)}} />
+    const icons = [];
+    if (!isInstalled || hasUpdate)
+    {
+      icons.push(<DownIcon className="downIcon" onClick={() => install()} />);
+    }
+
+    if (isInstalled)
+    {
+      icons.push(<StopIcon onClick={() => {return}} />);
+    }
+
+    return icons;
   }
 
   const getSizeInMB = (value: number) =>
@@ -42,7 +79,7 @@ const WineGECard = ({
             }
           </div>
           <span className="icons">
-            {renderIcon()}
+            {renderIcon().map((component) => component)}
           </span>
         </div>
         <hr style={{ opacity: 0.1, width: '90%' }} />

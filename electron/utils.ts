@@ -1,7 +1,11 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, stat } from 'graceful-fs'
+import {
+  existsSync,
+  statSync,
+  stat
+} from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 
@@ -207,15 +211,96 @@ async function checkCommandVersion(
   return found
 }
 
+async function downloadFile(
+  link: string,
+  downloadDir: string,
+  onProgress: (progress: string) => void)
+{
+  return new Promise((resolve, reject) => {
+    if (!statSync(downloadDir).isDirectory())
+    {
+      return reject(`Download path ${downloadDir} is not a directory!`);
+    }
+
+    const filePath = downloadDir + '/' + link.split('/').slice(-1)[0];
+    const download = exec(`curl -o ${filePath} ${link}`);
+
+    download.stdout.on('data', function(stdout: string) {
+      onProgress(stdout);
+    });
+
+    download.stderr.on('data', function(stderr: string) {
+      reject(stderr);
+    });
+
+    download.on('close', function(exitcode: number) {
+      if(exitcode !== 0)
+      {
+        reject(`Download of ${link} failed with exit code ${exitcode}!`);
+      }
+
+      resolve(`Succesfully downloaded ${link} to ${filePath}.`);
+    });
+  })
+}
+
+async function unzipFile(
+  filePath: string,
+  unzipDir: string,
+  onProgress: (progress: string) => void)
+{
+  return new Promise((resolve, reject) => {
+    if (statSync(filePath).isDirectory())
+    {
+      return reject(`Archive path ${filePath} is not a file!`);
+    }
+
+    let extension_options = '';
+    if(filePath.endsWith('tar.gz'))
+    {
+      extension_options = '-zxf';
+    }
+    else if(filePath.endsWith('tar.xz'))
+    {
+      extension_options = '-jxf';
+    }
+    else
+    {
+      return reject(`Archive type ${filePath.split('.').pop()} not supported!`);
+    }
+
+    const unzip = exec(`tar ${extension_options} ${filePath} --directory ${unzipDir}`);
+
+    unzip.stdout.on('data', function(stdout: string) {
+      onProgress(stdout);
+    });
+
+    unzip.stderr.on('data', function(stderr: string) {
+      return reject(stderr);
+    });
+
+    unzip.on('close', function(exitcode: number) {
+      if(exitcode !== 0)
+      {
+        return reject(`Unzip of ${filePath} failed with exit code ${exitcode}!`);
+      }
+
+      return resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`);
+    });
+  })
+}
+
 export {
   checkCommandVersion,
   checkForUpdates,
+  downloadFile,
   errorHandler,
   execAsync,
   genericErrorMessage,
   handleExit,
   isOnline,
   openUrlOrFile,
+  unzipFile,
   semverGt,
   showAboutWindow,
   statAsync
