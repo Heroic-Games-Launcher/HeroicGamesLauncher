@@ -1,27 +1,22 @@
 {
     "box": {
         "change": {
-            "message": "Ovo će promijeniti lokaciju instalacije za igru, jeste li sigurni?",
+            "message": "Ovo će promijeniti lokaciju instalacije za ovu igru, jeste li sigurni?",
             "path": "Odaberite novu lokaciju za instalaciju",
             "title": "Promijenite lokaciju instalacije igrica"
         },
         "choose": "Odaberi",
+        "default-install-path": "",
         "importpath": "Odaberi mapu igre za uvesti",
-        "installpath": "Odaberi lokaciju instalacije",
         "move": {
-            "message": "Ovo može protrajati, jeste li sigurni?",
+            "message": "Ovo može potrajati, jeste li sigurni?",
             "path": "Odaberite gdje želite premjestiti",
             "title": "Premjestite instalaciju igrice"
         },
         "no": "NE",
-        "ok": "Ok",
         "repair": {
-            "message": "Želite li probati popraviti ovu igricu? Ovo može potrajati.",
+            "message": "Želite li pokušati popraviti ovu igricu? Ovo može potrajati.",
             "title": "Provjeri i Popravi"
-        },
-        "shortcuts": {
-            "message": "Prečaci su napravljeni na Radnoj Površini i Izborniku Start",
-            "title": "Prečaci"
         },
         "stopInstall": {
             "keepInstalling": "Nastavite instalaciju",
@@ -39,7 +34,7 @@
         "yes": "DA"
     },
     "button": {
-        "cancel": "Otkaži",
+        "cancel": "Otkaži/Prekini",
         "continue": "Nastavi preuzimanje",
         "import": "Uvezi",
         "install": "Instaliraj",
@@ -47,9 +42,15 @@
         "update": "Ažuriraj"
     },
     "disabled": "Onemogućeno",
+    "dlc": {
+        "installDlcs": "Instaliraj sve DLC-eve",
+        "title": "DLCs"
+    },
     "enabled": "Omogućeno",
     "game": {
+        "downloadSize": "Veličina Preuzimanja",
         "firstPlayed": "Prvo odigrano",
+        "installSize": "Veličina Instalacije",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "totalPlayed": "Vrijeme igranja"
@@ -59,15 +60,14 @@
         "repairing": "Popravljanje"
     },
     "info": {
+        "canRunOffline": "Internet Potreban",
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
         "version": "Verzija"
     },
     "install": {
-        "another": "Instaliraj na drugi put",
-        "default": "Instaliraj na",
-        "import": "Uvezi igricu"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "Sinkoniziranje podataka"
         }
+    },
+    "launch": {
+        "options": "Opcije za pokretanje..."
+    },
+    "sdl": {
+        "showList": "Kliknite da Pokažete/Sakrite Dodatne Komponente",
+        "title": "Odaberite kompomente za instalaciju"
     },
     "specs": {
         "minimum": "Minimalno",
@@ -89,7 +96,6 @@
         "installing": "Instalira se",
         "moving": "Premještanje instalacije, molim pričekajte",
         "notinstalled": "Ova igrica nije instalirana",
-        "notSupported": "Ova igrica se jedino može uvesti",
         "reparing": "Popravljanje igrice, molimo pričekajte",
         "totalDownloaded": "Sveukupno preuzeto",
         "updating": "Ažuriranje igrice"

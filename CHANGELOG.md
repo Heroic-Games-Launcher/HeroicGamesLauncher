@@ -1,12 +1,85 @@
 # Changelog
 
+## 1.11.0 Alpha
+
+### General
+
+- Changed the way Heroic install DXVK/VKD3D completely now removing the DLLs when toggling the feature off.
+- The Navbar is now visible on the Login Page as well, this makes changing the settings and debugging errors easier.
+- Added Window menu + keyboard shortcuts to Quit, Reload and Open the Developer tools.
+- Added Support links on the Navbar.
+- Added discord and wiki links on the login screen.
+- [Windows] Implementend Desktop and Start Menu shortcuts.
+- Updated Legendary to version 0.20.18
+- Updated Electron to version 15.3
+
+### Bugfixes
+
+- Fix Heroic coming to the front everytime a game was stopped.
+- Fix Desktop shortcuts not being created when the DE had language different from English.
+
+## 1.10.3
+
+### General
+
+- Added controls to reload, go back and forward on the Store and Wiki webviews;
+- [Linux/MacOS] Improved Wine, Proton and Crossover Searching;
+- [MacOS] Some unused settings were removed;
+
+### BugFixes
+
+- [MacOS] Fixed an issue on BigSur that was causing Heroic screen to become blank;
+- Other small UI fixes;
+
+## 1.10.2
+
+### General
+
+- Heroic will show Launch options for games that supports it. Eg: Ark.
+- Heroic will try to launch to launch the game even if offline and will also show an information if the game can run offline or not on the Game Page.
+- It's possible to provide an alternative legendary binary for Heroic to use.
+
+### BugFixes
+
+- Fixed an issue with games that have Selective Download not downloading the whole game.
+- Fixed an issue where the integrated store wasn't opening the login popup.
+- Other small fixes and translations update.
+
+## 1.10.1
+
+### General
+
+- Heroic now can install components from games that have selective download. (Fortnite, CyberPunk, etc).
+- Now is possible to run the game using an alternative executable.
+- Heroic will list available DLCs and add a toggle to install/import all of them or no.
+- Heroic now will open the Epic Store and the Wiki on the main window instead of a separate one.
+- It's possible to check the download size and install size before installing the game.
+- (Mac/Linux) Heroic will now check for available Crossover bottle and select the right wine binary.
+- (Linux) Added Options to enable or disable Esync/Fsync.
+- Some visual fixes and improvements.
+- Added Japanese Language.
+- Other translations updates and fixes.
+- Updated Electron to version 15.1.
+- Updated Legendary to version 0.20.14.
+
+### Bugfixes
+
+- Fix Heroic not checking available space before installing a game.
+- Fix Heroic not launching a game when skipping an update available.
+- Fix Save folder on Windows missing a `backslash`
+- Fixed card image with wrong size.
+- Fix the Return button that was not clickable sometimes.
+- Other minor fixes and improvements.
+
 ## 1.9.3
 
 ### General
 
 - Added Korean, Croatian and Traditional Chinese languages.
 - Other translations updates and fixes.
+
 ### Bugfixes
+
 - Fixed Update game from context menu not working.
 - Fixed Update icon misplaced on game card.
 - Fixed (probably) rare issue that could cause a Heroic to show only a blank screen when trying to load games from cache.
@@ -88,7 +161,7 @@
 
 - Added Simplified Chinese language
 - Added recent games on the tray icon and a filter on the library.
-- Added Discord RPC support (except Linux AppImages)  thanks @TabulateJarl8
+- Added Discord RPC support (except Linux AppImages) thanks @TabulateJarl8
 - Submenu now is always visible on Game Page.
 - It's possible to update a game from the game page now by clicking on the update information instead of opening the settings like before.
 - Downloading Fortnite and Cyberpunk2077 still not possible but they now can be imported.
@@ -102,7 +175,7 @@
 - Improved Winetricks and Winecfg handlers and they should work now with proton 6.3+
 - Fixed save-sync folder when using Proton
 - Added `STEAM_COMPAT_CLIENT_INSTALL_PATH` variable when launching a game with proton since its needed from Proton versions 6.3+.
-- Improved Logging when running from the terminal. Thanks @dragonDScript  and @Nocccer
+- Improved Logging when running from the terminal. Thanks @dragonDScript and @Nocccer
 
 ### Windows
 

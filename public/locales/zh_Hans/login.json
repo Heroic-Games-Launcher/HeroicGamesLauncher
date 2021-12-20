@@ -2,6 +2,9 @@
     "button": {
         "login": "登录"
     },
+    "info": {
+        "needHelp": "需要帮忙？"
+    },
     "input": {
         "placeholder": "在此处粘贴SID号"
     },

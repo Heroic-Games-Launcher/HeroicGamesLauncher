@@ -3,35 +3,38 @@ import {
   readFileSync,
   readdirSync,
   writeFileSync
-} from 'graceful-fs';
-import prettyBytes from 'pretty-bytes';
+} from 'graceful-fs'
+import prettyBytes from 'pretty-bytes'
 
-import { GameConfig } from '../game_config';
+import { GameConfig } from '../game_config'
 import {
   GameInfo,
   InstalledInfo,
+  InstallInfo,
   KeyImage,
   RawGameJSON
-} from '../types';
-import { LegendaryGame } from './games';
-import { LegendaryUser } from './user';
-import {
-  execAsync,
-  isOnline
-} from '../utils';
+} from '../types'
+import { LegendaryGame } from './games'
+import { LegendaryUser } from './user'
+import { execAsync, isOnline } from '../utils'
 import {
   installed,
   legendaryBin,
   legendaryConfigPath,
   libraryPath
-} from '../constants';
-import { logError, logInfo } from '../logger';
-import { spawn } from 'child_process';
+} from '../constants'
+import { logError, logInfo } from '../logger'
+import { spawn } from 'child_process'
 import Store from 'electron-store'
 
 const libraryStore = new Store({
   cwd: 'store',
   name: 'library'
+})
+
+const installStore = new Store({
+  cwd: 'store',
+  name: 'installInfo'
 })
 
 /**
@@ -56,8 +59,7 @@ class LegendaryLibrary {
     this.refreshInstalled()
     if (!lazy_load) {
       this.loadAll()
-    }
-    else {
+    } else {
       this.loadAsStubs()
     }
   }
@@ -80,19 +82,22 @@ class LegendaryLibrary {
    */
   public async refresh() {
     logInfo('Refreshing Epic Games...')
+
     return new Promise((res, rej) => {
       const child = spawn(legendaryBin, ['list-games', '--include-ue'])
       child.stderr.on('data', (data) => {
-        console.log(`${data}`)}
-      )
+        console.log(`${data}`)
+      })
       child.on('error', (err) => rej(`${err}`))
       child.on('close', () => res('finished'))
-    }).then(() => {
-      this.refreshInstalled()
-      this.loadAll()
-    }).catch((err) => {
-      logError(err)
     })
+      .then(() => {
+        this.refreshInstalled()
+        this.loadAll()
+      })
+      .catch((err) => {
+        logError(err)
+      })
   }
 
   /**
@@ -101,9 +106,10 @@ class LegendaryLibrary {
   public refreshInstalled() {
     const installedJSON = `${legendaryConfigPath}/installed.json`
     if (existsSync(installedJSON)) {
-      this.installedGames = new Map(Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8'))))
-    }
-    else {
+      this.installedGames = new Map(
+        Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8')))
+      )
+    } else {
       this.installedGames = new Map()
     }
   }
@@ -116,14 +122,17 @@ class LegendaryLibrary {
    * @param fullRefresh Reload from Legendary.
    * @returns Array of objects.
    */
-  public async getGames(format: 'info' | 'class' = 'class', fullRefresh?: boolean): Promise<(LegendaryGame | GameInfo)[]> {
+  public async getGames(
+    format: 'info' | 'class' = 'class',
+    fullRefresh?: boolean
+  ): Promise<(LegendaryGame | GameInfo)[]> {
     logInfo('Refreshing library...')
     const isLoggedIn = await LegendaryUser.isLoggedIn()
-    if (!isLoggedIn){
+    if (!isLoggedIn) {
       return
     }
 
-    if (fullRefresh){
+    if (fullRefresh) {
       try {
         logInfo('Legendary: Refreshing Epic Games...')
         await this.refresh()
@@ -179,14 +188,40 @@ class LegendaryLibrary {
   }
 
   /**
+   * Get game info for a particular game.
+   *
+   * @param appName
+   * @returns InstallInfo
+   */
+  public async getInstallInfo(appName: string) {
+    const cache = installStore.get(appName) as InstallInfo
+    logInfo('Getting More details with Legendary info command... ')
+    if (cache) {
+      return cache
+    }
+    try {
+      const { stdout } = await execAsync(
+        `${legendaryBin} -J info ${appName} --json`
+      )
+      const info: InstallInfo = JSON.parse(stdout)
+      installStore.set(appName, info)
+      return info
+    } catch (error) {
+      logError('Error running the Legendary Info command')
+      console.log({ error })
+    }
+  }
+
+  /**
    * Obtain a list of updateable games.
    *
    * @returns App names of updateable games.
    */
   public async listUpdateableGames() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
+
     const online = await isOnline()
-    if (!isLoggedIn || !(online)) {
+    if (!isLoggedIn || !online) {
       return []
     }
 
@@ -194,9 +229,9 @@ class LegendaryLibrary {
     try {
       const { stdout } = await execAsync(command)
       logInfo('Checking for game updates')
-      const updates =  stdout
+      const updates = stdout
         .split('\n')
-        .filter((item) => item.includes('True'))
+        .filter((item) => item.split('\t')[4] === 'True')
         .map((item) => item.split('\t')[0])
         .filter((item) => item.length > 1)
       logInfo(`Found ${updates.length} game(s) to update`)
@@ -213,13 +248,16 @@ class LegendaryLibrary {
    * @returns Array of results of `Game.update`.
    */
   public async updateAllGames() {
-    return (await Promise.allSettled((await this.listUpdateableGames()).map(LegendaryGame.get).map(
-      (game) => game.update()
-    ))).map((res) => {
+    return (
+      await Promise.allSettled(
+        (await this.listUpdateableGames())
+          .map(LegendaryGame.get)
+          .map((game) => game.update())
+      )
+    ).map((res) => {
       if (res.status === 'fulfilled') {
         return res.value
-      }
-      else {
+      } else {
         return null
       }
     })
@@ -255,8 +293,7 @@ class LegendaryLibrary {
       // This assumes that fileName and appName are same.
       // If that changes, this will break.
       this.loadFile(`${appName}.json`)
-    }
-    else {
+    } else {
       this.library.get(appName).is_installed = false
       this.library.get(appName).install = {} as InstalledInfo
       this.installedGames.delete(appName)
@@ -280,8 +317,8 @@ class LegendaryLibrary {
    */
   private loadFile(fileName: string): string {
     fileName = `${libraryPath}/${fileName}`
-    const { app_name, metadata, asset_info } = JSON.parse(readFileSync(fileName, 'utf-8'))
-    const { namespace } = asset_info
+    const { app_name, metadata } = JSON.parse(readFileSync(fileName, 'utf-8'))
+    const { namespace } = metadata
     const is_game = namespace !== 'ue' ? true : false
     const {
       description,
@@ -298,6 +335,7 @@ class LegendaryLibrary {
     const dlcs: string[] = []
     const CloudSaveFolder = customAttributes?.CloudSaveFolder
     const FolderName = customAttributes?.FolderName
+    const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
 
     if (dlcItemList) {
       dlcItemList.forEach(
@@ -313,47 +351,49 @@ class LegendaryLibrary {
     let is_ue_project = false
     let is_ue_plugin = false
     if (categories) {
-      categories.forEach(
-        (c: { path: string }) => {
-          if (c.path == 'projects') {
-            is_ue_project = true
-          } else if (c.path == 'assets') {
-            is_ue_asset = true
-          } else if (c.path == 'plugins') {
-            is_ue_plugin = true
-          }
+      categories.forEach((c: { path: string }) => {
+        if (c.path == 'projects') {
+          is_ue_project = true
+        } else if (c.path == 'assets') {
+          is_ue_asset = true
+        } else if (c.path == 'plugins') {
+          is_ue_plugin = true
         }
-      )
+      })
     }
 
     let compatible_apps: string[] = []
-    releaseInfo.forEach(
-      (rI: { appId: string, compatibleApps: string[] }) => {
-        if (rI.appId == app_name) {
-          compatible_apps = rI.compatibleApps
-        }
+    releaseInfo.forEach((rI: { appId: string; compatibleApps: string[] }) => {
+      if (rI.appId == app_name) {
+        compatible_apps = rI.compatibleApps
       }
-    )
+    })
 
     const cloud_save_enabled = is_game && Boolean(CloudSaveFolder?.value)
     const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
     const installFolder = FolderName ? FolderName.value : app_name
 
-    const gameBox = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox')[0] :
-      keyImages.filter(({ type }: KeyImage) => type === 'Screenshot')[0]
+    const gameBox = is_game
+      ? keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox')[0]
+      : keyImages.filter(({ type }: KeyImage) => type === 'Screenshot')[0]
 
-    const gameBoxTall = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxTall')[0] :
-      gameBox
+    const gameBoxTall = is_game
+      ? keyImages.filter(
+          ({ type }: KeyImage) => type === 'DieselGameBoxTall'
+        )[0]
+      : gameBox
 
-    const gameBoxStore = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselStoreFrontTall')[0] :
-      gameBox
+    const gameBoxStore = is_game
+      ? keyImages.filter(
+          ({ type }: KeyImage) => type === 'DieselStoreFrontTall'
+        )[0]
+      : gameBox
 
-    const logo = is_game ?
-      keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBoxLogo')[0] :
-      keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail')[0]
+    const logo = is_game
+      ? keyImages.filter(
+          ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
+        )[0]
+      : keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail')[0]
 
     const fallBackImage =
       'https://user-images.githubusercontent.com/26871415/103480183-1fb00680-4dd3-11eb-9171-d8c4cc601fba.jpg'
@@ -369,11 +409,12 @@ class LegendaryLibrary {
       version = null,
       install_size = null,
       install_path = null,
-      is_dlc = dlcs.includes(app_name)
+      is_dlc = metadata.categories.filter(
+        ({ path }: { path: string }) => path === 'dlc'
+      ).length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
-    const convertedSize =
-      install_size && prettyBytes(Number(install_size))
+    const convertedSize = install_size && prettyBytes(Number(install_size))
 
     this.library.set(app_name, {
       app_name,
@@ -391,13 +432,13 @@ class LegendaryLibrary {
         reqs: {}
       },
       folder_name: installFolder,
-      install: ({
+      install: {
         executable,
         install_path,
         install_size: convertedSize,
         is_dlc,
         version
-      }),
+      },
       is_game,
       is_installed: info !== undefined,
       is_ue_asset,
@@ -405,7 +446,8 @@ class LegendaryLibrary {
       is_ue_project,
       namespace,
       save_folder: saveFolder,
-      title
+      title,
+      canRunOffline
     } as GameInfo)
 
     return app_name
@@ -432,8 +474,7 @@ class LegendaryLibrary {
    */
   private async loadAll(): Promise<string[]> {
     if (existsSync(libraryPath)) {
-      return readdirSync(libraryPath)
-        .map((filename) => this.loadFile(filename))
+      return readdirSync(libraryPath).map((filename) => this.loadFile(filename))
     }
   }
 
@@ -448,7 +489,7 @@ class LegendaryLibrary {
       return readdirSync(libraryPath)
         .filter((fileName) => {
           const app_name = fileName.split('.json')[0]
-          return (this.library.get(app_name) === null)
+          return this.library.get(app_name) === null
         })
         .map((filename) => this.loadFile(filename))
     }
@@ -461,8 +502,9 @@ class LegendaryLibrary {
    */
   private async loadAsStubs(): Promise<string[]> {
     if (existsSync(libraryPath)) {
-      return readdirSync(libraryPath)
-        .map((filename) => this.loadFileStub(filename))
+      return readdirSync(libraryPath).map((filename) =>
+        this.loadFileStub(filename)
+      )
     }
   }
 }

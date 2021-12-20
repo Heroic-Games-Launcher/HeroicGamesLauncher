@@ -1,18 +1,12 @@
-import {
-  existsSync,
-  readFileSync
-} from 'graceful-fs'
+import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from '../types'
 import { execAsync } from '../utils'
-import {
-  legendaryBin,
-  userInfo
-} from '../constants'
+import { legendaryBin, userInfo } from '../constants'
 import { logError, logInfo } from '../logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
-import Store from 'electron-store';
+import Store from 'electron-store'
 
 const configStore = new Store({
   cwd: 'store'
@@ -37,7 +31,7 @@ export class LegendaryUser {
         }
       })
       child.on('close', () => {
-        console.log('finished login');
+        console.log('finished login')
         res('finished')
       })
     })
@@ -53,17 +47,19 @@ export class LegendaryUser {
   }
 
   public static async getUserInfo(): Promise<UserInfo> {
-    logInfo('Trying to get user information')
-
     let isLoggedIn = false
     try {
+      logInfo('Trying to get user information')
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
       logError(error)
       configStore.delete('userInfo')
     }
     if (isLoggedIn) {
-      const info = { ...JSON.parse(readFileSync(userInfo, 'utf-8')), user: user().username }
+      const info = {
+        ...JSON.parse(readFileSync(userInfo, 'utf-8')),
+        user: user().username
+      }
       configStore.set('userInfo', info)
       return info
     }

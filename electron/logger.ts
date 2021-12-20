@@ -14,8 +14,8 @@
  */
 export function listenStdout(): Promise<string[]> {
   const promise: Promise<string[]> = new Promise((resolve, reject) => {
-    const stdout = process.stdout;
-    const stderr = process.stderr;
+    const stdout = process.stdout
+    const stderr = process.stderr
 
     let logs: Array<string> = []
 
@@ -51,7 +51,7 @@ export function logDebug(...text: string[]) {
  * @param text error messages to log
  */
 export function logError(...text: string[]) {
-  console.error(`ERROR: ${text.join(' ')}`);
+  console.error(`ERROR: ${text.join(' ')}`)
 }
 
 /**

@@ -7,10 +7,7 @@ module.exports = {
     }
   },
 
-  moduleDirectories: [
-    'node_modules',
-    '<rootDir>'
-  ],
+  moduleDirectories: ['node_modules', '<rootDir>'],
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 
@@ -30,5 +27,4 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   }
-};
-
+}

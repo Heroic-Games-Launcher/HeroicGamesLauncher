@@ -6,22 +6,17 @@
             "title": "Oyun Kurulum Yerini Değiştir"
         },
         "choose": "Seç",
+        "default-install-path": "",
         "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
-        "installpath": "Kurulum Yerini Seç",
         "move": {
             "message": "Bu uzun sürebilir, emin misin?",
             "path": "Nereye taşımak istediğinizi seçin",
             "title": "Oyun kurulumunu taşı"
         },
         "no": "HAYIR",
-        "ok": "Tamam",
         "repair": {
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
-        },
-        "shortcuts": {
-            "message": "Kısayollar Masaüstü ve Başlangıç Menüsünde oluşturuldu",
-            "title": "Kısayollar"
         },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
@@ -39,17 +34,23 @@
         "yes": "EVET"
     },
     "button": {
-        "cancel": "İptal",
+        "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
-        "import": "İçeri Aktar",
+        "import": "Oyunu İçe Aktar",
         "install": "Kur",
         "uninstall": "Kaldır",
         "update": "Güncelle"
     },
     "disabled": "Devre dışı",
+    "dlc": {
+        "installDlcs": "Tüm DLC'leri kur",
+        "title": "DLCs"
+    },
     "enabled": "Etkin",
     "game": {
+        "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
+        "installSize": "Kurulum Boyutu",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "totalPlayed": "Oynanan Zaman"
@@ -59,15 +60,14 @@
         "repairing": "Onarılıyor"
     },
     "info": {
+        "canRunOffline": "Çevrim İçi Gerekli",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
         "version": "Sürüm"
     },
     "install": {
-        "another": "Farklı bir yere kur",
-        "default": "Kurulum konumu",
-        "import": "Oyunu içe aktar"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }
+    },
+    "launch": {
+        "options": "Başlatma Seçenekleri..."
+    },
+    "sdl": {
+        "showList": "Ekstra Bileşenleri Göstermek/Gizlemek için Tıkla",
+        "title": "Kurulacak bileşenleri seç"
     },
     "specs": {
         "minimum": "Asgari",
@@ -89,7 +96,6 @@
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
-        "notSupported": "Bu oyun sadece içeri aktarılabilir",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"

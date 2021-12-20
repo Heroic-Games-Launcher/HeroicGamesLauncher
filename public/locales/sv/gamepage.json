@@ -6,22 +6,17 @@
             "title": "Byt spelets installationssökväg"
         },
         "choose": "Ok",
+        "default-install-path": "",
         "importpath": "Välj spelmapp för import",
-        "installpath": "Välj installationssökväg",
         "move": {
             "message": "Det kan ta lång tid, är du säker??",
             "path": "Välj vart du vill flytta",
             "title": "Flytta var spelet är installerat"
         },
         "no": "Nej",
-        "ok": "Ok",
         "repair": {
             "message": "Vill du försöka reparera spelet? Det kan ta lång tid.",
             "title": "Verifiera och reparera"
-        },
-        "shortcuts": {
-            "message": "Genvägar skapades på skrivbordet och startmenyn",
-            "title": "Genvägar"
         },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
@@ -39,7 +34,7 @@
         "yes": "Ja"
     },
     "button": {
-        "cancel": "Avbryt",
+        "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
         "import": "Importera",
         "install": "Installera",
@@ -47,9 +42,15 @@
         "update": "Update"
     },
     "disabled": "Inaktiverad",
+    "dlc": {
+        "installDlcs": "Installera alla DLC",
+        "title": "DLCs"
+    },
     "enabled": "Aktiverad",
     "game": {
+        "downloadSize": "Nedladdningsstorlek",
         "firstPlayed": "Först spelad",
+        "installSize": "Installationsstorlek",
         "lastPlayed": "Senast spelad",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Speltid"
@@ -59,15 +60,14 @@
         "repairing": "Reparerar"
     },
     "info": {
+        "canRunOffline": "Kräver uppkoppling",
         "path": "Installationssökväg",
         "size": "Storlek",
         "syncsaves": "Synkronisera sparfiler",
         "version": "Version"
     },
     "install": {
-        "another": "Installera i en annan sökväg",
-        "default": "Installera",
-        "import": "Importera spel"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "Synkroniserar sparfiler"
         }
+    },
+    "launch": {
+        "options": "Startalternativ..."
+    },
+    "sdl": {
+        "showList": "Klicka för att visa/dölja extra komponenter",
+        "title": "Välj komponenter att installera"
     },
     "specs": {
         "minimum": "Minimum",
@@ -89,7 +96,6 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, var god dröj",
         "notinstalled": "Detta spelet är inte installerat",
-        "notSupported": "Detta spel kan endast importeras",
         "reparing": "Reparerar spelet, var god dröj",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

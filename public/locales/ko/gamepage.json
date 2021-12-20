@@ -6,22 +6,17 @@
             "title": "게임 설치 경로 변경"
         },
         "choose": "선택",
+        "default-install-path": "",
         "importpath": "가져올 게임 폴더 선택",
-        "installpath": "설치 경로 선택",
         "move": {
             "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?",
             "path": "이동하려는 위치 선택",
             "title": "게임 설치 이동"
         },
         "no": "아니오",
-        "ok": "예",
         "repair": {
             "message": "이 게임의 복구를 시도하시겠습니까? 이 작업은 긴 시간이 소요될 수 있습니다.",
             "title": "확인 및 복구"
-        },
-        "shortcuts": {
-            "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
-            "title": "바로가기"
         },
         "stopInstall": {
             "keepInstalling": "계속 설치",
@@ -39,17 +34,23 @@
         "yes": "예"
     },
     "button": {
-        "cancel": "취소",
+        "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
-        "import": "들여오기",
+        "import": "게임 들여오기",
         "install": "설치",
         "uninstall": "설치 제거",
         "update": "업데이트"
     },
     "disabled": "비활성화",
+    "dlc": {
+        "installDlcs": "모든 DLC를 설치합니다",
+        "title": "DLCs"
+    },
     "enabled": "활성화",
     "game": {
+        "downloadSize": "다운로드 크기",
         "firstPlayed": "처음 플레이",
+        "installSize": "설치 크기",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "totalPlayed": "플레이 시간"
@@ -59,15 +60,14 @@
         "repairing": "복구 중"
     },
     "info": {
+        "canRunOffline": "네트워크 연결이 필요합니다",
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
         "version": "버전"
     },
     "install": {
-        "another": "다른 경로에 설치",
-        "default": "다음에 설치",
-        "import": "게임 가져오기"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "세이브 동기화 중"
         }
+    },
+    "launch": {
+        "options": "시작 옵션..."
+    },
+    "sdl": {
+        "showList": "클릭하여 추가 구성 요소 표시 보이기/숨기기",
+        "title": "설치할 구성 요소를 선택합니다"
     },
     "specs": {
         "minimum": "최소 사양",
@@ -89,7 +96,6 @@
         "installing": "설치 중",
         "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
         "notinstalled": "이 게임은 설치 되지 않았습니다",
-        "notSupported": "이 게임은 가져오기만 가능합니다",
         "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
         "totalDownloaded": "총 다운로드",
         "updating": "게임 업데이트 중"

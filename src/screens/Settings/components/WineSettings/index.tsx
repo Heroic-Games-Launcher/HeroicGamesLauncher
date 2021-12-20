@@ -10,9 +10,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
-const {
-  ipcRenderer
-} = window.require('electron')
+const { ipcRenderer } = window.require('electron')
 
 interface Props {
   altWine: WineInstallation[]
@@ -76,7 +74,7 @@ export default function WineSettings({
       )
       setAltWine(wineList)
       // Avoids not updating wine config when having one wine install only
-      if (wineList && wineList.length === 1){
+      if (wineList && wineList.length === 1) {
         setWineVersion(wineList[0])
       }
     }
@@ -87,11 +85,12 @@ export default function WineSettings({
   const { t } = useTranslation()
 
   function selectCustomPath() {
-    ipcRenderer.invoke('openDialog',{
-      buttonLabel: t('box.choose'),
-      properties: ['openFile'],
-      title: t('box.customWine', 'Select the Wine or Proton Binary')
-    })
+    ipcRenderer
+      .invoke('openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openFile'],
+        title: t('box.customWine', 'Select the Wine or Proton Binary')
+      })
       .then(({ path }: Path) => {
         if (!customWinePaths.includes(path)) {
           setCustomWinePaths(
@@ -123,11 +122,12 @@ export default function WineSettings({
             data-testid="addWinePrefix"
             className="material-icons settings folder"
             onClick={() =>
-              ipcRenderer.invoke('openDialog',{
-                buttonLabel: t('box.choose'),
-                properties: ['openDirectory'],
-                title: t('box.wineprefix')
-              })
+              ipcRenderer
+                .invoke('openDialog', {
+                  buttonLabel: t('box.choose'),
+                  properties: ['openDirectory'],
+                  title: t('box.wineprefix')
+                })
                 .then(({ path }: Path) =>
                   setWinePrefix(path ? `${path}` : winePrefix)
                 )
@@ -158,7 +158,9 @@ export default function WineSettings({
                 data-testid="removeWinePath"
                 onClick={() => removeCustomPath()}
                 style={{
-                  color: selectedPath ? 'var(--danger)' : 'var(--background-darker)',
+                  color: selectedPath
+                    ? 'var(--danger)'
+                    : 'var(--background-darker)',
                   cursor: selectedPath ? 'pointer' : ''
                 }}
                 fontSize="large"
@@ -193,80 +195,99 @@ export default function WineSettings({
           ))}
         </select>
       </span>
-      {wineVersion.name.includes('CrossOver') && <span className="setting">
-        <span className="settingText">{t('setting.winecrossoverbottle', 'CrossOver Bottle')}</span>
-        <span>
-          <input
-            data-testid="crossoverBottle"
-            type="text"
-            value={wineCrossoverBottle}
-            className="settingSelect"
-            onChange={(event) => setWineCrossoverBottle(event.target.value)}
-          />
+      {wineVersion.name.includes('CrossOver') && (
+        <span className="setting">
+          <span className="settingText">
+            {t('setting.winecrossoverbottle', 'CrossOver Bottle')}
+          </span>
+          <span>
+            <input
+              data-testid="crossoverBottle"
+              type="text"
+              value={wineCrossoverBottle}
+              className="settingSelect"
+              onChange={(event) => setWineCrossoverBottle(event.target.value)}
+            />
+          </span>
         </span>
-      </span>}
-      {isLinux && <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
-          <ToggleSwitch
-            value={autoInstallDxvk}
-            handleChange={toggleAutoInstallDxvk}
-          />
+      )}
+      {isLinux && (
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+            <ToggleSwitch
+              value={autoInstallDxvk}
+              handleChange={() => {
+                const action = autoInstallDxvk ? 'restore' : 'backup'
+                ipcRenderer.send('toggleDXVK', [winePrefix, action])
+                return toggleAutoInstallDxvk()
+              }}
+            />
+          </span>
         </span>
-      </span>}
+      )}
       <span className="setting">
         <span className="toggleWrapper">
-          {t('setting.enableFSRHack', 'Enable FSR Hack (Wine version needs to support it)')}
-          <ToggleSwitch
-            value={enableFSR || false}
-            handleChange={toggleFSR}
-          />
+          {t(
+            'setting.enableFSRHack',
+            'Enable FSR Hack (Wine version needs to support it)'
+          )}
+          <ToggleSwitch value={enableFSR || false} handleChange={toggleFSR} />
         </span>
       </span>
-      {enableFSR && <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
-          <select
-            data-testid="setMaxRecentGames"
-            onChange={(event) => setFsrSharpness(Number(event.target.value))}
-            value={maxSharpness}
-            className="settingSelect smaller"
-          >
-            {Array.from(Array(5).keys()).map((n) => (
-              <option key={n + 1}>{n + 1}</option>
-            ))}
-          </select>
+      {enableFSR && (
+        <span className="setting">
+          <span className="toggleWrapper">
+            {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
+            <select
+              data-testid="setMaxRecentGames"
+              onChange={(event) => setFsrSharpness(Number(event.target.value))}
+              value={maxSharpness}
+              className="settingSelect smaller"
+            >
+              {Array.from(Array(5).keys()).map((n) => (
+                <option key={n + 1}>{n + 1}</option>
+              ))}
+            </select>
+          </span>
         </span>
-      </span>}
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.resizableBar', 'Enable Resizable BAR (NVIDIA RTX only)')}
-          <ToggleSwitch
-            value={enableResizableBar || false}
-            handleChange={toggleResizableBar}
-          />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.esync', 'Enable Esync')}
-          <ToggleSwitch
-            value={enableEsync || false}
-            handleChange={toggleEsync}
-            dataTestId='esyncToggle'
-          />
-        </span>
-      </span>
-      <span className="setting">
-        <span className="toggleWrapper">
-          {t('setting.fsync', 'Enable Fsync')}
-          <ToggleSwitch
-            value={enableFsync || false}
-            handleChange={toggleFsync}
-            dataTestId='fsyncToggle'
-          />
-        </span>
-      </span>
+      )}
+      {isLinux && (
+        <>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t(
+                'setting.resizableBar',
+                'Enable Resizable BAR (NVIDIA RTX only)'
+              )}
+              <ToggleSwitch
+                value={enableResizableBar || false}
+                handleChange={toggleResizableBar}
+              />
+            </span>
+          </span>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t('setting.esync', 'Enable Esync')}
+              <ToggleSwitch
+                value={enableEsync || false}
+                handleChange={toggleEsync}
+                dataTestId="esyncToggle"
+              />
+            </span>
+          </span>
+          <span className="setting">
+            <span className="toggleWrapper">
+              {t('setting.fsync', 'Enable Fsync')}
+              <ToggleSwitch
+                value={enableFsync || false}
+                handleChange={toggleFsync}
+                dataTestId="fsyncToggle"
+              />
+            </span>
+          </span>
+        </>
+      )}
       <InfoBox text="infobox.help">
         <span>{t('help.wine.part1')}</span>
         <ul>

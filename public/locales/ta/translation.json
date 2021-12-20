@@ -8,6 +8,7 @@
         },
         "choose": "தேர்வு செய்",
         "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Wine அல்லது Proton இருமத்தை தேர்வு செய்",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
         "error": {
@@ -31,6 +32,7 @@
             "title": "பிழை"
         },
         "no": "இல்லை",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "நிறுவப்படவில்லை, அதை நிறுவ விரும்புகிறீர்களா?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "EXE ஐ இயக்க தேர்ந்தெடு"
         },
-        "select": "தேர்ந்தெடு",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "தேர்வு செய்",
             "error": "தவறான பாதை",
@@ -58,8 +67,8 @@
         "unsync": "ஒத்திசைவை செயல்தவிர்"
     },
     "Downloading": "பதிவிறக்கப்படுகிறது",
+    "Epic Games": "Epic Games",
     "Filter": "வடிகட்டி",
-    "Games": "விளையாட்டுகள்",
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "help": {
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
@@ -98,12 +107,18 @@
     "nogames": "விளையாட்டுகள் எதுவும் காணப்படவில்லை",
     "Not Ready": "தயார் இல்லை",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
         },
         "install": {
             "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
-            "finished": "நிறுவல் முடிவடைந்தது"
+            "finished": "நிறுவல் முடிவடைந்தது",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "நகர்தல் முடிவடைந்தது",
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு"
     },
     "Plugins": "செருகுநிரல்கள்",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
-        "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
+        "autodxvk": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
         "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
@@ -185,12 +204,24 @@
     "Settings": "அமைப்புகள்",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "பொதுவானவை",
             "other": "மற்றவை",
             "sync": "சேமிப்பு-ஒத்திசைவு"
         }
     },
     "store": "விற்பனைக்கூடம்",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "புதிய பாதையை சேர்",
         "removepath": "பாதையை அகற்று"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Unreal விற்பனைக்கூடம்",
     "Updates": "புதுப்பிப்புகள்",
     "userselector": {
-        "about": "இதனை பற்றி",
         "discord": "டிஸ்கார்ட் (Discord)",
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
-        "quit": "வெளியேறு",
-        "refresh": "விளையாட்டு பட்டியலைப் புதுப்பி",
-        "support": "எங்களை ஆதரியுங்கள்"
+        "quit": "வெளியேறு"
     },
     "wiki": "விக்கி",
     "WineGE": "",

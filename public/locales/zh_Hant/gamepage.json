@@ -6,22 +6,17 @@
             "title": "更改遊戲安裝路徑"
         },
         "choose": "請選擇",
+        "default-install-path": "",
         "importpath": "選擇要導入的遊戲資料夾",
-        "installpath": "選擇安裝路徑",
         "move": {
             "message": "這可能需要很長的時間，確定？",
             "path": "選擇要移動的位置",
             "title": "移動遊戲安裝"
         },
         "no": "否",
-        "ok": "Ok",
         "repair": {
             "message": "你想嘗試修復這個遊戲的檔案嗎？這可能需要很長的時間。",
             "title": "驗證並修復遊戲檔案"
-        },
-        "shortcuts": {
-            "message": "已經在桌面和開始功能表上建立捷徑",
-            "title": "捷徑"
         },
         "stopInstall": {
             "keepInstalling": "繼續安裝",
@@ -47,9 +42,15 @@
         "update": "更新"
     },
     "disabled": "已禁用",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "已啟用",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "首次遊玩",
+        "installSize": "Install Size",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
         "totalPlayed": "遊玩時間"
@@ -59,15 +60,14 @@
         "repairing": "修復中"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "安裝路徑",
         "size": "大小",
         "syncsaves": "同步存檔",
         "version": "版本"
     },
     "install": {
-        "another": "安裝至其他路徑",
-        "default": "安裝至",
-        "import": "導入遊戲"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "存檔同步中"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "showList": "Click to Show/Hide Extra Components",
+        "title": "Select components to Install"
     },
     "specs": {
         "minimum": "最低配置",
@@ -89,7 +96,6 @@
         "installing": "正在安裝",
         "moving": "正在移動，請稍等",
         "notinstalled": "未安裝此遊戲",
-        "notSupported": "此遊戲只能被導入",
         "reparing": "遊戲修復中，請稍等",
         "totalDownloaded": "總共已下載",
         "updating": "遊戲更新中"

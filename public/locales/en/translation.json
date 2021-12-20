@@ -8,6 +8,7 @@
         },
         "choose": "Choose",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Select the Wine or Proton Binary",
         "default-install-path": "Choose Default Install Path",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Error"
         },
         "no": "NO",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "Select EXE to Run"
         },
-        "select": "Select",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Choose",
             "error": "Invalid Path",
@@ -58,8 +67,8 @@
         "unsync": "Unsync"
     },
     "Downloading": "Downloading",
+    "Epic Games": "Epic Games",
     "Filter": "Filter",
-    "Games": "Games",
     "globalSettings": "Global Settings",
     "help": {
         "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
@@ -98,12 +107,18 @@
     "nogames": "No Games Found",
     "Not Ready": "Not Ready",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Finished Repairing"
         },
         "install": {
             "canceled": "Install Canceled",
-            "finished": "Install Finished"
+            "finished": "Install Finished",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Finished Moving",
         "uninstalled": "Uninstalled",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Help translate Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix where EGS is installed"
     },
     "Plugins": "Plugins",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Audio Fix (Pulse Audio Latency)",
-        "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
         "autosync": "Autosync Saves",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
@@ -185,12 +204,24 @@
     "Settings": "Settings",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "General",
             "other": "Other",
             "sync": "Save-Sync"
         }
     },
     "store": "Store",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Add New Path",
         "removepath": "Remove Path"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",
     "userselector": {
-        "about": "About",
         "discord": "Discord",
         "logout": "Logout",
         "logout_confirmation": "Are you sure you want to logout?",
-        "quit": "Quit",
-        "refresh": "Refresh Library",
-        "support": "Support Us"
+        "quit": "Quit"
     },
     "wiki": "Wiki",
     "WineGE": "WineGE",

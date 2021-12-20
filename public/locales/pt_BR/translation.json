@@ -8,6 +8,7 @@
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Selecione o Binário do WINE ou Proton",
         "default-install-path": "Selecione o local de instalação padrão",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Erro"
         },
         "no": "NÃO",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Não está instalado, deseja instalá-lo?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "Selecione o EXE para iniciar"
         },
-        "select": "Selecionar",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -58,8 +67,8 @@
         "unsync": "Dessincronizar"
     },
     "Downloading": "Baixando",
+    "Epic Games": "Epic Games",
     "Filter": "Filtrar",
-    "Games": "Jogos",
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Store e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
@@ -79,7 +88,7 @@
             "part4": "Sincronizar Saves Automaticamente sincronizará os saves toda vez que você iniciar ou parar de jogar um jogo."
         },
         "wine": {
-            "part1": "Heroic busca por versões do WINE e Proton nas pastas a seguir:",
+            "part1": "O Heroic busca por versões do WINE, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "Nenhum Jogo Encontrado",
     "Not Ready": "Não Instalados",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Reparo Concluído"
         },
         "install": {
             "canceled": "Instalação Cancelada",
-            "finished": "Instalação concluída"
+            "finished": "Instalação concluída",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Movido com sucesso",
         "uninstalled": "Desinstalado",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Ajude a traduzir o Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix onde a EGS está instalada"
     },
     "Plugins": "Plugins",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
-        "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefix",
+        "autodxvk": "Instalar/atualizar o DXVK/VKD3D automaticamente no prefix",
         "autosync": "Sincronizar saves automaticamente",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com WINE/Proton Customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
@@ -147,10 +166,10 @@
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
-        "esync": "Enable Esync",
+        "esync": "Habilitar Esync",
         "exit-to-tray": "Fechar para a barra de tarefas",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
+        "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (Necessita ter gamemode instalado)",
         "language": "Selecione o idioma do app",
         "mangohud": "Habilitar o MangoHud (mangohud precisa estar instalado)",
@@ -185,12 +204,24 @@
     "Settings": "Configurações",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Config. Gerais",
             "other": "Outros",
             "sync": "Sincronização"
         }
     },
     "store": "Loja",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Adicionar",
         "removepath": "Remover"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Loja Unreal",
     "Updates": "Atualizações",
     "userselector": {
-        "about": "Sobre",
         "discord": "Discord",
         "logout": "Sair da Conta",
         "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
-        "quit": "Sair",
-        "refresh": "Recarregar biblioteca",
-        "support": "Apoie-nos"
+        "quit": "Sair"
     },
     "wiki": "Wiki",
     "WineGE": "",

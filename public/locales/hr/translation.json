@@ -8,6 +8,7 @@
         },
         "choose": "Odaberi",
         "choose-egs-prefix": "Odaberite lokaciju gdje je EGS instaliran",
+        "choose-legendary-binary": "Odaberite Legendary Aplikaciju",
         "customWine": "Odaberite WINE ili PROTON aplikaciju",
         "default-install-path": "Odaberite zadanu lokaciju instalacije",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Greška"
         },
         "no": "NE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nije instalirana, želite ju instalirati?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "Odaberi EXE za pokrenuti"
         },
-        "select": "Odaberi",
+        "select": {
+            "button": "Odaberi",
+            "exe": "Odaberi EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Odaberi",
             "error": "Pogrešni put",
@@ -58,8 +67,8 @@
         "unsync": "Desinkroniziraj"
     },
     "Downloading": "Preuzima se",
+    "Epic Games": "Epic Games",
     "Filter": "Filter",
-    "Games": "Igrice",
     "globalSettings": "Globalne Postavke",
     "help": {
         "general": "Sinkronizirajte sa EGS u slučaju da imate instalaciju Epic Games trgovine negdje drugdje i želiš uvesti igrice da ih nemoraš preuzimati opet.",
@@ -79,7 +88,7 @@
             "part4": "Sinkroniziranje se automatski radi svaki put kada pokrenete igricu i završtite sa igrom."
         },
         "wine": {
-            "part1": "Heroic traži verzije za WIne i Proton u sljedečim mapama:",
+            "part1": "Heroic traži verzije za WIne, Proton i CrossOver u sljedečim mapama:",
             "part2": "Za druga mjesta, koristite simbolični link do tih mapa"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "Igrice nisu pronađene",
     "Not Ready": "Nije Spremno",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Zavšen popravak"
         },
         "install": {
             "canceled": "Instalacije prekinuta",
-            "finished": "Instalacija gotova"
+            "finished": "Instalacija gotova",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Premještanje gotovo",
         "uninstalled": "Deinstalirano",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Verzije: ",
         "weblate": "Pomogni prevesti Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Koristi ugrađenu Legendary verziju...",
         "egs-prefix": "Put gdje je EGS instaliran"
     },
     "Plugins": "Dodaci",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Dodaje prečace automatski",
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
+        "alt-legendary-bin": "Odaberi drugu Legendary verziju za koristiti",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
-        "autodxvk": "Automatski instaliraj/ažuriraj DXVK na put",
+        "autodxvk": "Automatski instaliraj/ažuriraj DXVK/VKD3D na put",
         "autosync": "Automatsko sinkroniziranje podataka",
+        "change-target-exe": "Odaberi drugi EXE za pokrenuti",
         "checkForUpdatesOnStartup": "Provjeri za ažuriranjem na pokretanju",
         "customWineProton": "Prilagođen put za WINE/PROTON",
         "darktray": "Koristi tamnu ikonu",
@@ -147,10 +166,10 @@
         "discordRPC": "Omogući Discord Rich Presence",
         "egs-sync": "Sinkroniziraj sa instaliranim Epic Games",
         "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)",
-        "esync": "Enable Esync",
+        "esync": "Omoguči Esync",
         "exit-to-tray": "Izađi u ikonu na sistemsku ladicu",
         "FsrSharpnessStrenght": "Snaga FSR Oštrine",
-        "fsync": "Enable Fsync",
+        "fsync": "Omoguči Fsync",
         "gamemode": "Koristi GameMode(Feral Game Mode mora biti instaliran)",
         "language": "Odaberi Jezik",
         "mangohud": "Omogući Mangohud (Mangohud mora biti instaliran)",
@@ -185,12 +204,24 @@
     "Settings": "Postavke",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Generalno",
             "other": "Ostalo",
             "sync": "Spremi-Podatke"
         }
     },
     "store": "Trgovina",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Dodaj novi put",
         "removepath": "Obriši put"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Unreal tržište",
     "Updates": "Ažuriranja",
     "userselector": {
-        "about": "O projektu",
         "discord": "Discord",
         "logout": "Odjavi se",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
-        "quit": "Izađi",
-        "refresh": "Ponovno Učitaj Knižnjicu",
-        "support": "Podržite Nas"
+        "quit": "Izađi"
     },
     "wiki": "Wiki",
     "WineGE": "",

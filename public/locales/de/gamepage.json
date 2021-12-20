@@ -6,22 +6,17 @@
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
+        "default-install-path": "",
         "importpath": "Zu importierenden Spieleordner auswählen",
-        "installpath": "Installations-Pfad auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
             "path": "Wählen Sie einen Ort, an welchen Sie das Spiel verschieben möchten",
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
-        "ok": "Ok",
         "repair": {
             "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und Reparieren"
-        },
-        "shortcuts": {
-            "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
-            "title": "Verknüpfungen"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
@@ -39,7 +34,7 @@
         "yes": "JA"
     },
     "button": {
-        "cancel": "Abbrechen",
+        "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
         "import": "Importieren",
         "install": "Installieren",
@@ -47,9 +42,15 @@
         "update": "Update"
     },
     "disabled": "Deaktiviert",
+    "dlc": {
+        "installDlcs": "Alle DLCs installieren",
+        "title": "DLCs"
+    },
     "enabled": "Aktiviert",
     "game": {
+        "downloadSize": "Downloadgröße",
         "firstPlayed": "Erstmals gespielt",
+        "installSize": "Installierte Größe",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
         "totalPlayed": "Spielzeit"
@@ -59,15 +60,14 @@
         "repairing": "Repariere"
     },
     "info": {
+        "canRunOffline": "Online erforderlich",
         "path": "Installations-Pfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",
         "version": "Version"
     },
     "install": {
-        "another": "Auf einem anderen Pfad installieren",
-        "default": "Installieren Auf",
-        "import": "Spiel importieren"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "Spielstände werden synchronisiert"
         }
+    },
+    "launch": {
+        "options": "Startoptionen..."
+    },
+    "sdl": {
+        "showList": "Klicken, um zusätzliche Komponenten ein-/auszublenden",
+        "title": "Zu installierende Komponenten auswählen"
     },
     "specs": {
         "minimum": "Minimal",
@@ -89,7 +96,6 @@
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
-        "notSupported": "Dieses Spiel kann nur importiert werden",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"

@@ -2,6 +2,9 @@
     "button": {
         "login": "Σύνδεση"
     },
+    "info": {
+        "needHelp": "Χρειάζεστε βοήθεια;"
+    },
     "input": {
         "placeholder": "Επικολλήστε τον αριθμό SID εδώ"
     },

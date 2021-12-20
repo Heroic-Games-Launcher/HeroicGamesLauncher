@@ -6,22 +6,17 @@
             "title": "Verander het installatiepad van spellen"
         },
         "choose": "Selecteer",
+        "default-install-path": "",
         "importpath": "Selecteer een spel-map om te importeren",
-        "installpath": "Selecteer installatie map",
         "move": {
             "message": "Dit kan lang duren, weet u het zeker?",
             "path": "Selecteer de locatie waar u het naartoe wilt verplaatsen",
             "title": "Spel installatie verplaatsen"
         },
         "no": "NEE",
-        "ok": "Ok",
         "repair": {
             "message": "Wil je dit spel proberen te repareren? Dit kan lang duren.",
             "title": "Verifiëren en repareren"
-        },
-        "shortcuts": {
-            "message": "Snelkoppeling zijn aangemaakt op Desktop en Start Menu",
-            "title": "Snelkoppelingen"
         },
         "stopInstall": {
             "keepInstalling": "Doorgaan met installeren",
@@ -39,7 +34,7 @@
         "yes": "JA"
     },
     "button": {
-        "cancel": "Annuleren",
+        "cancel": "Pauzeren/Annuleren",
         "continue": "Doorgaan met Download",
         "import": "Importeren",
         "install": "Installeren",
@@ -47,9 +42,15 @@
         "update": "Update"
     },
     "disabled": "Uitgeschakeld",
+    "dlc": {
+        "installDlcs": "Installeer alle DLC's",
+        "title": "DLCs"
+    },
     "enabled": "Ingeschakeld",
     "game": {
+        "downloadSize": "Downloadgrootte",
         "firstPlayed": "Eerst gespeeld",
+        "installSize": "Installatie grootte",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "totalPlayed": "Tijd gespeeld"
@@ -59,15 +60,14 @@
         "repairing": "Aan het repareren"
     },
     "info": {
+        "canRunOffline": "Internetverbinding Verplicht",
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
         "version": "Versie"
     },
     "install": {
-        "another": "Installeer op een specifieke pad",
-        "default": "Installeer op",
-        "import": "Importeer spel"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "Saves synchroniseren"
         }
+    },
+    "launch": {
+        "options": "Opstartopties..."
+    },
+    "sdl": {
+        "showList": "Klik om extra componenten te tonen/verbergen",
+        "title": "Selecteer componenten om te installeren"
     },
     "specs": {
         "minimum": "Minimum",
@@ -89,7 +96,6 @@
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
-        "notSupported": "Dit spel kan alleen worden geïmporteerd",
         "reparing": "Spel aan het repareren, even geduld",
         "totalDownloaded": "Totaal gedownload",
         "updating": "Spel aan het updaten"

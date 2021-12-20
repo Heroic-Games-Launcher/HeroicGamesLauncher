@@ -1,13 +1,14 @@
 {
     "All": "Tout",
-    "Assets": "Atouts",
+    "Assets": "Objets",
     "box": {
         "appupdate": {
-            "message": "Une nouvelle version de Heroic est disponible, voulez-vous mettre à jour maintenant ?",
+            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant ?",
             "title": "Mise à jour disponible"
         },
-        "choose": "Choisir",
+        "choose": "Séléctionner",
         "choose-egs-prefix": "Choisir où le Préfix EGS est installé",
+        "choose-legendary-binary": "Sélectionnez le binaire Legendary",
         "customWine": "Sélectionner le binaire Wine ou Proton",
         "default-install-path": "Choisir le chemin par défaut",
         "error": {
@@ -25,12 +26,13 @@
             },
             "launch": "Erreur lors du lancement du jeu, consultez les fichiers de journalisation !",
             "log": {
-                "message": "Aucun fichier de journalisation n'a été trouvé pour ce jeu",
-                "title": "Aucun fichier de journalisation n'a été trouvé"
+                "message": "Aucun Log n'a été trouvé pour ce jeu",
+                "title": "Aucun Log n'a été trouvé"
             },
             "title": "Erreur"
         },
         "no": "NON",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "n'est pas installé, voulez-vous l'installer ?"
@@ -43,13 +45,20 @@
         "runexe": {
             "title": "Sélectionner l'EXE à exécuter"
         },
-        "select": "Sélectionner",
+        "select": {
+            "button": "Selectionner",
+            "exe": "Choisir l'EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
-            "button": "Choisir",
+            "button": "Sélectionner",
             "error": "Chemin invalide",
             "title": "Choisir le dossier de sauvegardes"
         },
-        "wineprefix": "Choisir le dossier de préfix Wine",
+        "wineprefix": "Choisir le dossier de préfixe Wine",
         "yes": "OUI"
     },
     "button": {
@@ -58,8 +67,8 @@
         "unsync": "Désynchroniser"
     },
     "Downloading": "Téléchargement en cours",
+    "Epic Games": "Epic Games",
     "Filter": "Filtre",
-    "Games": "Jeux",
     "globalSettings": "Paramètres généraux",
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
@@ -79,7 +88,7 @@
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
-            "part1": "Heroic recherche des versions de Wine et Proton dans ces dossiers :",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "Aucun jeu trouvé",
     "Not Ready": "Non installé",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Réparation Terminée"
         },
         "install": {
             "canceled": "Installation Annulée",
-            "finished": "Installation Terminée"
+            "finished": "Installation Terminée",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Déplacement Terminé",
         "uninstalled": "Désinstallé",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Version de Legendary : ",
         "weblate": "Aidez à traduire Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Utilisation du binaire Legendary intégré...",
         "egs-prefix": "Prefix où EGS est installé"
     },
     "Plugins": "Plugins",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
+        "alt-legendary-bin": "Choisissez un autre fichier binaire Legendary à utiliser",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
-        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
+        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
         "autosync": "Sauvegardes Autosync",
+        "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
@@ -147,10 +166,10 @@
         "discordRPC": "Activer Rich Presence dans Discord",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
-        "esync": "Enable Esync",
+        "esync": "Activer Esync",
         "exit-to-tray": "Quitter vers System Tray",
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
-        "fsync": "Enable Fsync",
+        "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
@@ -185,12 +204,24 @@
     "Settings": "Options",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Général",
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes"
         }
     },
     "store": "Boutique",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Ajouter un nouveau chemin",
         "removepath": "Supprimer le chemin"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Marché Unreal",
     "Updates": "Mises à jour",
     "userselector": {
-        "about": "À propos",
         "discord": "Discord",
         "logout": "Déconnexion",
         "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
-        "quit": "Quitter",
-        "refresh": "Actualiser la bibliothèque",
-        "support": "Nous supporter"
+        "quit": "Quitter"
     },
     "wiki": "Wiki",
     "WineGE": "",

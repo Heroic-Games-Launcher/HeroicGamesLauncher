@@ -8,6 +8,7 @@
         },
         "choose": "Ok",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
+        "choose-legendary-binary": "Välj Legendary binär",
         "customWine": "Välj wine eller proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Error"
         },
         "no": "Nej",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "Välj EXE-fil att köra"
         },
-        "select": "Kör",
+        "select": {
+            "button": "Välj",
+            "exe": "Välj EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
@@ -58,8 +67,8 @@
         "unsync": "Ogör synkronisering"
     },
     "Downloading": "Laddar ner",
+    "Epic Games": "Epic Games",
     "Filter": "Filtrera",
-    "Games": "Games",
     "globalSettings": "Globala inställningar",
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
@@ -79,7 +88,7 @@
             "part4": "Synkronisera spelspraningar automatisk kommer synkronisera sparfiler var gång ett spel startas samt avslutas."
         },
         "wine": {
-            "part1": "Heroic söker efter versioner av Wine och Proton i följade mappar:",
+            "part1": "Heroic söker efter versioner av Wine, Proton och CrossOver i följade mappar:",
             "part2": "För andra platser, använd en symbolisk länk till en av mapparna"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "Inga spel hittades",
     "Not Ready": "Ej nedladdade",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Reparation klar"
         },
         "install": {
             "canceled": "Installation avbröts",
-            "finished": "Installation klar"
+            "finished": "Installation klar",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Flytta klar",
         "uninstalled": "Avinstallerad",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary version: ",
         "weblate": "Hjälp till med översättning av Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Använd inbyggd Legendary binär...",
         "egs-prefix": "Prefix där EGS är installerad"
     },
     "Plugins": "Plugins",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
+        "alt-legendary-bin": "Välj en alternativ Legendary binär att använda",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
-        "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
+        "autodxvk": "Automatiskt installera/uppdatera DXVK/VKD3D i prefix",
         "autosync": "Autosynkronisera sparfiler",
+        "change-target-exe": "Välj en alternativ EXE att köra",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i systembrickan",
@@ -147,10 +166,10 @@
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
-        "esync": "Enable Esync",
+        "esync": "Aktivera Esync",
         "exit-to-tray": "Avsluta till systembrickan",
         "FsrSharpnessStrenght": "FSR Skärpanivå",
-        "fsync": "Enable Fsync",
+        "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
@@ -185,12 +204,24 @@
     "Settings": "Inställningar",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Allmänna",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         }
     },
     "store": "Butik",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Lägg till ny sökväg",
         "removepath": "Ta bort sökväg"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Unreal marknadsplats",
     "Updates": "Uppdateringar",
     "userselector": {
-        "about": "Om",
         "discord": "Discord",
         "logout": "Logga ut",
         "logout_confirmation": "Är du säker på att du vill logga ut?",
-        "quit": "Avsluta",
-        "refresh": "Uppdatera bibliotet",
-        "support": "Stöd oss"
+        "quit": "Avsluta"
     },
     "wiki": "Wiki",
     "WineGE": "",

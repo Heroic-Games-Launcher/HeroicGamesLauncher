@@ -2,11 +2,14 @@
     "button": {
         "login": "Prijava"
     },
+    "info": {
+        "needHelp": "Trebaš pomoć?"
+    },
     "input": {
         "placeholder": "Zalijepite SID broj ovdje"
     },
     "message": {
-        "part1": "Da se možete prijaviti i instalirati svoje igrice, prvo morate pratiti ove korake ispod:",
+        "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate pratiti ove korake ispod:",
         "part2": "Otvori",
         "part3": "Epic Store ovdje",
         "part4": ", prijavite se u svoj račun i kopirajte svoj",

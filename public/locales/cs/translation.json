@@ -8,6 +8,7 @@
         },
         "choose": "Vybrat",
         "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Error"
         },
         "no": "NE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Není nainstalován, chcete jej nainstalovat?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "Vyberte soubor EXE pro spuštění"
         },
-        "select": "Vybrat",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Vybrat",
             "error": "Neplatná cesta",
@@ -58,8 +67,8 @@
         "unsync": "Desynchroniozovat"
     },
     "Downloading": "Stahování",
+    "Epic Games": "Epic Games",
     "Filter": "Filtr",
-    "Games": "Games",
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -98,12 +107,18 @@
     "nogames": "Žádné hry nebyly nalezeny",
     "Not Ready": "Není připraveno",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Oprava dokončena"
         },
         "install": {
             "canceled": "Instalace zrušena",
-            "finished": "Instalace dokončena"
+            "finished": "Instalace dokončena",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Přesun dokončen",
         "uninstalled": "Odinstalováno",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Pomozte s překladem Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },
     "Plugins": "Plugins",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
-        "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
+        "autodxvk": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Zjišťovat dostupnost aktualizací po spuštění",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
@@ -185,12 +204,24 @@
     "Settings": "Nastavení",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Obecné",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         }
     },
     "store": "Obchod",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "přidat novou cestu",
         "removepath": "Odstranit cestu"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualizace",
     "userselector": {
-        "about": "O aplikaci",
         "discord": "Discord",
         "logout": "Odhlásit",
         "logout_confirmation": "Logout?",
-        "quit": "Ukončit",
-        "refresh": "Obnovit knihovnu",
-        "support": "Podpořte nás"
+        "quit": "Ukončit"
     },
     "wiki": "Wiki",
     "WineGE": "",

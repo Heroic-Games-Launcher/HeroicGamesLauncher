@@ -1,10 +1,7 @@
 .Login {
   display: grid;
-  place-items: stretch;
-  grid-template-columns: 1fr 1fr;
   width: 100%;
   height: 100%;
-  position: absolute;
 }
 
 .loginBackground {
@@ -30,7 +27,8 @@
   width: 205px;
   height: 48px;
   place-self: baseline;
-  margin-bottom: 60px;
+  margin-bottom: 14px;
+  display: flex;
 }
 
 .heroicText {
@@ -40,6 +38,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: left;
 }
 
 .heroicTitle {
@@ -61,8 +60,6 @@
 }
 
 .logo {
-  background: url('../../assets/heroic-icon.png');
-  background-size: contain;
   position: absolute;
   width: 46px;
   height: 46px;
@@ -79,7 +76,7 @@
 
 .aboutContainer {
   max-width: 550px;
-  padding: 25px;
+  padding-top: 12px;
 }
 
 .loginFormWrapper {
@@ -95,9 +92,10 @@
   font-family: Cabin;
   font-style: normal;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 27px;
   color: var(--text-primary);
+  text-align: left;
 }
 
 .loginInstructions strong {
@@ -123,6 +121,7 @@
 .loginInstructions ol li {
   margin-bottom: 10px;
 }
+
 .loginInstructions p {
   margin-bottom: 35px;
   margin-top: 10px;
@@ -187,4 +186,20 @@
   width: 140px;
   height: 30px;
   text-indent: 10px;
+  position: absolute;
+  bottom: 12px;
+  right: 10px;
+}
+
+.helpWrapper {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--secondary);
+  width: 96%;
+}
+
+.helpWrapper > .buttonWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

@@ -8,6 +8,7 @@
         },
         "choose": "請選擇",
         "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
         "error": {
@@ -31,6 +32,7 @@
             "title": "錯誤"
         },
         "no": "否",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "未安裝，您是否希望安裝它？"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "選擇要執行的EXE檔案"
         },
-        "select": "選擇",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "選擇",
             "error": "無效路徑",
@@ -58,8 +67,8 @@
         "unsync": "不同步"
     },
     "Downloading": "正在下載",
+    "Epic Games": "Epic Games",
     "Filter": "篩選",
-    "Games": "遊戲",
     "globalSettings": "全域設定",
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
@@ -98,12 +107,18 @@
     "nogames": "未找到遊戲",
     "Not Ready": "尚未就緒",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "已完成修復"
         },
         "install": {
             "canceled": "已取消安裝",
-            "finished": "安裝完成"
+            "finished": "安裝完成",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "移動完成",
         "uninstalled": "已解除安裝",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "請幫助翻譯Heroic啟動器。"
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Epic Games商城安裝位置"
     },
     "Plugins": "外掛插件",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
-        "autodxvk": "在PREFIX自動安裝並更新DXVK",
+        "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
         "autosync": "自動同步存檔",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "啟動時檢查更新",
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
@@ -185,12 +204,24 @@
     "Settings": "設定",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "一般",
             "other": "其它",
             "sync": "存檔-同步"
         }
     },
     "store": "商店",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "添加新路徑",
         "removepath": "刪除路徑"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "虛幻商城",
     "Updates": "更新",
     "userselector": {
-        "about": "關於",
         "discord": "Discord",
         "logout": "登出",
         "logout_confirmation": "您確定要登出嗎？",
-        "quit": "退出",
-        "refresh": "刷新收藏庫",
-        "support": "支持我們"
+        "quit": "退出"
     },
     "wiki": "Wiki百科",
     "WineGE": "",

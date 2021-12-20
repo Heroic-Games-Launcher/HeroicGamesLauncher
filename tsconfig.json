@@ -39,8 +39,5 @@
     "dist",
     "*.test.tsx"
   ],
-  "include": [
-    "src", 
-    "src/types.ts",
-    "src/typings-custom/**/*.ts"]
+  "include": ["src", "src/types.ts", "src/typings-custom/**/*.ts"]
 }

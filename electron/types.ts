@@ -4,10 +4,11 @@ interface About {
 }
 
 export interface AppSettings {
-  checkUpdatesInterval: number,
+  checkUpdatesInterval: number
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  altLegendaryBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
@@ -35,13 +36,14 @@ export interface AppSettings {
   showMangohud: boolean
   startInTray: boolean
   useGameMode: boolean
+  targetExe: string
   userInfo: UserInfo
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
 }
 
-export type ExecResult = void | {stderr : string, stdout : string}
+export type ExecResult = void | { stderr: string; stdout: string }
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
@@ -67,6 +69,39 @@ export interface GameInfo {
   namespace: string
   save_folder: string
   title: string
+  canRunOffline: boolean
+}
+
+type DLCInfo = {
+  app_name: string
+  title: string
+}
+
+type GameInstallInfo = {
+  app_name: string
+  launch_options: Array<string>
+  owned_dlc: Array<DLCInfo>
+  title: string
+  version: string
+}
+
+type Prerequisites = {
+  args: string
+  name: string
+  path: string
+}
+
+type GameManifest = {
+  app_name: string
+  disk_size: number
+  download_size: number
+  install_tags: Array<string>
+  launch_exe: string
+  prerequisites: Prerequisites
+}
+export interface InstallInfo {
+  game: GameInstallInfo
+  manifest: GameManifest
 }
 
 export interface GameSettings {
@@ -85,6 +120,7 @@ export interface GameSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  targetExe: string
   useGameMode: boolean
   wineCrossoverBottle: string
   winePrefix: string
@@ -155,7 +191,6 @@ interface Reqs {
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
-
 export type UserInfo = {
   account_id?: string
   displayName?: string
@@ -165,4 +200,19 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
+  wineboot?: string
+  wineserver?: string
+}
+
+export interface InstallArgs {
+  path: string
+  installDlcs?: boolean
+  sdlList?: Array<string>
+}
+
+export interface InstallParams {
+  appName: string
+  path: string
+  installDlcs?: boolean
+  sdlList?: Array<string>
 }

@@ -8,6 +8,7 @@
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Local de instalação padrão",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Error"
         },
         "no": "NÃO",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "O jogo não está instalado, deseja instalar?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "Selecione o EXE"
         },
-        "select": "Selecionar",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
@@ -58,8 +67,8 @@
         "unsync": "Dessincronizar"
     },
     "Downloading": "Baixando",
+    "Epic Games": "Epic Games",
     "Filter": "Filtro",
-    "Games": "Games",
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
@@ -79,7 +88,7 @@
             "part4": "Sincronizar Saves Automaticamente: ativando essa opção, toda a vez que você iniciar uma sessão de jogos ou terminar de jogar, o Heroic irá realizar uma sincronização. Dessa forma seus saves sempre estarão atualizados."
         },
         "wine": {
-            "part1": "Heroic procura por versões do Wine e do Proton nas seguntes pastas:",
+            "part1": "Heroic procura versões de Wine, Proton e CrossOver nas seguintes pastas:",
             "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "Nenhum Jogo Encontrado",
     "Not Ready": "Não Baixados",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Terminou o Reparo"
         },
         "install": {
             "canceled": "Instalação cancelada",
-            "finished": "Instalação concluída"
+            "finished": "Instalação concluída",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Movido com sucesso",
         "uninstalled": "Desinstalado",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Ajude a traduzir o Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix onde a Epic Games está instalada"
     },
     "Plugins": "Plugins",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "Consertar Audio do Jogo",
-        "autodxvk": "Instalar/Atualizar DXVK automaticamente",
+        "autodxvk": "Instalar/Atualizar DXVK/VKD3D automaticamente",
         "autosync": "Ativar Sincronização Automática",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Checar por atualizações ao iniciar",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro",
@@ -185,12 +204,24 @@
     "Settings": "Configurações",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Geral",
             "other": "Outros",
             "sync": "Sincronização"
         }
     },
     "store": "Loja",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Adicionar",
         "removepath": "Remover"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Loja Unreal",
     "Updates": "Atualizações",
     "userselector": {
-        "about": "Sobre",
         "discord": "Discord",
         "logout": "Sair",
         "logout_confirmation": "Logout?",
-        "quit": "Fechar",
-        "refresh": "Atualizar Biblioteca",
-        "support": "Apoie-nos"
+        "quit": "Fechar"
     },
     "wiki": "Wiki",
     "WineGE": "",

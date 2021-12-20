@@ -6,22 +6,17 @@
             "title": "Αλλαγή διαδρομής εγκατάστασης παιχνιδιών"
         },
         "choose": "Επιλογή",
+        "default-install-path": "",
         "importpath": "Επιλέξτε φάκελο παιχνιδιών για εισαγωγή",
-        "installpath": "Επιλέξτε διαδρομή εγκατάστασης",
         "move": {
             "message": "Αυτό μπορεί να πάρει πολύ ώρα, είστε σίγουροι;",
             "path": "Επιλέξτε που θέλετε να το μετακινήσετε",
             "title": "Μετακίνηση εγκατάστασης παιχνιδιού"
         },
         "no": "ΟΧΙ",
-        "ok": "Ok",
         "repair": {
             "message": "Θέλετε να δοκιμάσετε να επιδιορθώσετε αυτό το παιχνίδι; Αυτό μπορεί να πάρει πολύ ώρα.",
             "title": "Επαλήθευση και Επιδιόρθωση"
-        },
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Συνέχιση εγκατάστασης",
@@ -39,35 +34,40 @@
         "yes": "ΝΑΙ"
     },
     "button": {
-        "cancel": "Ακύρωση",
+        "cancel": "Παύση/Ακύρωση",
         "continue": "Συνέχιση λήψης",
-        "import": "Εισαγωγή",
+        "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
         "uninstall": "Απεγκατάσταση",
         "update": "Update"
     },
     "disabled": "Απενεργοποιημένο",
+    "dlc": {
+        "installDlcs": "Εγκατάσταση όλων των DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Ενεργοποιημένο",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "Μέγεθος λήψης",
+        "firstPlayed": "Παίχτηκε πρώτη φορά",
+        "installSize": "Μέγεθος Εγκατάστασης",
+        "lastPlayed": "Παίχτηκε Τελευταία φορά",
+        "neverPlayed": "Ποτέ",
+        "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
         "moving": "Μετακίνηση",
         "repairing": "Επιδιόρθωση"
     },
     "info": {
+        "canRunOffline": "Απαιτείται σύνδεση",
         "path": "Διαδρομή εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός save",
         "version": "Έκδοση"
     },
     "install": {
-        "another": "Εγκατάσταση σε άλλη διαδρομή",
-        "default": "Εγκατάσταση σε",
-        "import": "Εισαγωγή παιχνιδιού"
+        "path": "Select Install Path"
     },
     "label": {
         "playing": {
@@ -77,6 +77,13 @@
         "saves": {
             "syncing": "Συγχρονισμός save"
         }
+    },
+    "launch": {
+        "options": "Ρυθμίσεις εκκίνησης..."
+    },
+    "sdl": {
+        "showList": "Πατήστε για να δείτε/κρύψετε επιπλέον στοιχεία",
+        "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
     "specs": {
         "minimum": "Ελάχιστα",
@@ -89,7 +96,6 @@
         "installing": "Εγκατάσταση",
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
-        "notSupported": "Αυτό το παιχνίδι μπορεί μόνον να εισαχθεί",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "updating": "Ενημέρωση παιχνιδιού"

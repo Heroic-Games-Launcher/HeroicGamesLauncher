@@ -1,29 +1,14 @@
 import './index.css'
 
-import React, {
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import {
-  AppSettings,
-  WineInstallation
-} from 'src/types'
+import { AppSettings, WineInstallation } from 'src/types'
 import { IpcRenderer } from 'electron'
-import {
-  NavLink,
-  useLocation,
-  useParams
-} from 'react-router-dom'
-import {
-  getGameInfo,
-  writeConfig
-} from 'src/helpers'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import Header from 'src/components/UI/Header'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import GeneralSettings from './components/GeneralSettings'
@@ -47,8 +32,6 @@ interface LocationState {
   fromGameCard: boolean
 }
 
-// TODO: add feedback when launching winecfg and winetricks
-
 function Settings() {
   const { t, i18n } = useTranslation()
   const { state } = useLocation() as { state: LocationState }
@@ -62,6 +45,7 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
@@ -70,6 +54,7 @@ function Settings() {
   const [maxRecentGames, setMaxRecentGames] = useState(5)
   const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
+  const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
@@ -162,7 +147,6 @@ function Settings() {
     setOn: setEnableFsync
   } = useToggle(false)
 
-
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
     saveFolder: ''
@@ -216,6 +200,8 @@ function Settings() {
       setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
+      setTargetExe(config.targetExe || '')
+      setAltLegendaryBin(config.altLegendaryBin || '')
 
       if (!isDefault) {
         const {
@@ -236,6 +222,7 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   const GlobalSettings = {
+    altLegendaryBin,
     addDesktopShortcuts,
     addStartMenuShortcuts,
     audioFix,
@@ -280,6 +267,7 @@ function Settings() {
     savesPath,
     showFps,
     showMangohud,
+    targetExe,
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
@@ -288,9 +276,9 @@ function Settings() {
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
 
-  let returnPath: string | null = isDefault ? '/' : `/gameconfig/${appName}`
-  if (state && state.fromGameCard) {
-    returnPath = '/'
+  let returnPath: string | null = '/'
+  if (state && !state.fromGameCard) {
+    returnPath = `/gameconfig/${appName}`
   }
 
   useEffect(() => {
@@ -303,7 +291,6 @@ function Settings() {
 
   return (
     <>
-      <Header goTo={returnPath} renderBackButton title={title} />
       <div className="Settings">
         <div className="settingsNavbar">
           {isDefault && (
@@ -317,7 +304,10 @@ function Settings() {
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
-            <NavLink data-testid='linkSync' to={{ pathname: `/settings/${appName}/sync` }}>
+            <NavLink
+              data-testid="linkSync"
+              to={{ pathname: `/settings/${appName}/sync` }}
+            >
               {t('settings.navbar.sync')}
             </NavLink>
           )}
@@ -326,8 +316,14 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
+          <NavLink to={returnPath}>{t('settings.navbar.back', 'Back')}</NavLink>
         </div>
         <div className="settingsWrapper">
+          {title && (
+            <div className="headerTitle" data-testid="headerTitle">
+              {title}
+            </div>
+          )}
           {isGeneralSettings && (
             <GeneralSettings
               egsPath={egsPath}
@@ -348,6 +344,8 @@ function Settings() {
               darkTrayIcon={darkTrayIcon}
               toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+              altLegendaryBin={altLegendaryBin}
+              setAltLegendaryBin={setAltLegendaryBin}
             />
           )}
           {isWineSettings && (
@@ -407,6 +405,8 @@ function Settings() {
               toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
               toggleDiscordRPC={toggleDiscordRPC}
               discordRPC={discordRPC}
+              targetExe={targetExe}
+              setTargetExe={setTargetExe}
             />
           )}
           {isSyncSettings && (
@@ -421,6 +421,7 @@ function Settings() {
             />
           )}
           <span className="save">{t('info.settings')}</span>
+          {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>
     </>

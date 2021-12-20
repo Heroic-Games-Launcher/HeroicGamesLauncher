@@ -8,6 +8,7 @@
         },
         "choose": "തിരഞ്ഞെടുക്കൂ",
         "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ ഈരക്കരേഖ(Binary file) നല്‍കൂ",
         "default-install-path": "പൊതു ഇന്‍സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
         "error": {
@@ -31,6 +32,7 @@
             "title": "കുഴപ്പം"
         },
         "no": "വേണ്ട",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "ഇത് സ്ഥാപിച്ചിട്ടില്ല, സ്ഥാപിക്കണോ?"
@@ -43,13 +45,20 @@
         "runexe": {
             "title": "ഓടിക്കുവാനുള്ള EXE നല്‍കൂ"
         },
-        "select": "എടുക്കൂ",
+        "select": {
+            "button": "തിരഞ്ഞെടുക്കൂ",
+            "exe": "EXE തിരഞ്ഞെടുക്കൂ"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "തിരഞ്ഞെടുക്കൂ",
-            "error": "ഇത് ശരിയല്ലല്ലോ",
+            "error": "വഴി ശരിയല്ലല്ലോ",
             "title": "സൂക്ഷിക്കാനുള്ള അറ തിരഞ്ഞെടുക്കൂ"
         },
-        "wineprefix": "വൈനിന്റെ ഉപസര്‍ഗ്ഗം(prefix) തിരഞ്ഞെടുക്കൂ",
+        "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി"
     },
     "button": {
@@ -58,13 +67,13 @@
         "unsync": "പിരിക്കൂ"
     },
     "Downloading": "ഇറക്കുന്നവ",
+    "Epic Games": "Epic Games",
     "Filter": "അരിപ്പ",
-    "Games": "കളികള്‍",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്‍",
     "help": {
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടൂല്‍ മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്‍ നിങ്ങളുടെ കളികള്‍ വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
-            "part1": "കളി ഓടിക്കുന്നതിനുമുന്‍പുള്ള വിളികള്‍ക്കായി",
+            "part1": "കളി ഓടിക്കുന്നതിനുമുന്‍പുള്ള വിളികള്‍ക്കായി ",
             "part2": "ഉയര്‍ന്ന ക്രമീകരണങ്ങള്‍",
             "part3": "ഉപയോഗിക്കൂ; ",
             "part4": "കളി ഓടിത്തുടങ്ങിയതിനു ശേഷം വിളിക്കാന്‍ ",
@@ -79,7 +88,7 @@
             "part4": "താനേയുള്ള ഒന്നിപ്പിക്കല്‍ സുക്ഷിപ്പ്(sync save), ഓരോ തവണ നിങ്ങള്‍ കളി തുടങ്ങുമ്പോഴും കളികഴിഞ്ഞിറങ്ങുമ്പോഴും നിങ്ങളുടെ ഒന്നിപ്പിക്കലുകള്‍ സൂക്ഷിക്കുന്നു."
         },
         "wine": {
-            "part1": "വൈനിനും പ്രോട്ടോണിനുമായി ഹീറോയിക് താഴെപ്പറയുന്ന സ്ഥലങ്ങളില്‍ തപ്പുന്നു:",
+            "part1": "വൈനിനും പ്രോട്ടോണിനും ക്രോസ്സോവറിനുമായി ഹീറോയിക് താഴെപ്പറയുന്ന സ്ഥലങ്ങളില്‍ തപ്പുന്നു:",
             "part2": "മറ്റിടങ്ങളെ ഈ സ്ഥലങ്ങളുമായി കോര്‍ക്കാന്‍ കണ്ണികള്‍ ഉപയോഗിക്കൂ"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
     "Not Ready": "സജ്ജമല്ലാത്തവ",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "നന്നാക്കിക്കഴിഞ്ഞു"
         },
         "install": {
             "canceled": "സ്ഥാപനം റദ്ദാക്കി",
-            "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു"
+            "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
         "uninstalled": "എടുത്തുനീക്കി",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന്‍ സഹായിക്കൂ."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
     },
     "Plugins": "കൂടുതലുകള്‍",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "കുറുക്കുവഴികള്‍ മേശപ്പുറത്ത് താനേ ചേര്‍ക്കൂ",
         "addgamestostartmenu": "കളികള്‍ തുടക്കപ്പട്ടികയില്‍ താനേ ചേര്‍ക്കൂ",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്‍സ് ഓഡിയോ ലാറ്റന്‍സി)",
-        "autodxvk": "ഉപസഗ്ഗ഻ത്തില്‍(പ്രഫിക്സില്‍) DXVK തന്നത്താന്‍ സ്ഥാപിക്കൂ/പുതുക്കൂ",
+        "autodxvk": "ഉപസഗ്ഗ഻ത്തില്‍(പ്രഫിക്സില്‍) DXVK/VKD3D തന്നത്താന്‍ സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്‍",
+        "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
         "checkForUpdatesOnStartup": "തുടങ്ങുമ്പോള്‍ പുതുക്കലുകള്‍ക്കായി പരതൂ",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്‍ത്ത വൈന്‍/പ്രോട്ടോണ്‍ അറകള്‍",
         "darktray": "താലത്തില്‍(ട്രേയില്‍) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
@@ -147,10 +166,10 @@
         "discordRPC": "ഡിസ്കോര്‍ഡ് റിച്ച് പ്രെസന്‍സ് വക്കൂ",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
         "enableFSRHack": "എഫ്എസ്ആര്‍ ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
-        "esync": "Enable Esync",
+        "esync": "Esync വയ്ക്കൂ",
         "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
         "FsrSharpnessStrenght": "എഫ്എസ്ആര്‍ ഷാര്‍പ്പ്നെസ്സ് സ്ട്രെങ്ത്",
-        "fsync": "Enable Fsync",
+        "fsync": "Fsync വയ്ക്കൂ",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",
         "mangohud": "മാന്‍ഘൗട്ട് ഉപയോഗിക്കൂ(മാന്‍ഘൗട്ട് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
@@ -178,19 +197,31 @@
         },
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "ക്രോസ്സോവര്‍ കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
         "wineversion": "വൈനിന്റെ പതിപ്പ്"
     },
     "Settings": "ക്രമീകരണങ്ങള്‍",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "പൊതുവായവ",
             "other": "മറ്റുള്ളവ",
             "sync": "ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കൂ"
         }
     },
     "store": "കട",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്‍ക്കുക",
         "removepath": "ഇടം നീക്കുക"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "അണ്‍റിയല്‍ ചന്ത",
     "Updates": "പുതുക്കലുകള്‍",
     "userselector": {
-        "about": "ഇതിനെക്കിറിച്ച്",
         "discord": "ഡിസ്കോഡ഻്",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
         "logout_confirmation": "Logout?",
-        "quit": "പുറത്തുകടക്കൂ",
-        "refresh": "കളിശാല പുതുക്കൂ",
-        "support": "ഞങ്ങളെ പിന്താങ്ങൂ"
+        "quit": "പുറത്തുകടക്കൂ"
     },
     "wiki": "അറിവിന്‍കൂട്ടം",
     "WineGE": "",

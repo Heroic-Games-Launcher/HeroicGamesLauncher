@@ -1,0 +1,246 @@
+{
+    "All": "Semua",
+    "Assets": "Assets",
+    "box": {
+        "appupdate": {
+            "message": "There is a new version of Heroic Available, do you want to update now?",
+            "title": "Update Available"
+        },
+        "choose": "Pilih",
+        "choose-egs-prefix": "",
+        "choose-legendary-binary": "Select Legendary Binary",
+        "customWine": "Select the Wine or Proton Binary",
+        "default-install-path": "",
+        "error": {
+            "credentials": {
+                "message": "Your Crendentials have expired, Logout and Login Again!",
+                "title": "Expired Credentials"
+            },
+            "diskspace": {
+                "message": "Not enough available disk space",
+                "title": "No Space"
+            },
+            "generic": {
+                "message": "An Unknown Error has occurred",
+                "title": "Unknown Error"
+            },
+            "launch": "Error when launching the game, check the logs!",
+            "log": {
+                "message": "No Log was found for this game",
+                "title": "Log Not Found"
+            },
+            "title": "Error"
+        },
+        "no": "TIDAK",
+        "ok": "Ok",
+        "protocol": {
+            "install": {
+                "not_installed": "Is Not Installed, do you wish to Install it?"
+            }
+        },
+        "quit": {
+            "message": "There are pending operations, are you sure?",
+            "title": "Exit"
+        },
+        "runexe": {
+            "title": "Pilih EXE untuk menjalankan"
+        },
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
+        "sync": {
+            "button": "Pilih",
+            "error": "",
+            "title": "Pilih direktori penyimpanan"
+        },
+        "wineprefix": "Pilih Folder Prefix Winie",
+        "yes": "YA"
+    },
+    "button": {
+        "sync": "Sinkronkan",
+        "syncing": "",
+        "unsync": ""
+    },
+    "Downloading": "",
+    "Epic Games": "Epic Games",
+    "Filter": "",
+    "globalSettings": "Global Settings",
+    "help": {
+        "general": "",
+        "other": {
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": "",
+            "part5": "",
+            "part6": "",
+            "part7": ""
+        },
+        "sync": {
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": ""
+        },
+        "wine": {
+            "part1": "",
+            "part2": ""
+        }
+    },
+    "info": {
+        "settings": ""
+    },
+    "infobox": {
+        "help": "",
+        "requirements": ""
+    },
+    "Library": "",
+    "message": {
+        "sync": "",
+        "unsync": ""
+    },
+    "nogames": "",
+    "Not Ready": "",
+    "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
+        "finished": {
+            "reparing": ""
+        },
+        "install": {
+            "canceled": "",
+            "finished": "",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
+        },
+        "moved": "",
+        "uninstalled": "",
+        "update": {
+            "canceled": "",
+            "finished": ""
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "",
+            "title": ""
+        },
+        "gameargs": {
+            "placeholder": "",
+            "title": ""
+        }
+    },
+    "other": {
+        "legendary-version": "Legendary Version: ",
+        "weblate": "Help Improve this translation."
+    },
+    "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": ""
+    },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
+    "Ready": "",
+    "Recent": "Recent Games",
+    "Return": "",
+    "search": "",
+    "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "audiofix": "",
+        "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
+        "autosync": "",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "customWineProton": "Custom Wine/Proton Paths",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "",
+        "discordRPC": "Enable Discord Rich Presence",
+        "egs-sync": "",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "esync": "Enable Esync",
+        "exit-to-tray": "",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "",
+        "language": "",
+        "mangohud": "",
+        "manualsync": {
+            "download": "",
+            "forcedownload": "",
+            "forceupload": "",
+            "sync": "",
+            "syncing": "",
+            "title": "",
+            "upload": ""
+        },
+        "maxRecentGames": "Recent Games to Show",
+        "maxworkers": "",
+        "offlinemode": "",
+        "primerun": "Enable Nvidia Prime Render",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "runexe": {
+            "message": "",
+            "title": ""
+        },
+        "savefolder": {
+            "placeholder": "",
+            "title": ""
+        },
+        "showfps": "",
+        "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "",
+        "wineversion": ""
+    },
+    "Settings": "",
+    "settings": {
+        "navbar": {
+            "back": "Back",
+            "general": "",
+            "other": "",
+            "sync": ""
+        }
+    },
+    "store": "Store",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
+    "tooltip": {
+        "addpath": "Add New Path",
+        "removepath": "Remove Path"
+    },
+    "Total Games": "",
+    "tray": {
+        "about": "About",
+        "quit": "Quit",
+        "reload": "Reload",
+        "show": "",
+        "support": "Support Us"
+    },
+    "Unreal Marketplace": "Unreal Marketplace",
+    "Updates": "Updates",
+    "userselector": {
+        "discord": "Discord",
+        "logout": "",
+        "logout_confirmation": "Logout?",
+        "quit": ""
+    },
+    "wiki": "Wiki"
+}

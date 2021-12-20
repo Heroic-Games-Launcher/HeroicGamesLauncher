@@ -1,8 +1,5 @@
 .SearchBar {
   grid-area: search;
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  place-items: center;
 }
 
 .searchInput {

@@ -8,6 +8,7 @@
         },
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
+        "choose-legendary-binary": "Legendary Çalıştırılabilir Dosyası Seç",
         "customWine": "Wine ya da Proton Dosyasını Seçin",
         "default-install-path": "Varsayılan Kurulum Yerini Seçin",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Hata"
         },
         "no": "HAYIR",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Kurulu değil, kurmak ister misiniz?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
-        "select": "Seç",
+        "select": {
+            "button": "Seç",
+            "exe": "EXE'yi seç"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Seç",
             "error": "Geçersiz Yol",
@@ -58,8 +67,8 @@
         "unsync": "Eşzamanlamayı kaldır"
     },
     "Downloading": "İndiriliyor",
+    "Epic Games": "Epic Games",
     "Filter": "Filtre",
-    "Games": "Oyunlar",
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -79,7 +88,7 @@
             "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
         },
         "wine": {
-            "part1": "Heroic Wine ve Proton sürümlerini şu klasörlerde arar:",
+            "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
             "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "Oyun Bulunamadı",
     "Not Ready": "Hazır Değil",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Onarım Tamamlandı"
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
-            "finished": "Kurulum Tamamlandı"
+            "finished": "Kurulum Tamamlandı",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Taşıma Tamamlandı",
         "uninstalled": "Kaldırıldı",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Sürüm: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
     "placeholder": {
+        "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
     "Plugins": "Eklentiler",
@@ -137,9 +154,11 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
+        "alt-legendary-bin": "Kullanmak için alternatif bir Legendary çalıştırılabilir dosyası seçin",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
-        "autodxvk": "DXVK'yı otomatik kur/güncelle",
+        "autodxvk": "DXVK/VKD3D'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan",
@@ -147,10 +166,10 @@
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
-        "esync": "Enable Esync",
+        "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem Tepsisine Küçült",
         "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
-        "fsync": "Enable Fsync",
+        "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
@@ -178,19 +197,31 @@
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "start-in-tray": "Simge Durumuna Küçültülmüş Başla",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü"
     },
     "Settings": "Ayarlar",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Genel",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         }
     },
     "store": "Mağaza",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Unreal Mağazası",
     "Updates": "Güncellemeler",
     "userselector": {
-        "about": "Hakkında",
         "discord": "Discord",
         "logout": "Oturumu Kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
-        "quit": "Çık",
-        "refresh": "Kütüphaneyi Yenile",
-        "support": "Bizi Destekleyin"
+        "quit": "Çık"
     },
     "wiki": "Wiki",
     "WineGE": "",

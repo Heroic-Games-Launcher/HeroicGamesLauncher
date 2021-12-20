@@ -9,6 +9,8 @@
   max-width: 912px;
   border-radius: 1rem;
   padding: 24px;
+  grid-area: content;
+  margin: 48px;
 }
 
 .settingsNavbar {
@@ -41,6 +43,12 @@
   place-items: flex-start;
   width: 569px;
   padding-bottom: 8px;
+}
+
+.headerTitle {
+  font-size: 2rem;
+  margin: auto;
+  padding: 8px;
 }
 
 .settingsTools {
@@ -92,16 +100,6 @@
   transform: scale(1.5);
 }
 
-.settingText {
-  margin-bottom: 14px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-primary);
-}
-
 .settingSelect.small {
   width: 372px;
 }
@@ -135,6 +133,20 @@
   color: #5a5e5f;
 }
 
+.appName {
+  margin-left: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #5a5e5f;
+}
+
 .save > .material-icons {
   font-size: 28px;
   margin-left: 6px;
@@ -148,10 +160,14 @@
   padding-top: 4px;
 }
 
-.smallMessage {
+.smallLink {
   font-size: 12px;
   width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
+  cursor: pointer;
+}
+
+a {
   cursor: pointer;
 }

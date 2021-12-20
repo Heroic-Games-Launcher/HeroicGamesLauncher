@@ -1,22 +1,12 @@
 import * as axios from 'axios'
-import {
-  app,
-  dialog,
-  net,
-  shell
-} from 'electron'
+import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
-import {
-  existsSync,
-  stat
-} from 'graceful-fs'
+import { existsSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 
 import { GlobalConfig } from './config'
-import {
-  heroicGamesConfigPath,
-  icon} from './constants'
+import { heroicGamesConfigPath, icon } from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
@@ -28,7 +18,7 @@ const { showErrorBox, showMessageBox } = dialog
  * Compares 2 SemVer strings following "major.minor.patch".
  * Checks if target is newer than base.
  */
-function semverGt(target : string, base : string) {
+function semverGt(target: string, base: string) {
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
 
@@ -46,9 +36,9 @@ async function isOnline() {
 
 async function checkForUpdates() {
   const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
-  logInfo('checking for heroic updates');
-  if (!checkForUpdatesOnStartup){
-    logInfo('skipping heroic updates');
+  logInfo('checking for heroic updates')
+  if (!checkForUpdatesOnStartup) {
+    logInfo('skipping heroic updates')
     return
   }
   if (!(await isOnline())) {
@@ -72,10 +62,10 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Mihawk`,
+    applicationVersion: `${app.getVersion()} Caesar Clown`,
     copyright: 'GPL V3',
     iconPath: icon,
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher'
+    website: 'https://heroicgameslauncher.com'
   })
   return app.showAboutPanel()
 }
@@ -102,14 +92,17 @@ const handleExit = async () => {
 }
 
 type ErrorHandlerMessage = {
-  error?: {stderr: string, stdout: string}
+  error?: { stderr: string; stdout: string }
   logPath?: string
 }
 
-async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void> {
+async function errorHandler({
+  error,
+  logPath
+}: ErrorHandlerMessage): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
   const noCredentialsError = 'No saved credentials'
-  if (logPath){
+  if (logPath) {
     execAsync(`tail ${logPath} | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
@@ -125,8 +118,8 @@ async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void
       })
       .catch(() => logInfo('operation interrupted'))
   }
-  if (error){
-    if (error.stderr.includes(noCredentialsError)){
+  if (error) {
+    if (error.stderr.includes(noCredentialsError)) {
       return showErrorBox(
         i18next.t('box.error.credentials.title', 'Expired Credentials'),
         i18next.t(
@@ -146,18 +139,24 @@ function genericErrorMessage(): void {
 }
 
 async function openUrlOrFile(url: string): Promise<string> {
-  if (process.platform === 'darwin'){
+  if (process.platform === 'darwin') {
     try {
       await execAsync(`open ${url}`)
     } catch (error) {
-      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+      dialog.showErrorBox(
+        i18next.t('box.error.log.title', 'Log Not Found'),
+        i18next.t('box.error.log.message', 'No Log was found for this game')
+      )
     }
   }
-  if (process.platform === 'linux'){
+  if (process.platform === 'linux') {
     try {
       await execAsync(`xdg-open '${url}'`)
     } catch (error) {
-      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+      dialog.showErrorBox(
+        i18next.t('box.error.log.title', 'Log Not Found'),
+        i18next.t('box.error.log.message', 'No Log was found for this game')
+      )
     }
   }
   return shell.openPath(url)
@@ -174,38 +173,38 @@ async function openUrlOrFile(url: string): Promise<string> {
 async function checkCommandVersion(
   commands: string[],
   version: string,
-  all_fullfil = true): Promise<boolean> {
-  let found = false;
+  all_fullfil = true
+): Promise<boolean> {
+  let found = false
   for (const command of commands) {
-    try{
-      const {stdout} = await execAsync(command + ' --version');
-      const commandVersion = stdout ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0] : null;
+    try {
+      const { stdout } = await execAsync(command + ' --version')
+      const commandVersion = stdout
+        ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0]
+        : null
 
-      if(semverGt(commandVersion, version) || commandVersion === version) {
+      if (semverGt(commandVersion, version) || commandVersion === version) {
         logInfo(`Command '${command}' found. Version: '${commandVersion}'`)
-        if(!all_fullfil)
-        {
-          return true;
+        if (!all_fullfil) {
+          return true
         }
-        found = true;
-      }
-      else {
-        logWarning(`Command ${command} version '${commandVersion}' not supported.`);
-        if(all_fullfil)
-        {
-          return false;
+        found = true
+      } else {
+        logWarning(
+          `Command ${command} version '${commandVersion}' not supported.`
+        )
+        if (all_fullfil) {
+          return false
         }
       }
-    }
-    catch {
-      logWarning(`${command} command not found`);
-      if(all_fullfil)
-      {
-        return false;
+    } catch {
+      logWarning(`${command} command not found`)
+      if (all_fullfil) {
+        return false
       }
     }
   }
-  return found;
+  return found
 }
 
 export {

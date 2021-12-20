@@ -1,0 +1,18 @@
+.webviewControls {
+  display: grid;
+  grid-template-columns: 2fr 6fr 2fr;
+  align-items: center;
+  position: fixed;
+  padding: 2px 0;
+  width: inherit;
+  background: var(--background-darker);
+}
+
+.webviewIcons {
+  margin-left: 12px;
+  justify-self: baseline;
+}
+
+.MuiSvgIcon-root {
+  cursor: pointer;
+}

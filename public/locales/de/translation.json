@@ -8,6 +8,7 @@
         },
         "choose": "Auswählen",
         "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
+        "choose-legendary-binary": "Legendary Binärdatei auswählen",
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
         "error": {
@@ -31,6 +32,7 @@
             "title": "Error"
         },
         "no": "NEIN",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
@@ -43,7 +45,14 @@
         "runexe": {
             "title": "EXE zum Starten auswählen"
         },
-        "select": "Auswählen",
+        "select": {
+            "button": "Auswählen",
+            "exe": "EXE auswählen"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
@@ -58,8 +67,8 @@
         "unsync": "Nicht mehr synchronisieren"
     },
     "Downloading": "Am Herunterladen",
+    "Epic Games": "Epic Games",
     "Filter": "Filter",
-    "Games": "Spiele",
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -79,7 +88,7 @@
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
         },
         "wine": {
-            "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine und Proton:",
+            "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine, Proton und CrossOver:",
             "part2": "Für andere Orte verwenden Sie einen symbolischen Link zu einem dieser Ordner"
         }
     },
@@ -98,12 +107,18 @@
     "nogames": "Keine Spiele gefunden",
     "Not Ready": "Nicht installiert",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Reparatur abgeschlossen"
         },
         "install": {
             "canceled": "Installation abgebrochen",
-            "finished": "Installation abgeschlossen"
+            "finished": "Installation abgeschlossen",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Verschieben abgeschlossen",
         "uninstalled": "Deinstalliert",
@@ -123,9 +138,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Benutze eingebaute Legendary Binärdatei...",
         "egs-prefix": "Prefix, in dem EGS installiert ist"
     },
     "Plugins": "Plugins",
@@ -137,20 +154,22 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
+        "alt-legendary-bin": "Wählen Sie eine alternative Legendary Binärdatei zur Verwendung",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
-        "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
+        "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK/VKD3D im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
+        "change-target-exe": "Wählen Sie eine alternative EXE zum Ausführen",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
-        "darktray": "Benutze Dunkles Taskleisten-Icon",
+        "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
-        "esync": "Enable Esync",
+        "esync": "Esync aktivieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
         "FsrSharpnessStrenght": "FSR Schärfestärke",
-        "fsync": "Enable Fsync",
+        "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
@@ -185,12 +204,24 @@
     "Settings": "Einstellungen",
     "settings": {
         "navbar": {
+            "back": "Back",
             "general": "Allgemein",
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         }
     },
     "store": "Store",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Neuen Pfad hinzufügen",
         "removepath": "Pfad entfernen"
@@ -206,13 +237,10 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualisierungen",
     "userselector": {
-        "about": "Über Heroic",
         "discord": "Discord",
         "logout": "Abmelden",
         "logout_confirmation": "Logout?",
-        "quit": "Beenden",
-        "refresh": "Bibliothek aktualisieren",
-        "support": "Unterstütze uns"
+        "quit": "Beenden"
     },
     "wiki": "Wiki",
     "WineGE": "WineGE",
