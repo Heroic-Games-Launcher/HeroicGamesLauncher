@@ -215,7 +215,6 @@ function Settings() {
           is_mac_native
         } = await getGameInfo(appName)
         setTitle(gameTitle)
-        console.log({ is_mac_native })
         setIsNativeMac(is_mac_native)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }

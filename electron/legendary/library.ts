@@ -409,6 +409,7 @@ class LegendaryLibrary {
       version = null,
       install_size = null,
       install_path = null,
+      platform,
       is_dlc = metadata.categories.filter(
         ({ path }: { path: string }) => path === 'dlc'
       ).length || dlcs.includes(app_name)
@@ -437,7 +438,8 @@ class LegendaryLibrary {
         install_path,
         install_size: convertedSize,
         is_dlc,
-        version
+        version,
+        platform
       },
       is_game,
       is_installed: info !== undefined,
@@ -445,7 +447,9 @@ class LegendaryLibrary {
       is_ue_plugin,
       is_ue_project,
       namespace,
-      is_mac_native: releaseInfo[0]?.platform.includes('Mac'),
+      is_mac_native: info
+        ? platform === 'Mac'
+        : releaseInfo[0]?.platform.includes('Mac'),
       save_folder: saveFolder,
       title,
       canRunOffline
