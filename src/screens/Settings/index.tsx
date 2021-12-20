@@ -322,16 +322,19 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
-          <NavLink to={returnPath}>{t('settings.navbar.back', 'Back')}</NavLink>
         </div>
         <div className="settingsWrapper">
           {title && (
-            <div className="headerTitle" data-testid="headerTitle">
+            <NavLink
+              to={returnPath}
+              className="headerTitle"
+              data-testid="headerTitle"
+            >
               {title}
               {!isDefault && (
                 <FontAwesomeIcon icon={isNativeMac ? faApple : faWindows} />
               )}
-            </div>
+            </NavLink>
           )}
           {isGeneralSettings && (
             <GeneralSettings
