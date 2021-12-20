@@ -53,7 +53,9 @@ export class GlobalState extends PureComponent<Props> {
     data: libraryStore.has('library')
       ? (libraryStore.get('library') as GameInfo[])
       : [],
-    winege: wineGEStore.has('winege') ? wineGEStore.get('winege') as WineGEInfo[] : [],
+    winege: wineGEStore.has('winege')
+      ? (wineGEStore.get('winege') as WineGEInfo[])
+      : [],
     error: false,
     filter: 'all',
     filterText: '',
@@ -116,15 +118,13 @@ export class GlobalState extends PureComponent<Props> {
     this.refresh(checkForUpdates)
   }
 
-  refreshWineGE = async (runInBackground = true ): Promise<void> => {
+  refreshWineGE = async (runInBackground = true): Promise<void> => {
     this.setState({ refreshing: !runInBackground })
     ipcRenderer.send('logInfo', 'Refreshing WineGE')
     const releases = await ipcRenderer.invoke('refreshWineGE')
-    if(!releases.length)
-    {
+    if (!releases.length) {
       ipcRenderer.send('logError', 'Refreshing WineGE failed')
-    }
-    else{
+    } else {
       this.setState({
         winege: releases,
         refreshing: false

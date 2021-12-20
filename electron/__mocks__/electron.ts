@@ -1,4 +1,4 @@
 export const dialog = {
-        showErrorBox: jest.fn(),
-        showMessageBox: jest.fn()
+  showErrorBox: jest.fn(),
+  showMessageBox: jest.fn()
 }

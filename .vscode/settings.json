@@ -1,3 +1,4 @@
 {
-  "editor.bracketPairColorization.enabled": true
+  "editor.bracketPairColorization.enabled": true,
+  "prettier.configPath": "${fileDirname}/../.prettierrc.json"
 }

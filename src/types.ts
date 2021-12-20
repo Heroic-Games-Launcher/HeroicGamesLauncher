@@ -1,4 +1,3 @@
-
 interface About {
   description: string
   shortDescription: string
@@ -193,15 +192,15 @@ export interface WineInstallation {
 }
 
 export interface WineGEInfo {
-  version:      string;
-  date:         string;
-  download:     string;
-  downsize:     number;
-  disksize:     number;
-  checksum:     string;
-  isInstalled:  boolean;
-  hasUpdate:    boolean;
-  installDir:   string;
+  version: string
+  date: string
+  download: string
+  downsize: number
+  disksize: number
+  checksum: string
+  isInstalled: boolean
+  hasUpdate: boolean
+  installDir: string
 }
 export type ElWebview = {
   goBack: () => void

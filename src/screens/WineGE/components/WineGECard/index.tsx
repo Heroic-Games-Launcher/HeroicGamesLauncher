@@ -19,16 +19,15 @@ const WineGECard = ({
   checksum,
   isInstalled,
   hasUpdate
-  //installDir
-}: WineGEInfo) => {
+}: //installDir
+WineGEInfo) => {
   const { t } = useTranslation()
 
-  const onProgress = (progress: string) =>
-  {
-    console.log(progress);
+  const onProgress = (progress: string) => {
+    console.log(progress)
   }
 
-  async function install () {
+  async function install() {
     return await ipcRenderer.invoke(
       'installWineGE',
       {
@@ -43,27 +42,30 @@ const WineGECard = ({
         installDir: '~/test'
       },
       onProgress
-    );
+    )
   }
 
   const renderIcon = () => {
-    const icons = [];
-    if (!isInstalled || hasUpdate)
-    {
-      icons.push(<DownIcon className="downIcon" onClick={() => install()} />);
+    const icons = []
+    if (!isInstalled || hasUpdate) {
+      icons.push(<DownIcon className="downIcon" onClick={() => install()} />)
     }
 
-    if (isInstalled)
-    {
-      icons.push(<StopIcon onClick={() => {return}} />);
+    if (isInstalled) {
+      icons.push(
+        <StopIcon
+          onClick={() => {
+            return
+          }}
+        />
+      )
     }
 
-    return icons;
+    return icons
   }
 
-  const getSizeInMB = (value: number) =>
-  {
-    return (value / (1024*1024)).toFixed(2);
+  const getSizeInMB = (value: number) => {
+    return (value / (1024 * 1024)).toFixed(2)
   }
 
   return (
@@ -73,18 +75,22 @@ const WineGECard = ({
           <span className="winegeTitleList">{version}</span>
           <div className="winegeListDate">{date}</div>
           <div className="winegeListSize">
-            {isInstalled ?
-              t('winege.diskspace') + ': ' + getSizeInMB(disksize).toString() + ' MB':
-              t('winege.download') + ': ' + getSizeInMB(downsize).toString() + ' MB'
-            }
+            {isInstalled
+              ? t('winege.diskspace') +
+                ': ' +
+                getSizeInMB(disksize).toString() +
+                ' MB'
+              : t('winege.download') +
+                ': ' +
+                getSizeInMB(downsize).toString() +
+                ' MB'}
           </div>
           <span className="icons">
             {renderIcon().map((component) => component)}
           </span>
         </div>
         <hr style={{ opacity: 0.1, width: '90%' }} />
-        <ContextMenu id={version} className="contextMenu">
-        </ContextMenu>
+        <ContextMenu id={version} className="contextMenu"></ContextMenu>
       </ContextMenuTrigger>
     </>
   )

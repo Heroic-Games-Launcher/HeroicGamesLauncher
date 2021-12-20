@@ -1,5 +1,5 @@
 import { InstallParams } from './types'
-import { WineGEInfo } from './winege/types';
+import { WineGEInfo } from './winege/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -673,11 +673,11 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
 })
 
 ipcMain.handle('refreshWineGE', async () => {
-  return await fetchWineGEReleases();
+  return await fetchWineGEReleases()
 })
 
 ipcMain.handle('installWineGE', async (e, release: WineGEInfo, onProgress) => {
-  return await installWineGE(release, onProgress);
+  return await installWineGE(release, onProgress)
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))

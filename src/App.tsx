@@ -55,7 +55,7 @@ function App() {
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />
             <Route path="/settings/:appName/:type" component={Settings} />
-            <Route path="/wine-ge" component={WineGE}/>
+            <Route path="/wine-ge" component={WineGE} />
           </Switch>
         </main>
       </HashRouter>
