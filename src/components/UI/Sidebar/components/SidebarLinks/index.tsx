@@ -73,7 +73,7 @@ export default function SidebarLinks() {
         }}
       >
         <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
           icon={faSlidersH}
         />
 
@@ -88,7 +88,7 @@ export default function SidebarLinks() {
         }}
       >
         <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
           icon={faStore}
         />
         {t('store', 'Store')}
@@ -102,7 +102,7 @@ export default function SidebarLinks() {
         }}
       >
         <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
           icon={faBookOpen}
         />
         {t('wiki', 'Wiki')}

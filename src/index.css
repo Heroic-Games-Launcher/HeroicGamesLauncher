@@ -27,7 +27,7 @@ html {
   --text-tertiary: #101111;
   --text-danger: #d22121;
   --icon-disabled: #625e69;
-  --sidebar-width: 200px;
+  --sidebar-width: 218px;
   --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
 }
