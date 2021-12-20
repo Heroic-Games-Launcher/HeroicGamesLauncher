@@ -15,6 +15,7 @@ const { ipcRenderer } = window.require('electron') as {
 interface Props {
   audioFix: boolean
   isDefault: boolean
+  isNativeMac: boolean
   launcherArgs: string
   offlineMode: boolean
   otherOptions: string
@@ -69,7 +70,8 @@ export default function OtherSettings({
   toggleDiscordRPC,
   maxRecentGames,
   setTargetExe,
-  targetExe
+  targetExe,
+  isNativeMac
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -80,6 +82,7 @@ export default function OtherSettings({
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
+  const shouldRenderFpsOption = !isNativeMac && !isWin
 
   return (
     <>
@@ -124,12 +127,14 @@ export default function OtherSettings({
           </span>
         </span>
       )}
-      <span data-testid="otherSettings" className="setting">
-        <span className="toggleWrapper">
-          {t('setting.showfps')}
-          <ToggleSwitch value={showFps} handleChange={toggleFps} />
+      {shouldRenderFpsOption && (
+        <span data-testid="otherSettings" className="setting">
+          <span className="toggleWrapper">
+            {t('setting.showfps')}
+            <ToggleSwitch value={showFps} handleChange={toggleFps} />
+          </span>
         </span>
-      </span>
+      )}
       {isLinux && (
         <>
           <span className="setting">

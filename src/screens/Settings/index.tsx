@@ -1,6 +1,8 @@
 import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
 import { IpcRenderer } from 'electron'
@@ -154,6 +156,8 @@ function Settings() {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
+  const [isNativeMac, setIsNativeMac] = useState(false)
+
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
@@ -207,9 +211,12 @@ function Settings() {
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
-          title: gameTitle
+          title: gameTitle,
+          is_mac_native
         } = await getGameInfo(appName)
         setTitle(gameTitle)
+        console.log({ is_mac_native })
+        setIsNativeMac(is_mac_native)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -275,7 +282,7 @@ function Settings() {
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-
+  const shouldRenderWineSettings = !isWin && !isNativeMac
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -298,7 +305,7 @@ function Settings() {
               {t('settings.navbar.general')}
             </NavLink>
           )}
-          {!isWin && (
+          {shouldRenderWineSettings && (
             <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
               Wine
             </NavLink>
@@ -322,6 +329,9 @@ function Settings() {
           {title && (
             <div className="headerTitle" data-testid="headerTitle">
               {title}
+              {!isDefault && (
+                <FontAwesomeIcon icon={isNativeMac ? faApple : faWindows} />
+              )}
             </div>
           )}
           {isGeneralSettings && (
@@ -407,6 +417,7 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
+              isNativeMac={isNativeMac}
             />
           )}
           {isSyncSettings && (
