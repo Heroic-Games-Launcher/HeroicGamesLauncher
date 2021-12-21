@@ -207,6 +207,7 @@ const test_appsettings = new TestType<AppSettings>({
   maxWorkers: 1,
   nvidiaPrime: false,
   offlineMode: false,
+  showUnrealMarket: false,
   otherOptions: 'otherOptions',
   savesPath: 'saves/path',
   showFps: false,

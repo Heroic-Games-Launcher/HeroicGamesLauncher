@@ -60,6 +60,7 @@ function Settings() {
   )
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
+
   const {
     on: addDesktopShortcuts,
     toggle: toggleAddDesktopShortcuts,
@@ -146,6 +147,11 @@ function Settings() {
     toggle: toggleFsync,
     setOn: setEnableFsync
   } = useToggle(false)
+  const {
+    on: showUnrealMarket,
+    toggle: toggleUnrealMarket,
+    setOn: setShowUnrealMarket
+  } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -202,6 +208,7 @@ function Settings() {
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
+      setShowUnrealMarket(config.showUnrealMarket || false)
 
       if (!isDefault) {
         const {
@@ -244,6 +251,7 @@ function Settings() {
     otherOptions,
     showFps,
     showMangohud,
+    showUnrealMarket,
     startInTray,
     useGameMode,
     wineCrossoverBottle,
@@ -346,6 +354,8 @@ function Settings() {
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
               altLegendaryBin={altLegendaryBin}
               setAltLegendaryBin={setAltLegendaryBin}
+              toggleUnrealMarket={toggleUnrealMarket}
+              showUnrealMarket={showUnrealMarket}
             />
           )}
           {isWineSettings && (

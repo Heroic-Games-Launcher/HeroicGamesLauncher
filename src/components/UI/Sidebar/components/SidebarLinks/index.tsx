@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 import cx from 'classnames'
@@ -12,9 +12,11 @@ import {
 
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
+import { getAppSettings } from 'src/helpers'
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
+  const [showUnrealMarket, setShowUnrealMarket] = useState(false)
 
   const { category, handleCategory, handleFilter } = useContext(ContextProvider)
 
@@ -27,6 +29,12 @@ export default function SidebarLinks() {
       handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
     }
   }
+
+  useEffect(() => {
+    getAppSettings().then(({ showUnrealMarket }) =>
+      setShowUnrealMarket(showUnrealMarket)
+    )
+  }, [])
 
   return (
     <div className="Links">
@@ -56,12 +64,14 @@ export default function SidebarLinks() {
           >
             {t('Epic Games', 'Epic Games')}
           </span>
-          <span
-            onClick={() => toggleCategory('unreal')}
-            className={cx('subItem', { ['selected']: category === 'unreal' })}
-          >
-            {t('Unreal Marketplace', 'Unreal Marketplace')}
-          </span>
+          {showUnrealMarket && (
+            <span
+              onClick={() => toggleCategory('unreal')}
+              className={cx('subItem', { ['selected']: category === 'unreal' })}
+            >
+              {t('Unreal Marketplace', 'Unreal Marketplace')}
+            </span>
+          )}
         </>
       )}
       <NavLink

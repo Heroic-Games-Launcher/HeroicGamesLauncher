@@ -27,6 +27,7 @@ interface Props {
   exitToTray: boolean
   language: string
   maxWorkers: number
+  showUnrealMarket: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
@@ -38,6 +39,7 @@ interface Props {
   toggleStartInTray: () => void
   toggleCheckUpdatesOnStartup: () => void
   toggleTray: () => void
+  toggleUnrealMarket: () => void
 }
 
 export default function GeneralSettings({
@@ -50,10 +52,12 @@ export default function GeneralSettings({
   setAltLegendaryBin,
   egsLinkedPath,
   setEgsLinkedPath,
+  showUnrealMarket,
   exitToTray,
   startInTray,
   toggleTray,
   toggleStartInTray,
+  toggleUnrealMarket,
   language,
   setLanguage,
   maxWorkers,
@@ -336,7 +340,19 @@ export default function GeneralSettings({
       )}
       <span className="setting">
         <span className="toggleWrapper">
-          {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
+          {t(
+            'setting.showUnrealMarket',
+            'Show Unreal Marketplace (needs restart)'
+          )}
+          <ToggleSwitch
+            value={showUnrealMarket}
+            handleChange={() => toggleUnrealMarket()}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.darktray', 'Use Dark Tray Icon')}
           <ToggleSwitch
             value={darkTrayIcon}
             handleChange={() => {
