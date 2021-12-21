@@ -196,6 +196,7 @@
             "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
         },
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefixin kansio",

@@ -196,6 +196,7 @@
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",

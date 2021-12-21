@@ -196,6 +196,7 @@
             "title": "Переопределить папку для облачных сохранений"
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Запускать свернутым в трей",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",

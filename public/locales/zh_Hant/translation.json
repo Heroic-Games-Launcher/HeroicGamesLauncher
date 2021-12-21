@@ -196,6 +196,7 @@
             "title": "覆蓋雲端存檔資料夾"
         },
         "showfps": "顯示幀數（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夾",

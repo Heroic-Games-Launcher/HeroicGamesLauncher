@@ -196,6 +196,7 @@
             "title": "மேகக்கணி ஒத்திசைவு கோப்புறையை புறக்கணித்து மாற்று"
         },
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",

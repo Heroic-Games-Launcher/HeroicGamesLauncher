@@ -196,6 +196,7 @@
             "title": "Sobreescriu la carpeta de dades de sincronització al núvol"
         },
         "showfps": "Ensenya els FPS (DX9, 10 i 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Comença minimitzat",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Carpeta wine prefix",

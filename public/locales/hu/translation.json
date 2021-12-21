@@ -196,6 +196,7 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Indítás tálcára téve",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",

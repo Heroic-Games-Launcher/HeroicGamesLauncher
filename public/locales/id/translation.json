@@ -196,6 +196,7 @@
             "title": ""
         },
         "showfps": "",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "",

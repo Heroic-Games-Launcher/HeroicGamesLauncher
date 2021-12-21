@@ -196,6 +196,7 @@
             "title": "Asenda salvestuse pilvesünkroonkaust"
         },
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Käivita minimeeritud",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",

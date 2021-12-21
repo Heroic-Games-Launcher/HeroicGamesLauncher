@@ -196,6 +196,7 @@
             "title": "覆盖云端存档文件夹"
         },
         "showfps": "显示帧数（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "启动时最小化",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夹",

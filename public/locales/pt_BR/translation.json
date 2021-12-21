@@ -196,6 +196,7 @@
             "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
         },
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Pasta do prefix WINE",

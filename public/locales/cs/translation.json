@@ -196,6 +196,7 @@
             "title": "Přepsat synchronizaci cloudu"
         },
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Spustit minimalizované",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",

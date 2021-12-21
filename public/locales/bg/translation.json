@@ -196,6 +196,7 @@
             "title": "Замяна на папката за синхронизиране на запазени файлове в облака"
         },
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Стартиране в минимизирано състояние",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Папка за префикс на Wine",
