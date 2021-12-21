@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
-import { exec } from 'child_process'
+import { exec, spawn } from 'child_process'
 import { existsSync, statSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
@@ -210,7 +210,7 @@ async function checkCommandVersion(
 async function downloadFile(
   link: string,
   downloadDir: string,
-  onProgress: (progress: string) => void
+  onProgress: (progress: number) => void
 ) {
   return new Promise((resolve, reject) => {
     if (!statSync(downloadDir).isDirectory()) {
@@ -218,14 +218,21 @@ async function downloadFile(
     }
 
     const filePath = downloadDir + '/' + link.split('/').slice(-1)[0]
-    const download = exec(`curl -o ${filePath} ${link}`)
+    const download = spawn('curl', ['-L', link, '-o', filePath])
 
-    download.stdout.on('data', function (stdout: string) {
-      onProgress(stdout)
+    download.stdout.on('data', function (stdout) {
+      // curl does somehow print on stderr
+      // progress calculation is done on stderr
+      logInfo(stdout.toString())
     })
 
-    download.stderr.on('data', function (stderr: string) {
-      reject(stderr)
+    download.stderr.on('data', function (stderr) {
+      // get percentage from curl output
+      const percentage = stderr.toString().trimStart().split(' ')[0]
+
+      // check if percentage is valid and convert it to a factor (0...1)
+      const factor = !isNaN(Number(percentage)) ? Number(percentage) / 100 : 0
+      onProgress(factor)
     })
 
     download.on('close', function (exitcode: number) {
@@ -241,7 +248,7 @@ async function downloadFile(
 async function unzipFile(
   filePath: string,
   unzipDir: string,
-  onProgress: (progress: string) => void
+  onProgress: (progress: boolean) => void
 ) {
   return new Promise((resolve, reject) => {
     if (statSync(filePath).isDirectory()) {
@@ -250,26 +257,28 @@ async function unzipFile(
 
     let extension_options = ''
     if (filePath.endsWith('tar.gz')) {
-      extension_options = '-zxf'
+      extension_options = '-vzxf'
     } else if (filePath.endsWith('tar.xz')) {
-      extension_options = '-jxf'
+      extension_options = '-vJxf'
     } else {
       return reject(`Archive type ${filePath.split('.').pop()} not supported!`)
     }
 
-    const unzip = exec(
-      `tar ${extension_options} ${filePath} --directory ${unzipDir}`
+    const unzip = spawn(
+      'tar', [extension_options, filePath, '--directory', unzipDir]
     )
 
-    unzip.stdout.on('data', function (stdout: string) {
-      onProgress(stdout)
+    unzip.stdout.on('data', function () {
+      onProgress(true)
     })
 
     unzip.stderr.on('data', function (stderr: string) {
+      onProgress(false)
       return reject(stderr)
     })
 
     unzip.on('close', function (exitcode: number) {
+      onProgress(false)
       if (exitcode !== 0) {
         return reject(`Unzip of ${filePath} failed with exit code ${exitcode}!`)
       }

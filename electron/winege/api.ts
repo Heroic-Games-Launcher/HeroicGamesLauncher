@@ -65,7 +65,7 @@ async function fetchWineGEReleases(count = '100'): Promise<WineGEInfo[]> {
         return release.version === old.version
       })
 
-      if (index) {
+      if (index !== -1) {
         releases[index].installDir = old.installDir
         releases[index].isInstalled = old.isInstalled
         if (releases[index].checksum !== old.checksum) {
@@ -98,22 +98,35 @@ function unlinkFile(filePath: string) {
 
 async function installWineGE(
   release: WineGEInfo,
-  onProgress = () => {
-    return
-  }
+  onDownloadProgress: (progress: number) => void,
+  onUnzipProgress: (progress: boolean) => void
 ): Promise<boolean> {
+  logInfo(release.installDir)
   // Check if installDir exist
   if (!existsSync(release.installDir)) {
     logError(`Installation directory ${release.installDir} doesn't exist!`)
     return false
   }
 
+  // Check if release is still available in stored ones
+  const releases = wineGEStore.get('winege') as WineGEInfo[]
+
+  const index = releases.findIndex((storedRelease) => {
+    return release.version === storedRelease.version
+  })
+
+  if (index === -1) {
+    logError(`Can't find ${release.version} in electron-store -> winege.json!`)
+    return false
+  }
+
+  // check release has download 
   if (!release.download) {
     logError(`No download link provided for ${release.version}!`)
     return false
   }
 
-  const wineDir = release.installDir + '/Wine-' + release.version
+  const wineDir = release.installDir + '/' + release.download.split('/').slice(-1)[0].split('.')[0]
   const sourceChecksum = release.checksum
     ? (await axios.default.get(release.checksum, { responseType: 'text' })).data
     : undefined
@@ -137,7 +150,7 @@ async function installWineGE(
   }
 
   // Download
-  downloadFile(release.download, release.installDir, onProgress)
+  await downloadFile(release.download, release.installDir, onDownloadProgress)
     .then((response: string) => {
       logInfo(response)
     })
@@ -149,7 +162,7 @@ async function installWineGE(
 
   // Check if download checksum is correct
   const fileBuffer = readFileSync(tarFile)
-  const hashSum = crypto.createHash('sha256')
+  const hashSum = crypto.createHash('sha512')
   hashSum.update(fileBuffer)
 
   const downloadChecksum = hashSum.digest('hex')
@@ -172,7 +185,7 @@ async function installWineGE(
     }
   }
 
-  unzipFile(tarFile, release.installDir, onProgress)
+  await unzipFile(tarFile, release.installDir, onUnzipProgress)
     .then((response: string) => {
       logInfo(response)
     })
@@ -184,6 +197,12 @@ async function installWineGE(
 
   // Clean up
   unlinkFile(tarFile)
+
+  // Update stored information
+  releases[index].isInstalled = true
+  releases[index].installDir = wineDir
+  releases[index].hasUpdate = false
+  //wineGEStore.set('winege',)
 
   return true
 }

@@ -1,5 +1,5 @@
+import { WineGEInfo } from './winege/types';
 import { InstallParams } from './types'
-import { WineGEInfo } from './winege/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -676,8 +676,17 @@ ipcMain.handle('refreshWineGE', async () => {
   return await fetchWineGEReleases()
 })
 
-ipcMain.handle('installWineGE', async (e, release: WineGEInfo, onProgress) => {
-  return await installWineGE(release, onProgress)
+ipcMain.handle('installWineGE', async (e, release: WineGEInfo) => {
+
+  const onDownloadProgress = (progress: number) => {
+    e.sender.send('download' + release.version, progress)
+  }
+
+  const onUnzipProgress = (progress: boolean) => {
+    e.sender.send('unzip' + release.version, progress)
+  }
+
+  return await installWineGE(release, onDownloadProgress, onUnzipProgress)
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))

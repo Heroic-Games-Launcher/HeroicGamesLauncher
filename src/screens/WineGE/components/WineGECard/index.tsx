@@ -1,8 +1,8 @@
 import './index.css'
 
-import React from 'react'
+import React, { useState } from 'react'
 
-import { WineGEInfo } from 'src/types'
+import { WineGEInfo, Path } from 'src/types'
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
@@ -22,27 +22,39 @@ const WineGECard = ({
 }: //installDir
 WineGEInfo) => {
   const { t } = useTranslation()
+  const [downloadProgress, setDownloadProgress] = useState<number>(0)
+  const [isUnzipping, setIsUnzipping] = useState<boolean>(false)
 
-  const onProgress = (progress: string) => {
-    console.log(progress)
-  }
+  ipcRenderer.on('download' + version, (e, progress) => {
+    setDownloadProgress(progress)
+  })
+
+  ipcRenderer.on('unzip' + version, (e, progress) => {
+    setIsUnzipping(progress)
+  })
 
   async function install() {
-    return await ipcRenderer.invoke(
-      'installWineGE',
-      {
-        version: version,
-        date: date,
-        downsize: downsize,
-        disksize: disksize,
-        download: download,
-        checksum: checksum,
-        isInstalled: isInstalled,
-        hasUpdate: hasUpdate,
-        installDir: '~/test'
-      },
-      onProgress
-    )
+    ipcRenderer
+      .invoke('openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openDirectory'],
+        title: t('box.wineInstallPath', 'Select the install path.')
+      })
+      .then(({ path }: Path) => {
+        ipcRenderer.invoke('installWineGE', 
+          {
+            version: version,
+            date: date,
+            downsize: downsize,
+            disksize: disksize,
+            download: download,
+            checksum: checksum,
+            isInstalled: isInstalled,
+            hasUpdate: hasUpdate,
+            installDir: path
+          }
+        )
+      })
   }
 
   const renderIcon = () => {
@@ -64,6 +76,27 @@ WineGEInfo) => {
     return icons
   }
 
+  const renderStatus = () => {
+    let status = ''
+    if(isInstalled)
+    {
+      status = t('winege.diskspace') + ': ' + getSizeInMB(disksize).toString() + ' MB'
+    }
+    else {
+      if(!isUnzipping)
+      {
+        status = downloadProgress !== 0 
+          ? t('winege.download') + ': ' + getSizeInMB(downloadProgress * downsize).toString() + ' / ' + getSizeInMB(downsize).toString() + ' MB'
+          : t('winege.download') + ': ' + getSizeInMB(downsize).toString() + ' MB'
+      }
+      else
+      {
+        status = t('winege.unzipping')
+      }
+    }
+    return status
+  }
+
   const getSizeInMB = (value: number) => {
     return (value / (1024 * 1024)).toFixed(2)
   }
@@ -75,15 +108,7 @@ WineGEInfo) => {
           <span className="winegeTitleList">{version}</span>
           <div className="winegeListDate">{date}</div>
           <div className="winegeListSize">
-            {isInstalled
-              ? t('winege.diskspace') +
-                ': ' +
-                getSizeInMB(disksize).toString() +
-                ' MB'
-              : t('winege.download') +
-                ': ' +
-                getSizeInMB(downsize).toString() +
-                ' MB'}
+            {renderStatus()}
           </div>
           <span className="icons">
             {renderIcon().map((component) => component)}
