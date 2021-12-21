@@ -1,12 +1,18 @@
-import { GlobalConfig } from './config'
 import { homedir, platform } from 'os'
 import { join } from 'path'
+import Store from 'electron-store'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
+import { logInfo } from './logger'
+
+const configStore = new Store({
+  cwd: 'store'
+})
 
 function getLegendaryBin() {
+  const settings = configStore.get('settings') as { altLeg: string }
   const bin =
-    GlobalConfig?.get()?.config?.altLegendaryBin ??
+    settings.altLeg ||
     `${fixAsarPath(
       join(
         __dirname,
@@ -18,6 +24,7 @@ function getLegendaryBin() {
   if (bin.includes(' ')) {
     return `"${bin}"`
   }
+  logInfo(`Legendary location: ${bin}`)
   return bin
 }
 

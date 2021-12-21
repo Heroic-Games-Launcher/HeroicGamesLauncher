@@ -154,7 +154,7 @@
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
         "autodxvk": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",

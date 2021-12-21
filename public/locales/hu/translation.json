@@ -154,7 +154,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
