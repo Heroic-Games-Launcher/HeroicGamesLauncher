@@ -9,6 +9,7 @@ interface Props {
   disabled?: boolean
   handleChange: () => void
   value: boolean
+  title: string
 }
 
 function renderToggleSwitch(props: Partial<Props> = {}) {
@@ -16,7 +17,8 @@ function renderToggleSwitch(props: Partial<Props> = {}) {
     handleChange: () => {
       return
     },
-    value: false
+    value: false,
+    title: 'sample switch'
   }
   return render(<ToggleSwitch {...{ ...defaultProps, ...props }} />)
 }
