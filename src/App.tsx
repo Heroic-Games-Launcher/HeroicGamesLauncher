@@ -6,7 +6,7 @@ import { Library } from 'src/screens/Library'
 import ContextProvider from 'src/state/ContextProvider'
 import ElectronStore from 'electron-store'
 import Sidebar from 'src/components/UI/Sidebar'
-import Login from './screens/Login'
+// import Login from './screens/Login'
 import WebView from './screens/WebView'
 
 const Store = window.require('electron-store')
@@ -21,7 +21,7 @@ function App() {
     cwd: 'store'
   })
   const user = configStore.get('userInfo')
-  const { data: library, refresh, recentGames, category } = context
+  const { data: library, recentGames, category } = context
 
   const dlcCount = library.filter((lib) => lib.install.is_dlc)
   const numberOfGames = library.length - dlcCount.length
@@ -47,9 +47,10 @@ function App() {
                   <Library library={library} />
                 </>
               ) : (
-                <Login refresh={refresh} />
+                <WebView isLogin />
               )}
             </Route>
+            <Route exact path="/login" component={WebView} />
             <Route exact path="/epicstore" component={WebView} />
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />

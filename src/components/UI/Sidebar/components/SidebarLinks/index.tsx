@@ -1,14 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
+import ElectronStore from 'electron-store'
+
 import cx from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faStore,
   faSlidersH,
   faBookOpen,
-  faGamepad
+  faGamepad,
+  faUser
 } from '@fortawesome/free-solid-svg-icons'
+const Store = window.require('electron-store')
+const configStore: ElectronStore = new Store({
+  cwd: 'store'
+})
 
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
@@ -22,6 +29,7 @@ export default function SidebarLinks() {
 
   const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
+  const isLoggedIn = Boolean(configStore.get('userInfo'))
 
   function toggleCategory(newCategory: string) {
     if (category !== newCategory) {
@@ -52,11 +60,11 @@ export default function SidebarLinks() {
       >
         <FontAwesomeIcon
           style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={faGamepad}
+          icon={isLoggedIn ? faGamepad : faUser}
         />
-        {t('Library')}
+        {isLoggedIn ? t('Library') : t('Login')}
       </NavLink>
-      {isLibrary && (
+      {isLibrary && isLoggedIn && (
         <>
           <span
             onClick={() => toggleCategory('games')}
@@ -83,7 +91,7 @@ export default function SidebarLinks() {
         }}
       >
         <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
           icon={faSlidersH}
         />
 
@@ -98,7 +106,7 @@ export default function SidebarLinks() {
         }}
       >
         <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
           icon={faStore}
         />
         {t('store', 'Store')}
@@ -112,7 +120,7 @@ export default function SidebarLinks() {
         }}
       >
         <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 22px, 28px)' }}
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
           icon={faBookOpen}
         />
         {t('wiki', 'Wiki')}

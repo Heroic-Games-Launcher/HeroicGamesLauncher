@@ -69,6 +69,9 @@
     "Downloading": "다운로드 중",
     "Epic Games": "Epic Games",
     "Filter": "필터",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "글로벌 설정",
     "help": {
         "general": "Epic Games Store가 다른 곳에 설치되어 있고 게임을 다시 다운로드하지 않도록 가져오려는 경우 Epic Games Store와 동기화 하십시오.",
@@ -205,7 +208,6 @@
     "Settings": "설정",
     "settings": {
         "navbar": {
-            "back": "뒤로",
             "general": "일반",
             "other": "기타",
             "sync": "세이브-동기화"

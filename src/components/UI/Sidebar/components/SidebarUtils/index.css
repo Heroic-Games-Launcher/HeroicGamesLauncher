@@ -17,7 +17,7 @@
   transition: 400ms;
   font-weight: 400;
   font-family: 'Rubik', sans-serif;
-  font-size: clamp(1.5vh, 18px, 20px);
+  font-size: clamp(1.5vh, 16px, 18.5px);
   transition: 250ms;
   display: block;
 }

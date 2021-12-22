@@ -69,6 +69,9 @@
     "Downloading": "Pobieranie",
     "Epic Games": "Epic Games",
     "Filter": "Filtr",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Ustawienia Globalne",
     "help": {
         "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
@@ -205,7 +208,6 @@
     "Settings": "Ustawienia",
     "settings": {
         "navbar": {
-            "back": "Wstecz",
             "general": "Główne",
             "other": "Inne",
             "sync": "Synchronizasja zapisów"

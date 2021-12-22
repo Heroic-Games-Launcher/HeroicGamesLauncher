@@ -69,6 +69,9 @@
     "Downloading": "正在下載",
     "Epic Games": "Epic Games",
     "Filter": "篩選",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全域設定",
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
@@ -205,7 +208,6 @@
     "Settings": "設定",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "一般",
             "other": "其它",
             "sync": "存檔-同步"

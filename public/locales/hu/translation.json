@@ -69,6 +69,9 @@
     "Downloading": "Letöltés",
     "Epic Games": "Epic Games",
     "Filter": "Szűrő",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -205,7 +208,6 @@
     "Settings": "Beállítások",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Általános",
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"

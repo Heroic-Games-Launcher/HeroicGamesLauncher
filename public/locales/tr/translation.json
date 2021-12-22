@@ -69,6 +69,9 @@
     "Downloading": "İndiriliyor",
     "Epic Games": "Epic Games",
     "Filter": "Filtre",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -205,7 +208,6 @@
     "Settings": "Ayarlar",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Genel",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"

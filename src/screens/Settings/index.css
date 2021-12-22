@@ -51,6 +51,10 @@
   padding: 8px;
 }
 
+.headerTitle > svg {
+  margin-left: 12px;
+}
+
 .settingsTools {
   margin: 16px auto;
 }
