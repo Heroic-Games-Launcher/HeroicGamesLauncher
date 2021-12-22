@@ -156,7 +156,7 @@ function Settings() {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
-  const [isNativeMac, setIsNativeMac] = useState(false)
+  const [isMacNative, setIsMacNative] = useState(false)
 
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
@@ -215,7 +215,7 @@ function Settings() {
           is_mac_native
         } = await getGameInfo(appName)
         setTitle(gameTitle)
-        setIsNativeMac(is_mac_native)
+        setIsMacNative(is_mac_native)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -281,7 +281,7 @@ function Settings() {
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  const shouldRenderWineSettings = !isWin && !isNativeMac
+  const shouldRenderWineSettings = !isWin && !isMacNative
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -332,7 +332,7 @@ function Settings() {
             >
               {title}
               {!isDefault && (
-                <FontAwesomeIcon icon={isNativeMac ? faApple : faWindows} />
+                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
               )}
             </NavLink>
           )}
@@ -419,7 +419,7 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
-              isNativeMac={isNativeMac}
+              isMacNative={isMacNative}
             />
           )}
           {isSyncSettings && (

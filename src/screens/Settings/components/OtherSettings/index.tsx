@@ -15,7 +15,7 @@ const { ipcRenderer } = window.require('electron') as {
 interface Props {
   audioFix: boolean
   isDefault: boolean
-  isNativeMac: boolean
+  isMacNative: boolean
   launcherArgs: string
   offlineMode: boolean
   otherOptions: string
@@ -71,7 +71,7 @@ export default function OtherSettings({
   maxRecentGames,
   setTargetExe,
   targetExe,
-  isNativeMac
+  isMacNative
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -82,7 +82,7 @@ export default function OtherSettings({
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
-  const shouldRenderFpsOption = !isNativeMac && !isWin
+  const shouldRenderFpsOption = !isMacNative && !isWin
 
   return (
     <>
