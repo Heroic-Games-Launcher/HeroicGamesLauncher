@@ -30,6 +30,7 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
   const isLoggedIn = Boolean(configStore.get('userInfo'))
+  const showSubmenu = showUnrealMarket && isLibrary && isLoggedIn
 
   function toggleCategory(newCategory: string) {
     if (category !== newCategory) {
@@ -64,7 +65,7 @@ export default function SidebarLinks() {
         />
         {isLoggedIn ? t('Library') : t('Login')}
       </NavLink>
-      {isLibrary && isLoggedIn && (
+      {showSubmenu && (
         <>
           <span
             onClick={() => toggleCategory('games')}
@@ -72,14 +73,12 @@ export default function SidebarLinks() {
           >
             {t('Epic Games', 'Epic Games')}
           </span>
-          {showUnrealMarket && (
-            <span
-              onClick={() => toggleCategory('unreal')}
-              className={cx('subItem', { ['selected']: category === 'unreal' })}
-            >
-              {t('Unreal Marketplace', 'Unreal Marketplace')}
-            </span>
-          )}
+          <span
+            onClick={() => toggleCategory('unreal')}
+            className={cx('subItem', { ['selected']: category === 'unreal' })}
+          >
+            {t('Unreal Marketplace', 'Unreal Marketplace')}
+          </span>
         </>
       )}
       <NavLink
