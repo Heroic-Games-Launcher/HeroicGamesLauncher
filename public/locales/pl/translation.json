@@ -50,8 +50,8 @@
             "exe": "Wybierz EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Skróty zostały stworzone na Pulpicie i w Menu Start",
+            "title": "Skróty"
         },
         "sync": {
             "button": "Wybierz",
@@ -108,8 +108,8 @@
     "Not Ready": "Dostępne",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Błąd podczas Przenoszenia Gry",
+            "reparing": "Błąd podczas Naprawiania"
         },
         "finished": {
             "reparing": "Naprawa zakończona"
@@ -117,8 +117,8 @@
         "install": {
             "canceled": "Instalacja zatrzymana",
             "finished": "Instalacja zakończona",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Gra Zaimportowana",
+            "startInstall": "Instalacja Rozpoczęta"
         },
         "moved": "Przenoszenie zakończone",
         "uninstalled": "Odinstalowane",
