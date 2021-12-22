@@ -50,8 +50,8 @@
             "exe": "Wybierz EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Skróty zostały stworzone na Pulpicie i w Menu Start",
+            "title": "Skróty"
         },
         "sync": {
             "button": "Wybierz",
@@ -69,6 +69,9 @@
     "Downloading": "Pobieranie",
     "Epic Games": "Epic Games",
     "Filter": "Filtr",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Ustawienia Globalne",
     "help": {
         "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
@@ -100,6 +103,10 @@
         "requirements": "Wymagania Systemowe"
     },
     "Library": "Biblioteka",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronizacja zakończona",
         "unsync": "Desynchronizacja zakończona"
@@ -108,8 +115,8 @@
     "Not Ready": "Dostępne",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Błąd podczas Przenoszenia Gry",
+            "reparing": "Błąd podczas Naprawiania"
         },
         "finished": {
             "reparing": "Naprawa zakończona"
@@ -117,8 +124,8 @@
         "install": {
             "canceled": "Instalacja zatrzymana",
             "finished": "Instalacja zakończona",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Gra Zaimportowana",
+            "startInstall": "Instalacja Rozpoczęta"
         },
         "moved": "Przenoszenie zakończone",
         "uninstalled": "Odinstalowane",
@@ -196,6 +203,7 @@
             "title": "Pomiń synchronizację z chmurą"
         },
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Uruchom zminimalizowany",
         "winecrossoverbottle": "Butelki w CrossOver",
         "wineprefix": "Folder prefiksu Wine",
@@ -204,11 +212,14 @@
     "Settings": "Ustawienia",
     "settings": {
         "navbar": {
-            "back": "Wstecz",
             "general": "Główne",
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Sklep",
     "title": {

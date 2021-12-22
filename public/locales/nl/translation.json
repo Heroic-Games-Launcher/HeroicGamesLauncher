@@ -69,6 +69,9 @@
     "Downloading": "Aan het downloaden",
     "Epic Games": "Epic Games",
     "Filter": "Filter",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Algemene instellingen",
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
@@ -100,6 +103,10 @@
         "requirements": "Systeemvereisingen"
     },
     "Library": "Bibliotheek",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronisatie compleet",
         "unsync": "De-synchronisatie compleet"
@@ -196,6 +203,7 @@
             "title": "Overschijf cloud synchronisatie save map"
         },
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Geminimaliseerd",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix map",
@@ -204,11 +212,14 @@
     "Settings": "Instellingen",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Algemeen",
             "other": "Overig",
             "sync": "Save-synchronisatie"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Winkel",
     "title": {

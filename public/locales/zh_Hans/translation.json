@@ -69,6 +69,9 @@
     "Downloading": "正在下载",
     "Epic Games": "Epic Games",
     "Filter": "筛选",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全局设置",
     "help": {
         "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
@@ -100,6 +103,10 @@
         "requirements": "系统要求"
     },
     "Library": "库",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"
@@ -196,6 +203,7 @@
             "title": "覆盖云端存档文件夹"
         },
         "showfps": "显示帧数（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "启动时最小化",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夹",
@@ -204,11 +212,14 @@
     "Settings": "设置",
     "settings": {
         "navbar": {
-            "back": "返回",
             "general": "常规",
             "other": "其它",
             "sync": "存档-同步"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "商店",
     "title": {

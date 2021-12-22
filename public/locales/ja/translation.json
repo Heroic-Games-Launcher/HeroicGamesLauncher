@@ -69,6 +69,9 @@
     "Downloading": "ダウンロードしています",
     "Epic Games": "Epic Games",
     "Filter": "フィルター",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全体設定",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -100,6 +103,10 @@
         "requirements": "システム要求"
     },
     "Library": "ライブラリ",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "同期が完了しました",
         "unsync": "非同期が完了しました"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
         "autodxvk": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
@@ -196,6 +203,7 @@
             "title": "Cloud Syncの保存フォルダーをオーバーライドする"
         },
         "showfps": "FPSを表示（DX9、10、11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
         "winecrossoverbottle": "CrossOver ボトル",
         "wineprefix": "Wineプレフィックスフォルダー",
@@ -204,11 +212,14 @@
     "Settings": "設定",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "一般",
             "other": "他",
             "sync": "同期を保存"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "ストア",
     "title": {

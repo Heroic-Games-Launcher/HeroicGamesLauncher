@@ -69,6 +69,9 @@
     "Downloading": "Téléchargement en cours",
     "Epic Games": "Epic Games",
     "Filter": "Filtre",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Paramètres généraux",
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
@@ -100,6 +103,10 @@
         "requirements": "Configuration Requise"
     },
     "Library": "Bibliothèque",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronisation Complète",
         "unsync": "Désynchronisation Complète"
@@ -196,6 +203,7 @@
             "title": "Écraser le dossier de synchronisation Cloud"
         },
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Réduire au démarrage",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
@@ -204,11 +212,14 @@
     "Settings": "Options",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Général",
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Boutique",
     "title": {

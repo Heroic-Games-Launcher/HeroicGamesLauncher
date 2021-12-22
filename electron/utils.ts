@@ -138,6 +138,11 @@ function genericErrorMessage(): void {
   )
 }
 
+function removeSpecialcharacters(text: string): string {
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|+]')
+  return text.replaceAll(regexp, '')
+}
+
 async function openUrlOrFile(url: string): Promise<string> {
   if (process.platform === 'darwin') {
     try {
@@ -218,5 +223,6 @@ export {
   openUrlOrFile,
   semverGt,
   showAboutWindow,
-  statAsync
+  statAsync,
+  removeSpecialcharacters
 }

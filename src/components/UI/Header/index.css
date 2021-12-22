@@ -40,14 +40,15 @@
 
 .selectFilter {
   display: flex;
-  width: fit-content;
+  width: 90%;
   justify-self: baseline;
-  justify-content: space-evenly;
+  justify-content: space-between;
   grid-area: filter;
   flex-wrap: wrap;
   font-size: 16px;
   align-content: center;
-  padding-left: 2rem;
+  margin-left: 32px;
+  height: 29px;
 }
 
 .selectFilter > select {
@@ -55,13 +56,15 @@
   padding: 0 8px;
   color: var(--text-secondary);
   border: none;
-  background: none;
+  background: var(--background);
   font-size: 16px;
   font-family: Cabin;
   font-style: normal;
   font-weight: normal;
   color: var(--text-secondary);
   width: fit-content;
+  margin-right: 10px;
+  border-radius: 6px;
 }
 
 option {
@@ -117,19 +120,40 @@ option {
   height: fit-content;
 }
 
+.allFilter {
+  background: none;
+  color: var(--text-primary);
+  border: 0;
+  padding: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.macFilter {
+  width: 50%;
+  padding-right: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100px;
+}
+
 .headerIcons {
   width: min(100px, 6vw);
+  max-width: 150px;
   display: flex;
   justify-content: space-around;
   grid-area: refresh;
 }
 
-.headerIcons > * {
+.headerIcons > *,
+.macFilter > * {
   cursor: pointer;
 }
 
 .headerIcons > .svg-button {
-  color: white;
+  color: var(--text-primary);
 }
 
 .headerIcons > *:hover,
@@ -138,6 +162,7 @@ option {
   color: var(--secondary);
 }
 
+.macFilter > .selectedLayout,
 .headerIcons > .selectedLayout {
   color: var(--secondary);
 }

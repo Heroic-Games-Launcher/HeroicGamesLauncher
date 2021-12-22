@@ -69,6 +69,9 @@
     "Downloading": "Laddar ner",
     "Epic Games": "Epic Games",
     "Filter": "Filtrera",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globala inställningar",
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
@@ -100,6 +103,10 @@
         "requirements": "Systemkrav"
     },
     "Library": "Bibliotek",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synkronisering klar",
         "unsync": "Ogör synkronisering klar"
@@ -196,6 +203,7 @@
             "title": "Synkroniseringsmapp för sparfiler"
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Starta minimerad",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
@@ -204,11 +212,14 @@
     "Settings": "Inställningar",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Allmänna",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Butik",
     "title": {

@@ -69,6 +69,9 @@
     "Downloading": "Скачивается",
     "Epic Games": "Epic Games",
     "Filter": "Фильтр",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Глобальные настройки",
     "help": {
         "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
@@ -100,6 +103,10 @@
         "requirements": "Системные требования"
     },
     "Library": "Библиотека",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Синхронизация завершена",
         "unsync": "Рассинхронизация завершена"
@@ -196,6 +203,7 @@
             "title": "Переопределить папку для облачных сохранений"
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Запускать свернутым в трей",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
@@ -204,11 +212,14 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
-            "back": "Назад",
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Магазин",
     "title": {

@@ -2,14 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { Path, WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
-import SvgButton from 'src/components/UI/SvgButton'
 
 const { ipcRenderer } = window.require('electron')
 

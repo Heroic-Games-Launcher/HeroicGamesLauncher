@@ -69,6 +69,9 @@
     "Downloading": "Baixando",
     "Epic Games": "Epic Games",
     "Filter": "Filtro",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
@@ -100,6 +103,10 @@
         "requirements": "Requisitos"
     },
     "Library": "Biblioteca",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sync Concluído",
         "unsync": "Unsync Concluído"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK/VKD3D automaticamente",
         "autosync": "Ativar Sincronização Automática",
@@ -196,6 +203,7 @@
             "title": "Sobrescrever diretório de saves automáticos"
         },
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar Minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Prefixo Wine",
@@ -204,11 +212,14 @@
     "Settings": "Configurações",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Geral",
             "other": "Outros",
             "sync": "Sincronização"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Loja",
     "title": {

@@ -51,7 +51,7 @@
   background: var(--background-gradient);
 }
 
-.gameCard > a > .gameImg {
+.gameCard > .gameImg {
   width: 8vw;
   height: 10vw;
   max-width: 200px;

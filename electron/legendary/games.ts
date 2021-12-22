@@ -9,12 +9,18 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { errorHandler, execAsync, isOnline } from '../utils'
+import {
+  errorHandler,
+  execAsync,
+  isOnline,
+  removeSpecialcharacters
+} from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
   heroicIconFolder,
   home,
+  isMac,
   isWindows,
   legendaryBin
 } from '../constants'
@@ -314,7 +320,7 @@ class LegendaryGame extends Game {
       case 'linux': {
         const icon = await this.getIcon(gameInfo.app_name)
         const shortcut = `[Desktop Entry]
-Name=${gameInfo.title}
+Name=${removeSpecialcharacters(gameInfo.title)}
 Exec=xdg-open ${launchWithProtocol}
 Terminal=false
 Type=Application
@@ -507,11 +513,12 @@ Categories=Game;
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
     const runOffline = isOffline || offlineMode ? '--offline' : ''
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
+    const gameInfo = await this.getGameInfo()
+    const isMacNative = gameInfo.is_mac_native
 
     if (discordRPC) {
       // Show DiscordRPC
       // This seems to run when a game is updated, even though the game doesn't start after updating.
-      const gameInfo = await this.getGameInfo()
       let os: string
 
       switch (process.platform) {
@@ -540,7 +547,7 @@ Categories=Game;
       })
     }
 
-    if (isWindows) {
+    if (isWindows || (isMac && isMacNative)) {
       const command = `${legendaryBin} launch ${
         this.appName
       } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`

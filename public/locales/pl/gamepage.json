@@ -36,7 +36,7 @@
     "button": {
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
-        "import": "Importuj",
+        "import": "Importuj Grę",
         "install": "Instaluj",
         "uninstall": "Odinstaluj",
         "update": "Update"
@@ -67,7 +67,7 @@
         "version": "Wersja"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Wybierz Ścieżkę Instalacji"
     },
     "label": {
         "playing": {
@@ -82,7 +82,6 @@
         "options": "Opcje Uruchamiania..."
     },
     "sdl": {
-        "showList": "Kliknij by Pokazać/Ukryć Dodatkowe Komponenty",
         "title": "Wybierz komponenty do Instalacji"
     },
     "specs": {

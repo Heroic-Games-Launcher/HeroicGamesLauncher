@@ -69,6 +69,9 @@
     "Downloading": "Сваляне",
     "Epic Games": "Epic Games",
     "Filter": "Филтриране",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Глобални настройки",
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Store и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
@@ -100,6 +103,10 @@
         "requirements": "Системни изисквания"
     },
     "Library": "Библиотека",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Синхронизацията е завършена",
         "unsync": "Десинхронизацията е завършена"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
         "autodxvk": "Автоматично инсталиране/обновяване на DXVK/VKD3D в префикса",
         "autosync": "Автоматично синхронизиране на запазените файлове",
@@ -196,6 +203,7 @@
             "title": "Замяна на папката за синхронизиране на запазени файлове в облака"
         },
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Стартиране в минимизирано състояние",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Папка за префикс на Wine",
@@ -204,11 +212,14 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Общи",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Магазин",
     "title": {

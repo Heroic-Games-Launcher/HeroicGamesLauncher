@@ -3,18 +3,22 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import InfoBox from 'src/components/UI/InfoBox'
+import { InfoBox, SvgButton } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import ElectronStore from 'electron-store'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@material-ui/icons/Backspace'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-import SvgButton from 'src/components/UI/SvgButton'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
+const Store = window.require('electron-store')
+const configStore: ElectronStore = new Store({
+  cwd: 'store'
+})
 
 const storage: Storage = window.localStorage
 
@@ -28,6 +32,7 @@ interface Props {
   exitToTray: boolean
   language: string
   maxWorkers: number
+  showUnrealMarket: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
@@ -39,6 +44,7 @@ interface Props {
   toggleStartInTray: () => void
   toggleCheckUpdatesOnStartup: () => void
   toggleTray: () => void
+  toggleUnrealMarket: () => void
 }
 
 export default function GeneralSettings({
@@ -51,10 +57,12 @@ export default function GeneralSettings({
   setAltLegendaryBin,
   egsLinkedPath,
   setEgsLinkedPath,
+  showUnrealMarket,
   exitToTray,
   startInTray,
   toggleTray,
   toggleStartInTray,
+  toggleUnrealMarket,
   language,
   setLanguage,
   maxWorkers,
@@ -71,6 +79,8 @@ export default function GeneralSettings({
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
 
+  const settings = configStore.get('settings') as { altLeg: string }
+
   useEffect(() => {
     i18n.changeLanguage(language)
     storage.setItem('language', language)
@@ -80,13 +90,19 @@ export default function GeneralSettings({
     const getMoreInfo = async () => {
       const cores = await ipcRenderer.invoke('getMaxCpus')
       const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
+      configStore.set('settings', {
+        ...settings,
+        altLeg: altLegendaryBin
+      })
+
       setMaxCpus(cores)
+
       if (legendaryVer === 'invalid') {
         setLegendaryVersion('Invalid')
         setTimeout(() => {
           setAltLegendaryBin('')
           return setLegendaryVersion('')
-        }, 1500)
+        }, 3000)
       }
       return setLegendaryVersion(legendaryVer)
     }
@@ -150,7 +166,10 @@ export default function GeneralSettings({
       .invoke('openDialog', {
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
-        title: t('box.choose-legendary-binary', 'Select Legendary Binary')
+        title: t(
+          'box.choose-legendary-binary',
+          'Select Legendary Binary (needs restart)'
+        )
       })
       .then(({ path }: Path) => setAltLegendaryBin(path ? `'${path}'` : ''))
   }
@@ -213,7 +232,7 @@ export default function GeneralSettings({
         <span className="settingText">
           {t(
             'setting.alt-legendary-bin',
-            'Choose an alternative Legendary Binary to use'
+            'Choose an Alternative Legendary Binary  (needs restart)to use'
           )}
         </span>
         <span>
@@ -353,7 +372,23 @@ export default function GeneralSettings({
       )}
       <span className="setting">
         <span className="toggleWrapper">
-          {t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
+          {t(
+            'setting.showUnrealMarket',
+            'Show Unreal Marketplace (needs restart)'
+          )}
+          <ToggleSwitch
+            value={showUnrealMarket}
+            handleChange={() => toggleUnrealMarket()}
+            title={t(
+              'setting.showUnrealMarket',
+              'Show Unreal Marketplace (needs restart)'
+            )}
+          />
+        </span>
+      </span>
+      <span className="setting">
+        <span className="toggleWrapper">
+          {t('setting.darktray', 'Use Dark Tray Icon')}
           <ToggleSwitch
             value={darkTrayIcon}
             handleChange={() => {

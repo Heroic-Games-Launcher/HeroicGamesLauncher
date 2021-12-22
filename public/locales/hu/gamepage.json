@@ -82,7 +82,6 @@
         "options": "Launch Options..."
     },
     "sdl": {
-        "showList": "Kattints ide az Extra elemek megjelenítéséhez/elrejtéséhez",
         "title": "Válasszd ki a telepíteni kívánt elemeket"
     },
     "specs": {

@@ -82,7 +82,6 @@
         "options": "Paramètres de démarrage..."
     },
     "sdl": {
-        "showList": "Cliquez pour afficher/masquer les composants supplémentaires",
         "title": "Sélectionnez les composants à installer"
     },
     "specs": {

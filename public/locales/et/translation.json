@@ -69,6 +69,9 @@
     "Downloading": "Allalaadimine",
     "Epic Games": "Epic Games",
     "Filter": "Filtreeri",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globaalsed seaded",
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -100,6 +103,10 @@
         "requirements": "Süsteeminõuded"
     },
     "Library": "Varamu",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sünkroonimine lõpetatud",
         "unsync": "Mittesünkroniseerimine lõpetatud"
@@ -196,6 +203,7 @@
             "title": "Asenda salvestuse pilvesünkroonkaust"
         },
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Käivita minimeeritud",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
@@ -204,11 +212,14 @@
     "Settings": "Seaded",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Üldine",
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Pood",
     "title": {

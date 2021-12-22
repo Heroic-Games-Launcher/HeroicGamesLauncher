@@ -69,6 +69,9 @@
     "Downloading": "Descargando",
     "Epic Games": "Epic Games",
     "Filter": "Filtrar",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Ajustes globales",
     "help": {
         "general": "Sincronice con EGS en caso de que tenga una instalación funcional de EGS en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -100,6 +103,10 @@
         "requirements": "Requisitos del sistema"
     },
     "Library": "Biblioteca",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sincronización completa",
         "unsync": "Desincronizacion completa"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK/VKD3D en el Prefix",
         "autosync": "Autosyncronizar guardados",
@@ -196,6 +203,7 @@
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
@@ -204,11 +212,14 @@
     "Settings": "Ajustes",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "General",
             "other": "Otro",
             "sync": "Guardar-Sincronizar"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Tienda",
     "title": {

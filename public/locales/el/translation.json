@@ -69,6 +69,9 @@
     "Downloading": "Λήψη",
     "Epic Games": "Epic Games",
     "Filter": "Φίλτρο",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
@@ -100,6 +103,10 @@
         "requirements": "Απαιτήσεις Συστήματος"
     },
     "Library": "Βιβλιοθήκη",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
@@ -196,6 +203,7 @@
             "title": "Κατίσχυση φακέλου δεδομένων συγχρονισμού Νέφους"
         },
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Εκκίνηση ελαχιστοποιημένα",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "φάκελος προθεμάτων Wine",
@@ -204,11 +212,14 @@
     "Settings": "Ρυθμίσεις",
     "settings": {
         "navbar": {
-            "back": "Επιστροφή",
             "general": "Γενικά",
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Κατάστημα",
     "title": {

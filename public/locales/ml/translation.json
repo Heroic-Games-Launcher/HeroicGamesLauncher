@@ -8,7 +8,7 @@
         },
         "choose": "തിരഞ്ഞെടുക്കൂ",
         "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "ലെജന്ററിയുടെ ഈരക്കരേഖ തിരഞ്ഞെടുക്കുക",
         "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ ഈരക്കരേഖ(Binary file) നല്‍കൂ",
         "default-install-path": "പൊതു ഇന്‍സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
         "error": {
@@ -50,8 +50,8 @@
             "exe": "EXE തിരഞ്ഞെടുക്കൂ"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "കുറുക്കുവഴികള്‍ പണിമേശയിലേക്കും തുടക്കപ്പട്ടികയിലേക്കും ചേര്‍ത്തിട്ടുണ്ട്",
+            "title": "കുറുക്കുവഴികള്‍"
         },
         "sync": {
             "button": "തിരഞ്ഞെടുക്കൂ",
@@ -67,8 +67,11 @@
         "unsync": "പിരിക്കൂ"
     },
     "Downloading": "ഇറക്കുന്നവ",
-    "Epic Games": "Epic Games",
+    "Epic Games": "എപിക് ഗെയിംസ്",
     "Filter": "അരിപ്പ",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്‍",
     "help": {
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടൂല്‍ മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്‍ നിങ്ങളുടെ കളികള്‍ വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
@@ -100,6 +103,10 @@
         "requirements": "ശുപാര്‍ശിക്കുന്ന സംവിധാനങ്ങള്‍"
     },
     "Library": "കളിശാല",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
         "unsync": "പിരിച്ചു"
@@ -108,8 +115,8 @@
     "Not Ready": "സജ്ജമല്ലാത്തവ",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "കളി നീക്കുന്നതില്‍ പിഴവു പറ്റി",
+            "reparing": "നന്നാക്കുന്നതല്‍ പിഴവു പറ്റി"
         },
         "finished": {
             "reparing": "നന്നാക്കിക്കഴിഞ്ഞു"
@@ -117,8 +124,8 @@
         "install": {
             "canceled": "സ്ഥാപനം റദ്ദാക്കി",
             "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "കളി കൊണ്ടുവന്നു",
+            "startInstall": "നടീല്‍ തുടങ്ങി"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
         "uninstalled": "എടുത്തുനീക്കി",
@@ -138,11 +145,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
         "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന്‍ സഹായിക്കൂ."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
     },
     "Plugins": "കൂടുതലുകള്‍",
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "കുറുക്കുവഴികള്‍ മേശപ്പുറത്ത് താനേ ചേര്‍ക്കൂ",
         "addgamestostartmenu": "കളികള്‍ തുടക്കപ്പട്ടികയില്‍ താനേ ചേര്‍ക്കൂ",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്‍സ് ഓഡിയോ ലാറ്റന്‍സി)",
         "autodxvk": "ഉപസഗ്ഗ഻ത്തില്‍(പ്രഫിക്സില്‍) DXVK/VKD3D തന്നത്താന്‍ സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്‍",
@@ -196,6 +203,7 @@
             "title": "മേഘത്തില്‍ ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കുന്ന അറ മാറ്റിയെഴുതുക"
         },
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
         "winecrossoverbottle": "ക്രോസ്സോവര്‍ കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
@@ -204,23 +212,26 @@
     "Settings": "ക്രമീകരണങ്ങള്‍",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "പൊതുവായവ",
             "other": "മറ്റുള്ളവ",
             "sync": "ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കൂ"
         }
     },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
+    },
     "store": "കട",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "മൊത്തം കളികള്‍",
+        "allUnreal": "അണ്‍റിയല്‍ - എല്ലാം",
+        "downloading": "ഇറക്കുന്നു",
+        "installedGames": "നട്ട കളികള്‍",
+        "notInstalledGames": "നടാത്തവ",
+        "unrealAssets": "അണ്‍റിയല്‍ - വകകള്‍",
+        "unrealPlugins": "അണ്‍റിയല്‍ - Plugins",
+        "unrealProjects": "അണ്‍റിയല്‍ - പണികള്‍",
+        "updates": "നടക്കേണ്ട പുതുക്കലുകള്‍"
     },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്‍ക്കുക",

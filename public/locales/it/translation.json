@@ -69,6 +69,9 @@
     "Downloading": "Download in corso",
     "Epic Games": "Epic Games",
     "Filter": "Filtra",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Impostazioni globali",
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
@@ -100,6 +103,10 @@
         "requirements": "Requisiti di sistema"
     },
     "Library": "Libreria",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sincronizzazione completata",
         "unsync": "Annullamento sincronizzazione completato"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK/VKD3D sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
@@ -196,6 +203,7 @@
             "title": "Effettua l'aggiornamento forzato della cartella dei giochi sul cloud"
         },
         "showfps": "Mostra FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Avvio Minimizzato",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Cartella del prefix di Wine",
@@ -204,11 +212,14 @@
     "Settings": "Impostazioni",
     "settings": {
         "navbar": {
-            "back": "Indietro",
             "general": "Generale",
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Negozio",
     "title": {

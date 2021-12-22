@@ -31,6 +31,7 @@ export interface AppSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  showUnrealMarket: boolean
   startInTray: boolean
   useGameMode: boolean
   targetExe: string
@@ -46,9 +47,11 @@ export interface ContextType {
   error: boolean
   filter: string
   filterText: string
+  filterPlatform: string
   gameUpdates: string[]
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void
+  handlePlatformFilter: (value: string) => void
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
@@ -56,7 +59,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
-  refreshLibrary: (options: RefreshOptions) => void
+  refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshing: boolean
 }
 
@@ -77,6 +80,7 @@ export interface GameInfo {
   folder_name: string
   install: InstalledInfo
   is_game: boolean
+  is_mac_native: boolean
   is_installed: boolean
   is_ue_asset: boolean
   is_ue_plugin: boolean
@@ -103,6 +107,7 @@ type GameInstallInfo = {
   owned_dlc: Array<DLCInfo>
   title: string
   version: string
+  platform_versions: { Mac: string; Windows: string }
 }
 
 type Prerequisites = {
@@ -195,6 +200,9 @@ export type ElWebview = {
   reload: () => void
   isLoading: () => boolean
   getURL: () => string
+  copy: () => string
+  selectAll: () => void
+  findInPage: (text: string | RegExp) => void
 }
 
 export type Webview = HTMLWebViewElement & ElWebview

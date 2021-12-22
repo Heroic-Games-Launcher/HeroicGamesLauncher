@@ -8,13 +8,11 @@ import { useTranslation } from 'react-i18next'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
 import Backspace from '@material-ui/icons/Backspace'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-import SvgButton from 'src/components/UI/SvgButton'
 
 interface Props {
   appName: string

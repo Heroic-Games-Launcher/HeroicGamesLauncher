@@ -1,5 +1,5 @@
 .Links {
-  font-size: 20px;
+  font-size: 18.5px;
   font-weight: 400;
   height: fit-content;
   font-family: 'Rubik', sans-serif;
@@ -11,9 +11,9 @@
 }
 
 .subItem {
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
-  padding-left: 24px;
+  padding-left: 40px;
   line-height: 28px;
   white-space: break-spaces;
 }
@@ -29,6 +29,7 @@
 
 .subItem.selected {
   color: var(--secondary);
+  font-weight: 700;
 }
 
 .sidebar .UserSelector {

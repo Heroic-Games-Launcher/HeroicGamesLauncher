@@ -69,6 +69,9 @@
     "Downloading": "Letöltés",
     "Epic Games": "Epic Games",
     "Filter": "Szűrő",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -100,6 +103,10 @@
         "requirements": "Rendszer Követelmények"
     },
     "Library": "Könyvtár",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Szinkronizálás Befejezve",
         "unsync": "Deszinkronizálás Befejezve"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
@@ -196,6 +203,7 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Indítás tálcára téve",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",
@@ -204,11 +212,14 @@
     "Settings": "Beállítások",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Általános",
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Áruház",
     "title": {

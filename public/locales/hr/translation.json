@@ -69,6 +69,9 @@
     "Downloading": "Preuzima se",
     "Epic Games": "Epic Games",
     "Filter": "Filter",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globalne Postavke",
     "help": {
         "general": "Sinkronizirajte sa EGS u slučaju da imate instalaciju Epic Games trgovine negdje drugdje i želiš uvesti igrice da ih nemoraš preuzimati opet.",
@@ -100,6 +103,10 @@
         "requirements": "Zahtjevi sustava"
     },
     "Library": "Knižnjica",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sinkroniziranje završeno",
         "unsync": "Desinkronizacija završena"
@@ -196,6 +203,7 @@
             "title": "Forsiraj prebacivanje lokalnih podataka"
         },
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Pokreni minimizirano",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePut mapa",
@@ -204,11 +212,14 @@
     "Settings": "Postavke",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Generalno",
             "other": "Ostalo",
             "sync": "Spremi-Podatke"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Trgovina",
     "title": {

@@ -69,6 +69,9 @@
     "Downloading": "Downloading",
     "Epic Games": "Epic Games",
     "Filter": "Filter",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Global Settings",
     "help": {
         "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
@@ -100,6 +103,10 @@
         "requirements": "System Requirements"
     },
     "Library": "Library",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
         "autosync": "Autosync Saves",
@@ -196,6 +203,7 @@
             "title": "Override Cloud Sync Save folder"
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
@@ -204,11 +212,14 @@
     "Settings": "Settings",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "General",
             "other": "Other",
             "sync": "Save-Sync"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Store",
     "title": {

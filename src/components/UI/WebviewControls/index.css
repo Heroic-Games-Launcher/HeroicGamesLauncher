@@ -1,6 +1,6 @@
 .webviewControls {
   display: grid;
-  grid-template-columns: 2fr 6fr 2fr;
+  grid-template-columns: 2fr 10fr 2fr;
   align-items: center;
   position: fixed;
   padding: 2px 0;
@@ -9,8 +9,17 @@
 }
 
 .webviewIcons {
-  margin-left: 12px;
+  margin: auto 12px;
   justify-self: baseline;
+  flex-wrap: nowrap;
+  display: flex;
+}
+
+.webviewURL {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 14px;
 }
 
 .MuiSvgIcon-root {

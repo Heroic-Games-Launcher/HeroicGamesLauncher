@@ -69,6 +69,9 @@
     "Downloading": "正在下載",
     "Epic Games": "Epic Games",
     "Filter": "篩選",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全域設定",
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
@@ -100,6 +103,10 @@
         "requirements": "系統要求"
     },
     "Library": "收藏庫",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
         "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
         "autosync": "自動同步存檔",
@@ -196,6 +203,7 @@
             "title": "覆蓋雲端存檔資料夾"
         },
         "showfps": "顯示幀數（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夾",
@@ -204,11 +212,14 @@
     "Settings": "設定",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "一般",
             "other": "其它",
             "sync": "存檔-同步"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "商店",
     "title": {

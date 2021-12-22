@@ -69,6 +69,9 @@
     "Downloading": "Baixando",
     "Epic Games": "Epic Games",
     "Filter": "Filtrar",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Store e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
@@ -100,6 +103,10 @@
         "requirements": "Requisitos do Sistema"
     },
     "Library": "Biblioteca",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sincronização Completa",
         "unsync": "Dessincronização Completa"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK/VKD3D automaticamente no prefix",
         "autosync": "Sincronizar saves automaticamente",
@@ -196,6 +203,7 @@
             "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
         },
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Pasta do prefix WINE",
@@ -204,11 +212,14 @@
     "Settings": "Configurações",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Config. Gerais",
             "other": "Outros",
             "sync": "Sincronização"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Loja",
     "title": {

@@ -50,8 +50,8 @@
             "exe": "EXE auswählen"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
+            "title": "Verknüpfungen"
         },
         "sync": {
             "button": "Auswählen",
@@ -69,6 +69,9 @@
     "Downloading": "Am Herunterladen",
     "Epic Games": "Epic Games",
     "Filter": "Filter",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -100,6 +103,10 @@
         "requirements": "Systemanforderungen"
     },
     "Library": "Bibliothek",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronisation abgeschlossen",
         "unsync": "Synchronisation erfolgreich aufgehoben"
@@ -108,8 +115,8 @@
     "Not Ready": "Nicht installiert",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Fehler beim Verschieben des Spiels",
+            "reparing": "Fehler beim Reparieren"
         },
         "finished": {
             "reparing": "Reparatur abgeschlossen"
@@ -117,8 +124,8 @@
         "install": {
             "canceled": "Installation abgebrochen",
             "finished": "Installation abgeschlossen",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Spiel importiert",
+            "startInstall": "Installation gestartet"
         },
         "moved": "Verschieben abgeschlossen",
         "uninstalled": "Deinstalliert",
@@ -196,6 +203,7 @@
             "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
         },
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Minimiert starten",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine Prefix Ordner",
@@ -204,23 +212,26 @@
     "Settings": "Einstellungen",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Allgemein",
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         }
     },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
+    },
     "store": "Store",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
+        "allGames": "Alle Spiele",
+        "allUnreal": "Unreal - Alles",
+        "downloading": "wird heruntergeladen",
+        "installedGames": "Installierte Spiele",
+        "notInstalledGames": "Nicht installiert",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projekte",
+        "updates": "Ausstehende Aktualisierungen"
     },
     "tooltip": {
         "addpath": "Neuen Pfad hinzufügen",

@@ -2,13 +2,11 @@ import React, { ChangeEvent, useContext } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@material-ui/icons/Backspace'
-import SvgButton from 'src/components/UI/SvgButton'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -16,6 +14,7 @@ const { ipcRenderer } = window.require('electron') as {
 interface Props {
   audioFix: boolean
   isDefault: boolean
+  isMacNative: boolean
   launcherArgs: string
   offlineMode: boolean
   otherOptions: string
@@ -70,7 +69,8 @@ export default function OtherSettings({
   toggleDiscordRPC,
   maxRecentGames,
   setTargetExe,
-  targetExe
+  targetExe,
+  isMacNative
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -81,6 +81,7 @@ export default function OtherSettings({
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
+  const shouldRenderFpsOption = !isMacNative && !isWin
 
   return (
     <>
@@ -127,16 +128,19 @@ export default function OtherSettings({
           </span>
         </span>
       )}
-      <span data-testid="otherSettings" className="setting">
-        <span className="toggleWrapper">
-          {t('setting.showfps')}
-          <ToggleSwitch
-            value={showFps}
-            handleChange={toggleFps}
-            title={t('setting.showfps')}
-          />
+
+      {shouldRenderFpsOption && (
+        <span data-testid="otherSettings" className="setting">
+          <span className="toggleWrapper">
+            {t('setting.showfps')}
+            <ToggleSwitch
+              value={showFps}
+              handleChange={toggleFps}
+              title={t('setting.showfps')}
+            />
+          </span>
         </span>
-      </span>
+      )}
       {isLinux && (
         <>
           <span className="setting">

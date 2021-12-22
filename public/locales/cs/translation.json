@@ -69,6 +69,9 @@
     "Downloading": "Stahování",
     "Epic Games": "Epic Games",
     "Filter": "Filtr",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -100,6 +103,10 @@
         "requirements": "Systémové požadavky"
     },
     "Library": "Knihovna",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
         "autodxvk": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
@@ -196,6 +203,7 @@
             "title": "Přepsat synchronizaci cloudu"
         },
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Spustit minimalizované",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
@@ -204,11 +212,14 @@
     "Settings": "Nastavení",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Obecné",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Obchod",
     "title": {

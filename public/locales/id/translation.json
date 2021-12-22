@@ -1,33 +1,33 @@
 {
     "All": "Semua",
-    "Assets": "Assets",
+    "Assets": "Aset",
     "box": {
         "appupdate": {
-            "message": "There is a new version of Heroic Available, do you want to update now?",
-            "title": "Update Available"
+            "message": "Versi baru Heroic telah tersedia, apakah Anda ingin memperbarui sekarang?",
+            "title": "Pembaruan Tersedia"
         },
         "choose": "Pilih",
         "choose-egs-prefix": "",
-        "choose-legendary-binary": "Select Legendary Binary",
-        "customWine": "Select the Wine or Proton Binary",
-        "default-install-path": "",
+        "choose-legendary-binary": "Pilih Legendary Binary",
+        "customWine": "Pilih Wine atau Proton Binary",
+        "default-install-path": "Pilih tempat Instal Default",
         "error": {
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!",
-                "title": "Expired Credentials"
+                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi.",
+                "title": "Kredensial Kedaluwarsa"
             },
             "diskspace": {
-                "message": "Not enough available disk space",
-                "title": "No Space"
+                "message": "Tidak cukup ruang disk yang tersedia",
+                "title": "Tidak ada ruang"
             },
             "generic": {
                 "message": "An Unknown Error has occurred",
-                "title": "Unknown Error"
+                "title": "Error Tak Dikenal"
             },
-            "launch": "Error when launching the game, check the logs!",
+            "launch": "Error ketika meluncurkan permainan, periksa log!",
             "log": {
-                "message": "No Log was found for this game",
-                "title": "Log Not Found"
+                "message": "Tidak ada Log yang ditemukan untuk game ini",
+                "title": "Log Tidak Ditemukan"
             },
             "title": "Error"
         },
@@ -35,23 +35,23 @@
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Tidak diinstal, apakah Anda ingin menginstalnya?"
             }
         },
         "quit": {
-            "message": "There are pending operations, are you sure?",
-            "title": "Exit"
+            "message": "Ada operasi yang tertunda, apakah Anda yakin?",
+            "title": "Keluar"
         },
         "runexe": {
             "title": "Pilih EXE untuk menjalankan"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Pilih",
+            "exe": "Pilih EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Pintasan dibuat di Desktop dan Start Menu",
+            "title": "Pintasan"
         },
         "sync": {
             "button": "Pilih",
@@ -69,6 +69,9 @@
     "Downloading": "",
     "Epic Games": "Epic Games",
     "Filter": "",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Global Settings",
     "help": {
         "general": "",
@@ -100,6 +103,10 @@
         "requirements": ""
     },
     "Library": "",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "",
         "unsync": ""
@@ -154,7 +161,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "",
         "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
         "autosync": "",
@@ -196,6 +203,7 @@
             "title": ""
         },
         "showfps": "",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "",
@@ -204,11 +212,14 @@
     "Settings": "",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "",
             "other": "",
             "sync": ""
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Store",
     "title": {
