@@ -125,44 +125,51 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
       <div className={`submenu`}>
         {isInstalled && (
           <>
-            <span
+            <a
+              href="#"
               onClick={() => renderer.send('getLog', appName)}
               className="link"
             >
               {t('submenu.log')}
-            </span>
-            <span onClick={() => handleMoveInstall()} className="link">
+            </a>
+            <a href="#" onClick={() => handleMoveInstall()} className="link">
               {t('submenu.move')}
-            </span>{' '}
-            <span onClick={() => handleChangeInstall()} className="link">
+            </a>{' '}
+            <a href="#" onClick={() => handleChangeInstall()} className="link">
               {t('submenu.change')}
-            </span>{' '}
-            <span onClick={() => handleRepair(appName)} className="link">
+            </a>{' '}
+            <a href="#" onClick={() => handleRepair(appName)} className="link">
               {t('submenu.verify')}
-            </span>{' '}
-            <span
+            </a>{' '}
+            <a
+              href="#"
               onClick={() => uninstall({ appName, t, handleGameStatus })}
               className="link"
             >
               {t('button.uninstall')}
-            </span>{' '}
+            </a>{' '}
             {!isMac && (
-              <span onClick={() => handleShortcuts()} className="link">
+              <a href="#" onClick={() => handleShortcuts()} className="link">
                 {t('submenu.addShortcut', 'Add shortcut')}
-              </span>
+              </a>
             )}
           </>
         )}
-        <span
+        <a
+          href="#"
           onClick={() => createNewWindow(formatStoreUrl(title, lang))}
           className="link"
         >
           {t('submenu.store')}
-        </span>
+        </a>
         {!isWin && (
-          <span onClick={() => createNewWindow(protonDBurl)} className="link">
+          <a
+            href="#"
+            onClick={() => createNewWindow(protonDBurl)}
+            className="link"
+          >
             {t('submenu.protondb')}
-          </span>
+          </a>
         )}
       </div>
       {isInstalled && !isWin && (

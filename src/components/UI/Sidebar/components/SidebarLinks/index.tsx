@@ -50,18 +50,20 @@ export default function SidebarLinks() {
       </NavLink>
       {isLibrary && (
         <>
-          <span
+          <a
+            href="#"
             onClick={() => toggleCategory('games')}
             className={cx('subItem', { ['selected']: category === 'games' })}
           >
             {t('Epic Games', 'Epic Games')}
-          </span>
-          <span
+          </a>
+          <a
+            href="#"
             onClick={() => toggleCategory('unreal')}
             className={cx('subItem', { ['selected']: category === 'unreal' })}
           >
             {t('Unreal Marketplace', 'Unreal Marketplace')}
-          </span>
+          </a>
         </>
       )}
       <NavLink

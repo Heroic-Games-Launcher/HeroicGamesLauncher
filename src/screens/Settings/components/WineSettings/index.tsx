@@ -9,6 +9,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
+import SvgButton from 'src/components/UI/SvgButton'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -118,8 +119,7 @@ export default function WineSettings({
             className="settingSelect"
             onChange={(event) => setWinePrefix(event.target.value)}
           />
-          <CreateNewFolder
-            data-testid="addWinePrefix"
+          <SvgButton
             className="material-icons settings folder"
             onClick={() =>
               ipcRenderer
@@ -132,7 +132,9 @@ export default function WineSettings({
                   setWinePrefix(path ? `${path}` : winePrefix)
                 )
             }
-          />
+          >
+            <CreateNewFolder data-testid="addWinePrefix" />
+          </SvgButton>
         </span>
       </span>
       {isDefault && (
@@ -154,26 +156,30 @@ export default function WineSettings({
               ))}
             </select>
             <div className="iconsWrapper">
-              <RemoveCircleIcon
-                data-testid="removeWinePath"
-                onClick={() => removeCustomPath()}
-                style={{
-                  color: selectedPath
-                    ? 'var(--danger)'
-                    : 'var(--background-darker)',
-                  cursor: selectedPath ? 'pointer' : ''
-                }}
-                fontSize="large"
-                titleAccess={t('tooltip.removepath', 'Remove Path')}
-              />{' '}
-              <AddBoxIcon
-                data-testid="addWinePath"
+              <SvgButton onClick={() => removeCustomPath()}>
+                <RemoveCircleIcon
+                  data-testid="removeWinePath"
+                  style={{
+                    color: selectedPath
+                      ? 'var(--danger)'
+                      : 'var(--background-darker)',
+                    cursor: selectedPath ? 'pointer' : ''
+                  }}
+                  fontSize="large"
+                  titleAccess={t('tooltip.removepath', 'Remove Path')}
+                />
+              </SvgButton>{' '}
+              <SvgButton
                 onClick={() => selectCustomPath()}
                 className={`is-primary`}
-                style={{ color: 'var(--success)', cursor: 'pointer' }}
-                fontSize="large"
-                titleAccess={t('tooltip.addpath', 'Add New Path')}
-              />
+              >
+                <AddBoxIcon
+                  data-testid="addWinePath"
+                  style={{ color: 'var(--success)', cursor: 'pointer' }}
+                  fontSize="large"
+                  titleAccess={t('tooltip.addpath', 'Add New Path')}
+                />
+              </SvgButton>
             </div>
           </span>
         </span>
@@ -222,6 +228,10 @@ export default function WineSettings({
                 ipcRenderer.send('toggleDXVK', [winePrefix, action])
                 return toggleAutoInstallDxvk()
               }}
+              title={t(
+                'setting.autodxvk',
+                'Auto Install/Update DXVK on Prefix'
+              )}
             />
           </span>
         </span>
@@ -232,7 +242,14 @@ export default function WineSettings({
             'setting.enableFSRHack',
             'Enable FSR Hack (Wine version needs to support it)'
           )}
-          <ToggleSwitch value={enableFSR || false} handleChange={toggleFSR} />
+          <ToggleSwitch
+            value={enableFSR || false}
+            handleChange={toggleFSR}
+            title={t(
+              'setting.enableFSRHack',
+              'Enable FSR Hack (Wine version needs to support it)'
+            )}
+          />
         </span>
       </span>
       {enableFSR && (
@@ -263,6 +280,10 @@ export default function WineSettings({
               <ToggleSwitch
                 value={enableResizableBar || false}
                 handleChange={toggleResizableBar}
+                title={t(
+                  'setting.resizableBar',
+                  'Enable Resizable BAR (NVIDIA RTX only)'
+                )}
               />
             </span>
           </span>
@@ -273,6 +294,7 @@ export default function WineSettings({
                 value={enableEsync || false}
                 handleChange={toggleEsync}
                 dataTestId="esyncToggle"
+                title={t('setting.esync', 'Enable Esync')}
               />
             </span>
           </span>
@@ -283,6 +305,7 @@ export default function WineSettings({
                 value={enableFsync || false}
                 handleChange={toggleFsync}
                 dataTestId="fsyncToggle"
+                title={t('setting.fsync', 'Enable Fsync')}
               />
             </span>
           </span>

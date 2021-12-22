@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
 import { uninstall, updateGame } from 'src/helpers/library'
+import SvgButton from 'src/components/UI/SvgButton'
 
 const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
@@ -141,11 +142,9 @@ const GameCard = ({
     }
     if (hasUpdate) {
       return (
-        <FontAwesomeIcon
-          size={'2x'}
-          icon={faRepeat}
-          onClick={() => handleUpdate()}
-        />
+        <SvgButton onClick={() => handleUpdate()}>
+          <FontAwesomeIcon size={'2x'} icon={faRepeat} />
+        </SvgButton>
       )
     }
 
@@ -154,19 +153,35 @@ const GameCard = ({
 
   const renderIcon = () => {
     if (isPlaying) {
-      return <StopIconAlt className="cancelIcon" onClick={() => handlePlay()} />
+      return (
+        <SvgButton onClick={() => handlePlay()}>
+          <StopIconAlt className="cancelIcon" />
+        </SvgButton>
+      )
     }
     if (isInstalling) {
-      return <StopIcon onClick={() => handlePlay()} />
+      return (
+        <SvgButton onClick={() => handlePlay()}>
+          <StopIcon />
+        </SvgButton>
+      )
     }
     if (isInstalled && isGame) {
-      return <PlayIcon className="playIcon" onClick={() => handlePlay()} />
+      return (
+        <SvgButton onClick={() => handlePlay()}>
+          <PlayIcon className="playIcon" />
+        </SvgButton>
+      )
     }
     if (!isInstalled) {
       if (hasDownloads) {
         return <DownIcon className="iconDisabled" />
       }
-      return <DownIcon className="downIcon" onClick={() => buttonClick()} />
+      return (
+        <SvgButton onClick={() => buttonClick()}>
+          <DownIcon className="downIcon" />
+        </SvgButton>
+      )
     }
     return null
   }
@@ -215,15 +230,16 @@ const GameCard = ({
                 <span className="icons">
                   {renderIcon()}
                   {isInstalled && isGame && (
-                    <SettingsIcon
-                      fill={'var(--text-primary)'}
+                    <SvgButton
                       onClick={() =>
                         history.push({
                           pathname: path,
                           state: { fromGameCard: true }
                         })
                       }
-                    />
+                    >
+                      <SettingsIcon fill={'var(--text-primary)'} />
+                    </SvgButton>
                   )}
                 </span>
               }
@@ -236,15 +252,16 @@ const GameCard = ({
                 <span className="icons">
                   {renderIcon()}
                   {isInstalled && isGame && (
-                    <SettingsIcon
-                      fill={'var(--text-primary)'}
+                    <SvgButton
                       onClick={() =>
                         history.push({
                           pathname: path,
                           state: { fromGameCard: true }
                         })
                       }
-                    />
+                    >
+                      <SettingsIcon fill={'var(--text-primary)'} />
+                    </SvgButton>
                   )}
                 </span>
               }

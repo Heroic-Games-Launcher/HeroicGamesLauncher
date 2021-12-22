@@ -15,6 +15,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack'
 import ContextProvider from 'src/state/ContextProvider'
 import SearchBar from 'src/components/UI/SearchBar'
 import cx from 'classnames'
+import SvgButton from '../SvgButton'
 
 interface Props {
   goTo: string | void | null
@@ -82,8 +83,9 @@ export default function Header({
       <div className={cx({ header: !title }, { headerSettings: title })}>
         {category === 'games' && (
           <span className="selectFilter">
-            <span>{t('Filter')}:</span>
+            <label htmlFor="games-filter">{t('Filter')}:</label>
             <select
+              id="games-filter"
               onChange={(e) => handleFilter(e.target.value)}
               value={filter}
               data-testid="games-filter"
@@ -182,17 +184,19 @@ export default function Header({
           </div>
         )}
         <div className="headerIcons">
-          <FontAwesomeIcon
-            onClick={() => handleLayout('grid')}
-            className={cx({ selectedLayout: layout === 'grid' })}
-            icon={faBorderAll}
-          />
-          <FontAwesomeIcon
-            onClick={() => handleLayout('list')}
-            className={cx({ selectedLayout: layout === 'list' })}
-            icon={faList}
-          />
-          <FontAwesomeIcon
+          <SvgButton onClick={() => handleLayout('grid')}>
+            <FontAwesomeIcon
+              className={cx({ selectedLayout: layout === 'grid' })}
+              icon={faBorderAll}
+            />
+          </SvgButton>
+          <SvgButton onClick={() => handleLayout('list')}>
+            <FontAwesomeIcon
+              className={cx({ selectedLayout: layout === 'list' })}
+              icon={faList}
+            />
+          </SvgButton>
+          <SvgButton
             onClick={() =>
               refreshLibrary({
                 checkForUpdates: true,
@@ -200,9 +204,9 @@ export default function Header({
                 runInBackground: false
               })
             }
-            className="refreshIcon"
-            icon={faSyncAlt}
-          />
+          >
+            <FontAwesomeIcon className="refreshIcon" icon={faSyncAlt} />
+          </SvgButton>
         </div>
       </div>
     </>

@@ -20,6 +20,7 @@ import { Checkbox } from '@material-ui/core'
 import { IpcRenderer } from 'electron'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import SvgButton from 'src/components/UI/SvgButton'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -169,7 +170,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                   placeholder={defaultPath}
                   onChange={(event) => setInstallPath(event.target.value)}
                 />
-                <FontAwesomeIcon
+                <SvgButton
                   onClick={() =>
                     ipcRenderer
                       .invoke('openDialog', {
@@ -181,9 +182,12 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                         setInstallPath(path ? `'${path}'` : defaultPath)
                       )
                   }
-                  className="fontAwesome folder"
-                  icon={faFolderOpen}
-                />
+                >
+                  <FontAwesomeIcon
+                    className="fontAwesome folder"
+                    icon={faFolderOpen}
+                  />
+                </SvgButton>
               </span>
               {getDownloadedProgress()}
             </span>

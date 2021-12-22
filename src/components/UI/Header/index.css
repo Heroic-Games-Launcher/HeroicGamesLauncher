@@ -56,7 +56,6 @@
   color: var(--text-secondary);
   border: none;
   background: none;
-  outline: none;
   font-size: 16px;
   font-family: Cabin;
   font-style: normal;
@@ -129,7 +128,13 @@ option {
   cursor: pointer;
 }
 
-.headerIcons > *:hover {
+.headerIcons > .svg-button {
+  color: white;
+}
+
+.headerIcons > *:hover,
+.headerIcons > .svg-button > *:hover,
+.headerIcons > .svg-button:focus-visible > * {
   color: var(--secondary);
 }
 
@@ -137,7 +142,8 @@ option {
   color: var(--secondary);
 }
 
-.refreshIcon:hover {
+.refreshIcon:hover,
+:focus-visible .refreshIcon {
   animation: refreshing 2s infinite;
 }
 
