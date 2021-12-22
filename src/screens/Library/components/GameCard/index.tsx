@@ -192,34 +192,35 @@ const GameCard = ({
   return (
     <>
       <ContextMenuTrigger id={appName}>
-        <Link
-          className={grid ? 'gameCard' : 'gameListItem'}
-          to={{
-            pathname: `/gameconfig/${appName}`
-          }}
-        >
+        <div className={grid ? 'gameCard' : 'gameListItem'}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
-          <span
-            style={{
-              backgroundImage: `url('${
-                grid ? cover : coverList
-              }?h=400&resize=1&w=300')`,
-              backgroundSize: '100% 100%',
-              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
+          <Link
+            to={{
+              pathname: `/gameconfig/${appName}`
             }}
-            className={grid ? 'gameImg' : 'gameImgList'}
           >
-            {logo && (
-              <img
-                alt="logo"
-                src={`${logo}?h=400&resize=1&w=300`}
-                style={{
-                  filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
-                }}
-                className="gameLogo"
-              />
-            )}
-          </span>
+            <span
+              style={{
+                backgroundImage: `url('${
+                  grid ? cover : coverList
+                }?h=400&resize=1&w=300')`,
+                backgroundSize: '100% 100%',
+                filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
+              }}
+              className={grid ? 'gameImg' : 'gameImgList'}
+            >
+              {logo && (
+                <img
+                  alt="logo"
+                  src={`${logo}?h=400&resize=1&w=300`}
+                  style={{
+                    filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
+                  }}
+                  className="gameLogo"
+                />
+              )}
+            </span>
+          </Link>
           {grid ? (
             <>
               <div
@@ -269,7 +270,7 @@ const GameCard = ({
               }
             </>
           )}
-        </Link>
+        </div>
         {!grid && <hr />}
         <ContextMenu id={appName} className="contextMenu">
           {isInstalled && (

@@ -55,7 +55,7 @@
   height: 20px;
 }
 
-.gameCard > .gameImg {
+.gameCard > a > .gameImg {
   width: 8vw;
   height: 10vw;
   max-width: 200px;
