@@ -10,7 +10,7 @@ module.exports = {
     '<rootDir>/coverage'
   ],
   coverageReporters: ['text', 'html'],
-  projects: ['<rootDir>/src', '<rootDir>/electron'],
+  projects: ['<rootDir>/electron'],
 
   rootDir: '.'
 }
