@@ -12,7 +12,7 @@ const configStore = new Store({
 function getLegendaryBin() {
   const settings = configStore.get('settings') as { altLeg: string }
   const bin =
-    settings.altLeg ||
+    settings?.altLeg ||
     `${fixAsarPath(
       join(
         __dirname,
