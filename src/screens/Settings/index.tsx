@@ -1,6 +1,8 @@
 import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
 import { IpcRenderer } from 'electron'
@@ -154,6 +156,8 @@ function Settings() {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
+  const [isMacNative, setIsMacNative] = useState(false)
+
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
@@ -207,9 +211,11 @@ function Settings() {
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
-          title: gameTitle
+          title: gameTitle,
+          is_mac_native
         } = await getGameInfo(appName)
         setTitle(gameTitle)
+        setIsMacNative(is_mac_native)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -275,7 +281,7 @@ function Settings() {
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-
+  const shouldRenderWineSettings = !isWin && !isMacNative
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -298,7 +304,7 @@ function Settings() {
               {t('settings.navbar.general')}
             </NavLink>
           )}
-          {!isWin && (
+          {shouldRenderWineSettings && (
             <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
               Wine
             </NavLink>
@@ -316,13 +322,19 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
-          <NavLink to={returnPath}>{t('settings.navbar.back', 'Back')}</NavLink>
         </div>
         <div className="settingsWrapper">
           {title && (
-            <div className="headerTitle" data-testid="headerTitle">
+            <NavLink
+              to={returnPath}
+              className="headerTitle"
+              data-testid="headerTitle"
+            >
               {title}
-            </div>
+              {!isDefault && (
+                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+              )}
+            </NavLink>
           )}
           {isGeneralSettings && (
             <GeneralSettings
@@ -407,6 +419,7 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
+              isMacNative={isMacNative}
             />
           )}
           {isSyncSettings && (

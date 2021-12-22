@@ -79,6 +79,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
               art_logo,
               app_name,
               is_installed,
+              is_mac_native,
               is_game,
               install: { version, install_size, is_dlc }
             }: GameInfo) => {
@@ -101,6 +102,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
                   hasUpdate={hasUpdate}
                   buttonClick={() => handleModal(app_name)}
                   forceCard={showRecentsOnly}
+                  isMacNative={is_mac_native}
                 />
               )
             }

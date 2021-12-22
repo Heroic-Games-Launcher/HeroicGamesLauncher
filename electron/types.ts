@@ -70,6 +70,7 @@ export interface GameInfo {
   save_folder: string
   title: string
   canRunOffline: boolean
+  is_mac_native: boolean
 }
 
 type DLCInfo = {
@@ -83,6 +84,7 @@ type GameInstallInfo = {
   owned_dlc: Array<DLCInfo>
   title: string
   version: string
+  platform_versions: { Mac: string; Windows: string }
 }
 
 type Prerequisites = {
@@ -155,6 +157,7 @@ export interface InstalledInfo {
   install_size: string | null
   is_dlc: boolean
   version: string | null
+  platform: string
 }
 export interface KeyImage {
   type: string

@@ -46,9 +46,11 @@ export interface ContextType {
   error: boolean
   filter: string
   filterText: string
+  filterPlatform: string
   gameUpdates: string[]
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void
+  handlePlatformFilter: (value: string) => void
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
@@ -77,6 +79,7 @@ export interface GameInfo {
   folder_name: string
   install: InstalledInfo
   is_game: boolean
+  is_mac_native: boolean
   is_installed: boolean
   is_ue_asset: boolean
   is_ue_plugin: boolean
@@ -103,6 +106,7 @@ type GameInstallInfo = {
   owned_dlc: Array<DLCInfo>
   title: string
   version: string
+  platform_versions: { Mac: string; Windows: string }
 }
 
 type Prerequisites = {

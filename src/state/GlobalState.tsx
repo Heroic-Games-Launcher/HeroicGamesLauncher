@@ -34,6 +34,7 @@ interface StateProps {
   error: boolean
   filter: string
   filterText: string
+  filterPlatform: string
   gameUpdates: string[]
   language: string
   layout: string
@@ -51,6 +52,7 @@ export class GlobalState extends PureComponent<Props> {
     error: false,
     filter: 'all',
     filterText: '',
+    filterPlatform: 'all',
     gameUpdates: [],
     language: '',
     layout: 'grid',
@@ -112,6 +114,8 @@ export class GlobalState extends PureComponent<Props> {
 
   handleSearch = (input: string) => this.setState({ filterText: input })
   handleFilter = (filter: string) => this.setState({ filter })
+  handlePlatformFilter = (filterPlatform: string) =>
+    this.setState({ filterPlatform })
   handleLayout = (layout: string) => this.setState({ layout })
   handleCategory = (category: string) => this.setState({ category })
 
@@ -166,6 +170,17 @@ export class GlobalState extends PureComponent<Props> {
         default:
           return library.filter((game) => game.is_game)
       }
+    }
+  }
+
+  filterPlatform = (library: GameInfo[], filter: string) => {
+    switch (filter) {
+      case 'win':
+        return library.filter((game) => !game.is_mac_native)
+      case 'mac':
+        return library.filter((game) => game.is_mac_native)
+      default:
+        return library.filter((game) => game.is_game)
     }
   }
 
@@ -392,15 +407,17 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, filterText, filter, platform } = this.state
-
+    const { data, filterText, filter, platform, filterPlatform } = this.state
     let filteredLibrary = data
 
     try {
       const filterRegex = new RegExp(filterText, 'i')
       const textFilter = ({ title, app_name }: GameInfo) =>
         filterRegex.test(title) || filterRegex.test(app_name)
-      filteredLibrary = this.filterLibrary(data, filter).filter(textFilter)
+      filteredLibrary = this.filterPlatform(
+        this.filterLibrary(data, filter).filter(textFilter),
+        filterPlatform
+      )
     } catch (error) {
       console.log(error)
     }
@@ -414,6 +431,7 @@ export class GlobalState extends PureComponent<Props> {
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
+          handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
           platform: platform,
           refresh: this.refresh,

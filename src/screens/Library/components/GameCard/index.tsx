@@ -34,6 +34,7 @@ interface Card {
   size: string
   title: string
   version: string
+  isMacNative: boolean
   forceCard?: boolean
 }
 
@@ -48,7 +49,8 @@ const GameCard = ({
   size = '',
   hasUpdate,
   buttonClick,
-  forceCard
+  forceCard,
+  isMacNative
 }: Card) => {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -88,9 +90,10 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
-  const path = isWin
-    ? `/settings/${appName}/other`
-    : `/settings/${appName}/wine`
+  const path =
+    isWin || isMacNative
+      ? `/settings/${appName}/other`
+      : `/settings/${appName}/wine`
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -174,35 +177,34 @@ const GameCard = ({
   return (
     <>
       <ContextMenuTrigger id={appName}>
-        <div className={grid ? 'gameCard' : 'gameListItem'}>
+        <Link
+          className={grid ? 'gameCard' : 'gameListItem'}
+          to={{
+            pathname: `/gameconfig/${appName}`
+          }}
+        >
           {haveStatus && <span className="progress">{getStatus()}</span>}
-          <Link
-            to={{
-              pathname: `/gameconfig/${appName}`
+          <span
+            style={{
+              backgroundImage: `url('${
+                grid ? cover : coverList
+              }?h=400&resize=1&w=300')`,
+              backgroundSize: '100% 100%',
+              filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
             }}
+            className={grid ? 'gameImg' : 'gameImgList'}
           >
-            <span
-              style={{
-                backgroundImage: `url('${
-                  grid ? cover : coverList
-                }?h=400&resize=1&w=300')`,
-                backgroundSize: '100% 100%',
-                filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
-              }}
-              className={grid ? 'gameImg' : 'gameImgList'}
-            >
-              {logo && (
-                <img
-                  alt="logo"
-                  src={`${logo}?h=400&resize=1&w=300`}
-                  style={{
-                    filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
-                  }}
-                  className="gameLogo"
-                />
-              )}
-            </span>
-          </Link>
+            {logo && (
+              <img
+                alt="logo"
+                src={`${logo}?h=400&resize=1&w=300`}
+                style={{
+                  filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
+                }}
+                className="gameLogo"
+              />
+            )}
+          </span>
           {grid ? (
             <>
               <div
@@ -250,7 +252,7 @@ const GameCard = ({
               }
             </>
           )}
-        </div>
+        </Link>
         {!grid && <hr />}
         <ContextMenu id={appName} className="contextMenu">
           {isInstalled && (

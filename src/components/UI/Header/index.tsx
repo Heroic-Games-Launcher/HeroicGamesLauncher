@@ -8,6 +8,7 @@ import {
   faBorderAll,
   faList
 } from '@fortawesome/free-solid-svg-icons'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { UE_VERSIONS } from './constants'
 import { useTranslation } from 'react-i18next'
@@ -37,16 +38,20 @@ export default function Header({
     gameUpdates = [],
     libraryStatus,
     handleFilter,
+    filterPlatform,
+    handlePlatformFilter,
     refreshLibrary,
     handleLayout,
-    layout
+    layout,
+    platform
   } = useContext(ContextProvider)
+  const history = useHistory()
 
   const hasDownloads = libraryStatus.filter(
     (game) => game.status === 'installing' || game.status === 'updating'
   ).length
   const hasUpdates = gameUpdates.length
-  const history = useHistory()
+  const isMac = platform === 'darwin'
 
   const link = goTo ? goTo : ''
   function handleClick() {
@@ -82,7 +87,28 @@ export default function Header({
       <div className={cx({ header: !title }, { headerSettings: title })}>
         {category === 'games' && (
           <span className="selectFilter">
-            <span>{t('Filter')}:</span>
+            {isMac && (
+              <div className="macFilter">
+                <button
+                  onClick={() => handlePlatformFilter('all')}
+                  className={cx('allFilter', {
+                    selectedLayout: filterPlatform === 'all'
+                  })}
+                >
+                  {t('All')}
+                </button>
+                <FontAwesomeIcon
+                  onClick={() => handlePlatformFilter('win')}
+                  className={cx({ selectedLayout: filterPlatform === 'win' })}
+                  icon={faWindows}
+                />
+                <FontAwesomeIcon
+                  onClick={() => handlePlatformFilter('mac')}
+                  className={cx({ selectedLayout: filterPlatform === 'mac' })}
+                  icon={faApple}
+                />
+              </div>
+            )}
             <select
               onChange={(e) => handleFilter(e.target.value)}
               value={filter}
@@ -93,7 +119,7 @@ export default function Header({
                 className={filter === 'all' ? 'selected' : ''}
                 value="all"
               >
-                {t('All')}
+                {t('filter.noFilter', 'No Filter')}
               </option>
               <option
                 data-testid="installed"

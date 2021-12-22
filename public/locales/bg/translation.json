@@ -69,6 +69,9 @@
     "Downloading": "Сваляне",
     "Epic Games": "Epic Games",
     "Filter": "Филтриране",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Глобални настройки",
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Store и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
@@ -204,7 +207,6 @@
     "Settings": "Настройки",
     "settings": {
         "navbar": {
-            "back": "Back",
             "general": "Общи",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"

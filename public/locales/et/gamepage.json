@@ -82,7 +82,6 @@
         "options": "Käivitusvalikud..."
     },
     "sdl": {
-        "showList": "Kliki, et näidata/peita lisakomponendid",
         "title": "Valige komponendid, mida installida"
     },
     "specs": {
