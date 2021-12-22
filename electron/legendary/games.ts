@@ -9,7 +9,12 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { errorHandler, execAsync, isOnline } from '../utils'
+import {
+  errorHandler,
+  execAsync,
+  isOnline,
+  removeSpecialcharacters
+} from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
@@ -315,7 +320,7 @@ class LegendaryGame extends Game {
       case 'linux': {
         const icon = await this.getIcon(gameInfo.app_name)
         const shortcut = `[Desktop Entry]
-Name=${gameInfo.title}
+Name=${removeSpecialcharacters(gameInfo.title)}
 Exec=xdg-open ${launchWithProtocol}
 Terminal=false
 Type=Application

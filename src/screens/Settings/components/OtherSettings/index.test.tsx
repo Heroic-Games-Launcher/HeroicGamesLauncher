@@ -32,7 +32,7 @@ interface Props {
   toggleDiscordRPC: () => void
   useGameMode: boolean
   targetExe: string
-  isNativeMac: boolean
+  isMacNative: boolean
 }
 
 function renderOtherSettings(props: Partial<Props> = {}) {
@@ -47,7 +47,7 @@ function renderOtherSettings(props: Partial<Props> = {}) {
     addDesktopShortcuts: false,
     addGamesToStartMenu: false,
     discordRPC: false,
-    isNativeMac: false,
+    isMacNative: false,
     setLauncherArgs: (value: string) => value,
     setOtherOptions: (value: string) => value,
     setTargetExe: (value: string) => value,
