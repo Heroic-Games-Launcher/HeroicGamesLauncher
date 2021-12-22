@@ -50,6 +50,10 @@
   padding: 2px;
   background: var(--background-gradient);
 }
+.gameCard > .progress svg {
+  color: var(--success);
+  height: 20px;
+}
 
 .gameCard > .gameImg {
   width: 8vw;
