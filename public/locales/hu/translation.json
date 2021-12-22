@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
@@ -199,6 +199,7 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Indítás tálcára téve",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",

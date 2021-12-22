@@ -199,6 +199,7 @@
             "title": "Κατίσχυση φακέλου δεδομένων συγχρονισμού Νέφους"
         },
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Εκκίνηση ελαχιστοποιημένα",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "φάκελος προθεμάτων Wine",

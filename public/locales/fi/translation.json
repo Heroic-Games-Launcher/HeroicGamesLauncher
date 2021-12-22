@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Äänikorjaus (Pulse Audion viive)",
         "autodxvk": "Asenna automaattisesti/Päivitä DXVK/VKD3D Prefiksissä",
         "autosync": "Automaattisesti synkronoi tallennukset",
@@ -199,6 +199,7 @@
             "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
         },
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefixin kansio",

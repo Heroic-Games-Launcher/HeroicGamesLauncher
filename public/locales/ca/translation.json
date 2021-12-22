@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
         "autodxvk": "Instal·la/Actualitza DXVK/VKD3D al prefix automàticament",
         "autosync": "Sincronitza les dades automàticament",
@@ -199,6 +199,7 @@
             "title": "Sobreescriu la carpeta de dades de sincronització al núvol"
         },
         "showfps": "Ensenya els FPS (DX9, 10 i 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Comença minimitzat",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Carpeta wine prefix",

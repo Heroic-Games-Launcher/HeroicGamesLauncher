@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/به‌روزرسانی خودکار DXVK/VKD3D در Prefix",
         "autosync": "همگام‌سازی خودکار ذخیره‌ها",
@@ -199,6 +199,7 @@
             "title": "رونویسی پوشه ابری همگام‌سازی ذخیره‌ها"
         },
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "شروع در حالت پس‌زمینه",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",

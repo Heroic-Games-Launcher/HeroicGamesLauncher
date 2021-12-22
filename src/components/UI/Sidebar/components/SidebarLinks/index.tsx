@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 import ElectronStore from 'electron-store'
@@ -19,15 +19,18 @@ const configStore: ElectronStore = new Store({
 
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
+import { getAppSettings } from 'src/helpers'
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
+  const [showUnrealMarket, setShowUnrealMarket] = useState(false)
 
   const { category, handleCategory, handleFilter } = useContext(ContextProvider)
 
   const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
   const isLoggedIn = Boolean(configStore.get('userInfo'))
+  const showSubmenu = showUnrealMarket && isLibrary && isLoggedIn
 
   function toggleCategory(newCategory: string) {
     if (category !== newCategory) {
@@ -35,6 +38,12 @@ export default function SidebarLinks() {
       handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
     }
   }
+
+  useEffect(() => {
+    getAppSettings().then(({ showUnrealMarket }) =>
+      setShowUnrealMarket(showUnrealMarket)
+    )
+  }, [])
 
   return (
     <div className="Links">
@@ -56,7 +65,7 @@ export default function SidebarLinks() {
         />
         {isLoggedIn ? t('Library') : t('Login')}
       </NavLink>
-      {isLibrary && isLoggedIn && (
+      {showSubmenu && (
         <>
           <span
             onClick={() => toggleCategory('games')}

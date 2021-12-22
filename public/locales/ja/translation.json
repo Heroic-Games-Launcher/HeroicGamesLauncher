@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
         "autodxvk": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
@@ -199,6 +199,7 @@
             "title": "Cloud Syncの保存フォルダーをオーバーライドする"
         },
         "showfps": "FPSを表示（DX9、10、11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
         "winecrossoverbottle": "CrossOver ボトル",
         "wineprefix": "Wineプレフィックスフォルダー",

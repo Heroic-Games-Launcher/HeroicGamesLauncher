@@ -199,6 +199,7 @@
             "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
         },
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Minimiert starten",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine Prefix Ordner",

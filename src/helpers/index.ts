@@ -1,4 +1,4 @@
-import { GameInfo, InstallInfo, InstallProgress } from 'src/types'
+import { AppSettings, GameInfo, InstallInfo, InstallProgress } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { install, launch, repair, updateGame } from './library'
 const { ipcRenderer } = window.require('electron') as {
@@ -215,6 +215,10 @@ async function fixSaveFolder(
   return folder
 }
 
+function getAppSettings(): Promise<AppSettings> {
+  return ipcRenderer.invoke('requestSettings', 'default')
+}
+
 export {
   createNewWindow,
   fixSaveFolder,
@@ -224,6 +228,7 @@ export {
   getLegendaryConfig,
   getPlatform,
   getProgress,
+  getAppSettings,
   handleKofi,
   handleQuit,
   handleSavePath,

@@ -199,6 +199,7 @@
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Simge Durumuna Küçültülmüş Başla",
         "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",

@@ -199,6 +199,7 @@
             "title": "Forsiraj prebacivanje lokalnih podataka"
         },
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Pokreni minimizirano",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePut mapa",

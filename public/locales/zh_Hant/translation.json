@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
         "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
         "autosync": "自動同步存檔",
@@ -199,6 +199,7 @@
             "title": "覆蓋雲端存檔資料夾"
         },
         "showfps": "顯示幀數（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夾",

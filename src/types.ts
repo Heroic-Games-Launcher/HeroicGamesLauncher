@@ -31,6 +31,7 @@ export interface AppSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  showUnrealMarket: boolean
   startInTray: boolean
   useGameMode: boolean
   targetExe: string

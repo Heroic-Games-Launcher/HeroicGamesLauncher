@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK/VKD3D sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
@@ -199,6 +199,7 @@
             "title": "Effettua l'aggiornamento forzato della cartella dei giochi sul cloud"
         },
         "showfps": "Mostra FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Avvio Minimizzato",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Cartella del prefix di Wine",

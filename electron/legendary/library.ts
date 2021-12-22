@@ -26,6 +26,7 @@ import {
 import { logError, logInfo } from '../logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
+import { GlobalConfig } from '../config'
 
 const libraryStore = new Store({
   cwd: 'store',
@@ -82,9 +83,11 @@ class LegendaryLibrary {
    */
   public async refresh() {
     logInfo('Refreshing Epic Games...')
+    const { showUnrealMarket } = await GlobalConfig.get().getSettings()
 
     return new Promise((res, rej) => {
-      const child = spawn(legendaryBin, ['list-games', '--include-ue'])
+      const getUeAssets = showUnrealMarket ? '--include-ue' : ''
+      const child = spawn(legendaryBin, ['list-games', getUeAssets])
       child.stderr.on('data', (data) => {
         console.log(`${data}`)
       })

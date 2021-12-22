@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK/VKD3D automaticamente",
         "autosync": "Ativar Sincronização Automática",
@@ -199,6 +199,7 @@
             "title": "Sobrescrever diretório de saves automáticos"
         },
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar Minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Prefixo Wine",

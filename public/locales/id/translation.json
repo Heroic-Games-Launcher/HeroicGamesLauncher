@@ -157,7 +157,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "",
         "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
         "autosync": "",
@@ -199,6 +199,7 @@
             "title": ""
         },
         "showfps": "",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "",

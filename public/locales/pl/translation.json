@@ -199,6 +199,7 @@
             "title": "Pomiń synchronizację z chmurą"
         },
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Uruchom zminimalizowany",
         "winecrossoverbottle": "Butelki w CrossOver",
         "wineprefix": "Folder prefiksu Wine",
