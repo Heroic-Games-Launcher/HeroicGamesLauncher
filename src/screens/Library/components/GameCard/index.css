@@ -13,6 +13,10 @@
   border-radius: 0.5rem;
 }
 
+.gameCard:focus-within {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
 .gameCard > .status {
   position: absolute;
   z-index: 5;
