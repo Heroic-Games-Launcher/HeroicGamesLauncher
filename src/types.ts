@@ -58,7 +58,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
-  refreshLibrary: (options: RefreshOptions) => void
+  refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshing: boolean
 }
 
@@ -199,6 +199,9 @@ export type ElWebview = {
   reload: () => void
   isLoading: () => boolean
   getURL: () => string
+  copy: () => string
+  selectAll: () => void
+  findInPage: (text: string | RegExp) => void
 }
 
 export type Webview = HTMLWebViewElement & ElWebview
