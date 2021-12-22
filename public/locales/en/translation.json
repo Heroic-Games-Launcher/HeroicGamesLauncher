@@ -103,6 +103,10 @@
         "requirements": "System Requirements"
     },
     "Library": "Library",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
@@ -212,6 +216,10 @@
             "other": "Other",
             "sync": "Save-Sync"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Store",
     "title": {

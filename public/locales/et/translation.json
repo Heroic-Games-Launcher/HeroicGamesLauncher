@@ -103,6 +103,10 @@
         "requirements": "Süsteeminõuded"
     },
     "Library": "Varamu",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sünkroonimine lõpetatud",
         "unsync": "Mittesünkroniseerimine lõpetatud"
@@ -212,6 +216,10 @@
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Pood",
     "title": {

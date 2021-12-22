@@ -103,6 +103,10 @@
         "requirements": "Systemkrav"
     },
     "Library": "Bibliotek",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synkronisering klar",
         "unsync": "Ogör synkronisering klar"
@@ -212,6 +216,10 @@
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Butik",
     "title": {

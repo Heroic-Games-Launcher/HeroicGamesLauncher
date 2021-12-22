@@ -103,6 +103,10 @@
         "requirements": "Απαιτήσεις Συστήματος"
     },
     "Library": "Βιβλιοθήκη",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
@@ -212,6 +216,10 @@
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Κατάστημα",
     "title": {

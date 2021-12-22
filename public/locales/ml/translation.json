@@ -103,6 +103,10 @@
         "requirements": "ശുപാര്‍ശിക്കുന്ന സംവിധാനങ്ങള്‍"
     },
     "Library": "കളിശാല",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
         "unsync": "പിരിച്ചു"
@@ -208,11 +212,14 @@
     "Settings": "ക്രമീകരണങ്ങള്‍",
     "settings": {
         "navbar": {
-            "back": "പുറകോട്ട്",
             "general": "പൊതുവായവ",
             "other": "മറ്റുള്ളവ",
             "sync": "ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കൂ"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "കട",
     "title": {

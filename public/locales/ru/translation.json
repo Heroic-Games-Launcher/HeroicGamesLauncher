@@ -103,6 +103,10 @@
         "requirements": "Системные требования"
     },
     "Library": "Библиотека",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Синхронизация завершена",
         "unsync": "Рассинхронизация завершена"
@@ -212,6 +216,10 @@
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Магазин",
     "title": {

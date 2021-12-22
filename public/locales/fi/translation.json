@@ -103,6 +103,10 @@
         "requirements": "Laitteistovaatimukset"
     },
     "Library": "Kirjasto",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synkronointi valmis",
         "unsync": "Synkronoinnin poisto valmis"
@@ -212,6 +216,10 @@
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Kauppa",
     "title": {

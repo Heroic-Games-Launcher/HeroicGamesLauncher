@@ -103,6 +103,10 @@
         "requirements": "نیازمندی‌های سیستم"
     },
     "Library": "کتابخانه",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "همگام‌سازی کامل شد",
         "unsync": "عدم همگام‌سازی کامل شد"
@@ -212,6 +216,10 @@
             "other": "بقیه",
             "sync": "همگام‌سازی ذخیره‌ها"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "فروشگاه",
     "title": {

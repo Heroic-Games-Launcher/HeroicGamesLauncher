@@ -103,6 +103,10 @@
         "requirements": "Configuration Requise"
     },
     "Library": "Bibliothèque",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronisation Complète",
         "unsync": "Désynchronisation Complète"
@@ -212,6 +216,10 @@
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Boutique",
     "title": {

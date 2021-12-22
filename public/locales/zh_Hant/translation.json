@@ -103,6 +103,10 @@
         "requirements": "系統要求"
     },
     "Library": "收藏庫",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"
@@ -212,6 +216,10 @@
             "other": "其它",
             "sync": "存檔-同步"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "商店",
     "title": {

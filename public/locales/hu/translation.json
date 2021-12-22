@@ -103,6 +103,10 @@
         "requirements": "Rendszer Követelmények"
     },
     "Library": "Könyvtár",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Szinkronizálás Befejezve",
         "unsync": "Deszinkronizálás Befejezve"
@@ -212,6 +216,10 @@
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Áruház",
     "title": {

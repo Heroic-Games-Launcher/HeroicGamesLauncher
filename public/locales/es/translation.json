@@ -103,6 +103,10 @@
         "requirements": "Requisitos del sistema"
     },
     "Library": "Biblioteca",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sincronización completa",
         "unsync": "Desincronizacion completa"
@@ -212,6 +216,10 @@
             "other": "Otro",
             "sync": "Guardar-Sincronizar"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Tienda",
     "title": {

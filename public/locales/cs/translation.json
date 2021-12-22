@@ -103,6 +103,10 @@
         "requirements": "Systémové požadavky"
     },
     "Library": "Knihovna",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
@@ -212,6 +216,10 @@
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Obchod",
     "title": {

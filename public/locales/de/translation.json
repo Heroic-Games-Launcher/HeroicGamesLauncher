@@ -103,6 +103,10 @@
         "requirements": "Systemanforderungen"
     },
     "Library": "Bibliothek",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronisation abgeschlossen",
         "unsync": "Synchronisation erfolgreich aufgehoben"
@@ -208,11 +212,14 @@
     "Settings": "Einstellungen",
     "settings": {
         "navbar": {
-            "back": "Zurück",
             "general": "Allgemein",
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Store",
     "title": {

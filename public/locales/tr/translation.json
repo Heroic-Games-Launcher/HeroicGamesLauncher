@@ -103,6 +103,10 @@
         "requirements": "Sistem Gereksinimleri"
     },
     "Library": "Kütüphane",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
@@ -212,6 +216,10 @@
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Mağaza",
     "title": {

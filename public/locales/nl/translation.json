@@ -103,6 +103,10 @@
         "requirements": "Systeemvereisingen"
     },
     "Library": "Bibliotheek",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Synchronisatie compleet",
         "unsync": "De-synchronisatie compleet"
@@ -212,6 +216,10 @@
             "other": "Overig",
             "sync": "Save-synchronisatie"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Winkel",
     "title": {

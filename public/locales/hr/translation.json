@@ -103,6 +103,10 @@
         "requirements": "Zahtjevi sustava"
     },
     "Library": "Knižnjica",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "Login": "",
     "message": {
         "sync": "Sinkroniziranje završeno",
         "unsync": "Desinkronizacija završena"
@@ -212,6 +216,10 @@
             "other": "Ostalo",
             "sync": "Spremi-Podatke"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Trgovina",
     "title": {
