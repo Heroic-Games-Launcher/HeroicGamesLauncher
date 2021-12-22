@@ -36,7 +36,7 @@
     "button": {
         "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
-        "import": "Importieren",
+        "import": "Spiel importieren",
         "install": "Installieren",
         "uninstall": "Deinstallieren",
         "update": "Update"
@@ -67,7 +67,7 @@
         "version": "Version"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Installationspfad auswählen"
     },
     "label": {
         "playing": {

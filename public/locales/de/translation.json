@@ -50,8 +50,8 @@
             "exe": "EXE auswählen"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
+            "title": "Verknüpfungen"
         },
         "sync": {
             "button": "Auswählen",
@@ -111,8 +111,8 @@
     "Not Ready": "Nicht installiert",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Fehler beim Verschieben des Spiels",
+            "reparing": "Fehler beim Reparieren"
         },
         "finished": {
             "reparing": "Reparatur abgeschlossen"
@@ -120,8 +120,8 @@
         "install": {
             "canceled": "Installation abgebrochen",
             "finished": "Installation abgeschlossen",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Spiel importiert",
+            "startInstall": "Installation gestartet"
         },
         "moved": "Verschieben abgeschlossen",
         "uninstalled": "Deinstalliert",
@@ -208,6 +208,7 @@
     "Settings": "Einstellungen",
     "settings": {
         "navbar": {
+            "back": "Zurück",
             "general": "Allgemein",
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
@@ -215,15 +216,15 @@
     },
     "store": "Store",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
+        "allGames": "Alle Spiele",
+        "allUnreal": "Unreal - Alles",
+        "downloading": "wird heruntergeladen",
+        "installedGames": "Installierte Spiele",
+        "notInstalledGames": "Nicht installiert",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projekte",
+        "updates": "Ausstehende Aktualisierungen"
     },
     "tooltip": {
         "addpath": "Neuen Pfad hinzufügen",
