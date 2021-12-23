@@ -45,6 +45,13 @@ export interface AppSettings {
 }
 
 export type ExecResult = void | { stderr: string; stdout: string }
+
+export type LaunchResult = {
+  stderr: string
+  command: string
+  gameSettings: GameSettings
+}
+
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]

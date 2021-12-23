@@ -1,2 +1,2 @@
 #!/bin/bash
-yarn lint && yarn prettier
+yarn lint && yarn prettier-fix

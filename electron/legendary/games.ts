@@ -487,6 +487,7 @@ Categories=Game;
     const isOffline = !(await isOnline())
     let envVars = ''
     let gameMode: string
+    const gameSettings = await this.getSettings()
 
     const {
       winePrefix,
@@ -507,7 +508,7 @@ Categories=Game;
       enableEsync,
       enableFsync,
       targetExe
-    } = await this.getSettings()
+    } = gameSettings
 
     const { discordRPC } = await GlobalConfig.get().getSettings()
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
@@ -637,16 +638,14 @@ Categories=Game;
       launchArguments ?? ''
     } ${launcherArgs}`
     logInfo('\n Launch Command:', command)
-    const v = await execAsync(command, execOptions).then((v) => {
+
+    return await execAsync(command, execOptions).then(({ stderr }) => {
       this.state.status = 'playing'
-      return v
+      logInfo('Stopping Discord Rich Presence if running...')
+      discordRPC && DiscordRPC.disconnect()
+      logInfo('Stopped Discord Rich Presence.')
+      return { stderr, command, gameSettings }
     })
-
-    logInfo('Stopping Discord Rich Presence if running...')
-    discordRPC && DiscordRPC.disconnect()
-    logInfo('Stopped Discord Rich Presence.')
-
-    return v
   }
 
   private async createNewPrefix(

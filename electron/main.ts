@@ -1,4 +1,4 @@
-import { InstallParams } from './types'
+import { InstallParams, LaunchResult } from './types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -36,6 +36,8 @@ import {
   checkForUpdates,
   errorHandler,
   execAsync,
+  getLegendaryVersion,
+  getSystemInfo,
   handleExit,
   isOnline,
   openUrlOrFile,
@@ -61,10 +63,8 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
-import { checkUpdates } from './updater'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -83,30 +83,7 @@ const tsStore = new Store({
   name: 'timestamp'
 })
 
-// Trigger the autoUpdater every X minutes
-if (GlobalConfig.get().config?.enableUpdates) {
-  const interval = setInterval(
-    () => checkUpdates(),
-    (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000
-  ) // Converts minutes to milliseconds
-  clearInterval(interval)
-}
-
 async function createWindow(): Promise<BrowserWindow> {
-  listenStdout()
-    .then((arr) => {
-      const str = arr.join('\n')
-      const date = new Date().toDateString()
-      const path = `${app.getPath('crashDumps')}/${date}.txt`
-      logInfo('Saving log file to ' + path)
-      writeFile(path, str, {}, (err) => {
-        if (err) throw err
-      })
-    })
-    .catch((reason) => {
-      throw reason
-    })
-
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
   // Create the browser window.
@@ -286,8 +263,8 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    logInfo(`Heroic Version ${app.getVersion()}`)
-    logInfo(`Legendary Version ${await getLegendaryVersion()}`)
+    const systemInfo = await getSystemInfo()
+    logInfo(`${systemInfo}`)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
@@ -477,7 +454,6 @@ ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
-ipcMain.on('updateHeroic', () => checkUpdates())
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
@@ -557,22 +533,6 @@ ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
-
-export const getLegendaryVersion = async () => {
-  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(`${legendaryBin} --version`)
-    return stdout
-      .split('legendary version')[1]
-      .replaceAll('"', '')
-      .replaceAll(', codename', '')
-  } catch (error) {
-    return 'invalid'
-  }
-}
 
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 
@@ -718,7 +678,7 @@ ipcMain.handle(
 
     return Game.get(appName)
       .launch(launchArguments)
-      .then(({ stderr }) => {
+      .then(({ stderr, command, gameSettings }: LaunchResult) => {
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
         const sessionPlayingTime =
@@ -729,9 +689,18 @@ ipcMain.handle(
         // I'll send the calculated time here because then the user can set it manually on the file if desired
         tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
 
+        const logResult = `Launch Command: ${command}
+        System Info:
+        ${getSystemInfo()}
+        Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
+
+        Legendary Log:
+        ${stderr}
+        `
+
         writeFile(
           `${heroicGamesConfigPath}${game}-lastPlay.log`,
-          stderr,
+          logResult,
           () => 'done'
         )
         if (stderr.includes('Errno')) {

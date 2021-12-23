@@ -4,9 +4,11 @@ import { exec } from 'child_process'
 import { existsSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
+import prettyBytes from 'pretty-bytes'
+import si from 'systeminformation'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon } from './constants'
+import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
@@ -32,6 +34,23 @@ function semverGt(target: string, base: string) {
 
 async function isOnline() {
   return net.isOnline()
+}
+
+export const getLegendaryVersion = async () => {
+  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
+  try {
+    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
+      return 'invalid'
+    }
+    const { stdout } = await execAsync(`${legendaryBin} --version`)
+    return stdout
+      .split('legendary version')[1]
+      .replaceAll('"', '')
+      .replaceAll(', codename', '')
+      .replaceAll('\n', '')
+  } catch (error) {
+    return 'invalid'
+  }
 }
 
 async function checkForUpdates() {
@@ -89,6 +108,34 @@ const handleExit = async () => {
     return app.exit()
   }
   app.exit()
+}
+
+export const getSystemInfo = async () => {
+  const heroicVersion = app.getVersion()
+  const legendaryVersion = await getLegendaryVersion()
+
+  // get CPU and RAM info
+  const { manufacturer, brand, speed, governor } = await si.cpu()
+  const { total, available } = await si.mem()
+
+  // get OS information
+  const { distro, kernel, arch } = await si.osInfo()
+
+  // get GPU information
+  const { controllers } = await si.graphics()
+  const { name, model, vram, driverVersion } = controllers[0]
+  const gpu = `${name ? name : model} VRAM: ${vram}MB DRIVER: ${driverVersion}`
+
+  return `
+  Heroic Version: ${heroicVersion}
+  Legendary Version: ${legendaryVersion}
+  OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+  CPU: ${manufacturer} ${brand} @${speed} ${
+    governor ? `GOVERNOR: ${governor}` : ''
+  }
+  RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
+  GRAPHICS: ${gpu}
+  `
 }
 
 type ErrorHandlerMessage = {
