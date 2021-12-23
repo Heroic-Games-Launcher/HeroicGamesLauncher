@@ -6,7 +6,7 @@
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
-        "default-install-path": "",
+        "default-install-path": "Installationspfad auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",

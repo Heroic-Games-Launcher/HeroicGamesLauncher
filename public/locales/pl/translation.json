@@ -228,9 +228,9 @@
         "downloading": "Pobieranie",
         "installedGames": "Zainstalowane Gry",
         "notInstalledGames": "Nie Zainstalowane",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
+        "unrealAssets": "Unreal - Assety",
+        "unrealPlugins": "Unreal - Pluginy",
+        "unrealProjects": "Unreal - Projekty",
         "updates": "Oczekujące Aktualizacje"
     },
     "tooltip": {

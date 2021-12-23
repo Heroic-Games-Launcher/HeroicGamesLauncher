@@ -66,13 +66,13 @@
         "syncing": "",
         "unsync": ""
     },
-    "Downloading": "",
-    "Epic Games": "Epic Games",
-    "Filter": "",
     "filter": {
         "noFilter": "No Filter"
     },
-    "globalSettings": "Global Settings",
+    "Downloading": "Mengunduh",
+    "Epic Games": "Game Epic",
+    "Filter": "Saring",
+    "globalSettings": "Pengaturan Global",
     "help": {
         "general": "",
         "other": {
