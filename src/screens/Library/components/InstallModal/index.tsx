@@ -17,7 +17,7 @@ import {
   Path
 } from 'src/types'
 
-import { UpdateComponent } from 'src/components/UI'
+import { UpdateComponent, SvgButton } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
@@ -177,7 +177,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                   placeholder={defaultPath}
                   onChange={(event) => setInstallPath(event.target.value)}
                 />
-                <FontAwesomeIcon
+                <SvgButton
                   onClick={() =>
                     ipcRenderer
                       .invoke('openDialog', {
@@ -189,9 +189,12 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                         setInstallPath(path ? `'${path}'` : defaultPath)
                       )
                   }
-                  className="fontAwesome folder"
-                  icon={faFolderOpen}
-                />
+                >
+                  <FontAwesomeIcon
+                    className="fontAwesome folder"
+                    icon={faFolderOpen}
+                  />
+                </SvgButton>
               </span>
               {getDownloadedProgress()}
             </span>

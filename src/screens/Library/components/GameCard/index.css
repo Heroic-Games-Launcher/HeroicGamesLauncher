@@ -13,6 +13,10 @@
   border-radius: 0.5rem;
 }
 
+.gameCard:focus-within {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
 .gameCard > .status {
   position: absolute;
   z-index: 5;
@@ -45,6 +49,10 @@
   word-wrap: break-word;
   padding: 2px;
   background: var(--background-gradient);
+}
+.gameCard > .progress svg {
+  color: var(--success);
+  height: 20px;
 }
 
 .gameCard > a > .gameImg {
@@ -99,12 +107,16 @@
   transition: 300ms;
 }
 
+.icons > button > svg,
 .icons > a > svg,
 .icons > svg {
   width: min(calc(1vw + 9px), 36px);
   height: min(calc(1vw + 9px), 36px);
   min-width: 22px;
   min-height: 22px;
+  display: block;
+}
+.icons > .svg-button {
   margin-left: 12px;
 }
 
@@ -132,19 +144,23 @@
   opacity: 0;
 }
 
-.gameCard:hover > .icons {
+.gameCard:hover > .icons,
+.gameCard:focus-within > .icons {
   opacity: 1;
 }
 
-.gameCard:hover > .gameTitle {
+.gameCard:hover > .gameTitle,
+.gameCard:focus-within > .gameTitle {
   bottom: 0;
 }
 
-.gameCard:hover > .gameTitle > span {
+.gameCard:hover > .gameTitle > span,
+.gameCard:focus-within > .gameTitle > span {
   display: block;
 }
 
-.gameCard:hover > .progress {
+.gameCard:hover > .progress,
+.gameCard:focus-within > .progress {
   background: none;
 }
 
@@ -215,10 +231,9 @@
   flex-direction: column;
   height: 100%;
   justify-content: space-around;
-  width: 58px;
+  width: 47px;
   height: 100%;
   padding: 0 6px;
-  justify-self: center;
 }
 
 .gameListItem > .progress {

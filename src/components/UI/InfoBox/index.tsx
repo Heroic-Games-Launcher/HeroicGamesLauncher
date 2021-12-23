@@ -22,14 +22,18 @@ export default function InfoBox({ children, text }: Props) {
 
   return (
     <>
-      <span
+      <a
+        href="#"
         className="helpLink"
-        onClick={toggleIsHidden}
+        onClick={(e) => {
+          e.preventDefault()
+          toggleIsHidden()
+        }}
         data-testid="infoboxSpan"
       >
         <p>{t(text)}</p>
         <Info className="material-icons" />
-      </span>
+      </a>
       <div
         style={{ display: isHidden ? 'none' : 'block' }}
         className="infoBox"

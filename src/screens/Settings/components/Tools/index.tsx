@@ -79,7 +79,8 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
     <>
       <div data-testid="toolsSettings" className="settingsTools">
         <div className="toolsWrapper">
-          <span
+          <a
+            href="#"
             data-testid="wineCFG"
             className="tools"
             style={{
@@ -88,8 +89,9 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             onClick={() => callTools('winecfg')}
           >
             Winecfg
-          </span>
-          <span
+          </a>
+          <a
+            href="#"
             data-testid="wineTricks"
             className="tools"
             style={{
@@ -98,8 +100,9 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             onClick={() => callTools('winetricks')}
           >
             Winetricks
-          </span>
-          <span
+          </a>
+          <a
+            href="#"
             data-testid="toolsDrag"
             draggable
             onDrop={(ev) => dropHandler(ev)}
@@ -110,7 +113,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             {t('setting.runexe.title')}
             <br />
             <span>{t('setting.runexe.message')}</span>
-          </span>
+          </a>
         </div>
       </div>
     </>

@@ -14,7 +14,7 @@ import { UE_VERSIONS } from './constants'
 import { useTranslation } from 'react-i18next'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import ContextProvider from 'src/state/ContextProvider'
-import SearchBar from 'src/components/UI/SearchBar'
+import { SearchBar, SvgButton } from 'src/components/UI'
 import cx from 'classnames'
 
 interface Props {
@@ -110,6 +110,7 @@ export default function Header({
               </div>
             )}
             <select
+              id="games-filter"
               onChange={(e) => handleFilter(e.target.value)}
               value={filter}
               data-testid="games-filter"
@@ -208,17 +209,19 @@ export default function Header({
           </div>
         )}
         <div className="headerIcons">
-          <FontAwesomeIcon
-            onClick={() => handleLayout('grid')}
-            className={cx({ selectedLayout: layout === 'grid' })}
-            icon={faBorderAll}
-          />
-          <FontAwesomeIcon
-            onClick={() => handleLayout('list')}
-            className={cx({ selectedLayout: layout === 'list' })}
-            icon={faList}
-          />
-          <FontAwesomeIcon
+          <SvgButton onClick={() => handleLayout('grid')}>
+            <FontAwesomeIcon
+              className={cx({ selectedLayout: layout === 'grid' })}
+              icon={faBorderAll}
+            />
+          </SvgButton>
+          <SvgButton onClick={() => handleLayout('list')}>
+            <FontAwesomeIcon
+              className={cx({ selectedLayout: layout === 'list' })}
+              icon={faList}
+            />
+          </SvgButton>
+          <SvgButton
             onClick={() =>
               refreshLibrary({
                 checkForUpdates: true,
@@ -226,9 +229,9 @@ export default function Header({
                 runInBackground: false
               })
             }
-            className="refreshIcon"
-            icon={faSyncAlt}
-          />
+          >
+            <FontAwesomeIcon className="refreshIcon" icon={faSyncAlt} />
+          </SvgButton>
         </div>
       </div>
     </>
