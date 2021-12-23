@@ -1,4 +1,4 @@
-import { InstallParams } from './types'
+import { InstallParams, LaunchResult } from './types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -36,6 +36,8 @@ import {
   checkForUpdates,
   errorHandler,
   execAsync,
+  getLegendaryVersion,
+  getSystemInfo,
   handleExit,
   isOnline,
   openUrlOrFile,
@@ -286,8 +288,8 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    logInfo(`Heroic Version ${app.getVersion()}`)
-    logInfo(`Legendary Version ${await getLegendaryVersion()}`)
+    const systemInfo = await getSystemInfo()
+    logInfo(`${systemInfo}`)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
@@ -558,22 +560,6 @@ ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
-export const getLegendaryVersion = async () => {
-  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(`${legendaryBin} --version`)
-    return stdout
-      .split('legendary version')[1]
-      .replaceAll('"', '')
-      .replaceAll(', codename', '')
-  } catch (error) {
-    return 'invalid'
-  }
-}
-
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 
 ipcMain.handle('getPlatform', () => process.platform)
@@ -718,7 +704,7 @@ ipcMain.handle(
 
     return Game.get(appName)
       .launch(launchArguments)
-      .then(({ stderr }) => {
+      .then(({ stderr, command, gameSettings }: LaunchResult) => {
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
         const sessionPlayingTime =
@@ -729,9 +715,18 @@ ipcMain.handle(
         // I'll send the calculated time here because then the user can set it manually on the file if desired
         tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
 
+        const logResult = `Launch Command: ${command}
+        System Info:
+        ${getSystemInfo()}
+        Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
+
+        Legendary Log:
+        ${stderr}
+        `
+
         writeFile(
           `${heroicGamesConfigPath}${game}-lastPlay.log`,
-          stderr,
+          logResult,
           () => 'done'
         )
         if (stderr.includes('Errno')) {

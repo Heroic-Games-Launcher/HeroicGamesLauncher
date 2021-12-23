@@ -1,12 +1,14 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
+import os from 'os'
 import { existsSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
+import prettyBytes from 'pretty-bytes'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon } from './constants'
+import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
@@ -32,6 +34,23 @@ function semverGt(target: string, base: string) {
 
 async function isOnline() {
   return net.isOnline()
+}
+
+export const getLegendaryVersion = async () => {
+  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
+  try {
+    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
+      return 'invalid'
+    }
+    const { stdout } = await execAsync(`${legendaryBin} --version`)
+    return stdout
+      .split('legendary version')[1]
+      .replaceAll('"', '')
+      .replaceAll(', codename', '')
+      .replaceAll('\n', '')
+  } catch (error) {
+    return 'invalid'
+  }
 }
 
 async function checkForUpdates() {
@@ -89,6 +108,29 @@ const handleExit = async () => {
     return app.exit()
   }
   app.exit()
+}
+
+export const getSystemInfo = async () => {
+  const heroicVersion = app.getVersion()
+  const legendaryVersion = await getLegendaryVersion()
+  const isLinux = os.type() === 'Linux'
+  const totalRam = prettyBytes(os.totalmem())
+  const freeRam = prettyBytes(os.freemem())
+  const { stdout: kernel = ' ' } = isLinux ? await execAsync('uname -r') : {}
+  const { stdout: distro = ' ' } = isLinux
+    ? await execAsync('cat /etc/*-release | grep PRETTY_NAME')
+    : {}
+
+  return `
+  Heroic Version: ${heroicVersion}
+  Legendary Version: ${legendaryVersion}
+  OS: ${distro.replaceAll('\n', '').split('=')[1]} ${kernel.replaceAll(
+    '\n',
+    ''
+  )}
+  CPU: ${os.cpus()[0].model}
+  RAM: Total: ${totalRam} Free: ${freeRam}
+  `
 }
 
 type ErrorHandlerMessage = {
