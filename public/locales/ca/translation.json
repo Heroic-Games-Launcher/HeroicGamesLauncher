@@ -8,7 +8,7 @@
         },
         "choose": "Tria",
         "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Selecciona binari de legendary",
         "customWine": "Selecciona el binary de wine o proton",
         "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
         "error": {
