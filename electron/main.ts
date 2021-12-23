@@ -678,7 +678,7 @@ ipcMain.handle(
 
     return Game.get(appName)
       .launch(launchArguments)
-      .then(({ stderr, command, gameSettings }: LaunchResult) => {
+      .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
         const sessionPlayingTime =
@@ -688,10 +688,11 @@ ipcMain.handle(
           : sessionPlayingTime
         // I'll send the calculated time here because then the user can set it manually on the file if desired
         tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
+        const systemInfo = await getSystemInfo()
 
         const logResult = `Launch Command: ${command}
         System Info:
-        ${getSystemInfo()}
+        ${systemInfo}
         Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
 
         Legendary Log:
