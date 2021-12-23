@@ -6,7 +6,7 @@
             "title": "Change Games Install Path"
         },
         "choose": "Choose",
-        "default-install-path": "",
+        "default-install-path": "Select install path",
         "importpath": "Choose Game Folder to import",
         "move": {
             "message": "This can take a long time, are you sure?",

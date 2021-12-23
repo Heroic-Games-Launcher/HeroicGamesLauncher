@@ -3,13 +3,13 @@
         "change": {
             "message": "Detta kommer ändra installationssökvägen, är du säker?",
             "path": "Välj ny installationssökväg",
-            "title": "Byt spelets installationssökväg"
+            "title": "Ändra spelets installationssökväg"
         },
         "choose": "Ok",
-        "default-install-path": "",
+        "default-install-path": "Välj installationssökväg",
         "importpath": "Välj spelmapp för import",
         "move": {
-            "message": "Det kan ta lång tid, är du säker??",
+            "message": "Detta kan ta lång tid, är du säker?",
             "path": "Välj vart du vill flytta",
             "title": "Flytta var spelet är installerat"
         },
@@ -36,7 +36,7 @@
     "button": {
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
-        "import": "Importera",
+        "import": "Importera spel",
         "install": "Installera",
         "uninstall": "Avinstallera",
         "update": "Update"
@@ -49,9 +49,9 @@
     "enabled": "Aktiverad",
     "game": {
         "downloadSize": "Nedladdningsstorlek",
-        "firstPlayed": "Först spelad",
+        "firstPlayed": "Först spelat",
         "installSize": "Installationsstorlek",
-        "lastPlayed": "Senast spelad",
+        "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Speltid"
     },
@@ -67,11 +67,11 @@
         "version": "Version"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Välj installationssökväg"
     },
     "label": {
         "playing": {
-            "start": "Spela",
+            "start": "Starta spelet",
             "stop": "Avsluta spel"
         },
         "saves": {
@@ -90,19 +90,19 @@
         "recommended": "Rekommenderad"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Klicka för att uppdatera",
         "hasUpdates": "Det finns en ny version tillgänglig!",
         "installed": "Installerad",
         "installing": "Installerar",
-        "moving": "Flyttar installationen, var god dröj",
+        "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
-        "reparing": "Reparerar spelet, var god dröj",
+        "reparing": "Reparerar spelet, vänligen vänta",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
-        "change": "Byt installationssökväg",
+        "change": "Ändra installationssökväg",
         "log": "Senaste loggen",
         "move": "Flytta spelet",
         "protondb": "Kontrollera kompatibilitet",

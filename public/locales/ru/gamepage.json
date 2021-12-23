@@ -67,7 +67,7 @@
         "version": "Версия"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Выберите путь установки"
     },
     "label": {
         "playing": {

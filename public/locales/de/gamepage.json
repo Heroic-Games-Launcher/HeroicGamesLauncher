@@ -6,7 +6,7 @@
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
-        "default-install-path": "",
+        "default-install-path": "Installationspfad auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
@@ -36,7 +36,7 @@
     "button": {
         "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
-        "import": "Importieren",
+        "import": "Spiel importieren",
         "install": "Installieren",
         "uninstall": "Deinstallieren",
         "update": "Update"
@@ -67,7 +67,7 @@
         "version": "Version"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Installationspfad auswählen"
     },
     "label": {
         "playing": {

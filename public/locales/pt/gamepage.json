@@ -6,7 +6,7 @@
             "title": "Modificar local de instalação do Jogo"
         },
         "choose": "Selecionar",
-        "default-install-path": "",
+        "default-install-path": "Selecione of local de instalação",
         "importpath": "Escolha a pasta do jogo para importar",
         "move": {
             "message": "Isso pode levar bastante tempo, continuar?",
@@ -36,7 +36,7 @@
     "button": {
         "cancel": "Pausar/Cancelar",
         "continue": "Continuar Download",
-        "import": "Importar",
+        "import": "Importar Jogo",
         "install": "Instalar",
         "uninstall": "Desinstalar",
         "update": "Update"
