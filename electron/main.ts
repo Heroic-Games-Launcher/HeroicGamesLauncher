@@ -63,10 +63,8 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
-import { checkUpdates } from './updater'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -85,30 +83,7 @@ const tsStore = new Store({
   name: 'timestamp'
 })
 
-// Trigger the autoUpdater every X minutes
-if (GlobalConfig.get().config?.enableUpdates) {
-  const interval = setInterval(
-    () => checkUpdates(),
-    (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000
-  ) // Converts minutes to milliseconds
-  clearInterval(interval)
-}
-
 async function createWindow(): Promise<BrowserWindow> {
-  listenStdout()
-    .then((arr) => {
-      const str = arr.join('\n')
-      const date = new Date().toDateString()
-      const path = `${app.getPath('crashDumps')}/${date}.txt`
-      logInfo('Saving log file to ' + path)
-      writeFile(path, str, {}, (err) => {
-        if (err) throw err
-      })
-    })
-    .catch((reason) => {
-      throw reason
-    })
-
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
   // Create the browser window.
@@ -479,7 +454,6 @@ ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
-ipcMain.on('updateHeroic', () => checkUpdates())
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
