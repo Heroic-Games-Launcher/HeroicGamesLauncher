@@ -213,7 +213,6 @@ export class GlobalState extends PureComponent<Props> {
       )
 
       this.setState({
-        filter: 'installed',
         libraryStatus: updatedLibraryStatus
       })
       return this.refreshLibrary({})
@@ -225,7 +224,6 @@ export class GlobalState extends PureComponent<Props> {
       )
 
       this.setState({
-        filter: 'installed',
         libraryStatus: updatedLibraryStatus
       })
 
