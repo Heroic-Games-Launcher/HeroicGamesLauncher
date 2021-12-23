@@ -1,11 +1,11 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
-import os from 'os'
 import { existsSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 import prettyBytes from 'pretty-bytes'
+import si from 'systeminformation'
 
 import { GlobalConfig } from './config'
 import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
@@ -113,34 +113,28 @@ const handleExit = async () => {
 export const getSystemInfo = async () => {
   const heroicVersion = app.getVersion()
   const legendaryVersion = await getLegendaryVersion()
-  const isLinux = os.type() === 'Linux'
-  const totalRam = prettyBytes(os.totalmem())
-  const freeRam = prettyBytes(os.freemem())
-  const { stdout: gpu = ' ' } = isLinux
-    ? await execAsync('glxinfo | grep OpenGL | grep renderer')
-    : {}
-  const { stdout: drivers = ' ' } = isLinux
-    ? await execAsync('glxinfo | grep OpenGL | grep "version string"')
-    : {}
-  const { stdout: kernel = ' ' } = isLinux ? await execAsync('uname -r') : {}
-  const { stdout: distro = ' ' } = isLinux
-    ? await execAsync('cat /etc/*-release | grep PRETTY_NAME')
-    : {}
 
-  const gpuInfo = `GPU: ${gpu.replaceAll('\n', '').split(': ')[1]} ${
-    drivers.split('\n')[0].split(': ')[1]
-  }`
+  // get CPU and RAM info
+  const { manufacturer, brand, speed, governor } = await si.cpu()
+  const { total, available } = await si.mem()
+
+  // get OS information
+  const { distro, kernel, arch } = await si.osInfo()
+
+  // get GPU information
+  const { controllers } = await si.graphics()
+  const { name, model, vram, driverVersion } = controllers[0]
+  const gpu = `${name ? name : model} VRAM: ${vram}MB DRIVER: ${driverVersion}`
 
   return `
   Heroic Version: ${heroicVersion}
   Legendary Version: ${legendaryVersion}
-  OS: ${distro.replaceAll('\n', '').split('=')[1]} ${kernel.replaceAll(
-    '\n',
-    ''
-  )}
-  CPU: ${os.cpus()[0].model}
-  RAM: Total: ${totalRam} Free: ${freeRam}
-  ${isLinux ? gpuInfo : ''}
+  OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+  CPU: ${manufacturer} ${brand} @${speed} ${
+    governor ? `GOVERNOR: ${governor}` : ''
+  }
+  RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
+  GRAPHICS: ${gpu}
   `
 }
 
