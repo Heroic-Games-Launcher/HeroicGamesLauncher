@@ -116,10 +116,20 @@ export const getSystemInfo = async () => {
   const isLinux = os.type() === 'Linux'
   const totalRam = prettyBytes(os.totalmem())
   const freeRam = prettyBytes(os.freemem())
+  const { stdout: gpu = ' ' } = isLinux
+    ? await execAsync('glxinfo | grep OpenGL | grep renderer')
+    : {}
+  const { stdout: drivers = ' ' } = isLinux
+    ? await execAsync('glxinfo | grep OpenGL | grep "version string"')
+    : {}
   const { stdout: kernel = ' ' } = isLinux ? await execAsync('uname -r') : {}
   const { stdout: distro = ' ' } = isLinux
     ? await execAsync('cat /etc/*-release | grep PRETTY_NAME')
     : {}
+
+  const gpuInfo = `GPU: ${gpu.replaceAll('\n', '').split(': ')[1]} ${
+    drivers.split('\n')[0].split(': ')[1]
+  }`
 
   return `
   Heroic Version: ${heroicVersion}
@@ -130,6 +140,7 @@ export const getSystemInfo = async () => {
   )}
   CPU: ${os.cpus()[0].model}
   RAM: Total: ${totalRam} Free: ${freeRam}
+  ${isLinux ? gpuInfo : ''}
   `
 }
 
