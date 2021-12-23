@@ -8,12 +8,12 @@ import { useTranslation } from 'react-i18next'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
 import Backspace from '@material-ui/icons/Backspace'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+
 interface Props {
   appName: string
   autoSyncSaves: boolean
@@ -99,10 +99,8 @@ export default function SyncSaves({
             onChange={(event) => setSavesPath(event.target.value)}
           />
           {!isLinked ? (
-            <CreateNewFolder
-              data-testid="selectSavePath"
+            <SvgButton
               className="material-icons settings folder"
-              style={{ color: '#B0ABB6' }}
               onClick={() =>
                 ipcRenderer
                   .invoke('openDialog', {
@@ -112,14 +110,22 @@ export default function SyncSaves({
                   })
                   .then(({ path }: Path) => setSavesPath(path ? `${path}` : ''))
               }
-            />
+            >
+              <CreateNewFolder
+                data-testid="selectSavePath"
+                style={{ color: '#B0ABB6' }}
+              />
+            </SvgButton>
           ) : (
-            <Backspace
-              data-testid="removeSavePath"
+            <SvgButton
               className="material-icons settings folder"
               onClick={() => setSavesPath('')}
-              style={{ color: '#B0ABB6' }}
-            />
+            >
+              <Backspace
+                data-testid="removeSavePath"
+                style={{ color: '#B0ABB6' }}
+              />
+            </SvgButton>
           )}
         </span>
       </span>
@@ -166,6 +172,7 @@ export default function SyncSaves({
             value={autoSyncSaves}
             disabled={!savesPath.length}
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+            title={t('setting.autosync')}
           />
         </span>
       </span>
