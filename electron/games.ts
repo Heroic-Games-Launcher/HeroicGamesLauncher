@@ -5,7 +5,8 @@ import {
   GameSettings,
   GameStatus,
   InstallArgs,
-  InstallInfo
+  InstallInfo,
+  LaunchResult
 } from './types'
 
 type Runner = 'legendary' | 'gog'
@@ -28,7 +29,7 @@ abstract class Game {
   abstract import(path: string): Promise<ExecResult>
   abstract install(args: InstallArgs): Promise<{ status: string }>
   abstract addShortcuts(): Promise<void>
-  abstract launch(launchArguments?: string): Promise<ExecResult>
+  abstract launch(launchArguments?: string): Promise<ExecResult | LaunchResult>
   abstract moveInstall(newInstallPath: string): Promise<string>
   abstract repair(): Promise<ExecResult>
   abstract state: GameStatus
