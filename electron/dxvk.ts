@@ -74,9 +74,9 @@ export const DXVK = {
     const winePrefix = prefix.replace('~', home)
 
     // remove the last part of the path since we need the folder only
-    const winePathSplit = winePath.split('/')
+    const winePathSplit = winePath.replaceAll("'", '').split('/')
     winePathSplit.pop()
-    const wineBin = winePathSplit.join('/').concat("/'")
+    const wineBin = winePathSplit.join('/').concat('/')
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logError('dxvk not found!')
