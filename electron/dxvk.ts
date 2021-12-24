@@ -1,10 +1,10 @@
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { exec, spawn } from 'child_process'
-import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
+import { exec } from 'child_process'
+import { existsSync, readFileSync } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
-import { heroicToolsPath, home } from './constants'
+import { execOptions, heroicToolsPath, home } from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 export const DXVK = {
@@ -16,13 +16,8 @@ export const DXVK = {
 
     const tools = [
       {
-        name: 'vkd3d',
-        url: 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/latest',
-        extractCommand: 'tar -I zstd -xvf'
-      },
-      {
         name: 'dxvk',
-        url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
+        url: 'https://api.github.com/repos/lutris/dxvk/releases/latest',
         extractCommand: 'tar -zxf'
       }
     ]
@@ -33,7 +28,7 @@ export const DXVK = {
       } = await axios.default.get(tool.url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
-      const pkg = name.replace('.tar.gz', '').replace('.tar.zst', '')
+      const pkg = name.replace('.tar.gz', '')
 
       const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
       const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
@@ -69,6 +64,7 @@ export const DXVK = {
 
   installRemove: async (
     prefix: string,
+    winePath: string,
     tool: 'dxvk' | 'vkd3d',
     action: 'backup' | 'restore'
   ) => {
@@ -76,6 +72,7 @@ export const DXVK = {
       return
     }
     const winePrefix = prefix.replace('~', home)
+    const wineBin = winePath.replace('wine64', '')
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logError('dxvk not found!')
@@ -97,25 +94,20 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    const x32Path = `${winePrefix}/drive_c/windows/system32/`
-    const x64Path = `${winePrefix}/drive_c/windows/syswow64/`
-    const x86Fix = tool === 'vkd3d' ? 'x86' : 'x32'
-
-    const installCommand = `ln -sf ${toolPath}/${x86Fix}/* ${x32Path} && ln -sf ${toolPath}/x64/* ${x64Path}`
+    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup_dxvk.sh install --symlink`
     const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
-
-    const filesToBkpx32 = readdirSync(`${toolPath}/${x86Fix}`)
-    const filesToBkpx64 = readdirSync(`${toolPath}/x64/`)
-
-    logInfo(`${action === 'backup' ? 'Backuping' : 'Restoring'} original DLLs`)
-    backupRestoreDLLs(filesToBkpx32, x32Path, action)
-    backupRestoreDLLs(filesToBkpx64, x64Path, action)
 
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`)
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      exec(updatedVersionfile)
-      return logInfo(`Removed ${tool} from`, prefix)
+      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup_dxvk.sh uninstall --symlink`
+      logInfo(`Removed ${tool} from`, prefix)
+      return execAsync(removeCommand, execOptions)
+        .then(() => exec(updatedVersionfile))
+        .catch((error) => {
+          logError(error)
+          logError('error when removing DXVK, please try again')
+        })
     }
 
     if (currentVersion === globalVersion) {
@@ -132,27 +124,4 @@ export const DXVK = {
         )
       })
   }
-}
-
-export function backupRestoreDLLs(
-  filesToHandle: Array<string>,
-  path: string,
-  action: 'backup' | 'restore'
-) {
-  if (action === 'backup') {
-    return filesToHandle.forEach((file) => {
-      const filePath = `${path}/${file}`
-      if (existsSync(filePath)) {
-        spawn('mv', [filePath, `${filePath}.bkp`])
-      }
-    })
-  }
-
-  return filesToHandle.forEach((file) => {
-    const filePath = `${path}/${file}`
-    if (existsSync(filePath)) {
-      spawn('rm', ['-rf', `${filePath}`])
-      spawn('mv', [`${filePath}.bkp`, `${filePath}`])
-    }
-  })
 }

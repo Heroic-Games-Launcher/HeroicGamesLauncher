@@ -516,6 +516,7 @@ Categories=Game;
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
     const gameInfo = await this.getGameInfo()
     const isMacNative = gameInfo.is_mac_native
+    const mangohud = showMangohud ? 'mangohud --dlsym' : ''
 
     if (discordRPC) {
       // Show DiscordRPC
@@ -597,8 +598,7 @@ Categories=Game;
         ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
             .replaceAll("'", '')
             .replace('~', home)}'`
-        : '',
-      showMangohud: showMangohud ? `MANGOHUD=1` : ''
+        : ''
     }
 
     envVars = Object.values(options).join(' ')
@@ -614,8 +614,7 @@ Categories=Game;
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
-      await DXVK.installRemove(winePrefix, 'dxvk', 'backup')
-      await DXVK.installRemove(winePrefix, 'vkd3d', 'backup')
+      await DXVK.installRemove(winePrefix, wineVersion.bin, 'dxvk', 'backup')
     }
 
     if (wineVersion.name !== 'Wine Default') {
@@ -632,7 +631,7 @@ Categories=Game;
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
-    const command = `${envVars} ${runWithGameMode} ${legendaryBin} launch ${
+    const command = `${envVars} ${runWithGameMode} ${mangohud} ${legendaryBin} launch ${
       this.appName
     } ${exe} ${runOffline} ${wineCommand} ${prefix} ${
       launchArguments ?? ''

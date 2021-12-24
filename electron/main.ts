@@ -599,13 +599,14 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return await GameConfig.get(appName).getSettings()
 })
 
-ipcMain.on('toggleDXVK', (event, [winePrefix, action]) => {
-  if (!existsSync(winePrefix)) {
+ipcMain.on('toggleDXVK', (event, [args, action]) => {
+  const { winePrefix, winePath } = args
+  const prefix = winePrefix.replace('~', home)
+  if (!existsSync(prefix)) {
     return
   }
 
-  DXVK.installRemove(winePrefix, 'dxvk', action)
-  DXVK.installRemove(winePrefix, 'vkd3d', action)
+  DXVK.installRemove(prefix, winePath, 'dxvk', action)
 })
 
 ipcMain.handle('writeConfig', (event, [appName, config]) => {

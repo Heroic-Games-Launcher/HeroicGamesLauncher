@@ -223,7 +223,10 @@ export default function WineSettings({
               value={autoInstallDxvk}
               handleChange={() => {
                 const action = autoInstallDxvk ? 'restore' : 'backup'
-                ipcRenderer.send('toggleDXVK', [winePrefix, action])
+                ipcRenderer.send('toggleDXVK', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
                 return toggleAutoInstallDxvk()
               }}
               title={t(
