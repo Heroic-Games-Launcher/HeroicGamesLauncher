@@ -197,8 +197,7 @@ Heroic for Fedora is available on [the COPR repo](https://copr.fedorainfracloud.
 #### Other Distributions (AppImage and TAR.XZ)
 
 Download the `heroic-x.x.x.AppImage` or `heroic-x.x.x.tar.xz` from the Releases section.
-Make sure you support to extract ZSTD files on your distro since Heroic uses it to extrack VKD3D files.
-Other dependencies are Curl and Gawk that already comes with most distros but check for them if you have any issue.
+Make sure you have Curl and Gawk, normally it comes with most distros but check for them if you have any issue.
 
 To make the AppImage it executable use:
 
