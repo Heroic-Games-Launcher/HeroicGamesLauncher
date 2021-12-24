@@ -123,8 +123,13 @@ export const getSystemInfo = async () => {
 
   // get GPU information
   const { controllers } = await si.graphics()
-  const { name, model, vram, driverVersion } = controllers[0]
-  const gpu = `${name ? name : model} VRAM: ${vram}MB DRIVER: ${driverVersion}`
+  const graphicsCards = controllers.map(
+    ({ name, model, vram, driverVersion }, i) =>
+      `GPU${i}: ${
+        name ? name : model
+      } VRAM: ${vram}MB DRIVER: ${driverVersion} \n`
+  )
+  console.log({ graphicsCards })
 
   return `
   Heroic Version: ${heroicVersion}
@@ -134,7 +139,7 @@ export const getSystemInfo = async () => {
     governor ? `GOVERNOR: ${governor}` : ''
   }
   RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
-  GRAPHICS: ${gpu}
+  GRAPHICS: ${graphicsCards}
   `
 }
 
