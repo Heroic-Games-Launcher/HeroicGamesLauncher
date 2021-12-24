@@ -8,7 +8,7 @@ import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
+import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
@@ -207,7 +207,8 @@ async function openUrlOrFile(url: string): Promise<string> {
   }
   if (process.platform === 'linux') {
     try {
-      await execAsync(`xdg-open '${url}'`)
+      const fixedURL = url.replace('~', home)
+      await execAsync(`xdg-open '${fixedURL}'`)
     } catch (error) {
       dialog.showErrorBox(
         i18next.t('box.error.log.title', 'Log Not Found'),
