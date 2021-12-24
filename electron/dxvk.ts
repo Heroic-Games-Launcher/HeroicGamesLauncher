@@ -68,10 +68,11 @@ export const DXVK = {
     tool: 'dxvk' | 'vkd3d',
     action: 'backup' | 'restore'
   ) => {
-    if (!prefix) {
+    const winePrefix = prefix.replace('~', home)
+
+    if (!existsSync(winePrefix)) {
       return
     }
-    const winePrefix = prefix.replace('~', home)
 
     // remove the last part of the path since we need the folder only
     const winePathSplit = winePath.replaceAll("'", '').split('/')
@@ -105,9 +106,11 @@ export const DXVK = {
       logInfo(`Removing ${tool} version information`)
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
       const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup_dxvk.sh uninstall --symlink`
-      logInfo(`Removed ${tool} from`, prefix)
       return execAsync(removeCommand, execOptions)
-        .then(() => exec(updatedVersionfile))
+        .then(() => {
+          logInfo(`${tool} removed from ${winePrefix}`)
+          return exec(updatedVersionfile)
+        })
         .catch((error) => {
           logError(error)
           logError('error when removing DXVK, please try again')
@@ -120,7 +123,10 @@ export const DXVK = {
 
     logInfo(`installing ${tool} on...`, prefix)
     await execAsync(installCommand, { shell: '/bin/bash' })
-      .then(() => exec(updatedVersionfile))
+      .then(() => {
+        logInfo(`${tool} installed on ${winePrefix}`)
+        return exec(updatedVersionfile)
+      })
       .catch((error) => {
         logError(error)
         logError(
