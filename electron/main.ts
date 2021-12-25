@@ -647,6 +647,11 @@ type LaunchParams = {
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments }: LaunchParams) => {
+    const window = BrowserWindow.getAllWindows()[0]
+    window.webContents.send('setGameStatus', {
+      appName,
+      status: 'playing'
+    })
     const recentGames = (store.get('games.recent') as Array<RecentGame>) || []
     const game = appName.split(' ')[0]
     const { title } = await Game.get(game).getGameInfo()
@@ -700,11 +705,6 @@ ipcMain.handle(
         ${stderr}
         `
 
-        writeFile(
-          `${heroicGamesConfigPath}${game}-lastPlay.log`,
-          logResult,
-          () => 'done'
-        )
         if (stderr.includes('Errno')) {
           showErrorBox(
             i18next.t('box.error.title', 'Something Went Wrong'),
@@ -714,6 +714,17 @@ ipcMain.handle(
             )
           )
         }
+        window.webContents.send('setGameStatus', {
+          appName,
+          status: 'done'
+        })
+
+        writeFile(
+          `${heroicGamesConfigPath}${game}-lastPlay.log`,
+          logResult,
+          () => logInfo('Log was written')
+        )
+        return stderr
       })
       .catch(async (exception) => {
         const stderr = `${exception.name} - ${exception.message}`
@@ -724,6 +735,10 @@ ipcMain.handle(
           () => 'done'
         )
         logError(stderr)
+        window.webContents.send('setGameStatus', {
+          appName,
+          status: 'done'
+        })
         return stderr
       })
   }
@@ -760,25 +775,46 @@ ipcMain.handle(
 )
 
 ipcMain.handle('install', async (event, params) => {
-  const { appName: game, path, installDlcs, sdlList } = params as InstallParams
+  const { appName, path, installDlcs, sdlList } = params as InstallParams
+  const title = (await Game.get(appName).getGameInfo()).title
   if (!(await isOnline())) {
-    logWarning(`App offline, skipping install for game '${game}'.`)
+    logWarning(`App offline, skipping install for game '${title}'.`)
     return
   }
-  const title = (await Game.get(game).getGameInfo()).title
+
+  mainWindow.webContents.send('setGameStatus', {
+    appName,
+    status: 'installing',
+    folder: path
+  })
+
   notify({
     title,
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
-  return Game.get(game)
+  return Game.get(appName)
     .install({ path, installDlcs, sdlList })
     .then(async (res) => {
-      notify({ title, body: i18next.t('notify.install.finished') })
+      notify({
+        title,
+        body:
+          res.status === 'done'
+            ? i18next.t('notify.install.finished')
+            : i18next.t('notify.install.canceled')
+      })
       logInfo('finished installing')
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       return res
     })
     .catch((res) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       return res
     })
 })
@@ -858,16 +894,24 @@ ipcMain.handle('updateGame', async (e, game) => {
   }
 
   const title = (await Game.get(game).getGameInfo()).title
+  notify({ title, body: i18next.t('notify.update.started', 'Updated Started') })
 
   return Game.get(game)
     .update()
-    .then(() => {
-      notify({ title, body: i18next.t('notify.update.finished') })
+    .then(({ status }) => {
+      notify({
+        title,
+        body:
+          status === 'done'
+            ? i18next.t('notify.update.finished')
+            : i18next.t('notify.update.canceled')
+      })
       logInfo('finished updating')
     })
-    .catch((res) => {
+    .catch((err) => {
+      logError(err)
       notify({ title, body: i18next.t('notify.update.canceled') })
-      return res
+      return err
     })
 })
 

@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
 import axios from 'axios'
 
-import { app, shell } from 'electron'
+import { app, BrowserWindow, shell } from 'electron'
 import { DXVK } from '../dxvk'
-import { ExtraInfo, GameStatus, InstallArgs } from '../types'
+import { ExtraInfo, InstallArgs } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -35,16 +35,12 @@ const store = new Store({
 })
 class LegendaryGame extends Game {
   public appName: string
-  public state: GameStatus
+  public window = BrowserWindow.getAllWindows()[0]
   private static instances: Map<string, LegendaryGame> = new Map()
 
   private constructor(appName: string) {
     super()
     this.appName = appName
-    this.state = {
-      appName: appName,
-      status: 'done'
-    }
   }
 
   public static get(appName: string) {
@@ -203,7 +199,6 @@ class LegendaryGame extends Game {
    * @returns The amended install path.
    */
   public async moveInstall(newInstallPath: string) {
-    this.state.status = 'moving'
     const {
       install: { install_path },
       title
@@ -225,7 +220,6 @@ class LegendaryGame extends Game {
         logInfo(`Finished Moving ${title}`)
       })
       .catch(logError)
-    this.state.status = 'done'
     return newInstallPath
   }
 
@@ -236,24 +230,30 @@ class LegendaryGame extends Game {
    * @returns Result of execAsync.
    */
   public async update() {
-    this.state.status = 'updating'
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      status: 'updating'
+    })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
-
-    try {
-      return await execAsync(command, execOptions).then((v) => {
-        this.state.status = 'done'
-        return v
+    return execAsync(command, execOptions)
+      .then(() => {
+        this.window.webContents.send('setGameStatus', {
+          appName: this.appName,
+          status: 'done'
+        })
+        return { status: 'done' }
       })
-    } catch (error) {
-      return await errorHandler({ error }).then((v) => {
-        this.state.status = 'done'
-        return v
+      .catch(() => {
+        this.window.webContents.send('setGameStatus', {
+          appName: this.appName,
+          status: 'done'
+        })
+        return { status: 'error' }
       })
-    }
   }
 
   public async getIcon(appName: string) {
@@ -396,7 +396,6 @@ Categories=Game;
    * @returns Result of execAsync.
    */
   public async install({ path, installDlcs, sdlList }: InstallArgs) {
-    this.state.status = 'installing'
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
@@ -406,23 +405,26 @@ Categories=Game;
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
-    return execAsync(command, execOptions).then(async ({ stdout, stderr }) => {
-      if (stdout.includes('ERROR')) {
-        errorHandler({ error: { stdout, stderr }, logPath })
+    return execAsync(command, execOptions)
+      .then(async ({ stdout, stderr }) => {
+        if (stdout.includes('ERROR')) {
+          errorHandler({ error: { stdout, stderr }, logPath })
+
+          return { status: 'error' }
+        }
+        return { status: 'done' }
+      })
+      .catch(() => {
+        logInfo('Installaton canceled')
         return { status: 'error' }
-      }
-      return { status: 'done' }
-    })
+      })
   }
 
   public async uninstall() {
-    this.state.status = 'uninstalling'
-
     const command = `${legendaryBin} uninstall ${this.appName} -y`
     logInfo(`Uninstalling ${this.appName} with:`, command)
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
-      this.state.status = 'done'
       return v
     })
   }
@@ -434,7 +436,7 @@ Categories=Game;
    * @returns Result of execAsync.
    */
   public async repair() {
-    this.state.status = 'repairing'
+    // this.state.status = 'repairing'
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
@@ -445,17 +447,14 @@ Categories=Game;
 
     logInfo(`Repairing ${this.appName} with:`, command)
     return await execAsync(command, execOptions).then((v) => {
-      this.state.status = 'done'
+      // this.state.status = 'done'
       return v
     })
   }
 
   public async import(path: string) {
-    this.state.status = 'installing'
-
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
     return await execAsync(command, execOptions).then((v) => {
-      this.state.status = 'done'
       return v
     })
   }
@@ -555,10 +554,11 @@ Categories=Game;
       } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
       logInfo('\n Launch Command:', command)
       const v = await execAsync(command, execOptions)
-
-      logInfo('Stopping Discord Rich Presence if running...')
-      discordRPC && DiscordRPC.disconnect()
-      logInfo('Stopped Discord Rich Presence.')
+      if (discordRPC) {
+        logInfo('Stopping Discord Rich Presence if running...')
+        DiscordRPC.disconnect()
+        logInfo('Stopped Discord Rich Presence.')
+      }
 
       return v
     }
@@ -638,13 +638,21 @@ Categories=Game;
     } ${launcherArgs}`
     logInfo('\n Launch Command:', command)
 
-    return await execAsync(command, execOptions).then(({ stderr }) => {
-      this.state.status = 'playing'
-      logInfo('Stopping Discord Rich Presence if running...')
-      discordRPC && DiscordRPC.disconnect()
-      logInfo('Stopped Discord Rich Presence.')
-      return { stderr, command, gameSettings }
-    })
+    const startLaunch = await execAsync(command, execOptions)
+      .then(({ stderr }) => {
+        if (discordRPC) {
+          logInfo('Stopping Discord Rich Presence if running...')
+          DiscordRPC.disconnect()
+          logInfo('Stopped Discord Rich Presence.')
+        }
+        return { stderr, command, gameSettings }
+      })
+      .catch((error) => {
+        logError(error)
+        const { stderr } = error
+        return { stderr, command, gameSettings }
+      })
+    return startLaunch
   }
 
   private async createNewPrefix(

@@ -63,6 +63,7 @@ export class GlobalState extends PureComponent<Props> {
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
+    console.log('refreshing')
     const currentLibraryLength = this.state.data?.length
     let library: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
@@ -326,21 +327,20 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName === appName
       )[0]
       if (!currentApp) {
-        await this.handleGameStatus({ appName, status: 'playing' })
-        return launch({ appName, t, handleGameStatus: this.handleGameStatus })
+        return launch({ appName, t })
       }
     })
 
-    ipcRenderer.on('installGame', async (e, appName) => {
+    ipcRenderer.on('installGame', async (e, args) => {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
       )[0]
+      const { appName, installPath } = args
       if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        await this.handleGameStatus({ appName, status: 'installing' })
         return install({
           appName,
           handleGameStatus: this.handleGameStatus,
-          installPath: 'default',
+          installPath,
           isInstalling: false,
           previousProgress: null,
           progress: {
@@ -351,6 +351,11 @@ export class GlobalState extends PureComponent<Props> {
           t
         })
       }
+    })
+
+    ipcRenderer.on('setGameStatus', async (e, args: GameStatus) => {
+      const { libraryStatus } = this.state
+      this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
     const user = configStore.get('userInfo')
