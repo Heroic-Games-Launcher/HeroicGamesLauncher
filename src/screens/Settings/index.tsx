@@ -444,6 +444,22 @@ function Settings() {
             />
           )}
           <span className="save">{t('info.settings')}</span>
+          {isDefault && (
+            <>
+              <button
+                className="button is-text"
+                onClick={() => ipcRenderer.send('clearCache')}
+              >
+                {t('settings.clear-cache', 'Clear Heroic Cache')}
+              </button>
+              <button
+                className="button is-text"
+                onClick={() => ipcRenderer.send('resetHeroic')}
+              >
+                {t('settings.clear-cache', 'Reset Heroic')}
+              </button>
+            </>
+          )}
           {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>

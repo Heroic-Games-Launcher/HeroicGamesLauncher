@@ -34,6 +34,7 @@ import { LegendaryUser } from './legendary/user'
 import {
   checkCommandVersion,
   checkForUpdates,
+  clearCache,
   errorHandler,
   execAsync,
   getLegendaryVersion,
@@ -41,6 +42,7 @@ import {
   handleExit,
   isOnline,
   openUrlOrFile,
+  resetHeroic,
   showAboutWindow
 } from './utils'
 import {
@@ -537,6 +539,33 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 
 ipcMain.handle('getPlatform', () => process.platform)
+
+ipcMain.on('clearCache', () => {
+  clearCache()
+  dialog.showMessageBox({
+    title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
+    message: i18next.t(
+      'box.cache-cleared.message',
+      'Heroic Cache Was Cleared!'
+    ),
+    buttons: [i18next.t('box.ok', 'Ok')]
+  })
+})
+
+ipcMain.on('resetHeroic', async () => {
+  const { response } = await dialog.showMessageBox({
+    title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
+    message: i18next.t(
+      'box.reset-heroic.question.message',
+      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials"
+    ),
+    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+  })
+
+  if (response === 1) {
+    resetHeroic()
+  }
+})
 
 ipcMain.on('createNewWindow', (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
