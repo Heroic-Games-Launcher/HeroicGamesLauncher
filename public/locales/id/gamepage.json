@@ -6,7 +6,6 @@
             "title": "Ubah Jalur Instalasi Gim"
         },
         "choose": "Pilih",
-        "default-install-path": "",
         "importpath": "Pilih Folder Gim untuk diimpor",
         "move": {
             "message": "Ini bisa memakan waktu yang lama, apa kamu yakin?",

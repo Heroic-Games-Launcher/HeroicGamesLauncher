@@ -102,6 +102,9 @@
         "help": "Hjälp",
         "requirements": "Systemkrav"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Bibliotek",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Avinstallerad",
         "update": {
             "canceled": "Updatering avbruten",
-            "finished": "Updatering klar"
+            "finished": "Updatering klar",
+            "started": "Update Started"
         }
     },
     "options": {

@@ -6,7 +6,6 @@
             "title": "更改遊戲安裝路徑"
         },
         "choose": "請選擇",
-        "default-install-path": "",
         "importpath": "選擇要導入的遊戲資料夾",
         "move": {
             "message": "這可能需要很長的時間，確定？",

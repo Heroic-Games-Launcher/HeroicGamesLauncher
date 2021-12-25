@@ -102,6 +102,9 @@
         "help": "راهنما",
         "requirements": "نیازمندی‌های سیستم"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "کتابخانه",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "به‌روزرسانی لغو شد",
-            "finished": "آپدیت‌ها به پایان رسیدند"
+            "finished": "آپدیت‌ها به پایان رسیدند",
+            "started": "Update Started"
         }
     },
     "options": {

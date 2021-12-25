@@ -6,7 +6,6 @@
             "title": "Oyun Kurulum Yerini Değiştir"
         },
         "choose": "Seç",
-        "default-install-path": "",
         "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
         "move": {
             "message": "Bu uzun sürebilir, emin misin?",

@@ -6,7 +6,6 @@
             "title": "Verander het installatiepad van spellen"
         },
         "choose": "Selecteer",
-        "default-install-path": "",
         "importpath": "Selecteer een spel-map om te importeren",
         "move": {
             "message": "Dit kan lang duren, weet u het zeker?",

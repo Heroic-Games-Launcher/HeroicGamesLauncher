@@ -102,6 +102,9 @@
         "help": "도움말",
         "requirements": "시스템 요구 사양"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "라이브러리",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "설치 제거됨",
         "update": {
             "canceled": "업데이트 취소됨",
-            "finished": "업데이트 완료됨"
+            "finished": "업데이트 완료됨",
+            "started": "Update Started"
         }
     },
     "options": {

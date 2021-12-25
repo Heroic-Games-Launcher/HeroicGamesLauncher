@@ -102,6 +102,9 @@
         "help": "ヘルプ",
         "requirements": "システム要求"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "ライブラリ",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "アンインストールしました",
         "update": {
             "canceled": "更新がキャンセルされました",
-            "finished": ""
+            "finished": "",
+            "started": "Update Started"
         }
     },
     "options": {

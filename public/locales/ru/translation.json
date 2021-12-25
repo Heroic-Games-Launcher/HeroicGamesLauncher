@@ -102,6 +102,9 @@
         "help": "Помощь",
         "requirements": "Системные требования"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Библиотека",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Удалено",
         "update": {
             "canceled": "Обновление прервано",
-            "finished": "Обновление завершено"
+            "finished": "Обновление завершено",
+            "started": "Update Started"
         }
     },
     "options": {

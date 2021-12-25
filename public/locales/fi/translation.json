@@ -102,6 +102,9 @@
         "help": "Apua",
         "requirements": "Laitteistovaatimukset"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Kirjasto",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Poistettu",
         "update": {
             "canceled": "Päivitys peruutettu",
-            "finished": "Päivitys valmis"
+            "finished": "Päivitys valmis",
+            "started": "Update Started"
         }
     },
     "options": {

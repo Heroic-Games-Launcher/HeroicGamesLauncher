@@ -6,7 +6,6 @@
             "title": "Změnit cestu instalace her"
         },
         "choose": "Vybrat",
-        "default-install-path": "",
         "importpath": "Vybrerte složku hry pro importování",
         "move": {
             "message": "Toto může chvíli trvat, jste si jisti?",

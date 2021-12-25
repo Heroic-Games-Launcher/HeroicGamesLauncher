@@ -102,6 +102,9 @@
         "help": "Pomoc",
         "requirements": "Wymagania Systemowe"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Biblioteka",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Odinstalowane",
         "update": {
             "canceled": "Aktualizacja przerwana",
-            "finished": "Aktualizacja zakończona"
+            "finished": "Aktualizacja zakończona",
+            "started": "Update Started"
         }
     },
     "options": {

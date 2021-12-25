@@ -66,12 +66,12 @@
         "syncing": "",
         "unsync": ""
     },
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "Downloading": "Mengunduh",
     "Epic Games": "Game Epic",
     "Filter": "Saring",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Pengaturan Global",
     "help": {
         "general": "",
@@ -102,6 +102,9 @@
         "help": "",
         "requirements": ""
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "",
         "update": {
             "canceled": "",
-            "finished": ""
+            "finished": "",
+            "started": "Update Started"
         }
     },
     "options": {

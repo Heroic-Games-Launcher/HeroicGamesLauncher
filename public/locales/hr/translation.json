@@ -102,6 +102,9 @@
         "help": "Pomoč",
         "requirements": "Zahtjevi sustava"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Knižnjica",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Deinstalirano",
         "update": {
             "canceled": "Ažuriranje prekinuto",
-            "finished": "Ažuriranje gotovo"
+            "finished": "Ažuriranje gotovo",
+            "started": "Update Started"
         }
     },
     "options": {

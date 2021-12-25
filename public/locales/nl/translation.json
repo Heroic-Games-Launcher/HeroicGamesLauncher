@@ -102,6 +102,9 @@
         "help": "Help",
         "requirements": "Systeemvereisingen"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Bibliotheek",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Verwijderd",
         "update": {
             "canceled": "Update geannuleerd",
-            "finished": "Update is voltooid"
+            "finished": "Update is voltooid",
+            "started": "Update Started"
         }
     },
     "options": {

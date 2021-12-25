@@ -6,7 +6,6 @@
             "title": "更改游戏安装路径"
         },
         "choose": "请选择",
-        "default-install-path": "",
         "importpath": "选择要导入的游戏文件夹",
         "move": {
             "message": "这可能需要很长的时间，确定？",

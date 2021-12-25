@@ -894,7 +894,7 @@ ipcMain.handle('updateGame', async (e, game) => {
   }
 
   const title = (await Game.get(game).getGameInfo()).title
-  notify({ title, body: i18next.t('notify.update.started', 'Updated Started') })
+  notify({ title, body: i18next.t('notify.update.started', 'Update Started') })
 
   return Game.get(game)
     .update()

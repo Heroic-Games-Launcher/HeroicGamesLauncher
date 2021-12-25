@@ -102,6 +102,9 @@
         "help": "Segítség",
         "requirements": "Rendszer Követelmények"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Könyvtár",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Eltávolítva",
         "update": {
             "canceled": "Frissítés Visszavonva",
-            "finished": "Frissítés Befejezve"
+            "finished": "Frissítés Befejezve",
+            "started": "Update Started"
         }
     },
     "options": {

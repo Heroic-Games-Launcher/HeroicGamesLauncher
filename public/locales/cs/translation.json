@@ -102,6 +102,9 @@
         "help": "Pomoc",
         "requirements": "Systémové požadavky"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Knihovna",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Odinstalováno",
         "update": {
             "canceled": "Aktualizace zrušena",
-            "finished": "Aktualizace dokončena"
+            "finished": "Aktualizace dokončena",
+            "started": "Update Started"
         }
     },
     "options": {

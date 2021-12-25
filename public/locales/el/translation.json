@@ -102,6 +102,9 @@
         "help": "Βοήθεια",
         "requirements": "Απαιτήσεις Συστήματος"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Βιβλιοθήκη",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Απεγκαταστάθηκε",
         "update": {
             "canceled": "Η ενημέρωση ακυρώθηκε",
-            "finished": "Η ενημέρωση ολοκληρώθηκε"
+            "finished": "Η ενημέρωση ολοκληρώθηκε",
+            "started": "Update Started"
         }
     },
     "options": {

@@ -6,7 +6,6 @@
             "title": "Muuda mängude paigaldamiskohta"
         },
         "choose": "Valige",
-        "default-install-path": "",
         "importpath": "Valige imporditav mängude kaust",
         "move": {
             "message": "See võib võtta kaua aega, kas olete kindel?",

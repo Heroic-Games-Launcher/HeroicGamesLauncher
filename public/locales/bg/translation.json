@@ -102,6 +102,9 @@
         "help": "Помощ",
         "requirements": "Системни изисквания"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Библиотека",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Деинсталирано",
         "update": {
             "canceled": "Обновяването е преустановено",
-            "finished": "Обновяването е завършено"
+            "finished": "Обновяването е завършено",
+            "started": "Update Started"
         }
     },
     "options": {

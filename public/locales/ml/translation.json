@@ -102,6 +102,9 @@
         "help": "സഹായിക്കൂ",
         "requirements": "ശുപാര്‍ശിക്കുന്ന സംവിധാനങ്ങള്‍"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "കളിശാല",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "എടുത്തുനീക്കി",
         "update": {
             "canceled": "പുതുക്കല്‍ റദ്ദാക്കി",
-            "finished": "പുതുക്കി"
+            "finished": "പുതുക്കി",
+            "started": "Update Started"
         }
     },
     "options": {

@@ -6,7 +6,6 @@
             "title": "Vaihda pelin asennuksen sijaintia"
         },
         "choose": "Valitse",
-        "default-install-path": "",
         "importpath": "Valitse tuotavan pelin kansio",
         "move": {
             "message": "Tämä prosessi voi viedä paljon aikaa, haluatko jatkaa?",

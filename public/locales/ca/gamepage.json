@@ -6,7 +6,6 @@
             "title": "Canvia la ruta d'instal·lació dels jocs"
         },
         "choose": "Tria",
-        "default-install-path": "Selecciona",
         "importpath": "Tria una carpeta per importar",
         "move": {
             "message": "Això pot tardat MOLT de temps, estàs segur?",

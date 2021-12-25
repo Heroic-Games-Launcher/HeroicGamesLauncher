@@ -102,6 +102,9 @@
         "help": "幫助",
         "requirements": "系統要求"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "收藏庫",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "已解除安裝",
         "update": {
             "canceled": "已取消更新",
-            "finished": "已更新"
+            "finished": "已更新",
+            "started": "Update Started"
         }
     },
     "options": {

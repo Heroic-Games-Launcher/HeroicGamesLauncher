@@ -102,6 +102,9 @@
         "help": "Yardım",
         "requirements": "Sistem Gereksinimleri"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Kütüphane",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Kaldırıldı",
         "update": {
             "canceled": "Güncelleme İptal Edildi",
-            "finished": "Güncelleme Tamamlandı"
+            "finished": "Güncelleme Tamamlandı",
+            "started": "Update Started"
         }
     },
     "options": {

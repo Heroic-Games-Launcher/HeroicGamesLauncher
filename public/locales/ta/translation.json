@@ -102,6 +102,9 @@
         "help": "உதவி",
         "requirements": "கணினி தேவைப்பாடுகள்"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",
         "update": {
             "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
-            "finished": "புதுப்பிப்பு நிறைவடைந்தது"
+            "finished": "புதுப்பிப்பு நிறைவடைந்தது",
+            "started": "Update Started"
         }
     },
     "options": {

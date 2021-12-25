@@ -102,6 +102,9 @@
         "help": "Abi",
         "requirements": "Süsteeminõuded"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Varamu",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +134,8 @@
         "uninstalled": "Eemaldatud",
         "update": {
             "canceled": "Uuendatud tühistatud",
-            "finished": "Uuendatud lõpetatud"
+            "finished": "Uuendatud lõpetatud",
+            "started": "Update Started"
         }
     },
     "options": {

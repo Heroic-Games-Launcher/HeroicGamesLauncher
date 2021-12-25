@@ -6,7 +6,6 @@
             "title": "Promijenite lokaciju instalacije igrica"
         },
         "choose": "Odaberi",
-        "default-install-path": "",
         "importpath": "Odaberi mapu igre za uvesti",
         "move": {
             "message": "Ovo može potrajati, jeste li sigurni?",

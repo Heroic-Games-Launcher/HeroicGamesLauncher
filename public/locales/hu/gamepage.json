@@ -6,7 +6,6 @@
             "title": "Játék Telepítési Útvonal Megváltoztatása"
         },
         "choose": "Kiválaszt",
-        "default-install-path": "",
         "importpath": "Válassz Játék Mappát az importáláshoz",
         "move": {
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
