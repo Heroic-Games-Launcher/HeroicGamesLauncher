@@ -107,34 +107,36 @@ export default function WineSettings({
 
   return (
     <>
-      <span data-testid="wineSettings" className="setting">
-        <span className="settingText">{t('setting.wineprefix')}</span>
-        <span>
-          <input
-            data-testid="selectWinePrefix"
-            type="text"
-            value={winePrefix}
-            className="settingSelect"
-            onChange={(event) => setWinePrefix(event.target.value)}
-          />
-          <SvgButton
-            className="material-icons settings folder"
-            onClick={() =>
-              ipcRenderer
-                .invoke('openDialog', {
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                  title: t('box.wineprefix')
-                })
-                .then(({ path }: Path) =>
-                  setWinePrefix(path ? `${path}` : winePrefix)
-                )
-            }
-          >
-            <CreateNewFolder data-testid="addWinePrefix" />
-          </SvgButton>
+      {isLinux && (
+        <span data-testid="wineSettings" className="setting">
+          <span className="settingText">{t('setting.wineprefix')}</span>
+          <span>
+            <input
+              data-testid="selectWinePrefix"
+              type="text"
+              value={winePrefix}
+              className="settingSelect"
+              onChange={(event) => setWinePrefix(event.target.value)}
+            />
+            <SvgButton
+              className="material-icons settings folder"
+              onClick={() =>
+                ipcRenderer
+                  .invoke('openDialog', {
+                    buttonLabel: t('box.choose'),
+                    properties: ['openDirectory'],
+                    title: t('box.wineprefix')
+                  })
+                  .then(({ path }: Path) =>
+                    setWinePrefix(path ? `${path}` : winePrefix)
+                  )
+              }
+            >
+              <CreateNewFolder data-testid="addWinePrefix" />
+            </SvgButton>
+          </span>
         </span>
-      </span>
+      )}
       {isDefault && (
         <span className="setting">
           <span className="settingText">
