@@ -183,7 +183,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                       .invoke('openDialog', {
                         buttonLabel: t('box.choose'),
                         properties: ['openDirectory'],
-                        title: t('box.default-install-path')
+                        title: t('install.path')
                       })
                       .then(({ path }: Path) =>
                         setInstallPath(path ? `'${path}'` : defaultPath)
