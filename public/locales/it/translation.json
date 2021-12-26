@@ -72,6 +72,7 @@
         "yes": "SI"
     },
     "button": {
+        "login": "Login",
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Sincronizzazione completata",
         "unsync": "Annullamento sincronizzazione completato"

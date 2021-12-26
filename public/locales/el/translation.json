@@ -72,6 +72,7 @@
         "yes": "ΝΑΙ"
     },
     "button": {
+        "login": "Login",
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
         "unsync": "Αποσυγχρονισμός"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"

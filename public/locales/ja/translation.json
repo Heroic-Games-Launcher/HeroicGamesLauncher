@@ -72,6 +72,7 @@
         "yes": "はい"
     },
     "button": {
+        "login": "Login",
         "sync": "同期",
         "syncing": "同期しています",
         "unsync": "非同期"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "同期が完了しました",
         "unsync": "非同期が完了しました"

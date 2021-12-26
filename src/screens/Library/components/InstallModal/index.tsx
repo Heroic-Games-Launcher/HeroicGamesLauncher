@@ -46,6 +46,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
   )[0]
   const [gameInfo, setGameInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
+  const [settings, setSettings] = useState<AppSettings>()
   const [winePrefix, setWinePrefix] = useState('...')
   const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(
@@ -68,7 +69,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   async function handleInstall(path?: string) {
     backdropClick()
-    writeConfig([appName, { winePrefix }])
+    writeConfig([appName, { ...settings, winePrefix }])
     return await install({
       appName,
       handleGameStatus,
@@ -87,6 +88,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       .invoke('requestSettings', 'default')
       .then((config: AppSettings) => {
         setDefaultPath(config.defaultInstallPath)
+        setSettings(config)
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }

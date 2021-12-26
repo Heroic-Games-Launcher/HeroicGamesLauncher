@@ -72,6 +72,7 @@
         "yes": "YA"
     },
     "button": {
+        "login": "Login",
         "sync": "Sinkronkan",
         "syncing": "",
         "unsync": ""
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "",
         "unsync": ""

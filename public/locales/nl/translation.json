@@ -72,6 +72,7 @@
         "yes": "JA"
     },
     "button": {
+        "login": "Login",
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Synchronisatie compleet",
         "unsync": "De-synchronisatie compleet"

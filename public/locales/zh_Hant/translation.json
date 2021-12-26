@@ -72,6 +72,7 @@
         "yes": "是"
     },
     "button": {
+        "login": "Login",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"

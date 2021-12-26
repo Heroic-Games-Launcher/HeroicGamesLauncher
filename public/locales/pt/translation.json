@@ -72,6 +72,7 @@
         "yes": "SIM"
     },
     "button": {
+        "login": "Login",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Sync Concluído",
         "unsync": "Unsync Concluído"
