@@ -29,6 +29,8 @@ jobs:
           name: portable exe
           path: dist/Heroic-*.exe
           retention-days: 14
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
   build_mac_os_x_linux:
     runs-on: macos-11
     steps:
@@ -56,3 +58,5 @@ jobs:
             dist/Heroic-*.dmg
             dist/Heroic-*.AppImage
           retention-days: 14
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
