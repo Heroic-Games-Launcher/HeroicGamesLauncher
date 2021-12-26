@@ -69,8 +69,10 @@ export const DXVK = {
     action: 'backup' | 'restore'
   ) => {
     const winePrefix = prefix.replace('~', home)
+    const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
-    if (!existsSync(winePrefix)) {
+    if (!isValidPrefix) {
+      logWarning('DXVK cannot be installed on a Proton or a invalid prefix!')
       return
     }
 
