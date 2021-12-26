@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
-import { IpcRenderer } from 'electron'
+import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
@@ -18,12 +18,14 @@ import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
+import { ContextMenu, ContextMenuTrigger, MenuItem } from 'react-contextmenu'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
+  clipboard: Clipboard
 }
 
-const { ipcRenderer } = window.require('electron') as ElectronProps
+const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 const storage: Storage = window.localStorage
 interface RouteParams {
   appName: string
@@ -331,137 +333,150 @@ function Settings() {
             </NavLink>
           }
         </div>
-        <div className="settingsWrapper">
-          {title && (
-            <NavLink
-              to={returnPath}
-              className="headerTitle"
-              data-testid="headerTitle"
+        <ContextMenuTrigger id={appName}>
+          <div className="settingsWrapper">
+            {title && (
+              <NavLink
+                to={returnPath}
+                className="headerTitle"
+                data-testid="headerTitle"
+              >
+                {title}
+                {!isDefault && (
+                  <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+                )}
+              </NavLink>
+            )}
+            {isGeneralSettings && (
+              <GeneralSettings
+                egsPath={egsPath}
+                setEgsPath={setEgsPath}
+                egsLinkedPath={egsLinkedPath}
+                setEgsLinkedPath={setEgsLinkedPath}
+                defaultInstallPath={defaultInstallPath}
+                setDefaultInstallPath={setDefaultInstallPath}
+                exitToTray={exitToTray}
+                startInTray={startInTray}
+                toggleTray={toggleTray}
+                toggleStartInTray={toggleStartInTray}
+                language={language}
+                setLanguage={setLanguage}
+                maxWorkers={maxWorkers}
+                setMaxWorkers={setMaxWorkers}
+                toggleDarkTrayIcon={toggleDarkTrayIcon}
+                darkTrayIcon={darkTrayIcon}
+                toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
+                checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+                altLegendaryBin={altLegendaryBin}
+                setAltLegendaryBin={setAltLegendaryBin}
+                toggleUnrealMarket={toggleUnrealMarket}
+                showUnrealMarket={showUnrealMarket}
+              />
+            )}
+            {isWineSettings && (
+              <WineSettings
+                altWine={altWine}
+                setAltWine={setAltWine}
+                wineVersion={wineVersion}
+                winePrefix={winePrefix}
+                setWineVersion={setWineVersion}
+                setWinePrefix={setWinePrefix}
+                wineCrossoverBottle={wineCrossoverBottle}
+                setWineCrossoverBottle={setWineCrossoverBottle}
+                autoInstallDxvk={autoInstallDxvk}
+                toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+                customWinePaths={customWinePaths}
+                setCustomWinePaths={setCustomWinePaths}
+                isDefault={isDefault}
+                enableFSR={enableFSR}
+                toggleFSR={toggleFSR}
+                enableEsync={enableEsync}
+                toggleEsync={toggleEsync}
+                enableFsync={enableFsync}
+                toggleFsync={toggleFsync}
+                maxSharpness={maxSharpness}
+                setFsrSharpness={setFsrSharpness}
+                enableResizableBar={enableResizableBar}
+                toggleResizableBar={toggleResizableBar}
+              />
+            )}
+            {isWineSettings && (
+              <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
+            )}
+            {isOtherSettings && (
+              <OtherSettings
+                otherOptions={otherOptions}
+                setOtherOptions={setOtherOptions}
+                launcherArgs={launcherArgs}
+                setLauncherArgs={setLauncherArgs}
+                useGameMode={useGameMode}
+                toggleUseGameMode={toggleUseGameMode}
+                primeRun={nvidiaPrime}
+                togglePrimeRun={toggleNvidiaPrime}
+                showFps={showFps}
+                toggleFps={toggleFps}
+                offlineMode={offlineMode}
+                toggleOffline={toggleOffline}
+                audioFix={audioFix}
+                toggleAudioFix={toggleAudioFix}
+                showMangohud={showMangohud}
+                toggleMangoHud={toggleMangoHud}
+                isDefault={isDefault}
+                maxRecentGames={maxRecentGames}
+                setMaxRecentGames={setMaxRecentGames}
+                addDesktopShortcuts={addDesktopShortcuts}
+                addGamesToStartMenu={addStartMenuShortcuts}
+                toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
+                toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
+                toggleDiscordRPC={toggleDiscordRPC}
+                discordRPC={discordRPC}
+                targetExe={targetExe}
+                setTargetExe={setTargetExe}
+                isMacNative={isMacNative}
+              />
+            )}
+            {isSyncSettings && (
+              <SyncSaves
+                savesPath={savesPath}
+                setSavesPath={setSavesPath}
+                appName={appName}
+                autoSyncSaves={autoSyncSaves}
+                setAutoSyncSaves={setAutoSyncSaves}
+                isProton={!isWin && wineVersion.name.includes('Proton')}
+                winePrefix={winePrefix}
+              />
+            )}
+            <span className="save">{t('info.settings')}</span>
+            {isDefault && (
+              <>
+                <button
+                  className="button is-text"
+                  onClick={() => ipcRenderer.send('clearCache')}
+                >
+                  {t('settings.clear-cache', 'Clear Heroic Cache')}
+                </button>
+                <button
+                  className="button is-text"
+                  onClick={() => ipcRenderer.send('resetHeroic')}
+                >
+                  {t('settings.clear-cache', 'Reset Heroic')}
+                </button>
+              </>
+            )}
+            {!isDefault && <span className="appName">AppName: {appName}</span>}
+          </div>
+          <ContextMenu id={appName} className="contextMenu">
+            <MenuItem
+              onClick={() =>
+                clipboard.writeText(
+                  JSON.stringify({ appName, title, ...settingsToSave })
+                )
+              }
             >
-              {title}
-              {!isDefault && (
-                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
-              )}
-            </NavLink>
-          )}
-          {isGeneralSettings && (
-            <GeneralSettings
-              egsPath={egsPath}
-              setEgsPath={setEgsPath}
-              egsLinkedPath={egsLinkedPath}
-              setEgsLinkedPath={setEgsLinkedPath}
-              defaultInstallPath={defaultInstallPath}
-              setDefaultInstallPath={setDefaultInstallPath}
-              exitToTray={exitToTray}
-              startInTray={startInTray}
-              toggleTray={toggleTray}
-              toggleStartInTray={toggleStartInTray}
-              language={language}
-              setLanguage={setLanguage}
-              maxWorkers={maxWorkers}
-              setMaxWorkers={setMaxWorkers}
-              toggleDarkTrayIcon={toggleDarkTrayIcon}
-              darkTrayIcon={darkTrayIcon}
-              toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
-              checkForUpdatesOnStartup={checkForUpdatesOnStartup}
-              altLegendaryBin={altLegendaryBin}
-              setAltLegendaryBin={setAltLegendaryBin}
-              toggleUnrealMarket={toggleUnrealMarket}
-              showUnrealMarket={showUnrealMarket}
-            />
-          )}
-          {isWineSettings && (
-            <WineSettings
-              altWine={altWine}
-              setAltWine={setAltWine}
-              wineVersion={wineVersion}
-              winePrefix={winePrefix}
-              setWineVersion={setWineVersion}
-              setWinePrefix={setWinePrefix}
-              wineCrossoverBottle={wineCrossoverBottle}
-              setWineCrossoverBottle={setWineCrossoverBottle}
-              autoInstallDxvk={autoInstallDxvk}
-              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
-              customWinePaths={customWinePaths}
-              setCustomWinePaths={setCustomWinePaths}
-              isDefault={isDefault}
-              enableFSR={enableFSR}
-              toggleFSR={toggleFSR}
-              enableEsync={enableEsync}
-              toggleEsync={toggleEsync}
-              enableFsync={enableFsync}
-              toggleFsync={toggleFsync}
-              maxSharpness={maxSharpness}
-              setFsrSharpness={setFsrSharpness}
-              enableResizableBar={enableResizableBar}
-              toggleResizableBar={toggleResizableBar}
-            />
-          )}
-          {isWineSettings && (
-            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
-          )}
-          {isOtherSettings && (
-            <OtherSettings
-              otherOptions={otherOptions}
-              setOtherOptions={setOtherOptions}
-              launcherArgs={launcherArgs}
-              setLauncherArgs={setLauncherArgs}
-              useGameMode={useGameMode}
-              toggleUseGameMode={toggleUseGameMode}
-              primeRun={nvidiaPrime}
-              togglePrimeRun={toggleNvidiaPrime}
-              showFps={showFps}
-              toggleFps={toggleFps}
-              offlineMode={offlineMode}
-              toggleOffline={toggleOffline}
-              audioFix={audioFix}
-              toggleAudioFix={toggleAudioFix}
-              showMangohud={showMangohud}
-              toggleMangoHud={toggleMangoHud}
-              isDefault={isDefault}
-              maxRecentGames={maxRecentGames}
-              setMaxRecentGames={setMaxRecentGames}
-              addDesktopShortcuts={addDesktopShortcuts}
-              addGamesToStartMenu={addStartMenuShortcuts}
-              toggleAddDesktopShortcuts={toggleAddDesktopShortcuts}
-              toggleAddGamesToStartMenu={toggleAddGamesToStartMenu}
-              toggleDiscordRPC={toggleDiscordRPC}
-              discordRPC={discordRPC}
-              targetExe={targetExe}
-              setTargetExe={setTargetExe}
-              isMacNative={isMacNative}
-            />
-          )}
-          {isSyncSettings && (
-            <SyncSaves
-              savesPath={savesPath}
-              setSavesPath={setSavesPath}
-              appName={appName}
-              autoSyncSaves={autoSyncSaves}
-              setAutoSyncSaves={setAutoSyncSaves}
-              isProton={!isWin && wineVersion.name.includes('Proton')}
-              winePrefix={winePrefix}
-            />
-          )}
-          <span className="save">{t('info.settings')}</span>
-          {isDefault && (
-            <>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('clearCache')}
-              >
-                {t('settings.clear-cache', 'Clear Heroic Cache')}
-              </button>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('resetHeroic')}
-              >
-                {t('settings.clear-cache', 'Reset Heroic')}
-              </button>
-            </>
-          )}
-          {!isDefault && <span className="appName">AppName: {appName}</span>}
-        </div>
+              {t('settings.copyToClipboard', 'Copy All Setting to Clipboard')}
+            </MenuItem>
+          </ContextMenu>
+        </ContextMenuTrigger>
       </div>
     </>
   )

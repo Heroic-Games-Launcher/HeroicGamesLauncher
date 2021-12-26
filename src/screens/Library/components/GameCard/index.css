@@ -278,31 +278,6 @@
   z-index: 7;
 }
 
-.react-contextmenu--visible {
-  background-color: var(--background);
-  padding: 14px 22px;
-  border-radius: 6px;
-  z-index: 99;
-}
-
-.react-contextmenu-item {
-  color: var(--text-primary);
-  font-size: 14px;
-  line-height: 26px;
-  font-family: Rubik;
-  cursor: pointer;
-  text-align: left;
-}
-
-.react-contextmenu-item:hover {
-  color: var(--secondary);
-}
-
-.react-contextmenu-item.disabled {
-  color: var(--icon-disabled);
-  cursor: initial;
-}
-
 hr {
   opacity: 0.1;
   margin-left: 2rem;
