@@ -72,6 +72,7 @@
         "yes": "Ja"
     },
     "button": {
+        "login": "Login",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Ogör synkronisering"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Synkronisering klar",
         "unsync": "Ogör synkronisering klar"

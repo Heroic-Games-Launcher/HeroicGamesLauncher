@@ -72,6 +72,7 @@
         "yes": "ДА"
     },
     "button": {
+        "login": "Login",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Синхронизацията е завършена",
         "unsync": "Десинхронизацията е завършена"

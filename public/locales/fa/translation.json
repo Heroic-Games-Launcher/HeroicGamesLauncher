@@ -72,6 +72,7 @@
         "yes": "بله"
     },
     "button": {
+        "login": "Login",
         "sync": "همگام‌سازی",
         "syncing": "در حال همگام‌سازی",
         "unsync": "عدم همگام‌سازی"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "همگام‌سازی کامل شد",
         "unsync": "عدم همگام‌سازی کامل شد"

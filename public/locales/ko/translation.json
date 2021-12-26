@@ -72,6 +72,7 @@
         "yes": "예"
     },
     "button": {
+        "login": "Login",
         "sync": "싱크",
         "syncing": "싱크중",
         "unsync": "싱크 해제"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "동기화 완료",
         "unsync": "동기화 해제 완료"

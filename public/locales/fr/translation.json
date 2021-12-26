@@ -72,6 +72,7 @@
         "yes": "OUI"
     },
     "button": {
+        "login": "Login",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Synchronisation Complète",
         "unsync": "Désynchronisation Complète"

@@ -72,6 +72,7 @@
         "yes": "KYLLÄ"
     },
     "button": {
+        "login": "Login",
         "sync": "Synkronoi",
         "syncing": "Synkronoidaan",
         "unsync": "Älä synkronoi"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Synkronointi valmis",
         "unsync": "Synkronoinnin poisto valmis"

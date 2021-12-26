@@ -72,6 +72,7 @@
         "yes": "ശരി"
     },
     "button": {
+        "login": "Login",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
         "unsync": "പിരിച്ചു"

@@ -72,6 +72,7 @@
         "yes": "DA"
     },
     "button": {
+        "login": "Login",
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Sinkroniziranje završeno",
         "unsync": "Desinkronizacija završena"

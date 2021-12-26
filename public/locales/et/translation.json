@@ -72,6 +72,7 @@
         "yes": "JAH"
     },
     "button": {
+        "login": "Login",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine"
@@ -119,7 +120,6 @@
     "loading": {
         "website": "Loading Website"
     },
-    "Login": "",
     "message": {
         "sync": "Sünkroonimine lõpetatud",
         "unsync": "Mittesünkroniseerimine lõpetatud"
