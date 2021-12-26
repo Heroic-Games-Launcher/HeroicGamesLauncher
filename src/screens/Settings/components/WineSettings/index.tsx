@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { Path, WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
@@ -66,6 +65,7 @@ export default function WineSettings({
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
+  const isProton = wineVersion.name.includes('Proton')
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -108,33 +108,36 @@ export default function WineSettings({
 
   return (
     <>
-      <span data-testid="wineSettings" className="setting">
-        <span className="settingText">{t('setting.wineprefix')}</span>
-        <span>
-          <input
-            data-testid="selectWinePrefix"
-            type="text"
-            value={winePrefix}
-            className="settingSelect"
-            onChange={(event) => setWinePrefix(event.target.value)}
-          />
-          <CreateNewFolder
-            data-testid="addWinePrefix"
-            className="material-icons settings folder"
-            onClick={() =>
-              ipcRenderer
-                .invoke('openDialog', {
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                  title: t('box.wineprefix')
-                })
-                .then(({ path }: Path) =>
-                  setWinePrefix(path ? `${path}` : winePrefix)
-                )
-            }
-          />
+      {isLinux && (
+        <span data-testid="wineSettings" className="setting">
+          <span className="settingText">{t('setting.wineprefix')}</span>
+          <span>
+            <input
+              data-testid="selectWinePrefix"
+              type="text"
+              value={winePrefix}
+              className="settingSelect"
+              onChange={(event) => setWinePrefix(event.target.value)}
+            />
+            <SvgButton
+              className="material-icons settings folder"
+              onClick={() =>
+                ipcRenderer
+                  .invoke('openDialog', {
+                    buttonLabel: t('box.choose'),
+                    properties: ['openDirectory'],
+                    title: t('box.wineprefix')
+                  })
+                  .then(({ path }: Path) =>
+                    setWinePrefix(path ? `${path}` : winePrefix)
+                  )
+              }
+            >
+              <CreateNewFolder data-testid="addWinePrefix" />
+            </SvgButton>
+          </span>
         </span>
-      </span>
+      )}
       {isDefault && (
         <span className="setting">
           <span className="settingText">
@@ -154,26 +157,30 @@ export default function WineSettings({
               ))}
             </select>
             <div className="iconsWrapper">
-              <RemoveCircleIcon
-                data-testid="removeWinePath"
-                onClick={() => removeCustomPath()}
-                style={{
-                  color: selectedPath
-                    ? 'var(--danger)'
-                    : 'var(--background-darker)',
-                  cursor: selectedPath ? 'pointer' : ''
-                }}
-                fontSize="large"
-                titleAccess={t('tooltip.removepath', 'Remove Path')}
-              />{' '}
-              <AddBoxIcon
-                data-testid="addWinePath"
+              <SvgButton onClick={() => removeCustomPath()}>
+                <RemoveCircleIcon
+                  data-testid="removeWinePath"
+                  style={{
+                    color: selectedPath
+                      ? 'var(--danger)'
+                      : 'var(--background-darker)',
+                    cursor: selectedPath ? 'pointer' : ''
+                  }}
+                  fontSize="large"
+                  titleAccess={t('tooltip.removepath', 'Remove Path')}
+                />
+              </SvgButton>{' '}
+              <SvgButton
                 onClick={() => selectCustomPath()}
                 className={`is-primary`}
-                style={{ color: 'var(--success)', cursor: 'pointer' }}
-                fontSize="large"
-                titleAccess={t('tooltip.addpath', 'Add New Path')}
-              />
+              >
+                <AddBoxIcon
+                  data-testid="addWinePath"
+                  style={{ color: 'var(--success)', cursor: 'pointer' }}
+                  fontSize="large"
+                  titleAccess={t('tooltip.addpath', 'Add New Path')}
+                />
+              </SvgButton>
             </div>
           </span>
         </span>
@@ -211,7 +218,7 @@ export default function WineSettings({
           </span>
         </span>
       )}
-      {isLinux && (
+      {isLinux && !isProton && (
         <span className="setting">
           <span className="toggleWrapper">
             {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
@@ -219,9 +226,16 @@ export default function WineSettings({
               value={autoInstallDxvk}
               handleChange={() => {
                 const action = autoInstallDxvk ? 'restore' : 'backup'
-                ipcRenderer.send('toggleDXVK', [winePrefix, action])
+                ipcRenderer.send('toggleDXVK', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
                 return toggleAutoInstallDxvk()
               }}
+              title={t(
+                'setting.autodxvk',
+                'Auto Install/Update DXVK on Prefix'
+              )}
             />
           </span>
         </span>
@@ -232,7 +246,14 @@ export default function WineSettings({
             'setting.enableFSRHack',
             'Enable FSR Hack (Wine version needs to support it)'
           )}
-          <ToggleSwitch value={enableFSR || false} handleChange={toggleFSR} />
+          <ToggleSwitch
+            value={enableFSR || false}
+            handleChange={toggleFSR}
+            title={t(
+              'setting.enableFSRHack',
+              'Enable FSR Hack (Wine version needs to support it)'
+            )}
+          />
         </span>
       </span>
       {enableFSR && (
@@ -263,6 +284,10 @@ export default function WineSettings({
               <ToggleSwitch
                 value={enableResizableBar || false}
                 handleChange={toggleResizableBar}
+                title={t(
+                  'setting.resizableBar',
+                  'Enable Resizable BAR (NVIDIA RTX only)'
+                )}
               />
             </span>
           </span>
@@ -273,6 +298,7 @@ export default function WineSettings({
                 value={enableEsync || false}
                 handleChange={toggleEsync}
                 dataTestId="esyncToggle"
+                title={t('setting.esync', 'Enable Esync')}
               />
             </span>
           </span>
@@ -283,6 +309,7 @@ export default function WineSettings({
                 value={enableFsync || false}
                 handleChange={toggleFsync}
                 dataTestId="fsyncToggle"
+                title={t('setting.fsync', 'Enable Fsync')}
               />
             </span>
           </span>

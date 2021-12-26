@@ -79,27 +79,27 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
     <>
       <div data-testid="toolsSettings" className="settingsTools">
         <div className="toolsWrapper">
-          <span
+          <button
             data-testid="wineCFG"
-            className="tools"
+            className="button is-transparent"
             style={{
               color: winecfgRunning ? 'var(--secondary)' : 'var(--primary)'
             }}
             onClick={() => callTools('winecfg')}
           >
             Winecfg
-          </span>
-          <span
+          </button>
+          <button
             data-testid="wineTricks"
-            className="tools"
+            className="button is-transparent"
             style={{
               color: winetricksRunning ? 'var(--secondary)' : 'var(--primary)'
             }}
             onClick={() => callTools('winetricks')}
           >
             Winetricks
-          </span>
-          <span
+          </button>
+          <a
             data-testid="toolsDrag"
             draggable
             onDrop={(ev) => dropHandler(ev)}
@@ -110,7 +110,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             {t('setting.runexe.title')}
             <br />
             <span>{t('setting.runexe.message')}</span>
-          </span>
+          </a>
         </div>
       </div>
     </>

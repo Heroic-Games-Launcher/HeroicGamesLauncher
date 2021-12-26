@@ -6,7 +6,6 @@
             "title": "Játék Telepítési Útvonal Megváltoztatása"
         },
         "choose": "Kiválaszt",
-        "default-install-path": "",
         "importpath": "Válassz Játék Mappát az importáláshoz",
         "move": {
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
@@ -31,6 +30,7 @@
             "message": "Ennek a játéknak van egy frissítése, szeretnéd most frissíteni?",
             "title": "Játéknak frissítésre van szüksége"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "IGEN"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Verzió"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Launch Options..."
     },
     "sdl": {
-        "showList": "Kattints ide az Extra elemek megjelenítéséhez/elrejtéséhez",
         "title": "Válasszd ki a telepíteni kívánt elemeket"
     },
     "specs": {

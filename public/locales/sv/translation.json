@@ -6,6 +6,10 @@
             "message": "Det finns en ny version av Heroic tillgänglig, Vill du uppdatera nu?",
             "title": "Updatering tillgänglig"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Ok",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
@@ -42,6 +46,12 @@
             "message": "Det finns pågående nedladdningar, är du säker?",
             "title": "Avbryt"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Välj EXE-fil att köra"
         },
@@ -62,6 +72,7 @@
         "yes": "Ja"
     },
     "button": {
+        "login": "Login",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Ogör synkronisering"
@@ -69,6 +80,9 @@
     "Downloading": "Laddar ner",
     "Epic Games": "Epic Games",
     "Filter": "Filtrera",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globala inställningar",
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
@@ -99,7 +113,13 @@
         "help": "Hjälp",
         "requirements": "Systemkrav"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Bibliotek",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Synkronisering klar",
         "unsync": "Ogör synkronisering klar"
@@ -124,7 +144,8 @@
         "uninstalled": "Avinstallerad",
         "update": {
             "canceled": "Updatering avbruten",
-            "finished": "Updatering klar"
+            "finished": "Updatering klar",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Synkroniseringsmapp för sparfiler"
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Starta minimerad",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
@@ -203,12 +225,17 @@
     },
     "Settings": "Inställningar",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "Allmänna",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Butik",
     "title": {

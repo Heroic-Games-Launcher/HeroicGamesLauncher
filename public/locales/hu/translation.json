@@ -6,6 +6,10 @@
             "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
             "title": "Frissítés Elérhető"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Kiválaszt",
         "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "Függőben lévő műveletek vannak, biztos vagy benne?",
             "title": "Kilépés"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
@@ -62,6 +72,7 @@
         "yes": "IGEN"
     },
     "button": {
+        "login": "Login",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás"
@@ -69,6 +80,9 @@
     "Downloading": "Letöltés",
     "Epic Games": "Epic Games",
     "Filter": "Szűrő",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -99,7 +113,13 @@
         "help": "Segítség",
         "requirements": "Rendszer Követelmények"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Könyvtár",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Szinkronizálás Befejezve",
         "unsync": "Deszinkronizálás Befejezve"
@@ -124,7 +144,8 @@
         "uninstalled": "Eltávolítva",
         "update": {
             "canceled": "Frissítés Visszavonva",
-            "finished": "Frissítés Befejezve"
+            "finished": "Frissítés Befejezve",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
@@ -196,6 +217,7 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Indítás tálcára téve",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",
@@ -203,12 +225,17 @@
     },
     "Settings": "Beállítások",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "Általános",
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Áruház",
     "title": {

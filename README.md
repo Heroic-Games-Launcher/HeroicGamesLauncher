@@ -24,7 +24,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
       - [Debian (third party `apt` repository)](#debian-third-party-apt-repository)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
-      - [Other Distributions](#other-distributions)
+      - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
     - [Windows](#windows)
     - [macOS](#macos)
     - [Build binaries locally (All platforms)](#build-binaries-locally-all-platforms)
@@ -194,11 +194,12 @@ Otherwise you can install it via your prefered AUR helper, e.g. yay.
 
 Heroic for Fedora is available on [the COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/) or as the binary on the releases page.
 
-#### Other Distributions
+#### Other Distributions (AppImage and TAR.XZ)
 
-Download the `heroic-x.x.x.AppImage` from the Releases section.
+Download the `heroic-x.x.x.AppImage` or `heroic-x.x.x.tar.xz` from the Releases section.
+Make sure you have Curl and Gawk, normally it comes with most distros but check for them if you have any issue.
 
-To make it executable use:
+To make the AppImage it executable use:
 
 ```bash
 chmod +x heroic-x.x.x.AppImage
@@ -210,13 +211,25 @@ To run it use:
 ./heroic-x.x.x.AppImage
 ```
 
+For the tar.xz file, you need first to extract it somewhere, enter the folder and run:
+
+```bash
+chmod +x heroic
+```
+
+To run it use:
+
+```bash
+./heroic
+```
+
 ### Windows
 
-Download Heroic.Setup.x.x.x.exe and run it. It will install it to the start menu and desktop, use those to run it.
+Download Heroic.Setup.x.x.x.exe or the Portable Heroic-x.x.x.exe file and run it. It will install it to the start menu and desktop, use those to run it.
 
 ### macOS
 
-Download Heroic-x.x.x.dmg and install it.
+Download Heroic-x.x.x.dmg and move the Heroic App to the Applications folder.
 
 ### Build binaries locally (All platforms)
 

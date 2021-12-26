@@ -6,6 +6,10 @@
             "message": "Izašla je nova verzija Heroic-a, želite li ažurirati?",
             "title": "Ažuriranje dostupno"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Odaberi",
         "choose-egs-prefix": "Odaberite lokaciju gdje je EGS instaliran",
         "choose-legendary-binary": "Odaberite Legendary Aplikaciju",
@@ -42,6 +46,12 @@
             "message": "Operacije su u tijeku, želite li nastaviti?",
             "title": "Izlaz"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Odaberi EXE za pokrenuti"
         },
@@ -62,6 +72,7 @@
         "yes": "DA"
     },
     "button": {
+        "login": "Login",
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj"
@@ -69,6 +80,9 @@
     "Downloading": "Preuzima se",
     "Epic Games": "Epic Games",
     "Filter": "Filter",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globalne Postavke",
     "help": {
         "general": "Sinkronizirajte sa EGS u slučaju da imate instalaciju Epic Games trgovine negdje drugdje i želiš uvesti igrice da ih nemoraš preuzimati opet.",
@@ -99,7 +113,13 @@
         "help": "Pomoč",
         "requirements": "Zahtjevi sustava"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Knižnjica",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Sinkroniziranje završeno",
         "unsync": "Desinkronizacija završena"
@@ -124,7 +144,8 @@
         "uninstalled": "Deinstalirano",
         "update": {
             "canceled": "Ažuriranje prekinuto",
-            "finished": "Ažuriranje gotovo"
+            "finished": "Ažuriranje gotovo",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Forsiraj prebacivanje lokalnih podataka"
         },
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Pokreni minimizirano",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePut mapa",
@@ -203,12 +225,17 @@
     },
     "Settings": "Postavke",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "Generalno",
             "other": "Ostalo",
             "sync": "Spremi-Podatke"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Trgovina",
     "title": {

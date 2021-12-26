@@ -6,7 +6,6 @@
             "title": "تغییر محل نصب بازی‌ها"
         },
         "choose": "انتخاب",
-        "default-install-path": "",
         "importpath": "پوشه بازی را برای وارد کردن انتخاب کنید",
         "move": {
             "message": "این کار می‌تواند زمان زیادی ببرد،‌ آیا مطمئن هستید؟",
@@ -31,6 +30,7 @@
             "message": "این بازی به‌روزرسانی دارد، آیا مایل به به‌روزرسانی هستید؟",
             "title": "بازی نیاز به به‌روزرسانی دارد"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "بله"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "نسخه"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Launch Options..."
     },
     "sdl": {
-        "showList": "برای نمایش/پنهان کردن محتوای بیشتر کلیک کنید",
         "title": "انتخاب محتواها برای نصب"
     },
     "specs": {

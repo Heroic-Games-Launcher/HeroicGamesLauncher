@@ -26,6 +26,7 @@ import {
 import { logError, logInfo } from '../logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
+import { GlobalConfig } from '../config'
 
 const libraryStore = new Store({
   cwd: 'store',
@@ -82,9 +83,11 @@ class LegendaryLibrary {
    */
   public async refresh() {
     logInfo('Refreshing Epic Games...')
+    const { showUnrealMarket } = await GlobalConfig.get().getSettings()
 
     return new Promise((res, rej) => {
-      const child = spawn(legendaryBin, ['list-games', '--include-ue'])
+      const getUeAssets = showUnrealMarket ? '--include-ue' : ''
+      const child = spawn(legendaryBin, ['list-games', getUeAssets])
       child.stderr.on('data', (data) => {
         console.log(`${data}`)
       })
@@ -409,6 +412,7 @@ class LegendaryLibrary {
       version = null,
       install_size = null,
       install_path = null,
+      platform,
       is_dlc = metadata.categories.filter(
         ({ path }: { path: string }) => path === 'dlc'
       ).length || dlcs.includes(app_name)
@@ -437,7 +441,8 @@ class LegendaryLibrary {
         install_path,
         install_size: convertedSize,
         is_dlc,
-        version
+        version,
+        platform
       },
       is_game,
       is_installed: info !== undefined,
@@ -445,6 +450,9 @@ class LegendaryLibrary {
       is_ue_plugin,
       is_ue_project,
       namespace,
+      is_mac_native: info
+        ? platform === 'Mac'
+        : releaseInfo[0]?.platform.includes('Mac'),
       save_folder: saveFolder,
       title,
       canRunOffline

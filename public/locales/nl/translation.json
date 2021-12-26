@@ -6,6 +6,10 @@
             "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u nu updaten?",
             "title": "Update beschikbaar"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
         "choose-legendary-binary": "Selecteer Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "Er zijn processen in afwachting, weet u het zeker?",
             "title": "Sluiten"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Selecteer EXE on te lanceren"
         },
@@ -62,6 +72,7 @@
         "yes": "JA"
     },
     "button": {
+        "login": "Login",
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren"
@@ -69,6 +80,9 @@
     "Downloading": "Aan het downloaden",
     "Epic Games": "Epic Games",
     "Filter": "Filter",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Algemene instellingen",
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
@@ -99,7 +113,13 @@
         "help": "Help",
         "requirements": "Systeemvereisingen"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Bibliotheek",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Synchronisatie compleet",
         "unsync": "De-synchronisatie compleet"
@@ -124,7 +144,8 @@
         "uninstalled": "Verwijderd",
         "update": {
             "canceled": "Update geannuleerd",
-            "finished": "Update is voltooid"
+            "finished": "Update is voltooid",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Overschijf cloud synchronisatie save map"
         },
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Geminimaliseerd",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix map",
@@ -203,12 +225,17 @@
     },
     "Settings": "Instellingen",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "Algemeen",
             "other": "Overig",
             "sync": "Save-synchronisatie"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Winkel",
     "title": {

@@ -6,6 +6,10 @@
             "message": "نسخه جدید Heroic موجود است،‌ آیا می‌خواهید الان به‌روزرسانی کنید؟",
             "title": "به‌روزرسانی موجود است"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "کارهای ناتمامی موجود است، آیا مطمئن هستید؟",
             "title": "خروج"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "انتخاب EXE برای اجرا"
         },
@@ -62,6 +72,7 @@
         "yes": "بله"
     },
     "button": {
+        "login": "Login",
         "sync": "همگام‌سازی",
         "syncing": "در حال همگام‌سازی",
         "unsync": "عدم همگام‌سازی"
@@ -69,6 +80,9 @@
     "Downloading": "در حال دانلود",
     "Epic Games": "Epic Games",
     "Filter": "فیلتر",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "تنظیمات عمومی",
     "help": {
         "general": "در صورتی که در جایی فروشگاه اپیک گیمز را به صورت فعال نصب کرده‌اید و می‌خواهید بازی‌های خود را وارد کنید با EGS همگام‌سازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
@@ -99,7 +113,13 @@
         "help": "راهنما",
         "requirements": "نیازمندی‌های سیستم"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "کتابخانه",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "همگام‌سازی کامل شد",
         "unsync": "عدم همگام‌سازی کامل شد"
@@ -124,7 +144,8 @@
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "به‌روزرسانی لغو شد",
-            "finished": "آپدیت‌ها به پایان رسیدند"
+            "finished": "آپدیت‌ها به پایان رسیدند",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/به‌روزرسانی خودکار DXVK/VKD3D در Prefix",
         "autosync": "همگام‌سازی خودکار ذخیره‌ها",
@@ -196,6 +217,7 @@
             "title": "رونویسی پوشه ابری همگام‌سازی ذخیره‌ها"
         },
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "شروع در حالت پس‌زمینه",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
@@ -203,12 +225,17 @@
     },
     "Settings": "تنظیمات",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "عمومی",
             "other": "بقیه",
             "sync": "همگام‌سازی ذخیره‌ها"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "فروشگاه",
     "title": {

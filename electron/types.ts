@@ -34,6 +34,7 @@ export interface AppSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  showUnrealMarket: boolean
   startInTray: boolean
   useGameMode: boolean
   targetExe: string
@@ -44,6 +45,13 @@ export interface AppSettings {
 }
 
 export type ExecResult = void | { stderr: string; stdout: string }
+
+export type LaunchResult = {
+  stderr: string
+  command: string
+  gameSettings: GameSettings
+}
+
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
@@ -70,6 +78,7 @@ export interface GameInfo {
   save_folder: string
   title: string
   canRunOffline: boolean
+  is_mac_native: boolean
 }
 
 type DLCInfo = {
@@ -83,6 +92,7 @@ type GameInstallInfo = {
   owned_dlc: Array<DLCInfo>
   title: string
   version: string
+  platform_versions: { Mac: string; Windows: string }
 }
 
 type Prerequisites = {
@@ -155,6 +165,7 @@ export interface InstalledInfo {
   install_size: string | null
   is_dlc: boolean
   version: string | null
+  platform: string
 }
 export interface KeyImage {
   type: string

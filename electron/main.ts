@@ -1,5 +1,5 @@
-import { WineGEInfo } from './winege/types';
-import { InstallParams } from './types'
+import { WineGEInfo } from './winege/types'
+import { InstallParams, LaunchResult } from './types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -35,11 +35,15 @@ import { LegendaryUser } from './legendary/user'
 import {
   checkCommandVersion,
   checkForUpdates,
+  clearCache,
   errorHandler,
   execAsync,
+  getLegendaryVersion,
+  getSystemInfo,
   handleExit,
   isOnline,
   openUrlOrFile,
+  resetHeroic,
   showAboutWindow
 } from './utils'
 import {
@@ -62,10 +66,8 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { listenStdout } from './logger'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
-import { checkUpdates } from './updater'
 import { fetchWineGEReleases, installWineGE } from './winege/api'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
@@ -85,30 +87,7 @@ const tsStore = new Store({
   name: 'timestamp'
 })
 
-// Trigger the autoUpdater every X minutes
-if (GlobalConfig.get().config?.enableUpdates) {
-  const interval = setInterval(
-    () => checkUpdates(),
-    (GlobalConfig.get().config?.checkUpdatesInterval || 10) * 60000
-  ) // Converts minutes to milliseconds
-  clearInterval(interval)
-}
-
 async function createWindow(): Promise<BrowserWindow> {
-  listenStdout()
-    .then((arr) => {
-      const str = arr.join('\n')
-      const date = new Date().toDateString()
-      const path = `${app.getPath('crashDumps')}/${date}.txt`
-      logInfo('Saving log file to ' + path)
-      writeFile(path, str, {}, (err) => {
-        if (err) throw err
-      })
-    })
-    .catch((reason) => {
-      throw reason
-    })
-
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
   // Create the browser window.
@@ -288,8 +267,8 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    logInfo(`Heroic Version ${app.getVersion()}`)
-    logInfo(`Legendary Version ${await getLegendaryVersion()}`)
+    const systemInfo = await getSystemInfo()
+    logInfo(`${systemInfo}`)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
@@ -479,7 +458,6 @@ ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
-ipcMain.on('updateHeroic', () => checkUpdates())
 
 ipcMain.on('getLog', (event, appName) =>
   openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
@@ -560,25 +538,36 @@ ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
-export const getLegendaryVersion = async () => {
-  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(`${legendaryBin} --version`)
-    return stdout
-      .split('legendary version')[1]
-      .replaceAll('"', '')
-      .replaceAll(', codename', '')
-  } catch (error) {
-    return 'invalid'
-  }
-}
-
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 
 ipcMain.handle('getPlatform', () => process.platform)
+
+ipcMain.on('clearCache', () => {
+  clearCache()
+  dialog.showMessageBox({
+    title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
+    message: i18next.t(
+      'box.cache-cleared.message',
+      'Heroic Cache Was Cleared!'
+    ),
+    buttons: [i18next.t('box.ok', 'Ok')]
+  })
+})
+
+ipcMain.on('resetHeroic', async () => {
+  const { response } = await dialog.showMessageBox({
+    title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
+    message: i18next.t(
+      'box.reset-heroic.question.message',
+      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials"
+    ),
+    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+  })
+
+  if (response === 1) {
+    resetHeroic()
+  }
+})
 
 ipcMain.on('createNewWindow', (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
@@ -641,14 +630,9 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return await GameConfig.get(appName).getSettings()
 })
 
-ipcMain.on('toggleDXVK', (event, [winePrefix, action]) => {
-  if (!existsSync(winePrefix)) {
-    return
-  }
-
-  DXVK.installRemove(winePrefix, 'dxvk', action)
-  DXVK.installRemove(winePrefix, 'vkd3d', action)
-})
+ipcMain.on('toggleDXVK', (event, [{ winePrefix, winePath }, action]) =>
+  DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
+)
 
 ipcMain.handle('writeConfig', (event, [appName, config]) => {
   if (appName === 'default') {
@@ -677,7 +661,6 @@ ipcMain.handle('refreshWineGE', async () => {
 })
 
 ipcMain.handle('installWineGE', async (e, release: WineGEInfo) => {
-
   const onDownloadProgress = (progress: number) => {
     e.sender.send('download' + release.version, progress)
   }
@@ -705,6 +688,11 @@ type LaunchParams = {
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments }: LaunchParams) => {
+    const window = BrowserWindow.getAllWindows()[0]
+    window.webContents.send('setGameStatus', {
+      appName,
+      status: 'playing'
+    })
     const recentGames = (store.get('games.recent') as Array<RecentGame>) || []
     const game = appName.split(' ')[0]
     const { title } = await Game.get(game).getGameInfo()
@@ -737,7 +725,7 @@ ipcMain.handle(
 
     return Game.get(appName)
       .launch(launchArguments)
-      .then(({ stderr }) => {
+      .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
         const sessionPlayingTime =
@@ -747,12 +735,17 @@ ipcMain.handle(
           : sessionPlayingTime
         // I'll send the calculated time here because then the user can set it manually on the file if desired
         tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
+        const systemInfo = await getSystemInfo()
 
-        writeFile(
-          `${heroicGamesConfigPath}${game}-lastPlay.log`,
-          stderr,
-          () => 'done'
-        )
+        const logResult = `Launch Command: ${command}
+        System Info:
+        ${systemInfo}
+        Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
+
+        Legendary Log:
+        ${stderr}
+        `
+
         if (stderr.includes('Errno')) {
           showErrorBox(
             i18next.t('box.error.title', 'Something Went Wrong'),
@@ -762,6 +755,17 @@ ipcMain.handle(
             )
           )
         }
+        window.webContents.send('setGameStatus', {
+          appName,
+          status: 'done'
+        })
+
+        writeFile(
+          `${heroicGamesConfigPath}${game}-lastPlay.log`,
+          logResult,
+          () => logInfo('Log was written')
+        )
+        return stderr
       })
       .catch(async (exception) => {
         const stderr = `${exception.name} - ${exception.message}`
@@ -772,6 +776,10 @@ ipcMain.handle(
           () => 'done'
         )
         logError(stderr)
+        window.webContents.send('setGameStatus', {
+          appName,
+          status: 'done'
+        })
         return stderr
       })
   }
@@ -808,25 +816,46 @@ ipcMain.handle(
 )
 
 ipcMain.handle('install', async (event, params) => {
-  const { appName: game, path, installDlcs, sdlList } = params as InstallParams
+  const { appName, path, installDlcs, sdlList } = params as InstallParams
+  const title = (await Game.get(appName).getGameInfo()).title
   if (!(await isOnline())) {
-    logWarning(`App offline, skipping install for game '${game}'.`)
+    logWarning(`App offline, skipping install for game '${title}'.`)
     return
   }
-  const title = (await Game.get(game).getGameInfo()).title
+
+  mainWindow.webContents.send('setGameStatus', {
+    appName,
+    status: 'installing',
+    folder: path
+  })
+
   notify({
     title,
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
-  return Game.get(game)
+  return Game.get(appName)
     .install({ path, installDlcs, sdlList })
     .then(async (res) => {
-      notify({ title, body: i18next.t('notify.install.finished') })
+      notify({
+        title,
+        body:
+          res.status === 'done'
+            ? i18next.t('notify.install.finished')
+            : i18next.t('notify.install.canceled')
+      })
       logInfo('finished installing')
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       return res
     })
     .catch((res) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       return res
     })
 })
@@ -881,20 +910,31 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
 })
 
 ipcMain.handle('importGame', async (event, args) => {
-  const { appName: game, path } = args
-  const title = (await Game.get(game).getGameInfo()).title
-
-  Game.get(game)
+  const { appName, path } = args
+  const title = (await Game.get(appName).getGameInfo()).title
+  mainWindow.webContents.send('setGameStatus', {
+    appName,
+    status: 'installing'
+  })
+  Game.get(appName)
     .import(path)
     .then(() => {
       notify({
         title,
         body: i18next.t('notify.install.imported', 'Game Imported')
       })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       logInfo(`imported ${title}`)
     })
     .catch((err) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       logInfo(err)
     })
 })
@@ -906,16 +946,24 @@ ipcMain.handle('updateGame', async (e, game) => {
   }
 
   const title = (await Game.get(game).getGameInfo()).title
+  notify({ title, body: i18next.t('notify.update.started', 'Update Started') })
 
   return Game.get(game)
     .update()
-    .then(() => {
-      notify({ title, body: i18next.t('notify.update.finished') })
+    .then(({ status }) => {
+      notify({
+        title,
+        body:
+          status === 'done'
+            ? i18next.t('notify.update.finished')
+            : i18next.t('notify.update.canceled')
+      })
       logInfo('finished updating')
     })
-    .catch((res) => {
+    .catch((err) => {
+      logError(err)
       notify({ title, body: i18next.t('notify.update.canceled') })
-      return res
+      return err
     })
 })
 

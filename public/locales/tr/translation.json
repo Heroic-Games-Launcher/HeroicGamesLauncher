@@ -6,6 +6,10 @@
             "message": "Heroic'in yeni bir sürümü var, şimdi güncellemek ister misiniz?",
             "title": "Güncelleme Var"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
         "choose-legendary-binary": "Legendary Çalıştırılabilir Dosyası Seç",
@@ -42,6 +46,12 @@
             "message": "Bekleyen işlemler var, emin misiniz?",
             "title": "Çık"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
@@ -62,6 +72,7 @@
         "yes": "EVET"
     },
     "button": {
+        "login": "Login",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır"
@@ -69,6 +80,9 @@
     "Downloading": "İndiriliyor",
     "Epic Games": "Epic Games",
     "Filter": "Filtre",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -99,7 +113,13 @@
         "help": "Yardım",
         "requirements": "Sistem Gereksinimleri"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Kütüphane",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
@@ -124,7 +144,8 @@
         "uninstalled": "Kaldırıldı",
         "update": {
             "canceled": "Güncelleme İptal Edildi",
-            "finished": "Güncelleme Tamamlandı"
+            "finished": "Güncelleme Tamamlandı",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Simge Durumuna Küçültülmüş Başla",
         "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
@@ -203,12 +225,17 @@
     },
     "Settings": "Ayarlar",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "Genel",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Mağaza",
     "title": {

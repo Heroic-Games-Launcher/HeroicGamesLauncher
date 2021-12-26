@@ -6,7 +6,6 @@
             "title": "Αλλαγή διαδρομής εγκατάστασης παιχνιδιών"
         },
         "choose": "Επιλογή",
-        "default-install-path": "",
         "importpath": "Επιλέξτε φάκελο παιχνιδιών για εισαγωγή",
         "move": {
             "message": "Αυτό μπορεί να πάρει πολύ ώρα, είστε σίγουροι;",
@@ -31,6 +30,7 @@
             "message": "Το παιχνίδι έχει μια ενημέρωση, θέλετε να το ενημερώσετε τώρα;",
             "title": "Το παιχνίδι χρειάζεται ενημέρωση"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ΝΑΙ"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Έκδοση"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Ρυθμίσεις εκκίνησης..."
     },
     "sdl": {
-        "showList": "Πατήστε για να δείτε/κρύψετε επιπλέον στοιχεία",
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
     "specs": {

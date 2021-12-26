@@ -39,6 +39,7 @@ interface StateProps {
   error: boolean
   filter: string
   filterText: string
+  filterPlatform: string
   gameUpdates: string[]
   language: string
   layout: string
@@ -59,6 +60,7 @@ export class GlobalState extends PureComponent<Props> {
     error: false,
     filter: 'all',
     filterText: '',
+    filterPlatform: 'all',
     gameUpdates: [],
     language: '',
     layout: 'grid',
@@ -69,6 +71,7 @@ export class GlobalState extends PureComponent<Props> {
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
+    console.log('refreshing')
     const currentLibraryLength = this.state.data?.length
     let library: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
@@ -134,6 +137,8 @@ export class GlobalState extends PureComponent<Props> {
 
   handleSearch = (input: string) => this.setState({ filterText: input })
   handleFilter = (filter: string) => this.setState({ filter })
+  handlePlatformFilter = (filterPlatform: string) =>
+    this.setState({ filterPlatform })
   handleLayout = (layout: string) => this.setState({ layout })
   handleCategory = (category: string) => this.setState({ category })
 
@@ -191,6 +196,17 @@ export class GlobalState extends PureComponent<Props> {
     }
   }
 
+  filterPlatform = (library: GameInfo[], filter: string) => {
+    switch (filter) {
+      case 'win':
+        return library.filter((game) => !game.is_mac_native)
+      case 'mac':
+        return library.filter((game) => game.is_mac_native)
+      default:
+        return library.filter((game) => game.is_game)
+    }
+  }
+
   handleGameStatus = async ({
     appName,
     status,
@@ -220,7 +236,6 @@ export class GlobalState extends PureComponent<Props> {
       )
 
       this.setState({
-        filter: 'installed',
         libraryStatus: updatedLibraryStatus
       })
       return this.refreshLibrary({})
@@ -232,7 +247,6 @@ export class GlobalState extends PureComponent<Props> {
       )
 
       this.setState({
-        filter: 'installed',
         libraryStatus: updatedLibraryStatus
       })
 
@@ -335,21 +349,20 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName === appName
       )[0]
       if (!currentApp) {
-        await this.handleGameStatus({ appName, status: 'playing' })
-        return launch({ appName, t, handleGameStatus: this.handleGameStatus })
+        return launch({ appName, t })
       }
     })
 
-    ipcRenderer.on('installGame', async (e, appName) => {
+    ipcRenderer.on('installGame', async (e, args) => {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
       )[0]
+      const { appName, installPath } = args
       if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        await this.handleGameStatus({ appName, status: 'installing' })
         return install({
           appName,
           handleGameStatus: this.handleGameStatus,
-          installPath: 'default',
+          installPath,
           isInstalling: false,
           previousProgress: null,
           progress: {
@@ -360,6 +373,11 @@ export class GlobalState extends PureComponent<Props> {
           t
         })
       }
+    })
+
+    ipcRenderer.on('setGameStatus', async (e, args: GameStatus) => {
+      const { libraryStatus } = this.state
+      this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
     const user = configStore.get('userInfo')
@@ -415,15 +433,17 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, winege, filterText, filter, platform } = this.state
-
+    const { data, winege, filterText, filter, platform, filterPlatform } = this.state
     let filteredLibrary = data
 
     try {
       const filterRegex = new RegExp(filterText, 'i')
       const textFilter = ({ title, app_name }: GameInfo) =>
         filterRegex.test(title) || filterRegex.test(app_name)
-      filteredLibrary = this.filterLibrary(data, filter).filter(textFilter)
+      filteredLibrary = this.filterPlatform(
+        this.filterLibrary(data, filter).filter(textFilter),
+        filterPlatform
+      )
     } catch (error) {
       console.log(error)
     }
@@ -438,6 +458,7 @@ export class GlobalState extends PureComponent<Props> {
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
+          handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
           platform: platform,
           refresh: this.refresh,

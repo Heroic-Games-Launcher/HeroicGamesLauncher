@@ -1,4 +1,6 @@
 {
   "editor.bracketPairColorization.enabled": true,
-  "prettier.configPath": "${fileDirname}/../.prettierrc.json"
+  "prettier.configPath": "${fileDirname}/../.prettierrc.json",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

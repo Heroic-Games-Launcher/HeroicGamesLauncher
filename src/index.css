@@ -25,9 +25,10 @@ html {
   --text-primary: #eae8e5;
   --text-secondary: #c1c4c3;
   --text-tertiary: #101111;
+  --text-quartenary: #5a5e5f;
   --text-danger: #d22121;
   --icon-disabled: #625e69;
-  --sidebar-width: 200px;
+  --sidebar-width: 218px;
   --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
 }
@@ -51,4 +52,21 @@ a {
 code {
   font-family: Cabin, source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Overlay Scrollbar*/
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 4px;
 }

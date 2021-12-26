@@ -6,6 +6,10 @@
             "message": "Υπάρχει μια νέα έκδοση του Heroic διαθέσιμη, θέλετε να το ενημερώσετε τώρα;",
             "title": "Διαθέσιμη ενημέρωση"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Επιλογή",
         "choose-egs-prefix": "Επιλέξτε πρόθεμα όπου το EGS είναι εγκατεστημένο",
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
@@ -42,6 +46,12 @@
             "message": "Υπάρχουν εκκρεμείς διεργασίες, είστε σίγουροι;",
             "title": "Έξοδος"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Επιλέξτε EXE για εκτέλεση"
         },
@@ -62,6 +72,7 @@
         "yes": "ΝΑΙ"
     },
     "button": {
+        "login": "Login",
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
         "unsync": "Αποσυγχρονισμός"
@@ -69,6 +80,9 @@
     "Downloading": "Λήψη",
     "Epic Games": "Epic Games",
     "Filter": "Φίλτρο",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
@@ -99,7 +113,13 @@
         "help": "Βοήθεια",
         "requirements": "Απαιτήσεις Συστήματος"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Βιβλιοθήκη",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
@@ -124,7 +144,8 @@
         "uninstalled": "Απεγκαταστάθηκε",
         "update": {
             "canceled": "Η ενημέρωση ακυρώθηκε",
-            "finished": "Η ενημέρωση ολοκληρώθηκε"
+            "finished": "Η ενημέρωση ολοκληρώθηκε",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Κατίσχυση φακέλου δεδομένων συγχρονισμού Νέφους"
         },
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Εκκίνηση ελαχιστοποιημένα",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "φάκελος προθεμάτων Wine",
@@ -203,12 +225,17 @@
     },
     "Settings": "Ρυθμίσεις",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Επιστροφή",
             "general": "Γενικά",
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Κατάστημα",
     "title": {

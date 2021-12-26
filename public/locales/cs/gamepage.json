@@ -6,7 +6,6 @@
             "title": "Změnit cestu instalace her"
         },
         "choose": "Vybrat",
-        "default-install-path": "",
         "importpath": "Vybrerte složku hry pro importování",
         "move": {
             "message": "Toto může chvíli trvat, jste si jisti?",
@@ -31,6 +30,7 @@
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat teď?",
             "title": "Hra vyžaduje akualizaci"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ANO"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Verze"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Launch Options..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

@@ -6,6 +6,10 @@
             "message": "Heroicu uus versioon on saadaval. Kas soovite uuendada kohe?",
             "title": "Uuendus saadaval"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Valige",
         "choose-egs-prefix": "Valige prefiks, kuhu EGS on paigaldatud",
         "choose-legendary-binary": "Valige Legendary binaarfail",
@@ -42,6 +46,12 @@
             "message": "On pooleliolevad toimingud, kas olete kindel?",
             "title": "Välju"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Valige EXE mida käivitada"
         },
@@ -62,6 +72,7 @@
         "yes": "JAH"
     },
     "button": {
+        "login": "Login",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine"
@@ -69,6 +80,9 @@
     "Downloading": "Allalaadimine",
     "Epic Games": "Epic Games",
     "Filter": "Filtreeri",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globaalsed seaded",
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -99,7 +113,13 @@
         "help": "Abi",
         "requirements": "Süsteeminõuded"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Varamu",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
         "unsync": "Mittesünkroniseerimine lõpetatud"
@@ -124,7 +144,8 @@
         "uninstalled": "Eemaldatud",
         "update": {
             "canceled": "Uuendatud tühistatud",
-            "finished": "Uuendatud lõpetatud"
+            "finished": "Uuendatud lõpetatud",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Asenda salvestuse pilvesünkroonkaust"
         },
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Käivita minimeeritud",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
@@ -203,12 +225,17 @@
     },
     "Settings": "Seaded",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "Üldine",
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Pood",
     "title": {

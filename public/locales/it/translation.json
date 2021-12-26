@@ -6,6 +6,10 @@
             "message": "C'è una nuova versione di Heroic disponibile, vuoi aggiornare ora?",
             "title": "Aggiornamento disponibile"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Scegli",
         "choose-egs-prefix": "Scegli il prefix dove EGS è installato",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "Ci sono operazioni in sospeso, sei sicuro?",
             "title": "Esci"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Seleziona l'EXE da avviare"
         },
@@ -62,6 +72,7 @@
         "yes": "SI"
     },
     "button": {
+        "login": "Login",
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione"
@@ -69,6 +80,9 @@
     "Downloading": "Download in corso",
     "Epic Games": "Epic Games",
     "Filter": "Filtra",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Impostazioni globali",
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
@@ -99,7 +113,13 @@
         "help": "Aiuto",
         "requirements": "Requisiti di sistema"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Libreria",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Sincronizzazione completata",
         "unsync": "Annullamento sincronizzazione completato"
@@ -124,7 +144,8 @@
         "uninstalled": "Disinstallazione completata",
         "update": {
             "canceled": "Aggiornamento annullato",
-            "finished": "Aggiornamento completato"
+            "finished": "Aggiornamento completato",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK/VKD3D sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
@@ -196,6 +217,7 @@
             "title": "Effettua l'aggiornamento forzato della cartella dei giochi sul cloud"
         },
         "showfps": "Mostra FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Avvio Minimizzato",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Cartella del prefix di Wine",
@@ -203,12 +225,17 @@
     },
     "Settings": "Impostazioni",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Indietro",
             "general": "Generale",
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Negozio",
     "title": {

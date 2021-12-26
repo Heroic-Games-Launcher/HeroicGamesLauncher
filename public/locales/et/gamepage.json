@@ -6,7 +6,6 @@
             "title": "Muuda mängude paigaldamiskohta"
         },
         "choose": "Valige",
-        "default-install-path": "",
         "importpath": "Valige imporditav mängude kaust",
         "move": {
             "message": "See võib võtta kaua aega, kas olete kindel?",
@@ -31,6 +30,7 @@
             "message": "Sellel mängul on värskendus. Kas soovite uuendada kohe?",
             "title": "Mäng vajab uuendust"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "JAH"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Versioon"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Käivitusvalikud..."
     },
     "sdl": {
-        "showList": "Kliki, et näidata/peita lisakomponendid",
         "title": "Valige komponendid, mida installida"
     },
     "specs": {

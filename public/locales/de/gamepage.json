@@ -6,7 +6,6 @@
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
-        "default-install-path": "",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
@@ -31,12 +30,13 @@
             "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
             "title": "Spiel benötigt eine neuere Version"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "JA"
     },
     "button": {
         "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
-        "import": "Importieren",
+        "import": "Spiel importieren",
         "install": "Installieren",
         "uninstall": "Deinstallieren",
         "update": "Update"
@@ -67,7 +67,8 @@
         "version": "Version"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Installationspfad auswählen",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Startoptionen..."
     },
     "sdl": {
-        "showList": "Klicken, um zusätzliche Komponenten ein-/auszublenden",
         "title": "Zu installierende Komponenten auswählen"
     },
     "specs": {

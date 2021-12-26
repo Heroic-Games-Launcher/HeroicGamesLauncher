@@ -6,9 +6,13 @@
             "message": "Hi ha una nova versió d'Heroic disponible, vols actualitzar-ho?",
             "title": "Actualització disponible"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Tria",
         "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Selecciona binari de legendary",
         "customWine": "Selecciona el binary de wine o proton",
         "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
         "error": {
@@ -42,6 +46,12 @@
             "message": "Hi ha operacions pendents, estàs del tot segur?",
             "title": "Sortir"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Selecciona un EXE per llençar"
         },
@@ -62,6 +72,7 @@
         "yes": "Sí"
     },
     "button": {
+        "login": "Login",
         "sync": "Sincronitza",
         "syncing": "Sincronitzant",
         "unsync": "Des-sincronitza"
@@ -69,6 +80,9 @@
     "Downloading": "Descarregant",
     "Epic Games": "Epic Games",
     "Filter": "Filtra",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Configuració global",
     "help": {
         "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS.",
@@ -99,7 +113,13 @@
         "help": "Ajuda",
         "requirements": "Requeriments del sistema"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Llibreria",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Sincronització completa",
         "unsync": "Des-sincronització completa"
@@ -124,7 +144,8 @@
         "uninstalled": "Des-instal·lat",
         "update": {
             "canceled": "Actualització cancelada",
-            "finished": "Actualització acabada"
+            "finished": "Actualització acabada",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
         "autodxvk": "Instal·la/Actualitza DXVK/VKD3D al prefix automàticament",
         "autosync": "Sincronitza les dades automàticament",
@@ -196,6 +217,7 @@
             "title": "Sobreescriu la carpeta de dades de sincronització al núvol"
         },
         "showfps": "Ensenya els FPS (DX9, 10 i 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Comença minimitzat",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Carpeta wine prefix",
@@ -203,12 +225,17 @@
     },
     "Settings": "Configuració",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Tornar",
             "general": "General",
             "other": "Altres",
             "sync": "Guardar-Sincronitzar"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Botiga",
     "title": {

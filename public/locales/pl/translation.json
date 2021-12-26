@@ -6,6 +6,10 @@
             "message": "Dostępna jest nowa wersja Heroic do pobrania, czy chcesz aktualizować?",
             "title": "Dostępna aktualizacja"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Wybierz",
         "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
         "choose-legendary-binary": "Wybierz plik binarny Legendary",
@@ -42,6 +46,12 @@
             "message": "Trwają operacje, czy jesteś pewien?",
             "title": "Wyjście"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Wybierz plik EXE do uruchomienia"
         },
@@ -50,8 +60,8 @@
             "exe": "Wybierz EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Skróty zostały stworzone na Pulpicie i w Menu Start",
+            "title": "Skróty"
         },
         "sync": {
             "button": "Wybierz",
@@ -62,6 +72,7 @@
         "yes": "TAK"
     },
     "button": {
+        "login": "Login",
         "sync": "Synchronizuj",
         "syncing": "Synchronizacja",
         "unsync": "Desynchronizacja"
@@ -69,6 +80,9 @@
     "Downloading": "Pobieranie",
     "Epic Games": "Epic Games",
     "Filter": "Filtr",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Ustawienia Globalne",
     "help": {
         "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
@@ -99,7 +113,13 @@
         "help": "Pomoc",
         "requirements": "Wymagania Systemowe"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Biblioteka",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Synchronizacja zakończona",
         "unsync": "Desynchronizacja zakończona"
@@ -108,8 +128,8 @@
     "Not Ready": "Dostępne",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Błąd podczas Przenoszenia Gry",
+            "reparing": "Błąd podczas Naprawiania"
         },
         "finished": {
             "reparing": "Naprawa zakończona"
@@ -117,14 +137,15 @@
         "install": {
             "canceled": "Instalacja zatrzymana",
             "finished": "Instalacja zakończona",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Gra Zaimportowana",
+            "startInstall": "Instalacja Rozpoczęta"
         },
         "moved": "Przenoszenie zakończone",
         "uninstalled": "Odinstalowane",
         "update": {
             "canceled": "Aktualizacja przerwana",
-            "finished": "Aktualizacja zakończona"
+            "finished": "Aktualizacja zakończona",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Pomiń synchronizację z chmurą"
         },
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Uruchom zminimalizowany",
         "winecrossoverbottle": "Butelki w CrossOver",
         "wineprefix": "Folder prefiksu Wine",
@@ -203,12 +225,17 @@
     },
     "Settings": "Ustawienia",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Wstecz",
             "general": "Główne",
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Sklep",
     "title": {
@@ -217,9 +244,9 @@
         "downloading": "Pobieranie",
         "installedGames": "Zainstalowane Gry",
         "notInstalledGames": "Nie Zainstalowane",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
+        "unrealAssets": "Unreal - Assety",
+        "unrealPlugins": "Unreal - Pluginy",
+        "unrealProjects": "Unreal - Projekty",
         "updates": "Oczekujące Aktualizacje"
     },
     "tooltip": {

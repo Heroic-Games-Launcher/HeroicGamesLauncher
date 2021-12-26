@@ -6,7 +6,6 @@
             "title": "Zmień Ścieżkę Instalacji Gier"
         },
         "choose": "Wybierz",
-        "default-install-path": "",
         "importpath": "Wybierz folder gry do importowania",
         "move": {
             "message": "To może chwilę zająć, jesteś pewny?",
@@ -31,12 +30,13 @@
             "message": "Ta gra ma dostępną aktualizację, czy chcesz zaktualizować ją teraz?",
             "title": "Gra wymaga aktualizacji"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "TAK"
     },
     "button": {
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
-        "import": "Importuj",
+        "import": "Importuj Grę",
         "install": "Instaluj",
         "uninstall": "Odinstaluj",
         "update": "Update"
@@ -67,7 +67,8 @@
         "version": "Wersja"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Wybierz Ścieżkę Instalacji",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Opcje Uruchamiania..."
     },
     "sdl": {
-        "showList": "Kliknij by Pokazać/Ukryć Dodatkowe Komponenty",
         "title": "Wybierz komponenty do Instalacji"
     },
     "specs": {

@@ -6,6 +6,10 @@
             "message": "Доступна новая версия Heroic. Обновить сейчас?",
             "title": "Доступно обновление"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Выбрать",
         "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
         "choose-legendary-binary": "Выбрать исполняемый файл Legendary",
@@ -42,6 +46,12 @@
             "message": "Есть незавершенные операции. Вы уверены?",
             "title": "Выйти"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Выбрать EXE для запуска"
         },
@@ -62,6 +72,7 @@
         "yes": "ДА"
     },
     "button": {
+        "login": "Login",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
@@ -69,6 +80,9 @@
     "Downloading": "Скачивается",
     "Epic Games": "Epic Games",
     "Filter": "Фильтр",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Глобальные настройки",
     "help": {
         "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
@@ -99,7 +113,13 @@
         "help": "Помощь",
         "requirements": "Системные требования"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Библиотека",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Синхронизация завершена",
         "unsync": "Рассинхронизация завершена"
@@ -124,7 +144,8 @@
         "uninstalled": "Удалено",
         "update": {
             "canceled": "Обновление прервано",
-            "finished": "Обновление завершено"
+            "finished": "Обновление завершено",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -196,6 +217,7 @@
             "title": "Переопределить папку для облачных сохранений"
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Запускать свернутым в трей",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
@@ -203,12 +225,17 @@
     },
     "Settings": "Настройки",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Назад",
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Магазин",
     "title": {

@@ -43,13 +43,6 @@ async function install({
     appName
   )
   if (isInstalling) {
-    if (installPath === 'default') {
-      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        'default'
-      )
-      installPath = defaultInstallPath
-    }
     return handleStopInstallation(
       appName,
       [installPath, folder_name],
@@ -74,9 +67,7 @@ async function install({
       return
     }
 
-    handleGameStatus({ appName, status: 'installing' })
-    await importGame({ appName, path })
-    return await handleGameStatus({ appName, status: 'done' })
+    return await importGame({ appName, path })
   }
 
   if (installPath !== 'default' || !is_game) {
@@ -91,21 +82,19 @@ async function install({
       status: 'installing',
       progress: previousProgress?.percent || '0%'
     })
-    const result = await ipcRenderer.invoke('install', {
-      appName,
-      path: `${installPath}`,
-      installDlcs,
-      sdlList
-    })
-
-    if (result && result.status === 'error') {
-      return await handleGameStatus({ appName, status: 'error' })
-    }
-
-    if (progress.percent === '100%') {
-      storage.removeItem(appName)
-    }
-    return await handleGameStatus({ appName, status: 'done' })
+    return await ipcRenderer
+      .invoke('install', {
+        appName,
+        path: `${installPath}`,
+        installDlcs,
+        sdlList
+      })
+      .finally(() => {
+        if (progress.percent === '100%') {
+          storage.removeItem(appName)
+        }
+        return
+      })
   }
 
   if (is_game) {
@@ -122,24 +111,19 @@ async function install({
       storage.removeItem(appName)
     }
 
-    await handleGameStatus({ appName, status: 'installing' })
-
-    const result = await ipcRenderer.invoke('install', {
-      appName,
-      path: `'${path}'`,
-      installDlcs,
-      sdlList
-    })
-
-    if (result && result.status === 'error') {
-      return await handleGameStatus({ appName, status: 'error' })
-    }
-
-    if (progress.percent === '100%') {
-      storage.removeItem(appName)
-    }
-
-    return await handleGameStatus({ appName, status: 'done' })
+    return await ipcRenderer
+      .invoke('install', {
+        appName,
+        path: `'${path}'`,
+        installDlcs,
+        sdlList
+      })
+      .finally(() => {
+        if (progress.percent === '100%') {
+          storage.removeItem(appName)
+        }
+        return
+      })
   }
 }
 
@@ -207,13 +191,11 @@ const repair = async (appName: string): Promise<void> =>
 type LaunchOptions = {
   appName: string
   t: TFunction<'gamepage'>
-  handleGameStatus: (game: GameStatus) => Promise<void>
   launchArguments?: string
 }
 
 const launch = ({
   appName,
-  handleGameStatus,
   t,
   launchArguments
 }: LaunchOptions): Promise<void> =>
@@ -237,17 +219,12 @@ const launch = ({
         const { response } = await ipcRenderer.invoke('openMessageBox', args)
 
         if (response === 0) {
-          await handleGameStatus({ appName, status: 'done' })
-          await handleGameStatus({ appName, status: 'updating' })
-          await updateGame(appName)
-          return await handleGameStatus({ appName, status: 'done' })
+          return updateGame(appName)
         }
-        await handleGameStatus({ appName, status: 'playing' })
         await ipcRenderer.invoke('launch', {
-          appName: `${appName} --skip-version-check`,
-          launchArguments
+          appName,
+          launchArguments: '--skip-version-check'
         })
-        return await handleGameStatus({ appName, status: 'done' })
       }
     })
 
@@ -255,12 +232,8 @@ const updateGame = (appName: string): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName)
 
 // Todo: Get Back to update all games
-function updateAllGames(
-  gameList: Array<string>,
-  handleGameStatus: (game: GameStatus) => Promise<void>
-) {
+function updateAllGames(gameList: Array<string>) {
   gameList.forEach(async (appName) => {
-    await handleGameStatus({ appName, status: 'updating' })
     await updateGame(appName)
   })
 }

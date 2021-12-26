@@ -1,5 +1,6 @@
 .SearchBar {
   grid-area: search;
+  width: 100%;
 }
 
 .searchInput {
@@ -7,13 +8,11 @@
   border-radius: 5px;
   border: none;
   color: var(--text-primary);
-  text-indent: 4px;
-  font-size: 14px;
+  text-indent: 8px;
+  font-size: 16px;
   outline: none;
-  background: var(--searchbar-background);
-  max-width: 300px;
-  min-width: 150px;
-  width: 28vw;
+  background: var(--background);
+  width: 80%;
 }
 
 .SearchBar > label {

@@ -6,6 +6,10 @@
             "message": "K dispozici je nová aktualizace pro Heroic, chcete aktualizovat nyní?",
             "title": "Je dostupná aktualizace"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Vybrat",
         "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "Existují nevyřízené operace, jste si jisti?",
             "title": "Ukončit"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Vyberte soubor EXE pro spuštění"
         },
@@ -62,6 +72,7 @@
         "yes": "ANO"
     },
     "button": {
+        "login": "Login",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
         "unsync": "Desynchroniozovat"
@@ -69,6 +80,9 @@
     "Downloading": "Stahování",
     "Epic Games": "Epic Games",
     "Filter": "Filtr",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -99,7 +113,13 @@
         "help": "Pomoc",
         "requirements": "Systémové požadavky"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Knihovna",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
@@ -124,7 +144,8 @@
         "uninstalled": "Odinstalováno",
         "update": {
             "canceled": "Aktualizace zrušena",
-            "finished": "Aktualizace dokončena"
+            "finished": "Aktualizace dokončena",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
         "autodxvk": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
@@ -196,6 +217,7 @@
             "title": "Přepsat synchronizaci cloudu"
         },
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Spustit minimalizované",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
@@ -203,12 +225,17 @@
     },
     "Settings": "Nastavení",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "Obecné",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Obchod",
     "title": {

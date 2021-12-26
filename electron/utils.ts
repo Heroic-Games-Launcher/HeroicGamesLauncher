@@ -1,12 +1,15 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
 import { exec, spawn } from 'child_process'
-import { existsSync, statSync, stat } from 'graceful-fs'
+import { existsSync, statSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
+import prettyBytes from 'pretty-bytes'
+import si from 'systeminformation'
+import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon } from './constants'
+import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
@@ -32,6 +35,34 @@ function semverGt(target: string, base: string) {
 
 async function isOnline() {
   return net.isOnline()
+}
+
+export const getLegendaryVersion = async () => {
+  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
+  try {
+    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
+      return 'invalid'
+    }
+    const { stdout } = await execAsync(`${legendaryBin} --version`)
+    return stdout
+      .split('legendary version')[1]
+      .replaceAll('"', '')
+      .replaceAll(', codename', '')
+      .replaceAll('\n', '')
+  } catch (error) {
+    return 'invalid'
+  }
+}
+
+export const getHeroicVersion = () => {
+  const VERSION_NUMBER = app.getVersion()
+  const BETA_VERSION_NAME = 'Caesar Clown'
+  const STABLE_VERSION_NAME = 'Roronoa Zoro'
+  const isBetaorAlpha =
+    VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
+  const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
+
+  return `${VERSION_NUMBER} ${VERSION_NAME}`
 }
 
 async function checkForUpdates() {
@@ -62,7 +93,7 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Caesar Clown`,
+    applicationVersion: getHeroicVersion(),
     copyright: 'GPL V3',
     iconPath: icon,
     website: 'https://heroicgameslauncher.com'
@@ -89,6 +120,48 @@ const handleExit = async () => {
     return app.exit()
   }
   app.exit()
+}
+
+export const getSystemInfo = async () => {
+  const heroicVersion = getHeroicVersion()
+  const legendaryVersion = await getLegendaryVersion()
+
+  // get CPU and RAM info
+  const { manufacturer, brand, speed, governor } = await si.cpu()
+  const { total, available } = await si.mem()
+
+  // get OS information
+  const { distro, kernel, arch, platform } = await si.osInfo()
+
+  // get GPU information
+  const { controllers } = await si.graphics()
+  const graphicsCards = String(
+    controllers.map(
+      ({ name, model, vram, driverVersion }, i) =>
+        `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
+          driverVersion ?? ''
+        } \n`
+    )
+  )
+    .replaceAll(',', '')
+    .replaceAll('\n', '')
+
+  const isLinux = platform === 'linux'
+  const xEnv = isLinux
+    ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
+    : ''
+
+  return `
+  Heroic Version: ${heroicVersion}
+  Legendary Version: ${legendaryVersion}
+  OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+  CPU: ${manufacturer} ${brand} @${speed} ${
+    governor ? `GOVERNOR: ${governor}` : ''
+  }
+  RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
+  GRAPHICS: ${graphicsCards}
+  ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
+  `
 }
 
 type ErrorHandlerMessage = {
@@ -138,6 +211,11 @@ function genericErrorMessage(): void {
   )
 }
 
+function removeSpecialcharacters(text: string): string {
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|+]')
+  return text.replaceAll(regexp, '')
+}
+
 async function openUrlOrFile(url: string): Promise<string> {
   if (process.platform === 'darwin') {
     try {
@@ -151,7 +229,8 @@ async function openUrlOrFile(url: string): Promise<string> {
   }
   if (process.platform === 'linux') {
     try {
-      await execAsync(`xdg-open '${url}'`)
+      const fixedURL = url.replace('~', home)
+      await execAsync(`xdg-open '${fixedURL}'`)
     } catch (error) {
       dialog.showErrorBox(
         i18next.t('box.error.log.title', 'Log Not Found'),
@@ -264,9 +343,12 @@ async function unzipFile(
       return reject(`Archive type ${filePath.split('.').pop()} not supported!`)
     }
 
-    const unzip = spawn(
-      'tar', [extension_options, filePath, '--directory', unzipDir]
-    )
+    const unzip = spawn('tar', [
+      extension_options,
+      filePath,
+      '--directory',
+      unzipDir
+    ])
 
     unzip.stdout.on('data', function () {
       onProgress(true)
@@ -288,6 +370,33 @@ async function unzipFile(
   })
 }
 
+function clearCache() {
+  const installCache = new Store({
+    cwd: 'store',
+    name: 'installInfo'
+  })
+  const libraryCache = new Store({
+    cwd: 'store',
+    name: 'library'
+  })
+  const gameInfoCache = new Store({
+    cwd: 'store',
+    name: 'gameinfo'
+  })
+  installCache.clear()
+  libraryCache.clear()
+  gameInfoCache.clear()
+}
+
+function resetHeroic() {
+  const heroicFolder = `${app.getPath('appData')}/heroic`
+  console.log({ heroicFolder })
+  rm(heroicFolder, { recursive: true, force: true }, () => {
+    app.relaunch()
+    app.quit()
+  })
+}
+
 export {
   checkCommandVersion,
   checkForUpdates,
@@ -301,5 +410,8 @@ export {
   unzipFile,
   semverGt,
   showAboutWindow,
-  statAsync
+  statAsync,
+  removeSpecialcharacters,
+  clearCache,
+  resetHeroic
 }

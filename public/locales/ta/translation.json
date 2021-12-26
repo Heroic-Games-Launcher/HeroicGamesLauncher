@@ -6,6 +6,10 @@
             "message": "ஹீரோயிக் இன் புதிய பதிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?",
             "title": "புதுப்பிப்பு உள்ளது"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "தேர்வு செய்",
         "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "செயல்பாடுகள் நிலுவையில் உள்ளன, உறுதி செய்யவா?",
             "title": "வெளியேறு"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "EXE ஐ இயக்க தேர்ந்தெடு"
         },
@@ -62,6 +72,7 @@
         "yes": "ஆம்"
     },
     "button": {
+        "login": "Login",
         "sync": "ஒத்திசைவு செய்",
         "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
         "unsync": "ஒத்திசைவை செயல்தவிர்"
@@ -69,6 +80,9 @@
     "Downloading": "பதிவிறக்கப்படுகிறது",
     "Epic Games": "Epic Games",
     "Filter": "வடிகட்டி",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "help": {
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
@@ -99,7 +113,13 @@
         "help": "உதவி",
         "requirements": "கணினி தேவைப்பாடுகள்"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "விளையாட்டு பட்டியல்",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
         "unsync": "ஒத்திசைவு செயல்தவிர் நிறைப்படைந்தது"
@@ -124,7 +144,8 @@
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",
         "update": {
             "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
-            "finished": "புதுப்பிப்பு நிறைவடைந்தது"
+            "finished": "புதுப்பிப்பு நிறைவடைந்தது",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
         "autodxvk": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
@@ -196,6 +217,7 @@
             "title": "மேகக்கணி ஒத்திசைவு கோப்புறையை புறக்கணித்து மாற்று"
         },
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",
@@ -203,12 +225,17 @@
     },
     "Settings": "அமைப்புகள்",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "பொதுவானவை",
             "other": "மற்றவை",
             "sync": "சேமிப்பு-ஒத்திசைவு"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "விற்பனைக்கூடம்",
     "title": {

@@ -6,6 +6,10 @@
             "message": "Heroic の新しいバージョンが利用可能になりました、今すぐ更新しますか？",
             "title": "アップデートが利用可能です"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "選ぶ",
         "choose-egs-prefix": "EGSがインストールされているプレフィックスを選択します",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "保留中の操作があります、よろしいですか？",
             "title": "エグジット"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "実行するEXEを選択します"
         },
@@ -62,6 +72,7 @@
         "yes": "はい"
     },
     "button": {
+        "login": "Login",
         "sync": "同期",
         "syncing": "同期しています",
         "unsync": "非同期"
@@ -69,6 +80,9 @@
     "Downloading": "ダウンロードしています",
     "Epic Games": "Epic Games",
     "Filter": "フィルター",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全体設定",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -99,7 +113,13 @@
         "help": "ヘルプ",
         "requirements": "システム要求"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "ライブラリ",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "同期が完了しました",
         "unsync": "非同期が完了しました"
@@ -124,7 +144,8 @@
         "uninstalled": "アンインストールしました",
         "update": {
             "canceled": "更新がキャンセルされました",
-            "finished": ""
+            "finished": "",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
         "autodxvk": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
@@ -196,6 +217,7 @@
             "title": "Cloud Syncの保存フォルダーをオーバーライドする"
         },
         "showfps": "FPSを表示（DX9、10、11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
         "winecrossoverbottle": "CrossOver ボトル",
         "wineprefix": "Wineプレフィックスフォルダー",
@@ -203,12 +225,17 @@
     },
     "Settings": "設定",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "一般",
             "other": "他",
             "sync": "同期を保存"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "ストア",
     "title": {

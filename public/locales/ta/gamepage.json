@@ -6,7 +6,6 @@
             "title": "விளையாட்டுகளை நிறுவும் பாதையை மாற்று"
         },
         "choose": "தேர்வு செய்",
-        "default-install-path": "",
         "importpath": "இறக்குமதி செய்ய விளையாட்டு கோப்புறையை தேர்வுசெய்க",
         "move": {
             "message": "இது நீண்ட நேரம் எடுக்கலாம், உறுதி செய்யவா?",
@@ -31,6 +30,7 @@
             "message": "இந்த விளையாட்டுக்கு ஒரு புதுப்பிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?",
             "title": "விளையாட்டு புதுப்பிப்பு தேவை"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ஆம்"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "பதிப்பு"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -82,7 +83,6 @@
         "options": "Launch Options..."
     },
     "sdl": {
-        "showList": "Click to Show/Hide Extra Components",
         "title": "Select components to Install"
     },
     "specs": {

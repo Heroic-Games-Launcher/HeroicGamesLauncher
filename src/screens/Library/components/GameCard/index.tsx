@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
 import { uninstall, updateGame } from 'src/helpers/library'
+import { SvgButton } from 'src/components/UI'
 
 const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
@@ -34,6 +35,7 @@ interface Card {
   size: string
   title: string
   version: string
+  isMacNative: boolean
   forceCard?: boolean
 }
 
@@ -48,7 +50,8 @@ const GameCard = ({
   size = '',
   hasUpdate,
   buttonClick,
-  forceCard
+  forceCard,
+  isMacNative
 }: Card) => {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -88,9 +91,10 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
-  const path = isWin
-    ? `/settings/${appName}/other`
-    : `/settings/${appName}/wine`
+  const path =
+    isWin || isMacNative
+      ? `/settings/${appName}/other`
+      : `/settings/${appName}/wine`
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -141,11 +145,9 @@ const GameCard = ({
     }
     if (hasUpdate) {
       return (
-        <FontAwesomeIcon
-          size={'2x'}
-          icon={faRepeat}
-          onClick={() => handleUpdate()}
-        />
+        <SvgButton onClick={() => handleUpdate()}>
+          <FontAwesomeIcon size={'2x'} icon={faRepeat} />
+        </SvgButton>
       )
     }
 
@@ -154,19 +156,35 @@ const GameCard = ({
 
   const renderIcon = () => {
     if (isPlaying) {
-      return <StopIconAlt className="cancelIcon" onClick={() => handlePlay()} />
+      return (
+        <SvgButton onClick={() => handlePlay()}>
+          <StopIconAlt className="cancelIcon" />
+        </SvgButton>
+      )
     }
     if (isInstalling) {
-      return <StopIcon onClick={() => handlePlay()} />
+      return (
+        <SvgButton onClick={() => handlePlay()}>
+          <StopIcon />
+        </SvgButton>
+      )
     }
     if (isInstalled && isGame) {
-      return <PlayIcon className="playIcon" onClick={() => handlePlay()} />
+      return (
+        <SvgButton onClick={() => handlePlay()}>
+          <PlayIcon className="playIcon" />
+        </SvgButton>
+      )
     }
     if (!isInstalled) {
       if (hasDownloads) {
         return <DownIcon className="iconDisabled" />
       }
-      return <DownIcon className="downIcon" onClick={() => buttonClick()} />
+      return (
+        <SvgButton onClick={() => buttonClick()}>
+          <DownIcon className="downIcon" />
+        </SvgButton>
+      )
     }
     return null
   }
@@ -215,15 +233,16 @@ const GameCard = ({
                 <span className="icons">
                   {renderIcon()}
                   {isInstalled && isGame && (
-                    <SettingsIcon
-                      fill={'var(--text-primary)'}
+                    <SvgButton
                       onClick={() =>
                         history.push({
                           pathname: path,
                           state: { fromGameCard: true }
                         })
                       }
-                    />
+                    >
+                      <SettingsIcon fill={'var(--text-primary)'} />
+                    </SvgButton>
                   )}
                 </span>
               }
@@ -236,15 +255,16 @@ const GameCard = ({
                 <span className="icons">
                   {renderIcon()}
                   {isInstalled && isGame && (
-                    <SettingsIcon
-                      fill={'var(--text-primary)'}
+                    <SvgButton
                       onClick={() =>
                         history.push({
                           pathname: path,
                           state: { fromGameCard: true }
                         })
                       }
-                    />
+                    >
+                      <SettingsIcon fill={'var(--text-primary)'} />
+                    </SvgButton>
                   )}
                 </span>
               }
@@ -315,8 +335,7 @@ const GameCard = ({
       return sendKill(appName)
     }
     if (isInstalled) {
-      await handleGameStatus({ appName, status: 'playing' })
-      return await launch({ appName, t, handleGameStatus })
+      return await launch({ appName, t })
     }
     return
   }

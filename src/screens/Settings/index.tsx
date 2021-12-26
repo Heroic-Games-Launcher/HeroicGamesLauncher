@@ -1,9 +1,11 @@
 import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
-import { IpcRenderer } from 'electron'
+import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
@@ -19,9 +21,10 @@ import WineSettings from './components/WineSettings'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
+  clipboard: Clipboard
 }
 
-const { ipcRenderer } = window.require('electron') as ElectronProps
+const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 const storage: Storage = window.localStorage
 interface RouteParams {
   appName: string
@@ -60,6 +63,7 @@ function Settings() {
   )
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
+
   const {
     on: addDesktopShortcuts,
     toggle: toggleAddDesktopShortcuts,
@@ -146,6 +150,11 @@ function Settings() {
     toggle: toggleFsync,
     setOn: setEnableFsync
   } = useToggle(false)
+  const {
+    on: showUnrealMarket,
+    toggle: toggleUnrealMarket,
+    setOn: setShowUnrealMarket
+  } = useToggle(false)
 
   const [haveCloudSaving, setHaveCloudSaving] = useState({
     cloudSaveEnabled: false,
@@ -153,6 +162,8 @@ function Settings() {
   })
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
+
+  const [isMacNative, setIsMacNative] = useState(false)
 
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
@@ -202,14 +213,17 @@ function Settings() {
       setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
+      setShowUnrealMarket(config.showUnrealMarket || false)
 
       if (!isDefault) {
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
-          title: gameTitle
+          title: gameTitle,
+          is_mac_native
         } = await getGameInfo(appName)
         setTitle(gameTitle)
+        setIsMacNative(is_mac_native)
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -244,6 +258,7 @@ function Settings() {
     otherOptions,
     showFps,
     showMangohud,
+    showUnrealMarket,
     startInTray,
     useGameMode,
     wineCrossoverBottle,
@@ -275,7 +290,7 @@ function Settings() {
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-
+  const shouldRenderWineSettings = !isWin && !isMacNative
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -298,7 +313,7 @@ function Settings() {
               {t('settings.navbar.general')}
             </NavLink>
           )}
-          {!isWin && (
+          {shouldRenderWineSettings && (
             <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
               Wine
             </NavLink>
@@ -316,13 +331,19 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
-          <NavLink to={returnPath}>{t('settings.navbar.back', 'Back')}</NavLink>
         </div>
         <div className="settingsWrapper">
           {title && (
-            <div className="headerTitle" data-testid="headerTitle">
+            <NavLink
+              to={returnPath}
+              className="headerTitle"
+              data-testid="headerTitle"
+            >
               {title}
-            </div>
+              {!isDefault && (
+                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+              )}
+            </NavLink>
           )}
           {isGeneralSettings && (
             <GeneralSettings
@@ -346,6 +367,8 @@ function Settings() {
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
               altLegendaryBin={altLegendaryBin}
               setAltLegendaryBin={setAltLegendaryBin}
+              toggleUnrealMarket={toggleUnrealMarket}
+              showUnrealMarket={showUnrealMarket}
             />
           )}
           {isWineSettings && (
@@ -407,6 +430,7 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
+              isMacNative={isMacNative}
             />
           )}
           {isSyncSettings && (
@@ -421,6 +445,32 @@ function Settings() {
             />
           )}
           <span className="save">{t('info.settings')}</span>
+          <button
+            className="button is-text"
+            onClick={() =>
+              clipboard.writeText(
+                JSON.stringify({ appName, title, ...settingsToSave })
+              )
+            }
+          >
+            {t('settings.copyToClipboard', 'Copy All Setting to Clipboard')}
+          </button>
+          {isDefault && (
+            <>
+              <button
+                className="button is-text"
+                onClick={() => ipcRenderer.send('clearCache')}
+              >
+                {t('settings.clear-cache', 'Clear Heroic Cache')}
+              </button>
+              <button
+                className="button is-text"
+                onClick={() => ipcRenderer.send('resetHeroic')}
+              >
+                {t('settings.clear-cache', 'Reset Heroic')}
+              </button>
+            </>
+          )}
           {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>

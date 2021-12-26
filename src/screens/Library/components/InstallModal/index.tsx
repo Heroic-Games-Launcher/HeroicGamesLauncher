@@ -1,5 +1,12 @@
-import { getInstallInfo, getProgress, install } from 'src/helpers'
+import { getInstallInfo, getProgress, install, writeConfig } from 'src/helpers'
 import React, { useContext, useEffect, useState } from 'react'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import prettyBytes from 'pretty-bytes'
+import { Checkbox } from '@material-ui/core'
+import { IpcRenderer } from 'electron'
 
 import './index.css'
 import {
@@ -10,16 +17,11 @@ import {
   Path
 } from 'src/types'
 
-import { UpdateComponent } from 'src/components/UI'
+import { UpdateComponent, SvgButton } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
-import prettyBytes from 'pretty-bytes'
-import { Checkbox } from '@material-ui/core'
-import { IpcRenderer } from 'electron'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -37,12 +39,15 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     storage.getItem(appName) || '{}'
   ) as InstallProgress
 
-  const { libraryStatus, handleGameStatus } = useContext(ContextProvider)
+  const { libraryStatus, handleGameStatus, platform } =
+    useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
   const [gameInfo, setGameInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
+  const [settings, setSettings] = useState<AppSettings>()
+  const [winePrefix, setWinePrefix] = useState('...')
   const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || 'default'
@@ -50,6 +55,8 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   const installFolder = gameStatus?.folder || installPath
 
+  const isMac = platform === 'darwin'
+  const isLinux = platform === 'linux'
   const haveSDL = Boolean(SDL_GAMES[appName])
   const mandatoryTags: Array<string> = haveSDL
     ? SDL_GAMES[appName]
@@ -62,6 +69,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   async function handleInstall(path?: string) {
     backdropClick()
+    writeConfig([appName, { ...settings, winePrefix }])
     return await install({
       appName,
       handleGameStatus,
@@ -80,6 +88,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       .invoke('requestSettings', 'default')
       .then((config: AppSettings) => {
         setDefaultPath(config.defaultInstallPath)
+        setSettings(config)
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
@@ -110,10 +119,17 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     const getInfo = async () => {
       const gameInfo = await getInstallInfo(appName)
       setGameInfo(gameInfo)
+      const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+      const fixedTitle = gameInfo.game.title
+        .replaceAll(regexp, '')
+        .replaceAll(' ', '-')
+      const sugestedWinePrefix = `~/Games/Heroic/Prefixes/${fixedTitle}`
+      setWinePrefix(sugestedWinePrefix)
     }
     getInfo()
   }, [appName])
 
+  const isMacNative = isMac && gameInfo?.game?.platform_versions?.Mac
   const haveDLCs = gameInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInfo?.game?.owned_dlc
   const downloadSize =
@@ -140,7 +156,10 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
         <div className="modal">
-          <span className="title">{gameInfo?.game?.title}</span>
+          <span className="title">
+            {gameInfo?.game?.title}
+            <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+          </span>
           <div className="installInfo">
             <div className="itemContainer">
               <span className="item">
@@ -169,24 +188,62 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                   placeholder={defaultPath}
                   onChange={(event) => setInstallPath(event.target.value)}
                 />
-                <FontAwesomeIcon
+                <SvgButton
                   onClick={() =>
                     ipcRenderer
                       .invoke('openDialog', {
                         buttonLabel: t('box.choose'),
                         properties: ['openDirectory'],
-                        title: t('box.default-install-path')
+                        title: t('install.path')
                       })
                       .then(({ path }: Path) =>
                         setInstallPath(path ? `'${path}'` : defaultPath)
                       )
                   }
-                  className="fontAwesome folder"
-                  icon={faFolderOpen}
-                />
+                >
+                  <FontAwesomeIcon
+                    className="fontAwesome folder"
+                    icon={faFolderOpen}
+                  />
+                </SvgButton>
               </span>
               {getDownloadedProgress()}
             </span>
+            {isLinux && (
+              <span className="installPath">
+                <span className="settingText">
+                  {t('install.wineprefix', 'WinePrefix')}:
+                </span>
+                <span>
+                  <input
+                    type="text"
+                    value={winePrefix.replaceAll("'", '')}
+                    className="settingSelect"
+                    placeholder={winePrefix}
+                    onChange={(event) => setWinePrefix(event.target.value)}
+                  />
+                  <SvgButton
+                    onClick={() =>
+                      ipcRenderer
+                        .invoke('openDialog', {
+                          buttonLabel: t('box.choose'),
+                          properties: ['openDirectory'],
+                          title: t('box.wineprefix', 'Select WinePrefix Folder')
+                        })
+                        .then(({ path }: Path) =>
+                          setWinePrefix(path ? path : winePrefix)
+                        )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      className="fontAwesome folder"
+                      icon={faFolderOpen}
+                    />
+                  </SvgButton>
+                </span>
+                {getDownloadedProgress()}
+              </span>
+            )}
             {haveDLCs && (
               <div className="itemContainer">
                 <div className="itemTitle">{t('dlc.title', 'DLCs')}</div>

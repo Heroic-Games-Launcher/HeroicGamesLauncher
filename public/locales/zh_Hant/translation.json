@@ -6,6 +6,10 @@
             "message": "有新版本的Heroic啟動器可用，您要立即更新嗎？",
             "title": "有可用更新"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "請選擇",
         "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -42,6 +46,12 @@
             "message": "有待處理的操作，您確定嗎？",
             "title": "退出"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "選擇要執行的EXE檔案"
         },
@@ -62,6 +72,7 @@
         "yes": "是"
     },
     "button": {
+        "login": "Login",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步"
@@ -69,6 +80,9 @@
     "Downloading": "正在下載",
     "Epic Games": "Epic Games",
     "Filter": "篩選",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全域設定",
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
@@ -99,7 +113,13 @@
         "help": "幫助",
         "requirements": "系統要求"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "收藏庫",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"
@@ -124,7 +144,8 @@
         "uninstalled": "已解除安裝",
         "update": {
             "canceled": "已取消更新",
-            "finished": "已更新"
+            "finished": "已更新",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -154,7 +175,7 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
-        "alt-legendary-bin": "Choose an alternative Legendary Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
         "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
         "autosync": "自動同步存檔",
@@ -196,6 +217,7 @@
             "title": "覆蓋雲端存檔資料夾"
         },
         "showfps": "顯示幀數（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夾",
@@ -203,12 +225,17 @@
     },
     "Settings": "設定",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
-            "back": "Back",
             "general": "一般",
             "other": "其它",
             "sync": "存檔-同步"
         }
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "商店",
     "title": {

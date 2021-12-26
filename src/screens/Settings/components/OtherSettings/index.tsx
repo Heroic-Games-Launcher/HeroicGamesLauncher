@@ -2,8 +2,7 @@ import React, { ChangeEvent, useContext } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
@@ -15,6 +14,7 @@ const { ipcRenderer } = window.require('electron') as {
 interface Props {
   audioFix: boolean
   isDefault: boolean
+  isMacNative: boolean
   launcherArgs: string
   offlineMode: boolean
   otherOptions: string
@@ -69,7 +69,8 @@ export default function OtherSettings({
   toggleDiscordRPC,
   maxRecentGames,
   setTargetExe,
-  targetExe
+  targetExe,
+  isMacNative
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -80,6 +81,7 @@ export default function OtherSettings({
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
+  const shouldRenderFpsOption = !isMacNative && !isWin
 
   return (
     <>
@@ -98,8 +100,7 @@ export default function OtherSettings({
               onChange={(event) => setTargetExe(event.target.value)}
             />
             {!targetExe.length ? (
-              <CreateNewFolder
-                data-testid="setinstallpathbutton"
+              <SvgButton
                 className="material-icons settings folder"
                 onClick={() =>
                   ipcRenderer
@@ -113,23 +114,33 @@ export default function OtherSettings({
                       setTargetExe(path ? `'${path}'` : targetExe)
                     )
                 }
-              />
+              >
+                <CreateNewFolder data-testid="setinstallpathbutton" />
+              </SvgButton>
             ) : (
-              <Backspace
-                data-testid="setEpicSyncPathBackspace"
+              <SvgButton
                 className="material-icons settings folder"
                 onClick={() => setTargetExe('')}
-              />
+              >
+                <Backspace data-testid="setEpicSyncPathBackspace" />
+              </SvgButton>
             )}
           </span>
         </span>
       )}
-      <span data-testid="otherSettings" className="setting">
-        <span className="toggleWrapper">
-          {t('setting.showfps')}
-          <ToggleSwitch value={showFps} handleChange={toggleFps} />
+
+      {shouldRenderFpsOption && (
+        <span data-testid="otherSettings" className="setting">
+          <span className="toggleWrapper">
+            {t('setting.showfps')}
+            <ToggleSwitch
+              value={showFps}
+              handleChange={toggleFps}
+              title={t('setting.showfps')}
+            />
+          </span>
         </span>
-      </span>
+      )}
       {isLinux && (
         <>
           <span className="setting">
@@ -138,19 +149,28 @@ export default function OtherSettings({
               <ToggleSwitch
                 value={useGameMode}
                 handleChange={toggleUseGameMode}
+                title={t('setting.gamemode')}
               />
             </span>
           </span>
           <span className="setting">
             <span className="toggleWrapper">
               {t('setting.primerun', 'Enable Nvidia Prime Render')}
-              <ToggleSwitch value={primeRun} handleChange={togglePrimeRun} />
+              <ToggleSwitch
+                value={primeRun}
+                handleChange={togglePrimeRun}
+                title={t('setting.primerun', 'Enable Nvidia Prime Render')}
+              />
             </span>
           </span>
           <span className="setting">
             <span className="toggleWrapper">
               {t('setting.audiofix')}
-              <ToggleSwitch value={audioFix} handleChange={toggleAudioFix} />
+              <ToggleSwitch
+                value={audioFix}
+                handleChange={toggleAudioFix}
+                title={t('setting.audiofix')}
+              />
             </span>
           </span>
           <span className="setting">
@@ -159,6 +179,7 @@ export default function OtherSettings({
               <ToggleSwitch
                 value={showMangohud}
                 handleChange={toggleMangoHud}
+                title={t('setting.mangohud')}
               />
             </span>
           </span>
@@ -167,7 +188,11 @@ export default function OtherSettings({
       <span className="setting">
         <span className="toggleWrapper">
           {t('setting.offlinemode')}
-          <ToggleSwitch value={offlineMode} handleChange={toggleOffline} />
+          <ToggleSwitch
+            value={offlineMode}
+            handleChange={toggleOffline}
+            title={t('setting.offlinemode')}
+          />
         </span>
       </span>
       {supportsShortcuts && isDefault && (
@@ -181,6 +206,10 @@ export default function OtherSettings({
               <ToggleSwitch
                 value={addDesktopShortcuts}
                 handleChange={toggleAddDesktopShortcuts}
+                title={t(
+                  'setting.adddesktopshortcuts',
+                  'Add desktop shortcuts automatically'
+                )}
               />
             </span>
           </span>
@@ -193,6 +222,10 @@ export default function OtherSettings({
               <ToggleSwitch
                 value={addGamesToStartMenu}
                 handleChange={toggleAddGamesToStartMenu}
+                title={t(
+                  'setting.addgamestostartmenu',
+                  'Add games to start menu automatically'
+                )}
               />
             </span>
           </span>
@@ -202,7 +235,11 @@ export default function OtherSettings({
         <span className="setting">
           <span className="toggleWrapper">
             {t('setting.discordRPC', 'Enable Discord Rich Presence')}
-            <ToggleSwitch value={discordRPC} handleChange={toggleDiscordRPC} />
+            <ToggleSwitch
+              value={discordRPC}
+              handleChange={toggleDiscordRPC}
+              title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
+            />
           </span>
         </span>
       )}
