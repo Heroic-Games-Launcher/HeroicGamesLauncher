@@ -17,10 +17,6 @@ jobs:
           node-version: '16'
       - name: Install modules.
         run: npm install --legacy-peer-deps
-      - name: Build 'src'.
-        run: npm run build
-      - name: Build 'electron'.
-        run: npm run build-electron
       - name: Build artifacts.
         run: npm run dist-win portable
       - name: Upload EXE.
@@ -42,10 +38,6 @@ jobs:
           node-version: '16'
       - name: Install modules.
         run: npm install --legacy-peer-deps
-      - name: Build 'src'.
-        run: npm run build
-      - name: Build 'electron'.
-        run: npm run build-electron
       - name: Build DMG artifacts.
         run: npm run dist-mac
       - name: Build AppImage artifacts.
