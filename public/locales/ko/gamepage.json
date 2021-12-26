@@ -6,7 +6,6 @@
             "title": "게임 설치 경로 변경"
         },
         "choose": "선택",
-        "default-install-path": "",
         "importpath": "가져올 게임 폴더 선택",
         "move": {
             "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?",
@@ -31,6 +30,7 @@
             "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?",
             "title": "게임 업데이트 필요"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "예"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "버전"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

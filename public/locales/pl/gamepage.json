@@ -6,7 +6,6 @@
             "title": "Zmień Ścieżkę Instalacji Gier"
         },
         "choose": "Wybierz",
-        "default-install-path": "Wybierz ścieżkę instalacyjną",
         "importpath": "Wybierz folder gry do importowania",
         "move": {
             "message": "To może chwilę zająć, jesteś pewny?",
@@ -31,6 +30,7 @@
             "message": "Ta gra ma dostępną aktualizację, czy chcesz zaktualizować ją teraz?",
             "title": "Gra wymaga aktualizacji"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "TAK"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Wersja"
     },
     "install": {
-        "path": "Wybierz Ścieżkę Instalacji"
+        "path": "Wybierz Ścieżkę Instalacji",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

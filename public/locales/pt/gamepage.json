@@ -6,7 +6,6 @@
             "title": "Modificar local de instalação do Jogo"
         },
         "choose": "Selecionar",
-        "default-install-path": "Selecione of local de instalação",
         "importpath": "Escolha a pasta do jogo para importar",
         "move": {
             "message": "Isso pode levar bastante tempo, continuar?",
@@ -31,6 +30,7 @@
             "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
             "title": "Atualização!"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "SIM"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Versão"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

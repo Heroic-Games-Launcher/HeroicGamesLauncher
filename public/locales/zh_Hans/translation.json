@@ -6,6 +6,10 @@
             "message": "有新版本的Heroic启动器可用，您要立即更新吗？",
             "title": "有可用更新"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "请选择",
         "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
         "choose-legendary-binary": "选择Legendary二进制文件",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "有待处理的操作，您确定吗？",
             "title": "退出"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "选择要运行的EXE文件"
@@ -102,6 +112,9 @@
         "help": "帮助",
         "requirements": "系统要求"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "库",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "已卸载",
         "update": {
             "canceled": "已取消更新",
-            "finished": "已更新"
+            "finished": "已更新",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "设置",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "常规",
             "other": "其它",

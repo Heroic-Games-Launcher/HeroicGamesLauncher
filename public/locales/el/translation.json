@@ -6,6 +6,10 @@
             "message": "Υπάρχει μια νέα έκδοση του Heroic διαθέσιμη, θέλετε να το ενημερώσετε τώρα;",
             "title": "Διαθέσιμη ενημέρωση"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Επιλογή",
         "choose-egs-prefix": "Επιλέξτε πρόθεμα όπου το EGS είναι εγκατεστημένο",
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Υπάρχουν εκκρεμείς διεργασίες, είστε σίγουροι;",
             "title": "Έξοδος"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Επιλέξτε EXE για εκτέλεση"
@@ -102,6 +112,9 @@
         "help": "Βοήθεια",
         "requirements": "Απαιτήσεις Συστήματος"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Βιβλιοθήκη",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "Απεγκαταστάθηκε",
         "update": {
             "canceled": "Η ενημέρωση ακυρώθηκε",
-            "finished": "Η ενημέρωση ολοκληρώθηκε"
+            "finished": "Η ενημέρωση ολοκληρώθηκε",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "Ρυθμίσεις",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Γενικά",
             "other": "Άλλα",

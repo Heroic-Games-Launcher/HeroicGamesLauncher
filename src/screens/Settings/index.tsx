@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
-import { IpcRenderer } from 'electron'
+import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
@@ -21,9 +21,10 @@ import WineSettings from './components/WineSettings'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
+  clipboard: Clipboard
 }
 
-const { ipcRenderer } = window.require('electron') as ElectronProps
+const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 const storage: Storage = window.localStorage
 interface RouteParams {
   appName: string
@@ -444,6 +445,16 @@ function Settings() {
             />
           )}
           <span className="save">{t('info.settings')}</span>
+          <button
+            className="button is-text"
+            onClick={() =>
+              clipboard.writeText(
+                JSON.stringify({ appName, title, ...settingsToSave })
+              )
+            }
+          >
+            {t('settings.copyToClipboard', 'Copy All Setting to Clipboard')}
+          </button>
           {isDefault && (
             <>
               <button

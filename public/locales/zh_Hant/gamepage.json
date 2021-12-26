@@ -6,7 +6,6 @@
             "title": "更改遊戲安裝路徑"
         },
         "choose": "請選擇",
-        "default-install-path": "",
         "importpath": "選擇要導入的遊戲資料夾",
         "move": {
             "message": "這可能需要很長的時間，確定？",
@@ -31,6 +30,7 @@
             "message": "此遊戲有更新，你希望現在更新嗎？",
             "title": "遊戲需要更新"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "是"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "版本"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

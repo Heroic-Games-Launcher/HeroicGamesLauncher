@@ -6,6 +6,10 @@
             "message": "새 버전의 Heroric이 존재합니다, 지금 업데이트 하시겠습니까?",
             "title": "업데이트 사용 가능"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "선택",
         "choose-egs-prefix": "Epic Games Store가 설치된 Prefix 선택",
         "choose-legendary-binary": "Legendary 바이너리 파일 선택",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "보류 중인 작업 있습니다, 계속 하시겠습니까?",
             "title": "종료"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "실행할 EXE 선택"
@@ -102,6 +112,9 @@
         "help": "도움말",
         "requirements": "시스템 요구 사양"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "라이브러리",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "설치 제거됨",
         "update": {
             "canceled": "업데이트 취소됨",
-            "finished": "업데이트 완료됨"
+            "finished": "업데이트 완료됨",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "설정",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "일반",
             "other": "기타",

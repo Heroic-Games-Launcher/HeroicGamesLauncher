@@ -30,9 +30,3 @@ jobs:
           name: linux-appimage
           path: dist/Heroic-*.AppImage
           retention-days: 7
-      - name: Upload pacman binary.
-        uses: actions/upload-artifact@v2
-        with:
-          name: linux-pacman
-          path: dist/heroic-*.pacman
-          retention-days: 7

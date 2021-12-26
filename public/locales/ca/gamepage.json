@@ -6,7 +6,6 @@
             "title": "Canvia la ruta d'instal·lació dels jocs"
         },
         "choose": "Tria",
-        "default-install-path": "Selecciona",
         "importpath": "Tria una carpeta per importar",
         "move": {
             "message": "Això pot tardat MOLT de temps, estàs segur?",
@@ -31,6 +30,7 @@
             "message": "Hi ha una actualització disponible per a aquest joc, vols actualitzar-ho ara?",
             "title": "El joc necessita actualitzar-se"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "Sí"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Versió"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

@@ -3,7 +3,6 @@ import {
   ExtraInfo,
   GameInfo,
   GameSettings,
-  GameStatus,
   InstallArgs,
   InstallInfo,
   LaunchResult
@@ -21,6 +20,7 @@ abstract class Game {
   }
 
   abstract appName: string
+  abstract window: BrowserWindow
   abstract getExtraInfo(namespace: string): Promise<ExtraInfo>
   abstract getGameInfo(): Promise<GameInfo>
   abstract getInstallInfo(): Promise<InstallInfo>
@@ -32,7 +32,6 @@ abstract class Game {
   abstract launch(launchArguments?: string): Promise<ExecResult | LaunchResult>
   abstract moveInstall(newInstallPath: string): Promise<string>
   abstract repair(): Promise<ExecResult>
-  abstract state: GameStatus
   abstract stop(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
@@ -41,5 +40,6 @@ abstract class Game {
 
 import { LegendaryGame } from './legendary/games'
 import { logWarning } from './logger'
+import { BrowserWindow } from 'electron'
 
 export { Game, Runner }

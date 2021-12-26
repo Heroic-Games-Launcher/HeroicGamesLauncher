@@ -225,7 +225,8 @@ abstract class GlobalConfig {
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
-          if (version.toLowerCase().startsWith('proton')) {
+          const name = version.toLowerCase()
+          if (name.startsWith('proton') && !name.includes('runtime')) {
             proton.add({
               bin: `'${path}${version}/proton'`,
               name: `Proton - ${version}`

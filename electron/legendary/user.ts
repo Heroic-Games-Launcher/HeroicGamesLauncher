@@ -49,7 +49,6 @@ export class LegendaryUser {
   public static async getUserInfo(): Promise<UserInfo> {
     let isLoggedIn = false
     try {
-      logInfo('Checking if credentials are still valid...')
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
       logError(error)

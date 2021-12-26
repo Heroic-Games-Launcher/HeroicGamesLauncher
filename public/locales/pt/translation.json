@@ -6,6 +6,10 @@
             "message": "Nova versão do Heroic disponível. Deseja atualizar agora?",
             "title": "Nova Versão Disponível"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Há operações pendentes. Tem certeza?",
             "title": "Sair"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Selecione o EXE"
@@ -102,6 +112,9 @@
         "help": "Ajuda",
         "requirements": "Requisitos"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Biblioteca",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "Desinstalado",
         "update": {
             "canceled": "Updated Cancelado",
-            "finished": "Update Finalizado"
+            "finished": "Update Finalizado",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "Configurações",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Geral",
             "other": "Outros",

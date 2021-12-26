@@ -6,6 +6,10 @@
             "message": "Hi ha una nova versió d'Heroic disponible, vols actualitzar-ho?",
             "title": "Actualització disponible"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Tria",
         "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
         "choose-legendary-binary": "Selecciona binari de legendary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Hi ha operacions pendents, estàs del tot segur?",
             "title": "Sortir"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Selecciona un EXE per llençar"
@@ -102,6 +112,9 @@
         "help": "Ajuda",
         "requirements": "Requeriments del sistema"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Llibreria",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "Des-instal·lat",
         "update": {
             "canceled": "Actualització cancelada",
-            "finished": "Actualització acabada"
+            "finished": "Actualització acabada",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "Configuració",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "General",
             "other": "Altres",

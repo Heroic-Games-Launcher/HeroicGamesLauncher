@@ -6,7 +6,6 @@
             "title": "Изменить путь установки игры"
         },
         "choose": "Выбрать",
-        "default-install-path": "",
         "importpath": "Выбрать папку с игрой для импорта",
         "move": {
             "message": "Это может занять много времени. Вы уверены?",
@@ -31,6 +30,7 @@
             "message": "Для игры вышло обновление. Обновить сейчас?",
             "title": "Игра нуждается в обновлении"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ДА"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Версия"
     },
     "install": {
-        "path": "Выберите путь установки"
+        "path": "Выберите путь установки",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

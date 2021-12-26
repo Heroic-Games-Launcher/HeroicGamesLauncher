@@ -6,6 +6,10 @@
             "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
             "title": "Frissítés Elérhető"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Kiválaszt",
         "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Függőben lévő műveletek vannak, biztos vagy benne?",
             "title": "Kilépés"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
@@ -102,6 +112,9 @@
         "help": "Segítség",
         "requirements": "Rendszer Követelmények"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Könyvtár",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "Eltávolítva",
         "update": {
             "canceled": "Frissítés Visszavonva",
-            "finished": "Frissítés Befejezve"
+            "finished": "Frissítés Befejezve",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "Beállítások",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Általános",
             "other": "Egyéb",

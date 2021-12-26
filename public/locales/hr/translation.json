@@ -6,6 +6,10 @@
             "message": "Izašla je nova verzija Heroic-a, želite li ažurirati?",
             "title": "Ažuriranje dostupno"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Odaberi",
         "choose-egs-prefix": "Odaberite lokaciju gdje je EGS instaliran",
         "choose-legendary-binary": "Odaberite Legendary Aplikaciju",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Operacije su u tijeku, želite li nastaviti?",
             "title": "Izlaz"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Odaberi EXE za pokrenuti"
@@ -102,6 +112,9 @@
         "help": "Pomoč",
         "requirements": "Zahtjevi sustava"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Knižnjica",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "Deinstalirano",
         "update": {
             "canceled": "Ažuriranje prekinuto",
-            "finished": "Ažuriranje gotovo"
+            "finished": "Ažuriranje gotovo",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "Postavke",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Generalno",
             "other": "Ostalo",

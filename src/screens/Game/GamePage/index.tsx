@@ -39,6 +39,7 @@ import { Checkbox } from '@material-ui/core'
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
+import { install } from 'src/helpers/library'
 
 const storage: Storage = window.localStorage
 
@@ -521,7 +522,6 @@ export default function GamePage(): JSX.Element | null {
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
-        handleGameStatus({ appName, status: 'done' })
         return sendKill(appName)
       }
 
@@ -531,16 +531,13 @@ export default function GamePage(): JSX.Element | null {
         setIsSyncing(false)
       }
 
-      await handleGameStatus({ appName, status: 'playing' })
-      await launch({ appName, t, handleGameStatus, launchArguments })
+      await launch({ appName, t, launchArguments })
 
       if (autoSyncSaves) {
         setIsSyncing(true)
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-
-      return await handleGameStatus({ appName, status: 'done' })
     }
   }
 
@@ -548,5 +545,24 @@ export default function GamePage(): JSX.Element | null {
     if (!is_installed && !isInstalling) {
       return handleModal()
     }
+
+    const gameStatus: GameStatus = libraryStatus.filter(
+      (game) => game.appName === appName
+    )[0]
+    const { folder } = gameStatus
+    if (!folder) {
+      return
+    }
+
+    return await install({
+      appName,
+      handleGameStatus,
+      installPath: folder,
+      isInstalling,
+      previousProgress,
+      progress,
+      t,
+      installDlcs
+    })
   }
 }

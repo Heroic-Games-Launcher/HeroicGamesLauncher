@@ -6,6 +6,10 @@
             "message": "ஹீரோயிக் இன் புதிய பதிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?",
             "title": "புதுப்பிப்பு உள்ளது"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "தேர்வு செய்",
         "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "செயல்பாடுகள் நிலுவையில் உள்ளன, உறுதி செய்யவா?",
             "title": "வெளியேறு"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "EXE ஐ இயக்க தேர்ந்தெடு"
@@ -102,6 +112,9 @@
         "help": "உதவி",
         "requirements": "கணினி தேவைப்பாடுகள்"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",
         "update": {
             "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
-            "finished": "புதுப்பிப்பு நிறைவடைந்தது"
+            "finished": "புதுப்பிப்பு நிறைவடைந்தது",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "அமைப்புகள்",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "பொதுவானவை",
             "other": "மற்றவை",

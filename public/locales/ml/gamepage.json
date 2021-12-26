@@ -6,7 +6,6 @@
             "title": "ഇടം മാറ്റൂ"
         },
         "choose": "തിരഞ്ഞെടുക്കൂ",
-        "default-install-path": "",
         "importpath": "ഇറക്കുമതി ചെയ്യുവാനുള്ള കളിയറ തിരഞ്ഞെടുക്കൂ",
         "move": {
             "message": "ഇതിനിത്തിരി നേരമെടുക്കും, കുഴപ്പമില്ലല്ലോ?",
@@ -31,6 +30,7 @@
             "message": "ഈ കളിയുടെ പുതുക്കല്‍ വന്നിട്ടുണ്ട്, ഇതിപ്പോള്‍ പുതുക്കട്ടെ?",
             "title": "കളി പുതുക്കേണ്ടതുണ്ട്"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ശരി"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "പതിപ്പ്"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

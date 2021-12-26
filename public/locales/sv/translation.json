@@ -6,6 +6,10 @@
             "message": "Det finns en ny version av Heroic tillgänglig, Vill du uppdatera nu?",
             "title": "Updatering tillgänglig"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Ok",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Det finns pågående nedladdningar, är du säker?",
             "title": "Avbryt"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Välj EXE-fil att köra"
@@ -102,6 +112,9 @@
         "help": "Hjälp",
         "requirements": "Systemkrav"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Bibliotek",
     "loading": {
         "website": "Loading Website"
@@ -131,7 +144,8 @@
         "uninstalled": "Avinstallerad",
         "update": {
             "canceled": "Updatering avbruten",
-            "finished": "Updatering klar"
+            "finished": "Updatering klar",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -211,6 +225,8 @@
     },
     "Settings": "Inställningar",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Allmänna",
             "other": "Övriga",

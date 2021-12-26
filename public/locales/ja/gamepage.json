@@ -6,7 +6,6 @@
             "title": "ゲームのインストールパスを変更します"
         },
         "choose": "選ぶ",
-        "default-install-path": "",
         "importpath": "インポートするゲームフォルダを選択します",
         "move": {
             "message": "これには長い時間がかかることがあります、よろしいですか ？",
@@ -31,6 +30,7 @@
             "message": "このゲームにはアップデートがありますが、今すぐアップデートしたいですか？",
             "title": "ゲームの更新が必要"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "はい"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "バージョン"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

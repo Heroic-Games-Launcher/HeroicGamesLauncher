@@ -6,7 +6,6 @@
             "title": "Промяна на папката за инсталиране на игри"
         },
         "choose": "Избиране",
-        "default-install-path": "",
         "importpath": "Изберете папка с игри за внасяне",
         "move": {
             "message": "Това може да отнеме доста време. Наистина ли искате това?",
@@ -31,6 +30,7 @@
             "message": "Има ново обновление за играта. Искате ли да я обновите?",
             "title": "Играта се нуждае от обновяване"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ДА"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Версия"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

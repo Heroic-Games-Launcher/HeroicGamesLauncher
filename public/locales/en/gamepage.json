@@ -6,7 +6,6 @@
             "title": "Change Games Install Path"
         },
         "choose": "Choose",
-        "default-install-path": "Select install path",
         "importpath": "Choose Game Folder to import",
         "move": {
             "message": "This can take a long time, are you sure?",
@@ -31,6 +30,7 @@
             "message": "This game has an update, do you wish to update now?",
             "title": "Game Needs Update"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "YES"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Version"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

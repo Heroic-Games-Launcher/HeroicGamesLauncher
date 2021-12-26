@@ -6,7 +6,6 @@
             "title": "Changer le chemin d'installation du jeu"
         },
         "choose": "Séléctionner",
-        "default-install-path": "",
         "importpath": "Choisir le répertoire du jeu à importer",
         "move": {
             "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
@@ -31,6 +30,7 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour nécessaire"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "OUI"
     },
     "button": {
@@ -67,7 +67,8 @@
         "version": "Version"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

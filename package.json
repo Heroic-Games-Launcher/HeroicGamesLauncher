@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "1.11.0-beta.3",
+  "version": "1.11.0-beta.4",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -77,24 +77,21 @@
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "libzstd1"
+        "curl"
       ]
     },
     "pacman": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     }
   },
