@@ -1,11 +1,12 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, stat } from 'graceful-fs'
+import { existsSync, stat, rm } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
+import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
 import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
@@ -264,6 +265,33 @@ async function checkCommandVersion(
   return found
 }
 
+function clearCache() {
+  const installCache = new Store({
+    cwd: 'store',
+    name: 'installInfo'
+  })
+  const libraryCache = new Store({
+    cwd: 'store',
+    name: 'library'
+  })
+  const gameInfoCache = new Store({
+    cwd: 'store',
+    name: 'gameinfo'
+  })
+  installCache.clear()
+  libraryCache.clear()
+  gameInfoCache.clear()
+}
+
+function resetHeroic() {
+  const heroicFolder = `${app.getPath('appData')}/heroic`
+  console.log({ heroicFolder })
+  rm(heroicFolder, { recursive: true, force: true }, () => {
+    app.relaunch()
+    app.quit()
+  })
+}
+
 export {
   checkCommandVersion,
   checkForUpdates,
@@ -276,5 +304,7 @@ export {
   semverGt,
   showAboutWindow,
   statAsync,
-  removeSpecialcharacters
+  removeSpecialcharacters,
+  clearCache,
+  resetHeroic
 }

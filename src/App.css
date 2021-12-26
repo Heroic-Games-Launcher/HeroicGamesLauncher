@@ -167,6 +167,22 @@ html,
   background: #7c7c7c;
 }
 
+.button.is-text {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-primary);
+  box-shadow: none;
+  text-transform: none;
+  min-width: fit-content;
+  font-family: Cabin;
+  font-size: 14px;
+}
+
+.button.is-text:hover {
+  color: var(--secondary);
+}
+
 .icons > * {
   cursor: pointer;
 }
