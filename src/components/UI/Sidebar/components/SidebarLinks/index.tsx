@@ -63,7 +63,7 @@ export default function SidebarLinks() {
           style={{ width: 'clamp(2vh, 25px, 30px)' }}
           icon={isLoggedIn ? faGamepad : faUser}
         />
-        {isLoggedIn ? t('Library') : t('Login')}
+        {isLoggedIn ? t('Library') : t('button.login', 'Login')}
       </NavLink>
       {showSubmenu && (
         <>
