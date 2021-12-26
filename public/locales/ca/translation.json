@@ -68,6 +68,7 @@
             "error": "Ruta invàl·lida",
             "title": "Eligeix el directori de guardats"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Tria la carpeta de wine prefix",
         "yes": "Sí"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

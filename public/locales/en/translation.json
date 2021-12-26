@@ -68,6 +68,7 @@
             "error": "Invalid Path",
             "title": "Choose the saves directory"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Choose Wine Prefix Folder",
         "yes": "YES"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "disk space",
         "download": "download",
-        "title": "WineGE Manager"
+        "title": "WineGE Manager",
+        "unzipping": ""
     }
 }

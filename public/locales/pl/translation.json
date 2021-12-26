@@ -68,6 +68,7 @@
             "error": "Nieprawidłowa ścieżka",
             "title": "Wybierz folder zapisów gry"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Wybierz folder prefiksu Wine",
         "yes": "TAK"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

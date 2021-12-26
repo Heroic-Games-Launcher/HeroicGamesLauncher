@@ -68,6 +68,7 @@
             "error": "വഴി ശരിയല്ലല്ലോ",
             "title": "സൂക്ഷിക്കാനുള്ള അറ തിരഞ്ഞെടുക്കൂ"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

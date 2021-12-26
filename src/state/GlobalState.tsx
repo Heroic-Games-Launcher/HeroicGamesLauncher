@@ -433,7 +433,8 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, winege, filterText, filter, platform, filterPlatform } = this.state
+    const { data, winege, filterText, filter, platform, filterPlatform } =
+      this.state
     let filteredLibrary = data
 
     try {

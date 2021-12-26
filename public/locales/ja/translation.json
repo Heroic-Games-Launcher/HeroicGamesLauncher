@@ -68,6 +68,7 @@
             "error": "無効なパス",
             "title": "保存ディレクトリを選択します"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Wineプレフィックスフォルダを選択します",
         "yes": "はい"
     },
@@ -269,5 +270,12 @@
         "logout_confirmation": "ログアウトしてもよろしいですか？",
         "quit": "終了"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    }
 }

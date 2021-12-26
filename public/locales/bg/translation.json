@@ -68,6 +68,7 @@
             "error": "Неправилен път",
             "title": "Изберете папка за запазване на файлове"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Изберете папка за префикс на Wine",
         "yes": "ДА"
     },
@@ -269,5 +270,12 @@
         "logout_confirmation": "Наистина ли искате да излезете от акаунта си?",
         "quit": "Изход"
     },
-    "wiki": "Уики"
+    "wiki": "Уики",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    }
 }

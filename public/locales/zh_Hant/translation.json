@@ -68,6 +68,7 @@
             "error": "無效路徑",
             "title": "選擇存檔的目錄"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "選擇WINEPREFIX的資料夾",
         "yes": "是"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

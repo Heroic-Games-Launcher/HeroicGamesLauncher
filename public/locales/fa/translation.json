@@ -68,6 +68,7 @@
             "error": "مسیر نامعتبر",
             "title": "انتخاب محل ذخیره"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "انتخاب پوشه Wine",
         "yes": "بله"
     },
@@ -269,5 +270,12 @@
         "logout_confirmation": "آیا می‌خواهید از حساب خود خارج شوید؟",
         "quit": "خروج"
     },
-    "wiki": "ویکی"
+    "wiki": "ویکی",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    }
 }

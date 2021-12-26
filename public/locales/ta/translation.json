@@ -68,6 +68,7 @@
             "error": "தவறான பாதை",
             "title": "சேமிக்கும் கோப்பகத்தை தேர்வுசெய்"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
         "yes": "ஆம்"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

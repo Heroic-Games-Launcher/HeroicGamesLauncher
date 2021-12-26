@@ -68,6 +68,7 @@
             "error": "Geçersiz Yol",
             "title": "Kayıtların olduğu klasörü seçin"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Wine Klasörünü Seçin",
         "yes": "EVET"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

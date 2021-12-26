@@ -68,6 +68,7 @@
             "error": "Vale koht",
             "title": "Valige salvestuste kaust"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH"
     },
@@ -269,5 +270,12 @@
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "quit": "Sulge"
     },
-    "wiki": "Viki"
+    "wiki": "Viki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    }
 }

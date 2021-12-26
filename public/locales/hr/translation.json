@@ -68,6 +68,7 @@
             "error": "Pogrešni put",
             "title": "Odaberi mapu za podatke"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Odaberi Wine Prefix mapu",
         "yes": "DA"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

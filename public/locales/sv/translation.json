@@ -68,6 +68,7 @@
             "error": "Ogilltig sökväg",
             "title": "Väl mapp för sparfiler"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Välj wine prefix mapp",
         "yes": "Ja"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

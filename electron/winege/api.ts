@@ -34,6 +34,7 @@ async function fetchWineGEReleases(count = '100'): Promise<WineGEInfo[]> {
       release_data.disksize = 0
       release_data.hasUpdate = false
       release_data.isInstalled = false
+      release_data.installDir = ''
 
       for (const asset of release.assets) {
         if (asset.name.endsWith('sha512sum')) {
@@ -65,14 +66,16 @@ async function fetchWineGEReleases(count = '100'): Promise<WineGEInfo[]> {
         return release.version === old.version
       })
 
-      if (index !== -1) {
-        releases[index].installDir = old.installDir
-        releases[index].isInstalled = old.isInstalled
-        if (releases[index].checksum !== old.checksum) {
-          releases[index].hasUpdate = true
+      if (existsSync(old.installDir)) {
+        if (index !== -1) {
+          releases[index].installDir = old.installDir
+          releases[index].isInstalled = old.isInstalled
+          if (releases[index].checksum !== old.checksum) {
+            releases[index].hasUpdate = true
+          }
+        } else {
+          releases.push(old)
         }
-      } else {
-        releases.push(old)
       }
     })
 
@@ -108,25 +111,16 @@ async function installWineGE(
     return false
   }
 
-  // Check if release is still available in stored ones
-  const releases = wineGEStore.get('winege') as WineGEInfo[]
-
-  const index = releases.findIndex((storedRelease) => {
-    return release.version === storedRelease.version
-  })
-
-  if (index === -1) {
-    logError(`Can't find ${release.version} in electron-store -> winege.json!`)
-    return false
-  }
-
-  // check release has download 
+  // check release has download
   if (!release.download) {
     logError(`No download link provided for ${release.version}!`)
     return false
   }
 
-  const wineDir = release.installDir + '/' + release.download.split('/').slice(-1)[0].split('.')[0]
+  const wineDir =
+    release.installDir +
+    '/' +
+    release.download.split('/').slice(-1)[0].split('.')[0]
   const sourceChecksum = release.checksum
     ? (await axios.default.get(release.checksum, { responseType: 'text' })).data
     : undefined
@@ -199,10 +193,22 @@ async function installWineGE(
   unlinkFile(tarFile)
 
   // Update stored information
+  const releases = wineGEStore.get('winege') as WineGEInfo[]
+
+  const index = releases.findIndex((storedRelease) => {
+    return release.version === storedRelease.version
+  })
+
+  if (index === -1) {
+    logError(`Can't find ${release.version} in electron-store -> winege.json!`)
+    return false
+  }
+
   releases[index].isInstalled = true
   releases[index].installDir = wineDir
   releases[index].hasUpdate = false
-  //wineGEStore.set('winege',)
+
+  wineGEStore.set('winege', releases)
 
   return true
 }

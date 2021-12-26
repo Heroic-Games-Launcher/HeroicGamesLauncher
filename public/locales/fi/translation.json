@@ -68,6 +68,7 @@
             "error": "Virheellinen Polku",
             "title": "Valitse kansio tallennuksille"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Valitse Wine Prefiksille Kansio",
         "yes": "KYLLÄ"
     },
@@ -269,5 +270,12 @@
         "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
         "quit": "Poistu"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "WineGE": "",
+    "winege": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    }
 }

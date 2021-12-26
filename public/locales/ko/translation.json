@@ -68,6 +68,7 @@
             "error": "유효하지 않은 경로",
             "title": "저장 디렉토리 선택"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Wine Prefix 폴더 선택",
         "yes": "예"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

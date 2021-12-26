@@ -68,6 +68,7 @@
             "error": "Érvénytelen útvonal",
             "title": "Válaszd ki a mentések könyvtárát"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Válassz Wine Prefix Mappát",
         "yes": "IGEN"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

@@ -68,6 +68,7 @@
             "error": "Percorso non valido",
             "title": "Seleziona la cartella dei salvataggi"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Seleziona la cartella del prefix di Wine",
         "yes": "SI"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

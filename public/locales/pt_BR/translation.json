@@ -68,6 +68,7 @@
             "error": "Caminho Inválido",
             "title": "Selecione a pasta de saves"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Selecione a pasta do WINE Prefix",
         "yes": "SIM"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

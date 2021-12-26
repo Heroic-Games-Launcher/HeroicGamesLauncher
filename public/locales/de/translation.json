@@ -68,6 +68,7 @@
             "error": "Ungültiger Pfad",
             "title": "Wählen Sie das Spielstand-Verzeichnis"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Wählen Sie den Wine Prefix Ordner",
         "yes": "JA"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "Festplattenspeicher",
         "download": "Download",
-        "title": ""
+        "title": "Tools",
+        "unzipping": "Entpacke"
     }
 }

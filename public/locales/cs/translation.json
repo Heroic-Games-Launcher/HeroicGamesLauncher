@@ -68,6 +68,7 @@
             "error": "Neplatná cesta",
             "title": "Vyberte cestu s uloženými soubory"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Vyberte složku Wine prefixu",
         "yes": "ANO"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

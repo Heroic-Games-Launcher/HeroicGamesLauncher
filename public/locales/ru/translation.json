@@ -68,6 +68,7 @@
             "error": "Неправильный путь",
             "title": "Выбрать путь для сохранений"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Выбрать папку префикса Wine",
         "yes": "ДА"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }

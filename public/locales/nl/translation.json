@@ -68,6 +68,7 @@
             "error": "Ongeldig Pad",
             "title": "Selecteer de saves directory"
         },
+        "wineInstallPath": "Select the install path.",
         "wineprefix": "Selecteer een Wine Prefix Folder",
         "yes": "JA"
     },
@@ -274,6 +275,7 @@
     "winege": {
         "diskspace": "",
         "download": "",
-        "title": ""
+        "title": "",
+        "unzipping": ""
     }
 }
