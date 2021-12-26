@@ -54,6 +54,12 @@ export const getLegendaryVersion = async () => {
   }
 }
 
+export const getHeroicVersion = () => {
+  const VERSION_NUMBER = app.getVersion()
+  const VERSION_NAME = 'Caesar Clown'
+  return `${VERSION_NUMBER} ${VERSION_NAME}`
+}
+
 async function checkForUpdates() {
   const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
   logInfo('checking for heroic updates')
@@ -82,7 +88,7 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Caesar Clown`,
+    applicationVersion: getHeroicVersion(),
     copyright: 'GPL V3',
     iconPath: icon,
     website: 'https://heroicgameslauncher.com'
@@ -112,7 +118,7 @@ const handleExit = async () => {
 }
 
 export const getSystemInfo = async () => {
-  const heroicVersion = app.getVersion()
+  const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
 
   // get CPU and RAM info
@@ -120,16 +126,25 @@ export const getSystemInfo = async () => {
   const { total, available } = await si.mem()
 
   // get OS information
-  const { distro, kernel, arch } = await si.osInfo()
+  const { distro, kernel, arch, platform } = await si.osInfo()
 
   // get GPU information
   const { controllers } = await si.graphics()
-  const graphicsCards = controllers.map(
-    ({ name, model, vram, driverVersion }, i) =>
-      `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
-        driverVersion ?? ''
-      } \n`
+  const graphicsCards = String(
+    controllers.map(
+      ({ name, model, vram, driverVersion }, i) =>
+        `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
+          driverVersion ?? ''
+        } \n`
+    )
   )
+    .replaceAll(',', '')
+    .replaceAll('\n', '')
+
+  const isLinux = platform === 'linux'
+  const xEnv = isLinux
+    ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
+    : ''
 
   return `
   Heroic Version: ${heroicVersion}
@@ -140,6 +155,7 @@ export const getSystemInfo = async () => {
   }
   RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
   GRAPHICS: ${graphicsCards}
+  ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
   `
 }
 
