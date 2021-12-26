@@ -892,20 +892,31 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
 })
 
 ipcMain.handle('importGame', async (event, args) => {
-  const { appName: game, path } = args
-  const title = (await Game.get(game).getGameInfo()).title
-
-  Game.get(game)
+  const { appName, path } = args
+  const title = (await Game.get(appName).getGameInfo()).title
+  mainWindow.webContents.send('setGameStatus', {
+    appName,
+    status: 'installing'
+  })
+  Game.get(appName)
     .import(path)
     .then(() => {
       notify({
         title,
         body: i18next.t('notify.install.imported', 'Game Imported')
       })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       logInfo(`imported ${title}`)
     })
     .catch((err) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        status: 'done'
+      })
       logInfo(err)
     })
 })
