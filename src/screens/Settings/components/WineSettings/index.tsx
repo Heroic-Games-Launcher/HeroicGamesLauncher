@@ -65,6 +65,7 @@ export default function WineSettings({
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
+  const isProton = wineVersion.name.includes('Proton')
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -217,7 +218,7 @@ export default function WineSettings({
           </span>
         </span>
       )}
-      {isLinux && (
+      {isLinux && !isProton && (
         <span className="setting">
           <span className="toggleWrapper">
             {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
