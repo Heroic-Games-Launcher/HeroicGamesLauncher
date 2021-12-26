@@ -30,6 +30,7 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour nécessaire"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "OUI"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Version"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

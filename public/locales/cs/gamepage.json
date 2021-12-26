@@ -30,6 +30,7 @@
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat teď?",
             "title": "Hra vyžaduje akualizaci"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ANO"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Verze"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

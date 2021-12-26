@@ -30,6 +30,7 @@
             "message": "Το παιχνίδι έχει μια ενημέρωση, θέλετε να το ενημερώσετε τώρα;",
             "title": "Το παιχνίδι χρειάζεται ενημέρωση"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ΝΑΙ"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Έκδοση"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

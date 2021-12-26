@@ -30,6 +30,7 @@
             "message": "Hi ha una actualització disponible per a aquest joc, vols actualitzar-ho ara?",
             "title": "El joc necessita actualitzar-se"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "Sí"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Versió"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

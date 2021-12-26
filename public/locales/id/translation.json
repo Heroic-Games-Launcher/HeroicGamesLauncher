@@ -6,6 +6,10 @@
             "message": "Versi baru Heroic telah tersedia, apakah Anda ingin memperbarui sekarang?",
             "title": "Pembaruan Tersedia"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Pilih",
         "choose-egs-prefix": "",
         "choose-legendary-binary": "Pilih Legendary Binary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Ada operasi yang tertunda, apakah Anda yakin?",
             "title": "Keluar"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Pilih EXE untuk menjalankan"
@@ -215,6 +225,8 @@
     },
     "Settings": "",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "",
             "other": "",

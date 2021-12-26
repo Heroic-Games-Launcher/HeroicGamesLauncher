@@ -30,6 +30,7 @@
             "message": "Ennek a játéknak van egy frissítése, szeretnéd most frissíteni?",
             "title": "Játéknak frissítésre van szüksége"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "IGEN"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Verzió"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

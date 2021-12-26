@@ -30,6 +30,7 @@
             "message": "Для игры вышло обновление. Обновить сейчас?",
             "title": "Игра нуждается в обновлении"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ДА"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Версия"
     },
     "install": {
-        "path": "Выберите путь установки"
+        "path": "Выберите путь установки",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

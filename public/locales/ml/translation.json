@@ -6,6 +6,10 @@
             "message": "ഹീറോക്കടയുടെ പുതിയ പതിപ്പിറങ്ങിയിട്ടുണ്ട്, പുതുക്കട്ടെ?",
             "title": "പുതുക്കല്‍ വന്നിട്ടുണ്ട്"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "തിരഞ്ഞെടുക്കൂ",
         "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
         "choose-legendary-binary": "ലെജന്ററിയുടെ ഈരക്കരേഖ തിരഞ്ഞെടുക്കുക",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "ചെയ്തുതീര്‍ക്കാത്ത പണികളുണ്ട്, ഉറപ്പല്ലേ?",
             "title": "പുറത്തിറക്ക്"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "ഓടിക്കുവാനുള്ള EXE നല്‍കൂ"
@@ -215,6 +225,8 @@
     },
     "Settings": "ക്രമീകരണങ്ങള്‍",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "പൊതുവായവ",
             "other": "മറ്റുള്ളവ",

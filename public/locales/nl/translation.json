@@ -6,6 +6,10 @@
             "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u nu updaten?",
             "title": "Update beschikbaar"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
         "choose-legendary-binary": "Selecteer Legendary Binary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "Er zijn processen in afwachting, weet u het zeker?",
             "title": "Sluiten"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Selecteer EXE on te lanceren"
@@ -215,6 +225,8 @@
     },
     "Settings": "Instellingen",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Algemeen",
             "other": "Overig",

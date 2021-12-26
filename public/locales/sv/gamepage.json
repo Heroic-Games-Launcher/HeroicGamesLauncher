@@ -30,6 +30,7 @@
             "message": "Det finns en speluppdatering, vill du uppdatera?",
             "title": "Spelet behöver uppdateras"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "Ja"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Version"
     },
     "install": {
-        "path": "Välj installationssökväg"
+        "path": "Välj installationssökväg",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

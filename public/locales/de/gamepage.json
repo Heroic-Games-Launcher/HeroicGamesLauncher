@@ -30,6 +30,7 @@
             "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
             "title": "Spiel benötigt eine neuere Version"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "JA"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Version"
     },
     "install": {
-        "path": "Installationspfad auswählen"
+        "path": "Installationspfad auswählen",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

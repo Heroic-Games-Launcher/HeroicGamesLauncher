@@ -30,6 +30,7 @@
             "message": "Ova igrica ima ažuriranje, želite li ažurirati sada?",
             "title": "Igrica treba ažuriranje"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "DA"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Verzija"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

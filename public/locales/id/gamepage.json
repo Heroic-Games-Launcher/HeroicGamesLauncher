@@ -30,6 +30,7 @@
             "message": "Gim ini memiliki pembaruan, apakah Anda ingin memperbarui sekarang?",
             "title": "Gim perlu diperbarui"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "YA"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Versi"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

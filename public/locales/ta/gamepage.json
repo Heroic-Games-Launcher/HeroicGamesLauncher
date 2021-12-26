@@ -30,6 +30,7 @@
             "message": "இந்த விளையாட்டுக்கு ஒரு புதுப்பிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?",
             "title": "விளையாட்டு புதுப்பிப்பு தேவை"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ஆம்"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "பதிப்பு"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

@@ -30,6 +30,7 @@
             "message": "此遊戲有更新，你希望現在更新嗎？",
             "title": "遊戲需要更新"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "是"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "版本"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

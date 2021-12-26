@@ -30,6 +30,7 @@
             "message": "این بازی به‌روزرسانی دارد، آیا مایل به به‌روزرسانی هستید؟",
             "title": "بازی نیاز به به‌روزرسانی دارد"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "بله"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "نسخه"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

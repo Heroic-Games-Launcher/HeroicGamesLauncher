@@ -30,6 +30,7 @@
             "message": "Dit spel heeft een update, wilt u het nu updaten?",
             "title": "Het spel heeft een update nodig"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "JA"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Versie"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {

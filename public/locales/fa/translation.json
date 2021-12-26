@@ -6,6 +6,10 @@
             "message": "نسخه جدید Heroic موجود است،‌ آیا می‌خواهید الان به‌روزرسانی کنید؟",
             "title": "به‌روزرسانی موجود است"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
         "choose-legendary-binary": "Select Legendary Binary",
@@ -41,6 +45,12 @@
         "quit": {
             "message": "کارهای ناتمامی موجود است، آیا مطمئن هستید؟",
             "title": "خروج"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "انتخاب EXE برای اجرا"
@@ -215,6 +225,8 @@
     },
     "Settings": "تنظیمات",
     "settings": {
+        "clear-cache": "Reset Heroic",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "عمومی",
             "other": "بقیه",

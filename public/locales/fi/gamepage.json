@@ -30,6 +30,7 @@
             "message": "Tälle pelille on saatavilla päivitys, haluatko päivittää sen nyt?",
             "title": "Peli tarvitsee päivityksen"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "KYLLÄ"
     },
     "button": {
@@ -66,7 +67,8 @@
         "version": "Versio"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
