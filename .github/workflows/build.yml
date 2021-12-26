@@ -6,27 +6,43 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build_windows:
+    runs-on: windows-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
       - name: Install modules.
-        run: yarn
-      - name: Build 'src'.
-        run: yarn build
-      - name: Build 'electron'.
-        run: yarn build-electron
+      - run: npm install --legacy-peer-deps
       - name: Build artifacts.
-        run: |
-          sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools
-          yarn dist appimage pacman --publish=never
-      - name: Upload AppImage.
+      - run: npm run dist-win portable
+      - name: Upload EXE.
         uses: actions/upload-artifact@v2
         with:
-          name: linux-appimage
-          path: dist/Heroic-*.AppImage
-          retention-days: 7
+          name: portable exe
+          path: dist/Heroic-*.exe
+          retention-days: 14
+  build_mac_os_x_linux:
+    runs-on: macos-11
+    steps:
+      - name: Checkout repository.
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install modules.
+      - run: npm install --legacy-peer-deps
+      - name: Build DMG artifacts.
+      - run: npm run dist-mac
+      - name: Build AppImage artifacts.
+      - run: npm run dist appimage
+      - name: Upload DMG.
+        uses: actions/upload-artifact@v2
+        with:
+          name: Mac DMG and Linux AppImage
+          path: |
+            dist/Heroic-*.dmg
+            dist/Heroic-*.AppImage
+          retention-days: 14
