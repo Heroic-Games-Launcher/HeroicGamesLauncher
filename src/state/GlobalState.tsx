@@ -121,7 +121,10 @@ export class GlobalState extends PureComponent<Props> {
     this.refresh(checkForUpdates)
   }
 
-  refreshTools = async (fetch: boolean, runInBackground = true): Promise<void> => {
+  refreshTools = async (
+    fetch: boolean,
+    runInBackground = true
+  ): Promise<void> => {
     this.setState({ refreshing: !runInBackground })
     ipcRenderer.send('logInfo', 'Refreshing Tools')
     const releases = await ipcRenderer.invoke('refreshTools', fetch)

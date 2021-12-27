@@ -23,8 +23,7 @@ const ToolCard = ({
   isInstalled,
   hasUpdate,
   installDir
-}: 
-ToolsInfo) => {
+}: ToolsInfo) => {
   const { t } = useTranslation()
   const { refreshTools } = useContext(ContextProvider)
   const [downloadProgress, setDownloadProgress] = useState<number>(0)
@@ -67,22 +66,23 @@ ToolsInfo) => {
   }
 
   async function remove() {
-    ipcRenderer.invoke('removeTool', {
-      version: version,
-      date: date,
-      downsize: downsize,
-      disksize: disksize,
-      download: download,
-      checksum: checksum,
-      isInstalled: isInstalled,
-      hasUpdate: hasUpdate,
-      installDir: installDir
-    })
-    .then((response) => {
-      if (response) {
-        refreshTools(false)
-      }
-    })
+    ipcRenderer
+      .invoke('removeTool', {
+        version: version,
+        date: date,
+        downsize: downsize,
+        disksize: disksize,
+        download: download,
+        checksum: checksum,
+        isInstalled: isInstalled,
+        hasUpdate: hasUpdate,
+        installDir: installDir
+      })
+      .then((response) => {
+        if (response) {
+          refreshTools(false)
+        }
+      })
   }
 
   function openInstallDir() {
@@ -104,9 +104,7 @@ ToolsInfo) => {
           <FolderOpen data-testid="setinstallpathbutton" />
         </SvgButton>
       )
-      icons.push(
-        <StopIcon onClick={() => remove()} />
-      )
+      icons.push(<StopIcon onClick={() => remove()} />)
     }
 
     return icons

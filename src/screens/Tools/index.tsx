@@ -7,9 +7,7 @@ import React, { lazy, useContext } from 'react'
 import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
-const ToolCard = lazy(
-  () => import('src/screens/Tools/components/ToolCard')
-)
+const ToolCard = lazy(() => import('src/screens/Tools/components/ToolCard'))
 
 export default function Tools(): JSX.Element | null {
   const { t } = useTranslation()
