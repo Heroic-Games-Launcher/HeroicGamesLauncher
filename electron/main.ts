@@ -9,8 +9,7 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol,
-  MenuItem
+  protocol
 } from 'electron'
 import { cpus, platform } from 'os'
 import {
@@ -111,44 +110,6 @@ async function createWindow(): Promise<BrowserWindow> {
   GlobalConfig.get()
   LegendaryLibrary.get()
 
-  const menu = new Menu()
-  menu.append(
-    new MenuItem({
-      label: 'Menu',
-      submenu: [
-        {
-          label: 'Reload',
-          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-          click: () => {
-            mainWindow.reload()
-          }
-        },
-        {
-          label: 'Debug',
-          accelerator:
-            process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-          click: () => {
-            mainWindow.webContents.openDevTools()
-          }
-        },
-        {
-          label: 'About',
-          click: () => {
-            showAboutWindow()
-          }
-        },
-        {
-          label: 'Quit',
-          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
-          click: () => {
-            handleExit()
-          }
-        }
-      ]
-    })
-  )
-  mainWindow.setMenu(menu)
-
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
@@ -174,6 +135,8 @@ async function createWindow(): Promise<BrowserWindow> {
       return await handleExit()
     })
   } else {
+    Menu.setApplicationMenu(null)
+
     mainWindow.on('close', async (e) => {
       e.preventDefault()
       const { exitToTray } = await GlobalConfig.get().config
@@ -184,7 +147,6 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-
     return mainWindow
   }
 }
@@ -223,23 +185,18 @@ const contextMenu = () => {
       label: i18next.t('tray.about', 'About')
     },
     {
-      click: function () {
-        openUrlOrFile(heroicGithubURL)
-      },
-      label: 'GitHub'
-    },
-    {
-      click: function () {
-        openUrlOrFile(supportURL)
-      },
-      label: i18next.t('tray.support', 'Support Us')
-    },
-    {
       accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
       click: function () {
         mainWindow.reload()
       },
       label: i18next.t('tray.reload', 'Reload')
+    },
+    {
+      label: 'Debug',
+      accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+      click: () => {
+        mainWindow.webContents.openDevTools()
+      }
     },
     {
       click: function () {
