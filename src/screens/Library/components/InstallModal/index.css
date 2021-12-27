@@ -5,6 +5,7 @@
   height: 100%;
   position: fixed;
   z-index: 8;
+  overflow: scroll;
 }
 
 .backdrop {

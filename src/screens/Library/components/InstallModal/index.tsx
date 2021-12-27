@@ -57,14 +57,24 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
-  const haveSDL = Boolean(SDL_GAMES[appName])
-  const mandatoryTags: Array<string> = haveSDL
-    ? SDL_GAMES[appName]
-        .filter((el: SelectiveDownload) => el.mandatory)
-        .map((el: SelectiveDownload) => el.tags)
-    : []
-  const [sdlList, setSdlList] = useState([...mandatoryTags])
 
+  // TODO: Refactor
+  const haveSDL = Boolean(SDL_GAMES[appName])
+  const mandatoryTags: Array<string> = []
+  if (SDL_GAMES[appName]) {
+    const tags: Array<string | string[]> = SDL_GAMES[appName]
+      .filter((el: SelectiveDownload) => el.mandatory)
+      .map((el: SelectiveDownload) => el.tags)
+    tags.forEach((tag) => {
+      if (typeof tag === 'object') {
+        tag.forEach((t) => mandatoryTags.push(t))
+      } else if (typeof tag === 'string') {
+        mandatoryTags.push(tag)
+      }
+      return
+    })
+  }
+  const [sdlList, setSdlList] = useState([...mandatoryTags])
   const { t } = useTranslation('gamepage')
 
   async function handleInstall(path?: string) {
