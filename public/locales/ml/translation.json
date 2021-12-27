@@ -250,6 +250,13 @@
         "unrealProjects": "അണ്‍റിയല്‍ - പണികള്‍",
         "updates": "നടക്കേണ്ട പുതുക്കലുകള്‍"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്‍ക്കുക",
         "removepath": "ഇടം നീക്കുക"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Logout?",
         "quit": "പുറത്തുകടക്കൂ"
     },
-    "wiki": "അറിവിന്‍കൂട്ടം",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "അറിവിന്‍കൂട്ടം"
 }

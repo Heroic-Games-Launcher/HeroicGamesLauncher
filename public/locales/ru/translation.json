@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Проекты",
         "updates": "Ожидаемые обновления"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "Добавить новый путь",
         "removepath": "Удалить путь"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "quit": "Закрыть Heroic"
     },
-    "wiki": "Вики",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Вики"
 }

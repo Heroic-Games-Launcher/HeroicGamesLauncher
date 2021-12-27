@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "Dodaj novi put",
         "removepath": "Obriši put"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "quit": "Izađi"
     },
-    "wiki": "Wiki",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Wiki"
 }

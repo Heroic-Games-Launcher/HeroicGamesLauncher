@@ -4,12 +4,12 @@
  * - date
  * - download link
  * - checksum link
- * - size
+ * - size (download and disk)
  * - update available
  * - installed
  * - install directory
  */
-export interface WineGEInfo {
+export interface ToolsInfo {
   version: string
   date: string
   download: string

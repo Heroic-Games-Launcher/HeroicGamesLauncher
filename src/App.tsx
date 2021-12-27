@@ -14,7 +14,7 @@ const Store = window.require('electron-store')
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
-const WineGE = lazy(() => import('./screens/WineGE'))
+const Tools = lazy(() => import('./screens/Tools'))
 
 function App() {
   const context = useContext(ContextProvider)
@@ -56,7 +56,7 @@ function App() {
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />
             <Route path="/settings/:appName/:type" component={Settings} />
-            <Route path="/wine-ge" component={WineGE} />
+            <Route path="/tools" component={Tools} />
           </Switch>
         </main>
       </HashRouter>

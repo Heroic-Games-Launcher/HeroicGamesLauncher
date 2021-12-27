@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "புதிய பாதையை சேர்",
         "removepath": "பாதையை அகற்று"
@@ -270,12 +277,5 @@
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "quit": "வெளியேறு"
     },
-    "wiki": "விக்கி",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "விக்கி"
 }

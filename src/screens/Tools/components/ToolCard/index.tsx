@@ -2,18 +2,18 @@ import './index.css'
 
 import React, { useContext, useState } from 'react'
 
-import { WineGEInfo, Path } from 'src/types'
+import { ToolsInfo, Path } from 'src/types'
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { SvgButton } from 'src/components/UI'
-import Explore from '@material-ui/icons/Explore'
+import FolderOpen from '@material-ui/icons/FolderOpen'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
 const { ipcRenderer } = window.require('electron')
 
-const WineGECard = ({
+const ToolCard = ({
   version,
   date,
   downsize,
@@ -22,11 +22,11 @@ const WineGECard = ({
   checksum,
   isInstalled,
   hasUpdate,
-  //installDir
-}:
-WineGEInfo) => {
+  installDir
+}: 
+ToolsInfo) => {
   const { t } = useTranslation()
-  const { refreshWineGE } = useContext(ContextProvider)
+  const { refreshTools } = useContext(ContextProvider)
   const [downloadProgress, setDownloadProgress] = useState<number>(0)
   const [isUnzipping, setIsUnzipping] = useState<boolean>(false)
 
@@ -46,24 +46,47 @@ WineGEInfo) => {
         title: t('box.wineInstallPath', 'Select the install path.')
       })
       .then(({ path }: Path) => {
-        ipcRenderer.invoke('installWineGE', {
-          version: version,
-          date: date,
-          downsize: downsize,
-          disksize: disksize,
-          download: download,
-          checksum: checksum,
-          isInstalled: isInstalled,
-          hasUpdate: hasUpdate,
-          installDir: path
-        })      
-        .then((response) => {
-          if(response)
-          {
-            refreshWineGE()
-          }
-        })
+        ipcRenderer
+          .invoke('installTool', {
+            version: version,
+            date: date,
+            downsize: downsize,
+            disksize: disksize,
+            download: download,
+            checksum: checksum,
+            isInstalled: isInstalled,
+            hasUpdate: hasUpdate,
+            installDir: path
+          })
+          .then((response) => {
+            if (response) {
+              refreshTools(false)
+            }
+          })
       })
+  }
+
+  async function remove() {
+    ipcRenderer.invoke('removeTool', {
+      version: version,
+      date: date,
+      downsize: downsize,
+      disksize: disksize,
+      download: download,
+      checksum: checksum,
+      isInstalled: isInstalled,
+      hasUpdate: hasUpdate,
+      installDir: installDir
+    })
+    .then((response) => {
+      if (response) {
+        refreshTools(false)
+      }
+    })
+  }
+
+  function openInstallDir() {
+    ipcRenderer.send('showItemInFolder', installDir)
   }
 
   const renderIcon = () => {
@@ -73,12 +96,17 @@ WineGEInfo) => {
     }
 
     if (isInstalled) {
-      icons.push(<StopIcon onClick={() => {return}}/>)
-      icons.push(<SvgButton 
-        className="material-icons settings folder" 
-        onClick={() => {return}}>
-          <Explore data-testid="setinstallpathbutton" />
-        </SvgButton>)
+      icons.push(
+        <SvgButton
+          className="material-icons settings folder"
+          onClick={() => openInstallDir()}
+        >
+          <FolderOpen data-testid="setinstallpathbutton" />
+        </SvgButton>
+      )
+      icons.push(
+        <StopIcon onClick={() => remove()} />
+      )
     }
 
     return icons
@@ -88,23 +116,23 @@ WineGEInfo) => {
     let status = ''
     if (isInstalled) {
       status =
-        t('winege.diskspace') + ': ' + getSizeInMB(disksize).toString() + ' MB'
+        t('tools.diskspace') + ': ' + getSizeInMB(disksize).toString() + ' MB'
     } else {
       if (!isUnzipping) {
         status =
           downloadProgress !== 0
-            ? t('winege.download') +
+            ? t('tools.download') +
               ': ' +
               getSizeInMB(downloadProgress * downsize).toString() +
               ' / ' +
               getSizeInMB(downsize).toString() +
               ' MB'
-            : t('winege.download') +
+            : t('tools.download') +
               ': ' +
               getSizeInMB(downsize).toString() +
               ' MB'
       } else {
-        status = t('winege.unzipping')
+        status = t('tools.unzipping')
       }
     }
     return status
@@ -117,10 +145,10 @@ WineGEInfo) => {
   return (
     <>
       <ContextMenuTrigger id={version}>
-        <div className="winegeListItem">
-          <span className="winegeTitleList">{version}</span>
-          <div className="winegeListDate">{date}</div>
-          <div className="winegeListSize">{renderStatus()}</div>
+        <div className="toolsListItem">
+          <span className="toolsTitleList">{version}</span>
+          <div className="toolsListDate">{date}</div>
+          <div className="toolsListSize">{renderStatus()}</div>
           <span className="icons">
             {renderIcon().map((component) => component)}
           </span>
@@ -132,4 +160,4 @@ WineGEInfo) => {
   )
 }
 
-export default WineGECard
+export default ToolCard

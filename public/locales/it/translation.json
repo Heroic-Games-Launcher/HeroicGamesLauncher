@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Progetti",
         "updates": "Aggiornamenti in sospeso"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "Aggiungi nuovo percorso",
         "removepath": "Rimuovi percorso"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Logout?",
         "quit": "Esci"
     },
-    "wiki": "Wiki",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Wiki"
 }

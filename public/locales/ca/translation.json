@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projectes",
         "updates": "Actualitzacions pendents"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "Afegir nova ruta",
         "removepath": "Eliminar ruta"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Estàs ben segur de que vols sortir de la sessió?",
         "quit": "Sortir"
     },
-    "wiki": "Wiki",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Wiki"
 }

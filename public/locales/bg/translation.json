@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "Добавяне на нов път",
         "removepath": "Премахване на пътя"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Наистина ли искате да излезете от акаунта си?",
         "quit": "Изход"
     },
-    "wiki": "Уики",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Уики"
 }

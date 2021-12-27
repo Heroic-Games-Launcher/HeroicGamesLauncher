@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "Lisa uus tee",
         "removepath": "Eemalda tee"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "quit": "Sulge"
     },
-    "wiki": "Viki",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Viki"
 }

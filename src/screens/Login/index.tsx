@@ -56,7 +56,7 @@ export default function Login({ refresh }: Props) {
         })
         await ipcRenderer.invoke('getUserInfo')
         await ipcRenderer.invoke('refreshLibrary', true)
-        await ipcRenderer.invoke('refreshWineGE')
+        await ipcRenderer.invoke('refreshTools', true)
         return refresh(true)
       }
 

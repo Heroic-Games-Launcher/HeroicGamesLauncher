@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "افزودن مسیر جدید",
         "removepath": "حذف مسیر"
@@ -270,12 +277,5 @@
         "logout_confirmation": "آیا می‌خواهید از حساب خود خارج شوید؟",
         "quit": "خروج"
     },
-    "wiki": "ویکی",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "ویکی"
 }

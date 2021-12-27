@@ -5,7 +5,7 @@ import { ContextType } from 'src/types'
 const initialContext: ContextType = {
   category: 'games',
   data: [],
-  winege: [],
+  tools: [],
   error: false,
   filter: 'all',
   filterText: '',
@@ -23,7 +23,7 @@ const initialContext: ContextType = {
   refresh: () => Promise.resolve(),
   recentGames: [],
   refreshLibrary: () => Promise.resolve(),
-  refreshWineGE: () => Promise.resolve(),
+  refreshTools: () => Promise.resolve(),
   refreshing: false
 }
 

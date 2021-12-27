@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "Új útvonal hozzáadása",
         "removepath": "Útvonal eltávolítása"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Logout?",
         "quit": "Kilépés"
     },
-    "wiki": "Wiki",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Wiki"
 }

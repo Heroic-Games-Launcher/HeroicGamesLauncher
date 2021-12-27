@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - 项目",
         "updates": "待更新"
     },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
     "tooltip": {
         "addpath": "添加新路径",
         "removepath": "删除路径"
@@ -270,12 +277,5 @@
         "logout_confirmation": "您确定要退出登录吗？",
         "quit": "退出"
     },
-    "wiki": "Wiki百科",
-    "WineGE": "",
-    "winege": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    }
+    "wiki": "Wiki百科"
 }

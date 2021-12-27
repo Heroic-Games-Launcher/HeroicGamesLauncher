@@ -84,14 +84,14 @@ export default function SidebarLinks() {
         </>
       )}
       <NavLink
-        data-testid="wine-ge"
+        data-testid="tools"
         activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
-        isActive={(match, location) => location.pathname.includes('wine-ge')}
+        isActive={(match, location) => location.pathname.includes('tools')}
         to={{
-          pathname: '/wine-ge'
+          pathname: '/tools'
         }}
       >
-        {t('WineGE')}
+        {t('Tools')}
       </NavLink>
       <NavLink
         data-testid="settings"

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import { GameInfo, GameStatus, RefreshOptions, WineGEInfo } from 'src/types'
+import { GameInfo, GameStatus, RefreshOptions, ToolsInfo } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
 import { i18n } from 'i18next'
@@ -19,9 +19,9 @@ const libraryStore: ElectronStore = new Store({
   cwd: 'store',
   name: 'library'
 })
-const wineGEStore: ElectronStore = new Store({
+const toolsStore: ElectronStore = new Store({
   cwd: 'store',
-  name: 'winege'
+  name: 'tools'
 })
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
@@ -35,7 +35,7 @@ interface Props {
 interface StateProps {
   category: string
   data: GameInfo[]
-  winege: WineGEInfo[]
+  tools: ToolsInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -54,8 +54,8 @@ export class GlobalState extends PureComponent<Props> {
     data: libraryStore.has('library')
       ? (libraryStore.get('library') as GameInfo[])
       : [],
-    winege: wineGEStore.has('winege')
-      ? (wineGEStore.get('winege') as WineGEInfo[])
+    tools: toolsStore.has('tools')
+      ? (toolsStore.get('tools') as ToolsInfo[])
       : [],
     error: false,
     filter: 'all',
@@ -121,15 +121,15 @@ export class GlobalState extends PureComponent<Props> {
     this.refresh(checkForUpdates)
   }
 
-  refreshWineGE = async (runInBackground = true): Promise<void> => {
+  refreshTools = async (fetch: boolean, runInBackground = true): Promise<void> => {
     this.setState({ refreshing: !runInBackground })
-    ipcRenderer.send('logInfo', 'Refreshing WineGE')
-    const releases = await ipcRenderer.invoke('refreshWineGE')
+    ipcRenderer.send('logInfo', 'Refreshing Tools')
+    const releases = await ipcRenderer.invoke('refreshTools', fetch)
     if (!releases.length) {
-      ipcRenderer.send('logError', 'Refreshing WineGE failed')
+      ipcRenderer.send('logError', 'Refreshing Tools failed')
     } else {
       this.setState({
-        winege: releases,
+        tools: releases,
         refreshing: false
       })
     }
@@ -341,7 +341,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { data, winege, gameUpdates = [], libraryStatus } = this.state
+    const { data, tools, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName) => {
@@ -405,7 +405,7 @@ export class GlobalState extends PureComponent<Props> {
         fullRefresh: true,
         runInBackground: Boolean(data.length)
       })
-      this.refreshWineGE(Boolean(winege.length))
+      this.refreshTools(true, Boolean(tools.length))
     }
 
     setTimeout(() => {
@@ -433,7 +433,7 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, winege, filterText, filter, platform, filterPlatform } =
+    const { data, tools, filterText, filter, platform, filterPlatform } =
       this.state
     let filteredLibrary = data
 
@@ -454,7 +454,7 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           data: filteredLibrary,
-          winege: winege,
+          tools: tools,
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
@@ -464,7 +464,7 @@ export class GlobalState extends PureComponent<Props> {
           platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          refreshWineGE: this.refreshWineGE,
+          refreshTools: this.refreshTools,
           recentGames: getRecentGames(data)
         }}
       >

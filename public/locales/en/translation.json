@@ -250,6 +250,13 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
+    "Tools": "Tools",
+    "tools": {
+        "diskspace": "diskspace",
+        "download": "download",
+        "title": "Tools",
+        "unzipping": "unzipping"
+    },
     "tooltip": {
         "addpath": "Add New Path",
         "removepath": "Remove Path"
@@ -270,12 +277,5 @@
         "logout_confirmation": "Are you sure you want to logout?",
         "quit": "Quit"
     },
-    "wiki": "Wiki",
-    "WineGE": "WineGE",
-    "winege": {
-        "diskspace": "disk space",
-        "download": "download",
-        "title": "WineGE Manager",
-        "unzipping": ""
-    }
+    "wiki": "Wiki"
 }

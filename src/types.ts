@@ -43,7 +43,7 @@ export interface AppSettings {
 export interface ContextType {
   category: string
   data: GameInfo[]
-  winege: WineGEInfo[]
+  tools: ToolsInfo[]
   recentGames: GameInfo[]
   error: boolean
   filter: string
@@ -61,7 +61,7 @@ export interface ContextType {
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshWineGE: () => void
+  refreshTools: (fetch: boolean) => void
   refreshing: boolean
 }
 
@@ -196,7 +196,7 @@ export interface WineInstallation {
   name: string
 }
 
-export interface WineGEInfo {
+export interface ToolsInfo {
   version: string
   date: string
   download: string

@@ -22,7 +22,7 @@
   fill: var(--secondary);
 }
 
-.winegeListItem {
+.toolsListItem {
   display: grid;
   grid-template-columns: 2fr 1fr 6fr 1fr;
   grid-template-areas: 'name date size action';
@@ -36,20 +36,20 @@
   place-self: center;
 }
 
-.winegeTitleList {
+.toolsTitleList {
   grid-area: name;
   font-size: 1em;
   font-weight: bold;
 }
 
-.winegeListItem > a {
+.toolsListItem > a {
   grid-area: cover;
   max-width: 15vh;
   width: 100%;
   height: 100%;
 }
 
-.winegeListItem > .icons {
+.toolsListItem > .icons {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -59,7 +59,7 @@
   padding: 0 6px;
 }
 
-.winegeListItem > .progress {
+.toolsListItem > .progress {
   z-index: 5;
   grid-area: cover;
   font-weight: 500;
@@ -77,18 +77,18 @@
   line-height: 12px;
 }
 
-.winegeListItem > .progress > .MuiSvgIcon-root {
+.toolsListItem > .progress > .MuiSvgIcon-root {
   position: relative;
   bottom: 0;
   top: 0;
 }
 
-.winegeListDate {
+.toolsListDate {
   font-size: 1em;
   grid-area: date;
 }
 
-.winegeListSize {
+.toolsListSize {
   font-size: 1em;
   grid-area: size;
 }

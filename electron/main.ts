@@ -1,4 +1,4 @@
-import { WineGEInfo } from './winege/types'
+import { ToolsInfo } from './tools/types'
 import { InstallParams, LaunchResult } from './types'
 import * as path from 'path'
 import {
@@ -11,7 +11,8 @@ import {
   ipcMain,
   powerSaveBlocker,
   protocol,
-  MenuItem
+  MenuItem,
+  shell
 } from 'electron'
 import { cpus, platform } from 'os'
 import {
@@ -68,7 +69,7 @@ import {
 import { handleProtocol } from './protocol'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
-import { fetchWineGEReleases, installWineGE } from './winege/api'
+import { updateTools, installTool, removeTool } from './tools/api'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -656,11 +657,11 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
-ipcMain.handle('refreshWineGE', async () => {
-  return await fetchWineGEReleases()
+ipcMain.handle('refreshTools', async (e, fetch) => {
+  return await updateTools(fetch)
 })
 
-ipcMain.handle('installWineGE', async (e, release: WineGEInfo) => {
+ipcMain.handle('installTool', async (e, release: ToolsInfo) => {
   const onDownloadProgress = (progress: number) => {
     e.sender.send('download' + release.version, progress)
   }
@@ -669,7 +670,11 @@ ipcMain.handle('installWineGE', async (e, release: WineGEInfo) => {
     e.sender.send('unzip' + release.version, progress)
   }
 
-  return await installWineGE(release, onDownloadProgress, onUnzipProgress)
+  return await installTool(release, onDownloadProgress, onUnzipProgress)
+})
+
+ipcMain.handle('removeTool', async (e, release: ToolsInfo) => {
+  return await removeTool(release)
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))
@@ -793,6 +798,12 @@ ipcMain.handle('openDialog', async (e, args) => {
     return { path: filePaths[0] }
   }
   return { canceled }
+})
+
+ipcMain.on('showItemInFolder', async (e, item) => {
+  if (existsSync(item)) {
+    shell.showItemInFolder(item)
+  }
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {

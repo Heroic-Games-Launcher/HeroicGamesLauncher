@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
-import { exec, spawn } from 'child_process'
+import { exec, spawn, spawnSync } from 'child_process'
 import { existsSync, statSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
@@ -344,10 +344,11 @@ async function unzipFile(
     }
 
     const unzip = spawn('tar', [
-      extension_options,
-      filePath,
       '--directory',
-      unzipDir
+      unzipDir,
+      '--strip-components=1',
+      extension_options,
+      filePath
     ])
 
     unzip.stdout.on('data', function () {
@@ -368,6 +369,11 @@ async function unzipFile(
       return resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`)
     })
   })
+}
+
+function getFolderSize(folder: string) {
+  const { stdout } = spawnSync('du', ['-sb', folder])
+  return parseInt(stdout.toString())
 }
 
 function clearCache() {
@@ -412,6 +418,7 @@ export {
   showAboutWindow,
   statAsync,
   removeSpecialcharacters,
+  getFolderSize,
   clearCache,
   resetHeroic
 }
