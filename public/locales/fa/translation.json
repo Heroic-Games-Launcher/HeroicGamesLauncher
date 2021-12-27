@@ -225,13 +225,14 @@
     },
     "Settings": "تنظیمات",
     "settings": {
-        "clear-cache": "Reset Heroic",
+        "clear-cache": "Clear Heroic Cache",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "عمومی",
             "other": "بقیه",
             "sync": "همگام‌سازی ذخیره‌ها"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
     },
     "status": {
         "loading": "Loading Game list, please wait",

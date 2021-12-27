@@ -225,13 +225,14 @@
     },
     "Settings": "அமைப்புகள்",
     "settings": {
-        "clear-cache": "Reset Heroic",
+        "clear-cache": "Clear Heroic Cache",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "பொதுவானவை",
             "other": "மற்றவை",
             "sync": "சேமிப்பு-ஒத்திசைவு"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
     },
     "status": {
         "loading": "Loading Game list, please wait",

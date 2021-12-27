@@ -225,13 +225,14 @@
     },
     "Settings": "Asetukset",
     "settings": {
-        "clear-cache": "Reset Heroic",
+        "clear-cache": "Clear Heroic Cache",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Yleiset",
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
     },
     "status": {
         "loading": "Loading Game list, please wait",
