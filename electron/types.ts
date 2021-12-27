@@ -219,6 +219,7 @@ export interface InstallArgs {
   path: string
   installDlcs?: boolean
   sdlList?: Array<string>
+  platformToInstall: 'Windows' | 'Mac'
 }
 
 export interface InstallParams {

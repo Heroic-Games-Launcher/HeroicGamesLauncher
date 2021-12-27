@@ -395,7 +395,12 @@ Categories=Game;
    *
    * @returns Result of execAsync.
    */
-  public async install({ path, installDlcs, sdlList }: InstallArgs) {
+  public async install({
+    path,
+    installDlcs,
+    sdlList,
+    platformToInstall
+  }: InstallArgs) {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
@@ -403,7 +408,7 @@ Categories=Game;
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {

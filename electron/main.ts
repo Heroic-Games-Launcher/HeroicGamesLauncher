@@ -767,7 +767,10 @@ ipcMain.handle(
 
 ipcMain.handle('install', async (event, params) => {
   const { appName, path, installDlcs, sdlList } = params as InstallParams
-  const title = (await Game.get(appName).getGameInfo()).title
+  const { title, is_mac_native } = await Game.get(appName).getGameInfo()
+  const platformToInstall =
+    platform() === 'darwin' && is_mac_native ? 'Mac' : 'Windows'
+
   if (!(await isOnline())) {
     logWarning(`App offline, skipping install for game '${title}'.`)
     return
@@ -784,7 +787,7 @@ ipcMain.handle('install', async (event, params) => {
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
   return Game.get(appName)
-    .install({ path, installDlcs, sdlList })
+    .install({ path, installDlcs, sdlList, platformToInstall })
     .then(async (res) => {
       notify({
         title,
