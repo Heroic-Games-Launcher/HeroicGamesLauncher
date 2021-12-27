@@ -28,6 +28,7 @@ import { logError, logInfo, logWarning } from '../logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript'
+import { platform } from 'os'
 
 const store = new Store({
   cwd: 'store',
@@ -665,6 +666,10 @@ Categories=Game;
     fixedWinePrefix: string,
     winePath: string
   ) {
+    if (platform() === 'darwin') {
+      return
+    }
+
     if (isProton && !existsSync(fixedWinePrefix)) {
       const command = `mkdir '${fixedWinePrefix}' -p`
       await execAsync(command, execOptions)

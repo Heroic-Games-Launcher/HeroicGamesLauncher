@@ -79,7 +79,12 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   async function handleInstall(path?: string) {
     backdropClick()
-    writeConfig([appName, { ...settings, winePrefix }])
+
+    // Write Default game config with prefix on linux
+    if (isLinux) {
+      writeConfig([appName, { ...settings, winePrefix }])
+    }
+
     return await install({
       appName,
       handleGameStatus,

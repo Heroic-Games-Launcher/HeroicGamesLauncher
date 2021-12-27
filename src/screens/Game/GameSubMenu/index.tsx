@@ -29,6 +29,7 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
   const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
+  const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
 
   const { t, i18n } = useTranslation('gamepage')
@@ -172,7 +173,7 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
           </a>
         )}
       </div>
-      {isInstalled && !isWin && (
+      {isInstalled && isLinux && (
         <div className="otherInfo">
           <SmallInfo title="Wine:" subtitle={info.wine} />
           <SmallInfo
