@@ -226,13 +226,14 @@
     },
     "Settings": "ക്രമീകരണങ്ങള്‍",
     "settings": {
-        "clear-cache": "Reset Heroic",
+        "clear-cache": "Clear Heroic Cache",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "പൊതുവായവ",
             "other": "മറ്റുള്ളവ",
             "sync": "ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കൂ"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
     },
     "status": {
         "loading": "Loading Game list, please wait",

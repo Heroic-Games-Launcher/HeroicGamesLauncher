@@ -491,18 +491,29 @@ interface Tools {
 ipcMain.handle(
   'callTool',
   async (event, { tool, wine, prefix, exe }: Tools) => {
-    let wineBin = wine.replace("/proton'", "/dist/bin/wine'")
+    const newProtonWinePath = wine.replace("proton'", "files/bin/wine64'")
+    const oldProtonWinePath = wine.replace("proton'", "dist/bin/wine64'")
+    const isProton = wine.includes('proton')
+
+    // existsSync is weird because it returns false always if the path has single-quotes in it
+    const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
+      ? newProtonWinePath
+      : oldProtonWinePath
+    let wineBin = isProton ? protonWinePath : wine
     let winePrefix: string = prefix.replace('~', home)
 
     if (wine.includes('proton')) {
       const protonPrefix = winePrefix.replaceAll("'", '')
       winePrefix = `${protonPrefix}/pfx`
 
-      // workaround for proton since newer versions doesnt come with a wine binary anymore.
-      logInfo(
-        `${wineBin} not found for this Proton version, will try using default wine`
+      logWarning(
+        'Using Winecfg and Winetricks with Proton might not work as expected.'
       )
-      if (!existsSync(wineBin)) {
+      // workaround for proton since newer versions doesnt come with a wine binary anymore.
+      if (!existsSync(wineBin.replaceAll("'", ''))) {
+        logInfo(
+          `${wineBin} not found for this Proton version, will try using default wine`
+        )
         wineBin = '/usr/bin/wine'
       }
     }

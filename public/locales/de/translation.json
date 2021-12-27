@@ -226,13 +226,14 @@
     },
     "Settings": "Einstellungen",
     "settings": {
-        "clear-cache": "Reset Heroic",
+        "clear-cache": "Clear Heroic Cache",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Allgemein",
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
     },
     "status": {
         "loading": "Loading Game list, please wait",

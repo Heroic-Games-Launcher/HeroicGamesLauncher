@@ -226,13 +226,14 @@
     },
     "Settings": "설정",
     "settings": {
-        "clear-cache": "Reset Heroic",
+        "clear-cache": "Clear Heroic Cache",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "일반",
             "other": "기타",
             "sync": "세이브-동기화"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
     },
     "status": {
         "loading": "Loading Game list, please wait",

@@ -467,7 +467,7 @@ function Settings() {
                 className="button is-text"
                 onClick={() => ipcRenderer.send('resetHeroic')}
               >
-                {t('settings.clear-cache', 'Reset Heroic')}
+                {t('settings.reset-heroic', 'Reset Heroic')}
               </button>
             </>
           )}

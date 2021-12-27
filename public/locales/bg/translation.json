@@ -226,13 +226,14 @@
     },
     "Settings": "Настройки",
     "settings": {
-        "clear-cache": "Reset Heroic",
+        "clear-cache": "Clear Heroic Cache",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Общи",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
     },
     "status": {
         "loading": "Loading Game list, please wait",
