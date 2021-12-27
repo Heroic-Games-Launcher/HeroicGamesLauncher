@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: '16'
       - name: Install modules.
-        run: yarn
+        run: npm i
       - name: Build artifacts.
-        run: yarn dist-win portable
+        run: npm run dist-win portable
       - name: Upload EXE.
         uses: actions/upload-artifact@v2
         with:
