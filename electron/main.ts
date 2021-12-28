@@ -51,6 +51,7 @@ import {
   heroicGamesConfigPath,
   heroicGithubURL,
   home,
+  icon,
   iconDark,
   iconLight,
   installed,
@@ -110,6 +111,8 @@ async function createWindow(): Promise<BrowserWindow> {
   GlobalConfig.get()
   LegendaryLibrary.get()
 
+  mainWindow.setIcon(icon)
+
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
@@ -147,6 +150,7 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+
     return mainWindow
   }
 }
