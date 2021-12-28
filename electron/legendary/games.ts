@@ -382,7 +382,7 @@ Categories=Game;
 
   private getSdlList(sdlList: Array<string>) {
     // Legendary needs an empty tag for it to download the other needed files
-    const defaultTag = ' --install-tag ""'
+    const defaultTag = ' --install-tag=""'
     return sdlList
       .map((tag) => `--install-tag ${tag}`)
       .join(' ')
