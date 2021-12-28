@@ -46,7 +46,6 @@ export default function InstallModal({ appName, backdropClick }: Props) {
   )[0]
   const [gameInfo, setGameInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
-  const [settings, setSettings] = useState<AppSettings>()
   const [winePrefix, setWinePrefix] = useState('...')
   const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(
@@ -82,7 +81,12 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
     // Write Default game config with prefix on linux
     if (isLinux) {
-      writeConfig([appName, { ...settings, winePrefix }])
+      const appSettings: AppSettings = await ipcRenderer.invoke(
+        'requestSettings',
+        appName
+      )
+
+      writeConfig([appName, { ...appSettings, winePrefix }])
     }
 
     return await install({
@@ -103,7 +107,6 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       .invoke('requestSettings', 'default')
       .then((config: AppSettings) => {
         setDefaultPath(config.defaultInstallPath)
-        setSettings(config)
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
