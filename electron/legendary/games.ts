@@ -31,7 +31,7 @@ import makeClient from 'discord-rich-presence-typescript'
 import { platform } from 'os'
 
 const store = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'gameinfo'
 })
 class LegendaryGame extends Game {

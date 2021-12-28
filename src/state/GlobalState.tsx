@@ -16,7 +16,7 @@ const configStore: ElectronStore = new Store({
   cwd: 'store'
 })
 const libraryStore: ElectronStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'library'
 })
 

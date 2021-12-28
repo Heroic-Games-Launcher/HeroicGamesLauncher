@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from '../types'
-import { execAsync } from '../utils'
+import { clearCache, execAsync } from '../utils'
 import { legendaryBin, userInfo } from '../constants'
 import { logError, logInfo } from '../logger'
 import { spawn } from 'child_process'
@@ -40,6 +40,7 @@ export class LegendaryUser {
   public static async logout() {
     await execAsync(`${legendaryBin} auth --delete`)
     configStore.delete('userInfo')
+    clearCache()
   }
 
   public static async isLoggedIn() {

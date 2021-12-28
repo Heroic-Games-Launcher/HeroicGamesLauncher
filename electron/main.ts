@@ -76,7 +76,7 @@ const store = new Store({
 })
 
 const gameInfoStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'gameinfo'
 })
 const tsStore = new Store({

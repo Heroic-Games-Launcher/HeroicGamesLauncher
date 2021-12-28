@@ -288,15 +288,15 @@ async function checkCommandVersion(
 
 function clearCache() {
   const installCache = new Store({
-    cwd: 'store',
+    cwd: 'lib-cache',
     name: 'installInfo'
   })
   const libraryCache = new Store({
-    cwd: 'store',
+    cwd: 'lib-cache',
     name: 'library'
   })
   const gameInfoCache = new Store({
-    cwd: 'store',
+    cwd: 'lib-cache',
     name: 'gameinfo'
   })
   installCache.clear()
@@ -306,7 +306,6 @@ function clearCache() {
 
 function resetHeroic() {
   const heroicFolder = `${app.getPath('appData')}/heroic`
-  console.log({ heroicFolder })
   rm(heroicFolder, { recursive: true, force: true }, () => {
     app.relaunch()
     app.quit()

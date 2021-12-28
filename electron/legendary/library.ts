@@ -29,12 +29,12 @@ import Store from 'electron-store'
 import { GlobalConfig } from '../config'
 
 const libraryStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'library'
 })
 
 const installStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'installInfo'
 })
 
