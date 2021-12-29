@@ -36,6 +36,7 @@ import {
   clearCache,
   errorHandler,
   execAsync,
+  isEpicOffline,
   getLegendaryVersion,
   getSystemInfo,
   handleExit,
@@ -501,6 +502,8 @@ ipcMain.handle(
 ipcMain.handle('checkGameUpdates', () =>
   LegendaryLibrary.get().listUpdateableGames()
 )
+
+ipcMain.handle('getEpicGamesStatus', () => isEpicOffline())
 
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
@@ -1031,6 +1034,11 @@ ipcMain.on('removeShortcut', async (event, appName: string) => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    logWarning('Epic is Offline right now, cannot sync saves!')
+    return 'Epic is Offline right now, cannot sync saves!'
+  }
   if (!(await isOnline())) {
     logWarning(`App offline, skipping syncing saves for game '${appName}'.`)
     return

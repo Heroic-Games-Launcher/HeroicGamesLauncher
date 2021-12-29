@@ -37,6 +37,15 @@ async function isOnline() {
   return net.isOnline()
 }
 
+async function isEpicOffline() {
+  const epicStatusApi = 'https://status.epicgames.com/api/v2/status.json'
+  const { data } = await axios.default.get(epicStatusApi)
+  const {
+    status: { indicator }
+  } = data
+  return indicator === 'major'
+}
+
 export const getLegendaryVersion = async () => {
   const { altLegendaryBin } = await GlobalConfig.get().getSettings()
   try {
@@ -320,6 +329,7 @@ export {
   genericErrorMessage,
   handleExit,
   isOnline,
+  isEpicOffline,
   openUrlOrFile,
   semverGt,
   showAboutWindow,

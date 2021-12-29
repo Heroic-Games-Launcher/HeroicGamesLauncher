@@ -16,14 +16,14 @@ import {
 } from '../types'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
-import { execAsync, isOnline } from '../utils'
+import { execAsync, isEpicOffline, isOnline } from '../utils'
 import {
   installed,
   legendaryBin,
   legendaryConfigPath,
   libraryPath
 } from '../constants'
-import { logError, logInfo } from '../logger'
+import { logError, logInfo, logWarning } from '../logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
@@ -84,6 +84,11 @@ class LegendaryLibrary {
   public async refresh() {
     logInfo('Refreshing Epic Games...')
     const { showUnrealMarket } = await GlobalConfig.get().getSettings()
+    const epicOffline = await isEpicOffline()
+    if (epicOffline) {
+      logWarning('Epic is Offline right now, cannot update game list!')
+      return
+    }
 
     return new Promise((res, rej) => {
       const getUeAssets = showUnrealMarket ? '--include-ue' : ''
