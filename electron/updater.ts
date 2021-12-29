@@ -32,7 +32,10 @@ autoUpdater.on('update-downloaded', async () => {
   app.relaunch()
   app.quit()
 })
+autoUpdater.once('error', () => {
+  checkForUpdates() // legacy check for updates
+})
+
 autoUpdater.on('error', (err) => {
   logError('failed to update', err)
-  checkForUpdates() // legacy check for updates
 })
