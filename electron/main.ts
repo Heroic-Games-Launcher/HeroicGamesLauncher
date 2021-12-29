@@ -11,6 +11,7 @@ import {
   powerSaveBlocker,
   protocol
 } from 'electron'
+import './updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
@@ -33,6 +34,7 @@ import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import {
   checkCommandVersion,
+  checkForUpdates,
   clearCache,
   errorHandler,
   execAsync,
@@ -151,7 +153,7 @@ async function createWindow(): Promise<BrowserWindow> {
       return handleExit()
     })
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-
+    autoUpdater.checkForUpdates()
     return mainWindow
   }
 }
@@ -505,7 +507,7 @@ ipcMain.handle('checkGameUpdates', () =>
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 
-ipcMain.handle('checkVersion', () => autoUpdater.checkForUpdates())
+ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
