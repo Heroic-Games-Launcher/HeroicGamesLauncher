@@ -235,6 +235,11 @@ class LegendaryLibrary {
     if (!isLoggedIn || !online) {
       return []
     }
+    const epicOffline = await isEpicOffline()
+    if (epicOffline) {
+      logWarning('Epic servers are offline, cannot check for game updates')
+      return []
+    }
 
     const command = `${legendaryBin} list-installed --check-updates --tsv`
     try {
