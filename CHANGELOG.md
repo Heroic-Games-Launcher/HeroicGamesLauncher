@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+### General
+
+- Opt-in automatic updates for Linux (AppImage).
+
 ## 2.0.0
 
 ### General
