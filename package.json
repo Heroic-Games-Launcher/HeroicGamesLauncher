@@ -109,7 +109,6 @@
     "classnames": "^2.2.6",
     "discord-rich-presence-typescript": "^0.0.8",
     "electron-store": "^8.0.1",
-    "electron-updater": "^4.6.1",
     "graceful-fs": "^4.2.8",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.1",
