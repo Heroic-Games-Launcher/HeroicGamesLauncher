@@ -9,9 +9,8 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol,
+  protocol
 } from 'electron'
-import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
   existsSync,
@@ -32,6 +31,7 @@ import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import {
   checkCommandVersion,
+  checkForUpdates,
   clearCache,
   errorHandler,
   execAsync,
@@ -503,7 +503,7 @@ ipcMain.handle('checkGameUpdates', () =>
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 
-ipcMain.handle('checkVersion', () => autoUpdater.checkForUpdates())
+ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
