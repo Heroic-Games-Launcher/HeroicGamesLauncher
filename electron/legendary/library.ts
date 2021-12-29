@@ -203,13 +203,16 @@ class LegendaryLibrary {
    */
   public async getInstallInfo(appName: string) {
     const cache = installStore.get(appName) as InstallInfo
+    const epicOffline = await isEpicOffline()
     logInfo('Getting More details with Legendary info command... ')
     if (cache) {
       return cache
     }
     try {
       const { stdout } = await execAsync(
-        `${legendaryBin} -J info ${appName} --json`
+        `${legendaryBin} -J info ${appName} ${
+          epicOffline ? '--offline' : ''
+        } --json`
       )
       const info: InstallInfo = JSON.parse(stdout)
       installStore.set(appName, info)
