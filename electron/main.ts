@@ -112,6 +112,7 @@ async function createWindow(): Promise<BrowserWindow> {
   LegendaryLibrary.get()
 
   mainWindow.setIcon(icon)
+  app.setAppUserModelId('Heroic')
 
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
