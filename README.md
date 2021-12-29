@@ -68,12 +68,14 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Traditional Chinese
 - Dutch
 - Estonian
+- Finnish
 - French
 - German
 - Greek
 - Korean
 - Hungarian
 - Italian
+- Indonesian
 - Malayalam
 - Persian
 - Polish
@@ -224,7 +226,8 @@ To run it use:
 
 ### Windows
 
-Download Heroic.Setup.x.x.x.exe or the Portable Heroic-x.x.x.exe file and run it. It will install it to the start menu and desktop, use those to run it.
+If you use WinGet, just type: `winget install heroic`. otherwise
+download Heroic.Setup.x.x.x.exe or the Portable Heroic-x.x.x.exe file and run it. It will install it to the start menu and desktop, use those to run it.
 
 ### macOS
 
