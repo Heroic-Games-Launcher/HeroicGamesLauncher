@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
 import axios from 'axios'
 
-import { app, BrowserWindow, dialog, shell } from 'electron'
+import { app, BrowserWindow, shell } from 'electron'
 import { DXVK } from '../dxvk'
 import { ExtraInfo, InstallArgs } from '../types'
 import { Game } from '../games'
@@ -403,14 +403,6 @@ Categories=Game;
     sdlList,
     platformToInstall
   }: InstallArgs) {
-    const epicOffline = await isEpicOffline()
-    if (epicOffline) {
-      dialog.showErrorBox(
-        'Warning',
-        'Epic Servers are having major outage right now, the game cannot be installed!'
-      )
-      return { status: 'error' }
-    }
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'

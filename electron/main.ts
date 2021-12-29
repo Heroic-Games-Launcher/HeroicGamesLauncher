@@ -784,6 +784,15 @@ ipcMain.handle('install', async (event, params) => {
     return
   }
 
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    dialog.showErrorBox(
+      'Warning',
+      'Epic Servers are having major outage right now, the game cannot be installed!'
+    )
+    return { status: 'error' }
+  }
+
   mainWindow.webContents.send('setGameStatus', {
     appName,
     status: 'installing',
@@ -871,6 +880,14 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
 })
 
 ipcMain.handle('importGame', async (event, args) => {
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    dialog.showErrorBox(
+      'Warning',
+      'Epic Servers are having major outage right now, the game cannot be imported!'
+    )
+    return { status: 'error' }
+  }
   const { appName, path } = args
   const title = (await Game.get(appName).getGameInfo()).title
   mainWindow.webContents.send('setGameStatus', {
@@ -904,6 +921,15 @@ ipcMain.handle('updateGame', async (e, game) => {
   if (!(await isOnline())) {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
+  }
+
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    dialog.showErrorBox(
+      'Warning',
+      'Epic Servers are having major outage right now, the game cannot be updated!'
+    )
+    return { status: 'error' }
   }
 
   const title = (await Game.get(game).getGameInfo()).title
