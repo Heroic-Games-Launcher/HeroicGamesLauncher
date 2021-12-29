@@ -498,7 +498,8 @@ Categories=Game;
   }
 
   public async launch(launchArguments?: string) {
-    const isOffline = !(await isOnline())
+    const epicOffline = await isEpicOffline()
+    const isOffline = !(await isOnline()) || epicOffline
     let envVars = ''
     let gameMode: string
     const gameSettings = await this.getSettings()
