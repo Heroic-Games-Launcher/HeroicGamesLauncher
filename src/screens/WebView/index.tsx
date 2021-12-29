@@ -97,8 +97,25 @@ export default function WebView({ isLogin }: Props) {
           })
         }
       }
+      const websiteloaded = () => {
+        // Deal with Epic Store / GH Wiki
+        setLoading({ ...loading, refresh: false })
+      }
+      switch (
+        pathname // if we don't do this, the webview will refresh multiple times and cause visual jittering
+      ) {
+        case urls[loginUrl]: {
+          webview.addEventListener('did-stop-loading', loadstop)
+          webview.removeEventListener('dom-ready', loadstop)
+          break
+        }
 
-      webview.addEventListener('did-stop-loading', loadstop)
+        default: {
+          webview.addEventListener('dom-ready', websiteloaded)
+          webview.removeEventListener('did-stop-loading', loadstop)
+          break
+        }
+      }
     }
   }, [])
 
