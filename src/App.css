@@ -87,6 +87,15 @@ html,
   color: white;
 }
 
+.button.is-cancel {
+  background: var(--danger);
+}
+
+.button.is-cancel:hover {
+  background: var(--danger-hover);
+  color: var(--text-tertiary);
+}
+
 .button.is-secondary:hover {
   background: var(--secondary-hover);
   color: var(--text-tertiary);

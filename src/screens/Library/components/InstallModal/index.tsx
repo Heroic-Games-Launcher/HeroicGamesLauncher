@@ -306,6 +306,12 @@ export default function InstallModal({ appName, backdropClick }: Props) {
           </div>
           <div className="buttonsContainer">
             <button
+              className={`button is-cancel outline`}
+              onClick={() => backdropClick()}
+            >
+              {'CANCEL'}
+            </button>
+            <button
               onClick={() => handleInstall('import')}
               className={`button is-secondary outline`}
             >
