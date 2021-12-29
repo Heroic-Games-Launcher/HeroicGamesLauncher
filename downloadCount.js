@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys-fix/sort-keys-fix */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const axios = require('axios')
 const { writeFileSync } = require('graceful-fs')
