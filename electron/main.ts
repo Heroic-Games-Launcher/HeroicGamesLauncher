@@ -9,7 +9,7 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol,
+  protocol
 } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
