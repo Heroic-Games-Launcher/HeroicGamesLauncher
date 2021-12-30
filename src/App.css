@@ -87,6 +87,11 @@ html,
   color: white;
 }
 
+.close-icon {
+  margin-right: 34rem;
+  cursor: pointer;
+}
+
 .button.is-cancel {
   background: var(--danger);
 }

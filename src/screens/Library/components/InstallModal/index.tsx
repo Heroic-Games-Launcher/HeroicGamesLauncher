@@ -2,7 +2,7 @@ import { getInstallInfo, getProgress, install, writeConfig } from 'src/helpers'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 import prettyBytes from 'pretty-bytes'
 import { Checkbox } from '@material-ui/core'
@@ -174,6 +174,11 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
         <div className="modal">
+          <FontAwesomeIcon
+            onClick={() => backdropClick()}
+            className={'close-icon'}
+            icon={faXmark}
+          />
           <span className="title">
             {gameInfo?.game?.title}
             <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
@@ -305,12 +310,12 @@ export default function InstallModal({ appName, backdropClick }: Props) {
             )}
           </div>
           <div className="buttonsContainer">
-            <button
+            {/* <button
               className={`button is-cancel outline`}
               onClick={() => backdropClick()}
             >
               {'CANCEL'}
-            </button>
+            </button> */}
             <button
               onClick={() => handleInstall('import')}
               className={`button is-secondary outline`}
