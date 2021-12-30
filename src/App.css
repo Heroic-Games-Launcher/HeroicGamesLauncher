@@ -88,17 +88,14 @@ html,
 }
 
 .close-icon {
-  margin-left: 34rem;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
   cursor: pointer;
 }
 
-.button.is-cancel {
-  background: var(--danger);
-}
-
-.button.is-cancel:hover {
-  background: var(--danger-hover);
-  color: var(--text-tertiary);
+.close-icon-container {
+  position: relative !important;
 }
 
 .button.is-secondary:hover {

@@ -173,12 +173,10 @@ export default function InstallModal({ appName, backdropClick }: Props) {
   return (
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
-        <div className="modal">
-          <FontAwesomeIcon
-            onClick={() => backdropClick()}
-            className={'close-icon'}
-            icon={faXmark}
-          />
+        <div className="modal close-icon-container">
+          <SvgButton onClick={() => backdropClick()}>
+            <FontAwesomeIcon className={'close-icon'} icon={faXmark} />
+          </SvgButton>
           <span className="title">
             {gameInfo?.game?.title}
             <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
