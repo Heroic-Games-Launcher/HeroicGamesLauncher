@@ -536,7 +536,7 @@ Categories=Game;
           os = 'Windows'
           break
         case 'darwin':
-          os = 'MacOS'
+          os = 'macOS'
           break
         default:
           os = 'Unknown OS'
