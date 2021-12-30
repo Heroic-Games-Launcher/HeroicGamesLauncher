@@ -106,7 +106,7 @@ export default function WebView({ isLogin }: Props) {
       ) {
         case urls[loginUrl]: {
           webview.addEventListener('did-stop-loading', loadstop)
-          webview.removeEventListener('dom-ready', loadstop)
+          webview.removeEventListener('dom-ready', websiteloaded)
           break
         }
 
