@@ -55,7 +55,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 ## Planned features
 
 - Add Games outside Epic Games
-- Integration with GOG)
+- Integration with GOG
 
 ## Language Support
 
