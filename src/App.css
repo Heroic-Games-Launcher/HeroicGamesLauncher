@@ -87,17 +87,6 @@ html,
   color: white;
 }
 
-.close-icon {
-  position: absolute;
-  right: 2rem;
-  top: 2rem;
-  cursor: pointer;
-}
-
-.close-icon-container {
-  position: relative !important;
-}
-
 .button.is-secondary:hover {
   background: var(--secondary-hover);
   color: var(--text-tertiary);
