@@ -8,6 +8,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
+import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -67,7 +68,7 @@ export default function WineSettings({
   setDefaultWinePrefix
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
-  const { platform } = useContext(ContextProvider)
+  const { platform, isRTL } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const isProton = wineVersion.name.includes('Proton')
 
@@ -114,7 +115,7 @@ export default function WineSettings({
     <>
       {isLinux && isDefault && (
         <span data-testid="wineSettings" className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.defaultWinePrefix', 'Set Default Wine Prefix')}
           </span>
           <span>
@@ -146,7 +147,9 @@ export default function WineSettings({
       )}
       {isLinux && (
         <span data-testid="wineSettings" className="setting">
-          <span className="settingText">{t('setting.wineprefix')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('setting.wineprefix')}
+          </span>
           <span>
             <input
               data-testid="selectWinePrefix"
@@ -176,7 +179,7 @@ export default function WineSettings({
       )}
       {isDefault && (
         <span className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.customWineProton', 'Custom Wine/Proton Paths')}
           </span>
           <span className="settingInputWithButton">
@@ -222,7 +225,9 @@ export default function WineSettings({
         </span>
       )}
       <span className="setting">
-        <span className="settingText">{t('setting.wineversion')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.wineversion')}
+        </span>
         <select
           data-testid="setWineVersion"
           onChange={(event) =>
@@ -240,7 +245,7 @@ export default function WineSettings({
       </span>
       {wineVersion.name.includes('CrossOver') && (
         <span className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.winecrossoverbottle', 'CrossOver Bottle')}
           </span>
           <span>
@@ -256,7 +261,7 @@ export default function WineSettings({
       )}
       {isLinux && !isProton && (
         <span className="setting">
-          <span className="toggleWrapper">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
             {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
             <ToggleSwitch
               value={autoInstallDxvk}
@@ -277,7 +282,7 @@ export default function WineSettings({
         </span>
       )}
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t(
             'setting.enableFSRHack',
             'Enable FSR Hack (Wine version needs to support it)'
@@ -294,7 +299,7 @@ export default function WineSettings({
       </span>
       {enableFSR && (
         <span className="setting">
-          <span className="toggleWrapper">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
             {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
             <select
               data-testid="setMaxRecentGames"
@@ -312,7 +317,7 @@ export default function WineSettings({
       {isLinux && (
         <>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t(
                 'setting.resizableBar',
                 'Enable Resizable BAR (NVIDIA RTX only)'
@@ -328,7 +333,7 @@ export default function WineSettings({
             </span>
           </span>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t('setting.esync', 'Enable Esync')}
               <ToggleSwitch
                 value={enableEsync || false}
@@ -339,7 +344,7 @@ export default function WineSettings({
             </span>
           </span>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t('setting.fsync', 'Enable Fsync')}
               <ToggleSwitch
                 value={enableFsync || false}

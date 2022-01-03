@@ -7,6 +7,7 @@ import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@material-ui/icons/Backspace'
+import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -77,7 +78,7 @@ export default function OtherSettings({
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, isRTL } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
@@ -87,7 +88,7 @@ export default function OtherSettings({
     <>
       {!isDefault && (
         <span className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.change-target-exe', 'Select an alternative EXE to run')}
           </span>
           <span>
@@ -130,7 +131,7 @@ export default function OtherSettings({
 
       {shouldRenderFpsOption && (
         <span data-testid="otherSettings" className="setting">
-          <span className="toggleWrapper">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
             {t('setting.showfps')}
             <ToggleSwitch
               value={showFps}
@@ -143,7 +144,7 @@ export default function OtherSettings({
       {isLinux && (
         <>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t('setting.gamemode')}
               <ToggleSwitch
                 value={useGameMode}
@@ -153,7 +154,7 @@ export default function OtherSettings({
             </span>
           </span>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t('setting.primerun', 'Enable Nvidia Prime Render')}
               <ToggleSwitch
                 value={primeRun}
@@ -163,7 +164,7 @@ export default function OtherSettings({
             </span>
           </span>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t('setting.audiofix')}
               <ToggleSwitch
                 value={audioFix}
@@ -173,7 +174,7 @@ export default function OtherSettings({
             </span>
           </span>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t('setting.mangohud')}
               <ToggleSwitch
                 value={showMangohud}
@@ -185,7 +186,7 @@ export default function OtherSettings({
         </>
       )}
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t('setting.offlinemode')}
           <ToggleSwitch
             value={offlineMode}
@@ -197,7 +198,7 @@ export default function OtherSettings({
       {supportsShortcuts && isDefault && (
         <>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t(
                 'setting.adddesktopshortcuts',
                 'Add desktop shortcuts automatically'
@@ -213,7 +214,7 @@ export default function OtherSettings({
             </span>
           </span>
           <span className="setting">
-            <span className="toggleWrapper">
+            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
               {t(
                 'setting.addgamestostartmenu',
                 'Add games to start menu automatically'
@@ -232,7 +233,7 @@ export default function OtherSettings({
       )}
       {isDefault && (
         <span className="setting">
-          <span className="toggleWrapper">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
             {t('setting.discordRPC', 'Enable Discord Rich Presence')}
             <ToggleSwitch
               value={discordRPC}
@@ -244,7 +245,7 @@ export default function OtherSettings({
       )}
       {isDefault && (
         <span className="setting">
-          <span className="toggleWrapper">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
             {t('setting.maxRecentGames', 'Recent Games to Show')}
             <select
               data-testid="setMaxRecentGames"
@@ -263,7 +264,9 @@ export default function OtherSettings({
       )}
       {!isWin && (
         <span className="setting">
-          <span className="settingText">{t('options.advanced.title')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('options.advanced.title')}
+          </span>
           <span>
             <input
               data-testid="otheroptions"
@@ -279,7 +282,9 @@ export default function OtherSettings({
       )}
       {!isDefault && (
         <span className="setting">
-          <span className="settingText">{t('options.gameargs.title')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('options.gameargs.title')}
+          </span>
           <span>
             <input
               data-testid="launcherargs"
