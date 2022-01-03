@@ -184,6 +184,7 @@
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
+        "defaultWinePrefix": "Set Default Wine Prefix",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
         "enableFSRHack": "FSR Hack engedélyezése (Wine verziónak támogatnia kell)",

@@ -184,6 +184,7 @@
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon (needs restart)",
         "default-install-path": "",
+        "defaultWinePrefix": "Set Default Wine Prefix",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
