@@ -22,12 +22,14 @@ interface Props {
   setCustomWinePaths: (value: string[]) => void
   setWineCrossoverBottle: (value: string) => void
   setWinePrefix: (value: string) => void
+  setDefaultWinePrefix: (value: string) => void
   setFsrSharpness: (value: number) => void
   setWineVersion: (wine: WineInstallation) => void
   toggleAutoInstallDxvk: () => void
   toggleFSR: () => void
   toggleResizableBar: () => void
   wineCrossoverBottle: string
+  defaultWinePrefix: string
   winePrefix: string
   wineVersion: WineInstallation
   enableFSR: boolean
@@ -60,7 +62,9 @@ export default function WineSettings({
   enableEsync,
   toggleEsync,
   enableFsync,
-  toggleFsync
+  toggleFsync,
+  defaultWinePrefix,
+  setDefaultWinePrefix
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
@@ -108,6 +112,38 @@ export default function WineSettings({
 
   return (
     <>
+      {isLinux && isDefault && (
+        <span data-testid="wineSettings" className="setting">
+          <span className="settingText">
+            {t('setting.defaultWinePrefix', 'Set Default Wine Prefix')}
+          </span>
+          <span>
+            <input
+              data-testid="selectDefaultWinePrefix"
+              type="text"
+              value={defaultWinePrefix}
+              className="settingSelect"
+              onChange={(event) => setDefaultWinePrefix(event.target.value)}
+            />
+            <SvgButton
+              className="material-icons settings folder"
+              onClick={() =>
+                ipcRenderer
+                  .invoke('openDialog', {
+                    buttonLabel: t('box.choose'),
+                    properties: ['openDirectory'],
+                    title: t('box.wineprefix')
+                  })
+                  .then(({ path }: Path) =>
+                    setWinePrefix(path ? `${path}` : defaultWinePrefix)
+                  )
+              }
+            >
+              <CreateNewFolder data-testid="addWinePrefix" />
+            </SvgButton>
+          </span>
+        </span>
+      )}
       {isLinux && (
         <span data-testid="wineSettings" className="setting">
           <span className="settingText">{t('setting.wineprefix')}</span>

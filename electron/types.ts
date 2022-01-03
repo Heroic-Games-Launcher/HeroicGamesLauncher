@@ -41,6 +41,7 @@ export interface AppSettings {
   userInfo: UserInfo
   wineCrossoverBottle: string
   winePrefix: string
+  defaultWinePrefix: string
   wineVersion: WineInstallation
 }
 

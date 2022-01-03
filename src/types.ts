@@ -36,6 +36,7 @@ export interface AppSettings {
   useGameMode: boolean
   targetExe: string
   wineCrossoverBottle: string
+  defaultWinePrefix: string
   winePrefix: string
   wineVersion: WineInstallation
 }

@@ -106,7 +106,6 @@ export default function OtherSettings({
                   ipcRenderer
                     .invoke('openDialog', {
                       buttonLabel: t('box.select.button', 'Select'),
-                      filters: [{ extensions: ['exe'], name: 'Binaries' }],
                       properties: ['openFile'],
                       title: t('box.select.exe', 'Select EXE')
                     })

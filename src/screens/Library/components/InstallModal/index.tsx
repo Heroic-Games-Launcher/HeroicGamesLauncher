@@ -1,4 +1,10 @@
-import { getInstallInfo, getProgress, install, writeConfig } from 'src/helpers'
+import {
+  getAppSettings,
+  getInstallInfo,
+  getProgress,
+  install,
+  writeConfig
+} from 'src/helpers'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -141,7 +147,8 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
         .replaceAll(' ', '-')
-      const sugestedWinePrefix = `~/Games/Heroic/Prefixes/${fixedTitle}`
+      const { defaultWinePrefix } = await getAppSettings()
+      const sugestedWinePrefix = `${defaultWinePrefix}/${fixedTitle}`
       setWinePrefix(sugestedWinePrefix)
     }
     getInfo()

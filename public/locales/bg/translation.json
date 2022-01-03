@@ -184,6 +184,7 @@
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
+        "defaultWinePrefix": "Set Default Wine Prefix",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",

@@ -184,6 +184,7 @@
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
         "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதை",
+        "defaultWinePrefix": "Set Default Wine Prefix",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "நிறுவப்பட்ட எபிக் விளையாட்டுகளுடன் ஒத்திசை",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
