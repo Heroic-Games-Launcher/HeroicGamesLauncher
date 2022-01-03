@@ -184,7 +184,7 @@
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",
         "default-install-path": "デフォルトのインストールパス",
-        "defaultWinePrefix": "Set Default Wine Prefix",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Discord Rich Presenceを有効にする",
         "egs-sync": "インストールされているEpic Gamesと同期する",
         "enableFSRHack": "FSRハックを有効にする（Wineバージョンはそれをサポートする必要があります）",

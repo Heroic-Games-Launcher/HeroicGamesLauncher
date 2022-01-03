@@ -169,7 +169,7 @@
     "Plugins": "Plugins",
     "Projects": "Projetos",
     "Ready": "Baixados",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Voltar",
     "search": "Digite o nome do jogo...",
     "setting": {
@@ -184,7 +184,7 @@
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro",
         "default-install-path": "Pasta de instalação padrão",
-        "defaultWinePrefix": "Set Default Wine Prefix",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Habilitar Discord Rich Presence",
         "egs-sync": "Sincronizar com Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",

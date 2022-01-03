@@ -116,7 +116,7 @@ export default function WineSettings({
       {isLinux && isDefault && (
         <span data-testid="wineSettings" className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
-            {t('setting.defaultWinePrefix', 'Set Default Wine Prefix')}
+            {t('setting.defaultWinePrefix', 'Set Folder for new Wine Prefixes')}
           </span>
           <span>
             <input
@@ -136,7 +136,7 @@ export default function WineSettings({
                     title: t('box.wineprefix')
                   })
                   .then(({ path }: Path) =>
-                    setWinePrefix(path ? `${path}` : defaultWinePrefix)
+                    setDefaultWinePrefix(path ? `${path}` : defaultWinePrefix)
                   )
               }
             >

@@ -169,7 +169,7 @@
     "Plugins": "Plugins",
     "Projects": "Projektek",
     "Ready": "Kész",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
@@ -184,7 +184,7 @@
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
-        "defaultWinePrefix": "Set Default Wine Prefix",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
         "enableFSRHack": "FSR Hack engedélyezése (Wine verziónak támogatnia kell)",

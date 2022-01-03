@@ -169,7 +169,7 @@
     "Plugins": "Plugins",
     "Projects": "Πρότζεκτ",
     "Ready": "Έτοιμο",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Επιστροφή",
     "search": "Εισαγάγετε όνομα παιχνιδιού...",
     "setting": {
@@ -184,7 +184,7 @@
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
-        "defaultWinePrefix": "Set Default Wine Prefix",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",

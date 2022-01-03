@@ -184,7 +184,7 @@
         "customWineProton": "Locais com WINE/Proton Customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
-        "defaultWinePrefix": "Set Default Wine Prefix",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",

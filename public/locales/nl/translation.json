@@ -184,7 +184,7 @@
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie pad",
-        "defaultWinePrefix": "Set Default Wine Prefix",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "\"Discord Rich Presence\" inschakelen",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
         "enableFSRHack": "FSR Hack inschakelen (Wine versie moet dit ondersteunen)",

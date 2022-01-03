@@ -60,7 +60,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
       <span id="top" />
       <h3 className="libraryHeader">
         {showRecentsOnly
-          ? t('Recent', 'Recent Games')
+          ? t('Recent', 'Played Recently')
           : getLibraryTitle(category, filter, t)}
       </h3>
       <div
