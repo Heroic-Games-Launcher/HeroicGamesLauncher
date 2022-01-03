@@ -40,12 +40,12 @@ export class LegendaryUser {
 
   public static async logout() {
     await execAsync(`${legendaryBin} auth --delete`)
-    configStore.delete('userInfo')
     const ses = session.fromPartition('persist:epicstore')
-    ses.clearStorageData()
-    ses.clearCache()
-    ses.clearAuthCache()
-    ses.clearHostResolverCache()
+    await ses.clearStorageData()
+    await ses.clearCache()
+    await ses.clearAuthCache()
+    await ses.clearHostResolverCache()
+    configStore.clear()
     clearCache()
   }
 
