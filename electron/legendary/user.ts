@@ -7,6 +7,7 @@ import { logError, logInfo } from '../logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
+import { session } from 'electron'
 
 const configStore = new Store({
   cwd: 'store'
@@ -40,6 +41,11 @@ export class LegendaryUser {
   public static async logout() {
     await execAsync(`${legendaryBin} auth --delete`)
     configStore.delete('userInfo')
+    const ses = session.fromPartition('persist:epicstore')
+    ses.clearStorageData()
+    ses.clearCache()
+    ses.clearAuthCache()
+    ses.clearHostResolverCache()
     clearCache()
   }
 
