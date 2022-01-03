@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Path, SyncType } from 'src/types'
 import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -36,7 +37,7 @@ export default function SyncSaves({
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, isRTL } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
   useEffect(() => {
@@ -166,7 +167,7 @@ export default function SyncSaves({
         </span>
       </span>
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t('setting.autosync')}
           <ToggleSwitch
             value={autoSyncSaves}

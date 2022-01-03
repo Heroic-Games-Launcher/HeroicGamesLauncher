@@ -248,3 +248,7 @@ svg.disabled {
   color: var(--icon-disabled);
   cursor: initial;
 }
+
+.isRTL {
+  direction: rtl;
+}
