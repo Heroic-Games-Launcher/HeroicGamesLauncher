@@ -88,7 +88,7 @@ export default function OtherSettings({
     <>
       {!isDefault && (
         <span className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.change-target-exe', 'Select an alternative EXE to run')}
           </span>
           <span>
@@ -264,7 +264,9 @@ export default function OtherSettings({
       )}
       {!isWin && (
         <span className="setting">
-          <span className="settingText">{t('options.advanced.title')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('options.advanced.title')}
+          </span>
           <span>
             <input
               data-testid="otheroptions"
@@ -280,7 +282,9 @@ export default function OtherSettings({
       )}
       {!isDefault && (
         <span className="setting">
-          <span className="settingText">{t('options.gameargs.title')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('options.gameargs.title')}
+          </span>
           <span>
             <input
               data-testid="launcherargs"

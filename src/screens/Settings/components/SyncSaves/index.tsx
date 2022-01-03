@@ -88,7 +88,9 @@ export default function SyncSaves({
   return (
     <>
       <span data-testid="syncSettings" className="setting">
-        <span className="settingText">{t('setting.savefolder.title')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.savefolder.title')}
+        </span>
         <span>
           <input
             data-testid="inputSavePath"
@@ -131,7 +133,9 @@ export default function SyncSaves({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">{t('setting.manualsync.title')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.manualsync.title')}
+        </span>
         <span
           style={{
             display: 'flex',

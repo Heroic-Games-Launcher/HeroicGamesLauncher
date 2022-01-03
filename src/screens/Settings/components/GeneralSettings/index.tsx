@@ -187,7 +187,9 @@ export default function GeneralSettings({
   return (
     <>
       <span className="setting" data-testid="generalSettings">
-        <span className="settingText">{t('setting.language')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.language')}
+        </span>
         <LanguageSelector
           handleLanguageChange={handleChangeLanguage}
           currentLanguage={language}
@@ -201,7 +203,9 @@ export default function GeneralSettings({
         </a>
       </span>
       <span className="setting">
-        <span className="settingText">{t('setting.default-install-path')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.default-install-path')}
+        </span>
         <span>
           <input
             data-testid="setinstallpath"
@@ -230,7 +234,7 @@ export default function GeneralSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">
+        <span className={classNames('settingText', { isRTL: isRTL })}>
           {t(
             'setting.alt-legendary-bin',
             'Choose an Alternative Legendary Binary  (needs restart)to use'
@@ -279,7 +283,9 @@ export default function GeneralSettings({
       </span>
       {!isWindows && (
         <span className="setting">
-          <span className="settingText">{t('setting.egs-sync')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('setting.egs-sync')}
+          </span>
           <span className="settingInputWithButton">
             <input
               data-testid="setEpicSyncPath"

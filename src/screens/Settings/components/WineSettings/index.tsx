@@ -115,7 +115,7 @@ export default function WineSettings({
     <>
       {isLinux && isDefault && (
         <span data-testid="wineSettings" className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.defaultWinePrefix', 'Set Default Wine Prefix')}
           </span>
           <span>
@@ -147,7 +147,9 @@ export default function WineSettings({
       )}
       {isLinux && (
         <span data-testid="wineSettings" className="setting">
-          <span className="settingText">{t('setting.wineprefix')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('setting.wineprefix')}
+          </span>
           <span>
             <input
               data-testid="selectWinePrefix"
@@ -177,7 +179,7 @@ export default function WineSettings({
       )}
       {isDefault && (
         <span className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.customWineProton', 'Custom Wine/Proton Paths')}
           </span>
           <span className="settingInputWithButton">
@@ -223,7 +225,9 @@ export default function WineSettings({
         </span>
       )}
       <span className="setting">
-        <span className="settingText">{t('setting.wineversion')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.wineversion')}
+        </span>
         <select
           data-testid="setWineVersion"
           onChange={(event) =>
@@ -241,7 +245,7 @@ export default function WineSettings({
       </span>
       {wineVersion.name.includes('CrossOver') && (
         <span className="setting">
-          <span className="settingText">
+          <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.winecrossoverbottle', 'CrossOver Bottle')}
           </span>
           <span>
