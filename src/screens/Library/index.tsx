@@ -10,6 +10,7 @@ import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 import { UpdateComponent } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
 import { getLibraryTitle } from './constants'
+import ActionIcons from 'src/components/UI/ActionIcons'
 
 const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
 const InstallModal = lazy(
@@ -49,6 +50,15 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     return <UpdateComponent />
   }
 
+  function titleWithIcons() {
+    return (
+      <div className="titleWithIcons">
+        {getLibraryTitle(category, filter, t)}
+        <ActionIcons />
+      </div>
+    )
+  }
+
   return (
     <>
       {showModal.show && (
@@ -59,9 +69,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
       )}
       <span id="top" />
       <h3 className="libraryHeader">
-        {showRecentsOnly
-          ? t('Recent', 'Played Recently')
-          : getLibraryTitle(category, filter, t)}
+        {showRecentsOnly ? t('Recent', 'Played Recently') : titleWithIcons()}
       </h3>
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}

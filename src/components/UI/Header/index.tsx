@@ -3,18 +3,14 @@ import './index.css'
 import { Link, useHistory } from 'react-router-dom'
 import React, { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faSyncAlt,
-  faBorderAll,
-  faList
-} from '@fortawesome/free-solid-svg-icons'
+
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { UE_VERSIONS } from './constants'
 import { useTranslation } from 'react-i18next'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import ContextProvider from 'src/state/ContextProvider'
-import { SearchBar, SvgButton } from 'src/components/UI'
+import { SearchBar } from 'src/components/UI'
 import cx from 'classnames'
 
 interface Props {
@@ -40,9 +36,6 @@ export default function Header({
     handleFilter,
     filterPlatform,
     handlePlatformFilter,
-    refreshLibrary,
-    handleLayout,
-    layout,
     platform
   } = useContext(ContextProvider)
   const history = useHistory()
@@ -208,31 +201,6 @@ export default function Header({
             {t('nogames')}
           </div>
         )}
-        <div className="headerIcons">
-          <SvgButton onClick={() => handleLayout('grid')}>
-            <FontAwesomeIcon
-              className={cx({ selectedLayout: layout === 'grid' })}
-              icon={faBorderAll}
-            />
-          </SvgButton>
-          <SvgButton onClick={() => handleLayout('list')}>
-            <FontAwesomeIcon
-              className={cx({ selectedLayout: layout === 'list' })}
-              icon={faList}
-            />
-          </SvgButton>
-          <SvgButton
-            onClick={() =>
-              refreshLibrary({
-                checkForUpdates: true,
-                fullRefresh: true,
-                runInBackground: false
-              })
-            }
-          >
-            <FontAwesomeIcon className="refreshIcon" icon={faSyncAlt} />
-          </SvgButton>
-        </div>
       </div>
     </>
   )
