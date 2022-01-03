@@ -8,7 +8,7 @@ import {
 import React, { useContext, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 import prettyBytes from 'pretty-bytes'
 import { Checkbox } from '@material-ui/core'
@@ -181,6 +181,9 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
         <div className="modal">
+          <SvgButton className="close-button" onClick={() => backdropClick()}>
+            <FontAwesomeIcon icon={faXmark} />
+          </SvgButton>
           <span className="title">
             {gameInfo?.game?.title}
             <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
