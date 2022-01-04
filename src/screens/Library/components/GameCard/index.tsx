@@ -129,7 +129,7 @@ const GameCard = ({
 
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
   const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
-  const imageSrc = `${grid ? cover : coverList}?h=400&resize=1&w=300')`
+  const imageSrc = `${grid ? cover : coverList}?h=400&resize=1&w=300`
 
   async function handleUpdate() {
     await handleGameStatus({ appName, status: 'updating' })
