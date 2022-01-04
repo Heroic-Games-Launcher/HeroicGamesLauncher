@@ -42,6 +42,7 @@ function App() {
                     numberOfGames={numberOfGames}
                   />
                   <div className="listing">
+                    <span id="top" />
                     {showRecentGames && (
                       <Library showRecentsOnly library={recentGames} />
                     )}

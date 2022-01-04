@@ -33,7 +33,7 @@
   right: 0;
   margin: 1em 3em;
   border: 1px var(--secondary) solid;
-  background-color: transparent;
+  background-color: var(--background);
   color: var(--secondary);
   display: flex;
   align-items: center;
@@ -41,25 +41,16 @@
   align-self: flex-end;
   z-index: 9;
   visibility: hidden;
+  transition: all 0.3s ease-in;
+  cursor: pointer;
 }
 
 #backToTopBtn:hover {
-  cursor: pointer;
-  animation: apparition 0.3s ease-in forwards;
+  background-color: var(--secondary);
+  color: var(--text-primary);
 }
 
 .listing {
   overflow-y: auto;
   flex: 100% 1 1;
-}
-
-@keyframes apparition {
-  from {
-    color: var(--secondary);
-    background-color: transparent;
-  }
-  to {
-    background-color: var(--secondary);
-    color: var(--text-primary);
-  }
 }
