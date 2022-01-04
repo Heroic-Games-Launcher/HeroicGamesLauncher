@@ -48,6 +48,11 @@
   animation: apparition 0.3s ease-in forwards;
 }
 
+.listing {
+  overflow-y: auto;
+  flex: 100% 1 1;
+}
+
 @keyframes apparition {
   from {
     color: var(--secondary);

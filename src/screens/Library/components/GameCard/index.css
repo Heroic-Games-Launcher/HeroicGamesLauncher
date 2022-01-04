@@ -1,9 +1,6 @@
 .gameCard {
   background-color: var(--background-darker);
   text-align: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: clamp(130px, 8vw, 200px);
   height: 10vw;
   max-height: 266px;
@@ -55,21 +52,31 @@
   height: 20px;
 }
 
-.gameCard > a > .gameImg {
-  width: 8vw;
-  height: 10vw;
-  max-width: 200px;
-  max-height: 266px;
-  min-width: 130px;
-  min-height: 173px;
-  object-fit: cover;
-  position: absolute;
-  border-radius: 0.5rem;
-  top: 0;
-  left: 0;
+.gameCard > a {
+  display: block;
+  position: relative;
 }
 
-.gameTitle {
+.gameCard .gameImg {
+  width: clamp(130px, 8vw, 200px);
+  height: clamp(173px, 10vw, 266px);
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.gameCard .gameLogo {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(70px, 7vw, 60%);
+}
+
+.gameCard .gameListInfo {
+  display: none;
+}
+
+.gameCard .gameTitle {
   position: absolute;
   width: 100%;
   bottom: -92px;
@@ -83,65 +90,16 @@
   font-weight: 700;
   line-height: 17px;
   color: var(--text-primary);
-  height: 4vw;
-  min-height: 80px;
-  max-height: 85px;
+  height: clamp(80px, 4vw, 85px);
   cursor: pointer;
   z-index: 3;
-}
-
-.gameTitle > span {
-  bottom: 0;
-  display: none;
-  z-index: 3;
-}
-
-.icons {
-  align-self: flex-end;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  z-index: 4;
-  padding: 6px;
-  margin-right: 4px;
-  transition: 300ms;
-}
-
-.icons > button > svg,
-.icons > a > svg,
-.icons > svg {
-  width: min(calc(1vw + 9px), 36px);
-  height: min(calc(1vw + 9px), 36px);
-  min-width: 22px;
-  min-height: 22px;
-  display: block;
-}
-.icons > .svg-button {
-  margin-left: 12px;
-}
-
-.playIcon > circle {
-  fill: var(--success);
-}
-
-.downIcon > circle {
-  fill: var(--secondary);
-}
-
-.cancelIcon > circle {
-  fill: var(--danger);
-}
-
-.iconDisabled circle {
-  fill: var(--icon-disabled);
-}
-
-.iconDisabled > * {
-  cursor: initial;
+  pointer-events: none;
 }
 
 .gameCard > .icons {
   opacity: 0;
+  position: absolute;
+  bottom: 0px;
 }
 
 .gameCard:hover > .icons,
@@ -164,66 +122,58 @@
   background: none;
 }
 
-.gameCard .gameTitle span {
-  flex-grow: 1;
-}
-
-.gameImg {
-  width: 210px;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-}
-
 .gameListItem {
   display: grid;
   grid-template-columns: 2fr 1fr 6fr 1fr;
   grid-template-areas: 'cover infos name action';
-  height: 8vh;
   align-items: center;
   position: relative;
   cursor: default;
   place-self: center;
-  padding-left: 2rem;
-}
-
-.gameImgList {
-  max-width: 15vh;
-  height: inherit;
-  width: inherit;
-  grid-area: cover;
-  border-radius: 0.5rem;
-  contain: content;
-  cursor: pointer;
-  display: block;
-}
-
-.gameListItem > .gameLogo {
-  width: 3vw;
-  min-width: 45px;
-  position: absolute;
-  z-index: 2;
-  grid-area: cover;
-}
-
-.gameImgList > .gameLogo {
-  width: 45%;
-  min-width: 60px;
-  position: relative;
-  top: 25px;
-  z-index: 2;
-}
-
-.gameTitleList {
-  grid-area: name;
-  font-size: 1em;
+  margin: 0 2rem 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid gray;
 }
 
 .gameListItem > a {
   grid-area: cover;
+  position: relative;
   max-width: 15vh;
+  max-height: 8vh;
   width: 100%;
   height: 100%;
+}
+
+.gameListItem .gameImg {
+  width: 100%;
+  height: auto;
+  grid-area: cover;
+  border-radius: 0.5rem;
+  contain: content;
+  cursor: pointer;
+}
+
+.gameListItem .gameLogo {
+  width: min(45px, 3vw);
+  position: absolute;
+  grid-area: cover;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.gameListItem .gameListInfo {
+  font-size: 1em;
+  grid-area: infos;
+}
+
+.gameListItem .gameTitle {
+  grid-area: name;
+  font-size: 1em;
+}
+
+.gameListItem .gameTitle span {
+  display: inline;
 }
 
 .gameListItem > .icons {
@@ -259,27 +209,54 @@
   top: 0;
 }
 
-.gameListInfo {
-  font-size: 1em;
-  grid-area: infos;
-}
-
-.gameImg > .gameLogo {
-  width: min(7vw, 60%);
-  position: relative;
-  top: 35%;
-  min-width: 79px;
-  z-index: 2;
-  left: 21%;
-}
-
 .progress > svg {
   cursor: pointer;
   z-index: 7;
 }
 
-hr {
-  opacity: 0.1;
-  margin-left: 2rem;
-  margin-right: 2rem;
+.gameImg:not(.installed),
+.gameLogo:not(.installed) {
+  filter: grayscale(var(--installing-effect));
+}
+
+.icons {
+  align-self: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 4;
+  padding: 6px;
+  margin-right: 4px;
+  transition: 300ms;
+}
+
+.icons > button > svg,
+.icons > a > svg,
+.icons > svg {
+  width: clamp(22px, calc(1vw + 9px), 36px);
+  height: clamp(22px, calc(1vw + 9px), 36px);
+  display: block;
+}
+.icons > .svg-button {
+  margin-left: 12px;
+}
+
+.playIcon > circle {
+  fill: var(--success);
+}
+
+.downIcon > circle {
+  fill: var(--secondary);
+}
+
+.cancelIcon > circle {
+  fill: var(--danger);
+}
+
+.iconDisabled circle {
+  fill: var(--icon-disabled);
+}
+
+.iconDisabled > * {
+  cursor: initial;
 }

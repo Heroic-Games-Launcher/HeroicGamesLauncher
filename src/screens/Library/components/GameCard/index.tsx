@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, CSSProperties } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
@@ -123,9 +123,13 @@ const GameCard = ({
   }, [isInstalling, appName])
 
   const { percent = '' } = progress
-  const effectPercent = isInstalling
+  const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
+
+  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
+  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
+  const imageSrc = `${grid ? cover : coverList}?h=400&resize=1&w=300')`
 
   async function handleUpdate() {
     await handleGameStatus({ appName, status: 'updating' })
@@ -178,7 +182,11 @@ const GameCard = ({
     }
     if (!isInstalled) {
       if (hasDownloads) {
-        return <DownIcon className="iconDisabled" />
+        return (
+          <SvgButton onClick={(e) => e.preventDefault()}>
+            <DownIcon className="iconDisabled" />
+          </SvgButton>
+        )
       }
       return (
         <SvgButton onClick={() => buttonClick()}>
@@ -198,80 +206,39 @@ const GameCard = ({
             to={{
               pathname: `/gameconfig/${appName}`
             }}
+            style={
+              { '--installing-effect': installingGrayscale } as CSSProperties
+            }
           >
-            <span
-              style={{
-                backgroundImage: `url('${
-                  grid ? cover : coverList
-                }?h=400&resize=1&w=300')`,
-                backgroundSize: '100% 100%',
-                filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
-              }}
-              className={grid ? 'gameImg' : 'gameImgList'}
-            >
-              {logo && (
-                <img
-                  alt="logo"
-                  src={`${logo}?h=400&resize=1&w=300`}
-                  style={{
-                    filter: isInstalled ? 'none' : `grayscale(${effectPercent})`
-                  }}
-                  className="gameLogo"
-                />
+            <img src={imageSrc} className={imgClasses} alt="cover" />
+            {logo && (
+              <img
+                alt="logo"
+                src={`${logo}?h=400&resize=1&w=300`}
+                className={logoClasses}
+              />
+            )}
+          </Link>
+          <span className="gameListInfo">{isInstalled ? size : '---'}</span>
+          <span className="gameTitle">{title}</span>
+          {
+            <span className="icons">
+              {renderIcon()}
+              {isInstalled && isGame && (
+                <SvgButton
+                  onClick={() =>
+                    history.push({
+                      pathname: path,
+                      state: { fromGameCard: true }
+                    })
+                  }
+                >
+                  <SettingsIcon fill={'var(--text-primary)'} />
+                </SvgButton>
               )}
             </span>
-          </Link>
-          {grid ? (
-            <>
-              <div
-                className="gameTitle"
-                onClick={() => history.push(`/gameconfig/${appName}`)}
-              >
-                <span>{title}</span>
-              </div>
-              {
-                <span className="icons">
-                  {renderIcon()}
-                  {isInstalled && isGame && (
-                    <SvgButton
-                      onClick={() =>
-                        history.push({
-                          pathname: path,
-                          state: { fromGameCard: true }
-                        })
-                      }
-                    >
-                      <SettingsIcon fill={'var(--text-primary)'} />
-                    </SvgButton>
-                  )}
-                </span>
-              }
-            </>
-          ) : (
-            <>
-              {<div className="gameListInfo">{isInstalled ? size : '---'}</div>}
-              <span className="gameTitleList">{title}</span>
-              {
-                <span className="icons">
-                  {renderIcon()}
-                  {isInstalled && isGame && (
-                    <SvgButton
-                      onClick={() =>
-                        history.push({
-                          pathname: path,
-                          state: { fromGameCard: true }
-                        })
-                      }
-                    >
-                      <SettingsIcon fill={'var(--text-primary)'} />
-                    </SvgButton>
-                  )}
-                </span>
-              }
-            </>
-          )}
+          }
         </div>
-        {!grid && <hr />}
         <ContextMenu id={appName} className="contextMenu">
           {isInstalled && (
             <>
