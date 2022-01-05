@@ -16,10 +16,14 @@ const Store = window.require('electron-store')
 const configStore: ElectronStore = new Store({
   cwd: 'store'
 })
+const gogStore: ElectronStore = new Store({
+  cwd: 'gog_store'
+})
 
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 import { getAppSettings } from 'src/helpers'
+const { ipcRenderer } = window.require('electron')
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
@@ -29,13 +33,23 @@ export default function SidebarLinks() {
 
   const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
-  const isLoggedIn = Boolean(configStore.get('userInfo'))
-  const showSubmenu = showUnrealMarket && isLibrary && isLoggedIn
+  const isEpicLoggedIn = Boolean(configStore.get('userInfo'))
+  const isGOGLoggedIn = gogStore.has('credentials')
+  const showSubmenu = isLibrary && isEpicLoggedIn
 
   function toggleCategory(newCategory: string) {
     if (category !== newCategory) {
       handleCategory(newCategory)
       handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
+    }
+  }
+
+  function handleGOG() {
+    if (isGOGLoggedIn) {
+      console.log('Not implemented yet!')
+    } else {
+      // Login
+      ipcRenderer.send('openGOGLoginPage')
     }
   }
 
@@ -61,9 +75,9 @@ export default function SidebarLinks() {
       >
         <FontAwesomeIcon
           style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={isLoggedIn ? faGamepad : faUser}
+          icon={isEpicLoggedIn ? faGamepad : faUser}
         />
-        {isLoggedIn ? t('Library') : t('button.login', 'Login')}
+        {isEpicLoggedIn ? t('Library') : t('button.login', 'Login')}
       </NavLink>
       {showSubmenu && (
         <>
@@ -76,11 +90,20 @@ export default function SidebarLinks() {
           </a>
           <a
             href="#"
-            onClick={() => toggleCategory('unreal')}
-            className={cx('subItem', { ['selected']: category === 'unreal' })}
+            onClick={handleGOG}
+            className={cx('subItem', { ['selected']: category === 'gog' })}
           >
-            {t('Unreal Marketplace', 'Unreal Marketplace')}
+            {t('GOG', 'GOG')}
           </a>
+          {showUnrealMarket && (
+            <a
+              href="#"
+              onClick={() => toggleCategory('unreal')}
+              className={cx('subItem', { ['selected']: category === 'unreal' })}
+            >
+              {t('Unreal Marketplace', 'Unreal Marketplace')}
+            </a>
+          )}
         </>
       )}
       <NavLink

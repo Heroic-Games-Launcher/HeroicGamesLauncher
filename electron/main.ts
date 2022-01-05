@@ -30,6 +30,8 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
+import { GOGUser } from './gog/user'
+import { GOGLibrary } from './gog/library'
 import {
   checkCommandVersion,
   checkForUpdates,
@@ -57,7 +59,7 @@ import {
   installed,
   kofiPage,
   legendaryBin,
-  loginUrl,
+  epicLoginUrl,
   patreonPage,
   sidInfoUrl,
   supportURL,
@@ -110,6 +112,7 @@ async function createWindow(): Promise<BrowserWindow> {
 
   GlobalConfig.get()
   LegendaryLibrary.get()
+  GOGLibrary.sync()
 
   mainWindow.setIcon(icon)
   app.setAppUserModelId('Heroic')
@@ -412,7 +415,8 @@ ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
-ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
+ipcMain.on('openLoginPage', () => openUrlOrFile(epicLoginUrl))
+ipcMain.on('openGOGLoginPage', () => GOGUser.handleGOGLogin())
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
@@ -624,6 +628,7 @@ if (existsSync(installed)) {
 }
 
 ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
+  await GOGLibrary.sync()
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 

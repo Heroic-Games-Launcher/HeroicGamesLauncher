@@ -229,3 +229,45 @@ export interface InstallParams {
   installDlcs?: boolean
   sdlList?: Array<string>
 }
+
+export interface GOGLoginData {
+  expires_in: number
+  access_token: string
+  refresh_token: string
+  user_id: string
+  loginTime: number
+}
+
+export interface GOGGameInfo {
+  tags: string[]
+  id: number
+  availability: {
+    isAvailable: boolean
+    isAvailableInAccount: boolean
+  }
+  title: string
+  url: string
+  worksOn: {
+    Windows: boolean
+    Mac: boolean
+    Linux: boolean
+  }
+  category: string
+  rating: number
+  isComingSoom: boolean
+  isGame: boolean
+  slug: string
+  isNew: boolean
+  dlcCount: number
+  releaseDate: {
+    date: string
+    timezone_type: number
+    timezone: string
+  }
+  isBaseProductMissing: boolean
+  isHidingDisabled: boolean
+  isInDevelopment: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  extraInfo: any[]
+  isHidden: boolean
+}

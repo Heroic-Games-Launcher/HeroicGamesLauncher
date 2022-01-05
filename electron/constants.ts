@@ -49,8 +49,10 @@ const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
 const installed = `${legendaryConfigPath}/installed.json`
 const libraryPath = `${legendaryConfigPath}/metadata/`
-const loginUrl =
+const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
+const gogLoginUrl =
+  'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=client2'
 const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
@@ -127,7 +129,8 @@ export {
   legendaryBin,
   legendaryConfigPath,
   libraryPath,
-  loginUrl,
+  epicLoginUrl,
+  gogLoginUrl,
   patreonPage,
   sidInfoUrl,
   supportURL,
