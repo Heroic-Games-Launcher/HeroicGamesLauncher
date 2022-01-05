@@ -20,7 +20,7 @@
     },
     "status": {
         "error": "Erreur",
-        "loading": "Chargement de la liste des jeux en cours, veuillez patienter",
+        "loading": "Chargement de la liste des jeux, veuillez patienter",
         "logging": "Connexion en cours…"
     },
     "welcome": "Bienvenue !"
