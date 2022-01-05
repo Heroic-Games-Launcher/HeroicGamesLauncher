@@ -184,6 +184,7 @@
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat tray-ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Luba Discord Rich Presence",
         "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",

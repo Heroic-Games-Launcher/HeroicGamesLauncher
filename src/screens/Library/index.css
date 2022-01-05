@@ -20,6 +20,10 @@
   padding-left: 2rem;
 }
 
+.titleWithIcons {
+  display: flex;
+}
+
 #backToTopBtn {
   border-radius: 100%;
   width: 5vh;

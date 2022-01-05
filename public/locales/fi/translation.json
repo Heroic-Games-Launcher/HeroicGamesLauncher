@@ -184,6 +184,7 @@
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
         "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",

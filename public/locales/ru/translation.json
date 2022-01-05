@@ -184,6 +184,7 @@
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Включить Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",

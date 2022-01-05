@@ -184,6 +184,7 @@
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
         "egs-sync": "與已安裝的Epic Games同步",
         "enableFSRHack": "啟用FSR（需要支持的WINE版本）",

@@ -169,7 +169,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "Ready",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Return",
     "search": "Enter the game name here...",
     "setting": {
@@ -184,6 +184,7 @@
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
@@ -203,7 +204,7 @@
             "title": "Manual Sync Saves",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Played Recently to Show",
         "maxworkers": "Maximum Number of Workers when downloading",
         "offlinemode": "Run Game Offline",
         "primerun": "Enable Nvidia Prime Render",

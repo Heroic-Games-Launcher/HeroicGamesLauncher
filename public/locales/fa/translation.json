@@ -184,6 +184,7 @@
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیش‌فرض نصب",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "فعال‌سازی Discord Rich Presence",
         "egs-sync": "همگام‌سازی با بازی‌های اپیک نصب شده",
         "enableFSRHack": "فعال‌سازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",

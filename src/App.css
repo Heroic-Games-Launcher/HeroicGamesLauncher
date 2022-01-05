@@ -183,6 +183,22 @@ html,
   color: var(--secondary);
 }
 
+.button.is-link {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--secondary);
+  margin: 4px 0px;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.button.is-link:hover {
+  color: var(--secondary-hover);
+}
+
 .icons > * {
   cursor: pointer;
 }
@@ -247,4 +263,8 @@ svg.disabled {
 .react-contextmenu-item.disabled {
   color: var(--icon-disabled);
   cursor: initial;
+}
+
+.isRTL {
+  direction: rtl;
 }
