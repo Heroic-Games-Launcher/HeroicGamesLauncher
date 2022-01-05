@@ -169,7 +169,7 @@
     "Plugins": "插件",
     "Projects": "项目",
     "Ready": "准备就绪",
-    "Recent": "最近的游戏",
+    "Recent": "最近玩过",
     "Return": "返回",
     "search": "在此处输入游戏名称…",
     "setting": {
@@ -184,7 +184,7 @@
         "customWineProton": "自定义Wine/Proton路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "为新的 Wine Prefixes 设置文件夹",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的Epic Games同步",
         "enableFSRHack": "启用FSR（需要支持的WINE版本）",
@@ -204,7 +204,7 @@
             "title": "手动同步存档",
             "upload": "上传"
         },
-        "maxRecentGames": "最近要展示的游戏",
+        "maxRecentGames": "要显示的最近玩过的游戏",
         "maxworkers": "下载时的最大Worker数量",
         "offlinemode": "离线运行游戏",
         "primerun": "启用英伟达Prime渲染",
