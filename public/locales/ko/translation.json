@@ -120,6 +120,10 @@
     "loading": {
         "website": "웹사이트 로드 중"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "동기화 완료",
         "unsync": "동기화 해제 완료"

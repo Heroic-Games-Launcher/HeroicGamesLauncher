@@ -120,6 +120,10 @@
     "loading": {
         "website": "Chargement du site internet"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Synchronisation Complète",
         "unsync": "Désynchronisation Complète"

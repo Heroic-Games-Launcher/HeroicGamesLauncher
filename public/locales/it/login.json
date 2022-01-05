@@ -2,9 +2,6 @@
     "button": {
         "login": "Accedi"
     },
-    "info": {
-        "needHelp": "Ti serve aiuto?"
-    },
     "input": {
         "placeholder": "Incolla qui il numero SID"
     },
