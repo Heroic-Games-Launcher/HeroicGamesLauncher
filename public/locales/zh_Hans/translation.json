@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"

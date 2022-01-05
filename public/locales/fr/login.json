@@ -2,9 +2,6 @@
     "button": {
         "login": "Connexion"
     },
-    "info": {
-        "needHelp": "Besoin d'aide ?"
-    },
     "input": {
         "placeholder": "Collez le code SID ici"
     },

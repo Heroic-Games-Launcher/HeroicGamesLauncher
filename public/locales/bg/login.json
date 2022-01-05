@@ -2,9 +2,6 @@
     "button": {
         "login": "Вход"
     },
-    "info": {
-        "needHelp": "Need Help?"
-    },
     "input": {
         "placeholder": "Въведете своя SID тук"
     },

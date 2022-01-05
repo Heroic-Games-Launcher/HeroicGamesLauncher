@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
         "unsync": "ஒத்திசைவு செயல்தவிர் நிறைப்படைந்தது"

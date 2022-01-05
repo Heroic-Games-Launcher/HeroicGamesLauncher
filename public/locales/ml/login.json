@@ -2,9 +2,6 @@
     "button": {
         "login": "കയറുക"
     },
-    "info": {
-        "needHelp": "തുണ വേണോ?"
-    },
     "input": {
         "placeholder": "എസ്ഐഡി അക്കം ഇവിടെ പതിപ്പിക്കൂ"
     },

@@ -2,9 +2,6 @@
     "button": {
         "login": "Iniciar sessió"
     },
-    "info": {
-        "needHelp": "Necessites ajuda?"
-    },
     "input": {
         "placeholder": "Enganxa l'SID aquí"
     },
