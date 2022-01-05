@@ -28,5 +28,5 @@ package-lock.json
 public/**/*.js
 downloads*.json
 
-flatpak/.flatpak-builder
 flatpak/build
+.flatpak-builder

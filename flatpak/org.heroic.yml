@@ -11,28 +11,30 @@ separate-locales: false
 finish-args:
   - --share=ipc
   - --socket=x11
+  - --socket=wayland
   - --socket=pulseaudio
   - --share=network
   - --filesystem=host
   - --talk-name=org.freedesktop.Notifications
 build-options:
   build-args:
-  - --share=network
+    - --share=network
   append-path: /usr/lib/sdk/node14/bin
   cflags: -O2 -g
   cxxflags: -O2 -g
   env:
     NPM_CONFIG_LOGLEVEL: info
 modules:
-  - name: heroic
+  - name: legendary
     buildsystem: simple
     build-commands:
-    - pip3 install requests
+      - pip3 install --prefix=/app --no-deps .
     sources:
-    - type: archive
-      url: https://www.python.org/ftp/python/3.9.1/Python-3.9.1.tar.xz
-      sha256: 991c3f8ac97992f3d308fefeb03a64db462574eadbff34ce8bc5bb583d9903ff
-      # Install npm dependencies
+      - type: archive
+        url: https://files.pythonhosted.org/packages/58/e5/4189abbc61491a5f870961f05692d0f7e6c825ccae861805f186c87834c4/legendary-gl-0.20.22.tar.gz
+        sha256: d05b069ce88113a01f8d40fb79475cf4dfba957ac15a50284951f0486ef225be
+  - name: heroic
+    buildsystem: simple
     build-options:
       env:
         XDG_CACHE_HOME: /run/build/heroic/flatpak-node/cache
@@ -42,8 +44,8 @@ modules:
     subdir: main
     sources:
       #- type: archive
-      #  url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v1.9.2/heroic-1.9.2.tar.xz
-      #  sha256: 38820ba99b899a88a589156f8dd09e7afeb762b32e68572775c02cee7f691325
+      #  url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.0.0/heroic-2.0.0.tar.xz
+      #  sha256: 5aa8112359ce892ae3e045a56ec90e8fe7a588139ae58ee52284586afac4c021
       - type: dir
         path: ..
         dest: main
@@ -54,12 +56,13 @@ modules:
         commands:
           - zypak-wrapper.sh /app/main/heroic "$@"
     build-commands:
-      - npm install --offline --legacy-peer-deps
-      # Build the app; in this example the `dist` script
-      # in package.json runs electron-builder
+      # Install npm dependencies
+      - HOME=$PWD yarn config --offline set yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror
+      - yarn --offline
+      # Build the app
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
-        npm run dist-flatpak
+        yarn dist-flatpak
       # Bundle app and dependencies
       - cp -a dist/linux-unpacked /app/main
       # Install app wrapper
