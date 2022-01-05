@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { loginPage, sidInfoPage } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
@@ -12,15 +12,15 @@ import { Clipboard, IpcRenderer } from 'electron'
 import Autorenew from '@material-ui/icons/Autorenew'
 import Info from '@material-ui/icons/Info'
 import logo from 'src/assets/heroic-icon.png'
+import ContextProvider from 'src/state/ContextProvider'
+import { useHistory } from 'react-router-dom'
 
 const storage: Storage = window.localStorage
 
-interface Props {
-  refresh: (checkUpdates: boolean) => Promise<void>
-}
-
-export default function Login({ refresh }: Props) {
+export default function Login() {
   const { t, i18n } = useTranslation('login')
+  const { refreshLibrary } = useContext(ContextProvider)
+  const history = useHistory()
   const { ipcRenderer, clipboard } = window.require('electron') as {
     ipcRenderer: IpcRenderer
     clipboard: Clipboard
@@ -56,7 +56,11 @@ export default function Login({ refresh }: Props) {
         })
         await ipcRenderer.invoke('getUserInfo')
         await ipcRenderer.invoke('refreshLibrary', true)
-        return refresh(true)
+        await refreshLibrary({
+          fullRefresh: true,
+          runInBackground: false
+        })
+        return history.push('/')
       }
 
       setStatus({ loading: true, message: t('status.error', 'Error') })
@@ -144,23 +148,6 @@ export default function Login({ refresh }: Props) {
           >
             {t('button.login', 'Login')}
           </button>
-        </div>
-        <div className="helpWrapper">
-          <p className="helpTitle">{t('info.needHelp', 'Need Help?')}</p>
-          <div className="buttonWrapper">
-            <button
-              onClick={() => ipcRenderer.send('openWikiLink')}
-              className="button is-primary"
-            >
-              Wiki
-            </button>
-            <button
-              onClick={() => ipcRenderer.send('openDiscordLink')}
-              className="button is-tertiary"
-            >
-              Discord
-            </button>
-          </div>
         </div>
       </div>
     </div>

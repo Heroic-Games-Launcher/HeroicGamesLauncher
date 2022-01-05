@@ -30,7 +30,7 @@
             "message": "Ta gra ma dostępną aktualizację, czy chcesz zaktualizować ją teraz?",
             "title": "Gra wymaga aktualizacji"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Wybierz Folder Prefiksu Wine",
         "yes": "TAK"
     },
     "button": {
@@ -68,7 +68,7 @@
     },
     "install": {
         "path": "Wybierz Ścieżkę Instalacji",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Prefiks Wine"
     },
     "label": {
         "playing": {

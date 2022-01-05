@@ -7,6 +7,7 @@ import { InfoBox, SvgButton } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import ElectronStore from 'electron-store'
+import classNames from 'classnames'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@material-ui/icons/Backspace'
@@ -74,7 +75,7 @@ export default function GeneralSettings({
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const [legendaryVersion, setLegendaryVersion] = useState('')
-  const { platform, refreshLibrary } = useContext(ContextProvider)
+  const { platform, refreshLibrary, isRTL } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
@@ -186,7 +187,9 @@ export default function GeneralSettings({
   return (
     <>
       <span className="setting" data-testid="generalSettings">
-        <span className="settingText">{t('setting.language')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.language')}
+        </span>
         <LanguageSelector
           handleLanguageChange={handleChangeLanguage}
           currentLanguage={language}
@@ -200,7 +203,9 @@ export default function GeneralSettings({
         </a>
       </span>
       <span className="setting">
-        <span className="settingText">{t('setting.default-install-path')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.default-install-path')}
+        </span>
         <span>
           <input
             data-testid="setinstallpath"
@@ -229,7 +234,7 @@ export default function GeneralSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">
+        <span className={classNames('settingText', { isRTL: isRTL })}>
           {t(
             'setting.alt-legendary-bin',
             'Choose an Alternative Legendary Binary  (needs restart)to use'
@@ -278,7 +283,9 @@ export default function GeneralSettings({
       </span>
       {!isWindows && (
         <span className="setting">
-          <span className="settingText">{t('setting.egs-sync')}</span>
+          <span className={classNames('settingText', { isRTL: isRTL })}>
+            {t('setting.egs-sync')}
+          </span>
           <span className="settingInputWithButton">
             <input
               data-testid="setEpicSyncPath"
@@ -335,7 +342,7 @@ export default function GeneralSettings({
       )}
       {isWindows && (
         <span className="setting">
-          <span className="toggleWrapper">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
             {t('setting.egs-sync')}
             <ToggleSwitch
               dataTestId="syncToggle"
@@ -347,7 +354,7 @@ export default function GeneralSettings({
         </span>
       )}
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t('setting.exit-to-tray')}
           <ToggleSwitch
             dataTestId="exitToTray"
@@ -359,7 +366,7 @@ export default function GeneralSettings({
       </span>
       {exitToTray && (
         <span className="setting">
-          <span className="toggleWrapper">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
             {t('setting.start-in-tray', 'Start Minimized')}
             <ToggleSwitch
               dataTestId="startInTray"
@@ -371,7 +378,7 @@ export default function GeneralSettings({
         </span>
       )}
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t(
             'setting.showUnrealMarket',
             'Show Unreal Marketplace (needs restart)'
@@ -387,7 +394,7 @@ export default function GeneralSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t('setting.darktray', 'Use Dark Tray Icon')}
           <ToggleSwitch
             value={darkTrayIcon}
@@ -400,7 +407,7 @@ export default function GeneralSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t(
             'setting.checkForUpdatesOnStartup',
             'Check For Updates On Startup'
@@ -416,7 +423,7 @@ export default function GeneralSettings({
         </span>
       </span>
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t('setting.maxworkers')}
           <select
             data-testid="setMaxWorkers"

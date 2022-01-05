@@ -2,9 +2,6 @@
     "button": {
         "login": "Zaloguj"
     },
-    "info": {
-        "needHelp": "Potrzebujesz Pomocy?"
-    },
     "input": {
         "placeholder": "Wklej tutaj numer SID"
     },
@@ -20,7 +17,7 @@
     },
     "status": {
         "error": "Błąd",
-        "loading": "Proszę czekać, wczytywanie listy gier",
+        "loading": "Ładowanie listy Gier, proszę czekać",
         "logging": "Logowanie…"
     },
     "welcome": "Witaj!"

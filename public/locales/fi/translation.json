@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Synkronointi valmis",
         "unsync": "Synkronoinnin poisto valmis"
@@ -184,6 +188,7 @@
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
         "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",

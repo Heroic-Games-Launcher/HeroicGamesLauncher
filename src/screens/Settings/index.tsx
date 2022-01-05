@@ -48,6 +48,7 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
@@ -214,6 +215,7 @@ function Settings() {
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
       setShowUnrealMarket(config.showUnrealMarket || false)
+      setDefaultWinePrefix(config.defaultWinePrefix)
 
       if (!isDefault) {
         const {
@@ -245,6 +247,7 @@ function Settings() {
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
+    defaultWinePrefix,
     discordRPC,
     egsLinkedPath,
     enableEsync,
@@ -392,6 +395,8 @@ function Settings() {
               toggleEsync={toggleEsync}
               enableFsync={enableFsync}
               toggleFsync={toggleFsync}
+              defaultWinePrefix={defaultWinePrefix}
+              setDefaultWinePrefix={setDefaultWinePrefix}
               maxSharpness={maxSharpness}
               setFsrSharpness={setFsrSharpness}
               enableResizableBar={enableResizableBar}

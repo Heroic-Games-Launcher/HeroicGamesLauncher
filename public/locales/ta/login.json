@@ -2,9 +2,6 @@
     "button": {
         "login": "உள்நுழை"
     },
-    "info": {
-        "needHelp": "Need Help?"
-    },
     "input": {
         "placeholder": "SID எண்ணை இங்கே ஒட்டவும்"
     },
