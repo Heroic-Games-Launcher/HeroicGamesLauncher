@@ -101,11 +101,11 @@ export default function WebView({ isLogin }: Props) {
                 }
               }
             })
-          }, 1000)
+          }, 500)
         }
       }
 
-      webview.addEventListener('did-stop-loading', loadstop)
+      webview.addEventListener('dom-ready', loadstop)
     }
   }, [])
 
