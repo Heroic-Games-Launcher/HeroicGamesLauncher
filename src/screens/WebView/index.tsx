@@ -30,7 +30,7 @@ export default function WebView({ isLogin }: Props) {
   const { i18n } = useTranslation()
   const { pathname } = useLocation()
   const { t } = useTranslation()
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, handleFilter } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -66,39 +66,46 @@ export default function WebView({ isLogin }: Props) {
 
         // Deals with Login
         if (!user) {
-          webview.findInPage('sid')
-          webview.addEventListener('found-in-page', async (res) => {
-            const data = res as Event & { result: { matches: number } }
-            if (data.result.matches) {
-              webview.focus()
-              webview.selectAll()
-              webview.copy()
-              const { sid }: SID = JSON.parse(clipboard.readText())
-              try {
-                setLoading({
-                  refresh: true,
-                  message: t('status.logging', 'Logging In...')
-                })
-                await ipcRenderer.invoke('login', sid)
-                setLoading({
-                  refresh: true,
-                  message: t('status.loading', 'Loading Game list, please wait')
-                })
-                await refreshLibrary({
-                  fullRefresh: true,
-                  runInBackground: false
-                })
-                setLoading({ ...loading, refresh: false })
-              } catch (error) {
-                console.error(error)
-                ipcRenderer.send('logError', error)
+          setTimeout(() => {
+            webview.findInPage('sid')
+            webview.addEventListener('found-in-page', async (res) => {
+              const data = res as Event & { result: { matches: number } }
+              if (data.result.matches) {
+                webview.focus()
+                webview.selectAll()
+                webview.copy()
+                const { sid }: SID = JSON.parse(clipboard.readText())
+                try {
+                  setLoading({
+                    refresh: true,
+                    message: t('status.logging', 'Logging In...')
+                  })
+                  await ipcRenderer.invoke('login', sid)
+                  handleFilter('all')
+
+                  setLoading({
+                    refresh: true,
+                    message: t(
+                      'status.loading',
+                      'Loading Game list, please wait'
+                    )
+                  })
+                  await refreshLibrary({
+                    fullRefresh: true,
+                    runInBackground: false
+                  })
+                  setLoading({ ...loading, refresh: false })
+                } catch (error) {
+                  console.error(error)
+                  ipcRenderer.send('logError', error)
+                }
               }
-            }
-          })
+            })
+          }, 500)
         }
       }
 
-      webview.addEventListener('did-stop-loading', loadstop)
+      webview.addEventListener('dom-ready', loadstop)
     }
   }, [])
 
