@@ -34,7 +34,7 @@ const isWindows = platform() === 'win32'
 const isFlatpak = execPath === '/app/main/heroic'
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
-const flatPakHome = env.XDG_DATA_HOME.replace('/data', '')
+const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const home = isFlatpak ? flatPakHome : homedir()
 const legendaryConfigPath = isFlatpak
   ? `${home}/config/legendary`
