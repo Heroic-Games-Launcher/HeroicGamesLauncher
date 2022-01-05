@@ -30,7 +30,7 @@
             "message": "Для игры вышло обновление. Обновить сейчас?",
             "title": "Игра нуждается в обновлении"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Выбрать папку префикса Wine",
         "yes": "ДА"
     },
     "button": {
@@ -68,12 +68,12 @@
     },
     "install": {
         "path": "Выберите путь установки",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Префикс Wine"
     },
     "label": {
         "playing": {
             "start": "Начать игру",
-            "stop": "В игре (Остановить)"
+            "stop": "Игра запущена (Остановить)"
         },
         "saves": {
             "syncing": "Синхронизация сохранений"
