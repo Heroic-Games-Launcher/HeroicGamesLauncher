@@ -20,8 +20,8 @@
     },
     "status": {
         "error": "Fehler",
-        "loading": "Lade Liste der Spiele, bitte warten",
-        "logging": "Logge ein…"
+        "loading": "Lade Spieleliste, bitte warten",
+        "logging": "Anmelden…"
     },
     "welcome": "Willkommen!"
 }
