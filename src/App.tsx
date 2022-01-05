@@ -41,10 +41,13 @@ function App() {
                     renderBackButton={false}
                     numberOfGames={numberOfGames}
                   />
-                  {showRecentGames && (
-                    <Library showRecentsOnly library={recentGames} />
-                  )}
-                  <Library library={library} />
+                  <div className="listing">
+                    <span id="top" />
+                    {showRecentGames && (
+                      <Library showRecentsOnly library={recentGames} />
+                    )}
+                    <Library library={library} />
+                  </div>
                 </>
               ) : (
                 <WebView isLogin />

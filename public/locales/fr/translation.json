@@ -7,11 +7,11 @@
             "title": "Mise à jour disponible"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Le cache Heroic a été effacé !",
+            "title": "Cache effacé"
         },
         "choose": "Séléctionner",
-        "choose-egs-prefix": "Choisir où le Préfix EGS est installé",
+        "choose-egs-prefix": "Choisir où le préfixe EGS est installé",
         "choose-legendary-binary": "Sélectionnez le binaire Legendary",
         "customWine": "Sélectionner le binaire Wine ou Proton",
         "default-install-path": "Choisir le chemin par défaut",
@@ -48,7 +48,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Êtes-vous sûr·e de vouloir réinitialiser Heroic ? Cela supprimera tous les paramètres et la mémoire cache mais pas vos jeux installés ou vos identifiants Epic",
                 "title": "Reset Heroic"
             }
         },
@@ -60,8 +60,8 @@
             "exe": "Choisir l'EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
+            "title": "Raccourcis"
         },
         "sync": {
             "button": "Sélectionner",
@@ -114,11 +114,11 @@
         "requirements": "Configuration Requise"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Sélectionner le chemin d'installation"
     },
     "Library": "Bibliothèque",
     "loading": {
-        "website": "Loading Website"
+        "website": "Chargement du site internet"
     },
     "login": {
         "loginWithEpic": "Login With Epic",
@@ -132,8 +132,8 @@
     "Not Ready": "Non installé",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Erreur lors du déplacement des fichiers du jeu",
+            "reparing": "Erreur lors de la réparation"
         },
         "finished": {
             "reparing": "Réparation Terminée"
@@ -141,15 +141,15 @@
         "install": {
             "canceled": "Installation Annulée",
             "finished": "Installation Terminée",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Jeu Importé",
+            "startInstall": "Installation commencée"
         },
         "moved": "Déplacement Terminé",
         "uninstalled": "Désinstallé",
         "update": {
             "canceled": "Mise à jour Annulée",
             "finished": "Mise à jour Terminée",
-            "started": "Update Started"
+            "started": "Mise à jour commencée"
         }
     },
     "options": {
@@ -179,7 +179,7 @@
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
-        "alt-legendary-bin": "Choisissez un autre fichier binaire Legendary à utiliser",
+        "alt-legendary-bin": "Choisir un autre exécutable Legendary (nécessite de relancer Heroic)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
         "autosync": "Sauvegardes Autosync",
@@ -222,7 +222,7 @@
             "title": "Écraser le dossier de synchronisation Cloud"
         },
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
@@ -230,8 +230,8 @@
     },
     "Settings": "Options",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Effacer le cache Heroic",
+        "copyToClipboard": "Copier tous les paramètres dans le presse-papier",
         "navbar": {
             "general": "Général",
             "other": "Autre",
@@ -240,20 +240,20 @@
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Chargement de la liste des jeux, veuillez patienter",
+        "logging": "Connexion en cours..."
     },
     "store": "Boutique",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
+        "allGames": "Tous les jeux",
+        "allUnreal": "Unreal - Tout",
+        "downloading": "Téléchargement en cours",
+        "installedGames": "Jeux installés",
+        "notInstalledGames": "Non installés",
+        "unrealAssets": "Unreal - Ressources",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projets",
+        "updates": "Mises à jour en attente"
     },
     "tooltip": {
         "addpath": "Ajouter un nouveau chemin",

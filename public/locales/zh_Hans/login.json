@@ -17,8 +17,8 @@
     },
     "status": {
         "error": "错误",
-        "loading": "正在加载游戏列表，请稍候",
-        "logging": "正在登录"
+        "loading": "正在加载游戏列表，请稍后",
+        "logging": "正在登录…"
     },
     "welcome": "欢迎您！"
 }

@@ -36,7 +36,7 @@
     "button": {
         "cancel": "Pausa/Annulla",
         "continue": "Continua Download",
-        "import": "Importa",
+        "import": "Importa gioco",
         "install": "Installa",
         "uninstall": "Disinstalla",
         "update": "Update"
@@ -67,7 +67,7 @@
         "version": "Versione"
     },
     "install": {
-        "path": "Select Install Path",
+        "path": "Seleziona percorso di installazione",
         "wineprefix": "WinePrefix"
     },
     "label": {

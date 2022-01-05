@@ -17,7 +17,7 @@
     },
     "status": {
         "error": "Viga",
-        "loading": "Mängu nimekirja laadimine, palun oodake",
+        "loading": "Mängude loendi laadimine, palun oodake",
         "logging": "Sisselogimine…"
     },
     "welcome": "Tere tulemast!"

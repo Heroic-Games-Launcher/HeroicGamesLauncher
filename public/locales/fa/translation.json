@@ -7,12 +7,12 @@
             "title": "به‌روزرسانی موجود است"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "کش Heroic پاک شد!",
+            "title": "کش پاک شد"
         },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیش‌فرض نصب",
         "error": {
@@ -48,7 +48,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "آیا مطمئن هستید که می‌خواهید Heroic را بازنشانی کنید؟ این کار تمام تنظیمات و کش‌ها را پاک می‌کند اما بازی‌های نصب شده یا اعتبار کاربری شما را پاک نمی‌کند",
                 "title": "Reset Heroic"
             }
         },
@@ -60,15 +60,15 @@
             "exe": "انتخاب EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "میانبرها در دسکتاپ و منوی استارت ایجاد شدند",
+            "title": "میانبرها"
         },
         "sync": {
             "button": "انتخاب",
             "error": "مسیر نامعتبر",
             "title": "انتخاب محل ذخیره"
         },
-        "wineprefix": "انتخاب پوشه Wine",
+        "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله"
     },
     "button": {
@@ -78,7 +78,7 @@
         "unsync": "عدم همگام‌سازی"
     },
     "Downloading": "در حال دانلود",
-    "Epic Games": "Epic Games",
+    "Epic Games": "اپیک گیمز",
     "Filter": "فیلتر",
     "filter": {
         "noFilter": "No Filter"
@@ -114,11 +114,11 @@
         "requirements": "نیازمندی‌های سیستم"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "انتخاب محل نصب"
     },
     "Library": "کتابخانه",
     "loading": {
-        "website": "Loading Website"
+        "website": "درحال بارگیری وب‌سایت"
     },
     "login": {
         "loginWithEpic": "Login With Epic",
@@ -132,8 +132,8 @@
     "Not Ready": "آماده نمی‌باشد",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "خطا در جابه‌جا کردن بازی",
+            "reparing": "خطا در تعمیر"
         },
         "finished": {
             "reparing": "تعمیر کردن کامل شد"
@@ -141,15 +141,15 @@
         "install": {
             "canceled": "نصب لغو شد",
             "finished": "نصب به پایان رسید",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "بازی وارد شد",
+            "startInstall": "نصب آغاز شد"
         },
         "moved": "انتقال کامل شد",
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "به‌روزرسانی لغو شد",
             "finished": "آپدیت‌ها به پایان رسیدند",
-            "started": "Update Started"
+            "started": "به‌روزرسانی آغاز شد"
         }
     },
     "options": {
@@ -163,11 +163,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "نسخه Legendary: ",
         "weblate": "کمک به ترجمه Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "egs-prefix": "محل نصب شده EGS"
     },
     "Plugins": "افزونه‌ها",
@@ -179,7 +179,7 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راه‌اندازی مجدد)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/به‌روزرسانی خودکار DXVK/VKD3D در Prefix",
         "autosync": "همگام‌سازی خودکار ذخیره‌ها",
@@ -222,7 +222,7 @@
             "title": "رونویسی پوشه ابری همگام‌سازی ذخیره‌ها"
         },
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راه‌اندازی مجدد)",
         "start-in-tray": "شروع در حالت پس‌زمینه",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
@@ -230,8 +230,8 @@
     },
     "Settings": "تنظیمات",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "پاک کردن کش Heroic",
+        "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
         "navbar": {
             "general": "عمومی",
             "other": "بقیه",
@@ -240,20 +240,20 @@
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "در حال بارگیری لیست بازی،‌ لطفا منتظر بمانید",
+        "logging": "در حال وارد شدن..."
     },
     "store": "فروشگاه",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "همه بازی‌ها",
+        "allUnreal": "Unreal - همه‌چیز",
+        "downloading": "در حال دانلود",
+        "installedGames": "بازی‌های نصب شده",
+        "notInstalledGames": "نصب نشده",
+        "unrealAssets": "Unreal - مهره‌ها",
+        "unrealPlugins": "Unreal - افزونه‌ها",
+        "unrealProjects": "Unreal - پروژه‌ها",
+        "updates": "آپدیت‌های در حال انتظار"
     },
     "tooltip": {
         "addpath": "افزودن مسیر جدید",

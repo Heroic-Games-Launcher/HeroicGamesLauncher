@@ -4,6 +4,7 @@
   width: var(--content-width);
   height: 100%;
   position: fixed;
+  top: 0px;
   z-index: 8;
 }
 
