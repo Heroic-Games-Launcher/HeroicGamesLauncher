@@ -259,6 +259,7 @@ if (!gotTheLock) {
         'fa',
         'fi',
         'fr',
+        'gl',
         'hr',
         'hu',
         'ja',
