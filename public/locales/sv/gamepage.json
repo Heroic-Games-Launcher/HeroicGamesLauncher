@@ -3,25 +3,19 @@
         "change": {
             "message": "Detta kommer ändra installationssökvägen, är du säker?",
             "path": "Välj ny installationssökväg",
-            "title": "Byt spelets installationssökväg"
+            "title": "Ändra spelets installationssökväg"
         },
         "choose": "Ok",
         "importpath": "Välj spelmapp för import",
-        "installpath": "Välj installationssökväg",
         "move": {
-            "message": "Det kan ta lång tid, är du säker??",
+            "message": "Detta kan ta lång tid, är du säker?",
             "path": "Välj vart du vill flytta",
             "title": "Flytta var spelet är installerat"
         },
         "no": "Nej",
-        "ok": "Ok",
         "repair": {
             "message": "Vill du försöka reparera spelet? Det kan ta lång tid.",
             "title": "Verifiera och reparera"
-        },
-        "shortcuts": {
-            "message": "Genvägar skapades på skrivbordet och startmenyn",
-            "title": "Genvägar"
         },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
@@ -36,67 +30,79 @@
             "message": "Det finns en speluppdatering, vill du uppdatera?",
             "title": "Spelet behöver uppdateras"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "Ja"
     },
     "button": {
-        "cancel": "Avbryt",
+        "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
-        "import": "Importera",
+        "import": "Importera spel",
         "install": "Installera",
         "uninstall": "Avinstallera",
         "update": "Update"
     },
     "disabled": "Inaktiverad",
+    "dlc": {
+        "installDlcs": "Installera alla DLC",
+        "title": "DLCs"
+    },
     "enabled": "Aktiverad",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
+        "downloadSize": "Nedladdningsstorlek",
+        "firstPlayed": "Först spelat",
+        "installSize": "Installationsstorlek",
+        "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "Speltid"
     },
     "gamecard": {
         "moving": "Flyttar",
         "repairing": "Reparerar"
     },
     "info": {
+        "canRunOffline": "Kräver uppkoppling",
         "path": "Installationssökväg",
         "size": "Storlek",
         "syncsaves": "Synkronisera sparfiler",
         "version": "Version"
     },
     "install": {
-        "another": "Installera i en annan sökväg",
-        "default": "Installera",
-        "import": "Importera spel"
+        "path": "Välj installationssökväg",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
-            "start": "Spela",
+            "start": "Starta spelet",
             "stop": "Avsluta spel"
         },
         "saves": {
             "syncing": "Synkroniserar sparfiler"
         }
     },
+    "launch": {
+        "options": "Startalternativ..."
+    },
+    "sdl": {
+        "title": "Välj komponenter att installera"
+    },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Rekommenderad"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Klicka för att uppdatera",
         "hasUpdates": "Det finns en ny version tillgänglig!",
         "installed": "Installerad",
         "installing": "Installerar",
-        "moving": "Flyttar installationen, var god dröj",
+        "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
-        "notSupported": "Detta spel kan endast importeras",
-        "reparing": "Reparerar spelet, var god dröj",
+        "reparing": "Reparerar spelet, vänligen vänta",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
-        "change": "Byt installationssökväg",
+        "change": "Ändra installationssökväg",
         "log": "Senaste loggen",
         "move": "Flytta spelet",
         "protondb": "Kontrollera kompatibilitet",

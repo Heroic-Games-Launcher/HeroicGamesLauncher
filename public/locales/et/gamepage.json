@@ -1,0 +1,113 @@
+{
+    "box": {
+        "change": {
+            "message": "See muudab selle mängu paigaldusasukohta, kas olete kindel?",
+            "path": "Valige uus paigalduskoht",
+            "title": "Muuda mängude paigaldamiskohta"
+        },
+        "choose": "Valige",
+        "importpath": "Valige imporditav mängude kaust",
+        "move": {
+            "message": "See võib võtta kaua aega, kas olete kindel?",
+            "path": "Valige, kuhu soovite liigutada",
+            "title": "Liiguta mängu paigaldus"
+        },
+        "no": "EI",
+        "repair": {
+            "message": "Kas soovite proovida seda mängu parandada? See võib võtta kaua aega.",
+            "title": "Kontrolli ja paranda"
+        },
+        "stopInstall": {
+            "keepInstalling": "Jätka installimist",
+            "message": "Kas soovite allalaaditud faile alles hoida?",
+            "title": "Peata paigaldamine"
+        },
+        "uninstall": {
+            "message": "Kas soovite selle mängu eemaldada?",
+            "title": "Eemalda"
+        },
+        "update": {
+            "message": "Sellel mängul on värskendus. Kas soovite uuendada kohe?",
+            "title": "Mäng vajab uuendust"
+        },
+        "wineprefix": "Select WinePrefix Folder",
+        "yes": "JAH"
+    },
+    "button": {
+        "cancel": "Peata/Tühista",
+        "continue": "Jätka allalaadimist",
+        "import": "Impordi",
+        "install": "Paigalda",
+        "uninstall": "Eemalda",
+        "update": "Uuenda"
+    },
+    "disabled": "Keelatud",
+    "dlc": {
+        "installDlcs": "Paigalda kõik DLC'd",
+        "title": "DLC'd"
+    },
+    "enabled": "Lubatud",
+    "game": {
+        "downloadSize": "Allalaadimise suurus",
+        "firstPlayed": "Esimest korda mängitud",
+        "installSize": "Paigaldamise suurus",
+        "lastPlayed": "Viimati mängitud",
+        "neverPlayed": "Mitte kunagi",
+        "totalPlayed": "Mängitud aeg"
+    },
+    "gamecard": {
+        "moving": "Liigutamine",
+        "repairing": "Parandamine"
+    },
+    "info": {
+        "canRunOffline": "Võrguühendus nõutud",
+        "path": "Paigalduskoht",
+        "size": "Suurus",
+        "syncsaves": "Sünkrooni salvestised",
+        "version": "Versioon"
+    },
+    "install": {
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
+    },
+    "label": {
+        "playing": {
+            "start": "Mängi",
+            "stop": "Mängib (Peata)"
+        },
+        "saves": {
+            "syncing": "Salvestuste sünkroonimine"
+        }
+    },
+    "launch": {
+        "options": "Käivitusvalikud..."
+    },
+    "sdl": {
+        "title": "Valige komponendid, mida installida"
+    },
+    "specs": {
+        "minimum": "Miinimum",
+        "recommended": "Soovitatav"
+    },
+    "status": {
+        "clickToUpdate": "Uuendamiseks klõpsake",
+        "hasUpdates": "Uus versioon saadaval!",
+        "installed": "Installitud",
+        "installing": "Paigaldamine",
+        "moving": "Paigalduse liiguatamine, palun oodake",
+        "notinstalled": "See mäng ei ole paigaldatud",
+        "reparing": "Mängu parandamine, palun oodake",
+        "totalDownloaded": "Allalaaditud kokku",
+        "updating": "Mängu uuendamine"
+    },
+    "submenu": {
+        "addShortcut": "Lisa otsetee",
+        "change": "Muuda paigalduskohta",
+        "log": "Viimane logi",
+        "move": "Liiguta mäng",
+        "protondb": "Kontrolli ühilduvust",
+        "settings": "Seaded",
+        "store": "Poe lehekülg",
+        "verify": "Kontrolli ja paranda"
+    }
+}

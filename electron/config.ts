@@ -6,13 +6,10 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { userInfo as user } from 'os'
+import { parse as plistParse, PlistObject } from 'plist'
 
-import {
-  AppSettings,
-  GlobalConfigVersion,
-  WineInstallation
-} from './types';
-import { LegendaryUser } from './legendary/user';
+import { AppSettings, GlobalConfigVersion, WineInstallation } from './types'
+import { LegendaryUser } from './legendary/user'
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
@@ -20,10 +17,11 @@ import {
   heroicInstallPath,
   heroicToolsPath,
   home,
+  isMac,
   isWindows
 } from './constants'
 import { execAsync } from './utils'
-import { logError, logInfo } from './logger';
+import { logError, logInfo } from './logger'
 
 /**
  * This class does config handling.
@@ -33,11 +31,11 @@ import { logError, logInfo } from './logger';
  * It also implements all the config features that won't change across versions.
  */
 abstract class GlobalConfig {
-  protected static globalInstance : GlobalConfig
+  protected static globalInstance: GlobalConfig
 
-  public abstract version : GlobalConfigVersion
+  public abstract version: GlobalConfigVersion
 
-  public config : AppSettings
+  public config: AppSettings
 
   /**
    * Get the global configuartion handler.
@@ -45,8 +43,8 @@ abstract class GlobalConfig {
    *
    * @returns GlobalConfig instance.
    */
-  public static get() : GlobalConfig {
-    let version : GlobalConfigVersion
+  public static get(): GlobalConfig {
+    let version: GlobalConfigVersion
 
     // Config file doesn't already exist, make one with the current version.
     if (!existsSync(heroicConfigPath)) {
@@ -75,23 +73,24 @@ abstract class GlobalConfig {
    * @param version Config version to load file using.
    * @returns void
    */
-  private static reload(version : GlobalConfigVersion) : void {
+  private static reload(version: GlobalConfigVersion): void {
     // Select loader to use.
     switch (version) {
-    case 'v0':
-      GlobalConfig.globalInstance = new GlobalConfigV0()
-      break
-    default:
-      logError(`GlobalConfig: Invalid config version '${version}' requested.`)
-      break
+      case 'v0':
+        GlobalConfig.globalInstance = new GlobalConfigV0()
+        break
+      default:
+        logError(`GlobalConfig: Invalid config version '${version}' requested.`)
+        break
     }
     // Try to upgrade outdated config.
     if (GlobalConfig.globalInstance.upgrade()) {
       // Upgrade done, we need to fully reload config.
-      logInfo(`GlobalConfig: Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`)
+      logInfo(
+        `GlobalConfig: Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`
+      )
       return GlobalConfig.reload(currentGlobalConfigVersion)
-    }
-    else if (version !== currentGlobalConfigVersion) {
+    } else if (version !== currentGlobalConfigVersion) {
       // Upgrade failed.
       logError(`GlobalConfig: Failed to upgrade outdated ${version} config.`)
     }
@@ -105,7 +104,10 @@ abstract class GlobalConfig {
   public async getDefaultWine(): Promise<WineInstallation> {
     return execAsync(`which wine`)
       .then(async ({ stdout }) => {
-        const defaultWine: WineInstallation = { bin: '', name: 'Default Wine - Not Found' }
+        const defaultWine: WineInstallation = {
+          bin: '',
+          name: 'Default Wine - Not Found'
+        }
         defaultWine.bin = stdout.split('\n')[0]
         const { stdout: out } = await execAsync(`wine --version`)
         const version = out.split('\n')[0]
@@ -113,9 +115,54 @@ abstract class GlobalConfig {
         return defaultWine
       })
       .catch(() => {
-        const defaultWine: WineInstallation = { bin: '', name: 'Default Wine - Not Found' }
+        const defaultWine: WineInstallation = {
+          bin: '',
+          name: 'Default Wine - Not Found'
+        }
         return defaultWine
       })
+  }
+
+  /**
+   * Detects CrossOver installs on Mac and Linux
+   *
+   * @returns Promise<Set<WineInstallation>>
+   */
+  public async getCrossover(): Promise<Set<WineInstallation>> {
+    const crossover: Set<WineInstallation> = new Set()
+
+    if (isMac) {
+      await execAsync(
+        'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
+      ).then(async ({ stdout }) => {
+        stdout.split('\n').forEach((crossoverMacPath) => {
+          if (
+            crossoverMacPath != '' &&
+            existsSync(crossoverMacPath + '/Contents/Info.plist')
+          ) {
+            const info = plistParse(
+              readFileSync(crossoverMacPath + '/Contents/Info.plist', 'utf-8')
+            ) as PlistObject
+            const version = info['CFBundleShortVersionString'] || ''
+            crossover.add({
+              bin: `'${crossoverMacPath}/Contents/SharedSupport/CrossOver/bin/wine'`,
+              name: `CrossOver ${version} - ${crossoverMacPath}`
+            })
+          }
+        })
+      })
+    } else if (!isWindows) {
+      // Linux
+      const crossoverPath = '/opt/cxoffice'
+      if (existsSync(crossoverPath)) {
+        crossover.add({
+          bin: `'${crossoverPath}/bin/wine'`,
+          name: `CrossOver - ${crossoverPath}`
+        })
+      }
+    }
+
+    return crossover
   }
 
   /**
@@ -123,13 +170,15 @@ abstract class GlobalConfig {
    *
    * @returns An Array of Wine/Proton installations.
    */
-  public async getAlternativeWine(scanCustom = true): Promise<WineInstallation[]> {
+  public async getAlternativeWine(
+    scanCustom = true
+  ): Promise<WineInstallation[]> {
     if (!existsSync(`${heroicToolsPath}/wine`)) {
-      mkdirSync(`${heroicToolsPath}/wine`, {recursive: true})
+      mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
     }
 
     if (!existsSync(`${heroicToolsPath}/proton`)) {
-      mkdirSync(`${heroicToolsPath}/proton`, {recursive: true})
+      mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
     }
 
     const altWine: Set<WineInstallation> = new Set()
@@ -176,7 +225,8 @@ abstract class GlobalConfig {
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
-          if (version.toLowerCase().startsWith('proton')) {
+          const name = version.toLowerCase()
+          if (name.startsWith('proton') && !name.includes('runtime')) {
             proton.add({
               bin: `'${path}${version}/proton'`,
               name: `Proton - ${version}`
@@ -186,12 +236,37 @@ abstract class GlobalConfig {
       }
     })
 
-    const defaultWine = await this.getDefaultWine();
+    const crossover = await this.getCrossover()
 
-    if(!scanCustom) {
-      return [defaultWine, ...altWine, ...proton]
+    const defaultWine = await this.getDefaultWine()
+    const defaultFound = !defaultWine.name.includes('Not Found')
+
+    if (!scanCustom) {
+      return [defaultWine, ...altWine, ...proton, ...crossover]
     }
-    return [defaultWine, ...altWine, ...proton, ...(await this.getCustomWinePaths())]
+
+    if (isMac && crossover.size) {
+      return [...crossover, ...(await this.getCustomWinePaths())]
+    } else if (defaultFound) {
+      return [
+        defaultWine,
+        ...altWine,
+        ...proton,
+        ...crossover,
+        ...(await this.getCustomWinePaths())
+      ]
+    } else if (altWine.size) {
+      return [
+        ...altWine,
+        ...proton,
+        ...crossover,
+        ...(await this.getCustomWinePaths())
+      ]
+    } else if (proton.size) {
+      return [...proton, ...crossover, ...(await this.getCustomWinePaths())]
+    } else {
+      return [defaultWine]
+    }
   }
 
   /**
@@ -201,7 +276,7 @@ abstract class GlobalConfig {
    *
    * @returns Settings present in config file.
    */
-  public abstract getSettings() : Promise<AppSettings>
+  public abstract getSettings(): Promise<AppSettings>
 
   /**
    * Updates this.config, this.version to upgrade the current config file.
@@ -211,14 +286,14 @@ abstract class GlobalConfig {
    *
    * @returns true if upgrade successful, false if upgrade fails or no upgrade needed.
    */
-  public abstract upgrade() : boolean
+  public abstract upgrade(): boolean
 
   /**
    * Get custom Wine installations as defined in the config file.
    *
    * @returns Set of Wine installations.
    */
-  public abstract getCustomWinePaths() : Promise<Set<WineInstallation>>
+  public abstract getCustomWinePaths(): Promise<Set<WineInstallation>>
 
   /**
    * Get default settings as if the user's config file doesn't exist.
@@ -227,14 +302,14 @@ abstract class GlobalConfig {
    *
    * @returns AppSettings
    */
-  public abstract getFactoryDefaults() : Promise<AppSettings>
+  public abstract getFactoryDefaults(): Promise<AppSettings>
 
   /**
    * Reset `this.config` to `getFactoryDefaults()` and flush.
    */
-  public abstract resetToDefaults() : void
+  public abstract resetToDefaults(): void
 
-  protected writeToFile(config : Record<string, unknown>) {
+  protected writeToFile(config: Record<string, unknown>) {
     return writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
   }
 
@@ -242,7 +317,7 @@ abstract class GlobalConfig {
    * Write `this.config` to file.
    * Uses the config version defined in `this.version`.
    */
-  public abstract flush() : void
+  public abstract flush(): void
 
   /**
    * Load the config file, upgrade if needed.
@@ -257,17 +332,16 @@ abstract class GlobalConfig {
     if (this.version !== currentGlobalConfigVersion) {
       // Do not load the config.
       // Wait for `upgrade` to be called by `reload`.
-    }
-    else {
+    } else {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGlobalConfigVersion` at this point.
-      this.config = await this.getSettings() as AppSettings
+      this.config = (await this.getSettings()) as AppSettings
     }
   }
 }
 
 class GlobalConfigV0 extends GlobalConfig {
-  public version : GlobalConfigVersion = 'v0'
+  public version: GlobalConfigVersion = 'v0'
 
   constructor() {
     super()
@@ -281,8 +355,8 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getSettings(): Promise<AppSettings> {
-    if(!existsSync(heroicGamesConfigPath)){
-      mkdirSync(heroicGamesConfigPath, {recursive: true})
+    if (!existsSync(heroicGamesConfigPath)) {
+      mkdirSync(heroicGamesConfigPath, { recursive: true })
     }
 
     if (!existsSync(heroicConfigPath)) {
@@ -290,12 +364,15 @@ class GlobalConfigV0 extends GlobalConfig {
     }
 
     let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
-    settings = {...(await this.getFactoryDefaults()), ...settings.defaultSettings} as AppSettings
+    settings = {
+      ...(await this.getFactoryDefaults()),
+      ...settings.defaultSettings
+    } as AppSettings
     return settings
   }
 
   public async getCustomWinePaths(): Promise<Set<WineInstallation>> {
-    const customPaths : Set<WineInstallation> = new Set()
+    const customPaths: Set<WineInstallation> = new Set()
     // skips this on new installations to avoid infinite loops
     if (existsSync(heroicConfigPath)) {
       const { customWinePaths = [] } = await this.getSettings()
@@ -329,16 +406,19 @@ class GlobalConfigV0 extends GlobalConfig {
       checkForUpdatesOnStartup: true,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
+      defaultWinePrefix: `${home}/Games/Heroic/Prefixes`,
       language: 'en',
       maxWorkers: 0,
       nvidiaPrime: false,
       otherOptions: '',
+      showUnrealMarket: false,
       showFps: false,
       useGameMode: false,
       userInfo: {
         epicId: account_id,
         name: userName
       },
+      wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? defaultWine : `${home}/.wine`,
       wineVersion: isWindows ? {} : defaultWine
     } as AppSettings

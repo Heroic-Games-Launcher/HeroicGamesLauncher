@@ -6,8 +6,13 @@
             "message": "K dispozici je nová aktualizace pro Heroic, chcete aktualizovat nyní?",
             "title": "Je dostupná aktualizace"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Vybrat",
         "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
@@ -31,6 +36,7 @@
             "title": "Error"
         },
         "no": "NE",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Není nainstalován, chcete jej nainstalovat?"
@@ -40,10 +46,23 @@
             "message": "Existují nevyřízené operace, jste si jisti?",
             "title": "Ukončit"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Vyberte soubor EXE pro spuštění"
         },
-        "select": "Vybrat",
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Vybrat",
             "error": "Neplatná cesta",
@@ -53,13 +72,17 @@
         "yes": "ANO"
     },
     "button": {
+        "login": "Login",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
         "unsync": "Desynchroniozovat"
     },
     "Downloading": "Stahování",
+    "Epic Games": "Epic Games",
     "Filter": "Filtr",
-    "Games": "Games",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -90,7 +113,13 @@
         "help": "Pomoc",
         "requirements": "Systémové požadavky"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Knihovna",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
@@ -98,18 +127,25 @@
     "nogames": "Žádné hry nebyly nalezeny",
     "Not Ready": "Není připraveno",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Oprava dokončena"
         },
         "install": {
             "canceled": "Instalace zrušena",
-            "finished": "Instalace dokončena"
+            "finished": "Instalace dokončena",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Přesun dokončen",
         "uninstalled": "Odinstalováno",
         "update": {
             "canceled": "Aktualizace zrušena",
-            "finished": "Aktualizace dokončena"
+            "finished": "Aktualizace dokončena",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -123,32 +159,39 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Pomozte s překladem Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },
     "Plugins": "Plugins",
     "Projects": "Projekty",
     "Ready": "Připraveno",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Zpět",
     "search": "Zde zadejte název hry...",
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
-        "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
+        "autodxvk": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Zjišťovat dostupnost aktualizací po spuštění",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Povolit Discord Rich Presence",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Ukončit do systémové oblasti",
         "FsrSharpnessStrenght": "Síla ostrosti FSR",
+        "fsync": "Enable Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
@@ -165,7 +208,7 @@
         "maxworkers": "Maximální počet vláken při stahování",
         "offlinemode": "Spustit hru offline",
         "primerun": "Povolení vykreslování Nvidia Prime",
-        "resizableBar": "Používat Resizable Bar (pouze s NVIDIA RTX 30xx)",
+        "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Přetáhněte soubory sem",
             "title": "Spustit EXE na prefixu"
@@ -175,19 +218,39 @@
             "title": "Přepsat synchronizaci cloudu"
         },
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Spustit minimalizované",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
     },
     "Settings": "Nastavení",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Obecné",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Obchod",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "přidat novou cestu",
         "removepath": "Odstranit cestu"
@@ -197,19 +260,15 @@
         "about": "O aplikaci",
         "quit": "Ukončit",
         "reload": "Obnovit",
-        "show": "Zobrazit",
-        "support": "Podpořte nás"
+        "show": "Zobrazit"
     },
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualizace",
     "userselector": {
-        "about": "O aplikaci",
         "discord": "Discord",
         "logout": "Odhlásit",
         "logout_confirmation": "Logout?",
-        "quit": "Ukončit",
-        "refresh": "Obnovit knihovnu",
-        "support": "Podpořte nás"
+        "quit": "Ukončit"
     },
     "wiki": "Wiki"
 }

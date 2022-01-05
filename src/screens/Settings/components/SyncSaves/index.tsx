@@ -1,30 +1,20 @@
 import { IpcRenderer } from 'electron'
-import React, {
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import {
-  Path,
-  SyncType
-} from 'src/types'
-import {
-  fixSaveFolder,
-  getGameInfo,
-  syncSaves
-} from 'src/helpers'
+import { Path, SyncType } from 'src/types'
+import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
-import InfoBox from 'src/components/UI/InfoBox'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
 import Backspace from '@material-ui/icons/Backspace'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+
 interface Props {
   appName: string
   autoSyncSaves: boolean
@@ -47,18 +37,23 @@ export default function SyncSaves({
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, isRTL } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
   useEffect(() => {
     const getSyncFolder = async () => {
-      const { save_folder, install: { install_path } } = await getGameInfo(appName)
+      const {
+        save_folder,
+        install: { install_path }
+      } = await getGameInfo(appName)
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
       let folder = await fixSaveFolder(save_folder, prefix, isProton || false)
       folder = folder.replace('{InstallDir}', `${install_path}`)
       const path = savesPath ? savesPath : folder
-      const fixedPath = isWin ? path.replaceAll('/', '\\') : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows
+      const fixedPath = isWin
+        ? path.replaceAll('/', '\\')
+        : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows
       setSavesPath(fixedPath)
     }
     getSyncFolder()
@@ -82,7 +77,10 @@ export default function SyncSaves({
     }
 
     await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
-      ipcRenderer.invoke('openMessageBox', { message: res, title: 'Saves Sync' })
+      ipcRenderer.invoke('openMessageBox', {
+        message: res,
+        title: 'Saves Sync'
+      })
     )
     setIsSyncing(false)
   }
@@ -90,7 +88,9 @@ export default function SyncSaves({
   return (
     <>
       <span data-testid="syncSettings" className="setting">
-        <span className="settingText">{t('setting.savefolder.title')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.savefolder.title')}
+        </span>
         <span>
           <input
             data-testid="inputSavePath"
@@ -102,33 +102,40 @@ export default function SyncSaves({
             onChange={(event) => setSavesPath(event.target.value)}
           />
           {!isLinked ? (
-            <CreateNewFolder
-              data-testid="selectSavePath"
+            <SvgButton
               className="material-icons settings folder"
-              style={{ color: '#B0ABB6' }}
               onClick={() =>
-                ipcRenderer.invoke('openDialog', {
-                  buttonLabel: t('box.sync.button'),
-                  properties: ['openDirectory'],
-                  title: t('box.sync.title')
-                })
-                  .then(({ path }: Path) =>
-                    setSavesPath(path ? `${path}` : '')
-                  )
+                ipcRenderer
+                  .invoke('openDialog', {
+                    buttonLabel: t('box.sync.button'),
+                    properties: ['openDirectory'],
+                    title: t('box.sync.title')
+                  })
+                  .then(({ path }: Path) => setSavesPath(path ? `${path}` : ''))
               }
-            />
+            >
+              <CreateNewFolder
+                data-testid="selectSavePath"
+                style={{ color: '#B0ABB6' }}
+              />
+            </SvgButton>
           ) : (
-            <Backspace
-              data-testid="removeSavePath"
+            <SvgButton
               className="material-icons settings folder"
               onClick={() => setSavesPath('')}
-              style={{ color: '#B0ABB6' }}
-            />
+            >
+              <Backspace
+                data-testid="removeSavePath"
+                style={{ color: '#B0ABB6' }}
+              />
+            </SvgButton>
           )}
         </span>
       </span>
       <span className="setting">
-        <span className="settingText">{t('setting.manualsync.title')}</span>
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t('setting.manualsync.title')}
+        </span>
         <span
           style={{
             display: 'flex',
@@ -151,23 +158,26 @@ export default function SyncSaves({
             data-testid="setSync"
             onClick={() => handleSync()}
             disabled={isSyncing || !savesPath.length}
-            className={`button is-small ${isSyncing ? 'is-primary' : 'settings'
+            className={`button is-small ${
+              isSyncing ? 'is-primary' : 'settings'
             }`}
           >
-            {`${isSyncing
-              ? t('setting.manualsync.syncing')
-              : t('setting.manualsync.sync')
+            {`${
+              isSyncing
+                ? t('setting.manualsync.syncing')
+                : t('setting.manualsync.sync')
             }`}
           </button>
         </span>
       </span>
       <span className="setting">
-        <span className="toggleWrapper">
+        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
           {t('setting.autosync')}
           <ToggleSwitch
             value={autoSyncSaves}
             disabled={!savesPath.length}
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+            title={t('setting.autosync')}
           />
         </span>
       </span>

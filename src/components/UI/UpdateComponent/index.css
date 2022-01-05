@@ -10,7 +10,7 @@
   color: var(--text-primary);
 }
 
-.updateIcon .material-icons {
+.updateIcon .icon {
   font-size: 40px;
   animation: refreshing 1.5s infinite;
 }
@@ -19,7 +19,6 @@
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }

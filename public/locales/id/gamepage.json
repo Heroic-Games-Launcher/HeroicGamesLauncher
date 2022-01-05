@@ -1,23 +1,113 @@
 {
     "box": {
-        "move": {
-            "path": "Pilih dimana kamu ingin pindahkan",
-            "message": "Ini bisa memakan waktu yang lama, apa kamu yakin?",
-            "title": "Pindahkan instalasi permainan"
+        "change": {
+            "message": "Ini akan mengubah lokasi pemasangan gim ini, kamu yakin?",
+            "path": "Pilih jalur instal baru",
+            "title": "Ubah Jalur Instalasi Gim"
         },
         "choose": "Pilih",
-        "yes": "IYA",
-        "no": "TIDAK"
+        "importpath": "Pilih Folder Gim untuk diimpor",
+        "move": {
+            "message": "Ini bisa memakan waktu yang lama, apa kamu yakin?",
+            "path": "Pilih dimana kamu ingin pindahkan",
+            "title": "Pindahkan instalasi permainan"
+        },
+        "no": "TIDAK",
+        "repair": {
+            "message": "Apakah Anda ingin mencoba memperbaiki gim ini? Ini bisa memakan waktu lama.",
+            "title": "Verifikasi dan Perbaiki"
+        },
+        "stopInstall": {
+            "keepInstalling": "Tetap Menginstal",
+            "message": "Apakah Anda ingin MENYIMPAN file yang diunduh?",
+            "title": "Hentikan Instalasi"
+        },
+        "uninstall": {
+            "message": "Apakah Anda ingin mencopot instalasi gim ini?",
+            "title": "Copot instalasi"
+        },
+        "update": {
+            "message": "Gim ini memiliki pembaruan, apakah Anda ingin memperbarui sekarang?",
+            "title": "Gim perlu diperbarui"
+        },
+        "wineprefix": "Select WinePrefix Folder",
+        "yes": "YA"
+    },
+    "button": {
+        "cancel": "Batal",
+        "continue": "Lanjutkan Mengunduh",
+        "import": "Impor",
+        "install": "Instal",
+        "uninstall": "Copot",
+        "update": "Perbarui"
+    },
+    "disabled": "Nonaktifkan",
+    "dlc": {
+        "installDlcs": "Pasang semua DLC",
+        "title": "DLC"
+    },
+    "enabled": "Aktifkan",
+    "game": {
+        "downloadSize": "Ukuran Unduhan",
+        "firstPlayed": "Pertama Dimainkan",
+        "installSize": "Ukuran Pemasangan",
+        "lastPlayed": "Terakhir Dimainkan",
+        "neverPlayed": "Tak pernah",
+        "totalPlayed": "Waktu Dimainkan"
     },
     "gamecard": {
+        "moving": "Memindahkan",
         "repairing": "Memperbaiki"
     },
     "info": {
+        "canRunOffline": "Online Required",
+        "path": "Jalur instal",
+        "size": "Ukuran",
+        "syncsaves": "Sinkronkan Simpanan",
         "version": "Versi"
     },
-    "button": {
-        "import": "Impor",
-        "continue": "Lanjutkan Mengunduh",
-        "cancel": "Batalkan"
+    "install": {
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
+    },
+    "label": {
+        "playing": {
+            "start": "Mainkan sekarang",
+            "stop": "Memainkan (Berhenti)"
+        },
+        "saves": {
+            "syncing": "Menyinkronkan Simpanan"
+        }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "title": "Pilih komponen untuk dipasang"
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Direkomendasikan"
+    },
+    "status": {
+        "clickToUpdate": "Klik untuk Memperbarui",
+        "hasUpdates": "Versi Baru Tersedia!",
+        "installed": "Terinstal",
+        "installing": "Menginstal",
+        "moving": "Memindahkan Instalasi, harap tunggu",
+        "notinstalled": "Gim ini tidak diinstal",
+        "reparing": "Memperbaiki Gim, harap tunggu",
+        "totalDownloaded": "Jumlah yang Diunduh",
+        "updating": "Memperbarui gim"
+    },
+    "submenu": {
+        "addShortcut": "Tambah pintasan",
+        "change": "Ubah jalur instal",
+        "log": "Log Terbaru",
+        "move": "Pindahkan gim",
+        "protondb": "Periksa Kompatibilitas",
+        "settings": "Pengaturan",
+        "store": "Halaman Toko",
+        "verify": "Verifikasi dan Perbaiki"
     }
 }

@@ -1,7 +1,7 @@
 <--- Put the description here --->
 
+---
 
--------------------------------------------------------------
 Use the following Checklist if you have changed something on the Backend or Frontend:
 
 - [ ] Tested the feature and it's working on a current and clean install.

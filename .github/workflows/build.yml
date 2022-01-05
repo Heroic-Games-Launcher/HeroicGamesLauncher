@@ -6,33 +6,60 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install modules.
+        run: npm i --legacy-peer-deps
+      - name: Build artifacts.
+        run: npm run dist-win portable
+      - name: Upload EXE.
+        uses: actions/upload-artifact@v2
+        with:
+          name: win-portable
+          path: dist/Heroic*.exe
+          retention-days: 14
+  build_linux:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
       - name: Install modules.
         run: yarn
-      - name: Build 'src'.
-        run: yarn build
-      - name: Build 'electron'.
-        run: yarn build-electron
       - name: Build artifacts.
-        run: |
-          sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools
-          yarn dist appimage pacman --publish=never
+        run: yarn dist appimage --publish=never
       - name: Upload AppImage.
         uses: actions/upload-artifact@v2
         with:
           name: linux-appimage
           path: dist/Heroic-*.AppImage
-          retention-days: 7
-      - name: Upload pacman binary.
+          retention-days: 14
+  build_mac:
+    runs-on: macos-11
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install modules.
+        run: yarn
+      - name: Build artifacts.
+        run: yarn dist-mac --publish=never
+      - name: Upload DMG.
         uses: actions/upload-artifact@v2
         with:
-          name: linux-pacman
-          path: dist/heroic-*.pacman
-          retention-days: 7
+          name: mac-dmg
+          path: dist/Heroic*.dmg
+          retention-days: 14

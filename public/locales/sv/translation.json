@@ -6,8 +6,13 @@
             "message": "Det finns en ny version av Heroic tillgänglig, Vill du uppdatera nu?",
             "title": "Updatering tillgänglig"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Ok",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
+        "choose-legendary-binary": "Välj Legendary binär",
         "customWine": "Välj wine eller proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
@@ -31,6 +36,7 @@
             "title": "Error"
         },
         "no": "Nej",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"
@@ -40,10 +46,23 @@
             "message": "Det finns pågående nedladdningar, är du säker?",
             "title": "Avbryt"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Välj EXE-fil att köra"
         },
-        "select": "Kör",
+        "select": {
+            "button": "Välj",
+            "exe": "Välj EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
@@ -53,13 +72,17 @@
         "yes": "Ja"
     },
     "button": {
+        "login": "Login",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Ogör synkronisering"
     },
     "Downloading": "Laddar ner",
+    "Epic Games": "Epic Games",
     "Filter": "Filtrera",
-    "Games": "Games",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globala inställningar",
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
@@ -79,7 +102,7 @@
             "part4": "Synkronisera spelspraningar automatisk kommer synkronisera sparfiler var gång ett spel startas samt avslutas."
         },
         "wine": {
-            "part1": "Heroic söker efter versioner av Wine och Proton i följade mappar:",
+            "part1": "Heroic söker efter versioner av Wine, Proton och CrossOver i följade mappar:",
             "part2": "För andra platser, använd en symbolisk länk till en av mapparna"
         }
     },
@@ -90,7 +113,13 @@
         "help": "Hjälp",
         "requirements": "Systemkrav"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Bibliotek",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Synkronisering klar",
         "unsync": "Ogör synkronisering klar"
@@ -98,18 +127,25 @@
     "nogames": "Inga spel hittades",
     "Not Ready": "Ej nedladdade",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Reparation klar"
         },
         "install": {
             "canceled": "Installation avbröts",
-            "finished": "Installation klar"
+            "finished": "Installation klar",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Flytta klar",
         "uninstalled": "Avinstallerad",
         "update": {
             "canceled": "Updatering avbruten",
-            "finished": "Updatering klar"
+            "finished": "Updatering klar",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -123,32 +159,39 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary version: ",
         "weblate": "Hjälp till med översättning av Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Använd inbyggd Legendary binär...",
         "egs-prefix": "Prefix där EGS är installerad"
     },
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Ready": "Nedladdade",
-    "Recent": "Recent Games",
+    "Recent": "Senast spelade",
     "Return": "Tillbaka",
     "search": "Skriv in spelets namn här...",
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
+        "alt-legendary-bin": "Välj en alternativ Legendary binär att använda",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
-        "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
+        "autodxvk": "Automatiskt installera/uppdatera DXVK/VKD3D i prefix",
         "autosync": "Autosynkronisera sparfiler",
+        "change-target-exe": "Välj en alternativ EXE att köra",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
-        "darktray": "Använd mörk ikon i sytembrickan",
+        "darktray": "Använd mörk ikon i systembrickan",
         "default-install-path": "Standard installationssökväg",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
+        "esync": "Aktivera Esync",
         "exit-to-tray": "Avsluta till systembrickan",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Skärpanivå",
+        "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
@@ -161,11 +204,11 @@
             "title": "Manuell sparfilssynkronisering",
             "upload": "Ladda upp"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Antal senaste spel som visas",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"
@@ -175,19 +218,39 @@
             "title": "Synkroniseringsmapp för sparfiler"
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Starta minimerad",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },
     "Settings": "Inställningar",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Allmänna",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Butik",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Lägg till ny sökväg",
         "removepath": "Ta bort sökväg"
@@ -197,19 +260,15 @@
         "about": "Om",
         "quit": "Avsluta",
         "reload": "Ladda om",
-        "show": "Visa",
-        "support": "Stöd oss"
+        "show": "Visa"
     },
     "Unreal Marketplace": "Unreal marknadsplats",
     "Updates": "Uppdateringar",
     "userselector": {
-        "about": "Om",
         "discord": "Discord",
         "logout": "Logga ut",
         "logout_confirmation": "Är du säker på att du vill logga ut?",
-        "quit": "Avsluta",
-        "refresh": "Uppdatera bibliotet",
-        "support": "Stöd oss"
+        "quit": "Avsluta"
     },
     "wiki": "Wiki"
 }

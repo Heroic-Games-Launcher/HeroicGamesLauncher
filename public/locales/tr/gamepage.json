@@ -7,67 +7,68 @@
         },
         "choose": "Seç",
         "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
-        "installpath": "Kurulum Yerini Seç",
         "move": {
             "message": "Bu uzun sürebilir, emin misin?",
             "path": "Nereye taşımak istediğinizi seçin",
             "title": "Oyun kurulumunu taşı"
         },
         "no": "HAYIR",
-        "ok": "Ok",
         "repair": {
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
         },
-        "shortcuts": {
-            "message": "Kısayollar Masaüstü ve Başlangıç Menüsünde oluşturuldu",
-            "title": "Kısayollar"
-        },
         "stopInstall": {
-            "keepInstalling": "Yüklemeyi Sürdür",
+            "keepInstalling": "Kuruluma Devam Et",
             "message": "İndirilen dosyaları SAKLAMAK ister misiniz?",
-            "title": "Yüklemeyi Durdur"
+            "title": "Kurulumu Durdur"
         },
         "uninstall": {
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "title": "Kaldır"
         },
         "update": {
-            "message": "Bu oyun için güncelleme mevcut, şimdi güncellemek ister misiniz?",
+            "message": "Bu oyunun bir güncellemesi var, şimdi güncellemek ister misiniz?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "EVET"
     },
     "button": {
-        "cancel": "İptal",
+        "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
-        "import": "İçeri Aktar",
-        "install": "Yükle",
+        "import": "Oyunu İçe Aktar",
+        "install": "Kur",
         "uninstall": "Kaldır",
-        "update": "Update"
+        "update": "Güncelle"
     },
     "disabled": "Devre dışı",
+    "dlc": {
+        "installDlcs": "Tüm DLC'leri kur",
+        "title": "DLCs"
+    },
     "enabled": "Etkin",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "İndirme Boyutu",
+        "firstPlayed": "İlk Oynanan",
+        "installSize": "Kurulum Boyutu",
+        "lastPlayed": "Son Oynanan",
+        "neverPlayed": "Hiç Oynanmadı",
+        "totalPlayed": "Oynanan Zaman"
     },
     "gamecard": {
         "moving": "Taşınıyor",
         "repairing": "Onarılıyor"
     },
     "info": {
+        "canRunOffline": "Çevrim İçi Gerekli",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
-        "version": "Versiyon"
+        "version": "Sürüm"
     },
     "install": {
-        "another": "Farklı bir yere kur",
-        "default": "Kurulum konumu",
-        "import": "Oyunu içe aktar"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -78,18 +79,23 @@
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }
     },
+    "launch": {
+        "options": "Başlatma Seçenekleri..."
+    },
+    "sdl": {
+        "title": "Kurulacak bileşenleri seç"
+    },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Önerilen"
+        "minimum": "Asgari",
+        "recommended": "Tavsiye edilen"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
-        "hasUpdates": "Yeni sürüm mevcut!",
-        "installed": "Yüklendi",
-        "installing": "Yükleniyor",
+        "clickToUpdate": "Güncellemek için tıklayın",
+        "hasUpdates": "Yeni sürüm var!",
+        "installed": "Kuruldu",
+        "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
-        "notinstalled": "Bu oyun yüklü değil",
-        "notSupported": "Bu oyun sadece içeri aktarılabilir",
+        "notinstalled": "Bu oyun kurulu değil",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"
@@ -99,7 +105,7 @@
         "change": "Kurulum yerini değiştir",
         "log": "Güncel Log",
         "move": "Oyunu Taşı",
-        "protondb": "Uyumluluğu Kontrol Et",
+        "protondb": "Uyumluluğu Denetle",
         "settings": "Ayarlar",
         "store": "Mağaza Sayfası",
         "verify": "Doğrula ve Onar"

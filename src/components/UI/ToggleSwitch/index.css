@@ -7,6 +7,10 @@
   height: 11px;
 }
 
+.switch:focus-within {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
 /* Hide default HTML checkbox */
 .switch input {
   opacity: 0;

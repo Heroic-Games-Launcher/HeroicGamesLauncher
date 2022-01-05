@@ -6,8 +6,13 @@
             "message": "有新版本的Heroic启动器可用，您要立即更新吗？",
             "title": "有可用更新"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "请选择",
         "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
+        "choose-legendary-binary": "选择Legendary二进制文件",
         "customWine": "选择已编译的Wine或Proton",
         "default-install-path": "选择默认安装路径",
         "error": {
@@ -31,6 +36,7 @@
             "title": "错误"
         },
         "no": "否",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "未安装，您是否希望安装它？"
@@ -40,10 +46,23 @@
             "message": "有待处理的操作，您确定吗？",
             "title": "退出"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "选择要运行的EXE文件"
         },
-        "select": "选择",
+        "select": {
+            "button": "选择",
+            "exe": "选择EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "选择",
             "error": "无效路径",
@@ -53,13 +72,17 @@
         "yes": "是"
     },
     "button": {
+        "login": "Login",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步"
     },
     "Downloading": "正在下载",
+    "Epic Games": "Epic Games",
     "Filter": "筛选",
-    "Games": "游戏",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "全局设置",
     "help": {
         "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
@@ -79,7 +102,7 @@
             "part4": "自动同步将在你每次开始游戏时和结束游戏后同步存档。"
         },
         "wine": {
-            "part1": "Heroic启动器会在以下文件夹中查找现有的Wine和Proton版本：",
+            "part1": "Heroic启动器会在以下文件夹中查找现有的Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         }
     },
@@ -90,7 +113,13 @@
         "help": "帮助",
         "requirements": "系统要求"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "库",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"
@@ -98,18 +127,25 @@
     "nogames": "未找到游戏",
     "Not Ready": "尚未就绪",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "已完成修复"
         },
         "install": {
             "canceled": "已取消安装",
-            "finished": "安装完成"
+            "finished": "安装完成",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "移动完成",
         "uninstalled": "已卸载",
         "update": {
             "canceled": "已取消更新",
-            "finished": "已更新"
+            "finished": "已更新",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -123,9 +159,11 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary版本: ",
         "weblate": "请帮助翻译Heroic启动器。"
     },
     "placeholder": {
+        "alt-legendary-bin": "使用内置的Legendary二进制文件...",
         "egs-prefix": "Epic Games商城安装位置"
     },
     "Plugins": "插件",
@@ -133,22 +171,27 @@
     "Ready": "准备就绪",
     "Recent": "最近的游戏",
     "Return": "返回",
-    "search": "在此处输入游戏名称",
+    "search": "在此处输入游戏名称…",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
+        "alt-legendary-bin": "选择要替代的Legendary二进制文件",
         "audiofix": "音频修复（Pulse Audio延迟）",
-        "autodxvk": "在PREFIX自动安装并更新DXVK",
+        "autodxvk": "在PREFIX自动安装并更新DXVK/VKD3D",
         "autosync": "自动同步存档",
+        "change-target-exe": "选择要运行的替代EXE",
         "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的Epic Games同步",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "启用FSR（需要支持的WINE版本）",
+        "esync": "启用Esync",
         "exit-to-tray": "退出到系统托盘",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR 锐化度",
+        "fsync": "启用Fsync",
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",
         "mangohud": "启用MangoHud（需要已安装Mangohud）",
@@ -165,7 +208,7 @@
         "maxworkers": "下载时的最大Worker数量",
         "offlinemode": "离线运行游戏",
         "primerun": "启用英伟达Prime渲染",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在PREFIX上运行exe文件"
@@ -175,19 +218,39 @@
             "title": "覆盖云端存档文件夹"
         },
         "showfps": "显示帧数（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "启动时最小化",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "WINE版本"
     },
     "Settings": "设置",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "常规",
             "other": "其它",
             "sync": "存档-同步"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "商店",
+    "title": {
+        "allGames": "所有游戏",
+        "allUnreal": "Unreal - 所有",
+        "downloading": "下载中",
+        "installedGames": "已安装的游戏",
+        "notInstalledGames": "未安装",
+        "unrealAssets": "Unreal - 资产",
+        "unrealPlugins": "Unreal - 插件",
+        "unrealProjects": "Unreal - 项目",
+        "updates": "待更新"
+    },
     "tooltip": {
         "addpath": "添加新路径",
         "removepath": "删除路径"
@@ -197,19 +260,15 @@
         "about": "关于",
         "quit": "退出",
         "reload": "重新加载",
-        "show": "显示",
-        "support": "支持我们"
+        "show": "显示"
     },
     "Unreal Marketplace": "虚幻商城",
     "Updates": "更新",
     "userselector": {
-        "about": "关于",
         "discord": "Discord",
         "logout": "退出登录",
         "logout_confirmation": "您确定要退出登录吗？",
-        "quit": "退出",
-        "refresh": "刷新库",
-        "support": "支持我们"
+        "quit": "退出"
     },
     "wiki": "Wiki百科"
 }

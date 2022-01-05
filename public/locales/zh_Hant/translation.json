@@ -1,0 +1,274 @@
+{
+    "All": "全部",
+    "Assets": "素材",
+    "box": {
+        "appupdate": {
+            "message": "有新版本的Heroic啟動器可用，您要立即更新嗎？",
+            "title": "有可用更新"
+        },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
+        "choose": "請選擇",
+        "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
+        "choose-legendary-binary": "Select Legendary Binary",
+        "customWine": "選擇已編譯的Wine或Proton",
+        "default-install-path": "選擇預設安裝路徑",
+        "error": {
+            "credentials": {
+                "message": "您的憑據已過期，請登出並重新登入。",
+                "title": "過期的登入憑據"
+            },
+            "diskspace": {
+                "message": "磁碟空間不足",
+                "title": "空間不足"
+            },
+            "generic": {
+                "message": "發生了未知錯誤",
+                "title": "未知錯誤"
+            },
+            "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
+            "log": {
+                "message": "未找到此遊戲的日誌",
+                "title": "未找到日誌"
+            },
+            "title": "錯誤"
+        },
+        "no": "否",
+        "ok": "Ok",
+        "protocol": {
+            "install": {
+                "not_installed": "未安裝，您是否希望安裝它？"
+            }
+        },
+        "quit": {
+            "message": "有待處理的操作，您確定嗎？",
+            "title": "退出"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
+        "runexe": {
+            "title": "選擇要執行的EXE檔案"
+        },
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
+        "sync": {
+            "button": "選擇",
+            "error": "無效路徑",
+            "title": "選擇存檔的目錄"
+        },
+        "wineprefix": "選擇WINEPREFIX的資料夾",
+        "yes": "是"
+    },
+    "button": {
+        "login": "Login",
+        "sync": "同步",
+        "syncing": "正在同步",
+        "unsync": "不同步"
+    },
+    "Downloading": "正在下載",
+    "Epic Games": "Epic Games",
+    "Filter": "篩選",
+    "filter": {
+        "noFilter": "No Filter"
+    },
+    "globalSettings": "全域設定",
+    "help": {
+        "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
+        "other": {
+            "part1": "使用 ",
+            "part2": "高級選項",
+            "part3": "在啟動遊戲前調用； ",
+            "part4": "使用 ",
+            "part5": "遊戲參數",
+            "part6": " 在執行啟動命令後調用，例如： ",
+            "part7": " 在某些遊戲中跳過啟動器等。"
+        },
+        "sync": {
+            "part1": "大多數情況下，Heroic啟動器會正確猜測的存檔的位置。但如果位置是錯誤的，請使用覆蓋框更改。",
+            "part2": "如果你改變了Wine或Proton的文件夾，你將需要再次檢查路徑，因為Proton使用不同的前綴（/pfx）和使用者名稱（steamuser）。很簡單，你可以直接刪除當前的路徑，離開同步設置頁面再回來，Heroic會去重新猜測正確PREFIX的文件夾。",
+            "part3": "手動同步：選擇下載以下載存儲在雲端的存檔。選擇上傳將會把本地存檔上傳到雲端。強制下載將會忽略本地版本，強制上傳將會忽略雲端版本。",
+            "part4": "自動同步將在你每次開始遊戲時和結束遊戲後同步存檔。"
+        },
+        "wine": {
+            "part1": "Heroic啟動器會在以下資料夾中搜尋現有的Wine和Proton版本：",
+            "part2": "如果在其它位置，請使用軟鏈接連接到這些中的一個資料夾"
+        }
+    },
+    "info": {
+        "settings": "設定會自動保存"
+    },
+    "infobox": {
+        "help": "幫助",
+        "requirements": "系統要求"
+    },
+    "install": {
+        "path": "Select Install Path"
+    },
+    "Library": "收藏庫",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "message": {
+        "sync": "同步完成",
+        "unsync": "取消同步完成"
+    },
+    "nogames": "未找到遊戲",
+    "Not Ready": "尚未就緒",
+    "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
+        "finished": {
+            "reparing": "已完成修復"
+        },
+        "install": {
+            "canceled": "已取消安裝",
+            "finished": "安裝完成",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
+        },
+        "moved": "移動完成",
+        "uninstalled": "已解除安裝",
+        "update": {
+            "canceled": "已取消更新",
+            "finished": "已更新",
+            "started": "Update Started"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "將其他啟動選項放在這裏",
+            "title": "進階選項（環境變量）："
+        },
+        "gameargs": {
+            "placeholder": "將啟動器參數放在這裏",
+            "title": "遊戲參數（在命令後運行）："
+        }
+    },
+    "other": {
+        "legendary-version": "Legendary Version: ",
+        "weblate": "請幫助翻譯Heroic啟動器。"
+    },
+    "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": "Epic Games商城安裝位置"
+    },
+    "Plugins": "外掛插件",
+    "Projects": "專案",
+    "Ready": "準備就緒",
+    "Recent": "最近的遊戲",
+    "Return": "返回",
+    "search": "在此處輸入遊戲名稱...",
+    "setting": {
+        "adddesktopshortcuts": "自動添加桌面捷徑",
+        "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "audiofix": "音頻修覆（Pulse Audio延遲）",
+        "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
+        "autosync": "自動同步存檔",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "啟動時檢查更新",
+        "customWineProton": "自定義Wine/Proton路徑",
+        "darktray": "使用暗色系統列圖示",
+        "default-install-path": "預設安裝路徑",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
+        "egs-sync": "與已安裝的Epic Games同步",
+        "enableFSRHack": "啟用FSR（需要支持的WINE版本）",
+        "esync": "Enable Esync",
+        "exit-to-tray": "退出到系統列",
+        "FsrSharpnessStrenght": "FSR 銳化度",
+        "fsync": "Enable Fsync",
+        "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
+        "language": "選擇應用語言",
+        "mangohud": "啟用MangoHud（需要已安裝Mangohud）",
+        "manualsync": {
+            "download": "下載",
+            "forcedownload": "強制下載",
+            "forceupload": "強制上傳",
+            "sync": "同步",
+            "syncing": "正在同步",
+            "title": "手動同步存檔",
+            "upload": "上傳"
+        },
+        "maxRecentGames": "最近要展示的遊戲",
+        "maxworkers": "下載時的最大Worker數量",
+        "offlinemode": "離線運行遊戲",
+        "primerun": "啟用Nvidia Prime渲染",
+        "resizableBar": "啟用 Resizable BAR (僅限 NVIDIA RTX 30xx)",
+        "runexe": {
+            "message": "將檔案拖放到此處",
+            "title": "在PREFIX上執行exe檔案"
+        },
+        "savefolder": {
+            "placeholder": "選擇存檔的保存位置",
+            "title": "覆蓋雲端存檔資料夾"
+        },
+        "showfps": "顯示幀數（Directx 9，10和11）",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "start-in-tray": "啟動時最小化",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "WINEPREFIX文件夾",
+        "wineversion": "WINE版本"
+    },
+    "Settings": "設定",
+    "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
+        "navbar": {
+            "general": "一般",
+            "other": "其它",
+            "sync": "存檔-同步"
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
+    },
+    "store": "商店",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
+    "tooltip": {
+        "addpath": "添加新路徑",
+        "removepath": "刪除路徑"
+    },
+    "Total Games": "總遊戲數",
+    "tray": {
+        "about": "關於",
+        "quit": "退出",
+        "reload": "重新載入",
+        "show": "顯示"
+    },
+    "Unreal Marketplace": "虛幻商城",
+    "Updates": "更新",
+    "userselector": {
+        "discord": "Discord",
+        "logout": "登出",
+        "logout_confirmation": "您確定要登出嗎？",
+        "quit": "退出"
+    },
+    "wiki": "Wiki百科"
+}

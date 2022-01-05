@@ -4,42 +4,42 @@ import React, {
   Fragment,
   useContext,
   useEffect,
-  useState
+  useState,
+  MouseEvent
 } from 'react'
 
-import {
-  IpcRenderer
-} from 'electron'
+import { IpcRenderer } from 'electron'
 import {
   getGameInfo,
+  getInstallInfo,
   getProgress,
-  install,
   launch,
   sendKill,
   syncSaves
 } from 'src/helpers'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import Header from 'src/components/UI/Header'
-import InfoBox from 'src/components/UI/InfoBox'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
-import {
-  updateGame
-} from 'src/helpers'
+import { updateGame } from 'src/helpers'
 
 import {
   AppSettings,
   GameInfo,
   GameStatus,
+  InstallInfo,
   InstallProgress
 } from 'src/types'
 
-import { NOT_SUPPORTED_GAMES } from 'src/constants'
 import GamePicture from '../GamePicture'
-import GamesSubmenu from '../GameSubMenu'
 import TimeContainer from '../TimeContainer'
+import prettyBytes from 'pretty-bytes'
+import { Checkbox } from '@material-ui/core'
+import GameRequirements from '../GameRequirements'
+import { GameSubMenu } from '..'
+import { InstallModal } from 'src/screens/Library/components'
+import { install } from 'src/helpers/library'
 
 const storage: Storage = window.localStorage
 
@@ -53,93 +53,102 @@ interface RouteParams {
   appName: string
 }
 
-
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as RouteParams
   const { t } = useTranslation('gamepage')
-  const notSupported = NOT_SUPPORTED_GAMES.includes(appName)
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    data,
-    gameUpdates
-  } = useContext(ContextProvider)
+  const [tabToShow, setTabToShow] = useState('infoTab')
+  const [showModal, setShowModal] = useState({ game: '', show: false })
+
+  const { libraryStatus, handleGameStatus, data, gameUpdates, platform } =
+    useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
 
   const { status } = gameStatus || {}
-  const previousProgress = JSON.parse(storage.getItem(appName) || '{}') as InstallProgress
+  const previousProgress = JSON.parse(
+    storage.getItem(appName) || '{}'
+  ) as InstallProgress
 
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
-  const [progress, setProgress] = useState(previousProgress ?? {
-    bytes: '0.00MiB',
-    eta: '00:00:00',
-    percent: '0.00%'
-  } as InstallProgress)
-  const [defaultPath, setDefaultPath] = useState('...')
-  const [installPath, setInstallPath] = useState(notSupported ? 'import' : 'default')
+  const [progress, setProgress] = useState(
+    previousProgress ??
+      ({
+        bytes: '0.00MiB',
+        eta: '00:00:00',
+        percent: '0.00%'
+      } as InstallProgress)
+  )
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
+  const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
+  const [installDlcs, setInstallDlcs] = useState(false)
+  const [launchArguments, setLaunchArguments] = useState('')
+  const [hasError, setHasError] = useState<{
+    error: boolean
+    message: string | unknown
+  }>({ error: false, message: '' })
 
+  const isWin = platform === 'win32'
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
-  const hasDownloads = Boolean(libraryStatus.filter(
-    (game) => game.status === 'installing' || game.status === 'updating'
-  ).length)
+  const hasDownloads = Boolean(
+    libraryStatus.filter(
+      (game) => game.status === 'installing' || game.status === 'updating'
+    ).length
+  )
 
   useEffect(() => {
     const updateConfig = async () => {
-      const newInfo = await getGameInfo(appName)
-      setGameInfo(newInfo)
-      if (newInfo.cloud_save_enabled) {
-        try {
-          const {
-            autoSyncSaves,
-            savesPath
-          }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-          setAutoSyncSaves(autoSyncSaves)
-          setSavesPath(savesPath)
-        } catch (error) {
-          ipcRenderer.send('logError', error)
+      try {
+        const newInfo = await getGameInfo(appName)
+        setGameInfo(newInfo)
+        getInstallInfo(appName)
+          .then((info) => setGameInstallInfo(info))
+          .catch((error) => {
+            console.error(error)
+            ipcRenderer.send('logError', error)
+            setHasError({ error: true, message: error })
+          })
+        if (newInfo?.cloud_save_enabled) {
+          try {
+            const { autoSyncSaves, savesPath }: AppSettings =
+              await ipcRenderer.invoke('requestSettings', appName)
+            setAutoSyncSaves(autoSyncSaves)
+            return setSavesPath(savesPath)
+          } catch (error) {
+            setHasError({ error: true, message: error })
+            ipcRenderer.send('logError', error)
+          }
         }
+      } catch (error) {
+        console.error({ error })
+        setHasError({ error: true, message: error })
       }
     }
     updateConfig()
   }, [isInstalling, isPlaying, appName, data])
 
   useEffect(() => {
-    ipcRenderer
-      .invoke('requestSettings', 'default')
-      .then((config: AppSettings) => {
-        setDefaultPath(config.defaultInstallPath)
-        if (installPath === 'default') {
-          setInstallPath(config.defaultInstallPath)
-        }
-      })
-    return () => {
-      ipcRenderer.removeAllListeners('requestSettings')
-    }
-  }, [appName, installPath])
-
-  useEffect(() => {
     const progressInterval = setInterval(async () => {
       if (isInstalling || isUpdating || isReparing) {
         const progress: InstallProgress = await ipcRenderer.invoke(
-          isUpdating ? 'requestUpdateProgress' : 'requestGameProgress',
+          'requestGameProgress',
           appName
         )
 
         if (progress) {
-          if (previousProgress){
+          if (previousProgress) {
             const legendaryPercent = getProgress(progress)
             const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round((legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent)
+            const newPercent: number = Math.round(
+              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
+            )
             progress.percent = `${newPercent}%`
           }
           return setProgress(progress)
@@ -150,7 +159,7 @@ export default function GamePage(): JSX.Element | null {
           status
         })
       }
-    }, 1000)
+    }, 1500)
     return () => clearInterval(progressInterval)
   }, [appName, isInstalling, isUpdating, isReparing])
 
@@ -160,26 +169,41 @@ export default function GamePage(): JSX.Element | null {
     await handleGameStatus({ appName, status: 'done' })
   }
 
-  const hasUpdate = gameUpdates.includes(appName)
+  function handleDlcs() {
+    setInstallDlcs(!installDlcs)
+  }
+
+  function handleModal() {
+    setShowModal({ game: appName, show: true })
+  }
+
+  const hasUpdate = gameUpdates?.includes(appName)
 
   if (gameInfo && gameInfo.install) {
     const {
       title,
       art_square,
-      art_logo,
-      install : {
-        install_path,
-        install_size,
-        version
-      },
+      install: { install_path, install_size, version },
       is_installed,
       is_game,
       compatible_apps,
       extra,
       developer,
-      cloud_save_enabled
+      cloud_save_enabled,
+      canRunOffline
     }: GameInfo = gameInfo
-    const haveSystemRequirements = Boolean(extra.reqs.length)
+    const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
+    const DLCList = gameInstallInfo?.game?.owned_dlc
+    const downloadSize =
+      gameInstallInfo?.manifest?.download_size &&
+      prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+    const installSize =
+      gameInstallInfo?.manifest?.disk_size &&
+      prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
+    const launchOptions = gameInstallInfo?.game?.launch_options || []
+    const pathname = isWin
+      ? `/settings/${appName}/other`
+      : `/settings/${appName}/wine`
 
     /*
     Other Keys:
@@ -188,168 +212,226 @@ export default function GamePage(): JSX.Element | null {
     t('box.stopInstall.keepInstalling')
     */
 
+    const onTabClick = (event: MouseEvent) => {
+      const button = event.target as HTMLButtonElement
+      const tab = button.dataset.tab
+      setTabToShow(`${tab}Tab`)
+    }
+
+    if (hasError.error) {
+      const message =
+        typeof hasError.message === 'string'
+          ? hasError.message
+          : 'Unknown error'
+      return <div>{message}</div>
+    }
+
     return (
-      <>
-        <Header goTo={'/'} renderBackButton />
-        <div className="gameConfigContainer">
-          {title ? (
-            <>
-              <div className="gameConfig">
-                <div className="pictureTimeContainer">
-                  <GamePicture art_square={art_square} art_logo={art_logo} />
-                  <TimeContainer game={appName} />
-                </div>
-                <div className="gameInfo">
-                  <div className="gametitle">{title}</div>
-                  <div className="infoWrapper">
-                    <div className="developer">{developer}</div>
-                    {!is_game && (
-                      <div className="compatibleApps">{compatible_apps.join(', ')}</div>
-                    )}
-                    <div className="summary">
-                      {extra && extra.about
-                        ? extra.about.shortDescription
+      <div className="gameConfigContainer">
+        {showModal.show && (
+          <InstallModal
+            appName={showModal.game}
+            backdropClick={() => setShowModal({ game: '', show: false })}
+          />
+        )}
+        {title ? (
+          <>
+            <GamePicture art_square={art_square} />
+            <div className={`gameTabs ${tabToShow}`}>
+              {is_game && (
+                <>
+                  <nav>
+                    <button data-tab="info" onClick={onTabClick}>
+                      Info
+                    </button>
+                    <button data-tab="tools" onClick={onTabClick}>
+                      Tools
+                    </button>
+                    <button data-tab="requirements" onClick={onTabClick}>
+                      System Requirements
+                    </button>
+                  </nav>
+
+                  <div className="gameInfo">
+                    <div className="title">{title}</div>
+                    <div className="infoWrapper">
+                      <div className="developer">{developer}</div>
+                      {!is_game && (
+                        <div className="compatibleApps">
+                          {compatible_apps.join(', ')}
+                        </div>
+                      )}
+                      <div className="summary">
+                        {extra && extra.about
                           ? extra.about.shortDescription
-                          : extra.about.description
+                            ? extra.about.shortDescription
+                            : extra.about.description
                             ? extra.about.description
                             : ''
-                        : ''}
+                          : ''}
+                      </div>
+                      {is_installed && cloud_save_enabled && is_game && (
+                        <div
+                          style={{
+                            color: autoSyncSaves ? '#07C5EF' : ''
+                          }}
+                        >
+                          {t('info.syncsaves')}:{' '}
+                          {autoSyncSaves ? t('enabled') : t('disabled')}
+                        </div>
+                      )}
+                      {!is_installed && (
+                        <>
+                          <div>
+                            {t('game.downloadSize', 'Download Size')}:{' '}
+                            {downloadSize ?? '...'}
+                          </div>
+                          <div>
+                            {t('game.installSize', 'Install Size')}:{' '}
+                            {installSize ?? '...'}
+                          </div>
+                          {haveDLCs && (
+                            <div className="itemContainer">
+                              <div className="dlcTitle">
+                                {t('dlc.title', 'DLCs')}
+                              </div>
+                              {DLCList.map(({ app_name, title }) => (
+                                <span key={app_name} className="dlcTitle">
+                                  {title}
+                                </span>
+                              ))}
+                              <span className="checkBox">
+                                <Checkbox
+                                  color="primary"
+                                  checked={installDlcs}
+                                  size="small"
+                                  onChange={() => handleDlcs()}
+                                />
+                                <span className="itemName">
+                                  {t('dlc.installDlcs', 'Install all DLCs')}
+                                </span>
+                              </span>
+                            </div>
+                          )}
+                          <br />
+                        </>
+                      )}
+                      {is_installed && (
+                        <>
+                          <div>
+                            {t('info.size')}: {install_size}
+                          </div>
+                          <div>
+                            {t('info.version')}: {version}
+                          </div>
+                          <div>
+                            {t('info.canRunOffline', 'Online Required')}:{' '}
+                            {t(canRunOffline ? 'box.no' : 'box.yes')}
+                          </div>
+                          <div
+                            className="clickable"
+                            onClick={() =>
+                              ipcRenderer.send('openFolder', install_path)
+                            }
+                          >
+                            {t('info.path')}: {install_path}
+                          </div>
+                          <br />
+                        </>
+                      )}
                     </div>
-                    {cloud_save_enabled && is_game && (
-                      <div
+                    <TimeContainer game={appName} />
+                    <div className="gameStatus">
+                      {isInstalling && (
+                        <progress
+                          className="installProgress"
+                          max={100}
+                          value={getProgress(progress)}
+                        />
+                      )}
+                      <p
                         style={{
-                          color: autoSyncSaves ? '#07C5EF' : ''
+                          color:
+                            is_installed || isInstalling
+                              ? '#0BD58C'
+                              : '#BD0A0A',
+                          fontStyle: 'italic'
                         }}
                       >
-                        {t('info.syncsaves')}:{' '}
-                        {autoSyncSaves ? t('enabled') : t('disabled')}
-                      </div>
-                    )}
-                    {is_installed && (
+                        {getInstallLabel(is_installed)}
+                      </p>
+                    </div>
+                    {is_installed && Boolean(launchOptions?.length) && (
                       <>
-                        <div>
-                          {t('info.size')}: {install_size}
-                        </div>
-                        <div>
-                          {t('info.version')}: {version}
-                        </div>
-                        <div
-                          className="clickable"
-                          onClick={() =>
-                            ipcRenderer.send('openFolder', install_path)
+                        <select
+                          onChange={(event) =>
+                            setLaunchArguments(event.target.value)
                           }
+                          value={launchArguments}
+                          className="settingSelect"
                         >
-                          {t('info.path')}: {install_path}
-                        </div>
-                        <br />
+                          <option value="">
+                            {t('launch.options', 'Launch Options...')}
+                          </option>
+                          {launchOptions.map(({ name, parameters }) => (
+                            <option key={parameters} value={parameters}>
+                              {name}
+                            </option>
+                          ))}
+                        </select>
                       </>
                     )}
-                  </div>
-                  <div className="gameStatus">
-                    {isInstalling && (
-                      <progress
-                        className="installProgress"
-                        max={100}
-                        value={getProgress(progress)}
-                      />
-                    )}
-                    <p
-                      style={{
-                        color:
-                          is_installed || isInstalling ? '#0BD58C' : '#BD0A0A',
-                        fontStyle: 'italic'
-                      }}
-                    >
-                      {getInstallLabel(is_installed)}
-                    </p>
-                  </div>
-                  {!is_installed && !isInstalling && is_game &&(
-                    <select
-                      onChange={(event) => setInstallPath(event.target.value)}
-                      value={installPath}
-                      className="settingSelect"
-                    >
-                      {!notSupported && <option value={'default'}>{`${t(
-                        'install.default'
-                      )} ${defaultPath.replaceAll("'", '')}`}</option>}
-                      {!notSupported && <option value={'another'}>{t('install.another')}</option>}
-                      <option value={'import'}>{t('install.import')}</option>
-                    </select>
-                  )}
-                  <div className="buttonsWrapper">
-                    {is_installed && is_game && (
-                      <>
+                    <div className="buttonsWrapper">
+                      {is_installed && is_game && (
+                        <>
+                          <button
+                            disabled={isReparing || isMoving || isUpdating}
+                            onClick={handlePlay()}
+                            className={`button ${getPlayBtnClass()}`}
+                          >
+                            {getPlayLabel()}
+                          </button>
+                        </>
+                      )}
+                      {is_installed ? (
+                        <Link
+                          to={{ pathname, state: { fromGameCard: false } }}
+                          className={`button ${getButtonClass(is_installed)}`}
+                        >
+                          {`${getButtonLabel(is_installed)}`}
+                        </Link>
+                      ) : (
                         <button
-                          disabled={isReparing || isMoving || isUpdating}
-                          onClick={handlePlay()}
-                          className={`button ${getPlayBtnClass()}`}
+                          onClick={() => handleInstall(is_installed)}
+                          disabled={
+                            isPlaying ||
+                            isUpdating ||
+                            isReparing ||
+                            isMoving ||
+                            (hasDownloads && !isInstalling)
+                          }
+                          className={`button ${getButtonClass(is_installed)}`}
                         >
-                          {getPlayLabel()}
+                          {`${getButtonLabel(is_installed)}`}
                         </button>
-                      </>
-                    )}
-                    <button
-                      onClick={() => handleInstall()}
-                      disabled={
-                        isPlaying || isUpdating || isReparing || isMoving || (hasDownloads && !isInstalling)
-                      }
-                      className={`button ${getButtonClass(is_installed)}`}
-                    >
-                      {`${getButtonLabel(is_installed)}`}
-                    </button>
+                      )}
+                    </div>
                   </div>
-                  <div className="requirements" style={{ marginBottom: haveSystemRequirements ? 0 : '2em' }}>
-                    {haveSystemRequirements && is_game && (
-                      <InfoBox text="infobox.requirements">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td className="specs"></td>
-                              <td className="specs">
-                                {t('specs.minimum').toUpperCase()}
-                              </td>
-                              <td className="specs">
-                                {t('specs.recommended').toUpperCase()}
-                              </td>
-                            </tr>
-                            {extra.reqs.map((e) => e && e.title && (
-                              <Fragment key={e.title}>
-                                <tr>
-                                  <td>
-                                    <span className="title">
-                                      {e.title.toUpperCase()}:
-                                    </span>
-                                  </td>
-                                  <td>
-                                    <span className="text">{e.minimum}</span>
-                                  </td>
-                                  <td>
-                                    <span className="text">
-                                      {e.recommended}
-                                    </span>
-                                  </td>
-                                </tr>
-                              </Fragment>
-                            ))}
-                          </tbody>
-                        </table>
-                      </InfoBox>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {is_game && (
-                <GamesSubmenu
-                  appName={appName}
-                  isInstalled={is_installed}
-                  title={title}
-                />)}
-            </>
-          ) : (
-            <UpdateComponent />
-          )}
-        </div>
-      </>
+
+                  <GameSubMenu
+                    appName={appName}
+                    isInstalled={is_installed}
+                    title={title}
+                  />
+                  <GameRequirements gameInfo={gameInfo} />
+                </>
+              )}
+            </div>
+          </>
+        ) : (
+          <UpdateComponent />
+        )}
+      </div>
     )
   }
   return <UpdateComponent />
@@ -361,7 +443,7 @@ export default function GamePage(): JSX.Element | null {
     if (isSyncing) {
       return 'is-primary'
     }
-    return isPlaying ? 'is-tertiary' : 'is-primary'
+    return isPlaying ? 'is-tertiary' : 'is-success'
   }
 
   function getPlayLabel(): React.ReactNode {
@@ -375,10 +457,6 @@ export default function GamePage(): JSX.Element | null {
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
 
-    if (notSupported && !is_installed){
-      return  `${t('status.notSupported', 'This game can only be imported')}`
-    }
-
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
@@ -387,10 +465,12 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.moving')}`
     }
 
-    const currentProgress = `${percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'}`
+    const currentProgress = `${
+      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
+    }`
 
     if (isUpdating && is_installed) {
-      if (eta && eta.includes('verifying')){
+      if (eta && eta.includes('verifying')) {
         return `${t('status.reparing')}: ${percent} [${bytes}]`
       }
       return `${t('status.updating')} ${currentProgress}`
@@ -402,7 +482,7 @@ export default function GamePage(): JSX.Element | null {
 
     if (hasUpdate) {
       return (
-        <span onClick={() => handleUpdate()} className='updateText' >
+        <span onClick={() => handleUpdate()} className="updateText">
           {`${t('status.installed')} - ${t(
             'status.hasUpdates',
             'New Version Available!'
@@ -415,30 +495,23 @@ export default function GamePage(): JSX.Element | null {
       return t('status.installed')
     }
 
-    if (previousProgress.folder === installPath) {
-      const currentStatus = `${getProgress(previousProgress)}%`
-      return `${t('status.totalDownloaded', 'Total Downloaded')} ${currentStatus}`
-    }
-
     return t('status.notinstalled')
   }
 
   function getButtonClass(is_installed: boolean) {
-    if (is_installed || isInstalling) {
+    if (isInstalling) {
       return 'is-danger'
     }
-    return 'is-primary'
+
+    if (is_installed) {
+      return 'is-primary'
+    }
+    return 'is-secondary'
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (previousProgress.folder === installPath && !isInstalling && !is_installed) {
-      return t('button.continue', 'Continue Download')
-    }
-    if (installPath === 'import' && !is_installed) {
-      return t('button.import')
-    }
     if (is_installed) {
-      return t('button.uninstall')
+      return t('submenu.settings')
     }
     if (isInstalling) {
       return t('button.cancel')
@@ -449,7 +522,6 @@ export default function GamePage(): JSX.Element | null {
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
-        handleGameStatus({ appName, status: 'done' })
         return sendKill(appName)
       }
 
@@ -459,29 +531,38 @@ export default function GamePage(): JSX.Element | null {
         setIsSyncing(false)
       }
 
-      await handleGameStatus({ appName, status: 'playing' })
-      await launch(appName, t, handleGameStatus)
+      await launch({ appName, t, launchArguments })
 
       if (autoSyncSaves) {
         setIsSyncing(true)
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-
-      return await handleGameStatus({ appName, status: 'done' })
     }
   }
 
-  async function handleInstall(){
+  async function handleInstall(is_installed: boolean) {
+    if (!is_installed && !isInstalling) {
+      return handleModal()
+    }
+
+    const gameStatus: GameStatus = libraryStatus.filter(
+      (game) => game.appName === appName
+    )[0]
+    const { folder } = gameStatus
+    if (!folder) {
+      return
+    }
+
     return await install({
       appName,
       handleGameStatus,
-      installPath,
+      installPath: folder,
       isInstalling,
       previousProgress,
       progress,
-      setInstallPath,
-      t
+      t,
+      installDlcs
     })
   }
 }

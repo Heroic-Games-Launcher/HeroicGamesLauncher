@@ -3,17 +3,22 @@
     "Assets": "Ресурсы",
     "box": {
         "appupdate": {
-            "message": "Доступна новая версия Heroic, обновить сейчас?",
+            "message": "Доступна новая версия Heroic. Обновить сейчас?",
             "title": "Доступно обновление"
+        },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
         "choose": "Выбрать",
         "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
-        "customWine": "Выберите исполняемый файл Wine или Proton",
+        "choose-legendary-binary": "Выбрать исполняемый файл Legendary",
+        "customWine": "Выбрать исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
         "error": {
             "credentials": {
-                "message": "Срок действия ваших учетных данных истек, пожалуйста, выйдите из системы и войдите снова.",
-                "title": "Удостоверения с истекшим сроком действия"
+                "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова.",
+                "title": "Срок действия учетных данных истек"
             },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
@@ -25,25 +30,39 @@
             },
             "launch": "Ошибка при запуске игры, посмотрите логи!",
             "log": {
-                "message": "Журнал для этой игры не найден",
-                "title": "Журнал не найден"
+                "message": "Лог для этой игры не найден",
+                "title": "Лог не найден"
             },
-            "title": "Error"
+            "title": "Ошибка"
         },
         "no": "НЕТ",
+        "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Не установлен, хотите ли вы установить его?"
+                "not_installed": "Не установлен. Хотите установить?"
             }
         },
         "quit": {
-            "message": "Есть незавершенные операции, вы уверены?",
+            "message": "Есть незавершенные операции. Вы уверены?",
             "title": "Выйти"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Выбрать EXE для запуска"
         },
-        "select": "Выбрать",
+        "select": {
+            "button": "Выбрать",
+            "exe": "Выбрать EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Выбрать",
             "error": "Неправильный путь",
@@ -53,13 +72,17 @@
         "yes": "ДА"
     },
     "button": {
+        "login": "Login",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
     },
     "Downloading": "Скачивается",
+    "Epic Games": "Epic Games",
     "Filter": "Фильтр",
-    "Games": "Games",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Глобальные настройки",
     "help": {
         "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
@@ -74,12 +97,12 @@
         },
         "sync": {
             "part1": "Heroic пытается угадать правильную папку для сохранения, и это сработает в большинстве случаев. В случае, если папка неправильная, используйте поле переопределения, чтобы изменить ее.",
-            "part2": "Если вы измените папку префиксов для Wine или Proton, вам нужно будет снова проверить путь, поскольку Proton использует другой префикс (/ pfx) и имя пользователя (steamuser). Таким образом, вы можете просто стереть текущий путь, выйти из страницы настроек синхронизации и вернуться, чтобы Heroic еще раз угадал папку с правильным префиксом.",
-            "part3": "Ручная синхронизация: выберите «Скачать», чтобы скачать сохраненные игры, хранящиеся в облаке. Загрузить, чтобы загрузить локальные в облако. Принудительное скачивание и принудительная загрузка игнорируют версию, которая находится локально или в облаке.",
+            "part2": "Если вы измените папку префиксов для Wine или Proton, вам нужно будет снова проверить путь, поскольку Proton использует другой префикс (/pfx) и имя пользователя (steamuser). Таким образом, вы можете просто стереть текущий путь, выйти из страницы настроек синхронизации и вернуться, чтобы Heroic еще раз угадал папку с правильным префиксом.",
+            "part3": "Ручная синхронизация: выберите «Скачать», чтобы скачать сохраненные игры, хранящиеся в облаке. «Загрузить», чтобы загрузить локальные в облако. Принудительное скачивание и принудительная загрузка игнорируют версию, которая находится локально или в облаке.",
             "part4": "Синхронизация сохранений автоматически синхронизирует сохранения каждый раз при запуске игры и после завершения игры."
         },
         "wine": {
-            "part1": "Heroic ищет версии Wine и Proton в следующих папках:",
+            "part1": "Heroic ищет версии Wine, Proton и CrossOver в следующих папках:",
             "part2": "Для других мест используйте символическую ссылку на одну из этих папок"
         }
     },
@@ -90,7 +113,13 @@
         "help": "Помощь",
         "requirements": "Системные требования"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Библиотека",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Синхронизация завершена",
         "unsync": "Рассинхронизация завершена"
@@ -98,23 +127,30 @@
     "nogames": "Игры не найдены",
     "Not Ready": "Не готово",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Восстановление завершено"
         },
         "install": {
             "canceled": "Установка прервана",
-            "finished": "Установка завершена"
+            "finished": "Установка завершена",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Перемещение завершено",
         "uninstalled": "Удалено",
         "update": {
             "canceled": "Обновление прервано",
-            "finished": "Обновление завершено"
+            "finished": "Обновление завершено",
+            "started": "Update Started"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "Вставьте сюда другие опции для запуска",
+            "placeholder": "Вставьте сюда другие параметры запуска",
             "title": "Расширенные настройки (Переменные среды):"
         },
         "gameargs": {
@@ -123,71 +159,98 @@
         }
     },
     "other": {
+        "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Используется встроенный Legendary...",
         "egs-prefix": "Префикс куда установлен EGS"
     },
-    "Plugins": "Plugins",
+    "Plugins": "Плагины",
     "Projects": "Проекты",
     "Ready": "Готово",
-    "Recent": "Recent Games",
+    "Recent": "Недавние игры",
     "Return": "Вернуться",
-    "search": "Напишите сюда имя игры...",
+    "search": "Введите здесь название игры...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
+        "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
+        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
-        "autodxvk": "Автоустановка/обновление DXVK на префикс",
+        "autodxvk": "Автоустановка/обновление DXVK/VKD3D на префикс",
         "autosync": "Автосинхронизация сохранений",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "change-target-exe": "Выбрать другой EXE для запуска",
+        "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
-        "discordRPC": "Enable Discord Rich Presence",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "discordRPC": "Включить Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
+        "esync": "Включить Esync",
         "exit-to-tray": "Сворачивать в системный трей",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "gamemode": "Использовать GameMode (Нужен Feral Game Mode)",
+        "FsrSharpnessStrenght": "Усиление резкости FSR",
+        "fsync": "Включить Fsync",
+        "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
         "manualsync": {
             "download": "Скачать",
-            "forcedownload": "Принудительная скачка",
-            "forceupload": "Принудительная загрузка",
+            "forcedownload": "Принудительно скачать",
+            "forceupload": "Принудительно загрузить",
             "sync": "Синхронизировать",
             "syncing": "Синхронизация",
             "title": "Ручная синхронизация сохранений",
             "upload": "Загрузить"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Показывать недавних игр",
         "maxworkers": "Максимальное количество потоков при скачивании",
-        "offlinemode": "Запустить игру в автономном режиме",
+        "offlinemode": "Запускать игру офлайн",
         "primerun": "Включить Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE на префиксе"
         },
         "savefolder": {
             "placeholder": "Выберите точную папку для сохранений игр",
-            "title": "Перезаписать облачную папку сохранений"
+            "title": "Переопределить папку для облачных сохранений"
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
-        "start-in-tray": "Start Minimized",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "start-in-tray": "Запускать свернутым в трей",
+        "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
     },
     "Settings": "Настройки",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Магазин",
+    "title": {
+        "allGames": "Все игры",
+        "allUnreal": "Unreal - Все",
+        "downloading": "Скачивание",
+        "installedGames": "Установленные игры",
+        "notInstalledGames": "Не установлено",
+        "unrealAssets": "Unreal - Ресурсы",
+        "unrealPlugins": "Unreal - Плагины",
+        "unrealProjects": "Unreal - Проекты",
+        "updates": "Ожидаемые обновления"
+    },
     "tooltip": {
         "addpath": "Добавить новый путь",
         "removepath": "Удалить путь"
@@ -197,19 +260,15 @@
         "about": "О программе",
         "quit": "Выйти",
         "reload": "Перезагрузить",
-        "show": "Показать",
-        "support": "Поддержать нас"
+        "show": "Показать"
     },
-    "Unreal Marketplace": "",
+    "Unreal Marketplace": "Unreal Engine",
     "Updates": "Обновления",
     "userselector": {
-        "about": "О программе",
         "discord": "Дискорд",
-        "logout": "Разлогиниться",
-        "logout_confirmation": "Вы уверены, что хотите выйти из системы?",
-        "quit": "Выйти",
-        "refresh": "Обновить библиотеку",
-        "support": "Поддержать нас"
+        "logout": "Выйти из EGS",
+        "logout_confirmation": "Вы уверены, что хотите выйти?",
+        "quit": "Закрыть Heroic"
     },
     "wiki": "Вики"
 }

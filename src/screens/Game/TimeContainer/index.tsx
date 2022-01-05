@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next'
 import ElectronStore from 'electron-store'
 
 import { SmallInfo } from 'src/components/UI'
-const storage = window.localStorage
+
+import './index.css'
+
 const Store = window.require('electron-store')
 const store: ElectronStore = new Store({
-  'cwd': 'store',
-  'name': 'timestamp'
+  cwd: 'store',
+  name: 'timestamp'
 })
 
 type Props = {
@@ -26,28 +28,55 @@ function TimeContainer({ game }: Props) {
   const hasPlayed = store.has(game)
 
   if (!hasPlayed) {
-    return <SmallInfo
-      title={`${t('game.lastPlayed', 'Last Played')}:`}
-      subtitle={`${t('game.neverPlayed', 'Never')}`} />
+    return (
+      <SmallInfo
+        title={`${t('game.lastPlayed', 'Last Played')}:`}
+        subtitle={`${t('game.neverPlayed', 'Never')}`}
+      />
+    )
   }
 
   const tsInfo = store.get(game) as TimeStamp
   const options: Intl.DateTimeFormatOptions = {
-    dateStyle: 'short',
-    timeStyle: 'short'
-  };
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  }
   const firstPlayed = new Date(tsInfo.firstPlayed)
-  const language = storage.getItem('language')?.replace('_', '-')
-  const firstDate = new Intl.DateTimeFormat(language || 'en', options).format(firstPlayed);
+  const firstDate = new Intl.DateTimeFormat(undefined, options).format(
+    firstPlayed
+  )
   const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
-  const totalPlayed = tsInfo.totalPlayed ? convertMinsToHrsMins(tsInfo.totalPlayed) : null
-  const lastDate = new Intl.DateTimeFormat(language || 'en', options).format(lastPlayed || new Date());
+  const totalPlayed = tsInfo.totalPlayed
+    ? convertMinsToHrsMins(tsInfo.totalPlayed)
+    : null
+  const lastDate = new Intl.DateTimeFormat(undefined, options).format(
+    lastPlayed || new Date()
+  )
 
-  return <div className="info">
-    <SmallInfo title={`${t('game.firstPlayed', 'First Played')}:`} subtitle={firstDate} />
-    {lastPlayed && <SmallInfo title={`${t('game.lastPlayed', 'Last Played')}:`} subtitle={lastDate} />}
-    {totalPlayed && <SmallInfo title={`${t('game.totalPlayed', 'Time Played')}:`} subtitle={`${totalPlayed}`} />}
-  </div>
+  return (
+    <div className="info">
+      <SmallInfo
+        title={`${t('game.firstPlayed', 'First Played')}:`}
+        subtitle={firstDate}
+      />
+      {lastPlayed && (
+        <SmallInfo
+          title={`${t('game.lastPlayed', 'Last Played')}:`}
+          subtitle={lastDate}
+        />
+      )}
+      {totalPlayed && (
+        <SmallInfo
+          title={`${t('game.totalPlayed', 'Time Played')}:`}
+          subtitle={`${totalPlayed}`}
+        />
+      )}
+    </div>
+  )
 }
 
 const convertMinsToHrsMins = (mins: number) => {
@@ -55,7 +84,7 @@ const convertMinsToHrsMins = (mins: number) => {
   let m: string | number = mins % 60
   h = h < 10 ? '0' + h : h
   m = m < 10 ? '0' + m : m
-  return `${h}:${m}`;
+  return `${h}:${m}`
 }
 
 export default TimeContainer

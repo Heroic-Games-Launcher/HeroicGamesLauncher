@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dist",
+      "problemMatcher": [],
+      "label": "Test",
+      "detail": "yarn test",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "dist",
+      "problemMatcher": [],
+      "label": "Build for Linux",
+      "detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "dist",
+      "problemMatcher": [],
+      "label": "Build for Windows",
+      "detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win"
+    },
+    {
+      "type": "npm",
+      "script": "dist",
+      "problemMatcher": [],
+      "label": "Build for MacOS",
+      "detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --darwin"
+    }
+  ]
+}

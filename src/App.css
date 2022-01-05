@@ -1,22 +1,38 @@
 @import '~@fontsource/rubik/index.css';
 @import '~@fontsource/cabin/index.css';
-
 * {
   box-sizing: border-box;
+}
+
+body,
+html,
+#root,
+.App {
+  height: 100%;
+  overflow: hidden;
 }
 
 .App {
   text-align: center;
   color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-areas: 'sidebar content';
   font-family: 'Cabin', sans-serif;
 }
 
 .App .content {
-  display: grid;
-  place-content: center;
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.App .content .updateIcon {
+  height: 100vh;
+  position: initial;
+  width: var(--content-width);
 }
 
 .button {
@@ -33,7 +49,6 @@
   line-height: 17px;
   color: #161616;
   border: none;
-  outline: none;
   min-width: 170px;
   max-height: 40px;
   text-align: center;
@@ -63,12 +78,18 @@
   pointer-events: none;
 }
 
-.button.is-tertiary {
+.button.is-secondary {
   background: var(--secondary);
 }
 
-.button.is-tertiary:hover {
+.button.is-tertiary {
+  background: var(--tertiary);
+  color: white;
+}
+
+.button.is-secondary:hover {
   background: var(--secondary-hover);
+  color: var(--text-tertiary);
 }
 
 .button.is-empty {
@@ -80,7 +101,7 @@
   background: var(--success);
 }
 
-.button.button.is-success:hover {
+.button.is-success:hover {
   background: var(--success-hover);
 }
 
@@ -129,6 +150,7 @@
   right: 42px;
   top: 5px;
   cursor: pointer;
+  color: var(--text-primary);
 }
 
 .button.settings {
@@ -143,6 +165,38 @@
 .button.settings:disabled:hover,
 .button.settings:disabled {
   background: #7c7c7c;
+}
+
+.button.is-text {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-primary);
+  box-shadow: none;
+  text-transform: none;
+  min-width: fit-content;
+  font-family: Cabin;
+  font-size: 14px;
+}
+
+.button.is-text:hover {
+  color: var(--secondary);
+}
+
+.button.is-link {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--secondary);
+  margin: 4px 0px;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.button.is-link:hover {
+  color: var(--secondary-hover);
 }
 
 .icons > * {
@@ -161,11 +215,56 @@
   line-height: 19px;
   color: var(--text-secondary);
   text-indent: 22px;
-  outline: none;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.settingText {
+  margin-bottom: 14px;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-primary);
+}
+
+.smallMessage {
+  font-size: 12px;
+  width: 513px;
+  white-space: break-spaces;
+  padding-top: 4px;
+}
+
 svg.disabled {
   color: var(--background);
+}
+
+.react-contextmenu--visible {
+  background-color: var(--background);
+  padding: 14px 22px;
+  border-radius: 6px;
+  z-index: 99;
+}
+
+.react-contextmenu-item {
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 26px;
+  font-family: Rubik;
+  cursor: pointer;
+  text-align: left;
+}
+
+.react-contextmenu-item:hover {
+  color: var(--secondary);
+}
+
+.react-contextmenu-item.disabled {
+  color: var(--icon-disabled);
+  cursor: initial;
+}
+
+.isRTL {
+  direction: rtl;
 }

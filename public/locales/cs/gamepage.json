@@ -7,21 +7,15 @@
         },
         "choose": "Vybrat",
         "importpath": "Vybrerte složku hry pro importování",
-        "installpath": "Vybrat cestu pro instalaci",
         "move": {
             "message": "Toto může chvíli trvat, jste si jisti?",
             "path": "Vyberte, kam chcete hru přesunout",
             "title": "Přesunout instalaci hry"
         },
         "no": "NE",
-        "ok": "Ok",
         "repair": {
             "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
             "title": "Zkontrolovat a opravit"
-        },
-        "shortcuts": {
-            "message": "Skratky byly vytvořeny na ploše a v menu Start",
-            "title": "Skratky"
         },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
@@ -36,6 +30,7 @@
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat teď?",
             "title": "Hra vyžaduje akualizaci"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ANO"
     },
     "button": {
@@ -47,9 +42,15 @@
         "update": "Update"
     },
     "disabled": "Zakázáno",
+    "dlc": {
+        "installDlcs": "Install all DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Povoleno",
     "game": {
+        "downloadSize": "Download Size",
         "firstPlayed": "Poprvé hráno",
+        "installSize": "Install Size",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "totalPlayed": "Odehraný čas"
@@ -59,15 +60,15 @@
         "repairing": "Opravuji"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Cesta pro instalaci",
         "size": "Velikost",
         "syncsaves": "Synchronizovat uložené soubory",
         "version": "Verze"
     },
     "install": {
-        "another": "Instalovat na jinou cestu",
-        "default": "Instalovat do",
-        "import": "Importovat hru"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -77,6 +78,12 @@
         "saves": {
             "syncing": "Synchronizuji uložené soubory"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "title": "Select components to Install"
     },
     "specs": {
         "minimum": "Minimum",
@@ -89,7 +96,6 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
-        "notSupported": "Tuto hru lze pouze importovat",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
         "updating": "Aktualizuji hru"

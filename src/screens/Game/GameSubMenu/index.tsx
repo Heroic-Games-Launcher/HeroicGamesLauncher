@@ -4,15 +4,11 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { AppSettings } from 'src/types'
 import { IpcRenderer } from 'electron'
-import { Link } from 'react-router-dom'
 import { SmallInfo } from 'src/components/UI'
-import {
-  createNewWindow,
-  formatStoreUrl,
-  repair
-} from 'src/helpers'
+import { createNewWindow, formatStoreUrl, repair } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
+import { uninstall } from 'src/helpers/library'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -25,21 +21,16 @@ interface Props {
 }
 
 type otherInfo = {
-  prefix: string,
+  prefix: string
   wine: string
 }
 
-export default function GamesSubmenu({
-  appName,
-  isInstalled,
-  title
-}: Props) {
-  const { handleGameStatus, refresh, platform } = useContext(
-    ContextProvider
-  )
+export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
+  const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
-  const [info, setInfo] = useState({prefix: '', wine: ''} as otherInfo)
+  const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
 
   const { t, i18n } = useTranslation('gamepage')
   let lang = i18n.language
@@ -56,7 +47,7 @@ export default function GamesSubmenu({
       title: t('box.move.title')
     })
     if (response === 0) {
-      const { path } = await ipcRenderer.invoke('openDialog',{
+      const { path } = await ipcRenderer.invoke('openDialog', {
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.move.path')
@@ -76,7 +67,7 @@ export default function GamesSubmenu({
       title: t('box.change.title')
     })
     if (response === 0) {
-      const { path } = await ipcRenderer.invoke('openDialog',{
+      const { path } = await ipcRenderer.invoke('openDialog', {
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.change.path')
@@ -105,86 +96,101 @@ export default function GamesSubmenu({
   }
 
   function handleShortcuts() {
-    ipcRenderer.send('addShortcut', appName)
-    return ipcRenderer.invoke('openMessageBox', {
-      buttons: [t('box.ok', 'Ok')],
-      message: t('box.shortcuts.message', 'Shortcuts were created on Desktop and Start Menu'),
-      title: t('box.shortcuts.title', 'Shortcuts')
-    })
+    ipcRenderer.send('addShortcut', appName, true)
   }
 
   useEffect(() => {
-    const getInfo = async () => {
+    if (isWin) {
+      return
+    }
+    const getWineInfo = async () => {
       try {
-        const { wineVersion, winePrefix }: AppSettings = await ipcRenderer.invoke('requestSettings', appName)
-        let wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
-        if (wine.includes('Default')){
+        const { wineVersion, winePrefix }: AppSettings =
+          await ipcRenderer.invoke('requestSettings', appName)
+        let wine = wineVersion.name
+          .replace('Wine - ', '')
+          .replace('Proton - ', '')
+        if (wine.includes('Default')) {
           wine = wine.split('-')[0]
         }
-        setInfo({prefix: winePrefix, wine})
+        setInfo({ prefix: winePrefix, wine })
       } catch (error) {
         ipcRenderer.send('logError', error)
       }
     }
-    getInfo()
+    getWineInfo()
   }, [appName])
 
   return (
-    <div className="subMenuContainer">
+    <div className="gameTools subMenuContainer">
       <div className={`submenu`}>
         {isInstalled && (
           <>
-            <Link
-              className="link"
-              to={{
-                pathname: isWin
-                  ? `/settings/${appName}/other`
-                  : `/settings/${appName}/wine`,
-                state: { fromGameCard: false }
-              }}
-            >
-              {t('submenu.settings')}
-            </Link>
-            <span onClick={() => handleRepair(appName)} className="link">
-              {t('submenu.verify')}
-            </span>{' '}
-            <span onClick={() => handleMoveInstall()} className="link">
-              {t('submenu.move')}
-            </span>{' '}
-            <span onClick={() => handleChangeInstall()} className="link">
-              {t('submenu.change')}
-            </span>{' '}
-            <span
+            <button
               onClick={() => renderer.send('getLog', appName)}
-              className="link"
+              className="link button is-text is-link"
             >
               {t('submenu.log')}
-            </span>
-            {isLinux && <span
-              onClick={() => handleShortcuts()}
-              className="link"
+            </button>
+            <button
+              onClick={() => handleMoveInstall()}
+              className="link button is-text is-link"
             >
-              {t('submenu.addShortcut', 'Add shortcut')}
-            </span>}
+              {t('submenu.move')}
+            </button>{' '}
+            <button
+              onClick={() => handleChangeInstall()}
+              className="link button is-text is-link"
+            >
+              {t('submenu.change')}
+            </button>{' '}
+            <button
+              onClick={() => handleRepair(appName)}
+              className="link button is-text is-link"
+            >
+              {t('submenu.verify')}
+            </button>{' '}
+            <button
+              onClick={() => uninstall({ appName, t, handleGameStatus })}
+              className="link button is-text is-link"
+            >
+              {t('button.uninstall')}
+            </button>{' '}
+            {!isMac && (
+              <button
+                onClick={() => handleShortcuts()}
+                className="link button is-text is-link"
+              >
+                {t('submenu.addShortcut', 'Add shortcut')}
+              </button>
+            )}
           </>
         )}
-        <span
+        <button
           onClick={() => createNewWindow(formatStoreUrl(title, lang))}
-          className="link"
+          className="link button is-text is-link"
         >
           {t('submenu.store')}
-        </span>
-        {!isWin && <span
-          onClick={() => createNewWindow(protonDBurl)}
-          className="link"
-        >
-          {t('submenu.protondb')}
-        </span>}
+        </button>
+        {!isWin && (
+          <button
+            onClick={() => createNewWindow(protonDBurl)}
+            className="link button is-text is-link"
+          >
+            {t('submenu.protondb')}
+          </button>
+        )}
       </div>
-      {!isWin && <div className="otherInfo">
-        <SmallInfo title="Wine:" subtitle={info.wine} />
-        <SmallInfo title="Prefix:" subtitle={info.prefix} handleclick={() => ipcRenderer.send('openFolder', info.prefix)} />
-      </div>}
+      {isInstalled && isLinux && (
+        <div className="otherInfo">
+          <SmallInfo title="Wine:" subtitle={info.wine} />
+          <SmallInfo
+            title="Prefix:"
+            subtitle={info.prefix}
+            handleclick={() => ipcRenderer.send('openFolder', info.prefix)}
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -1,22 +1,15 @@
 import * as axios from 'axios'
-import {
-  app,
-  dialog,
-  net,
-  shell
-} from 'electron'
+import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
-import {
-  existsSync,
-  stat
-} from 'graceful-fs'
+import { existsSync, stat, rm } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
+import prettyBytes from 'pretty-bytes'
+import si from 'systeminformation'
+import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
-import {
-  heroicGamesConfigPath,
-  icon} from './constants'
+import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
 import { logError, logInfo, logWarning } from './logger'
 
 const execAsync = promisify(exec)
@@ -28,7 +21,7 @@ const { showErrorBox, showMessageBox } = dialog
  * Compares 2 SemVer strings following "major.minor.patch".
  * Checks if target is newer than base.
  */
-function semverGt(target : string, base : string) {
+function semverGt(target: string, base: string) {
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
 
@@ -44,11 +37,39 @@ async function isOnline() {
   return net.isOnline()
 }
 
+export const getLegendaryVersion = async () => {
+  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
+  try {
+    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
+      return 'invalid'
+    }
+    const { stdout } = await execAsync(`${legendaryBin} --version`)
+    return stdout
+      .split('legendary version')[1]
+      .replaceAll('"', '')
+      .replaceAll(', codename', '')
+      .replaceAll('\n', '')
+  } catch (error) {
+    return 'invalid'
+  }
+}
+
+export const getHeroicVersion = () => {
+  const VERSION_NUMBER = app.getVersion()
+  const BETA_VERSION_NAME = 'Caesar Clown'
+  const STABLE_VERSION_NAME = 'Roronoa Zoro'
+  const isBetaorAlpha =
+    VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
+  const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
+
+  return `${VERSION_NUMBER} ${VERSION_NAME}`
+}
+
 async function checkForUpdates() {
   const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
-  logInfo('checking for heroic updates');
-  if (!checkForUpdatesOnStartup){
-    logInfo('skipping heroic updates');
+  logInfo('checking for heroic updates')
+  if (!checkForUpdatesOnStartup) {
+    logInfo('skipping heroic updates')
     return
   }
   if (!(await isOnline())) {
@@ -72,10 +93,10 @@ async function checkForUpdates() {
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
-    applicationVersion: `${app.getVersion()} Mihawk`,
+    applicationVersion: getHeroicVersion(),
     copyright: 'GPL V3',
     iconPath: icon,
-    website: 'https://github.com/flavioislima/HeroicGamesLauncher'
+    website: 'https://heroicgameslauncher.com'
   })
   return app.showAboutPanel()
 }
@@ -101,15 +122,60 @@ const handleExit = async () => {
   app.exit()
 }
 
+export const getSystemInfo = async () => {
+  const heroicVersion = getHeroicVersion()
+  const legendaryVersion = await getLegendaryVersion()
+
+  // get CPU and RAM info
+  const { manufacturer, brand, speed, governor } = await si.cpu()
+  const { total, available } = await si.mem()
+
+  // get OS information
+  const { distro, kernel, arch, platform } = await si.osInfo()
+
+  // get GPU information
+  const { controllers } = await si.graphics()
+  const graphicsCards = String(
+    controllers.map(
+      ({ name, model, vram, driverVersion }, i) =>
+        `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
+          driverVersion ?? ''
+        } \n`
+    )
+  )
+    .replaceAll(',', '')
+    .replaceAll('\n', '')
+
+  const isLinux = platform === 'linux'
+  const xEnv = isLinux
+    ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
+    : ''
+
+  return `
+  Heroic Version: ${heroicVersion}
+  Legendary Version: ${legendaryVersion}
+  OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+  CPU: ${manufacturer} ${brand} @${speed} ${
+    governor ? `GOVERNOR: ${governor}` : ''
+  }
+  RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
+  GRAPHICS: ${graphicsCards}
+  ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
+  `
+}
+
 type ErrorHandlerMessage = {
-  error?: {stderr: string, stdout: string}
+  error?: { stderr: string; stdout: string }
   logPath?: string
 }
 
-async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void> {
+async function errorHandler({
+  error,
+  logPath
+}: ErrorHandlerMessage): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
   const noCredentialsError = 'No saved credentials'
-  if (logPath){
+  if (logPath) {
     execAsync(`tail ${logPath} | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
@@ -125,8 +191,8 @@ async function errorHandler({error, logPath}: ErrorHandlerMessage): Promise<void
       })
       .catch(() => logInfo('operation interrupted'))
   }
-  if (error){
-    if (error.stderr.includes(noCredentialsError)){
+  if (error) {
+    if (error.stderr.includes(noCredentialsError)) {
       return showErrorBox(
         i18next.t('box.error.credentials.title', 'Expired Credentials'),
         i18next.t(
@@ -145,19 +211,33 @@ function genericErrorMessage(): void {
   )
 }
 
-async function openUrlOrFile(url: string): Promise<string> {
-  if (process.platform === 'darwin'){
+function removeSpecialcharacters(text: string): string {
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+  return text.replaceAll(regexp, '')
+}
+
+async function openUrlOrFile(url: string): Promise<string | void> {
+  if (process.platform === 'darwin') {
     try {
       await execAsync(`open ${url}`)
     } catch (error) {
-      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+      dialog.showErrorBox(
+        i18next.t('box.error.log.title', 'Log Not Found'),
+        i18next.t('box.error.log.message', 'No Log was found for this game')
+      )
+      return
     }
   }
-  if (process.platform === 'linux'){
+  if (process.platform === 'linux') {
     try {
-      await execAsync(`xdg-open '${url}'`)
+      const fixedURL = url.replace('~', home)
+      await execAsync(`xdg-open '${fixedURL}'`)
     } catch (error) {
-      dialog.showErrorBox(i18next.t('box.error.log.title', 'Log Not Found'), i18next.t('box.error.log.message', 'No Log was found for this game'))
+      dialog.showErrorBox(
+        i18next.t('box.error.log.title', 'Log Not Found'),
+        i18next.t('box.error.log.message', 'No Log was found for this game')
+      )
+      return
     }
   }
   return shell.openPath(url)
@@ -174,38 +254,64 @@ async function openUrlOrFile(url: string): Promise<string> {
 async function checkCommandVersion(
   commands: string[],
   version: string,
-  all_fullfil = true): Promise<boolean> {
-  let found = false;
+  all_fullfil = true
+): Promise<boolean> {
+  let found = false
   for (const command of commands) {
-    try{
-      const {stdout} = await execAsync(command + ' --version');
-      const commandVersion = stdout ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0] : null;
+    try {
+      const { stdout } = await execAsync(command + ' --version')
+      const commandVersion = stdout
+        ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0]
+        : null
 
-      if(semverGt(commandVersion, version) || commandVersion === version) {
+      if (semverGt(commandVersion, version) || commandVersion === version) {
         logInfo(`Command '${command}' found. Version: '${commandVersion}'`)
-        if(!all_fullfil)
-        {
-          return true;
+        if (!all_fullfil) {
+          return true
         }
-        found = true;
-      }
-      else {
-        logWarning(`Command ${command} version '${commandVersion}' not supported.`);
-        if(all_fullfil)
-        {
-          return false;
+        found = true
+      } else {
+        logWarning(
+          `Command ${command} version '${commandVersion}' not supported.`
+        )
+        if (all_fullfil) {
+          return false
         }
       }
-    }
-    catch {
-      logWarning(`${command} command not found`);
-      if(all_fullfil)
-      {
-        return false;
+    } catch {
+      logWarning(`${command} command not found`)
+      if (all_fullfil) {
+        return false
       }
     }
   }
-  return found;
+  return found
+}
+
+function clearCache() {
+  const installCache = new Store({
+    cwd: 'lib-cache',
+    name: 'installInfo'
+  })
+  const libraryCache = new Store({
+    cwd: 'lib-cache',
+    name: 'library'
+  })
+  const gameInfoCache = new Store({
+    cwd: 'lib-cache',
+    name: 'gameinfo'
+  })
+  installCache.clear()
+  libraryCache.clear()
+  gameInfoCache.clear()
+}
+
+function resetHeroic() {
+  const heroicFolder = `${app.getPath('appData')}/heroic`
+  rm(heroicFolder, { recursive: true, force: true }, () => {
+    app.relaunch()
+    app.quit()
+  })
 }
 
 export {
@@ -219,5 +325,8 @@ export {
   openUrlOrFile,
   semverGt,
   showAboutWindow,
-  statAsync
+  statAsync,
+  removeSpecialcharacters,
+  clearCache,
+  resetHeroic
 }

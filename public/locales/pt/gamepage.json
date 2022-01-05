@@ -7,21 +7,15 @@
         },
         "choose": "Selecionar",
         "importpath": "Escolha a pasta do jogo para importar",
-        "installpath": "Escolha a pasta de instalação",
         "move": {
             "message": "Isso pode levar bastante tempo, continuar?",
             "path": "Escolha a pasta de destino",
             "title": "Mover Games para outra pasta"
         },
         "no": "NÃO",
-        "ok": "Ok",
         "repair": {
             "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo.",
             "title": "Verificar e Reparar"
-        },
-        "shortcuts": {
-            "message": "Atalhos foram criados na Área de trabalho and Menu de aplicações",
-            "title": "Atalhos"
         },
         "stopInstall": {
             "keepInstalling": "Continuar Instalação",
@@ -36,20 +30,27 @@
             "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
             "title": "Atualização!"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "SIM"
     },
     "button": {
-        "cancel": "Cancelar",
+        "cancel": "Pausar/Cancelar",
         "continue": "Continuar Download",
-        "import": "Importar",
+        "import": "Importar Jogo",
         "install": "Instalar",
         "uninstall": "Desinstalar",
         "update": "Update"
     },
     "disabled": "Desabilitado",
+    "dlc": {
+        "installDlcs": "Instalar todas as DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Habilitado",
     "game": {
+        "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado pela primeira vez",
+        "installSize": "Tamanho Instalado",
         "lastPlayed": "Jogado pela última vez",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo de Jogo"
@@ -59,15 +60,15 @@
         "repairing": "Reparando"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Pasta de Instalação",
         "size": "Tamanho",
         "syncsaves": "Sincronização em Nuvem",
         "version": "Versão"
     },
     "install": {
-        "another": "Instalar em outro local",
-        "default": "Instalar em",
-        "import": "Importar Jogo"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -77,6 +78,12 @@
         "saves": {
             "syncing": "Sincronizando"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "title": "Selecione os componentes para instalar"
     },
     "specs": {
         "minimum": "Mínimo",
@@ -89,7 +96,6 @@
         "installing": "Instalando",
         "moving": "Movendo Jogo, por favor espere",
         "notinstalled": "Jogo não instalado",
-        "notSupported": "Esse jogo só pode ser importado",
         "reparing": "Reparando jogo, por favor espere",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando jogo"

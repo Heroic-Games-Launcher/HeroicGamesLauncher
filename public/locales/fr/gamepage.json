@@ -3,29 +3,23 @@
         "change": {
             "message": "Ceci va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
             "path": "Choisissez un nouveau chemin d'installation",
-            "title": "Changer le chemin d'installation du Jeu"
+            "title": "Changer le chemin d'installation du jeu"
         },
-        "choose": "Choisir",
-        "importpath": "Choisir le jeu à importer",
-        "installpath": "Choisir le chemin d'installation",
+        "choose": "Séléctionner",
+        "importpath": "Choisir le répertoire du jeu à importer",
         "move": {
-            "message": "Cette opération peut prendre longtemps, êtes-vous certain(e) de vouloir continuer ?",
+            "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
             "path": "Choisir la location de déplacement",
             "title": "Déplacer l'installation du jeu"
         },
         "no": "NON",
-        "ok": "Ok",
         "repair": {
             "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un moment.",
-            "title": "Vérifier et Réparer"
-        },
-        "shortcuts": {
-            "message": "Raccourcis créés sur le Bureau et dans le Menu Démarrer",
-            "title": "Raccourcis"
+            "title": "Vérifier et réparer"
         },
         "stopInstall": {
             "keepInstalling": "Continuer l'installation",
-            "message": "Voulez-vous CONSERVER les fichiers téléchargés ?",
+            "message": "Souhaitez-vous CONSERVER les fichiers téléchargés ?",
             "title": "Arrêter l'installation"
         },
         "uninstall": {
@@ -33,75 +27,87 @@
             "title": "Désinstaller"
         },
         "update": {
-            "message": "Une mise-à-jour est disponible pour ce jeu. Voulez-vous le mettre à jour maintenant ?",
-            "title": "Mise-à-jour nécessaire"
+            "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
+            "title": "Mise à jour nécessaire"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "OUI"
     },
     "button": {
-        "cancel": "Annuler",
+        "cancel": "Suspendre/Annuler",
         "continue": "Continuer le téléchargement",
         "import": "Importer",
         "install": "Installer",
         "uninstall": "Désinstaller",
-        "update": "Update"
+        "update": "Mise à jour"
     },
     "disabled": "Désactivé",
+    "dlc": {
+        "installDlcs": "Installer tout le contenu téléchargeable (DLC)",
+        "title": "DLCs"
+    },
     "enabled": "Activé",
     "game": {
+        "downloadSize": "Taille du téléchargement",
         "firstPlayed": "Joué pour la première fois",
+        "installSize": "Taille de l'installation",
         "lastPlayed": "Joué la dernière fois",
         "neverPlayed": "Jamais",
-        "totalPlayed": "Nombre de fois joué"
+        "totalPlayed": "Temps passé à jouer"
     },
     "gamecard": {
-        "moving": "En cours de déplacement",
-        "repairing": "En cours de réparation"
+        "moving": "Déplacement en cours",
+        "repairing": "Réparation en cours"
     },
     "info": {
+        "canRunOffline": "Connexion requise",
         "path": "Chemin d'installation",
         "size": "Poids",
         "syncsaves": "Synchronizer les Sauvegardes",
         "version": "Version"
     },
     "install": {
-        "another": "Installer vers un autre chemin",
-        "default": "Installer sur",
-        "import": "Importer le jeu"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
             "start": "Jouer maintenant",
-            "stop": "En cours d'utilisation (Arrêter)"
+            "stop": "Jeu en cours (Arrêter)"
         },
         "saves": {
-            "syncing": "Synchronisation des sauvergardes"
+            "syncing": "Synchronisation des sauvegardes en cours"
         }
+    },
+    "launch": {
+        "options": "Paramètres de démarrage..."
+    },
+    "sdl": {
+        "title": "Sélectionnez les composants à installer"
     },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Recommandé"
     },
     "status": {
-        "clickToUpdate": "Clique pour mettre á jour",
+        "clickToUpdate": "Cliquez ici pour mettre le jeu à jour",
         "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
-        "installing": "Installation",
+        "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
-        "notSupported": "Ce jeu ne peut qu'être importé",
-        "reparing": "Réparation du jeu, veuillez patienter",
+        "reparing": "Réparation du jeu en cours, veuillez patienter",
         "totalDownloaded": "Total Téléchargé",
-        "updating": "Mise à jour du jeu"
+        "updating": "Mise à jour du jeu en cours"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",
         "change": "Changer le chemin d'installation",
         "log": "Dernier rapport",
         "move": "Déplacer le jeu",
-        "protondb": "Vérifier la compatibilitée",
+        "protondb": "Vérifier la compatibilité",
         "settings": "Options",
         "store": "Page du magasin",
-        "verify": "Vérifier et Réparer"
+        "verify": "Vérifier et réparer"
     }
 }

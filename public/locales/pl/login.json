@@ -2,8 +2,11 @@
     "button": {
         "login": "Zaloguj"
     },
+    "info": {
+        "needHelp": "Potrzebujesz Pomocy?"
+    },
     "input": {
-        "placeholder": "Wpisz numer SID"
+        "placeholder": "Wklej tutaj numer SID"
     },
     "message": {
         "part1": "Żeby zainstalować gry wykonaj następujące kroki :",

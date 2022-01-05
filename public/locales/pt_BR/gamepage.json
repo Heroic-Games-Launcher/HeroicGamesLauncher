@@ -7,21 +7,15 @@
         },
         "choose": "Selecionar",
         "importpath": "Selecione a pasta do jogo a ser importado",
-        "installpath": "Selecione a pasta de instalação",
         "move": {
             "message": "Isto pode levar um longo tempo, tem certeza disso?",
             "path": "Selecione a pasta de para onde deseja mover",
             "title": "Mover a pasta de instalação de jogos"
         },
         "no": "NÃO",
-        "ok": "Ok",
         "repair": {
             "message": "Deseja tentar reparar este jogo? Isso pode levar muito tempo.",
             "title": "Verificar e Reparar"
-        },
-        "shortcuts": {
-            "message": "Atalhos foram criados na área de trabalho e menu",
-            "title": "Atalhos"
         },
         "stopInstall": {
             "keepInstalling": "Continuar a Instalação",
@@ -36,20 +30,27 @@
             "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?",
             "title": "Atualização Disponível"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "SIM"
     },
     "button": {
-        "cancel": "Cancelar",
+        "cancel": "Pausar/Cancelar",
         "continue": "Continuar Download",
-        "import": "Importar",
+        "import": "Importar Jogo",
         "install": "Instalar",
         "uninstall": "Desinstalar",
         "update": "Update"
     },
     "disabled": "Desabilitado",
+    "dlc": {
+        "installDlcs": "Instalar DLCs",
+        "title": "DLCs"
+    },
     "enabled": "Habilitado",
     "game": {
+        "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado inicialmente em",
+        "installSize": "Tamanho Instalado",
         "lastPlayed": "Jogado pela última vez em",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo de jogo"
@@ -59,15 +60,15 @@
         "repairing": "Reparando"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Pasta de Instalação",
         "size": "Tamanho",
         "syncsaves": "Sincronizar Saves",
         "version": "Versão"
     },
     "install": {
-        "another": "Instalar em Outra Pasta",
-        "default": "Instalar em",
-        "import": "Importar Jogo"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -77,6 +78,12 @@
         "saves": {
             "syncing": "Sincronizando Saves"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "title": "Selecione os componentes para instalar"
     },
     "specs": {
         "minimum": "MÍNIMO",
@@ -89,7 +96,6 @@
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este Jogo Não está Instalado",
-        "notSupported": "Este Jogo Pode apenas ser importado",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"

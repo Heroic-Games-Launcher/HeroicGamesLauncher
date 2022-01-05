@@ -1,212 +1,274 @@
 {
-    "userselector": {
-        "discord": "டிஸ்கார்ட் (Discord)",
-        "support": "எங்களை ஆதரியுங்கள்",
-        "refresh": "விளையாட்டு பட்டியலைப் புதுப்பி",
-        "quit": "வெளியேறு",
-        "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
-        "logout": "வெளியேறு",
-        "about": "இதனை பற்றி"
-    },
-    "setting": {
-        "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
-        "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
-        "savefolder": {
-            "title": "மேகக்கணி ஒத்திசைவு கோப்புறையை புறக்கணித்து மாற்று",
-            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு"
-        },
-        "runexe": {
-            "title": "முன்னொட்டில் EXE ஐ இயக்கு",
-            "message": "கோப்புகளை இங்கே இழுத்து விடுங்கள்"
-        },
-        "primerun": "Nvidia Prime Render ஐ துவக்கு",
-        "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
-        "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
-        "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
-        "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
-        "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
-        "wineversion": "Wine பதிப்பு",
-        "wineprefix": "WinePrefix கோப்புறை",
-        "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
-        "manualsync": {
-            "upload": "பதிவேற்றம்",
-            "title": "கைமுறை ஒத்திசைவு சேமிப்புகள்",
-            "forceupload": "கட்டாயப்படுத்தப்பட்ட பதிவேற்றம்",
-            "forcedownload": "கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம்",
-            "syncing": "ஒத்திசைத்தல்",
-            "sync": "ஒத்திசைவு",
-            "download": "பதிவிறக்கு"
-        },
-        "mangohud": "Mangohud ஐ இயக்கு (Mangohud நிறுவப்பட்டிருக்க வேண்டும்)",
-        "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
-        "exit-to-tray": "கணினி தட்டிற்கு வெளியேறு",
-        "egs-sync": "நிறுவப்பட்ட எபிக் விளையாட்டுகளுடன் ஒத்திசை",
-        "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
-        "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
-        "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
-        "default-install-path": "இயல்புநிலை நிறுவல் பாதை"
-    },
-    "help": {
-        "other": {
-            "part7": " to skip the launcher in some games, etc.",
-            "part6": " to be called after the launch command, for instance: ",
-            "part5": "விளையாட்டு வாதங்கள்",
-            "part4": "Use the ",
-            "part3": "to be called before launching the game; ",
-            "part2": "மேம்பட்ட விருப்பங்கள்",
-            "part1": "Use the "
-        },
-        "sync": {
-            "part2": "Wine அல்லது Proton முன்னொட்டு கோப்புறையை நீங்கள் மாற்றியிருந்தால், வேறு Proton முன்னொட்டு (/pfx) மற்றும் பயனர்பெயர் (steamuser) ஆகியவற்றைப் பயன்படுத்துவதால் நீங்கள் மீண்டும் பாதையை சரிபார்க்க வேண்டும். எனவே நீங்கள் தற்போதைய பாதையை ஒத்திசைவு அமைப்புகள் பக்கத்திலிருந்து எளிமையாக அழிக்க முடியும், அதன் பிறகு இன்னும் ஒரு முறை சரியான முன்னொட்டின் கோப்புறையை யூகிக்க எபிக் க்கு மீண்டும் திரும்பவும்.",
-            "part3": "கைமுறை ஒத்திசைவு: மேகக்கணியில் சேமிக்கப்பட்ட விளையாட்டு சேமிப்புகளை பதிவிறக்க பதிவிறக்கத்தை தேர்வுசெய். கணினியில் உள்ளவற்றை மேகக்கணியில் பதிவேற்ற பதிவேற்றத்தை தேர்வுசெய். கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம் அல்லது கட்டாயப்படுத்தப்பட்ட பதிவேற்றத்தை பயன்படுத்தினால், கணினி அல்லது மேகக்கணி பதிப்பை புறக்கணிக்கும்.",
-            "part1": "சரியான சேமிப்பு கோப்புறையை ஹீரோயிக் யூகிக்க முயற்சிக்கும், இது பெரும்பாலான சந்தர்ப்பங்களில் வேலை செய்யும். கோப்புறை தவறாக இருந்தால், அதை மாற்ற override பெட்டியைப் பயன்படுத்தவும்.",
-            "part4": "'ஒத்திசைவு சேமிப்புகள்' நீங்கள் ஒரு விளையாட்டை துவங்கும்போதும் மற்றும் விளையாட்டை முடித்தபின்னும் சேமிப்புகளை தானாக ஒத்திசைக்கும்."
-        },
-        "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
-        "wine": {
-            "part2": "பிற இடங்களுக்கு, இவற்றில் ஒரு கோப்புறைக்கு குறியீட்டு-இணைப்பை பயன்படுத்து",
-            "part1": "ஹீரோயிக் பின்வரும் கோப்புறைகளில் Wine மற்றும் Proton பதிப்புகளை தேடும்:"
-        }
-    },
-    "settings": {
-        "navbar": {
-            "sync": "சேமிப்பு-ஒத்திசைவு",
-            "general": "பொதுவானவை",
-            "other": "மற்றவை"
-        }
-    },
-    "Return": "திரும்பிச் செல்",
-    "Projects": "செயல்திட்டம்",
-    "placeholder": {
-        "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு"
-    },
-    "options": {
-        "advanced": {
-            "title": "மேம்பட்ட விருப்பங்கள் (Environment Variables):",
-            "placeholder": "பிற துவக்கி-விருப்பங்களை இங்கே உள்ளிடவும்"
-        },
-        "gameargs": {
-            "title": "விளையாட்டு வாதங்கள் (கட்டளைக்குப் பின் இயக்க):",
-            "placeholder": "துவக்கி வாதங்களை இங்கே உள்ளிடவும்"
-        }
-    },
-    "Unreal Marketplace": "Unreal விற்பனைக்கூடம்",
-    "warning": {
-        "proton": "Steam க்கு வெளியே உள்ள Proton ஆதரிக்கப்படாது. சிக்கல்களைத் திறக்கவோ அல்லது அதனை ஆதரிக்க கேட்கவோ வேண்டாம்."
-    },
-    "infobox": {
-        "requirements": "கணினி தேவைப்பாடுகள்",
-        "help": "உதவி"
-    },
+    "All": "அனைத்தும்",
     "Assets": "Assets",
-    "wiki": "விக்கி",
-    "Updates": "புதுப்பிப்புகள்",
-    "tray": {
-        "support": "எங்களை ஆதரியுங்கள்",
-        "show": "காட்டு",
-        "reload": "மீண்டும் ஏற்று",
-        "quit": "வெளியேறு",
-        "about": "இதனை பற்றி"
-    },
-    "Total Games": "மொத்த விளையாட்டுகள்",
-    "tooltip": {
-        "removepath": "பாதையை அகற்று",
-        "addpath": "புதிய பாதையை சேர்"
-    },
-    "store": "விற்பனைக்கூடம்",
-    "Settings": "அமைப்புகள்",
-    "search": "விளையாட்டின் பெயரை இங்கே உள்ளிடு...",
-    "Ready": "தயார்",
-    "Plugins": "செருகுநிரல்கள்",
-    "other": {
-        "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
-    },
-    "notify": {
-        "update": {
-            "finished": "புதுப்பிப்பு நிறைவடைந்தது",
-            "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது"
-        },
-        "uninstalled": "நிறுவல் நீக்கப்பட்டது",
-        "moved": "நகர்தல் முடிவடைந்தது",
-        "install": {
-            "finished": "நிறுவல் முடிவடைந்தது",
-            "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது"
-        },
-        "finished": {
-            "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
-        }
-    },
-    "Not Ready": "தயார் இல்லை",
-    "nogames": "விளையாட்டுகள் எதுவும் காணப்படவில்லை",
-    "message": {
-        "unsync": "ஒத்திசைவு செயல்தவிர் நிறைப்படைந்தது",
-        "sync": "ஒத்திசைவு நிறைப்படைந்தது"
-    },
-    "Library": "விளையாட்டு பட்டியல்",
-    "info": {
-        "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்"
-    },
-    "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
-    "Games": "விளையாட்டுகள்",
-    "Filter": "வடிகட்டி",
-    "Downloading": "பதிவிறக்கப்படுகிறது",
-    "button": {
-        "unsync": "ஒத்திசைவை செயல்தவிர்",
-        "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
-        "sync": "ஒத்திசைவு செய்"
-    },
     "box": {
-        "yes": "ஆம்",
-        "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
-        "sync": {
-            "title": "சேமிக்கும் கோப்பகத்தை தேர்வுசெய்",
-            "error": "தவறான பாதை",
-            "button": "தேர்வு செய்"
+        "appupdate": {
+            "message": "ஹீரோயிக் இன் புதிய பதிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?",
+            "title": "புதுப்பிப்பு உள்ளது"
         },
-        "select": "தேர்ந்தெடு",
-        "runexe": {
-            "title": "EXE ஐ இயக்க தேர்ந்தெடு"
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
-        "quit": {
-            "title": "வெளியேறு",
-            "message": "செயல்பாடுகள் நிலுவையில் உள்ளன, உறுதி செய்யவா?"
+        "choose": "தேர்வு செய்",
+        "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
+        "choose-legendary-binary": "Select Legendary Binary",
+        "customWine": "Wine அல்லது Proton இருமத்தை தேர்வு செய்",
+        "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
+        "error": {
+            "credentials": {
+                "message": "உங்கள் சான்றிதழ்கள் காலாவதியாகிவிட்டன, தயவுசெய்து வெளியேறி மீண்டும் உள்நுழைக.",
+                "title": "காலாவதியான சான்றிதழ்கள்"
+            },
+            "diskspace": {
+                "message": "போதுமான இடம் இல்லை",
+                "title": "இடம் இல்லை"
+            },
+            "generic": {
+                "message": "ஒரு அறியப்படாத பிழை ஏற்பட்டது",
+                "title": "அறியப்படாத பிழை"
+            },
+            "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
+            "log": {
+                "message": "இந்த விளையாட்டுக்கு எந்த பதிவும் கிடைக்கவில்லை",
+                "title": "பதிவு கிடைக்கவில்லை"
+            },
+            "title": "பிழை"
         },
+        "no": "இல்லை",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "நிறுவப்படவில்லை, அதை நிறுவ விரும்புகிறீர்களா?"
             }
         },
-        "no": "இல்லை",
-        "error": {
-            "python": "எபிக் வேலை செய்ய Python 3.8 அல்லது புதியது தேவைப்படுகிறது.",
-            "log": {
-                "title": "பதிவு கிடைக்கவில்லை",
-                "message": "இந்த விளையாட்டுக்கு எந்த பதிவும் கிடைக்கவில்லை"
-            },
-            "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
-            "generic": {
-                "title": "அறியப்படாத பிழை",
-                "message": "ஒரு அறியப்படாத பிழை ஏற்பட்டது"
-            },
-            "diskspace": {
-                "title": "இடம் இல்லை",
-                "message": "போதுமான இடம் இல்லை"
-            },
-            "credentials": {
-                "title": "காலாவதியான சான்றிதழ்கள்",
-                "message": "உங்கள் சான்றிதழ்கள் காலாவதியாகிவிட்டன, தயவுசெய்து வெளியேறி மீண்டும் உள்நுழைக."
-            },
-            "title": "பிழை"
+        "quit": {
+            "message": "செயல்பாடுகள் நிலுவையில் உள்ளன, உறுதி செய்யவா?",
+            "title": "வெளியேறு"
         },
-        "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
-        "customWine": "Wine அல்லது Proton இருமத்தை தேர்வு செய்",
-        "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
-        "choose": "தேர்வு செய்",
-        "appupdate": {
-            "title": "புதுப்பிப்பு உள்ளது",
-            "message": "ஹீரோயிக் இன் புதிய பதிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?"
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
+        "runexe": {
+            "title": "EXE ஐ இயக்க தேர்ந்தெடு"
+        },
+        "select": {
+            "button": "Select",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
+        "sync": {
+            "button": "தேர்வு செய்",
+            "error": "தவறான பாதை",
+            "title": "சேமிக்கும் கோப்பகத்தை தேர்வுசெய்"
+        },
+        "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
+        "yes": "ஆம்"
+    },
+    "button": {
+        "login": "Login",
+        "sync": "ஒத்திசைவு செய்",
+        "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
+        "unsync": "ஒத்திசைவை செயல்தவிர்"
+    },
+    "Downloading": "பதிவிறக்கப்படுகிறது",
+    "Epic Games": "Epic Games",
+    "Filter": "வடிகட்டி",
+    "filter": {
+        "noFilter": "No Filter"
+    },
+    "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
+    "help": {
+        "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
+        "other": {
+            "part1": "Use the ",
+            "part2": "மேம்பட்ட விருப்பங்கள்",
+            "part3": "to be called before launching the game; ",
+            "part4": "Use the ",
+            "part5": "விளையாட்டு வாதங்கள்",
+            "part6": " to be called after the launch command, for instance: ",
+            "part7": " to skip the launcher in some games, etc."
+        },
+        "sync": {
+            "part1": "சரியான சேமிப்பு கோப்புறையை ஹீரோயிக் யூகிக்க முயற்சிக்கும், இது பெரும்பாலான சந்தர்ப்பங்களில் வேலை செய்யும். கோப்புறை தவறாக இருந்தால், அதை மாற்ற override பெட்டியைப் பயன்படுத்தவும்.",
+            "part2": "Wine அல்லது Proton முன்னொட்டு கோப்புறையை நீங்கள் மாற்றியிருந்தால், வேறு Proton முன்னொட்டு (/pfx) மற்றும் பயனர்பெயர் (steamuser) ஆகியவற்றைப் பயன்படுத்துவதால் நீங்கள் மீண்டும் பாதையை சரிபார்க்க வேண்டும். எனவே நீங்கள் தற்போதைய பாதையை ஒத்திசைவு அமைப்புகள் பக்கத்திலிருந்து எளிமையாக அழிக்க முடியும், அதன் பிறகு இன்னும் ஒரு முறை சரியான முன்னொட்டின் கோப்புறையை யூகிக்க எபிக் க்கு மீண்டும் திரும்பவும்.",
+            "part3": "கைமுறை ஒத்திசைவு: மேகக்கணியில் சேமிக்கப்பட்ட விளையாட்டு சேமிப்புகளை பதிவிறக்க பதிவிறக்கத்தை தேர்வுசெய். கணினியில் உள்ளவற்றை மேகக்கணியில் பதிவேற்ற பதிவேற்றத்தை தேர்வுசெய். கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம் அல்லது கட்டாயப்படுத்தப்பட்ட பதிவேற்றத்தை பயன்படுத்தினால், கணினி அல்லது மேகக்கணி பதிப்பை புறக்கணிக்கும்.",
+            "part4": "'ஒத்திசைவு சேமிப்புகள்' நீங்கள் ஒரு விளையாட்டை துவங்கும்போதும் மற்றும் விளையாட்டை முடித்தபின்னும் சேமிப்புகளை தானாக ஒத்திசைக்கும்."
+        },
+        "wine": {
+            "part1": "ஹீரோயிக் பின்வரும் கோப்புறைகளில் Wine மற்றும் Proton பதிப்புகளை தேடும்:",
+            "part2": "பிற இடங்களுக்கு, இவற்றில் ஒரு கோப்புறைக்கு குறியீட்டு-இணைப்பை பயன்படுத்து"
         }
     },
-    "All": "அனைத்தும்",
-    "Recent": "சமீபத்திய விளையாட்டுகள்"
+    "info": {
+        "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்"
+    },
+    "infobox": {
+        "help": "உதவி",
+        "requirements": "கணினி தேவைப்பாடுகள்"
+    },
+    "install": {
+        "path": "Select Install Path"
+    },
+    "Library": "விளையாட்டு பட்டியல்",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "message": {
+        "sync": "ஒத்திசைவு நிறைப்படைந்தது",
+        "unsync": "ஒத்திசைவு செயல்தவிர் நிறைப்படைந்தது"
+    },
+    "nogames": "விளையாட்டுகள் எதுவும் காணப்படவில்லை",
+    "Not Ready": "தயார் இல்லை",
+    "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
+        "finished": {
+            "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
+        },
+        "install": {
+            "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
+            "finished": "நிறுவல் முடிவடைந்தது",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
+        },
+        "moved": "நகர்தல் முடிவடைந்தது",
+        "uninstalled": "நிறுவல் நீக்கப்பட்டது",
+        "update": {
+            "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
+            "finished": "புதுப்பிப்பு நிறைவடைந்தது",
+            "started": "Update Started"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "பிற துவக்கி-விருப்பங்களை இங்கே உள்ளிடவும்",
+            "title": "மேம்பட்ட விருப்பங்கள் (Environment Variables):"
+        },
+        "gameargs": {
+            "placeholder": "துவக்கி வாதங்களை இங்கே உள்ளிடவும்",
+            "title": "விளையாட்டு வாதங்கள் (கட்டளைக்குப் பின் இயக்க):"
+        }
+    },
+    "other": {
+        "legendary-version": "Legendary Version: ",
+        "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
+    },
+    "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு"
+    },
+    "Plugins": "செருகுநிரல்கள்",
+    "Projects": "செயல்திட்டம்",
+    "Ready": "தயார்",
+    "Recent": "சமீபத்திய விளையாட்டுகள்",
+    "Return": "திரும்பிச் செல்",
+    "search": "விளையாட்டின் பெயரை இங்கே உள்ளிடு...",
+    "setting": {
+        "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
+        "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
+        "autodxvk": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
+        "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
+        "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
+        "default-install-path": "இயல்புநிலை நிறுவல் பாதை",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "discordRPC": "Enable Discord Rich Presence",
+        "egs-sync": "நிறுவப்பட்ட எபிக் விளையாட்டுகளுடன் ஒத்திசை",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "esync": "Enable Esync",
+        "exit-to-tray": "கணினி தட்டிற்கு வெளியேறு",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
+        "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
+        "mangohud": "Mangohud ஐ இயக்கு (Mangohud நிறுவப்பட்டிருக்க வேண்டும்)",
+        "manualsync": {
+            "download": "பதிவிறக்கு",
+            "forcedownload": "கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம்",
+            "forceupload": "கட்டாயப்படுத்தப்பட்ட பதிவேற்றம்",
+            "sync": "ஒத்திசைவு",
+            "syncing": "ஒத்திசைத்தல்",
+            "title": "கைமுறை ஒத்திசைவு சேமிப்புகள்",
+            "upload": "பதிவேற்றம்"
+        },
+        "maxRecentGames": "Played Recently to Show",
+        "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
+        "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
+        "primerun": "Nvidia Prime Render ஐ துவக்கு",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "runexe": {
+            "message": "கோப்புகளை இங்கே இழுத்து விடுங்கள்",
+            "title": "முன்னொட்டில் EXE ஐ இயக்கு"
+        },
+        "savefolder": {
+            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
+            "title": "மேகக்கணி ஒத்திசைவு கோப்புறையை புறக்கணித்து மாற்று"
+        },
+        "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "WinePrefix கோப்புறை",
+        "wineversion": "Wine பதிப்பு"
+    },
+    "Settings": "அமைப்புகள்",
+    "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
+        "navbar": {
+            "general": "பொதுவானவை",
+            "other": "மற்றவை",
+            "sync": "சேமிப்பு-ஒத்திசைவு"
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
+    },
+    "store": "விற்பனைக்கூடம்",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
+    "tooltip": {
+        "addpath": "புதிய பாதையை சேர்",
+        "removepath": "பாதையை அகற்று"
+    },
+    "Total Games": "மொத்த விளையாட்டுகள்",
+    "tray": {
+        "about": "இதனை பற்றி",
+        "quit": "வெளியேறு",
+        "reload": "மீண்டும் ஏற்று",
+        "show": "காட்டு"
+    },
+    "Unreal Marketplace": "Unreal விற்பனைக்கூடம்",
+    "Updates": "புதுப்பிப்புகள்",
+    "userselector": {
+        "discord": "டிஸ்கார்ட் (Discord)",
+        "logout": "வெளியேறு",
+        "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
+        "quit": "வெளியேறு"
+    },
+    "wiki": "விக்கி"
 }

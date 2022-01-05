@@ -1,2 +1,2 @@
 #!/bin/bash
-yarn lint && yarn test
+yarn lint && yarn prettier-fix && yarn i18n

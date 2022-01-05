@@ -26,7 +26,6 @@ yarn-error.log*
 package-lock.json
 
 public/**/*.js
-.vscode/settings.json
 downloads*.json
 
 flatpak/.flatpak-builder

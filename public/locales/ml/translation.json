@@ -6,13 +6,18 @@
             "message": "ഹീറോക്കടയുടെ പുതിയ പതിപ്പിറങ്ങിയിട്ടുണ്ട്, പുതുക്കട്ടെ?",
             "title": "പുതുക്കല്‍ വന്നിട്ടുണ്ട്"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "തിരഞ്ഞെടുക്കൂ",
         "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
-        "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ തറരേഖ(Binary file) നല്‍കൂ",
+        "choose-legendary-binary": "ലെജന്ററിയുടെ ഈരക്കരേഖ തിരഞ്ഞെടുക്കുക",
+        "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ ഈരക്കരേഖ(Binary file) നല്‍കൂ",
         "default-install-path": "പൊതു ഇന്‍സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
         "error": {
             "credentials": {
-                "message": "നിങ്ങളെക്കുറിച്ചുള്ള വിവരങ്ങള്‍ പഴകിയിരിക്കുന്നു, പുറത്തുകടന്ന് വീണ്ടും പ്രവേശിച്ചുനോക്കൂ.",
+                "message": "നിങ്ങളെക്കുറിച്ചുള്ള വിവരങ്ങള്‍ പഴകിയിരിക്കുന്നു, പുറത്തുകടന്ന് വീണ്ടും കയറിനോക്കൂ.",
                 "title": "പഴകിയ വിവരങ്ങള്‍"
             },
             "diskspace": {
@@ -25,12 +30,13 @@
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള്‍ നോക്കൂ!",
             "log": {
-                "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല.",
+                "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
                 "title": "കുറിപ്പുകള്‍ കണ്ടെത്താനായില്ല"
             },
-            "title": "Error"
+            "title": "കുഴപ്പം"
         },
         "no": "വേണ്ട",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "ഇത് സ്ഥാപിച്ചിട്ടില്ല, സ്ഥാപിക്കണോ?"
@@ -40,37 +46,54 @@
             "message": "ചെയ്തുതീര്‍ക്കാത്ത പണികളുണ്ട്, ഉറപ്പല്ലേ?",
             "title": "പുറത്തിറക്ക്"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "ഓടിക്കുവാനുള്ള EXE നല്‍കൂ"
         },
-        "select": "എടുക്കൂ",
+        "select": {
+            "button": "തിരഞ്ഞെടുക്കൂ",
+            "exe": "EXE തിരഞ്ഞെടുക്കൂ"
+        },
+        "shortcuts": {
+            "message": "കുറുക്കുവഴികള്‍ പണിമേശയിലേക്കും തുടക്കപ്പട്ടികയിലേക്കും ചേര്‍ത്തിട്ടുണ്ട്",
+            "title": "കുറുക്കുവഴികള്‍"
+        },
         "sync": {
             "button": "തിരഞ്ഞെടുക്കൂ",
-            "error": "ഇത് ശരിയല്ലല്ലോ",
+            "error": "വഴി ശരിയല്ലല്ലോ",
             "title": "സൂക്ഷിക്കാനുള്ള അറ തിരഞ്ഞെടുക്കൂ"
         },
-        "wineprefix": "വൈനിന്റെ ഉപസര്‍ഗ്ഗം(prefix) തിരഞ്ഞെടുക്കൂ",
+        "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി"
     },
     "button": {
+        "login": "Login",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ"
     },
     "Downloading": "ഇറക്കുന്നവ",
+    "Epic Games": "എപിക് ഗെയിംസ്",
     "Filter": "അരിപ്പ",
-    "Games": "Games",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്‍",
     "help": {
-        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു സ്ഥാപനം മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്‍ നിങ്ങളുടെ കളികള്‍ വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക",
+        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടൂല്‍ മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്‍ നിങ്ങളുടെ കളികള്‍ വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
-            "part1": "കളി ഓടിക്കുന്നതിനുമുന്‍പുള്ള വിളികള്‍ക്കായി",
-            "part2": " ഉയര്‍ന്ന ക്രമീകരണങ്ങള്‍ ",
+            "part1": "കളി ഓടിക്കുന്നതിനുമുന്‍പുള്ള വിളികള്‍ക്കായി ",
+            "part2": "ഉയര്‍ന്ന ക്രമീകരണങ്ങള്‍",
             "part3": "ഉപയോഗിക്കൂ; ",
             "part4": "കളി ഓടിത്തുടങ്ങിയതിനു ശേഷം വിളിക്കാന്‍ ",
             "part5": "കളിവാദങ്ങള്‍",
             "part6": " ഉപയോഗിക്കുക, ഉദ്ദാഹരണത്തിന്:ചില കളികളില്‍ ലോഞ്ചര്‍ ഒഴിച്ചുവിടാനായി ",
-            "part7": " ഉപയോഗിക്കാം"
+            "part7": " ചില കളികളുടെ തുറകള്‍ ഒഴിവാക്കാനും മറ്റും."
         },
         "sync": {
             "part1": "ശരിയായ അറകള്‍ ഭൂരിഭാഗം തവണയും ഹീറോയിക് തപ്പിക്കണ്ടുപിടിക്കാറുണ്ട്. ഇത്തവണ ഈ അറ തെറ്റാണ്, ഇത് മാറ്റാനായി മാറ്റിയെഴുത്തുകളം ഉപയോഗിക്കൂ.",
@@ -79,7 +102,7 @@
             "part4": "താനേയുള്ള ഒന്നിപ്പിക്കല്‍ സുക്ഷിപ്പ്(sync save), ഓരോ തവണ നിങ്ങള്‍ കളി തുടങ്ങുമ്പോഴും കളികഴിഞ്ഞിറങ്ങുമ്പോഴും നിങ്ങളുടെ ഒന്നിപ്പിക്കലുകള്‍ സൂക്ഷിക്കുന്നു."
         },
         "wine": {
-            "part1": "വൈനിനും പ്രോട്ടോണിനുമായി ഹീറോയിക് താഴെപ്പറയുന്ന സ്ഥലങ്ങളില്‍ തപ്പുന്നു:",
+            "part1": "വൈനിനും പ്രോട്ടോണിനും ക്രോസ്സോവറിനുമായി ഹീറോയിക് താഴെപ്പറയുന്ന സ്ഥലങ്ങളില്‍ തപ്പുന്നു:",
             "part2": "മറ്റിടങ്ങളെ ഈ സ്ഥലങ്ങളുമായി കോര്‍ക്കാന്‍ കണ്ണികള്‍ ഉപയോഗിക്കൂ"
         }
     },
@@ -90,7 +113,13 @@
         "help": "സഹായിക്കൂ",
         "requirements": "ശുപാര്‍ശിക്കുന്ന സംവിധാനങ്ങള്‍"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "കളിശാല",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
         "unsync": "പിരിച്ചു"
@@ -98,18 +127,25 @@
     "nogames": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
     "Not Ready": "സജ്ജമല്ലാത്തവ",
     "notify": {
+        "error": {
+            "move": "കളി നീക്കുന്നതില്‍ പിഴവു പറ്റി",
+            "reparing": "നന്നാക്കുന്നതല്‍ പിഴവു പറ്റി"
+        },
         "finished": {
             "reparing": "നന്നാക്കിക്കഴിഞ്ഞു"
         },
         "install": {
             "canceled": "സ്ഥാപനം റദ്ദാക്കി",
-            "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു"
+            "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
+            "imported": "കളി കൊണ്ടുവന്നു",
+            "startInstall": "നടീല്‍ തുടങ്ങി"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
         "uninstalled": "എടുത്തുനീക്കി",
         "update": {
             "canceled": "പുതുക്കല്‍ റദ്ദാക്കി",
-            "finished": "പുതുക്കി"
+            "finished": "പുതുക്കി",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -123,32 +159,39 @@
         }
     },
     "other": {
-        "weblate": "Help translate Heroic."
+        "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
+        "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന്‍ സഹായിക്കൂ."
     },
     "placeholder": {
+        "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
     },
-    "Plugins": "Plugins",
-    "Projects": "Projects",
+    "Plugins": "കൂടുതലുകള്‍",
+    "Projects": "ഏര്‍പാടുകള്‍",
     "Ready": "തയ്യാറായവ",
-    "Recent": "Recent Games",
+    "Recent": "പതിവ് കളികള്‍",
     "Return": "തിരിച്ചുപോകൂ",
     "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "കുറുക്കുവഴികള്‍ മേശപ്പുറത്ത് താനേ ചേര്‍ക്കൂ",
+        "addgamestostartmenu": "കളികള്‍ തുടക്കപ്പട്ടികയില്‍ താനേ ചേര്‍ക്കൂ",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്‍സ് ഓഡിയോ ലാറ്റന്‍സി)",
-        "autodxvk": "ഉപസഗ്ഗ഻ത്തില്‍(പ്രഫിക്സില്‍) DXVK തന്നത്താന്‍ സ്ഥാപിക്കൂ/പുതുക്കൂ",
+        "autodxvk": "ഉപസഗ്ഗ഻ത്തില്‍(പ്രഫിക്സില്‍) DXVK/VKD3D തന്നത്താന്‍ സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്‍",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
+        "checkForUpdatesOnStartup": "തുടങ്ങുമ്പോള്‍ പുതുക്കലുകള്‍ക്കായി പരതൂ",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്‍ത്ത വൈന്‍/പ്രോട്ടോണ്‍ അറകള്‍",
         "darktray": "താലത്തില്‍(ട്രേയില്‍) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",
-        "discordRPC": "Enable Discord Rich Presence",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "discordRPC": "ഡിസ്കോര്‍ഡ് റിച്ച് പ്രെസന്‍സ് വക്കൂ",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "എഫ്എസ്ആര്‍ ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
+        "esync": "Esync വയ്ക്കൂ",
         "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "എഫ്എസ്ആര്‍ ഷാര്‍പ്പ്നെസ്സ് സ്ട്രെങ്ത്",
+        "fsync": "Fsync വയ്ക്കൂ",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",
         "mangohud": "മാന്‍ഘൗട്ട് ഉപയോഗിക്കൂ(മാന്‍ഘൗട്ട് ഇന്‍സ്റ്റാള്‍ ചെയ്തിരിക്കണം)",
@@ -161,11 +204,11 @@
             "title": "നിങ്ങള്‍ സൂക്ഷിച്ച ഒന്നിപ്പിക്കലുകള്‍",
             "upload": "കയറ്റിവയ്ക്കുൂ"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "അടുത്തിടെയുള്ള പതിവ് കളികള്‍",
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള്‍ പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
         "offlinemode": "ഓഫ്‍ലൈനില്‍ കളിക്കുക",
-        "primerun": "Enable Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "primerun": "എന്‍വിഡിയ പ്രൈം റെന്റര്‍ വയ്ക്കൂ",
+        "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്‍വിഡിയ RTX 30xxനു മാത്രം)",
         "runexe": {
             "message": "രേഖകള്‍ ഇവിടെനിന്നും വലിച്ചെടുക്കുക/ഇടുക",
             "title": "ഉപസഗ്ഗ഻ത്തില്‍ EXE ഓടിക്കുക"
@@ -175,19 +218,39 @@
             "title": "മേഘത്തില്‍ ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കുന്ന അറ മാറ്റിയെഴുതുക"
         },
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
-        "start-in-tray": "Start Minimized",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
+        "winecrossoverbottle": "ക്രോസ്സോവര്‍ കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
         "wineversion": "വൈനിന്റെ പതിപ്പ്"
     },
     "Settings": "ക്രമീകരണങ്ങള്‍",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "പൊതുവായവ",
             "other": "മറ്റുള്ളവ",
             "sync": "ഒന്നിപ്പിക്കല്‍ സൂക്ഷിക്കൂ"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "കട",
+    "title": {
+        "allGames": "മൊത്തം കളികള്‍",
+        "allUnreal": "അണ്‍റിയല്‍ - എല്ലാം",
+        "downloading": "ഇറക്കുന്നു",
+        "installedGames": "നട്ട കളികള്‍",
+        "notInstalledGames": "നടാത്തവ",
+        "unrealAssets": "അണ്‍റിയല്‍ - വകകള്‍",
+        "unrealPlugins": "അണ്‍റിയല്‍ - Plugins",
+        "unrealProjects": "അണ്‍റിയല്‍ - പണികള്‍",
+        "updates": "നടക്കേണ്ട പുതുക്കലുകള്‍"
+    },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്‍ക്കുക",
         "removepath": "ഇടം നീക്കുക"
@@ -197,19 +260,15 @@
         "about": "ഇതിനെക്കുറിച്ച്",
         "quit": "പുറത്തുകടക്കുക",
         "reload": "വീണ്ടും എടുക്കൂ",
-        "show": "കാണിക്കൂ",
-        "support": "ഞങ്ങളെ പിന്താങ്ങൂ"
+        "show": "കാണിക്കൂ"
     },
-    "Unreal Marketplace": "",
-    "Updates": "Updates",
+    "Unreal Marketplace": "അണ്‍റിയല്‍ ചന്ത",
+    "Updates": "പുതുക്കലുകള്‍",
     "userselector": {
-        "about": "ഇതിനെക്കിറിച്ച്",
         "discord": "ഡിസ്കോഡ഻്",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
         "logout_confirmation": "Logout?",
-        "quit": "പുറത്തുകടക്കൂ",
-        "refresh": "കളിശാല പുതുക്കൂ",
-        "support": "ഞങ്ങളെ പിന്താങ്ങൂ"
+        "quit": "പുറത്തുകടക്കൂ"
     },
-    "wiki": "Wiki"
+    "wiki": "അറിവിന്‍കൂട്ടം"
 }

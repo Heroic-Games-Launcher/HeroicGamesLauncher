@@ -1,49 +1,68 @@
 {
     "All": "Tümü",
-    "Assets": "Assetler",
+    "Assets": "Varlıklar",
     "box": {
         "appupdate": {
-            "message": "Heroic'in yeni sürümü mevcut, şimdi güncellemek ister misin?",
-            "title": "Güncelleme Mevcut"
+            "message": "Heroic'in yeni bir sürümü var, şimdi güncellemek ister misiniz?",
+            "title": "Güncelleme Var"
+        },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
+        "choose-legendary-binary": "Legendary Çalıştırılabilir Dosyası Seç",
         "customWine": "Wine ya da Proton Dosyasını Seçin",
-        "default-install-path": "Varsayılan Yükleme Yerini Seçin",
+        "default-install-path": "Varsayılan Kurulum Yerini Seçin",
         "error": {
             "credentials": {
-                "message": "Kimlik bilgilerinizin süresi doldu, lütfen çıkış yapın ve tekrar giriş yapın.",
+                "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın.",
                 "title": "Süresi Dolmuş Kimlik Bilgileri"
             },
             "diskspace": {
-                "message": "Yeterli alan mevcut değil",
+                "message": "Yeterli kullanılabilir disk alanı yok",
                 "title": "Alan Yok"
             },
             "generic": {
                 "message": "Bilinmeyen bir hata oluştu",
                 "title": "Bilinmeyen hata"
             },
-            "launch": "Oyun başlatılırken hata oluştu, logları kontrol edin!",
+            "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
             "log": {
-                "message": "Bu oyun için log bulunamadı",
-                "title": "Log Bulunamadı"
+                "message": "Bu oyun için günlük kaydı bulunamadı",
+                "title": "Günlük Kaydı Bulunamadı"
             },
             "title": "Hata"
         },
         "no": "HAYIR",
+        "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Yüklenmemiş, yüklemek ister misin?"
+                "not_installed": "Kurulu değil, kurmak ister misiniz?"
             }
         },
         "quit": {
-            "message": "Bitmemiş işlemler var, emin misin?",
+            "message": "Bekleyen işlemler var, emin misiniz?",
             "title": "Çık"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
         },
         "runexe": {
             "title": "Çalıştırılacak EXE'yi Seçin"
         },
-        "select": "Seç",
+        "select": {
+            "button": "Seç",
+            "exe": "EXE'yi seç"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Seç",
             "error": "Geçersiz Yol",
@@ -53,13 +72,17 @@
         "yes": "EVET"
     },
     "button": {
+        "login": "Login",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır"
     },
     "Downloading": "İndiriliyor",
+    "Epic Games": "Epic Games",
     "Filter": "Filtre",
-    "Games": "Games",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -79,8 +102,8 @@
             "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
         },
         "wine": {
-            "part1": "Heroic Wine ve Proton sürümlerini şu klasörlerde arar:",
-            "part2": "Diğer yerler için bu klasörlerden birisine sembolik link kullanın"
+            "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
+            "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
         }
     },
     "info": {
@@ -90,7 +113,13 @@
         "help": "Yardım",
         "requirements": "Sistem Gereksinimleri"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Kütüphane",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
@@ -98,18 +127,25 @@
     "nogames": "Oyun Bulunamadı",
     "Not Ready": "Hazır Değil",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Onarım Tamamlandı"
         },
         "install": {
-            "canceled": "Yükleme İptal Edildi",
-            "finished": "Yükleme Tamamlandı"
+            "canceled": "Kurulum İptal Edildi",
+            "finished": "Kurulum Tamamlandı",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Taşıma Tamamlandı",
         "uninstalled": "Kaldırıldı",
         "update": {
             "canceled": "Güncelleme İptal Edildi",
-            "finished": "Güncelleme Tamamlandı"
+            "finished": "Güncelleme Tamamlandı",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -123,35 +159,42 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Sürüm: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
     "placeholder": {
+        "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
-    "Plugins": "Plugins",
+    "Plugins": "Eklentiler",
     "Projects": "Projeler",
     "Ready": "Hazır",
-    "Recent": "Recent Games",
+    "Recent": "Son Oyunlar",
     "Return": "Geri",
     "search": "Buraya oyun adı girin...",
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
+        "alt-legendary-bin": "Kullanmak için alternatif bir Legendary çalıştırılabilir dosyası seçin",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
-        "autodxvk": "DXVK'yı otomatik Yükle/Güncelle",
+        "autodxvk": "DXVK/VKD3D'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan",
         "default-install-path": "Varsayılan Kurulum Yeri",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
+        "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem Tepsisine Küçült",
         "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
+        "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
-        "mangohud": "Mangohud'u Etkinleştir (Mangohud yüklü olmalıdır)",
+        "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
             "download": "İndir",
             "forcedownload": "İndirmeye Zorla",
@@ -162,10 +205,10 @@
             "upload": "Karşıya Yükle"
         },
         "maxRecentGames": "Gösterilecek Son Oyunlar",
-        "maxworkers": "İndirirken Maksimum İşçi Sayısı",
-        "offlinemode": "Oyunu Çevrimdışı Çalıştır",
+        "maxworkers": "İndirirken azami işçi sayısı",
+        "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
         "primerun": "Nvidia Prime Render'ı Etkinleştir",
-        "resizableBar": "Yeniden Boyutlandırılabilir Çubuğu Etkinleştir (yalnızca NVIDIA RTX 30xx)",
+        "resizableBar": "Resizable BAR'ı etkinleştir (yalnızca NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Exe Çalıştır"
@@ -175,19 +218,39 @@
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Simge Durumuna Küçültülmüş Başla",
+        "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
-        "wineversion": "Wine Versiyonu"
+        "wineversion": "Wine Sürümü"
     },
     "Settings": "Ayarlar",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Genel",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Mağaza",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
@@ -197,19 +260,15 @@
         "about": "Hakkında",
         "quit": "Çık",
         "reload": "Yenile",
-        "show": "Göster",
-        "support": "Bizi Destekle"
+        "show": "Göster"
     },
     "Unreal Marketplace": "Unreal Mağazası",
     "Updates": "Güncellemeler",
     "userselector": {
-        "about": "Hakkında",
         "discord": "Discord",
-        "logout": "Çıkış Yap",
-        "logout_confirmation": "Logout?",
-        "quit": "Çık",
-        "refresh": "Kütüphaneyi Yenile",
-        "support": "Bizi Destekle"
+        "logout": "Oturumu Kapat",
+        "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
+        "quit": "Çık"
     },
     "wiki": "Wiki"
 }

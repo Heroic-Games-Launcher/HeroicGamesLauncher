@@ -1,26 +1,31 @@
 {
     "All": "Todos",
-    "Assets": "Assets",
+    "Assets": "Recursos",
     "box": {
         "appupdate": {
             "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
             "title": "Actualización disponible"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-        "customWine": "Seleccione el Wine o Proton binario",
+        "choose-legendary-binary": "Select Legendary Binary",
+        "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "Tus credenciales han expirado, por favor reinicia la sesión.",
-                "title": "Credenciales caducadas"
+                "message": "Tus credenciales han expirado, por favor, reinicia la sesión.",
+                "title": "Credenciales expiradas"
             },
             "diskspace": {
                 "message": "No hay suficiente espacio disponible en disco",
-                "title": "No espacio"
+                "title": "Sin espacio"
             },
             "generic": {
-                "message": "Un error desconocido a ocurrido",
+                "message": "Ha ocurrido un error desconocido",
                 "title": "Error desconocido"
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
@@ -31,6 +36,7 @@
             "title": "Error"
         },
         "no": "No",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "No está instalado, ¿quieres instalarlo?"
@@ -40,10 +46,23 @@
             "message": "Hay operaciones pendientes, ¿estás seguro?",
             "title": "Salir"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Seleccione EXE para ejecutar"
         },
-        "select": "Seleccionar",
+        "select": {
+            "button": "Seleccionar",
+            "exe": "Select EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Elegir",
             "error": "Ruta no válida",
@@ -53,13 +72,17 @@
         "yes": "SÍ"
     },
     "button": {
+        "login": "Login",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Desincronizar"
     },
     "Downloading": "Descargando",
+    "Epic Games": "Epic Games",
     "Filter": "Filtrar",
-    "Games": "Games",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Ajustes globales",
     "help": {
         "general": "Sincronice con EGS en caso de que tenga una instalación funcional de EGS en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -79,7 +102,7 @@
             "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
         },
         "wine": {
-            "part1": "Búsquedas de versiones de Wine y Proton en las siguientes carpetas:",
+            "part1": "Búsquedas de versiones de Wine, Proton y CrossOver en las siguientes carpetas:",
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
         }
     },
@@ -90,7 +113,13 @@
         "help": "Ayuda",
         "requirements": "Requisitos del sistema"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Biblioteca",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Sincronización completa",
         "unsync": "Desincronizacion completa"
@@ -98,18 +127,25 @@
     "nogames": "No se han encontrado juegos",
     "Not Ready": "No listo",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Reparación terminada"
         },
         "install": {
             "canceled": "Instalación cancelada",
-            "finished": "Instalación terminado"
+            "finished": "Instalación terminado",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Movimiento terminado",
         "uninstalled": "Desinstalado",
         "update": {
             "canceled": "Actualizacion cancelado",
-            "finished": "Actualizacion terminado"
+            "finished": "Actualizacion terminado",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -123,32 +159,39 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Ayuda a traducir Heroic."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix donde está instalado EGS"
     },
     "Plugins": "Plugins",
     "Projects": "Proyectos",
     "Ready": "Listo",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí ...",
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
-        "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
+        "autodxvk": "Autoinstalar / actualizar DXVK/VKD3D en el Prefix",
         "autosync": "Autosyncronizar guardados",
+        "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
-        "discordRPC": "Enable Discord Rich Presence",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
+        "esync": "Enable Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
+        "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
@@ -165,7 +208,7 @@
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefix"
@@ -175,19 +218,39 @@
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar minimizado",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
         "wineversion": "Versión de Wine"
     },
     "Settings": "Ajustes",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "General",
             "other": "Otro",
             "sync": "Guardar-Sincronizar"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Tienda",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Agregar una nueva ruta",
         "removepath": "Eliminar ruta"
@@ -197,19 +260,15 @@
         "about": "Acerca",
         "quit": "Salir",
         "reload": "Refrescar",
-        "show": "Mostrar",
-        "support": "Apoyanos"
+        "show": "Mostrar"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
+    "Unreal Marketplace": "Tienda de Unreal",
     "Updates": "Actualizaciones",
     "userselector": {
-        "about": "Acerca",
         "discord": "Discord",
         "logout": "Cerrar sesión",
         "logout_confirmation": "Logout?",
-        "quit": "Salir",
-        "refresh": "Refresar Biblioteca",
-        "support": "Apoyanos"
+        "quit": "Salir"
     },
     "wiki": "Wiki"
 }

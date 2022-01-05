@@ -1,48 +1,131 @@
 .modalContainer {
   display: grid;
   place-items: center;
-  width: 100%;
+  width: var(--content-width);
   height: 100%;
   position: fixed;
-  z-index: 6;
+  z-index: 8;
 }
 
 .backdrop {
-    display: grid;
-    place-items: center;
-    position: fixed;
-    top: 76px;
-    background: var(--background-darker-80);
-    width: 100%;
-    height: 100%;
-    z-index: 6;
-  }
+  display: grid;
+  place-items: center;
+  position: fixed;
+  background: var(--background-darker-80);
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+}
 
-  .modal {
-    display: grid;
-    place-items: center;
-    min-width: fit-content;
-    height: 200px;
-    background: var(--background-darker);
-    border-radius: 10px;
-    width: 48vw;
-    max-width: 560px;
-    z-index: 7;
-  }
+.modal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: fit-content;
+  background: var(--background-darker);
+  border-radius: 10px;
+  width: 48vw;
+  max-width: 560px;
+  z-index: 7;
+  padding: 32px;
+  height: fit-content;
+  min-height: 225px;
+  border: solid 1px var(--background);
+  overflow: auto;
+  max-height: 100vh;
+}
 
-  .title {
-    color: var(--text-primary);
-    place-self: center;
-    font-family: Cabin;
-    font-size: 24px;
-    margin: -10px 16px 0 16px;
-  }
+.close-button {
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  cursor: pointer;
+}
 
-  .buttonsContainer {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    margin: 0 16px;
-  }
+.title {
+  color: var(--text-primary);
+  place-self: center;
+  font-family: Cabin;
+  font-size: 24px;
+  margin: -10px 16px 0 16px;
+}
+.title > svg {
+  padding-left: 16px;
+}
+
+.buttonsContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 16px;
+}
+
+.installInfo {
+  margin: 16px;
+  white-space: nowrap;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.installInfo > .itemContainer {
+  place-content: center;
+  text-align: initial;
+  width: 20vw;
+  min-width: fit-content;
+  max-width: 290px;
+  margin: 12px;
+}
+
+.sizeInfo {
+  font-weight: 700;
+  margin: 0 10px;
+  color: var(--secondary);
+}
+
+.itemTitle {
+  font-weight: 700;
+  margin: 0 0 10px 10px;
+}
+
+.itemName {
+  margin: 0 10px;
+}
+
+.modalContainer > .updateIcon > svg {
+  z-index: 10;
+}
+
+.installPath {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: space-between;
+  text-align: left;
+  margin: 12px 0 12px 22px;
+}
+
+.fontAwesome.folder {
+  height: 26px;
+  position: relative;
+  right: 42px;
+  top: 5px;
+  cursor: pointer;
+}
+
+.installPath > span > .settingSelect {
+  width: 465px;
+}
+
+.installPath > .smallMessage {
+  text-align: center;
+}
+
+.MuiIconButton-colorPrimary,
+.MuiCheckbox-colorPrimary.Mui-checked {
+  color: var(--secondary);
+}

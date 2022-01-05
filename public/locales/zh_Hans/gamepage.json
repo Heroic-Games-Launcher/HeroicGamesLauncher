@@ -7,21 +7,15 @@
         },
         "choose": "请选择",
         "importpath": "选择要导入的游戏文件夹",
-        "installpath": "选择安装路径",
         "move": {
             "message": "这可能需要很长的时间，确定？",
             "path": "选择要移动的位置",
             "title": "移动游戏安装"
         },
         "no": "否",
-        "ok": "Ok",
         "repair": {
             "message": "你想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
             "title": "验证并修复游戏文件"
-        },
-        "shortcuts": {
-            "message": "已在桌面和开始菜单上创建了快捷方式",
-            "title": "快捷方式"
         },
         "stopInstall": {
             "keepInstalling": "继续安装",
@@ -36,20 +30,27 @@
             "message": "此游戏有更新，你希望现在更新吗？",
             "title": "游戏需要更新"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "是"
     },
     "button": {
-        "cancel": "取消",
+        "cancel": "暂停/取消",
         "continue": "继续下载",
-        "import": "导入",
+        "import": "导入游戏",
         "install": "安装",
         "uninstall": "卸载",
         "update": "Update"
     },
     "disabled": "已禁用",
+    "dlc": {
+        "installDlcs": "安装所有DLC",
+        "title": "DLCs"
+    },
     "enabled": "已启用",
     "game": {
+        "downloadSize": "下载大小",
         "firstPlayed": "首次游玩",
+        "installSize": "安装大小",
         "lastPlayed": "上次游玩",
         "neverPlayed": "从未游玩",
         "totalPlayed": "游玩时间"
@@ -59,15 +60,15 @@
         "repairing": "修复中"
     },
     "info": {
+        "canRunOffline": "需要联网",
         "path": "安装路径",
         "size": "大小",
         "syncsaves": "同步存档",
         "version": "版本"
     },
     "install": {
-        "another": "安装至其他路径",
-        "default": "安装至",
-        "import": "导入游戏"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -77,6 +78,12 @@
         "saves": {
             "syncing": "存档同步中"
         }
+    },
+    "launch": {
+        "options": "启动选项..."
+    },
+    "sdl": {
+        "title": "选择要安装的组件"
     },
     "specs": {
         "minimum": "最低配置",
@@ -89,7 +96,6 @@
         "installing": "正在安装",
         "moving": "正在移动，请稍等",
         "notinstalled": "未安装此游戏",
-        "notSupported": "此游戏只能被导入",
         "reparing": "游戏修复中，请稍等",
         "totalDownloaded": "总共已下载",
         "updating": "游戏更新中"

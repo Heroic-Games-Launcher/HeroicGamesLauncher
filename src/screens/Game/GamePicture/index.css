@@ -1,11 +1,30 @@
 .gamePicture {
-  max-width: 210px;
-  max-height: 280px;
   display: flex;
   justify-content: center;
   align-content: center;
   position: relative;
-  margin-bottom: 16px;
+}
+
+.gamePicture::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0%;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0),
+    var(--background-darker) 100%
+  );
+}
+
+.gamePicture > .gameImg {
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  object-fit: cover;
 }
 
 .gamePicture > .gameLogo {

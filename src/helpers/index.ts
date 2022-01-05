@@ -1,6 +1,6 @@
-import { GameInfo, InstallProgress } from 'src/types'
+import { AppSettings, GameInfo, InstallInfo, InstallProgress } from 'src/types'
 import { IpcRenderer } from 'electron'
-import {install, launch, repair, updateGame} from './library'
+import { install, launch, repair, updateGame } from './library'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
@@ -31,7 +31,8 @@ const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
 let progress: string
 
-const sendKill = (appName: string): Promise<void> => ipcRenderer.invoke('kill', appName)
+const sendKill = (appName: string): Promise<void> =>
+  ipcRenderer.invoke('kill', appName)
 
 /**
  * Deprecated API to spawn a subprocess with a legendary command.
@@ -82,7 +83,8 @@ const getLegendaryConfig = async (): Promise<{
   return { library, user }
 }
 
-const specialCharactersRegex = /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
+const specialCharactersRegex =
+  /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
 const cleanTitle = (title: string) =>
   title
     .replaceAll(specialCharactersRegex, '')
@@ -91,8 +93,12 @@ const cleanTitle = (title: string) =>
     .toLowerCase()
     .split('--definitive')[0]
 
-const getGameInfo = async (appName: string) : Promise<GameInfo> => {
+const getGameInfo = async (appName: string): Promise<GameInfo> => {
   return await ipcRenderer.invoke('getGameInfo', appName)
+}
+
+const getInstallInfo = async (appName: string): Promise<InstallInfo> => {
+  return await ipcRenderer.invoke('getInstallInfo', appName)
 }
 
 const handleSavePath = async (game: string) => {
@@ -101,7 +107,8 @@ const handleSavePath = async (game: string) => {
   return { cloud_save_enabled, save_folder }
 }
 
-const createNewWindow = (url: string) => ipcRenderer.send('createNewWindow', url)
+const createNewWindow = (url: string) =>
+  ipcRenderer.send('createNewWindow', url)
 
 const formatStoreUrl = (title: string, lang: string) => {
   const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
@@ -123,7 +130,7 @@ async function fixSaveFolder(
   const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
   const platform = await getPlatform()
-  const isWin = platform === 'win32';
+  const isWin = platform === 'win32'
   let winePrefix = !isWin && prefix ? prefix.replaceAll("'", '') : ''
   winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
   const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`
@@ -161,21 +168,21 @@ async function fixSaveFolder(
 
   if (folder.includes('roaming')) {
     return folder.replace(
-      '{appdata}/../roaming/',
+      '{appdata}/../roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('{appdata}/../Roaming/')) {
     return folder.replace(
-      '{appdata}/../Roaming/',
+      '{appdata}/../Roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
 
   if (folder.includes('Roaming')) {
     return folder.replace(
-      '{AppData}/../Roaming/',
+      '{AppData}/../Roaming',
       `${driveC}/users/${username}/Application Data`
     )
   }
@@ -195,10 +202,7 @@ async function fixSaveFolder(
   }
 
   if (folder.includes('{userdir}')) {
-    return folder.replace(
-      '{userdir}',
-      `/users/${username}/My Documents`
-    )
+    return folder.replace('{userdir}', `/users/${username}/My Documents`)
   }
 
   if (folder.includes('{UserDir}')) {
@@ -211,14 +215,20 @@ async function fixSaveFolder(
   return folder
 }
 
+function getAppSettings(): Promise<AppSettings> {
+  return ipcRenderer.invoke('requestSettings', 'default')
+}
+
 export {
   createNewWindow,
   fixSaveFolder,
   formatStoreUrl,
   getGameInfo,
+  getInstallInfo,
   getLegendaryConfig,
   getPlatform,
   getProgress,
+  getAppSettings,
   handleKofi,
   handleQuit,
   handleSavePath,

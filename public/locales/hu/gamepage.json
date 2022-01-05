@@ -7,21 +7,15 @@
         },
         "choose": "Kiválaszt",
         "importpath": "Válassz Játék Mappát az importáláshoz",
-        "installpath": "Válassz Telepítési Útvonalat",
         "move": {
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
             "path": "Válaszd ki, hova szeretnéd áthelyezni",
             "title": "Játék telepítés áthelyezése"
         },
         "no": "NEM",
-        "ok": "Ok",
         "repair": {
             "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
             "title": "Ellenőrzés és Javítás"
-        },
-        "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
@@ -36,10 +30,11 @@
             "message": "Ennek a játéknak van egy frissítése, szeretnéd most frissíteni?",
             "title": "Játéknak frissítésre van szüksége"
         },
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "IGEN"
     },
     "button": {
-        "cancel": "Mégse",
+        "cancel": "Szüneteltetés/Mégse",
         "continue": "Letöltés folytatása",
         "import": "Importálás",
         "install": "Telepítés",
@@ -47,27 +42,33 @@
         "update": "Update"
     },
     "disabled": "Letiltva",
+    "dlc": {
+        "installDlcs": "Összes DLC telepítése",
+        "title": "DLCs"
+    },
     "enabled": "Engedélyezve",
     "game": {
-        "firstPlayed": "First Played",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "Letöltési méret",
+        "firstPlayed": "Először Játszott",
+        "installSize": "Telepítési méret",
+        "lastPlayed": "Legutóbb játszott",
+        "neverPlayed": "Soha",
+        "totalPlayed": "Játszott idő"
     },
     "gamecard": {
         "moving": "Áthelyezés",
         "repairing": "Javítás"
     },
     "info": {
+        "canRunOffline": "Online Required",
         "path": "Telepítési útvonal",
         "size": "Méret",
         "syncsaves": "Mentések szinkronizálása",
         "version": "Verzió"
     },
     "install": {
-        "another": "Telepítés másik útvonalra",
-        "default": "Telepítés ide:",
-        "import": "Játék Importálása"
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
     },
     "label": {
         "playing": {
@@ -77,6 +78,12 @@
         "saves": {
             "syncing": "Mentések szinkronizálása"
         }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "sdl": {
+        "title": "Válasszd ki a telepíteni kívánt elemeket"
     },
     "specs": {
         "minimum": "Minimum",
@@ -89,7 +96,6 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "notSupported": "Ezt a játékot csak importálni lehet",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék Frissítése"

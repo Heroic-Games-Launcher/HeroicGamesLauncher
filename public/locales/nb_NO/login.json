@@ -1,0 +1,26 @@
+{
+    "button": {
+        "login": "Logg inn"
+    },
+    "info": {
+        "needHelp": "Trenger du hjelp?"
+    },
+    "input": {
+        "placeholder": "Lim inn SID-nummeret her"
+    },
+    "message": {
+        "part1": "Følg instruksen for å logge inn og installere spill:",
+        "part3": "Epic-butikken her",
+        "part4": ", logg inn på kontoen din og kopier ditt",
+        "part5": "SID-informasjonsnummer",
+        "part6": "Lim inn",
+        "part7": "SID-nummeret",
+        "part8": "i boksen nedenfor, klikk på «Logg inn» og vent."
+    },
+    "status": {
+        "error": "Feil",
+        "loading": "Laster inn liste over spill …",
+        "logging": "Logger inn …"
+    },
+    "welcome": "Velkommen."
+}

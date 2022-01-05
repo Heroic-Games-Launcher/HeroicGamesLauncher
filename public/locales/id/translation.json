@@ -1,0 +1,274 @@
+{
+    "All": "Semua",
+    "Assets": "Aset",
+    "box": {
+        "appupdate": {
+            "message": "Versi baru Heroic telah tersedia, apakah Anda ingin memperbarui sekarang?",
+            "title": "Pembaruan Tersedia"
+        },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
+        "choose": "Pilih",
+        "choose-egs-prefix": "",
+        "choose-legendary-binary": "Pilih Legendary Binary",
+        "customWine": "Pilih Wine atau Proton Binary",
+        "default-install-path": "Pilih tempat Instal Default",
+        "error": {
+            "credentials": {
+                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi.",
+                "title": "Kredensial Kedaluwarsa"
+            },
+            "diskspace": {
+                "message": "Tidak cukup ruang disk yang tersedia",
+                "title": "Tidak ada ruang"
+            },
+            "generic": {
+                "message": "An Unknown Error has occurred",
+                "title": "Error Tak Dikenal"
+            },
+            "launch": "Error ketika meluncurkan permainan, periksa log!",
+            "log": {
+                "message": "Tidak ada Log yang ditemukan untuk game ini",
+                "title": "Log Tidak Ditemukan"
+            },
+            "title": "Error"
+        },
+        "no": "TIDAK",
+        "ok": "Ok",
+        "protocol": {
+            "install": {
+                "not_installed": "Tidak diinstal, apakah Anda ingin menginstalnya?"
+            }
+        },
+        "quit": {
+            "message": "Ada operasi yang tertunda, apakah Anda yakin?",
+            "title": "Keluar"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
+        "runexe": {
+            "title": "Pilih EXE untuk menjalankan"
+        },
+        "select": {
+            "button": "Pilih",
+            "exe": "Pilih EXE"
+        },
+        "shortcuts": {
+            "message": "Pintasan dibuat di Desktop dan Start Menu",
+            "title": "Pintasan"
+        },
+        "sync": {
+            "button": "Pilih",
+            "error": "",
+            "title": "Pilih direktori penyimpanan"
+        },
+        "wineprefix": "Pilih Folder Prefix Winie",
+        "yes": "YA"
+    },
+    "button": {
+        "login": "Login",
+        "sync": "Sinkronkan",
+        "syncing": "",
+        "unsync": ""
+    },
+    "Downloading": "Mengunduh",
+    "Epic Games": "Game Epic",
+    "Filter": "Saring",
+    "filter": {
+        "noFilter": "No Filter"
+    },
+    "globalSettings": "Pengaturan Global",
+    "help": {
+        "general": "",
+        "other": {
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": "",
+            "part5": "",
+            "part6": "",
+            "part7": ""
+        },
+        "sync": {
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": ""
+        },
+        "wine": {
+            "part1": "",
+            "part2": ""
+        }
+    },
+    "info": {
+        "settings": ""
+    },
+    "infobox": {
+        "help": "",
+        "requirements": ""
+    },
+    "install": {
+        "path": "Select Install Path"
+    },
+    "Library": "",
+    "loading": {
+        "website": "Loading Website"
+    },
+    "message": {
+        "sync": "",
+        "unsync": ""
+    },
+    "nogames": "",
+    "Not Ready": "",
+    "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
+        "finished": {
+            "reparing": ""
+        },
+        "install": {
+            "canceled": "",
+            "finished": "",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
+        },
+        "moved": "",
+        "uninstalled": "",
+        "update": {
+            "canceled": "",
+            "finished": "",
+            "started": "Update Started"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "",
+            "title": ""
+        },
+        "gameargs": {
+            "placeholder": "",
+            "title": ""
+        }
+    },
+    "other": {
+        "legendary-version": "Legendary Version: ",
+        "weblate": "Help Improve this translation."
+    },
+    "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": ""
+    },
+    "Plugins": "Plugins",
+    "Projects": "Projects",
+    "Ready": "",
+    "Recent": "Played Recently",
+    "Return": "",
+    "search": "",
+    "setting": {
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "audiofix": "",
+        "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
+        "autosync": "",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check For Updates On Startup",
+        "customWineProton": "Custom Wine/Proton Paths",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "discordRPC": "Enable Discord Rich Presence",
+        "egs-sync": "",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "esync": "Enable Esync",
+        "exit-to-tray": "",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "",
+        "language": "",
+        "mangohud": "",
+        "manualsync": {
+            "download": "",
+            "forcedownload": "",
+            "forceupload": "",
+            "sync": "",
+            "syncing": "",
+            "title": "",
+            "upload": ""
+        },
+        "maxRecentGames": "Played Recently to Show",
+        "maxworkers": "",
+        "offlinemode": "",
+        "primerun": "Enable Nvidia Prime Render",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "runexe": {
+            "message": "",
+            "title": ""
+        },
+        "savefolder": {
+            "placeholder": "",
+            "title": ""
+        },
+        "showfps": "",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "start-in-tray": "Start Minimized",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "",
+        "wineversion": ""
+    },
+    "Settings": "",
+    "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
+        "navbar": {
+            "general": "",
+            "other": "",
+            "sync": ""
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
+    },
+    "store": "Store",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
+    "tooltip": {
+        "addpath": "Add New Path",
+        "removepath": "Remove Path"
+    },
+    "Total Games": "",
+    "tray": {
+        "about": "About",
+        "quit": "Quit",
+        "reload": "Reload",
+        "show": ""
+    },
+    "Unreal Marketplace": "Unreal Marketplace",
+    "Updates": "Updates",
+    "userselector": {
+        "discord": "Discord",
+        "logout": "",
+        "logout_confirmation": "Logout?",
+        "quit": ""
+    },
+    "wiki": "Wiki"
+}

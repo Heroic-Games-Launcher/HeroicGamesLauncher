@@ -6,8 +6,13 @@
             "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
             "title": "Frissítés Elérhető"
         },
+        "cache-cleared": {
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
+        },
         "choose": "Kiválaszt",
         "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
+        "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
@@ -31,6 +36,7 @@
             "title": "Hiba"
         },
         "no": "NEM",
+        "ok": "Ok",
         "protocol": {
             "install": {
                 "not_installed": "Nincs telepítve, szeretnéd telepíteni?"
@@ -40,10 +46,23 @@
             "message": "Függőben lévő műveletek vannak, biztos vagy benne?",
             "title": "Kilépés"
         },
+        "reset-heroic": {
+            "question": {
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "title": "Reset Heroic"
+            }
+        },
         "runexe": {
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
-        "select": "Kiválaszt",
+        "select": {
+            "button": "Select",
+            "exe": "EXE kiválasztása"
+        },
+        "shortcuts": {
+            "message": "Shortcuts were created on Desktop and Start Menu",
+            "title": "Shortcuts"
+        },
         "sync": {
             "button": "Választ",
             "error": "Érvénytelen útvonal",
@@ -53,13 +72,17 @@
         "yes": "IGEN"
     },
     "button": {
+        "login": "Login",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás"
     },
     "Downloading": "Letöltés",
+    "Epic Games": "Epic Games",
     "Filter": "Szűrő",
-    "Games": "Games",
+    "filter": {
+        "noFilter": "No Filter"
+    },
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -79,7 +102,7 @@
             "part4": "Mentések Automatikus Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
         },
         "wine": {
-            "part1": "A Heroic a Wine és Proton verzióit a következő mappákban keresi:",
+            "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
             "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
         }
     },
@@ -90,7 +113,13 @@
         "help": "Segítség",
         "requirements": "Rendszer Követelmények"
     },
+    "install": {
+        "path": "Select Install Path"
+    },
     "Library": "Könyvtár",
+    "loading": {
+        "website": "Loading Website"
+    },
     "message": {
         "sync": "Szinkronizálás Befejezve",
         "unsync": "Deszinkronizálás Befejezve"
@@ -98,18 +127,25 @@
     "nogames": "Nem találtunk játékot",
     "Not Ready": "Nincs kész",
     "notify": {
+        "error": {
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
+        },
         "finished": {
             "reparing": "Javítás Befejezve"
         },
         "install": {
             "canceled": "Telepítés Visszavonva",
-            "finished": "Telepítés Befejezve"
+            "finished": "Telepítés Befejezve",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
         "moved": "Áthelyezés Befejezve",
         "uninstalled": "Eltávolítva",
         "update": {
             "canceled": "Frissítés Visszavonva",
-            "finished": "Frissítés Befejezve"
+            "finished": "Frissítés Befejezve",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -123,32 +159,39 @@
         }
     },
     "other": {
+        "legendary-version": "Legendary Version: ",
         "weblate": "Segíts lefordítani a Heroic-ot."
     },
     "placeholder": {
+        "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix ahol EGS telepítve van"
     },
     "Plugins": "Plugins",
     "Projects": "Projektek",
     "Ready": "Kész",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
-        "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
+        "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
+        "change-target-exe": "Válassz alternatív EXE fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "FSR Hack engedélyezése (Wine verziónak támogatnia kell)",
+        "esync": "Esync engedélyezése",
         "exit-to-tray": "Kilépés a Rendszer Tálcára",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Élesség Erősség",
+        "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",
         "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
@@ -165,7 +208,7 @@
         "maxworkers": "Maximum Dolgozók Száma letöltéskor",
         "offlinemode": "Futtassa a Játékot Offline",
         "primerun": "Nvidia Prime Render Engedélyezése",
-        "resizableBar": "Enable Resizable Bar (NVIDIA RTX only)",
+        "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyával)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
             "title": "Futtasd az EXE fájlt Prefix-el"
@@ -175,19 +218,39 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Indítás tálcára téve",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },
     "Settings": "Beállítások",
     "settings": {
+        "clear-cache": "Clear Heroic Cache",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Általános",
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
-        }
+        },
+        "reset-heroic": "Reset Heroic"
+    },
+    "status": {
+        "loading": "Loading Game list, please wait",
+        "logging": "Logging In..."
     },
     "store": "Áruház",
+    "title": {
+        "allGames": "All Games",
+        "allUnreal": "Unreal - Everything",
+        "downloading": "Downloading",
+        "installedGames": "Installed Games",
+        "notInstalledGames": "Not Installed",
+        "unrealAssets": "Unreal - Assets",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Unreal - Projects",
+        "updates": "Pending Updates"
+    },
     "tooltip": {
         "addpath": "Új útvonal hozzáadása",
         "removepath": "Útvonal eltávolítása"
@@ -197,19 +260,15 @@
         "about": "Rólunk",
         "quit": "Kilép",
         "reload": "Újratölt",
-        "show": "Mutasd",
-        "support": "Támogass Minket"
+        "show": "Mutasd"
     },
     "Unreal Marketplace": "Unreal Piac",
     "Updates": "Frissítések",
     "userselector": {
-        "about": "Névjegy",
         "discord": "Discord",
         "logout": "Kijelentkezés",
         "logout_confirmation": "Logout?",
-        "quit": "Kilépés",
-        "refresh": "Könyvtár frissítése",
-        "support": "Támogass minket"
+        "quit": "Kilépés"
     },
     "wiki": "Wiki"
 }

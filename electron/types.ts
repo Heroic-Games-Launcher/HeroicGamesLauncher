@@ -4,10 +4,11 @@ interface About {
 }
 
 export interface AppSettings {
-  checkUpdatesInterval: number,
+  checkUpdatesInterval: number
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  altLegendaryBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
@@ -18,7 +19,9 @@ export interface AppSettings {
   discordRPC: boolean
   egsLinkedPath: string
   exitToTray: boolean
+  enableEsync: boolean
   enableFSR: boolean
+  enableFsync: boolean
   enableResizableBar: boolean
   language: string
   launcherArgs: string
@@ -31,14 +34,25 @@ export interface AppSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  showUnrealMarket: boolean
   startInTray: boolean
   useGameMode: boolean
+  targetExe: string
   userInfo: UserInfo
+  wineCrossoverBottle: string
   winePrefix: string
+  defaultWinePrefix: string
   wineVersion: WineInstallation
 }
 
-export type ExecResult = void | {stderr : string, stdout : string}
+export type ExecResult = void | { stderr: string; stdout: string }
+
+export type LaunchResult = {
+  stderr: string
+  command: string
+  gameSettings: GameSettings
+}
+
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
@@ -64,13 +78,50 @@ export interface GameInfo {
   namespace: string
   save_folder: string
   title: string
+  canRunOffline: boolean
+  is_mac_native: boolean
+}
+
+type DLCInfo = {
+  app_name: string
+  title: string
+}
+
+type GameInstallInfo = {
+  app_name: string
+  launch_options: Array<string>
+  owned_dlc: Array<DLCInfo>
+  title: string
+  version: string
+  platform_versions: { Mac: string; Windows: string }
+}
+
+type Prerequisites = {
+  args: string
+  name: string
+  path: string
+}
+
+type GameManifest = {
+  app_name: string
+  disk_size: number
+  download_size: number
+  install_tags: Array<string>
+  launch_exe: string
+  prerequisites: Prerequisites
+}
+export interface InstallInfo {
+  game: GameInstallInfo
+  manifest: GameManifest
 }
 
 export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
+  enableEsync: boolean
   enableFSR: boolean
+  enableFsync: boolean
   enableResizableBar: boolean
   maxSharpness: number
   launcherArgs: string
@@ -80,7 +131,9 @@ export interface GameSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
+  targetExe: string
   useGameMode: boolean
+  wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
 }
@@ -113,6 +166,7 @@ export interface InstalledInfo {
   install_size: string | null
   is_dlc: boolean
   version: string | null
+  platform: string
 }
 export interface KeyImage {
   type: string
@@ -149,7 +203,6 @@ interface Reqs {
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
-
 export type UserInfo = {
   account_id?: string
   displayName?: string
@@ -159,4 +212,20 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
+  wineboot?: string
+  wineserver?: string
+}
+
+export interface InstallArgs {
+  path: string
+  installDlcs?: boolean
+  sdlList?: Array<string>
+  platformToInstall: 'Windows' | 'Mac'
+}
+
+export interface InstallParams {
+  appName: string
+  path: string
+  installDlcs?: boolean
+  sdlList?: Array<string>
 }

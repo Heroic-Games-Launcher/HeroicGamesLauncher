@@ -1,0 +1,113 @@
+{
+    "box": {
+        "change": {
+            "message": "이 작업은 해당 게임의 설치 위치를 변경합니다, 계속하시겠습니까?",
+            "path": "새 설치 경로 선택",
+            "title": "게임 설치 경로 변경"
+        },
+        "choose": "선택",
+        "importpath": "가져올 게임 폴더 선택",
+        "move": {
+            "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?",
+            "path": "이동하려는 위치 선택",
+            "title": "게임 설치 이동"
+        },
+        "no": "아니오",
+        "repair": {
+            "message": "이 게임의 복구를 시도하시겠습니까? 이 작업은 긴 시간이 소요될 수 있습니다.",
+            "title": "확인 및 복구"
+        },
+        "stopInstall": {
+            "keepInstalling": "계속 설치",
+            "message": "다운로드한 파일을 유지하겠습니까?",
+            "title": "설치 중지"
+        },
+        "uninstall": {
+            "message": "이 게임을 제거하시겠습니까?",
+            "title": "설치 제거"
+        },
+        "update": {
+            "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?",
+            "title": "게임 업데이트 필요"
+        },
+        "wineprefix": "Select WinePrefix Folder",
+        "yes": "예"
+    },
+    "button": {
+        "cancel": "일시정지/취소",
+        "continue": "계속 다운로드",
+        "import": "게임 들여오기",
+        "install": "설치",
+        "uninstall": "설치 제거",
+        "update": "업데이트"
+    },
+    "disabled": "비활성화",
+    "dlc": {
+        "installDlcs": "모든 DLC를 설치합니다",
+        "title": "DLCs"
+    },
+    "enabled": "활성화",
+    "game": {
+        "downloadSize": "다운로드 크기",
+        "firstPlayed": "처음 플레이",
+        "installSize": "설치 크기",
+        "lastPlayed": "마지막 플레이",
+        "neverPlayed": "플레이 한 적 없음",
+        "totalPlayed": "플레이 시간"
+    },
+    "gamecard": {
+        "moving": "옮기는 중",
+        "repairing": "복구 중"
+    },
+    "info": {
+        "canRunOffline": "네트워크 연결이 필요합니다",
+        "path": "설치 경로",
+        "size": "크기",
+        "syncsaves": "세이브 동기화",
+        "version": "버전"
+    },
+    "install": {
+        "path": "Select Install Path",
+        "wineprefix": "WinePrefix"
+    },
+    "label": {
+        "playing": {
+            "start": "지금 실행하기",
+            "stop": "플레이 중지"
+        },
+        "saves": {
+            "syncing": "세이브 동기화 중"
+        }
+    },
+    "launch": {
+        "options": "시작 옵션..."
+    },
+    "sdl": {
+        "title": "설치할 구성 요소를 선택합니다"
+    },
+    "specs": {
+        "minimum": "최소 사양",
+        "recommended": "권장 사양"
+    },
+    "status": {
+        "clickToUpdate": "업데이트하려면 클릭",
+        "hasUpdates": "새 버전이 있습니다!",
+        "installed": "설치됨",
+        "installing": "설치 중",
+        "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
+        "notinstalled": "이 게임은 설치 되지 않았습니다",
+        "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
+        "totalDownloaded": "총 다운로드",
+        "updating": "게임 업데이트 중"
+    },
+    "submenu": {
+        "addShortcut": "바로가기 생성",
+        "change": "설치 경로 변경",
+        "log": "최신 로그",
+        "move": "게임 이동",
+        "protondb": "호환성 체크",
+        "settings": "설정",
+        "store": "스토어 페이지",
+        "verify": "확인 및 복구"
+    }
+}
