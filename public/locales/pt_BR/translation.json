@@ -7,12 +7,12 @@
             "title": "Atualização Disponível"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "O cache do Heroic foi limpo!",
+            "title": "Cache limpo"
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Selecionar o binário do Legendary",
         "customWine": "Selecione o Binário do WINE ou Proton",
         "default-install-path": "Selecione o local de instalação padrão",
         "error": {
@@ -48,7 +48,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Tem certeza que deseja redefinir o Heroic? Isso removerá todas as configurações e o cache, mas não removerá seus jogos instalados ou suas credenciais da Epic",
                 "title": "Reset Heroic"
             }
         },
@@ -56,12 +56,12 @@
             "title": "Selecione o EXE para iniciar"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Selecionar",
+            "exe": "Selecionar EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Os atalhos foram criados na área de trabalho e no menu Iniciar",
+            "title": "Atalhos"
         },
         "sync": {
             "button": "Selecionar",
@@ -83,7 +83,7 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "globalSettings": "Configurações Globais",
+    "globalSettings": "Configurações globais",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Store e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
         "other": {
@@ -114,11 +114,11 @@
         "requirements": "Requisitos do Sistema"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Selecione o local de instalação"
     },
     "Library": "Biblioteca",
     "loading": {
-        "website": "Loading Website"
+        "website": "Carregando site"
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -128,8 +128,8 @@
     "Not Ready": "Não Instalados",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Error ao mover o jogo",
+            "reparing": "Erro ao reparar"
         },
         "finished": {
             "reparing": "Reparo Concluído"
@@ -137,15 +137,15 @@
         "install": {
             "canceled": "Instalação Cancelada",
             "finished": "Instalação concluída",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Jogo importado",
+            "startInstall": "Instalação iniciada"
         },
         "moved": "Movido com sucesso",
         "uninstalled": "Desinstalado",
         "update": {
             "canceled": "Atualização cancelada",
             "finished": "Atualização concluída",
-            "started": "Update Started"
+            "started": "Atualização iniciada"
         }
     },
     "options": {
@@ -159,11 +159,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Versão do Legendary: ",
         "weblate": "Ajude a traduzir o Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "Usando o binário embutido do Legendary...",
         "egs-prefix": "Prefix onde a EGS está instalada"
     },
     "Plugins": "Plugins",
@@ -175,11 +175,11 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Escolha um binário alternativo do Legendary  (requer reinício)",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK/VKD3D automaticamente no prefix",
         "autosync": "Sincronizar saves automaticamente",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Selecione um EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com WINE/Proton Customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
@@ -218,7 +218,7 @@
             "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
         },
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Pasta do prefix WINE",
@@ -226,8 +226,8 @@
     },
     "Settings": "Configurações",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Limpar cache do Heroic",
+        "copyToClipboard": "Copiar toda a configuração para a área de transferência",
         "navbar": {
             "general": "Config. Gerais",
             "other": "Outros",
@@ -236,20 +236,20 @@
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Carregando lista de jogos, aguarde por favor",
+        "logging": "Fazendo login..."
     },
     "store": "Loja",
     "title": {
         "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
+        "allUnreal": "Unreal - Tudo",
+        "downloading": "Baixando",
+        "installedGames": "Jogos Instalados",
+        "notInstalledGames": "Não instalados",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projetos",
+        "updates": "Atualizações pendentes"
     },
     "tooltip": {
         "addpath": "Adicionar",

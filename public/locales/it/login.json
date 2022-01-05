@@ -20,7 +20,7 @@
     },
     "status": {
         "error": "Errore",
-        "loading": "Caricamento lista giochi, attendi per favore",
+        "loading": "Caricamento elenco dei giochi, attendere",
         "logging": "Sto accedendo…"
     },
     "welcome": "Benvenuto!"
