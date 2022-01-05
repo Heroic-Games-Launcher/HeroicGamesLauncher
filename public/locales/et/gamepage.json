@@ -27,16 +27,16 @@
             "title": "Eemalda"
         },
         "update": {
-            "message": "Sellel mängul on värskendus. Kas soovite uuendada kohe?",
+            "message": "Sellele mängule on saadaval uuendus. Kas soovite uuendada kohe?",
             "title": "Mäng vajab uuendust"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Vali WinePrefix'i kaust",
         "yes": "JAH"
     },
     "button": {
         "cancel": "Peata/Tühista",
         "continue": "Jätka allalaadimist",
-        "import": "Impordi",
+        "import": "Impordi mäng",
         "install": "Paigalda",
         "uninstall": "Eemalda",
         "update": "Uuenda"
@@ -67,7 +67,7 @@
         "version": "Versioon"
     },
     "install": {
-        "path": "Select Install Path",
+        "path": "Valige paigaldustee",
         "wineprefix": "WinePrefix"
     },
     "label": {
@@ -104,7 +104,7 @@
         "addShortcut": "Lisa otsetee",
         "change": "Muuda paigalduskohta",
         "log": "Viimane logi",
-        "move": "Liiguta mäng",
+        "move": "Liiguta mängu",
         "protondb": "Kontrolli ühilduvust",
         "settings": "Seaded",
         "store": "Poe lehekülg",
