@@ -120,6 +120,10 @@
     "loading": {
         "website": "Caricamento sito web incorso"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Sincronizzazione completata",
         "unsync": "Annullamento sincronizzazione completato"

@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "同期が完了しました",
         "unsync": "非同期が完了しました"

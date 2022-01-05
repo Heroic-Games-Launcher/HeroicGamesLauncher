@@ -144,7 +144,7 @@ option {
 }
 
 .refreshIcon:hover,
-:focus-visible .refreshIcon {
+.svg-button:focus-visible .refreshIcon {
   animation: refreshing 2s infinite;
 }
 

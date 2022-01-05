@@ -2,9 +2,6 @@
     "button": {
         "login": "登入"
     },
-    "info": {
-        "needHelp": "Need Help?"
-    },
     "input": {
         "placeholder": "在此處貼上SID號碼"
     },

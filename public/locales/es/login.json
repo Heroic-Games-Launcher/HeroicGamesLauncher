@@ -2,9 +2,6 @@
     "button": {
         "login": "Iniciar Sesión"
     },
-    "info": {
-        "needHelp": "¿Necesitas Ayuda?"
-    },
     "input": {
         "placeholder": "Pegue el número SID aquí"
     },

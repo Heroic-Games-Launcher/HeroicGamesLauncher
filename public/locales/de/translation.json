@@ -120,6 +120,10 @@
     "loading": {
         "website": "Lade Webseite"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Synchronisation abgeschlossen",
         "unsync": "Synchronisation erfolgreich aufgehoben"
