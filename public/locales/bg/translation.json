@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Синхронизацията е завършена",
         "unsync": "Десинхронизацията е завършена"
@@ -169,7 +173,7 @@
     "Plugins": "Добавки",
     "Projects": "Проекти",
     "Ready": "Готово",
-    "Recent": "Скорошни игри",
+    "Recent": "Играно наскоро",
     "Return": "Обратно",
     "search": "Въведете името на играта...",
     "setting": {
@@ -204,7 +208,7 @@
             "title": "Ръчно синхронизиране на запазените файлове",
             "upload": "Качване"
         },
-        "maxRecentGames": "Скорошни игри за показване",
+        "maxRecentGames": "Играно наскоро за показване",
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "offlinemode": "Пускане на играта в режим „извън линия“",
         "primerun": "Включване на „Nvidia Prime Render“",
