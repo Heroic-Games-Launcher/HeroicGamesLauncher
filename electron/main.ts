@@ -1094,9 +1094,6 @@ ipcMain.handle('gamepadAction', async (event, action) => {
         keyCode: action.replace(/pad|leftStick/, '')
       }
       break
-    case 'mainAction':
-      inputEvent = { type: 'keyDown', keyCode: 'Return' }
-      break
   }
 
   if (inputEvent) {
