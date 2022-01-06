@@ -307,7 +307,7 @@ function clearCache() {
 }
 
 function resetHeroic() {
-  const heroicFolder = `${app.getPath('appData')}/heroic`
+  const heroicFolder = `${app.getPath('appData')}/Heroic`
   rm(heroicFolder, { recursive: true, force: true }, () => {
     app.relaunch()
     app.quit()
