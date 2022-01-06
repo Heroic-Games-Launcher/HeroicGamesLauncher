@@ -98,6 +98,7 @@ export default function WebView({ isLogin }: Props) {
           })
         }
       }
+
       webview.addEventListener('dom-ready', loadstop)
     }
   }, [])
