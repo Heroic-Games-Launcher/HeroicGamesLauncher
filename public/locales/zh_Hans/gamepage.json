@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "这将会更改此游戏的安装位置，确定？",
+            "message": "这将会更改此游戏的安装位置，你确定吗？",
             "path": "选择新的安装路径",
             "title": "更改游戏安装路径"
         },
@@ -30,7 +30,7 @@
             "message": "此游戏有更新，你希望现在更新吗？",
             "title": "游戏需要更新"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "选择 WinePrefix 文件夹",
         "yes": "是"
     },
     "button": {
@@ -67,7 +67,7 @@
         "version": "版本"
     },
     "install": {
-        "path": "Select Install Path",
+        "path": "选择安装路径",
         "wineprefix": "WinePrefix"
     },
     "label": {

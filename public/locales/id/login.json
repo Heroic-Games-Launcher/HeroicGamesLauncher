@@ -2,9 +2,6 @@
     "button": {
         "login": "Masuk"
     },
-    "info": {
-        "needHelp": "Need Help?"
-    },
     "input": {
         "placeholder": "Tempel nomor SID disini"
     },

@@ -30,7 +30,7 @@
             "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
             "title": "Spiel benötigt eine neuere Version"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Wine Prefix Ordner auswählen",
         "yes": "JA"
     },
     "button": {

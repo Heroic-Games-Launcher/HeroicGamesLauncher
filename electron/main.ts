@@ -116,6 +116,7 @@ async function createWindow(): Promise<BrowserWindow> {
 
   mainWindow.setIcon(icon)
   app.setAppUserModelId('Heroic')
+  app.commandLine.appendSwitch('enable-spatial-navigation')
 
   if (isDev) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -262,6 +263,7 @@ if (!gotTheLock) {
         'fa',
         'fi',
         'fr',
+        'gl',
         'hr',
         'hu',
         'ja',

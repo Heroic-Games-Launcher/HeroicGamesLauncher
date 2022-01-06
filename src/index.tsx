@@ -45,6 +45,7 @@ i18next
       'fa',
       'fi',
       'fr',
+      'gl',
       'hr',
       'hu',
       'ja',
