@@ -63,6 +63,7 @@ export default function WebView({ isLogin }: Props) {
     if (webview) {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
+        if (pathname != urls[loginUrl]) return
 
         // Deals with Login
         if (!user) {
@@ -97,25 +98,7 @@ export default function WebView({ isLogin }: Props) {
           })
         }
       }
-      const websiteloaded = () => {
-        // Deal with Epic Store / GH Wiki
-        setLoading({ ...loading, refresh: false })
-      }
-      switch (
-        pathname // if we don't do this, the webview will refresh multiple times and cause visual jittering
-      ) {
-        case urls[loginUrl]: {
-          webview.addEventListener('did-stop-loading', loadstop)
-          webview.removeEventListener('dom-ready', websiteloaded)
-          break
-        }
-
-        default: {
-          webview.addEventListener('dom-ready', websiteloaded)
-          webview.removeEventListener('did-stop-loading', loadstop)
-          break
-        }
-      }
+      webview.addEventListener('dom-ready', loadstop)
     }
   }, [])
 
