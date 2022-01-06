@@ -20,6 +20,8 @@ const libraryStore: ElectronStore = new Store({
   name: 'library'
 })
 
+const RTL_LANGUAGES = ['fa']
+
 type T = TFunction<'gamepage'> & TFunction<'translations'>
 
 interface Props {
@@ -412,6 +414,8 @@ export class GlobalState extends PureComponent<Props> {
     const { children } = this.props
     const { data, filterText, filter, platform, filterPlatform } = this.state
     let filteredLibrary = data
+    const language = storage.getItem('language') || 'en'
+    const isRTL = RTL_LANGUAGES.includes(language)
 
     try {
       const filterRegex = new RegExp(filterText, 'i')
@@ -436,6 +440,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
+          isRTL,
           platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,

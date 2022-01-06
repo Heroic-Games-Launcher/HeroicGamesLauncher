@@ -12,6 +12,7 @@
   justify-content: space-around;
   transition: 150ms;
   text-align: initial;
+  align-items: flex-start;
 }
 
 .dots {
@@ -21,21 +22,6 @@
   width: 25px;
   z-index: 1;
   cursor: pointer;
-}
-
-.link {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: var(--secondary);
-  margin: 4px 0px;
-  cursor: pointer;
-}
-
-.link:hover {
-  color: var(--secondary-hover);
 }
 
 .linkTitle {

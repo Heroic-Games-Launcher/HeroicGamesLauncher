@@ -1,0 +1,31 @@
+.headerIcons {
+  width: min(100px, 6vw);
+  max-width: 150px;
+  display: flex;
+  justify-content: space-around;
+  grid-area: refresh;
+  margin-left: 24px;
+}
+
+.headerIcons > * {
+  cursor: pointer;
+}
+
+.headerIcons > .svg-button {
+  color: var(--text-primary);
+}
+
+.headerIcons > *:hover,
+.headerIcons > .svg-button > *:hover,
+.headerIcons > .svg-button:focus-visible > * {
+  color: var(--secondary);
+}
+
+.svg-button > .selectedLayout {
+  color: var(--secondary);
+}
+
+.headerIcons > .svg-button > svg {
+  height: 1.5vh;
+  min-height: 1.1rem;
+}

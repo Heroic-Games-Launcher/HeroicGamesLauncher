@@ -26,3 +26,6 @@ yarn-error.log*
 
 public/**/*.js
 downloads*.json
+
+flatpak/build
+flatpak/.flatpak-builder

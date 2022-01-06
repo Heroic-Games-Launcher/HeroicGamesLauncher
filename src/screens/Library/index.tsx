@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { lazy, useContext, useState } from 'react'
+import React, { lazy, useContext, useEffect, useRef, useState } from 'react'
 
 import { GameInfo } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
@@ -10,6 +10,7 @@ import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
 import { UpdateComponent } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
 import { getLibraryTitle } from './constants'
+import ActionIcons from 'src/components/UI/ActionIcons'
 
 const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
 const InstallModal = lazy(
@@ -21,18 +22,28 @@ interface Props {
   showRecentsOnly?: boolean
 }
 
-window.onscroll = () => {
-  const pageOffset =
-    document.documentElement.scrollTop || document.body.scrollTop
-  const btn = document.getElementById('backToTopBtn')
-  if (btn) btn.style.visibility = pageOffset > 450 ? 'visible' : 'hidden'
-}
-
 export const Library = ({ library, showRecentsOnly }: Props) => {
   const { layout, gameUpdates, refreshing, category, filter } =
     useContext(ContextProvider)
   const [showModal, setShowModal] = useState({ game: '', show: false })
   const { t } = useTranslation()
+  const backToTopElement = useRef(null)
+
+  useEffect(() => {
+    if (backToTopElement.current) {
+      const listing = document.querySelector('.listing')
+      if (listing) {
+        listing.addEventListener('scroll', () => {
+          const btn = document.getElementById('backToTopBtn')
+          const topSpan = document.getElementById('top')
+          if (btn && topSpan) {
+            btn.style.visibility =
+              listing.scrollTop > 450 ? 'visible' : 'hidden'
+          }
+        })
+      }
+    }
+  }, [backToTopElement])
 
   const backToTop = () => {
     const anchor = document.getElementById('top')
@@ -49,6 +60,15 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     return <UpdateComponent />
   }
 
+  function titleWithIcons() {
+    return (
+      <div className="titleWithIcons">
+        {getLibraryTitle(category, filter, t)}
+        <ActionIcons />
+      </div>
+    )
+  }
+
   return (
     <>
       {showModal.show && (
@@ -57,11 +77,8 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
           backdropClick={() => setShowModal({ game: '', show: false })}
         />
       )}
-      <span id="top" />
       <h3 className="libraryHeader">
-        {showRecentsOnly
-          ? t('Recent', 'Recent Games')
-          : getLibraryTitle(category, filter, t)}
+        {showRecentsOnly ? t('Recent', 'Played Recently') : titleWithIcons()}
       </h3>
       <div
         style={!library.length ? { backgroundColor: 'transparent' } : {}}
@@ -108,9 +125,11 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
             }
           )}
       </div>
-      <button id="backToTopBtn" onClick={backToTop}>
-        <ArrowDropUp className="material-icons" />
-      </button>
+      {!showRecentsOnly && (
+        <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
+          <ArrowDropUp className="material-icons" />
+        </button>
+      )}
     </>
   )
 }
