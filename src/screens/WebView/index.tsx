@@ -61,7 +61,6 @@ export default function WebView({ isLogin }: Props) {
         if (pathname !== '/') return
         // Deals with Login
         else {
-          console.log('case triggered')
           setTimeout(() => {
             webview.findInPage('sid')
             webview.addEventListener('found-in-page', async (res) => {
