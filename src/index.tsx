@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import i18next from 'i18next'
+import { initGamepad } from './helpers/gamepad'
 
 import './index.css'
 import App from 'src/App'
@@ -15,6 +16,8 @@ const Backend = new HttpApi(null, {
   allowMultiLoading: false,
   loadPath: 'locales/{{lng}}/{{ns}}.json'
 })
+
+initGamepad()
 
 i18next
   // load translation using http -> see /public/locales

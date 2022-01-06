@@ -1,4 +1,9 @@
-import { InstallParams, LaunchResult } from './types'
+import {
+  InstallParams,
+  LaunchResult,
+  GamepadInputEventKey,
+  GamepadInputEventWheel
+} from './types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -1042,4 +1047,59 @@ ipcMain.handle('syncSaves', async (event, args) => {
   logInfo(`${stdout}`)
   logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`
+})
+
+ipcMain.handle('gamepadAction', async (event, action) => {
+  const window = BrowserWindow.getAllWindows()[0]
+
+  /*
+   * How to extend:
+   *
+   * Valid values for type are 'keyDown', 'keyUp' and 'char'
+   * Valid values for keyCode are defined here:
+   * https://www.electronjs.org/docs/latest/api/accelerator#available-key-codes
+   *
+   */
+
+  let inputEvent: GamepadInputEventKey | GamepadInputEventWheel
+
+  switch (action) {
+    case 'rightStickUp':
+      inputEvent = {
+        type: 'mouseWheel',
+        deltaY: 53,
+        x: window.getBounds().width / 2,
+        y: window.getBounds().height / 2
+      }
+      break
+    case 'rightStickDown':
+      inputEvent = {
+        type: 'mouseWheel',
+        deltaY: -53,
+        x: window.getBounds().width / 2,
+        y: window.getBounds().height / 2
+      }
+      break
+    case 'leftStickUp':
+    case 'leftStickDown':
+    case 'leftStickLeft':
+    case 'leftStickRight':
+    case 'padUp':
+    case 'padDown':
+    case 'padLeft':
+    case 'padRight':
+      // spatial navigation
+      inputEvent = {
+        type: 'keyDown',
+        keyCode: action.replace(/pad|leftStick/, '')
+      }
+      break
+    case 'mainAction':
+      inputEvent = { type: 'keyDown', keyCode: 'Return' }
+      break
+  }
+
+  if (inputEvent) {
+    window.webContents.sendInputEvent(inputEvent)
+  }
 })
