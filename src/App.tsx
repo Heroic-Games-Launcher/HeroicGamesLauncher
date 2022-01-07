@@ -21,12 +21,12 @@ function App() {
     cwd: 'store'
   })
   const user = configStore.get('userInfo')
-  const { data: library, recentGames, category } = context
+  const { data: library, gogLibrary, recentGames, category } = context
 
   const dlcCount = library.filter((lib) => lib.install.is_dlc)
-  const numberOfGames = library.length - dlcCount.length
-  const showRecentGames = !!recentGames.length && category === 'games'
-
+  const numberOfGames =
+    category == 'epic' ? library.length - dlcCount.length : gogLibrary.length
+  const showRecentGames = !!recentGames.length && category !== 'unreal'
   return (
     <div className="App">
       <HashRouter>
@@ -46,7 +46,9 @@ function App() {
                     {showRecentGames && (
                       <Library showRecentsOnly library={recentGames} />
                     )}
-                    <Library library={library} />
+                    <Library
+                      library={category === 'epic' ? library : gogLibrary}
+                    />
                   </div>
                 </>
               ) : (

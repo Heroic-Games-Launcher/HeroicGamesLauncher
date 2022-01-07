@@ -78,7 +78,7 @@ export default function Header({
   return (
     <>
       <div className={cx({ header: !title }, { headerSettings: title })}>
-        {category === 'games' && (
+        {category !== 'unreal' && (
           <span className="selectFilter">
             {isMac && (
               <div className="macFilter">

@@ -36,6 +36,8 @@ interface Card {
   title: string
   version: string
   isMacNative: boolean
+  isLinuxNative: boolean
+  store: 'epic' | 'gog' | 'heroic'
   forceCard?: boolean
 }
 
@@ -51,7 +53,10 @@ const GameCard = ({
   hasUpdate,
   buttonClick,
   forceCard,
-  isMacNative
+  isMacNative,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  isLinuxNative,
+  store
 }: Card) => {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -129,7 +134,12 @@ const GameCard = ({
 
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
   const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
-  const imageSrc = `${grid ? cover : coverList}?h=400&resize=1&w=300`
+  const imageSrc =
+    store == 'epic'
+      ? `${grid ? cover : coverList}?h=400&resize=1&w=300`
+      : grid
+      ? cover
+      : coverList
 
   async function handleUpdate() {
     await handleGameStatus({ appName, status: 'updating' })

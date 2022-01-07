@@ -34,7 +34,6 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
   const isEpicLoggedIn = Boolean(configStore.get('userInfo'))
-  const isGOGLoggedIn = gogStore.has('credentials')
   const showSubmenu = isLibrary && isEpicLoggedIn
 
   function toggleCategory(newCategory: string) {
@@ -45,7 +44,8 @@ export default function SidebarLinks() {
   }
 
   function handleGOG() {
-    if (isGOGLoggedIn) {
+    if (gogStore.has('credentials')) {
+      handleCategory('gog')
       console.log('Not implemented yet!')
     } else {
       // Login
@@ -86,8 +86,8 @@ export default function SidebarLinks() {
         <>
           <a
             href="#"
-            onClick={() => toggleCategory('games')}
-            className={cx('subItem', { ['selected']: category === 'games' })}
+            onClick={() => toggleCategory('epic')}
+            className={cx('subItem', { ['selected']: category === 'epic' })}
           >
             {t('Epic Games', 'Epic Games')}
           </a>
@@ -109,7 +109,7 @@ export default function SidebarLinks() {
           )}
         </>
       )}
-      {!isLoggedIn && (
+      {!isEpicLoggedIn && (
         <>
           <Link
             to="/"

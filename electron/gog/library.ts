@@ -1,15 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError } from 'axios'
 import Store from 'electron-store'
 import { GOGUser } from './user'
-import { GOGLoginData } from '../types'
+import { GOGLoginData, GOGGameInfo, GameInfo } from '../types'
 import { logError, logInfo } from '../logger'
 
 const userStore = new Store({
   cwd: 'gog_store'
 })
+const gamesDbCacheStore = new Store({ cwd: 'gog_store', name: 'gamesdb_cache' })
 const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
 
 export class GOGLibrary {
+  private static library: Map<string, null | GameInfo> = new Map()
+
   public static async sync() {
     if (!GOGUser.isLoggedIn()) {
       return
@@ -51,7 +55,25 @@ export class GOGLibrary {
       })
 
     if (games) {
-      libraryStore.set('games', games.data.products)
+      const gamesObjects: GameInfo[] = []
+      for (const game of games.data.products as GOGGameInfo[]) {
+        let gamesDbData = gamesDbCacheStore.get(game.slug)
+        if (!gamesDbData) {
+          const fetchedData = await this.get_gamesdb_data(
+            'gog',
+            String(game.id),
+            ''
+          )
+          if (fetchedData.data?.id) {
+            gamesDbCacheStore.set(game.slug, fetchedData.data)
+          }
+          gamesDbData = fetchedData.data
+        }
+        const gameInfoObject = this.gogToUnifiedInfo(game, gamesDbData)
+        gamesObjects.push(gameInfoObject)
+        this.library.set(game.slug, gameInfoObject)
+      }
+      libraryStore.set('games', gamesObjects)
       libraryStore.set('totalGames', games.data.totalProducts)
       libraryStore.set('totalMovies', games.data.moviesCount)
       logInfo('GOG: Saved games data')
@@ -60,6 +82,73 @@ export class GOGLibrary {
       libraryStore.set('movies', movies.data.products)
       logInfo('GOG: Saved movies data')
     }
+  }
+
+  public static getGameInfo(slug: string): GameInfo {
+    const info = this.library.get(slug)
+    if (!info) {
+      return null
+    }
+    return info
+  }
+
+  /**
+   * Convert GOGGameInfo object to GameInfo
+   * That way it will be easly accessible on frontend
+   */
+  public static gogToUnifiedInfo(info: GOGGameInfo, gamesdb: any): GameInfo {
+    const developersArray: any[] = []
+    let developer: string
+    let verticalCover: string
+    let horizontalCover: string
+    if (gamesdb.game) {
+      developer = developersArray.join(', ')
+      verticalCover = gamesdb.game.vertical_cover.url_format
+        .replace('{formatter}', '')
+        .replace('{ext}', 'webp')
+
+      // horizontalCover = gamesdb.game.background.url_format
+      //   .replace('{formatter}', '')
+      //   .replace('{ext}', 'webp')
+    } else {
+      horizontalCover = `https:${info.image}.webp`
+      verticalCover = horizontalCover
+    }
+    horizontalCover = `https:${info.image}.webp`
+
+    const object: GameInfo = {
+      store: 'gog',
+      developer: developer || '',
+      app_name: info.slug,
+      art_logo: null,
+      art_cover: horizontalCover,
+      art_square: verticalCover,
+      cloud_save_enabled: false,
+      compatible_apps: [],
+      extra: undefined,
+      folder_name: '',
+      install: {
+        version: '',
+        is_dlc: false,
+        install_size: '',
+        install_path: '',
+        executable: '',
+        platform: ''
+      },
+      is_game: true,
+      is_installed: false,
+      is_ue_asset: false,
+      is_ue_plugin: false,
+      is_ue_project: false,
+      namespace: '',
+      save_folder: '',
+      title: info.title,
+      canRunOffline: true,
+      is_mac_native: info.worksOn.Mac,
+      is_linux_native: info.worksOn.Linux
+    }
+
+    return object
   }
 
   /**

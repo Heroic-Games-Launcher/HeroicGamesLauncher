@@ -44,6 +44,7 @@ export interface AppSettings {
 export interface ContextType {
   category: string
   data: GameInfo[]
+  gogLibrary: GameInfo[]
   recentGames: GameInfo[]
   error: boolean
   filter: string
@@ -71,6 +72,7 @@ interface ExtraInfo {
 }
 
 export interface GameInfo {
+  store: 'epic' | 'gog' | 'heroic'
   app_name: string
   art_cover: string
   art_logo: string
@@ -83,6 +85,7 @@ export interface GameInfo {
   install: InstalledInfo
   is_game: boolean
   is_mac_native: boolean
+  is_linux_native: boolean
   is_installed: boolean
   is_ue_asset: boolean
   is_ue_plugin: boolean
@@ -208,3 +211,37 @@ export type ElWebview = {
 }
 
 export type Webview = HTMLWebViewElement & ElWebview
+
+export interface GOGGameInfo {
+  tags: string[]
+  id: number
+  availability: {
+    isAvailable: boolean
+    isAvailableInAccount: boolean
+  }
+  title: string
+  url: string
+  worksOn: {
+    Windows: boolean
+    Mac: boolean
+    Linux: boolean
+  }
+  category: string
+  rating: number
+  isComingSoom: boolean
+  isGame: boolean
+  slug: string
+  isNew: boolean
+  dlcCount: number
+  releaseDate: {
+    date: string
+    timezone_type: number
+    timezone: string
+  }
+  isBaseProductMissing: boolean
+  isHidingDisabled: boolean
+  isInDevelopment: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  extraInfo: any[]
+  isHidden: boolean
+}

@@ -97,6 +97,8 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
               app_name,
               is_installed,
               is_mac_native,
+              is_linux_native,
+              store,
               is_game,
               install: { version, install_size, is_dlc }
             }: GameInfo) => {
@@ -107,6 +109,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
               return (
                 <GameCard
                   key={app_name}
+                  store={store}
                   cover={art_square}
                   coverList={art_cover}
                   logo={art_logo}
@@ -120,6 +123,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
                   buttonClick={() => handleModal(app_name)}
                   forceCard={showRecentsOnly}
                   isMacNative={is_mac_native}
+                  isLinuxNative={is_linux_native}
                 />
               )
             }

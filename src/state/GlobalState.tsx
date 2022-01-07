@@ -20,6 +20,8 @@ const libraryStore: ElectronStore = new Store({
   name: 'library'
 })
 
+const gogLibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
+
 const RTL_LANGUAGES = ['fa']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
@@ -33,6 +35,7 @@ interface Props {
 interface StateProps {
   category: string
   data: GameInfo[]
+  gogLibrary: GameInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -47,9 +50,12 @@ interface StateProps {
 
 export class GlobalState extends PureComponent<Props> {
   state: StateProps = {
-    category: 'games',
+    category: 'epic',
     data: libraryStore.has('library')
       ? (libraryStore.get('library') as GameInfo[])
+      : [],
+    gogLibrary: gogLibraryStore.has('games')
+      ? (gogLibraryStore.get('games') as GameInfo[])
       : [],
     error: false,
     filter: 'all',
@@ -67,16 +73,19 @@ export class GlobalState extends PureComponent<Props> {
     let updates = this.state.gameUpdates
     console.log('refreshing')
     const currentLibraryLength = this.state.data?.length
-    let library: Array<GameInfo> =
+    let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
 
-    if (!library.length || !this.state.data.length) {
+    const gogLibrary: Array<GameInfo> =
+      (gogLibraryStore.get('games') as Array<GameInfo>) || []
+
+    if (!epicLibrary.length || !this.state.data.length) {
       ipcRenderer.send(
         'logInfo',
         'No cache found, getting data from legendary...'
       )
       const { library: legendaryLibrary } = await getLegendaryConfig()
-      library = legendaryLibrary
+      epicLibrary = legendaryLibrary
     }
 
     try {
@@ -89,12 +98,13 @@ export class GlobalState extends PureComponent<Props> {
 
     this.setState({
       filterText: '',
-      data: library,
+      data: epicLibrary,
+      gogGames: gogLibrary,
       gameUpdates: updates,
       refreshing: false
     })
 
-    if (currentLibraryLength !== library.length) {
+    if (currentLibraryLength !== epicLibrary.length) {
       ipcRenderer.send('logInfo', 'Force Update')
       this.forceUpdate()
     }
@@ -362,7 +372,7 @@ export class GlobalState extends PureComponent<Props> {
 
     const user = configStore.get('userInfo')
     const platform = await getPlatform()
-    const category = storage.getItem('category') || 'games'
+    const category = storage.getItem('category') || 'epic'
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
@@ -412,8 +422,10 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, filterText, filter, platform, filterPlatform } = this.state
+    const { data, filterText, gogLibrary, filter, platform, filterPlatform } =
+      this.state
     let filteredLibrary = data
+    let filteredGOGLibrary = gogLibrary
     const language = storage.getItem('language') || 'en'
     const isRTL = RTL_LANGUAGES.includes(language)
 
@@ -425,6 +437,10 @@ export class GlobalState extends PureComponent<Props> {
         this.filterLibrary(data, filter).filter(textFilter),
         filterPlatform
       )
+      filteredGOGLibrary = this.filterPlatform(
+        this.filterLibrary(gogLibrary, filter).filter(textFilter),
+        filterPlatform
+      )
     } catch (error) {
       console.log(error)
     }
@@ -434,6 +450,7 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           data: filteredLibrary,
+          gogLibrary: filteredGOGLibrary,
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,

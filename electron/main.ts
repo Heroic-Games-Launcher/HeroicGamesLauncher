@@ -1042,8 +1042,8 @@ ipcMain.handle('syncSaves', async (event, args) => {
     logWarning(`App offline, skipping syncing saves for game '${appName}'.`)
     return
   }
-
-  const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
+  const game = Game.get(appName)
+  const { stdout, stderr } = await game.syncSaves(arg, path)
   logInfo(`${stdout}`)
   logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`

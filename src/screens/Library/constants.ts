@@ -5,7 +5,7 @@ export function getLibraryTitle(
   filter: string,
   t: TFunction<'translation'>
 ) {
-  if (category === 'games') {
+  if (category === 'epic' || category === 'gog') {
     switch (filter) {
       case 'installed':
         return t('title.installedGames', 'Installed Games')

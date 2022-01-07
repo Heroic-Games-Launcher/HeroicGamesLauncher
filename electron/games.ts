@@ -10,12 +10,15 @@ import {
 
 type Runner = 'legendary' | 'gog'
 abstract class Game {
-  public static get(appName: string, runner: Runner = 'legendary') {
+  public static get(
+    appName: string,
+    runner: Runner = 'legendary'
+  ): LegendaryGame | GOGGame {
     if (runner === 'legendary') {
       return LegendaryGame.get(appName)
     } else if (runner === 'gog') {
-      logWarning('GOG integration is unimplemented.')
-      return null
+      logWarning("GOG integration isn' fully implemented.")
+      return GOGGame.get(appName)
     }
   }
 
@@ -41,5 +44,6 @@ abstract class Game {
 import { LegendaryGame } from './legendary/games'
 import { logWarning } from './logger'
 import { BrowserWindow } from 'electron'
+import { GOGGame } from './gog/games'
 
 export { Game, Runner }

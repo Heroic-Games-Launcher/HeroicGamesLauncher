@@ -45,7 +45,7 @@ export interface AppSettings {
   wineVersion: WineInstallation
 }
 
-export type ExecResult = void | { stderr: string; stdout: string }
+export type ExecResult = { stderr: string; stdout: string }
 
 export type LaunchResult = {
   stderr: string
@@ -60,6 +60,7 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 export interface GameInfo {
+  store: 'epic' | 'gog' | 'heroic'
   app_name: string
   art_cover: string
   art_logo: string
@@ -80,6 +81,7 @@ export interface GameInfo {
   title: string
   canRunOffline: boolean
   is_mac_native: boolean
+  is_linux_native: boolean
 }
 
 type DLCInfo = {
@@ -241,6 +243,7 @@ export interface GOGLoginData {
 export interface GOGGameInfo {
   tags: string[]
   id: number
+  image: string
   availability: {
     isAvailable: boolean
     isAvailableInAccount: boolean
