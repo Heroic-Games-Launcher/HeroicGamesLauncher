@@ -2,7 +2,8 @@ import {
   InstallParams,
   LaunchResult,
   GamepadInputEventKey,
-  GamepadInputEventWheel
+  GamepadInputEventWheel,
+  GamepadInputEventMouse
 } from './types'
 import * as path from 'path'
 import {
@@ -1049,8 +1050,13 @@ ipcMain.handle('syncSaves', async (event, args) => {
   return `\n ${stdout} - ${stderr}`
 })
 
-ipcMain.handle('gamepadAction', async (event, action) => {
+ipcMain.handle('gamepadAction', async (event, args) => {
+  const [action, metadata] = args
   const window = BrowserWindow.getAllWindows()[0]
+  let inputEvent:
+    | GamepadInputEventKey
+    | GamepadInputEventWheel
+    | GamepadInputEventMouse
 
   /*
    * How to extend:
@@ -1060,9 +1066,6 @@ ipcMain.handle('gamepadAction', async (event, action) => {
    * https://www.electronjs.org/docs/latest/api/accelerator#available-key-codes
    *
    */
-
-  let inputEvent: GamepadInputEventKey | GamepadInputEventWheel
-
   switch (action) {
     case 'rightStickUp':
       inputEvent = {
@@ -1092,6 +1095,31 @@ ipcMain.handle('gamepadAction', async (event, action) => {
       inputEvent = {
         type: 'keyDown',
         keyCode: action.replace(/pad|leftStick/, '')
+      }
+      break
+    case 'leftClick':
+      inputEvent = {
+        type: 'mouseDown',
+        button: 'left',
+        x: metadata.x,
+        y: metadata.y
+      }
+      break
+    case 'rightClick':
+      inputEvent = {
+        type: 'mouseDown',
+        button: 'right',
+        x: metadata.x,
+        y: metadata.y
+      }
+      break
+    case 'back':
+      window.webContents.goBack()
+      break
+    case 'esc':
+      inputEvent = {
+        type: 'keyDown',
+        keyCode: 'Esc'
       }
       break
   }

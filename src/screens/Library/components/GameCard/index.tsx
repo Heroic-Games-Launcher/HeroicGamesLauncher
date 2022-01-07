@@ -175,7 +175,7 @@ const GameCard = ({
     }
     if (isInstalled && isGame) {
       return (
-        <SvgButton onClick={() => handlePlay()}>
+        <SvgButton className="playButton" onClick={() => handlePlay()}>
           <PlayIcon className="playIcon" />
         </SvgButton>
       )

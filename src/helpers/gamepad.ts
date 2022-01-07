@@ -27,7 +27,10 @@ export const initGamepad = () => {
     rightStickDown: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
     rightStickLeft: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
     rightStickRight: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
-    mainAction: { triggered: 0, repeatDelay: false }
+    mainAction: { triggered: 0, repeatDelay: false },
+    back: { triggered: 0, repeatDelay: false },
+    rightClick: { triggered: 0, repeatDelay: false },
+    altAction: { triggered: 0, repeatDelay: false }
   }
 
   // check if an action should be triggered
@@ -59,12 +62,79 @@ export const initGamepad = () => {
       actions[action].triggered = now
 
       if (action === 'mainAction') {
+        if (shouldSimulateClick()) {
+          // some tags require a simulated click, some require a javascript click() call
+          // if the current element requires a simulated click, change the action to `leftClick`
+          action = 'leftClick'
+        } else if (playable()) {
+          // if the current element a card of a game that can be played, play it
+          playGame()
+          return
+        }
+      }
+
+      // when pressing Y on a game card, open the game details
+      if (action === 'altAction' && playable()) {
+        action = 'mainAction'
+      }
+
+      if (action === 'mainAction') {
         currentElement()?.click()
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
-        ipcRenderer.invoke('gamepadAction', action)
+        ipcRenderer.invoke('gamepadAction', [action, metadata()])
       }
+    }
+  }
+
+  function currentElement() {
+    return document.querySelector(':focus') as HTMLElement
+  }
+
+  function shouldSimulateClick() {
+    return isSelect()
+  }
+
+  function isSelect() {
+    return currentElement().tagName === 'SELECT'
+  }
+
+  function playable() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    const classes = parent.classList
+    return classes.contains('gameCard') || classes.contains('gameListItem')
+  }
+
+  function playGame() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    const playButton = parent.querySelector('.playButton') as HTMLButtonElement
+    if (playButton) playButton.click()
+
+    return true
+  }
+
+  function metadata() {
+    const el = currentElement()
+    if (el) {
+      const rect = el.getBoundingClientRect()
+      return {
+        elementTag: el.tagName,
+        x: Math.round(rect.x + rect.width / 2),
+        y: Math.round(rect.y + rect.height / 2)
+      }
+    } else {
+      return null
     }
   }
 
@@ -74,26 +144,39 @@ export const initGamepad = () => {
 
     controllers.forEach((index) => {
       const controller = gamepads[index]
+      if (!controller) return
+
+      const buttons = controller.buttons
 
       if (!controller) return
 
       // TODO: check the controller type and define different buttons and axes
-      const buttons = {
-        up: controller.buttons[12] as GamepadButton,
-        down: controller.buttons[13] as GamepadButton,
-        left: controller.buttons[14] as GamepadButton,
-        right: controller.buttons[15] as GamepadButton,
-        A: controller.buttons[0] as GamepadButton
-      }
-      const leftAxisX = controller.axes[0] as number
-      const leftAxisY = controller.axes[1] as number
-      const rightAxisX = controller.axes[2] as number
-      const rightAxisY = controller.axes[3] as number
+      const A = buttons[0],
+        B = buttons[1],
+        // X = buttons[2],
+        Y = buttons[3],
+        // LB = buttons[4],
+        // RB = buttons[5],
+        // LT = buttons[6], // has .value
+        // RT = buttons[7], // has .value
+        // view = buttons[8],
+        // menu = buttons[9],
+        // leftStick = buttons[10], // press
+        // rightStick = buttons[11], // press
+        up = buttons[12],
+        down = buttons[13],
+        left = buttons[14],
+        right = buttons[15],
+        // XBOX = buttons[16],
+        leftAxisX = controller.axes[0],
+        leftAxisY = controller.axes[1],
+        rightAxisX = controller.axes[2],
+        rightAxisY = controller.axes[3]
 
-      checkAction('padUp', buttons.up.pressed)
-      checkAction('padDown', buttons.down.pressed)
-      checkAction('padLeft', buttons.left.pressed)
-      checkAction('padRight', buttons.right.pressed)
+      checkAction('padUp', up.pressed)
+      checkAction('padDown', down.pressed)
+      checkAction('padLeft', left.pressed)
+      checkAction('padRight', right.pressed)
       checkAction('leftStickLeft', leftAxisX < -0.5)
       checkAction('leftStickRight', leftAxisX > 0.5)
       checkAction('leftStickUp', leftAxisY < -0.5)
@@ -102,14 +185,12 @@ export const initGamepad = () => {
       checkAction('rightStickRight', rightAxisX > 0.5)
       checkAction('rightStickUp', rightAxisY < -0.5)
       checkAction('rightStickDown', rightAxisY > 0.5)
-      checkAction('mainAction', buttons['A'].pressed)
+      checkAction('mainAction', A.pressed)
+      checkAction('back', B.pressed)
+      checkAction('altAction', Y.pressed)
     })
 
     requestAnimationFrame(updateStatus)
-  }
-
-  function currentElement() {
-    return document?.querySelector(':focus') as HTMLElement
   }
 
   function connecthandler(e: GamepadEvent) {

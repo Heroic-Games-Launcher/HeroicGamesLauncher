@@ -231,7 +231,7 @@ export interface InstallParams {
 }
 
 export interface GamepadInputEventKey {
-  type: 'keyDown' | 'keyDown' | 'char'
+  type: 'keyDown' | 'keyUp' | 'char'
   keyCode: string
 }
 
@@ -240,4 +240,11 @@ export interface GamepadInputEventWheel {
   deltaY: number
   x: number
   y: number
+}
+
+export interface GamepadInputEventMouse {
+  type: 'mouseDown' | 'mouseUp'
+  x: number
+  y: number
+  button: 'left' | 'middle' | 'right'
 }
