@@ -40,8 +40,8 @@ const legendaryConfigPath = isFlatpak
   ? `${home}/config/legendary`
   : `${home}/.config/legendary`
 const heroicFolder = isFlatpak
-  ? `${home}/config/Heroic/`
-  : `${home}/.config/Heroic/`
+  ? `${home}/config/heroic/`
+  : `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
