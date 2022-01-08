@@ -35,6 +35,13 @@ export const initGamepad = () => {
 
   // check if an action should be triggered
   function checkAction(action: string, pressed: boolean) {
+    if (!currentElement()) {
+      // ignore gamepad events if there no focused element
+      // the browser still detects the gamepad interactions even
+      // if the screen is not focused when playing a game
+      return
+    }
+
     if (!pressed) {
       // set 0 if not pressed (means inactive button)
       actions[action].triggered = 0
@@ -172,11 +179,11 @@ export const initGamepad = () => {
 
       const buttons = controller.buttons
       const axes = controller.axes
-      if (controller.id.match(/xbox|microsoft/i)) {
+      if (controller.id.match(/xbox|microsoft|02ea/i)) {
         checkActionsForXbox(buttons, axes)
-      } else if (controller.id.match(/gamecube/i)) {
+      } else if (controller.id.match(/gamecube|0337/i)) {
         checkActionsForGameCube(buttons, axes)
-      } else if (controller.id.match(/PS3|PS4|PS5|PLAYSTATION/i)) {
+      } else if (controller.id.match(/PS3|PS4|PS5|PLAYSTATION|0268|0c36/i)) {
         checkActionsForPlayStation(buttons, axes)
       }
     })
@@ -248,30 +255,6 @@ export const initGamepad = () => {
     buttons: readonly GamepadButton[],
     axes: readonly number[]
   ) {
-    // B0: A
-    // B1: X
-    // B2: Y
-    // B3: B
-    // B4: LT (gets "pressed" once the trigger presses all the way down, there's some resistance on the controller so you can feel it)
-    // B5: RT
-    // B6: Z
-    // B7: Start
-    // B8: Dpad Up
-    // B9: Dpad Down
-    // B10: Dpad Left
-    // B11: Dpad Right
-    // Axis 0: Control stick L/R
-    // -1 -> Left
-    // 1 -> Right
-    // Axis 1: Control stick Up/Down
-    // -1 -> Up
-    // 1 -> Down
-    // Axis 2: Left trigger
-    // -1 -> Up (default position
-    // 1 -> Pressed in all the way
-    // Axis 3 and 4 work like 0 and 1 just for the C stick
-    // Axis 5 works like Axis 2 just for the right trigger
-
     const A = buttons[0],
       // X = buttons[1],
       Y = buttons[2],
@@ -311,35 +294,6 @@ export const initGamepad = () => {
     buttons: readonly GamepadButton[],
     axes: readonly number[]
   ) {
-    // B0: X
-    // B1: Circle
-    // B2: Triangle
-    // B3: Square
-    // B4: LB
-    // B5: RB
-    // B6: LT (gets "pressed" as soon as the trigger is moved down slightly)
-    // B7: RT
-    // B8: Select
-    // B9: Start
-    // B10: PS Button
-    // B11: L3 (pressing in the control sticks)
-    // B12: R3
-    // B13: Dpad Up
-    // B14: Dpad Down
-    // B15: Dpad Left
-    // B16: Dpad Right
-
-    // Axis 0: Left control stick L/R
-    // 1 -> Right
-    // -1 -> Left
-    // Axis 1: Left control stick Up/Down
-    // 1 -> Down
-    // -1 -> Up
-    // Axis 2: Left Trigger
-    // -1 -> Up
-    // 1 -> Down
-    // Axis 3, 4 & 5 work the same way as 0, 1 & 2, just for the right side of the controller
-
     const X = buttons[0],
       Circle = buttons[1],
       Triangle = buttons[2],
