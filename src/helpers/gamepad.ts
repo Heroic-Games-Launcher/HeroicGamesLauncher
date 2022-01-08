@@ -9,9 +9,17 @@ const KEY_REPEAT_DELAY = 500
 const STICK_REPEAT_DELAY = 250
 const SCROLL_REPEAT_DELAY = 50
 
+/*
+ * For more documentation, check here https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Gamepad-Navigation
+ */
+
 export const initGamepad = () => {
   // store the current controllers
   let controllers: number[] = []
+
+  let heroicIsFocused = true
+  window.addEventListener('focus', () => (heroicIsFocused = true))
+  window.addEventListener('blur', () => (heroicIsFocused = false))
 
   // store the status and metadata for each action
   // triggered is either 0 (inactive) or a unix timestamp of the last `invoke` call
@@ -35,8 +43,9 @@ export const initGamepad = () => {
 
   // check if an action should be triggered
   function checkAction(action: string, pressed: boolean) {
-    if (!currentElement()) {
-      // ignore gamepad events if there no focused element
+    if (!heroicIsFocused) {
+      // ignore gamepad events if heroic is not the focused app
+      //
       // the browser still detects the gamepad interactions even
       // if the screen is not focused when playing a game
       return
@@ -224,8 +233,8 @@ export const initGamepad = () => {
       // RT = buttons[7], // has .value
       // view = buttons[8],
       // menu = buttons[9],
-      // leftStick = buttons[10], // press
-      // rightStick = buttons[11], // press
+      // L3 = buttons[10], // press left stick
+      // R3 = buttons[11], // press right stick
       up = buttons[12],
       down = buttons[13],
       left = buttons[14],
@@ -261,8 +270,8 @@ export const initGamepad = () => {
       // X = buttons[1],
       Y = buttons[2],
       B = buttons[3],
-      // LT = buttons[4], // has .value
-      // RT = buttons[5], // has .value
+      // LT = buttons[4],
+      // RT = buttons[5],
       // Z = buttons[6],
       // Start = buttons[7],
       up = buttons[8],
@@ -302,13 +311,13 @@ export const initGamepad = () => {
       // Square = buttons[3],
       // LB = buttons[4],
       // RB = buttons[5],
-      // LT = buttons[6], // has .value
-      // RT = buttons[7], // has .value
+      // LT = buttons[6],
+      // RT = buttons[7],
       // select = buttons[8],
       // start = buttons[9],
       // PSButton = buttons[10],
-      // leftStick = buttons[11], // press
-      // rightStick = buttons[12], // press
+      // L3 = buttons[11], // press left stick
+      // R3 = buttons[12], // press right stick
       up = buttons[13],
       down = buttons[14],
       left = buttons[15],
