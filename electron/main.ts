@@ -1053,10 +1053,11 @@ ipcMain.handle('syncSaves', async (event, args) => {
 ipcMain.handle('gamepadAction', async (event, args) => {
   const [action, metadata] = args
   const window = BrowserWindow.getAllWindows()[0]
-  let inputEvent:
+  const inputEvents: (
     | GamepadInputEventKey
     | GamepadInputEventWheel
     | GamepadInputEventMouse
+  )[] = []
 
   /*
    * How to extend:
@@ -1068,20 +1069,20 @@ ipcMain.handle('gamepadAction', async (event, args) => {
    */
   switch (action) {
     case 'rightStickUp':
-      inputEvent = {
+      inputEvents.push({
         type: 'mouseWheel',
         deltaY: 53,
         x: window.getBounds().width / 2,
         y: window.getBounds().height / 2
-      }
+      })
       break
     case 'rightStickDown':
-      inputEvent = {
+      inputEvents.push({
         type: 'mouseWheel',
         deltaY: -53,
         x: window.getBounds().width / 2,
         y: window.getBounds().height / 2
-      }
+      })
       break
     case 'leftStickUp':
     case 'leftStickDown':
@@ -1092,39 +1093,59 @@ ipcMain.handle('gamepadAction', async (event, args) => {
     case 'padLeft':
     case 'padRight':
       // spatial navigation
-      inputEvent = {
+      inputEvents.push({
         type: 'keyDown',
         keyCode: action.replace(/pad|leftStick/, '')
-      }
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: action.replace(/pad|leftStick/, '')
+      })
       break
     case 'leftClick':
-      inputEvent = {
+      inputEvents.push({
         type: 'mouseDown',
         button: 'left',
         x: metadata.x,
         y: metadata.y
-      }
+      })
+      inputEvents.push({
+        type: 'mouseUp',
+        button: 'left',
+        x: metadata.x,
+        y: metadata.y
+      })
       break
     case 'rightClick':
-      inputEvent = {
+      inputEvents.push({
         type: 'mouseDown',
         button: 'right',
         x: metadata.x,
         y: metadata.y
-      }
+      })
+      inputEvents.push({
+        type: 'mouseUp',
+        button: 'right',
+        x: metadata.x,
+        y: metadata.y
+      })
       break
     case 'back':
       window.webContents.goBack()
       break
     case 'esc':
-      inputEvent = {
+      inputEvents.push({
         type: 'keyDown',
         keyCode: 'Esc'
-      }
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'Esc'
+      })
       break
   }
 
-  if (inputEvent) {
-    window.webContents.sendInputEvent(inputEvent)
+  if (inputEvents.length) {
+    inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
 })

@@ -70,3 +70,12 @@ code {
   background: var(--text-secondary);
   border-radius: 4px;
 }
+
+.simple-keyboard {
+  position: fixed;
+  z-index: 10;
+  bottom: 0px;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+}

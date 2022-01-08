@@ -3,6 +3,7 @@ import { GamepadActionStatus } from 'src/types'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
+import { VirtualKeyboardController } from './virtualKeyboard'
 
 const KEY_REPEAT_DELAY = 500
 const STICK_REPEAT_DELAY = 250
@@ -61,21 +62,41 @@ export const initGamepad = () => {
       // set last trigger timestamp, used for repeater
       actions[action].triggered = now
 
-      if (action === 'mainAction') {
-        if (shouldSimulateClick()) {
-          // some tags require a simulated click, some require a javascript click() call
-          // if the current element requires a simulated click, change the action to `leftClick`
-          action = 'leftClick'
-        } else if (playable()) {
-          // if the current element a card of a game that can be played, play it
-          playGame()
-          return
-        }
-      }
-
-      // when pressing Y on a game card, open the game details
-      if (action === 'altAction' && playable()) {
-        action = 'mainAction'
+      switch (action) {
+        case 'mainAction':
+          if (shouldSimulateClick()) {
+            // some tags require a simulated click, some require a javascript click() call
+            // if the current element requires a simulated click, change the action to `leftClick`
+            action = 'leftClick'
+          } else if (playable()) {
+            // if the current element a card of a game that can be played, play it
+            playGame()
+            return
+          } else if (VirtualKeyboardController.isButtonFocused()) {
+            // simulate a left click on a virtual keyboard button
+            action = 'leftClick'
+          } else if (isSearchInput()) {
+            // open virtual keyboard if focusing the search input
+            VirtualKeyboardController.initOrFocus()
+            return
+          }
+          break
+        case 'back':
+          // `back` closes the keyboard if present
+          if (VirtualKeyboardController.isActive()) {
+            VirtualKeyboardController.destroy()
+            return
+          }
+          break
+        case 'altAction':
+          if (playable()) {
+            // when pressing Y on a game card, open the game details
+            action = 'mainAction'
+          } else if (VirtualKeyboardController.isActive()) {
+            VirtualKeyboardController.backspace()
+            return
+          }
+          break
       }
 
       if (action === 'mainAction') {
@@ -98,6 +119,10 @@ export const initGamepad = () => {
 
   function isSelect() {
     return currentElement().tagName === 'SELECT'
+  }
+
+  function isSearchInput() {
+    return currentElement().classList.contains('searchInput')
   }
 
   function playable() {

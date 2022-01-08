@@ -11738,6 +11738,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.6.tgz#24e630c4b0f03fea446a2bd299e62b4a6ca8d0af"
   integrity sha512-sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==
 
+simple-keyboard@^3.4.24:
+  version "3.4.24"
+  resolved "https://registry.yarnpkg.com/simple-keyboard/-/simple-keyboard-3.4.24.tgz#57e2e4e79f1a97f922ae81573d59b20558a4b0ce"
+  integrity sha512-P3pUjhYYPX/41UWgFxOVDjG+rswK2KGPGkhMgpLR5Sq7LKQ1R6Shk78WIUzCcxCif19RV+K9Vt+rq5FLZRqeIg==
+
 simple-swizzle@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/simple-swizzle/-/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"
