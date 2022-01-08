@@ -107,7 +107,6 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "discord-rich-presence-typescript": "^0.0.8",
-    "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.1",
     "graceful-fs": "^4.2.8",
     "i18next": "^20.2.2",
