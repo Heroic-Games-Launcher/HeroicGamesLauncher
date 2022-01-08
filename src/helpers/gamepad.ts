@@ -183,7 +183,9 @@ export const initGamepad = () => {
         checkActionsForXbox(buttons, axes)
       } else if (controller.id.match(/gamecube|0337/i)) {
         checkActionsForGameCube(buttons, axes)
-      } else if (controller.id.match(/PS3|PS4|PS5|PLAYSTATION|0268|0c36/i)) {
+      } else if (
+        controller.id.match(/PS3|PS4|PS5|PLAYSTATION|Sony|0268|0c36/i)
+      ) {
         checkActionsForPlayStation(buttons, axes)
       }
     })
