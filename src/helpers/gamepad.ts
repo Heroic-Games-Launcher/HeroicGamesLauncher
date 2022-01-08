@@ -30,7 +30,6 @@ export const initGamepad = () => {
     rightStickRight: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
     mainAction: { triggered: 0, repeatDelay: false },
     back: { triggered: 0, repeatDelay: false },
-    rightClick: { triggered: 0, repeatDelay: false },
     altAction: { triggered: 0, repeatDelay: false }
   }
 
@@ -172,47 +171,14 @@ export const initGamepad = () => {
       if (!controller) return
 
       const buttons = controller.buttons
-
-      if (!controller) return
-
-      // TODO: check the controller type and define different buttons and axes
-      const A = buttons[0],
-        B = buttons[1],
-        // X = buttons[2],
-        Y = buttons[3],
-        // LB = buttons[4],
-        // RB = buttons[5],
-        // LT = buttons[6], // has .value
-        // RT = buttons[7], // has .value
-        // view = buttons[8],
-        // menu = buttons[9],
-        // leftStick = buttons[10], // press
-        // rightStick = buttons[11], // press
-        up = buttons[12],
-        down = buttons[13],
-        left = buttons[14],
-        right = buttons[15],
-        // XBOX = buttons[16],
-        leftAxisX = controller.axes[0],
-        leftAxisY = controller.axes[1],
-        rightAxisX = controller.axes[2],
-        rightAxisY = controller.axes[3]
-
-      checkAction('padUp', up.pressed)
-      checkAction('padDown', down.pressed)
-      checkAction('padLeft', left.pressed)
-      checkAction('padRight', right.pressed)
-      checkAction('leftStickLeft', leftAxisX < -0.5)
-      checkAction('leftStickRight', leftAxisX > 0.5)
-      checkAction('leftStickUp', leftAxisY < -0.5)
-      checkAction('leftStickDown', leftAxisY > 0.5)
-      checkAction('rightStickLeft', rightAxisX < -0.5)
-      checkAction('rightStickRight', rightAxisX > 0.5)
-      checkAction('rightStickUp', rightAxisY < -0.5)
-      checkAction('rightStickDown', rightAxisY > 0.5)
-      checkAction('mainAction', A.pressed)
-      checkAction('back', B.pressed)
-      checkAction('altAction', Y.pressed)
+      const axes = controller.axes
+      if (controller.id.match(/xbox|microsoft/i)) {
+        checkActionsForXbox(buttons, axes)
+      } else if (controller.id.match(/gamecube/i)) {
+        checkActionsForGameCube(buttons, axes)
+      } else if (controller.id.match(/PS3|PS4|PS5|PLAYSTATION/i)) {
+        checkActionsForPlayStation(buttons, axes)
+      }
     })
 
     requestAnimationFrame(updateStatus)
@@ -233,6 +199,185 @@ export const initGamepad = () => {
 
   function removegamepad(gamepad: Gamepad) {
     controllers = controllers.filter((idx) => idx !== gamepad.index)
+  }
+
+  function checkActionsForXbox(
+    buttons: readonly GamepadButton[],
+    axes: readonly number[]
+  ) {
+    const A = buttons[0],
+      B = buttons[1],
+      // X = buttons[2],
+      Y = buttons[3],
+      // LB = buttons[4],
+      // RB = buttons[5],
+      // LT = buttons[6], // has .value
+      // RT = buttons[7], // has .value
+      // view = buttons[8],
+      // menu = buttons[9],
+      // leftStick = buttons[10], // press
+      // rightStick = buttons[11], // press
+      up = buttons[12],
+      down = buttons[13],
+      left = buttons[14],
+      right = buttons[15],
+      // XBOX = buttons[16],
+      leftAxisX = axes[0],
+      leftAxisY = axes[1],
+      rightAxisX = axes[2],
+      rightAxisY = axes[3]
+
+    checkAction('padUp', up.pressed)
+    checkAction('padDown', down.pressed)
+    checkAction('padLeft', left.pressed)
+    checkAction('padRight', right.pressed)
+    checkAction('leftStickLeft', leftAxisX < -0.5)
+    checkAction('leftStickRight', leftAxisX > 0.5)
+    checkAction('leftStickUp', leftAxisY < -0.5)
+    checkAction('leftStickDown', leftAxisY > 0.5)
+    checkAction('rightStickLeft', rightAxisX < -0.5)
+    checkAction('rightStickRight', rightAxisX > 0.5)
+    checkAction('rightStickUp', rightAxisY < -0.5)
+    checkAction('rightStickDown', rightAxisY > 0.5)
+    checkAction('mainAction', A.pressed)
+    checkAction('back', B.pressed)
+    checkAction('altAction', Y.pressed)
+  }
+
+  function checkActionsForGameCube(
+    buttons: readonly GamepadButton[],
+    axes: readonly number[]
+  ) {
+    // B0: A
+    // B1: X
+    // B2: Y
+    // B3: B
+    // B4: LT (gets "pressed" once the trigger presses all the way down, there's some resistance on the controller so you can feel it)
+    // B5: RT
+    // B6: Z
+    // B7: Start
+    // B8: Dpad Up
+    // B9: Dpad Down
+    // B10: Dpad Left
+    // B11: Dpad Right
+    // Axis 0: Control stick L/R
+    // -1 -> Left
+    // 1 -> Right
+    // Axis 1: Control stick Up/Down
+    // -1 -> Up
+    // 1 -> Down
+    // Axis 2: Left trigger
+    // -1 -> Up (default position
+    // 1 -> Pressed in all the way
+    // Axis 3 and 4 work like 0 and 1 just for the C stick
+    // Axis 5 works like Axis 2 just for the right trigger
+
+    const A = buttons[0],
+      // X = buttons[1],
+      Y = buttons[2],
+      B = buttons[3],
+      // LT = buttons[4], // has .value
+      // RT = buttons[5], // has .value
+      // Z = buttons[6],
+      // Start = buttons[7],
+      up = buttons[8],
+      down = buttons[9],
+      left = buttons[10],
+      right = buttons[11],
+      leftAxisX = axes[0],
+      leftAxisY = axes[1],
+      rightAxisX = axes[3],
+      rightAxisY = axes[4]
+    // there are 2 more axes to map as triggers
+
+    checkAction('padUp', up.pressed)
+    checkAction('padDown', down.pressed)
+    checkAction('padLeft', left.pressed)
+    checkAction('padRight', right.pressed)
+    checkAction('leftStickLeft', leftAxisX < -0.5)
+    checkAction('leftStickRight', leftAxisX > 0.5)
+    checkAction('leftStickUp', leftAxisY < -0.5)
+    checkAction('leftStickDown', leftAxisY > 0.5)
+    checkAction('rightStickLeft', rightAxisX < -0.5)
+    checkAction('rightStickRight', rightAxisX > 0.5)
+    checkAction('rightStickUp', rightAxisY < -0.5)
+    checkAction('rightStickDown', rightAxisY > 0.5)
+    checkAction('mainAction', A.pressed)
+    checkAction('back', B.pressed)
+    checkAction('altAction', Y.pressed)
+  }
+
+  function checkActionsForPlayStation(
+    buttons: readonly GamepadButton[],
+    axes: readonly number[]
+  ) {
+    // B0: X
+    // B1: Circle
+    // B2: Triangle
+    // B3: Square
+    // B4: LB
+    // B5: RB
+    // B6: LT (gets "pressed" as soon as the trigger is moved down slightly)
+    // B7: RT
+    // B8: Select
+    // B9: Start
+    // B10: PS Button
+    // B11: L3 (pressing in the control sticks)
+    // B12: R3
+    // B13: Dpad Up
+    // B14: Dpad Down
+    // B15: Dpad Left
+    // B16: Dpad Right
+
+    // Axis 0: Left control stick L/R
+    // 1 -> Right
+    // -1 -> Left
+    // Axis 1: Left control stick Up/Down
+    // 1 -> Down
+    // -1 -> Up
+    // Axis 2: Left Trigger
+    // -1 -> Up
+    // 1 -> Down
+    // Axis 3, 4 & 5 work the same way as 0, 1 & 2, just for the right side of the controller
+
+    const X = buttons[0],
+      Circle = buttons[1],
+      Triangle = buttons[2],
+      // Square = buttons[3],
+      // LB = buttons[4],
+      // RB = buttons[5],
+      // LT = buttons[6], // has .value
+      // RT = buttons[7], // has .value
+      // select = buttons[8],
+      // start = buttons[9],
+      // PSButton = buttons[10],
+      // leftStick = buttons[11], // press
+      // rightStick = buttons[12], // press
+      up = buttons[13],
+      down = buttons[14],
+      left = buttons[15],
+      right = buttons[16],
+      leftAxisX = axes[0],
+      leftAxisY = axes[1],
+      rightAxisX = axes[3],
+      rightAxisY = axes[4]
+    // there are 2 more axes to map as triggers
+
+    checkAction('padUp', up.pressed)
+    checkAction('padDown', down.pressed)
+    checkAction('padLeft', left.pressed)
+    checkAction('padRight', right.pressed)
+    checkAction('leftStickLeft', leftAxisX < -0.5)
+    checkAction('leftStickRight', leftAxisX > 0.5)
+    checkAction('leftStickUp', leftAxisY < -0.5)
+    checkAction('leftStickDown', leftAxisY > 0.5)
+    checkAction('rightStickLeft', rightAxisX < -0.5)
+    checkAction('rightStickRight', rightAxisX > 0.5)
+    checkAction('rightStickUp', rightAxisY < -0.5)
+    checkAction('rightStickDown', rightAxisY > 0.5)
+    checkAction('mainAction', X.pressed)
+    checkAction('back', Circle.pressed)
+    checkAction('altAction', Triangle.pressed)
   }
 
   window.addEventListener('gamepadconnected', connecthandler)
