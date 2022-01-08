@@ -210,5 +210,8 @@ export type ElWebview = {
 export type Webview = HTMLWebViewElement & ElWebview
 
 export interface GamepadActionStatus {
-  [key: string]: { triggered: number; repeatDelay: false | number }
+  [key: string]: {
+    triggeredAt: { [key: number]: number }
+    repeatDelay: false | number
+  }
 }

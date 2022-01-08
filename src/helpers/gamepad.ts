@@ -24,25 +24,29 @@ export const initGamepad = () => {
   // store the status and metadata for each action
   // triggered is either 0 (inactive) or a unix timestamp of the last `invoke` call
   const actions: GamepadActionStatus = {
-    padUp: { triggered: 0, repeatDelay: KEY_REPEAT_DELAY },
-    padDown: { triggered: 0, repeatDelay: KEY_REPEAT_DELAY },
-    padLeft: { triggered: 0, repeatDelay: KEY_REPEAT_DELAY },
-    padRight: { triggered: 0, repeatDelay: KEY_REPEAT_DELAY },
-    leftStickUp: { triggered: 0, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickDown: { triggered: 0, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickLeft: { triggered: 0, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickRight: { triggered: 0, repeatDelay: STICK_REPEAT_DELAY },
-    rightStickUp: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
-    rightStickDown: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
-    rightStickLeft: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
-    rightStickRight: { triggered: 0, repeatDelay: SCROLL_REPEAT_DELAY },
-    mainAction: { triggered: 0, repeatDelay: false },
-    back: { triggered: 0, repeatDelay: false },
-    altAction: { triggered: 0, repeatDelay: false }
+    padUp: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
+    padDown: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
+    padLeft: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
+    padRight: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
+    leftStickUp: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
+    leftStickDown: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
+    leftStickLeft: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
+    leftStickRight: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
+    rightStickUp: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    rightStickDown: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    rightStickLeft: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    rightStickRight: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    mainAction: { triggeredAt: {}, repeatDelay: false },
+    back: { triggeredAt: {}, repeatDelay: false },
+    altAction: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
-  function checkAction(action: string, pressed: boolean) {
+  function checkAction(
+    action: string,
+    pressed: boolean,
+    controllerIndex: number
+  ) {
     if (!heroicIsFocused) {
       // ignore gamepad events if heroic is not the focused app
       //
@@ -51,31 +55,37 @@ export const initGamepad = () => {
       return
     }
 
+    const data = actions[action]
+    const triggeredAt = data.triggeredAt[controllerIndex]
+
     if (!pressed) {
       // set 0 if not pressed (means inactive button)
-      actions[action].triggered = 0
+      data.triggeredAt[controllerIndex] = 0
       return
     }
 
     const now = new Date().getTime()
 
     // if it the action was already active or not
-    const wasActive = actions[action].triggered !== 0
+    const wasActive = triggeredAt !== 0
+
     let shouldRepeat = false
 
     if (wasActive) {
       // it it was active, check if the action should be repeated
-      if (actions[action].repeatDelay) {
-        const lastTriggered = actions[action].triggered
-        if (now - lastTriggered > actions[action].repeatDelay) {
+      if (data.repeatDelay) {
+        const lastTriggered = triggeredAt
+        if (now - lastTriggered > data.repeatDelay) {
           shouldRepeat = true
         }
       }
     }
 
     if (!wasActive || shouldRepeat) {
+      console.log(`Action: ${action}`)
+
       // set last trigger timestamp, used for repeater
-      actions[action].triggered = now
+      data.triggeredAt[controllerIndex] = now
 
       switch (action) {
         case 'mainAction':
@@ -189,13 +199,13 @@ export const initGamepad = () => {
       const buttons = controller.buttons
       const axes = controller.axes
       if (controller.id.match(/xbox|microsoft|02ea/i)) {
-        checkActionsForXbox(buttons, axes)
+        checkActionsForXbox(buttons, axes, index)
       } else if (controller.id.match(/gamecube|0337/i)) {
-        checkActionsForGameCube(buttons, axes)
+        checkActionsForGameCube(buttons, axes, index)
       } else if (
         controller.id.match(/PS3|PS4|PS5|PLAYSTATION|Sony|0268|0c36/i)
       ) {
-        checkActionsForPlayStation(buttons, axes)
+        checkActionsForPlayStation(buttons, axes, index)
       }
     })
 
@@ -207,6 +217,9 @@ export const initGamepad = () => {
   }
 
   function addgamepad(gamepad: Gamepad) {
+    console.log(`Gamepad added: ${JSON.stringify(gamepad.id)}`)
+    console.log(gamepad.buttons)
+    console.log(gamepad.axes)
     controllers.push(gamepad.index)
     requestAnimationFrame(updateStatus)
   }
@@ -221,7 +234,8 @@ export const initGamepad = () => {
 
   function checkActionsForXbox(
     buttons: readonly GamepadButton[],
-    axes: readonly number[]
+    axes: readonly number[],
+    controllerIndex: number
   ) {
     const A = buttons[0],
       B = buttons[1],
@@ -245,26 +259,29 @@ export const initGamepad = () => {
       rightAxisX = axes[2],
       rightAxisY = axes[3]
 
-    checkAction('padUp', up.pressed)
-    checkAction('padDown', down.pressed)
-    checkAction('padLeft', left.pressed)
-    checkAction('padRight', right.pressed)
-    checkAction('leftStickLeft', leftAxisX < -0.5)
-    checkAction('leftStickRight', leftAxisX > 0.5)
-    checkAction('leftStickUp', leftAxisY < -0.5)
-    checkAction('leftStickDown', leftAxisY > 0.5)
-    checkAction('rightStickLeft', rightAxisX < -0.5)
-    checkAction('rightStickRight', rightAxisX > 0.5)
-    checkAction('rightStickUp', rightAxisY < -0.5)
-    checkAction('rightStickDown', rightAxisY > 0.5)
-    checkAction('mainAction', A.pressed)
-    checkAction('back', B.pressed)
-    checkAction('altAction', Y.pressed)
+    logState(buttons, axes)
+
+    checkAction('padUp', up.pressed, controllerIndex)
+    checkAction('padDown', down.pressed, controllerIndex)
+    checkAction('padLeft', left.pressed, controllerIndex)
+    checkAction('padRight', right.pressed, controllerIndex)
+    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+    checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+    checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+    checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+    checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
+    checkAction('mainAction', A.pressed, controllerIndex)
+    checkAction('back', B.pressed, controllerIndex)
+    checkAction('altAction', Y.pressed, controllerIndex)
   }
 
   function checkActionsForGameCube(
     buttons: readonly GamepadButton[],
-    axes: readonly number[]
+    axes: readonly number[],
+    controllerIndex: number
   ) {
     const A = buttons[0],
       // X = buttons[1],
@@ -284,26 +301,29 @@ export const initGamepad = () => {
       rightAxisY = axes[4]
     // there are 2 more axes to map as triggers
 
-    checkAction('padUp', up.pressed)
-    checkAction('padDown', down.pressed)
-    checkAction('padLeft', left.pressed)
-    checkAction('padRight', right.pressed)
-    checkAction('leftStickLeft', leftAxisX < -0.5)
-    checkAction('leftStickRight', leftAxisX > 0.5)
-    checkAction('leftStickUp', leftAxisY < -0.5)
-    checkAction('leftStickDown', leftAxisY > 0.5)
-    checkAction('rightStickLeft', rightAxisX < -0.5)
-    checkAction('rightStickRight', rightAxisX > 0.5)
-    checkAction('rightStickUp', rightAxisY < -0.5)
-    checkAction('rightStickDown', rightAxisY > 0.5)
-    checkAction('mainAction', A.pressed)
-    checkAction('back', B.pressed)
-    checkAction('altAction', Y.pressed)
+    logState(buttons, axes)
+
+    checkAction('padUp', up.pressed, controllerIndex)
+    checkAction('padDown', down.pressed, controllerIndex)
+    checkAction('padLeft', left.pressed, controllerIndex)
+    checkAction('padRight', right.pressed, controllerIndex)
+    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+    checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+    checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+    checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+    checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
+    checkAction('mainAction', A.pressed, controllerIndex)
+    checkAction('back', B.pressed, controllerIndex)
+    checkAction('altAction', Y.pressed, controllerIndex)
   }
 
   function checkActionsForPlayStation(
     buttons: readonly GamepadButton[],
-    axes: readonly number[]
+    axes: readonly number[],
+    controllerIndex: number
   ) {
     const X = buttons[0],
       Circle = buttons[1],
@@ -328,21 +348,36 @@ export const initGamepad = () => {
       rightAxisY = axes[4]
     // there are 2 more axes to map as triggers
 
-    checkAction('padUp', up.pressed)
-    checkAction('padDown', down.pressed)
-    checkAction('padLeft', left.pressed)
-    checkAction('padRight', right.pressed)
-    checkAction('leftStickLeft', leftAxisX < -0.5)
-    checkAction('leftStickRight', leftAxisX > 0.5)
-    checkAction('leftStickUp', leftAxisY < -0.5)
-    checkAction('leftStickDown', leftAxisY > 0.5)
-    checkAction('rightStickLeft', rightAxisX < -0.5)
-    checkAction('rightStickRight', rightAxisX > 0.5)
-    checkAction('rightStickUp', rightAxisY < -0.5)
-    checkAction('rightStickDown', rightAxisY > 0.5)
-    checkAction('mainAction', X.pressed)
-    checkAction('back', Circle.pressed)
-    checkAction('altAction', Triangle.pressed)
+    logState(buttons, axes)
+
+    checkAction('padUp', up.pressed, controllerIndex)
+    checkAction('padDown', down.pressed, controllerIndex)
+    checkAction('padLeft', left.pressed, controllerIndex)
+    checkAction('padRight', right.pressed, controllerIndex)
+    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+    checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+    checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+    checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+    checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
+    checkAction('mainAction', X.pressed, controllerIndex)
+    checkAction('back', Circle.pressed, controllerIndex)
+    checkAction('altAction', Triangle.pressed, controllerIndex)
+  }
+
+  function logState(
+    buttons: readonly GamepadButton[],
+    axes: readonly number[]
+  ) {
+    for (const button in buttons) {
+      if (buttons[button].pressed) console.log(`button ${button} pressed`)
+    }
+    for (const axis in axes) {
+      if (axes[axis] < -0.5) console.log(`axis ${axis} activated negative`)
+      if (axes[axis] > 0.5) console.log(`axis ${axis} activated positive`)
+    }
   }
 
   window.addEventListener('gamepadconnected', connecthandler)
