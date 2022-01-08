@@ -22,7 +22,6 @@ import {
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
 import { Game } from './games'
@@ -118,7 +117,7 @@ async function createWindow(): Promise<BrowserWindow> {
   app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
-  if (isDev) {
+  if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
