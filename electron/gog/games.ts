@@ -33,8 +33,8 @@ class GOGGame extends Game {
   getExtraInfo(namespace: string): Promise<ExtraInfo> {
     throw new Error('Method not implemented.')
   }
-  getGameInfo(): Promise<GameInfo> {
-    throw new Error('Method not implemented.')
+  public async getGameInfo(): Promise<GameInfo> {
+    return GOGLibrary.getGameInfo(this.appName)
   }
   getInstallInfo(): Promise<InstallInfo> {
     throw new Error('Method not implemented.')

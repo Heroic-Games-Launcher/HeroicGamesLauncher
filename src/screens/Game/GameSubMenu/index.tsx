@@ -18,6 +18,7 @@ interface Props {
   appName: string
   isInstalled: boolean
   title: string
+  storeUrl: string
 }
 
 type otherInfo = {
@@ -25,7 +26,12 @@ type otherInfo = {
   wine: string
 }
 
-export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
+export default function GamesSubmenu({
+  appName,
+  isInstalled,
+  title,
+  storeUrl
+}: Props) {
   const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
@@ -167,7 +173,9 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
           </>
         )}
         <button
-          onClick={() => createNewWindow(formatStoreUrl(title, lang))}
+          onClick={() =>
+            createNewWindow(storeUrl || formatStoreUrl(title, lang))
+          }
           className="link button is-text is-link"
         >
           {t('submenu.store')}

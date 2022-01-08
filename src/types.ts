@@ -73,6 +73,7 @@ interface ExtraInfo {
 
 export interface GameInfo {
   store: 'epic' | 'gog' | 'heroic'
+  store_url: string
   app_name: string
   art_cover: string
   art_logo: string

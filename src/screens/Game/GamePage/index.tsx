@@ -106,7 +106,8 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       try {
-        const newInfo = await getGameInfo(appName)
+        let newInfo = await getGameInfo(appName, 'legendary')
+        if (!newInfo) newInfo = await getGameInfo(appName, 'gog')
         setGameInfo(newInfo)
         getInstallInfo(appName)
           .then((info) => setGameInstallInfo(info))
@@ -181,6 +182,7 @@ export default function GamePage(): JSX.Element | null {
 
   if (gameInfo && gameInfo.install) {
     const {
+      store,
       title,
       art_square,
       install: { install_path, install_size, version },
@@ -236,7 +238,7 @@ export default function GamePage(): JSX.Element | null {
         )}
         {title ? (
           <>
-            <GamePicture art_square={art_square} />
+            <GamePicture art_square={art_square} store={store} />
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
                 <>
@@ -422,6 +424,7 @@ export default function GamePage(): JSX.Element | null {
                     appName={appName}
                     isInstalled={is_installed}
                     title={title}
+                    storeUrl={gameInfo.store_url}
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>

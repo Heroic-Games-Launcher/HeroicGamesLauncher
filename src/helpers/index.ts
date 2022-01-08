@@ -93,8 +93,11 @@ const cleanTitle = (title: string) =>
     .toLowerCase()
     .split('--definitive')[0]
 
-const getGameInfo = async (appName: string): Promise<GameInfo> => {
-  return await ipcRenderer.invoke('getGameInfo', appName)
+const getGameInfo = async (
+  appName: string,
+  runner = 'legendary'
+): Promise<GameInfo> => {
+  return await ipcRenderer.invoke('getGameInfo', appName, runner)
 }
 
 const getInstallInfo = async (appName: string): Promise<InstallInfo> => {

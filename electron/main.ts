@@ -549,23 +549,25 @@ ipcMain.on('createNewWindow', (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
 
-ipcMain.handle('getGameInfo', async (event, game) => {
+ipcMain.handle('getGameInfo', async (event, game, runner) => {
   try {
-    const info = await Game.get(game).getGameInfo()
-    info.extra = await Game.get(game).getExtraInfo(info.namespace)
+    const info = await Game.get(game, runner).getGameInfo()
+    if (!info) return null
+    if (runner != 'gog')
+      info.extra = await Game.get(game, runner).getExtraInfo(info.namespace)
     return info
   } catch (error) {
     logError(error)
   }
 })
 
-ipcMain.handle('getInstallInfo', async (event, game) => {
+ipcMain.handle('getInstallInfo', async (event, game, runner) => {
   const online = await isOnline()
   if (!online) {
     return { game: {}, metadata: {} }
   }
   try {
-    const info = await Game.get(game).getInstallInfo()
+    const info = await Game.get(game, runner).getInstallInfo()
     return info
   } catch (error) {
     logError(error)

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import Store from 'electron-store'
 import { GOGUser } from './user'
 import { GOGLoginData, GOGGameInfo, GameInfo } from '../types'
@@ -8,7 +8,7 @@ import { logError, logInfo } from '../logger'
 const userStore = new Store({
   cwd: 'gog_store'
 })
-const gamesDbCacheStore = new Store({ cwd: 'gog_store', name: 'gamesdb_cache' })
+const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
 const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
 
 export class GOGLibrary {
@@ -57,21 +57,14 @@ export class GOGLibrary {
     if (games) {
       const gamesObjects: GameInfo[] = []
       for (const game of games.data.products as GOGGameInfo[]) {
-        let gamesDbData = gamesDbCacheStore.get(game.slug)
-        if (!gamesDbData) {
-          const fetchedData = await this.get_gamesdb_data(
-            'gog',
-            String(game.id),
-            ''
-          )
-          if (fetchedData.data?.id) {
-            gamesDbCacheStore.set(game.slug, fetchedData.data)
-          }
-          gamesDbData = fetchedData.data
+        let apiData = apiInfoCache.get(game.slug)
+        if (!apiData) {
+          apiData = await this.get_games_data(String(game.id))
+          apiInfoCache.set(game.slug, apiData)
         }
-        const gameInfoObject = this.gogToUnifiedInfo(game, gamesDbData)
+        const gameInfoObject = this.gogToUnifiedInfo(game, apiData)
         gamesObjects.push(gameInfoObject)
-        this.library.set(game.slug, gameInfoObject)
+        this.library.set(String(game.id), gameInfoObject)
       }
       libraryStore.set('games', gamesObjects)
       libraryStore.set('totalGames', games.data.totalProducts)
@@ -96,36 +89,38 @@ export class GOGLibrary {
    * Convert GOGGameInfo object to GameInfo
    * That way it will be easly accessible on frontend
    */
-  public static gogToUnifiedInfo(info: GOGGameInfo, gamesdb: any): GameInfo {
+  public static gogToUnifiedInfo(info: GOGGameInfo, apiData: any): GameInfo {
     const developersArray: any[] = []
     let developer: string
     let verticalCover: string
     let horizontalCover: string
-    if (gamesdb.game) {
+    if (apiData._links) {
       developer = developersArray.join(', ')
-      verticalCover = gamesdb.game.vertical_cover.url_format
-        .replace('{formatter}', '')
-        .replace('{ext}', 'webp')
-
-      // horizontalCover = gamesdb.game.background.url_format
+      verticalCover = apiData._links.boxArtImage.href
+      horizontalCover = `https:${info.image}.jpg`
+      // horizontalCover = apiData._links.logo.href
+      // horizontalCover = apiData.game.background.url_format
       //   .replace('{formatter}', '')
       //   .replace('{ext}', 'webp')
     } else {
-      horizontalCover = `https:${info.image}.webp`
+      horizontalCover = `https:${info.image}.jpg`
       verticalCover = horizontalCover
     }
-    horizontalCover = `https:${info.image}.webp`
 
     const object: GameInfo = {
       store: 'gog',
+      store_url: `https://gog.com${info.url}`,
       developer: developer || '',
-      app_name: info.slug,
+      app_name: String(info.id),
       art_logo: null,
       art_cover: horizontalCover,
       art_square: verticalCover,
       cloud_save_enabled: false,
       compatible_apps: [],
-      extra: undefined,
+      extra: {
+        about: { description: '', shortDescription: '' },
+        reqs: this.createReqsArray(apiData, 'windows')
+      },
       folder_name: '',
       install: {
         version: '',
@@ -140,7 +135,7 @@ export class GOGLibrary {
       is_ue_asset: false,
       is_ue_plugin: false,
       is_ue_project: false,
-      namespace: '',
+      namespace: info.slug,
       save_folder: '',
       title: info.title,
       canRunOffline: true,
@@ -151,6 +146,39 @@ export class GOGLibrary {
     return object
   }
 
+  public static async get_games_data(appName: string) {
+    const url = `https://api.gog.com/v2/games/${appName}`
+    const response: AxiosResponse | null = await axios.get(url).catch(() => {
+      return null
+    })
+    if (!response) return null
+
+    return response.data
+  }
+
+  public static createReqsArray(apiData: any, os: 'windows' | 'linux' | 'osx') {
+    const operatingSystems = apiData._embedded.supportedOperatingSystems
+    let requirements = operatingSystems.find(
+      (v: { operatingSystem: { name: any } }) => v.operatingSystem.name === os
+    )
+
+    if (!requirements) return []
+    else requirements = requirements.systemRequirements
+    if (requirements.length == 0) return []
+    const minimum = requirements[0]
+    const recommended = requirements.length > 1 ? requirements[1] : null
+    const returnValue = []
+    for (let i = 0; i < minimum.requirements.length; i++) {
+      const object = {
+        title: minimum.requirements[i].name.replace(':', ''),
+        minimum: minimum.requirements[i].description,
+        recommended: recommended && recommended.requirements[i]?.description
+      }
+      if (!object.minimum) continue
+      returnValue.push(object)
+    }
+    return returnValue
+  }
   /**
    * This function can be also with outher stores
    * This endpoint doesn't require user to be authenticated.
