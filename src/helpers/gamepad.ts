@@ -143,11 +143,17 @@ export const initGamepad = () => {
   }
 
   function isSelect() {
-    return currentElement().tagName === 'SELECT'
+    const el = currentElement()
+    if (!el) return false
+
+    return el.tagName === 'SELECT'
   }
 
   function isSearchInput() {
-    return currentElement().classList.contains('searchInput')
+    const el = currentElement()
+    if (!el) return false
+
+    return el.classList.contains('searchInput')
   }
 
   function playable() {
@@ -202,10 +208,10 @@ export const initGamepad = () => {
         checkActionsForXbox(buttons, axes, index)
       } else if (controller.id.match(/gamecube|0337/i)) {
         checkActionsForGameCube(buttons, axes, index)
-      } else if (
-        controller.id.match(/PS3|PS4|PS5|PLAYSTATION|Sony|0268|0c36/i)
-      ) {
-        checkActionsForPlayStation(buttons, axes, index)
+      } else if (controller.id.match(/0c36/i)) {
+        checkActionsForPlayStation5(buttons, axes, index)
+      } else if (controller.id.match(/PS3|PLAYSTATION|0268/i)) {
+        checkActionsForPlayStation3(buttons, axes, index)
       }
     })
 
@@ -218,8 +224,6 @@ export const initGamepad = () => {
 
   function addgamepad(gamepad: Gamepad) {
     console.log(`Gamepad added: ${JSON.stringify(gamepad.id)}`)
-    console.log(gamepad.buttons)
-    console.log(gamepad.axes)
     controllers.push(gamepad.index)
     requestAnimationFrame(updateStatus)
   }
@@ -259,7 +263,7 @@ export const initGamepad = () => {
       rightAxisX = axes[2],
       rightAxisY = axes[3]
 
-    logState(buttons, axes)
+    logState(controllerIndex)
 
     checkAction('padUp', up.pressed, controllerIndex)
     checkAction('padDown', down.pressed, controllerIndex)
@@ -301,7 +305,7 @@ export const initGamepad = () => {
       rightAxisY = axes[4]
     // there are 2 more axes to map as triggers
 
-    logState(buttons, axes)
+    logState(controllerIndex)
 
     checkAction('padUp', up.pressed, controllerIndex)
     checkAction('padDown', down.pressed, controllerIndex)
@@ -320,35 +324,35 @@ export const initGamepad = () => {
     checkAction('altAction', Y.pressed, controllerIndex)
   }
 
-  function checkActionsForPlayStation(
+  function checkActionsForPlayStation3(
     buttons: readonly GamepadButton[],
     axes: readonly number[],
     controllerIndex: number
   ) {
     const X = buttons[0],
       Circle = buttons[1],
-      Triangle = buttons[2],
-      // Square = buttons[3],
+      // Square = buttons[2],
+      Triangle = buttons[3],
       // LB = buttons[4],
       // RB = buttons[5],
       // LT = buttons[6],
       // RT = buttons[7],
       // select = buttons[8],
       // start = buttons[9],
+      // L3 = buttons[10], // press left stick
+      // R3 = buttons[11], // press right stick
+      up = buttons[12],
+      down = buttons[13],
+      left = buttons[14],
+      right = buttons[15],
       // PSButton = buttons[10],
-      // L3 = buttons[11], // press left stick
-      // R3 = buttons[12], // press right stick
-      up = buttons[13],
-      down = buttons[14],
-      left = buttons[15],
-      right = buttons[16],
       leftAxisX = axes[0],
       leftAxisY = axes[1],
-      rightAxisX = axes[3],
-      rightAxisY = axes[4]
+      rightAxisX = axes[2],
+      rightAxisY = axes[3]
     // there are 2 more axes to map as triggers
 
-    logState(buttons, axes)
+    logState(controllerIndex)
 
     checkAction('padUp', up.pressed, controllerIndex)
     checkAction('padDown', down.pressed, controllerIndex)
@@ -367,12 +371,58 @@ export const initGamepad = () => {
     checkAction('altAction', Triangle.pressed, controllerIndex)
   }
 
-  function logState(
+  function checkActionsForPlayStation5(
     buttons: readonly GamepadButton[],
-    axes: readonly number[]
+    axes: readonly number[],
+    controllerIndex: number
   ) {
+    const Circle = buttons[0],
+      Triangle = buttons[1],
+      X = buttons[2],
+      // Square = buttons[3],
+      // LB = buttons[4],
+      // RB = buttons[5],
+      rightAxisX = buttons[6],
+      rightAxisY = buttons[7],
+      // share = buttons[8],
+      // menu = buttons[9],
+      up = buttons[12],
+      down = buttons[13],
+      left = buttons[14],
+      right = buttons[15],
+      leftAxisX = axes[0],
+      leftAxisY = axes[1]
+    // there are 2 more axes to map as triggers
+
+    logState(controllerIndex)
+
+    checkAction('padUp', up.pressed, controllerIndex)
+    checkAction('padDown', down.pressed, controllerIndex)
+    checkAction('padLeft', left.pressed, controllerIndex)
+    checkAction('padRight', right.pressed, controllerIndex)
+    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+    checkAction('rightStickLeft', rightAxisX.value < 0.25, controllerIndex)
+    checkAction('rightStickRight', rightAxisX.value > 0.75, controllerIndex)
+    checkAction('rightStickUp', rightAxisY.value < 0.25, controllerIndex)
+    checkAction('rightStickDown', rightAxisY.value > 0.75, controllerIndex)
+    checkAction('mainAction', X.pressed, controllerIndex)
+    checkAction('back', Circle.pressed, controllerIndex)
+    checkAction('altAction', Triangle.pressed, controllerIndex)
+  }
+
+  function logState(index: number) {
+    const controller = navigator.getGamepads()[index]
+    if (!controller) return
+
+    const buttons = controller.buttons
+    const axes = controller.axes
+
     for (const button in buttons) {
-      if (buttons[button].pressed) console.log(`button ${button} pressed`)
+      if (buttons[button].pressed)
+        console.log(`button ${button} pressed ${buttons[button].value}`)
     }
     for (const axis in axes) {
       if (axes[axis] < -0.5) console.log(`axis ${axis} activated negative`)
