@@ -1,7 +1,6 @@
 {
   "name": "heroic",
-  "productName": "Heroic",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
