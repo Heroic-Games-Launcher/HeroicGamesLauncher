@@ -406,6 +406,7 @@ class GlobalConfigV0 extends GlobalConfig {
       checkForUpdatesOnStartup: true,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
+      defaultWinePrefix: `${home}/Games/Heroic/Prefixes`,
       language: 'en',
       maxWorkers: 0,
       nvidiaPrime: false,

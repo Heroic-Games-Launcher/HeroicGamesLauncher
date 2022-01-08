@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
         "unsync": "പിരിച്ചു"
@@ -184,6 +188,7 @@
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്‍ത്ത വൈന്‍/പ്രോട്ടോണ്‍ അറകള്‍",
         "darktray": "താലത്തില്‍(ട്രേയില്‍) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "ഡിസ്കോര്‍ഡ് റിച്ച് പ്രെസന്‍സ് വക്കൂ",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
         "enableFSRHack": "എഫ്എസ്ആര്‍ ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",

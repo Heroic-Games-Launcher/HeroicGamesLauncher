@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Synkronisering klar",
         "unsync": "Ogör synkronisering klar"
@@ -184,6 +188,7 @@
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i systembrickan",
         "default-install-path": "Standard installationssökväg",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",

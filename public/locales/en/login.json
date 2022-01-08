@@ -2,9 +2,6 @@
     "button": {
         "login": "Login"
     },
-    "info": {
-        "needHelp": "Need Help?"
-    },
     "input": {
         "placeholder": "Paste the SID number here"
     },

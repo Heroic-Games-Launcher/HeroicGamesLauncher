@@ -1,7 +1,6 @@
 {
   "name": "heroic",
-  "productName": "Heroic",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -108,7 +107,6 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "discord-rich-presence-typescript": "^0.0.8",
-    "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
     "graceful-fs": "^4.2.8",
