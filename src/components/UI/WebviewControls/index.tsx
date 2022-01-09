@@ -16,7 +16,7 @@ export default function index({ webview, initURL }: Props) {
   const [url, setUrl] = React.useState(initURL)
 
   if (webview) {
-    webview.addEventListener('dom-ready', () => setUrl(webview.getURL()))
+    webview.addEventListener('did-stop-loading', () => setUrl(webview.getURL()))
   }
 
   function handleButtons(event: 'reload' | 'back' | 'forward') {
