@@ -305,6 +305,18 @@ function Settings() {
     writeConfig([appName, settingsToSave])
   }, [GlobalSettings, GameSettings, appName])
 
+  useEffect(() => {
+    // set copied to clipboard status to true if it's not already set to true
+    // used for changing text and color
+    if (!isCopiedToClipboard) return
+
+    const timer = setTimeout(() => {
+      setCopiedToClipboard(false)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [isCopiedToClipboard])
+
   if (!title) {
     return <UpdateComponent />
   }
@@ -454,22 +466,13 @@ function Settings() {
           <span className="save">{t('info.settings')}</span>
           <button
             className={`button is-text ${
-              isCopiedToClipboard ? 'success-override-color' : null
+              isCopiedToClipboard ? 'success-override-color' : ''
             }`}
             onClick={() => {
               clipboard.writeText(
                 JSON.stringify({ appName, title, ...settingsToSave })
               )
-              // set copied to clipboard status to true if it's not already set to true
-              // used for changing text and color
-              if (!isCopiedToClipboard) {
-                setCopiedToClipboard(true)
-
-                setTimeout(() => {
-                  setCopiedToClipboard(false)
-                  console.log('doing')
-                }, 3000)
-              }
+              setCopiedToClipboard(true)
             }}
           >
             {isCopiedToClipboard
