@@ -231,7 +231,7 @@
     "Settings": "Settings",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Copy All Settings to Clipboard",
         "navbar": {
             "general": "General",
             "other": "Other",
