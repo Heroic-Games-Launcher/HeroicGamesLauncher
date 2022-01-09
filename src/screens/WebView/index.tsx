@@ -58,7 +58,9 @@ export default function WebView({ isLogin }: Props) {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
         // Ignore the login handling if not on login page
-        if (pathname !== '/') return
+        if (pathname !== '/') {
+          return
+        }
         // Deals with Login
         else {
           setTimeout(() => {
