@@ -166,6 +166,8 @@ function Settings() {
 
   const [isMacNative, setIsMacNative] = useState(false)
 
+  const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
+
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
@@ -451,14 +453,24 @@ function Settings() {
           )}
           <span className="save">{t('info.settings')}</span>
           <button
-            className="button is-text"
-            onClick={() =>
+            className={`button is-text ${isCopiedToClipboard ? 'success-override-color' : null}`}
+            onClick={() => {
               clipboard.writeText(
                 JSON.stringify({ appName, title, ...settingsToSave })
               )
-            }
+              // set copied to clipboard status to true if it's not already set to true
+              // used for changing text and color
+              if (!isCopiedToClipboard) {
+                setCopiedToClipboard(true)
+
+                setTimeout(() => {
+                  setCopiedToClipboard(false)
+                  console.log('doing')
+                }, 3000)
+              }
+          }}
           >
-            {t('settings.copyToClipboard', 'Copy All Setting to Clipboard')}
+            {isCopiedToClipboard ? t('settings.copiedToClipboard', 'Copied to Clipboard!') : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
           </button>
           {isDefault && (
             <>

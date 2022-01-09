@@ -188,3 +188,7 @@ a {
   margin-left: 8px;
   padding-top: 0;
 }
+
+.settingsWrapper > .button.success-override-color:hover {
+  color: var(--success) !important;
+}
