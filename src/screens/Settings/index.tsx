@@ -453,7 +453,9 @@ function Settings() {
           )}
           <span className="save">{t('info.settings')}</span>
           <button
-            className={`button is-text ${isCopiedToClipboard ? 'success-override-color' : null}`}
+            className={`button is-text ${
+              isCopiedToClipboard ? 'success-override-color' : null
+            }`}
             onClick={() => {
               clipboard.writeText(
                 JSON.stringify({ appName, title, ...settingsToSave })
@@ -468,9 +470,11 @@ function Settings() {
                   console.log('doing')
                 }, 3000)
               }
-          }}
+            }}
           >
-            {isCopiedToClipboard ? t('settings.copiedToClipboard', 'Copied to Clipboard!') : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
+            {isCopiedToClipboard
+              ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+              : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
           </button>
           {isDefault && (
             <>
