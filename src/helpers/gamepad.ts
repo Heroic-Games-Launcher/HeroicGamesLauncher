@@ -22,7 +22,9 @@ export const initGamepad = () => {
   window.addEventListener('blur', () => (heroicIsFocused = false))
 
   // store the status and metadata for each action
-  // triggered is either 0 (inactive) or a unix timestamp of the last `invoke` call
+  // triggeredAt is a hash with controllerIndex as keys and a timestamp or 0 (inactive)
+  // this keeps track of the moment a button/trigger/stick is activated
+  // we use this to know when to fire events
   const actions: GamepadActionStatus = {
     padUp: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
     padDown: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
@@ -66,11 +68,10 @@ export const initGamepad = () => {
 
     const now = new Date().getTime()
 
-    // if it the action was already active or not
+    // check if the action was already active or not
     const wasActive = triggeredAt !== 0
 
     let shouldRepeat = false
-
     if (wasActive) {
       // it it was active, check if the action should be repeated
       if (data.repeatDelay) {
@@ -84,9 +85,10 @@ export const initGamepad = () => {
     if (!wasActive || shouldRepeat) {
       console.log(`Action: ${action}`)
 
-      // set last trigger timestamp, used for repeater
+      // set last triggeredAt timestamp, used for repeater
       data.triggeredAt[controllerIndex] = now
 
+      // check special cases for the different actions, more details on the wiki
       switch (action) {
         case 'mainAction':
           if (shouldSimulateClick()) {
@@ -94,7 +96,7 @@ export const initGamepad = () => {
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
           } else if (playable()) {
-            // if the current element a card of a game that can be played, play it
+            // if the current element ia a card of a game and it's installed, play it
             playGame()
             return
           } else if (VirtualKeyboardController.isButtonFocused()) {
@@ -107,9 +109,15 @@ export const initGamepad = () => {
           }
           break
         case 'back':
-          // `back` closes the keyboard if present
           if (VirtualKeyboardController.isActive()) {
+            // closes the keyboard if present
             VirtualKeyboardController.destroy()
+            return
+          } else if (isSelect()) {
+            // closes the select dropdown and re-focus element
+            const el = currentElement()
+            el?.blur()
+            el?.focus()
             return
           }
           break
@@ -205,6 +213,8 @@ export const initGamepad = () => {
       const controller = gamepads[index]
       if (!controller) return
 
+      logState(index)
+
       const buttons = controller.buttons
       const axes = controller.axes
       if (controller.id.match(/xbox|microsoft|02ea/i)) {
@@ -219,24 +229,6 @@ export const initGamepad = () => {
     })
 
     requestAnimationFrame(updateStatus)
-  }
-
-  function connecthandler(e: GamepadEvent) {
-    addgamepad(e.gamepad)
-  }
-
-  function addgamepad(gamepad: Gamepad) {
-    console.log(`Gamepad added: ${JSON.stringify(gamepad.id)}`)
-    controllers.push(gamepad.index)
-    requestAnimationFrame(updateStatus)
-  }
-
-  function disconnecthandler(e: GamepadEvent) {
-    removegamepad(e.gamepad)
-  }
-
-  function removegamepad(gamepad: Gamepad) {
-    controllers = controllers.filter((idx) => idx !== gamepad.index)
   }
 
   function checkActionsForXbox(
@@ -265,8 +257,6 @@ export const initGamepad = () => {
       leftAxisY = axes[1],
       rightAxisX = axes[2],
       rightAxisY = axes[3]
-
-    logState(controllerIndex)
 
     checkAction('padUp', up.pressed, controllerIndex)
     checkAction('padDown', down.pressed, controllerIndex)
@@ -306,9 +296,6 @@ export const initGamepad = () => {
       leftAxisY = axes[1],
       rightAxisX = axes[3],
       rightAxisY = axes[4]
-    // there are 2 more axes to map as triggers
-
-    logState(controllerIndex)
 
     checkAction('padUp', up.pressed, controllerIndex)
     checkAction('padDown', down.pressed, controllerIndex)
@@ -353,9 +340,6 @@ export const initGamepad = () => {
       leftAxisY = axes[1],
       rightAxisX = axes[2],
       rightAxisY = axes[3]
-    // there are 2 more axes to map as triggers
-
-    logState(controllerIndex)
 
     checkAction('padUp', up.pressed, controllerIndex)
     checkAction('padDown', down.pressed, controllerIndex)
@@ -395,9 +379,6 @@ export const initGamepad = () => {
       right = buttons[15],
       leftAxisX = axes[0],
       leftAxisY = axes[1]
-    // there are 2 more axes to map as triggers
-
-    logState(controllerIndex)
 
     checkAction('padUp', up.pressed, controllerIndex)
     checkAction('padDown', down.pressed, controllerIndex)
@@ -431,6 +412,24 @@ export const initGamepad = () => {
       if (axes[axis] < -0.5) console.log(`axis ${axis} activated negative`)
       if (axes[axis] > 0.5) console.log(`axis ${axis} activated positive`)
     }
+  }
+
+  function connecthandler(e: GamepadEvent) {
+    addgamepad(e.gamepad)
+  }
+
+  function addgamepad(gamepad: Gamepad) {
+    console.log(`Gamepad added: ${JSON.stringify(gamepad.id)}`)
+    controllers.push(gamepad.index)
+    requestAnimationFrame(updateStatus)
+  }
+
+  function disconnecthandler(e: GamepadEvent) {
+    removegamepad(e.gamepad)
+  }
+
+  function removegamepad(gamepad: Gamepad) {
+    controllers = controllers.filter((idx) => idx !== gamepad.index)
   }
 
   window.addEventListener('gamepadconnected', connecthandler)
