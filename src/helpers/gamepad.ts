@@ -164,7 +164,10 @@ export const initGamepad = () => {
     if (!parent) return false
 
     const classes = parent.classList
-    return classes.contains('gameCard') || classes.contains('gameListItem')
+    const isGameCard =
+      classes.contains('gameCard') || classes.contains('gameListItem')
+    const isInstalled = classes.contains('installed')
+    return isGameCard && isInstalled
   }
 
   function playGame() {
@@ -208,7 +211,7 @@ export const initGamepad = () => {
         checkActionsForXbox(buttons, axes, index)
       } else if (controller.id.match(/gamecube|0337/i)) {
         checkActionsForGameCube(buttons, axes, index)
-      } else if (controller.id.match(/0c36/i)) {
+      } else if (controller.id.match(/0ce6/i)) {
         checkActionsForPlayStation5(buttons, axes, index)
       } else if (controller.id.match(/PS3|PLAYSTATION|0268/i)) {
         checkActionsForPlayStation3(buttons, axes, index)

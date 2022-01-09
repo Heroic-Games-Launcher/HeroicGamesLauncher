@@ -44,6 +44,9 @@ export const VirtualKeyboardController = {
     }
   },
   isButtonFocused: () => {
+    const el = currentElement()
+    if (!el) return false
+
     return currentElement().classList.contains('hg-button')
   },
   isActive: () => virtualKeyboard !== null,
