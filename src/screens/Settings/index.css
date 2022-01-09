@@ -189,6 +189,6 @@ a {
   padding-top: 0;
 }
 
-.settingsWrapper > .button.success-override-color:hover {
+.settingsWrapper > .button.isSuccess:hover {
   color: var(--success) !important;
 }

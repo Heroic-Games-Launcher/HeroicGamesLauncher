@@ -1,6 +1,7 @@
 import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
+import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
@@ -465,9 +466,9 @@ function Settings() {
           )}
           <span className="save">{t('info.settings')}</span>
           <button
-            className={`button is-text ${
-              isCopiedToClipboard ? 'success-override-color' : ''
-            }`}
+            className={classNames('button', 'is-text', {
+              isSuccess: isCopiedToClipboard
+            })}
             onClick={() => {
               clipboard.writeText(
                 JSON.stringify({ appName, title, ...settingsToSave })
