@@ -1050,6 +1050,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
   return `\n ${stdout} - ${stderr}`
 })
 
+// Simulate keyboard and mouse actions as if the real input device is used
 ipcMain.handle('gamepadAction', async (event, args) => {
   const [action, metadata] = args
   const window = BrowserWindow.getAllWindows()[0]
@@ -1071,7 +1072,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
     case 'rightStickUp':
       inputEvents.push({
         type: 'mouseWheel',
-        deltaY: 53,
+        deltaY: 50,
         x: window.getBounds().width / 2,
         y: window.getBounds().height / 2
       })
@@ -1079,7 +1080,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
     case 'rightStickDown':
       inputEvents.push({
         type: 'mouseWheel',
-        deltaY: -53,
+        deltaY: -50,
         x: window.getBounds().width / 2,
         y: window.getBounds().height / 2
       })
