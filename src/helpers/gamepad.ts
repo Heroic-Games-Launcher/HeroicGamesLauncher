@@ -225,6 +225,11 @@ export const initGamepad = () => {
         checkActionsForPlayStation5(buttons, axes, index)
       } else if (controller.id.match(/PS3|PLAYSTATION|0268/i)) {
         checkActionsForPlayStation3(buttons, axes, index)
+      } else {
+        // if not specific, fallback to the xbox layout, seems
+        // to be the most common for now and if not exact it seems
+        // to cover at least the left stick and the main 2 buttons
+        checkActionsForXbox(buttons, axes, index)
       }
     })
 
