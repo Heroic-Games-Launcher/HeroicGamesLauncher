@@ -16,7 +16,7 @@ export default function SearchBar() {
     if (input.current) {
       const element = input.current
       element.value = filterText
-      element.addEventListener('change', () => {
+      element.addEventListener('input', () => {
         handleSearch(element.value)
       })
     }

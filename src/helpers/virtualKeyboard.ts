@@ -29,7 +29,7 @@ function typeInSearchInput(button: string) {
       input.value = input.value.slice(0, -1)
     }
   }
-  input.dispatchEvent(new Event('change'))
+  input.dispatchEvent(new Event('input'))
 }
 
 export const VirtualKeyboardController = {
