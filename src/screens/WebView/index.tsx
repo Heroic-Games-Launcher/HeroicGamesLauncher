@@ -1,17 +1,12 @@
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
-import ElectronStore from 'electron-store'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
 import ContextProvider from 'src/state/ContextProvider'
 import { Webview } from 'src/types'
 
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
 const { clipboard, ipcRenderer } = window.require('electron')
 import './index.css'
 
@@ -24,7 +19,7 @@ type SID = {
 }
 
 const USER_AGENT =
-  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.113 Safari/537.36 Vivaldi/5.0.2497.32'
+  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.137 Safari/537.36'
 
 export default function WebView({ isLogin }: Props) {
   const { i18n } = useTranslation()
@@ -35,7 +30,6 @@ export default function WebView({ isLogin }: Props) {
     refresh: boolean
     message: string
   }>({ refresh: true, message: t('loading.website', 'Loading Website') })
-  const user = configStore.get('userInfo')
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -63,9 +57,12 @@ export default function WebView({ isLogin }: Props) {
     if (webview) {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
-
+        // Ignore the login handling if not on login page
+        if (pathname !== '/') {
+          return
+        }
         // Deals with Login
-        if (!user) {
+        else {
           setTimeout(() => {
             webview.findInPage('sid')
             webview.addEventListener('found-in-page', async (res) => {
