@@ -7,3 +7,9 @@
   height: calc(100vh - 32px);
   margin-top: 32px;
 }
+
+webview {
+  position: absolute;
+  width: var(--content-width);
+  height: 100%;
+}

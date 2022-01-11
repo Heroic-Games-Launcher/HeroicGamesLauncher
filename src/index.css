@@ -70,3 +70,11 @@ code {
   background: var(--text-secondary);
   border-radius: 4px;
 }
+
+.simple-keyboard {
+  position: fixed;
+  z-index: 10;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
