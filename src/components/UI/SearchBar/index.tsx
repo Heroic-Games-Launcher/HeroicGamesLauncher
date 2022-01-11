@@ -3,6 +3,7 @@ import './index.css'
 import React, { useContext, useEffect, useRef } from 'react'
 
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
 
 export default function SearchBar() {
@@ -31,7 +32,7 @@ export default function SearchBar() {
         placeholder={t('search')}
         id="search"
       />
-      <span className="clearSearchInputWrapper">
+      <span className={classNames('clearSearchInputWrapper', {isEmpty: !input.current || input.current.value == ''})}>
         <span
           className="clearSearchInput"
           onClick={() => {

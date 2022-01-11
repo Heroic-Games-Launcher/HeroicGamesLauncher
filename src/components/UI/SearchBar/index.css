@@ -39,3 +39,7 @@
 .clearSearchInput:hover {
   color: var(--text-primary);
 }
+
+.isEmpty {
+  display: none;
+}
