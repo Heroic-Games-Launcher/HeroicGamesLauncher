@@ -33,6 +33,13 @@
                 "message": "未找到此游戏的日志",
                 "title": "未找到日志"
             },
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
             "title": "错误"
         },
         "no": "否",
@@ -79,10 +86,10 @@
     },
     "Downloading": "正在下载",
     "Epic Games": "Epic 游戏",
-    "Filter": "筛选",
     "filter": {
         "noFilter": "全部"
     },
+    "Filter": "筛选",
     "globalSettings": "全局设置",
     "help": {
         "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
@@ -228,9 +235,9 @@
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "Wine 版本"
     },
-    "Settings": "设置",
     "settings": {
         "clear-cache": "清理 Heroic 缓存",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "复制所有设置到剪贴板",
         "navbar": {
             "general": "常规",
@@ -239,6 +246,7 @@
         },
         "reset-heroic": "重置 Heroic"
     },
+    "Settings": "设置",
     "status": {
         "loading": "正在加载游戏列表，请稍后",
         "logging": "正在登录..."
@@ -264,8 +272,7 @@
         "about": "关于",
         "quit": "退出",
         "reload": "重新加载",
-        "show": "显示",
-        "support": "支持我们"
+        "show": "显示"
     },
     "Unreal Marketplace": "虚幻商城",
     "Updates": "更新",

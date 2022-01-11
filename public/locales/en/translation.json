@@ -33,6 +33,13 @@
                 "message": "No Log was found for this game",
                 "title": "Log Not Found"
             },
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
             "title": "Error"
         },
         "no": "NO",
@@ -79,10 +86,10 @@
     },
     "Downloading": "Downloading",
     "Epic Games": "Epic Games",
-    "Filter": "Filter",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filter",
     "globalSettings": "Global Settings",
     "help": {
         "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
@@ -228,9 +235,9 @@
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"
     },
-    "Settings": "Settings",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
         "navbar": {
             "general": "General",
@@ -239,6 +246,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Settings",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

@@ -33,6 +33,13 @@
                 "message": "Dnevnik nije nađen za ovu igricu",
                 "title": "Dnevnik nije pronađen"
             },
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
             "title": "Greška"
         },
         "no": "NE",
@@ -79,10 +86,10 @@
     },
     "Downloading": "Preuzima se",
     "Epic Games": "Epic Games",
-    "Filter": "Filter",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filter",
     "globalSettings": "Globalne Postavke",
     "help": {
         "general": "Sinkronizirajte sa EGS u slučaju da imate instalaciju Epic Games trgovine negdje drugdje i želiš uvesti igrice da ih nemoraš preuzimati opet.",
@@ -228,9 +235,9 @@
         "wineprefix": "WinePut mapa",
         "wineversion": "Wine Verzija"
     },
-    "Settings": "Postavke",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Generalno",
@@ -239,6 +246,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Postavke",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

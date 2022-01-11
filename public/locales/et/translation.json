@@ -33,6 +33,13 @@
                 "message": "Selle mängu logi ei leitud",
                 "title": "Logi ei leitud"
             },
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
             "title": "Viga"
         },
         "no": "EI",
@@ -79,10 +86,10 @@
     },
     "Downloading": "Allalaadimine",
     "Epic Games": "Epic Games",
-    "Filter": "Filtreeri",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtreeri",
     "globalSettings": "Globaalsed seaded",
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -228,9 +235,9 @@
         "wineprefix": "WinePrefiksi kaust",
         "wineversion": "Wine'i versioon"
     },
-    "Settings": "Seaded",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Üldine",
@@ -239,6 +246,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Seaded",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

@@ -33,6 +33,13 @@
                 "message": "Tidak ada Log yang ditemukan untuk game ini",
                 "title": "Log Tidak Ditemukan"
             },
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
             "title": "Error"
         },
         "no": "TIDAK",
@@ -79,10 +86,10 @@
     },
     "Downloading": "Mengunduh",
     "Epic Games": "Game Epic",
-    "Filter": "Saring",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Saring",
     "globalSettings": "Pengaturan Global",
     "help": {
         "general": "",
@@ -228,9 +235,9 @@
         "wineprefix": "",
         "wineversion": ""
     },
-    "Settings": "",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "",
@@ -239,6 +246,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
