@@ -8,7 +8,7 @@
         "choose": "Escoger",
         "importpath": "Elija la carpeta del juego para importar",
         "move": {
-            "message": "Esto puede llevar mucho tiempo, ¿estás seguro?",
+            "message": "Esto puede llevar mucho tiempo. ¿Estás seguro?",
             "path": "Elige la ubicación de destino",
             "title": "Mover carpeta del juego"
         },
@@ -19,7 +19,7 @@
         },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
-            "message": "¿Desea MANTENER los archivos descargados?",
+            "message": "¿Deseas MANTENER los archivos descargados?",
             "title": "Detener la instalación"
         },
         "uninstall": {
@@ -39,9 +39,9 @@
         "import": "Importar juego",
         "install": "Instalar",
         "uninstall": "Desinstalar",
-        "update": "Update"
+        "update": "Actualizar"
     },
-    "disabled": "Deshabilitar",
+    "disabled": "Deshabilitado",
     "dlc": {
         "installDlcs": "Instalar todos los DLCs",
         "title": "DLCs"
@@ -67,7 +67,7 @@
         "version": "Versión"
     },
     "install": {
-        "path": "Elija una Ruta de Instalación",
+        "path": "Seleccione la ruta de instalación",
         "wineprefix": "Prefijo de Wine"
     },
     "label": {
@@ -86,18 +86,18 @@
         "title": "Elija Componentes a Instalar"
     },
     "specs": {
-        "minimum": "mínimo",
+        "minimum": "Mínimo",
         "recommended": "recomendado"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
-        "hasUpdates": "Nueva versión disponible!",
+        "clickToUpdate": "Haga clic para actualizar",
+        "hasUpdates": "¡Nueva versión disponible!",
         "installed": "Instalado",
         "installing": "Instalando",
-        "moving": "Instalación en movimiento, espere",
+        "moving": "Moviendo la instalación, por favor, espere",
         "notinstalled": "Este juego no está instalado",
-        "reparing": "Reparando juego, espera",
-        "totalDownloaded": "Total Descargado",
+        "reparing": "Reparando el juego, por favor, espere",
+        "totalDownloaded": "Total descargado",
         "updating": "Actualización de juego"
     },
     "submenu": {
