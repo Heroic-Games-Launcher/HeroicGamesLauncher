@@ -35,8 +35,10 @@ export default function SearchBar() {
         <span
           className="clearSearchInput"
           onClick={() => {
-            setTextValue('')
             handleSearch('')
+            if (input.current) {
+              input.current.value = ''
+            }
           }}
         >
           &times;
