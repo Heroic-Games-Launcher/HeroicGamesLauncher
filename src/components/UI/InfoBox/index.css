@@ -3,6 +3,9 @@
   padding: 10px 20px 20px 20px;
   font-size: 16px;
   line-height: 19px;
+  background-color: var(--background);
+  border-radius: 10px;
+  margin-inline: 16px;
 }
 
 .helpLink {
@@ -13,12 +16,12 @@
   position: relative;
   align-items: center;
   min-width: 45px;
-  width: 100%;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-inline-start: 16px;
 }
 
 .helpLink > svg {
-  margin-left: 4px;
+  margin-inline-end: 4px;
 }
 
 .infoBox > ul {

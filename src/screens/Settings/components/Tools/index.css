@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     'winecfg winetricks'
-    'runexe runexe';
+    'runexe 1fr';
   place-items: center;
   cursor: pointer;
   width: 430px;
@@ -27,7 +27,7 @@
 
 .tools.drag {
   display: grid;
-  border: var(--secondary) solid 1px;
+  border: var(--primary) solid 1px;
   border-radius: 7px;
   padding: 12px 20px;
   grid-area: runexe;

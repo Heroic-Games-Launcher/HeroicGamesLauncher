@@ -2,12 +2,10 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
@@ -32,13 +30,8 @@ interface RouteParams {
   type: string
 }
 
-interface LocationState {
-  fromGameCard: boolean
-}
-
 function Settings() {
   const { t, i18n } = useTranslation()
-  const { state } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -297,10 +290,6 @@ function Settings() {
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
   const shouldRenderWineSettings = !isWin && !isMacNative
-  let returnPath: string | null = '/'
-  if (state && !state.fromGameCard) {
-    returnPath = `/gameconfig/${appName}`
-  }
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
@@ -351,18 +340,6 @@ function Settings() {
           }
         </div>
         <div className="settingsWrapper">
-          {title && (
-            <NavLink
-              to={returnPath}
-              className="headerTitle"
-              data-testid="headerTitle"
-            >
-              {title}
-              {!isDefault && (
-                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
-              )}
-            </NavLink>
-          )}
           {isGeneralSettings && (
             <GeneralSettings
               egsPath={egsPath}

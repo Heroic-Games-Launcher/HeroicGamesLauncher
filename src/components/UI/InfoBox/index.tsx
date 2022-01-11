@@ -31,8 +31,8 @@ export default function InfoBox({ children, text }: Props) {
         }}
         data-testid="infoboxSpan"
       >
-        <p>{t(text)}</p>
         <Info className="material-icons" />
+        <p>{t(text)}</p>
       </a>
       <div
         style={{ display: isHidden ? 'none' : 'block' }}

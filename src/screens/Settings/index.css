@@ -1,32 +1,32 @@
 .Settings {
-  display: grid;
-  justify-content: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   grid-template-columns: 1fr 5fr;
-  background-color: var(--background-transparent);
-  place-self: center;
-  width: 70vw;
-  min-width: 513px;
-  max-width: 912px;
+  width: 100%;
+  left: 0;
   border-radius: 1rem;
-  padding: 24px;
   grid-area: content;
-  margin: 48px;
+  margin-block-start: 118px;
 }
 
 .settingsNavbar {
   display: flex;
   flex-direction: column;
-  margin-top: 16px;
+  margin-block-start: 16px;
+  margin-inline-start: 61.5px;
+  margin-inline-end: clamp(65px, 6vw, 103px);
   font-family: Rubik;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18.5px;
   line-height: 19px;
   color: var(--text-primary);
 }
 
 .settingsNavbar > a {
-  padding-bottom: 18px;
+  margin-block-end: 11px;
+  padding-block: 6px;
 }
 
 .settingsNavbar > a.active {
@@ -37,11 +37,13 @@
 }
 
 .settingsWrapper {
-  width: 569px;
-  display: grid;
+  margin-inline-end: auto;
+  max-width: 669px;
+  display: flex;
+  flex-direction: column;
   place-self: center;
   place-items: flex-start;
-  width: 569px;
+  width: 100%;
   padding-bottom: 8px;
 }
 
@@ -56,7 +58,9 @@
 }
 
 .settingsTools {
-  margin: 16px auto;
+  margin-block: 16px;
+  justify-content: left;
+  max-width: 512px;
 }
 
 .setting {
@@ -81,7 +85,7 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  width: 513px;
+  min-width: 513px;
 }
 
 .settingInputWithButton > .button.is-small {
@@ -105,13 +109,13 @@
 }
 
 .settingSelect.small {
-  width: 372px;
+  width: clamp(150px, 10rem, 372px);
 }
 
 .settingSelect.smaller {
   width: 66px;
   text-indent: 11px;
-  margin-left: -24px;
+  margin-inline-start: -24px;
 }
 
 .settingSelect > option {
@@ -125,6 +129,7 @@
 
 .save {
   margin: 24px 0 0 18px;
+  padding-block-end: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -138,7 +143,7 @@
 }
 
 .appName {
-  margin-left: 18px;
+  margin-inline-start: 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -153,7 +158,7 @@
 
 .save > .material-icons {
   font-size: 28px;
-  margin-left: 6px;
+  margin-inline-start: 6px;
 }
 
 .warning {
@@ -176,17 +181,13 @@ a {
   cursor: pointer;
 }
 .settingsWrapper > .button.is-text {
-  margin-left: 8px;
+  margin-inline: 8px;
+  padding-block: 8px;
   color: var(--text-quartenary);
 }
 
 .settingsWrapper > .button.is-text:hover {
   color: var(--text-danger);
-}
-
-.settingsWrapper > .button.is-text:last-child {
-  margin-left: 8px;
-  padding-top: 0;
 }
 
 .settingsWrapper > .button.isSuccess:hover {
