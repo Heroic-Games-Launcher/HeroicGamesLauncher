@@ -127,9 +127,11 @@ const GameCard = ({
     ? `${125 - getProgress(progress)}%`
     : '100%'
 
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
+  const instClass = isInstalled ? 'installed' : ''
+  const imgClasses = `gameImg ${instClass}`
+  const logoClasses = `gameLogo ${instClass}`
   const imageSrc = `${grid ? cover : coverList}?h=400&resize=1&w=300`
+  const wrapperClasses = `${grid ? 'gameCard' : 'gameListItem'}  ${instClass}`
 
   async function handleUpdate() {
     await handleGameStatus({ appName, status: 'updating' })
@@ -175,7 +177,7 @@ const GameCard = ({
     }
     if (isInstalled && isGame) {
       return (
-        <SvgButton onClick={() => handlePlay()}>
+        <SvgButton className="playButton" onClick={() => handlePlay()}>
           <PlayIcon className="playIcon" />
         </SvgButton>
       )
@@ -200,7 +202,7 @@ const GameCard = ({
   return (
     <>
       <ContextMenuTrigger id={appName}>
-        <div className={grid ? 'gameCard' : 'gameListItem'}>
+        <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
             to={{
