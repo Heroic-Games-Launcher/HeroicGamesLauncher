@@ -330,7 +330,15 @@ if (!gotTheLock) {
       )
 
       if (!found) {
+        dialog.showErrorBox(
+          i18next.t('box.error.python.title', 'Python Error!'),
+          i18next.t(
+            'box.error.python.message',
+            'Heroic requires Python 3.8 or newer.'
+          )
+        )
         logError('Heroic requires Python 3.8 or newer.')
+        return app.quit()
       }
     }
 
