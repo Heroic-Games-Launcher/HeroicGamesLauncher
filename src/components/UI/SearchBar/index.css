@@ -19,7 +19,8 @@
 
 .clearSearchInputWrapper {
   position: absolute;
-  top: 22%;
+  top: 50%;
+  transform: translateY(-50%);
   right: 0;
   padding-right: 12%;
   line-height: 1em;
@@ -36,10 +37,10 @@
   background: none;
 }
 
-.clearSearchInput:hover {
+.clearSearchInputWrapper.isEmpty:hover {
   color: var(--text-primary);
 }
 
-.isEmpty {
+.clearSearchInputWrapper.isEmpty {
   display: none;
 }
