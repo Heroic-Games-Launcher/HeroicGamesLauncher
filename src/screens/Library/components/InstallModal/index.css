@@ -82,6 +82,12 @@
   margin: 12px;
 }
 
+.dlcList {
+  padding: 12px 0 18px;
+  display: flex;
+  flex-direction: column;
+}
+
 .sizeInfo {
   font-weight: 700;
   margin: 0 10px;
