@@ -229,3 +229,22 @@ export interface InstallParams {
   installDlcs?: boolean
   sdlList?: Array<string>
 }
+
+export interface GamepadInputEventKey {
+  type: 'keyDown' | 'keyUp' | 'char'
+  keyCode: string
+}
+
+export interface GamepadInputEventWheel {
+  type: 'mouseWheel'
+  deltaY: number
+  x: number
+  y: number
+}
+
+export interface GamepadInputEventMouse {
+  type: 'mouseDown' | 'mouseUp'
+  x: number
+  y: number
+  button: 'left' | 'middle' | 'right'
+}
