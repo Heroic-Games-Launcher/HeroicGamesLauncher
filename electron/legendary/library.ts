@@ -87,7 +87,7 @@ class LegendaryLibrary {
 
     return new Promise((res, rej) => {
       const getUeAssets = showUnrealMarket ? '--include-ue' : ''
-      const child = spawn(legendaryBin, ['list-games', getUeAssets])
+      const child = spawn(legendaryBin, ['list', getUeAssets])
       child.stderr.on('data', (data) => {
         console.log(`${data}`)
       })

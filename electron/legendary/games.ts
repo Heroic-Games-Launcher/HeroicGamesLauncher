@@ -459,7 +459,7 @@ Categories=Game;
   }
 
   public async import(path: string) {
-    const command = `${legendaryBin} import-game ${this.appName} '${path}'`
+    const command = `${legendaryBin} import ${this.appName} '${path}'`
     return await execAsync(command, execOptions).then((v) => {
       return v
     })
