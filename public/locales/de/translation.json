@@ -49,7 +49,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Möchte Sie Heroic wirklich zurücksetzten? Hiermit werden alle Einstellungen und der Cache gelöscht aber nicht Ihre installierten Spiele oder Epic Anmeldedaten",
-                "title": "Reset Heroic"
+                "title": "Heroic zurücksetzen"
             }
         },
         "runexe": {
@@ -72,7 +72,7 @@
         "yes": "JA"
     },
     "button": {
-        "login": "Login",
+        "login": "Anmelden",
         "sync": "Synchronisieren",
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren"
@@ -81,7 +81,7 @@
     "Epic Games": "Epic Games",
     "Filter": "Filter",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Kein Filter"
     },
     "globalSettings": "Globale Einstellungen",
     "help": {
@@ -121,7 +121,7 @@
         "website": "Lade Webseite"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Anmelden mit Epic",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -188,7 +188,7 @@
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
@@ -237,7 +237,7 @@
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Heroic zurücksetzen"
     },
     "status": {
         "loading": "Lade Spieleliste, bitte warten",
@@ -271,7 +271,7 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Abmelden",
-        "logout_confirmation": "Logout?",
+        "logout_confirmation": "Möchten Sie sich wirklich abmelden?",
         "quit": "Beenden"
     },
     "wiki": "Wiki"
