@@ -30,7 +30,7 @@
             "message": "Bu oyunun bir güncellemesi var, şimdi güncellemek ister misiniz?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET"
     },
     "button": {
@@ -67,7 +67,7 @@
         "version": "Sürüm"
     },
     "install": {
-        "path": "Select Install Path",
+        "path": "Kurulum Yolunu Seçin",
         "wineprefix": "WinePrefix"
     },
     "label": {

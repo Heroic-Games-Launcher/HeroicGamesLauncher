@@ -121,7 +121,7 @@
         "website": "درحال بارگیری وب‌سایت"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "ورود با اپیک",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -173,7 +173,7 @@
     "Plugins": "افزونه‌ها",
     "Projects": "پروژه‌ها",
     "Ready": "آماده",
-    "Recent": "بازی‌های اخیر",
+    "Recent": "اخیرا بازی‌ شده",
     "Return": "بازگشت",
     "search": "نام بازی را اینجا وارد کنید...",
     "setting": {
@@ -188,7 +188,7 @@
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیش‌فرض نصب",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
         "discordRPC": "فعال‌سازی Discord Rich Presence",
         "egs-sync": "همگام‌سازی با بازی‌های اپیک نصب شده",
         "enableFSRHack": "فعال‌سازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
@@ -208,7 +208,7 @@
             "title": "همگام‌سازی دستی ذخیره‌ها",
             "upload": "آپلود"
         },
-        "maxRecentGames": "بازی‌های اخیر برای نمایش",
+        "maxRecentGames": "اخیرا بازی‌ شده برای نمایش",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "offlinemode": "اجرای آفلاین بازی",
         "primerun": "فعال‌سازی Nvidia Prime Render",
