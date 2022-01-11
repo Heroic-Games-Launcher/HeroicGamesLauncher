@@ -32,7 +32,11 @@ export default function SearchBar() {
         placeholder={t('search')}
         id="search"
       />
-      <span className={classNames('clearSearchInputWrapper', {isEmpty: !input.current || input.current.value == ''})}>
+      <span
+        className={classNames('clearSearchInputWrapper', {
+          isEmpty: !input.current || input.current.value == ''
+        })}
+      >
         <span
           className="clearSearchInput"
           onClick={() => {
