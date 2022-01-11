@@ -17,15 +17,6 @@
   padding-right: 2.5em;
 }
 
-.clearSearchInputWrapper {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
-  padding-right: 12%;
-  line-height: 1em;
-}
-
 .clearSearchInput {
   cursor: pointer;
   padding: 0 5px;
@@ -35,12 +26,17 @@
   font-size: 1.4em;
   text-decoration: none;
   background: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 11%;
+  line-height: 1em;
 }
 
-.clearSearchInputWrapper.isEmpty:hover {
+.clearSearchInput.isEmpty:hover {
   color: var(--text-primary);
 }
 
-.clearSearchInputWrapper.isEmpty {
+.clearSearchInput.isEmpty {
   display: none;
 }

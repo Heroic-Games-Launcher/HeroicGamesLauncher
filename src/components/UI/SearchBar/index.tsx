@@ -33,21 +33,17 @@ export default function SearchBar() {
         id="search"
       />
       <span
-        className={classNames('clearSearchInputWrapper', {
+        className={classNames('clearSearchInput', {
           isEmpty: !input.current || input.current.value == ''
         })}
+        onClick={() => {
+          handleSearch('')
+          if (input.current) {
+            input.current.value = ''
+          }
+        }}
       >
-        <span
-          className="clearSearchInput"
-          onClick={() => {
-            handleSearch('')
-            if (input.current) {
-              input.current.value = ''
-            }
-          }}
-        >
-          &times;
-        </span>
+        &times;
       </span>
     </div>
   )
