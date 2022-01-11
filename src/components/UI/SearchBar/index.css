@@ -1,6 +1,8 @@
 .SearchBar {
   grid-area: search;
   width: 100%;
+  display: inline-block;
+  position: relative;
 }
 
 .searchInput {
@@ -13,12 +15,20 @@
   outline: none;
   background: var(--background);
   width: 80%;
+  padding-right: 2.5em;
 }
 
-.SearchBar > label {
-  color: var(--secondary);
+.clearSearchInputWrapper {
+  position: absolute;
+  top: 15%;
+  right: 0;
+  font-weight: bold;
+  font-size: 1.4em;
+  padding-right: 12%;
+  line-height: 1em;
 }
 
-.SearchBar > .close:hover {
+.clearSearchInput {
   cursor: pointer;
+  padding: 0 5px;
 }

@@ -23,6 +23,15 @@ export default function SearchBar() {
         placeholder={t('search')}
         id="search"
       />
+      <span className="clearSearchInputWrapper">
+          <span
+            className="clearSearchInput"
+            onClick={() => {
+              setTextValue('')
+              handleSearch('')
+            }}
+          >&times;</span>
+      </span>
     </div>
   )
 }
