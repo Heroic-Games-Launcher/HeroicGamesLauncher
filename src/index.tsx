@@ -10,6 +10,7 @@ import './index.css'
 import App from 'src/App'
 import GlobalState from 'src/state/GlobalState'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
+import { initShortcuts } from './helpers/shortcuts'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
@@ -18,6 +19,7 @@ const Backend = new HttpApi(null, {
 })
 
 initGamepad()
+initShortcuts()
 
 i18next
   // load translation using http -> see /public/locales
