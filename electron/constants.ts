@@ -35,8 +35,8 @@ const isFlatpak = execPath === '/app/main/heroic'
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-const configFolder = isFlatpak ? env.XDG_CONFIG_HOME : `${homedir()}/.config`
 const home = isFlatpak ? flatPakHome : homedir()
+const configFolder = isFlatpak ? env.XDG_CONFIG_HOME : `${homedir()}/.config`
 const legendaryConfigPath = `${configFolder}/legendary`
 const heroicFolder = `${configFolder}/heroic`
 const heroicConfigPath = `${heroicFolder}config.json`

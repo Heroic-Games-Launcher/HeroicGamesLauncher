@@ -1,4 +1,10 @@
-import { InstallParams, LaunchResult } from './types'
+import {
+  InstallParams,
+  LaunchResult,
+  GamepadInputEventKey,
+  GamepadInputEventWheel,
+  GamepadInputEventMouse
+} from './types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -22,7 +28,6 @@ import {
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
 import { Game } from './games'
@@ -119,8 +124,9 @@ async function createWindow(): Promise<BrowserWindow> {
 
   mainWindow.setIcon(icon)
   app.setAppUserModelId('Heroic')
+  app.commandLine.appendSwitch('enable-spatial-navigation')
 
-  if (isDev) {
+  if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
@@ -265,6 +271,7 @@ if (!gotTheLock) {
         'fa',
         'fi',
         'fr',
+        'gl',
         'hr',
         'hu',
         'ja',
@@ -1046,4 +1053,105 @@ ipcMain.handle('syncSaves', async (event, args) => {
   logInfo(`${stdout}`)
   logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`
+})
+
+// Simulate keyboard and mouse actions as if the real input device is used
+ipcMain.handle('gamepadAction', async (event, args) => {
+  const [action, metadata] = args
+  const window = BrowserWindow.getAllWindows()[0]
+  const inputEvents: (
+    | GamepadInputEventKey
+    | GamepadInputEventWheel
+    | GamepadInputEventMouse
+  )[] = []
+
+  /*
+   * How to extend:
+   *
+   * Valid values for type are 'keyDown', 'keyUp' and 'char'
+   * Valid values for keyCode are defined here:
+   * https://www.electronjs.org/docs/latest/api/accelerator#available-key-codes
+   *
+   */
+  switch (action) {
+    case 'rightStickUp':
+      inputEvents.push({
+        type: 'mouseWheel',
+        deltaY: 50,
+        x: window.getBounds().width / 2,
+        y: window.getBounds().height / 2
+      })
+      break
+    case 'rightStickDown':
+      inputEvents.push({
+        type: 'mouseWheel',
+        deltaY: -50,
+        x: window.getBounds().width / 2,
+        y: window.getBounds().height / 2
+      })
+      break
+    case 'leftStickUp':
+    case 'leftStickDown':
+    case 'leftStickLeft':
+    case 'leftStickRight':
+    case 'padUp':
+    case 'padDown':
+    case 'padLeft':
+    case 'padRight':
+      // spatial navigation
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: action.replace(/pad|leftStick/, '')
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: action.replace(/pad|leftStick/, '')
+      })
+      break
+    case 'leftClick':
+      inputEvents.push({
+        type: 'mouseDown',
+        button: 'left',
+        x: metadata.x,
+        y: metadata.y
+      })
+      inputEvents.push({
+        type: 'mouseUp',
+        button: 'left',
+        x: metadata.x,
+        y: metadata.y
+      })
+      break
+    case 'rightClick':
+      inputEvents.push({
+        type: 'mouseDown',
+        button: 'right',
+        x: metadata.x,
+        y: metadata.y
+      })
+      inputEvents.push({
+        type: 'mouseUp',
+        button: 'right',
+        x: metadata.x,
+        y: metadata.y
+      })
+      break
+    case 'back':
+      window.webContents.goBack()
+      break
+    case 'esc':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'Esc'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'Esc'
+      })
+      break
+  }
+
+  if (inputEvents.length) {
+    inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
+  }
 })

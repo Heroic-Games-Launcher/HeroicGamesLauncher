@@ -7,12 +7,12 @@
             "title": "Aggiornamento disponibile"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "La cache di Heroic è stata cancellata!",
+            "title": "Cache cancellata"
         },
         "choose": "Scegli",
         "choose-egs-prefix": "Scegli il prefix dove EGS è installato",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Seleziona binari Legendary",
         "customWine": "Scegli fra il binario Wine o Proton",
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "error": {
@@ -48,8 +48,8 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "Sei sicuro di voler resettare Heroic? Questo rimuoverà tutte le Impostazioni e la Cache ma non rimuoverà i tuoi giochi Installati o le tue credenziali Epic",
+                "title": "Ripristina Heroic"
             }
         },
         "runexe": {
@@ -60,19 +60,19 @@
             "exe": "Seleziona l'EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Sono stati creati i collegamenti sul Desktop e nel menu Start",
+            "title": "Collegamenti"
         },
         "sync": {
             "button": "Scegli",
             "error": "Percorso non valido",
             "title": "Seleziona la cartella dei salvataggi"
         },
-        "wineprefix": "Seleziona la cartella del prefix di Wine",
+        "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI"
     },
     "button": {
-        "login": "Login",
+        "login": "Accedi",
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione"
@@ -114,11 +114,15 @@
         "requirements": "Requisiti di sistema"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Seleziona percorso di installazione"
     },
     "Library": "Libreria",
     "loading": {
-        "website": "Loading Website"
+        "website": "Caricamento sito web incorso"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Sincronizzazione completata",
@@ -128,8 +132,8 @@
     "Not Ready": "Non ancora pronto",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Errore nello spostamento del gioco",
+            "reparing": "Errore nella riparazione"
         },
         "finished": {
             "reparing": "Riparazione completata"
@@ -137,15 +141,15 @@
         "install": {
             "canceled": "Installazione annullata",
             "finished": "Installazione completata",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Gioco importato",
+            "startInstall": "Installazione avviata"
         },
         "moved": "Spostamento completato",
         "uninstalled": "Disinstallazione completata",
         "update": {
             "canceled": "Aggiornamento annullato",
             "finished": "Aggiornamento completato",
-            "started": "Update Started"
+            "started": "Aggiornamento avviato"
         }
     },
     "options": {
@@ -159,11 +163,11 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Versione Legendary: ",
         "weblate": "Aiuta a tradurre Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "In uso i binari Legendary integrati...",
         "egs-prefix": "Prefix dove è installato EGS"
     },
     "Plugins": "Plugins",
@@ -175,7 +179,7 @@
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Seleziona binari Legendary alternativi (richiede riavvio)",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK/VKD3D sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
@@ -218,16 +222,16 @@
             "title": "Effettua l'aggiornamento forzato della cartella dei giochi sul cloud"
         },
         "showfps": "Mostra FPS (DX9, 10 e 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Mostra Unreal Marketplace (richiede riavvio)",
         "start-in-tray": "Avvio Minimizzato",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Bottiglia CrossOver",
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine"
     },
     "Settings": "Impostazioni",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Pulisci cache Heroic",
+        "copyToClipboard": "Copia tutte le impostazioni negli appunti",
         "navbar": {
             "general": "Generale",
             "other": "Altro",
@@ -236,8 +240,8 @@
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Caricamento elenco dei giochi, attendere",
+        "logging": "Sto accedendo..."
     },
     "store": "Negozio",
     "title": {

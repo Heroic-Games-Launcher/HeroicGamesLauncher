@@ -7,12 +7,12 @@
             "title": "Actualización disponible"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "¡El caché de Heroic ha sido limpiado!",
+            "title": "Caché borrado"
         },
         "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Seleccione el binario de Legendary",
         "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
@@ -48,8 +48,8 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "¿Estás seguro de que quieres reiniciar Heroic? Esto eliminará todos los ajustes y el almacenamiento en caché, pero no eliminará tus juegos instalados o tus credenciales de Epic",
+                "title": "Restablecer Heroic"
             }
         },
         "runexe": {
@@ -57,22 +57,22 @@
         },
         "select": {
             "button": "Seleccionar",
-            "exe": "Select EXE"
+            "exe": "Seleccione EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Se han creado accesos directos en el Escritorio y en el Menú Inicio",
+            "title": "Accesos directos"
         },
         "sync": {
             "button": "Elegir",
             "error": "Ruta no válida",
             "title": "Elija el directorio de guardado"
         },
-        "wineprefix": "Elija la carpeta Wine-Prefix",
+        "wineprefix": "Elija la carpeta de Wine-Prefix",
         "yes": "SÍ"
     },
     "button": {
-        "login": "Login",
+        "login": "Iniciar sesión",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Desincronizar"
@@ -114,11 +114,15 @@
         "requirements": "Requisitos del sistema"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Seleccione la ruta de instalación"
     },
     "Library": "Biblioteca",
     "loading": {
-        "website": "Loading Website"
+        "website": "Cargando el sitio web"
+    },
+    "login": {
+        "loginWithEpic": "Iniciar sesión con Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Sincronización completa",
@@ -128,8 +132,8 @@
     "Not Ready": "No listo",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Error al mover el juego",
+            "reparing": "Error durante la reparación"
         },
         "finished": {
             "reparing": "Reparación terminada"
@@ -137,15 +141,15 @@
         "install": {
             "canceled": "Instalación cancelada",
             "finished": "Instalación terminado",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Juego importado",
+            "startInstall": "Instalación iniciada"
         },
         "moved": "Movimiento terminado",
         "uninstalled": "Desinstalado",
         "update": {
             "canceled": "Actualizacion cancelado",
             "finished": "Actualizacion terminado",
-            "started": "Update Started"
+            "started": "Actualización iniciada"
         }
     },
     "options": {
@@ -159,36 +163,36 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Versión de Legendary: ",
         "weblate": "Ayuda a traducir Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
         "egs-prefix": "Prefix donde está instalado EGS"
     },
     "Plugins": "Plugins",
     "Projects": "Proyectos",
     "Ready": "Listo",
-    "Recent": "Played Recently",
+    "Recent": "Jugado recientemente",
     "Return": "Regresar",
-    "search": "Ingrese el nombre del juego aquí ...",
+    "search": "Ingrese el nombre del juego aquí…",
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Elija un binario de Legendary alternativo (requiere reinicio)",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar / actualizar DXVK/VKD3D en el Prefix",
         "autosync": "Autosyncronizar guardados",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Establecer carpeta para nuevos prefijos de Wine",
         "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
-        "esync": "Enable Esync",
+        "esync": "Activar Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
         "fsync": "Habilitar Fsync",
@@ -204,7 +208,7 @@
             "title": "Guardado de sincronización manual",
             "upload": "Upload"
         },
-        "maxRecentGames": "Juegos recientes mostrados",
+        "maxRecentGames": "Jugado recientemente para mostrar",
         "maxworkers": "Número máximo de descargas",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
@@ -218,7 +222,7 @@
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Mostrar la tienda de Unreal (requiere reiniciar)",
         "start-in-tray": "Iniciar minimizado",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
@@ -226,36 +230,36 @@
     },
     "Settings": "Ajustes",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Borrar la caché de Heroic",
+        "copyToClipboard": "Copiar todas las configuraciones al portapapeles",
         "navbar": {
             "general": "General",
             "other": "Otro",
             "sync": "Guardar-Sincronizar"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Restablecer Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Cargando la lista de juegos, por favor espere",
+        "logging": "Iniciando sesión…"
     },
     "store": "Tienda",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Todos los juegos",
+        "allUnreal": "Unreal - Todo",
+        "downloading": "Descargando",
+        "installedGames": "Juegos instalados",
+        "notInstalledGames": "No instalado",
+        "unrealAssets": "Unreal - Recursos",
+        "unrealPlugins": "Unreal - Plug-ins",
+        "unrealProjects": "Unreal - Proyectos",
+        "updates": "Actualizaciones pendientes"
     },
     "tooltip": {
         "addpath": "Agregar una nueva ruta",
         "removepath": "Eliminar ruta"
     },
-    "Total Games": "Juegos totales",
+    "Total Games": "Total de juegos",
     "tray": {
         "about": "Acerca",
         "quit": "Salir",

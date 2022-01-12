@@ -30,7 +30,7 @@
             "message": "Има ново обновление за играта. Искате ли да я обновите?",
             "title": "Играта се нуждае от обновяване"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Изберете папка за префикс на Wine",
         "yes": "ДА"
     },
     "button": {
@@ -67,7 +67,7 @@
         "version": "Версия"
     },
     "install": {
-        "path": "Select Install Path",
+        "path": "Изберете местоположение за инсталиране",
         "wineprefix": "WinePrefix"
     },
     "label": {

@@ -2,9 +2,6 @@
     "button": {
         "login": "Bejelentkezés"
     },
-    "info": {
-        "needHelp": "Need Help?"
-    },
     "input": {
         "placeholder": "Illeszd az SID számodat ide"
     },

@@ -65,6 +65,7 @@ module.exports = {
     'fa',
     'fi',
     'fr',
+    'gl',
     'hr',
     'hu',
     'ja',

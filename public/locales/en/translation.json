@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
@@ -227,7 +231,7 @@
     "Settings": "Settings",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Copy All Settings to Clipboard",
         "navbar": {
             "general": "General",
             "other": "Other",
