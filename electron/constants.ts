@@ -34,23 +34,19 @@ const isWindows = platform() === 'win32'
 const isFlatpak = execPath === '/app/main/heroic'
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
-const flatPakHome = env.XDG_DATA_HOME.replace('/data', '')
+const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
+const configFolder = isFlatpak ? env.XDG_CONFIG_HOME : `${homedir()}/.config`
 const home = isFlatpak ? flatPakHome : homedir()
-const legendaryConfigPath = isFlatpak
-  ? `${home}/config/legendary`
-  : `${home}/.config/legendary`
-console.log({ home, legendaryConfigPath })
-const heroicFolder = isFlatpak
-  ? `${home}/config/Heroic/`
-  : `${home}/.config/Heroic/`
+const legendaryConfigPath = `${configFolder}/legendary`
+const heroicFolder = `${configFolder}/heroic`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
 const heroicIconFolder = `${heroicFolder}icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows
-  ? `${home}\\Games\\Heroic`
-  : `${home}/Games/Heroic`
+  ? `${home}\\Games\\heroic`
+  : `${home}/Games/heroic`
 const legendaryBin = getLegendaryBin()
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
 const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
