@@ -5,7 +5,7 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '21.08'
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node14
+  - org.freedesktop.Sdk.Extension.node16
 command: run.sh
 separate-locales: false
 finish-args:
@@ -18,30 +18,23 @@ finish-args:
   - --share=network
   - --filesystem=host
   - --talk-name=org.freedesktop.Notifications
+  - --persist=.wine
+  - --filesystem=xdg-data/Steam:ro
+  - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
 build-options:
-  build-args:
-    - --share=network
-  append-path: /usr/lib/sdk/node14/bin
+  append-path: /usr/lib/sdk/node16/bin
   cflags: -O2 -g
   cxxflags: -O2 -g
   env:
     NPM_CONFIG_LOGLEVEL: info
 modules:
-  - name: legendary
-    buildsystem: simple
-    build-commands:
-      - pip3 install --prefix=/app --no-deps .
-    sources:
-      - type: archive
-        url: https://files.pythonhosted.org/packages/58/e5/4189abbc61491a5f870961f05692d0f7e6c825ccae861805f186c87834c4/legendary-gl-0.20.22.tar.gz
-        sha256: d05b069ce88113a01f8d40fb79475cf4dfba957ac15a50284951f0486ef225be
   - name: heroic
     buildsystem: simple
     build-options:
       env:
         XDG_CACHE_HOME: /run/build/heroic/flatpak-node/cache
         npm_config_cache: /run/build/heroic/flatpak-node/node-cache
-        npm_config_nodedir: /usr/lib/sdk/node14
+        npm_config_nodedir: /usr/lib/sdk/node16
         npm_config_offline: 'true'
     subdir: main
     sources:

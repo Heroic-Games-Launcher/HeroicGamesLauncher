@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+# pyright: strict
+
 __license__ = 'MIT'
 
-from typing import *
+from typing import *  # pyright: reportWildcardImportFromLibrary=false
 # Explictly import these.
 from typing import cast, IO
 
@@ -31,13 +33,27 @@ import urllib.request
 DEFAULT_PART_SIZE = 4096
 
 GIT_SCHEMES: Dict[str, Dict[str, str]] = {
-    'github': {'scheme': 'https', 'netloc': 'github.com'},
-    'gitlab': {'scheme': 'https', 'netloc': 'gitlab.com'},
-    'bitbucket': {'scheme': 'https', 'netloc': 'bitbucket.com'},
+    'github': {
+        'scheme': 'https',
+        'netloc': 'github.com'
+    },
+    'gitlab': {
+        'scheme': 'https',
+        'netloc': 'gitlab.com'
+    },
+    'bitbucket': {
+        'scheme': 'https',
+        'netloc': 'bitbucket.com'
+    },
     'git': {},
-    'git+http': {'scheme': 'http'},
-    'git+https': {'scheme': 'https'},
+    'git+http': {
+        'scheme': 'http'
+    },
+    'git+https': {
+        'scheme': 'https'
+    },
 }
+
 GIT_URL_PATTERNS = [
     re.compile(r'^git:'),
     re.compile(r'^git\+.+:'),
@@ -45,12 +61,10 @@ GIT_URL_PATTERNS = [
     re.compile(r'^https?:.+\.git$'),
     re.compile(r'^https?:.+\.git#.+'),
 ]
-GIT_URL_HOSTS = [
-    'github.com',
-    'gitlab.com',
-    'bitbucket.com',
-    'bitbucket.org'
-]
+
+GIT_URL_HOSTS = ['github.com', 'gitlab.com', 'bitbucket.com', 'bitbucket.org']
+
+NPM_MIRROR = 'https://unpkg.com/'
 
 
 class Cache:
@@ -75,7 +89,7 @@ class Cache:
 
         def __exit__(self, exc_type: Optional[Type[BaseException]],
                      exc_value: Optional[BaseException],
-                     traceback: Optional[types.TracebackType]):
+                     traceback: Optional[types.TracebackType]) -> None:
             self.close()
 
     class BucketWriter:
@@ -93,7 +107,7 @@ class Cache:
 
         def __exit__(self, exc_type: Optional[Type[BaseException]],
                      exc_value: Optional[BaseException],
-                     traceback: Optional[types.TracebackType]):
+                     traceback: Optional[types.TracebackType]) -> None:
             if traceback is None:
                 self.seal()
             else:
@@ -380,7 +394,7 @@ class Integrity(NamedTuple):
         return Integrity('sha1', sha1)
 
     @staticmethod
-    def generate(data: AnyStr, *, algorithm: str = 'sha256') -> 'Integrity':
+    def generate(data: Union[str, bytes], *, algorithm: str = 'sha256') -> 'Integrity':
         builder = IntegrityBuilder(algorithm)
         builder.update(data)
         return builder.build()
@@ -401,7 +415,7 @@ class IntegrityBuilder:
         self.algorithm = algorithm
         self._hasher = hashlib.new(algorithm)
 
-    def update(self, data: AnyStr) -> None:
+    def update(self, data: Union[str, bytes]) -> None:
         data_bytes: bytes
         if isinstance(data, str):
             data_bytes = data.encode()
@@ -520,7 +534,9 @@ class ManifestGenerator(contextlib.AbstractContextManager):
         self._sources: Set[Tuple[Tuple[str, Any], ...]] = set()
         self._commands: List[str] = []
 
-    def __exit__(self, *_: Any) -> None:
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_value: Optional[BaseException],
+                 tb: Optional[types.TracebackType]) -> None:
         self._finalize()
 
     @property
@@ -535,13 +551,13 @@ class ManifestGenerator(contextlib.AbstractContextManager):
     def source_count(self) -> int:
         return len(self._sources)
 
-    def ordered_sources(self) -> Iterator[Dict]:
+    def ordered_sources(self) -> Iterator[Dict[Any, Any]]:
         return map(dict, sorted(self._sources))  # type: ignore
 
-    def split_sources(self) -> Iterator[List[Dict]]:
+    def split_sources(self) -> Iterator[List[Dict[Any, Any]]]:
         BASE_CURRENT_SIZE = len('[\n]')
         current_size = BASE_CURRENT_SIZE
-        current: List[Dict] = []
+        current: List[Dict[Any, Any]] = []
 
         for source in self.ordered_sources():
             # Generate one source by itself, then check the length without the closing and
@@ -613,8 +629,19 @@ class ManifestGenerator(contextlib.AbstractContextManager):
                                           is_dir=True,
                                           only_arches=only_arches)
 
-    def add_data_source(self, data: AnyStr, destination: Path) -> None:
-        source = {'type': 'file', 'url': 'data:' + urllib.parse.quote(data)}
+    def add_data_source(self, data: Union[str, bytes], destination: Path) -> None:
+        if isinstance(data, bytes):
+            source = {
+                'type': 'inline',
+                'contents': base64.b64encode(data).decode('ascii'),
+                'base64': True,
+            }
+        else:
+            assert isinstance(data, str)
+            source = {
+                'type': 'inline', 
+                'contents': data,
+            }
         self._add_source_with_destination(source, destination, is_dir=False)
 
     def add_git_source(self,
@@ -631,7 +658,7 @@ class ManifestGenerator(contextlib.AbstractContextManager):
     def add_shell_source(self,
                          commands: List[str],
                          destination: Optional[Path] = None,
-                         only_arches: Optional[List[str]] = None):
+                         only_arches: Optional[List[str]] = None) -> None:
         """This might be slow for multiple instances. Use `add_command()` instead."""
         source = {'type': 'shell', 'commands': tuple(commands)}
         self._add_source_with_destination(source,
@@ -648,7 +675,10 @@ class ManifestGenerator(contextlib.AbstractContextManager):
 
 
 class LockfileProvider:
-    def parse_git_source(self, version: str, from_: str = None) -> GitSource:
+    def parse_git_source(self, version: str, from_: Optional[str] = None) -> GitSource:
+        # https://github.com/microsoft/pyright/issues/1589
+        # pyright: reportPrivateUsage=false
+
         original_url = urllib.parse.urlparse(version)
         assert original_url.scheme and original_url.path and original_url.fragment
 
@@ -749,6 +779,9 @@ class SpecialSourceProvider:
         node_chromedriver_from_electron: str
         electron_ffmpeg: str
         electron_node_headers: bool
+        nwjs_version: str
+        nwjs_node_headers: bool
+        nwjs_ffmpeg: bool
         xdg_layout: bool
 
     def __init__(self, gen: ManifestGenerator, options: Options):
@@ -756,6 +789,9 @@ class SpecialSourceProvider:
         self.node_chromedriver_from_electron = options.node_chromedriver_from_electron
         self.electron_ffmpeg = options.electron_ffmpeg
         self.electron_node_headers = options.electron_node_headers
+        self.nwjs_version = options.nwjs_version
+        self.nwjs_node_headers = options.nwjs_node_headers
+        self.nwjs_ffmpeg = options.nwjs_ffmpeg
         self.xdg_layout = options.xdg_layout
 
     @property
@@ -768,7 +804,7 @@ class SpecialSourceProvider:
                                       manager: ElectronBinaryManager,
                                       binary_name: str,
                                       *,
-                                      add_integrities=True) -> None:
+                                      add_integrities: bool = True) -> None:
         electron_cache_dir = self.electron_cache_dir
 
         for binary in manager.find_binaries(binary_name):
@@ -783,18 +819,18 @@ class SpecialSourceProvider:
 
                 #And for @electron/get >= 1.12.4 its sha256 hash of url dirname
                 url = urllib.parse.urlparse(binary.url)
-                url_dir = urllib.parse.urlunparse(url._replace(path=os.path.dirname(url.path)))
+                url_dir = urllib.parse.urlunparse(
+                    url._replace(path=os.path.dirname(url.path)))
                 url_hash = hashlib.sha256(url_dir.encode()).hexdigest()
 
-                self.gen.add_shell_source(
-                    [
-                        f'mkdir -p "{sanitized_url}"',
-                        f'ln -s "../{binary.filename}" "{sanitized_url}/{binary.filename}"',
-                        f'mkdir -p "{url_hash}"',
-                        f'ln -s "../{binary.filename}" "{url_hash}/{binary.filename}"'
-                    ],
-                    destination=electron_cache_dir,
-                    only_arches=[binary.arch.flatpak])
+                self.gen.add_shell_source([
+                    f'mkdir -p "{sanitized_url}"',
+                    f'ln -s "../{binary.filename}" "{sanitized_url}/{binary.filename}"',
+                    f'mkdir -p "{url_hash}"',
+                    f'ln -s "../{binary.filename}" "{url_hash}/{binary.filename}"'
+                ],
+                                          destination=electron_cache_dir,
+                                          only_arches=[binary.arch.flatpak])
 
         if add_integrities:
             integrity_file = manager.integrity_file
@@ -845,7 +881,7 @@ class SpecialSourceProvider:
     async def _get_chromedriver_binary_version(self, package: Package) -> str:
         # Note: node-chromedriver seems to not have tagged all releases on GitHub, so
         # just use unpkg instead.
-        url = f'https://unpkg.com/chromedriver@{package.version}/lib/chromedriver'
+        url = urllib.parse.urljoin(NPM_MIRROR, f'chromedriver@{package.version}/lib/chromedriver')
         js = await Requests.instance.read_all(url, cachable=True)
         # XXX: a tad ugly
         match = re.search(r"exports\.version = '([^']+)'", js.decode())
@@ -880,8 +916,62 @@ class SpecialSourceProvider:
                                         destination=destination,
                                         only_arches=['x86_64'])
 
+    async def _add_nwjs_cache_downloads(self, version: str, flavor: str = 'normal'):
+        assert not version.startswith('v')
+        nwjs_mirror = 'https://dl.nwjs.io'
+        ffmpeg_dl_base = 'https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases/download'
+
+        if self.nwjs_node_headers:
+            headers_dl_url = f'{nwjs_mirror}/v{version}/nw-headers-v{version}.tar.gz'
+            headers_dest = self.gen.data_root / 'node-gyp' / 'nwjs-current'
+            headers_metadata = await RemoteUrlMetadata.get(headers_dl_url, cachable=True)
+            self.gen.add_archive_source(headers_dl_url,
+                                        headers_metadata.integrity,
+                                        destination=headers_dest)
+
+        if flavor == 'normal':
+            filename_base = 'nwjs'
+        else:
+            filename_base = f'nwjs-{flavor}'
+
+        destdir = self.gen.data_root / 'nwjs-cache'
+        nwjs_arch_map = [
+            ('x86_64', 'linux-x64', 'linux64'),
+            ('i386', 'linux-ia32', 'linux32'),
+        ]
+        for flatpak_arch, nwjs_arch, platform in nwjs_arch_map:
+            filename = f'{filename_base}-v{version}-{nwjs_arch}.tar.gz'
+            dl_url = f'{nwjs_mirror}/v{version}/{filename}'
+            metadata = await RemoteUrlMetadata.get(dl_url, cachable=True)
+            dest = destdir / f'{version}-{flavor}' / platform
+
+            self.gen.add_archive_source(dl_url,
+                                        metadata.integrity,
+                                        destination=dest,
+                                        only_arches=[flatpak_arch])
+
+            if self.nwjs_ffmpeg:
+                ffmpeg_dl_url = f'{ffmpeg_dl_base}/{version}/{version}-{nwjs_arch}.zip'
+                ffmpeg_metadata = await RemoteUrlMetadata.get(ffmpeg_dl_url, cachable=True)
+                self.gen.add_archive_source(ffmpeg_dl_url,
+                                            ffmpeg_metadata.integrity,
+                                            destination=dest,
+                                            strip_components=0,
+                                            only_arches=[flatpak_arch])
+
+    async def _handle_nw_builder(self, package: Package) -> None:
+        if self.nwjs_version:
+            version = self.nwjs_version
+        else:
+            versions_json = json.loads(await Requests.instance.read_all(
+                'https://nwjs.io/versions.json', cachable=False))
+            version = versions_json['latest'].lstrip('v')
+        await self._add_nwjs_cache_downloads(version)
+        self.gen.add_data_source(version, destination=self.gen.data_root / 'nwjs-version')
+
     async def _handle_dugite_native(self, package: Package) -> None:
-        dl_json_url = f'https://github.com/desktop/dugite/raw/v{package.version}/script/embedded-git.json'
+        dl_json_url = urllib.parse.urljoin(
+            NPM_MIRROR, f'{package.name}@{package.version}/script/embedded-git.json')
         dl_json = json.loads(await Requests.instance.read_all(dl_json_url, cachable=True))
         dugite_arch_map = {
             'x86_64': 'linux-x64',
@@ -899,7 +989,7 @@ class SpecialSourceProvider:
                                     only_arches=[arch])
 
     async def _handle_ripgrep_prebuilt(self, package: Package) -> None:
-        async def get_ripgrep_tag(version):
+        async def get_ripgrep_tag(version: str) -> str:
             url = f'https://github.com/microsoft/vscode-ripgrep/raw/v{version}/lib/postinstall.js'
             tag_re = re.compile(r"VERSION\s+=\s+'(v[\d.-]+)';")
             resp = await Requests.instance.read_all(url, cachable=True)
@@ -926,16 +1016,25 @@ class SpecialSourceProvider:
 
     async def _handle_playwright(self, package: Package) -> None:
         base_url = f'https://github.com/microsoft/playwright/raw/v{package.version}/'
-        browsers_json_url = base_url + 'browsers.json'
+        if StrictVersion(package.version) >= StrictVersion('1.16.0'):
+            browsers_json_url = base_url + 'packages/playwright-core/browsers.json'
+        else:
+            browsers_json_url = base_url + 'browsers.json'
         browsers_json = json.loads(await Requests.instance.read_all(browsers_json_url,
                                                                     cachable=True))
         for browser in browsers_json['browsers']:
+            if not browser.get('installByDefault', True):
+                continue
             name = browser['name']
             revision = int(browser['revision'])
 
             if name == 'chromium':
-                url_tp = 'https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/%d/%s'
-                dl_file = 'chrome-linux.zip'
+                if revision < 792639:
+                    url_tp = 'https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/%d/%s'
+                    dl_file = 'chrome-linux.zip'
+                else:
+                    url_tp = 'https://playwright.azureedge.net/builds/chromium/%d/%s'
+                    dl_file = 'chromium-linux.zip'
             elif name == 'firefox':
                 url_tp = 'https://playwright.azureedge.net/builds/firefox/%d/%s'
                 if revision < 1140:
@@ -948,6 +1047,11 @@ class SpecialSourceProvider:
                     dl_file = 'minibrowser-gtk-wpe.zip'
                 else:
                     dl_file = 'webkit-ubuntu-20.04.zip'
+            elif name == 'ffmpeg':
+                url_tp = 'https://playwright.azureedge.net/builds/ffmpeg/%d/%s'
+                dl_file = 'ffmpeg-linux.zip'
+            else:
+                raise ValueError(f'Unknown playwright browser {name}')
 
             dl_url = url_tp % (revision, dl_file)
             metadata = await RemoteUrlMetadata.get(dl_url, cachable=True)
@@ -995,7 +1099,7 @@ class SpecialSourceProvider:
     def _handle_electron_builder(self, package: Package) -> None:
         destination = self.gen.data_root / 'electron-builder-arch-args.sh'
 
-        script = []
+        script: List[str] = []
         script.append('case "$FLATPAK_ARCH" in')
 
         for electron_arch, flatpak_arch in (
@@ -1025,7 +1129,9 @@ class SpecialSourceProvider:
             self._handle_electron_builder(package)
         elif package.name == 'gulp-atom-electron':
             self._handle_gulp_atom_electron(package)
-        elif package.name == 'dugite':
+        elif package.name == 'nw-builder':
+            await self._handle_nw_builder(package)
+        elif package.name in {'dugite', '@shiftkey/dugite'}:
             await self._handle_dugite_native(package)
         elif package.name == 'vscode-ripgrep':
             await self._handle_ripgrep_prebuilt(package)
@@ -1042,8 +1148,9 @@ class NpmLockfileProvider(LockfileProvider):
     def __init__(self, options: Options):
         self.no_devel = options.no_devel
 
-    def process_dependencies(self, lockfile: Path,
-                             dependencies: Dict[str, Dict]) -> Iterator[Package]:
+    def process_dependencies(
+            self, lockfile: Path,
+            dependencies: Dict[str, Dict[Any, Any]]) -> Iterator[Package]:
         for name, info in dependencies.items():
             if info.get('dev') and self.no_devel:
                 continue
@@ -1083,7 +1190,7 @@ class NpmModuleProvider(ModuleProvider):
 
     class RegistryPackageIndex(NamedTuple):
         url: str
-        data: Dict
+        data: Dict[Any, Any]
         used_versions: Set[str]
 
     def __init__(self, gen: ManifestGenerator, special: SpecialSourceProvider,
@@ -1105,7 +1212,9 @@ class NpmModuleProvider(ModuleProvider):
         self.git_sources: DefaultDict[Path, Dict[
             Path, GitSource]] = collections.defaultdict(lambda: {})
 
-    def __exit__(self, *_: Any) -> None:
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_value: Optional[BaseException],
+                 tb: Optional[types.TracebackType]) -> None:
         self._finalize()
 
     def get_cacache_integrity_path(self, integrity: Integrity) -> Path:
@@ -1151,7 +1260,7 @@ class NpmModuleProvider(ModuleProvider):
             cache_future = asyncio.get_event_loop().create_future()
             self.registry_packages[package.name] = cache_future
 
-            data_url = f'{self.registry}/{package.name}'
+            data_url = f'{self.registry}/{package.name.replace("/", "%2f")}'
             # NOTE: Not cachable, because this is an API call.
             raw_data = await Requests.instance.read_all(data_url, cachable=False)
             data = json.loads(raw_data)
@@ -1208,6 +1317,7 @@ class NpmModuleProvider(ModuleProvider):
 
             await self.special_source_provider.generate_special_sources(package)
 
+        # pyright: reportUnnecessaryIsInstance=false
         elif isinstance(source, GitSource):
             # Get a unique name to use for the Git repository folder.
             name = f'{package.name}-{source.commit}'
@@ -1219,7 +1329,7 @@ class NpmModuleProvider(ModuleProvider):
         return lockfile.parent.relative_to(self.lockfile_root)
 
     def _finalize(self) -> None:
-        for name, async_index in self.registry_packages.items():
+        for _, async_index in self.registry_packages.items():
             index = async_index.result()
 
             if not self.no_trim_index:
@@ -1241,7 +1351,7 @@ class NpmModuleProvider(ModuleProvider):
             # Generate jq scripts to patch the package*.json files.
             scripts = {
                 'package.json':
-                    '''
+                    r'''
                     walk(
                         if type == "object"
                         then
@@ -1256,7 +1366,7 @@ class NpmModuleProvider(ModuleProvider):
                     )
                 ''',
                 'package-lock.json':
-                    '''
+                    r'''
                     walk(
                         if type == "object" and (.version | type == "string") and $data[.version]
                         then
@@ -1275,7 +1385,7 @@ class NpmModuleProvider(ModuleProvider):
                 }
 
                 for path, source in sources.items():
-                    original_version = f'{source.original}#{source.commit}'
+                    original_version = f'{source.original}'
                     new_version = f'{path}#{source.commit}'
                     assert source.from_ is not None
                     data['package.json'][source.from_] = new_version
@@ -1312,34 +1422,13 @@ class NpmModuleProvider(ModuleProvider):
             self.gen.add_command(f'FLATPAK_BUILDER_BUILDDIR=$PWD {patch_all_dest}')
 
         if self.index_entries:
-            # (ab-)use a "script" module to generate the index.
-            parents: Set[str] = set()
-
-            for path in self.index_entries:
-                for parent in map(str, path.relative_to(self.cacache_dir).parents):
-                    if parent != '.':
-                        parents.add(parent)
-
-            index_commands: List[str] = []
-            index_commands.append('import os')
-            index_commands.append(f'os.chdir({str(self.cacache_dir)!r})')
-
-            for parent in sorted(parents, key=len):
-                index_commands.append(f'os.makedirs({parent!r}, exist_ok=True)')
-
             for path, entry in self.index_entries.items():
-                path = path.relative_to(self.cacache_dir)
-                index_commands.append(f'with open({str(path)!r}, "w") as fp:')
-                index_commands.append(f'    fp.write({entry!r})')
-
-            script_dest = self.gen.data_root / 'generate-index.py'
-            self.gen.add_script_source(index_commands, script_dest)
-            self.gen.add_command(f'python3 {script_dest}')
+                self.gen.add_data_source(entry, path)
 
 
 class YarnLockfileProvider(LockfileProvider):
     @staticmethod
-    def is_git_version(version) -> bool:
+    def is_git_version(version: str) -> bool:
         for pattern in GIT_URL_PATTERNS:
             if pattern.match(version):
                 return True
@@ -1370,6 +1459,7 @@ class YarnLockfileProvider(LockfileProvider):
 
         section_indent = 0
 
+        line = None
         for line in section[1:]:
             indent = 0
             while line[indent].isspace():
@@ -1431,7 +1521,9 @@ class YarnModuleProvider(ModuleProvider):
         self.special_source_provider = special
         self.mirror_dir = self.gen.data_root / 'yarn-mirror'
 
-    def __exit__(self, *_: Any) -> None:
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_value: Optional[BaseException],
+                 tb: Optional[types.TracebackType]) -> None:
         pass
 
     async def generate_package(self, package: Package) -> None:
@@ -1448,7 +1540,8 @@ class YarnModuleProvider(ModuleProvider):
             else:
                 filename = os.path.basename(url_parts.path)
 
-            self.gen.add_url_source(source.resolved, integrity, self.mirror_dir / filename)
+            self.gen.add_url_source(source.resolved, integrity,
+                                    self.mirror_dir / filename)
 
         elif isinstance(source, GitSource):
             repo_name = urllib.parse.urlparse(source.url).path.split('/')[-1]
@@ -1457,7 +1550,8 @@ class YarnModuleProvider(ModuleProvider):
             target_tar = os.path.relpath(self.mirror_dir / name, repo_dir)
 
             self.gen.add_git_source(source.url, source.commit, repo_dir)
-            self.gen.add_command(f'cd {repo_dir}; git archive --format tar -o {target_tar} HEAD')
+            self.gen.add_command(
+                f'cd {repo_dir}; git archive --format tar -o {target_tar} HEAD')
 
         await self.special_source_provider.generate_special_sources(package)
 
@@ -1509,7 +1603,9 @@ class GeneratorProgress(contextlib.AbstractContextManager):
         self.previous_package: Optional[Package] = None
         self.current_package: Optional[Package] = None
 
-    def __exit__(self, *_: Any) -> None:
+    def __exit__(self, exc_type: Optional[Type[BaseException]],
+                 exc_value: Optional[BaseException],
+                 tb: Optional[types.TracebackType]) -> None:
         print()
 
     def _format_package(self, package: Package, max_width: int) -> str:
@@ -1547,11 +1643,12 @@ class GeneratorProgress(contextlib.AbstractContextManager):
 
     async def run(self) -> None:
         self._update()
-        await asyncio.wait(map(self._generate, self.packages))
+        await asyncio.wait(
+            [asyncio.create_task(self._generate(pkg)) for pkg in self.packages])
 
 
 def scan_for_lockfiles(base: Path, patterns: List[str]) -> Iterator[Path]:
-    for root, dirs, files in os.walk(base.parent):
+    for root, _, files in os.walk(base.parent):
         if base.name in files:
             lockfile = Path(root) / base.name
             if not patterns or any(map(lockfile.match, patterns)):
@@ -1612,10 +1709,17 @@ async def main() -> None:
     parser.add_argument('--electron-chromedriver', help=argparse.SUPPRESS)
     parser.add_argument('--electron-ffmpeg',
                         choices=['archive', 'lib'],
-                        help='Download the ffmpeg binaries')
+                        help='Download prebuilt ffmpeg for matching electron version')
     parser.add_argument('--electron-node-headers',
                         action='store_true',
                         help='Download the electron node headers')
+    parser.add_argument('--nwjs-version',
+                        help='Specify NW.js version (will use latest otherwise)')
+    parser.add_argument('--nwjs-node-headers',
+                        action='store_true',
+                        help='Download the NW.js node headers')
+    parser.add_argument('--nwjs-ffmpeg', action='store_true',
+                        help='Download prebuilt ffmpeg for current NW.js version')
     parser.add_argument('--xdg-layout',
                         action='store_true',
                         help='Use XDG layout for caches')
@@ -1683,6 +1787,9 @@ async def main() -> None:
         options = SpecialSourceProvider.Options(
             node_chromedriver_from_electron=args.node_chromedriver_from_electron
             or args.electron_chromedriver,
+            nwjs_version=args.nwjs_version,
+            nwjs_node_headers=args.nwjs_node_headers,
+            nwjs_ffmpeg=args.nwjs_ffmpeg,
             xdg_layout=args.xdg_layout,
             electron_ffmpeg=args.electron_ffmpeg,
             electron_node_headers=args.electron_node_headers)
@@ -1695,19 +1802,18 @@ async def main() -> None:
         if args.xdg_layout:
             script_name = "setup_sdk_node_headers.sh"
             node_gyp_dir = gen.data_root / "cache" / "node-gyp"
-            gen.add_script_source(
-                [   
-                    'version=$(node --version | sed "s/^v//")',
-                    'nodedir=$(dirname "$(dirname "$(which node)")")',
-                    f'mkdir -p "{node_gyp_dir}/$version"',
-                    f'ln -s "$nodedir/include" "{node_gyp_dir}/$version/include"',
-                    f'echo 9 > "{node_gyp_dir}/$version/installVersion"',
-                ],
-                destination=gen.data_root / script_name
-            )
+            gen.add_script_source([
+                'version=$(node --version | sed "s/^v//")',
+                'nodedir=$(dirname "$(dirname "$(which node)")")',
+                f'mkdir -p "{node_gyp_dir}/$version"',
+                f'ln -s "$nodedir/include" "{node_gyp_dir}/$version/include"',
+                f'echo 9 > "{node_gyp_dir}/$version/installVersion"',
+            ],
+                                  destination=gen.data_root / script_name)
             gen.add_command(f"bash {gen.data_root / script_name}")
 
     if args.split:
+        i = 0
         for i, part in enumerate(gen.split_sources()):
             output = Path(args.output)
             output = output.with_suffix(f'.{i}{output.suffix}')
@@ -1730,4 +1836,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(main())
+    asyncio.run(main())
