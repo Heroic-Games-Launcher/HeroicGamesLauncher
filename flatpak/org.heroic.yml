@@ -1,9 +1,9 @@
 app-id: org.hgl.heroic
 runtime: org.freedesktop.Platform
-runtime-version: '20.08'
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '20.08'
+base-version: '21.08'
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node14
 command: run.sh
@@ -13,6 +13,8 @@ finish-args:
   - --socket=x11
   - --socket=wayland
   - --socket=pulseaudio
+  - --allow=multiarch
+  - --allow=devel
   - --share=network
   - --filesystem=host
   - --talk-name=org.freedesktop.Notifications
@@ -54,6 +56,7 @@ modules:
       - type: script
         dest-filename: run.sh
         commands:
+          - export TMPDIR=$XDG_RUNTIME_DIR/app/$FLATPAK_ID
           - zypak-wrapper.sh /app/main/heroic "$@"
     build-commands:
       # Install npm dependencies
