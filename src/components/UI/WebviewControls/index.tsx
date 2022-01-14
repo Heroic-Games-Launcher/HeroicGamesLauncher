@@ -16,7 +16,7 @@ export default function index({ webview, initURL }: Props) {
   const [url, setUrl] = React.useState(initURL)
 
   if (webview) {
-    webview.addEventListener('did-navigate-in-page', () =>
+    webview.addEventListener('update-target-url', () =>
       setUrl(webview.getURL())
     )
   }

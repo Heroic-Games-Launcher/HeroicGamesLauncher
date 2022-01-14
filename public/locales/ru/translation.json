@@ -49,7 +49,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Вы уверены, что хотите сбросить Heroic? Это удалит все настройки и кэш, но не удалит установленные игры или ваши учетные данные Epic",
-                "title": "Reset Heroic"
+                "title": "Сброс Heroic"
             }
         },
         "runexe": {
@@ -121,8 +121,8 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "loginWithEpic": "Вход через Epic",
+        "loginWithSid": "Вход через SID"
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -231,13 +231,13 @@
     "Settings": "Настройки",
     "settings": {
         "clear-cache": "Очистить кэш Heroic",
-        "copyToClipboard": "Копировать все настройки в буфер обмена",
+        "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "navbar": {
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Сброс Heroic"
     },
     "status": {
         "loading": "Загружается список игр. Пожалуйста, подождите",
