@@ -4,3 +4,5 @@ build
 coverage
 public/index.html
 public/locales/
+flatpak/build/
+flatpak/.flatpak-builder/

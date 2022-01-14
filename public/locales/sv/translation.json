@@ -68,7 +68,6 @@
             "error": "Ogilltig sökväg",
             "title": "Väl mapp för sparfiler"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Välj wine prefix mapp",
         "yes": "Ja"
     },
@@ -121,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Synkronisering klar",
         "unsync": "Ogör synkronisering klar"
@@ -170,13 +173,13 @@
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Ready": "Nedladdade",
-    "Recent": "Senast spelade",
+    "Recent": "Spelade nyligen",
     "Return": "Tillbaka",
     "search": "Skriv in spelets namn här...",
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
-        "alt-legendary-bin": "Välj en alternativ Legendary binär att använda",
+        "alt-legendary-bin": "Välj en Alternativ Legendary binär   (kräver omstart)",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK/VKD3D i prefix",
         "autosync": "Autosynkronisera sparfiler",
@@ -185,6 +188,7 @@
         "customWineProton": "Anpassad wine/proton sökväg",
         "darktray": "Använd mörk ikon i systembrickan",
         "default-install-path": "Standard installationssökväg",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
@@ -204,7 +208,7 @@
             "title": "Manuell sparfilssynkronisering",
             "upload": "Ladda upp"
         },
-        "maxRecentGames": "Antal senaste spel som visas",
+        "maxRecentGames": "Spelade nyligen att visa",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
@@ -227,6 +231,7 @@
     "Settings": "Inställningar",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Allmänna",
@@ -267,8 +272,7 @@
         "about": "Om",
         "quit": "Avsluta",
         "reload": "Ladda om",
-        "show": "Visa",
-        "support": "Stöd oss"
+        "show": "Visa"
     },
     "Unreal Marketplace": "Unreal marknadsplats",
     "Updates": "Uppdateringar",

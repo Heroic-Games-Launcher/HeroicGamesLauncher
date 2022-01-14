@@ -68,7 +68,6 @@
             "error": "Caminho Inválido",
             "title": "Selecione o diretório com os Saves"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Escolha a pasta com o Prefixo Wine",
         "yes": "SIM"
     },
@@ -121,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Sync Concluído",
         "unsync": "Unsync Concluído"
@@ -170,7 +173,7 @@
     "Plugins": "Plugins",
     "Projects": "Projetos",
     "Ready": "Baixados",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Voltar",
     "search": "Digite o nome do jogo...",
     "setting": {
@@ -185,6 +188,7 @@
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro",
         "default-install-path": "Pasta de instalação padrão",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Habilitar Discord Rich Presence",
         "egs-sync": "Sincronizar com Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
@@ -227,6 +231,7 @@
     "Settings": "Configurações",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Geral",
@@ -267,8 +272,7 @@
         "about": "Sobre",
         "quit": "Fechar",
         "reload": "Recarregar",
-        "show": "Mostrar",
-        "support": "Apoie-nos"
+        "show": "Mostrar"
     },
     "Unreal Marketplace": "Loja Unreal",
     "Updates": "Atualizações",

@@ -3,12 +3,12 @@
         "change": {
             "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
             "path": "Seleccione la carpeta de instalación",
-            "title": "Modificar la ubicación de instalación del juego"
+            "title": "Modificar la ubicación de instalación para los juegos"
         },
         "choose": "Escoger",
         "importpath": "Elija la carpeta del juego para importar",
         "move": {
-            "message": "Esto puede llevar mucho tiempo, ¿estás seguro?",
+            "message": "Esto puede llevar mucho tiempo. ¿Estás seguro?",
             "path": "Elige la ubicación de destino",
             "title": "Mover carpeta del juego"
         },
@@ -19,7 +19,7 @@
         },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
-            "message": "¿Desea MANTENER los archivos descargados?",
+            "message": "¿Deseas MANTENER los archivos descargados?",
             "title": "Detener la instalación"
         },
         "uninstall": {
@@ -30,45 +30,45 @@
             "message": "Este juego tiene una actualización, ¿deseas actualizar ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Elija la Carpeta con el Prefijo de Wine",
         "yes": "SÍ"
     },
     "button": {
-        "cancel": "Cancelar",
+        "cancel": "Pausar/Cancelar",
         "continue": "Continuar Descarga",
-        "import": "Importar",
+        "import": "Importar juego",
         "install": "Instalar",
         "uninstall": "Desinstalar",
-        "update": "Update"
+        "update": "Actualizar"
     },
-    "disabled": "Deshabilitar",
+    "disabled": "Deshabilitado",
     "dlc": {
-        "installDlcs": "Install all DLCs",
+        "installDlcs": "Instalar todos los DLCs",
         "title": "DLCs"
     },
     "enabled": "Habilitar",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "installSize": "Install Size",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "totalPlayed": "Time Played"
+        "downloadSize": "Tamaño de Descarga",
+        "firstPlayed": "Jugado por Primera Vez",
+        "installSize": "Tamaño de Instalación",
+        "lastPlayed": "Jugado por Última Vez",
+        "neverPlayed": "Nunca",
+        "totalPlayed": "Tiempo Jugado"
     },
     "gamecard": {
         "moving": "Moviendo",
         "repairing": "Reparando"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Requiere Online",
         "path": "Instalar ruta",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
         "version": "Versión"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "Seleccione la ruta de instalación",
+        "wineprefix": "Prefijo de Wine"
     },
     "label": {
         "playing": {
@@ -80,28 +80,28 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opciones de Arranque..."
     },
     "sdl": {
-        "title": "Select components to Install"
+        "title": "Elija Componentes a Instalar"
     },
     "specs": {
-        "minimum": "mínimo",
+        "minimum": "Mínimo",
         "recommended": "recomendado"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
-        "hasUpdates": "Nueva versión disponible!",
+        "clickToUpdate": "Haga clic para actualizar",
+        "hasUpdates": "¡Nueva versión disponible!",
         "installed": "Instalado",
         "installing": "Instalando",
-        "moving": "Instalación en movimiento, espere",
+        "moving": "Moviendo la instalación, por favor, espere",
         "notinstalled": "Este juego no está instalado",
-        "reparing": "Reparando juego, espera",
-        "totalDownloaded": "Total Descargado",
+        "reparing": "Reparando el juego, por favor, espere",
+        "totalDownloaded": "Total descargado",
         "updating": "Actualización de juego"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Añadir acceso directo",
         "change": "Modificar la ubicación",
         "log": "Último registro",
         "move": "Mover juego",

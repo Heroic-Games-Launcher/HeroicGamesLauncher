@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -107,7 +107,6 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "discord-rich-presence-typescript": "^0.0.8",
-    "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.1",
     "graceful-fs": "^4.2.8",
     "heroic-wine-downloader": "^1.1.0",
@@ -123,6 +122,7 @@
     "react-i18next": "^11.8.15",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "simple-keyboard": "^3.4.24",
     "systeminformation": "^5.9.17",
     "tslib": "^2.3.1"
   },

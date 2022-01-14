@@ -37,6 +37,7 @@ export interface AppSettings {
   useGameMode: boolean
   targetExe: string
   wineCrossoverBottle: string
+  defaultWinePrefix: string
   winePrefix: string
   wineVersion: WineInstallation
 }
@@ -51,6 +52,7 @@ export interface ContextType {
   filterText: string
   filterPlatform: string
   gameUpdates: string[]
+  isRTL: boolean
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void
   handlePlatformFilter: (value: string) => void
@@ -214,3 +216,10 @@ export type ElWebview = {
 }
 
 export type Webview = HTMLWebViewElement & ElWebview
+
+export interface GamepadActionStatus {
+  [key: string]: {
+    triggeredAt: { [key: number]: number }
+    repeatDelay: false | number
+  }
+}

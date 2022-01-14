@@ -28,9 +28,10 @@ import { logError, logInfo, logWarning } from '../logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript'
+import { platform } from 'os'
 
 const store = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'gameinfo'
 })
 class LegendaryGame extends Game {
@@ -381,7 +382,7 @@ Categories=Game;
 
   private getSdlList(sdlList: Array<string>) {
     // Legendary needs an empty tag for it to download the other needed files
-    const defaultTag = ' --install-tag ""'
+    const defaultTag = ' --install-tag=""'
     return sdlList
       .map((tag) => `--install-tag ${tag}`)
       .join(' ')
@@ -395,7 +396,12 @@ Categories=Game;
    *
    * @returns Result of execAsync.
    */
-  public async install({ path, installDlcs, sdlList }: InstallArgs) {
+  public async install({
+    path,
+    installDlcs,
+    sdlList,
+    platformToInstall
+  }: InstallArgs) {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
@@ -403,7 +409,7 @@ Categories=Game;
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo(`Installing ${this.appName} with:`, command)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
@@ -530,7 +536,7 @@ Categories=Game;
           os = 'Windows'
           break
         case 'darwin':
-          os = 'MacOS'
+          os = 'macOS'
           break
         default:
           os = 'Unknown OS'
@@ -660,12 +666,16 @@ Categories=Game;
     fixedWinePrefix: string,
     winePath: string
   ) {
+    if (platform() === 'darwin') {
+      return
+    }
+
     if (isProton && !existsSync(fixedWinePrefix)) {
-      const command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command, execOptions)
+      mkdirSync(fixedWinePrefix, { recursive: true })
     }
 
     if (!existsSync(fixedWinePrefix)) {
+      mkdirSync(fixedWinePrefix, { recursive: true })
       const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
       logInfo('creating new prefix', fixedWinePrefix)
       return execAsync(initPrefixCommand)

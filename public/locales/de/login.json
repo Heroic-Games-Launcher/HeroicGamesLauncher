@@ -2,9 +2,6 @@
     "button": {
         "login": "Anmelden"
     },
-    "info": {
-        "needHelp": "Brauchen Sie Hilfe?"
-    },
     "input": {
         "placeholder": "Fügen Sie hier die SID-Nummer ein"
     },
@@ -20,8 +17,8 @@
     },
     "status": {
         "error": "Fehler",
-        "loading": "Lade Liste der Spiele, bitte warten",
-        "logging": "Logge ein…"
+        "loading": "Lade Spieleliste, bitte warten",
+        "logging": "Anmelden…"
     },
     "welcome": "Willkommen!"
 }

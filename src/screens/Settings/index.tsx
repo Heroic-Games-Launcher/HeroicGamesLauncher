@@ -1,6 +1,7 @@
 import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
+import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
@@ -48,6 +49,7 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState('~/.wine')
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
@@ -165,6 +167,8 @@ function Settings() {
 
   const [isMacNative, setIsMacNative] = useState(false)
 
+  const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
+
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
@@ -214,6 +218,7 @@ function Settings() {
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
       setShowUnrealMarket(config.showUnrealMarket || false)
+      setDefaultWinePrefix(config.defaultWinePrefix)
 
       if (!isDefault) {
         const {
@@ -245,6 +250,7 @@ function Settings() {
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
+    defaultWinePrefix,
     discordRPC,
     egsLinkedPath,
     enableEsync,
@@ -299,6 +305,18 @@ function Settings() {
   useEffect(() => {
     writeConfig([appName, settingsToSave])
   }, [GlobalSettings, GameSettings, appName])
+
+  useEffect(() => {
+    // set copied to clipboard status to true if it's not already set to true
+    // used for changing text and color
+    if (!isCopiedToClipboard) return
+
+    const timer = setTimeout(() => {
+      setCopiedToClipboard(false)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [isCopiedToClipboard])
 
   if (!title) {
     return <UpdateComponent />
@@ -392,6 +410,8 @@ function Settings() {
               toggleEsync={toggleEsync}
               enableFsync={enableFsync}
               toggleFsync={toggleFsync}
+              defaultWinePrefix={defaultWinePrefix}
+              setDefaultWinePrefix={setDefaultWinePrefix}
               maxSharpness={maxSharpness}
               setFsrSharpness={setFsrSharpness}
               enableResizableBar={enableResizableBar}
@@ -446,14 +466,19 @@ function Settings() {
           )}
           <span className="save">{t('info.settings')}</span>
           <button
-            className="button is-text"
-            onClick={() =>
+            className={classNames('button', 'is-text', {
+              isSuccess: isCopiedToClipboard
+            })}
+            onClick={() => {
               clipboard.writeText(
                 JSON.stringify({ appName, title, ...settingsToSave })
               )
-            }
+              setCopiedToClipboard(true)
+            }}
           >
-            {t('settings.copyToClipboard', 'Copy All Setting to Clipboard')}
+            {isCopiedToClipboard
+              ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+              : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
           </button>
           {isDefault && (
             <>

@@ -1,6 +1,32 @@
 # Changelog
 
-## 1.11.0 Alpha
+## 2.0.0
+
+### General
+
+- New Layout with a Sidebar instead of a Navbar
+- New Game Page design
+- New Login system, no more need of using a SID. Login directly from the Epic Store inside Heroic.
+- The Store will auto-login if you use the new login system (won't do it if you already logged in on Heroic. Also, if you want to log out from Heroic, log out of the Store first, otherwise Heroic will log in again using your credentials on the store since both pages use the same cookies.
+- Changed how games are installed. Now both the Game page and the game card will open the same Installation Dialog with the path to choose where to install or a button to import a game.
+- Unreal marketplace is hidden by default now, there is a toggle in the settings to show it. (don't do that if you have a big selection of assets, right now Heroic freezes if you have 2000 assets or more, if this happens, edit the config file manually and set the option to false then restart Heroic.
+- Game Logs now will contain system information (hardware, SO, etc) and the game settings.
+- Added buttons to Clear Heroic Cache and Reset Heroic completely.
+- Adds Estonian, Finnish, Bulgarian and Farsi languages.
+- [MacOSX] Support for Native games installation. With a new platform filter.
+- [Windows] Support for Game Shortcuts
+- [Linux] Added Wine prefix selection on game install
+- Improved accessibility to navigate the interface with only a keyboard
+- Legendary updated to v0.20.22
+- Several refactors, improvements, and optimizations lead Heroic to consume fewer resources like CPU and RAM. On Linux, Heroic consumes around 100MB or ram while on Windows it uses around 200MB.
+
+### BugFixes
+
+- [Linux] DXVK wasn't being uninstalled when toggling the DXVK install setting off.
+- [Linux] Winecfg, winetricks, and 'run exe' weren't using the correct wine binary when using Proton.
+- [Windows] Icon on the Heroic windows won't be shown correctly
+- [Windows] Move install now working
+- Fix some games showing false update information.
 
 ### General
 

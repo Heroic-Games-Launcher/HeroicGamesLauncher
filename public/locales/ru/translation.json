@@ -7,8 +7,8 @@
             "title": "Доступно обновление"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Кэш Heroic был очищен!",
+            "title": "Кэш очищен"
         },
         "choose": "Выбрать",
         "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
@@ -48,8 +48,8 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "Вы уверены, что хотите сбросить Heroic? Это удалит все настройки и кэш, но не удалит установленные игры или ваши учетные данные Epic",
+                "title": "Сброс Heroic"
             }
         },
         "runexe": {
@@ -60,20 +60,19 @@
             "exe": "Выбрать EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Ярлыки созданы на Рабочем столе и в Меню приложений",
+            "title": "Ярлыки"
         },
         "sync": {
             "button": "Выбрать",
             "error": "Неправильный путь",
             "title": "Выбрать путь для сохранений"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Выбрать папку префикса Wine",
         "yes": "ДА"
     },
     "button": {
-        "login": "Login",
+        "login": "Вход",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
@@ -82,7 +81,7 @@
     "Epic Games": "Epic Games",
     "Filter": "Фильтр",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Без фильтра"
     },
     "globalSettings": "Глобальные настройки",
     "help": {
@@ -115,11 +114,15 @@
         "requirements": "Системные требования"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Выберите путь установки"
     },
     "Library": "Библиотека",
     "loading": {
-        "website": "Loading Website"
+        "website": "Загрузка веб-сайта"
+    },
+    "login": {
+        "loginWithEpic": "Вход через Epic",
+        "loginWithSid": "Вход через SID"
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -129,8 +132,8 @@
     "Not Ready": "Не готово",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Ошибка при перемещении игры",
+            "reparing": "Ошибка при восстановлении"
         },
         "finished": {
             "reparing": "Восстановление завершено"
@@ -138,15 +141,15 @@
         "install": {
             "canceled": "Установка прервана",
             "finished": "Установка завершена",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Игра импортирована",
+            "startInstall": "Установка началась"
         },
         "moved": "Перемещение завершено",
         "uninstalled": "Удалено",
         "update": {
             "canceled": "Обновление прервано",
             "finished": "Обновление завершено",
-            "started": "Update Started"
+            "started": "Обновление началось"
         }
     },
     "options": {
@@ -170,7 +173,7 @@
     "Plugins": "Плагины",
     "Projects": "Проекты",
     "Ready": "Готово",
-    "Recent": "Недавние игры",
+    "Recent": "Запускались недавно",
     "Return": "Вернуться",
     "search": "Введите здесь название игры...",
     "setting": {
@@ -185,6 +188,7 @@
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
+        "defaultWinePrefix": "Указать папку для новых префиксов Wine",
         "discordRPC": "Включить Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
@@ -204,7 +208,7 @@
             "title": "Ручная синхронизация сохранений",
             "upload": "Загрузить"
         },
-        "maxRecentGames": "Показывать недавних игр",
+        "maxRecentGames": "Показывать недавно запускавшихся игр",
         "maxworkers": "Максимальное количество потоков при скачивании",
         "offlinemode": "Запускать игру офлайн",
         "primerun": "Включить Nvidia Prime Render",
@@ -218,7 +222,7 @@
             "title": "Переопределить папку для облачных сохранений"
         },
         "showfps": "Показывать FPS (DX9, 10 и 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
@@ -226,18 +230,19 @@
     },
     "Settings": "Настройки",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Очистить кэш Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "navbar": {
             "general": "Основные",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Сброс Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Загружается список игр. Пожалуйста, подождите",
+        "logging": "Вход…"
     },
     "store": "Магазин",
     "title": {
@@ -267,10 +272,9 @@
         "about": "О программе",
         "quit": "Выйти",
         "reload": "Перезагрузить",
-        "show": "Показать",
-        "support": "Поддержать нас"
+        "show": "Показать"
     },
-    "Unreal Marketplace": "Unreal Engine",
+    "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Обновления",
     "userselector": {
         "discord": "Дискорд",

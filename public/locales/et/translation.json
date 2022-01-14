@@ -68,7 +68,6 @@
             "error": "Vale koht",
             "title": "Valige salvestuste kaust"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH"
     },
@@ -120,6 +119,10 @@
     "Library": "Varamu",
     "loading": {
         "website": "Loading Website"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -185,6 +188,7 @@
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat tray-ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Luba Discord Rich Presence",
         "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
@@ -227,6 +231,7 @@
     "Settings": "Seaded",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Üldine",
@@ -267,8 +272,7 @@
         "about": "Info",
         "quit": "Sulge",
         "reload": "Taaslae",
-        "show": "Näita",
-        "support": "Toeta meid"
+        "show": "Näita"
     },
     "Unreal Marketplace": "Unreal'i Marketplace",
     "Updates": "Uuendused",

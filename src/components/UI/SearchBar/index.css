@@ -1,6 +1,7 @@
 .SearchBar {
   grid-area: search;
   width: 100%;
+  position: relative;
 }
 
 .searchInput {
@@ -13,12 +14,29 @@
   outline: none;
   background: var(--background);
   width: 80%;
+  padding-right: 2.5em;
 }
 
-.SearchBar > label {
-  color: var(--secondary);
-}
-
-.SearchBar > .close:hover {
+.clearSearchInput {
   cursor: pointer;
+  padding: 0 5px;
+  border: none;
+  font-weight: bold;
+  color: var(--text-secondary);
+  font-size: 1.4em;
+  text-decoration: none;
+  background: none;
+  position: absolute;
+  top: 49%;
+  transform: translateY(-50%);
+  right: 11%;
+  line-height: 1em;
+}
+
+.clearSearchInput.isEmpty:hover {
+  color: var(--text-primary);
+}
+
+.clearSearchInput.isEmpty {
+  display: none;
 }

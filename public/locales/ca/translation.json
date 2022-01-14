@@ -68,7 +68,6 @@
             "error": "Ruta invàl·lida",
             "title": "Eligeix el directori de guardats"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Tria la carpeta de wine prefix",
         "yes": "Sí"
     },
@@ -120,6 +119,10 @@
     "Library": "Llibreria",
     "loading": {
         "website": "Loading Website"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Sincronització completa",
@@ -185,6 +188,7 @@
         "customWineProton": "Rutes de Wine o Proton personalitzades",
         "darktray": "Emprar la icona fosca al Tray",
         "default-install-path": "Ruta d'instal·lació predeterminada",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Activa la Discord Rich Presence",
         "egs-sync": "Sincronitza amb Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
@@ -227,6 +231,7 @@
     "Settings": "Configuració",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "General",
@@ -267,8 +272,7 @@
         "about": "Sobre nosaltres",
         "quit": "Sortir",
         "reload": "Recargar",
-        "show": "Ensenyar",
-        "support": "Suporta'ns"
+        "show": "Ensenyar"
     },
     "Unreal Marketplace": "Botiga d'Unreal",
     "Updates": "Actualitzacions",

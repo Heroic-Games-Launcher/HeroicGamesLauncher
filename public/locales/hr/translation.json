@@ -68,7 +68,6 @@
             "error": "Pogrešni put",
             "title": "Odaberi mapu za podatke"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Odaberi Wine Prefix mapu",
         "yes": "DA"
     },
@@ -120,6 +119,10 @@
     "Library": "Knižnjica",
     "loading": {
         "website": "Loading Website"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -185,6 +188,7 @@
         "customWineProton": "Prilagođen put za WINE/PROTON",
         "darktray": "Koristi tamnu ikonu",
         "default-install-path": "Zadani put instalacije",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Omogući Discord Rich Presence",
         "egs-sync": "Sinkroniziraj sa instaliranim Epic Games",
         "enableFSRHack": "Omogući FSR Hack (Wine potreban za koristiti)",
@@ -227,6 +231,7 @@
     "Settings": "Postavke",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Generalno",
@@ -267,8 +272,7 @@
         "about": "O projektu",
         "quit": "Izađi",
         "reload": "Ponovno učitaj",
-        "show": "Pokaži",
-        "support": "Podržite Nas"
+        "show": "Pokaži"
     },
     "Unreal Marketplace": "Unreal tržište",
     "Updates": "Ažuriranja",

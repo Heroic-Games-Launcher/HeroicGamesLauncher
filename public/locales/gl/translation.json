@@ -1,0 +1,286 @@
+{
+    "All": "Todos",
+    "Assets": "Recursos",
+    "box": {
+        "appupdate": {
+            "message": "Hai unha nova versión de Heroic dispoñíbel, ¿queres actualizar agora?",
+            "title": "Actualización dispoñíbel"
+        },
+        "cache-cleared": {
+            "message": "Limpouse a caché de Heroic!",
+            "title": "Caché limpada"
+        },
+        "choose": "Seleccionar",
+        "choose-egs-prefix": "Seleccionar o prefixo onde se instalará EGS",
+        "choose-legendary-binary": "Seleccionar o binario Legendary",
+        "customWine": "Seleccionar o binario de Wine ou Proton",
+        "default-install-path": "Seleccionar a ruta de instalación predeterminada",
+        "error": {
+            "credentials": {
+                "message": "As túas credenciais expiraron, pecha sesión e iníciaa de novo.",
+                "title": "Credenciais expiradas"
+            },
+            "diskspace": {
+                "message": "Non hai suficiente espacio dispoñíbel no disco",
+                "title": "Sen espacio"
+            },
+            "generic": {
+                "message": "Produciuse un erro descoñecido",
+                "title": "Erro descoñecido"
+            },
+            "launch": "Produciuse un erro ao iniciar o xogo, revisa os rexistros!",
+            "log": {
+                "message": "Non se atopou o rexistro para este xogo",
+                "title": "Rexistro non atopado"
+            },
+            "title": "Erro"
+        },
+        "no": "Non",
+        "ok": "Ok",
+        "protocol": {
+            "install": {
+                "not_installed": "Non está instalado, ¿desexas instalalo?"
+            }
+        },
+        "quit": {
+            "message": "Hai operacións pendentes, ¿estás seguro?",
+            "title": "Saír"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Estás seguro que queres restabelecer Heroic? Isto eliminará todas as preferencias e caché pero non eliminará os teus xogos instalados e credenciais de Epic",
+                "title": "Restabelecer Heroic"
+            }
+        },
+        "runexe": {
+            "title": "Seleccionar o EXE a executar"
+        },
+        "select": {
+            "button": "Seleccionar",
+            "exe": "Seleccionar EXE"
+        },
+        "shortcuts": {
+            "message": "Creáronse atallos no escritorio e no menú principal",
+            "title": "Atallos"
+        },
+        "sync": {
+            "button": "Seleccionar",
+            "error": "Ruta non válida",
+            "title": "Seleccionar o cartafol de partidas gardadas"
+        },
+        "wineprefix": "Seleccionar o cartafol de prefixo de Wine",
+        "yes": "Sí"
+    },
+    "button": {
+        "login": "Iniciar sesión",
+        "sync": "Sincronizar",
+        "syncing": "Sincronizando",
+        "unsync": "Desincronizar"
+    },
+    "Downloading": "Descargando",
+    "Epic Games": "Epic Games",
+    "Filter": "Filtrar",
+    "filter": {
+        "noFilter": "Non hai filtro"
+    },
+    "globalSettings": "Preferencias globais",
+    "help": {
+        "general": "Sincronizar con EGS no caso que teña unha instalación funcional de EGS noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
+        "other": {
+            "part1": "Utilizar as ",
+            "part2": "Opcións avanzadas",
+            "part3": "para ser chamado antes de iniciar o xogo; ",
+            "part4": "Usar os ",
+            "part5": "Argumentos do xogo",
+            "part6": " para ser chamados despois da orde de lanzamento, por exemplo: ",
+            "part7": " omitir o lanzador dalgúns xogos, etc."
+        },
+        "sync": {
+            "part1": "Heroic intenta adiviñar o cartafol de gardado correcto e isto funcionará na maioría dos casos. No caso de que o cartafol sexa incorrecto, use a caixa de sobrescritura para cambialo.",
+            "part2": "",
+            "part3": "",
+            "part4": ""
+        },
+        "wine": {
+            "part1": "",
+            "part2": ""
+        }
+    },
+    "info": {
+        "settings": "Preferencias gardadas automaticamente"
+    },
+    "infobox": {
+        "help": "Axuda",
+        "requirements": "Requisitos do sistema"
+    },
+    "install": {
+        "path": "Seleccionar a ruta de instalación"
+    },
+    "Library": "Biblioteca",
+    "loading": {
+        "website": "Cargando sitio web"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
+    "message": {
+        "sync": "Sincronización completa",
+        "unsync": "Desincronización completa"
+    },
+    "nogames": "Non se atoparon xogos",
+    "Not Ready": "Non está listo",
+    "notify": {
+        "error": {
+            "move": "Erro ao mover o xogo",
+            "reparing": "Erro ao reparar"
+        },
+        "finished": {
+            "reparing": "Reparación rematada"
+        },
+        "install": {
+            "canceled": "Instalación cancelada",
+            "finished": "Instalación rematada",
+            "imported": "Xogo importado",
+            "startInstall": "Instalación iniciada"
+        },
+        "moved": "Movemento rematado",
+        "uninstalled": "Desintalado",
+        "update": {
+            "canceled": "Actualización cancelada",
+            "finished": "Actualización rematada",
+            "started": "Actualización iniciada"
+        }
+    },
+    "options": {
+        "advanced": {
+            "placeholder": "Escribe aquí as opcións de lanzamento",
+            "title": "Opcións avanzadas (variables de ambiente):"
+        },
+        "gameargs": {
+            "placeholder": "Escribe aquí os argumentos de lanzamento",
+            "title": ""
+        }
+    },
+    "other": {
+        "legendary-version": "Versión de Legendary: ",
+        "weblate": "Axuda a traducir Heroic."
+    },
+    "placeholder": {
+        "alt-legendary-bin": "Usando o binario de Legendary embebeido...",
+        "egs-prefix": "Prefixo onde está instalado EGS"
+    },
+    "Plugins": "Engadidos",
+    "Projects": "Proxectos",
+    "Ready": "Listo",
+    "Recent": "Xogado recentemente",
+    "Return": "Volver",
+    "search": "Escribe o nome do xogo aquí...",
+    "setting": {
+        "adddesktopshortcuts": "Engadir atallos de escritorio automaticamente",
+        "addgamestostartmenu": "Engadir xogos ao menú de inicio automaticamente",
+        "alt-legendary-bin": "Seleccione o binario de Legendary alternativo (precisa reiniciar)",
+        "audiofix": "Correción de audio (latencia de Pulseaudio)",
+        "autodxvk": "Autoinstalar/actualizar DXVK/VKD3D no prefixo",
+        "autosync": "Autosincronizar partidas gardadas",
+        "change-target-exe": "Seleccionar un EXE alternativo a executar",
+        "checkForUpdatesOnStartup": "Buscar actualizacións ao iniciar",
+        "customWineProton": "Rutas personalizadas de Wine e Proton",
+        "darktray": "Usar icona escura na bandexa do sistema",
+        "default-install-path": "Ruta de instalación predeterminada",
+        "defaultWinePrefix": "Estabelecer cartafol para os prefixos de Wine",
+        "discordRPC": "Activar a presencia enriquecida de Discord",
+        "egs-sync": "Sincronizar cos xogos instalados de Epic",
+        "enableFSRHack": "Activar o hack de FSR (A versión de Wine debe soportalo)",
+        "esync": "Activar Esync",
+        "exit-to-tray": "Saír á bandexa do sistema",
+        "FsrSharpnessStrenght": "FSR forza de nitidez",
+        "fsync": "Activar Fsync",
+        "gamemode": "",
+        "language": "Seleccionar o idioma da aplicación",
+        "mangohud": "",
+        "manualsync": {
+            "download": "Descargar",
+            "forcedownload": "Forzar descarga",
+            "forceupload": "Forzar subida",
+            "sync": "Sincronizar",
+            "syncing": "Sincronizando",
+            "title": "Sincronización manual de partidas gardadas",
+            "upload": "Subir"
+        },
+        "maxRecentGames": "Recent Games to Show",
+        "maxworkers": "",
+        "offlinemode": "Executar xogo sen conexión",
+        "primerun": "Activar renderizado de Nvidia Prime",
+        "resizableBar": "Activar Resizable Bar (só NVIDIA RTX 30xx)",
+        "runexe": {
+            "message": "Arrastrar e soltar aqúi",
+            "title": "Executar EXE en Prefix"
+        },
+        "savefolder": {
+            "placeholder": "Seleccionar o cartafol exacto para gardar xogos",
+            "title": "Sobrescribir o cartafol de Cloud Sync Save"
+        },
+        "showfps": "Mostrar FPS (DX9, 10 e 11)",
+        "showUnrealMarket": "Mostrar a tenda de Unreal (require reinicio)",
+        "start-in-tray": "Iniciar minimizado",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "",
+        "wineversion": ""
+    },
+    "Settings": "Preferencias",
+    "settings": {
+        "clear-cache": "Limpar caché de Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "Copiar todas as preferencias ao portapapeis",
+        "navbar": {
+            "general": "Xeral",
+            "other": "Outro",
+            "sync": "Gardar-Sincronizar"
+        },
+        "reset-heroic": "Restabelecer Heroic"
+    },
+    "status": {
+        "loading": "Cargando lista de xogos, agarde",
+        "logging": "Inciando sesión…"
+    },
+    "store": "Tenda",
+    "title": {
+        "allGames": "Todos os xogos",
+        "allUnreal": "Unreal - Todo",
+        "downloading": "Descargando",
+        "installedGames": "Xogos instalados",
+        "notInstalledGames": "Non instalados",
+        "unrealAssets": "Unreal - Recursos",
+        "unrealPlugins": "Recursos - Engadidos",
+        "unrealProjects": "Unreal - Proxectos",
+        "updates": "Actualizacións pendentes"
+    },
+    "Tools": "",
+    "tools": {
+        "diskspace": "",
+        "download": "",
+        "title": "",
+        "unzipping": ""
+    },
+    "tooltip": {
+        "addpath": "Agregar unha nova ruta",
+        "removepath": "Eliminar ruta"
+    },
+    "Total Games": "Xogos totais",
+    "tray": {
+        "about": "Sobre",
+        "quit": "Saír",
+        "reload": "Recargar",
+        "show": "Mostrar"
+    },
+    "Unreal Marketplace": "Tenda de Unreal",
+    "Updates": "Actualizacións",
+    "userselector": {
+        "discord": "Discord",
+        "logout": "Pechar sesión",
+        "logout_confirmation": "Está seguro que quere pechar a sesión?",
+        "quit": "Saír"
+    },
+    "wiki": "Wiki"
+}

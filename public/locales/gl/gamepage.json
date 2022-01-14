@@ -1,0 +1,113 @@
+{
+    "box": {
+        "change": {
+            "message": "Isto cambiará a localización da instalción do xogo, ¿estás seguro?",
+            "path": "Escolle o cartafol de instalación",
+            "title": "Modificar a localización de instalación do xogo"
+        },
+        "choose": "Seleccionar",
+        "importpath": "Seleccione o cartafol do xogo para importar",
+        "move": {
+            "message": "Isto pode levar moito tempo, ¿estás seguro?",
+            "path": "Selecciona a localización onde queres mover",
+            "title": "Mover o cartafol do xogo"
+        },
+        "no": "Non",
+        "repair": {
+            "message": "Queres tentar reparar o xogo? Isto pode levar moito tempo.",
+            "title": "Verificar e reparar"
+        },
+        "stopInstall": {
+            "keepInstalling": "Seguir instalando",
+            "message": "Desexa MANTER os ficheiros descargados?",
+            "title": "Deter a instalación"
+        },
+        "uninstall": {
+            "message": "Desexas desinstalar o xogo?",
+            "title": "Desinstalar"
+        },
+        "update": {
+            "message": "Este xogo ten unha actualización, ¿desexas actualizar agora?",
+            "title": "O xogo precisa unha actualización"
+        },
+        "wineprefix": "Seleccione o cartafol co prefixo de Wine",
+        "yes": "Sí"
+    },
+    "button": {
+        "cancel": "Pausar/Cancelar",
+        "continue": "Continuar descarga",
+        "import": "Importar xogo",
+        "install": "Instalar",
+        "uninstall": "Desinstalar",
+        "update": "Actualizar"
+    },
+    "disabled": "Deshabilitar",
+    "dlc": {
+        "installDlcs": "Instalar todos os DLCs",
+        "title": "DLCs"
+    },
+    "enabled": "Activar",
+    "game": {
+        "downloadSize": "Tamaño da descarga",
+        "firstPlayed": "Xogado por primeira vez",
+        "installSize": "Tamaño da instalación",
+        "lastPlayed": "Xogado por última vez",
+        "neverPlayed": "Nunca",
+        "totalPlayed": "Tempo xogado"
+    },
+    "gamecard": {
+        "moving": "Movendo",
+        "repairing": "Reparando"
+    },
+    "info": {
+        "canRunOffline": "Require Online",
+        "path": "Ruta de instalación",
+        "size": "Tamaño",
+        "syncsaves": "Sincronizar gardados",
+        "version": "Versión"
+    },
+    "install": {
+        "path": "Seleccionar a ruta de instalación",
+        "wineprefix": "Prefixo de Wine"
+    },
+    "label": {
+        "playing": {
+            "start": "Xogar",
+            "stop": "Deter"
+        },
+        "saves": {
+            "syncing": "Sincronización de gardados"
+        }
+    },
+    "launch": {
+        "options": "Opcións de arrinque..."
+    },
+    "sdl": {
+        "title": "Seleccione os compoñentes a instalar"
+    },
+    "specs": {
+        "minimum": "Mínimo",
+        "recommended": "Recomendado"
+    },
+    "status": {
+        "clickToUpdate": "Premer para actualizar",
+        "hasUpdates": "Nova versión dispoñíbel!",
+        "installed": "Instalado",
+        "installing": "Instalando",
+        "moving": "Instalación en movemento, agarda",
+        "notinstalled": "Este xogo non está instalado",
+        "reparing": "Reparando xogo, agarda",
+        "totalDownloaded": "Total descargado",
+        "updating": "Actualización do xogo"
+    },
+    "submenu": {
+        "addShortcut": "Engadir acceso directo",
+        "change": "Modificar a localización de instalación",
+        "log": "Último rexistro",
+        "move": "Mover xogo",
+        "protondb": "Verificar compatibilidade",
+        "settings": "Axustes",
+        "store": "Páxina da tenda",
+        "verify": "Verificar e reparar"
+    }
+}

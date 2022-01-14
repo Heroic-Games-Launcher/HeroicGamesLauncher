@@ -1,5 +1,11 @@
 import { WineVersionInfo } from './wine-downloader/types'
-import { InstallParams, LaunchResult } from './types'
+import {
+  InstallParams,
+  LaunchResult,
+  GamepadInputEventKey,
+  GamepadInputEventWheel,
+  GamepadInputEventMouse
+} from './types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -11,7 +17,6 @@ import {
   ipcMain,
   powerSaveBlocker,
   protocol,
-  MenuItem,
   shell
 } from 'electron'
 import { cpus, platform } from 'os'
@@ -25,7 +30,6 @@ import {
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import isDev from 'electron-is-dev'
 
 import { DXVK } from './dxvk'
 import { Game } from './games'
@@ -54,6 +58,7 @@ import {
   heroicGamesConfigPath,
   heroicGithubURL,
   home,
+  icon,
   iconDark,
   iconLight,
   installed,
@@ -85,7 +90,7 @@ const store = new Store({
 })
 
 const gameInfoStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'gameinfo'
 })
 const tsStore = new Store({
@@ -119,45 +124,11 @@ async function createWindow(): Promise<BrowserWindow> {
   GlobalConfig.get()
   LegendaryLibrary.get()
 
-  const menu = new Menu()
-  menu.append(
-    new MenuItem({
-      label: 'Menu',
-      submenu: [
-        {
-          label: 'Reload',
-          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-          click: () => {
-            mainWindow.reload()
-          }
-        },
-        {
-          label: 'Debug',
-          accelerator:
-            process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-          click: () => {
-            mainWindow.webContents.openDevTools()
-          }
-        },
-        {
-          label: 'About',
-          click: () => {
-            showAboutWindow()
-          }
-        },
-        {
-          label: 'Quit',
-          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
-          click: () => {
-            handleExit()
-          }
-        }
-      ]
-    })
-  )
-  mainWindow.setMenu(menu)
+  mainWindow.setIcon(icon)
+  app.setAppUserModelId('Heroic')
+  app.commandLine.appendSwitch('enable-spatial-navigation')
 
-  if (isDev) {
+  if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
@@ -182,6 +153,8 @@ async function createWindow(): Promise<BrowserWindow> {
       return await handleExit()
     })
   } else {
+    Menu.setApplicationMenu(null)
+
     mainWindow.on('close', async (e) => {
       e.preventDefault()
       const { exitToTray } = await GlobalConfig.get().config
@@ -231,23 +204,18 @@ const contextMenu = () => {
       label: i18next.t('tray.about', 'About')
     },
     {
-      click: function () {
-        openUrlOrFile(heroicGithubURL)
-      },
-      label: 'GitHub'
-    },
-    {
-      click: function () {
-        openUrlOrFile(supportURL)
-      },
-      label: i18next.t('tray.support', 'Support Us')
-    },
-    {
       accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
       click: function () {
         mainWindow.reload()
       },
       label: i18next.t('tray.reload', 'Reload')
+    },
+    {
+      label: 'Debug',
+      accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+      click: () => {
+        mainWindow.webContents.openDevTools()
+      }
     },
     {
       click: function () {
@@ -305,6 +273,7 @@ if (!gotTheLock) {
         'fa',
         'fi',
         'fr',
+        'gl',
         'hr',
         'hu',
         'ja',
@@ -840,7 +809,10 @@ ipcMain.handle(
 
 ipcMain.handle('install', async (event, params) => {
   const { appName, path, installDlcs, sdlList } = params as InstallParams
-  const title = (await Game.get(appName).getGameInfo()).title
+  const { title, is_mac_native } = await Game.get(appName).getGameInfo()
+  const platformToInstall =
+    platform() === 'darwin' && is_mac_native ? 'Mac' : 'Windows'
+
   if (!(await isOnline())) {
     logWarning(`App offline, skipping install for game '${title}'.`)
     return
@@ -857,7 +829,7 @@ ipcMain.handle('install', async (event, params) => {
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
   return Game.get(appName)
-    .install({ path, installDlcs, sdlList })
+    .install({ path, installDlcs, sdlList, platformToInstall })
     .then(async (res) => {
       notify({
         title,
@@ -1105,4 +1077,105 @@ ipcMain.handle('syncSaves', async (event, args) => {
   logInfo(`${stdout}`)
   logError(`${stderr}`)
   return `\n ${stdout} - ${stderr}`
+})
+
+// Simulate keyboard and mouse actions as if the real input device is used
+ipcMain.handle('gamepadAction', async (event, args) => {
+  const [action, metadata] = args
+  const window = BrowserWindow.getAllWindows()[0]
+  const inputEvents: (
+    | GamepadInputEventKey
+    | GamepadInputEventWheel
+    | GamepadInputEventMouse
+  )[] = []
+
+  /*
+   * How to extend:
+   *
+   * Valid values for type are 'keyDown', 'keyUp' and 'char'
+   * Valid values for keyCode are defined here:
+   * https://www.electronjs.org/docs/latest/api/accelerator#available-key-codes
+   *
+   */
+  switch (action) {
+    case 'rightStickUp':
+      inputEvents.push({
+        type: 'mouseWheel',
+        deltaY: 50,
+        x: window.getBounds().width / 2,
+        y: window.getBounds().height / 2
+      })
+      break
+    case 'rightStickDown':
+      inputEvents.push({
+        type: 'mouseWheel',
+        deltaY: -50,
+        x: window.getBounds().width / 2,
+        y: window.getBounds().height / 2
+      })
+      break
+    case 'leftStickUp':
+    case 'leftStickDown':
+    case 'leftStickLeft':
+    case 'leftStickRight':
+    case 'padUp':
+    case 'padDown':
+    case 'padLeft':
+    case 'padRight':
+      // spatial navigation
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: action.replace(/pad|leftStick/, '')
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: action.replace(/pad|leftStick/, '')
+      })
+      break
+    case 'leftClick':
+      inputEvents.push({
+        type: 'mouseDown',
+        button: 'left',
+        x: metadata.x,
+        y: metadata.y
+      })
+      inputEvents.push({
+        type: 'mouseUp',
+        button: 'left',
+        x: metadata.x,
+        y: metadata.y
+      })
+      break
+    case 'rightClick':
+      inputEvents.push({
+        type: 'mouseDown',
+        button: 'right',
+        x: metadata.x,
+        y: metadata.y
+      })
+      inputEvents.push({
+        type: 'mouseUp',
+        button: 'right',
+        x: metadata.x,
+        y: metadata.y
+      })
+      break
+    case 'back':
+      window.webContents.goBack()
+      break
+    case 'esc':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'Esc'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'Esc'
+      })
+      break
+  }
+
+  if (inputEvents.length) {
+    inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
+  }
 })

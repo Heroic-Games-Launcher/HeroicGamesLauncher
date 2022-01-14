@@ -188,3 +188,7 @@ a {
   margin-left: 8px;
   padding-top: 0;
 }
+
+.settingsWrapper > .button.isSuccess:hover {
+  color: var(--success) !important;
+}

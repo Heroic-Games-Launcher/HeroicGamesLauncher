@@ -6,7 +6,7 @@ import { Library } from 'src/screens/Library'
 import ContextProvider from 'src/state/ContextProvider'
 import ElectronStore from 'electron-store'
 import Sidebar from 'src/components/UI/Sidebar'
-// import Login from './screens/Login'
+import Login from './screens/Login'
 import WebView from './screens/WebView'
 
 const Store = window.require('electron-store')
@@ -42,16 +42,19 @@ function App() {
                     renderBackButton={false}
                     numberOfGames={numberOfGames}
                   />
-                  {showRecentGames && (
-                    <Library showRecentsOnly library={recentGames} />
-                  )}
-                  <Library library={library} />
+                  <div className="listing">
+                    <span id="top" />
+                    {showRecentGames && (
+                      <Library showRecentsOnly library={recentGames} />
+                    )}
+                    <Library library={library} />
+                  </div>
                 </>
               ) : (
                 <WebView isLogin />
               )}
             </Route>
-            <Route exact path="/login" component={WebView} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/epicstore" component={WebView} />
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />

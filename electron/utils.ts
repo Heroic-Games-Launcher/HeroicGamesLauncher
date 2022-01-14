@@ -212,11 +212,11 @@ function genericErrorMessage(): void {
 }
 
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|+]')
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
   return text.replaceAll(regexp, '')
 }
 
-async function openUrlOrFile(url: string): Promise<string> {
+async function openUrlOrFile(url: string): Promise<string | void> {
   if (process.platform === 'darwin') {
     try {
       await execAsync(`open ${url}`)
@@ -225,6 +225,7 @@ async function openUrlOrFile(url: string): Promise<string> {
         i18next.t('box.error.log.title', 'Log Not Found'),
         i18next.t('box.error.log.message', 'No Log was found for this game')
       )
+      return
     }
   }
   if (process.platform === 'linux') {
@@ -236,6 +237,7 @@ async function openUrlOrFile(url: string): Promise<string> {
         i18next.t('box.error.log.title', 'Log Not Found'),
         i18next.t('box.error.log.message', 'No Log was found for this game')
       )
+      return
     }
   }
   return shell.openPath(url)
@@ -288,15 +290,15 @@ async function checkCommandVersion(
 
 function clearCache() {
   const installCache = new Store({
-    cwd: 'store',
+    cwd: 'lib-cache',
     name: 'installInfo'
   })
   const libraryCache = new Store({
-    cwd: 'store',
+    cwd: 'lib-cache',
     name: 'library'
   })
   const gameInfoCache = new Store({
-    cwd: 'store',
+    cwd: 'lib-cache',
     name: 'gameinfo'
   })
   installCache.clear()
@@ -306,7 +308,6 @@ function clearCache() {
 
 function resetHeroic() {
   const heroicFolder = `${app.getPath('appData')}/heroic`
-  console.log({ heroicFolder })
   rm(heroicFolder, { recursive: true, force: true }, () => {
     app.relaunch()
     app.quit()

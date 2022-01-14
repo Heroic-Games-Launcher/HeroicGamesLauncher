@@ -7,8 +7,8 @@
             "title": "업데이트 사용 가능"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic 캐시가 삭제되었습니다!",
+            "title": "캐시 삭제됨"
         },
         "choose": "선택",
         "choose-egs-prefix": "Epic Games Store가 설치된 Prefix 선택",
@@ -48,7 +48,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Heroic을 초기화하시겠습니까? 이렇게 하면 모든 설정과 캐시가 제거되지만 설치된 게임이나 Epic 자격 증명은 제거되지 않습니다",
                 "title": "Reset Heroic"
             }
         },
@@ -60,20 +60,19 @@
             "exe": "EXE 선택"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
+            "title": "바로가기"
         },
         "sync": {
             "button": "선택",
             "error": "유효하지 않은 경로",
             "title": "저장 디렉토리 선택"
         },
-        "wineInstallPath": "Select the install path.",
-        "wineprefix": "Wine Prefix 폴더 선택",
+        "wineprefix": "WinePrefix 폴더 선택",
         "yes": "예"
     },
     "button": {
-        "login": "Login",
+        "login": "로그인",
         "sync": "싱크",
         "syncing": "싱크중",
         "unsync": "싱크 해제"
@@ -115,11 +114,15 @@
         "requirements": "시스템 요구 사양"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "설치 경로 선택"
     },
     "Library": "라이브러리",
     "loading": {
-        "website": "Loading Website"
+        "website": "웹사이트 로드 중"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "동기화 완료",
@@ -129,8 +132,8 @@
     "Not Ready": "준비되지 않음",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "게임 이동 중 오류 발생",
+            "reparing": "복구 중 오류 발생"
         },
         "finished": {
             "reparing": "복구 완료"
@@ -138,15 +141,15 @@
         "install": {
             "canceled": "설치 취소됨",
             "finished": "설치 완료됨",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "게임을 가져왔습니다",
+            "startInstall": "설치 시작됨"
         },
         "moved": "이동 완료됨",
         "uninstalled": "설치 제거됨",
         "update": {
             "canceled": "업데이트 취소됨",
             "finished": "업데이트 완료됨",
-            "started": "Update Started"
+            "started": "업데이트 시작됨"
         }
     },
     "options": {
@@ -185,6 +188,7 @@
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Discord Rich Presence 활성화",
         "egs-sync": "설치된 Epic Games와 동기화",
         "enableFSRHack": "FSR 활성화 (지원하는 Wine 버전을 사용해야 합니다)",
@@ -218,7 +222,7 @@
             "title": "클라우드 세이브 동기화 폴더 덮어쓰기"
         },
         "showfps": "FPS 표시 (DX9, 10 및 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작 필요)",
         "start-in-tray": "최소화로 시작",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine Prefix 폴더",
@@ -226,8 +230,9 @@
     },
     "Settings": "설정",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Heroic 캐시 삭제",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "모든 설정을 클립보드에 복사",
         "navbar": {
             "general": "일반",
             "other": "기타",
@@ -236,8 +241,8 @@
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "게임 목록을 불러오고 있습니다, 잠시만 기다려 주세요",
+        "logging": "로그인 중…"
     },
     "store": "스토어",
     "title": {
@@ -267,8 +272,7 @@
         "about": "정보",
         "quit": "종료",
         "reload": "새로고침",
-        "show": "표시",
-        "support": "당신의 도움이 필요합니다"
+        "show": "표시"
     },
     "Unreal Marketplace": "Unreal 마켓플레이스",
     "Updates": "업데이트",

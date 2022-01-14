@@ -68,7 +68,6 @@
             "error": "Μη έγκυρη Διαδρομή",
             "title": "Επιλέξτε την διαδρομή αποθήκευσης"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Επιλέξτε τον Φάκελο Προθεμάτων Wine",
         "yes": "ΝΑΙ"
     },
@@ -121,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
@@ -170,7 +173,7 @@
     "Plugins": "Plugins",
     "Projects": "Πρότζεκτ",
     "Ready": "Έτοιμο",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Επιστροφή",
     "search": "Εισαγάγετε όνομα παιχνιδιού...",
     "setting": {
@@ -185,6 +188,7 @@
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
@@ -227,6 +231,7 @@
     "Settings": "Ρυθμίσεις",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Γενικά",
@@ -267,8 +272,7 @@
         "about": "Περί",
         "quit": "Έξοδος",
         "reload": "Επαναφόρτωση",
-        "show": "Εμφάνιση",
-        "support": "Υποστηρίξτε μας"
+        "show": "Εμφάνιση"
     },
     "Unreal Marketplace": "Κατάστημα Unreal",
     "Updates": "Ενημερώσεις",

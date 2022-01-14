@@ -68,7 +68,6 @@
             "error": "",
             "title": "Pilih direktori penyimpanan"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Pilih Folder Prefix Winie",
         "yes": "YA"
     },
@@ -121,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "",
         "unsync": ""
@@ -170,7 +173,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "",
     "search": "",
     "setting": {
@@ -185,6 +188,7 @@
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon (needs restart)",
         "default-install-path": "",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
@@ -204,7 +208,7 @@
             "title": "",
             "upload": ""
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Played Recently to Show",
         "maxworkers": "",
         "offlinemode": "",
         "primerun": "Enable Nvidia Prime Render",
@@ -227,6 +231,7 @@
     "Settings": "",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "",
@@ -267,8 +272,7 @@
         "about": "About",
         "quit": "Quit",
         "reload": "Reload",
-        "show": "",
-        "support": "Support Us"
+        "show": ""
     },
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",

@@ -68,7 +68,6 @@
             "error": "Érvénytelen útvonal",
             "title": "Válaszd ki a mentések könyvtárát"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Válassz Wine Prefix Mappát",
         "yes": "IGEN"
     },
@@ -121,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Szinkronizálás Befejezve",
         "unsync": "Deszinkronizálás Befejezve"
@@ -170,7 +173,7 @@
     "Plugins": "Plugins",
     "Projects": "Projektek",
     "Ready": "Kész",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
@@ -185,6 +188,7 @@
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
         "enableFSRHack": "FSR Hack engedélyezése (Wine verziónak támogatnia kell)",
@@ -227,6 +231,7 @@
     "Settings": "Beállítások",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Általános",
@@ -267,8 +272,7 @@
         "about": "Rólunk",
         "quit": "Kilép",
         "reload": "Újratölt",
-        "show": "Mutasd",
-        "support": "Támogass Minket"
+        "show": "Mutasd"
     },
     "Unreal Marketplace": "Unreal Piac",
     "Updates": "Frissítések",

@@ -3,15 +3,15 @@
     "Assets": "Objets",
     "box": {
         "appupdate": {
-            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant ?",
+            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant\u202f?",
             "title": "Mise à jour disponible"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Le cache Heroic a été effacé !",
+            "title": "Cache effacé"
         },
         "choose": "Séléctionner",
-        "choose-egs-prefix": "Choisir où le Préfix EGS est installé",
+        "choose-egs-prefix": "Choisir où le préfixe EGS est installé",
         "choose-legendary-binary": "Sélectionnez le binaire Legendary",
         "customWine": "Sélectionner le binaire Wine ou Proton",
         "default-install-path": "Choisir le chemin par défaut",
@@ -43,12 +43,12 @@
             }
         },
         "quit": {
-            "message": "D'autres opérations sont en cours, êtes-vous sûr(e) ?",
+            "message": "D'autres opérations sont en cours, êtes-vous sûr(e)\u202f?",
             "title": "Quitter"
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Êtes-vous sûr·e de vouloir réinitialiser Heroic ? Cela supprimera tous les paramètres et la mémoire cache mais pas vos jeux installés ou vos identifiants Epic",
                 "title": "Reset Heroic"
             }
         },
@@ -60,15 +60,14 @@
             "exe": "Choisir l'EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
+            "title": "Raccourcis"
         },
         "sync": {
             "button": "Sélectionner",
             "error": "Chemin invalide",
             "title": "Choisir le dossier de sauvegardes"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Choisir le dossier de préfixe Wine",
         "yes": "OUI"
     },
@@ -90,7 +89,7 @@
         "other": {
             "part1": "Utilise l' ",
             "part2": "Options avancées",
-            "part3": "pour être averti avant le lancement du jeu ; ",
+            "part3": "pour être averti avant le lancement du jeu\u202f; ",
             "part4": "Utilise les ",
             "part5": "Arguments de Jeu",
             "part6": " pour être averti après la commande, par exemple : ",
@@ -99,11 +98,11 @@
         "sync": {
             "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle : Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Chargez les fichiers pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle\u202f: Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Chargez les fichiers pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
-            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers\u202f:",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
@@ -115,11 +114,15 @@
         "requirements": "Configuration Requise"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Sélectionner le chemin d'installation"
     },
     "Library": "Bibliothèque",
     "loading": {
-        "website": "Loading Website"
+        "website": "Chargement du site internet"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Synchronisation Complète",
@@ -129,8 +132,8 @@
     "Not Ready": "Non installé",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Erreur lors du déplacement des fichiers du jeu",
+            "reparing": "Erreur lors de la réparation"
         },
         "finished": {
             "reparing": "Réparation Terminée"
@@ -138,25 +141,25 @@
         "install": {
             "canceled": "Installation Annulée",
             "finished": "Installation Terminée",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Jeu Importé",
+            "startInstall": "Installation commencée"
         },
         "moved": "Déplacement Terminé",
         "uninstalled": "Désinstallé",
         "update": {
             "canceled": "Mise à jour Annulée",
             "finished": "Mise à jour Terminée",
-            "started": "Update Started"
+            "started": "Mise à jour commencée"
         }
     },
     "options": {
         "advanced": {
             "placeholder": "Insérez ici les autres options de lancemement",
-            "title": "Options Avancées (Variables d'Environnement) :"
+            "title": "Options Avancées (Variables d'Environnement)\u202f:"
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
-            "title": "Arguments de jeu (À lancer après la commande) :"
+            "title": "Arguments de jeu (À lancer après la commande)\u202f:"
         }
     },
     "other": {
@@ -170,13 +173,13 @@
     "Plugins": "Plugins",
     "Projects": "Projets",
     "Ready": "Prêt",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Retour",
     "search": "Insérez le nom du jeu ici...",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
-        "alt-legendary-bin": "Choisissez un autre fichier binaire Legendary à utiliser",
+        "alt-legendary-bin": "Choisir un autre exécutable Legendary (nécessite de relancer Heroic)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
         "autosync": "Sauvegardes Autosync",
@@ -185,6 +188,7 @@
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
         "default-install-path": "Chemin par défaut de l'installation",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Activer Rich Presence dans Discord",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
@@ -218,7 +222,7 @@
             "title": "Écraser le dossier de synchronisation Cloud"
         },
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
@@ -226,8 +230,9 @@
     },
     "Settings": "Options",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Effacer le cache Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "Copier tous les paramètres dans le presse-papier",
         "navbar": {
             "general": "Général",
             "other": "Autre",
@@ -236,20 +241,20 @@
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Chargement de la liste des jeux, veuillez patienter",
+        "logging": "Connexion en cours..."
     },
     "store": "Boutique",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
+        "allGames": "Tous les jeux",
+        "allUnreal": "Unreal - Tout",
+        "downloading": "Téléchargement en cours",
+        "installedGames": "Jeux installés",
+        "notInstalledGames": "Non installés",
+        "unrealAssets": "Unreal - Ressources",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projets",
+        "updates": "Mises à jour en attente"
     },
     "Tools": "",
     "tools": {
@@ -267,15 +272,14 @@
         "about": "À propos",
         "quit": "Quitter",
         "reload": "Recharger",
-        "show": "Montrer",
-        "support": "Nous supporter"
+        "show": "Montrer"
     },
     "Unreal Marketplace": "Marché Unreal",
     "Updates": "Mises à jour",
     "userselector": {
         "discord": "Discord",
         "logout": "Déconnexion",
-        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
+        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter\u00a0?",
         "quit": "Quitter"
     },
     "wiki": "Wiki"

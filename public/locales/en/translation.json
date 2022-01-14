@@ -68,7 +68,6 @@
             "error": "Invalid Path",
             "title": "Choose the saves directory"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Choose Wine Prefix Folder",
         "yes": "YES"
     },
@@ -121,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
@@ -170,7 +173,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "Ready",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Return",
     "search": "Enter the game name here...",
     "setting": {
@@ -185,6 +188,7 @@
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
@@ -204,7 +208,7 @@
             "title": "Manual Sync Saves",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Played Recently to Show",
         "maxworkers": "Maximum Number of Workers when downloading",
         "offlinemode": "Run Game Offline",
         "primerun": "Enable Nvidia Prime Render",
@@ -227,7 +231,8 @@
     "Settings": "Settings",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "Copy All Settings to Clipboard",
         "navbar": {
             "general": "General",
             "other": "Other",
@@ -267,8 +272,7 @@
         "about": "About",
         "quit": "Quit",
         "reload": "Reload",
-        "show": "Show",
-        "support": "Support Us"
+        "show": "Show"
     },
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Updates",

@@ -68,7 +68,6 @@
             "error": "Neplatná cesta",
             "title": "Vyberte cestu s uloženými soubory"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Vyberte složku Wine prefixu",
         "yes": "ANO"
     },
@@ -121,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
@@ -170,7 +173,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekty",
     "Ready": "Připraveno",
-    "Recent": "Recent Games",
+    "Recent": "Played Recently",
     "Return": "Zpět",
     "search": "Zde zadejte název hry...",
     "setting": {
@@ -185,6 +188,7 @@
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Povolit Discord Rich Presence",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
@@ -227,6 +231,7 @@
     "Settings": "Nastavení",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Obecné",
@@ -267,8 +272,7 @@
         "about": "O aplikaci",
         "quit": "Ukončit",
         "reload": "Obnovit",
-        "show": "Zobrazit",
-        "support": "Podpořte nás"
+        "show": "Zobrazit"
     },
     "Unreal Marketplace": "Unreal Marketplace",
     "Updates": "Aktualizace",

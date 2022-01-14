@@ -30,6 +30,7 @@ export default function SidebarUtils() {
   const handleLogout = async () => {
     if (confirm(t('userselector.logout_confirmation', 'Logout?'))) {
       await ipcRenderer.invoke('logout')
+      window.localStorage.clear()
       refresh()
     }
   }

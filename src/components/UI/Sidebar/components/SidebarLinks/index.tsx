@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import ElectronStore from 'electron-store'
 
 import cx from 'classnames'
@@ -54,7 +54,10 @@ export default function SidebarLinks() {
           if (match) {
             return true
           }
-          return location.pathname.includes('gameconfig')
+          return (
+            location.pathname === '/login' ||
+            location.pathname.includes('gameconfig')
+          )
         }}
         exact
         to="/"
@@ -81,6 +84,26 @@ export default function SidebarLinks() {
           >
             {t('Unreal Marketplace', 'Unreal Marketplace')}
           </a>
+        </>
+      )}
+      {!isLoggedIn && (
+        <>
+          <Link
+            to="/"
+            className={cx('subItem', {
+              ['selected']: location.pathname === '/'
+            })}
+          >
+            {t('login.loginWithEpic', 'Login With Epic')}
+          </Link>
+          <Link
+            to="/login"
+            className={cx('subItem', {
+              ['selected']: location.pathname === '/login'
+            })}
+          >
+            {t('login.loginWithSid', 'Login with SID')}
+          </Link>
         </>
       )}
       <NavLink

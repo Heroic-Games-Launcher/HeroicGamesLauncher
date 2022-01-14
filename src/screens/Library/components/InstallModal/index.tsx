@@ -1,8 +1,14 @@
-import { getInstallInfo, getProgress, install, writeConfig } from 'src/helpers'
+import {
+  getAppSettings,
+  getInstallInfo,
+  getProgress,
+  install,
+  writeConfig
+} from 'src/helpers'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 import prettyBytes from 'pretty-bytes'
 import { Checkbox } from '@material-ui/core'
@@ -46,7 +52,6 @@ export default function InstallModal({ appName, backdropClick }: Props) {
   )[0]
   const [gameInfo, setGameInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
-  const [settings, setSettings] = useState<AppSettings>()
   const [winePrefix, setWinePrefix] = useState('...')
   const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(
@@ -79,7 +84,17 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   async function handleInstall(path?: string) {
     backdropClick()
-    writeConfig([appName, { ...settings, winePrefix }])
+
+    // Write Default game config with prefix on linux
+    if (isLinux) {
+      const appSettings: AppSettings = await ipcRenderer.invoke(
+        'requestSettings',
+        appName
+      )
+
+      writeConfig([appName, { ...appSettings, winePrefix }])
+    }
+
     return await install({
       appName,
       handleGameStatus,
@@ -98,7 +113,6 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       .invoke('requestSettings', 'default')
       .then((config: AppSettings) => {
         setDefaultPath(config.defaultInstallPath)
-        setSettings(config)
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
@@ -133,7 +147,8 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
         .replaceAll(' ', '-')
-      const sugestedWinePrefix = `~/Games/Heroic/Prefixes/${fixedTitle}`
+      const { defaultWinePrefix } = await getAppSettings()
+      const sugestedWinePrefix = `${defaultWinePrefix}/${fixedTitle}`
       setWinePrefix(sugestedWinePrefix)
     }
     getInfo()
@@ -166,6 +181,9 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
         <div className="modal">
+          <SvgButton className="close-button" onClick={() => backdropClick()}>
+            <FontAwesomeIcon icon={faXmark} />
+          </SvgButton>
           <span className="title">
             {gameInfo?.game?.title}
             <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />

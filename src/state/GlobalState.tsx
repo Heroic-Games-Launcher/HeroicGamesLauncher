@@ -21,13 +21,15 @@ const configStore: ElectronStore = new Store({
   cwd: 'store'
 })
 const libraryStore: ElectronStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'library'
 })
 const wineDownloaderInfoStore: ElectronStore = new Store({
   cwd: 'store',
   name: 'wine-downloader-info'
 })
+
+const RTL_LANGUAGES = ['fa']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
 
@@ -444,6 +446,8 @@ export class GlobalState extends PureComponent<Props> {
     const { data, wineVersions, filterText, filter, platform, filterPlatform } =
       this.state
     let filteredLibrary = data
+    const language = storage.getItem('language') || 'en'
+    const isRTL = RTL_LANGUAGES.includes(language)
 
     try {
       const filterRegex = new RegExp(filterText, 'i')
@@ -469,6 +473,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
+          isRTL,
           platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,

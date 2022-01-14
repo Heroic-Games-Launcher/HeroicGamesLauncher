@@ -1,34 +1,34 @@
 {
     "All": "همه",
-    "Assets": "دارایی‌ها",
+    "Assets": "دارایی\u200cها",
     "box": {
         "appupdate": {
-            "message": "نسخه جدید Heroic موجود است،‌ آیا می‌خواهید الان به‌روزرسانی کنید؟",
-            "title": "به‌روزرسانی موجود است"
+            "message": "نسخه جدید Heroic موجود است،\u200c آیا می\u200cخواهید الان به\u200cروزرسانی کنید؟",
+            "title": "به\u200cروزرسانی موجود است"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "کش Heroic پاک شد!",
+            "title": "کش پاک شد"
         },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
-        "default-install-path": "انتخاب محل پیش‌فرض نصب",
+        "default-install-path": "انتخاب محل پیش\u200cفرض نصب",
         "error": {
             "credentials": {
                 "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید.",
                 "title": "اعتبار ورود منقضی شده"
             },
             "diskspace": {
-                "message": "فضای ذخیره‌سازی کافی موجود نیست",
+                "message": "فضای ذخیره\u200cسازی کافی موجود نیست",
                 "title": "فضایی موجود نیست"
             },
             "generic": {
                 "message": "خطایی ناشناخته رخ داده است",
                 "title": "خطای ناشناخته"
             },
-            "launch": "خطا در هنگام اجرای بازی، لاگ‌ها را چک کنید!",
+            "launch": "خطا در هنگام اجرای بازی، لاگ\u200cها را چک کنید!",
             "log": {
                 "message": "برای این بازی لاگی پیدا نشد",
                 "title": "لاگ پیدا نشد"
@@ -39,7 +39,7 @@
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "نصب نشده است، آیا می‌خواهید آن را نصب کنید؟"
+                "not_installed": "نصب نشده است، آیا می\u200cخواهید آن را نصب کنید؟"
             }
         },
         "quit": {
@@ -48,7 +48,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "آیا مطمئن هستید که می\u200cخواهید Heroic را بازنشانی کنید؟ این کار تمام تنظیمات و کش\u200cها را پاک می\u200cکند اما بازی\u200cهای نصب شده یا اعتبار کاربری شما را پاک نمی\u200cکند",
                 "title": "Reset Heroic"
             }
         },
@@ -60,51 +60,50 @@
             "exe": "انتخاب EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "میانبرها در دسکتاپ و منوی استارت ایجاد شدند",
+            "title": "میانبرها"
         },
         "sync": {
             "button": "انتخاب",
             "error": "مسیر نامعتبر",
             "title": "انتخاب محل ذخیره"
         },
-        "wineInstallPath": "Select the install path.",
-        "wineprefix": "انتخاب پوشه Wine",
+        "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله"
     },
     "button": {
         "login": "Login",
-        "sync": "همگام‌سازی",
-        "syncing": "در حال همگام‌سازی",
-        "unsync": "عدم همگام‌سازی"
+        "sync": "همگام\u200cسازی",
+        "syncing": "در حال همگام\u200cسازی",
+        "unsync": "عدم همگام\u200cسازی"
     },
     "Downloading": "در حال دانلود",
-    "Epic Games": "Epic Games",
+    "Epic Games": "اپیک گیمز",
     "Filter": "فیلتر",
     "filter": {
         "noFilter": "No Filter"
     },
     "globalSettings": "تنظیمات عمومی",
     "help": {
-        "general": "در صورتی که در جایی فروشگاه اپیک گیمز را به صورت فعال نصب کرده‌اید و می‌خواهید بازی‌های خود را وارد کنید با EGS همگام‌سازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
+        "general": "در صورتی که در جایی فروشگاه اپیک گیمز را به صورت فعال نصب کرده\u200cاید و می\u200cخواهید بازی\u200cهای خود را وارد کنید با EGS همگام\u200cسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "other": {
             "part1": "استفاده از ",
-            "part2": "گزینه‌های پیشرفته",
+            "part2": "گزینه\u200cهای پیشرفته",
             "part3": "تا قبل از اجرای بازی صدا زده شود ",
             "part4": "استفاده کنید ",
-            "part5": "آرگومان‌های بازی",
-            "part6": " تا قبل از اجرای دستور صدا زده شود،‌ به عنوان مثال: ",
-            "part7": " تا لانچر در برخی بازی‌ها رد شود،‌ غیره."
+            "part5": "آرگومان\u200cهای بازی",
+            "part6": " تا قبل از اجرای دستور صدا زده شود،\u200c به عنوان مثال: ",
+            "part7": " تا لانچر در برخی بازی\u200cها رد شود،\u200c غیره."
         },
         "sync": {
-            "part1": "Heroic تلاش می‌کند تا پوشه صحیح ذخیره‌سازی را پیدا کند و در اکثر مواقع کار خواهد کرد. در صورتی که پوشه اشتباه بود،‌ از بخش رونویسی برای تغییر آن استفاده کنید.",
-            "part2": "در صورتی که محل Wine یا Proton را تغییر دهید، شما باید دوباره مسیر را چک کنید از آنجایی که Proton از محل و کاربری متفاوتی استفاده می‌کند. پس شما می‌توانید مسیر فعلی را حذف ساده کنید از صفحه تنظیمات همگام‌سازی خارج شده و دوباره برگردید تا Heroic یک بار دیگر با محل درست پوشه را حدس بزند.",
-            "part3": "همگام سازی دستی: برای بارگیری ذخیره بازی‌های ذخیره شده در Cloud ، بارگیری را انتخاب کنید. آپلود تا موارد محلی را روی ابر آپلود کنید. دانلود اجباری و آپلود اجباری نسخه ای را که بصورت محلی یا روی ابر است نادیده می گیرند.",
-            "part4": "همگام‌سازی ذخیره‌ها به طور خودکار هر زمان که یک بازی را شروع می کنید و پس از اتمام بازی ، ذخیره ها را همگام‌سازی می کند."
+            "part1": "Heroic تلاش می\u200cکند تا پوشه صحیح ذخیره\u200cسازی را پیدا کند و در اکثر مواقع کار خواهد کرد. در صورتی که پوشه اشتباه بود،\u200c از بخش رونویسی برای تغییر آن استفاده کنید.",
+            "part2": "در صورتی که محل Wine یا Proton را تغییر دهید، شما باید دوباره مسیر را چک کنید از آنجایی که Proton از محل و کاربری متفاوتی استفاده می\u200cکند. پس شما می\u200cتوانید مسیر فعلی را حذف ساده کنید از صفحه تنظیمات همگام\u200cسازی خارج شده و دوباره برگردید تا Heroic یک بار دیگر با محل درست پوشه را حدس بزند.",
+            "part3": "همگام سازی دستی: برای بارگیری ذخیره بازی\u200cهای ذخیره شده در Cloud ، بارگیری را انتخاب کنید. آپلود تا موارد محلی را روی ابر آپلود کنید. دانلود اجباری و آپلود اجباری نسخه ای را که بصورت محلی یا روی ابر است نادیده می گیرند.",
+            "part4": "همگام\u200cسازی ذخیره\u200cها به طور خودکار هر زمان که یک بازی را شروع می کنید و پس از اتمام بازی ، ذخیره ها را همگام\u200cسازی می کند."
         },
         "wine": {
-            "part1": "Heroic در این پوشه‌ها برای نسخه‌های Wine، Proton و CrossOver جست‌وجو می‌کند:",
-            "part2": "برای دیگر مکان‌ها،‌از یک symbolic link به یکی از این پوشه‌ها استفاده کنید"
+            "part1": "Heroic در این پوشه\u200cها برای نسخه\u200cهای Wine، Proton و CrossOver جست\u200cوجو می\u200cکند:",
+            "part2": "برای دیگر مکان\u200cها،\u200cاز یک symbolic link به یکی از این پوشه\u200cها استفاده کنید"
         }
     },
     "info": {
@@ -112,25 +111,29 @@
     },
     "infobox": {
         "help": "راهنما",
-        "requirements": "نیازمندی‌های سیستم"
+        "requirements": "نیازمندی\u200cهای سیستم"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "انتخاب محل نصب"
     },
     "Library": "کتابخانه",
     "loading": {
-        "website": "Loading Website"
+        "website": "درحال بارگیری وب\u200cسایت"
+    },
+    "login": {
+        "loginWithEpic": "ورود با اپیک",
+        "loginWithSid": "Login with SID"
     },
     "message": {
-        "sync": "همگام‌سازی کامل شد",
-        "unsync": "عدم همگام‌سازی کامل شد"
+        "sync": "همگام\u200cسازی کامل شد",
+        "unsync": "عدم همگام\u200cسازی کامل شد"
     },
     "nogames": "بازی یافت نشد",
-    "Not Ready": "آماده نمی‌باشد",
+    "Not Ready": "آماده نمی\u200cباشد",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "خطا در جابه\u200cجا کردن بازی",
+            "reparing": "خطا در تعمیر"
         },
         "finished": {
             "reparing": "تعمیر کردن کامل شد"
@@ -138,118 +141,120 @@
         "install": {
             "canceled": "نصب لغو شد",
             "finished": "نصب به پایان رسید",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "بازی وارد شد",
+            "startInstall": "نصب آغاز شد"
         },
         "moved": "انتقال کامل شد",
         "uninstalled": "حذف شد",
         "update": {
-            "canceled": "به‌روزرسانی لغو شد",
-            "finished": "آپدیت‌ها به پایان رسیدند",
-            "started": "Update Started"
+            "canceled": "به\u200cروزرسانی لغو شد",
+            "finished": "آپدیت\u200cها به پایان رسیدند",
+            "started": "به\u200cروزرسانی آغاز شد"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "در اینجا گزینه‌های دیگر اجرا را بگذارید",
-            "title": "گزینه‌های پیشرفته (متغیرهای محیطی):"
+            "placeholder": "در اینجا گزینه\u200cهای دیگر اجرا را بگذارید",
+            "title": "گزینه\u200cهای پیشرفته (متغیرهای محیطی):"
         },
         "gameargs": {
-            "placeholder": "آرگومان‌های لانچر را اینجا بگذارید",
-            "title": "آرگومان‌های بازی (برای اجرا پس از دستور):"
+            "placeholder": "آرگومان\u200cهای لانچر را اینجا بگذارید",
+            "title": "آرگومان\u200cهای بازی (برای اجرا پس از دستور):"
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "نسخه Legendary: ",
         "weblate": "کمک به ترجمه Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "egs-prefix": "محل نصب شده EGS"
     },
-    "Plugins": "افزونه‌ها",
-    "Projects": "پروژه‌ها",
+    "Plugins": "افزونه\u200cها",
+    "Projects": "پروژه\u200cها",
     "Ready": "آماده",
-    "Recent": "بازی‌های اخیر",
+    "Recent": "اخیرا بازی\u200c شده",
     "Return": "بازگشت",
     "search": "نام بازی را اینجا وارد کنید...",
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راه\u200cاندازی مجدد)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
-        "autodxvk": "نصب/به‌روزرسانی خودکار DXVK/VKD3D در Prefix",
-        "autosync": "همگام‌سازی خودکار ذخیره‌ها",
+        "autodxvk": "نصب/به\u200cروزرسانی خودکار DXVK/VKD3D در Prefix",
+        "autosync": "همگام\u200cسازی خودکار ذخیره\u200cها",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "چک کردن برای به روزرسانی در هنگام راه اندازی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
-        "default-install-path": "محل پیش‌فرض نصب",
-        "discordRPC": "فعال‌سازی Discord Rich Presence",
-        "egs-sync": "همگام‌سازی با بازی‌های اپیک نصب شده",
-        "enableFSRHack": "فعال‌سازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
-        "esync": "فعال‌سازی Esync",
+        "default-install-path": "محل پیش\u200cفرض نصب",
+        "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
+        "discordRPC": "فعال\u200cسازی Discord Rich Presence",
+        "egs-sync": "همگام\u200cسازی با بازی\u200cهای اپیک نصب شده",
+        "enableFSRHack": "فعال\u200cسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
+        "esync": "فعال\u200cسازی Esync",
         "exit-to-tray": "خروج به میزکار سیستم",
         "FsrSharpnessStrenght": "قدرت تیزی FSR",
-        "fsync": "فعال‌سازی Fsync",
+        "fsync": "فعال\u200cسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
-        "language": "انتخاب زبان نرم‌افزار",
-        "mangohud": "فعال‌سازی Mangohud (Mangohud باید نصب شده باشد)",
+        "language": "انتخاب زبان نرم\u200cافزار",
+        "mangohud": "فعال\u200cسازی Mangohud (Mangohud باید نصب شده باشد)",
         "manualsync": {
             "download": "دانلود",
             "forcedownload": "دانلود اجباری",
             "forceupload": "آپلود اجباری",
-            "sync": "همگام‌سازی",
-            "syncing": "در حال همگام‌سازی",
-            "title": "همگام‌سازی دستی ذخیره‌ها",
+            "sync": "همگام\u200cسازی",
+            "syncing": "در حال همگام\u200cسازی",
+            "title": "همگام\u200cسازی دستی ذخیره\u200cها",
             "upload": "آپلود"
         },
-        "maxRecentGames": "بازی‌های اخیر برای نمایش",
+        "maxRecentGames": "اخیرا بازی\u200c شده برای نمایش",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "offlinemode": "اجرای آفلاین بازی",
-        "primerun": "فعال‌سازی Nvidia Prime Render",
-        "resizableBar": "فعال‌سازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
+        "primerun": "فعال\u200cسازی Nvidia Prime Render",
+        "resizableBar": "فعال\u200cسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
         "runexe": {
-            "message": "فایل‌ها را اینجا درج کنید",
+            "message": "فایل\u200cها را اینجا درج کنید",
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "placeholder": "انتخاب پوشه دقیق ذخیره‌های بازی‌ها",
-            "title": "رونویسی پوشه ابری همگام‌سازی ذخیره‌ها"
+            "placeholder": "انتخاب پوشه دقیق ذخیره\u200cهای بازی\u200cها",
+            "title": "رونویسی پوشه ابری همگام\u200cسازی ذخیره\u200cها"
         },
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
-        "start-in-tray": "شروع در حالت پس‌زمینه",
+        "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راه\u200cاندازی مجدد)",
+        "start-in-tray": "شروع در حالت پس\u200cزمینه",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
     },
     "Settings": "تنظیمات",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "پاک کردن کش Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
         "navbar": {
             "general": "عمومی",
             "other": "بقیه",
-            "sync": "همگام‌سازی ذخیره‌ها"
+            "sync": "همگام\u200cسازی ذخیره\u200cها"
         },
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "در حال بارگیری لیست بازی،\u200c لطفا منتظر بمانید",
+        "logging": "در حال وارد شدن..."
     },
     "store": "فروشگاه",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "همه بازی\u200cها",
+        "allUnreal": "Unreal - همه\u200cچیز",
+        "downloading": "در حال دانلود",
+        "installedGames": "بازی\u200cهای نصب شده",
+        "notInstalledGames": "نصب نشده",
+        "unrealAssets": "Unreal - مهره\u200cها",
+        "unrealPlugins": "Unreal - افزونه\u200cها",
+        "unrealProjects": "Unreal - پروژه\u200cها",
+        "updates": "آپدیت\u200cهای در حال انتظار"
     },
     "Tools": "",
     "tools": {
@@ -262,20 +267,19 @@
         "addpath": "افزودن مسیر جدید",
         "removepath": "حذف مسیر"
     },
-    "Total Games": "همه بازی‌ها",
+    "Total Games": "همه بازی\u200cها",
     "tray": {
         "about": "درباره",
         "quit": "خروج",
         "reload": "بارگیری مجدد",
-        "show": "نمایش",
-        "support": "حمایت از ما"
+        "show": "نمایش"
     },
     "Unreal Marketplace": "بازار Unreal",
-    "Updates": "به‌روزرسانی‌ها",
+    "Updates": "به\u200cروزرسانی\u200cها",
     "userselector": {
         "discord": "Discord",
         "logout": "خروج از حساب",
-        "logout_confirmation": "آیا می‌خواهید از حساب خود خارج شوید؟",
+        "logout_confirmation": "آیا می\u200cخواهید از حساب خود خارج شوید؟",
         "quit": "خروج"
     },
     "wiki": "ویکی"

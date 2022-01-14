@@ -29,6 +29,7 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
   const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
+  const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
 
   const { t, i18n } = useTranslation('gamepage')
@@ -125,54 +126,62 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
       <div className={`submenu`}>
         {isInstalled && (
           <>
-            <a
-              href="#"
+            <button
               onClick={() => renderer.send('getLog', appName)}
-              className="link"
+              className="link button is-text is-link"
             >
               {t('submenu.log')}
-            </a>
-            <a href="#" onClick={() => handleMoveInstall()} className="link">
+            </button>
+            <button
+              onClick={() => handleMoveInstall()}
+              className="link button is-text is-link"
+            >
               {t('submenu.move')}
-            </a>{' '}
-            <a href="#" onClick={() => handleChangeInstall()} className="link">
+            </button>{' '}
+            <button
+              onClick={() => handleChangeInstall()}
+              className="link button is-text is-link"
+            >
               {t('submenu.change')}
-            </a>{' '}
-            <a href="#" onClick={() => handleRepair(appName)} className="link">
+            </button>{' '}
+            <button
+              onClick={() => handleRepair(appName)}
+              className="link button is-text is-link"
+            >
               {t('submenu.verify')}
-            </a>{' '}
-            <a
-              href="#"
+            </button>{' '}
+            <button
               onClick={() => uninstall({ appName, t, handleGameStatus })}
-              className="link"
+              className="link button is-text is-link"
             >
               {t('button.uninstall')}
-            </a>{' '}
+            </button>{' '}
             {!isMac && (
-              <a href="#" onClick={() => handleShortcuts()} className="link">
+              <button
+                onClick={() => handleShortcuts()}
+                className="link button is-text is-link"
+              >
                 {t('submenu.addShortcut', 'Add shortcut')}
-              </a>
+              </button>
             )}
           </>
         )}
-        <a
-          href="#"
+        <button
           onClick={() => createNewWindow(formatStoreUrl(title, lang))}
-          className="link"
+          className="link button is-text is-link"
         >
           {t('submenu.store')}
-        </a>
+        </button>
         {!isWin && (
-          <a
-            href="#"
+          <button
             onClick={() => createNewWindow(protonDBurl)}
-            className="link"
+            className="link button is-text is-link"
           >
             {t('submenu.protondb')}
-          </a>
+          </button>
         )}
       </div>
-      {isInstalled && !isWin && (
+      {isInstalled && isLinux && (
         <div className="otherInfo">
           <SmallInfo title="Wine:" subtitle={info.wine} />
           <SmallInfo

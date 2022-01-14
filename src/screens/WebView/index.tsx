@@ -1,17 +1,12 @@
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
-import ElectronStore from 'electron-store'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
 import ContextProvider from 'src/state/ContextProvider'
 import { Webview } from 'src/types'
 
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
 const { clipboard, ipcRenderer } = window.require('electron')
 import './index.css'
 
@@ -24,18 +19,17 @@ type SID = {
 }
 
 const USER_AGENT =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46'
+  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.137 Safari/537.36'
 
 export default function WebView({ isLogin }: Props) {
   const { i18n } = useTranslation()
   const { pathname } = useLocation()
   const { t } = useTranslation()
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, handleFilter } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
   }>({ refresh: true, message: t('loading.website', 'Loading Website') })
-  const user = configStore.get('userInfo')
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -63,42 +57,52 @@ export default function WebView({ isLogin }: Props) {
     if (webview) {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
-
+        // Ignore the login handling if not on login page
+        if (pathname !== '/') {
+          return
+        }
         // Deals with Login
-        if (!user) {
-          webview.findInPage('sid')
-          webview.addEventListener('found-in-page', async (res) => {
-            const data = res as Event & { result: { matches: number } }
-            if (data.result.matches) {
-              webview.focus()
-              webview.selectAll()
-              webview.copy()
-              const { sid }: SID = JSON.parse(clipboard.readText())
-              try {
-                setLoading({
-                  refresh: true,
-                  message: t('status.logging', 'Logging In...')
-                })
-                await ipcRenderer.invoke('login', sid)
-                setLoading({
-                  refresh: true,
-                  message: t('status.loading', 'Loading Game list, please wait')
-                })
-                await refreshLibrary({
-                  fullRefresh: true,
-                  runInBackground: false
-                })
-                setLoading({ ...loading, refresh: false })
-              } catch (error) {
-                console.error(error)
-                ipcRenderer.send('logError', error)
+        else {
+          setTimeout(() => {
+            webview.findInPage('sid')
+            webview.addEventListener('found-in-page', async (res) => {
+              const data = res as Event & { result: { matches: number } }
+              if (data.result.matches) {
+                webview.focus()
+                webview.selectAll()
+                webview.copy()
+                const { sid }: SID = JSON.parse(clipboard.readText())
+                try {
+                  setLoading({
+                    refresh: true,
+                    message: t('status.logging', 'Logging In...')
+                  })
+                  await ipcRenderer.invoke('login', sid)
+                  handleFilter('all')
+
+                  setLoading({
+                    refresh: true,
+                    message: t(
+                      'status.loading',
+                      'Loading Game list, please wait'
+                    )
+                  })
+                  await refreshLibrary({
+                    fullRefresh: true,
+                    runInBackground: false
+                  })
+                  setLoading({ ...loading, refresh: false })
+                } catch (error) {
+                  console.error(error)
+                  ipcRenderer.send('logError', error)
+                }
               }
-            }
-          })
+            })
+          }, 500)
         }
       }
 
-      webview.addEventListener('did-stop-loading', loadstop)
+      webview.addEventListener('dom-ready', loadstop)
     }
   }, [])
 

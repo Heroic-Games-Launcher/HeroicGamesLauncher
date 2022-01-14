@@ -68,7 +68,6 @@
             "error": "தவறான பாதை",
             "title": "சேமிக்கும் கோப்பகத்தை தேர்வுசெய்"
         },
-        "wineInstallPath": "Select the install path.",
         "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
         "yes": "ஆம்"
     },
@@ -120,6 +119,10 @@
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
         "website": "Loading Website"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
@@ -185,6 +188,7 @@
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
         "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதை",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "நிறுவப்பட்ட எபிக் விளையாட்டுகளுடன் ஒத்திசை",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
@@ -204,7 +208,7 @@
             "title": "கைமுறை ஒத்திசைவு சேமிப்புகள்",
             "upload": "பதிவேற்றம்"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Played Recently to Show",
         "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
         "primerun": "Nvidia Prime Render ஐ துவக்கு",
@@ -227,6 +231,7 @@
     "Settings": "அமைப்புகள்",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "பொதுவானவை",
@@ -267,8 +272,7 @@
         "about": "இதனை பற்றி",
         "quit": "வெளியேறு",
         "reload": "மீண்டும் ஏற்று",
-        "show": "காட்டு",
-        "support": "எங்களை ஆதரியுங்கள்"
+        "show": "காட்டு"
     },
     "Unreal Marketplace": "Unreal விற்பனைக்கூடம்",
     "Updates": "புதுப்பிப்புகள்",

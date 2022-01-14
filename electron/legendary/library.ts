@@ -29,12 +29,12 @@ import Store from 'electron-store'
 import { GlobalConfig } from '../config'
 
 const libraryStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'library'
 })
 
 const installStore = new Store({
-  cwd: 'store',
+  cwd: 'lib-cache',
   name: 'installInfo'
 })
 
@@ -152,8 +152,8 @@ class LegendaryLibrary {
     }
     const arr = Array.from(this.library.values()).sort(
       (a: { title: string }, b: { title: string }) => {
-        const gameA = a.title.toUpperCase()
-        const gameB = b.title.toUpperCase()
+        const gameA = a.title.toUpperCase().replace('THE ', '')
+        const gameB = b.title.toUpperCase().replace('THE ', '')
         return gameA < gameB ? -1 : 1
       }
     )

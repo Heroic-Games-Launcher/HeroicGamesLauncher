@@ -41,6 +41,7 @@ export interface AppSettings {
   userInfo: UserInfo
   wineCrossoverBottle: string
   winePrefix: string
+  defaultWinePrefix: string
   wineVersion: WineInstallation
 }
 
@@ -219,6 +220,7 @@ export interface InstallArgs {
   path: string
   installDlcs?: boolean
   sdlList?: Array<string>
+  platformToInstall: 'Windows' | 'Mac'
 }
 
 export interface InstallParams {
@@ -226,4 +228,23 @@ export interface InstallParams {
   path: string
   installDlcs?: boolean
   sdlList?: Array<string>
+}
+
+export interface GamepadInputEventKey {
+  type: 'keyDown' | 'keyUp' | 'char'
+  keyCode: string
+}
+
+export interface GamepadInputEventWheel {
+  type: 'mouseWheel'
+  deltaY: number
+  x: number
+  y: number
+}
+
+export interface GamepadInputEventMouse {
+  type: 'mouseDown' | 'mouseUp'
+  x: number
+  y: number
+  button: 'left' | 'middle' | 'right'
 }
