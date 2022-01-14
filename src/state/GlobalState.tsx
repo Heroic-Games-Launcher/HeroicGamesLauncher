@@ -1,6 +1,11 @@
 import React, { PureComponent } from 'react'
 
-import { GameInfo, GameStatus, RefreshOptions, ToolsInfo } from 'src/types'
+import {
+  GameInfo,
+  GameStatus,
+  RefreshOptions,
+  WineVersionInfo
+} from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
 import { i18n } from 'i18next'
@@ -19,9 +24,9 @@ const libraryStore: ElectronStore = new Store({
   cwd: 'store',
   name: 'library'
 })
-const toolsStore: ElectronStore = new Store({
+const wineDownloaderInfoStore: ElectronStore = new Store({
   cwd: 'store',
-  name: 'tools'
+  name: 'wine-downloader-info'
 })
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
@@ -35,7 +40,7 @@ interface Props {
 interface StateProps {
   category: string
   data: GameInfo[]
-  tools: ToolsInfo[]
+  wineVersions: WineVersionInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -54,8 +59,8 @@ export class GlobalState extends PureComponent<Props> {
     data: libraryStore.has('library')
       ? (libraryStore.get('library') as GameInfo[])
       : [],
-    tools: toolsStore.has('tools')
-      ? (toolsStore.get('tools') as ToolsInfo[])
+    wineVersions: wineDownloaderInfoStore.has('wine-releases')
+      ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
       : [],
     error: false,
     filter: 'all',
@@ -121,18 +126,18 @@ export class GlobalState extends PureComponent<Props> {
     this.refresh(checkForUpdates)
   }
 
-  refreshTools = async (
+  refreshWineVersionInfo = async (
     fetch: boolean,
     runInBackground = true
   ): Promise<void> => {
     this.setState({ refreshing: !runInBackground })
-    ipcRenderer.send('logInfo', 'Refreshing Tools')
-    const releases = await ipcRenderer.invoke('refreshTools', fetch)
+    ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
+    const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
     if (!releases.length) {
-      ipcRenderer.send('logError', 'Refreshing Tools failed')
+      ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
     } else {
       this.setState({
-        tools: releases,
+        wineVersions: releases,
         refreshing: false
       })
     }
@@ -344,7 +349,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { data, tools, gameUpdates = [], libraryStatus } = this.state
+    const { data, wineVersions, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName) => {
@@ -408,7 +413,7 @@ export class GlobalState extends PureComponent<Props> {
         fullRefresh: true,
         runInBackground: Boolean(data.length)
       })
-      this.refreshTools(true, Boolean(tools.length))
+      this.refreshWineVersionInfo(true, Boolean(wineVersions.length))
     }
 
     setTimeout(() => {
@@ -436,7 +441,7 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, tools, filterText, filter, platform, filterPlatform } =
+    const { data, wineVersions, filterText, filter, platform, filterPlatform } =
       this.state
     let filteredLibrary = data
 
@@ -457,7 +462,7 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           data: filteredLibrary,
-          tools: tools,
+          wineVersions: wineVersions,
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
@@ -467,7 +472,7 @@ export class GlobalState extends PureComponent<Props> {
           platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          refreshTools: this.refreshTools,
+          refreshWineVersionInfo: this.refreshWineVersionInfo,
           recentGames: getRecentGames(data)
         }}
       >

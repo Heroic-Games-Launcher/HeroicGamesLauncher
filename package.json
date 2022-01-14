@@ -110,6 +110,7 @@
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.1",
     "graceful-fs": "^4.2.8",
+    "heroic-wine-downloader": "^1.1.0",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.1",
     "i18next-fs-backend": "^1.1.1",

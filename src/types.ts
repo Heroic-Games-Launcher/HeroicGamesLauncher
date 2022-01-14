@@ -1,3 +1,4 @@
+import { VersionInfo } from 'heroic-wine-downloader'
 interface About {
   description: string
   shortDescription: string
@@ -43,7 +44,7 @@ export interface AppSettings {
 export interface ContextType {
   category: string
   data: GameInfo[]
-  tools: ToolsInfo[]
+  wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean
   filter: string
@@ -61,7 +62,7 @@ export interface ContextType {
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshTools: (fetch: boolean) => void
+  refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
 }
 
@@ -196,13 +197,7 @@ export interface WineInstallation {
   name: string
 }
 
-export interface ToolsInfo {
-  version: string
-  date: string
-  download: string
-  downsize: number
-  disksize: number
-  checksum: string
+export interface WineVersionInfo extends VersionInfo {
   isInstalled: boolean
   hasUpdate: boolean
   installDir: string

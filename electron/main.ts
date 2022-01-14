@@ -1,4 +1,4 @@
-import { ToolsInfo } from './tools/types'
+import { WineVersionInfo } from './wine-downloader/types'
 import { InstallParams, LaunchResult } from './types'
 import * as path from 'path'
 import {
@@ -18,7 +18,7 @@ import { cpus, platform } from 'os'
 import {
   existsSync,
   mkdirSync,
-  rmdirSync,
+  rmSync,
   unlinkSync,
   watch,
   writeFile
@@ -69,7 +69,12 @@ import {
 import { handleProtocol } from './protocol'
 import { logError, logInfo, logWarning } from './logger'
 import Store from 'electron-store'
-import { updateTools, installTool, removeTool } from './tools/api'
+import {
+  updateWineVersionInfos,
+  removeWineVersion,
+  installWineVersion
+} from './wine-downloader/utils'
+import { ProgressInfo, State } from 'heroic-wine-downloader'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -470,13 +475,13 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     const path = defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${path}/${folderName}`
     return setTimeout(() => {
-      rmdirSync(folderToDelete, { recursive: true })
+      rmSync(folderToDelete, { recursive: true })
     }, 5000)
   }
 
   const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
   return setTimeout(() => {
-    rmdirSync(folderToDelete, { recursive: true })
+    rmSync(folderToDelete, { recursive: true })
   }, 2000)
 })
 
@@ -668,24 +673,20 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
-ipcMain.handle('refreshTools', async (e, fetch) => {
-  return await updateTools(fetch)
+ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
+  return await updateWineVersionInfos(fetch)
 })
 
-ipcMain.handle('installTool', async (e, release: ToolsInfo) => {
-  const onDownloadProgress = (progress: number) => {
-    e.sender.send('download' + release.version, progress)
+ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
+  const onProgress = (state: State, progress: ProgressInfo) => {
+    e.sender.send('progressOf' + release.version, { state, progress })
   }
 
-  const onUnzipProgress = (progress: boolean) => {
-    e.sender.send('unzip' + release.version, progress)
-  }
-
-  return await installTool(release, onDownloadProgress, onUnzipProgress)
+  return await installWineVersion(release, onProgress)
 })
 
-ipcMain.handle('removeTool', async (e, release: ToolsInfo) => {
-  return await removeTool(release)
+ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
+  return await removeWineVersion(release)
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))

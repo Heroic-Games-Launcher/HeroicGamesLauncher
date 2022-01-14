@@ -1,7 +1,7 @@
 import './index.css'
 
 import Header from 'src/components/UI/Header'
-import { ToolsInfo } from 'src/types'
+import { WineVersionInfo } from 'src/types'
 
 import React, { lazy, useContext } from 'react'
 import ContextProvider from 'src/state/ContextProvider'
@@ -11,18 +11,18 @@ const ToolCard = lazy(() => import('src/screens/Tools/components/ToolCard'))
 
 export default function Tools(): JSX.Element | null {
   const { t } = useTranslation()
-  const { tools } = useContext(ContextProvider)
+  const { wineVersions } = useContext(ContextProvider)
 
   return (
     <>
       <Header goTo={'/'} renderBackButton title={t('tools.title')} />
       <div className="Tools">
         <div
-          style={!tools.length ? { backgroundColor: 'transparent' } : {}}
+          style={!wineVersions.length ? { backgroundColor: 'transparent' } : {}}
           className="gameListLayout"
         >
-          {!!tools.length &&
-            tools.map((release: ToolsInfo, key) => (
+          {!!wineVersions.length &&
+            wineVersions.map((release: WineVersionInfo, key) => (
               <ToolCard key={key} {...release} />
             ))}
         </div>

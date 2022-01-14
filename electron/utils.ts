@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
-import { exec, spawn, spawnSync } from 'child_process'
-import { existsSync, statSync, rm, stat } from 'graceful-fs'
+import { exec } from 'child_process'
+import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 import prettyBytes from 'pretty-bytes'
@@ -286,96 +286,6 @@ async function checkCommandVersion(
   return found
 }
 
-async function downloadFile(
-  link: string,
-  downloadDir: string,
-  onProgress: (progress: number) => void
-) {
-  return new Promise((resolve, reject) => {
-    if (!statSync(downloadDir).isDirectory()) {
-      return reject(`Download path ${downloadDir} is not a directory!`)
-    }
-
-    const filePath = downloadDir + '/' + link.split('/').slice(-1)[0]
-    const download = spawn('curl', ['-L', link, '-o', filePath])
-
-    download.stdout.on('data', function (stdout) {
-      // curl does somehow print on stderr
-      // progress calculation is done on stderr
-      logInfo(stdout.toString())
-    })
-
-    download.stderr.on('data', function (stderr) {
-      // get percentage from curl output
-      const percentage = stderr.toString().trimStart().split(' ')[0]
-
-      // check if percentage is valid and convert it to a factor (0...1)
-      const factor = !isNaN(Number(percentage)) ? Number(percentage) / 100 : 0
-      onProgress(factor)
-    })
-
-    download.on('close', function (exitcode: number) {
-      if (exitcode !== 0) {
-        reject(`Download of ${link} failed with exit code ${exitcode}!`)
-      }
-
-      resolve(`Succesfully downloaded ${link} to ${filePath}.`)
-    })
-  })
-}
-
-async function unzipFile(
-  filePath: string,
-  unzipDir: string,
-  onProgress: (progress: boolean) => void
-) {
-  return new Promise((resolve, reject) => {
-    if (statSync(filePath).isDirectory()) {
-      return reject(`Archive path ${filePath} is not a file!`)
-    }
-
-    let extension_options = ''
-    if (filePath.endsWith('tar.gz')) {
-      extension_options = '-vzxf'
-    } else if (filePath.endsWith('tar.xz')) {
-      extension_options = '-vJxf'
-    } else {
-      return reject(`Archive type ${filePath.split('.').pop()} not supported!`)
-    }
-
-    const unzip = spawn('tar', [
-      '--directory',
-      unzipDir,
-      '--strip-components=1',
-      extension_options,
-      filePath
-    ])
-
-    unzip.stdout.on('data', function () {
-      onProgress(true)
-    })
-
-    unzip.stderr.on('data', function (stderr: string) {
-      onProgress(false)
-      return reject(stderr)
-    })
-
-    unzip.on('close', function (exitcode: number) {
-      onProgress(false)
-      if (exitcode !== 0) {
-        return reject(`Unzip of ${filePath} failed with exit code ${exitcode}!`)
-      }
-
-      return resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`)
-    })
-  })
-}
-
-function getFolderSize(folder: string) {
-  const { stdout } = spawnSync('du', ['-sb', folder])
-  return parseInt(stdout.toString())
-}
-
 function clearCache() {
   const installCache = new Store({
     cwd: 'store',
@@ -406,19 +316,16 @@ function resetHeroic() {
 export {
   checkCommandVersion,
   checkForUpdates,
-  downloadFile,
   errorHandler,
   execAsync,
   genericErrorMessage,
   handleExit,
   isOnline,
   openUrlOrFile,
-  unzipFile,
   semverGt,
   showAboutWindow,
   statAsync,
   removeSpecialcharacters,
-  getFolderSize,
   clearCache,
   resetHeroic
 }

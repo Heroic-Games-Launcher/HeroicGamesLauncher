@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useState } from 'react'
 
-import { ToolsInfo, Path } from 'src/types'
+import { WineVersionInfo } from 'src/types'
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { SvgButton } from 'src/components/UI'
@@ -10,6 +10,7 @@ import FolderOpen from '@material-ui/icons/FolderOpen'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import { ProgressInfo, State } from 'heroic-wine-downloader'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -23,51 +24,40 @@ const ToolCard = ({
   isInstalled,
   hasUpdate,
   installDir
-}: ToolsInfo) => {
+}: WineVersionInfo) => {
   const { t } = useTranslation()
-  const { refreshTools } = useContext(ContextProvider)
-  const [downloadProgress, setDownloadProgress] = useState<number>(0)
-  const [isUnzipping, setIsUnzipping] = useState<boolean>(false)
+  const { refreshWineVersionInfo } = useContext(ContextProvider)
+  const [progress, setProgress] = useState<{
+    state: State
+    progress: ProgressInfo
+  }>({ state: 'idle', progress: { percentage: 0 } })
 
-  ipcRenderer.on('download' + version, (e, progress) => {
-    setDownloadProgress(progress)
-  })
-
-  ipcRenderer.on('unzip' + version, (e, progress) => {
-    setIsUnzipping(progress)
+  ipcRenderer.on('progressOf' + version, (e, progress) => {
+    setProgress(progress)
   })
 
   async function install() {
     ipcRenderer
-      .invoke('openDialog', {
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.wineInstallPath', 'Select the install path.')
+      .invoke('installWineVersion', {
+        version: version,
+        date: date,
+        downsize: downsize,
+        disksize: disksize,
+        download: download,
+        checksum: checksum,
+        isInstalled: isInstalled,
+        hasUpdate: hasUpdate
       })
-      .then(({ path }: Path) => {
-        ipcRenderer
-          .invoke('installTool', {
-            version: version,
-            date: date,
-            downsize: downsize,
-            disksize: disksize,
-            download: download,
-            checksum: checksum,
-            isInstalled: isInstalled,
-            hasUpdate: hasUpdate,
-            installDir: path
-          })
-          .then((response) => {
-            if (response) {
-              refreshTools(false)
-            }
-          })
+      .then((response) => {
+        if (response) {
+          refreshWineVersionInfo(false)
+        }
       })
   }
 
   async function remove() {
     ipcRenderer
-      .invoke('removeTool', {
+      .invoke('removeWineVersion', {
         version: version,
         date: date,
         downsize: downsize,
@@ -80,7 +70,7 @@ const ToolCard = ({
       })
       .then((response) => {
         if (response) {
-          refreshTools(false)
+          refreshWineVersionInfo(false)
         }
       })
   }
@@ -116,21 +106,21 @@ const ToolCard = ({
       status =
         t('tools.diskspace') + ': ' + getSizeInMB(disksize).toString() + ' MB'
     } else {
-      if (!isUnzipping) {
+      if (progress.state === 'downloading') {
         status =
-          downloadProgress !== 0
-            ? t('tools.download') +
-              ': ' +
-              getSizeInMB(downloadProgress * downsize).toString() +
-              ' / ' +
-              getSizeInMB(downsize).toString() +
-              ' MB'
-            : t('tools.download') +
-              ': ' +
-              getSizeInMB(downsize).toString() +
-              ' MB'
-      } else {
+          t('tools.download') +
+          ': ' +
+          getSizeInMB(
+            (progress.progress.percentage * downsize) / 100
+          ).toString() +
+          ' / ' +
+          getSizeInMB(downsize).toString() +
+          ' MB'
+      } else if (progress.state === 'unzipping') {
         status = t('tools.unzipping')
+      } else {
+        status =
+          t('tools.download') + ': ' + getSizeInMB(downsize).toString() + ' MB'
       }
     }
     return status
