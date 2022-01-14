@@ -121,8 +121,8 @@
         "website": "正在加载网站"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "loginWithEpic": "通过 Epic 网页登录",
+        "loginWithSid": "通过 Epic SID 登录"
     },
     "message": {
         "sync": "同步完成",

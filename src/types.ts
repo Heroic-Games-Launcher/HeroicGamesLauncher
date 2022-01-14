@@ -246,3 +246,9 @@ export interface GOGGameInfo {
   extraInfo: any[]
   isHidden: boolean
 }
+export interface GamepadActionStatus {
+  [key: string]: {
+    triggeredAt: { [key: number]: number }
+    repeatDelay: false | number
+  }
+}
