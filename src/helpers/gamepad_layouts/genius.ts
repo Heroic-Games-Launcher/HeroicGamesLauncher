@@ -14,8 +14,8 @@ export function checkGenius1(
     four = buttons[3],
     // L1 = buttons[4],
     // R1 = buttons[5],
-    // L2 = buttons[6], // has .value
-    // R2 = buttons[7], // has .value
+    // L2 = buttons[6],
+    // R2 = buttons[7],
     // select = buttons[8],
     // start = buttons[9],
     // L3 = buttons[10], // press left stick
