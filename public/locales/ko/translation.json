@@ -132,7 +132,7 @@
         "website": "웹사이트 로드 중"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Epic으로 로그인",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -184,7 +184,7 @@
     "Plugins": "플러그인",
     "Projects": "프로젝트",
     "Ready": "준비됨",
-    "Recent": "최근 게임",
+    "Recent": "최근 플레이한 게임",
     "Return": "돌아가기",
     "search": "여기에 게임 이름을 입력 ...",
     "setting": {
@@ -199,7 +199,7 @@
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "새 Wine Prefixes 의 폴더 설정",
         "discordRPC": "Discord Rich Presence 활성화",
         "egs-sync": "설치된 Epic Games와 동기화",
         "enableFSRHack": "FSR 활성화 (지원하는 Wine 버전을 사용해야 합니다)",
@@ -219,7 +219,7 @@
             "title": "세이브 수동 동기화",
             "upload": "업로드"
         },
-        "maxRecentGames": "표시할 최근 게임",
+        "maxRecentGames": "표시할 최근 플레이한 게임",
         "maxworkers": "다운로드할 때 최대 워커 개수",
         "offlinemode": "게임 오프라인으로 실행",
         "primerun": "Nvidia Prime 렌더 활성화",

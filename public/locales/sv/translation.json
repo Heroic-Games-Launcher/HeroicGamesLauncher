@@ -242,7 +242,7 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Kopiera alla inställningar till Urklipp",
         "navbar": {
             "general": "Allmänna",
             "other": "Övriga",
