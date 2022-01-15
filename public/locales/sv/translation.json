@@ -173,13 +173,13 @@
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Ready": "Nedladdade",
-    "Recent": "Senast spelade",
+    "Recent": "Spelade nyligen",
     "Return": "Tillbaka",
     "search": "Skriv in spelets namn här...",
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
-        "alt-legendary-bin": "Välj en alternativ Legendary binär att använda",
+        "alt-legendary-bin": "Välj en Alternativ Legendary binär   (kräver omstart)",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK/VKD3D i prefix",
         "autosync": "Autosynkronisera sparfiler",
@@ -208,7 +208,7 @@
             "title": "Manuell sparfilssynkronisering",
             "upload": "Ladda upp"
         },
-        "maxRecentGames": "Antal senaste spel som visas",
+        "maxRecentGames": "Spelade nyligen att visa",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
@@ -231,7 +231,7 @@
     "Settings": "Inställningar",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Kopiera alla inställningar till Urklipp",
         "navbar": {
             "general": "Allmänna",
             "other": "Övriga",

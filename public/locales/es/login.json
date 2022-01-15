@@ -1,6 +1,6 @@
 {
     "button": {
-        "login": "Iniciar Sesión"
+        "login": "Iniciar sesión"
     },
     "input": {
         "placeholder": "Pegue el número SID aquí"
@@ -8,7 +8,7 @@
     "message": {
         "part1": "Para que pueda iniciar sesión e instalar sus juegos, primero debe seguir los pasos a continuación:",
         "part2": "Abre",
-        "part3": "Epic Store aqui",
+        "part3": "Epic Store aquí",
         "part4": ", inicie sesión en su cuenta y copie su",
         "part5": "número de información de SID",
         "part6": "Pegue el",
@@ -17,7 +17,7 @@
     },
     "status": {
         "error": "Error",
-        "loading": "Cargando la Lista de Juegos, por favor espere",
+        "loading": "Cargando la lista de juegos, por favor espere",
         "logging": "Iniciando sesión…"
     },
     "welcome": "¡Bienvenido!"
