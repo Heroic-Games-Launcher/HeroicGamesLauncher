@@ -6,9 +6,9 @@ import {
   checkPS5,
   checkPS3Clone1,
   checkXbox,
-  checkN64Clone1
+  checkN64Clone1,
+  checkGenius1
 } from './gamepad_layouts'
-import { checkGenius1 } from './gamepad_layouts/genius'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
