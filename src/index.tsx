@@ -1,6 +1,5 @@
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
-import LanguageDetector from 'i18next-browser-languagedetector'
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import i18next from 'i18next'
@@ -25,7 +24,6 @@ i18next
   .use(Backend)
   // detect user language
   // learn more: https://github.com/i18next/i18next-browser-languageDetector
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
