@@ -794,8 +794,11 @@ ipcMain.handle('install', async (event, params) => {
   const epicOffline = await isEpicOffline()
   if (epicOffline) {
     dialog.showErrorBox(
-      'Warning',
-      'Epic Servers are having major outage right now, the game cannot be installed!'
+      i18next.t('box.warning.title', 'Warning'),
+      i18next.t(
+        'box.warning.epic.install',
+        'Epic Servers are having major outage right now, the game cannot be installed!'
+      )
     )
     return { status: 'error' }
   }
@@ -890,8 +893,11 @@ ipcMain.handle('importGame', async (event, args) => {
   const epicOffline = await isEpicOffline()
   if (epicOffline) {
     dialog.showErrorBox(
-      'Warning',
-      'Epic Servers are having major outage right now, the game cannot be imported!'
+      i18next.t('box.warning.title', 'Warning'),
+      i18next.t(
+        'box.warning.epic.import',
+        'Epic Servers are having major outage right now, the game cannot be imported!'
+      )
     )
     return { status: 'error' }
   }
@@ -933,8 +939,11 @@ ipcMain.handle('updateGame', async (e, game) => {
   const epicOffline = await isEpicOffline()
   if (epicOffline) {
     dialog.showErrorBox(
-      'Warning',
-      'Epic Servers are having major outage right now, the game cannot be updated!'
+      i18next.t('box.warning.title', 'Warning'),
+      i18next.t(
+        'box.warning.epic.update',
+        'Epic Servers are having major outage right now, the game cannot be updated!'
+      )
     )
     return { status: 'error' }
   }
