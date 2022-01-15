@@ -121,7 +121,7 @@
         "website": "Caricamento sito web incorso"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Accedi con Epic",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -173,7 +173,7 @@
     "Plugins": "Plugins",
     "Projects": "Progetti",
     "Ready": "Pronto",
-    "Recent": "Played Recently",
+    "Recent": "Giocato di recente",
     "Return": "Torna indietro",
     "search": "Inserisci qui il nome del gioco...",
     "setting": {
@@ -188,7 +188,7 @@
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
         "default-install-path": "Percorso d'installazione predefinito",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Imposta cartella per i nuovi prefissi Wine",
         "discordRPC": "Attiva \"Discord Rich Presence\"",
         "egs-sync": "Sincronizza con l'Epic Games già installato",
         "enableFSRHack": "Attiva l'FSR Hack (la versione di Wine deve supportarlo)",
@@ -208,7 +208,7 @@
             "title": "Sincronizza i salvataggi manualmente",
             "upload": "Upload"
         },
-        "maxRecentGames": "Giochi recenti da mostrare",
+        "maxRecentGames": "Giocati di recente da mostrare",
         "maxworkers": "Numero massimo di connessioni durante il download",
         "offlinemode": "Avvia il gioco in modalità offline",
         "primerun": "Attiva Nvidia Prime Render",
