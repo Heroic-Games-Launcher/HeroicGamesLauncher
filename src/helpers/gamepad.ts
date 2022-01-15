@@ -1,5 +1,14 @@
 import { IpcRenderer } from 'electron'
 import { GamepadActionStatus } from 'src/types'
+import {
+  checkGameCube,
+  checkPS3,
+  checkPS5,
+  checkPS3Clone1,
+  checkXbox,
+  checkN64Clone1
+} from './gamepad_layouts'
+import { checkGenius1 } from './gamepad_layouts/genius'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
@@ -217,189 +226,33 @@ export const initGamepad = () => {
 
       const buttons = controller.buttons
       const axes = controller.axes
-      if (controller.id.match(/xbox|microsoft|02ea/i)) {
-        checkActionsForXbox(buttons, axes, index)
-      } else if (controller.id.match(/gamecube|0337/i)) {
-        checkActionsForGameCube(buttons, axes, index)
-      } else if (controller.id.match(/0ce6/i)) {
-        checkActionsForPlayStation5(buttons, axes, index)
-      } else if (controller.id.match(/PS3|PLAYSTATION|0268/i)) {
-        checkActionsForPlayStation3(buttons, axes, index)
-      } else {
-        // if not specific, fallback to the xbox layout, seems
-        // to be the most common for now and if not exact it seems
-        // to cover at least the left stick and the main 2 buttons
-        checkActionsForXbox(buttons, axes, index)
+      try {
+        if (controller.id.match(/xbox|microsoft|02ea/i)) {
+          checkXbox(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/gamecube|0337/i)) {
+          checkGameCube(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/0ce6/i)) {
+          checkPS5(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/PS3|PLAYSTATION|0268/i)) {
+          checkPS3(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/2563.*0523/i)) {
+          checkPS3Clone1(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/0079.*0006/i)) {
+          checkN64Clone1(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/0583.*a009/i)) {
+          checkGenius1(buttons, axes, index, checkAction)
+        } else {
+          // if not specific, fallback to the xbox layout, seems
+          // to be the most common for now and if not exact it seems
+          // to cover at least the left stick and the main 2 buttons
+          checkXbox(buttons, axes, index, checkAction)
+        }
+      } catch (error) {
+        console.log(`Gamepad error: ${error}`)
       }
     })
 
     requestAnimationFrame(updateStatus)
-  }
-
-  function checkActionsForXbox(
-    buttons: readonly GamepadButton[],
-    axes: readonly number[],
-    controllerIndex: number
-  ) {
-    const A = buttons[0],
-      B = buttons[1],
-      // X = buttons[2],
-      Y = buttons[3],
-      // LB = buttons[4],
-      // RB = buttons[5],
-      // LT = buttons[6], // has .value
-      // RT = buttons[7], // has .value
-      // view = buttons[8],
-      // menu = buttons[9],
-      // L3 = buttons[10], // press left stick
-      // R3 = buttons[11], // press right stick
-      up = buttons[12],
-      down = buttons[13],
-      left = buttons[14],
-      right = buttons[15],
-      // XBOX = buttons[16],
-      leftAxisX = axes[0],
-      leftAxisY = axes[1],
-      rightAxisX = axes[2],
-      rightAxisY = axes[3]
-
-    checkAction('padUp', up.pressed, controllerIndex)
-    checkAction('padDown', down.pressed, controllerIndex)
-    checkAction('padLeft', left.pressed, controllerIndex)
-    checkAction('padRight', right.pressed, controllerIndex)
-    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
-    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
-    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
-    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
-    checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
-    checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
-    checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
-    checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
-    checkAction('mainAction', A.pressed, controllerIndex)
-    checkAction('back', B.pressed, controllerIndex)
-    checkAction('altAction', Y.pressed, controllerIndex)
-  }
-
-  function checkActionsForGameCube(
-    buttons: readonly GamepadButton[],
-    axes: readonly number[],
-    controllerIndex: number
-  ) {
-    const A = buttons[0],
-      // X = buttons[1],
-      Y = buttons[2],
-      B = buttons[3],
-      // LT = buttons[4],
-      // RT = buttons[5],
-      // Z = buttons[6],
-      // Start = buttons[7],
-      up = buttons[8],
-      down = buttons[9],
-      left = buttons[10],
-      right = buttons[11],
-      leftAxisX = axes[0],
-      leftAxisY = axes[1],
-      rightAxisX = axes[3],
-      rightAxisY = axes[4]
-
-    checkAction('padUp', up.pressed, controllerIndex)
-    checkAction('padDown', down.pressed, controllerIndex)
-    checkAction('padLeft', left.pressed, controllerIndex)
-    checkAction('padRight', right.pressed, controllerIndex)
-    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
-    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
-    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
-    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
-    checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
-    checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
-    checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
-    checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
-    checkAction('mainAction', A.pressed, controllerIndex)
-    checkAction('back', B.pressed, controllerIndex)
-    checkAction('altAction', Y.pressed, controllerIndex)
-  }
-
-  function checkActionsForPlayStation3(
-    buttons: readonly GamepadButton[],
-    axes: readonly number[],
-    controllerIndex: number
-  ) {
-    const X = buttons[0],
-      Circle = buttons[1],
-      // Square = buttons[2],
-      Triangle = buttons[3],
-      // LB = buttons[4],
-      // RB = buttons[5],
-      // LT = buttons[6],
-      // RT = buttons[7],
-      // select = buttons[8],
-      // start = buttons[9],
-      // L3 = buttons[10], // press left stick
-      // R3 = buttons[11], // press right stick
-      up = buttons[12],
-      down = buttons[13],
-      left = buttons[14],
-      right = buttons[15],
-      // PSButton = buttons[10],
-      leftAxisX = axes[0],
-      leftAxisY = axes[1],
-      rightAxisX = axes[2],
-      rightAxisY = axes[3]
-
-    checkAction('padUp', up.pressed, controllerIndex)
-    checkAction('padDown', down.pressed, controllerIndex)
-    checkAction('padLeft', left.pressed, controllerIndex)
-    checkAction('padRight', right.pressed, controllerIndex)
-    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
-    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
-    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
-    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
-    checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
-    checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
-    checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
-    checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
-    checkAction('mainAction', X.pressed, controllerIndex)
-    checkAction('back', Circle.pressed, controllerIndex)
-    checkAction('altAction', Triangle.pressed, controllerIndex)
-  }
-
-  function checkActionsForPlayStation5(
-    buttons: readonly GamepadButton[],
-    axes: readonly number[],
-    controllerIndex: number
-  ) {
-    const Circle = buttons[0],
-      Triangle = buttons[1],
-      X = buttons[2],
-      // Square = buttons[3],
-      // LB = buttons[4],
-      // RB = buttons[5],
-      rightAxisX = buttons[6],
-      rightAxisY = buttons[7],
-      // share = buttons[8],
-      // menu = buttons[9],
-      up = buttons[12],
-      down = buttons[13],
-      left = buttons[14],
-      right = buttons[15],
-      leftAxisX = axes[0],
-      leftAxisY = axes[1]
-
-    checkAction('padUp', up.pressed, controllerIndex)
-    checkAction('padDown', down.pressed, controllerIndex)
-    checkAction('padLeft', left.pressed, controllerIndex)
-    checkAction('padRight', right.pressed, controllerIndex)
-    checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
-    checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
-    checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
-    checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
-    checkAction('rightStickLeft', rightAxisX.value < 0.25, controllerIndex)
-    checkAction('rightStickRight', rightAxisX.value > 0.75, controllerIndex)
-    checkAction('rightStickUp', rightAxisY.value < 0.25, controllerIndex)
-    checkAction('rightStickDown', rightAxisY.value > 0.75, controllerIndex)
-    checkAction('mainAction', X.pressed, controllerIndex)
-    checkAction('back', Circle.pressed, controllerIndex)
-    checkAction('altAction', Triangle.pressed, controllerIndex)
   }
 
   function logState(index: number) {
@@ -414,8 +267,10 @@ export const initGamepad = () => {
         console.log(`button ${button} pressed ${buttons[button].value}`)
     }
     for (const axis in axes) {
-      if (axes[axis] < -0.5) console.log(`axis ${axis} activated negative`)
-      if (axes[axis] > 0.5) console.log(`axis ${axis} activated positive`)
+      if (axes[axis] < -0.1 && axes[axis] >= -1)
+        console.log(`axis ${axis} activated negative`)
+      if (axes[axis] > 0.1 && axes[axis] <= 1)
+        console.log(`axis ${axis} activated positive`)
     }
   }
 
