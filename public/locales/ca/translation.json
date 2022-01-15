@@ -120,6 +120,10 @@
     "loading": {
         "website": "Loading Website"
     },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
+    },
     "message": {
         "sync": "Sincronització completa",
         "unsync": "Des-sincronització completa"
@@ -184,6 +188,7 @@
         "customWineProton": "Rutes de Wine o Proton personalitzades",
         "darktray": "Emprar la icona fosca al Tray",
         "default-install-path": "Ruta d'instal·lació predeterminada",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Activa la Discord Rich Presence",
         "egs-sync": "Sincronitza amb Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",

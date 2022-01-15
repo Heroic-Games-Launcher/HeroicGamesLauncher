@@ -7,8 +7,8 @@
             "title": "Dostępna aktualizacja"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Wyczyszczono Cache Heroic!",
+            "title": "Wyczyszczono Cache"
         },
         "choose": "Wybierz",
         "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
@@ -48,7 +48,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Jesteś pewny/a że chcesz zresetować Heroic? To usunie wszystkie Ustawienia i Pamięć Cache ale nie usunie twoich Zainstalowanych gier i logowania Epic",
                 "title": "Reset Heroic"
             }
         },
@@ -68,7 +68,7 @@
             "error": "Nieprawidłowa ścieżka",
             "title": "Wybierz folder zapisów gry"
         },
-        "wineprefix": "Wybierz folder prefiksu Wine",
+        "wineprefix": "Wybierz Folder Prefiksu Wine",
         "yes": "TAK"
     },
     "button": {
@@ -114,11 +114,15 @@
         "requirements": "Wymagania Systemowe"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Wybierz Ścieżkę Instalacji"
     },
     "Library": "Biblioteka",
     "loading": {
-        "website": "Loading Website"
+        "website": "Ładowanie Strony"
+    },
+    "login": {
+        "loginWithEpic": "Login With Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Synchronizacja zakończona",
@@ -145,7 +149,7 @@
         "update": {
             "canceled": "Aktualizacja przerwana",
             "finished": "Aktualizacja zakończona",
-            "started": "Update Started"
+            "started": "Aktualizacja Rozpoczęta"
         }
     },
     "options": {
@@ -169,13 +173,13 @@
     "Plugins": "Rozszerzenia",
     "Projects": "Projekty",
     "Ready": "Zainstalowane",
-    "Recent": "Recently Played",
+    "Recent": "Played Recently",
     "Return": "Powrót",
     "search": "Wpisz nazwę gry...",
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
-        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary do użycia",
+        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary  (wymaga restartu)",
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK/VKD3D w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
@@ -184,6 +188,7 @@
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "discordRPC": "Włącz Discord Rich Presence",
         "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
@@ -217,7 +222,7 @@
             "title": "Pomiń synchronizację z chmurą"
         },
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Pokaż Unreal Marketplace (wymaga restartu)",
         "start-in-tray": "Uruchom zminimalizowany",
         "winecrossoverbottle": "Butelki w CrossOver",
         "wineprefix": "Folder prefiksu Wine",
@@ -225,8 +230,8 @@
     },
     "Settings": "Ustawienia",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Wyczyść Cache Heroic",
+        "copyToClipboard": "Kopiuj Wszystkie Ustawienia do Schowka",
         "navbar": {
             "general": "Główne",
             "other": "Inne",
@@ -235,8 +240,8 @@
         "reset-heroic": "Reset Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Ładowanie listy Gier, proszę czekać",
+        "logging": "Logowanie..."
     },
     "store": "Sklep",
     "title": {

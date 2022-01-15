@@ -12,7 +12,7 @@ function GameRequirements({ gameInfo }: Props) {
   const { t } = useTranslation('gamepage')
 
   const { is_game, extra }: GameInfo = gameInfo
-  const haveSystemRequirements = Boolean(extra.reqs.length)
+  const haveSystemRequirements = Boolean(extra?.reqs?.length)
 
   return (
     <div

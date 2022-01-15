@@ -30,7 +30,7 @@
             "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?",
             "title": "Atualização Disponível"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Selecione a pasta do WINE Prefix",
         "yes": "SIM"
     },
     "button": {
@@ -60,15 +60,15 @@
         "repairing": "Reparando"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Requer Internet",
         "path": "Pasta de Instalação",
         "size": "Tamanho",
         "syncsaves": "Sincronizar Saves",
         "version": "Versão"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "Selecione o local de instalação",
+        "wineprefix": "Prefixo Wine"
     },
     "label": {
         "playing": {
@@ -80,7 +80,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opções de Inicialização..."
     },
     "sdl": {
         "title": "Selecione os componentes para instalar"
@@ -95,7 +95,7 @@
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
-        "notinstalled": "Este Jogo Não está Instalado",
+        "notinstalled": "Este jogo não está instalado",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"

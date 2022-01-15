@@ -2,9 +2,6 @@
     "button": {
         "login": "Prijava"
     },
-    "info": {
-        "needHelp": "Trebaš pomoć?"
-    },
     "input": {
         "placeholder": "Zalijepite SID broj ovdje"
     },

@@ -30,13 +30,13 @@
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
             "title": "Il gioco richiede un aggiornamento"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI"
     },
     "button": {
         "cancel": "Pausa/Annulla",
         "continue": "Continua Download",
-        "import": "Importa",
+        "import": "Importa gioco",
         "install": "Installa",
         "uninstall": "Disinstalla",
         "update": "Update"
@@ -67,8 +67,8 @@
         "version": "Versione"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "Seleziona percorso di installazione",
+        "wineprefix": "Prefisso Wine"
     },
     "label": {
         "playing": {

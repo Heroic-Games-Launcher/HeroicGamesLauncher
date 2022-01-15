@@ -139,36 +139,12 @@ option {
   max-width: 100px;
 }
 
-.headerIcons {
-  width: min(100px, 6vw);
-  max-width: 150px;
-  display: flex;
-  justify-content: space-around;
-  grid-area: refresh;
-}
-
-.headerIcons > *,
-.macFilter > * {
-  cursor: pointer;
-}
-
-.headerIcons > .svg-button {
-  color: var(--text-primary);
-}
-
-.headerIcons > *:hover,
-.headerIcons > .svg-button > *:hover,
-.headerIcons > .svg-button:focus-visible > * {
-  color: var(--secondary);
-}
-
-.macFilter > .selectedLayout,
-.headerIcons > .selectedLayout {
+.macFilter > .selectedLayout {
   color: var(--secondary);
 }
 
 .refreshIcon:hover,
-:focus-visible .refreshIcon {
+.svg-button:focus-visible .refreshIcon {
   animation: refreshing 2s infinite;
 }
 

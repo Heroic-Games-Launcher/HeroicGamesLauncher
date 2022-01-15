@@ -7,12 +7,12 @@
             "title": "Има ново обновление"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Кешът на Heroic беше изчистен!",
+            "title": "Кешът е изчистен"
         },
         "choose": "Избиране",
         "choose-egs-prefix": "Изберете префикс, в който е инсталиран EGS",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Изберете изпълнимия файл на Legendary",
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
         "error": {
@@ -48,8 +48,8 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "Наистина ли искате да зачистите Heroic? Това ще премахне всички настройки и кеша, но няма да изтрие инсталираните игри, нито удостоверителните данни за Epic",
+                "title": "Зачистване на Heroic"
             }
         },
         "runexe": {
@@ -60,8 +60,8 @@
             "exe": "Изберете EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Бяха създадени преки пътища на работния плот и в менюто с приложения",
+            "title": "Преки пътища"
         },
         "sync": {
             "button": "Избиране",
@@ -72,7 +72,7 @@
         "yes": "ДА"
     },
     "button": {
-        "login": "Login",
+        "login": "Вход",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране"
@@ -114,11 +114,15 @@
         "requirements": "Системни изисквания"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Изберете местоположение за инсталиране"
     },
     "Library": "Библиотека",
     "loading": {
-        "website": "Loading Website"
+        "website": "Зареждане на уеб сайта"
+    },
+    "login": {
+        "loginWithEpic": "Вход чрез Epic",
+        "loginWithSid": "Login with SID"
     },
     "message": {
         "sync": "Синхронизацията е завършена",
@@ -128,8 +132,8 @@
     "Not Ready": "Не е готово",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Грешка при преместването на играта",
+            "reparing": "Грешка при поправянето"
         },
         "finished": {
             "reparing": "Поправката е завършена"
@@ -137,15 +141,15 @@
         "install": {
             "canceled": "Инсталирането е преустановено",
             "finished": "Инсталирането е завършено",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Играта е внесена",
+            "startInstall": "Инсталацията е започната"
         },
         "moved": "Преместването е завършено",
         "uninstalled": "Деинсталирано",
         "update": {
             "canceled": "Обновяването е преустановено",
             "finished": "Обновяването е завършено",
-            "started": "Update Started"
+            "started": "Обновяването е започнато"
         }
     },
     "options": {
@@ -159,23 +163,23 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Версия на Legendary: ",
         "weblate": "Помогнете за превода на Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
         "egs-prefix": "Префикс, където е инсталиран EGS"
     },
     "Plugins": "Добавки",
     "Projects": "Проекти",
     "Ready": "Готово",
-    "Recent": "Скорошни игри",
+    "Recent": "Играно наскоро",
     "Return": "Обратно",
     "search": "Въведете името на играта...",
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Избиране на алтернативен изпълним файл на Legendary (изисква рестартиране)",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
         "autodxvk": "Автоматично инсталиране/обновяване на DXVK/VKD3D в префикса",
         "autosync": "Автоматично синхронизиране на запазените файлове",
@@ -184,6 +188,7 @@
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
+        "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
@@ -203,7 +208,7 @@
             "title": "Ръчно синхронизиране на запазените файлове",
             "upload": "Качване"
         },
-        "maxRecentGames": "Скорошни игри за показване",
+        "maxRecentGames": "Играно наскоро за показване",
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "offlinemode": "Пускане на играта в режим „извън линия“",
         "primerun": "Включване на „Nvidia Prime Render“",
@@ -217,7 +222,7 @@
             "title": "Замяна на папката за синхронизиране на запазени файлове в облака"
         },
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Папка за префикс на Wine",
@@ -225,30 +230,30 @@
     },
     "Settings": "Настройки",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Изчистване на кеша на Heroic",
+        "copyToClipboard": "Копиране на всички настройки в буфера за обмен",
         "navbar": {
             "general": "Общи",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Зачистване на Heroic"
     },
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Зареждане на списъка с игри. Моля, изчакайте",
+        "logging": "Влизане…"
     },
     "store": "Магазин",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Всички игри",
+        "allUnreal": "Unreal – Всичко",
+        "downloading": "Сваляне",
+        "installedGames": "Инсталирани игри",
+        "notInstalledGames": "Не инсталирани",
+        "unrealAssets": "Unreal – Ресурси",
+        "unrealPlugins": "Unreal – Добавки",
+        "unrealProjects": "Unreal – Проекти",
+        "updates": "Изчакващи обновления"
     },
     "tooltip": {
         "addpath": "Добавяне на нов път",

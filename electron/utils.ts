@@ -221,11 +221,11 @@ function genericErrorMessage(): void {
 }
 
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|+]')
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
   return text.replaceAll(regexp, '')
 }
 
-async function openUrlOrFile(url: string): Promise<string> {
+async function openUrlOrFile(url: string): Promise<string | void> {
   if (process.platform === 'darwin') {
     try {
       await execAsync(`open ${url}`)
@@ -234,6 +234,7 @@ async function openUrlOrFile(url: string): Promise<string> {
         i18next.t('box.error.log.title', 'Log Not Found'),
         i18next.t('box.error.log.message', 'No Log was found for this game')
       )
+      return
     }
   }
   if (process.platform === 'linux') {
@@ -245,6 +246,7 @@ async function openUrlOrFile(url: string): Promise<string> {
         i18next.t('box.error.log.title', 'Log Not Found'),
         i18next.t('box.error.log.message', 'No Log was found for this game')
       )
+      return
     }
   }
   return shell.openPath(url)

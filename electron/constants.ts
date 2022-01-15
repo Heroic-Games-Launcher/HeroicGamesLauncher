@@ -4,6 +4,7 @@ import Store from 'electron-store'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
 import { logInfo } from './logger'
+import { env, execPath } from 'process'
 
 const configStore = new Store({
   cwd: 'store'
@@ -30,11 +31,17 @@ function getLegendaryBin() {
 
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
+const isFlatpak = execPath === '/app/main/heroic'
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
-const home = homedir()
-const legendaryConfigPath = `${home}/.config/legendary`
-const heroicFolder = `${home}/.config/heroic/`
+const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
+const home = isFlatpak ? flatPakHome : homedir()
+const legendaryConfigPath = isFlatpak
+  ? `${home}/config/legendary`
+  : `${home}/.config/legendary`
+const heroicFolder = isFlatpak
+  ? `${home}/config/heroic/`
+  : `${home}/.config/heroic/`
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`

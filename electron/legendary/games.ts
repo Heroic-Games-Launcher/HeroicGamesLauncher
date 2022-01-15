@@ -538,7 +538,7 @@ Categories=Game;
           os = 'Windows'
           break
         case 'darwin':
-          os = 'MacOS'
+          os = 'macOS'
           break
         default:
           os = 'Unknown OS'
@@ -673,11 +673,11 @@ Categories=Game;
     }
 
     if (isProton && !existsSync(fixedWinePrefix)) {
-      const command = `mkdir '${fixedWinePrefix}' -p`
-      await execAsync(command, execOptions)
+      mkdirSync(fixedWinePrefix, { recursive: true })
     }
 
     if (!existsSync(fixedWinePrefix)) {
+      mkdirSync(fixedWinePrefix, { recursive: true })
       const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
       logInfo('creating new prefix', fixedWinePrefix)
       return execAsync(initPrefixCommand)
