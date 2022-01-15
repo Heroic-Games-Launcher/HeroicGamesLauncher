@@ -572,7 +572,7 @@ Categories=Game;
 
     if (!wineVersion.bin) {
       dialog.showErrorBox(
-        i18next.t('box.error.wine-not-found.titlea', 'Wine Not Found'),
+        i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
         i18next.t(
           'box.error.wine-not-found.message',
           'No Wine Version Selected. Check Game Settings!'

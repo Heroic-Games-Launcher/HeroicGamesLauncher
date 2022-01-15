@@ -40,7 +40,11 @@
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
             },
-            "title": "خطا"
+            "title": "خطا",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "titlea": "Wine Not Found"
+            }
         },
         "no": "خیر",
         "ok": "Ok",
