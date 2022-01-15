@@ -30,10 +30,11 @@ export function checkXbox(
     rightAxisX = axes[2],
     rightAxisY = axes[3]
 
-  checkAction('padUp', up.pressed, controllerIndex)
-  checkAction('padDown', down.pressed, controllerIndex)
-  checkAction('padLeft', left.pressed, controllerIndex)
-  checkAction('padRight', right.pressed, controllerIndex)
+  // use the `?` operator here since this layout is used as fallback
+  // and mapping can be incorrect
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', Y?.pressed, controllerIndex)
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
@@ -42,7 +43,8 @@ export function checkXbox(
   checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
   checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
   checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
-  checkAction('mainAction', A.pressed, controllerIndex)
-  checkAction('back', B.pressed, controllerIndex)
-  checkAction('altAction', Y.pressed, controllerIndex)
+  checkAction('padUp', up?.pressed, controllerIndex)
+  checkAction('padDown', down?.pressed, controllerIndex)
+  checkAction('padLeft', left?.pressed, controllerIndex)
+  checkAction('padRight', right?.pressed, controllerIndex)
 }
