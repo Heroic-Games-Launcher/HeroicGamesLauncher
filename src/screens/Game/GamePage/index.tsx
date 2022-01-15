@@ -35,7 +35,6 @@ import {
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 import prettyBytes from 'pretty-bytes'
-import { Checkbox } from '@material-ui/core'
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
@@ -84,7 +83,6 @@ export default function GamePage(): JSX.Element | null {
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
-  const [installDlcs, setInstallDlcs] = useState(false)
   const [launchArguments, setLaunchArguments] = useState('')
   const [hasError, setHasError] = useState<{
     error: boolean
@@ -169,10 +167,6 @@ export default function GamePage(): JSX.Element | null {
     await handleGameStatus({ appName, status: 'done' })
   }
 
-  function handleDlcs() {
-    setInstallDlcs(!installDlcs)
-  }
-
   function handleModal() {
     setShowModal({ game: appName, show: true })
   }
@@ -192,8 +186,6 @@ export default function GamePage(): JSX.Element | null {
       cloud_save_enabled,
       canRunOffline
     }: GameInfo = gameInfo
-    const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
-    const DLCList = gameInstallInfo?.game?.owned_dlc
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
       prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
@@ -290,29 +282,6 @@ export default function GamePage(): JSX.Element | null {
                             {t('game.installSize', 'Install Size')}:{' '}
                             {installSize ?? '...'}
                           </div>
-                          {haveDLCs && (
-                            <div className="itemContainer">
-                              <div className="dlcTitle">
-                                {t('dlc.title', 'DLCs')}
-                              </div>
-                              {DLCList.map(({ app_name, title }) => (
-                                <span key={app_name} className="dlcTitle">
-                                  {title}
-                                </span>
-                              ))}
-                              <span className="checkBox">
-                                <Checkbox
-                                  color="primary"
-                                  checked={installDlcs}
-                                  size="small"
-                                  onChange={() => handleDlcs()}
-                                />
-                                <span className="itemName">
-                                  {t('dlc.installDlcs', 'Install all DLCs')}
-                                </span>
-                              </span>
-                            </div>
-                          )}
                           <br />
                         </>
                       )}
@@ -561,8 +530,7 @@ export default function GamePage(): JSX.Element | null {
       isInstalling,
       previousProgress,
       progress,
-      t,
-      installDlcs
+      t
     })
   }
 }
