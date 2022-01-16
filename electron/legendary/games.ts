@@ -411,7 +411,7 @@ Categories=Game;
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
-    logInfo(`Installing ${this.appName} with:`, command)
+    logInfo([`Installing ${this.appName} with:`, command])
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
         if (stdout.includes('ERROR')) {
@@ -429,7 +429,7 @@ Categories=Game;
 
   public async uninstall() {
     const command = `${legendaryBin} uninstall ${this.appName} -y`
-    logInfo(`Uninstalling ${this.appName} with:`, command)
+    logInfo([`Uninstalling ${this.appName} with:`, command])
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions).then((v) => {
       return v
@@ -452,7 +452,7 @@ Categories=Game;
 
     const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
 
-    logInfo(`Repairing ${this.appName} with:`, command)
+    logInfo([`Repairing ${this.appName} with:`, command])
     return await execAsync(command, execOptions).then((v) => {
       // this.state.status = 'done'
       return v
@@ -485,7 +485,7 @@ Categories=Game;
       mkdirSync(legendarySavesPath, { recursive: true })
     }
 
-    logInfo('\n syncing saves for ', this.appName)
+    logInfo(['\n syncing saves for ', this.appName])
     return await execAsync(command, execOptions)
   }
 
@@ -559,7 +559,7 @@ Categories=Game;
       const command = `${legendaryBin} launch ${
         this.appName
       } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
-      logInfo('\n Launch Command:', command)
+      logInfo(['\n Launch Command:', command])
       const v = await execAsync(command, execOptions)
       if (discordRPC) {
         logInfo('Stopping Discord Rich Presence if running...')
@@ -620,11 +620,11 @@ Categories=Game;
 
     envVars = Object.values(options).join(' ')
     if (isProton) {
-      logWarning(
+      logWarning([
         `\n You are using Proton, this can lead to some bugs,
               please do not open issues with bugs related with games`,
         wineVersion.name
-      )
+      ])
     }
 
     await this.createNewPrefix(isProton, fixedWinePrefix, winePath)
@@ -653,7 +653,7 @@ Categories=Game;
     } ${exe} ${runOffline} ${wineCommand} ${prefix} ${
       launchArguments ?? ''
     } ${launcherArgs}`
-    logInfo('\n Launch Command:', command)
+    logInfo(['\n Launch Command:', command])
 
     const startLaunch = await execAsync(command, execOptions)
       .then(({ stderr }) => {
@@ -688,7 +688,7 @@ Categories=Game;
     if (!existsSync(fixedWinePrefix)) {
       mkdirSync(fixedWinePrefix, { recursive: true })
       const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
-      logInfo('creating new prefix', fixedWinePrefix)
+      logInfo(['creating new prefix', fixedWinePrefix])
       return execAsync(initPrefixCommand)
         .then(() => logInfo('Prefix created succesfuly!'))
         .catch((error) => logError(error))
@@ -701,7 +701,7 @@ Categories=Game;
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
-    logInfo('killing', pattern)
+    logInfo(['killing', pattern])
 
     if (process.platform === 'win32') {
       try {
