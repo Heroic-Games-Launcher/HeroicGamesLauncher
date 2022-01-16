@@ -31,6 +31,7 @@ export class LegendaryUser {
         } else {
           logInfo(`stderr: ${data}`, LogPrefix.Legendary)
           return
+
         }
       })
       child.stdout.on('data', (data) => {
