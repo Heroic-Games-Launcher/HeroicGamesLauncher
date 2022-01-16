@@ -3,13 +3,14 @@
   padding: 10px 20px 20px 20px;
   font-size: 16px;
   line-height: 19px;
-  background-color: var(--background);
+  background-color: var(--primary-darkest);
   border-radius: 10px;
   margin-inline: 16px;
+  text-align: start;
 }
 
 .helpLink {
-  color: var(--secondary);
+  color: var(--primary-neutral);
   cursor: pointer;
   display: flex;
   height: 40px;
@@ -29,5 +30,6 @@
 }
 
 .infoBox > strong {
-  color: var(--primary);
+  color: var(--primary-lighter);
+  font: var(--font-secondary-bold);
 }

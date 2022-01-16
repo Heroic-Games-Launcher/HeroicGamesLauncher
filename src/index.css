@@ -46,6 +46,8 @@ html {
   --font-secondary-bold: Cabin normal 500;
   --font-secondary-regular-italic: Cabin italic 400;
   --font-secondary-bold-italic: Cabin italic 500;
+  --font-colors-primary-neutral: #eae8e5;
+  --font-colors-secondary-neutral: #b1b1b1;
 }
 
 body {
@@ -56,7 +58,7 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-darker);
+  background-color: var(--primary-darker);
 }
 
 a {

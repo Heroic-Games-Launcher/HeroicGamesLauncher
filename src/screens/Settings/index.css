@@ -16,9 +16,7 @@
   margin-block-start: 16px;
   margin-inline-start: 61.5px;
   margin-inline-end: clamp(65px, 6vw, 103px);
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
+  font: var(--font-primary-bold);
   font-size: 18.5px;
   line-height: 19px;
   color: var(--text-primary);
@@ -128,14 +126,12 @@
 }
 
 .save {
-  margin: 24px 0 0 18px;
+  margin: 1em 0 0 18px;
   padding-block-end: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: Cabin;
-  font-style: italic;
-  font-weight: normal;
+  font: var(--font-secondary-regular-italic);
   font-size: 14px;
   line-height: 17px;
   /* identical to box height */
@@ -144,12 +140,11 @@
 
 .appName {
   margin-inline-start: 18px;
+  padding-block: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: Cabin;
-  font-style: italic;
-  font-weight: normal;
+  font: var(--font-secondary-regular-italic);
   font-size: 14px;
   line-height: 17px;
   /* identical to box height */
