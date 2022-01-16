@@ -21,14 +21,16 @@ export class LegendaryUser {
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
       child.stderr.on('data', (data) => {
-        logInfo(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
-          logError(`${data}`)
+          logError(`${data}`, LogPrefix.Legendary)
           dialog.showErrorBox(
             i18next.t('box.error.login.tittle', 'Cannot Login!'),
             `${data}`
           )
           return res('error')
+       } else {
+          logInfo(`stderr: ${data}`, LogPrefix.Legendary)
+       }
         }
       })
       child.stdout.on('data', (data) => {
