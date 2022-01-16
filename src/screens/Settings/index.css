@@ -30,7 +30,7 @@
 .settingsNavbar > a.active {
   transition: all 350ms ease-out 0s;
   transform: scale(1.2);
-  color: var(--primary);
+  color: var(--primary-lighter);
   font-weight: 500;
 }
 

@@ -46,11 +46,11 @@ input:checked + .slider:focus-visible {
 }
 
 input:checked + .slider {
-  border-color: var(--secondary);
+  border-color: var(--primary-lighter);
 }
 
 input:checked + .slider:before {
-  background-color: var(--secondary);
+  background-color: var(--primary-lighter);
   transform: translateX(9px);
 }
 

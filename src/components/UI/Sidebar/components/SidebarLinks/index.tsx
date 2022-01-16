@@ -49,7 +49,10 @@ export default function SidebarLinks() {
     <div className="Links">
       <NavLink
         data-testid="library"
-        activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+        activeStyle={{
+          color: 'var(--primary-neutral)',
+          font: 'var(--font-primary-bold)'
+        }}
         isActive={(match, location) => {
           if (match) {
             return true
@@ -108,7 +111,10 @@ export default function SidebarLinks() {
       )}
       <NavLink
         data-testid="settings"
-        activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+        activeStyle={{
+          color: 'var(--primary-neutral)',
+          font: 'var(--font-primary-bold)'
+        }}
         isActive={(match, location) => location.pathname.includes('settings')}
         to={{
           pathname: '/settings/default/general'
@@ -123,7 +129,10 @@ export default function SidebarLinks() {
       </NavLink>
       <NavLink
         data-testid="store"
-        activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+        activeStyle={{
+          color: 'var(--primary-neutral)',
+          font: 'var(--font-primary-bold)'
+        }}
         isActive={(match, location) => location.pathname.includes('epicstore')}
         to={{
           pathname: '/epicstore'
@@ -137,7 +146,10 @@ export default function SidebarLinks() {
       </NavLink>
       <NavLink
         data-testid="wiki"
-        activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
+        activeStyle={{
+          color: 'var(--primary-neutral)',
+          font: 'var(--font-primary-bold)'
+        }}
         isActive={(match, location) => location.pathname.includes('wiki')}
         to={{
           pathname: '/wiki'

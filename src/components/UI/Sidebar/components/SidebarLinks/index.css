@@ -38,7 +38,7 @@
 
 a:hover {
   transition: 250ms;
-  color: var(--secondary);
+  color: var(--secondary-lighter);
 }
 
 .Links svg {

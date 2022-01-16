@@ -23,7 +23,7 @@
 }
 
 .SidebarUtils button:hover {
-  color: var(--secondary);
+  color: var(--secondary-lighter);
   fill: var(--secondary);
 }
 
