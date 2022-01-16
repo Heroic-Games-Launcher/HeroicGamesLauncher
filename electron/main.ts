@@ -70,7 +70,7 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { logError, logInfo, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger'
 import Store from 'electron-store'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
@@ -127,7 +127,7 @@ async function createWindow(): Promise<BrowserWindow> {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logError('An error occurred: ', err)
+        logError(['An error occurred: ', err])
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -312,7 +312,7 @@ if (!gotTheLock) {
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
-      logInfo('Changing Language to:', language)
+      logInfo(['Changing Language to:', language])
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
       appIcon.setContextMenu(contextMenu())
@@ -492,7 +492,7 @@ ipcMain.handle(
       command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
     }
 
-    logInfo('trying to run', command)
+    logInfo(['trying to run', command])
     try {
       await execAsync(command, execOptions)
     } catch (error) {
@@ -634,8 +634,8 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
-ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))
-ipcMain.on('logInfo', (e, info) => logInfo(`Frontend: ${info}`))
+ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
+ipcMain.on('logInfo', (e, info) => logInfo(`${info}`, LogPrefix.Frontend))
 
 type RecentGame = {
   appName: string
@@ -665,7 +665,7 @@ ipcMain.handle(
       tsStore.set(`${game}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo('launching', title, game)
+    logInfo([`launching`, title, game])
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter((a) => a.appName !== game)
