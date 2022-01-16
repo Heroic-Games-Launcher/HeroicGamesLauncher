@@ -21,8 +21,9 @@ export class LegendaryUser {
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
       child.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`)
+        logInfo(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
+          logError(`${data}`)
           dialog.showErrorBox(
             i18next.t('box.error.login.tittle', 'Cannot Login!'),
             `${data}`
@@ -31,8 +32,9 @@ export class LegendaryUser {
         }
       })
       child.stdout.on('data', (data) => {
-        console.log(`stderr: ${data}`)
+        logInfo(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
+          logError(`${data}`)
           dialog.showErrorBox(
             i18next.t('box.error.login.tittle', 'Cannot Login!'),
             `${data}`
@@ -41,7 +43,7 @@ export class LegendaryUser {
         }
       })
       child.on('close', () => {
-        console.log('finished login')
+        logInfo('finished login')
         res('finished')
       })
     })
