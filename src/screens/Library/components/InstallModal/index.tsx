@@ -143,7 +143,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     const getInfo = async () => {
       const gameInfo = await getInstallInfo(appName)
       setGameInfo(gameInfo)
-      const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+      const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
         .replaceAll(' ', '-')

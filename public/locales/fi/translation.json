@@ -33,7 +33,18 @@
                 "message": "Tälle pelille ei löytynyt lokitiedostoja",
                 "title": "Lokitiedostoa ei löytynyt"
             },
-            "title": "Virhe"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Virhe",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "EI",
         "ok": "Ok",
@@ -79,10 +90,10 @@
     },
     "Downloading": "Ladataan",
     "Epic Games": "Epic Games",
-    "Filter": "Suodata",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Suodata",
     "globalSettings": "Globaalit asetukset",
     "help": {
         "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
@@ -228,9 +239,9 @@
         "wineprefix": "WinePrefixin kansio",
         "wineversion": "Winen versio"
     },
-    "Settings": "Asetukset",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Yleiset",
@@ -239,6 +250,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Asetukset",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

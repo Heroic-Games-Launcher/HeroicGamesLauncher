@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
 import axios from 'axios'
 
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, dialog, shell } from 'electron'
 import { DXVK } from '../dxvk'
 import { ExtraInfo, InstallArgs } from '../types'
 import { Game } from '../games'
@@ -29,6 +29,7 @@ import { spawn } from 'child_process'
 import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript'
 import { platform } from 'os'
+import i18next from 'i18next'
 
 const store = new Store({
   cwd: 'lib-cache',
@@ -459,7 +460,7 @@ Categories=Game;
   }
 
   public async import(path: string) {
-    const command = `${legendaryBin} import-game ${this.appName} '${path}'`
+    const command = `${legendaryBin} import ${this.appName} '${path}'`
     return await execAsync(command, execOptions).then((v) => {
       return v
     })
@@ -567,6 +568,16 @@ Categories=Game;
       }
 
       return v
+    }
+
+    if (!wineVersion.bin) {
+      dialog.showErrorBox(
+        i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+        i18next.t(
+          'box.error.wine-not-found.message',
+          'No Wine Version Selected. Check Game Settings!'
+        )
+      )
     }
 
     const fixedWinePrefix = winePrefix.replace('~', home)
