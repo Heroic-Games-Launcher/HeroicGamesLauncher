@@ -79,6 +79,14 @@
             "error": "Caminho Inválido",
             "title": "Selecione a pasta de saves"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM"
     },

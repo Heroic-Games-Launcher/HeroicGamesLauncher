@@ -79,6 +79,14 @@
             "error": "Ogilltig sökväg",
             "title": "Väl mapp för sparfiler"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Välj wine prefix mapp",
         "yes": "Ja"
     },

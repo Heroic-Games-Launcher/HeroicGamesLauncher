@@ -30,6 +30,8 @@ export class LegendaryUser {
           return res('error')
         } else {
           logInfo(`stderr: ${data}`, LogPrefix.Legendary)
+          return
+
         }
       })
       child.stdout.on('data', (data) => {
@@ -42,6 +44,7 @@ export class LegendaryUser {
           return res('error')
         } else {
           logInfo(`stdout: ${data}`, LogPrefix.Legendary)
+          return
         }
       })
       child.on('close', () => {
