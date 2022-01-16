@@ -34,15 +34,16 @@ export class LegendaryUser {
         }
       })
       child.stdout.on('data', (data) => {
-        logInfo(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
-          logError(`${data}`)
+          logError(`${data}`, LogPrefix.Legendary)
           dialog.showErrorBox(
             i18next.t('box.error.login.tittle', 'Cannot Login!'),
             `${data}`
           )
           return res('error')
-        }
+       } else {
+          logInfo(`stdout: ${data}`, LogPrefix.Legendary)
+       }
       })
       child.on('close', () => {
         logInfo('finished login', LogPrefix.Legendary)
