@@ -180,7 +180,6 @@
     "eslint-plugin-sort-exports": "^0.4.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-sort-keys-fix": "^1.1.1",
-    "eslint-plugin-typescript-sort-keys": "^1.5.0",
     "foreman": "^3.0.1",
     "husky": "^6.0.0",
     "i18next-parser": "^5.4.0",
