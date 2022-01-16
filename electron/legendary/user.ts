@@ -43,7 +43,7 @@ export class LegendaryUser {
         }
       })
       child.on('close', () => {
-        logInfo('finished login')
+        logInfo('finished login', LogPrefix.Legendary)
         res('finished')
       })
     })
