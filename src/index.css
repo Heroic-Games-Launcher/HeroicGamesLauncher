@@ -13,7 +13,15 @@ html {
   --background-light: #17237c;
   --searchbar-background: #13172a;
   --primary: #59d0ea;
+  --primary-lighter: #07c5ef;
+  --primary-neutral: #3082d9;
+  --primary-darker: #13172a;
+  --primary-darkest: #0d0f1c;
   --secondary: #eaa114;
+  --secondary-lightest: #97f4e9;
+  --secondary-lighter: #59d0ea;
+  --secondary-neutral: #c1c3c3;
+  --secondary-darker: #252121;
   --tertiary: #1d1f1f;
   --danger: #bd0a0a;
   --success: #0bd58c;
@@ -31,6 +39,13 @@ html {
   --sidebar-width: 218px;
   --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
+  --font-primary-regular: Rubik normal 400;
+  --font-primary-bold: Rubik normal 500;
+  --font-primary-bolder: Rubik normal 700;
+  --font-secondary-regular: Cabin normal 400;
+  --font-secondary-bold: Cabin normal 500;
+  --font-secondary-regular-italic: Cabin italic 400;
+  --font-secondary-bold-italic: Cabin italic 500;
 }
 
 body {
