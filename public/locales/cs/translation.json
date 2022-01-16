@@ -33,7 +33,18 @@
                 "message": "Pro tuto hru nebyl nalezen žádný protokol",
                 "title": "Protokol nebyl nalezen"
             },
-            "title": "Error"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NE",
         "ok": "Ok",
@@ -79,10 +90,10 @@
     },
     "Downloading": "Stahování",
     "Epic Games": "Epic Games",
-    "Filter": "Filtr",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtr",
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -228,9 +239,9 @@
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
     },
-    "Settings": "Nastavení",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Obecné",
@@ -239,6 +250,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Nastavení",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

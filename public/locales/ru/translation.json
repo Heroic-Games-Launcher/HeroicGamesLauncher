@@ -33,7 +33,18 @@
                 "message": "Лог для этой игры не найден",
                 "title": "Лог не найден"
             },
-            "title": "Ошибка"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Ошибка",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "НЕТ",
         "ok": "Ok",
@@ -79,10 +90,10 @@
     },
     "Downloading": "Скачивается",
     "Epic Games": "Epic Games",
-    "Filter": "Фильтр",
     "filter": {
         "noFilter": "Без фильтра"
     },
+    "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
     "help": {
         "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
@@ -228,9 +239,9 @@
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
     },
-    "Settings": "Настройки",
     "settings": {
         "clear-cache": "Очистить кэш Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "navbar": {
             "general": "Основные",
@@ -239,6 +250,7 @@
         },
         "reset-heroic": "Сброс Heroic"
     },
+    "Settings": "Настройки",
     "status": {
         "loading": "Загружается список игр. Пожалуйста, подождите",
         "logging": "Вход…"

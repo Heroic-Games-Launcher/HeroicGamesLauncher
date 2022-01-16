@@ -3,7 +3,7 @@
     "Assets": "Objets",
     "box": {
         "appupdate": {
-            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant ?",
+            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant\u202f?",
             "title": "Mise à jour disponible"
         },
         "cache-cleared": {
@@ -33,7 +33,18 @@
                 "message": "Aucun Log n'a été trouvé pour ce jeu",
                 "title": "Aucun Log n'a été trouvé"
             },
-            "title": "Erreur"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Erreur",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NON",
         "ok": "Ok",
@@ -43,7 +54,7 @@
             }
         },
         "quit": {
-            "message": "D'autres opérations sont en cours, êtes-vous sûr(e) ?",
+            "message": "D'autres opérations sont en cours, êtes-vous sûr(e)\u202f?",
             "title": "Quitter"
         },
         "reset-heroic": {
@@ -79,17 +90,17 @@
     },
     "Downloading": "Téléchargement en cours",
     "Epic Games": "Epic Games",
-    "Filter": "Filtre",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtre",
     "globalSettings": "Paramètres généraux",
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
         "other": {
             "part1": "Utilise l' ",
             "part2": "Options avancées",
-            "part3": "pour être averti avant le lancement du jeu ; ",
+            "part3": "pour être averti avant le lancement du jeu\u202f; ",
             "part4": "Utilise les ",
             "part5": "Arguments de Jeu",
             "part6": " pour être averti après la commande, par exemple : ",
@@ -98,11 +109,11 @@
         "sync": {
             "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle : Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Chargez les fichiers pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle\u202f: Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Chargez les fichiers pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
-            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers\u202f:",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
@@ -155,11 +166,11 @@
     "options": {
         "advanced": {
             "placeholder": "Insérez ici les autres options de lancemement",
-            "title": "Options Avancées (Variables d'Environnement) :"
+            "title": "Options Avancées (Variables d'Environnement)\u202f:"
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
-            "title": "Arguments de jeu (À lancer après la commande) :"
+            "title": "Arguments de jeu (À lancer après la commande)\u202f:"
         }
     },
     "other": {
@@ -173,13 +184,13 @@
     "Plugins": "Plugins",
     "Projects": "Projets",
     "Ready": "Prêt",
-    "Recent": "Played Recently",
+    "Recent": "Joué récemment",
     "Return": "Retour",
     "search": "Insérez le nom du jeu ici...",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
-        "alt-legendary-bin": "Choisir un autre exécutable Legendary (nécessite de relancer Heroic)",
+        "alt-legendary-bin": "Choisir un autre exécutable Legendary  (nécessite de relancer Heroic)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
         "autosync": "Sauvegardes Autosync",
@@ -228,9 +239,9 @@
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
     },
-    "Settings": "Options",
     "settings": {
         "clear-cache": "Effacer le cache Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copier tous les paramètres dans le presse-papier",
         "navbar": {
             "general": "Général",
@@ -239,6 +250,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Options",
     "status": {
         "loading": "Chargement de la liste des jeux, veuillez patienter",
         "logging": "Connexion en cours..."
@@ -271,7 +283,7 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Déconnexion",
-        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
+        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter\u00a0?",
         "quit": "Quitter"
     },
     "wiki": "Wiki"

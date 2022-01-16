@@ -33,7 +33,18 @@
                 "message": "Geen Log was gevonden voor dit spel",
                 "title": "Geen Log gevonden"
             },
-            "title": "Error"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NEE",
         "ok": "Ok",
@@ -79,10 +90,10 @@
     },
     "Downloading": "Aan het downloaden",
     "Epic Games": "Epic Games",
-    "Filter": "Filter",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filter",
     "globalSettings": "Algemene instellingen",
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
@@ -228,9 +239,9 @@
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie"
     },
-    "Settings": "Instellingen",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Algemeen",
@@ -239,6 +250,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Instellingen",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

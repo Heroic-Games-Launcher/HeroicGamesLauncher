@@ -33,7 +33,18 @@
                 "message": "このゲームのログは見つかりませんでした",
                 "title": "ログが見つかりませんでした"
             },
-            "title": "エラー"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "エラー",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "いいえ",
         "ok": "Ok",
@@ -79,10 +90,10 @@
     },
     "Downloading": "ダウンロードしています",
     "Epic Games": "Epic Games",
-    "Filter": "フィルター",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "フィルター",
     "globalSettings": "全体設定",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -228,9 +239,9 @@
         "wineprefix": "Wineプレフィックスフォルダー",
         "wineversion": "Wineバージョン"
     },
-    "Settings": "設定",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "一般",
@@ -239,6 +250,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "設定",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

@@ -33,7 +33,18 @@
                 "message": "Δεν βρέθηκαν αρχεία καταγραφής για το παιχνίδι",
                 "title": "Δεν βρέθηκε αρχείο καταγραφής"
             },
-            "title": "Σφάλμα"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Σφάλμα",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "ΟΧΙ",
         "ok": "Ok",
@@ -79,10 +90,10 @@
     },
     "Downloading": "Λήψη",
     "Epic Games": "Epic Games",
-    "Filter": "Φίλτρο",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Φίλτρο",
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
@@ -228,9 +239,9 @@
         "wineprefix": "φάκελος προθεμάτων Wine",
         "wineversion": "Έκδοση Wine"
     },
-    "Settings": "Ρυθμίσεις",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Γενικά",
@@ -239,6 +250,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Ρυθμίσεις",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
