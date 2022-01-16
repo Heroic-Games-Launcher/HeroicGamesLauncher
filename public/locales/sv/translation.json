@@ -231,7 +231,7 @@
     "Settings": "Inställningar",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Kopiera alla inställningar till Urklipp",
         "navbar": {
             "general": "Allmänna",
             "other": "Övriga",
