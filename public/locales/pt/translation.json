@@ -33,7 +33,18 @@
                 "message": "Nenhum log foi encontrado para este jogo",
                 "title": "Log não encontrado"
             },
-            "title": "Error"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NÃO",
         "ok": "Ok",
@@ -87,10 +98,10 @@
     },
     "Downloading": "Baixando",
     "Epic Games": "Epic Games",
-    "Filter": "Filtro",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtro",
     "globalSettings": "Configurações Globais",
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
@@ -236,7 +247,6 @@
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },
-    "Settings": "Configurações",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -248,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Configurações",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

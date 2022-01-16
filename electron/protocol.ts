@@ -16,7 +16,7 @@ export async function handleProtocol(window: BrowserWindow, url: string) {
   }
   logInfo(`ProtocolHandler: received '${url}'`)
   if (command === 'ping') {
-    return logInfo('Received ping! Arg:', arg)
+    return logInfo(['Received ping! Arg:', arg])
   }
   if (command === 'launch') {
     const game = Game.get(arg)

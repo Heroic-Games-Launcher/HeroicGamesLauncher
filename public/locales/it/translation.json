@@ -33,7 +33,18 @@
                 "message": "Nessun log per questo gioco è stato trovato",
                 "title": "Log non trovato"
             },
-            "title": "Errore"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Errore",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NO",
         "ok": "Ok",
@@ -87,10 +98,10 @@
     },
     "Downloading": "Download in corso",
     "Epic Games": "Epic Games",
-    "Filter": "Filtra",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtra",
     "globalSettings": "Impostazioni globali",
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
@@ -236,7 +247,6 @@
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine"
     },
-    "Settings": "Impostazioni",
     "settings": {
         "clear-cache": "Pulisci cache Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -248,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Impostazioni",
     "status": {
         "loading": "Caricamento elenco dei giochi, attendere",
         "logging": "Sto accedendo..."

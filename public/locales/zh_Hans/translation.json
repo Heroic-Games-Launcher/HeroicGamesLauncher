@@ -33,7 +33,18 @@
                 "message": "未找到此游戏的日志",
                 "title": "未找到日志"
             },
-            "title": "错误"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "错误",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "否",
         "ok": "是",
@@ -87,10 +98,10 @@
     },
     "Downloading": "正在下载",
     "Epic Games": "Epic 游戏",
-    "Filter": "筛选",
     "filter": {
         "noFilter": "全部"
     },
+    "Filter": "筛选",
     "globalSettings": "全局设置",
     "help": {
         "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
@@ -236,7 +247,6 @@
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "Wine 版本"
     },
-    "Settings": "设置",
     "settings": {
         "clear-cache": "清理 Heroic 缓存",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -248,6 +258,7 @@
         },
         "reset-heroic": "重置 Heroic"
     },
+    "Settings": "设置",
     "status": {
         "loading": "正在加载游戏列表，请稍后",
         "logging": "正在登录..."

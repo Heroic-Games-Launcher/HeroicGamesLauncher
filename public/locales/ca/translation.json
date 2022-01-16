@@ -33,7 +33,18 @@
                 "message": "No s'ha trobat cap registre per aquest joc",
                 "title": "El registre no s'ha trobat"
             },
-            "title": "Error"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "No",
         "ok": "Ok",
@@ -87,10 +98,10 @@
     },
     "Downloading": "Descarregant",
     "Epic Games": "Epic Games",
-    "Filter": "Filtra",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtra",
     "globalSettings": "Configuració global",
     "help": {
         "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS.",
@@ -236,7 +247,6 @@
         "wineprefix": "Carpeta wine prefix",
         "wineversion": "Versió de Wine"
     },
-    "Settings": "Configuració",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -248,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Configuració",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

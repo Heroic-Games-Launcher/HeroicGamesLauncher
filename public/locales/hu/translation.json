@@ -33,7 +33,18 @@
                 "message": "Nem találtunk feljegyzést ehhez a játékhoz",
                 "title": "Nem találtunk feljegyzést"
             },
-            "title": "Hiba"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Hiba",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NEM",
         "ok": "Ok",
@@ -87,10 +98,10 @@
     },
     "Downloading": "Letöltés",
     "Epic Games": "Epic Games",
-    "Filter": "Szűrő",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Szűrő",
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -236,7 +247,6 @@
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },
-    "Settings": "Beállítások",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -248,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Beállítások",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

@@ -5,34 +5,73 @@
  *        error equals console.error
  */
 
+export enum LogPrefix {
+  General = '',
+  Legendary = 'Legendary',
+  GamePad = 'GamePad',
+  WineDownloader = 'WineDownloader',
+  Frontend = 'Frontend'
+}
+
+// helper to convert string to string[]
+function convertToStringArray(param: string | string[]): string[] {
+  return typeof param === 'string' ? [param] : param
+}
+
 /**
  * Log debug messages
  * @param text debug messages to log
+ * @param prefix added before the message {@link LogPrefix}
+ * @defaultvalue {@link LogPrefix.General}
  */
-export function logDebug(...text: string[]) {
-  console.log(`DEBUG: ${text.join(' ')}`)
+export function logDebug(
+  text: string[] | string,
+  prefix: LogPrefix = LogPrefix.General
+) {
+  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
+  console.log(`DEBUG: ${prefixString}${convertToStringArray(text).join(' ')}`)
 }
 
 /**
  * Log error messages
  * @param text error messages to log
+ * @param prefix added before the message {@link LogPrefix}
+ * @defaultvalue {@link LogPrefix.General}
  */
-export function logError(...text: string[]) {
-  console.error(`ERROR: ${text.join(' ')}`)
+export function logError(
+  text: string[] | string,
+  prefix: LogPrefix = LogPrefix.General
+) {
+  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
+  console.error(`ERROR: ${prefixString}${convertToStringArray(text).join(' ')}`)
 }
 
 /**
  * Log info messages
  * @param text info messages to log
+ * @param prefix added before the message {@link LogPrefix}
+ * @defaultvalue {@link LogPrefix.General}
  */
-export function logInfo(...text: string[]) {
-  console.log(`INFO: ${text.join(' ')}`)
+export function logInfo(
+  text: string[] | string,
+  prefix: LogPrefix = LogPrefix.General
+) {
+  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
+  console.log(`INFO: ${prefixString}${convertToStringArray(text).join(' ')}`)
 }
 
 /**
  * Log warning messages
  * @param text warning messages to log
+ * @param prefix added before the message {@link LogPrefix}
+ * @defaultvalue {@link LogPrefix.General}
  */
-export function logWarning(...text: string[]) {
-  console.log(`WARNING: ${text.join(' ')}`)
+export function logWarning(
+  text: string[] | string,
+  prefix: LogPrefix = LogPrefix.General
+) {
+  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
+  console.warn(
+    `WARNING: ${prefixString}${convertToStringArray(text).join(' ')}`
+  )
 }
