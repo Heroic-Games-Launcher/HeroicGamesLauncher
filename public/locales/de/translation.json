@@ -33,7 +33,18 @@
                 "message": "Es wurde kein Log für dieses Spiel gefunden",
                 "title": "Log nicht gefunden"
             },
-            "title": "Error"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NEIN",
         "ok": "Ok",
@@ -68,6 +79,14 @@
             "error": "Ungültiger Pfad",
             "title": "Wählen Sie das Spielstand-Verzeichnis"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Wine Prefix Ordner auswählen",
         "yes": "JA"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "Am Herunterladen",
     "Epic Games": "Epic Games",
-    "Filter": "Filter",
     "filter": {
         "noFilter": "Kein Filter"
     },
+    "Filter": "Filter",
     "globalSettings": "Globale Einstellungen",
     "help": {
         "general": "Synchronisiere mit EGS für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Store haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -228,9 +247,9 @@
         "wineprefix": "Wine Prefix Ordner",
         "wineversion": "Wine-Version"
     },
-    "Settings": "Einstellungen",
     "settings": {
         "clear-cache": "Heroic Cache leeren",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Alle Einstellungen in die Zwischenablage kopieren",
         "navbar": {
             "general": "Allgemein",
@@ -239,6 +258,7 @@
         },
         "reset-heroic": "Heroic zurücksetzen"
     },
+    "Settings": "Einstellungen",
     "status": {
         "loading": "Lade Spieleliste, bitte warten",
         "logging": "Anmelden..."

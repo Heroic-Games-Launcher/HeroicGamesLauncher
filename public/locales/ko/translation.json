@@ -33,7 +33,18 @@
                 "message": "이 게임에 대한 로그를 찾을 수 없습니다",
                 "title": "로그를 찾을 수 없음"
             },
-            "title": "오류"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "오류",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "아니오",
         "ok": "Ok",
@@ -68,6 +79,14 @@
             "error": "유효하지 않은 경로",
             "title": "저장 디렉토리 선택"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "WinePrefix 폴더 선택",
         "yes": "예"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "다운로드 중",
     "Epic Games": "Epic Games",
-    "Filter": "필터",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "필터",
     "globalSettings": "글로벌 설정",
     "help": {
         "general": "Epic Games Store가 다른 곳에 설치되어 있고 게임을 다시 다운로드하지 않도록 가져오려는 경우 Epic Games Store와 동기화 하십시오.",
@@ -228,9 +247,9 @@
         "wineprefix": "Wine Prefix 폴더",
         "wineversion": "Wine 버전"
     },
-    "Settings": "설정",
     "settings": {
         "clear-cache": "Heroic 캐시 삭제",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
         "navbar": {
             "general": "일반",
@@ -239,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "설정",
     "status": {
         "loading": "게임 목록을 불러오고 있습니다, 잠시만 기다려 주세요",
         "logging": "로그인 중…"
