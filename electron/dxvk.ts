@@ -123,7 +123,7 @@ export const DXVK = {
       return
     }
 
-    logInfo(`installing ${tool} on...`, prefix)
+    logInfo([`installing ${tool} on...`, prefix])
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
         logInfo(`${tool} installed on ${winePrefix}`)

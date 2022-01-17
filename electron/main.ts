@@ -41,6 +41,7 @@ import {
   clearCache,
   errorHandler,
   execAsync,
+  isEpicOffline,
   getLegendaryVersion,
   getSystemInfo,
   handleExit,
@@ -70,7 +71,7 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { logError, logInfo, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger'
 import Store from 'electron-store'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
@@ -127,7 +128,7 @@ async function createWindow(): Promise<BrowserWindow> {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logError('An error occurred: ', err)
+        logError(['An error occurred: ', err])
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -312,7 +313,7 @@ if (!gotTheLock) {
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
-      logInfo('Changing Language to:', language)
+      logInfo(['Changing Language to:', language])
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
       appIcon.setContextMenu(contextMenu())
@@ -336,7 +337,15 @@ if (!gotTheLock) {
       )
 
       if (!found) {
+        dialog.showErrorBox(
+          i18next.t('box.error.python.title', 'Python Error!'),
+          i18next.t(
+            'box.error.python.message',
+            'Heroic requires Python 3.8 or newer.'
+          )
+        )
         logError('Heroic requires Python 3.8 or newer.')
+        return app.quit()
       }
     }
 
@@ -492,7 +501,7 @@ ipcMain.handle(
       command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
     }
 
-    logInfo('trying to run', command)
+    logInfo(['trying to run', command])
     try {
       await execAsync(command, execOptions)
     } catch (error) {
@@ -508,6 +517,8 @@ ipcMain.handle(
 ipcMain.handle('checkGameUpdates', () =>
   LegendaryLibrary.get().listUpdateableGames()
 )
+
+ipcMain.handle('getEpicGamesStatus', () => isEpicOffline())
 
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
@@ -634,8 +645,8 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
-ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))
-ipcMain.on('logInfo', (e, info) => logInfo(`Frontend: ${info}`))
+ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
+ipcMain.on('logInfo', (e, info) => logInfo(`${info}`, LogPrefix.Frontend))
 
 type RecentGame = {
   appName: string
@@ -665,7 +676,7 @@ ipcMain.handle(
       tsStore.set(`${game}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo('launching', title, game)
+    logInfo([`launching`, title, game])
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter((a) => a.appName !== game)
@@ -788,6 +799,18 @@ ipcMain.handle('install', async (event, params) => {
     return
   }
 
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    dialog.showErrorBox(
+      i18next.t('box.warning.title', 'Warning'),
+      i18next.t(
+        'box.warning.epic.install',
+        'Epic Servers are having major outage right now, the game cannot be installed!'
+      )
+    )
+    return { status: 'error' }
+  }
+
   mainWindow.webContents.send('setGameStatus', {
     appName,
     status: 'installing',
@@ -875,6 +898,17 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
 })
 
 ipcMain.handle('importGame', async (event, args) => {
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    dialog.showErrorBox(
+      i18next.t('box.warning.title', 'Warning'),
+      i18next.t(
+        'box.warning.epic.import',
+        'Epic Servers are having major outage right now, the game cannot be imported!'
+      )
+    )
+    return { status: 'error' }
+  }
   const { appName, path } = args
   const title = (await Game.get(appName).getGameInfo()).title
   mainWindow.webContents.send('setGameStatus', {
@@ -908,6 +942,18 @@ ipcMain.handle('updateGame', async (e, game) => {
   if (!(await isOnline())) {
     logWarning(`App offline, skipping install for game '${game}'.`)
     return
+  }
+
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    dialog.showErrorBox(
+      i18next.t('box.warning.title', 'Warning'),
+      i18next.t(
+        'box.warning.epic.update',
+        'Epic Servers are having major outage right now, the game cannot be updated!'
+      )
+    )
+    return { status: 'error' }
   }
 
   const title = (await Game.get(game).getGameInfo()).title
@@ -1038,6 +1084,11 @@ ipcMain.on('removeShortcut', async (event, appName: string) => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
+  const epicOffline = await isEpicOffline()
+  if (epicOffline) {
+    logWarning('Epic is Offline right now, cannot sync saves!')
+    return 'Epic is Offline right now, cannot sync saves!'
+  }
   if (!(await isOnline())) {
     logWarning(`App offline, skipping syncing saves for game '${appName}'.`)
     return
