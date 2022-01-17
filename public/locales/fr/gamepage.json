@@ -1,33 +1,33 @@
 {
     "box": {
         "change": {
-            "message": "Ceci va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
+            "message": "Ceci va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer\u00a0?",
             "path": "Choisissez un nouveau chemin d'installation",
             "title": "Changer le chemin d'installation du jeu"
         },
         "choose": "Séléctionner",
         "importpath": "Choisir le répertoire du jeu à importer",
         "move": {
-            "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
+            "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer\u00a0?",
             "path": "Choisir la location de déplacement",
             "title": "Déplacer l'installation du jeu"
         },
         "no": "NON",
         "repair": {
-            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un moment.",
+            "message": "Voulez-vous essayer de réparer ce jeu\u202f? Ceci peut prendre un moment.",
             "title": "Vérifier et réparer"
         },
         "stopInstall": {
             "keepInstalling": "Continuer l'installation",
-            "message": "Souhaitez-vous CONSERVER les fichiers téléchargés ?",
+            "message": "Souhaitez-vous CONSERVER les fichiers téléchargés\u00a0?",
             "title": "Arrêter l'installation"
         },
         "uninstall": {
-            "message": "Voulez-vous désinstaller ce jeu ?",
+            "message": "Voulez-vous désinstaller ce jeu\u202f?",
             "title": "Désinstaller"
         },
         "update": {
-            "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
+            "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant\u00a0?",
             "title": "Mise à jour nécessaire"
         },
         "wineprefix": "Sélectionner le dossier de préfixe Wine",
@@ -91,7 +91,7 @@
     },
     "status": {
         "clickToUpdate": "Cliquez ici pour mettre le jeu à jour",
-        "hasUpdates": "Nouvelle version disponible !",
+        "hasUpdates": "Nouvelle version disponible\u202f!",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
