@@ -343,46 +343,42 @@ export default function GeneralSettings({
       {isWindows && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.egs-sync')}
             <ToggleSwitch
               dataTestId="syncToggle"
               value={isLinked}
               handleChange={handleSync}
               title={t('setting.egs-sync')}
             />
+            <span>{t('setting.egs-sync')}</span>
           </span>
         </span>
       )}
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t('setting.exit-to-tray')}
           <ToggleSwitch
             dataTestId="exitToTray"
             value={exitToTray}
             handleChange={toggleTray}
             title={t('setting.exit-to-tray')}
           />
+          <span>{t('setting.exit-to-tray')}</span>
         </span>
       </span>
       {exitToTray && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.start-in-tray', 'Start Minimized')}
             <ToggleSwitch
               dataTestId="startInTray"
               value={startInTray}
               handleChange={toggleStartInTray}
               title={t('setting.start-in-tray', 'Start Minimized')}
             />
+            <span>{t('setting.start-in-tray', 'Start Minimized')}</span>
           </span>
         </span>
       )}
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t(
-            'setting.showUnrealMarket',
-            'Show Unreal Marketplace (needs restart)'
-          )}
           <ToggleSwitch
             value={showUnrealMarket}
             handleChange={() => toggleUnrealMarket()}
@@ -391,11 +387,16 @@ export default function GeneralSettings({
               'Show Unreal Marketplace (needs restart)'
             )}
           />
+          <span>
+            {t(
+              'setting.showUnrealMarket',
+              'Show Unreal Marketplace (needs restart)'
+            )}
+          </span>
         </span>
       </span>
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t('setting.darktray', 'Use Dark Tray Icon')}
           <ToggleSwitch
             value={darkTrayIcon}
             handleChange={() => {
@@ -404,14 +405,11 @@ export default function GeneralSettings({
             }}
             title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           />
+          <span>{t('setting.darktray', 'Use Dark Tray Icon')}</span>
         </span>
       </span>
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t(
-            'setting.checkForUpdatesOnStartup',
-            'Check For Updates On Startup'
-          )}
           <ToggleSwitch
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}
@@ -420,11 +418,16 @@ export default function GeneralSettings({
               'Check For Updates On Startup'
             )}
           />
+          <span>
+            {t(
+              'setting.checkForUpdatesOnStartup',
+              'Check For Updates On Startup'
+            )}
+          </span>
         </span>
       </span>
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t('setting.maxworkers')}
           <select
             data-testid="setMaxWorkers"
             onChange={(event) => setMaxWorkers(Number(event.target.value))}
@@ -438,6 +441,7 @@ export default function GeneralSettings({
               Max
             </option>
           </select>
+          <span>{t('setting.maxworkers')}</span>
         </span>
       </span>
       <InfoBox text="infobox.help">{t('help.general')}</InfoBox>

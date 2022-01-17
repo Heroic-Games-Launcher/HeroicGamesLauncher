@@ -91,15 +91,18 @@
 }
 
 .setting > .toggleWrapper {
-  display: grid;
-  grid-template-columns: 93% 10%;
+  display: flex;
+  gap: 15px;
+  align-content: flex-start;
   place-self: center;
   width: 512px;
-  justify-items: baseline;
-  align-items: center;
   font-size: 16px;
   line-height: 19px;
   color: var(--text-primary);
+}
+.toggleWrapper span {
+  text-align: center;
+  margin-block: auto;
 }
 
 .toggleWrapper > .switch {
@@ -113,7 +116,6 @@
 .settingSelect.smaller {
   width: 66px;
   text-indent: 11px;
-  margin-inline-start: -24px;
 }
 
 .settingSelect > option {

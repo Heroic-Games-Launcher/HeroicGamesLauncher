@@ -25,6 +25,10 @@
   transition: 0.4s;
 }
 
+span.slider.round {
+  top: -1.25px;
+}
+
 .slider:before {
   position: absolute;
   content: '';

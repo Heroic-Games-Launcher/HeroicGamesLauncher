@@ -189,14 +189,14 @@ html,
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: var(--secondary);
+  color: var(--primary-lighter);
   margin: 4px 0px;
   cursor: pointer;
   padding: 0.25rem;
 }
 
 .button.is-link:hover {
-  color: var(--secondary-hover);
+  color: var(--secondary-lightest);
 }
 
 .icons > * {
