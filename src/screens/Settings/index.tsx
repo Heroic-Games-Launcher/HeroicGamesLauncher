@@ -443,7 +443,7 @@ function Settings() {
           )}
           <span className="save">{t('info.settings')}</span>
           <button
-            className={classNames('button', 'is-text', {
+            className={classNames('button', 'is-transparent', 'is-footer', {
               isSuccess: isCopiedToClipboard
             })}
             onClick={() => {
@@ -460,13 +460,13 @@ function Settings() {
           {isDefault && (
             <>
               <button
-                className="button is-text"
+                className="button is-transparent is-footer"
                 onClick={() => ipcRenderer.send('clearCache')}
               >
                 {t('settings.clear-cache', 'Clear Heroic Cache')}
               </button>
               <button
-                className="button is-text"
+                className="button is-transparent is-footer"
                 onClick={() => ipcRenderer.send('resetHeroic')}
               >
                 {t('settings.reset-heroic', 'Reset Heroic')}

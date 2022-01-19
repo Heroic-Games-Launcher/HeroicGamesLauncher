@@ -183,6 +183,16 @@ a {
   color: var(--text-quartenary);
 }
 
+.settingsWrapper > .is-footer {
+  margin-inline-start: 16px;
+  margin-block: 8px;
+  color: var(--text-primary);
+}
+
+.settingsWrapper > .is-footer:hover {
+  color: vaR(--text-danger);
+}
+
 .settingsWrapper > .button.is-text:hover {
   color: var(--text-danger);
 }

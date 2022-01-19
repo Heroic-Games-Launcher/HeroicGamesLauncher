@@ -83,7 +83,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             data-testid="wineCFG"
             className="button is-transparent"
             style={{
-              color: winecfgRunning ? 'var(--secondary)' : 'var(--primary)'
+              color: winecfgRunning ? 'var(--secondary)' : 'var(--text-primary)'
             }}
             onClick={() => callTools('winecfg')}
           >
@@ -93,7 +93,9 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             data-testid="wineTricks"
             className="button is-transparent"
             style={{
-              color: winetricksRunning ? 'var(--secondary)' : 'var(--primary)'
+              color: winetricksRunning
+                ? 'var(--secondary)'
+                : 'var(--text-primary)'
             }}
             onClick={() => callTools('winetricks')}
           >
