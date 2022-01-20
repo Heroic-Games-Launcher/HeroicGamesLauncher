@@ -33,7 +33,18 @@
                 "message": "Bu oyun için günlük kaydı bulunamadı",
                 "title": "Günlük Kaydı Bulunamadı"
             },
-            "title": "Hata"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Hata",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "HAYIR",
         "ok": "Ok",
@@ -68,6 +79,14 @@
             "error": "Geçersiz Yol",
             "title": "Kayıtların olduğu klasörü seçin"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "İndiriliyor",
     "Epic Games": "Epic Games",
-    "Filter": "Filtre",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -228,9 +247,9 @@
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü"
     },
-    "Settings": "Ayarlar",
     "settings": {
         "clear-cache": "Heroic Önbelleğini Temizle",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "navbar": {
             "general": "Genel",
@@ -239,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Ayarlar",
     "status": {
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
         "logging": "Oturum Açılıyor..."

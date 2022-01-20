@@ -16,14 +16,14 @@ import {
 } from '../types'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
-import { execAsync, isOnline } from '../utils'
+import { execAsync, isEpicOffline, isOnline } from '../utils'
 import {
   installed,
   legendaryBin,
   legendaryConfigPath,
   libraryPath
 } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
@@ -84,10 +84,15 @@ class LegendaryLibrary {
   public async refresh() {
     logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
     const { showUnrealMarket } = await GlobalConfig.get().getSettings()
+    const epicOffline = await isEpicOffline()
+    if (epicOffline) {
+      logWarning('Epic is Offline right now, cannot update game list!')
+      return
+    }
 
     return new Promise((res, rej) => {
       const getUeAssets = showUnrealMarket ? '--include-ue' : ''
-      const child = spawn(legendaryBin, ['list-games', getUeAssets])
+      const child = spawn(legendaryBin, ['list', getUeAssets])
       child.stderr.on('data', (data) => {
         if (`${data}`.includes('ERROR')) {
           logError(`${data}`, LogPrefix.Legendary)
@@ -202,6 +207,7 @@ class LegendaryLibrary {
    */
   public async getInstallInfo(appName: string) {
     const cache = installStore.get(appName) as InstallInfo
+    const epicOffline = await isEpicOffline()
     logInfo(
       'Getting More details with Legendary info command... ',
       LogPrefix.Legendary
@@ -211,7 +217,9 @@ class LegendaryLibrary {
     }
     try {
       const { stdout } = await execAsync(
-        `${legendaryBin} -J info ${appName} --json`
+        `${legendaryBin} -J info ${appName} ${
+          epicOffline ? '--offline' : ''
+        } --json`
       )
       const info: InstallInfo = JSON.parse(stdout)
       installStore.set(appName, info)
@@ -232,6 +240,11 @@ class LegendaryLibrary {
 
     const online = await isOnline()
     if (!isLoggedIn || !online) {
+      return []
+    }
+    const epicOffline = await isEpicOffline()
+    if (epicOffline) {
+      logWarning('Epic servers are offline, cannot check for game updates')
       return []
     }
 

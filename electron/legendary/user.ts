@@ -7,7 +7,8 @@ import { logError, logInfo, LogPrefix } from '../logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
-import { session } from 'electron'
+import { dialog, session } from 'electron'
+import i18next from 'i18next'
 
 const configStore = new Store({
   cwd: 'store'
@@ -20,17 +21,29 @@ export class LegendaryUser {
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
       child.stderr.on('data', (data) => {
-        logError(`stderr: ${data}`, LogPrefix.Legendary)
         if (`${data}`.includes('ERROR')) {
+          logError(`${data}`, LogPrefix.Legendary)
+          dialog.showErrorBox(
+            i18next.t('box.error.login.tittle', 'Cannot Login!'),
+            `${data}`
+          )
           return res('error')
+        } else {
+          logInfo(`stderr: ${data}`, LogPrefix.Legendary)
+          return
         }
       })
       child.stdout.on('data', (data) => {
         if (`${data}`.includes('ERROR')) {
           logError(`${data}`, LogPrefix.Legendary)
+          dialog.showErrorBox(
+            i18next.t('box.error.login.tittle', 'Cannot Login!'),
+            `${data}`
+          )
           return res('error')
         } else {
-          logInfo(`stderr: ${data}`, LogPrefix.Legendary)
+          logInfo(`stdout: ${data}`, LogPrefix.Legendary)
+          return
         }
       })
       child.on('close', () => {

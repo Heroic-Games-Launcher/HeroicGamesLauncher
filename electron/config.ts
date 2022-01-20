@@ -247,30 +247,22 @@ abstract class GlobalConfig {
 
     const defaultWine = await this.getDefaultWine()
     const defaultFound = !defaultWine.name.includes('Not Found')
+    const customWine = await this.getCustomWinePaths()
 
     if (!scanCustom) {
       return [defaultWine, ...altWine, ...proton, ...crossover]
     }
 
     if (isMac && crossover.size) {
-      return [...crossover, ...(await this.getCustomWinePaths())]
+      return [...crossover, ...customWine]
     } else if (defaultFound) {
-      return [
-        defaultWine,
-        ...altWine,
-        ...proton,
-        ...crossover,
-        ...(await this.getCustomWinePaths())
-      ]
+      return [defaultWine, ...altWine, ...proton, ...crossover, ...customWine]
     } else if (altWine.size) {
-      return [
-        ...altWine,
-        ...proton,
-        ...crossover,
-        ...(await this.getCustomWinePaths())
-      ]
+      return [...altWine, ...proton, ...crossover, ...customWine]
     } else if (proton.size) {
-      return [...proton, ...crossover, ...(await this.getCustomWinePaths())]
+      return [...proton, ...crossover, ...customWine]
+    } else if (customWine.size) {
+      return [...crossover, ...customWine]
     } else {
       return [defaultWine]
     }
