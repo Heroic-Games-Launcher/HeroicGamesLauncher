@@ -739,10 +739,9 @@ ipcMain.handle(
           status: 'done'
         })
 
-        writeFile(
-          `${heroicGamesConfigPath}${game}-lastPlay.log`,
-          logResult,
-          () => logInfo('Log was written', LogPrefix.Backend)
+        const gameLogFile = `${heroicGamesConfigPath}${game}-lastPlay.log`
+        writeFile(gameLogFile, logResult, () =>
+          logInfo(`Log was written to ${gameLogFile}`, LogPrefix.Backend)
         )
         return stderr
       })

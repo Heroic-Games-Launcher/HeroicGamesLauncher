@@ -3,11 +3,7 @@ import { join } from 'path'
 import Store from 'electron-store'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
-import {
-  createNewLogFileAndClearToOldOnces,
-  logInfo,
-  LogPrefix
-} from './logger'
+import { createNewLogFileAndClearOldOnces, logInfo, LogPrefix } from './logger'
 import { env, execPath } from 'process'
 
 const configStore = new Store({
@@ -47,7 +43,7 @@ const heroicFolder = isFlatpak
   ? `${home}/config/heroic/`
   : `${home}/.config/heroic/`
 const heroicLogFolder = `${heroicFolder}/Logs`
-const currentLogFile = createNewLogFileAndClearToOldOnces()
+const currentLogFile = createNewLogFileAndClearOldOnces()
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`

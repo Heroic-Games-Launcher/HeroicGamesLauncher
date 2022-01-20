@@ -129,7 +129,7 @@ export function logWarning(
  * It also removes old logs every new month.
  * @returns path to current log file
  */
-export function createNewLogFileAndClearToOldOnces(): string {
+export function createNewLogFileAndClearOldOnces(): string {
   const date = new Date()
   const newLogFile = `${heroicLogFolder}/heroic-${date.toISOString()}.log`
   try {
