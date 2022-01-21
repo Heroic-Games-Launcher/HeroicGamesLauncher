@@ -1117,7 +1117,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
 
   const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
   logInfo(`${stdout}`, LogPrefix.Backend)
-  if (stderr.includes('ERROR')) {
+  if (stderr.length) {
     logError(`${stderr}`, LogPrefix.Backend)
   }
   return `\n ${stdout} - ${stderr}`
