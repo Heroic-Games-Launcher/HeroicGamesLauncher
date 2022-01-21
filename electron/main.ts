@@ -51,6 +51,7 @@ import {
   showAboutWindow
 } from './utils'
 import {
+  currentLogFile,
   discordLink,
   execOptions,
   getShell,
@@ -1072,8 +1073,9 @@ ipcMain.handle('egsSync', async (event, args) => {
       `${legendaryBin} egl-sync ${command} -y`
     )
     logInfo(`${stdout}`, LogPrefix.Legendary)
-    if (stderr.length) {
+    if (stderr.includes('ERROR')) {
       logError(`${stderr}`, LogPrefix.Legendary)
+      return 'Error'
     }
     return `${stdout} - ${stderr}`
   } catch (error) {
@@ -1117,8 +1119,9 @@ ipcMain.handle('syncSaves', async (event, args) => {
 
   const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
   logInfo(`${stdout}`, LogPrefix.Backend)
-  if (stderr.length) {
+  if (stderr.includes('ERROR')) {
     logError(`${stderr}`, LogPrefix.Backend)
+    return `Something went wrong, check ${currentLogFile}!`
   }
   return `\n ${stdout} - ${stderr}`
 })
