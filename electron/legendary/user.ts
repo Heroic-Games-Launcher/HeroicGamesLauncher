@@ -15,7 +15,7 @@ const configStore = new Store({
 })
 export class LegendaryUser {
   public static async login(sid: string) {
-    logInfo('Logging with Legendary...')
+    logInfo('Logging with Legendary...', LogPrefix.Legendary)
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
@@ -73,7 +73,7 @@ export class LegendaryUser {
     try {
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
-      logError(error)
+      logError(error, LogPrefix.Backend)
       configStore.delete('userInfo')
     }
     if (isLoggedIn) {
