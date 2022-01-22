@@ -29,7 +29,8 @@ import {
   GameInfo,
   GameStatus,
   InstallInfo,
-  InstallProgress
+  InstallProgress,
+  Runner
 } from 'src/types'
 
 import GamePicture from '../GamePicture'
@@ -107,7 +108,7 @@ export default function GamePage(): JSX.Element | null {
         let newInfo = await getGameInfo(appName, 'legendary')
         if (!newInfo) newInfo = await getGameInfo(appName, 'gog')
         setGameInfo(newInfo)
-        getInstallInfo(appName)
+        getInstallInfo(appName, newInfo.runner)
           .then((info) => setGameInstallInfo(info))
           .catch((error) => {
             console.error(error)
@@ -138,7 +139,8 @@ export default function GamePage(): JSX.Element | null {
       if (isInstalling || isUpdating || isReparing) {
         const progress: InstallProgress = await ipcRenderer.invoke(
           'requestGameProgress',
-          appName
+          appName,
+          gameInfo.runner
         )
 
         if (progress) {
@@ -176,7 +178,7 @@ export default function GamePage(): JSX.Element | null {
 
   if (gameInfo && gameInfo.install) {
     const {
-      store,
+      runner,
       title,
       art_square,
       install: { install_path, install_size, version },
@@ -225,12 +227,13 @@ export default function GamePage(): JSX.Element | null {
         {showModal.show && (
           <InstallModal
             appName={showModal.game}
+            runner={runner}
             backdropClick={() => setShowModal({ game: '', show: false })}
           />
         )}
         {title ? (
           <>
-            <GamePicture art_square={art_square} store={store} />
+            <GamePicture art_square={art_square} store={runner} />
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
                 <>
@@ -373,7 +376,9 @@ export default function GamePage(): JSX.Element | null {
                         </Link>
                       ) : (
                         <button
-                          onClick={() => handleInstall(is_installed)}
+                          onClick={() =>
+                            handleInstall(is_installed, gameInfo.runner)
+                          }
                           disabled={
                             isPlaying ||
                             isUpdating ||
@@ -494,7 +499,7 @@ export default function GamePage(): JSX.Element | null {
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
-        return sendKill(appName)
+        return sendKill(appName, gameInfo.runner)
       }
 
       if (autoSyncSaves) {
@@ -513,7 +518,7 @@ export default function GamePage(): JSX.Element | null {
     }
   }
 
-  async function handleInstall(is_installed: boolean) {
+  async function handleInstall(is_installed: boolean, runner: Runner) {
     if (!is_installed && !isInstalling) {
       return handleModal()
     }
@@ -533,7 +538,8 @@ export default function GamePage(): JSX.Element | null {
       isInstalling,
       previousProgress,
       progress,
-      t
+      t,
+      runner
     })
   }
 }

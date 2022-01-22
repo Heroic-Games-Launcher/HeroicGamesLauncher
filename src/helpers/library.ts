@@ -1,4 +1,10 @@
-import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameStatus,
+  InstallProgress,
+  Runner
+} from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
 import { getGameInfo, sendKill } from './index'
@@ -21,6 +27,7 @@ type InstallArgs = {
   t: TFunction<'gamepage'>
   installDlcs?: boolean
   sdlList?: Array<string>
+  runner?: Runner
 }
 
 async function install({
@@ -33,21 +40,24 @@ async function install({
   previousProgress,
   setInstallPath,
   sdlList = [],
-  installDlcs = false
+  installDlcs = false,
+  runner = 'legendary'
 }: InstallArgs) {
   if (!installPath) {
     return
   }
 
   const { folder_name, is_game, is_installed }: GameInfo = await getGameInfo(
-    appName
+    appName,
+    runner
   )
   if (isInstalling) {
     return handleStopInstallation(
       appName,
       [installPath, folder_name],
       t,
-      progress
+      progress,
+      runner
     )
   }
 
@@ -87,7 +97,8 @@ async function install({
         appName,
         path: `${installPath}`,
         installDlcs,
-        sdlList
+        sdlList,
+        runner
       })
       .finally(() => {
         if (progress.percent === '100%') {
@@ -116,7 +127,8 @@ async function install({
         appName,
         path: `'${path}'`,
         installDlcs,
-        sdlList
+        sdlList,
+        runner
       })
       .finally(() => {
         if (progress.percent === '100%') {
@@ -161,7 +173,8 @@ async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
-  progress: InstallProgress
+  progress: InstallProgress,
+  runner: Runner
 ) {
   const args = {
     buttons: [
@@ -177,9 +190,9 @@ async function handleStopInstallation(
 
   if (response === 1) {
     storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
-    return sendKill(appName)
+    return sendKill(appName, runner)
   } else if (response === 2) {
-    await sendKill(appName)
+    await sendKill(appName, runner)
     storage.removeItem(appName)
     return ipcRenderer.send('removeFolder', [path, folderName])
   }

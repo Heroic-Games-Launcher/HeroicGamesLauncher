@@ -2,6 +2,9 @@
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
 import { Game } from '../games'
+import { GameConfig } from '../game_config'
+import { GlobalConfig } from '../config'
+import { spawn } from 'child_process'
 import {
   ExtraInfo,
   GameInfo,
@@ -9,8 +12,23 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
-  LaunchResult
+  LaunchResult,
+  GOGLoginData
 } from 'types'
+import {
+  gogdlBin,
+  heroicGamesConfigPath,
+  isWindows,
+  execOptions
+} from '../constants'
+import { logError, logInfo, LogPrefix } from '../logger'
+import { errorHandler, execAsync } from '../utils'
+import Store from 'electron-store'
+import { GOGUser } from './user'
+
+const configStore = new Store({
+  cwd: 'gog_store'
+})
 
 class GOGGame extends Game {
   public appName: string
@@ -26,21 +44,20 @@ class GOGGame extends Game {
     }
     return this.instances.get(appName)
   }
-
-  public static getGameInfo(appName: string) {
-    return GOGLibrary.getGameInfo(appName)
-  }
   getExtraInfo(namespace: string): Promise<ExtraInfo> {
     throw new Error('Method not implemented.')
   }
   public async getGameInfo(): Promise<GameInfo> {
-    return GOGLibrary.getGameInfo(this.appName)
+    return GOGLibrary.get().getGameInfo(this.appName)
   }
-  getInstallInfo(): Promise<InstallInfo> {
-    throw new Error('Method not implemented.')
+  async getInstallInfo(): Promise<InstallInfo> {
+    return await GOGLibrary.get().getInstallInfo(this.appName)
   }
-  getSettings(): Promise<GameSettings> {
-    throw new Error('Method not implemented.')
+  async getSettings(): Promise<GameSettings> {
+    return (
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
+    )
   }
   hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
@@ -48,8 +65,39 @@ class GOGGame extends Game {
   import(path: string): Promise<ExecResult> {
     throw new Error('Method not implemented.')
   }
-  install(args: InstallArgs): Promise<{ status: string }> {
-    throw new Error('Method not implemented.')
+  public async install({
+    path,
+    installDlcs,
+    platformToInstall
+  }: InstallArgs): Promise<{ status: string }> {
+    // In the future we need to add Language select option
+    // const { maxWorkers } = await GlobalConfig.get().getSettings()
+    // const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
+    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
+    const credentials = configStore.get('credentials') as GOGLoginData
+
+    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+    const command = `${gogdlBin} download ${
+      this.appName
+    } --platform ${platformToInstall.toLowerCase()} --path="${path}" --token="${
+      credentials.access_token
+    }" ${withDlcs} --lang="en-US" ${writeLog}`
+    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.GOG)
+    return execAsync(command, execOptions)
+      .then(async ({ stdout, stderr }) => {
+        if (stdout.includes('ERROR')) {
+          errorHandler({ error: { stdout, stderr }, logPath })
+
+          return { status: 'error' }
+        }
+        return { status: 'done' }
+      })
+      .catch(() => {
+        logInfo('Installaton canceled', LogPrefix.GOG)
+        return { status: 'error' }
+      })
   }
   addShortcuts(): Promise<void> {
     throw new Error('Method not implemented.')
@@ -66,8 +114,23 @@ class GOGGame extends Game {
   repair(): Promise<ExecResult> {
     throw new Error('Method not implemented.')
   }
-  stop(): Promise<void> {
-    throw new Error('Method not implemencted.')
+  public async stop(): Promise<void> {
+    const pattern = process.platform === 'linux' ? this.appName : 'gogdl'
+    logInfo(['killing', pattern], LogPrefix.GOG)
+
+    if (process.platform === 'win32') {
+      try {
+        await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
+        return logInfo(`${pattern} killed`)
+      } catch (error) {
+        return logError(`not possible to kill ${pattern}`, error)
+      }
+    }
+
+    const child = spawn('pkill', ['-f', pattern])
+    child.on('exit', () => {
+      return logInfo(`${pattern} killed`)
+    })
   }
   syncSaves(arg: string, path: string): Promise<ExecResult> {
     throw new Error('Method not implemencted.')

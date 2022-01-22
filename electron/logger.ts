@@ -10,7 +10,8 @@ export enum LogPrefix {
   Legendary = 'Legendary',
   GamePad = 'GamePad',
   WineDownloader = 'WineDownloader',
-  Frontend = 'Frontend'
+  Frontend = 'Frontend',
+  GOG = 'GOG'
 }
 
 // helper to convert string to string[]

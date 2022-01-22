@@ -29,6 +29,19 @@ function getLegendaryBin() {
   return bin
 }
 
+function getGOGdlBin() {
+  const bin = fixAsarPath(
+    join(
+      __dirname,
+      '/bin/',
+      process.platform,
+      isWindows ? '/gogdl.exe' : '/gogdl'
+    )
+  )
+  logInfo(`GOGdl location: ${bin}`)
+  return bin
+}
+
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isFlatpak = execPath === '/app/main/heroic'
@@ -51,6 +64,7 @@ const heroicInstallPath = isWindows
   ? `${home}\\Games\\Heroic`
   : `${home}/Games/Heroic`
 const legendaryBin = getLegendaryBin()
+const gogdlBin = getGOGdlBin()
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
 const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
@@ -134,6 +148,7 @@ export {
   isMac,
   isWindows,
   legendaryBin,
+  gogdlBin,
   legendaryConfigPath,
   libraryPath,
   epicLoginUrl,

@@ -1,3 +1,5 @@
+export type Runner = 'legendary' | 'gog' | 'heroic'
+
 interface About {
   description: string
   shortDescription: string
@@ -60,7 +62,7 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 export interface GameInfo {
-  store: 'epic' | 'gog' | 'heroic'
+  runner: 'legendary' | 'gog' | 'heroic'
   store_url: string
   app_name: string
   art_cover: string
@@ -223,7 +225,7 @@ export interface InstallArgs {
   path: string
   installDlcs?: boolean
   sdlList?: Array<string>
-  platformToInstall: 'Windows' | 'Mac'
+  platformToInstall: 'Windows' | 'Mac' | 'Linux'
 }
 
 export interface InstallParams {
@@ -231,6 +233,7 @@ export interface InstallParams {
   path: string
   installDlcs?: boolean
   sdlList?: Array<string>
+  runner: Runner
 }
 
 export interface GOGLoginData {

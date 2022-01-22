@@ -20,7 +20,8 @@ import {
   GameStatus,
   InstallInfo,
   InstallProgress,
-  Path
+  Path,
+  Runner
 } from 'src/types'
 
 import { UpdateComponent, SvgButton } from 'src/components/UI'
@@ -36,11 +37,16 @@ const { ipcRenderer } = window.require('electron') as {
 type Props = {
   appName: string
   backdropClick: () => void
+  runner: Runner
 }
 
 const storage: Storage = window.localStorage
 
-export default function InstallModal({ appName, backdropClick }: Props) {
+export default function InstallModal({
+  appName,
+  backdropClick,
+  runner
+}: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
@@ -104,7 +110,8 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       progress: previousProgress,
       t,
       sdlList,
-      installDlcs
+      installDlcs,
+      runner
     })
   }
 
@@ -141,7 +148,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   useEffect(() => {
     const getInfo = async () => {
-      const gameInfo = await getInstallInfo(appName)
+      const gameInfo = await getInstallInfo(appName, runner)
       setGameInfo(gameInfo)
       const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
       const fixedTitle = gameInfo.game.title

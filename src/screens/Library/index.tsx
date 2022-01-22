@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { lazy, useContext, useEffect, useRef, useState } from 'react'
 
-import { GameInfo } from 'src/types'
+import { GameInfo, Runner } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
 import cx from 'classnames'
 
@@ -25,7 +25,11 @@ interface Props {
 export const Library = ({ library, showRecentsOnly }: Props) => {
   const { layout, gameUpdates, refreshing, category, filter } =
     useContext(ContextProvider)
-  const [showModal, setShowModal] = useState({ game: '', show: false })
+  const [showModal, setShowModal] = useState({
+    game: '',
+    show: false,
+    runner: 'legendary' as Runner
+  })
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
@@ -52,8 +56,8 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     }
   }
 
-  function handleModal(appName: string) {
-    setShowModal({ game: appName, show: true })
+  function handleModal(appName: string, runner: Runner) {
+    setShowModal({ game: appName, show: true, runner })
   }
 
   if (refreshing && !showRecentsOnly) {
@@ -74,7 +78,10 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
       {showModal.show && (
         <InstallModal
           appName={showModal.game}
-          backdropClick={() => setShowModal({ game: '', show: false })}
+          runner={showModal.runner}
+          backdropClick={() =>
+            setShowModal({ game: '', show: false, runner: 'legendary' })
+          }
         />
       )}
       <h3 className="libraryHeader">
@@ -98,7 +105,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
               is_installed,
               is_mac_native,
               is_linux_native,
-              store,
+              runner,
               is_game,
               install: { version, install_size, is_dlc }
             }: GameInfo) => {
@@ -109,7 +116,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
               return (
                 <GameCard
                   key={app_name}
-                  store={store}
+                  runner={runner}
                   cover={art_square}
                   coverList={art_cover}
                   logo={art_logo}
@@ -120,7 +127,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
                   version={`${version}`}
                   size={`${install_size}`}
                   hasUpdate={hasUpdate}
-                  buttonClick={() => handleModal(app_name)}
+                  buttonClick={() => handleModal(app_name, runner)}
                   forceCard={showRecentsOnly}
                   isMacNative={is_mac_native}
                   isLinuxNative={is_linux_native}

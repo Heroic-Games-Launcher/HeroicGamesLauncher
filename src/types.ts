@@ -72,7 +72,7 @@ interface ExtraInfo {
 }
 
 export interface GameInfo {
-  store: 'epic' | 'gog' | 'heroic'
+  runner: Runner
   store_url: string
   app_name: string
   art_cover: string
@@ -252,3 +252,5 @@ export interface GamepadActionStatus {
     repeatDelay: false | number
   }
 }
+
+export type Runner = 'legendary' | 'gog' | 'heroic'

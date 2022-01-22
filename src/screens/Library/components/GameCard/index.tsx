@@ -37,7 +37,7 @@ interface Card {
   version: string
   isMacNative: boolean
   isLinuxNative: boolean
-  store: 'epic' | 'gog' | 'heroic'
+  runner: 'legendary' | 'gog' | 'heroic'
   forceCard?: boolean
 }
 
@@ -56,7 +56,7 @@ const GameCard = ({
   isMacNative,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isLinuxNative,
-  store
+  runner
 }: Card) => {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -106,7 +106,8 @@ const GameCard = ({
       if (isInstalling) {
         const progress = await ipcRenderer.invoke(
           'requestGameProgress',
-          appName
+          appName,
+          runner
         )
 
         if (progress) {
@@ -136,7 +137,7 @@ const GameCard = ({
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
   const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
   const imageSrc =
-    store == 'epic'
+    runner == 'legendary'
       ? `${grid ? cover : coverList}?h=400&resize=1&w=300`
       : grid
       ? cover
@@ -306,12 +307,13 @@ const GameCard = ({
         isInstalling,
         previousProgress,
         progress,
-        t
+        t,
+        runner
       })
     }
     if (status === 'playing' || status === 'updating') {
       await handleGameStatus({ appName, status: 'done' })
-      return sendKill(appName)
+      return sendKill(appName, runner)
     }
     if (isInstalled) {
       return await launch({ appName, t })

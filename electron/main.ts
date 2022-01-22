@@ -118,7 +118,7 @@ async function createWindow(): Promise<BrowserWindow> {
 
   GlobalConfig.get()
   LegendaryLibrary.get()
-  GOGLibrary.sync()
+  GOGLibrary.get()
 
   mainWindow.setIcon(icon)
   app.setAppUserModelId('Heroic')
@@ -406,8 +406,8 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('kill', async (event, appName) => {
-  return await Game.get(appName).stop()
+ipcMain.handle('kill', async (event, appName, runner) => {
+  return await Game.get(appName, runner).stop()
 })
 
 ipcMain.on('quit', async () => handleExit())
@@ -587,7 +587,7 @@ ipcMain.handle('getInstallInfo', async (event, game, runner) => {
     const info = await Game.get(game, runner).getInstallInfo()
     return info
   } catch (error) {
-    logError(error)
+    logError(String(error))
     return {}
   }
 })
@@ -648,7 +648,7 @@ if (existsSync(installed)) {
 }
 
 ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
-  await GOGLibrary.sync()
+  await GOGLibrary.get().sync()
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
@@ -796,8 +796,9 @@ ipcMain.handle(
 )
 
 ipcMain.handle('install', async (event, params) => {
-  const { appName, path, installDlcs, sdlList } = params as InstallParams
-  const { title, is_mac_native } = await Game.get(appName).getGameInfo()
+  const { appName, path, installDlcs, sdlList, runner } =
+    params as InstallParams
+  const { title, is_mac_native } = await Game.get(appName, runner).getGameInfo()
   const platformToInstall =
     platform() === 'darwin' && is_mac_native ? 'Mac' : 'Windows'
 
@@ -828,7 +829,7 @@ ipcMain.handle('install', async (event, params) => {
     title,
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
-  return Game.get(appName)
+  return Game.get(appName, runner)
     .install({ path, installDlcs, sdlList, platformToInstall })
     .then(async (res) => {
       notify({

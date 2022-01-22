@@ -46,7 +46,6 @@ export default function SidebarLinks() {
   function handleGOG() {
     if (gogStore.has('credentials')) {
       handleCategory('gog')
-      console.log('Not implemented yet!')
     } else {
       // Login
       ipcRenderer.send('openGOGLoginPage')

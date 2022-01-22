@@ -468,7 +468,9 @@ class LegendaryLibrary {
         : releaseInfo[0]?.platform.includes('Mac'),
       save_folder: saveFolder,
       title,
-      canRunOffline
+      canRunOffline,
+      is_linux_native: false,
+      runner: 'legendary'
     } as GameInfo)
 
     return app_name

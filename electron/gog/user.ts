@@ -2,7 +2,7 @@ import { GOGLibrary } from './library'
 import axios from 'axios'
 import Store from 'electron-store'
 import { BrowserWindow } from 'electron'
-import { logError, logInfo } from '../logger'
+import { logError, logInfo, LogPrefix } from '../logger'
 import { gogLoginUrl } from '../constants'
 import { GOGLoginData } from '../types'
 
@@ -39,27 +39,28 @@ export class GOGUser {
     logInfo('Logging using GOG credentials')
 
     // Gets token from GOG basaed on authorization code
+    logInfo(['loginCode: ', code], LogPrefix.GOG)
     const response = await axios
       .get(
         `https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&code=${code}`
       )
-      .catch(() => {
+      .catch((e) => {
         // TODO: Handle fetching error
-        logError('GOG: Failed to get access_token')
+        logError(['Failed to get access_token', e], LogPrefix.GOG)
         return null
       })
-    if (!response) return
+    if (!response?.data) logError('Failed to get access_token', LogPrefix.GOG)
 
     const data: GOGLoginData = response.data
     data.loginTime = Date.now()
     configStore.set('credentials', data)
-    logInfo('GOG: Login Successful')
+    logInfo('Login Successful', LogPrefix.GOG)
     this.getUserDetails()
-    GOGLibrary.sync()
+    GOGLibrary.get().sync()
   }
 
   public static async getUserDetails() {
-    logInfo('GOG: Getting data about the user')
+    logInfo('Getting data about the user', LogPrefix.GOG)
     if (this.isTokenExpired()) {
       this.refreshToken()
     }
@@ -79,17 +80,20 @@ export class GOGUser {
     delete data.email
 
     configStore.set('userData', data)
-    logInfo('GOG: Saved user data to config')
+    logInfo('Saved user data to config', LogPrefix.GOG)
   }
 
   public static async refreshToken() {
     const user: GOGLoginData = configStore.get('credentials') as GOGLoginData
-    logInfo('GOG: Refreshing access_token')
+    logInfo('Refreshing access_token', LogPrefix.GOG)
     if (user) {
       const response = await axios
         .get(`${gogRefreshTokenUrl}&refresh_token=${user.refresh_token}`)
         .catch(() => {
-          logError('GOG: Error with refreshing token, reauth required')
+          logError(
+            'Error with refreshing token, reauth required',
+            LogPrefix.GOG
+          )
           this.handleGOGLogin()
           return null
         })
@@ -99,9 +103,9 @@ export class GOGUser {
       const data: GOGLoginData = response.data
       data.loginTime = Date.now()
       configStore.set('credentials', data)
-      logInfo('GOG: Token refreshed successfully')
+      logInfo('Token refreshed successfully', LogPrefix.GOG)
     } else {
-      logError('GOG: No credentials, auth required')
+      logError('No credentials, auth required', LogPrefix.GOG)
       await this.handleGOGLogin()
     }
   }

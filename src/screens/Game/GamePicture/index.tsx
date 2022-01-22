@@ -12,7 +12,9 @@ function GamePicture({ art_square, store }: Props) {
       <img
         alt="cover-art"
         src={
-          store == 'epic' ? `${art_square}?h=800&resize=1&w=600` : art_square
+          store == 'legendary'
+            ? `${art_square}?h=800&resize=1&w=600`
+            : art_square
         }
         className="gameImg"
       />

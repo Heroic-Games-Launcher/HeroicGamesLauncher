@@ -5,10 +5,10 @@ import {
   GameSettings,
   InstallArgs,
   InstallInfo,
-  LaunchResult
+  LaunchResult,
+  Runner
 } from './types'
 
-type Runner = 'legendary' | 'gog'
 abstract class Game {
   public static get(
     appName: string,

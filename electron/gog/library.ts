@@ -2,8 +2,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import Store from 'electron-store'
 import { GOGUser } from './user'
-import { GOGLoginData, GOGGameInfo, GameInfo } from '../types'
-import { logError, logInfo } from '../logger'
+import { GOGLoginData, GOGGameInfo, GameInfo, InstallInfo } from '../types'
+import { logError, logInfo, LogPrefix } from '../logger'
+import { execAsync } from '../utils'
+import { gogdlBin } from '../constants'
 
 const userStore = new Store({
   cwd: 'gog_store'
@@ -12,9 +14,10 @@ const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
 const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
 
 export class GOGLibrary {
-  private static library: Map<string, null | GameInfo> = new Map()
+  private static globalInstance: GOGLibrary = null
+  private library: Map<string, null | GameInfo> = new Map()
 
-  public static async sync() {
+  public async sync() {
     if (!GOGUser.isLoggedIn()) {
       return
     }
@@ -27,7 +30,7 @@ export class GOGLibrary {
       'credentials'
     ) as GOGLoginData
     const headers = { Authorization: 'Bearer ' + credentials.access_token }
-    logInfo('Getting GOG library')
+    logInfo('Getting GOG library', LogPrefix.GOG)
     const games = await axios
       .get(
         'https://embed.gog.com/account/getFilteredProducts?mediaType=1&totalPages=1&sortBy=title',
@@ -35,8 +38,8 @@ export class GOGLibrary {
       )
       .catch((e: AxiosError) => {
         logError(
-          'GOG: There was an error getting games library data',
-          e.message
+          ['There was an error getting games library data', e.message],
+          LogPrefix.GOG
         )
         return null
       })
@@ -48,39 +51,90 @@ export class GOGLibrary {
       )
       .catch((e: AxiosError) => {
         logError(
-          'GOG: There was an error getting movies library data',
-          e.message
+          ['There was an error getting movies library data', e.message],
+          LogPrefix.GOG
         )
         return null
       })
 
     if (games) {
       const gamesObjects: GameInfo[] = []
+      const gamesArray = libraryStore.get('games') as GameInfo[]
       for (const game of games.data.products as GOGGameInfo[]) {
-        let apiData = apiInfoCache.get(game.slug)
-        if (!apiData) {
-          apiData = await this.get_games_data(String(game.id))
-          apiInfoCache.set(game.slug, apiData)
+        let unifiedObject = gamesArray
+          ? gamesArray.find((value) => value.app_name == String(game.id))
+          : null
+        if (!unifiedObject) {
+          let apiData = apiInfoCache.get(game.slug)
+          if (!apiData) {
+            apiData = await this.get_games_data(String(game.id))
+            apiInfoCache.set(game.slug, apiData)
+          }
+          unifiedObject = this.gogToUnifiedInfo(game, apiData)
         }
-        const gameInfoObject = this.gogToUnifiedInfo(game, apiData)
-        gamesObjects.push(gameInfoObject)
-        this.library.set(String(game.id), gameInfoObject)
+        gamesObjects.push(unifiedObject)
+        this.library.set(String(game.id), unifiedObject)
       }
       libraryStore.set('games', gamesObjects)
       libraryStore.set('totalGames', games.data.totalProducts)
       libraryStore.set('totalMovies', games.data.moviesCount)
-      logInfo('GOG: Saved games data')
+      logInfo('Saved games data', LogPrefix.GOG)
     }
     if (movies) {
       libraryStore.set('movies', movies.data.products)
-      logInfo('GOG: Saved movies data')
+      logInfo('Saved movies data', LogPrefix.GOG)
     }
   }
 
-  public static getGameInfo(slug: string): GameInfo {
+  public static get() {
+    if (this.globalInstance == null) {
+      GOGLibrary.globalInstance = new GOGLibrary()
+    }
+    return this.globalInstance
+  }
+
+  public getGameInfo(slug: string): GameInfo {
     const info = this.library.get(slug)
     if (!info) {
       return null
+    }
+    return info
+  }
+
+  public async getInstallInfo(appName: string) {
+    if (GOGUser.isTokenExpired()) GOGUser.refreshToken()
+    const credentials = userStore.get('credentials') as GOGLoginData
+    const { stdout } = await execAsync(
+      `${gogdlBin} info ${appName} --token=${
+        credentials.access_token
+      } --lang=en-US --os ${process.platform == 'darwin' ? 'osx' : 'windows'}`
+    )
+    const gogInfo = JSON.parse(stdout)
+    const gameData = this.library.get(appName)
+    const libraryArray = libraryStore.get('games') as GameInfo[]
+    const gameObjectIndex = libraryArray.findIndex(
+      (val) => val.app_name == appName
+    )
+    libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
+    libraryStore.set('games', libraryArray)
+    this.library.set(appName, libraryArray[gameObjectIndex])
+    const info: InstallInfo = {
+      game: {
+        app_name: appName,
+        title: gameData.title,
+        owned_dlc: gogInfo.dlcs,
+        version: null,
+        launch_options: [],
+        platform_versions: null
+      },
+      manifest: {
+        disk_size: Number(gogInfo.disk_size),
+        download_size: Number(gogInfo.download_size),
+        app_name: appName,
+        install_tags: [],
+        launch_exe: '',
+        prerequisites: null
+      }
     }
     return info
   }
@@ -89,13 +143,12 @@ export class GOGLibrary {
    * Convert GOGGameInfo object to GameInfo
    * That way it will be easly accessible on frontend
    */
-  public static gogToUnifiedInfo(info: GOGGameInfo, apiData: any): GameInfo {
-    const developersArray: any[] = []
+  public gogToUnifiedInfo(info: GOGGameInfo, apiData: any): GameInfo {
     let developer: string
     let verticalCover: string
     let horizontalCover: string
     if (apiData._links) {
-      developer = developersArray.join(', ')
+      developer = apiData._embedded.publisher?.name
       verticalCover = apiData._links.boxArtImage.href
       horizontalCover = `https:${info.image}.jpg`
       // horizontalCover = apiData._links.logo.href
@@ -108,7 +161,7 @@ export class GOGLibrary {
     }
 
     const object: GameInfo = {
-      store: 'gog',
+      runner: 'gog',
       store_url: `https://gog.com${info.url}`,
       developer: developer || '',
       app_name: String(info.id),
@@ -119,7 +172,14 @@ export class GOGLibrary {
       compatible_apps: [],
       extra: {
         about: { description: '', shortDescription: '' },
-        reqs: this.createReqsArray(apiData, 'windows')
+        reqs: this.createReqsArray(
+          apiData,
+          info.worksOn.Mac && process.platform == 'darwin'
+            ? 'osx'
+            : info.worksOn.Linux && process.platform == 'linux'
+            ? 'linux'
+            : 'windows'
+        )
       },
       folder_name: '',
       install: {
@@ -146,7 +206,7 @@ export class GOGLibrary {
     return object
   }
 
-  public static async get_games_data(appName: string) {
+  public async get_games_data(appName: string) {
     const url = `https://api.gog.com/v2/games/${appName}`
     const response: AxiosResponse | null = await axios.get(url).catch(() => {
       return null
@@ -156,7 +216,7 @@ export class GOGLibrary {
     return response.data
   }
 
-  public static createReqsArray(apiData: any, os: 'windows' | 'linux' | 'osx') {
+  public createReqsArray(apiData: any, os: 'windows' | 'linux' | 'osx') {
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
       (v: { operatingSystem: { name: any } }) => v.operatingSystem.name === os
@@ -180,9 +240,9 @@ export class GOGLibrary {
     return returnValue
   }
   /**
-   * This function can be also with outher stores
+   * This function can be also used with outher stores
    * This endpoint doesn't require user to be authenticated.
-   * @param store Indicates a store we have game_id from like: epic, itch, humble, gog, uplay
+   * @param store Indicates a store we have game_id from, like: epic, itch, humble, gog, uplay
    * @param game_id ID of a game
    * @param etag (optional) value returned in response, works as checksum so we can check if we have up to date data
    */
