@@ -33,7 +33,18 @@
                 "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
                 "title": "കുറിപ്പുകള്\u200d കണ്ടെത്താനായില്ല"
             },
-            "title": "കുഴപ്പം"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "കുഴപ്പം",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "വേണ്ട",
         "ok": "Ok",
@@ -68,6 +79,14 @@
             "error": "വഴി ശരിയല്ലല്ലോ",
             "title": "സൂക്ഷിക്കാനുള്ള അറ തിരഞ്ഞെടുക്കൂ"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "ഇറക്കുന്നവ",
     "Epic Games": "എപിക് ഗെയിംസ്",
-    "Filter": "അരിപ്പ",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "അരിപ്പ",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്\u200d",
     "help": {
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടൂല്\u200d മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്\u200d നിങ്ങളുടെ കളികള്\u200d വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
@@ -255,13 +274,6 @@
         "unrealPlugins": "അണ്\u200dറിയല്\u200d - Plugins",
         "unrealProjects": "അണ്\u200dറിയല്\u200d - പണികള്\u200d",
         "updates": "നടക്കേണ്ട പുതുക്കലുകള്\u200d"
-    },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
     },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്\u200dക്കുക",

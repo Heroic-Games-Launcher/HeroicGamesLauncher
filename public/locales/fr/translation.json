@@ -33,7 +33,18 @@
                 "message": "Aucun Log n'a été trouvé pour ce jeu",
                 "title": "Aucun Log n'a été trouvé"
             },
-            "title": "Erreur"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Erreur",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NON",
         "ok": "Ok",
@@ -68,6 +79,14 @@
             "error": "Chemin invalide",
             "title": "Choisir le dossier de sauvegardes"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Choisir le dossier de préfixe Wine",
         "yes": "OUI"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "Téléchargement en cours",
     "Epic Games": "Epic Games",
-    "Filter": "Filtre",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtre",
     "globalSettings": "Paramètres généraux",
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
@@ -173,13 +192,13 @@
     "Plugins": "Plugins",
     "Projects": "Projets",
     "Ready": "Prêt",
-    "Recent": "Played Recently",
+    "Recent": "Joué récemment",
     "Return": "Retour",
     "search": "Insérez le nom du jeu ici...",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
-        "alt-legendary-bin": "Choisir un autre exécutable Legendary (nécessite de relancer Heroic)",
+        "alt-legendary-bin": "Choisir un autre exécutable Legendary  (nécessite de relancer Heroic)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
         "autosync": "Sauvegardes Autosync",
@@ -228,7 +247,6 @@
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
     },
-    "Settings": "Options",
     "settings": {
         "clear-cache": "Effacer le cache Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -240,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Options",
     "status": {
         "loading": "Chargement de la liste des jeux, veuillez patienter",
         "logging": "Connexion en cours..."

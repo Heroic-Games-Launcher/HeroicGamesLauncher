@@ -30,7 +30,7 @@
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
             "title": "Il gioco richiede un aggiornamento"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI"
     },
     "button": {
@@ -68,7 +68,7 @@
     },
     "install": {
         "path": "Seleziona percorso di installazione",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Prefisso Wine"
     },
     "label": {
         "playing": {
