@@ -51,6 +51,7 @@ import {
   showAboutWindow
 } from './utils'
 import {
+  currentLogFile,
   discordLink,
   execOptions,
   getShell,
@@ -128,7 +129,7 @@ async function createWindow(): Promise<BrowserWindow> {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logError(['An error occurred: ', err])
+        logError(['An error occurred: ', err], LogPrefix.Backend)
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -235,13 +236,13 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
-    logInfo(`${systemInfo}`)
+    logInfo(`${systemInfo}`, LogPrefix.Backend)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
 
     if (!isLoggedIn) {
-      logInfo('User Not Found, removing it from Store')
+      logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
       store.delete('userinfo')
     }
 
@@ -295,12 +296,12 @@ if (!gotTheLock) {
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
-        logInfo('Registered protocol with OS.')
+        logInfo('Registered protocol with OS.', LogPrefix.Backend)
       } else {
-        logError('Failed to register protocol with OS.')
+        logError('Failed to register protocol with OS.', LogPrefix.Backend)
       }
     } else {
-      logWarning('Protocol already registered.')
+      logWarning('Protocol already registered.', LogPrefix.Backend)
     }
     if (process.argv[1]) {
       const url = process.argv[1]
@@ -313,14 +314,14 @@ if (!gotTheLock) {
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
-      logInfo(['Changing Language to:', language])
+      logInfo(['Changing Language to:', language], LogPrefix.Backend)
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
       appIcon.setContextMenu(contextMenu())
     })
 
     ipcMain.addListener('changeTrayColor', () => {
-      logInfo('Changing Tray icon Color...')
+      logInfo('Changing Tray icon Color...', LogPrefix.Backend)
       setTimeout(async () => {
         const { darkTrayIcon } = await GlobalConfig.get().getSettings()
         const trayIcon = darkTrayIcon ? iconDark : iconLight
@@ -344,7 +345,7 @@ if (!gotTheLock) {
             'Heroic requires Python 3.8 or newer.'
           )
         )
-        logError('Heroic requires Python 3.8 or newer.')
+        logError('Heroic requires Python 3.8 or newer.', LogPrefix.Backend)
         return app.quit()
       }
     }
@@ -380,7 +381,7 @@ ipcMain.on('Notify', (event, args) => {
 
 // Maybe this can help with white screens
 process.on('uncaughtException', (err) => {
-  logError(`${err.name}: ${err.message}`)
+  logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
 })
 
 let powerId: number | null
@@ -482,12 +483,14 @@ ipcMain.handle(
       winePrefix = `${protonPrefix}/pfx`
 
       logWarning(
-        'Using Winecfg and Winetricks with Proton might not work as expected.'
+        'Using Winecfg and Winetricks with Proton might not work as expected.',
+        LogPrefix.Backend
       )
       // workaround for proton since newer versions doesnt come with a wine binary anymore.
       if (!existsSync(wineBin.replaceAll("'", ''))) {
         logInfo(
-          `${wineBin} not found for this Proton version, will try using default wine`
+          `${wineBin} not found for this Proton version, will try using default wine`,
+          LogPrefix.Backend
         )
         wineBin = '/usr/bin/wine'
       }
@@ -501,12 +504,13 @@ ipcMain.handle(
       command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
     }
 
-    logInfo(['trying to run', command])
+    logInfo(['trying to run', command], LogPrefix.Backend)
     try {
       await execAsync(command, execOptions)
     } catch (error) {
       logError(
-        `Something went wrong! Check if ${tool} is available and ${wineBin} exists`
+        `Something went wrong! Check if ${tool} is available and ${wineBin} exists`,
+        LogPrefix.Backend
       )
     }
   }
@@ -568,7 +572,7 @@ ipcMain.handle('getGameInfo', async (event, game) => {
     info.extra = await Game.get(game).getExtraInfo(info.namespace)
     return info
   } catch (error) {
-    logError(error)
+    logError(error, LogPrefix.Backend)
   }
 })
 
@@ -581,7 +585,7 @@ ipcMain.handle('getInstallInfo', async (event, game) => {
     const info = await Game.get(game).getInstallInfo()
     return info
   } catch (error) {
-    logError(error)
+    logError(error, LogPrefix.Backend)
     return {}
   }
 })
@@ -606,7 +610,10 @@ ipcMain.handle('readConfig', async (event, config_class) => {
     case 'user':
       return (await LegendaryUser.getUserInfo()).displayName
     default:
-      logError(`Which idiot requested '${config_class}' using readConfig?`)
+      logError(
+        `Which idiot requested '${config_class}' using readConfig?`,
+        LogPrefix.Backend
+      )
       return {}
   }
 })
@@ -636,7 +643,7 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
   watch(installed, () => {
-    logInfo('Legendary: Installed game list updated')
+    logInfo('Installed game list updated', LogPrefix.Legendary)
     LegendaryLibrary.get().refreshInstalled()
   })
 }
@@ -676,7 +683,7 @@ ipcMain.handle(
       tsStore.set(`${game}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo([`launching`, title, game])
+    logInfo([`launching`, title, game], LogPrefix.Backend)
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter((a) => a.appName !== game)
@@ -733,10 +740,9 @@ ipcMain.handle(
           status: 'done'
         })
 
-        writeFile(
-          `${heroicGamesConfigPath}${game}-lastPlay.log`,
-          logResult,
-          () => logInfo('Log was written')
+        const gameLogFile = `${heroicGamesConfigPath}${game}-lastPlay.log`
+        writeFile(gameLogFile, logResult, () =>
+          logInfo(`Log was written to ${gameLogFile}`, LogPrefix.Backend)
         )
         return stderr
       })
@@ -748,7 +754,7 @@ ipcMain.handle(
           stderr,
           () => 'done'
         )
-        logError(stderr)
+        logError(stderr, LogPrefix.Backend)
         window.webContents.send('setGameStatus', {
           appName,
           status: 'done'
@@ -795,7 +801,10 @@ ipcMain.handle('install', async (event, params) => {
     platform() === 'darwin' && is_mac_native ? 'Mac' : 'Windows'
 
   if (!(await isOnline())) {
-    logWarning(`App offline, skipping install for game '${title}'.`)
+    logWarning(
+      `App offline, skipping install for game '${title}'.`,
+      LogPrefix.Backend
+    )
     return
   }
 
@@ -831,7 +840,7 @@ ipcMain.handle('install', async (event, params) => {
             ? i18next.t('notify.install.finished')
             : i18next.t('notify.install.canceled')
       })
-      logInfo('finished installing')
+      logInfo('finished installing', LogPrefix.Backend)
       mainWindow.webContents.send('setGameStatus', {
         appName,
         status: 'done'
@@ -855,14 +864,17 @@ ipcMain.handle('uninstall', async (event, game) => {
     .uninstall()
     .then(() => {
       notify({ title, body: i18next.t('notify.uninstalled') })
-      logInfo('finished uninstalling')
+      logInfo('finished uninstalling', LogPrefix.Backend)
     })
-    .catch(logError)
+    .catch((error) => logError(error, LogPrefix.Backend))
 })
 
 ipcMain.handle('repair', async (event, game) => {
   if (!(await isOnline())) {
-    logWarning(`App offline, skipping repair for game '${game}'.`)
+    logWarning(
+      `App offline, skipping repair for game '${game}'.`,
+      LogPrefix.Backend
+    )
     return
   }
   const title = (await Game.get(game).getGameInfo()).title
@@ -871,14 +883,14 @@ ipcMain.handle('repair', async (event, game) => {
     .repair()
     .then(() => {
       notify({ title, body: i18next.t('notify.finished.reparing') })
-      logInfo('finished repairing')
+      logInfo('finished repairing', LogPrefix.Backend)
     })
     .catch((error) => {
       notify({
         title,
         body: i18next.t('notify.error.reparing', 'Error Repairing')
       })
-      logError(error)
+      logError(error, LogPrefix.Backend)
     })
 })
 
@@ -887,13 +899,13 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
   try {
     const newPath = await Game.get(appName).moveInstall(path)
     notify({ title, body: i18next.t('notify.moved') })
-    logInfo(`Finished moving ${appName} to ${newPath}.`)
+    logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
   } catch (error) {
     notify({
       title,
       body: i18next.t('notify.error.move', 'Error Moving the Game')
     })
-    logError(error)
+    logError(error, LogPrefix.Backend)
   }
 })
 
@@ -926,7 +938,7 @@ ipcMain.handle('importGame', async (event, args) => {
         appName,
         status: 'done'
       })
-      logInfo(`imported ${title}`)
+      logInfo(`imported ${title}`, LogPrefix.Backend)
     })
     .catch((err) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
@@ -934,13 +946,16 @@ ipcMain.handle('importGame', async (event, args) => {
         appName,
         status: 'done'
       })
-      logInfo(err)
+      logInfo(err, LogPrefix.Backend)
     })
 })
 
 ipcMain.handle('updateGame', async (e, game) => {
   if (!(await isOnline())) {
-    logWarning(`App offline, skipping install for game '${game}'.`)
+    logWarning(
+      `App offline, skipping install for game '${game}'.`,
+      LogPrefix.Backend
+    )
     return
   }
 
@@ -969,10 +984,10 @@ ipcMain.handle('updateGame', async (e, game) => {
             ? i18next.t('notify.update.finished')
             : i18next.t('notify.update.canceled')
       })
-      logInfo('finished updating')
+      logInfo('finished updating', LogPrefix.Backend)
     })
     .catch((err) => {
-      logError(err)
+      logError(err, LogPrefix.Backend)
       notify({ title, body: i18next.t('notify.update.canceled') })
       return err
     })
@@ -1022,7 +1037,8 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 
   const progress = { bytes, eta, percent }
   logInfo(
-    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`
+    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`,
+    LogPrefix.Backend
   )
   return progress
 })
@@ -1031,7 +1047,7 @@ ipcMain.handle(
   'changeInstallPath',
   async (event, [appName, newPath]: string[]) => {
     LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
-    logInfo(`Finished moving ${appName} to ${newPath}.`)
+    logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
   }
 )
 
@@ -1056,10 +1072,14 @@ ipcMain.handle('egsSync', async (event, args) => {
     const { stderr, stdout } = await execAsync(
       `${legendaryBin} egl-sync ${command} -y`
     )
-    logInfo(`${stdout}`)
-    logError(`${stderr}`)
+    logInfo(`${stdout}`, LogPrefix.Legendary)
+    if (stderr.includes('ERROR')) {
+      logError(`${stderr}`, LogPrefix.Legendary)
+      return 'Error'
+    }
     return `${stdout} - ${stderr}`
   } catch (error) {
+    logError(`${error}`, LogPrefix.Legendary)
     return 'Error'
   }
 })
@@ -1090,13 +1110,19 @@ ipcMain.handle('syncSaves', async (event, args) => {
     return 'Epic is Offline right now, cannot sync saves!'
   }
   if (!(await isOnline())) {
-    logWarning(`App offline, skipping syncing saves for game '${appName}'.`)
+    logWarning(
+      `App offline, skipping syncing saves for game '${appName}'.`,
+      LogPrefix.Backend
+    )
     return
   }
 
   const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
-  logInfo(`${stdout}`)
-  logError(`${stderr}`)
+  logInfo(`${stdout}`, LogPrefix.Backend)
+  if (stderr.includes('ERROR')) {
+    logError(`${stderr}`, LogPrefix.Backend)
+    return `Something went wrong, check ${currentLogFile}!`
+  }
   return `\n ${stdout} - ${stderr}`
 })
 

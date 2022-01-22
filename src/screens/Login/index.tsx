@@ -61,6 +61,8 @@ export default function Login() {
           runInBackground: false
         })
         return history.push('/')
+      } else {
+        ipcRenderer.send('logError', res)
       }
 
       setStatus({ loading: true, message: t('status.error', 'Error') })
