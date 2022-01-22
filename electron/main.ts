@@ -105,9 +105,9 @@ async function createWindow(): Promise<BrowserWindow> {
   if (store.has('window-props')) {
     const tmpWindowProps = store.get('window-props') as Electron.Rectangle
     if (
-      tmpWindowProps !== undefined &&
-      tmpWindowProps.width !== undefined &&
-      tmpWindowProps.height !== undefined &&
+      tmpWindowProps &&
+      tmpWindowProps.width &&
+      tmpWindowProps.height &&
       tmpWindowProps.y !== undefined &&
       tmpWindowProps.x !== undefined
     ) {
