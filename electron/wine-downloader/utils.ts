@@ -5,7 +5,7 @@
 
 import Store from 'electron-store'
 import { existsSync, rmSync } from 'graceful-fs'
-import { logError, logInfo, logWarning } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger'
 import { WineVersionInfo } from './types'
 
 import {
@@ -22,32 +22,13 @@ const wineDownloaderInfoStore = new Store({
   name: 'wine-downloader-info'
 })
 
-const wineDownloaderLog = (
-  level: 'info' | 'warning' | 'error',
-  message: string
-) => {
-  switch (level) {
-    case 'info':
-      logInfo(`[Wine downloader]: ${message}`)
-      break
-    case 'warning':
-      logWarning(`[Wine downloader]: ${message}`)
-      break
-    case 'error':
-      logError(`[Wine downloader]: ${message}`)
-      break
-    default:
-      break
-  }
-}
-
 async function updateWineVersionInfos(
   fetch = false,
   count = 100
 ): Promise<WineVersionInfo[]> {
   let releases: WineVersionInfo[] = []
 
-  wineDownloaderLog('info', 'Updating wine versions info')
+  logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
     await getAvailableVersions({ count: count })
       .then((response) => (releases = response as WineVersionInfo[]))
@@ -90,7 +71,7 @@ async function updateWineVersionInfos(
     }
   }
 
-  wineDownloaderLog('info', 'wine versions updated')
+  logInfo('wine versions updated', LogPrefix.WineDownloader)
   return releases
 }
 
@@ -100,9 +81,9 @@ async function installWineVersion(
 ) {
   let updatedInfo: WineVersionInfo
 
-  wineDownloaderLog(
-    'info',
-    `Start installation of wine version ${release.version}`
+  logInfo(
+    `Start installation of wine version ${release.version}`,
+    LogPrefix.WineDownloader
   )
   await installVersion({
     versionInfo: release as VersionInfo,
@@ -118,7 +99,7 @@ async function installWineVersion(
       }
     })
     .catch((error: Error) => {
-      wineDownloaderLog('error', error.message)
+      logError(error.message, LogPrefix.WineDownloader)
       return false
     })
 
@@ -133,9 +114,9 @@ async function installWineVersion(
     })
 
     if (index === -1) {
-      wineDownloaderLog(
-        'error',
-        `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`
+      logError(
+        `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
+        LogPrefix.WineDownloader
       )
       return false
     }
@@ -144,16 +125,16 @@ async function installWineVersion(
 
     wineDownloaderInfoStore.set('wine-releases', releases)
   } else {
-    wineDownloaderLog(
-      'error',
-      `Couldn't find a tools entry in electron-store -> wine-downloader-info.json. Tool ${release.version} couldn't be installed!`
+    logError(
+      `Couldn't find a tools entry in electron-store -> wine-downloader-info.json. Tool ${release.version} couldn't be installed!`,
+      LogPrefix.WineDownloader
     )
     return false
   }
 
-  wineDownloaderLog(
-    'info',
-    `Finished installation of wine version ${release.version}`
+  logInfo(
+    `Finished installation of wine version ${release.version}`,
+    LogPrefix.WineDownloader
   )
   return true
 }
@@ -164,10 +145,10 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     try {
       rmSync(release.installDir, { recursive: true })
     } catch (error) {
-      wineDownloaderLog('error', error)
-      wineDownloaderLog(
-        'warning',
-        `Couldn't remove folder ${release.installDir}! Still mark wine version ${release.version} as not installed!`
+      logError(error, LogPrefix.WineDownloader)
+      logWarning(
+        `Couldn't remove folder ${release.installDir}! Still mark wine version ${release.version} as not installed!`,
+        LogPrefix.WineDownloader
       )
     }
   }
@@ -183,9 +164,9 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     })
 
     if (index === -1) {
-      wineDownloaderLog(
-        'error',
-        `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`
+      logError(
+        `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
+        LogPrefix.WineDownloader
       )
       return false
     }
@@ -197,16 +178,16 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
 
     wineDownloaderInfoStore.set('wine-releases', releases)
   } else {
-    wineDownloaderLog(
-      'error',
-      `Couldn't find a wine-releases entry in electron-store -> wine-downloader-info.json. Release ${release.version} couldn't be removed!`
+    logError(
+      `Couldn't find a wine-releases entry in electron-store -> wine-downloader-info.json. Release ${release.version} couldn't be removed!`,
+      LogPrefix.WineDownloader
     )
     return false
   }
 
-  wineDownloaderLog(
-    'info',
-    `Removed wine version ${release.version} succesfully.`
+  logInfo(
+    `Removed wine version ${release.version} succesfully.`,
+    LogPrefix.WineDownloader
   )
   return true
 }
