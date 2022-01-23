@@ -250,7 +250,7 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Copiar todas as configurações para a área de transferência",
         "navbar": {
             "general": "Geral",
             "other": "Outros",
