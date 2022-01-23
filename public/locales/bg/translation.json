@@ -231,6 +231,7 @@
     "Settings": "Настройки",
     "settings": {
         "clear-cache": "Изчистване на кеша на Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Копиране на всички настройки в буфера за обмен",
         "navbar": {
             "general": "Общи",

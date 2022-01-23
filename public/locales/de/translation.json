@@ -231,6 +231,7 @@
     "Settings": "Einstellungen",
     "settings": {
         "clear-cache": "Heroic Cache leeren",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Alle Einstellungen in die Zwischenablage kopieren",
         "navbar": {
             "general": "Allgemein",

@@ -231,6 +231,7 @@
     "Settings": "Impostazioni",
     "settings": {
         "clear-cache": "Pulisci cache Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copia tutte le impostazioni negli appunti",
         "navbar": {
             "general": "Generale",

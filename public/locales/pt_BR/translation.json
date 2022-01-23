@@ -231,6 +231,7 @@
     "Settings": "Configurações",
     "settings": {
         "clear-cache": "Limpar cache do Heroic",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copiar toda a configuração para a área de transferência",
         "navbar": {
             "general": "Config. Gerais",

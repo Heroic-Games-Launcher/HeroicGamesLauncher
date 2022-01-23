@@ -231,6 +231,7 @@
     "Settings": "Ayarlar",
     "settings": {
         "clear-cache": "Heroic Önbelleğini Temizle",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "navbar": {
             "general": "Genel",

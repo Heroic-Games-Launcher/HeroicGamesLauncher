@@ -231,6 +231,7 @@
     "Settings": "Asetukset",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Yleiset",

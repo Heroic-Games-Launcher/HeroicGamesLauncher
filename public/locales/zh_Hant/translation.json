@@ -231,6 +231,7 @@
     "Settings": "設定",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "一般",

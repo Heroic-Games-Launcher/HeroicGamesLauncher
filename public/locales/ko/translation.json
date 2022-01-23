@@ -231,6 +231,7 @@
     "Settings": "설정",
     "settings": {
         "clear-cache": "Heroic 캐시 삭제",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
         "navbar": {
             "general": "일반",
