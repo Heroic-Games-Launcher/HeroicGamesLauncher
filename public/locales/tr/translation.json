@@ -7,7 +7,7 @@
             "title": "Güncelleme Var"
         },
         "cache-cleared": {
-            "message": "Heroic Önbelleği temizlendi!",
+            "message": "Heroic önbelleği temizlendi.",
             "title": "Önbellek Temizlendi"
         },
         "choose": "Seç",
@@ -34,23 +34,23 @@
                 "title": "Günlük Kaydı Bulunamadı"
             },
             "login": {
-                "tittle": "Cannot Login!"
+                "tittle": "Oturum Açılamıyor!"
             },
             "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
+                "message": "Heroic, Python 3.8 veya daha yenisini gerektirir.",
                 "title": "Python Error!"
             },
             "title": "Hata",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
+                "title": "Wine Bulunamadı"
             }
         },
         "no": "HAYIR",
-        "ok": "Ok",
+        "ok": "Tamam",
         "protocol": {
             "install": {
-                "not_installed": "Kurulu değil, kurmak ister misiniz?"
+                "not_installed": "Şu anda kurulu değil. Kurmak ister misiniz?"
             }
         },
         "quit": {
@@ -249,7 +249,7 @@
     },
     "settings": {
         "clear-cache": "Heroic Önbelleğini Temizle",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Panoya kopyalandı!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "navbar": {
             "general": "Genel",
@@ -261,7 +261,7 @@
     "Settings": "Ayarlar",
     "status": {
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
-        "logging": "Oturum Açılıyor..."
+        "logging": "Oturum Açılıyor…"
     },
     "store": "Mağaza",
     "title": {
@@ -290,7 +290,7 @@
     "Updates": "Güncellemeler",
     "userselector": {
         "discord": "Discord",
-        "logout": "Oturumu Kapat",
+        "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
         "quit": "Çık"
     },

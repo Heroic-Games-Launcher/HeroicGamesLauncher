@@ -2,9 +2,14 @@
     "All": "Dena",
     "box": {
         "sync": {
-            "button": "Aukeratu"
+            "button": "Aukeratu",
+            "error": "Ibilbideak ez du balio",
+            "title": "Aukeratu gordetzeko direktorioa"
         },
-        "select": "Hautatu",
+        "select": {
+            "button": "Hautatu",
+            "exe": "Hautatu EXE"
+        },
         "runexe": {
             "title": "Hautatu EXE exekutatzeko"
         },
@@ -14,7 +19,7 @@
         },
         "protocol": {
             "install": {
-                "not_installed": "Ez dago instalatuta, instalatu nahi duzu?"
+                "not_installed": "Ez dago instalatuta. Instalatu?"
             }
         },
         "no": "EZ",
@@ -36,6 +41,17 @@
             "credentials": {
                 "title": "Iraungitako egiaztagiriak",
                 "message": "Zure kredentzialak amaitu dira. Mesedez, amaitu saioa eta hasi berriro saioa."
+            },
+            "login": {
+                "tittle": "Ezin izan da saioa hasi!"
+            },
+            "python": {
+                "message": "Heroic-ek Python 3.8 edo berriagoa behar du.",
+                "title": "Python errorea!"
+            },
+            "wine-not-found": {
+                "message": "Ez da Wine bertsioa hautatu. Egiaztatu jokoaren konfigurazioa!",
+                "title": "Wine ez da aurkitu"
             }
         },
         "default-install-path": "Aukeratu lehenetsitako instalazio-ibilbidea",
@@ -45,7 +61,64 @@
             "title": "Eguneratze erabilgarria"
         },
         "choose": "Aukeratu",
-        "choose-egs-prefix": "Aukeratu EGS instalatuta dagoen Wine-Preferx"
+        "choose-egs-prefix": "Aukeratu EGS instalatuta dagoen Wine-Preferx",
+        "choose-legendary-binary": "Aukeratu Legendary-ren bitarra",
+        "ok": "Adoz",
+        "warning": {
+            "epic": {
+                "import": "Epic zerbitzariak etenaldi handia izaten ari dira une honetan, jokoa ezin da inportatu!",
+                "install": "Epic zerbitzariak ebaki garrantzitsu bat izaten ari dira une honetan, jokoa ezin da instalatu!",
+                "update": "Epic zerbitzariak etenaldi handia izaten ari dira une honetan, jokoa ezin da eguneratu!"
+            },
+            "title": "Oharra"
+        },
+        "cache-cleared": {
+            "message": "Heroic-en catxea garbitu da.",
+            "title": "Cachea ezabatuta"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Ziur zaude Heroic berrabiarazi nahi duzula? Horrek ezarpen guztiak eta cacheko biltegiratzea ezabatuko ditu, baina ez ditu zure instalatutako jokoak edo Epic-eko kredentzialak ezabatuko",
+                "title": "Berrezarri Heroic"
+            }
+        },
+        "shortcuts": {
+            "message": "Lasterbideak sortu dira Mahaigainean eta Hasierako Menuan",
+            "title": "Lasterbideak"
+        },
+        "wineprefix": "Aukeratu Wine-Prefix karpeta",
+        "yes": "BAI"
     },
-    "Assets": "Assets"
+    "Assets": "Assets",
+    "help": {
+        "general": "Sinkronizatu EGSrekin, baldin eta EGSren instalazio funtzional bat beste nonbait badu eta bere jokoak inportatu nahi baditu berriro deskargatzea saihesteko.",
+        "other": {
+            "part2": "Ezarpen aurreratuak",
+            "part5": "Jokoaren argudioak",
+            "part6": " jaurtiketa-komandoaren ondoren deitzeko, adibidez: ",
+            "part7": " jaurtigailua ez erabiltzea joko batzuetan, etab.",
+            "part3": "jokuari ekin aurretik deitua izateko; ",
+            "part4": "Erabili ",
+            "part1": "Erabili "
+        },
+        "sync": {
+            "part1": "Heroic ondo gordetzeko karpeta asmatzen saiatzen da, eta honek kasu gehienetan funtzionatuko du. Karpeta okerra bada, erabili baliogabetze-koadroa karpeta aldatzeko.",
+            "part2": "Prefix karpeta Wine edo Proton karpeta erabiliz gero, berriro egiaztatu beharko duzu ibilbidea, Proton-ek Prefix (/pfx) bat eta erabiltzaile-izen (steamuser) bat erabiltzen baititu. Beraz, uneko ibilbidea ezaba dezakezu, sinkronizazioko konfigurazio-orritik irten eta itzuli Heroic-ek karpeta berriro ere Prefix zuzenarekin asma dezan.",
+            "part3": "Eskuzko sinkronizazioa: Aukeratu «Deskargatu» hodeian gordetako jokoak deskargatzeko. «Igo» Igo lokalak hodeira igotzeko. «Behartu deskarga» eta «Karga behartua» ez dute kontuan hartuko tokiko bertsioa edo hodeiko bertsioa.",
+            "part4": "Automatikoki gordetako sinkronizatzeak gordeak sinkronizatuko ditu joko bat hasten den bakoitzean eta jolasten amaitu ondoren."
+        }
+    },
+    "button": {
+        "syncing": "Sinkronizatzen",
+        "login": "Hasi saioa",
+        "sync": "Sinkronizatu",
+        "unsync": "Desinkronizatu"
+    },
+    "Epic Games": "Epic Games",
+    "filter": {
+        "noFilter": "Iragazkirik gabe"
+    },
+    "Filter": "Iragazkiarekin",
+    "Downloading": "Deskargatzen",
+    "globalSettings": "Ezarpen globalak"
 }

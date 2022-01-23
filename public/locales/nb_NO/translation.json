@@ -1,1 +1,148 @@
-{}
+{
+    "box": {
+        "choose": "Velg",
+        "quit": {
+            "title": "Avslutt"
+        },
+        "runexe": {
+            "title": "Velg EXE å kjøre"
+        },
+        "error": {
+            "python": {
+                "message": "Heroic krever Python 3.8 eller nyere.",
+                "title": "Python-feil."
+            },
+            "diskspace": {
+                "message": "Ikke nok ledig plass",
+                "title": "Lagring oppbrukt"
+            },
+            "login": {
+                "tittle": "Kan ikke logge inn"
+            },
+            "wine-not-found": {
+                "message": "Ingen Wine-versjon valgt. Sjekk spill-innstillingene.",
+                "title": "Fant ikke Wine"
+            },
+            "credentials": {
+                "message": "Innloggingen utløp. Logg ut og inn igjen.",
+                "title": "Utløpt innlogging"
+            },
+            "generic": {
+                "title": "Ukjent feil",
+                "message": "En ukjent feil oppstod"
+            },
+            "launch": "Kunne ikke starte spillet. Sjekk loggføringen.",
+            "log": {
+                "title": "Fant ingen logg",
+                "message": "Fant ingen loggføring for dette spillet"
+            },
+            "title": "Feil"
+        },
+        "select": {
+            "button": "Velg",
+            "exe": "Velg EXE"
+        },
+        "cache-cleared": {
+            "message": "Heroic-hurtiglager tømt.",
+            "title": "Hurtiglager tømt"
+        },
+        "ok": "OK",
+        "shortcuts": {
+            "title": "Snarveier"
+        },
+        "sync": {
+            "button": "Velg",
+            "error": "Ugyldig sti",
+            "title": "Velg fra lagringsmappen"
+        },
+        "wineprefix": "Velg mappe for Wine-prefiks",
+        "yes": "Ja",
+        "choose-legendary-binary": "Velg kjørbar Legendary-fil",
+        "no": "Nei",
+        "protocol": {
+            "install": {
+                "not_installed": "Ikke installert. Vil du installere det?"
+            }
+        },
+        "appupdate": {
+            "message": "Oppgrader til ny versjon av Heroic?",
+            "title": "Ny versjon tilgjengelig"
+        },
+        "choose-egs-prefix": "Velg Wine-prefiks der EGS er installert",
+        "customWine": "Velg kjørbar Wine- eller Proton-fil",
+        "default-install-path": "Velg forvalgt installasjonssted"
+    },
+    "notify": {
+        "install": {
+            "canceled": "Installasjon avbrutt",
+            "finished": "Installasjon fullført",
+            "imported": "Spill importert",
+            "startInstall": "Installasjon startet"
+        },
+        "uninstalled": "Avinstallert",
+        "moved": "Flytting fullført",
+        "update": {
+            "started": "Oppgradering startet",
+            "canceled": "Oppgradering avbrutt",
+            "finished": "Oppgradering fullført"
+        }
+    },
+    "setting": {
+        "manualsync": {
+            "sync": "Synkroniser",
+            "forceupload": "Tving opplasting",
+            "upload": "Last opp",
+            "syncing": "Synkroniserer …",
+            "download": "Last ned",
+            "forcedownload": "Tving nedlasting"
+        },
+        "offlinemode": "Kjør spillet frakoblet",
+        "addgamestostartmenu": "Legg til spill på startmenyen automatisk",
+        "exit-to-tray": "Avslutt til systemkurv",
+        "adddesktopshortcuts": "Legg til skrivebordssnarveier automatisk",
+        "language": "Velg programspråk"
+    },
+    "Unreal Marketplace": "Unreal-markedsplass",
+    "Downloading": "Laster ned …",
+    "Epic Games": "Epic Games",
+    "Filter": "Filtrer",
+    "tooltip": {
+        "removepath": "Fjern sti"
+    },
+    "tray": {
+        "reload": "Last inn igjen",
+        "about": "Om",
+        "quit": "Avslutt",
+        "show": "Vis"
+    },
+    "search": "Skriv inn spillnavnet her …",
+    "title": {
+        "allUnreal": "Unreal - Alt",
+        "notInstalledGames": "Ikke installert",
+        "installedGames": "Installerte spill",
+        "unrealAssets": "Unreal - Ressurser"
+    },
+    "Updates": "Oppgraderinger",
+    "userselector": {
+        "quit": "Avslutt",
+        "logout": "Logg ut",
+        "discord": "Discord"
+    },
+    "button": {
+        "sync": "Synkroniser",
+        "syncing": "Synkroniserer …",
+        "unsync": "Omgjør synkronisering",
+        "login": "Logg inn"
+    },
+    "filter": {
+        "noFilter": "Uten filter"
+    },
+    "Projects": "Prosjekter",
+    "Ready": "Klar",
+    "Return": "Tilbake",
+    "Recent": "Spillt nylig",
+    "Total Games": "Totalt antall spill",
+    "All": "Alle",
+    "Assets": "Ressurser",
+    "wiki": "Wiki"
+}
