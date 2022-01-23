@@ -7,7 +7,7 @@
             "title": "Доступно обновление"
         },
         "cache-cleared": {
-            "message": "Кэш Heroic был очищен!",
+            "message": "Кэш Heroic очищен.",
             "title": "Кэш очищен"
         },
         "choose": "Выбрать",
@@ -34,23 +34,23 @@
                 "title": "Лог не найден"
             },
             "login": {
-                "tittle": "Cannot Login!"
+                "tittle": "Не удаётся войти!"
             },
             "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
+                "message": "Для Heroic требуется Python 3.8 или новее.",
+                "title": "Ошибка Python!"
             },
             "title": "Ошибка",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Не выбрана версия Wine. Проверьте настройки игры!",
+                "title": "Wine не найден"
             }
         },
         "no": "НЕТ",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Не установлен. Хотите установить?"
+                "not_installed": "Сейчас не установлено. Установить?"
             }
         },
         "quit": {
@@ -81,11 +81,11 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "На серверах Epic сейчас серьезный сбой, игру невозможно импортировать!",
+                "install": "На серверах Epic сейчас серьезный сбой, игру невозможно установить!",
+                "update": "На серверах Epic сейчас серьезный сбой, игру невозможно обновить!"
             },
-            "title": "Warning"
+            "title": "Предупреждение"
         },
         "wineprefix": "Выбрать папку префикса Wine",
         "yes": "ДА"
@@ -173,7 +173,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Вставьте сюда другие параметры запуска",
+            "placeholder": "Укажите здесь другие параметры запуска",
             "title": "Расширенные настройки (Переменные среды):"
         },
         "gameargs": {
@@ -198,7 +198,7 @@
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
-        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
+        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary (требуется перезапуск)",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоустановка/обновление DXVK/VKD3D на префикс",
         "autosync": "Автосинхронизация сохранений",
@@ -249,7 +249,7 @@
     },
     "settings": {
         "clear-cache": "Очистить кэш Heroic",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "navbar": {
             "general": "Основные",
@@ -290,7 +290,7 @@
     "Updates": "Обновления",
     "userselector": {
         "discord": "Дискорд",
-        "logout": "Выйти из EGS",
+        "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "quit": "Закрыть Heroic"
     },

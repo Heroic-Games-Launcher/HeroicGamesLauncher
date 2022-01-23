@@ -10,7 +10,7 @@
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
         },
-        "choose": "Ok",
+        "choose": "OK",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
         "customWine": "Välj wine eller proton binär",

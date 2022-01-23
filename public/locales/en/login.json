@@ -1,6 +1,6 @@
 {
     "button": {
-        "login": "Login"
+        "login": "Log in"
     },
     "input": {
         "placeholder": "Paste the SID number here"
