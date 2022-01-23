@@ -7,7 +7,7 @@
             "title": "有可用更新"
         },
         "cache-cleared": {
-            "message": "Heroic 缓存已清理!",
+            "message": "Heroic 缓存已清理。",
             "title": "缓存清理"
         },
         "choose": "请选择",
@@ -33,13 +33,24 @@
                 "message": "未找到此游戏的日志",
                 "title": "未找到日志"
             },
-            "title": "错误"
+            "login": {
+                "tittle": "无法登录！"
+            },
+            "python": {
+                "message": "Heroic 需要 Python 3.8 或更新高版本。",
+                "title": "Python Error!"
+            },
+            "title": "错误",
+            "wine-not-found": {
+                "message": "没有选中 Wine 版本。检查游戏设置！",
+                "title": "未找到 Wine"
+            }
         },
         "no": "否",
         "ok": "是",
         "protocol": {
             "install": {
-                "not_installed": "未安装，您是否希望安装它？"
+                "not_installed": "当前未安装，您是否希望安装它？"
             }
         },
         "quit": {
@@ -68,6 +79,14 @@
             "error": "无效路径",
             "title": "选择存档的目录"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic 服务器出现了大故障，不能导入游戏！",
+                "install": "Epic 服务器出现了大故障，不能安装游戏！",
+                "update": "Epic 服务器出现了大故障，不能升级游戏！"
+            },
+            "title": "警告"
+        },
         "wineprefix": "选择 WinePrefix 文件夹",
         "yes": "是"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "正在下载",
     "Epic Games": "Epic 游戏",
-    "Filter": "筛选",
     "filter": {
         "noFilter": "全部"
     },
+    "Filter": "筛选",
     "globalSettings": "全局设置",
     "help": {
         "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
@@ -224,14 +243,13 @@
         "showfps": "显示帧数（Directx 9，10和11）",
         "showUnrealMarket": "显示 Unreal 市场 (需重启)",
         "start-in-tray": "启动时最小化",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "Wine 版本"
     },
-    "Settings": "设置",
     "settings": {
         "clear-cache": "清理 Heroic 缓存",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "已复制到剪贴板！",
         "copyToClipboard": "复制所有设置到剪贴板",
         "navbar": {
             "general": "常规",
@@ -240,6 +258,7 @@
         },
         "reset-heroic": "重置 Heroic"
     },
+    "Settings": "设置",
     "status": {
         "loading": "正在加载游戏列表，请稍后",
         "logging": "正在登录..."

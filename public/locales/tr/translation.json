@@ -7,7 +7,7 @@
             "title": "Güncelleme Var"
         },
         "cache-cleared": {
-            "message": "Heroic Önbelleği temizlendi!",
+            "message": "Heroic önbelleği temizlendi.",
             "title": "Önbellek Temizlendi"
         },
         "choose": "Seç",
@@ -33,13 +33,24 @@
                 "message": "Bu oyun için günlük kaydı bulunamadı",
                 "title": "Günlük Kaydı Bulunamadı"
             },
-            "title": "Hata"
+            "login": {
+                "tittle": "Oturum Açılamıyor!"
+            },
+            "python": {
+                "message": "Heroic, Python 3.8 veya daha yenisini gerektirir.",
+                "title": "Python Error!"
+            },
+            "title": "Hata",
+            "wine-not-found": {
+                "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
+                "title": "Wine Bulunamadı"
+            }
         },
         "no": "HAYIR",
-        "ok": "Ok",
+        "ok": "Tamam",
         "protocol": {
             "install": {
-                "not_installed": "Kurulu değil, kurmak ister misiniz?"
+                "not_installed": "Şu anda kurulu değil. Kurmak ister misiniz?"
             }
         },
         "quit": {
@@ -68,6 +79,14 @@
             "error": "Geçersiz Yol",
             "title": "Kayıtların olduğu klasörü seçin"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "İndiriliyor",
     "Epic Games": "Epic Games",
-    "Filter": "Filtre",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
@@ -228,10 +247,9 @@
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü"
     },
-    "Settings": "Ayarlar",
     "settings": {
         "clear-cache": "Heroic Önbelleğini Temizle",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Panoya kopyalandı!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "navbar": {
             "general": "Genel",
@@ -240,9 +258,10 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Ayarlar",
     "status": {
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
-        "logging": "Oturum Açılıyor..."
+        "logging": "Oturum Açılıyor…"
     },
     "store": "Mağaza",
     "title": {
@@ -278,7 +297,7 @@
     "Updates": "Güncellemeler",
     "userselector": {
         "discord": "Discord",
-        "logout": "Oturumu Kapat",
+        "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
         "quit": "Çık"
     },

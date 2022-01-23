@@ -7,7 +7,7 @@
             "title": "Update Available"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
+            "message": "Heroic cache cleared.",
             "title": "Cache Cleared"
         },
         "choose": "Choose",
@@ -30,16 +30,27 @@
             },
             "launch": "Error when launching the game, check the logs!",
             "log": {
-                "message": "No Log was found for this game",
+                "message": "No log was found for this game",
                 "title": "Log Not Found"
             },
-            "title": "Error"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NO",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Currently not installed. Install it?"
             }
         },
         "quit": {
@@ -68,21 +79,29 @@
             "error": "Invalid Path",
             "title": "Choose the saves directory"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Choose Wine Prefix Folder",
         "yes": "YES"
     },
     "button": {
-        "login": "Login",
+        "login": "Log in",
         "sync": "Sync",
         "syncing": "Syncing",
         "unsync": "Unsync"
     },
     "Downloading": "Downloading",
     "Epic Games": "Epic Games",
-    "Filter": "Filter",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filter",
     "globalSettings": "Global Settings",
     "help": {
         "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
@@ -154,7 +173,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Put here other launch options",
+            "placeholder": "Put other launch options here",
             "title": "Advanced Options (Environment Variables):"
         },
         "gameargs": {
@@ -179,7 +198,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary (restart required)",
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
         "autosync": "Autosync Saves",
@@ -228,7 +247,6 @@
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"
     },
-    "Settings": "Settings",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -240,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Settings",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
@@ -278,8 +297,8 @@
     "Updates": "Updates",
     "userselector": {
         "discord": "Discord",
-        "logout": "Logout",
-        "logout_confirmation": "Are you sure you want to logout?",
+        "logout": "Log out",
+        "logout_confirmation": "Are you sure you want to log out?",
         "quit": "Quit"
     },
     "wiki": "Wiki"

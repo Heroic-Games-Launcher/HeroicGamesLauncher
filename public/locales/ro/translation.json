@@ -61,7 +61,8 @@
     "button": {
         "sync": "Sincronizează",
         "syncing": "Sincronizare",
-        "unsync": "Desincronizare"
+        "unsync": "Desincronizare",
+        "login": "Autentificare"
     },
     "Downloading": "Descărcare",
     "Epic Games": "Epic Games",
@@ -231,5 +232,8 @@
     "info": {
         "settings": "Setările sunt salvate automat"
     },
-    "Plugins": "Pluginuri"
+    "Plugins": "Pluginuri",
+    "status": {
+        "loading": "Se încarcă lista de jocuri, așteptați"
+    }
 }
