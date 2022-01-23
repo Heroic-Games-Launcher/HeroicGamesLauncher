@@ -18,9 +18,6 @@ type SID = {
   sid: string
 }
 
-const USER_AGENT =
-  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.137 Safari/537.36'
-
 export default function WebView({ isLogin }: Props) {
   const { i18n } = useTranslation()
   const { pathname } = useLocation()
@@ -114,7 +111,6 @@ export default function WebView({ isLogin }: Props) {
         partition="persist:epicstore"
         src={urls[startUrl]}
         allowpopups={trueAsStr}
-        useragent={USER_AGENT}
       />
     </div>
   )

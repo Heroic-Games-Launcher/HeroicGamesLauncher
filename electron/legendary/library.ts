@@ -16,14 +16,14 @@ import {
 } from '../types'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
-import { execAsync, isOnline } from '../utils'
+import { execAsync, isEpicOffline, isOnline } from '../utils'
 import {
   installed,
   legendaryBin,
   legendaryConfigPath,
   libraryPath
 } from '../constants'
-import { logError, logInfo } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
@@ -82,14 +82,23 @@ class LegendaryLibrary {
    * Refresh library.
    */
   public async refresh() {
-    logInfo('Refreshing Epic Games...')
+    logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
     const { showUnrealMarket } = await GlobalConfig.get().getSettings()
+    const epicOffline = await isEpicOffline()
+    if (epicOffline) {
+      logWarning('Epic is Offline right now, cannot update game list!')
+      return
+    }
 
     return new Promise((res, rej) => {
       const getUeAssets = showUnrealMarket ? '--include-ue' : ''
-      const child = spawn(legendaryBin, ['list-games', getUeAssets])
+      const child = spawn(legendaryBin, ['list', getUeAssets])
       child.stderr.on('data', (data) => {
-        console.log(`${data}`)
+        if (`${data}`.includes('ERROR')) {
+          logError(`${data}`, LogPrefix.Legendary)
+        } else {
+          logInfo(`${data}`, LogPrefix.Legendary)
+        }
       })
       child.on('error', (err) => rej(`${err}`))
       child.on('close', () => res('finished'))
@@ -99,7 +108,7 @@ class LegendaryLibrary {
         this.loadAll()
       })
       .catch((err) => {
-        logError(err)
+        logError(err, LogPrefix.Legendary)
       })
   }
 
@@ -129,7 +138,7 @@ class LegendaryLibrary {
     format: 'info' | 'class' = 'class',
     fullRefresh?: boolean
   ): Promise<(LegendaryGame | GameInfo)[]> {
-    logInfo('Refreshing library...')
+    logInfo('Refreshing library...', LogPrefix.Legendary)
     const isLoggedIn = await LegendaryUser.isLoggedIn()
     if (!isLoggedIn) {
       return
@@ -137,10 +146,10 @@ class LegendaryLibrary {
 
     if (fullRefresh) {
       try {
-        logInfo('Legendary: Refreshing Epic Games...')
+        logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
         await this.refresh()
       } catch (error) {
-        logError(error)
+        logError(error, LogPrefix.Legendary)
       }
     }
 
@@ -148,7 +157,7 @@ class LegendaryLibrary {
       this.refreshInstalled()
       await this.loadAll()
     } catch (error) {
-      logError(error)
+      logError(error, LogPrefix.Legendary)
     }
     const arr = Array.from(this.library.values()).sort(
       (a: { title: string }, b: { title: string }) => {
@@ -161,9 +170,9 @@ class LegendaryLibrary {
       if (libraryStore.has('library')) {
         libraryStore.delete('library')
       }
-      logInfo('Updating game list')
+      logInfo('Updating game list', LogPrefix.Legendary)
       libraryStore.set('library', arr)
-      logInfo('Game List Updated')
+      logInfo('Game List Updated', LogPrefix.Legendary)
       return arr
     }
     if (format === 'class') {
@@ -198,20 +207,26 @@ class LegendaryLibrary {
    */
   public async getInstallInfo(appName: string) {
     const cache = installStore.get(appName) as InstallInfo
-    logInfo('Getting More details with Legendary info command... ')
+    const epicOffline = await isEpicOffline()
+    logInfo(
+      'Getting More details with Legendary info command... ',
+      LogPrefix.Legendary
+    )
     if (cache) {
       return cache
     }
     try {
       const { stdout } = await execAsync(
-        `${legendaryBin} -J info ${appName} --json`
+        `${legendaryBin} -J info ${appName} ${
+          epicOffline ? '--offline' : ''
+        } --json`
       )
       const info: InstallInfo = JSON.parse(stdout)
       installStore.set(appName, info)
       return info
     } catch (error) {
-      logError('Error running the Legendary Info command')
-      console.log({ error })
+      logError('Error running the Legendary Info command', LogPrefix.Legendary)
+      logError(error, LogPrefix.Legendary)
     }
   }
 
@@ -227,20 +242,25 @@ class LegendaryLibrary {
     if (!isLoggedIn || !online) {
       return []
     }
+    const epicOffline = await isEpicOffline()
+    if (epicOffline) {
+      logWarning('Epic servers are offline, cannot check for game updates')
+      return []
+    }
 
     const command = `${legendaryBin} list-installed --check-updates --tsv`
     try {
       const { stdout } = await execAsync(command)
-      logInfo('Checking for game updates')
+      logInfo('Checking for game updates', LogPrefix.Legendary)
       const updates = stdout
         .split('\n')
         .filter((item) => item.split('\t')[4] === 'True')
         .map((item) => item.split('\t')[0])
         .filter((item) => item.length > 1)
-      logInfo(`Found ${updates.length} game(s) to update`)
+      logInfo(`Found ${updates.length} game(s) to update`, LogPrefix.Legendary)
       return updates
     } catch (error) {
-      logError(error)
+      logError(error, LogPrefix.Legendary)
     }
   }
 

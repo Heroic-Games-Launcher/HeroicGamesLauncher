@@ -33,7 +33,18 @@
                 "message": "இந்த விளையாட்டுக்கு எந்த பதிவும் கிடைக்கவில்லை",
                 "title": "பதிவு கிடைக்கவில்லை"
             },
-            "title": "பிழை"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "பிழை",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "இல்லை",
         "ok": "Ok",
@@ -68,6 +79,14 @@
             "error": "தவறான பாதை",
             "title": "சேமிக்கும் கோப்பகத்தை தேர்வுசெய்"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
         "yes": "ஆம்"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "பதிவிறக்கப்படுகிறது",
     "Epic Games": "Epic Games",
-    "Filter": "வடிகட்டி",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "வடிகட்டி",
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "help": {
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
@@ -228,7 +247,6 @@
         "wineprefix": "WinePrefix கோப்புறை",
         "wineversion": "Wine பதிப்பு"
     },
-    "Settings": "அமைப்புகள்",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -240,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "அமைப்புகள்",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."

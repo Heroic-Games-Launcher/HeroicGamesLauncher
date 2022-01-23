@@ -79,10 +79,10 @@
     },
     "Downloading": "Descargando",
     "Epic Games": "Epic Games",
-    "Filter": "Filtrar",
     "filter": {
         "noFilter": "Non hai filtro"
     },
+    "Filter": "Filtrar",
     "globalSettings": "Preferencias globais",
     "help": {
         "general": "Sincronizar con EGS no caso que teña unha instalación funcional de EGS noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
@@ -240,6 +240,7 @@
         },
         "reset-heroic": "Restabelecer Heroic"
     },
+    "Settings": "Preferencias",
     "status": {
         "loading": "Cargando lista de xogos, agarde",
         "logging": "Inciando sesión…"

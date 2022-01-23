@@ -33,7 +33,18 @@
                 "message": "برای این بازی لاگی پیدا نشد",
                 "title": "لاگ پیدا نشد"
             },
-            "title": "خطا"
+            "login": {
+                "tittle": "Cannot Login!"
+            },
+            "python": {
+                "message": "Heroic requires Python 3.8 or newer.",
+                "title": "Python Error!"
+            },
+            "title": "خطا",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "titlea": "Wine Not Found"
+            }
         },
         "no": "خیر",
         "ok": "Ok",
@@ -68,6 +79,14 @@
             "error": "مسیر نامعتبر",
             "title": "انتخاب محل ذخیره"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله"
     },
@@ -79,10 +98,10 @@
     },
     "Downloading": "در حال دانلود",
     "Epic Games": "اپیک گیمز",
-    "Filter": "فیلتر",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "فیلتر",
     "globalSettings": "تنظیمات عمومی",
     "help": {
         "general": "در صورتی که در جایی فروشگاه اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGS همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
@@ -228,7 +247,6 @@
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
     },
-    "Settings": "تنظیمات",
     "settings": {
         "clear-cache": "پاک کردن کش Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -240,6 +258,7 @@
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "تنظیمات",
     "status": {
         "loading": "در حال بارگیری لیست بازی، لطفا منتظر بمانید",
         "logging": "در حال وارد شدن..."
