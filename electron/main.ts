@@ -95,12 +95,31 @@ const tsStore = new Store({
 async function createWindow(): Promise<BrowserWindow> {
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
+  let windowProps: Electron.Rectangle = {
+    height: 690,
+    width: 1200,
+    x: 0,
+    y: 0
+  }
+
+  if (store.has('window-props')) {
+    const tmpWindowProps = store.get('window-props') as Electron.Rectangle
+    if (
+      tmpWindowProps &&
+      tmpWindowProps.width &&
+      tmpWindowProps.height &&
+      tmpWindowProps.y !== undefined &&
+      tmpWindowProps.x !== undefined
+    ) {
+      windowProps = tmpWindowProps
+    }
+  }
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: 690,
+    ...windowProps,
     minHeight: 650,
     minWidth: 1100,
-    width: 1200,
     show: !(exitToTray && startInTray),
     webPreferences: {
       webviewTag: true,
@@ -122,6 +141,23 @@ async function createWindow(): Promise<BrowserWindow> {
   app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
+  const onMainWindowClose = async () => {
+    mainWindow.on('close', async (e) => {
+      e.preventDefault()
+
+      // store windows properties
+      store.set('window-props', mainWindow.getBounds())
+
+      const { exitToTray } = await GlobalConfig.get().config
+
+      if (exitToTray) {
+        return mainWindow.hide()
+      }
+
+      return await handleExit()
+    })
+  }
+
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
@@ -136,28 +172,11 @@ async function createWindow(): Promise<BrowserWindow> {
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
 
-    mainWindow.on('close', async (e) => {
-      e.preventDefault()
-      const { exitToTray } = await GlobalConfig.get().config
-
-      if (exitToTray) {
-        return mainWindow.hide()
-      }
-
-      return await handleExit()
-    })
+    onMainWindowClose()
   } else {
     Menu.setApplicationMenu(null)
 
-    mainWindow.on('close', async (e) => {
-      e.preventDefault()
-      const { exitToTray } = await GlobalConfig.get().config
-
-      if (exitToTray) {
-        return mainWindow.hide()
-      }
-      return handleExit()
-    })
+    onMainWindowClose()
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
 
     return mainWindow
