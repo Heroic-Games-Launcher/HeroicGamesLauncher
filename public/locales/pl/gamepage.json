@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "To zmieni miejsce gdzie gra jest zainstalowana. Czy jesteś pewien?",
+            "message": "To zmieni miejsce, gdzie gra jest zainstalowana. Czy jesteś pewien?",
             "path": "Wybierz nową ścieżkę instalacji",
             "title": "Zmień Ścieżkę Instalacji Gier"
         },
