@@ -1,6 +1,5 @@
 import './index.css'
 
-import Header from 'src/components/UI/Header'
 import { WineVersionInfo } from 'src/types'
 
 import React, { lazy, useContext } from 'react'
@@ -13,9 +12,13 @@ export default function Tools(): JSX.Element | null {
   const { t } = useTranslation()
   const { wineVersions } = useContext(ContextProvider)
 
+  if (!wineVersions?.length) {
+    return null
+  }
+
   return (
     <>
-      <Header goTo={'/'} renderBackButton title={t('tools.title')} />
+      <h2>{t('winemanager.title', 'Wine Manager')}</h2>
       <div className="Tools">
         <div
           style={!wineVersions.length ? { backgroundColor: 'transparent' } : {}}

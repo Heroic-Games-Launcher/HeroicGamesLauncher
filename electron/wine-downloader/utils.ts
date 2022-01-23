@@ -106,7 +106,7 @@ async function installWineVersion(
   )
   await installVersion({
     versionInfo: release as VersionInfo,
-    installDir: `${app.getPath('appData')}/heroic/tools/wine`,
+    installDir: `${app.getPath('appData')}/heroic/tools/proton`,
     onProgress: onProgress
   })
     .then((response) => {

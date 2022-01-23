@@ -7,7 +7,6 @@ import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { SvgButton } from 'src/components/UI'
 import FolderOpen from '@material-ui/icons/FolderOpen'
-import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
@@ -23,7 +22,8 @@ const ToolCard = ({
   checksum,
   isInstalled,
   hasUpdate,
-  installDir
+  installDir,
+  type
 }: WineVersionInfo) => {
   const { t } = useTranslation()
   const { refreshWineVersionInfo } = useContext(ContextProvider)
@@ -79,27 +79,6 @@ const ToolCard = ({
     ipcRenderer.send('showItemInFolder', installDir)
   }
 
-  const renderIcon = () => {
-    const icons = []
-    if (!isInstalled || hasUpdate) {
-      icons.push(<DownIcon className="downIcon" onClick={() => install()} />)
-    }
-
-    if (isInstalled) {
-      icons.push(
-        <SvgButton
-          className="material-icons settings folder"
-          onClick={() => openInstallDir()}
-        >
-          <FolderOpen data-testid="setinstallpathbutton" />
-        </SvgButton>
-      )
-      icons.push(<StopIcon onClick={() => remove()} />)
-    }
-
-    return icons
-  }
-
   const renderStatus = () => {
     let status = ''
     if (isInstalled) {
@@ -132,18 +111,34 @@ const ToolCard = ({
 
   return (
     <>
-      <ContextMenuTrigger id={version}>
-        <div className="toolsListItem">
-          <span className="toolsTitleList">{version}</span>
-          <div className="toolsListDate">{date}</div>
-          <div className="toolsListSize">{renderStatus()}</div>
-          <span className="icons">
-            {renderIcon().map((component) => component)}
-          </span>
-        </div>
-        <hr style={{ opacity: 0.1, width: '90%' }} />
-        <ContextMenu id={version} className="contextMenu"></ContextMenu>
-      </ContextMenuTrigger>
+      <div className="toolsListItem">
+        <span className="toolsTitleList">
+          {type} - {version}
+        </span>
+        <div className="toolsListDate">{date}</div>
+        <div className="toolsListSize">{renderStatus()}</div>
+        <span className="icons">
+          {!isInstalled && (
+            <DownIcon className="downIcon" onClick={() => install()} />
+          )}
+          {isInstalled && (
+            <>
+              <SvgButton
+                className="material-icons settings folder"
+                onClick={() => openInstallDir()}
+              >
+                <FolderOpen data-testid="setinstallpathbutton" />
+              </SvgButton>
+              <SvgButton
+                className="material-icons settings folder"
+                onClick={() => openInstallDir()}
+              >
+                <StopIcon onClick={() => remove()} />
+              </SvgButton>
+            </>
+          )}
+        </span>
+      </div>
     </>
   )
 }

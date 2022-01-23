@@ -643,7 +643,12 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
 })
 
 ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
-  return await updateWineVersionInfos(fetch)
+  try {
+    await updateWineVersionInfos(fetch)
+  } catch (error) {
+    logError(error)
+    return
+  }
 })
 
 ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {

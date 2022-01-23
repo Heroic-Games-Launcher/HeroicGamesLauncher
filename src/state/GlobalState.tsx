@@ -132,16 +132,19 @@ export class GlobalState extends PureComponent<Props> {
     fetch: boolean,
     runInBackground = true
   ): Promise<void> => {
+    if (this.state.platform !== 'linux') {
+      return
+    }
     this.setState({ refreshing: !runInBackground })
     ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
-    const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
-    if (!releases.length) {
-      ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
-    } else {
+    try {
+      const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
       this.setState({
         wineVersions: releases,
         refreshing: false
       })
+    } catch (error) {
+      ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
     }
   }
 
@@ -351,7 +354,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { data, wineVersions, gameUpdates = [], libraryStatus } = this.state
+    const { data, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName) => {
@@ -415,7 +418,6 @@ export class GlobalState extends PureComponent<Props> {
         fullRefresh: true,
         runInBackground: Boolean(data.length)
       })
-      this.refreshWineVersionInfo(true, Boolean(wineVersions.length))
     }
 
     setTimeout(() => {

@@ -24,22 +24,24 @@
 
 .toolsListItem {
   display: grid;
-  grid-template-columns: 2fr 1fr 6fr 1fr;
+  grid-template-columns: 2fr 1fr 2fr 1fr;
   grid-template-areas: 'name date size action';
   height: 8vh;
-  margin: 1em;
+  margin: 1em 3em;
   align-items: center;
-  justify-items: center;
+  justify-items: baseline;
   position: relative;
   cursor: default;
   width: 95%;
   place-self: center;
+  border-bottom: 1px solid gray;
 }
 
 .toolsTitleList {
   grid-area: name;
   font-size: 1em;
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 .toolsListItem > a {

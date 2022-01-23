@@ -107,16 +107,6 @@ export default function SidebarLinks() {
         </>
       )}
       <NavLink
-        data-testid="tools"
-        activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
-        isActive={(match, location) => location.pathname.includes('tools')}
-        to={{
-          pathname: '/tools'
-        }}
-      >
-        {t('Tools')}
-      </NavLink>
-      <NavLink
         data-testid="settings"
         activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
         isActive={(match, location) => location.pathname.includes('settings')}
