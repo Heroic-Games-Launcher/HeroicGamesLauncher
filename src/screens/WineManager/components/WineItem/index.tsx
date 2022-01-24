@@ -14,7 +14,7 @@ import prettyBytes from 'pretty-bytes'
 
 const { ipcRenderer } = window.require('electron')
 
-const ToolCard = ({
+const WineItem = ({
   version,
   date,
   downsize,
@@ -100,7 +100,7 @@ const ToolCard = ({
           (progress.progress.percentage * downsize) / 100
         )} / ${prettyBytes(downsize)}`
       } else if (progress.state === 'unzipping') {
-        status = t('tools.unzipping')
+        status = t('wine-manager.unzipping')
       } else {
         status = prettyBytes(downsize)
       }
@@ -143,4 +143,4 @@ const ToolCard = ({
   )
 }
 
-export default ToolCard
+export default WineItem

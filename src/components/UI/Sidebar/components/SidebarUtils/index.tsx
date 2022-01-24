@@ -52,11 +52,12 @@ export default function SidebarUtils() {
     <div className="SidebarUtils">
       {isLinux && (
         <NavLink
-          data-testid="tools"
           activeStyle={{ color: 'var(--secondary)', fontWeight: 500 }}
-          isActive={(match, location) => location.pathname.includes('tools')}
+          isActive={(match, location) =>
+            location.pathname.includes('wine-manager')
+          }
           to={{
-            pathname: '/tools'
+            pathname: '/wine-manager'
           }}
         >
           <FontAwesomeIcon

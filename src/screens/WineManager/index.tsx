@@ -7,9 +7,11 @@ import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { UpdateComponent } from 'src/components/UI'
 
-const ToolCard = lazy(() => import('src/screens/Tools/components/ToolCard'))
+const WineItem = lazy(
+  () => import('src/screens/WineManager/components/WineItem')
+)
 
-export default function Tools(): JSX.Element | null {
+export default function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
   const { wineVersions, refreshWineVersionInfo, refreshing } =
     useContext(ContextProvider)
@@ -35,7 +37,7 @@ export default function Tools(): JSX.Element | null {
           >
             {!!wineVersions.length &&
               wineVersions.map((release: WineVersionInfo, key) => (
-                <ToolCard key={key} {...release} />
+                <WineItem key={key} {...release} />
               ))}
           </div>
         </div>
