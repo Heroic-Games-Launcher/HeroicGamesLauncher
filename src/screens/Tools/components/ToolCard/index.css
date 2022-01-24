@@ -9,6 +9,10 @@
   transition: 300ms;
 }
 
+.icons > .material-icons.settings.folder {
+  position: initial;
+}
+
 .icons > a > svg,
 .icons > svg {
   width: min(calc(1vw + 9px), 36px);
@@ -24,7 +28,7 @@
 
 .toolsListItem {
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   grid-template-areas: 'name date size action';
   height: 8vh;
   margin: 1em 3em;

@@ -10,6 +10,7 @@ import FolderOpen from '@material-ui/icons/FolderOpen'
 import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
+import prettyBytes from 'pretty-bytes'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -36,43 +37,53 @@ const ToolCard = ({
     setProgress(progress)
   })
 
+  if (!version || !downsize || type === 'proton') {
+    return null
+  }
+
+  const isDownloading = progress.state === 'downloading'
+  const unZipping = progress.state === 'unzipping'
+
   async function install() {
     ipcRenderer
       .invoke('installWineVersion', {
-        version: version,
-        date: date,
-        downsize: downsize,
-        disksize: disksize,
-        download: download,
-        checksum: checksum,
-        isInstalled: isInstalled,
-        hasUpdate: hasUpdate
+        version,
+        date,
+        downsize,
+        disksize,
+        download,
+        checksum,
+        isInstalled,
+        hasUpdate,
+        type
       })
       .then((response) => {
         if (response) {
           refreshWineVersionInfo(false)
         }
       })
+      .catch((err) => console.error(err))
   }
 
   async function remove() {
     ipcRenderer
       .invoke('removeWineVersion', {
-        version: version,
-        date: date,
-        downsize: downsize,
-        disksize: disksize,
-        download: download,
-        checksum: checksum,
-        isInstalled: isInstalled,
-        hasUpdate: hasUpdate,
-        installDir: installDir
+        version,
+        date,
+        downsize,
+        disksize,
+        download,
+        checksum,
+        isInstalled,
+        hasUpdate,
+        installDir
       })
       .then((response) => {
         if (response) {
           refreshWineVersionInfo(false)
         }
       })
+      .catch((err) => console.error(err))
   }
 
   function openInstallDir() {
@@ -82,31 +93,19 @@ const ToolCard = ({
   const renderStatus = () => {
     let status = ''
     if (isInstalled) {
-      status =
-        t('tools.diskspace') + ': ' + getSizeInMB(disksize).toString() + ' MB'
+      status = prettyBytes(disksize)
     } else {
-      if (progress.state === 'downloading') {
-        status =
-          t('tools.download') +
-          ': ' +
-          getSizeInMB(
-            (progress.progress.percentage * downsize) / 100
-          ).toString() +
-          ' / ' +
-          getSizeInMB(downsize).toString() +
-          ' MB'
+      if (isDownloading) {
+        status = `${prettyBytes(
+          (progress.progress.percentage * downsize) / 100
+        )} / ${prettyBytes(downsize)}`
       } else if (progress.state === 'unzipping') {
         status = t('tools.unzipping')
       } else {
-        status =
-          t('tools.download') + ': ' + getSizeInMB(downsize).toString() + ' MB'
+        status = prettyBytes(downsize)
       }
     }
     return status
-  }
-
-  const getSizeInMB = (value: number) => {
-    return (value / (1024 * 1024)).toFixed(2)
   }
 
   return (
@@ -118,9 +117,10 @@ const ToolCard = ({
         <div className="toolsListDate">{date}</div>
         <div className="toolsListSize">{renderStatus()}</div>
         <span className="icons">
-          {!isInstalled && (
+          {!isInstalled && !isDownloading && !unZipping && (
             <DownIcon className="downIcon" onClick={() => install()} />
           )}
+          {(isDownloading || unZipping) && <StopIcon onClick={() => null} />}
           {isInstalled && (
             <>
               <SvgButton

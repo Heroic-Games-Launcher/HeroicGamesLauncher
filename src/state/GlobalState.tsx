@@ -128,22 +128,22 @@ export class GlobalState extends PureComponent<Props> {
     this.refresh(checkForUpdates)
   }
 
-  refreshWineVersionInfo = async (
-    fetch: boolean,
-    runInBackground = true
-  ): Promise<void> => {
+  refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
     if (this.state.platform !== 'linux') {
       return
     }
-    this.setState({ refreshing: !runInBackground })
     ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
     try {
+      this.setState({ refreshing: true })
       const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
       this.setState({
         wineVersions: releases,
         refreshing: false
       })
     } catch (error) {
+      this.setState({ refreshing: false })
+      console.error(error)
+      ipcRenderer.send('logError', error)
       ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
     }
   }
