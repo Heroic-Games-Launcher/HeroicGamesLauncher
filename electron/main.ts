@@ -716,8 +716,8 @@ ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
   })
 })
 
-ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))
-ipcMain.on('logInfo', (e, info) => logInfo(`Frontend: ${info}`))
+ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
+ipcMain.on('logInfo', (e, info) => logInfo(`${info}`, LogPrefix.Frontend))
 
 type RecentGame = {
   appName: string
