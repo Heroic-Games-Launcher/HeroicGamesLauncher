@@ -33,9 +33,6 @@
                 "message": "Dnevnik nije nađen za ovu igricu",
                 "title": "Dnevnik nije pronađen"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -294,5 +291,13 @@
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "quit": "Izađi"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

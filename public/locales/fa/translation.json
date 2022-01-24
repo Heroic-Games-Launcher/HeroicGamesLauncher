@@ -33,9 +33,6 @@
                 "message": "برای این بازی لاگی پیدا نشد",
                 "title": "لاگ پیدا نشد"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -43,7 +40,7 @@
             "title": "خطا",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
-                "titlea": "Wine Not Found"
+                "title": "Wine Not Found"
             }
         },
         "no": "خیر",
@@ -294,5 +291,13 @@
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
         "quit": "خروج"
     },
-    "wiki": "ویکی"
+    "wiki": "ویکی",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "build/dist",
     "module": "esnext",
-    "target": "es5",
+    "target": "es2017",
     "lib": ["esnext", "dom", "dom.iterable"],
     "sourceMap": true,
     "allowJs": true,

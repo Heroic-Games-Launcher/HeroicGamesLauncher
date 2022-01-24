@@ -1,3 +1,4 @@
+import { WineVersionInfo } from './wine-downloader/types'
 import {
   InstallParams,
   LaunchResult,
@@ -15,13 +16,14 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol
+  protocol,
+  shell
 } from 'electron'
 import { cpus, platform } from 'os'
 import {
   existsSync,
   mkdirSync,
-  rmdirSync,
+  rmSync,
   unlinkSync,
   watch,
   writeFile
@@ -74,6 +76,12 @@ import {
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger'
 import Store from 'electron-store'
+import {
+  updateWineVersionInfos,
+  removeWineVersion,
+  installWineVersion
+} from './wine-downloader/utils'
+import { ProgressInfo, State } from 'heroic-wine-downloader'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -465,13 +473,13 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     const path = defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${path}/${folderName}`
     return setTimeout(() => {
-      rmdirSync(folderToDelete, { recursive: true })
+      rmSync(folderToDelete, { recursive: true })
     }, 5000)
   }
 
   const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
   return setTimeout(() => {
-    rmdirSync(folderToDelete, { recursive: true })
+    rmSync(folderToDelete, { recursive: true })
   }, 2000)
 })
 
@@ -671,6 +679,43 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
+ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
+  try {
+    const releases = await updateWineVersionInfos(fetch)
+    return releases
+  } catch (error) {
+    logError(String(error), LogPrefix.WineDownloader)
+    return
+  }
+})
+
+ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
+  const onProgress = (state: State, progress: ProgressInfo) => {
+    e.sender.send('progressOf' + release.version, { state, progress })
+  }
+  notify({
+    title: `${release?.type} - ${release?.version}`,
+    body: i18next.t('notify.install.startInstall')
+  })
+  return installWineVersion(release, onProgress).then((res) => {
+    notify({
+      title: `${release?.type} - ${release?.version}`,
+      body: i18next.t('notify.install.finished')
+    })
+    return res
+  })
+})
+
+ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
+  return removeWineVersion(release).then((res) => {
+    notify({
+      title: `${release?.type} - ${release?.version}`,
+      body: i18next.t('notify.uninstalled')
+    })
+    return res
+  })
+})
+
 ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
 ipcMain.on('logInfo', (e, info) => logInfo(`${info}`, LogPrefix.Frontend))
 
@@ -791,6 +836,12 @@ ipcMain.handle('openDialog', async (e, args) => {
     return { path: filePaths[0] }
   }
   return { canceled }
+})
+
+ipcMain.on('showItemInFolder', async (e, item) => {
+  if (existsSync(item)) {
+    shell.showItemInFolder(item)
+  }
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {

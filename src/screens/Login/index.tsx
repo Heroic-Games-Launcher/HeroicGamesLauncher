@@ -56,6 +56,7 @@ export default function Login() {
         })
         await ipcRenderer.invoke('getUserInfo')
         await ipcRenderer.invoke('refreshLibrary', true)
+        await ipcRenderer.invoke('refreshWineVersionInfo', true)
         await refreshLibrary({
           fullRefresh: true,
           runInBackground: false

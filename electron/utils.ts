@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, stat, rm } from 'graceful-fs'
+import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 import prettyBytes from 'pretty-bytes'
@@ -67,7 +67,7 @@ export const getLegendaryVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Roronoa Zoro'
+  const STABLE_VERSION_NAME = 'Rayleigh'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
