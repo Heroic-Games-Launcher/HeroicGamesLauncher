@@ -681,9 +681,10 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
 
 ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
   try {
-    await updateWineVersionInfos(fetch)
+    const releases = await updateWineVersionInfos(fetch)
+    return releases
   } catch (error) {
-    logError(error)
+    logError(String(error), LogPrefix.WineDownloader)
     return
   }
 })
@@ -692,12 +693,27 @@ ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
   const onProgress = (state: State, progress: ProgressInfo) => {
     e.sender.send('progressOf' + release.version, { state, progress })
   }
-
-  return await installWineVersion(release, onProgress)
+  notify({
+    title: `${release?.type} - ${release?.version}`,
+    body: i18next.t('notify.install.startInstall')
+  })
+  return installWineVersion(release, onProgress).then((res) => {
+    notify({
+      title: `${release?.type} - ${release?.version}`,
+      body: i18next.t('notify.install.finished')
+    })
+    return res
+  })
 })
 
 ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
-  return await removeWineVersion(release)
+  return removeWineVersion(release).then((res) => {
+    notify({
+      title: `${release?.type} - ${release?.version}`,
+      body: i18next.t('notify.uninstalled')
+    })
+    return res
+  })
 })
 
 ipcMain.on('logError', (e, err) => logError(`Frontend: ${err}`))
