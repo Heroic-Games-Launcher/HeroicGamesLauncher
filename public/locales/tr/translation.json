@@ -33,9 +33,6 @@
                 "message": "Bu oyun için günlük kaydı bulunamadı",
                 "title": "Günlük Kaydı Bulunamadı"
             },
-            "login": {
-                "tittle": "Oturum Açılamıyor!"
-            },
             "python": {
                 "message": "Heroic, Python 3.8 veya daha yenisini gerektirir.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Projeler",
         "updates": "Bekleyen Güncellemeler"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
@@ -301,5 +291,13 @@
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
         "quit": "Çık"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

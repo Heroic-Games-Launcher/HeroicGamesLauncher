@@ -33,9 +33,6 @@
                 "message": "Geen Log was gevonden voor dit spel",
                 "title": "Geen Log gevonden"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Voeg een nieuw pad toe",
         "removepath": "Pad verwijderen"
@@ -301,5 +291,13 @@
         "logout_confirmation": "weet u zeker dat u wil uitloggen?",
         "quit": "Sluiten"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

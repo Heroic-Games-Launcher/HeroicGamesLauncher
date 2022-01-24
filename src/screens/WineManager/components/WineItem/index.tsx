@@ -100,7 +100,7 @@ const WineItem = ({
           (progress.progress.percentage * downsize) / 100
         )} / ${prettyBytes(downsize)}`
       } else if (progress.state === 'unzipping') {
-        status = t('wine-manager.unzipping')
+        status = t('wine.manager.unzipping', 'Unzipping')
       } else {
         status = prettyBytes(downsize)
       }

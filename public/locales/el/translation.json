@@ -33,9 +33,6 @@
                 "message": "Δεν βρέθηκαν αρχεία καταγραφής για το παιχνίδι",
                 "title": "Δεν βρέθηκε αρχείο καταγραφής"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Προσθήκη Νέας Διαδρομής",
         "removepath": "Αφαίρεση Διαδρομής"
@@ -301,5 +291,13 @@
         "logout_confirmation": "Θέλετε πράγματι να αποσυνδεθείτε;",
         "quit": "Έξοδος"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

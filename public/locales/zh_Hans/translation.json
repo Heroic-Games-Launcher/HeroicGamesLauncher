@@ -33,9 +33,6 @@
                 "message": "未找到此游戏的日志",
                 "title": "未找到日志"
             },
-            "login": {
-                "tittle": "无法登录！"
-            },
             "python": {
                 "message": "Heroic 需要 Python 3.8 或更新高版本。",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - 项目",
         "updates": "待更新"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "添加新路径",
         "removepath": "删除路径"
@@ -301,5 +291,13 @@
         "logout_confirmation": "您确定要退出登录吗？",
         "quit": "退出"
     },
-    "wiki": "Wiki百科"
+    "wiki": "Wiki百科",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

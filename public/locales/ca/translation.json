@@ -33,9 +33,6 @@
                 "message": "No s'ha trobat cap registre per aquest joc",
                 "title": "El registre no s'ha trobat"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Projectes",
         "updates": "Actualitzacions pendents"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Afegir nova ruta",
         "removepath": "Eliminar ruta"
@@ -301,5 +291,13 @@
         "logout_confirmation": "Estàs ben segur de que vols sortir de la sessió?",
         "quit": "Sortir"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

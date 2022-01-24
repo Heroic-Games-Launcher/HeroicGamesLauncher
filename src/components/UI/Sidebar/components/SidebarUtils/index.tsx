@@ -64,7 +64,7 @@ export default function SidebarUtils() {
             style={{ width: 'clamp(2vh, 25px, 30px)' }}
             icon={faWineGlass}
           />{' '}
-          {t('Wine Manager')}
+          {t('wine.manager.link', 'Wine Manager')}
         </NavLink>
       )}
       <button onClick={() => openDiscordLink()}>

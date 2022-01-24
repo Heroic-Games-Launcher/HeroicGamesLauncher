@@ -33,9 +33,6 @@
                 "message": "இந்த விளையாட்டுக்கு எந்த பதிவும் கிடைக்கவில்லை",
                 "title": "பதிவு கிடைக்கவில்லை"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "புதிய பாதையை சேர்",
         "removepath": "பாதையை அகற்று"
@@ -301,5 +291,13 @@
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "quit": "வெளியேறு"
     },
-    "wiki": "விக்கி"
+    "wiki": "விக்கி",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

@@ -33,9 +33,6 @@
                 "message": "Не е намерен журнал за тази игра",
                 "title": "Журналът не е намерен"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal – Проекти",
         "updates": "Изчакващи обновления"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Добавяне на нов път",
         "removepath": "Премахване на пътя"
@@ -301,5 +291,13 @@
         "logout_confirmation": "Наистина ли искате да излезете от акаунта си?",
         "quit": "Изход"
     },
-    "wiki": "Уики"
+    "wiki": "Уики",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

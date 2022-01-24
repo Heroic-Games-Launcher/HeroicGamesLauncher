@@ -33,9 +33,6 @@
                 "message": "이 게임에 대한 로그를 찾을 수 없습니다",
                 "title": "로그를 찾을 수 없음"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - 프로젝트",
         "updates": "보류 중인 업데이트"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "새 경로 추가",
         "removepath": "경로 삭제"
@@ -301,5 +291,13 @@
         "logout_confirmation": "정말로 로그아웃 하시겠습니까?",
         "quit": "종료"
     },
-    "wiki": "위키"
+    "wiki": "위키",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

@@ -33,9 +33,6 @@
                 "message": "Non è stato trovato nessun log per questo gioco",
                 "title": "Log non trovato"
             },
-            "login": {
-                "tittle": "Impossibile accedere!"
-            },
             "python": {
                 "message": "Heroic richiede Python 3.8 o versioni successive.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Progetti",
         "updates": "Aggiornamenti in sospeso"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Aggiungi nuovo percorso",
         "removepath": "Rimuovi percorso"
@@ -301,5 +291,13 @@
         "logout_confirmation": "Sei sicuro di voler uscire?",
         "quit": "Esci"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

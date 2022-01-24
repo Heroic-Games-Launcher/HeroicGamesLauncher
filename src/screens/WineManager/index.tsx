@@ -26,7 +26,7 @@ export default function WineManager(): JSX.Element | null {
 
   return (
     <>
-      <h2>{t('winemanager.title', 'Wine Manager (Beta)')}</h2>
+      <h2>{t('wine.manager.title', 'Wine Manager (Beta)')}</h2>
       {wineVersions?.length ? (
         <div className="Tools">
           <div
@@ -44,7 +44,7 @@ export default function WineManager(): JSX.Element | null {
       ) : (
         <h3>
           {t(
-            'winemanager.not-found',
+            'wine.manager.error',
             'Could not fetch Wine/Proton versions this time.'
           )}
         </h3>

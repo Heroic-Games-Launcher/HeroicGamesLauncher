@@ -33,9 +33,6 @@
                 "message": "Nie znaleziono logów dla tej gry",
                 "title": "Nie znaleziono logu"
             },
-            "login": {
-                "tittle": "Nie można Zalogować!"
-            },
             "python": {
                 "message": "Heroic wymaga Python 3.8 lub nowszy.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Projekty",
         "updates": "Oczekujące Aktualizacje"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Dodaj nową ścieżkę",
         "removepath": "Usuń ścieżkę"
@@ -301,5 +291,13 @@
         "logout_confirmation": "Czy na pewno chcesz się wylogować?",
         "quit": "Wyjdź"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

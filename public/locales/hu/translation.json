@@ -33,9 +33,6 @@
                 "message": "Nem találtunk feljegyzést ehhez a játékhoz",
                 "title": "Nem találtunk feljegyzést"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -275,13 +272,6 @@
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
     },
-    "Tools": "",
-    "tools": {
-        "diskspace": "",
-        "download": "",
-        "title": "",
-        "unzipping": ""
-    },
     "tooltip": {
         "addpath": "Új útvonal hozzáadása",
         "removepath": "Útvonal eltávolítása"
@@ -301,5 +291,13 @@
         "logout_confirmation": "Logout?",
         "quit": "Kilépés"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }
