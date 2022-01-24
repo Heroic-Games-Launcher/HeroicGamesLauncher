@@ -33,6 +33,9 @@
                 "message": "未找到此游戏的日志",
                 "title": "未找到日志"
             },
+            "login": {
+                "tittle": "无法登录！"
+            },
             "python": {
                 "message": "Heroic 需要 Python 3.8 或更新高版本。",
                 "title": "Python Error!"

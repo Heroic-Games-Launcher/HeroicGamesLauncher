@@ -33,6 +33,9 @@
                 "message": "Лог для этой игры не найден",
                 "title": "Лог не найден"
             },
+            "login": {
+                "tittle": "Не удаётся войти!"
+            },
             "python": {
                 "message": "Для Heroic требуется Python 3.8 или новее.",
                 "title": "Ошибка Python!"

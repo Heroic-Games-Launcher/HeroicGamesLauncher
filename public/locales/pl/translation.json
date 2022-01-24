@@ -33,6 +33,9 @@
                 "message": "Nie znaleziono logów dla tej gry",
                 "title": "Nie znaleziono logu"
             },
+            "login": {
+                "tittle": "Nie można Zalogować!"
+            },
             "python": {
                 "message": "Heroic wymaga Python 3.8 lub nowszy.",
                 "title": "Python Error!"

@@ -33,6 +33,9 @@
                 "message": "Non è stato trovato nessun log per questo gioco",
                 "title": "Log non trovato"
             },
+            "login": {
+                "tittle": "Impossibile accedere!"
+            },
             "python": {
                 "message": "Heroic richiede Python 3.8 o versioni successive.",
                 "title": "Python Error!"
