@@ -9,7 +9,7 @@ export async function handleProtocol(window: BrowserWindow, url: string) {
   if (!url || scheme !== 'heroic' || !path) {
     return
   }
-  let [command, arg] = path?.split('/')
+  let [command, arg] = path.split('/')
   if (!command || !arg) {
     command = path
     arg = null

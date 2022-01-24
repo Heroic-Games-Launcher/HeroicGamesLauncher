@@ -4,7 +4,7 @@
  */
 
 import Store from 'electron-store'
-import { existsSync, rmSync } from 'graceful-fs'
+import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger'
 import { WineVersionInfo } from './types'
 
@@ -15,7 +15,7 @@ import {
   State,
   VersionInfo
 } from 'heroic-wine-downloader'
-import { app } from 'electron'
+import { heroicToolsPath } from '../constants'
 
 const wineDownloaderInfoStore = new Store({
   cwd: 'store',
@@ -24,13 +24,13 @@ const wineDownloaderInfoStore = new Store({
 
 async function updateWineVersionInfos(
   fetch = false,
-  count = 100
+  count = 35
 ): Promise<WineVersionInfo[]> {
   let releases: WineVersionInfo[] = []
 
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
-    await getAvailableVersions({ count: count })
+    await getAvailableVersions({ repositorys: [0, 1, 3], count })
       .then((response) => (releases = response as WineVersionInfo[]))
       .catch((error) => {
         throw error
@@ -43,10 +43,10 @@ async function updateWineVersionInfos(
 
       old_releases.forEach((old) => {
         const index = releases.findIndex((release) => {
-          return release.version === old.version
+          return release?.version === old?.version
         })
 
-        if (existsSync(old.installDir)) {
+        if (existsSync(old?.installDir)) {
           if (index !== -1) {
             releases[index].installDir = old.installDir
             releases[index].isInstalled = old.isInstalled
@@ -81,13 +81,26 @@ async function installWineVersion(
 ) {
   let updatedInfo: WineVersionInfo
 
+  if (!existsSync(`${heroicToolsPath}/wine`)) {
+    mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
+  }
+
+  if (!existsSync(`${heroicToolsPath}/proton`)) {
+    mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
+  }
+
   logInfo(
     `Start installation of wine version ${release.version}`,
     LogPrefix.WineDownloader
   )
+
+  const installDir = release?.type?.includes('wine')
+    ? `${heroicToolsPath}/wine`
+    : `${heroicToolsPath}/proton`
+
   await installVersion({
     versionInfo: release as VersionInfo,
-    installDir: `${app.getPath('appData')}/heroic/tools/proton`,
+    installDir,
     onProgress: onProgress
   })
     .then((response) => {
@@ -95,7 +108,8 @@ async function installWineVersion(
         ...response.versionInfo,
         installDir: response.installDir,
         isInstalled: true,
-        hasUpdate: false
+        hasUpdate: false,
+        type: release.type
       }
     })
     .catch((error: Error) => {
@@ -110,7 +124,7 @@ async function installWineVersion(
     ) as WineVersionInfo[]
 
     const index = releases.findIndex((storedRelease) => {
-      return release.version === storedRelease.version
+      return release?.version === storedRelease?.version
     })
 
     if (index === -1) {
