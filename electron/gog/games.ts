@@ -84,18 +84,17 @@ class GOGGame extends Game {
     } --platform ${platformToInstall.toLowerCase()} --path="${path}" --token="${
       credentials.access_token
     }" ${withDlcs} --lang="en-US" ${writeLog}`
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.GOG)
+    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
         if (stdout.includes('ERROR')) {
           errorHandler({ error: { stdout, stderr }, logPath })
-
           return { status: 'error' }
         }
         return { status: 'done' }
       })
       .catch(() => {
-        logInfo('Installaton canceled', LogPrefix.GOG)
+        logInfo('Installaton canceled', LogPrefix.Gog)
         return { status: 'error' }
       })
   }
@@ -116,7 +115,7 @@ class GOGGame extends Game {
   }
   public async stop(): Promise<void> {
     const pattern = process.platform === 'linux' ? this.appName : 'gogdl'
-    logInfo(['killing', pattern], LogPrefix.GOG)
+    logInfo(['killing', pattern], LogPrefix.Gog)
 
     if (process.platform === 'win32') {
       try {

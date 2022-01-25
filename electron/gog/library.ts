@@ -30,7 +30,7 @@ export class GOGLibrary {
       'credentials'
     ) as GOGLoginData
     const headers = { Authorization: 'Bearer ' + credentials.access_token }
-    logInfo('Getting GOG library', LogPrefix.GOG)
+    logInfo('Getting GOG library', LogPrefix.Gog)
     const games = await axios
       .get(
         'https://embed.gog.com/account/getFilteredProducts?mediaType=1&totalPages=1&sortBy=title',
@@ -39,7 +39,7 @@ export class GOGLibrary {
       .catch((e: AxiosError) => {
         logError(
           ['There was an error getting games library data', e.message],
-          LogPrefix.GOG
+          LogPrefix.Gog
         )
         return null
       })
@@ -52,7 +52,7 @@ export class GOGLibrary {
       .catch((e: AxiosError) => {
         logError(
           ['There was an error getting movies library data', e.message],
-          LogPrefix.GOG
+          LogPrefix.Gog
         )
         return null
       })
@@ -78,11 +78,11 @@ export class GOGLibrary {
       libraryStore.set('games', gamesObjects)
       libraryStore.set('totalGames', games.data.totalProducts)
       libraryStore.set('totalMovies', games.data.moviesCount)
-      logInfo('Saved games data', LogPrefix.GOG)
+      logInfo('Saved games data', LogPrefix.Gog)
     }
     if (movies) {
       libraryStore.set('movies', movies.data.products)
-      logInfo('Saved movies data', LogPrefix.GOG)
+      logInfo('Saved movies data', LogPrefix.Gog)
     }
   }
 
@@ -102,7 +102,7 @@ export class GOGLibrary {
   }
 
   public async getInstallInfo(appName: string) {
-    if (GOGUser.isTokenExpired()) GOGUser.refreshToken()
+    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
     const credentials = userStore.get('credentials') as GOGLoginData
     const { stdout } = await execAsync(
       `${gogdlBin} info ${appName} --token=${
