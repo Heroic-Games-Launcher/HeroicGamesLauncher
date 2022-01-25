@@ -6,6 +6,7 @@ const initialContext: ContextType = {
   category: 'epic',
   data: [],
   gogLibrary: [],
+  wineVersions: [],
   error: false,
   filter: 'all',
   filterText: '',
@@ -23,6 +24,7 @@ const initialContext: ContextType = {
   refresh: () => Promise.resolve(),
   recentGames: [],
   refreshLibrary: () => Promise.resolve(),
+  refreshWineVersionInfo: () => Promise.resolve(),
   refreshing: false,
   isRTL: false
 }

@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, stat, rm } from 'graceful-fs'
+import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next from 'i18next'
 import prettyBytes from 'pretty-bytes'
@@ -10,7 +10,7 @@ import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
 import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
-import { logError, logInfo, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -59,6 +59,7 @@ export const getLegendaryVersion = async () => {
       .replaceAll(', codename', '')
       .replaceAll('\n', '')
   } catch (error) {
+    logError(`${error}`, LogPrefix.Legendary)
     return 'invalid'
   }
 }
@@ -66,7 +67,7 @@ export const getLegendaryVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Roronoa Zoro'
+  const STABLE_VERSION_NAME = 'Rayleigh'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -76,13 +77,13 @@ export const getHeroicVersion = () => {
 
 async function checkForUpdates() {
   const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
-  logInfo('checking for heroic updates')
+  logInfo('checking for heroic updates', LogPrefix.Backend)
   if (!checkForUpdatesOnStartup) {
-    logInfo('skipping heroic updates')
+    logInfo('skipping heroic updates', LogPrefix.Backend)
     return
   }
   if (!(await isOnline())) {
-    logWarning('Version check failed, app is offline.')
+    logWarning('Version check failed, app is offline.', LogPrefix.Backend)
     return false
   }
   try {
@@ -95,7 +96,7 @@ async function checkForUpdates() {
     const currentVersion = app.getVersion()
     return semverGt(newVersion, currentVersion)
   } catch (error) {
-    logError('Could not check for new version of heroic')
+    logError('Could not check for new version of heroic', LogPrefix.Backend)
   }
 }
 
@@ -188,7 +189,7 @@ async function errorHandler({
     execAsync(`tail ${logPath} | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg)
+          logError(noSpaceMsg, LogPrefix.Backend)
           return showErrorBox(
             i18next.t('box.error.diskspace.title', 'No Space'),
             i18next.t(
@@ -198,7 +199,7 @@ async function errorHandler({
           )
         }
       })
-      .catch(() => logInfo('operation interrupted'))
+      .catch(() => logInfo('operation interrupted', LogPrefix.Backend))
   }
   if (error) {
     if (error.stderr.includes(noCredentialsError)) {
@@ -274,21 +275,25 @@ async function checkCommandVersion(
         : null
 
       if (semverGt(commandVersion, version) || commandVersion === version) {
-        logInfo(`Command '${command}' found. Version: '${commandVersion}'`)
+        logInfo(
+          `Command '${command}' found. Version: '${commandVersion}'`,
+          LogPrefix.Backend
+        )
         if (!all_fullfil) {
           return true
         }
         found = true
       } else {
         logWarning(
-          `Command ${command} version '${commandVersion}' not supported.`
+          `Command ${command} version '${commandVersion}' not supported.`,
+          LogPrefix.Backend
         )
         if (all_fullfil) {
           return false
         }
       }
     } catch {
-      logWarning(`${command} command not found`)
+      logWarning(`${command} command not found`, LogPrefix.Backend)
       if (all_fullfil) {
         return false
       }

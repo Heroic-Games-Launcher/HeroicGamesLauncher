@@ -1,6 +1,7 @@
 node_modules
 dist
 build
+coverage
 public/index.html
 public/locales/
 flatpak/build/

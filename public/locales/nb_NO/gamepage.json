@@ -1,1 +1,30 @@
-{}
+{
+    "box": {
+        "change": {
+            "message": "Endre hvor spillet er installert?",
+            "path": "Velg nytt installasjonssted",
+            "title": "Endre installasjonssted for spill"
+        },
+        "choose": "Velg",
+        "importpath": "Vleg spillmappe å importere",
+        "move": {
+            "message": "Dette kan ta sin tid",
+            "path": "Velg hvor du ønsker å flytte filene",
+            "title": "Flytt spill-installasjon"
+        },
+        "no": "Nei",
+        "repair": {
+            "message": "Reparer spillet, noe som kan ta lang tid?",
+            "title": "Bekreft og reparer"
+        },
+        "stopInstall": {
+            "keepInstalling": "Fortsett å installere",
+            "message": "Behold nedlastede filer?",
+            "title": "Stopp installasjon"
+        },
+        "uninstall": {
+            "message": "Avinstaller dette spillet?"
+        },
+        "yes": "Ja"
+    }
+}

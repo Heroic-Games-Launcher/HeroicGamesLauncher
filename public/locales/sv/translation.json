@@ -10,7 +10,7 @@
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
         },
-        "choose": "Ok",
+        "choose": "OK",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
         "customWine": "Välj wine eller proton binär",
@@ -32,9 +32,6 @@
             "log": {
                 "message": "Ingen logg hittades för detta spel",
                 "title": "Ingen logg hittades"
-            },
-            "login": {
-                "tittle": "Cannot Login!"
             },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
@@ -250,7 +247,7 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Kopiera alla inställningar till Urklipp",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Allmänna",
             "other": "Övriga",
@@ -294,5 +291,13 @@
         "logout_confirmation": "Är du säker på att du vill logga ut?",
         "quit": "Avsluta"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

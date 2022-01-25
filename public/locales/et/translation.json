@@ -33,9 +33,6 @@
                 "message": "Selle mängu logi ei leitud",
                 "title": "Logi ei leitud"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -294,5 +291,13 @@
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "quit": "Sulge"
     },
-    "wiki": "Viki"
+    "wiki": "Viki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

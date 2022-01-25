@@ -1,6 +1,11 @@
 import React, { PureComponent } from 'react'
 
-import { GameInfo, GameStatus, RefreshOptions } from 'src/types'
+import {
+  GameInfo,
+  GameStatus,
+  RefreshOptions,
+  WineVersionInfo
+} from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
 import { i18n } from 'i18next'
@@ -19,6 +24,10 @@ const libraryStore: ElectronStore = new Store({
   cwd: 'lib-cache',
   name: 'library'
 })
+const wineDownloaderInfoStore: ElectronStore = new Store({
+  cwd: 'store',
+  name: 'wine-downloader-info'
+})
 
 const gogLibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
 
@@ -36,6 +45,7 @@ interface StateProps {
   category: string
   data: GameInfo[]
   gogLibrary: GameInfo[]
+  wineVersions: WineVersionInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -56,6 +66,9 @@ export class GlobalState extends PureComponent<Props> {
       : [],
     gogLibrary: gogLibraryStore.has('games')
       ? (gogLibraryStore.get('games') as GameInfo[])
+      : [],
+    wineVersions: wineDownloaderInfoStore.has('wine-releases')
+      ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
       : [],
     error: false,
     filter: 'all',
@@ -123,6 +136,26 @@ export class GlobalState extends PureComponent<Props> {
       ipcRenderer.send('logError', error)
     }
     this.refresh(checkForUpdates)
+  }
+
+  refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
+    if (this.state.platform !== 'linux') {
+      return
+    }
+    ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
+    try {
+      this.setState({ refreshing: true })
+      const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
+      this.setState({
+        wineVersions: releases,
+        refreshing: false
+      })
+    } catch (error) {
+      this.setState({ refreshing: false })
+      console.error(error)
+      ipcRenderer.send('logError', error)
+      ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
+    }
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
@@ -422,8 +455,15 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const { children } = this.props
-    const { data, filterText, gogLibrary, filter, platform, filterPlatform } =
-      this.state
+    const {
+      data,
+      wineVersions,
+      gogLibrary,
+      filterText,
+      filter,
+      platform,
+      filterPlatform
+    } = this.state
     let filteredLibrary = data
     let filteredGOGLibrary = gogLibrary
     const language = storage.getItem('language') || 'en'
@@ -451,6 +491,7 @@ export class GlobalState extends PureComponent<Props> {
           ...this.state,
           data: filteredLibrary,
           gogLibrary: filteredGOGLibrary,
+          wineVersions: wineVersions,
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
@@ -461,6 +502,7 @@ export class GlobalState extends PureComponent<Props> {
           platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
+          refreshWineVersionInfo: this.refreshWineVersionInfo,
           recentGames: getRecentGames(data)
         }}
       >
