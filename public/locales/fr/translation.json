@@ -3,7 +3,7 @@
     "Assets": "Objets",
     "box": {
         "appupdate": {
-            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant\u202f?",
+            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant?",
             "title": "Mise à jour disponible"
         },
         "cache-cleared": {
@@ -33,9 +33,6 @@
                 "message": "Aucun Log n'a été trouvé pour ce jeu",
                 "title": "Aucun Log n'a été trouvé"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -54,7 +51,7 @@
             }
         },
         "quit": {
-            "message": "D'autres opérations sont en cours, êtes-vous sûr(e)\u202f?",
+            "message": "D'autres opérations sont en cours, êtes-vous sûr(e)?",
             "title": "Quitter"
         },
         "reset-heroic": {
@@ -108,7 +105,7 @@
         "other": {
             "part1": "Utilise l' ",
             "part2": "Options avancées",
-            "part3": "pour être averti avant le lancement du jeu\u202f; ",
+            "part3": "pour être averti avant le lancement du jeu; ",
             "part4": "Utilise les ",
             "part5": "Arguments de Jeu",
             "part6": " pour être averti après la commande, par exemple : ",
@@ -117,11 +114,11 @@
         "sync": {
             "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle\u202f: Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Chargez les fichiers pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle: Choisissez Télécharger pour télécharger les sauvegardes de jeux enregistrées dans le Cloud. Chargez les fichiers pour transférer les fichiers locaux vers le Cloud. Forcer le téléchargement et forcer le téléversement ignorera la version locale ou celle du Cloud.",
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "wine": {
-            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers\u202f:",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers:",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
@@ -174,11 +171,11 @@
     "options": {
         "advanced": {
             "placeholder": "Insérez ici les autres options de lancemement",
-            "title": "Options Avancées (Variables d'Environnement)\u202f:"
+            "title": "Options Avancées (Variables d'Environnement):"
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
-            "title": "Arguments de jeu (À lancer après la commande)\u202f:"
+            "title": "Arguments de jeu (À lancer après la commande):"
         }
     },
     "other": {
@@ -291,8 +288,16 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Déconnexion",
-        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter\u00a0?",
+        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter?",
         "quit": "Quitter"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

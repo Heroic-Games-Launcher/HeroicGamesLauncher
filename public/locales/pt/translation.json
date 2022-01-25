@@ -33,9 +33,6 @@
                 "message": "Nenhum log foi encontrado para este jogo",
                 "title": "Log não encontrado"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -250,7 +247,7 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Copiar todas as configurações para a área de transferência",
         "navbar": {
             "general": "Geral",
             "other": "Outros",
@@ -294,5 +291,13 @@
         "logout_confirmation": "Logout?",
         "quit": "Fechar"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

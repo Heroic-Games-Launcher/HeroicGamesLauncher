@@ -33,9 +33,6 @@
                 "message": "Non se atopou o rexistro para este xogo",
                 "title": "Rexistro non atopado"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
             "python": {
                 "message": "Heroic requires Python 3.8 or newer.",
                 "title": "Python Error!"
@@ -294,5 +291,13 @@
         "logout_confirmation": "Está seguro que quere pechar a sesión?",
         "quit": "Saír"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

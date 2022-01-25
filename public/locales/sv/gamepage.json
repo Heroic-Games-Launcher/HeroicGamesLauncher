@@ -5,7 +5,7 @@
             "path": "Välj ny installationssökväg",
             "title": "Ändra spelets installationssökväg"
         },
-        "choose": "Ok",
+        "choose": "OK",
         "importpath": "Välj spelmapp för import",
         "move": {
             "message": "Detta kan ta lång tid, är du säker?",
