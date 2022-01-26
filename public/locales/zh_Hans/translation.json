@@ -303,10 +303,10 @@
     "wiki": "Wiki百科",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "error": "此次无法获取 Wine/Proton 版本。",
+            "link": "Wine 管理器",
+            "title": "Wine 管理器 (测试版)",
+            "unzipping": "解压缩"
         }
     }
 }
