@@ -265,14 +265,15 @@ async function checkCommandVersion(
   commands: string[],
   version: string,
   all_fullfil = true
-): Promise<boolean> {
+): Promise<{ found: boolean; version: string }> {
   let found = false
+  let commandVersion = undefined
   for (const command of commands) {
     try {
       const { stdout } = await execAsync(command + ' --version')
-      const commandVersion = stdout
+      commandVersion = stdout
         ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0]
-        : null
+        : undefined
 
       if (semverGt(commandVersion, version) || commandVersion === version) {
         logInfo(
@@ -280,7 +281,7 @@ async function checkCommandVersion(
           LogPrefix.Backend
         )
         if (!all_fullfil) {
-          return true
+          return { found: true, version: commandVersion }
         }
         found = true
       } else {
@@ -289,17 +290,17 @@ async function checkCommandVersion(
           LogPrefix.Backend
         )
         if (all_fullfil) {
-          return false
+          return { found: false, version: commandVersion }
         }
       }
     } catch {
       logWarning(`${command} command not found`, LogPrefix.Backend)
       if (all_fullfil) {
-        return false
+        return { found: false, version: commandVersion }
       }
     }
   }
-  return found
+  return { found: found, version: commandVersion }
 }
 
 function clearCache() {
