@@ -17,7 +17,7 @@
     },
     "status": {
         "error": "Hiba",
-        "loading": "Játék lista betöltése, kérlek várj",
+        "loading": "Játéklista betöltése, kérlek várj",
         "logging": "Bejelentkezés…"
     },
     "welcome": "Üdvözlünk!"

@@ -32,7 +32,7 @@
             "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?",
             "title": "Atualização Disponível"
         },
-        "wineprefix": "Selecione a pasta do WinePrefix",
+        "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM"
     },
     "button": {
