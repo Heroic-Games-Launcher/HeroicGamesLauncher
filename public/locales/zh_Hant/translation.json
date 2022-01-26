@@ -7,12 +7,12 @@
             "title": "有可用更新"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic緩存已清理",
+            "title": "緩存清理"
         },
         "choose": "請選擇",
         "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "選擇Legendary二進制文件",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
         "error": {
@@ -34,7 +34,7 @@
                 "title": "未找到日誌"
             },
             "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
+                "message": "Heroic需要Python 3.8或更高版本",
                 "title": "Python Error!"
             },
             "title": "錯誤",
