@@ -253,56 +253,6 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-/**
- * Checks given commands if they fullfil the given minimum version requirement.
- * @param commands      string list of commands to check.
- * @param version       minimum version to check against
- * @param all_fullfil   Can be set to false if only one command should fullfil
- *                      version requirement. (default: true)
- * @returns true if verrsion fullfil, else false
- */
-async function checkCommandVersion(
-  commands: string[],
-  version: string,
-  all_fullfil = true
-): Promise<{ found: boolean; version: string }> {
-  let found = false
-  let commandVersion = undefined
-  for (const command of commands) {
-    try {
-      const { stdout } = await execAsync(command + ' --version')
-      commandVersion = stdout
-        ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0]
-        : undefined
-
-      if (semverGt(commandVersion, version) || commandVersion === version) {
-        logInfo(
-          `Command '${command}' found. Version: '${commandVersion}'`,
-          LogPrefix.Backend
-        )
-        if (!all_fullfil) {
-          return { found: true, version: commandVersion }
-        }
-        found = true
-      } else {
-        logWarning(
-          `Command ${command} version '${commandVersion}' not supported.`,
-          LogPrefix.Backend
-        )
-        if (all_fullfil) {
-          return { found: false, version: commandVersion }
-        }
-      }
-    } catch {
-      logWarning(`${command} command not found`, LogPrefix.Backend)
-      if (all_fullfil) {
-        return { found: false, version: commandVersion }
-      }
-    }
-  }
-  return { found: found, version: commandVersion }
-}
-
 function clearCache() {
   const installCache = new Store({
     cwd: 'lib-cache',
@@ -330,7 +280,6 @@ function resetHeroic() {
 }
 
 export {
-  checkCommandVersion,
   checkForUpdates,
   errorHandler,
   execAsync,
