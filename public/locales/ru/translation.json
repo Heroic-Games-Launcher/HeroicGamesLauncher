@@ -302,10 +302,10 @@
     "wiki": "Вики",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "error": "Не удалось получить версии Wine/Proton.",
+            "link": "Менеджер Wine",
+            "title": "Менеджер Wine (Beta)",
+            "unzipping": "Распаковка"
         }
     }
 }
