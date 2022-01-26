@@ -31,7 +31,15 @@
                 "message": "Nu a fost găsit niciun jurnal pentru acest joc",
                 "title": "Jurnalul nu a fost găsit"
             },
-            "title": "Eroare"
+            "title": "Eroare",
+            "python": {
+                "message": "Heroic necesită Python 3.8 sau mai nou.",
+                "title": "Eroare Python!"
+            },
+            "wine-not-found": {
+                "message": "Nicio versiune Wine selectată. Verificați setările jocului!",
+                "title": "Wine nu a fost găsit"
+            }
         },
         "no": "NU",
         "protocol": {
@@ -56,7 +64,8 @@
             "title": "Alegeți directorul de salvare"
         },
         "wineprefix": "Alegeți dosarul Wine Prefix",
-        "yes": "DA"
+        "yes": "DA",
+        "ok": "O.K"
     },
     "button": {
         "sync": "Sincronizează",
