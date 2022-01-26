@@ -30,13 +30,13 @@
             "message": "Ennek a játéknak van egy frissítése, szeretnéd most frissíteni?",
             "title": "Játéknak frissítésre van szüksége"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Wine Prefix mappa kiválasztása",
         "yes": "IGEN"
     },
     "button": {
         "cancel": "Szüneteltetés/Mégse",
         "continue": "Letöltés folytatása",
-        "import": "Importálás",
+        "import": "Játék importálása",
         "install": "Telepítés",
         "uninstall": "Eltávolítás",
         "update": "Update"
@@ -60,14 +60,14 @@
         "repairing": "Javítás"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Online szükséges",
         "path": "Telepítési útvonal",
         "size": "Méret",
         "syncsaves": "Mentések szinkronizálása",
         "version": "Verzió"
     },
     "install": {
-        "path": "Select Install Path",
+        "path": "Telepítési útvonal kiválasztása",
         "wineprefix": "WinePrefix"
     },
     "label": {
@@ -80,7 +80,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Elindítási opciók..."
     },
     "sdl": {
         "title": "Válasszd ki a telepíteni kívánt elemeket"

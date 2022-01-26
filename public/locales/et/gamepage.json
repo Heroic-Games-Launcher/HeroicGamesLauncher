@@ -30,7 +30,7 @@
             "message": "Sellele mängule on saadaval uuendus. Kas soovite uuendada kohe?",
             "title": "Mäng vajab uuendust"
         },
-        "wineprefix": "Vali WinePrefix'i kaust",
+        "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH"
     },
     "button": {
