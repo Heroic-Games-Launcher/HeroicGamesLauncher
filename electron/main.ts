@@ -38,7 +38,6 @@ import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import {
-  checkCommandVersion,
   checkForUpdates,
   clearCache,
   errorHandler,
@@ -356,26 +355,6 @@ if (!gotTheLock) {
         appIcon.setContextMenu(contextMenu())
       }, 500)
     })
-
-    if (process.platform === 'linux') {
-      const found = await checkCommandVersion(
-        ['python', 'python3'],
-        '3.8.0',
-        false
-      )
-
-      if (!found) {
-        dialog.showErrorBox(
-          i18next.t('box.error.python.title', 'Python Error!'),
-          i18next.t(
-            'box.error.python.message',
-            'Heroic requires Python 3.8 or newer.'
-          )
-        )
-        logError('Heroic requires Python 3.8 or newer.', LogPrefix.Backend)
-        return app.quit()
-      }
-    }
 
     return
   })
