@@ -25,7 +25,10 @@ export default function LogSettings({ isDefault, appName }: Props) {
 
   return (
     <>
-      <span className="setting" style={{  backgroundColor: '#1e1e1e', borderRadius: '10px'}}>
+      <span
+        className="setting"
+        style={{ backgroundColor: '#1e1e1e', borderRadius: '10px' }}
+      >
         <br />
         {logFileContent.map((line, key) => {
           if (line.toLowerCase().includes('err')) {
@@ -50,9 +53,12 @@ export default function LogSettings({ isDefault, appName }: Props) {
         })}
         <br />
       </span>
-        <button className={`setting button is-primary`} onClick={showLogFileInFolder}>
-          {t('setting.show-log-folder', 'Show log file in folder')}
-        </button>
+      <button
+        className={`setting button is-primary`}
+        onClick={showLogFileInFolder}
+      >
+        {t('setting.show-log-folder', 'Show log file in folder')}
+      </button>
     </>
   )
 }
