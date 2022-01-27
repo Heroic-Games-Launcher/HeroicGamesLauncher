@@ -19,11 +19,11 @@ export default function LogSettings({ isDefault, appName }: Props) {
     .then((content: string[]) => {
       setLogFileContent(content)
       setLogFileExist(true)
-    }).catch(() => {
+    })
+    .catch(() => {
       setLogFileContent([t('setting.no-log-file', 'No log file found.')])
       setLogFileExist(false)
-    }
-    )
+    })
 
   function showLogFileInFolder() {
     ipcRenderer.send('showLogFileInFolder', { isDefault, appName })
@@ -56,12 +56,14 @@ export default function LogSettings({ isDefault, appName }: Props) {
         })}
         <br />
       </span>
-      {logFileExist && <button
-        className={`setting button is-primary`}
-        onClick={showLogFileInFolder}
-      >
-        {t('setting.show-log-folder', 'Show log file in folder')}
-      </button>}
+      {logFileExist && (
+        <button
+          className={`setting button is-primary`}
+          onClick={showLogFileInFolder}
+        >
+          {t('setting.show-log-folder', 'Show log file in folder')}
+        </button>
+      )}
     </>
   )
 }
