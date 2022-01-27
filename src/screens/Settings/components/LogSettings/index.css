@@ -1,3 +1,14 @@
+.log-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  max-height: 25em;
+  overflow: hidden;
+}
+
+.log-box:hover {
+  overflow: auto;
+}
+
 .log-error,
 .log-warning,
 .log-info {

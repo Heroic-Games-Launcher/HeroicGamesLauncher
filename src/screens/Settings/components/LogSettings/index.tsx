@@ -25,10 +25,7 @@ export default function LogSettings({ isDefault, appName }: Props) {
 
   return (
     <>
-      <span
-        className="setting"
-        style={{ backgroundColor: '#1e1e1e', borderRadius: '10px' }}
-      >
+      <span className="setting log-box">
         <br />
         {logFileContent.map((line, key) => {
           if (line.toLowerCase().includes('err')) {
