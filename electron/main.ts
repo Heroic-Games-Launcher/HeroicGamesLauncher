@@ -23,6 +23,7 @@ import { cpus, platform } from 'os'
 import {
   existsSync,
   mkdirSync,
+  readFileSync,
   rmSync,
   unlinkSync,
   watch,
@@ -817,10 +818,21 @@ ipcMain.handle('openDialog', async (e, args) => {
   return { canceled }
 })
 
-ipcMain.on('showItemInFolder', async (e, item) => {
+const showItemInFolder = (item: string) => {
   if (existsSync(item)) {
-    shell.showItemInFolder(item)
+    try {
+      shell.showItemInFolder(item)
+    } catch (error) {
+      logError(
+        `Failed to show item in folder with: ${error}`,
+        LogPrefix.Backend
+      )
+    }
   }
+}
+
+ipcMain.on('showItemInFolder', async (e, item) => {
+  showItemInFolder(item)
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {
@@ -1274,4 +1286,23 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
+})
+
+const getLogFile = (isDefault: boolean, appName: string) => {
+  return isDefault
+    ? currentLogFile
+    : `${heroicGamesConfigPath}${appName}-lastPlay.log`
+}
+
+ipcMain.handle(
+  'getCurrentLogContent',
+  async (event, { isDefault, appName }) => {
+    return readFileSync(getLogFile(isDefault, appName), {
+      encoding: 'utf-8'
+    }).split('\n')
+  }
+)
+
+ipcMain.on('showLogFileInFolder', async (e, { isDefault, appName }) => {
+  showItemInFolder(getLogFile(isDefault, appName))
 })
