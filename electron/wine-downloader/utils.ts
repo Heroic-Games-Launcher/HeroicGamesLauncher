@@ -5,7 +5,7 @@
 
 import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { WineVersionInfo } from './types'
 
 import {

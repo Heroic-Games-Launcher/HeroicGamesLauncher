@@ -214,6 +214,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
             "download": "Stáhnout",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Obecné",
+            "log": "Log",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         },

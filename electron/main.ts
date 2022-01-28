@@ -16,8 +16,7 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol,
-  shell
+  protocol
 } from 'electron'
 import { cpus, platform } from 'os'
 import {
@@ -49,7 +48,8 @@ import {
   isOnline,
   openUrlOrFile,
   resetHeroic,
-  showAboutWindow
+  showAboutWindow,
+  showItemInFolder
 } from './utils'
 import {
   currentLogFile,
@@ -73,7 +73,7 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import Store from 'electron-store'
 import {
   updateWineVersionInfos,
@@ -441,10 +441,6 @@ ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
-
-ipcMain.on('getLog', (event, appName) =>
-  openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
-)
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
@@ -818,9 +814,7 @@ ipcMain.handle('openDialog', async (e, args) => {
 })
 
 ipcMain.on('showItemInFolder', async (e, item) => {
-  if (existsSync(item)) {
-    shell.showItemInFolder(item)
-  }
+  showItemInFolder(item)
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {
@@ -1275,3 +1269,8 @@ ipcMain.handle('gamepadAction', async (event, args) => {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
 })
+
+/*
+ * INSERT OTHER IPC HANLDER HERE
+ */
+import './logger/ipc_handler'

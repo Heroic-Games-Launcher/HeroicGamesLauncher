@@ -214,6 +214,13 @@
         "fsync": "Włącz Fsync",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",
         "manualsync": {
             "download": "Download",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Kopiuj Wszystkie Ustawienia do Schowka",
         "navbar": {
             "general": "Główne",
+            "log": "Log",
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         },
