@@ -1,12 +1,15 @@
 .log-buttongroup {
   display: flex;
   flex-direction: row;
-  align-items: center;
+}
+
+.log-choosen {
+  color: var(--secondary);
 }
 
 .log-buttons {
-  margin-right: 10px;
-  min-width: 40px;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
 .log-box {

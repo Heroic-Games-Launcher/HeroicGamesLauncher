@@ -44,27 +44,21 @@ export default function LogSettings({ isDefault, appName }: Props) {
   return (
     <>
       {isDefault && (
-        <span className="setting log-buttongroup">
-          <button
-            className={`button log-buttons ${
-              defaultLast ? 'is-primary' : 'is-secondary'
-            }`}
-            onClick={() => {
-              setDefaultLast(false)
-            }}
+        <span className="setting log-buttongroup toggleWrapper">
+          <a
+            className={`log-buttons ${!defaultLast ? 'log-choosen' : ''}`}
+            onClick={() => setDefaultLast(false)}
+            title={t('setting.log.current-log')}
           >
-            {t('setting.log.current-log', 'Current Log')}
-          </button>
-          <button
-            className={`button log-buttons ${
-              !defaultLast ? 'is-primary' : 'is-secondary'
-            }`}
-            onClick={() => {
-              setDefaultLast(true)
-            }}
+            {t('setting.log.current-log', 'Current log')}
+          </a>
+          <a
+            className={`log-buttons ${defaultLast ? 'log-choosen' : ''}`}
+            onClick={() => setDefaultLast(true)}
+            title={t('setting.log.last-log')}
           >
             {t('setting.log.last-log', 'Last Log')}
-          </button>
+          </a>
         </span>
       )}
       <span className="setting log-box">
@@ -94,15 +88,14 @@ export default function LogSettings({ isDefault, appName }: Props) {
       </span>
       {logFileExist && (
         <span className="setting log-buttongroup">
-          <button
-            className={'button is-primary log-buttons'}
+          <a
             onClick={showLogFileInFolder}
             title={t('setting.log.show-in-folder', 'Show log file in folder.')}
+            className="log-buttons"
           >
             <FolderOpenIcon />
-          </button>
-          <button
-            className={'button is-primary log-buttons'}
+          </a>
+          <a
             onClick={() => {
               navigator.clipboard.writeText(logFileContent)
             }}
@@ -110,9 +103,10 @@ export default function LogSettings({ isDefault, appName }: Props) {
               'setting.log.copy-to-clipboard',
               'Copy log content to clipboard.'
             )}
+            className="log-buttons"
           >
             <ContentCopyIcon />
-          </button>
+          </a>
         </span>
       )}
     </>
