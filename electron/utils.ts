@@ -47,7 +47,7 @@ async function isEpicServiceOffline(
       'epic.offline-notification-body',
       'Heroic will maybe not work probably!'
     ),
-    urgency: 'low',
+    urgency: 'normal',
     timeoutType: 'default',
     silent: false
   })
