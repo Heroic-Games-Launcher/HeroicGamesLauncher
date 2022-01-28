@@ -442,10 +442,6 @@ ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
-ipcMain.on('getLog', (event, appName) =>
-  openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
-)
-
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
