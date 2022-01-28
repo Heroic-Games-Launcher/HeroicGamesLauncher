@@ -33,13 +33,6 @@
                 "message": "Лог для этой игры не найден",
                 "title": "Лог не найден"
             },
-            "login": {
-                "tittle": "Не удаётся войти!"
-            },
-            "python": {
-                "message": "Для Heroic требуется Python 3.8 или новее.",
-                "title": "Ошибка Python!"
-            },
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -97,6 +90,10 @@
         "unsync": "Рассинхронизировать"
     },
     "Downloading": "Скачивается",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "Без фильтра"

@@ -33,13 +33,6 @@
                 "message": "未找到此游戏的日志",
                 "title": "未找到日志"
             },
-            "login": {
-                "tittle": "无法登录！"
-            },
-            "python": {
-                "message": "Heroic 需要 Python 3.8 或更新高版本。",
-                "title": "Python Error!"
-            },
             "title": "错误",
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
@@ -97,6 +90,10 @@
         "unsync": "不同步"
     },
     "Downloading": "正在下载",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic 游戏",
     "filter": {
         "noFilter": "全部"

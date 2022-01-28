@@ -33,10 +33,6 @@
                 "message": "このゲームのログは見つかりませんでした",
                 "title": "ログが見つかりませんでした"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "エラー",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "非同期"
     },
     "Downloading": "ダウンロードしています",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"

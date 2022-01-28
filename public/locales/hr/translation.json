@@ -33,10 +33,6 @@
                 "message": "Dnevnik nije nađen za ovu igricu",
                 "title": "Dnevnik nije pronađen"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Greška",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "Desinkroniziraj"
     },
     "Downloading": "Preuzima se",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"

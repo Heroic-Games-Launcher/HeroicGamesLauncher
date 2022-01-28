@@ -33,10 +33,6 @@
                 "message": "Nem találtunk feljegyzést ehhez a játékhoz",
                 "title": "Nem találtunk feljegyzést"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Hiba",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "Deszinkronizálás"
     },
     "Downloading": "Letöltés",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"

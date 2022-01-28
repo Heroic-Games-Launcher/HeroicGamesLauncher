@@ -64,7 +64,7 @@ export class LegendaryUser {
     try {
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
-      logError(error, LogPrefix.Backend)
+      logError(`${error}`, LogPrefix.Backend)
       configStore.delete('userInfo')
     }
     if (isLoggedIn) {

@@ -33,10 +33,6 @@
                 "message": "برای این بازی لاگی پیدا نشد",
                 "title": "لاگ پیدا نشد"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "خطا",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "عدم همگامسازی"
     },
     "Downloading": "در حال دانلود",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "اپیک گیمز",
     "filter": {
         "noFilter": "No Filter"
