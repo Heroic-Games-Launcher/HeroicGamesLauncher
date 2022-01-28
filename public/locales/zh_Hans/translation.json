@@ -214,6 +214,13 @@
         "fsync": "启用Fsync",
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "启用MangoHud（需要已安装Mangohud）",
         "manualsync": {
             "download": "下载",
@@ -250,6 +257,7 @@
         "copyToClipboard": "复制所有设置到剪贴板",
         "navbar": {
             "general": "常规",
+            "log": "Log",
             "other": "其它",
             "sync": "存档-同步"
         },

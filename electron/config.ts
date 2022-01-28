@@ -21,7 +21,7 @@ import {
   isWindows
 } from './constants'
 import { execAsync } from './utils'
-import { logError, logInfo, LogPrefix } from './logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 
 /**
  * This class does config handling.

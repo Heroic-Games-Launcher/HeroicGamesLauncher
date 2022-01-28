@@ -214,6 +214,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "",
         "language": "",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "",
         "manualsync": {
             "download": "",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "",
+            "log": "Log",
             "other": "",
             "sync": ""
         },

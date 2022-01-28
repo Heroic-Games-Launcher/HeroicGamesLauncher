@@ -214,6 +214,13 @@
         "fsync": "Включить Fsync",
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
         "manualsync": {
             "download": "Скачать",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "navbar": {
             "general": "Основные",
+            "log": "Log",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },

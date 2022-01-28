@@ -214,6 +214,13 @@
         "fsync": "Abilita Fsync",
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
         "language": "Seleziona il linguaggio dell'app",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
         "manualsync": {
             "download": "Download",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Copia tutte le impostazioni negli appunti",
         "navbar": {
             "general": "Generale",
+            "log": "Log",
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi"
         },

@@ -16,14 +16,12 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol,
-  shell
+  protocol
 } from 'electron'
 import { cpus, platform } from 'os'
 import {
   existsSync,
   mkdirSync,
-  readFileSync,
   rmSync,
   unlinkSync,
   watch,
@@ -50,7 +48,8 @@ import {
   isOnline,
   openUrlOrFile,
   resetHeroic,
-  showAboutWindow
+  showAboutWindow,
+  showItemInFolder
 } from './utils'
 import {
   currentLogFile,
@@ -74,7 +73,7 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import Store from 'electron-store'
 import {
   updateWineVersionInfos,
@@ -818,19 +817,6 @@ ipcMain.handle('openDialog', async (e, args) => {
   return { canceled }
 })
 
-const showItemInFolder = (item: string) => {
-  if (existsSync(item)) {
-    try {
-      shell.showItemInFolder(item)
-    } catch (error) {
-      logError(
-        `Failed to show item in folder with: ${error}`,
-        LogPrefix.Backend
-      )
-    }
-  }
-}
-
 ipcMain.on('showItemInFolder', async (e, item) => {
   showItemInFolder(item)
 })
@@ -1288,21 +1274,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   }
 })
 
-const getLogFile = (isDefault: boolean, appName: string) => {
-  return isDefault
-    ? currentLogFile
-    : `${heroicGamesConfigPath}${appName}-lastPlay.log`
-}
-
-ipcMain.handle(
-  'getCurrentLogContent',
-  async (event, { isDefault, appName }) => {
-    return readFileSync(getLogFile(isDefault, appName), {
-      encoding: 'utf-8'
-    }).split('\n')
-  }
-)
-
-ipcMain.on('showLogFileInFolder', async (e, { isDefault, appName }) => {
-  showItemInFolder(getLogFile(isDefault, appName))
-})
+/*
+ * INSERT OTHER IPC HANLDER HERE
+ */
+import './logger/ipc_handler'

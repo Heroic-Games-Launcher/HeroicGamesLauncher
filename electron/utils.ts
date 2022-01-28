@@ -10,7 +10,7 @@ import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
 import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -312,6 +312,19 @@ function resetHeroic() {
   })
 }
 
+function showItemInFolder(item: string) {
+  if (existsSync(item)) {
+    try {
+      shell.showItemInFolder(item)
+    } catch (error) {
+      logError(
+        `Failed to show item in folder with: ${error}`,
+        LogPrefix.Backend
+      )
+    }
+  }
+}
+
 export {
   checkForUpdates,
   errorHandler,
@@ -323,6 +336,7 @@ export {
   openUrlOrFile,
   semverGt,
   showAboutWindow,
+  showItemInFolder,
   statAsync,
   removeSpecialcharacters,
   clearCache,

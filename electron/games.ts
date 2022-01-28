@@ -39,7 +39,7 @@ abstract class Game {
 }
 
 import { LegendaryGame } from './legendary/games'
-import { LogPrefix, logWarning } from './logger'
+import { LogPrefix, logWarning } from './logger/logger'
 import { BrowserWindow } from 'electron'
 
 export { Game, Runner }

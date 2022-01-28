@@ -214,6 +214,13 @@
         "fsync": "Включване на Fsync",
         "gamemode": "Използване на „GameMode“ („Feral Game Mode“ трябва да е инсталирано)",
         "language": "Изберете езика на приложението",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Използване на Mangohud (Mangohud трябва да е инсталирано)",
         "manualsync": {
             "download": "Сваляне",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Копиране на всички настройки в буфера за обмен",
         "navbar": {
             "general": "Общи",
+            "log": "Log",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"
         },

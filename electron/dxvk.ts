@@ -5,7 +5,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
 import { execOptions, heroicToolsPath, home } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 export const DXVK = {
   getLatest: async () => {

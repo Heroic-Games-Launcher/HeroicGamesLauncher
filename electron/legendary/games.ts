@@ -25,7 +25,7 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript'
