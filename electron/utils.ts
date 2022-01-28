@@ -58,8 +58,9 @@ async function isEpicServiceOffline(
       `Failed to get epic service status with ${error}`,
       LogPrefix.Backend
     )
-    return true
   }
+
+  return true
 }
 
 export const getLegendaryVersion = async () => {
