@@ -33,10 +33,6 @@
                 "message": "Tälle pelille ei löytynyt lokitiedostoja",
                 "title": "Lokitiedostoa ei löytynyt"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Virhe",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "Älä synkronoi"
     },
     "Downloading": "Ladataan",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"

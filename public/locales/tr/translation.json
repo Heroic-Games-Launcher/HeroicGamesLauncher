@@ -33,13 +33,6 @@
                 "message": "Bu oyun için günlük kaydı bulunamadı",
                 "title": "Günlük Kaydı Bulunamadı"
             },
-            "login": {
-                "tittle": "Oturum Açılamıyor!"
-            },
-            "python": {
-                "message": "Heroic, Python 3.8 veya daha yenisini gerektirir.",
-                "title": "Python Error!"
-            },
             "title": "Hata",
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
@@ -97,6 +90,10 @@
         "unsync": "Eşzamanlamayı kaldır"
     },
     "Downloading": "İndiriliyor",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"

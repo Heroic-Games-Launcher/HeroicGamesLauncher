@@ -123,7 +123,7 @@ export const DXVK = {
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(error, LogPrefix.DXVKInstaller)
+          logError(`${error}`, LogPrefix.DXVKInstaller)
           logError(
             'error when removing DXVK, please try again',
             LogPrefix.DXVKInstaller
@@ -142,7 +142,7 @@ export const DXVK = {
         return exec(updatedVersionfile)
       })
       .catch((error) => {
-        logError(error, LogPrefix.DXVKInstaller)
+        logError(`${error}`, LogPrefix.DXVKInstaller)
         logError(
           'error when installing DXVK, please try launching the game again',
           LogPrefix.DXVKInstaller
