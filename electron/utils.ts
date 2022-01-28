@@ -43,8 +43,13 @@ async function isEpicServiceOffline(
   const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
   const notification = new Notification({
     title: `${type} ${t('epic.offline-notification-title', 'offline')}`,
-    body: t('offline-notification-body', 'Heroic will not work probably!'),
-    urgency: 'critical'
+    body: t(
+      'epic.offline-notification-body',
+      'Heroic will maybe not work probably!'
+    ),
+    urgency: 'low',
+    timeoutType: 'default',
+    silent: false
   })
 
   try {

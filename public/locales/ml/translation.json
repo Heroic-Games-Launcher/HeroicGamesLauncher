@@ -33,10 +33,6 @@
                 "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
                 "title": "കുറിപ്പുകള് കണ്ടെത്താനായില്ല"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "കുഴപ്പം",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "പിരിക്കൂ"
     },
     "Downloading": "ഇറക്കുന്നവ",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "എപിക് ഗെയിംസ്",
     "filter": {
         "noFilter": "No Filter"

@@ -33,13 +33,6 @@
                 "message": "Non è stato trovato nessun log per questo gioco",
                 "title": "Log non trovato"
             },
-            "login": {
-                "tittle": "Impossibile accedere!"
-            },
-            "python": {
-                "message": "Heroic richiede Python 3.8 o versioni successive.",
-                "title": "Python Error!"
-            },
             "title": "Errore",
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
@@ -97,6 +90,10 @@
         "unsync": "Annulla sincronizzazione"
     },
     "Downloading": "Download in corso",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
