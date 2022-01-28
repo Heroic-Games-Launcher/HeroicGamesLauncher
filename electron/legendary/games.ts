@@ -12,7 +12,7 @@ import { LegendaryUser } from './user'
 import {
   errorHandler,
   execAsync,
-  isEpicOffline,
+  isEpicServiceOffline,
   isOnline,
   removeSpecialcharacters
 } from '../utils'
@@ -133,7 +133,7 @@ class LegendaryGame extends Game {
       try {
         productSlug = await this.getProductSlug(namespace)
       } catch (error) {
-        logError(error, LogPrefix.Legendary)
+        logError(`${error}`, LogPrefix.Legendary)
         productSlug = this.appName
       }
       epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
@@ -222,7 +222,7 @@ class LegendaryGame extends Game {
         )
         logInfo(`Finished Moving ${title}`, LogPrefix.Legendary)
       })
-      .catch((error) => logError(error, LogPrefix.Legendary))
+      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
     return newInstallPath
   }
 
@@ -516,7 +516,7 @@ Categories=Game;
   }
 
   public async launch(launchArguments?: string) {
-    const epicOffline = await isEpicOffline()
+    const epicOffline = await isEpicServiceOffline()
     const isOffline = !(await isOnline()) || epicOffline
     let envVars = ''
     let gameMode: string
@@ -704,7 +704,7 @@ Categories=Game;
         return { stderr, command, gameSettings }
       })
       .catch((error) => {
-        logError(error, LogPrefix.Legendary)
+        logError(`${error}`, LogPrefix.Legendary)
         const { stderr } = error
         return { stderr, command, gameSettings }
       })
@@ -730,7 +730,7 @@ Categories=Game;
       logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
       return execAsync(initPrefixCommand)
         .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
-        .catch((error) => logError(error, LogPrefix.Backend))
+        .catch((error) => logError(`${error}`, LogPrefix.Backend))
     }
   }
 

@@ -43,7 +43,7 @@ import {
   clearCache,
   errorHandler,
   execAsync,
-  isEpicOffline,
+  isEpicServiceOffline,
   getLegendaryVersion,
   getSystemInfo,
   handleExit,
@@ -529,7 +529,7 @@ ipcMain.handle('checkGameUpdates', () =>
   LegendaryLibrary.get().listUpdateableGames()
 )
 
-ipcMain.handle('getEpicGamesStatus', () => isEpicOffline())
+ipcMain.handle('getEpicGamesStatus', () => isEpicServiceOffline())
 
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
@@ -579,7 +579,7 @@ ipcMain.handle('getGameInfo', async (event, game) => {
     info.extra = await Game.get(game).getExtraInfo(info.namespace)
     return info
   } catch (error) {
-    logError(error, LogPrefix.Backend)
+    logError(`${error}`, LogPrefix.Backend)
   }
 })
 
@@ -592,7 +592,7 @@ ipcMain.handle('getInstallInfo', async (event, game) => {
     const info = await Game.get(game).getInstallInfo()
     return info
   } catch (error) {
-    logError(error, LogPrefix.Backend)
+    logError(`${error}`, LogPrefix.Backend)
     return {}
   }
 })
@@ -869,7 +869,7 @@ ipcMain.handle('install', async (event, params) => {
     return
   }
 
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
@@ -927,7 +927,7 @@ ipcMain.handle('uninstall', async (event, game) => {
       notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling', LogPrefix.Backend)
     })
-    .catch((error) => logError(error, LogPrefix.Backend))
+    .catch((error) => logError(`${error}`, LogPrefix.Backend))
 })
 
 ipcMain.handle('repair', async (event, game) => {
@@ -951,7 +951,7 @@ ipcMain.handle('repair', async (event, game) => {
         title,
         body: i18next.t('notify.error.reparing', 'Error Repairing')
       })
-      logError(error, LogPrefix.Backend)
+      logError(`${error}`, LogPrefix.Backend)
     })
 })
 
@@ -966,12 +966,12 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
       title,
       body: i18next.t('notify.error.move', 'Error Moving the Game')
     })
-    logError(error, LogPrefix.Backend)
+    logError(`${error}`, LogPrefix.Backend)
   }
 })
 
 ipcMain.handle('importGame', async (event, args) => {
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
@@ -1020,7 +1020,7 @@ ipcMain.handle('updateGame', async (e, game) => {
     return
   }
 
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
@@ -1165,7 +1165,7 @@ ipcMain.on('removeShortcut', async (event, appName: string) => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     logWarning('Epic is Offline right now, cannot sync saves!')
     return 'Epic is Offline right now, cannot sync saves!'

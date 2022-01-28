@@ -31,7 +31,7 @@ const WineItem = ({
   const [progress, setProgress] = useState<{
     state: State
     progress: ProgressInfo
-  }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0 } })
+  }>({ state: 'idle', progress: { percentage: 0 } })
 
   ipcRenderer.on('progressOf' + version, (e, progress) => {
     setProgress(progress)
@@ -98,7 +98,7 @@ const WineItem = ({
       if (isDownloading) {
         status = `${prettyBytes(
           (progress.progress.percentage * downsize) / 100
-        )} / ${prettyBytes(downsize)} with ${prettyBytes(progress.progress.avgSpeed)}ps`
+        )} / ${prettyBytes(downsize)}`
       } else if (progress.state === 'unzipping') {
         status = t('wine.manager.unzipping', 'Unzipping')
       } else {

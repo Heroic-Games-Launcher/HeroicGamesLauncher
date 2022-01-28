@@ -37,13 +37,29 @@ async function isOnline() {
   return net.isOnline()
 }
 
-async function isEpicOffline() {
-  const epicStatusApi = 'https://status.epicgames.com/api/v2/status.json'
-  const { data } = await axios.default.get(epicStatusApi)
-  const {
-    status: { indicator }
-  } = data
-  return indicator === 'major'
+async function isEpicServiceOffline(
+  type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
+) {
+  const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
+
+  try {
+    const { data } = await axios.default.get(epicStatusApi)
+
+    for (const component of data.components) {
+      const { name: name, status: indicator } = component
+
+      // found component and checking status
+      if (name === type) {
+        return indicator === 'major'
+      }
+    }
+  } catch (error) {
+    logError(
+      `Failed to get epic service status with ${error}`,
+      LogPrefix.Backend
+    )
+    return true
+  }
 }
 
 export const getLegendaryVersion = async () => {
@@ -286,7 +302,7 @@ export {
   genericErrorMessage,
   handleExit,
   isOnline,
-  isEpicOffline,
+  isEpicServiceOffline,
   openUrlOrFile,
   semverGt,
   showAboutWindow,
