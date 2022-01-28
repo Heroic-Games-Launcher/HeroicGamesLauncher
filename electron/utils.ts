@@ -1,9 +1,9 @@
 import * as axios from 'axios'
-import { app, dialog, net, shell } from 'electron'
+import { app, dialog, net, shell, Notification } from 'electron'
 import { exec } from 'child_process'
 import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
-import i18next from 'i18next'
+import i18next, { t } from 'i18next'
 import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
 import Store from 'electron-store'
@@ -41,6 +41,11 @@ async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
 ) {
   const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
+  const notification = new Notification({
+    title: `${type} ${t('epic.offline-notification-title', 'offline')}`,
+    body: t('offline-notification-body', 'Heroic will not work probably!'),
+    urgency: 'critical'
+  })
 
   try {
     const { data } = await axios.default.get(epicStatusApi)
@@ -50,17 +55,23 @@ async function isEpicServiceOffline(
 
       // found component and checking status
       if (name === type) {
-        return indicator === 'major'
+        const isOffline = indicator === 'major'
+        if (isOffline) {
+          notification.show()
+        }
+        return isOffline
       }
     }
+
+    notification.show()
+    return false
   } catch (error) {
     logError(
       `Failed to get epic service status with ${error}`,
       LogPrefix.Backend
     )
+    return false
   }
-
-  return true
 }
 
 export const getLegendaryVersion = async () => {
