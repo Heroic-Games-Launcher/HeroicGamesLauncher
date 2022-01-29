@@ -4,7 +4,8 @@ import {
   LaunchResult,
   GamepadInputEventKey,
   GamepadInputEventWheel,
-  GamepadInputEventMouse
+  GamepadInputEventMouse,
+  Runner
 } from './types'
 import * as path from 'path'
 import {
@@ -734,11 +735,12 @@ type RecentGame = {
 type LaunchParams = {
   appName: string
   launchArguments: string
+  runner: Runner
 }
 
 ipcMain.handle(
   'launch',
-  async (event, { appName, launchArguments }: LaunchParams) => {
+  async (event, { appName, launchArguments, runner }: LaunchParams) => {
     const window = BrowserWindow.getAllWindows()[0]
     window.webContents.send('setGameStatus', {
       appName,
@@ -746,7 +748,8 @@ ipcMain.handle(
     })
     const recentGames = (store.get('games.recent') as Array<RecentGame>) || []
     const game = appName.split(' ')[0]
-    const { title } = await Game.get(game).getGameInfo()
+    const gameData = await Game.get(game, runner).getGameInfo()
+    const { title } = gameData
     const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
     const startPlayingDate = new Date()
 
@@ -774,7 +777,7 @@ ipcMain.handle(
       store.set('games.recent', [{ game, title: title }])
     }
 
-    return Game.get(appName)
+    return Game.get(appName, runner)
       .launch(launchArguments)
       .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
         const finishedPlayingDate = new Date()
@@ -793,7 +796,7 @@ ipcMain.handle(
         ${systemInfo}
         Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
 
-        Legendary Log:
+        Game Log:
         ${stderr}
         `
 
@@ -999,13 +1002,13 @@ ipcMain.handle('importGame', async (event, args) => {
     )
     return { status: 'error' }
   }
-  const { appName, path } = args
-  const title = (await Game.get(appName).getGameInfo()).title
+  const { appName, path, runner } = args
+  const title = (await Game.get(appName, runner).getGameInfo()).title
   mainWindow.webContents.send('setGameStatus', {
     appName,
     status: 'installing'
   })
-  Game.get(appName)
+  Game.get(appName, runner)
     .import(path)
     .then(() => {
       notify({

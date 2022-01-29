@@ -1,0 +1,264 @@
+// This handles launching games, prefix creation etc..
+
+import { dialog } from 'electron'
+import makeClient from 'discord-rich-presence-typescript'
+import i18next from 'i18next'
+import { platform } from 'os'
+import { existsSync, mkdirSync } from 'graceful-fs'
+import {
+  isWindows,
+  isMac,
+  home,
+  execOptions,
+  legendaryBin,
+  gogdlBin
+} from './constants'
+import { execAsync, isEpicOffline, isOnline } from './utils'
+import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { GlobalConfig } from './config'
+import { GameConfig } from './game_config'
+import { DXVK } from './dxvk'
+import { Runner } from './types'
+import { GOGLibrary } from './gog/library'
+import { LegendaryLibrary } from './legendary/library'
+
+function getGameInfo(appName: string, runner: Runner) {
+  switch (runner) {
+    case 'legendary':
+      return LegendaryLibrary.get().getGameInfo(appName)
+    case 'gog':
+      return GOGLibrary.get().getGameInfo(appName)
+    default:
+      throw Error(`Launching ${runner} is not implemented`)
+  }
+}
+
+async function launch(
+  appName: string,
+  launchArguments?: string,
+  runner: Runner = 'legendary'
+) {
+  const isLegendary = runner == 'legendary'
+  const isGOG = runner == 'gog'
+  //   const isExternal = runner == 'heroic'
+
+  const epicOffline = isLegendary && (await isEpicOffline())
+  const isOffline = isLegendary && (!(await isOnline()) || epicOffline)
+  let envVars = ''
+  let gameMode: string
+  const gameSettings =
+    GameConfig.get(appName).config ||
+    (await GameConfig.get(appName).getSettings())
+
+  const {
+    winePrefix,
+    wineVersion,
+    wineCrossoverBottle,
+    otherOptions,
+    useGameMode,
+    showFps,
+    nvidiaPrime,
+    launcherArgs = '',
+    showMangohud,
+    audioFix,
+    autoInstallDxvk,
+    offlineMode,
+    enableFSR,
+    maxSharpness,
+    enableResizableBar,
+    enableEsync,
+    enableFsync,
+    targetExe
+  } = gameSettings
+
+  const { discordRPC } = await GlobalConfig.get().getSettings()
+  const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
+  const runOffline = isOffline || offlineMode ? '--offline' : ''
+  const exe = targetExe && isLegendary ? `--override-exe ${targetExe}` : ''
+  const gameInfo = await getGameInfo(appName, runner)
+  const isMacNative = gameInfo.is_mac_native
+  const mangohud = showMangohud ? 'mangohud --dlsym' : ''
+
+  if (discordRPC) {
+    // Show DiscordRPC
+    // This seems to run when a game is updated, even though the game doesn't start after updating.
+    let os: string
+
+    switch (process.platform) {
+      case 'linux':
+        os = 'Linux'
+        break
+      case 'win32':
+        os = 'Windows'
+        break
+      case 'darwin':
+        os = 'macOS'
+        break
+      default:
+        os = 'Unknown OS'
+        break
+    }
+
+    logInfo('Updating Discord Rich Presence information...', LogPrefix.Backend)
+    DiscordRPC.updatePresence({
+      details: gameInfo.title,
+      instance: true,
+      largeImageKey: 'icon',
+      large_text: gameInfo.title,
+      startTimestamp: Date.now(),
+      state: 'via Heroic on ' + os
+    })
+  }
+
+  if (isWindows || (isMac && isMacNative)) {
+    const command = `${legendaryBin} launch ${appName} ${exe} ${runOffline} ${
+      launchArguments ?? ''
+    } ${launcherArgs}`
+    logInfo(['Launch Command:', command], LogPrefix.Legendary)
+    const v = await execAsync(command, execOptions)
+    if (discordRPC) {
+      logInfo('Stopping Discord Rich Presence if running...', LogPrefix.Backend)
+      DiscordRPC.disconnect()
+      logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
+    }
+
+    return v
+  }
+
+  if (!wineVersion.bin) {
+    dialog.showErrorBox(
+      i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      i18next.t(
+        'box.error.wine-not-found.message',
+        'No Wine Version Selected. Check Game Settings!'
+      )
+    )
+  }
+
+  const fixedWinePrefix = winePrefix.replace('~', home)
+  let wineCommand = `--wine ${wineVersion.bin}`
+
+  // We need to keep replacing the ' to keep compatibility with old configs
+  let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
+
+  const isProton =
+    wineVersion.name.includes('Proton') || wineVersion.name.includes('Steam')
+  const isCrossover = wineVersion.name.includes('CrossOver')
+  prefix = isProton || isCrossover ? '' : prefix
+  const x = wineVersion.bin.split('/')
+  x.pop()
+  const winePath = x.join('/').replaceAll("'", '')
+  const options = {
+    audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
+    crossoverBottle:
+      isCrossover && wineCrossoverBottle != ''
+        ? `CX_BOTTLE=${wineCrossoverBottle}`
+        : '',
+    fps: showFps ? `DXVK_HUD=fps` : '',
+    fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1' : '',
+    esync: enableEsync ? 'WINEESYNC=1' : '',
+    fsync: enableFsync ? 'WINEFSYNC=1' : '',
+    sharpness: enableFSR ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}` : '',
+    resizableBar: enableResizableBar ? `VKD3D_CONFIG=upload_hvv` : '',
+    other: otherOptions ? otherOptions : '',
+    prime: nvidiaPrime
+      ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
+      : '',
+    proton: isProton
+      ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
+          .replaceAll("'", '')
+          .replace('~', home)}'`
+      : ''
+  }
+
+  envVars = Object.values(options).join(' ')
+  if (isProton) {
+    logWarning(
+      [
+        `You are using Proton, this can lead to some bugs,
+          please do not open issues with bugs related with games`,
+        wineVersion.name
+      ],
+      LogPrefix.Backend
+    )
+  }
+
+  await createNewPrefix(isProton, fixedWinePrefix, winePath)
+
+  // Install DXVK for non Proton/CrossOver Prefixes
+  if (!isProton && !isCrossover && autoInstallDxvk) {
+    await DXVK.installRemove(winePrefix, wineVersion.bin, 'dxvk', 'backup')
+  }
+
+  if (wineVersion.name !== 'Wine Default') {
+    const { bin } = wineVersion
+    wineCommand = isProton
+      ? `--no-wine --wrapper "${bin} run"`
+      : `--wine ${bin}`
+  }
+
+  // check if Gamemode is installed
+  await execAsync(`which gamemoderun`)
+    .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
+    .catch(() => logWarning('GameMode not installed', LogPrefix.Backend))
+
+  const runWithGameMode = useGameMode && gameMode ? gameMode : ''
+  let command = ''
+  if (isLegendary) {
+    command = `${envVars} ${runWithGameMode} ${mangohud} ${legendaryBin} launch ${appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${
+      launchArguments ?? ''
+    } ${launcherArgs}`
+    logInfo(['Launch Command:', command], LogPrefix.Legendary)
+  } else if (isGOG) {
+    command = `${envVars} ${runWithGameMode} ${gogdlBin} launch "${
+      gameInfo.install.install_path
+    }" ${exe} ${appName} ${wineCommand} ${prefix} --os ${gameInfo.install.platform.toLowerCase()} ${
+      launchArguments ?? ''
+    } ${launcherArgs}`
+    logInfo(['Launch Command:', command], LogPrefix.Gog)
+  }
+
+  const startLaunch = await execAsync(command, execOptions)
+    .then(({ stderr }) => {
+      if (discordRPC) {
+        logInfo(
+          'Stopping Discord Rich Presence if running...',
+          LogPrefix.Backend
+        )
+        DiscordRPC.disconnect()
+        logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
+      }
+      return { stderr, command, gameSettings }
+    })
+    .catch((error) => {
+      logError(error, LogPrefix.Legendary)
+      const { stderr } = error
+      return { stderr, command, gameSettings }
+    })
+  return startLaunch
+}
+
+async function createNewPrefix(
+  isProton: boolean,
+  fixedWinePrefix: string,
+  winePath: string
+) {
+  if (platform() === 'darwin') {
+    return
+  }
+
+  if (isProton && !existsSync(fixedWinePrefix)) {
+    mkdirSync(fixedWinePrefix, { recursive: true })
+  }
+
+  if (!existsSync(fixedWinePrefix)) {
+    mkdirSync(fixedWinePrefix, { recursive: true })
+    const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
+    logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
+    return execAsync(initPrefixCommand)
+      .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
+      .catch((error) => logError(error, LogPrefix.Backend))
+  }
+}
+
+export { launch }

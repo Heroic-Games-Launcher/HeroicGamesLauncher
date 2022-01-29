@@ -77,7 +77,7 @@ async function install({
       return
     }
 
-    return await importGame({ appName, path })
+    return await importGame({ appName, path, runner })
   }
 
   if (installPath !== 'default' || !is_game) {
@@ -142,6 +142,7 @@ async function install({
 const importGame = async (args: {
   appName: string
   path: string
+  runner: Runner
 }): Promise<void> => await ipcRenderer.invoke('importGame', args)
 
 type UninstallArgs = {
@@ -205,15 +206,17 @@ type LaunchOptions = {
   appName: string
   t: TFunction<'gamepage'>
   launchArguments?: string
+  runner: Runner
 }
 
 const launch = ({
   appName,
   t,
-  launchArguments
+  launchArguments,
+  runner
 }: LaunchOptions): Promise<void> =>
   ipcRenderer
-    .invoke('launch', { appName, launchArguments })
+    .invoke('launch', { appName, launchArguments, runner })
     .then(async (err: string | string[]) => {
       if (!err) {
         return

@@ -2,7 +2,13 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import Store from 'electron-store'
 import { GOGUser } from './user'
-import { GOGLoginData, GOGGameInfo, GameInfo, InstallInfo } from '../types'
+import {
+  GOGLoginData,
+  GOGGameInfo,
+  GameInfo,
+  InstallInfo,
+  InstalledInfo
+} from '../types'
 import { logError, logInfo, LogPrefix } from '../logger'
 import { execAsync } from '../utils'
 import { gogdlBin } from '../constants'
@@ -12,10 +18,19 @@ const userStore = new Store({
 })
 const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
 const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
+const installedGamesStore = new Store({
+  cwd: 'gog_store',
+  name: 'installed'
+})
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary = null
   private library: Map<string, null | GameInfo> = new Map()
+  private installedGames: Map<string, null | InstalledInfo> = new Map()
+
+  private constructor() {
+    this.refreshInstalled()
+  }
 
   public async sync() {
     if (!GOGUser.isLoggedIn()) {
@@ -73,7 +88,13 @@ export class GOGLibrary {
           unifiedObject = this.gogToUnifiedInfo(game, apiData)
         }
         gamesObjects.push(unifiedObject)
-        this.library.set(String(game.id), unifiedObject)
+        const installedInfo = this.installedGames.get(String(game.id))
+        const copyObject = { ...unifiedObject }
+        if (installedInfo) {
+          copyObject.is_installed = true
+          copyObject.install = installedInfo
+        }
+        this.library.set(String(game.id), copyObject)
       }
       libraryStore.set('games', gamesObjects)
       libraryStore.set('totalGames', games.data.totalProducts)
@@ -116,14 +137,15 @@ export class GOGLibrary {
       (val) => val.app_name == appName
     )
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
+    gameData.folder_name = gogInfo.folder_name
     libraryStore.set('games', libraryArray)
-    this.library.set(appName, libraryArray[gameObjectIndex])
+    this.library.set(appName, gameData)
     const info: InstallInfo = {
       game: {
         app_name: appName,
         title: gameData.title,
         owned_dlc: gogInfo.dlcs,
-        version: null,
+        version: gogInfo.version,
         launch_options: [],
         platform_versions: null
       },
@@ -137,6 +159,15 @@ export class GOGLibrary {
       }
     }
     return info
+  }
+
+  public refreshInstalled() {
+    const installedArray =
+      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+    this.installedGames.clear()
+    installedArray.forEach((v) => {
+      this.installedGames.set(v.appName, v)
+    })
   }
 
   /**
@@ -182,16 +213,16 @@ export class GOGLibrary {
         )
       },
       folder_name: '',
-      install: {
-        version: '',
-        is_dlc: false,
-        install_size: '',
-        install_path: '',
+      install: this.installedGames.get(String(info.id)) || {
+        version: null,
         executable: '',
+        install_path: '',
+        install_size: '',
+        is_dlc: false,
         platform: ''
       },
       is_game: true,
-      is_installed: false,
+      is_installed: this.installedGames.has(String(info.id)),
       is_ue_asset: false,
       is_ue_plugin: false,
       is_ue_project: false,

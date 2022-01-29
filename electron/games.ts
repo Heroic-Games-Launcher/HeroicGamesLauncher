@@ -17,7 +17,6 @@ abstract class Game {
     if (runner === 'legendary') {
       return LegendaryGame.get(appName)
     } else if (runner === 'gog') {
-      logWarning('GOG integration is unimplemented.', LogPrefix.Gog)
       return GOGGame.get(appName)
     }
   }
@@ -42,7 +41,6 @@ abstract class Game {
 }
 
 import { LegendaryGame } from './legendary/games'
-import { LogPrefix, logWarning } from './logger'
 import { BrowserWindow } from 'electron'
 import { GOGGame } from './gog/games'
 

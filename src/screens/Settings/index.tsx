@@ -8,7 +8,7 @@ import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 import { AppSettings, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { getGameInfo, writeConfig } from 'src/helpers'
+import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
@@ -221,14 +221,16 @@ function Settings() {
       setDefaultWinePrefix(config.defaultWinePrefix)
 
       if (!isDefault) {
+        let newInfo = await getGameInfo(appName, 'legendary')
+        if (!newInfo) newInfo = await getGameInfo(appName, 'gog')
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
           title: gameTitle,
           is_mac_native
-        } = await getGameInfo(appName)
+        } = newInfo
         setTitle(gameTitle)
-        setIsMacNative(is_mac_native)
+        setIsMacNative(is_mac_native && (await getPlatform()) == 'darwin')
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))

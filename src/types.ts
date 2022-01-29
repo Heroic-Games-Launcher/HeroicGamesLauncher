@@ -168,6 +168,7 @@ export interface InstalledInfo {
   install_size: string | null
   is_dlc: boolean | null
   version: string | null
+  appName?: string
 }
 
 export interface KeyImage {

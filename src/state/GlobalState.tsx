@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import {
   GameInfo,
   GameStatus,
+  InstalledInfo,
   RefreshOptions,
   WineVersionInfo
 } from 'src/types'
@@ -30,7 +31,10 @@ const wineDownloaderInfoStore: ElectronStore = new Store({
 })
 
 const gogLibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
-
+const gogInstalledGamesStore = new Store({
+  cwd: 'gog_store',
+  name: 'installed'
+})
 const RTL_LANGUAGES = ['fa']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
@@ -59,14 +63,29 @@ interface StateProps {
 }
 
 export class GlobalState extends PureComponent<Props> {
+  loadGOGLibrary = (): Array<GameInfo> => {
+    const games = gogLibraryStore.has('games')
+      ? (gogLibraryStore.get('games') as GameInfo[])
+      : []
+    const installedGames =
+      (gogInstalledGamesStore.get('installed') as Array<InstalledInfo>) || []
+    for (const igame in games) {
+      for (const installedGame in installedGames) {
+        if (installedGames[installedGame].appName == games[igame].app_name) {
+          games[igame].install = installedGames[installedGame]
+          games[igame].is_installed = true
+        }
+      }
+    }
+
+    return games
+  }
   state: StateProps = {
     category: 'epic',
     data: libraryStore.has('library')
       ? (libraryStore.get('library') as GameInfo[])
       : [],
-    gogLibrary: gogLibraryStore.has('games')
-      ? (gogLibraryStore.get('games') as GameInfo[])
-      : [],
+    gogLibrary: this.loadGOGLibrary(),
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
       ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
       : [],
@@ -372,7 +391,8 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName === appName
       )[0]
       if (!currentApp) {
-        return launch({ appName, t })
+        // Add finding a runner for games
+        return launch({ appName, t, runner: 'legendary' })
       }
     })
 

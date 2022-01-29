@@ -62,7 +62,7 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'heroic'
+  runner: Runner
   store_url: string
   app_name: string
   art_cover: string
@@ -172,6 +172,7 @@ export interface InstalledInfo {
   is_dlc: boolean
   version: string | null
   platform: string
+  appName?: string
 }
 export interface KeyImage {
   type: string

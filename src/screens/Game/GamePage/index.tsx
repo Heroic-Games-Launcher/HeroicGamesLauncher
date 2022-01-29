@@ -360,7 +360,7 @@ export default function GamePage(): JSX.Element | null {
                         <>
                           <button
                             disabled={isReparing || isMoving || isUpdating}
-                            onClick={handlePlay()}
+                            onClick={handlePlay(gameInfo)}
                             className={`button ${getPlayBtnClass()}`}
                           >
                             {getPlayLabel()}
@@ -496,7 +496,7 @@ export default function GamePage(): JSX.Element | null {
     return t('button.install')
   }
 
-  function handlePlay() {
+  function handlePlay(gameInfo: GameInfo) {
     return async () => {
       if (status === 'playing' || status === 'updating') {
         return sendKill(appName, gameInfo.runner)
@@ -507,8 +507,7 @@ export default function GamePage(): JSX.Element | null {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-
-      await launch({ appName, t, launchArguments })
+      await launch({ appName, t, launchArguments, runner: gameInfo.runner })
 
       if (autoSyncSaves) {
         setIsSyncing(true)

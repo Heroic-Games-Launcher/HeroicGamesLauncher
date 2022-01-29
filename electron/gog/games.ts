@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
+import Store from 'electron-store'
+import { spawn } from 'child_process'
+import { join } from 'path'
+import prettyBytes from 'pretty-bytes'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { spawn } from 'child_process'
 import {
   ExtraInfo,
   GameInfo,
@@ -13,7 +16,8 @@ import {
   ExecResult,
   InstallArgs,
   LaunchResult,
-  GOGLoginData
+  GOGLoginData,
+  InstalledInfo
 } from 'types'
 import {
   gogdlBin,
@@ -23,11 +27,16 @@ import {
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger'
 import { errorHandler, execAsync } from '../utils'
-import Store from 'electron-store'
 import { GOGUser } from './user'
+import { launch } from '../launcher'
 
 const configStore = new Store({
   cwd: 'gog_store'
+})
+
+const installedGamesStore = new Store({
+  cwd: 'gog_store',
+  name: 'installed'
 })
 
 class GOGGame extends Game {
@@ -87,10 +96,31 @@ class GOGGame extends Game {
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
-        if (stdout.includes('ERROR')) {
+        if (
+          stdout.includes('ERROR') ||
+          stdout.includes('Failed to execute script')
+        ) {
           errorHandler({ error: { stdout, stderr }, logPath })
           return { status: 'error' }
         }
+        // Installation succeded
+        // Save new game info to installed games store
+        const installInfo = await this.getInstallInfo()
+        const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+        const installedData: InstalledInfo = {
+          platform: platformToInstall,
+          executable: '',
+          install_path: join(path, gameInfo.folder_name),
+          install_size: prettyBytes(installInfo.manifest.disk_size),
+          is_dlc: false,
+          version: installInfo.game.version,
+          appName: this.appName
+        }
+        const array: Array<InstalledInfo> =
+          (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+        array.push(installedData)
+        installedGamesStore.set('installed', array)
+        GOGLibrary.get().refreshInstalled()
         return { status: 'done' }
       })
       .catch(() => {
@@ -105,7 +135,7 @@ class GOGGame extends Game {
     throw new Error('Method not implemented')
   }
   launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
-    throw new Error('Method not implemented.')
+    return launch(this.appName, launchArguments, 'gog')
   }
   moveInstall(newInstallPath: string): Promise<string> {
     throw new Error('Method not implemented.')

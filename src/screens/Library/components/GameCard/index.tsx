@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
-import { GameStatus, InstallProgress } from 'src/types'
+import { GameStatus, InstallProgress, Runner } from 'src/types'
 import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
@@ -37,7 +37,7 @@ interface Card {
   version: string
   isMacNative: boolean
   isLinuxNative: boolean
-  runner: 'legendary' | 'gog' | 'heroic'
+  runner: Runner
   forceCard?: boolean
 }
 
@@ -174,21 +174,21 @@ const GameCard = ({
   const renderIcon = () => {
     if (isPlaying) {
       return (
-        <SvgButton onClick={() => handlePlay()}>
+        <SvgButton onClick={() => handlePlay(runner)}>
           <StopIconAlt className="cancelIcon" />
         </SvgButton>
       )
     }
     if (isInstalling) {
       return (
-        <SvgButton onClick={() => handlePlay()}>
+        <SvgButton onClick={() => handlePlay(runner)}>
           <StopIcon />
         </SvgButton>
       )
     }
     if (isInstalled && isGame) {
       return (
-        <SvgButton className="playButton" onClick={() => handlePlay()}>
+        <SvgButton className="playButton" onClick={() => handlePlay(runner)}>
           <PlayIcon className="playIcon" />
         </SvgButton>
       )
@@ -255,7 +255,7 @@ const GameCard = ({
         <ContextMenu id={appName} className="contextMenu">
           {isInstalled && (
             <>
-              <MenuItem onClick={() => handlePlay()}>
+              <MenuItem onClick={() => handlePlay(runner)}>
                 {t('label.playing.start')}
               </MenuItem>
               <MenuItem
@@ -289,7 +289,7 @@ const GameCard = ({
             </MenuItem>
           )}
           {isInstalling && (
-            <MenuItem onClick={() => handlePlay()}>
+            <MenuItem onClick={() => handlePlay(runner)}>
               {t('button.cancel')}
             </MenuItem>
           )}
@@ -298,7 +298,7 @@ const GameCard = ({
     </>
   )
 
-  async function handlePlay() {
+  async function handlePlay(runner: Runner) {
     if (!isInstalled) {
       return await install({
         appName,
@@ -316,7 +316,7 @@ const GameCard = ({
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return await launch({ appName, t })
+      return await launch({ appName, t, runner })
     }
     return
   }
