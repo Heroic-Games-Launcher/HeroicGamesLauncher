@@ -108,9 +108,7 @@ export class GlobalState extends PureComponent<Props> {
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
 
-    const gogLibrary: Array<GameInfo> =
-      (gogLibraryStore.get('games') as Array<GameInfo>) || []
-
+    const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
     if (!epicLibrary.length || !this.state.data.length) {
       ipcRenderer.send(
         'logInfo',
@@ -131,7 +129,7 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({
       filterText: '',
       data: epicLibrary,
-      gogGames: gogLibrary,
+      gogLibrary,
       gameUpdates: updates,
       refreshing: false
     })
@@ -422,7 +420,6 @@ export class GlobalState extends PureComponent<Props> {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
-
     const user = configStore.get('userInfo')
     const platform = await getPlatform()
     const category = storage.getItem('category') || 'epic'
