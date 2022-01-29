@@ -2,7 +2,7 @@ import './index.css'
 
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
-import Info from '@material-ui/icons/Info'
+import Info from '@mui/icons-material/Info'
 import React from 'react'
 
 interface Props {

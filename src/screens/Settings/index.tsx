@@ -19,6 +19,7 @@ import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
+import LogSettings from './components/LogSettings'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -175,6 +176,7 @@ function Settings() {
   const isWineSettings = type === 'wine'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
+  const isLogSettings = type === 'log'
 
   useEffect(() => {
     const getSettings = async () => {
@@ -351,6 +353,11 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
+          {
+            <NavLink to={{ pathname: `/settings/${appName}/log` }}>
+              {t('settings.navbar.log', 'Log')}
+            </NavLink>
+          }
         </div>
         <div className="settingsWrapper">
           {title && (
@@ -465,6 +472,9 @@ function Settings() {
               isProton={!isWin && wineVersion.name.includes('Proton')}
               winePrefix={winePrefix}
             />
+          )}
+          {isLogSettings && (
+            <LogSettings isDefault={isDefault} appName={appName} />
           )}
           <span className="save">{t('info.settings')}</span>
           <button

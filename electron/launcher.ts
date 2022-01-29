@@ -13,8 +13,8 @@ import {
   legendaryBin,
   gogdlBin
 } from './constants'
-import { execAsync, isEpicOffline, isOnline } from './utils'
-import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { execAsync, isEpicServiceOffline, isOnline } from './utils'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { DXVK } from './dxvk'
@@ -42,7 +42,7 @@ async function launch(
   const isGOG = runner == 'gog'
   //   const isExternal = runner == 'heroic'
 
-  const epicOffline = isLegendary && (await isEpicOffline())
+  const epicOffline = isLegendary && (await isEpicServiceOffline())
   const isOffline = isLegendary && (!(await isOnline()) || epicOffline)
   let envVars = ''
   let gameMode: string

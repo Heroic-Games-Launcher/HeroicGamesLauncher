@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 import prettyBytes from 'pretty-bytes'
-import { Checkbox } from '@material-ui/core'
+import { Checkbox } from '@mui/material'
 import { IpcRenderer } from 'electron'
 
 import './index.css'

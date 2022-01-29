@@ -2,7 +2,7 @@ import { GOGLibrary } from './library'
 import axios from 'axios'
 import Store from 'electron-store'
 import { BrowserWindow } from 'electron'
-import { logError, logInfo, LogPrefix } from '../logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { gogLoginUrl } from '../constants'
 import { GOGLoginData } from '../types'
 

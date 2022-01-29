@@ -9,7 +9,7 @@ import {
   InstallInfo,
   InstalledInfo
 } from '../types'
-import { logError, logInfo, LogPrefix } from '../logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { execAsync } from '../utils'
 import { gogdlBin } from '../constants'
 

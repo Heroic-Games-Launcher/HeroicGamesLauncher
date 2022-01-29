@@ -7,7 +7,7 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath
 } from './constants'
-import { logError, logInfo, LogPrefix } from './logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 
 /**
  * This class does config handling for games.

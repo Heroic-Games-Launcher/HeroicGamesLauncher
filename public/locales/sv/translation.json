@@ -33,10 +33,6 @@
                 "message": "Ingen logg hittades för detta spel",
                 "title": "Ingen logg hittades"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "Ogör synkronisering"
     },
     "Downloading": "Laddar ner",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -214,6 +214,13 @@
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {
             "download": "Ladda ner",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Allmänna",
+            "log": "Log",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         },

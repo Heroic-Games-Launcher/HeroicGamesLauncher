@@ -22,7 +22,7 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { launch } from '../launcher'
@@ -128,7 +128,7 @@ class LegendaryGame extends Game {
       try {
         productSlug = await this.getProductSlug(namespace)
       } catch (error) {
-        logError(error, LogPrefix.Legendary)
+        logError(`${error}`, LogPrefix.Legendary)
         productSlug = this.appName
       }
       epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
@@ -217,7 +217,7 @@ class LegendaryGame extends Game {
         )
         logInfo(`Finished Moving ${title}`, LogPrefix.Legendary)
       })
-      .catch((error) => logError(error, LogPrefix.Legendary))
+      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
     return newInstallPath
   }
 

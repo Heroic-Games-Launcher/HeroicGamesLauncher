@@ -9,6 +9,7 @@ import { createNewWindow, formatStoreUrl, repair } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { uninstall } from 'src/helpers/library'
+import { NavLink } from 'react-router-dom'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -132,12 +133,14 @@ export default function GamesSubmenu({
       <div className={`submenu`}>
         {isInstalled && (
           <>
-            <button
-              onClick={() => renderer.send('getLog', appName)}
+            <NavLink
+              to={{
+                pathname: `/settings/${appName}/log`
+              }}
               className="link button is-text is-link"
             >
               {t('submenu.log')}
-            </button>
+            </NavLink>
             <button
               onClick={() => handleMoveInstall()}
               className="link button is-text is-link"

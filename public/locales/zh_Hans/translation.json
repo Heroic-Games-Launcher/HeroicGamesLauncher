@@ -33,13 +33,6 @@
                 "message": "未找到此游戏的日志",
                 "title": "未找到日志"
             },
-            "login": {
-                "tittle": "无法登录！"
-            },
-            "python": {
-                "message": "Heroic 需要 Python 3.8 或更新高版本。",
-                "title": "Python Error!"
-            },
             "title": "错误",
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
@@ -97,6 +90,10 @@
         "unsync": "不同步"
     },
     "Downloading": "正在下载",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic 游戏",
     "filter": {
         "noFilter": "全部"
@@ -217,6 +214,13 @@
         "fsync": "启用Fsync",
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "启用MangoHud（需要已安装Mangohud）",
         "manualsync": {
             "download": "下载",
@@ -253,6 +257,7 @@
         "copyToClipboard": "复制所有设置到剪贴板",
         "navbar": {
             "general": "常规",
+            "log": "Log",
             "other": "其它",
             "sync": "存档-同步"
         },

@@ -4,10 +4,10 @@ import { Path, WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
-import AddBoxIcon from '@material-ui/icons/AddBox'
+import AddBoxIcon from '@mui/icons-material/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
+import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron')

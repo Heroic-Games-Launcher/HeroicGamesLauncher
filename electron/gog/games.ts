@@ -25,7 +25,7 @@ import {
   isWindows,
   execOptions
 } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { errorHandler, execAsync } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'

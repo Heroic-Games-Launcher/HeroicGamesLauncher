@@ -33,10 +33,6 @@
                 "message": "No log was found for this game",
                 "title": "Log Not Found"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "Unsync"
     },
     "Downloading": "Downloading",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -214,6 +214,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
         "manualsync": {
             "download": "Download",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Copy All Settings to Clipboard",
         "navbar": {
             "general": "General",
+            "log": "Log",
             "other": "Other",
             "sync": "Save-Sync"
         },

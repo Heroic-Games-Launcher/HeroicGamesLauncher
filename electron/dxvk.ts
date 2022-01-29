@@ -5,7 +5,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
 import { execOptions, heroicToolsPath, home } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 export const DXVK = {
   getLatest: async () => {
@@ -123,7 +123,7 @@ export const DXVK = {
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(error, LogPrefix.DXVKInstaller)
+          logError(`${error}`, LogPrefix.DXVKInstaller)
           logError(
             'error when removing DXVK, please try again',
             LogPrefix.DXVKInstaller
@@ -142,7 +142,7 @@ export const DXVK = {
         return exec(updatedVersionfile)
       })
       .catch((error) => {
-        logError(error, LogPrefix.DXVKInstaller)
+        logError(`${error}`, LogPrefix.DXVKInstaller)
         logError(
           'error when installing DXVK, please try launching the game again',
           LogPrefix.DXVKInstaller

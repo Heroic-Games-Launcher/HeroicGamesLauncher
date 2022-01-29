@@ -33,10 +33,6 @@
                 "message": "このゲームのログは見つかりませんでした",
                 "title": "ログが見つかりませんでした"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "エラー",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "非同期"
     },
     "Downloading": "ダウンロードしています",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -214,6 +214,13 @@
         "fsync": "Fsyncを有効にする",
         "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
         "language": "アプリの言語を選択",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Mangohudを有効にする（Mangohudをインストールする必要があります）",
         "manualsync": {
             "download": "ダウンロード",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "一般",
+            "log": "Log",
             "other": "他",
             "sync": "同期を保存"
         },
