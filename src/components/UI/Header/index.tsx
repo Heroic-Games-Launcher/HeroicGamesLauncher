@@ -8,7 +8,7 @@ import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { UE_VERSIONS } from './constants'
 import { useTranslation } from 'react-i18next'
-import ArrowBack from '@material-ui/icons/ArrowBack'
+import ArrowBack from '@mui/icons-material/ArrowBack'
 import ContextProvider from 'src/state/ContextProvider'
 import { SearchBar } from 'src/components/UI'
 import cx from 'classnames'

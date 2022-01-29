@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { UserInfo } from '../types'
 import { clearCache, execAsync } from '../utils'
 import { legendaryBin, userInfo } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
@@ -64,7 +64,7 @@ export class LegendaryUser {
     try {
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
-      logError(error, LogPrefix.Backend)
+      logError(`${error}`, LogPrefix.Backend)
       configStore.delete('userInfo')
     }
     if (isLoggedIn) {

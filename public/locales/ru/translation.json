@@ -33,13 +33,6 @@
                 "message": "Лог для этой игры не найден",
                 "title": "Лог не найден"
             },
-            "login": {
-                "tittle": "Не удаётся войти!"
-            },
-            "python": {
-                "message": "Для Heroic требуется Python 3.8 или новее.",
-                "title": "Ошибка Python!"
-            },
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -97,6 +90,10 @@
         "unsync": "Рассинхронизировать"
     },
     "Downloading": "Скачивается",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "Без фильтра"
@@ -217,6 +214,13 @@
         "fsync": "Включить Fsync",
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
         "manualsync": {
             "download": "Скачать",
@@ -253,6 +257,7 @@
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "navbar": {
             "general": "Основные",
+            "log": "Log",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },

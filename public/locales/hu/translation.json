@@ -33,10 +33,6 @@
                 "message": "Nem találtunk feljegyzést ehhez a játékhoz",
                 "title": "Nem találtunk feljegyzést"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Hiba",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "Deszinkronizálás"
     },
     "Downloading": "Letöltés",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -214,6 +214,13 @@
         "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
         "manualsync": {
             "download": "Letöltés",
@@ -250,6 +257,7 @@
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Általános",
+            "log": "Log",
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
         },

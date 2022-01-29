@@ -33,13 +33,6 @@
                 "message": "Bu oyun için günlük kaydı bulunamadı",
                 "title": "Günlük Kaydı Bulunamadı"
             },
-            "login": {
-                "tittle": "Oturum Açılamıyor!"
-            },
-            "python": {
-                "message": "Heroic, Python 3.8 veya daha yenisini gerektirir.",
-                "title": "Python Error!"
-            },
             "title": "Hata",
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
@@ -97,6 +90,10 @@
         "unsync": "Eşzamanlamayı kaldır"
     },
     "Downloading": "İndiriliyor",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -217,6 +214,13 @@
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
             "download": "İndir",
@@ -253,6 +257,7 @@
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "navbar": {
             "general": "Genel",
+            "log": "Log",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         },

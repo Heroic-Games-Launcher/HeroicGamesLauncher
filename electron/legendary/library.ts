@@ -16,14 +16,14 @@ import {
 } from '../types'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
-import { execAsync, isEpicOffline, isOnline } from '../utils'
+import { execAsync, isEpicServiceOffline, isOnline } from '../utils'
 import {
   installed,
   legendaryBin,
   legendaryConfigPath,
   libraryPath
 } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
@@ -84,9 +84,12 @@ class LegendaryLibrary {
   public async refresh() {
     logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
     const { showUnrealMarket } = await GlobalConfig.get().getSettings()
-    const epicOffline = await isEpicOffline()
+    const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning('Epic is Offline right now, cannot update game list!')
+      logWarning(
+        'Epic is Offline right now, cannot update game list!',
+        LogPrefix.Backend
+      )
       return
     }
 
@@ -149,7 +152,7 @@ class LegendaryLibrary {
         logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
         await this.refresh()
       } catch (error) {
-        logError(error, LogPrefix.Legendary)
+        logError(`${error}`, LogPrefix.Legendary)
       }
     }
 
@@ -157,7 +160,7 @@ class LegendaryLibrary {
       this.refreshInstalled()
       await this.loadAll()
     } catch (error) {
-      logError(error, LogPrefix.Legendary)
+      logError(`${error}`, LogPrefix.Legendary)
     }
     const arr = Array.from(this.library.values()).sort(
       (a: { title: string }, b: { title: string }) => {
@@ -207,7 +210,7 @@ class LegendaryLibrary {
    */
   public async getInstallInfo(appName: string) {
     const cache = installStore.get(appName) as InstallInfo
-    const epicOffline = await isEpicOffline()
+    const epicOffline = await isEpicServiceOffline()
     logInfo(
       'Getting More details with Legendary info command... ',
       LogPrefix.Legendary
@@ -226,7 +229,7 @@ class LegendaryLibrary {
       return info
     } catch (error) {
       logError('Error running the Legendary Info command', LogPrefix.Legendary)
-      logError(error, LogPrefix.Legendary)
+      logError(`${error}`, LogPrefix.Legendary)
     }
   }
 
@@ -242,9 +245,12 @@ class LegendaryLibrary {
     if (!isLoggedIn || !online) {
       return []
     }
-    const epicOffline = await isEpicOffline()
+    const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning('Epic servers are offline, cannot check for game updates')
+      logWarning(
+        'Epic servers are offline, cannot check for game updates',
+        LogPrefix.Backend
+      )
       return []
     }
 
@@ -260,7 +266,7 @@ class LegendaryLibrary {
       logInfo(`Found ${updates.length} game(s) to update`, LogPrefix.Legendary)
       return updates
     } catch (error) {
-      logError(error, LogPrefix.Legendary)
+      logError(`${error}`, LogPrefix.Legendary)
     }
   }
 

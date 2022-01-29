@@ -5,7 +5,7 @@
 
 import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { WineVersionInfo } from './types'
 
 import {
@@ -114,7 +114,7 @@ async function installWineVersion(
       }
     })
     .catch((error: Error) => {
-      logError(error.message, LogPrefix.WineDownloader)
+      logError(`${error.message}`, LogPrefix.WineDownloader)
       return false
     })
 
@@ -160,7 +160,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     try {
       rmSync(release.installDir, { recursive: true })
     } catch (error) {
-      logError(error, LogPrefix.WineDownloader)
+      logError(`${error}`, LogPrefix.WineDownloader)
       logWarning(
         `Couldn't remove folder ${release.installDir}! Still mark wine version ${release.version} as not installed!`,
         LogPrefix.WineDownloader

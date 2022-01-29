@@ -33,10 +33,6 @@
                 "message": "برای این بازی لاگی پیدا نشد",
                 "title": "لاگ پیدا نشد"
             },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "خطا",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -94,6 +90,10 @@
         "unsync": "عدم همگامسازی"
     },
     "Downloading": "در حال دانلود",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "اپیک گیمز",
     "filter": {
         "noFilter": "No Filter"
@@ -214,6 +214,13 @@
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "language": "انتخاب زبان نرمافزار",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "فعالسازی Mangohud (Mangohud باید نصب شده باشد)",
         "manualsync": {
             "download": "دانلود",
@@ -250,6 +257,7 @@
         "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
         "navbar": {
             "general": "عمومی",
+            "log": "Log",
             "other": "بقیه",
             "sync": "همگامسازی ذخیرهها"
         },

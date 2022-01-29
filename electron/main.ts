@@ -16,8 +16,7 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol,
-  shell
+  protocol
 } from 'electron'
 import { cpus, platform } from 'os'
 import {
@@ -38,19 +37,19 @@ import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import {
-  checkCommandVersion,
   checkForUpdates,
   clearCache,
   errorHandler,
   execAsync,
-  isEpicOffline,
+  isEpicServiceOffline,
   getLegendaryVersion,
   getSystemInfo,
   handleExit,
   isOnline,
   openUrlOrFile,
   resetHeroic,
-  showAboutWindow
+  showAboutWindow,
+  showItemInFolder
 } from './utils'
 import {
   currentLogFile,
@@ -74,7 +73,7 @@ import {
   wikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
-import { logError, logInfo, LogPrefix, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import Store from 'electron-store'
 import {
   updateWineVersionInfos,
@@ -357,26 +356,6 @@ if (!gotTheLock) {
       }, 500)
     })
 
-    if (process.platform === 'linux') {
-      const found = await checkCommandVersion(
-        ['python', 'python3'],
-        '3.8.0',
-        false
-      )
-
-      if (!found) {
-        dialog.showErrorBox(
-          i18next.t('box.error.python.title', 'Python Error!'),
-          i18next.t(
-            'box.error.python.message',
-            'Heroic requires Python 3.8 or newer.'
-          )
-        )
-        logError('Heroic requires Python 3.8 or newer.', LogPrefix.Backend)
-        return app.quit()
-      }
-    }
-
     return
   })
 }
@@ -463,10 +442,6 @@ ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
-ipcMain.on('getLog', (event, appName) =>
-  openUrlOrFile(`${heroicGamesConfigPath}${appName}-lastPlay.log`)
-)
-
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
@@ -549,7 +524,7 @@ ipcMain.handle('checkGameUpdates', () =>
   LegendaryLibrary.get().listUpdateableGames()
 )
 
-ipcMain.handle('getEpicGamesStatus', () => isEpicOffline())
+ipcMain.handle('getEpicGamesStatus', () => isEpicServiceOffline())
 
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
@@ -599,7 +574,7 @@ ipcMain.handle('getGameInfo', async (event, game) => {
     info.extra = await Game.get(game).getExtraInfo(info.namespace)
     return info
   } catch (error) {
-    logError(error, LogPrefix.Backend)
+    logError(`${error}`, LogPrefix.Backend)
   }
 })
 
@@ -612,7 +587,7 @@ ipcMain.handle('getInstallInfo', async (event, game) => {
     const info = await Game.get(game).getInstallInfo()
     return info
   } catch (error) {
-    logError(error, LogPrefix.Backend)
+    logError(`${error}`, LogPrefix.Backend)
     return {}
   }
 })
@@ -839,9 +814,7 @@ ipcMain.handle('openDialog', async (e, args) => {
 })
 
 ipcMain.on('showItemInFolder', async (e, item) => {
-  if (existsSync(item)) {
-    shell.showItemInFolder(item)
-  }
+  showItemInFolder(item)
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {
@@ -878,7 +851,7 @@ ipcMain.handle('install', async (event, params) => {
     return
   }
 
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
@@ -936,7 +909,7 @@ ipcMain.handle('uninstall', async (event, game) => {
       notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling', LogPrefix.Backend)
     })
-    .catch((error) => logError(error, LogPrefix.Backend))
+    .catch((error) => logError(`${error}`, LogPrefix.Backend))
 })
 
 ipcMain.handle('repair', async (event, game) => {
@@ -960,7 +933,7 @@ ipcMain.handle('repair', async (event, game) => {
         title,
         body: i18next.t('notify.error.reparing', 'Error Repairing')
       })
-      logError(error, LogPrefix.Backend)
+      logError(`${error}`, LogPrefix.Backend)
     })
 })
 
@@ -975,12 +948,12 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
       title,
       body: i18next.t('notify.error.move', 'Error Moving the Game')
     })
-    logError(error, LogPrefix.Backend)
+    logError(`${error}`, LogPrefix.Backend)
   }
 })
 
 ipcMain.handle('importGame', async (event, args) => {
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
@@ -1029,7 +1002,7 @@ ipcMain.handle('updateGame', async (e, game) => {
     return
   }
 
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
@@ -1174,7 +1147,7 @@ ipcMain.on('removeShortcut', async (event, appName: string) => {
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
-  const epicOffline = await isEpicOffline()
+  const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     logWarning('Epic is Offline right now, cannot sync saves!')
     return 'Epic is Offline right now, cannot sync saves!'
@@ -1296,3 +1269,8 @@ ipcMain.handle('gamepadAction', async (event, args) => {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
 })
+
+/*
+ * INSERT OTHER IPC HANLDER HERE
+ */
+import './logger/ipc_handler'

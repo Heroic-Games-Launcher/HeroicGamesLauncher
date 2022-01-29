@@ -1,6 +1,6 @@
 import { BrowserWindow, dialog } from 'electron'
 import { Game } from './games'
-import { logInfo, LogPrefix } from './logger'
+import { logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 
 export async function handleProtocol(window: BrowserWindow, url: string) {

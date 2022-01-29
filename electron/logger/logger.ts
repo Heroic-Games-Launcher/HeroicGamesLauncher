@@ -12,7 +12,13 @@ import {
   rmSync,
   appendFileSync
 } from 'graceful-fs'
-import { currentLogFile, heroicLogFolder } from './constants'
+import Store from 'electron-store'
+import {
+  currentLogFile,
+  heroicGamesConfigPath,
+  heroicLogFolder,
+  lastLogFile
+} from '../constants'
 
 export enum LogPrefix {
   General = '',
@@ -26,6 +32,10 @@ export enum LogPrefix {
   Frontend = 'Frontend',
   Backend = 'Backend'
 }
+
+const configStore = new Store({
+  cwd: 'store'
+})
 
 // helper to convert string to string[]
 function convertToStringArray(param: string | string[]): string[] {
@@ -124,12 +134,17 @@ export function logWarning(
   }
 }
 
+interface createLogFileReturn {
+  currentLogFile: string
+  lastLogFile: string
+}
+
 /**
  * Creates a new log file in heroic config path under folder Logs.
  * It also removes old logs every new month.
  * @returns path to current log file
  */
-export function createNewLogFileAndClearOldOnces(): string {
+export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   const date = new Date()
   const newLogFile = `${heroicLogFolder}/heroic-${date.toISOString()}.log`
   try {
@@ -165,7 +180,39 @@ export function createNewLogFileAndClearOldOnces(): string {
     )
   }
 
-  return newLogFile
+  let logs: createLogFileReturn = {
+    currentLogFile: '',
+    lastLogFile: ''
+  }
+  if (configStore.has('general-logs')) {
+    logs = configStore.get('general-logs') as createLogFileReturn
+  }
+
+  logs.lastLogFile = logs.currentLogFile
+  logs.currentLogFile = newLogFile
+
+  configStore.set('general-logs', logs)
+
+  return logs
+}
+
+/**
+ * Returns according to options the fitting log file
+ * @param isDefault   getting heroic default log
+ * @param appName     needed to get appName log
+ * @param defaultLast if set getting heroic default latest log
+ * @returns path to log file
+ */
+export function getLogFile(
+  isDefault: boolean,
+  appName: string,
+  defaultLast = false
+): string {
+  return isDefault
+    ? defaultLast
+      ? lastLogFile
+      : currentLogFile
+    : `${heroicGamesConfigPath}${appName}-lastPlay.log`
 }
 
 /**
