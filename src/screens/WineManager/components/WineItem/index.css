@@ -28,7 +28,7 @@
 
 .toolsListItem {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 2fr 1fr;
   grid-template-areas: 'name date size action';
   height: 8vh;
   margin: 1em 3em;
@@ -97,6 +97,7 @@
 .toolsListSize {
   font-size: 1em;
   grid-area: size;
+  justify-self: center;
 }
 
 .react-contextmenu--visible {

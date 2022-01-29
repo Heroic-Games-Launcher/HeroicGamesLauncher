@@ -31,7 +31,7 @@ const WineItem = ({
   const [progress, setProgress] = useState<{
     state: State
     progress: ProgressInfo
-  }>({ state: 'idle', progress: { percentage: 0 } })
+  }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
 
   ipcRenderer.on('progressOf' + version, (e, progress) => {
     setProgress(progress)
@@ -58,11 +58,10 @@ const WineItem = ({
         type
       })
       .then((response) => {
-        if (response) {
+        if (response === 'success') {
           refreshWineVersionInfo(false)
         }
       })
-      .catch((err) => console.error(err))
   }
 
   async function remove() {
@@ -83,7 +82,6 @@ const WineItem = ({
           refreshWineVersionInfo(false)
         }
       })
-      .catch((err) => console.error(err))
   }
 
   function openInstallDir() {
@@ -91,18 +89,24 @@ const WineItem = ({
   }
 
   const renderStatus = () => {
-    let status = ''
+    let status = <></>
     if (isInstalled) {
-      status = prettyBytes(disksize)
+      status = <div className="toolsListSize">{prettyBytes(disksize)}</div>
     } else {
       if (isDownloading) {
-        status = `${prettyBytes(
-          (progress.progress.percentage * downsize) / 100
-        )} / ${prettyBytes(downsize)}`
+        status = (
+          <div className="toolsListSize">
+            {getProgressElement(progress.progress, downsize)}
+          </div>
+        )
       } else if (progress.state === 'unzipping') {
-        status = t('wine.manager.unzipping', 'Unzipping')
+        status = (
+          <div className="toolsListSize">
+            {t('wine.manager.unzipping', 'Unzipping')}
+          </div>
+        )
       } else {
-        status = prettyBytes(downsize)
+        status = <div className="toolsListSize">{prettyBytes(downsize)}</div>
       }
     }
     return status
@@ -111,16 +115,18 @@ const WineItem = ({
   return (
     <>
       <div className="toolsListItem">
-        <span className="toolsTitleList">
-          {type} - {version}
-        </span>
+        <span className="toolsTitleList">{version}</span>
         <div className="toolsListDate">{date}</div>
-        <div className="toolsListSize">{renderStatus()}</div>
+        {renderStatus()}
         <span className="icons">
           {!isInstalled && !isDownloading && !unZipping && (
             <DownIcon className="downIcon" onClick={() => install()} />
           )}
-          {(isDownloading || unZipping) && <StopIcon onClick={() => null} />}
+          {(isDownloading || unZipping) && (
+            <StopIcon
+              onClick={() => ipcRenderer.send('abortWineInstallation')}
+            />
+          )}
           {isInstalled && (
             <>
               <SvgButton
@@ -140,6 +146,34 @@ const WineItem = ({
         </span>
       </div>
     </>
+  )
+}
+
+function getProgressElement(progress: ProgressInfo, downsize: number) {
+  const { percentage, eta, avgSpeed } = progress
+
+  let totalSeconds = eta
+  const hours = Math.floor(totalSeconds / 3600)
+  totalSeconds %= 3600
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+
+  const percentageAsString = `${percentage}%`
+  const bytesAsString = `[${prettyBytes((percentage / 100) * downsize)}]`
+  const etaAsString = `| ETA: ${[hours, minutes, seconds].join(':')}`
+  const avgSpeedAsString = `(${prettyBytes(avgSpeed)}ps)`
+
+  return (
+    <p
+      style={{
+        color: '#0BD58C',
+        fontStyle: 'italic'
+      }}
+    >
+      {[percentageAsString, bytesAsString, avgSpeedAsString, etaAsString].join(
+        ' '
+      )}
+    </p>
   )
 }
 

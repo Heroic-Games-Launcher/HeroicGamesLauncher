@@ -78,7 +78,8 @@ async function updateWineVersionInfos(
 
 async function installWineVersion(
   release: WineVersionInfo,
-  onProgress: (state: State, progress: ProgressInfo) => void
+  onProgress: (state: State, progress: ProgressInfo) => void,
+  abortSignal: AbortSignal
 ) {
   let updatedInfo: WineVersionInfo
 
@@ -99,10 +100,11 @@ async function installWineVersion(
     ? `${heroicToolsPath}/wine`
     : `${heroicToolsPath}/proton`
 
-  await installVersion({
+  const result = await installVersion({
     versionInfo: release as VersionInfo,
     installDir,
-    onProgress: onProgress
+    onProgress: onProgress,
+    abortSignal: abortSignal
   })
     .then((response) => {
       updatedInfo = {
@@ -114,9 +116,17 @@ async function installWineVersion(
       }
     })
     .catch((error: Error) => {
+      if (error.name.includes('AbortError')) {
+        logWarning(`${error.message}`, LogPrefix.WineDownloader)
+        return 'abort'
+      }
       logError(`${error.message}`, LogPrefix.WineDownloader)
-      return false
+      return 'error'
     })
+
+  if (result === 'abort' || result === 'error') {
+    return result
+  }
 
   // Update stored information
   if (wineDownloaderInfoStore.has('wine-releases')) {
@@ -133,7 +143,7 @@ async function installWineVersion(
         `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
         LogPrefix.WineDownloader
       )
-      return false
+      return 'error'
     }
 
     releases[index] = updatedInfo
@@ -144,14 +154,14 @@ async function installWineVersion(
       `Couldn't find a tools entry in electron-store -> wine-downloader-info.json. Tool ${release.version} couldn't be installed!`,
       LogPrefix.WineDownloader
     )
-    return false
+    return 'error'
   }
 
   logInfo(
     `Finished installation of wine version ${release.version}`,
     LogPrefix.WineDownloader
   )
-  return true
+  return 'success'
 }
 
 async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
