@@ -89,24 +89,16 @@ const WineItem = ({
   }
 
   const renderStatus = () => {
-    let status = <></>
+    let status
     if (isInstalled) {
-      status = <div className="toolsListSize">{prettyBytes(disksize)}</div>
+      status = prettyBytes(disksize)
     } else {
       if (isDownloading) {
-        status = (
-          <div className="toolsListSize">
-            {getProgressElement(progress.progress, downsize)}
-          </div>
-        )
+        status = getProgressElement(progress.progress, downsize)
       } else if (progress.state === 'unzipping') {
-        status = (
-          <div className="toolsListSize">
-            {t('wine.manager.unzipping', 'Unzipping')}
-          </div>
-        )
+        status = t('wine.manager.unzipping', 'Unzipping')
       } else {
-        status = <div className="toolsListSize">{prettyBytes(downsize)}</div>
+        status = prettyBytes(downsize)
       }
     }
     return status
@@ -114,10 +106,10 @@ const WineItem = ({
 
   return (
     <>
-      <div className="toolsListItem">
-        <span className="toolsTitleList">{version}</span>
-        <div className="toolsListDate">{date}</div>
-        {renderStatus()}
+      <div className="wineManagerListItem">
+        <span className="wineManagerTitleList">{version}</span>
+        <div className="wineManagerListDate">{date}</div>
+        <div className="wineManagerListSize">{renderStatus()}</div>
         <span className="icons">
           {!isInstalled && !isDownloading && !unZipping && (
             <DownIcon className="downIcon" onClick={() => install()} />
