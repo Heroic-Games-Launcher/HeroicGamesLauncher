@@ -100,7 +100,7 @@ class LegendaryLibrary {
         if (`${data}`.includes('ERROR')) {
           logError(`${data}`, LogPrefix.Legendary)
         } else {
-          logInfo(`${data}`, LogPrefix.Legendary)
+          logInfo(`${data}`.trim(), LogPrefix.Legendary)
         }
       })
       child.on('error', (err) => rej(`${err}`))
