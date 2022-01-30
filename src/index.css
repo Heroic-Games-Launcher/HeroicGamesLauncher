@@ -1,4 +1,5 @@
 html {
+  /* Colours */
   --background: #151f3d; /* please stop using this */
   --navbar-background: #151f3d;
   --input-background: #0d0f1c;
@@ -31,6 +32,16 @@ html {
   --success: #0bd58c;
   --success-hover: #30eca8;
   --danger-hover: #bd0a0a;
+  --icon-disabled: #625e69;
+  /* Gradients */
+  --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
+  --gradient-big-game-menu: linear-gradient(
+    #13172a 100%,
+    #1d1f1f 31.77%,
+    #1d1f1f 0%
+  );
+  --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
+  /* Text colours */
   --text-default: #eae8e5;
   --text-secondary: #b1b1b1;
   --text-pause-cancel: #97f4e9;
@@ -38,10 +49,7 @@ html {
   --text-tertiary: #101111; /* This is not defined in figma */
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
   --text-danger: #d22121;
-  --icon-disabled: #625e69;
-  --sidebar-width: 218px;
-  --content-width: calc(100vw - var(--sidebar-width));
-  overflow-y: overlay;
+  /* Fonts */
   --font-primary-regular: Rubik normal 400;
   --font-primary-bold: Rubik normal 500;
   --font-primary-bolder: Rubik normal 700;
@@ -49,6 +57,10 @@ html {
   --font-secondary-bold: Cabin normal 500;
   --font-secondary-regular-italic: Cabin italic 400;
   --font-secondary-bold-italic: Cabin italic 500;
+  /* Measurements */
+  --sidebar-width: 218px;
+  --content-width: calc(100vw - var(--sidebar-width));
+  overflow-y: overlay;
 }
 
 body {
