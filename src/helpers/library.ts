@@ -1,7 +1,7 @@
 import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
-import { getGameInfo, sendKill } from './index'
+import { getGameInfo, getPlatform, sendKill } from './index'
 import ElectronStore from 'electron-store'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -143,17 +143,23 @@ async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
     buttons: [t('box.yes'), t('box.no')],
     message: t('gamepage:box.uninstall.message'),
     title: t('gamepage:box.uninstall.title'),
-    type: 'warning',
-    checkboxLabel: t(
-      'gamepage:box.uninstall.checkbox',
-      'Uninstall prefix aswell'
-    ),
-    checkboxChecked: true
+    type: 'warning'
+  }
+
+  let linuxArgs
+  if ((await getPlatform()) === 'linux') {
+    linuxArgs = {
+      checkboxLabel: t(
+        'gamepage:box.uninstall.checkbox',
+        'Uninstall prefix aswell'
+      ),
+      checkboxChecked: true
+    }
   }
 
   const { response, checkboxChecked } = await ipcRenderer.invoke(
     'openMessageBox',
-    args
+    { ...args, ...linuxArgs }
   )
 
   if (response === 0) {
