@@ -20,7 +20,7 @@
 
 .subItem:hover {
   transition: 250ms;
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .subItem::before {
@@ -28,7 +28,7 @@
 }
 
 .subItem.selected {
-  color: var(--secondary);
+  color: var(--download-button);
   font-weight: 700;
 }
 
@@ -36,9 +36,9 @@
   grid-area: user;
 }
 
-a:hover {
+.Links > a:hover {
   transition: 250ms;
-  color: var(--secondary-lighter);
+  color: var(--text-hover);
 }
 
 .Links svg {

@@ -50,7 +50,7 @@ export default function SidebarLinks() {
       <NavLink
         data-testid="library"
         activeStyle={{
-          color: 'var(--primary-neutral)',
+          color: 'var(--accent)',
           font: 'var(--font-primary-bold)'
         }}
         isActive={(match, location) => {
@@ -112,7 +112,7 @@ export default function SidebarLinks() {
       <NavLink
         data-testid="settings"
         activeStyle={{
-          color: 'var(--primary-neutral)',
+          color: 'var(--accent)',
           font: 'var(--font-primary-bold)'
         }}
         isActive={(match, location) => location.pathname.includes('settings')}
@@ -130,7 +130,7 @@ export default function SidebarLinks() {
       <NavLink
         data-testid="store"
         activeStyle={{
-          color: 'var(--primary-neutral)',
+          color: 'var(--accent)',
           font: 'var(--font-primary-bold)'
         }}
         isActive={(match, location) => location.pathname.includes('epicstore')}
@@ -147,7 +147,7 @@ export default function SidebarLinks() {
       <NavLink
         data-testid="wiki"
         activeStyle={{
-          color: 'var(--primary-neutral)',
+          color: 'var(--accent)',
           font: 'var(--font-primary-bold)'
         }}
         isActive={(match, location) => location.pathname.includes('wiki')}

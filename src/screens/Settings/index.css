@@ -19,7 +19,7 @@
   font: var(--font-primary-bold);
   font-size: 18.5px;
   line-height: 19px;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .settingsNavbar > a {
@@ -27,10 +27,14 @@
   padding-block: 6px;
 }
 
+.settingsNavbar > a:hover {
+  color: var(--text-hover);
+}
+
 .settingsNavbar > a.active {
   transition: all 350ms ease-out 0s;
   transform: scale(1.2);
-  color: var(--primary-lighter);
+  color: var(--link-highlight);
   font-weight: 500;
 }
 
@@ -98,7 +102,7 @@
   width: 512px;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 .toggleWrapper span {
   text-align: center;
@@ -186,7 +190,7 @@ a {
 .settingsWrapper > .is-footer {
   margin-inline-start: 16px;
   margin-block: 8px;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .settingsWrapper > .is-footer:hover {

@@ -19,18 +19,18 @@
   font-size: 16px;
   line-height: 19px;
   text-decoration: underline;
-  color: var(--primary);
+  color: var(--text-hover);
   transition: 350ms;
 }
 
 .tools:hover {
-  color: var(--secondary-lightest);
-  border: var(--secondary-lightest);
+  color: var(--download-button-overlay);
+  border: var(--download-button-overlay);
 }
 
 .tools.drag {
   display: grid;
-  border: var(--primary) solid 1px;
+  border: var(--text-hover) solid 1px;
   border-radius: 7px;
   padding: 12px 20px;
   grid-area: runexe;

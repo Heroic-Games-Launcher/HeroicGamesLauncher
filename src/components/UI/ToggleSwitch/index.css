@@ -42,7 +42,7 @@ span.slider.round {
 }
 
 .slider:focus-visible {
-  outline: 1px solid var(--secondary);
+  outline: 1px solid var(--download-button);
 }
 
 input:checked + .slider:focus-visible {
@@ -50,11 +50,11 @@ input:checked + .slider:focus-visible {
 }
 
 input:checked + .slider {
-  border-color: var(--primary-lighter);
+  border-color: var(--link-highlight);
 }
 
 input:checked + .slider:before {
-  background-color: var(--primary-lighter);
+  background-color: var(--link-highlight);
   transform: translateX(9px);
 }
 
