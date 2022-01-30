@@ -143,14 +143,22 @@ async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
     buttons: [t('box.yes'), t('box.no')],
     message: t('gamepage:box.uninstall.message'),
     title: t('gamepage:box.uninstall.title'),
-    type: 'warning'
+    type: 'warning',
+    checkboxLabel: t(
+      'gamepage:box.uninstall.checkbox',
+      'Uninstall prefix aswell'
+    ),
+    checkboxChecked: true
   }
 
-  const { response } = await ipcRenderer.invoke('openMessageBox', args)
+  const { response, checkboxChecked } = await ipcRenderer.invoke(
+    'openMessageBox',
+    args
+  )
 
   if (response === 0) {
     await handleGameStatus({ appName, status: 'uninstalling' })
-    await ipcRenderer.invoke('uninstall', appName)
+    await ipcRenderer.invoke('uninstall', [appName, checkboxChecked])
     storage.removeItem(appName)
     return await handleGameStatus({ appName, status: 'done' })
   }
