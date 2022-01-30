@@ -253,7 +253,7 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
 
   configStore.set('general-logs', logs)
 
-  //get longest prefix to line logs better
+  // get longest prefix to log lines in a kind of table
   for (const prefix in LogPrefix) {
     if (longestPrefix < String(prefix).length) {
       longestPrefix = String(prefix).length
