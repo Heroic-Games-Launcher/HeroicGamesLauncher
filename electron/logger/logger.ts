@@ -51,6 +51,22 @@ const repeatString = (n: number, char: string) => {
   return n > 0 ? char.repeat(n) : ''
 }
 
+const getTimeStamp = () => {
+  const ts = new Date()
+
+  return `(${[
+    padNumberToTwo(ts.getHours()),
+    padNumberToTwo(ts.getMinutes()),
+    padNumberToTwo(ts.getSeconds())
+  ].join(':')})`
+}
+
+const getPrefixString = (prefix: LogPrefix) => {
+  return prefix !== LogPrefix.General
+    ? `[${prefix}]: ${repeatString(longestPrefix - prefix.length, ' ')}`
+    : ''
+}
+
 /**
  * Log debug messages
  * @param text debug messages to log
@@ -63,23 +79,9 @@ export function logDebug(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  // time
-  const ts = new Date()
-  const timeString = `(${[
-    padNumberToTwo(ts.getHours()),
-    padNumberToTwo(ts.getMinutes()),
-    padNumberToTwo(ts.getSeconds())
-  ].join(':')})`
-
-  // prefix string
-  const prefixString =
-    prefix !== LogPrefix.General
-      ? `[${prefix}]: ${repeatString(longestPrefix - prefix.length, ' ')}`
-      : ''
-
-  const extendText = `${timeString} DEBUG:   ${prefixString}${convertToStringArray(
-    text
-  ).join(' ')}`
+  const extendText = `${getTimeStamp()} DEBUG:   ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.log(extendText)
 
   if (!skipLogToFile) {
@@ -99,23 +101,9 @@ export function logError(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  // time
-  const ts = new Date()
-  const timeString = `(${[
-    padNumberToTwo(ts.getHours()),
-    padNumberToTwo(ts.getMinutes()),
-    padNumberToTwo(ts.getSeconds())
-  ].join(':')})`
-
-  // prefix string
-  const prefixString =
-    prefix !== LogPrefix.General
-      ? `[${prefix}]: ${repeatString(longestPrefix - prefix.length, ' ')}`
-      : ''
-
-  const extendText = `${timeString} ERROR:   ${prefixString}${convertToStringArray(
-    text
-  ).join(' ')}`
+  const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.error(extendText)
 
   if (!skipLogToFile) {
@@ -135,23 +123,9 @@ export function logInfo(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  // time
-  const ts = new Date()
-  const timeString = `(${[
-    padNumberToTwo(ts.getHours()),
-    padNumberToTwo(ts.getMinutes()),
-    padNumberToTwo(ts.getSeconds())
-  ].join(':')})`
-
-  // prefix string
-  const prefixString =
-    prefix !== LogPrefix.General
-      ? `[${prefix}]: ${repeatString(longestPrefix - prefix.length, ' ')}`
-      : ''
-
-  const extendText = `${timeString} INFO:    ${prefixString}${convertToStringArray(
-    text
-  ).join(' ')}`
+  const extendText = `${getTimeStamp()} INFO:    ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.log(extendText)
 
   if (!skipLogToFile) {
@@ -171,22 +145,9 @@ export function logWarning(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  // time
-  const ts = new Date()
-  const timeString = `(${[
-    padNumberToTwo(ts.getHours()),
-    padNumberToTwo(ts.getMinutes()),
-    padNumberToTwo(ts.getSeconds())
-  ].join(':')})`
-
-  // prefix string
-  const prefixString =
-    prefix !== LogPrefix.General
-      ? `[${prefix}]: ${repeatString(longestPrefix - prefix.length, ' ')}`
-      : ''
-  const extendText = `${timeString} WARNING: ${prefixString}${convertToStringArray(
-    text
-  ).join(' ')}`
+  const extendText = `${getTimeStamp()} WARNING: ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.warn(extendText)
 
   if (!skipLogToFile) {
