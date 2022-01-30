@@ -11,6 +11,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 import prettyBytes from 'pretty-bytes'
+import { notify } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -45,6 +46,7 @@ const WineItem = ({
   const unZipping = progress.state === 'unzipping'
 
   async function install() {
+    notify([`${version}`, t('notify.install.startInstall')])
     ipcRenderer
       .invoke('installWineVersion', {
         version,
@@ -58,8 +60,19 @@ const WineItem = ({
         type
       })
       .then((response) => {
-        if (response === 'success') {
-          refreshWineVersionInfo(false)
+        switch (response) {
+          case 'error':
+            notify([`${version}`, t('notify.install.error')])
+            break
+          case 'abort':
+            notify([`${version}`, t('notify.install.canceled')])
+            break
+          case 'success':
+            refreshWineVersionInfo(false)
+            notify([`${version}`, t('notify.install.finished')])
+            break
+          default:
+            break
         }
       })
   }
@@ -80,6 +93,7 @@ const WineItem = ({
       .then((response) => {
         if (response) {
           refreshWineVersionInfo(false)
+          notify([`${version}`, t('notify.uninstalled')])
         }
       })
   }
@@ -116,7 +130,7 @@ const WineItem = ({
           )}
           {(isDownloading || unZipping) && (
             <StopIcon
-              onClick={() => ipcRenderer.send('abortWineInstallation')}
+              onClick={() => ipcRenderer.send('abortWineInstallation', version)}
             />
           )}
           {isInstalled && (

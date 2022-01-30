@@ -1,57 +1,33 @@
 import { ipcMain } from 'electron'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
-import i18next from 'i18next'
 import { WineVersionInfo } from './types'
 import {
   installWineVersion,
   removeWineVersion,
   updateWineVersionInfos
 } from './utils'
-import { notify } from '../main'
 import { logError, LogPrefix } from '../logger/logger'
 
-let abortController: AbortController
+const abortControllers = new Map<string, AbortController>()
 
-ipcMain.on('abortWineInstallation', () => {
-  if (!abortController.signal.aborted) {
-    abortController.abort()
+ipcMain.on('abortWineInstallation', (e, version: string) => {
+  if (abortControllers.has(version)) {
+    const abortController = abortControllers.get(version)
+    if (!abortController.signal.aborted) {
+      abortController.abort()
+    }
   }
 })
 
 ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
-  abortController = new AbortController()
+  const abortController = new AbortController()
+  abortControllers.set(release.version, abortController)
 
   const onProgress = (state: State, progress: ProgressInfo) => {
     e.sender.send('progressOf' + release.version, { state, progress })
   }
-  notify({
-    title: `${release?.version}`,
-    body: i18next.t('notify.install.startInstall')
-  })
   return installWineVersion(release, onProgress, abortController.signal).then(
     (res) => {
-      switch (res) {
-        case 'error':
-          notify({
-            title: `${release?.version}`,
-            body: i18next.t('notify.install.error')
-          })
-          break
-        case 'abort':
-          notify({
-            title: `${release?.version}`,
-            body: i18next.t('notify.install.canceled')
-          })
-          break
-        case 'success':
-          notify({
-            title: `${release?.version}`,
-            body: i18next.t('notify.install.finished')
-          })
-          break
-        default:
-          break
-      }
       return res
     }
   )
@@ -69,10 +45,6 @@ ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
 
 ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
   return removeWineVersion(release).then((res) => {
-    notify({
-      title: `${release?.version}`,
-      body: i18next.t('notify.uninstalled')
-    })
     return res
   })
 })

@@ -358,7 +358,7 @@ type NotifyType = {
   body: string
 }
 
-export function notify({ body, title }: NotifyType) {
+function notify({ body, title }: NotifyType) {
   const notify = new Notification({
     body,
     title
