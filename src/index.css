@@ -1,9 +1,9 @@
 html {
   /* Colours */
-  --background: #151f3d; /* please stop using this */
+  --background: #151f3d; /* please stop using this var */
   --navbar-background: #151f3d;
   --input-background: #0d0f1c;
-  --background-transparent: #151f3dcb;
+  --background-transparent: #151f3dcb; /* NOTE please try avoid using the bg colours below (to ENDNOTE)*/
   --background-transparent-62: rgba(66, 69, 70, 0.62);
   --background-darker: #0d0f1c;
   --background-darker-80: #0d0f1ce0;
@@ -14,7 +14,7 @@ html {
     #0d0f1cd2 64%
   );
   --background-light: #17237c;
-  --background-color: #13172a;
+  --background-color: #13172a; /* ENDNOTE */
   --tooltip-background-color: #0d0e0e;
   --menu-background-color: #0d0e0e;
   --text-hover: #59d0ea;
@@ -27,8 +27,7 @@ html {
   --stop-button: #252121;
   --favourite-active: #97f4e9;
   --favourite-inactive: #eae8e5;
-  --tertiary: #1d1f1f;
-  --danger: #bd0a0a;
+  --danger: #bd0a0a; /* These success, danger and disabled colours need to be documented */
   --success: #0bd58c;
   --success-hover: #30eca8;
   --danger-hover: #bd0a0a;
