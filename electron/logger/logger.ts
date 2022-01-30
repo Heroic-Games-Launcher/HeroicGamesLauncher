@@ -33,6 +33,7 @@ export enum LogPrefix {
   Backend = 'Backend'
 }
 
+let longestPrefix = 0
 const configStore = new Store({
   cwd: 'store'
 })
@@ -40,6 +41,30 @@ const configStore = new Store({
 // helper to convert string to string[]
 function convertToStringArray(param: string | string[]): string[] {
   return typeof param === 'string' ? [param] : param
+}
+
+const padNumberToTwo = (n: number) => {
+  return ('0' + n).slice(-2)
+}
+
+const repeatString = (n: number, char: string) => {
+  return n > 0 ? char.repeat(n) : ''
+}
+
+const getTimeStamp = () => {
+  const ts = new Date()
+
+  return `(${[
+    padNumberToTwo(ts.getHours()),
+    padNumberToTwo(ts.getMinutes()),
+    padNumberToTwo(ts.getSeconds())
+  ].join(':')})`
+}
+
+const getPrefixString = (prefix: LogPrefix) => {
+  return prefix !== LogPrefix.General
+    ? `[${prefix}]: ${repeatString(longestPrefix - prefix.length, ' ')}`
+    : ''
 }
 
 /**
@@ -54,10 +79,9 @@ export function logDebug(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
-  const extendText = `DEBUG: ${prefixString}${convertToStringArray(text).join(
-    ' '
-  )}`
+  const extendText = `${getTimeStamp()} DEBUG:   ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.log(extendText)
 
   if (!skipLogToFile) {
@@ -77,10 +101,9 @@ export function logError(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
-  const extendText = `ERROR: ${prefixString}${convertToStringArray(text).join(
-    ' '
-  )}`
+  const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.error(extendText)
 
   if (!skipLogToFile) {
@@ -100,10 +123,9 @@ export function logInfo(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
-  const extendText = `INFO: ${prefixString}${convertToStringArray(text).join(
-    ' '
-  )}`
+  const extendText = `${getTimeStamp()} INFO:    ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.log(extendText)
 
   if (!skipLogToFile) {
@@ -123,10 +145,9 @@ export function logWarning(
   prefix: LogPrefix = LogPrefix.General,
   skipLogToFile = false
 ) {
-  const prefixString = prefix !== LogPrefix.General ? `[${prefix}]: ` : ''
-  const extendText = `WARNING: ${prefixString}${convertToStringArray(text).join(
-    ' '
-  )}`
+  const extendText = `${getTimeStamp()} WARNING: ${getPrefixString(
+    prefix
+  )}${convertToStringArray(text).join(' ')}`
   console.warn(extendText)
 
   if (!skipLogToFile) {
@@ -192,6 +213,13 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   logs.currentLogFile = newLogFile
 
   configStore.set('general-logs', logs)
+
+  // get longest prefix to log lines in a kind of table
+  for (const prefix in LogPrefix) {
+    if (longestPrefix < String(prefix).length) {
+      longestPrefix = String(prefix).length
+    }
+  }
 
   return logs
 }
