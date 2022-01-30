@@ -33,13 +33,6 @@
                 "message": "Δεν βρέθηκαν αρχεία καταγραφής για το παιχνίδι",
                 "title": "Δεν βρέθηκε αρχείο καταγραφής"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Σφάλμα",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -97,6 +90,10 @@
         "unsync": "Αποσυγχρονισμός"
     },
     "Downloading": "Λήψη",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -217,6 +214,13 @@
         "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Ενεργοποίηση Mangohud (απαραίτητη η εγκατάσταση του Mangohud)",
         "manualsync": {
             "download": "Λήψη",
@@ -253,6 +257,7 @@
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Γενικά",
+            "log": "Log",
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
         },
@@ -294,5 +299,13 @@
         "logout_confirmation": "Θέλετε πράγματι να αποσυνδεθείτε;",
         "quit": "Έξοδος"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

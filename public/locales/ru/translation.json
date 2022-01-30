@@ -7,7 +7,7 @@
             "title": "Доступно обновление"
         },
         "cache-cleared": {
-            "message": "Кэш Heroic был очищен!",
+            "message": "Кэш Heroic очищен.",
             "title": "Кэш очищен"
         },
         "choose": "Выбрать",
@@ -33,24 +33,17 @@
                 "message": "Лог для этой игры не найден",
                 "title": "Лог не найден"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Ошибка",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Не выбрана версия Wine. Проверьте настройки игры!",
+                "title": "Wine не найден"
             }
         },
         "no": "НЕТ",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Не установлен. Хотите установить?"
+                "not_installed": "Сейчас не установлено. Установить?"
             }
         },
         "quit": {
@@ -81,11 +74,11 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "На серверах Epic сейчас серьезный сбой, игру невозможно импортировать!",
+                "install": "На серверах Epic сейчас серьезный сбой, игру невозможно установить!",
+                "update": "На серверах Epic сейчас серьезный сбой, игру невозможно обновить!"
             },
-            "title": "Warning"
+            "title": "Предупреждение"
         },
         "wineprefix": "Выбрать папку префикса Wine",
         "yes": "ДА"
@@ -97,6 +90,10 @@
         "unsync": "Рассинхронизировать"
     },
     "Downloading": "Скачивается",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "Без фильтра"
@@ -173,7 +170,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Вставьте сюда другие параметры запуска",
+            "placeholder": "Укажите здесь другие параметры запуска",
             "title": "Расширенные настройки (Переменные среды):"
         },
         "gameargs": {
@@ -198,7 +195,7 @@
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
-        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
+        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary (требуется перезапуск)",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоустановка/обновление DXVK/VKD3D на префикс",
         "autosync": "Автосинхронизация сохранений",
@@ -217,6 +214,13 @@
         "fsync": "Включить Fsync",
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
         "manualsync": {
             "download": "Скачать",
@@ -249,10 +253,11 @@
     },
     "settings": {
         "clear-cache": "Очистить кэш Heroic",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "navbar": {
             "general": "Основные",
+            "log": "Log",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },
@@ -290,9 +295,17 @@
     "Updates": "Обновления",
     "userselector": {
         "discord": "Дискорд",
-        "logout": "Выйти из EGS",
+        "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "quit": "Закрыть Heroic"
     },
-    "wiki": "Вики"
+    "wiki": "Вики",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

@@ -7,7 +7,7 @@
             "title": "Aggiornamento disponibile"
         },
         "cache-cleared": {
-            "message": "La cache di Heroic è stata cancellata!",
+            "message": "Cache di Heroic cancellata.",
             "title": "Cache cancellata"
         },
         "choose": "Scegli",
@@ -30,27 +30,20 @@
             },
             "launch": "Errore durante l'avvio del gioco, controlla i logs!",
             "log": {
-                "message": "Nessun log per questo gioco è stato trovato",
+                "message": "Non è stato trovato nessun log per questo gioco",
                 "title": "Log non trovato"
-            },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
             },
             "title": "Errore",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
+                "title": "Wine non trovato"
             }
         },
         "no": "NO",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Non è installato, desideri installarlo?"
+                "not_installed": "Attualmente non installato. Installarlo?"
             }
         },
         "quit": {
@@ -97,6 +90,10 @@
         "unsync": "Annulla sincronizzazione"
     },
     "Downloading": "Download in corso",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -173,7 +170,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Aggiungi qui le altre opzioni d'avvio",
+            "placeholder": "Inserisci qui le altre opzioni d'avvio",
             "title": "Opzioni avanzate (Variabili d'ambiente):"
         },
         "gameargs": {
@@ -198,7 +195,7 @@
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
-        "alt-legendary-bin": "Seleziona binari Legendary alternativi (richiede riavvio)",
+        "alt-legendary-bin": "Seleziona binari Legendary alternativi (riavvio richiesto)",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK/VKD3D sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
@@ -217,6 +214,13 @@
         "fsync": "Abilita Fsync",
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
         "language": "Seleziona il linguaggio dell'app",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
         "manualsync": {
             "download": "Download",
@@ -249,10 +253,11 @@
     },
     "settings": {
         "clear-cache": "Pulisci cache Heroic",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Copiato negli appunti!",
         "copyToClipboard": "Copia tutte le impostazioni negli appunti",
         "navbar": {
             "general": "Generale",
+            "log": "Log",
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi"
         },
@@ -291,8 +296,16 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Disconnetti",
-        "logout_confirmation": "Logout?",
+        "logout_confirmation": "Sei sicuro di voler uscire?",
         "quit": "Esci"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

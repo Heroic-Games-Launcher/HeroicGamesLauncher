@@ -3,10 +3,10 @@ import React, { ChangeEvent, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
-import Backspace from '@material-ui/icons/Backspace'
+import Backspace from '@mui/icons-material/Backspace'
 import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron') as {

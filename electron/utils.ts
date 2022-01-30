@@ -1,16 +1,16 @@
 import * as axios from 'axios'
-import { app, dialog, net, shell } from 'electron'
+import { app, dialog, net, shell, Notification } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, stat, rm } from 'graceful-fs'
+import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
-import i18next from 'i18next'
+import i18next, { t } from 'i18next'
 import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
 import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
 import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
-import { logError, logInfo, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -37,13 +37,46 @@ async function isOnline() {
   return net.isOnline()
 }
 
-async function isEpicOffline() {
-  const epicStatusApi = 'https://status.epicgames.com/api/v2/status.json'
-  const { data } = await axios.default.get(epicStatusApi)
-  const {
-    status: { indicator }
-  } = data
-  return indicator === 'major'
+async function isEpicServiceOffline(
+  type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
+) {
+  const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
+  const notification = new Notification({
+    title: `${type} ${t('epic.offline-notification-title', 'offline')}`,
+    body: t(
+      'epic.offline-notification-body',
+      'Heroic will maybe not work probably!'
+    ),
+    urgency: 'normal',
+    timeoutType: 'default',
+    silent: false
+  })
+
+  try {
+    const { data } = await axios.default.get(epicStatusApi)
+
+    for (const component of data.components) {
+      const { name: name, status: indicator } = component
+
+      // found component and checking status
+      if (name === type) {
+        const isOffline = indicator === 'major'
+        if (isOffline) {
+          notification.show()
+        }
+        return isOffline
+      }
+    }
+
+    notification.show()
+    return false
+  } catch (error) {
+    logError(
+      `Failed to get epic service status with ${error}`,
+      LogPrefix.Backend
+    )
+    return false
+  }
 }
 
 export const getLegendaryVersion = async () => {
@@ -59,6 +92,7 @@ export const getLegendaryVersion = async () => {
       .replaceAll(', codename', '')
       .replaceAll('\n', '')
   } catch (error) {
+    logError(`${error}`, LogPrefix.Legendary)
     return 'invalid'
   }
 }
@@ -66,7 +100,7 @@ export const getLegendaryVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Roronoa Zoro'
+  const STABLE_VERSION_NAME = 'Rayleigh'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -76,13 +110,13 @@ export const getHeroicVersion = () => {
 
 async function checkForUpdates() {
   const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
-  logInfo('checking for heroic updates')
+  logInfo('checking for heroic updates', LogPrefix.Backend)
   if (!checkForUpdatesOnStartup) {
-    logInfo('skipping heroic updates')
+    logInfo('skipping heroic updates', LogPrefix.Backend)
     return
   }
   if (!(await isOnline())) {
-    logWarning('Version check failed, app is offline.')
+    logWarning('Version check failed, app is offline.', LogPrefix.Backend)
     return false
   }
   try {
@@ -95,7 +129,7 @@ async function checkForUpdates() {
     const currentVersion = app.getVersion()
     return semverGt(newVersion, currentVersion)
   } catch (error) {
-    logError('Could not check for new version of heroic')
+    logError('Could not check for new version of heroic', LogPrefix.Backend)
   }
 }
 
@@ -188,7 +222,7 @@ async function errorHandler({
     execAsync(`tail ${logPath} | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg)
+          logError(noSpaceMsg, LogPrefix.Backend)
           return showErrorBox(
             i18next.t('box.error.diskspace.title', 'No Space'),
             i18next.t(
@@ -198,7 +232,7 @@ async function errorHandler({
           )
         }
       })
-      .catch(() => logInfo('operation interrupted'))
+      .catch(() => logInfo('operation interrupted', LogPrefix.Backend))
   }
   if (error) {
     if (error.stderr.includes(noCredentialsError)) {
@@ -252,51 +286,6 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-/**
- * Checks given commands if they fullfil the given minimum version requirement.
- * @param commands      string list of commands to check.
- * @param version       minimum version to check against
- * @param all_fullfil   Can be set to false if only one command should fullfil
- *                      version requirement. (default: true)
- * @returns true if verrsion fullfil, else false
- */
-async function checkCommandVersion(
-  commands: string[],
-  version: string,
-  all_fullfil = true
-): Promise<boolean> {
-  let found = false
-  for (const command of commands) {
-    try {
-      const { stdout } = await execAsync(command + ' --version')
-      const commandVersion = stdout
-        ? stdout.match(/(\d+\.)(\d+\.)(\d+)/g)[0]
-        : null
-
-      if (semverGt(commandVersion, version) || commandVersion === version) {
-        logInfo(`Command '${command}' found. Version: '${commandVersion}'`)
-        if (!all_fullfil) {
-          return true
-        }
-        found = true
-      } else {
-        logWarning(
-          `Command ${command} version '${commandVersion}' not supported.`
-        )
-        if (all_fullfil) {
-          return false
-        }
-      }
-    } catch {
-      logWarning(`${command} command not found`)
-      if (all_fullfil) {
-        return false
-      }
-    }
-  }
-  return found
-}
-
 function clearCache() {
   const installCache = new Store({
     cwd: 'lib-cache',
@@ -323,18 +312,31 @@ function resetHeroic() {
   })
 }
 
+function showItemInFolder(item: string) {
+  if (existsSync(item)) {
+    try {
+      shell.showItemInFolder(item)
+    } catch (error) {
+      logError(
+        `Failed to show item in folder with: ${error}`,
+        LogPrefix.Backend
+      )
+    }
+  }
+}
+
 export {
-  checkCommandVersion,
   checkForUpdates,
   errorHandler,
   execAsync,
   genericErrorMessage,
   handleExit,
   isOnline,
-  isEpicOffline,
+  isEpicServiceOffline,
   openUrlOrFile,
   semverGt,
   showAboutWindow,
+  showItemInFolder,
   statAsync,
   removeSpecialcharacters,
   clearCache,

@@ -7,7 +7,7 @@
             "title": "Güncelleme Var"
         },
         "cache-cleared": {
-            "message": "Heroic Önbelleği temizlendi!",
+            "message": "Heroic önbelleği temizlendi.",
             "title": "Önbellek Temizlendi"
         },
         "choose": "Seç",
@@ -33,24 +33,17 @@
                 "message": "Bu oyun için günlük kaydı bulunamadı",
                 "title": "Günlük Kaydı Bulunamadı"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Hata",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
+                "title": "Wine Bulunamadı"
             }
         },
         "no": "HAYIR",
-        "ok": "Ok",
+        "ok": "Tamam",
         "protocol": {
             "install": {
-                "not_installed": "Kurulu değil, kurmak ister misiniz?"
+                "not_installed": "Şu anda kurulu değil. Kurmak ister misiniz?"
             }
         },
         "quit": {
@@ -97,6 +90,10 @@
         "unsync": "Eşzamanlamayı kaldır"
     },
     "Downloading": "İndiriliyor",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -217,6 +214,13 @@
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
             "download": "İndir",
@@ -249,10 +253,11 @@
     },
     "settings": {
         "clear-cache": "Heroic Önbelleğini Temizle",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Panoya kopyalandı!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "navbar": {
             "general": "Genel",
+            "log": "Log",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         },
@@ -261,7 +266,7 @@
     "Settings": "Ayarlar",
     "status": {
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
-        "logging": "Oturum Açılıyor..."
+        "logging": "Oturum Açılıyor…"
     },
     "store": "Mağaza",
     "title": {
@@ -290,9 +295,17 @@
     "Updates": "Güncellemeler",
     "userselector": {
         "discord": "Discord",
-        "logout": "Oturumu Kapat",
+        "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
         "quit": "Çık"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

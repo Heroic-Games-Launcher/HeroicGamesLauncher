@@ -10,8 +10,8 @@ import ElectronStore from 'electron-store'
 import classNames from 'classnames'
 
 import { IpcRenderer } from 'electron'
-import Backspace from '@material-ui/icons/Backspace'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import Backspace from '@mui/icons-material/Backspace'
+import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer

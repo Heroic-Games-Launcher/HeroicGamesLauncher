@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Isto mudará o local de instalação do jogo, está certo disso?",
+            "message": "Isso mudará o local de instalação deste jogo, você tem certeza?",
             "path": "Selecione um novo local de instalação",
             "title": "Mudar o local de instalação do jogo"
         },
@@ -30,7 +30,7 @@
             "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?",
             "title": "Atualização Disponível"
         },
-        "wineprefix": "Selecione a pasta do WINE Prefix",
+        "wineprefix": "Selecione a pasta do WinePrefix",
         "yes": "SIM"
     },
     "button": {

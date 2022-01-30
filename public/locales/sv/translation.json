@@ -10,7 +10,7 @@
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
         },
-        "choose": "Ok",
+        "choose": "OK",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
         "customWine": "Välj wine eller proton binär",
@@ -32,13 +32,6 @@
             "log": {
                 "message": "Ingen logg hittades för detta spel",
                 "title": "Ingen logg hittades"
-            },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
             },
             "title": "Error",
             "wine-not-found": {
@@ -97,6 +90,10 @@
         "unsync": "Ogör synkronisering"
     },
     "Downloading": "Laddar ner",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -217,6 +214,13 @@
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {
             "download": "Ladda ner",
@@ -250,9 +254,10 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Kopiera alla inställningar till Urklipp",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Allmänna",
+            "log": "Log",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         },
@@ -294,5 +299,13 @@
         "logout_confirmation": "Är du säker på att du vill logga ut?",
         "quit": "Avsluta"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

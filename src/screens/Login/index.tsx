@@ -9,8 +9,8 @@ import LanguageSelector, {
 } from 'src/components/UI/LanguageSelector'
 
 import { Clipboard, IpcRenderer } from 'electron'
-import Autorenew from '@material-ui/icons/Autorenew'
-import Info from '@material-ui/icons/Info'
+import Autorenew from '@mui/icons-material/Autorenew'
+import Info from '@mui/icons-material/Info'
 import logo from 'src/assets/heroic-icon.png'
 import ContextProvider from 'src/state/ContextProvider'
 import { useHistory } from 'react-router-dom'
@@ -56,11 +56,14 @@ export default function Login() {
         })
         await ipcRenderer.invoke('getUserInfo')
         await ipcRenderer.invoke('refreshLibrary', true)
+        await ipcRenderer.invoke('refreshWineVersionInfo', true)
         await refreshLibrary({
           fullRefresh: true,
           runInBackground: false
         })
         return history.push('/')
+      } else {
+        ipcRenderer.send('logError', res)
       }
 
       setStatus({ loading: true, message: t('status.error', 'Error') })

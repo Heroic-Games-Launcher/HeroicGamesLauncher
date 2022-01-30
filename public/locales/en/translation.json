@@ -7,7 +7,7 @@
             "title": "Update Available"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
+            "message": "Heroic cache cleared.",
             "title": "Cache Cleared"
         },
         "choose": "Choose",
@@ -30,15 +30,8 @@
             },
             "launch": "Error when launching the game, check the logs!",
             "log": {
-                "message": "No Log was found for this game",
+                "message": "No log was found for this game",
                 "title": "Log Not Found"
-            },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
             },
             "title": "Error",
             "wine-not-found": {
@@ -47,10 +40,10 @@
             }
         },
         "no": "NO",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "Currently not installed. Install it?"
             }
         },
         "quit": {
@@ -91,12 +84,16 @@
         "yes": "YES"
     },
     "button": {
-        "login": "Login",
+        "login": "Log in",
         "sync": "Sync",
         "syncing": "Syncing",
         "unsync": "Unsync"
     },
     "Downloading": "Downloading",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -173,7 +170,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Put here other launch options",
+            "placeholder": "Put other launch options here",
             "title": "Advanced Options (Environment Variables):"
         },
         "gameargs": {
@@ -198,7 +195,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary (restart required)",
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
         "autosync": "Autosync Saves",
@@ -217,6 +214,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
         "manualsync": {
             "download": "Download",
@@ -253,6 +257,7 @@
         "copyToClipboard": "Copy All Settings to Clipboard",
         "navbar": {
             "general": "General",
+            "log": "Log",
             "other": "Other",
             "sync": "Save-Sync"
         },
@@ -290,9 +295,17 @@
     "Updates": "Updates",
     "userselector": {
         "discord": "Discord",
-        "logout": "Logout",
-        "logout_confirmation": "Are you sure you want to logout?",
+        "logout": "Log out",
+        "logout_confirmation": "Are you sure you want to log out?",
         "quit": "Quit"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

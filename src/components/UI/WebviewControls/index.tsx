@@ -3,7 +3,7 @@ import {
   ArrowBackOutlined,
   ArrowForwardRounded,
   Replay10Outlined
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import './index.css'
 import { Webview } from 'src/types'
 

@@ -6,7 +6,7 @@ import { GameInfo } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
 import cx from 'classnames'
 
-import ArrowDropUp from '@material-ui/icons/ArrowDropUp'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import { UpdateComponent } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
 import { getLibraryTitle } from './constants'

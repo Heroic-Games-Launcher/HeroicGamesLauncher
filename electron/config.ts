@@ -21,7 +21,7 @@ import {
   isWindows
 } from './constants'
 import { execAsync } from './utils'
-import { logError, logInfo } from './logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 
 /**
  * This class does config handling.
@@ -80,19 +80,26 @@ abstract class GlobalConfig {
         GlobalConfig.globalInstance = new GlobalConfigV0()
         break
       default:
-        logError(`GlobalConfig: Invalid config version '${version}' requested.`)
+        logError(
+          `Invalid config version '${version}' requested.`,
+          LogPrefix.GlobalConfig
+        )
         break
     }
     // Try to upgrade outdated config.
     if (GlobalConfig.globalInstance.upgrade()) {
       // Upgrade done, we need to fully reload config.
       logInfo(
-        `GlobalConfig: Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`
+        `Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`,
+        LogPrefix.GlobalConfig
       )
       return GlobalConfig.reload(currentGlobalConfigVersion)
     } else if (version !== currentGlobalConfigVersion) {
       // Upgrade failed.
-      logError(`GlobalConfig: Failed to upgrade outdated ${version} config.`)
+      logError(
+        `Failed to upgrade outdated ${version} config.`,
+        LogPrefix.GlobalConfig
+      )
     }
   }
 

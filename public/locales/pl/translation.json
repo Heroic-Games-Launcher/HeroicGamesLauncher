@@ -7,7 +7,7 @@
             "title": "Dostępna aktualizacja"
         },
         "cache-cleared": {
-            "message": "Wyczyszczono Cache Heroic!",
+            "message": "Wyczyszczono Cache Heroic.",
             "title": "Wyczyszczono Cache"
         },
         "choose": "Wybierz",
@@ -33,24 +33,17 @@
                 "message": "Nie znaleziono logów dla tej gry",
                 "title": "Nie znaleziono logu"
             },
-            "login": {
-                "tittle": "Cannot Login!"
-            },
-            "python": {
-                "message": "Heroic requires Python 3.8 or newer.",
-                "title": "Python Error!"
-            },
             "title": "Error",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Nie Wybrano Wersji Wine . Sprawdź Ustawienia Gry!",
+                "title": "Nie Znaleziono Wine"
             }
         },
         "no": "NIE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Nie jest zainstalowany, czy chcesz go zainstalować?"
+                "not_installed": "Nie jest obecnie zainstalowany, Zainstalować?"
             }
         },
         "quit": {
@@ -81,22 +74,26 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaimportowana!",
+                "install": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zainstalowana!",
+                "update": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaktualizowana!"
             },
-            "title": "Warning"
+            "title": "Ostrzeżenie"
         },
         "wineprefix": "Wybierz Folder Prefiksu Wine",
         "yes": "TAK"
     },
     "button": {
-        "login": "Login",
+        "login": "Zaloguj",
         "sync": "Synchronizuj",
         "syncing": "Synchronizacja",
         "unsync": "Desynchronizacja"
     },
     "Downloading": "Pobieranie",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
@@ -140,7 +137,7 @@
         "website": "Ładowanie Strony"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Zaloguj Przez Epic",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -192,13 +189,13 @@
     "Plugins": "Rozszerzenia",
     "Projects": "Projekty",
     "Ready": "Zainstalowane",
-    "Recent": "Played Recently",
+    "Recent": "Ostatnio Grane",
     "Return": "Powrót",
     "search": "Wpisz nazwę gry...",
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
-        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary  (wymaga restartu)",
+        "alt-legendary-bin": "Wybierz Alternatywny plik binarny Legendary (wymaga restartu)",
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK/VKD3D w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
@@ -207,7 +204,7 @@
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Ustaw Folder dla nowych Prefiksów Wine",
         "discordRPC": "Włącz Discord Rich Presence",
         "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
@@ -217,6 +214,13 @@
         "fsync": "Włącz Fsync",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",
         "manualsync": {
             "download": "Download",
@@ -227,7 +231,7 @@
             "title": "Manualnie synchronizuj zapisy",
             "upload": "Upload"
         },
-        "maxRecentGames": "Pokaż ostatnio używane gry",
+        "maxRecentGames": "Ostatnio Grane do Pokazania",
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "offlinemode": "Uruchom grę w trybie offline",
         "primerun": "Włącz renderowanie Nvidia Prime",
@@ -249,10 +253,11 @@
     },
     "settings": {
         "clear-cache": "Wyczyść Cache Heroic",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Skopiowano do Schowka!",
         "copyToClipboard": "Kopiuj Wszystkie Ustawienia do Schowka",
         "navbar": {
             "general": "Główne",
+            "log": "Log",
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         },
@@ -294,5 +299,13 @@
         "logout_confirmation": "Czy na pewno chcesz się wylogować?",
         "quit": "Wyjdź"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

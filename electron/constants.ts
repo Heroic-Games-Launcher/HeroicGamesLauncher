@@ -3,7 +3,11 @@ import { join } from 'path'
 import Store from 'electron-store'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
-import { logInfo } from './logger'
+import {
+  createNewLogFileAndClearOldOnces,
+  logInfo,
+  LogPrefix
+} from './logger/logger'
 import { env, execPath } from 'process'
 
 const configStore = new Store({
@@ -25,7 +29,7 @@ function getLegendaryBin() {
   if (bin.includes(' ')) {
     return `"${bin}"`
   }
-  logInfo(`Legendary location: ${bin}`)
+  logInfo(`Location: ${bin}`, LogPrefix.Legendary)
   return bin
 }
 
@@ -42,6 +46,9 @@ const legendaryConfigPath = isFlatpak
 const heroicFolder = isFlatpak
   ? `${home}/config/heroic/`
   : `${home}/.config/heroic/`
+const heroicLogFolder = `${heroicFolder}/Logs`
+const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
+  createNewLogFileAndClearOldOnces()
 const heroicConfigPath = `${heroicFolder}config.json`
 const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
 const heroicToolsPath = `${heroicFolder}tools`
@@ -112,6 +119,8 @@ const execOptions = {
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
+  currentLogFile,
+  lastLogFile,
   discordLink,
   execOptions,
   fixAsarPath,
@@ -123,6 +132,7 @@ export {
   heroicIconFolder,
   heroicInstallPath,
   heroicToolsPath,
+  heroicLogFolder,
   home,
   kofiPage,
   icon,
