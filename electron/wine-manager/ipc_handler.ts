@@ -26,7 +26,11 @@ ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
   const onProgress = (state: State, progress: ProgressInfo) => {
     e.sender.send('progressOf' + release.version, { state, progress })
   }
-  const result = installWineVersion(release, onProgress, abortController.signal)
+  const result = await installWineVersion(
+    release,
+    onProgress,
+    abortController.signal
+  )
   abortControllers.delete(release.version)
   return result
 })
@@ -42,5 +46,5 @@ ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
 })
 
 ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
-  return removeWineVersion(release)
+  return await removeWineVersion(release)
 })

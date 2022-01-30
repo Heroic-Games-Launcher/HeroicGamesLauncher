@@ -1224,4 +1224,4 @@ ipcMain.handle('gamepadAction', async (event, args) => {
  * INSERT OTHER IPC HANLDER HERE
  */
 import './logger/ipc_handler'
-import './wine-downloader/ipc_handler'
+import './wine-manager/ipc_handler'
