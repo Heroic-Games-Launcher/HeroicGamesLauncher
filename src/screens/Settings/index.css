@@ -15,7 +15,7 @@
   flex-direction: column;
   margin-block-start: 16px;
   margin-inline-start: 61.5px;
-  margin-inline-end: clamp(65px, 6vw, 103px);
+  margin-inline-end: clamp(65px, 8vw, 103px);
   font: var(--font-primary-bold);
   font-size: 18.5px;
   line-height: 19px;

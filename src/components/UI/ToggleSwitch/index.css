@@ -1,15 +1,65 @@
 /* The switch - the box around the slider */
 .switch {
   margin-inline-start: clamp(10px, 0.5vw, 20px);
+  margin-block-start: 1.25px;
   position: relative;
   display: inline-block;
-  width: 22px;
-  height: 11px;
+  width: 16px;
+  height: 16px;
 }
 
 /* Hide default HTML checkbox */
 .switch input {
   display: none;
+  width: 0;
+  height: 0;
+}
+
+.switch:hover .checkmark {
+  border-color: var(--text-hover);
+}
+
+.switch:hover input:checked ~ .checkmark {
+  border-color: var(--text-hover);
+  background-color: var(--text-hover);
+}
+.swtich:hover input:checked ~ .checkmark:after {
+  border-color: var(--input-background);
+}
+
+.switch input:checked ~ .checkmark {
+  background-color: var(--accent);
+}
+
+.switch input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark {
+  margin-inline-start: -12px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 2px;
+}
+
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+  width: 3px;
+  height: 8px;
+  margin-inline-start: 3px;
+  padding-inline-start: 0.5px;
+  padding-block-end: 0.5px;
+  bottom: 2.5px;
+  border: solid var(--background);
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 /* The slider */
