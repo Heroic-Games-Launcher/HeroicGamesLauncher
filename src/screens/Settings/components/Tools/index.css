@@ -30,12 +30,18 @@
 
 .tools.drag {
   display: grid;
-  border: var(--text-hover) solid 1px;
+  border: var(--play-button) solid 1px;
+  color: var(--text-default);
   border-radius: 7px;
   padding: 12px 20px;
   grid-area: runexe;
   margin-top: 30px;
   text-decoration: none;
+}
+
+.tools.drag:hover {
+  color: var(--text-hover);
+  border-color: var(--stop-button);
 }
 
 .drag > span {
