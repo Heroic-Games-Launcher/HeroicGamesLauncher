@@ -21,6 +21,10 @@
   margin-inline-start: 16px;
 }
 
+.helpLink:hover {
+  color: var(--text-hover);
+}
+
 .helpLink > svg {
   margin-inline-end: 4px;
 }
