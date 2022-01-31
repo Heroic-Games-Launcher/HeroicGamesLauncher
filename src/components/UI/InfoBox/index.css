@@ -10,6 +10,7 @@
 }
 
 .helpLink {
+  transition: 500ms;
   color: var(--accent);
   cursor: pointer;
   display: flex;
