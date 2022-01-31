@@ -470,13 +470,13 @@ function Settings() {
           {isDefault && (
             <>
               <button
-                className="button is-transparent is-footer"
+                className="button is-footer is-dangerous"
                 onClick={() => ipcRenderer.send('clearCache')}
               >
                 {t('settings.clear-cache', 'Clear Heroic Cache')}
               </button>
               <button
-                className="button is-transparent is-footer"
+                className="button is-footer is-dangerous"
                 onClick={() => ipcRenderer.send('resetHeroic')}
               >
                 {t('settings.reset-heroic', 'Reset Heroic')}

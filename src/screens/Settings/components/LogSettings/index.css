@@ -3,13 +3,18 @@
   flex-direction: row;
 }
 
-.log-choosen {
+.log-buttons.log-choosen,
+.log-buttons.log-choosen:hover {
   color: var(--download-button);
 }
 
 .log-buttons {
   margin-right: 20px;
   cursor: pointer;
+}
+
+.log-buttons:hover {
+  color: var(--text-hover);
 }
 
 .log-box {

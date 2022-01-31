@@ -87,6 +87,14 @@ html,
   color: white;
 }
 
+.button.is-tools:hover {
+  background-color: var(--stop-button);
+}
+.button.is-tools:hover .toolTitle {
+  transition: 500ms;
+  color: var(--text-hover);
+}
+
 .button.is-secondary:hover {
   background: var(--download-button-overlay);
   color: var(--text-tertiary);
