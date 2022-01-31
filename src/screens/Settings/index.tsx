@@ -373,6 +373,44 @@ function Settings() {
               showUnrealMarket={showUnrealMarket}
             />
           )}
+          {isGeneralSettings && (
+            <>
+              <button
+                className={classNames('button', 'is-transparent', 'is-footer', {
+                  isSuccess: isCopiedToClipboard
+                })}
+                onClick={() => {
+                  clipboard.writeText(
+                    JSON.stringify({ appName, title, ...settingsToSave })
+                  )
+                  setCopiedToClipboard(true)
+                }}
+              >
+                {isCopiedToClipboard
+                  ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+                  : t(
+                      'settings.copyToClipboard',
+                      'Copy All Settings to Clipboard'
+                    )}
+              </button>
+              {isDefault && (
+                <>
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('clearCache')}
+                  >
+                    {t('settings.clear-cache', 'Clear Heroic Cache')}
+                  </button>
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('resetHeroic')}
+                  >
+                    {t('settings.reset-heroic', 'Reset Heroic')}
+                  </button>
+                </>
+              )}
+            </>
+          )}
           {isWineSettings && (
             <WineSettings
               altWine={altWine}
@@ -450,37 +488,6 @@ function Settings() {
           )}
           {isLogSettings && (
             <LogSettings isDefault={isDefault} appName={appName} />
-          )}
-          <button
-            className={classNames('button', 'is-transparent', 'is-footer', {
-              isSuccess: isCopiedToClipboard
-            })}
-            onClick={() => {
-              clipboard.writeText(
-                JSON.stringify({ appName, title, ...settingsToSave })
-              )
-              setCopiedToClipboard(true)
-            }}
-          >
-            {isCopiedToClipboard
-              ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
-              : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
-          </button>
-          {isDefault && (
-            <>
-              <button
-                className="button is-footer is-danger"
-                onClick={() => ipcRenderer.send('clearCache')}
-              >
-                {t('settings.clear-cache', 'Clear Heroic Cache')}
-              </button>
-              <button
-                className="button is-footer is-danger"
-                onClick={() => ipcRenderer.send('resetHeroic')}
-              >
-                {t('settings.reset-heroic', 'Reset Heroic')}
-              </button>
-            </>
           )}
           <span className="save">{t('info.settings')}</span>
           {!isDefault && <span className="appName">AppName: {appName}</span>}
