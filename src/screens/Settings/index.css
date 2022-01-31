@@ -198,14 +198,6 @@ a {
   color: var(--text-hover);
 }
 
-.settingsWrapper > .is-footer.is-dangerous:hover {
-  color: var(--text-danger);
-}
-
-.settingsWrapper > .button.is-text:hover {
-  color: var(--text-danger);
-}
-
 .settingsWrapper > .button.isSuccess {
   color: var(--success) !important;
 }

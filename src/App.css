@@ -119,17 +119,21 @@ html,
   color: var(--text-default);
 }
 
-.button.is-danger {
-  background: var(--stop-button);
-  color: var(--text-danger);
+.button.is-danger,
+.button.is-danger.is-footer {
+  background: var(--input-background);
+  color: var(--danger-hover);
 }
 
-.button.is-danger:hover {
-  background: var(--stop-button);
+.button.is-danger:hover,
+.button.is-danger.is-footer:hover {
+  background: var(--danger);
+  color: var(--text-secondary);
 }
 
-.button.is-danger:disabled {
-  background: var(--background);
+.button.is-danger:disabled,
+.button.is-danger.is-footer:disabled {
+  background: var(--icon-disabled);
   color: var(--text-default);
 }
 
