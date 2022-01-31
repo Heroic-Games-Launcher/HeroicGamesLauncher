@@ -451,7 +451,6 @@ function Settings() {
           {isLogSettings && (
             <LogSettings isDefault={isDefault} appName={appName} />
           )}
-          <span className="save">{t('info.settings')}</span>
           <button
             className={classNames('button', 'is-transparent', 'is-footer', {
               isSuccess: isCopiedToClipboard
@@ -483,6 +482,7 @@ function Settings() {
               </button>
             </>
           )}
+          <span className="save">{t('info.settings')}</span>
           {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>
