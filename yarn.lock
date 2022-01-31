@@ -5786,10 +5786,10 @@ heimdalljs@^0.2.6:
   dependencies:
     rsvp "~3.2.1"
 
-heroic-wine-downloader@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/heroic-wine-downloader/-/heroic-wine-downloader-1.2.0.tgz#bfaab495cdaadecac291d9864448b20becb00172"
-  integrity sha512-6kby2yba95UTQGoicGP2fN+3C2XuS8S74YQ5n8HYjmRIRPjU+BnvFSNV7cuL7a7EBjQb8/MTakWNaYyK+Z1CmA==
+heroic-wine-downloader@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/heroic-wine-downloader/-/heroic-wine-downloader-1.2.1.tgz#8518409f0aa27f136e2d8a7cfe7cedcf06804e5c"
+  integrity sha512-vCczjHFZ5PIMgcJFboPUwIJoVBqYHQXqFmBhXgElxU9JxBNTJUvmY8F8b0HBBSnS4dh/axxo7pmy/jf0zL1E0Q==
   dependencies:
     "@types/graceful-fs" "^4.1.5"
     axios "^0.24.0"
