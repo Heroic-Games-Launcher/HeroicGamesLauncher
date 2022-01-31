@@ -340,6 +340,7 @@ export default function GeneralSettings({
           </span>
         </span>
       )}
+      {!isWindows && <InfoBox text="infobox.help">{t('help.general')}</InfoBox>}
       {isWindows && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
@@ -444,7 +445,6 @@ export default function GeneralSettings({
           <span>{t('setting.maxworkers')}</span>
         </span>
       </span>
-      <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
     </>
   )
 }

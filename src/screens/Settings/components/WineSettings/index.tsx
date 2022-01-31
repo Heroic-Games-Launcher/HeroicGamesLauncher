@@ -243,6 +243,23 @@ export default function WineSettings({
           ))}
         </select>
       </span>
+      <InfoBox text="infobox.help">
+        <span>{t('help.wine.part1')}</span>
+        <ul>
+          <i>
+            <li>~/.config/heroic/tools/wine</li>
+            <li>~/.config/heroic/tools/proton</li>
+            <li>~/.steam/root/compatibilitytools.d</li>
+            <li>~/.steam/steamapps/common</li>
+            <li>~/.local/share/lutris/runners/wine</li>
+            <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+            <li>/usr/share/steam</li>
+            <li>Everywhere on the system (CrossOver Mac)</li>
+            <li>/opt/cxoffice (CrossOver Linux)</li>
+          </i>
+        </ul>
+        <span>{t('help.wine.part2')}</span>
+      </InfoBox>
       {wineVersion.name.includes('CrossOver') && (
         <span className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
@@ -364,23 +381,6 @@ export default function WineSettings({
           </span>
         </>
       )}
-      <InfoBox text="infobox.help">
-        <span>{t('help.wine.part1')}</span>
-        <ul>
-          <i>
-            <li>~/.config/heroic/tools/wine</li>
-            <li>~/.config/heroic/tools/proton</li>
-            <li>~/.steam/root/compatibilitytools.d</li>
-            <li>~/.steam/steamapps/common</li>
-            <li>~/.local/share/lutris/runners/wine</li>
-            <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
-            <li>/usr/share/steam</li>
-            <li>Everywhere on the system (CrossOver Mac)</li>
-            <li>/opt/cxoffice (CrossOver Linux)</li>
-          </i>
-        </ul>
-        <span>{t('help.wine.part2')}</span>
-      </InfoBox>
     </>
   )
 }
