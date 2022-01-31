@@ -12,6 +12,7 @@ import {
   getAvailableVersions,
   installVersion,
   ProgressInfo,
+  Repositorys,
   State,
   VersionInfo
 } from 'heroic-wine-downloader'
@@ -30,7 +31,14 @@ async function updateWineVersionInfos(
 
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
-    await getAvailableVersions({ repositorys: [0, 1, 3], count })
+    await getAvailableVersions({
+      repositorys: [
+        Repositorys.WINEGE,
+        Repositorys.PROTONGE,
+        Repositorys.WINELUTRIS
+      ],
+      count
+    })
       .then((response) => (releases = response as WineVersionInfo[]))
       .catch((error) => {
         throw error
