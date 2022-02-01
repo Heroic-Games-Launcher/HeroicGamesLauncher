@@ -23,6 +23,8 @@
             "title": "நிறுவலை நிறுத்து"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "இந்த விளையாட்டை நிறுவல்-நீக்க விரும்புகிறீர்களா?",
             "title": "நிறுவல் நீக்கு"
         },

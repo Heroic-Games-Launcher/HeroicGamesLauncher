@@ -565,6 +565,15 @@ ipcMain.handle('getGameInfo', async (event, game) => {
   }
 })
 
+ipcMain.handle('getGameSettings', async (event, game) => {
+  try {
+    const settings = await Game.get(game).getSettings()
+    return settings
+  } catch (error) {
+    logError(`${error}`, LogPrefix.Backend)
+  }
+})
+
 ipcMain.handle('getInstallInfo', async (event, game) => {
   const online = await isOnline()
   if (!online) {
@@ -768,8 +777,8 @@ ipcMain.on('showItemInFolder', async (e, item) => {
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response } = await showMessageBox({ ...args })
-  return { response }
+  const { response, checkboxChecked } = await showMessageBox({ ...args })
+  return { response, checkboxChecked }
 }
 
 ipcMain.handle(
@@ -850,12 +859,17 @@ ipcMain.handle('install', async (event, params) => {
     })
 })
 
-ipcMain.handle('uninstall', async (event, game) => {
-  const title = (await Game.get(game).getGameInfo()).title
+ipcMain.handle('uninstall', async (event, args) => {
+  const title = (await Game.get(args[0]).getGameInfo()).title
+  const winePrefix = (await Game.get(args[0]).getSettings()).winePrefix
 
-  return Game.get(game)
+  return Game.get(args[0])
     .uninstall()
     .then(() => {
+      if (args[1]) {
+        logInfo(`Removing prefix ${winePrefix}`)
+        rmSync(winePrefix, { recursive: true }) // remove prefix
+      }
       notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling', LogPrefix.Backend)
     })

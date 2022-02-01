@@ -23,6 +23,8 @@
             "title": "설치 중지"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "이 게임을 제거하시겠습니까?",
             "title": "설치 제거"
         },
