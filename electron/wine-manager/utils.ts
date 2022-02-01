@@ -104,7 +104,7 @@ async function installWineVersion(
     LogPrefix.WineDownloader
   )
 
-  const installDir = release?.type?.includes('wine')
+  const installDir = release?.type?.includes('Wine')
     ? `${heroicToolsPath}/wine`
     : `${heroicToolsPath}/proton`
 
