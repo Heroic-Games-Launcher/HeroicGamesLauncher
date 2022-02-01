@@ -161,7 +161,7 @@ async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
           'Prefix'
         )}: ${wineprefix}`
       ].join('\n'),
-      checkboxChecked: true
+      checkboxChecked: false
     }
   }
 
