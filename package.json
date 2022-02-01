@@ -67,7 +67,8 @@
         "Name": "Heroic Games Launcher"
       },
       "asarUnpack": [
-        "build/bin/linux/legendary"
+        "build/bin/linux/legendary",
+        "build/bin/linux/gogdl"
       ],
       "files": [
         "build/bin/linux/*"
