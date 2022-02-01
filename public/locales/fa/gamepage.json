@@ -23,6 +23,8 @@
             "title": "توقف نصب"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "آیا میخواهید این بازی را حذف کنید؟",
             "title": "حذف"
         },
