@@ -45,7 +45,7 @@ export default function SidebarLinks() {
 
   function handleGOG() {
     if (gogStore.has('credentials')) {
-      handleCategory('gog')
+      toggleCategory('gog')
     } else {
       // Login
       ipcRenderer.send('openGOGLoginPage')

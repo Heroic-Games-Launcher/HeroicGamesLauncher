@@ -399,6 +399,7 @@ export default function GamePage(): JSX.Element | null {
                     isInstalled={is_installed}
                     title={title}
                     storeUrl={gameInfo.store_url}
+                    runner={gameInfo.runner}
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>

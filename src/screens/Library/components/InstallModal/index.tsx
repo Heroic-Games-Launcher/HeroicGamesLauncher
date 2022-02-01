@@ -232,7 +232,7 @@ export default function InstallModal({
                         title: t('install.path')
                       })
                       .then(({ path }: Path) =>
-                        setInstallPath(path ? `'${path}'` : defaultPath)
+                        setInstallPath(path ? path : defaultPath)
                       )
                   }
                 >

@@ -911,10 +911,10 @@ ipcMain.handle('install', async (event, params) => {
     })
 })
 
-ipcMain.handle('uninstall', async (event, game) => {
-  const title = (await Game.get(game).getGameInfo()).title
+ipcMain.handle('uninstall', async (event, game, runner) => {
+  const title = (await Game.get(game, runner).getGameInfo()).title
 
-  return Game.get(game)
+  return Game.get(game, runner)
     .uninstall()
     .then(() => {
       notify({ title, body: i18next.t('notify.uninstalled') })
@@ -923,7 +923,7 @@ ipcMain.handle('uninstall', async (event, game) => {
     .catch((error) => logError(`${error}`, LogPrefix.Backend))
 })
 
-ipcMain.handle('repair', async (event, game) => {
+ipcMain.handle('repair', async (event, game, runner) => {
   if (!(await isOnline())) {
     logWarning(
       `App offline, skipping repair for game '${game}'.`,
@@ -931,9 +931,9 @@ ipcMain.handle('repair', async (event, game) => {
     )
     return
   }
-  const title = (await Game.get(game).getGameInfo()).title
+  const title = (await Game.get(game, runner).getGameInfo()).title
 
-  return Game.get(game)
+  return Game.get(game, runner)
     .repair()
     .then(() => {
       notify({ title, body: i18next.t('notify.finished.reparing') })

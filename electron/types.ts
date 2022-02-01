@@ -173,6 +173,8 @@ export interface InstalledInfo {
   version: string | null
   platform: string
   appName?: string
+  installedWithDLCs?: boolean // For verifing GOG games
+  language?: string // For verifieng GOG games
 }
 export interface KeyImage {
   type: string

@@ -89,7 +89,8 @@ export class GOGLibrary {
         }
         gamesObjects.push(unifiedObject)
         const installedInfo = this.installedGames.get(String(game.id))
-        const copyObject = { ...unifiedObject }
+        // Create new object to not write install data into library store
+        const copyObject = Object.assign({}, unifiedObject)
         if (installedInfo) {
           copyObject.is_installed = true
           copyObject.install = installedInfo
@@ -122,6 +123,13 @@ export class GOGLibrary {
     return info
   }
 
+  /**
+   * Gets data metadata about game using gogdl info for current system,
+   * when os is Linux: gets Windows build data.
+   * Contains data like download size
+   * @param appName
+   * @returns InstallInfo object
+   */
   public async getInstallInfo(appName: string) {
     if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
     const credentials = userStore.get('credentials') as GOGLoginData
@@ -161,6 +169,9 @@ export class GOGLibrary {
     return info
   }
 
+  /**
+   * Loads installed data and adds it into a Map
+   */
   public refreshInstalled() {
     const installedArray =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
@@ -236,9 +247,16 @@ export class GOGLibrary {
 
     return object
   }
-
-  public async get_games_data(appName: string) {
-    const url = `https://api.gog.com/v2/games/${appName}`
+  /**
+   * Fetches data from gog about game
+   * @param appName
+   * @param lang optional language (falls back to english if is not supported)
+   * @returns plain API response
+   */
+  public async get_games_data(appName: string, lang?: string) {
+    const url = `https://api.gog.com/v2/games/${appName}${
+      lang ?? '?locale=' + lang
+    }`
     const response: AxiosResponse | null = await axios.get(url).catch(() => {
       return null
     })
@@ -246,7 +264,14 @@ export class GOGLibrary {
 
     return response.data
   }
-
+  /**
+   * Creates Array based on returned from API
+   * If no recommended data is present it just stays empty
+   * There always should be minumum requirements
+   * @param apiData
+   * @param os
+   * @returns parsed data used when rendering requirements on GamePage
+   */
   public createReqsArray(apiData: any, os: 'windows' | 'linux' | 'osx') {
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
@@ -276,6 +301,7 @@ export class GOGLibrary {
    * @param store Indicates a store we have game_id from, like: epic, itch, humble, gog, uplay
    * @param game_id ID of a game
    * @param etag (optional) value returned in response, works as checksum so we can check if we have up to date data
+   * @returns object {isUpdated, data}, where isUpdated is true when Etags match
    */
   public static async get_gamesdb_data(
     store: string,
@@ -291,11 +317,12 @@ export class GOGLibrary {
       return null
     })
     if (!response) return { isUpdated: false, data: {} }
-    const isUpdated = response.status != 304
+    const resEtag = response.headers.etag
+    const isUpdated = etag == resEtag
     let data = null
     if (isUpdated) {
       data = response.data
-      data.etag = response.headers.etag
+      data.etag = resEtag
     }
     return {
       isUpdated,

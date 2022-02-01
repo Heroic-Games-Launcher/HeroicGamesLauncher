@@ -62,7 +62,7 @@ async function install({
   }
 
   if (is_installed) {
-    return uninstall({ appName, handleGameStatus, t })
+    return uninstall({ appName, handleGameStatus, t, runner })
   }
 
   if (installPath === 'import' && is_game) {
@@ -125,7 +125,7 @@ async function install({
     return await ipcRenderer
       .invoke('install', {
         appName,
-        path: `'${path}'`,
+        path: `${path}`,
         installDlcs,
         sdlList,
         runner
@@ -149,9 +149,15 @@ type UninstallArgs = {
   appName: string
   handleGameStatus: (game: GameStatus) => Promise<void>
   t: TFunction<'gamepage'>
+  runner: Runner
 }
 
-async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
+async function uninstall({
+  appName,
+  handleGameStatus,
+  t,
+  runner
+}: UninstallArgs) {
   const args = {
     buttons: [t('box.yes'), t('box.no')],
     message: t('gamepage:box.uninstall.message'),
@@ -163,7 +169,7 @@ async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
 
   if (response === 0) {
     await handleGameStatus({ appName, status: 'uninstalling' })
-    await ipcRenderer.invoke('uninstall', appName)
+    await ipcRenderer.invoke('uninstall', appName, runner)
     storage.removeItem(appName)
     return await handleGameStatus({ appName, status: 'done' })
   }
@@ -199,8 +205,8 @@ async function handleStopInstallation(
   }
 }
 
-const repair = async (appName: string): Promise<void> =>
-  await ipcRenderer.invoke('repair', appName)
+const repair = async (appName: string, runner: Runner): Promise<void> =>
+  await ipcRenderer.invoke('repair', appName, runner)
 
 type LaunchOptions = {
   appName: string

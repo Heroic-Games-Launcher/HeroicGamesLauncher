@@ -274,7 +274,9 @@ const GameCard = ({
                 </MenuItem>
               )}
               <MenuItem
-                onClick={() => uninstall({ appName, handleGameStatus, t })}
+                onClick={() =>
+                  uninstall({ appName, handleGameStatus, t, runner })
+                }
               >
                 {t('button.uninstall')}
               </MenuItem>

@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings } from 'src/types'
+import { AppSettings, Runner } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { SmallInfo } from 'src/components/UI'
 import { createNewWindow, formatStoreUrl, repair } from 'src/helpers'
@@ -20,6 +20,7 @@ interface Props {
   isInstalled: boolean
   title: string
   storeUrl: string
+  runner: Runner
 }
 
 type otherInfo = {
@@ -31,7 +32,8 @@ export default function GamesSubmenu({
   appName,
   isInstalled,
   title,
-  storeUrl
+  storeUrl,
+  runner
 }: Props) {
   const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -97,7 +99,7 @@ export default function GamesSubmenu({
 
     if (response === 0) {
       await handleGameStatus({ appName, status: 'repairing' })
-      await repair(appName)
+      await repair(appName, runner)
       await handleGameStatus({ appName, status: 'done' })
     }
   }
@@ -160,7 +162,9 @@ export default function GamesSubmenu({
               {t('submenu.verify')}
             </button>{' '}
             <button
-              onClick={() => uninstall({ appName, t, handleGameStatus })}
+              onClick={() =>
+                uninstall({ appName, t, handleGameStatus, runner })
+              }
               className="link button is-text is-link"
             >
               {t('button.uninstall')}

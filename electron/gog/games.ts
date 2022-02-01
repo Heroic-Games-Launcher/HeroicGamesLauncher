@@ -29,6 +29,7 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { errorHandler, execAsync } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'
+import { rmSync } from 'graceful-fs'
 
 const configStore = new Store({
   cwd: 'gog_store'
@@ -79,20 +80,20 @@ class GOGGame extends Game {
     installDlcs,
     platformToInstall
   }: InstallArgs): Promise<{ status: string }> {
-    // In the future we need to add Language select option
     // const { maxWorkers } = await GlobalConfig.get().getSettings()
     // const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
     const credentials = configStore.get('credentials') as GOGLoginData
 
+    let installPlatform = platformToInstall.toLowerCase()
+    if (installPlatform == 'mac') installPlatform = 'osx'
+
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${gogdlBin} download ${
-      this.appName
-    } --platform ${platformToInstall.toLowerCase()} --path="${path}" --token="${
-      credentials.access_token
-    }" ${withDlcs} --lang="en-US" ${writeLog}`
+
+    // In the future we need to add Language select option
+    const command = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" --token="${credentials.access_token}" ${withDlcs} --lang="en-US" ${writeLog}`
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
@@ -108,13 +109,15 @@ class GOGGame extends Game {
         const installInfo = await this.getInstallInfo()
         const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
         const installedData: InstalledInfo = {
-          platform: platformToInstall,
+          platform: installPlatform,
           executable: '',
           install_path: join(path, gameInfo.folder_name),
           install_size: prettyBytes(installInfo.manifest.disk_size),
           is_dlc: false,
           version: installInfo.game.version,
-          appName: this.appName
+          appName: this.appName,
+          installedWithDLCs: installDlcs,
+          language: 'en-US'
         }
         const array: Array<InstalledInfo> =
           (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
@@ -140,8 +143,37 @@ class GOGGame extends Game {
   moveInstall(newInstallPath: string): Promise<string> {
     throw new Error('Method not implemented.')
   }
-  repair(): Promise<ExecResult> {
-    throw new Error('Method not implemented.')
+  /**
+   * Literally installing game, since gogdl verifies files at runtime
+   */
+  public async repair(): Promise<ExecResult> {
+    // const { maxWorkers } = await GlobalConfig.get().getSettings()
+    // const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const gameData = GOGLibrary.get().getGameInfo(this.appName)
+
+    const withDlcs = gameData.install.installedWithDLCs
+      ? '--with-dlcs'
+      : '--skip-dlcs'
+    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
+    const credentials = configStore.get('credentials') as GOGLoginData
+
+    const installPlatform = gameData.install.platform
+    // In the future we need to add Language select option
+    const command = `${gogdlBin} repair ${
+      this.appName
+    } --platform ${installPlatform} --path="${
+      gameData.install.install_path
+    }" --token="${credentials.access_token}" ${withDlcs} --lang="${
+      gameData.install.language || 'en-US'
+    }"`
+    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
+
+    return execAsync(command, execOptions)
+      .then((v) => v)
+      .catch((error) => {
+        logError(error, LogPrefix.Gog)
+        return null
+      })
   }
   public async stop(): Promise<void> {
     const pattern = process.platform === 'linux' ? this.appName : 'gogdl'
@@ -150,22 +182,40 @@ class GOGGame extends Game {
     if (process.platform === 'win32') {
       try {
         await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return logInfo(`${pattern} killed`)
+        return logInfo(`${pattern} killed`, LogPrefix.Gog)
       } catch (error) {
-        return logError(`not possible to kill ${pattern}`, error)
+        return logError(
+          [`not possible to kill ${pattern}`, error],
+          LogPrefix.Gog
+        )
       }
     }
 
     const child = spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
-      return logInfo(`${pattern} killed`)
+      return logInfo(`${pattern} killed`, LogPrefix.Gog)
     })
   }
   syncSaves(arg: string, path: string): Promise<ExecResult> {
-    throw new Error('Method not implemencted.')
+    throw new Error(
+      "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
+    )
   }
   uninstall(): Promise<ExecResult> {
-    throw new Error('Method not implemented.')
+    return new Promise((res) => {
+      const array: Array<InstalledInfo> =
+        (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+      const index = array.findIndex((game) => game.appName == this.appName)
+      if (index == -1) throw Error("Game isn't installed")
+
+      const [object] = array.splice(index)
+      logInfo(['Removing', object.install_path], LogPrefix.Gog)
+      rmSync(object.install_path, { recursive: true })
+      installedGamesStore.set('installed', array)
+      GOGLibrary.get().refreshInstalled()
+      // This is to satisfy Typescript (we neeed to change it)
+      res({ stdout: '', stderr: '' })
+    })
   }
   update(): Promise<unknown> {
     throw new Error('Method not implemented.')
