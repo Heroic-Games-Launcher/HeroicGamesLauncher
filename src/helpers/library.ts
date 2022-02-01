@@ -1,7 +1,7 @@
 import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
-import { getGameInfo, getPlatform, sendKill } from './index'
+import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
 import ElectronStore from 'electron-store'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -148,11 +148,19 @@ async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
 
   let linuxArgs
   if ((await getPlatform()) === 'linux') {
+    const wineprefix = (await getGameSettings(appName)).winePrefix
+
     linuxArgs = {
-      checkboxLabel: t(
-        'gamepage:box.uninstall.checkbox',
-        'Uninstall prefix aswell'
-      ),
+      checkboxLabel: [
+        t(
+          'gamepage:box.uninstall.checkbox',
+          "Would you like to remove the prefix aswell? This can't be undone."
+        ),
+        `${t(
+          'gamepage:box.uninstall.checkbox_prefix',
+          'Prefix'
+        )}: ${wineprefix}`
+      ].join('\n'),
       checkboxChecked: true
     }
   }
