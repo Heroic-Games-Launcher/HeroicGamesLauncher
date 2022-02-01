@@ -11,6 +11,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 import prettyBytes from 'pretty-bytes'
+import { notify } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -31,13 +32,13 @@ const WineItem = ({
   const [progress, setProgress] = useState<{
     state: State
     progress: ProgressInfo
-  }>({ state: 'idle', progress: { percentage: 0 } })
+  }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
 
   ipcRenderer.on('progressOf' + version, (e, progress) => {
     setProgress(progress)
   })
 
-  if (!version || !downsize || type === 'proton') {
+  if (!version || !downsize || type === 'Proton') {
     return null
   }
 
@@ -45,6 +46,7 @@ const WineItem = ({
   const unZipping = progress.state === 'unzipping'
 
   async function install() {
+    notify([`${version}`, t('notify.install.startInstall')])
     ipcRenderer
       .invoke('installWineVersion', {
         version,
@@ -58,11 +60,21 @@ const WineItem = ({
         type
       })
       .then((response) => {
-        if (response) {
-          refreshWineVersionInfo(false)
+        switch (response) {
+          case 'error':
+            notify([`${version}`, t('notify.install.error')])
+            break
+          case 'abort':
+            notify([`${version}`, t('notify.install.canceled')])
+            break
+          case 'success':
+            refreshWineVersionInfo(false)
+            notify([`${version}`, t('notify.install.finished')])
+            break
+          default:
+            break
         }
       })
-      .catch((err) => console.error(err))
   }
 
   async function remove() {
@@ -81,9 +93,9 @@ const WineItem = ({
       .then((response) => {
         if (response) {
           refreshWineVersionInfo(false)
+          notify([`${version}`, t('notify.uninstalled')])
         }
       })
-      .catch((err) => console.error(err))
   }
 
   function openInstallDir() {
@@ -91,14 +103,12 @@ const WineItem = ({
   }
 
   const renderStatus = () => {
-    let status = ''
+    let status
     if (isInstalled) {
       status = prettyBytes(disksize)
     } else {
       if (isDownloading) {
-        status = `${prettyBytes(
-          (progress.progress.percentage * downsize) / 100
-        )} / ${prettyBytes(downsize)}`
+        status = getProgressElement(progress.progress, downsize)
       } else if (progress.state === 'unzipping') {
         status = t('wine.manager.unzipping', 'Unzipping')
       } else {
@@ -110,17 +120,19 @@ const WineItem = ({
 
   return (
     <>
-      <div className="toolsListItem">
-        <span className="toolsTitleList">
-          {type} - {version}
-        </span>
-        <div className="toolsListDate">{date}</div>
-        <div className="toolsListSize">{renderStatus()}</div>
+      <div className="wineManagerListItem">
+        <span className="wineManagerTitleList">{version}</span>
+        <div className="wineManagerListDate">{date}</div>
+        <div className="wineManagerListSize">{renderStatus()}</div>
         <span className="icons">
           {!isInstalled && !isDownloading && !unZipping && (
             <DownIcon className="downIcon" onClick={() => install()} />
           )}
-          {(isDownloading || unZipping) && <StopIcon onClick={() => null} />}
+          {(isDownloading || unZipping) && (
+            <StopIcon
+              onClick={() => ipcRenderer.send('abortWineInstallation', version)}
+            />
+          )}
           {isInstalled && (
             <>
               <SvgButton
@@ -140,6 +152,34 @@ const WineItem = ({
         </span>
       </div>
     </>
+  )
+}
+
+function getProgressElement(progress: ProgressInfo, downsize: number) {
+  const { percentage, eta, avgSpeed } = progress
+
+  let totalSeconds = eta
+  const hours = Math.floor(totalSeconds / 3600)
+  totalSeconds %= 3600
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+
+  const percentageAsString = `${percentage}%`
+  const bytesAsString = `[${prettyBytes((percentage / 100) * downsize)}]`
+  const etaAsString = `| ETA: ${[hours, minutes, seconds].join(':')}`
+  const avgSpeedAsString = `(${prettyBytes(avgSpeed)}ps)`
+
+  return (
+    <p
+      style={{
+        color: '#0BD58C',
+        fontStyle: 'italic'
+      }}
+    >
+      {[percentageAsString, bytesAsString, avgSpeedAsString, etaAsString].join(
+        ' '
+      )}
+    </p>
   )
 }
 

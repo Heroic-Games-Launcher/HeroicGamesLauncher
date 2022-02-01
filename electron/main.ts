@@ -1,4 +1,3 @@
-import { WineVersionInfo } from './wine-downloader/types'
 import {
   InstallParams,
   LaunchResult,
@@ -75,12 +74,6 @@ import {
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import Store from 'electron-store'
-import {
-  updateWineVersionInfos,
-  removeWineVersion,
-  installWineVersion
-} from './wine-downloader/utils'
-import { ProgressInfo, State } from 'heroic-wine-downloader'
 
 const { showErrorBox, showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -376,13 +369,7 @@ function notify({ body, title }: NotifyType) {
 }
 
 ipcMain.on('Notify', (event, args) => {
-  const notify = new Notification({
-    body: args[1],
-    title: args[0]
-  })
-
-  notify.on('click', () => mainWindow.show())
-  notify.show()
+  notify({ body: args[1], title: args[0] })
 })
 
 // Maybe this can help with white screens
@@ -661,43 +648,6 @@ if (existsSync(installed)) {
 
 ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
-})
-
-ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
-  try {
-    const releases = await updateWineVersionInfos(fetch)
-    return releases
-  } catch (error) {
-    logError(String(error), LogPrefix.WineDownloader)
-    return
-  }
-})
-
-ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
-  const onProgress = (state: State, progress: ProgressInfo) => {
-    e.sender.send('progressOf' + release.version, { state, progress })
-  }
-  notify({
-    title: `${release?.type} - ${release?.version}`,
-    body: i18next.t('notify.install.startInstall')
-  })
-  return installWineVersion(release, onProgress).then((res) => {
-    notify({
-      title: `${release?.type} - ${release?.version}`,
-      body: i18next.t('notify.install.finished')
-    })
-    return res
-  })
-})
-
-ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
-  return removeWineVersion(release).then((res) => {
-    notify({
-      title: `${release?.type} - ${release?.version}`,
-      body: i18next.t('notify.uninstalled')
-    })
-    return res
-  })
 })
 
 ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
@@ -1288,3 +1238,4 @@ ipcMain.handle('gamepadAction', async (event, args) => {
  * INSERT OTHER IPC HANLDER HERE
  */
 import './logger/ipc_handler'
+import './wine-manager/ipc_handler'
