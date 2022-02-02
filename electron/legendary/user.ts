@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { UserInfo } from '../types'
 import { clearCache, execAsync } from '../utils'
 import { legendaryBin, userInfo } from '../constants'
-import { logError, logInfo } from '../logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
@@ -14,25 +14,31 @@ const configStore = new Store({
 })
 export class LegendaryUser {
   public static async login(sid: string) {
-    logInfo('Logging with Legendary...')
+    logInfo('Logging with Legendary...', LogPrefix.Legendary)
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
       const child = spawn(legendaryBin, command)
       child.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
+          logError(`${data}`, LogPrefix.Legendary)
           return res('error')
+        } else {
+          logInfo(`stderr: ${data}`, LogPrefix.Legendary)
+          return
         }
       })
       child.stdout.on('data', (data) => {
-        console.log(`stderr: ${data}`)
         if (`${data}`.includes('ERROR')) {
+          logError(`${data}`, LogPrefix.Legendary)
           return res('error')
+        } else {
+          logInfo(`stdout: ${data}`, LogPrefix.Legendary)
+          return
         }
       })
       child.on('close', () => {
-        console.log('finished login')
+        logInfo('finished login', LogPrefix.Legendary)
         res('finished')
       })
     })
@@ -58,7 +64,7 @@ export class LegendaryUser {
     try {
       isLoggedIn = await LegendaryUser.isLoggedIn()
     } catch (error) {
-      logError(error)
+      logError(`${error}`, LogPrefix.Backend)
       configStore.delete('userInfo')
     }
     if (isLoggedIn) {

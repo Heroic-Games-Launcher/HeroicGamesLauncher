@@ -23,6 +23,8 @@
             "title": "Ferma l'installazione"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "Vuoi disinstallare questo gioco?",
             "title": "Disinstalla"
         },
@@ -30,7 +32,7 @@
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
             "title": "Il gioco richiede un aggiornamento"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI"
     },
     "button": {
@@ -68,7 +70,7 @@
     },
     "install": {
         "path": "Seleziona percorso di installazione",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Prefisso Wine"
     },
     "label": {
         "playing": {

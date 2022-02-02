@@ -23,6 +23,8 @@
             "title": "Stop Installation"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "Do you want to uninstall this game?",
             "title": "Uninstall"
         },

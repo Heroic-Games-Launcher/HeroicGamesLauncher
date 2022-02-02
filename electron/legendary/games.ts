@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
 import axios from 'axios'
 
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, dialog, shell } from 'electron'
 import { DXVK } from '../dxvk'
 import { ExtraInfo, InstallArgs } from '../types'
 import { Game } from '../games'
@@ -12,6 +12,7 @@ import { LegendaryUser } from './user'
 import {
   errorHandler,
   execAsync,
+  isEpicServiceOffline,
   isOnline,
   removeSpecialcharacters
 } from '../utils'
@@ -24,11 +25,12 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
-import { logError, logInfo, logWarning } from '../logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript'
 import { platform } from 'os'
+import i18next from 'i18next'
 
 const store = new Store({
   cwd: 'lib-cache',
@@ -131,7 +133,7 @@ class LegendaryGame extends Game {
       try {
         productSlug = await this.getProductSlug(namespace)
       } catch (error) {
-        logError(error)
+        logError(`${error}`, LogPrefix.Legendary)
         productSlug = this.appName
       }
       epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
@@ -143,7 +145,7 @@ class LegendaryGame extends Game {
         method: 'GET',
         url: epicUrl
       })
-      logInfo('Getting Info from Epic API')
+      logInfo('Getting Info from Epic API', LogPrefix.Legendary)
 
       const about = data.pages.find(
         (e: { type: string }) => e.type === 'productHome'
@@ -158,7 +160,7 @@ class LegendaryGame extends Game {
         reqs: about.data.requirements.systems[0].details
       } as ExtraInfo
     } catch (error) {
-      logError('Error Getting Info from Epic API')
+      logError('Error Getting Info from Epic API', LogPrefix.Legendary)
 
       store.set(namespace, { about: {}, reqs: [] })
       return {
@@ -211,16 +213,16 @@ class LegendaryGame extends Game {
       newInstallPath += '/' + install_path.split('/').slice(-1)[0]
     }
 
-    logInfo(`Moving ${title} to ${newInstallPath}`)
+    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Legendary)
     await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
       .then(() => {
         LegendaryLibrary.get().changeGameInstallPath(
           this.appName,
           newInstallPath
         )
-        logInfo(`Finished Moving ${title}`)
+        logInfo(`Finished Moving ${title}`, LogPrefix.Legendary)
       })
-      .catch(logError)
+      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
     return newInstallPath
   }
 
@@ -248,7 +250,8 @@ class LegendaryGame extends Game {
         })
         return { status: 'done' }
       })
-      .catch(() => {
+      .catch((error) => {
+        logError(`${error}`, LogPrefix.Legendary)
         this.window.webContents.send('setGameStatus', {
           appName: this.appName,
           status: 'done'
@@ -293,7 +296,10 @@ class LegendaryGame extends Game {
         break
       }
       default:
-        logError("Shortcuts haven't been implemented in the current platform.")
+        logError(
+          "Shortcuts haven't been implemented in the current platform.",
+          LogPrefix.Backend
+        )
     }
 
     return [desktopFile, menuFile]
@@ -332,12 +338,12 @@ Categories=Game;
 
         if (addDesktopShortcuts || fromMenu) {
           writeFile(desktopFile, shortcut, () => {
-            logInfo('Shortcut saved on ' + desktopFile)
+            logInfo('Shortcut saved on ' + desktopFile, LogPrefix.Backend)
           })
         }
         if (addStartMenuShortcuts || fromMenu) {
           writeFile(menuFile, shortcut, () => {
-            logInfo('Shortcut saved on ' + menuFile)
+            logInfo('Shortcut saved on ' + menuFile, LogPrefix.Backend)
           })
         }
         break
@@ -359,7 +365,10 @@ Categories=Game;
         break
       }
       default:
-        logError("Shortcuts haven't been implemented in the current platform.")
+        logError(
+          "Shortcuts haven't been implemented in the current platform.",
+          LogPrefix.Backend
+        )
     }
   }
 
@@ -373,10 +382,14 @@ Categories=Game;
     const [desktopFile, menuFile] = this.shortcutFiles(gameInfo.title)
 
     if (desktopFile) {
-      unlink(desktopFile, () => logInfo('Desktop shortcut removed'))
+      unlink(desktopFile, () =>
+        logInfo('Desktop shortcut removed', LogPrefix.Backend)
+      )
     }
     if (menuFile) {
-      unlink(menuFile, () => logInfo('Applications shortcut removed'))
+      unlink(menuFile, () =>
+        logInfo('Applications shortcut removed', LogPrefix.Backend)
+      )
     }
   }
 
@@ -410,7 +423,7 @@ Categories=Game;
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
-    logInfo(`Installing ${this.appName} with:`, command)
+    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
         if (stdout.includes('ERROR')) {
@@ -421,18 +434,23 @@ Categories=Game;
         return { status: 'done' }
       })
       .catch(() => {
-        logInfo('Installaton canceled')
+        logInfo('Installaton canceled', LogPrefix.Legendary)
         return { status: 'error' }
       })
   }
 
   public async uninstall() {
     const command = `${legendaryBin} uninstall ${this.appName} -y`
-    logInfo(`Uninstalling ${this.appName} with:`, command)
+    logInfo(
+      [`Uninstalling ${this.appName} with:`, command],
+      LogPrefix.Legendary
+    )
     LegendaryLibrary.get().installState(this.appName, false)
-    return await execAsync(command, execOptions).then((v) => {
-      return v
-    })
+    return await execAsync(command, execOptions)
+      .then((v) => {
+        return v
+      })
+      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
   }
 
   /**
@@ -451,18 +469,27 @@ Categories=Game;
 
     const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
 
-    logInfo(`Repairing ${this.appName} with:`, command)
-    return await execAsync(command, execOptions).then((v) => {
-      // this.state.status = 'done'
-      return v
-    })
+    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Legendary)
+    return await execAsync(command, execOptions)
+      .then((v) => {
+        // this.state.status = 'done'
+        return v
+      })
+      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
   }
 
   public async import(path: string) {
     const command = `${legendaryBin} import-game ${this.appName} '${path}'`
-    return await execAsync(command, execOptions).then((v) => {
-      return v
-    })
+
+    logInfo(
+      [`Importing ${this.appName} from ${path} with:`, command],
+      LogPrefix.Legendary
+    )
+    return await execAsync(command, execOptions)
+      .then((v) => {
+        return v
+      })
+      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
   }
 
   /**
@@ -484,12 +511,13 @@ Categories=Game;
       mkdirSync(legendarySavesPath, { recursive: true })
     }
 
-    logInfo('\n syncing saves for ', this.appName)
+    logInfo(['Syncing saves for ', this.appName], LogPrefix.Legendary)
     return await execAsync(command, execOptions)
   }
 
   public async launch(launchArguments?: string) {
-    const isOffline = !(await isOnline())
+    const epicOffline = await isEpicServiceOffline()
+    const isOffline = !(await isOnline()) || epicOffline
     let envVars = ''
     let gameMode: string
     const gameSettings = await this.getSettings()
@@ -543,7 +571,10 @@ Categories=Game;
           break
       }
 
-      logInfo('Updating Discord Rich Presence information...')
+      logInfo(
+        'Updating Discord Rich Presence information...',
+        LogPrefix.Backend
+      )
       DiscordRPC.updatePresence({
         details: gameInfo.title,
         instance: true,
@@ -558,15 +589,28 @@ Categories=Game;
       const command = `${legendaryBin} launch ${
         this.appName
       } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
-      logInfo('\n Launch Command:', command)
+      logInfo(['Launch Command:', command], LogPrefix.Legendary)
       const v = await execAsync(command, execOptions)
       if (discordRPC) {
-        logInfo('Stopping Discord Rich Presence if running...')
+        logInfo(
+          'Stopping Discord Rich Presence if running...',
+          LogPrefix.Backend
+        )
         DiscordRPC.disconnect()
-        logInfo('Stopped Discord Rich Presence.')
+        logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
       }
 
       return v
+    }
+
+    if (!wineVersion.bin) {
+      dialog.showErrorBox(
+        i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+        i18next.t(
+          'box.error.wine-not-found.message',
+          'No Wine Version Selected. Check Game Settings!'
+        )
+      )
     }
 
     const fixedWinePrefix = winePrefix.replace('~', home)
@@ -610,9 +654,12 @@ Categories=Game;
     envVars = Object.values(options).join(' ')
     if (isProton) {
       logWarning(
-        `\n You are using Proton, this can lead to some bugs,
-              please do not open issues with bugs related with games`,
-        wineVersion.name
+        [
+          `You are using Proton, this can lead to some bugs,
+          please do not open issues with bugs related with games`,
+          wineVersion.name
+        ],
+        LogPrefix.Backend
       )
     }
 
@@ -633,7 +680,7 @@ Categories=Game;
     // check if Gamemode is installed
     await execAsync(`which gamemoderun`)
       .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
-      .catch(() => logWarning('GameMode not installed'))
+      .catch(() => logWarning('GameMode not installed', LogPrefix.Backend))
 
     const runWithGameMode = useGameMode && gameMode ? gameMode : ''
 
@@ -642,19 +689,22 @@ Categories=Game;
     } ${exe} ${runOffline} ${wineCommand} ${prefix} ${
       launchArguments ?? ''
     } ${launcherArgs}`
-    logInfo('\n Launch Command:', command)
+    logInfo(['Launch Command:', command], LogPrefix.Legendary)
 
     const startLaunch = await execAsync(command, execOptions)
       .then(({ stderr }) => {
         if (discordRPC) {
-          logInfo('Stopping Discord Rich Presence if running...')
+          logInfo(
+            'Stopping Discord Rich Presence if running...',
+            LogPrefix.Backend
+          )
           DiscordRPC.disconnect()
-          logInfo('Stopped Discord Rich Presence.')
+          logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
         }
         return { stderr, command, gameSettings }
       })
       .catch((error) => {
-        logError(error)
+        logError(`${error}`, LogPrefix.Legendary)
         const { stderr } = error
         return { stderr, command, gameSettings }
       })
@@ -677,10 +727,10 @@ Categories=Game;
     if (!existsSync(fixedWinePrefix)) {
       mkdirSync(fixedWinePrefix, { recursive: true })
       const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
-      logInfo('creating new prefix', fixedWinePrefix)
+      logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
       return execAsync(initPrefixCommand)
-        .then(() => logInfo('Prefix created succesfuly!'))
-        .catch((error) => logError(error))
+        .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
+        .catch((error) => logError(`${error}`, LogPrefix.Backend))
     }
   }
 
@@ -690,20 +740,23 @@ Categories=Game;
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
-    logInfo('killing', pattern)
+    logInfo(['killing', pattern], LogPrefix.Legendary)
 
     if (process.platform === 'win32') {
       try {
         await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return logInfo(`${pattern} killed`)
+        return logInfo(`${pattern} killed`, LogPrefix.Legendary)
       } catch (error) {
-        return logError(`not possible to kill ${pattern}`, error)
+        return logError(
+          [`not possible to kill ${pattern}`, error],
+          LogPrefix.Legendary
+        )
       }
     }
 
     const child = spawn('pkill', ['-f', pattern])
     child.on('exit', () => {
-      return logInfo(`${pattern} killed`)
+      return logInfo(`${pattern} killed`, LogPrefix.Legendary)
     })
   }
 }

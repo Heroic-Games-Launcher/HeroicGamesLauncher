@@ -33,7 +33,11 @@
                 "message": "Tälle pelille ei löytynyt lokitiedostoja",
                 "title": "Lokitiedostoa ei löytynyt"
             },
-            "title": "Virhe"
+            "title": "Virhe",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "EI",
         "ok": "Ok",
@@ -68,6 +72,14 @@
             "error": "Virheellinen Polku",
             "title": "Valitse kansio tallennuksille"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Valitse Wine Prefiksille Kansio",
         "yes": "KYLLÄ"
     },
@@ -78,11 +90,15 @@
         "unsync": "Älä synkronoi"
     },
     "Downloading": "Ladataan",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "Suodata",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Suodata",
     "globalSettings": "Globaalit asetukset",
     "help": {
         "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
@@ -198,6 +214,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
         "language": "Valitse applikaation kieli",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
         "manualsync": {
             "download": "Lataa",
@@ -228,17 +251,19 @@
         "wineprefix": "WinePrefixin kansio",
         "wineversion": "Winen versio"
     },
-    "Settings": "Asetukset",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Yleiset",
+            "log": "Log",
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Asetukset",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
@@ -274,5 +299,13 @@
         "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
         "quit": "Poistu"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

@@ -10,7 +10,7 @@ module.exports = {
   moduleDirectories: ['node_modules', '<rootDir>'],
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-
+  testPathIgnorePatterns: ['./node_modules/'],
   resetMocks: true,
 
   rootDir: '..',

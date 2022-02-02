@@ -33,7 +33,11 @@
                 "message": "Nem találtunk feljegyzést ehhez a játékhoz",
                 "title": "Nem találtunk feljegyzést"
             },
-            "title": "Hiba"
+            "title": "Hiba",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NEM",
         "ok": "Ok",
@@ -68,6 +72,14 @@
             "error": "Érvénytelen útvonal",
             "title": "Válaszd ki a mentések könyvtárát"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Válassz Wine Prefix Mappát",
         "yes": "IGEN"
     },
@@ -78,11 +90,15 @@
         "unsync": "Deszinkronizálás"
     },
     "Downloading": "Letöltés",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "Szűrő",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Szűrő",
     "globalSettings": "Globális beállítások",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
@@ -198,6 +214,13 @@
         "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
         "manualsync": {
             "download": "Letöltés",
@@ -228,17 +251,19 @@
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },
-    "Settings": "Beállítások",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Általános",
+            "log": "Log",
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Beállítások",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
@@ -274,5 +299,13 @@
         "logout_confirmation": "Logout?",
         "quit": "Kilépés"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

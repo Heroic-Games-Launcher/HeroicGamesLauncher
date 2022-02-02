@@ -33,7 +33,11 @@
                 "message": "Pro tuto hru nebyl nalezen žádný protokol",
                 "title": "Protokol nebyl nalezen"
             },
-            "title": "Error"
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "NE",
         "ok": "Ok",
@@ -68,6 +72,14 @@
             "error": "Neplatná cesta",
             "title": "Vyberte cestu s uloženými soubory"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Vyberte složku Wine prefixu",
         "yes": "ANO"
     },
@@ -78,11 +90,15 @@
         "unsync": "Desynchroniozovat"
     },
     "Downloading": "Stahování",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "Filtr",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtr",
     "globalSettings": "Globální nastavení",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -173,7 +189,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekty",
     "Ready": "Připraveno",
-    "Recent": "Played Recently",
+    "Recent": "Recently Played",
     "Return": "Zpět",
     "search": "Zde zadejte název hry...",
     "setting": {
@@ -198,6 +214,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder."
+        },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
             "download": "Stáhnout",
@@ -228,17 +251,19 @@
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
     },
-    "Settings": "Nastavení",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "navbar": {
             "general": "Obecné",
+            "log": "Log",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Nastavení",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
@@ -274,5 +299,13 @@
         "logout_confirmation": "Logout?",
         "quit": "Ukončit"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }
