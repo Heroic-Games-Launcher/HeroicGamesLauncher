@@ -99,6 +99,7 @@
 
 .gameTabs nav button {
   margin-right: 1em;
+  transition: 350ms;
   border: none;
   background: none;
   color: var(--text-default);
