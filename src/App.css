@@ -87,10 +87,12 @@ html,
   color: white;
 }
 
-.button.is-tools:hover {
+.button.is-tools:hover,
+.button.is-tools:focus-visible {
   background-color: var(--stop-button);
 }
-.button.is-tools:hover .toolTitle {
+.button.is-tools:hover .toolTitle,
+.button.is-tools:focus-visible .toolTitle {
   transition: 500ms;
   color: var(--text-hover);
 }

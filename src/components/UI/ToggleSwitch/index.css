@@ -37,6 +37,7 @@
 
 .checkmark {
   transition: 350ms;
+  cursor: pointer;
   margin-inline-start: -12px;
   position: absolute;
   width: 100%;
@@ -44,6 +45,10 @@
   background-color: transparent;
   border: 2px solid var(--accent);
   border-radius: 2px;
+}
+
+.checkmark:focus-visible {
+  outline: 1px solid var(--download-button);
 }
 
 .checkmark:after {
