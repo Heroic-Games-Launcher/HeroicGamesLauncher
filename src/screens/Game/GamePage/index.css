@@ -17,7 +17,7 @@
   font-weight: 500;
   font-size: 25px;
   line-height: 30px;
-  color: var(--link-highlight);
+  color: var(--accent);
   text-align: left;
 }
 
@@ -113,7 +113,7 @@
 .gameTabs.infoTab button[data-tab='info'],
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
-  color: var(--link-highlight);
+  color: var(--accent);
 }
 
 .installProgress[value] {

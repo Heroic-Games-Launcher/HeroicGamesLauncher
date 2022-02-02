@@ -188,7 +188,7 @@ html,
 }
 
 .button.is-text:hover {
-  color: var(--download-button);
+  color: var(--text-hover);
 }
 
 .button.is-link {
@@ -197,14 +197,14 @@ html,
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: var(--link-highlight);
+  color: var(--accent);
   margin: 4px 0px;
   cursor: pointer;
   padding: 0.25rem;
 }
 
 .button.is-link:hover {
-  color: var(--secondary-lightest);
+  color: var(--text-hover);
 }
 
 .icons > * {

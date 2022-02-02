@@ -34,7 +34,7 @@
 .settingsNavbar > a.active {
   transition: all 350ms ease-out 0s;
   transform: scale(1.2);
-  color: var(--link-highlight);
+  color: var(--accent);
   font-weight: 500;
 }
 
