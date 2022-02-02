@@ -28,7 +28,7 @@ export default function WineManager(): JSX.Element | null {
     <>
       <h2>{t('wine.manager.title', 'Wine Manager (Beta)')}</h2>
       {wineVersions?.length ? (
-        <div className="Tools">
+        <div className="WineManager">
           <div
             style={
               !wineVersions.length ? { backgroundColor: 'transparent' } : {}

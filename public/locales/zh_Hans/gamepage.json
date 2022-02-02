@@ -23,6 +23,8 @@
             "title": "停止安装"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "你希望卸载这个游戏吗？",
             "title": "卸载"
         },

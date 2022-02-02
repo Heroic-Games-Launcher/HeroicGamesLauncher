@@ -1,4 +1,10 @@
-import { AppSettings, GameInfo, InstallInfo, InstallProgress } from 'src/types'
+import {
+  AppSettings,
+  GameInfo,
+  InstallInfo,
+  InstallProgress,
+  GameSettings
+} from 'src/types'
 import { IpcRenderer } from 'electron'
 import { install, launch, repair, updateGame } from './library'
 const { ipcRenderer } = window.require('electron') as {
@@ -95,6 +101,10 @@ const cleanTitle = (title: string) =>
 
 const getGameInfo = async (appName: string): Promise<GameInfo> => {
   return await ipcRenderer.invoke('getGameInfo', appName)
+}
+
+const getGameSettings = async (appName: string): Promise<GameSettings> => {
+  return await ipcRenderer.invoke('getGameSettings', appName)
 }
 
 const getInstallInfo = async (appName: string): Promise<InstallInfo> => {
@@ -224,6 +234,7 @@ export {
   fixSaveFolder,
   formatStoreUrl,
   getGameInfo,
+  getGameSettings,
   getInstallInfo,
   getLegendaryConfig,
   getPlatform,
