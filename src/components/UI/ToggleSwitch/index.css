@@ -36,6 +36,7 @@
 }
 
 .checkmark {
+  transition: 350ms;
   margin-inline-start: -12px;
   position: absolute;
   width: 100%;
