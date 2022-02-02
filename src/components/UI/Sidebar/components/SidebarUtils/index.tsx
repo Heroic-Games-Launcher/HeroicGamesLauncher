@@ -52,7 +52,7 @@ export default function SidebarUtils() {
     <div className="SidebarUtils">
       {isLinux && (
         <NavLink
-          activeStyle={{ color: 'var(--download-button)', fontWeight: 500 }}
+          activeStyle={{ color: 'var(--accent)', fontWeight: 500 }}
           isActive={(match, location) =>
             location.pathname.includes('wine-manager')
           }
