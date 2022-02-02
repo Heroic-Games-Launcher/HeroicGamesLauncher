@@ -397,9 +397,9 @@ function Settings() {
             />
           )}
           {isGeneralSettings && (
-            <>
+            <div className="footerFlex">
               <button
-                className={classNames('button', 'is-transparent', 'is-footer', {
+                className={classNames('button', 'is-footer', {
                   isSuccess: isCopiedToClipboard
                 })}
                 onClick={() => {
@@ -432,7 +432,7 @@ function Settings() {
                   </button>
                 </>
               )}
-            </>
+            </div>
           )}
           {isWineSettings && (
             <WineSettings

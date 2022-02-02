@@ -187,17 +187,24 @@ a {
   color: var(--text-quartenary);
 }
 
-.settingsWrapper > .is-footer {
-  margin-inline-start: 16px;
+.is-footer {
   margin-block: 8px;
   color: var(--text-default);
 }
 
-.settingsWrapper > .is-footer:hover {
+.is-footer:hover {
   background-color: var(--stop-button);
   color: var(--text-hover);
 }
 
 .settingsWrapper > .button.isSuccess {
   color: var(--success) !important;
+}
+
+.footerFlex {
+  margin-inline-start: 16px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: 16px;
 }
