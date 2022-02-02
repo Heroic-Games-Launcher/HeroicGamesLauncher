@@ -107,6 +107,17 @@ html,
   text-decoration: underline;
 }
 
+.button.is-danger {
+  background: var(--input-background);
+  color: var(--danger-hover);
+}
+
+.button.is-danger:hover,
+.button.is-danger:focus-visible {
+  background: var(--danger);
+  color: var(--text-secondary);
+}
+
 .button.is-success {
   background: var(--success);
 }

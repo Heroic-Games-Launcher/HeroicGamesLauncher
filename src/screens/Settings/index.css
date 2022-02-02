@@ -201,19 +201,19 @@ a {
   color: var(--text-default);
 }
 
-.button.is-footer:hover {
+.button.is-footer:hover,
+.button.is-footer:focus-visible {
   background-color: var(--stop-button);
   color: var(--text-hover);
 }
 
-.button.is-danger,
 .button.is-danger.is-footer {
-  /*background: var(--input-background);*/
+  background: transparent;
   color: var(--danger-hover);
 }
 
-.button.is-danger:hover,
-.button.is-danger.is-footer:hover {
+.button.is-danger.is-footer:hover,
+.button.is-danger.is-footer:focus-visible {
   background: var(--danger);
   color: var(--text-secondary);
 }
