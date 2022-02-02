@@ -119,24 +119,6 @@ html,
   color: var(--text-default);
 }
 
-.button.is-danger,
-.button.is-danger.is-footer {
-  background: var(--input-background);
-  color: var(--danger-hover);
-}
-
-.button.is-danger:hover,
-.button.is-danger.is-footer:hover {
-  background: var(--danger);
-  color: var(--text-secondary);
-}
-
-.button.is-danger:disabled,
-.button.is-danger.is-footer:disabled {
-  background: var(--icon-disabled);
-  color: var(--text-default);
-}
-
 .material-icons.is-primary {
   /* I can't find any elements that use this, so idk what colour this should be */
   color: var(--danger);

@@ -187,24 +187,67 @@ a {
   color: var(--text-quartenary);
 }
 
-.is-footer {
+.button.is-footer {
   margin-block: 8px;
+  min-width: 120px;
+  max-height: 80px;
+  background-color: transparent;
+  box-shadow: none;
   color: var(--text-default);
 }
 
-.is-footer:hover {
+.button.is-footer:hover {
   background-color: var(--stop-button);
   color: var(--text-hover);
 }
 
-.settingsWrapper > .button.isSuccess {
+.button.is-danger,
+.button.is-danger.is-footer {
+  /*background: var(--input-background);*/
+  color: var(--danger-hover);
+}
+
+.button.is-danger:hover,
+.button.is-danger.is-footer:hover {
+  background: var(--danger);
+  color: var(--text-secondary);
+}
+
+.button.is-danger:disabled,
+.button.is-danger.is-footer:disabled {
+  background: var(--icon-disabled);
+  color: var(--text-default);
+}
+
+.button.is-footer.isSuccess {
   color: var(--success) !important;
 }
 
 .footerFlex {
-  margin-inline-start: 16px;
+  margin-inline-start: 6px;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   gap: 16px;
+}
+
+.button-icontext-flex {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  margin-block: auto;
+  margin-inline: auto;
+  gap: 4px;
+  position: relative;
+}
+
+.button-icontext-flex .button-icon-text {
+  margin-block: auto;
+  font-size: 13px;
+}
+
+.button-icon-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
