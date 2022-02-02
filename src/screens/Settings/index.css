@@ -55,6 +55,11 @@
   padding: 8px;
 }
 
+.headerTitle:hover {
+  transition: 350ms;
+  color: var(--text-hover);
+}
+
 .headerTitle > svg {
   margin-left: 12px;
 }
