@@ -5,7 +5,7 @@
 
 .log-buttons.log-choosen,
 .log-buttons.log-choosen:hover {
-  color: var(--download-button);
+  color: var(--accent);
 }
 
 .log-buttons {
