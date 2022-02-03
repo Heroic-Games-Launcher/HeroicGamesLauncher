@@ -215,11 +215,11 @@
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder."
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
         },
         "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
         "manualsync": {
