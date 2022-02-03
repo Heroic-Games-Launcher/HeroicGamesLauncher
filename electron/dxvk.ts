@@ -19,8 +19,13 @@ export const DXVK = {
 
     const tools = [
       {
+        name: 'vkd3d',
+        url: 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/latest',
+        extractCommand: 'tar -I zstd -xvf'
+      },
+      {
         name: 'dxvk',
-        url: 'https://api.github.com/repos/lutris/dxvk/releases/latest',
+        url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
         extractCommand: 'tar -zxf'
       }
     ]
@@ -31,7 +36,7 @@ export const DXVK = {
       } = await axios.default.get(tool.url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
-      const pkg = name.replace('.tar.gz', '')
+      const pkg = name.replace('.tar.gz', '').replace('.tar.zst', '')
 
       const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
       const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
@@ -110,13 +115,13 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup_dxvk.sh install --symlink`
+    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
     const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
 
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup_dxvk.sh uninstall --symlink`
+      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
       return execAsync(removeCommand, execOptions)
         .then(() => {
           logInfo(`${tool} removed from ${winePrefix}`, LogPrefix.DXVKInstaller)
