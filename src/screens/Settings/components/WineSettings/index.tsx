@@ -307,7 +307,6 @@ export default function WineSettings({
       {isLinux && !isProton && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
             <ToggleSwitch
               value={autoInstallVkd3d}
               handleChange={() => {
@@ -323,6 +322,9 @@ export default function WineSettings({
                 'Auto Install/Update VKD3D on Prefix'
               )}
             />
+            <span>
+              {t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
+            </span>
           </span>
         </span>
       )}
