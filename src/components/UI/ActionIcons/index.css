@@ -12,17 +12,17 @@
 }
 
 .headerIcons > .svg-button {
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .headerIcons > *:hover,
 .headerIcons > .svg-button > *:hover,
 .headerIcons > .svg-button:focus-visible > * {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .svg-button > .selectedLayout {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .headerIcons > .svg-button > svg {

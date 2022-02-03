@@ -1,6 +1,9 @@
 html {
-  --background: #151f3d;
-  --background-transparent: #151f3dcb;
+  /* Colours */
+  --background: #151f3d; /* please stop using this var */
+  --navbar-background: #151f3d;
+  --input-background: #0d0f1c;
+  --background-transparent: #151f3dcb; /* NOTE please try avoid using the bg colours below (to ENDNOTE)*/
   --background-transparent-62: rgba(66, 69, 70, 0.62);
   --background-darker: #0d0f1c;
   --background-darker-80: #0d0f1ce0;
@@ -11,23 +14,49 @@ html {
     #0d0f1cd2 64%
   );
   --background-light: #17237c;
-  --searchbar-background: #13172a;
-  --primary: #59d0ea;
-  --secondary: #eaa114;
-  --tertiary: #1d1f1f;
-  --danger: #bd0a0a;
+  --background-color: #13172a; /* ENDNOTE */
+  --tooltip-background-color: #0d0e0e;
+  --menu-background-color: #0d0e0e;
+  --text-hover: #59d0ea;
+  --link-highlight: #07c5ef;
+  --accent: #eaa114;
+  --input-background: #0d0f1c;
+  --play-button: #59d0ea;
+  --download-button: #3082d9;
+  --download-button-overlay: #5a5e5f;
+  --stop-button: #252121;
+  --favourite-active: #97f4e9;
+  --favourite-inactive: #eae8e5;
+  --danger: #bd0a0a; /* These success, danger and disabled colours need to be documented */
   --success: #0bd58c;
-  --primary-hover: #36d1f3;
-  --secondary-hover: #feba36;
-  --tertiary-hover: #322b2b;
   --success-hover: #30eca8;
   --danger-hover: #bd0a0a;
-  --text-primary: #eae8e5;
-  --text-secondary: #c1c4c3;
-  --text-tertiary: #101111;
-  --text-quartenary: #5a5e5f;
-  --text-danger: #d22121;
   --icon-disabled: #625e69;
+  /* Gradients */
+  --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
+  --gradient-big-game-menu: linear-gradient(
+    #13172a 100%,
+    #1d1f1f 31.77%,
+    #1d1f1f 0%
+  );
+  --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
+  /* Text colours */
+  --text-default: #eae8e5;
+  --text-secondary: #b1b1b1;
+  --text-pause-cancel: #97f4e9;
+  --text-stop: #97f4e9;
+  --text-tertiary: #101111; /* This is not defined in figma */
+  --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
+  --text-danger: #d22121;
+  /* Fonts */
+  --font-primary-regular: Rubik normal 400;
+  --font-primary-bold: Rubik normal 500;
+  --font-primary-bolder: Rubik normal 700;
+  --font-secondary-regular: Cabin normal 400;
+  --font-secondary-bold: Cabin normal 500;
+  --font-secondary-regular-italic: Cabin italic 400;
+  --font-secondary-bold-italic: Cabin italic 500;
+  /* Measurements */
   --sidebar-width: 218px;
   --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
@@ -41,11 +70,11 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-darker);
+  background-color: var(--background-color);
 }
 
 a {
-  color: var(--text-primary);
+  color: var(--text-default);
   text-decoration: none;
 }
 
