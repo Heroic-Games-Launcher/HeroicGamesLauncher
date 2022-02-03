@@ -17,7 +17,7 @@
   font-weight: 500;
   font-size: 25px;
   line-height: 30px;
-  color: #f79707;
+  color: var(--accent);
   text-align: left;
 }
 
@@ -30,7 +30,7 @@
 .gameInfo {
   text-align: initial;
   font-size: 1rem;
-  color: var(--text-primary);
+  color: var(--text-default);
   display: flex;
   flex-direction: column;
   max-width: 650px;
@@ -41,7 +41,7 @@
 }
 
 .gameInfo .infoWrapper {
-  color: var(--text-primary);
+  color: var(--text-default);
   flex-grow: 1;
 }
 
@@ -60,7 +60,7 @@
   line-height: 19px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  color: var(--text-primary);
+  color: var(--text-default);
   overflow: hidden;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -99,17 +99,22 @@
 
 .gameTabs nav button {
   margin-right: 1em;
+  transition: 350ms;
   border: none;
   background: none;
-  color: var(--text-primary);
+  color: var(--text-default);
   cursor: pointer;
   font-size: 1em;
+}
+
+.gameTabs nav button:hover {
+  color: var(--text-hover);
 }
 
 .gameTabs.infoTab button[data-tab='info'],
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
-  color: var(--secondary);
+  color: var(--accent);
 }
 
 .installProgress[value] {
@@ -125,7 +130,7 @@
 
 .clickable:hover {
   cursor: pointer;
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .buttonsWrapper {
@@ -180,7 +185,7 @@
 }
 
 .sdlTitle:hover {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .itemName {
@@ -189,7 +194,7 @@
 
 .MuiIconButton-colorPrimary,
 .MuiCheckbox-colorPrimary.Mui-checked {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .PrivateSwitchBase-root-1 {

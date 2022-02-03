@@ -89,7 +89,7 @@
   font-size: 14px;
   font-weight: 700;
   line-height: 17px;
-  color: var(--text-primary);
+  color: var(--text-default);
   height: clamp(80px, 4vw, 85px);
   cursor: pointer;
   z-index: 3;
@@ -247,7 +247,7 @@
 }
 
 .downIcon > circle {
-  fill: var(--secondary);
+  fill: var(--download-button);
 }
 
 .cancelIcon > circle {

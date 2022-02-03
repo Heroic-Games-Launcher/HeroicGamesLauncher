@@ -235,7 +235,7 @@ const GameCard = ({
                     })
                   }
                 >
-                  <SettingsIcon fill={'var(--text-primary)'} />
+                  <SettingsIcon fill={'var(--text-default)'} />
                 </SvgButton>
               )}
             </span>

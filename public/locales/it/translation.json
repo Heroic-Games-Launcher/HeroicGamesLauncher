@@ -215,11 +215,11 @@
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
         "language": "Seleziona il linguaggio dell'app",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder."
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
         },
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
         "manualsync": {

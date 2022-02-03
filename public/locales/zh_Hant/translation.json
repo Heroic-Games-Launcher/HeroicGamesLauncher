@@ -215,11 +215,11 @@
         "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
         "language": "選擇應用語言",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder."
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
         },
         "mangohud": "啟用MangoHud（需要已安裝Mangohud）",
         "manualsync": {
