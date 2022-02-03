@@ -254,6 +254,7 @@ function Settings() {
     addStartMenuShortcuts,
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
@@ -283,6 +284,7 @@ function Settings() {
   const GameSettings = {
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     autoSyncSaves,
     enableEsync,
     enableFSR,

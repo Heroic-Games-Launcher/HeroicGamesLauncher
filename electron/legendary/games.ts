@@ -534,6 +534,7 @@ Categories=Game;
       showMangohud,
       audioFix,
       autoInstallDxvk,
+      autoInstallVkd3d,
       offlineMode,
       enableFSR,
       maxSharpness,
@@ -668,6 +669,10 @@ Categories=Game;
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
       await DXVK.installRemove(winePrefix, wineVersion.bin, 'dxvk', 'backup')
+    }
+
+    // Install VKD3D for non Proton/CrossOver Prefixes
+    if (!isProton && !isCrossover && autoInstallVkd3d) {
       await DXVK.installRemove(winePrefix, winePath, 'vkd3d', 'backup')
     }
 
