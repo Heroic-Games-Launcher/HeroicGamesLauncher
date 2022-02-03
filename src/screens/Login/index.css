@@ -47,7 +47,7 @@
   font-weight: 500;
   font-size: 25px;
   line-height: 30px;
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .heroicSubTitle {
@@ -56,7 +56,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 24.3px;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .logo {
@@ -94,22 +94,22 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 27px;
-  color: var(--text-primary);
+  color: var(--text-default);
   text-align: left;
 }
 
 .loginInstructions strong {
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .loginInstructions .epicLink {
-  color: var(--secondary);
+  color: var(--download-button);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .loginInstructions .sid {
-  color: var(--primary);
+  color: var(--text-hover);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -128,7 +128,7 @@
 }
 
 .pastesidtext {
-  color: var(--text-primary);
+  color: var(--text-default);
   font-weight: 400;
   font-size: 16px;
   margin-bottom: 13px;
@@ -159,7 +159,7 @@
   font-size: 16px;
   line-height: 19px;
   outline: none;
-  color: var(--text-primary);
+  color: var(--text-default);
   text-align: center;
   border: none;
   margin-bottom: 16px;
@@ -171,7 +171,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: var(--primary);
+  color: var(--text-hover);
   display: flex;
   margin: 0;
 }
@@ -194,7 +194,7 @@
 .helpWrapper {
   margin-top: 12px;
   text-align: center;
-  color: var(--secondary);
+  color: var(--download-button);
   width: 96%;
 }
 

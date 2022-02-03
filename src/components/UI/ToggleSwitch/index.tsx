@@ -26,7 +26,8 @@ export default function ToggleSwitch({
         onChange={handleChange}
         aria-label={title}
       />
-      <span className="slider round" />
+
+      <span className="checkmark" />
     </label>
   )
 }

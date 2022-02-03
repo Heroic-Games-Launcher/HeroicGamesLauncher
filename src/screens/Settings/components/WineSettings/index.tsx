@@ -243,6 +243,23 @@ export default function WineSettings({
           ))}
         </select>
       </span>
+      <InfoBox text="infobox.help">
+        <span>{t('help.wine.part1')}</span>
+        <ul>
+          <i>
+            <li>~/.config/heroic/tools/wine</li>
+            <li>~/.config/heroic/tools/proton</li>
+            <li>~/.steam/root/compatibilitytools.d</li>
+            <li>~/.steam/steamapps/common</li>
+            <li>~/.local/share/lutris/runners/wine</li>
+            <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+            <li>/usr/share/steam</li>
+            <li>Everywhere on the system (CrossOver Mac)</li>
+            <li>/opt/cxoffice (CrossOver Linux)</li>
+          </i>
+        </ul>
+        <span>{t('help.wine.part2')}</span>
+      </InfoBox>
       {wineVersion.name.includes('CrossOver') && (
         <span className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
@@ -262,7 +279,6 @@ export default function WineSettings({
       {isLinux && !isProton && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
             <ToggleSwitch
               value={autoInstallDxvk}
               handleChange={() => {
@@ -278,15 +294,14 @@ export default function WineSettings({
                 'Auto Install/Update DXVK on Prefix'
               )}
             />
+            <span>
+              {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+            </span>
           </span>
         </span>
       )}
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t(
-            'setting.enableFSRHack',
-            'Enable FSR Hack (Wine version needs to support it)'
-          )}
           <ToggleSwitch
             value={enableFSR || false}
             handleChange={toggleFSR}
@@ -295,12 +310,17 @@ export default function WineSettings({
               'Enable FSR Hack (Wine version needs to support it)'
             )}
           />
+          <span>
+            {t(
+              'setting.enableFSRHack',
+              'Enable FSR Hack (Wine version needs to support it)'
+            )}
+          </span>
         </span>
       </span>
       {enableFSR && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
             <select
               data-testid="setMaxRecentGames"
               onChange={(event) => setFsrSharpness(Number(event.target.value))}
@@ -311,6 +331,9 @@ export default function WineSettings({
                 <option key={n + 1}>{n + 1}</option>
               ))}
             </select>
+            <span>
+              {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
+            </span>
           </span>
         </span>
       )}
@@ -318,10 +341,6 @@ export default function WineSettings({
         <>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t(
-                'setting.resizableBar',
-                'Enable Resizable BAR (NVIDIA RTX only)'
-              )}
               <ToggleSwitch
                 value={enableResizableBar || false}
                 handleChange={toggleResizableBar}
@@ -330,49 +349,38 @@ export default function WineSettings({
                   'Enable Resizable BAR (NVIDIA RTX only)'
                 )}
               />
+              <span>
+                {t(
+                  'setting.resizableBar',
+                  'Enable Resizable BAR (NVIDIA RTX only)'
+                )}
+              </span>
             </span>
           </span>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.esync', 'Enable Esync')}
               <ToggleSwitch
                 value={enableEsync || false}
                 handleChange={toggleEsync}
                 dataTestId="esyncToggle"
                 title={t('setting.esync', 'Enable Esync')}
               />
+              <span>{t('setting.esync', 'Enable Esync')}</span>
             </span>
           </span>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.fsync', 'Enable Fsync')}
               <ToggleSwitch
                 value={enableFsync || false}
                 handleChange={toggleFsync}
                 dataTestId="fsyncToggle"
                 title={t('setting.fsync', 'Enable Fsync')}
               />
+              <span>{t('setting.fsync', 'Enable Fsync')}</span>
             </span>
           </span>
         </>
       )}
-      <InfoBox text="infobox.help">
-        <span>{t('help.wine.part1')}</span>
-        <ul>
-          <i>
-            <li>~/.config/heroic/tools/wine</li>
-            <li>~/.config/heroic/tools/proton</li>
-            <li>~/.steam/root/compatibilitytools.d</li>
-            <li>~/.steam/steamapps/common</li>
-            <li>~/.local/share/lutris/runners/wine</li>
-            <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
-            <li>/usr/share/steam</li>
-            <li>Everywhere on the system (CrossOver Mac)</li>
-            <li>/opt/cxoffice (CrossOver Linux)</li>
-          </i>
-        </ul>
-        <span>{t('help.wine.part2')}</span>
-      </InfoBox>
     </>
   )
 }

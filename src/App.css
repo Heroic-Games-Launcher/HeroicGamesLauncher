@@ -14,7 +14,7 @@ html,
 
 .App {
   text-align: center;
-  color: var(--text-primary);
+  color: var(--text-default);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-areas: 'sidebar content';
@@ -65,11 +65,11 @@ html,
 }
 
 .button.is-primary {
-  background: var(--primary);
+  background: var(--link-highlight);
 }
 
 .button.is-primary:hover {
-  background: var(--primary-hover);
+  background: var(--text-hover);
 }
 
 .button.is-primary:disabled {
@@ -79,22 +79,43 @@ html,
 }
 
 .button.is-secondary {
-  background: var(--secondary);
+  background: var(--download-button);
 }
 
 .button.is-tertiary {
-  background: var(--tertiary);
+  background: var(--background-color);
   color: white;
 }
 
+.button.is-tools:hover,
+.button.is-tools:focus-visible {
+  background-color: var(--stop-button);
+}
+.button.is-tools:hover .toolTitle,
+.button.is-tools:focus-visible .toolTitle {
+  transition: 500ms;
+  color: var(--text-hover);
+}
+
 .button.is-secondary:hover {
-  background: var(--secondary-hover);
+  background: var(--download-button-overlay);
   color: var(--text-tertiary);
 }
 
 .button.is-empty {
   background: transparent;
   text-decoration: underline;
+}
+
+.button.is-danger {
+  background: var(--input-background);
+  color: var(--danger-hover);
+}
+
+.button.is-danger:hover,
+.button.is-danger:focus-visible {
+  background: var(--danger);
+  color: var(--text-secondary);
 }
 
 .button.is-success {
@@ -108,29 +129,16 @@ html,
 .button.is-success:hover:disabled,
 .button.is-success:disabled {
   background: var(--background);
-  color: var(--text-primary);
-}
-
-.button.is-danger {
-  background: var(--tertiary);
-  color: var(--text-danger);
-}
-
-.button.is-danger:hover {
-  background: var(--tertiary-hover);
-}
-
-.button.is-danger:disabled {
-  background: var(--background);
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .material-icons.is-primary {
-  color: var(--primary);
+  /* I can't find any elements that use this, so idk what colour this should be */
+  color: var(--danger);
 }
 
 .material-icons.is-secondary {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .material-icons.is-success {
@@ -150,7 +158,7 @@ html,
   right: 42px;
   top: 5px;
   cursor: pointer;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .button.settings {
@@ -171,7 +179,7 @@ html,
   border: none;
   border-radius: 0;
   background: transparent;
-  color: var(--text-primary);
+  color: var(--text-default);
   box-shadow: none;
   text-transform: none;
   min-width: fit-content;
@@ -180,7 +188,7 @@ html,
 }
 
 .button.is-text:hover {
-  color: var(--secondary);
+  color: var(--text-hover);
 }
 
 .button.is-link {
@@ -189,14 +197,14 @@ html,
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: var(--secondary);
+  color: var(--accent);
   margin: 4px 0px;
   cursor: pointer;
   padding: 0.25rem;
 }
 
 .button.is-link:hover {
-  color: var(--secondary-hover);
+  color: var(--text-hover);
 }
 
 .icons > * {
@@ -206,11 +214,9 @@ html,
 .settingSelect {
   width: 513px;
   height: 40px;
-  background: var(--background);
+  background: var(--input-background);
   border-radius: 10px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: 600;
+  font: var(--font-secondary-bold);
   font-size: 16px;
   line-height: 19px;
   color: var(--text-secondary);
@@ -221,12 +227,10 @@ html,
 
 .settingText {
   margin-bottom: 14px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
+  font: var(--font-secondary-regular);
   font-size: 16px;
   line-height: 19px;
-  color: var(--text-primary);
+  color: var(--text-secondary);
 }
 
 .smallMessage {
@@ -248,7 +252,7 @@ svg.disabled {
 }
 
 .react-contextmenu-item {
-  color: var(--text-primary);
+  color: var(--text-default);
   font-size: 14px;
   line-height: 26px;
   font-family: Rubik;
@@ -257,7 +261,7 @@ svg.disabled {
 }
 
 .react-contextmenu-item:hover {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .react-contextmenu-item.disabled {

@@ -62,7 +62,6 @@ export default function LogSettings({ isDefault, appName }: Props) {
         </span>
       )}
       <span className="setting log-box">
-        <br />
         {logFileContent?.split('\n').map((line, key) => {
           if (line.toLowerCase().includes('err')) {
             return (
@@ -84,16 +83,22 @@ export default function LogSettings({ isDefault, appName }: Props) {
             )
           }
         })}
-        <br />
       </span>
       {logFileExist && (
-        <span className="setting log-buttongroup">
+        <span className="footerFlex">
           <a
             onClick={showLogFileInFolder}
-            title={t('setting.log.show-in-folder', 'Show log file in folder.')}
-            className="log-buttons"
+            title={t('setting.log.show-in-folder', 'Show log file in folder')}
+            className="button is-footer"
           >
-            <FolderOpenIcon />
+            <div className="button-icontext-flex">
+              <div className="button-icon-flex">
+                <FolderOpenIcon />
+              </div>
+              <span className="button-icon-text">
+                {t('setting.log.show-in-folder', 'Show log file in folder')}
+              </span>
+            </div>
           </a>
           <a
             onClick={() => {
@@ -103,9 +108,19 @@ export default function LogSettings({ isDefault, appName }: Props) {
               'setting.log.copy-to-clipboard',
               'Copy log content to clipboard.'
             )}
-            className="log-buttons"
+            className="button is-footer"
           >
-            <ContentCopyIcon />
+            <div className="button-icontext-flex">
+              <div className="button-icon-flex">
+                <ContentCopyIcon />
+              </div>
+              <span className="button-icon-text">
+                {t(
+                  'setting.log.copy-to-clipboard',
+                  'Copy log content to clipboard.'
+                )}
+              </span>
+            </div>
           </a>
         </span>
       )}

@@ -8,11 +8,11 @@
   height: 35px;
   border-radius: 5px;
   border: none;
-  color: var(--text-primary);
+  color: var(--text-default);
   text-indent: 8px;
   font-size: 16px;
   outline: none;
-  background: var(--background);
+  background: var(--input-background);
   width: 80%;
   padding-right: 2.5em;
 }
@@ -34,7 +34,7 @@
 }
 
 .clearSearchInput.isEmpty:hover {
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .clearSearchInput.isEmpty {

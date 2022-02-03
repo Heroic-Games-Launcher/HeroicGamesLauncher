@@ -23,7 +23,7 @@
 }
 
 .downIcon > circle {
-  fill: var(--secondary);
+  fill: var(--download-button);
 }
 
 .wineManagerListItem {
@@ -108,7 +108,7 @@
 }
 
 .react-contextmenu-item {
-  color: var(--text-primary);
+  color: var(--text-default);
   font-size: 14px;
   line-height: 26px;
   font-family: Rubik;
@@ -117,7 +117,7 @@
 }
 
 .react-contextmenu-item:hover {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .react-contextmenu-item.disabled {
