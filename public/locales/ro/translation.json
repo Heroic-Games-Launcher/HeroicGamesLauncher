@@ -140,7 +140,7 @@
         "addgamestostartmenu": "Adăugați jocuri în meniul Start automat",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
         "audiofix": "Fixare Audio (Latență în PulseAudio)",
-        "autodxvk": "Instalare/Actualizare automată DXVK/VKD3D în Prefix",
+        "autodxvk": "Instalare/Actualizare automată DXVK în Prefix",
         "autosync": "Salvări de sincronizare automată",
         "change-target-exe": "Selectați un EXE alternativ pentru a rula",
         "checkForUpdatesOnStartup": "Verificare pentru actualizări la pornire",
