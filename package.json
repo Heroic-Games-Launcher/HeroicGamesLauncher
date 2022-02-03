@@ -77,21 +77,24 @@
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl"
+        "curl",
+        "libzstd1"
       ]
     },
     "pacman": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl"
+        "curl",
+        "zstd"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl"
+        "curl",
+        "zstd"
       ]
     }
   },
