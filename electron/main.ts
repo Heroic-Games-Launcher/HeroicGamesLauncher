@@ -630,6 +630,9 @@ ipcMain.handle('requestSettings', async (event, appName) => {
 
 ipcMain.on('toggleDXVK', (event, [{ winePrefix, winePath }, action]) => {
   DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
+})
+
+ipcMain.on('toggleVKD3D', (event, [{ winePrefix, winePath }, action]) => {
   DXVK.installRemove(winePrefix, winePath, 'vkd3d', action)
 })
 

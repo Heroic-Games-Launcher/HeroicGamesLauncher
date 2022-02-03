@@ -11,6 +11,7 @@ export interface AppSettings {
   altLegendaryBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: string[]
