@@ -1,6 +1,6 @@
 /* The switch - the box around the slider */
 .switch {
-  margin-inline-start: clamp(10px, 0.5vw, 20px);
+  margin-inline-start: clamp(10px, 0.75vw, 20px);
   margin-block-start: 1.25px;
   position: relative;
   display: inline-block;
