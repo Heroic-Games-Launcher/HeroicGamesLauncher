@@ -24,6 +24,10 @@
                 "message": "Espace disque nécessaire insuffisant",
                 "title": "Pas de place"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Une erreur inconnue s'est produite",
                 "title": "Erreur inconnue"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Installation Annulée",
+            "error": "",
             "finished": "Installation Terminée",
             "imported": "Jeu Importé",
             "startInstall": "Installation commencée"

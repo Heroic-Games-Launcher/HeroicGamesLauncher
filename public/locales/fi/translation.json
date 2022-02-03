@@ -24,6 +24,10 @@
                 "message": "Ei tarpeeksi tilaa levyllä",
                 "title": "Ei ole tilaa levyllä"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Tuntematon Virhe on tapahtunut",
                 "title": "Tuntematon Virhe"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Asennus peruutettu",
+            "error": "",
             "finished": "Asennus valmis",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

@@ -24,6 +24,10 @@
                 "message": "No hi ha prou espai del disc",
                 "title": "Sense espai del disc dur"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Un error desconegut ha ocorregut",
                 "title": "Error desconegut"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Instal·lació cancelada",
+            "error": "",
             "finished": "Instal·lació finalitzada",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

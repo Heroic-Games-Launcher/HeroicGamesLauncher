@@ -24,6 +24,10 @@
                 "message": "사용 가능한 디스크 공간이 충분하지 않습니다",
                 "title": "공간 없음"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "알 수 없는 오류가 발생하였습니다",
                 "title": "알 수 없는 오류"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "설치 취소됨",
+            "error": "",
             "finished": "설치 완료됨",
             "imported": "게임을 가져왔습니다",
             "startInstall": "설치 시작됨"

@@ -24,6 +24,10 @@
                 "message": "Yeterli kullanılabilir disk alanı yok",
                 "title": "Alan Yok"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Bilinmeyen bir hata oluştu",
                 "title": "Bilinmeyen hata"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
+            "error": "",
             "finished": "Kurulum Tamamlandı",
             "imported": "Oyun İçe Aktarıldı",
             "startInstall": "Kurulum Başladı"

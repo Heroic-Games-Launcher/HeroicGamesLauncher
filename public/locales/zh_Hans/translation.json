@@ -24,6 +24,10 @@
                 "message": "没有足够的可用磁盘空间",
                 "title": "没有空间"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "发生了未知错误",
                 "title": "未知错误"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "已取消安装",
+            "error": "",
             "finished": "安装完成",
             "imported": "游戏已导入",
             "startInstall": "安装已开始"

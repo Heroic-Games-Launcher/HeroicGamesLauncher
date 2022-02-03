@@ -24,6 +24,10 @@
                 "message": "Det finns inte tillräckligt med hårdiskutrymme",
                 "title": "Inget utrymme"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Ett okänt fel har inträffat",
                 "title": "Okänt fel"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Installation avbröts",
+            "error": "",
             "finished": "Installation klar",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

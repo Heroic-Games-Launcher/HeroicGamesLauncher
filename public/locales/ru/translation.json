@@ -24,6 +24,10 @@
                 "message": "Недостаточно свободного места на диске",
                 "title": "Нет места"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Произошла неизвестная ошибка",
                 "title": "Неизвестная ошибка"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Установка прервана",
+            "error": "",
             "finished": "Установка завершена",
             "imported": "Игра импортирована",
             "startInstall": "Установка началась"

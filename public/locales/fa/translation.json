@@ -24,6 +24,10 @@
                 "message": "فضای ذخیرهسازی کافی موجود نیست",
                 "title": "فضایی موجود نیست"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "خطایی ناشناخته رخ داده است",
                 "title": "خطای ناشناخته"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "نصب لغو شد",
+            "error": "",
             "finished": "نصب به پایان رسید",
             "imported": "بازی وارد شد",
             "startInstall": "نصب آغاز شد"

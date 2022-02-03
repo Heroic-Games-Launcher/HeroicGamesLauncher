@@ -24,6 +24,10 @@
                 "message": "Nema dovoljno prostora na disku",
                 "title": "Nema prostora"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Nepoznata greška se dogodila",
                 "title": "Nepoznata greška"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Instalacije prekinuta",
+            "error": "",
             "finished": "Instalacija gotova",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

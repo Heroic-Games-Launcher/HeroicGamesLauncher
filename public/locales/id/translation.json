@@ -24,6 +24,10 @@
                 "message": "Tidak cukup ruang disk yang tersedia",
                 "title": "Tidak ada ruang"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "An Unknown Error has occurred",
                 "title": "Error Tak Dikenal"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "",
+            "error": "",
             "finished": "",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

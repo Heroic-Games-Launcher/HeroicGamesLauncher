@@ -24,6 +24,10 @@
                 "message": "Non hai suficiente espacio dispoñíbel no disco",
                 "title": "Sen espacio"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Produciuse un erro descoñecido",
                 "title": "Erro descoñecido"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Instalación cancelada",
+            "error": "",
             "finished": "Instalación rematada",
             "imported": "Xogo importado",
             "startInstall": "Instalación iniciada"

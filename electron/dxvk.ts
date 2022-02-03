@@ -6,6 +6,8 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { execAsync, isOnline } from './utils'
 import { execOptions, heroicToolsPath, home } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import { dialog } from 'electron'
+import i18next from 'i18next'
 
 export const DXVK = {
   getLatest: async () => {
@@ -64,12 +66,19 @@ export const DXVK = {
           logInfo(`extracting ${tool.name} updated!`, LogPrefix.DXVKInstaller)
           exec(cleanCommand)
         })
-        .catch((error) =>
+        .catch((error) => {
           logError(
             [`Error when downloading ${tool.name}`, error],
             LogPrefix.DXVKInstaller
           )
-        )
+          dialog.showErrorBox(
+            i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
+            i18next.t(
+              'box.error.dxvk.message',
+              'Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed'
+            )
+          )
+        })
     })
   },
 

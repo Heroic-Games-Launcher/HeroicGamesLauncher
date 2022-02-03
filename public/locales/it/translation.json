@@ -24,6 +24,10 @@
                 "message": "Spazio su disco insufficiente",
                 "title": "Spazio insufficiente"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Si è verificato un errore sconosciuto",
                 "title": "Errore sconosciuto"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "Installazione annullata",
+            "error": "",
             "finished": "Installazione completata",
             "imported": "Gioco importato",
             "startInstall": "Installazione avviata"

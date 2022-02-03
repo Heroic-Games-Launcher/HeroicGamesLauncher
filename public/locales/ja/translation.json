@@ -24,6 +24,10 @@
                 "message": "使用可能なディスク容量が不足しています",
                 "title": "ディスク容量がありません"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "不明なエラーが発生しました",
                 "title": "不明なエラー"
@@ -156,6 +160,7 @@
         },
         "install": {
             "canceled": "インストールがキャンセルされました",
+            "error": "",
             "finished": "インストールが完了しました",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
