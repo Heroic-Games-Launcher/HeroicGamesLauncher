@@ -2094,15 +2094,20 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.31.tgz#31b7ca6407128a3d2bbc27fe2d21b345397f6197"
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
-"@types/node@*", "@types/node@^17.0.10":
-  version "17.0.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.10.tgz#616f16e9d3a2a3d618136b1be244315d95bd7cab"
-  integrity sha512-S/3xB4KzyFxYGCppyDt68yzBU9ysL88lSdIah4D6cptdcltc4NCPCAMc0+PCpg/lLIyC7IPvj2Z52OJWeIUkog==
+"@types/node@*":
+  version "17.0.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.13.tgz#5ed7ed7c662948335fcad6c412bb42d99ea754e3"
+  integrity sha512-Y86MAxASe25hNzlDbsviXl8jQHb0RDvKt4c40ZJQ1Don0AAL0STLZSs4N+6gLEO55pedy7r2cLwS+ZDxPm/2Bw==
 
 "@types/node@^14.6.2":
   version "14.18.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.9.tgz#0e5944eefe2b287391279a19b407aa98bd14436d"
   integrity sha512-j11XSuRuAlft6vLDEX4RvhqC0KxNxx6QIyMXNb0vHHSNPXTPeiy3algESWmOOIzEtiEL0qiowPU3ewW9hHVa7Q==
+
+"@types/node@^17.0.10":
+  version "17.0.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.10.tgz#616f16e9d3a2a3d618136b1be244315d95bd7cab"
+  integrity sha512-S/3xB4KzyFxYGCppyDt68yzBU9ysL88lSdIah4D6cptdcltc4NCPCAMc0+PCpg/lLIyC7IPvj2Z52OJWeIUkog==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -5781,10 +5786,10 @@ heimdalljs@^0.2.6:
   dependencies:
     rsvp "~3.2.1"
 
-heroic-wine-downloader@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/heroic-wine-downloader/-/heroic-wine-downloader-1.1.0.tgz#82aa46873a36c375cbd68704a93976bd87ec9e42"
-  integrity sha512-PGZvtpBPcIBDppjqQt8UU2BmdKLoNZcLCcrphXKtfGrZdlkmtSynGNQ/QCyCM83y65lGS0lAnhIcZqkdKjlnww==
+heroic-wine-downloader@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/heroic-wine-downloader/-/heroic-wine-downloader-1.2.2.tgz#58b6ae49952208a4a8db9c358a9b5cb96a98deff"
+  integrity sha512-zfyxMEcqtWjsyl1mVaRJN+RmUCCjfJDiUaXYQOky3uRqBilB22xh22qSzynBgbCBi0WG5ch5VwVKuyqpfT72Qg==
   dependencies:
     "@types/graceful-fs" "^4.1.5"
     axios "^0.24.0"

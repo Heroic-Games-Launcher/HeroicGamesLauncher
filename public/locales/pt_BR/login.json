@@ -1,6 +1,6 @@
 {
     "button": {
-        "login": "Login"
+        "login": "Conecte-se"
     },
     "input": {
         "placeholder": "Cole o número SID aqui"

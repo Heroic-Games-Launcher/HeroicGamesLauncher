@@ -98,9 +98,9 @@ class LegendaryLibrary {
       const child = spawn(legendaryBin, ['list', getUeAssets])
       child.stderr.on('data', (data) => {
         if (`${data}`.includes('ERROR')) {
-          logError(`${data}`, LogPrefix.Legendary)
+          logError(`${data}`.trim(), LogPrefix.Legendary)
         } else {
-          logInfo(`${data}`, LogPrefix.Legendary)
+          logInfo(`${data}`.trim(), LogPrefix.Legendary)
         }
       })
       child.on('error', (err) => rej(`${err}`))

@@ -32,9 +32,9 @@
   bottom: 3%;
   right: 0;
   margin: 1em 3em;
-  border: 1px var(--secondary) solid;
+  border: 1px var(--download-button) solid;
   background-color: var(--background);
-  color: var(--secondary);
+  color: var(--download-button);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,8 +46,8 @@
 }
 
 #backToTopBtn:hover {
-  background-color: var(--secondary);
-  color: var(--text-primary);
+  background-color: var(--download-button);
+  color: var(--text-default);
 }
 
 .listing {

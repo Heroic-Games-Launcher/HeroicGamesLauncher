@@ -1,54 +1,63 @@
 .Settings {
-  display: grid;
-  justify-content: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   grid-template-columns: 1fr 5fr;
-  background-color: var(--background-transparent);
-  place-self: center;
-  width: 70vw;
-  min-width: 513px;
-  max-width: 912px;
+  width: 100%;
+  left: 0;
   border-radius: 1rem;
-  padding: 24px;
   grid-area: content;
-  margin: 48px;
+  margin-block-start: 63px;
 }
 
 .settingsNavbar {
   display: flex;
   flex-direction: column;
-  margin-top: 16px;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
+  margin-block-start: 16px;
+  margin-inline-start: 61.5px;
+  margin-inline-end: clamp(65px, 8vw, 103px);
+  font: var(--font-primary-bold);
+  font-size: 18.5px;
   line-height: 19px;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .settingsNavbar > a {
-  padding-bottom: 18px;
+  margin-block-end: 11px;
+  padding-block: 6px;
+}
+
+.settingsNavbar > a:hover {
+  color: var(--text-hover);
 }
 
 .settingsNavbar > a.active {
   transition: all 350ms ease-out 0s;
   transform: scale(1.2);
-  color: var(--primary);
+  color: var(--accent);
   font-weight: 500;
 }
 
 .settingsWrapper {
-  width: 569px;
-  display: grid;
+  margin-inline-end: auto;
+  max-width: 669px;
+  display: flex;
+  flex-direction: column;
   place-self: center;
   place-items: flex-start;
-  width: 569px;
+  width: 100%;
   padding-bottom: 8px;
 }
 
 .headerTitle {
   font-size: 2rem;
-  margin: auto;
+  margin-inline-end: auto;
   padding: 8px;
+}
+
+.headerTitle:hover {
+  transition: 350ms;
+  color: var(--text-hover);
 }
 
 .headerTitle > svg {
@@ -56,7 +65,9 @@
 }
 
 .settingsTools {
-  margin: 16px auto;
+  margin-block: 16px;
+  justify-content: left;
+  max-width: 512px;
 }
 
 .setting {
@@ -81,7 +92,7 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  width: 513px;
+  min-width: 513px;
 }
 
 .settingInputWithButton > .button.is-small {
@@ -89,15 +100,18 @@
 }
 
 .setting > .toggleWrapper {
-  display: grid;
-  grid-template-columns: 93% 10%;
+  display: flex;
+  gap: 15px;
+  align-content: flex-start;
   place-self: center;
   width: 512px;
-  justify-items: baseline;
-  align-items: center;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text-primary);
+  color: var(--text-default);
+}
+.toggleWrapper span {
+  text-align: center;
+  margin-block: auto;
 }
 
 .toggleWrapper > .switch {
@@ -105,13 +119,12 @@
 }
 
 .settingSelect.small {
-  width: 372px;
+  width: clamp(150px, 10rem, 372px);
 }
 
 .settingSelect.smaller {
   width: 66px;
   text-indent: 11px;
-  margin-left: -24px;
 }
 
 .settingSelect > option {
@@ -124,13 +137,12 @@
 }
 
 .save {
-  margin: 24px 0 0 18px;
+  margin: 1em 0 0 18px;
+  padding-block-end: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: Cabin;
-  font-style: italic;
-  font-weight: normal;
+  font: var(--font-secondary-regular-italic);
   font-size: 14px;
   line-height: 17px;
   /* identical to box height */
@@ -138,13 +150,12 @@
 }
 
 .appName {
-  margin-left: 18px;
+  margin-inline-start: 18px;
+  padding-block: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: Cabin;
-  font-style: italic;
-  font-weight: normal;
+  font: var(--font-secondary-regular-italic);
   font-size: 14px;
   line-height: 17px;
   /* identical to box height */
@@ -153,7 +164,7 @@
 
 .save > .material-icons {
   font-size: 28px;
-  margin-left: 6px;
+  margin-inline-start: 6px;
 }
 
 .warning {
@@ -176,19 +187,72 @@ a {
   cursor: pointer;
 }
 .settingsWrapper > .button.is-text {
-  margin-left: 8px;
+  margin-inline: 8px;
+  padding-block: 8px;
   color: var(--text-quartenary);
 }
 
-.settingsWrapper > .button.is-text:hover {
-  color: var(--text-danger);
+.button.is-footer {
+  margin-block: 8px;
+  min-width: 120px;
+  max-height: 80px;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--text-default);
 }
 
-.settingsWrapper > .button.is-text:last-child {
-  margin-left: 8px;
-  padding-top: 0;
+.button.is-footer:hover,
+.button.is-footer:focus-visible {
+  background-color: var(--stop-button);
+  color: var(--text-hover);
 }
 
-.settingsWrapper > .button.isSuccess:hover {
+.button.is-danger.is-footer {
+  background: transparent;
+  color: var(--danger-hover);
+}
+
+.button.is-danger.is-footer:hover,
+.button.is-danger.is-footer:focus-visible {
+  background: var(--danger);
+  color: var(--text-secondary);
+}
+
+.button.is-danger:disabled,
+.button.is-danger.is-footer:disabled {
+  background: var(--icon-disabled);
+  color: var(--text-default);
+}
+
+.button.is-footer.isSuccess {
   color: var(--success) !important;
+}
+
+.footerFlex {
+  margin-inline-start: 6px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.button-icontext-flex {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  margin-block: auto;
+  margin-inline: auto;
+  gap: 4px;
+  position: relative;
+}
+
+.button-icontext-flex .button-icon-text {
+  margin-block: auto;
+  font-size: 13px;
+}
+
+.button-icon-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

@@ -7,7 +7,7 @@
   font-size: 24px;
   justify-content: center;
   flex-direction: column;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .updateIcon .icon {

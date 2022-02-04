@@ -2,8 +2,6 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
@@ -11,6 +9,13 @@ import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import {
+  ContentCopyOutlined,
+  CleaningServicesOutlined,
+  DeleteOutline
+} from '@mui/icons-material'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
@@ -398,6 +403,66 @@ function Settings() {
               showUnrealMarket={showUnrealMarket}
             />
           )}
+          {isGeneralSettings && (
+            <div className="footerFlex">
+              <button
+                className={classNames('button', 'is-footer', {
+                  isSuccess: isCopiedToClipboard
+                })}
+                onClick={() => {
+                  clipboard.writeText(
+                    JSON.stringify({ appName, title, ...settingsToSave })
+                  )
+                  setCopiedToClipboard(true)
+                }}
+              >
+                <div className="button-icontext-flex">
+                  <div className="button-icon-flex">
+                    <ContentCopyOutlined />
+                  </div>
+                  <span className="button-icon-text">
+                    {isCopiedToClipboard
+                      ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+                      : t(
+                          'settings.copyToClipboard',
+                          'Copy All Settings to Clipboard'
+                        )}
+                  </span>
+                </div>
+              </button>
+              {isDefault && (
+                <>
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('clearCache')}
+                  >
+                    <div className="button-icontext-flex">
+                      <div className="button-icon-flex">
+                        <CleaningServicesOutlined />
+                      </div>
+                      <span className="button-icon-text">
+                        {t('settings.clear-cache', 'Clear Heroic Cache')}
+                      </span>
+                    </div>
+                  </button>
+
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('resetHeroic')}
+                  >
+                    <div className="button-icontext-flex">
+                      <div className="button-icon-flex">
+                        <DeleteOutline />
+                      </div>
+                      <span className="button-icon-text">
+                        {t('settings.reset-heroic', 'Reset Heroic')}
+                      </span>
+                    </div>
+                  </button>
+                </>
+              )}
+            </div>
+          )}
           {isWineSettings && (
             <WineSettings
               altWine={altWine}
@@ -477,37 +542,6 @@ function Settings() {
             <LogSettings isDefault={isDefault} appName={appName} />
           )}
           <span className="save">{t('info.settings')}</span>
-          <button
-            className={classNames('button', 'is-text', {
-              isSuccess: isCopiedToClipboard
-            })}
-            onClick={() => {
-              clipboard.writeText(
-                JSON.stringify({ appName, title, ...settingsToSave })
-              )
-              setCopiedToClipboard(true)
-            }}
-          >
-            {isCopiedToClipboard
-              ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
-              : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
-          </button>
-          {isDefault && (
-            <>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('clearCache')}
-              >
-                {t('settings.clear-cache', 'Clear Heroic Cache')}
-              </button>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('resetHeroic')}
-              >
-                {t('settings.reset-heroic', 'Reset Heroic')}
-              </button>
-            </>
-          )}
           {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>

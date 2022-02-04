@@ -3,8 +3,11 @@
   flex-direction: row;
 }
 
-.log-choosen {
-  color: var(--secondary);
+.log-buttons.log-choosen,
+.log-buttons.log-choosen:hover {
+  color: var(--accent);
+  transition: all 350ms ease-out 0s;
+  transform: scale(1.2);
 }
 
 .log-buttons {
@@ -12,10 +15,17 @@
   cursor: pointer;
 }
 
+.log-buttons:hover {
+  color: var(--text-hover);
+}
+
 .log-box {
   background-color: #1e1e1e;
   border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
   max-height: 25em;
+  max-width: 622px;
   overflow: hidden;
 }
 
@@ -27,7 +37,7 @@
 .log-warning,
 .log-info {
   text-align: left;
-  margin: 0px 10px 0px 10px;
+  margin-block: 0;
 }
 
 .log-error {

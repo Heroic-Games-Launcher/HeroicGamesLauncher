@@ -12,7 +12,7 @@
 }
 
 table td.specs {
-  color: var(--secondary);
+  color: var(--download-button);
   opacity: 0.8;
 }
 
