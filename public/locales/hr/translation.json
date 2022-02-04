@@ -29,10 +29,6 @@
                 "title": "Nepoznata greška"
             },
             "launch": "Greška kod pokretanja igrice, provjerite dnevnik!",
-            "log": {
-                "message": "Dnevnik nije nađen za ovu igricu",
-                "title": "Dnevnik nije pronađen"
-            },
             "title": "Greška",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Instalacije prekinuta",
+            "error": "",
             "finished": "Instalacija gotova",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Dodaj novi put",

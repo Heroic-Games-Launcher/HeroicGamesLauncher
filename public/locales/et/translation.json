@@ -29,10 +29,6 @@
                 "title": "Tundmatu viga"
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
-            "log": {
-                "message": "Selle mängu logi ei leitud",
-                "title": "Logi ei leitud"
-            },
             "title": "Viga",
             "wine-not-found": {
                 "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Paigaldamine tühistatud",
+            "error": "",
             "finished": "Paigaldamine lõpetatud",
             "imported": "Mäng imporditud",
             "startInstall": "Paigaldamine algas"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - pluginad",
         "unrealProjects": "Unreal - Projektid",
         "updates": "Ootel olevad uuendused"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Lisa uus tee",

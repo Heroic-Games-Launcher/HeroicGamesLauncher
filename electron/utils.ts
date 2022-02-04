@@ -9,7 +9,7 @@ import si from 'systeminformation'
 import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, home, icon, legendaryBin } from './constants'
+import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 const execAsync = promisify(exec)
@@ -260,29 +260,6 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
-  if (process.platform === 'darwin') {
-    try {
-      await execAsync(`open ${url}`)
-    } catch (error) {
-      dialog.showErrorBox(
-        i18next.t('box.error.log.title', 'Log Not Found'),
-        i18next.t('box.error.log.message', 'No Log was found for this game')
-      )
-      return
-    }
-  }
-  if (process.platform === 'linux') {
-    try {
-      const fixedURL = url.replace('~', home)
-      await execAsync(`xdg-open '${fixedURL}'`)
-    } catch (error) {
-      dialog.showErrorBox(
-        i18next.t('box.error.log.title', 'Log Not Found'),
-        i18next.t('box.error.log.message', 'No Log was found for this game')
-      )
-      return
-    }
-  }
   return shell.openPath(url)
 }
 
