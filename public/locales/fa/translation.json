@@ -29,10 +29,6 @@
                 "title": "خطای ناشناخته"
             },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
-            "log": {
-                "message": "برای این بازی لاگی پیدا نشد",
-                "title": "لاگ پیدا نشد"
-            },
             "title": "خطا",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "نصب لغو شد",
+            "error": "",
             "finished": "نصب به پایان رسید",
             "imported": "بازی وارد شد",
             "startInstall": "نصب آغاز شد"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - افزونهها",
         "unrealProjects": "Unreal - پروژهها",
         "updates": "آپدیتهای در حال انتظار"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "افزودن مسیر جدید",

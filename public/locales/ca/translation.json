@@ -29,10 +29,6 @@
                 "title": "Error desconegut"
             },
             "launch": "Ha sorgit un error mentres s'intentava iniciar el joc, mira el registre!",
-            "log": {
-                "message": "No s'ha trobat cap registre per aquest joc",
-                "title": "El registre no s'ha trobat"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Instal·lació cancelada",
+            "error": "",
             "finished": "Instal·lació finalitzada",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Extensions",
         "unrealProjects": "Unreal - Projectes",
         "updates": "Actualitzacions pendents"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Afegir nova ruta",

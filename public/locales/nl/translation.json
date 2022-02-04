@@ -29,10 +29,6 @@
                 "title": "Onbekende fout"
             },
             "launch": "Een probleem tijdens het lanceren van het spel, check de logs!",
-            "log": {
-                "message": "Geen Log was gevonden voor dit spel",
-                "title": "Geen Log gevonden"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Installatie geannuleerd",
+            "error": "",
             "finished": "Installatie is voltooid",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Voeg een nieuw pad toe",

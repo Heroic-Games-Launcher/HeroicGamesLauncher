@@ -29,10 +29,6 @@
                 "title": "Tuntematon Virhe"
             },
             "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
-            "log": {
-                "message": "Tälle pelille ei löytynyt lokitiedostoja",
-                "title": "Lokitiedostoa ei löytynyt"
-            },
             "title": "Virhe",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Asennus peruutettu",
+            "error": "",
             "finished": "Asennus valmis",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Lisää uusi sijainti",

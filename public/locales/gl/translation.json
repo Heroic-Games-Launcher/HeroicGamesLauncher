@@ -29,10 +29,6 @@
                 "title": "Erro descoñecido"
             },
             "launch": "Produciuse un erro ao iniciar o xogo, revisa os rexistros!",
-            "log": {
-                "message": "Non se atopou o rexistro para este xogo",
-                "title": "Rexistro non atopado"
-            },
             "title": "Erro",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Instalación cancelada",
+            "error": "",
             "finished": "Instalación rematada",
             "imported": "Xogo importado",
             "startInstall": "Instalación iniciada"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Recursos - Engadidos",
         "unrealProjects": "Unreal - Proxectos",
         "updates": "Actualizacións pendentes"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Agregar unha nova ruta",

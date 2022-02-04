@@ -29,10 +29,6 @@
                 "title": "Ismeretlen hiba"
             },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
-            "log": {
-                "message": "Nem találtunk feljegyzést ehhez a játékhoz",
-                "title": "Nem találtunk feljegyzést"
-            },
             "title": "Hiba",
             "wine-not-found": {
                 "message": "Nincs kiválasztva Wine verzió. Ellenőrízd a játék beállításait!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Telepítés Visszavonva",
+            "error": "",
             "finished": "Telepítés Befejezve",
             "imported": "Játék importálva",
             "startInstall": "Telepítés elindult"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Bővítmények",
         "unrealProjects": "Unreal - Projektek",
         "updates": "Függőben lévő frissítések"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Új útvonal hozzáadása",

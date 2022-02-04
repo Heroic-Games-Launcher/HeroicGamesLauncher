@@ -29,10 +29,6 @@
                 "title": "Erro Desconhecido"
             },
             "launch": "Erro ao iniciar o jogo, confira os logs!",
-            "log": {
-                "message": "Nenhum log foi encontrado para esse jogo",
-                "title": "Log Não Encontrado"
-            },
             "title": "Erro",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Instalação Cancelada",
+            "error": "",
             "finished": "Instalação concluída",
             "imported": "Jogo importado",
             "startInstall": "Instalação iniciada"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projetos",
         "updates": "Atualizações pendentes"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Adicionar",

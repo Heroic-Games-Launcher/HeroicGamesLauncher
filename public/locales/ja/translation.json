@@ -29,10 +29,6 @@
                 "title": "不明なエラー"
             },
             "launch": "ゲームの起動時にエラーが発生しました、ログを確認してください！",
-            "log": {
-                "message": "このゲームのログは見つかりませんでした",
-                "title": "ログが見つかりませんでした"
-            },
             "title": "エラー",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "インストールがキャンセルされました",
+            "error": "",
             "finished": "インストールが完了しました",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "新しいパスを追加する",
