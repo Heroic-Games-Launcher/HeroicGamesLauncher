@@ -43,7 +43,7 @@
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "n'est pas installé, voulez-vous l'installer ?"
+                "not_installed": "Ceci n'est pas installé, voulez-vous l'installer ?"
             }
         },
         "quit": {
@@ -84,7 +84,7 @@
         "yes": "OUI"
     },
     "button": {
-        "login": "Login",
+        "login": "Connexion",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser"
