@@ -29,10 +29,6 @@
                 "title": "Неизвестная ошибка"
             },
             "launch": "Ошибка при запуске игры, посмотрите логи!",
-            "log": {
-                "message": "Лог для этой игры не найден",
-                "title": "Лог не найден"
-            },
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Установка прервана",
+            "error": "",
             "finished": "Установка завершена",
             "imported": "Игра импортирована",
             "startInstall": "Установка началась"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Плагины",
         "unrealProjects": "Unreal - Проекты",
         "updates": "Ожидаемые обновления"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Добавить новый путь",

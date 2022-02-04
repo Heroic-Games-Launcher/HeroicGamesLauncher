@@ -29,10 +29,6 @@
                 "title": "அறியப்படாத பிழை"
             },
             "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
-            "log": {
-                "message": "இந்த விளையாட்டுக்கு எந்த பதிவும் கிடைக்கவில்லை",
-                "title": "பதிவு கிடைக்கவில்லை"
-            },
             "title": "பிழை",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
+            "error": "",
             "finished": "நிறுவல் முடிவடைந்தது",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "புதிய பாதையை சேர்",

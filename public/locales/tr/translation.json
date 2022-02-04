@@ -29,10 +29,6 @@
                 "title": "Bilinmeyen hata"
             },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
-            "log": {
-                "message": "Bu oyun için günlük kaydı bulunamadı",
-                "title": "Günlük Kaydı Bulunamadı"
-            },
             "title": "Hata",
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
+            "error": "",
             "finished": "Kurulum Tamamlandı",
             "imported": "Oyun İçe Aktarıldı",
             "startInstall": "Kurulum Başladı"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Eklentiler",
         "unrealProjects": "Unreal - Projeler",
         "updates": "Bekleyen Güncellemeler"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Yeni Yol Ekle",

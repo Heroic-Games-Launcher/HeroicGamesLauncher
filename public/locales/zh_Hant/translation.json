@@ -29,10 +29,6 @@
                 "title": "未知錯誤"
             },
             "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
-            "log": {
-                "message": "未找到此遊戲的日誌",
-                "title": "未找到日誌"
-            },
             "title": "錯誤",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +152,7 @@
         },
         "install": {
             "canceled": "已取消安裝",
+            "error": "",
             "finished": "安裝完成",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -279,6 +276,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "添加新路徑",
