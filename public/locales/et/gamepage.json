@@ -23,6 +23,8 @@
             "title": "Peata paigaldamine"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "Kas soovite selle mängu eemaldada?",
             "title": "Eemalda"
         },
@@ -30,7 +32,7 @@
             "message": "Sellele mängule on saadaval uuendus. Kas soovite uuendada kohe?",
             "title": "Mäng vajab uuendust"
         },
-        "wineprefix": "Vali WinePrefix'i kaust",
+        "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH"
     },
     "button": {

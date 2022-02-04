@@ -215,11 +215,11 @@
         "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
         "language": "アプリの言語を選択",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder."
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
         },
         "mangohud": "Mangohudを有効にする（Mangohudをインストールする必要があります）",
         "manualsync": {

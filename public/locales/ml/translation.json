@@ -215,11 +215,11 @@
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder."
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
         },
         "mangohud": "മാന്ഘൗട്ട് ഉപയോഗിക്കൂ(മാന്ഘൗട്ട് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
         "manualsync": {

@@ -7,12 +7,12 @@
             "title": "Frissítés Elérhető"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic gyorsítótár törölve.",
+            "title": "Gyorsítótár törölve"
         },
         "choose": "Kiválaszt",
         "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Legendary bináris kiválasztása",
         "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
@@ -35,15 +35,15 @@
             },
             "title": "Hiba",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Nincs kiválasztva Wine verzió. Ellenőrízd a játék beállításait!",
+                "title": "Wine nem található"
             }
         },
         "no": "NEM",
-        "ok": "Ok",
+        "ok": "OKÉ",
         "protocol": {
             "install": {
-                "not_installed": "Nincs telepítve, szeretnéd telepíteni?"
+                "not_installed": "Jelenleg nincs telepítve. Telepítse?"
             }
         },
         "quit": {
@@ -52,20 +52,20 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "Biztos vagy benne, hogy visszaállítod a Heroic-ot? Ez el fogja távolítani az összes beállításokat és gyorsítótárat de nem fogja eltávolítani a telepített játékokat vagy az Epic hitelesítő adataidat",
+                "title": "Heroic visszaállítása"
             }
         },
         "runexe": {
             "title": "Válasszd ki a futtatni kívánt EXE fájlt"
         },
         "select": {
-            "button": "Select",
+            "button": "Kiválaszt",
             "exe": "EXE kiválasztása"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Parancsikonok létre lettek hozva az asztalon és a Start menüben",
+            "title": "Parancsikonok"
         },
         "sync": {
             "button": "Választ",
@@ -74,17 +74,17 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Az Epic szerverek nagyobb üzemszünetben vannak épp most, a játékot nem lehet importálni!",
+                "install": "Az Epic szerverek nagyobb üzemszünetben vannak épp most, a játékot nem lehet telepíteni!",
+                "update": "Az Epic szerverek nagyobb üzemszünetben vannak épp most, a játékot nem lehet frissíteni!"
             },
-            "title": "Warning"
+            "title": "Figyelmeztetés"
         },
         "wineprefix": "Válassz Wine Prefix Mappát",
         "yes": "IGEN"
     },
     "button": {
-        "login": "Login",
+        "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás"
@@ -130,14 +130,14 @@
         "requirements": "Rendszer Követelmények"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Telepítési útvonal kiválasztása"
     },
     "Library": "Könyvtár",
     "loading": {
-        "website": "Loading Website"
+        "website": "Weboldal betöltése"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Jelentkezz be Epic-el",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -148,8 +148,8 @@
     "Not Ready": "Nincs kész",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Hiba a játék áthelyezésekor",
+            "reparing": "Hiba javításkor"
         },
         "finished": {
             "reparing": "Javítás Befejezve"
@@ -157,20 +157,20 @@
         "install": {
             "canceled": "Telepítés Visszavonva",
             "finished": "Telepítés Befejezve",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Játék importálva",
+            "startInstall": "Telepítés elindult"
         },
         "moved": "Áthelyezés Befejezve",
         "uninstalled": "Eltávolítva",
         "update": {
             "canceled": "Frissítés Visszavonva",
             "finished": "Frissítés Befejezve",
-            "started": "Update Started"
+            "started": "Frissítés elindult"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "További indítási lehetőségeket ide írd",
+            "placeholder": "Egyéb indítási opciókat ide írd",
             "title": "Haladó beállítások (Környezeti Változók):"
         },
         "gameargs": {
@@ -179,23 +179,23 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "legendary-version": "Legendary Verzió: ",
         "weblate": "Segíts lefordítani a Heroic-ot."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-legendary-bin": "A beépített Legendary bináris használata...",
         "egs-prefix": "Prefix ahol EGS telepítve van"
     },
     "Plugins": "Plugins",
     "Projects": "Projektek",
     "Ready": "Kész",
-    "Recent": "Played Recently",
+    "Recent": "Nemrég játszott",
     "Return": "Vissza",
     "search": "Add meg a játék nevét itt...",
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Válassz egy alternatív Legendary binárist (újraindítás szükséges)",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
         "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
@@ -204,7 +204,7 @@
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",
         "default-install-path": "Alapértelmezett Telepítési Útvonal",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Mappa beállítása új Wine Prefixeknek",
         "discordRPC": "Discord Rich Presence Engedélyezése",
         "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
         "enableFSRHack": "FSR Hack engedélyezése (Wine verziónak támogatnia kell)",
@@ -215,11 +215,11 @@
         "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
         "language": "Válasszd ki az Alkalmazás Nyelvét",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder."
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
         },
         "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
         "manualsync": {
@@ -231,7 +231,7 @@
             "title": "Manuális Mentés Szinkronizálás",
             "upload": "Feltöltés"
         },
-        "maxRecentGames": "Legutóbbi Játékok Mutatása",
+        "maxRecentGames": "Nemrég játszottak megjelenítése",
         "maxworkers": "Maximum Dolgozók Száma letöltéskor",
         "offlinemode": "Futtassa a Játékot Offline",
         "primerun": "Nvidia Prime Render Engedélyezése",
@@ -245,16 +245,16 @@
             "title": "Cloud Sync Save Mappa Felülírása"
         },
         "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Unreal piactér mutatása (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix Mappa",
         "wineversion": "Wine Verzió"
     },
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Heroic gyorsítótár eltávolítása",
+        "copiedToClipboard": "Vágólapra másolva!",
+        "copyToClipboard": "Összes beállítás másolása a vágólapra",
         "navbar": {
             "general": "Általános",
             "log": "Log",
@@ -265,20 +265,20 @@
     },
     "Settings": "Beállítások",
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Játéklista betöltése, kérlek várj",
+        "logging": "Bejelentkezés..."
     },
     "store": "Áruház",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Összes játék",
+        "allUnreal": "Unreal - Minden",
+        "downloading": "Letöltés",
+        "installedGames": "Telepített játékok",
+        "notInstalledGames": "Nem telepített",
+        "unrealAssets": "Unreal - Eszközök",
+        "unrealPlugins": "Unreal - Bővítmények",
+        "unrealProjects": "Unreal - Projektek",
+        "updates": "Függőben lévő frissítések"
     },
     "tooltip": {
         "addpath": "Új útvonal hozzáadása",
@@ -296,16 +296,16 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Kijelentkezés",
-        "logout_confirmation": "Logout?",
+        "logout_confirmation": "Biztos, hogy ki akarsz jelentkezni?",
         "quit": "Kilépés"
     },
     "wiki": "Wiki",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
+            "error": "Nem sikerült Wine/Proton verziókat letölteni ezúttal.",
             "link": "Wine Manager",
             "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "unzipping": "Kicsomagolás"
         }
     }
 }

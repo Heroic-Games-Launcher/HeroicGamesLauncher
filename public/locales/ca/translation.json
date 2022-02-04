@@ -215,11 +215,11 @@
         "gamemode": "Empra el game mode (feral gamemode ha d'estar instal·lat)",
         "language": "Eligeix el llenguatge de l'app",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder."
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
         },
         "mangohud": "Activa Mangohud (Mangohud ha d'estar instal·lat primer)",
         "manualsync": {

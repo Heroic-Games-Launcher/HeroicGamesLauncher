@@ -23,6 +23,8 @@
             "title": "നടീല് നിര്ത്തൂ"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "ഇാ കളി എടുത്തുനീക്കട്ടെ?",
             "title": "എടുത്തു നീക്കൂ"
         },

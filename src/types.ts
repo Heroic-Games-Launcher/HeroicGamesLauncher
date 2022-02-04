@@ -96,6 +96,29 @@ export interface GameInfo {
   canRunOffline: boolean
 }
 
+export interface GameSettings {
+  audioFix: boolean
+  autoInstallDxvk: boolean
+  autoSyncSaves: boolean
+  enableEsync: boolean
+  enableFSR: boolean
+  enableFsync: boolean
+  enableResizableBar: boolean
+  maxSharpness: number
+  launcherArgs: string
+  nvidiaPrime: boolean
+  offlineMode: boolean
+  otherOptions: string
+  savesPath: string
+  showFps: boolean
+  showMangohud: boolean
+  targetExe: string
+  useGameMode: boolean
+  wineCrossoverBottle: string
+  winePrefix: string
+  wineVersion: WineInstallation
+}
+
 type DLCInfo = {
   app_name: string
   title: string
