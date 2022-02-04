@@ -42,7 +42,7 @@ function getGOGdlBin() {
       isWindows ? '/gogdl.exe' : '/gogdl'
     )
   )
-  logInfo(`GOGdl location: ${bin}`)
+  logInfo(`Location: ${bin}`, LogPrefix.Gog)
   return bin
 }
 

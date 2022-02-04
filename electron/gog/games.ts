@@ -140,8 +140,26 @@ class GOGGame extends Game {
   launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
     return launch(this.appName, launchArguments, 'gog')
   }
-  moveInstall(newInstallPath: string): Promise<string> {
-    throw new Error('Method not implemented.')
+  public async moveInstall(newInstallPath: string): Promise<string> {
+    const {
+      install: { install_path },
+      title
+    } = await this.getGameInfo()
+
+    if (isWindows) {
+      newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
+    } else {
+      newInstallPath += '/' + install_path.split('/').slice(-1)[0]
+    }
+
+    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
+    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
+      .then(() => {
+        GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
+        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
+      })
+      .catch((error) => logError(`${error}`, LogPrefix.Gog))
+    return newInstallPath
   }
   /**
    * Literally installing game, since gogdl verifies files at runtime

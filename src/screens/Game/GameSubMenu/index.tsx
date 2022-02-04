@@ -63,7 +63,7 @@ export default function GamesSubmenu({
       })
       if (path) {
         await handleGameStatus({ appName, status: 'moving' })
-        await renderer.invoke('moveInstall', [appName, path])
+        await renderer.invoke('moveInstall', [appName, path, runner])
         await handleGameStatus({ appName, status: 'done' })
       }
     }

@@ -181,6 +181,21 @@ export class GOGLibrary {
     })
   }
 
+  public changeGameInstallPath(appName: string, newInstallPath: string) {
+    const cachedGameData = this.library.get(appName)
+
+    const installedArray =
+      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+
+    const gameIndex = installedArray.findIndex(
+      (value) => value.appName == appName
+    )
+
+    installedArray[gameIndex].install_path = newInstallPath
+    cachedGameData.install.install_path = newInstallPath
+    installedGamesStore.set('installed', installedArray)
+  }
+
   /**
    * Convert GOGGameInfo object to GameInfo
    * That way it will be easly accessible on frontend

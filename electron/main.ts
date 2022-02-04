@@ -948,10 +948,10 @@ ipcMain.handle('repair', async (event, game, runner) => {
     })
 })
 
-ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  const title = (await Game.get(appName).getGameInfo()).title
+ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
+  const title = (await Game.get(appName, runner).getGameInfo()).title
   try {
-    const newPath = await Game.get(appName).moveInstall(path)
+    const newPath = await Game.get(appName, runner).moveInstall(path)
     notify({ title, body: i18next.t('notify.moved') })
     logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
   } catch (error) {
