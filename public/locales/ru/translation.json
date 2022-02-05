@@ -257,6 +257,9 @@
         "clear-cache": "Очистить кэш Heroic",
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Основные",
             "log": "Log",

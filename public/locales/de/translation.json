@@ -257,6 +257,9 @@
         "clear-cache": "Heroic Cache leeren",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Alle Einstellungen in die Zwischenablage kopieren",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Allgemein",
             "log": "Log",
