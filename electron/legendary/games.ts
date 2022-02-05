@@ -604,8 +604,8 @@ Categories=Game;
       return v
     }
 
-    if (!wineVersion.bin) {
-      dialog.showErrorBox(
+    if (!existsSync(wineVersion.bin.replaceAll("'", ''))) {
+      return dialog.showErrorBox(
         i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
         i18next.t(
           'box.error.wine-not-found.message',

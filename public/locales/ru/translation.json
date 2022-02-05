@@ -33,10 +33,6 @@
                 "title": "Неизвестная ошибка"
             },
             "launch": "Ошибка при запуске игры, посмотрите логи!",
-            "log": {
-                "message": "Лог для этой игры не найден",
-                "title": "Лог не найден"
-            },
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -286,6 +282,12 @@
         "unrealProjects": "Unreal - Проекты",
         "updates": "Ожидаемые обновления"
     },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
+    },
     "tooltip": {
         "addpath": "Добавить новый путь",
         "removepath": "Удалить путь"
@@ -308,10 +310,10 @@
     "wiki": "Вики",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "error": "Не удалось получить версии Wine/Proton.",
+            "link": "Менеджер Wine",
+            "title": "Менеджер Wine (Beta)",
+            "unzipping": "Распаковка"
         }
     }
 }

@@ -33,10 +33,6 @@
                 "title": "Nieznany błąd"
             },
             "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
-            "log": {
-                "message": "Nie znaleziono logów dla tej gry",
-                "title": "Nie znaleziono logu"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "Nie Wybrano Wersji Wine . Sprawdź Ustawienia Gry!",
@@ -285,6 +281,12 @@
         "unrealPlugins": "Unreal - Pluginy",
         "unrealProjects": "Unreal - Projekty",
         "updates": "Oczekujące Aktualizacje"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Dodaj nową ścieżkę",

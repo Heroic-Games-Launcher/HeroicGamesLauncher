@@ -33,10 +33,6 @@
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള് നോക്കൂ!",
-            "log": {
-                "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
-                "title": "കുറിപ്പുകള് കണ്ടെത്താനായില്ല"
-            },
             "title": "കുഴപ്പം",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -285,6 +281,12 @@
         "unrealPlugins": "അണ്റിയല് - Plugins",
         "unrealProjects": "അണ്റിയല് - പണികള്",
         "updates": "നടക്കേണ്ട പുതുക്കലുകള്"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്ക്കുക",

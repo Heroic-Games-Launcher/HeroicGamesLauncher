@@ -33,10 +33,6 @@
                 "title": "Άγνωστο σφάλμα"
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
-            "log": {
-                "message": "Δεν βρέθηκαν αρχεία καταγραφής για το παιχνίδι",
-                "title": "Δεν βρέθηκε αρχείο καταγραφής"
-            },
             "title": "Σφάλμα",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -285,6 +281,12 @@
         "unrealPlugins": "Unreal - Πρόσθετα",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Προσθήκη Νέας Διαδρομής",

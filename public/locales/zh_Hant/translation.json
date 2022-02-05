@@ -7,12 +7,12 @@
             "title": "有可用更新"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic緩存已清理",
+            "title": "緩存清理"
         },
         "choose": "請選擇",
         "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "選擇Legendary二進制文件",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
         "error": {
@@ -33,10 +33,6 @@
                 "title": "未知錯誤"
             },
             "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
-            "log": {
-                "message": "未找到此遊戲的日誌",
-                "title": "未找到日誌"
-            },
             "title": "錯誤",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -285,6 +281,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "添加新路徑",

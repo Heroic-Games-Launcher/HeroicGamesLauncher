@@ -33,10 +33,6 @@
                 "title": "Неизвестна грешка"
             },
             "launch": "Грешка при пускането на играта. Проверете журнала!",
-            "log": {
-                "message": "Не е намерен журнал за тази игра",
-                "title": "Журналът не е намерен"
-            },
             "title": "Грешка",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -285,6 +281,12 @@
         "unrealPlugins": "Unreal – Добавки",
         "unrealProjects": "Unreal – Проекти",
         "updates": "Изчакващи обновления"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Добавяне на нов път",

@@ -33,10 +33,6 @@
                 "title": "Neočekávaná chyba"
             },
             "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
-            "log": {
-                "message": "Pro tuto hru nebyl nalezen žádný protokol",
-                "title": "Protokol nebyl nalezen"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -285,6 +281,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "přidat novou cestu",

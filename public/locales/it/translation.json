@@ -33,10 +33,6 @@
                 "title": "Errore sconosciuto"
             },
             "launch": "Errore durante l'avvio del gioco, controlla i logs!",
-            "log": {
-                "message": "Non è stato trovato nessun log per questo gioco",
-                "title": "Log non trovato"
-            },
             "title": "Errore",
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
@@ -285,6 +281,12 @@
         "unrealPlugins": "Unreal - Plugin",
         "unrealProjects": "Unreal - Progetti",
         "updates": "Aggiornamenti in sospeso"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Aggiungi nuovo percorso",

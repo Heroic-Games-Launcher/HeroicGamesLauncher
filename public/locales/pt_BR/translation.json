@@ -7,7 +7,7 @@
             "title": "Atualização Disponível"
         },
         "cache-cleared": {
-            "message": "O cache do Heroic foi limpo!",
+            "message": "O cache do Heroic foi limpo.",
             "title": "Cache limpo"
         },
         "choose": "Selecionar",
@@ -33,10 +33,6 @@
                 "title": "Erro Desconhecido"
             },
             "launch": "Erro ao iniciar o jogo, confira os logs!",
-            "log": {
-                "message": "Nenhum log foi encontrado para esse jogo",
-                "title": "Log Não Encontrado"
-            },
             "title": "Erro",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -44,10 +40,10 @@
             }
         },
         "no": "NÃO",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Não está instalado, deseja instalá-lo?"
+                "not_installed": "Não está instalado. Instalar?"
             }
         },
         "quit": {
@@ -82,13 +78,13 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Warning"
+            "title": "Aviso"
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM"
     },
     "button": {
-        "login": "Login",
+        "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
@@ -109,11 +105,11 @@
         "other": {
             "part1": "Use o ",
             "part2": "Opções avançadas",
-            "part3": "para variáveis de ambiente que serão utilizadas antes do comando do jogo; ",
+            "part3": "para ser chamado antes de iniciar o jogo; ",
             "part4": "Use os ",
             "part5": "Argumentos do jogo",
-            "part6": " para que sejam chamados após o commando, por exemplo: ",
-            "part7": " para evitar abrir o launcher de alguns jogos, etc."
+            "part6": " para que sejam chamados após o comando, por exemplo: ",
+            "part7": " para evitar abrir o launcher em alguns jogos, etc."
         },
         "sync": {
             "part1": "Heroic tenta advinhar a pasta de saves correta e isso funcionará na maioria dos casos. No caso da pasta estar errada, você pode selecioná-la manualmente.",
@@ -175,7 +171,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Adicione outras variáveis de ambiente aqui",
+            "placeholder": "Coloque outras opções de inicialização aqui",
             "title": "Opções avançadas (variáveis de ambiente):"
         },
         "gameargs": {
@@ -200,7 +196,7 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
-        "alt-legendary-bin": "Escolha um binário alternativo do Legendary  (requer reinício)",
+        "alt-legendary-bin": "Escolha um binário alternativo do Legendary (requer reinício)",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
@@ -260,7 +256,7 @@
     "settings": {
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copiar toda a configuração para a área de transferência",
+        "copyToClipboard": "Copiar todas as configurações para a área de transferência",
         "navbar": {
             "general": "Config. Gerais",
             "log": "Log",
@@ -285,6 +281,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projetos",
         "updates": "Atualizações pendentes"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Adicionar",

@@ -33,10 +33,6 @@
                 "title": "未知错误"
             },
             "launch": "启动游戏时出现错误，请检查日志！",
-            "log": {
-                "message": "未找到此游戏的日志",
-                "title": "未找到日志"
-            },
             "title": "错误",
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
@@ -286,6 +282,12 @@
         "unrealProjects": "Unreal - 项目",
         "updates": "待更新"
     },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
+    },
     "tooltip": {
         "addpath": "添加新路径",
         "removepath": "删除路径"
@@ -308,10 +310,10 @@
     "wiki": "Wiki百科",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "error": "此次无法获取 Wine/Proton 版本。",
+            "link": "Wine 管理器",
+            "title": "Wine 管理器 (测试版)",
+            "unzipping": "解压缩"
         }
     }
 }

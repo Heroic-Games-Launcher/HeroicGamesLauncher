@@ -99,7 +99,8 @@
         "syncing": "يزامن"
     },
     "status": {
-        "loading": "يحمل قائمة الألعاب، يرجى الإنتظار"
+        "loading": "يتم تحميل قائمة الألعاب ، يرجى الانتظار",
+        "logging": "يتم تسجيل الدخول..."
     },
     "Downloading": "ينزّل",
     "globalSettings": "الإعدادات العامة",
@@ -193,5 +194,113 @@
     "Projects": "المشاريع",
     "Epic Games": "Epic Games",
     "Plugins": "الإضافات",
-    "Assets": "الأصول"
+    "Assets": "الأصول",
+    "setting": {
+        "defaultWinePrefix": "تعيين مجلد ل Wine Prefix الجديد",
+        "adddesktopshortcuts": "أضف اختصارات سطح المكتب تلقائيًا",
+        "alt-legendary-bin": "اختر بديل Legendary Binary (يلزم إعادة التشغيل)",
+        "audiofix": "إصلاح الصوت (وقت إستجابة Pulse Audio)",
+        "autosync": "حفظ المزامنة التلقائية",
+        "change-target-exe": "حدد EXE بديل لتشغيله",
+        "checkForUpdatesOnStartup": "تحقق من وجود تحديثات عند بدء التشغيل",
+        "darktray": "إستخدم أيقونة لوحة النظام الداكنة",
+        "addgamestostartmenu": "أضف ألعابًا لبدء القائمة تلقائيًا",
+        "autodxvk": "التثبيت التلقائي / التحديث DXVK / VKD3D على Prefix",
+        "customWineProton": "مسارات Wine / Proton المخصصة",
+        "default-install-path": "مسار التثبيت الافتراضي",
+        "primerun": "تفعيل Nvidia Prime Render",
+        "manualsync": {
+            "download": "تحميل",
+            "forceupload": "الإجبار علي الرفع",
+            "forcedownload": "الإجبار على التحميل",
+            "sync": "مزامنة",
+            "syncing": "جاري المزامنة",
+            "title": "حفظ المزامنة يدوياً",
+            "upload": "رفع"
+        },
+        "start-in-tray": "إبدأ مصغر",
+        "exit-to-tray": "الخروج إلى لوحة النظام",
+        "language": "اختر لغة التطبيق",
+        "mangohud": "تمكين Mangohud (يجب تثبيت Mangohud)",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "discordRPC": "تمكين Discord Rich Presence",
+        "egs-sync": "تزامن مع Epic Games المثبتة",
+        "enableFSRHack": "تمكين FSR Hack (يحتاج إصدار Wine إلى دعمه)",
+        "maxRecentGames": "لعبت مؤخرا للعرض",
+        "maxworkers": "الحد الأقصى لعدد Workers عند التنزيل",
+        "offlinemode": "تشغيل اللعبة دون اتصال بالإنترنت",
+        "resizableBar": "تمكين Resizable BAR (NVIDIA RTX 30xx فقط)",
+        "savefolder": {
+            "title": "تجاوز مجلد حفظ مزامنة السحابة",
+            "placeholder": "حدد مجلد الألعاب المحفوظة بالضبط"
+        },
+        "FsrSharpnessStrenght": "قوة حدة FSR",
+        "fsync": "تمكين Fsync",
+        "gamemode": "إستخدم GameMode (يجب تثبيت Feral Game Mode)",
+        "runexe": {
+            "message": "اسحب الملفات وأفلتها هنا",
+            "title": "قم بتشغيل EXE على Prefix"
+        },
+        "showfps": "عرض FPS (DX9 و 10 و 11)",
+        "showUnrealMarket": "إظهار Unreal Marketplace (يحتاج إلى إعادة التشغيل)",
+        "wineprefix": "مجلد WinePrefix",
+        "wineversion": "نسخة Wine",
+        "esync": "تمكين Esync"
+    },
+    "Recent": "لعبت مؤخرا",
+    "Return": "عودة",
+    "search": "أدخل اسم اللعبة هنا ...",
+    "Ready": "مستعد",
+    "settings": {
+        "copiedToClipboard": "تم النسخ إلى الحافظة!",
+        "reset-heroic": "إعادة تعيين هيرويك",
+        "clear-cache": "امسح ذاكرة التخزين المؤقت لهيرويك",
+        "navbar": {
+            "general": "عام",
+            "other": "آخر",
+            "sync": "مزامنة المحفوظات"
+        },
+        "copyToClipboard": "نسخ جميع الإعدادات إلى الحافظة"
+    },
+    "title": {
+        "allUnreal": "Unreal - كل شيء",
+        "notInstalledGames": "غير مثبت",
+        "installedGames": "الألعاب المثبتة",
+        "unrealAssets": "Unreal - الأصول",
+        "unrealPlugins": "Unreal - الإضافات",
+        "allGames": "جميع الالعاب",
+        "downloading": "جارى التحميل",
+        "unrealProjects": "Unreal - المشاريع",
+        "updates": "التحديثات معلقة"
+    },
+    "Settings": "إعدادات",
+    "Total Games": "إجمالي الألعاب",
+    "tray": {
+        "reload": "إعادة تحميل",
+        "about": "عن",
+        "quit": "خروج",
+        "show": "إظهار"
+    },
+    "wine": {
+        "manager": {
+            "link": "مدير Wine",
+            "error": "تعذر جلب إصدارات Wine / Proton هذه المرة.",
+            "unzipping": "جاري فك الضغط",
+            "title": "مدير Wine (تجريبي)"
+        }
+    },
+    "tooltip": {
+        "addpath": "أضف مسار جديد",
+        "removepath": "إزالة المسار"
+    },
+    "store": "متجر",
+    "Unreal Marketplace": "سوق Unreal",
+    "Updates": "التحديثات",
+    "userselector": {
+        "discord": "ديسكورد",
+        "logout": "تسجيل الخروج",
+        "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج ؟",
+        "quit": "خروج"
+    },
+    "wiki": "ويكي"
 }
