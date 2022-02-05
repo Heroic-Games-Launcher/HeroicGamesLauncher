@@ -78,11 +78,13 @@ export default function LogSettings({ isDefault, appName }: Props) {
           </a>
         </span>
       )}
-      {refreshing ? 
+      {refreshing ? (
         <span className="setting">
           <FontAwesomeIcon className="icon" icon={faSyncAlt} />
         </span>
-      : formatLogBox()}
+      ) : (
+        formatLogBox()
+      )}
       {logFileExist && (
         <span className="footerFlex">
           <a
