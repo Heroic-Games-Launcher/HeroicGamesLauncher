@@ -24,6 +24,10 @@
                 "message": "Espace disque nécessaire insuffisant",
                 "title": "Pas de place"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Une erreur inconnue s'est produite",
                 "title": "Erreur inconnue"
@@ -39,7 +43,7 @@
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "n'est pas installé, voulez-vous l'installer ?"
+                "not_installed": "Ceci n'est pas installé, voulez-vous l'installer ?"
             }
         },
         "quit": {
@@ -80,7 +84,7 @@
         "yes": "OUI"
     },
     "button": {
-        "login": "Login",
+        "login": "Connexion",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
         "alt-legendary-bin": "Choisir un autre exécutable Legendary  (nécessite de relancer Heroic)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
-        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
+        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",

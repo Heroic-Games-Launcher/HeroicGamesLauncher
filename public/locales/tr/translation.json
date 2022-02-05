@@ -24,6 +24,10 @@
                 "message": "Yeterli kullanılabilir disk alanı yok",
                 "title": "Alan Yok"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Bilinmeyen bir hata oluştu",
                 "title": "Bilinmeyen hata"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
         "alt-legendary-bin": "Alternatif bir Legendary dosyası seçin (yeniden başlatma gerekir)",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
-        "autodxvk": "DXVK/VKD3D'yı otomatik kur/güncelle",
+        "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
