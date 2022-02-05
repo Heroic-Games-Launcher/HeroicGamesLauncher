@@ -257,6 +257,9 @@
         "clear-cache": "Effacer le cache Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copier tous les paramètres dans le presse-papier",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Général",
             "log": "Log",

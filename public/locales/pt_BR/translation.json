@@ -257,6 +257,9 @@
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copiar todas as configurações para a área de transferência",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Config. Gerais",
             "log": "Log",
