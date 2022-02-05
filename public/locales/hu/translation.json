@@ -252,6 +252,9 @@
         "clear-cache": "Heroic gyorsítótár eltávolítása",
         "copiedToClipboard": "Vágólapra másolva!",
         "copyToClipboard": "Összes beállítás másolása a vágólapra",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Általános",
             "log": "Log",

@@ -252,6 +252,9 @@
         "clear-cache": "Heroic 캐시 삭제",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "일반",
             "log": "Log",

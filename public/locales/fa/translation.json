@@ -252,6 +252,9 @@
         "clear-cache": "پاک کردن کش Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "عمومی",
             "log": "Log",

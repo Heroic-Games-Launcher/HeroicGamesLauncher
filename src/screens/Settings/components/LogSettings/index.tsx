@@ -143,7 +143,7 @@ export default function LogSettings({ isDefault, appName }: Props) {
           <span className="setting long-log-hint">
             {t(
               'settings.log.long-log-hint',
-              'To long log! Showing only last 1000 lines.'
+              'Log truncated, last 1000 lines are shown!'
             )}
           </span>
         )}
