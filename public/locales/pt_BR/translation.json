@@ -24,6 +24,10 @@
                 "message": "Sem espaço suficiente disponível no disco",
                 "title": "Sem Espaço"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Um erro desconhecido ocorreu",
                 "title": "Erro Desconhecido"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
         "alt-legendary-bin": "Escolha um binário alternativo do Legendary (requer reinício)",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
-        "autodxvk": "Instalar/atualizar o DXVK/VKD3D automaticamente no prefixo",
+        "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecione um EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com WINE/Proton Customizados",

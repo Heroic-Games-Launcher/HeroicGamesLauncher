@@ -24,6 +24,10 @@
                 "message": "No hi ha prou espai del disc",
                 "title": "Sense espai del disc dur"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Un error desconegut ha ocorregut",
                 "title": "Error desconegut"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
-        "autodxvk": "Instal·la/Actualitza DXVK/VKD3D al prefix automàticament",
+        "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
         "autosync": "Sincronitza les dades automàticament",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecciona un EXE alternatiu per córrer",
         "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
         "customWineProton": "Rutes de Wine o Proton personalitzades",

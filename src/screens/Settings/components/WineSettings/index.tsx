@@ -16,6 +16,7 @@ const { ipcRenderer } = window.require('electron')
 interface Props {
   altWine: WineInstallation[]
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   customWinePaths: string[]
   isDefault: boolean
   maxSharpness: number
@@ -28,6 +29,7 @@ interface Props {
   setFsrSharpness: (value: number) => void
   setWineVersion: (wine: WineInstallation) => void
   toggleAutoInstallDxvk: () => void
+  toggleAutoInstallVkd3d: () => void
   toggleFSR: () => void
   toggleResizableBar: () => void
   wineCrossoverBottle: string
@@ -49,9 +51,11 @@ export default function WineSettings({
   wineVersion,
   altWine,
   toggleAutoInstallDxvk,
+  toggleAutoInstallVkd3d,
   enableFSR,
   toggleFSR,
   autoInstallDxvk,
+  autoInstallVkd3d,
   customWinePaths,
   setCustomWinePaths,
   wineCrossoverBottle,
@@ -319,6 +323,30 @@ export default function WineSettings({
             />
             <span>
               {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+            </span>
+          </span>
+        </span>
+      )}
+      {isLinux && !isProton && (
+        <span className="setting">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              value={autoInstallVkd3d}
+              handleChange={() => {
+                const action = autoInstallVkd3d ? 'restore' : 'backup'
+                ipcRenderer.send('toggleVKD3D', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
+                return toggleAutoInstallVkd3d()
+              }}
+              title={t(
+                'setting.autovkd3d',
+                'Auto Install/Update VKD3D on Prefix'
+              )}
+            />
+            <span>
+              {t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
             </span>
           </span>
         </span>
