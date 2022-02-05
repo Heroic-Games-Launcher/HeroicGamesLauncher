@@ -24,6 +24,10 @@
                 "message": "使用可能なディスク容量が不足しています",
                 "title": "ディスク容量がありません"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "不明なエラーが発生しました",
                 "title": "不明なエラー"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
-        "autodxvk": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
+        "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "実行する代替EXEを選択します",
         "checkForUpdatesOnStartup": "起動時に更新を確認する",
         "customWineProton": "カスタムWine/Protonパス",

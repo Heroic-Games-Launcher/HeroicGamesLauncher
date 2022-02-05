@@ -24,6 +24,10 @@
                 "message": "போதுமான இடம் இல்லை",
                 "title": "இடம் இல்லை"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "ஒரு அறியப்படாத பிழை ஏற்பட்டது",
                 "title": "அறியப்படாத பிழை"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
-        "autodxvk": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
+        "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
