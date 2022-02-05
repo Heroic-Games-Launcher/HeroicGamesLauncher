@@ -24,6 +24,10 @@
                 "message": "فضای ذخیرهسازی کافی موجود نیست",
                 "title": "فضایی موجود نیست"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "خطایی ناشناخته رخ داده است",
                 "title": "خطای ناشناخته"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راهاندازی مجدد)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
-        "autodxvk": "نصب/بهروزرسانی خودکار DXVK/VKD3D در Prefix",
+        "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "چک کردن برای به روزرسانی در هنگام راه اندازی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",

@@ -24,6 +24,10 @@
                 "message": "没有足够的可用磁盘空间",
                 "title": "没有空间"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "发生了未知错误",
                 "title": "未知错误"
@@ -194,8 +198,9 @@
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件 (需要重启)",
         "audiofix": "音频修复（Pulse Audio延迟）",
-        "autodxvk": "在PREFIX自动安装并更新DXVK/VKD3D",
+        "autodxvk": "在PREFIX自动安装并更新DXVK",
         "autosync": "自动同步存档",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "选择要运行的替代EXE",
         "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",

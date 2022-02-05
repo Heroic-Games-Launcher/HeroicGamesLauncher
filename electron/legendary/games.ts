@@ -534,6 +534,7 @@ Categories=Game;
       showMangohud,
       audioFix,
       autoInstallDxvk,
+      autoInstallVkd3d,
       offlineMode,
       enableFSR,
       maxSharpness,
@@ -670,6 +671,11 @@ Categories=Game;
       await DXVK.installRemove(winePrefix, wineVersion.bin, 'dxvk', 'backup')
     }
 
+    // Install VKD3D for non Proton/CrossOver Prefixes
+    if (!isProton && !isCrossover && autoInstallVkd3d) {
+      await DXVK.installRemove(winePrefix, winePath, 'vkd3d', 'backup')
+    }
+
     if (wineVersion.name !== 'Wine Default') {
       const { bin } = wineVersion
       wineCommand = isProton
@@ -726,7 +732,7 @@ Categories=Game;
 
     if (!existsSync(fixedWinePrefix)) {
       mkdirSync(fixedWinePrefix, { recursive: true })
-      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
+      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i`
       logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
       return execAsync(initPrefixCommand)
         .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
