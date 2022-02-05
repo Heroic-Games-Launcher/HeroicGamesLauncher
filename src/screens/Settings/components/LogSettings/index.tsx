@@ -149,13 +149,13 @@ export default function LogSettings({ isDefault, appName }: Props) {
         )}
         <span className="setting log-box">
           {lines.map((line, key) => {
-            if (line.toLowerCase().includes('err')) {
+            if (line.toLowerCase().includes(' err')) {
               return (
                 <p key={key} className="log-error">
                   {line}
                 </p>
               )
-            } else if (line.toLowerCase().includes('warn')) {
+            } else if (line.toLowerCase().includes(' warn')) {
               return (
                 <p key={key} className="log-warning">
                   {line}
