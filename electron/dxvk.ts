@@ -47,9 +47,13 @@ export const DXVK = {
         pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
       }
 
-      if (pastVersion === pkg) {
+      if (
+        pastVersion === pkg &&
+        existsSync(`${heroicToolsPath}/${tool.name}/${pkg}`)
+      ) {
         return
       }
+
       const downloadCommand = `curl -L ${downloadUrl} -o ${latestVersion} --create-dirs`
       const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${heroicToolsPath}/${tool.name}`
       const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
@@ -63,7 +67,19 @@ export const DXVK = {
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
           await execAsync(extractCommand)
-          logInfo(`extracting ${tool.name} updated!`, LogPrefix.DXVKInstaller)
+            .then(() =>
+              logInfo(
+                `extracting ${tool.name} updated!`,
+                LogPrefix.DXVKInstaller
+              )
+            )
+            .catch((error) =>
+              logError(
+                `Extraction of ${tool.name} failed with: ${error}`,
+                LogPrefix.DXVKInstaller
+              )
+            )
+
           exec(cleanCommand)
         })
         .catch((error) => {

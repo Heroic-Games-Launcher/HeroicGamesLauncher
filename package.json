@@ -78,7 +78,7 @@
       "depends": [
         "gawk",
         "curl",
-        "libzstd1"
+        "zstd"
       ]
     },
     "pacman": {
