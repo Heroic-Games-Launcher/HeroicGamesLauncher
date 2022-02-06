@@ -27,6 +27,7 @@ type InstallArgs = {
   t: TFunction<'gamepage'>
   installDlcs?: boolean
   sdlList?: Array<string>
+  installLanguage?: string
   runner?: Runner
 }
 
@@ -41,6 +42,7 @@ async function install({
   setInstallPath,
   sdlList = [],
   installDlcs = false,
+  installLanguage = 'en-US',
   runner = 'legendary'
 }: InstallArgs) {
   if (!installPath) {
@@ -98,6 +100,7 @@ async function install({
         path: `${installPath}`,
         installDlcs,
         sdlList,
+        installLanguage,
         runner
       })
       .finally(() => {

@@ -807,7 +807,7 @@ ipcMain.handle(
 )
 
 ipcMain.handle('install', async (event, params) => {
-  const { appName, path, installDlcs, sdlList, runner } =
+  const { appName, path, installDlcs, sdlList, runner, installLanguage } =
     params as InstallParams
   const { title, is_mac_native } = await Game.get(appName, runner).getGameInfo()
   const platformToInstall =
@@ -844,7 +844,7 @@ ipcMain.handle('install', async (event, params) => {
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
   return Game.get(appName, runner)
-    .install({ path, installDlcs, sdlList, platformToInstall })
+    .install({ path, installDlcs, sdlList, platformToInstall, installLanguage })
     .then(async (res) => {
       notify({
         title,

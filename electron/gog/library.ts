@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import Store from 'electron-store'
 import { GOGUser } from './user'
@@ -7,11 +6,13 @@ import {
   GOGGameInfo,
   GameInfo,
   InstallInfo,
-  InstalledInfo
+  InstalledInfo,
+  GOGImportData
 } from '../types'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { execAsync } from '../utils'
 import { gogdlBin } from '../constants'
+import prettyBytes from 'pretty-bytes'
 
 const userStore = new Store({
   cwd: 'gog_store'
@@ -163,7 +164,8 @@ export class GOGLibrary {
         app_name: appName,
         install_tags: [],
         launch_exe: '',
-        prerequisites: null
+        prerequisites: null,
+        languages: gogInfo.languages
       }
     }
     return info
@@ -195,11 +197,34 @@ export class GOGLibrary {
     cachedGameData.install.install_path = newInstallPath
     installedGamesStore.set('installed', installedArray)
   }
+  public async importGame(data: GOGImportData, path: string) {
+    const installInfo: InstalledInfo = {
+      appName: data.appName,
+      install_path: path,
+      executable: '',
+      install_size: prettyBytes(
+        (await this.getInstallInfo(data.appName)).manifest.disk_size
+      ),
+      is_dlc: false,
+      version: data.buildId,
+      platform: data.platform
+    }
+    this.installedGames.set(data.appName, installInfo)
+    const gameData = this.library.get(data.appName)
+    gameData.install = installInfo
+    gameData.is_installed = true
+    this.library.set(data.appName, gameData)
+    installedGamesStore.set(
+      'installed',
+      Array.from(this.installedGames.values())
+    )
+  }
 
   /**
    * Convert GOGGameInfo object to GameInfo
    * That way it will be easly accessible on frontend
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public gogToUnifiedInfo(info: GOGGameInfo, apiData: any): GameInfo {
     let developer: string
     let verticalCover: string
@@ -239,7 +264,7 @@ export class GOGLibrary {
         )
       },
       folder_name: '',
-      install: this.installedGames.get(String(info.id)) || {
+      install: {
         version: null,
         executable: '',
         install_path: '',
@@ -248,7 +273,7 @@ export class GOGLibrary {
         platform: ''
       },
       is_game: true,
-      is_installed: this.installedGames.has(String(info.id)),
+      is_installed: false,
       is_ue_asset: false,
       is_ue_plugin: false,
       is_ue_project: false,
@@ -287,9 +312,11 @@ export class GOGLibrary {
    * @param os
    * @returns parsed data used when rendering requirements on GamePage
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public createReqsArray(apiData: any, os: 'windows' | 'linux' | 'osx') {
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (v: { operatingSystem: { name: any } }) => v.operatingSystem.name === os
     )
 

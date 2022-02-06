@@ -155,6 +155,7 @@ type GameManifest = {
   install_tags: Array<string>
   launch_exe: string
   prerequisites: Prerequisites
+  languages?: Array<string>
 }
 export interface InstallInfo {
   game: GameInstallInfo

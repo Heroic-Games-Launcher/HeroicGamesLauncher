@@ -63,6 +63,7 @@ export default function InstallModal({
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || 'default'
   )
+  const [installLanguage, setInstallLanguage] = useState('')
 
   const installFolder = gameStatus?.folder || installPath
 
@@ -111,6 +112,7 @@ export default function InstallModal({
       t,
       sdlList,
       installDlcs,
+      installLanguage,
       runner
     })
   }
@@ -150,6 +152,8 @@ export default function InstallModal({
     const getInfo = async () => {
       const gameInfo = await getInstallInfo(appName, runner)
       setGameInfo(gameInfo)
+      if (gameInfo.manifest.languages)
+        setInstallLanguage(gameInfo.manifest.languages[0])
       const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
@@ -210,6 +214,27 @@ export default function InstallModal({
                 <span>{installSize}</span>
               </span>
             </div>
+            {gameInfo.manifest.languages &&
+              gameInfo.manifest.languages?.length > 1 && (
+                <div className="languageOptions">
+                  <span className="languageInfo">
+                    {t('game.language', 'Language')}:
+                  </span>
+                  <select
+                    name="language"
+                    id="languagePick"
+                    value={installLanguage}
+                    onChange={(e) => setInstallLanguage(e.target.value)}
+                  >
+                    {gameInfo.manifest.languages &&
+                      gameInfo.manifest.languages.map((value) => (
+                        <option value={value} key={value}>
+                          {value}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              )}
             <span className="installPath">
               <span className="settingText">
                 {t('install.path', 'Select Install Path')}:

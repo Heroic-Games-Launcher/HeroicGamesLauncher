@@ -72,13 +72,25 @@ class GOGGame extends Game {
   hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
-  import(path: string): Promise<ExecResult> {
-    throw new Error('Method not implemented.')
+  public async import(path: string): Promise<ExecResult> {
+    const command = `"${gogdlBin}" import "${path}"`
+
+    logInfo(
+      [`Importing ${this.appName} from ${path} with:`, command],
+      LogPrefix.Gog
+    )
+
+    return execAsync(command, execOptions).then(async (value) => {
+      await GOGLibrary.get().importGame(JSON.parse(value.stdout), path)
+      return value
+    })
+    // throw new Error('Method not implemented.')
   }
   public async install({
     path,
     installDlcs,
-    platformToInstall
+    platformToInstall,
+    installLanguage
   }: InstallArgs): Promise<{ status: string }> {
     // const { maxWorkers } = await GlobalConfig.get().getSettings()
     // const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
@@ -93,7 +105,7 @@ class GOGGame extends Game {
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
     // In the future we need to add Language select option
-    const command = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" --token="${credentials.access_token}" ${withDlcs} --lang="en-US" ${writeLog}`
+    const command = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" --token="${credentials.access_token}" ${withDlcs} --lang="${installLanguage}" ${writeLog}`
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
