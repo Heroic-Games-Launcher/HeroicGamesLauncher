@@ -3,21 +3,21 @@
     "Assets": "素材",
     "box": {
         "appupdate": {
-            "message": "有新版本的Heroic启动器可用，您要立即更新吗？",
+            "message": "有新版本的Heroic启动器可用，你要立即更新吗？",
             "title": "有可用更新"
         },
         "cache-cleared": {
             "message": "Heroic 缓存已清理。",
-            "title": "缓存清理"
+            "title": "缓存已清理"
         },
         "choose": "请选择",
         "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
-        "choose-legendary-binary": "选择Legendary二进制文件",
-        "customWine": "选择已编译的Wine或Proton",
+        "choose-legendary-binary": "选择 Legendary 二进制文件",
+        "customWine": "选择Wine或Proton二进制文件",
         "default-install-path": "选择默认安装路径",
         "error": {
             "credentials": {
-                "message": "您的凭据已过期，请注销并重新登录。",
+                "message": "你的凭据已过期，请注销并重新登录。",
                 "title": "过期的登录凭据"
             },
             "diskspace": {
@@ -43,11 +43,11 @@
         "ok": "是",
         "protocol": {
             "install": {
-                "not_installed": "当前未安装，您是否希望安装它？"
+                "not_installed": "当前未安装，你是否希望安装它？"
             }
         },
         "quit": {
-            "message": "有待处理的操作，您确定吗？",
+            "message": "有待处理的操作，你确定吗？",
             "title": "退出"
         },
         "reset-heroic": {
@@ -91,7 +91,7 @@
     },
     "Downloading": "正在下载",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Heroic 也许不会正常工作！",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic 游戏",
@@ -101,7 +101,7 @@
     "Filter": "筛选",
     "globalSettings": "全局设置",
     "help": {
-        "general": "与Epic Games商城同步，如果您在其他地方已经安装了Epic Games启动器，可以导入您的游戏以避免再次下载它们。",
+        "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，想要导入你的游戏，以免再次下载它们。",
         "other": {
             "part1": "使用 ",
             "part2": "高级选项",
@@ -217,11 +217,11 @@
         "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
         "language": "选择应用语言",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "复制日志内容到剪贴板",
+            "current-log": "当前日志",
+            "last-log": "上一日志",
+            "no-file": "未找到日志文件",
+            "show-in-folder": "显示文件夹中的日志文件"
         },
         "mangohud": "启用MangoHud（需要已安装Mangohud）",
         "manualsync": {
@@ -287,8 +287,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "选择新配置的默认前缀文件夹",
+            "wineprefix": "为新的 Wine 前缀选择一个文件夹"
         }
     },
     "tooltip": {
@@ -307,7 +307,7 @@
     "userselector": {
         "discord": "Discord",
         "logout": "退出登录",
-        "logout_confirmation": "您确定要退出登录吗？",
+        "logout_confirmation": "你确定要退出登录吗？",
         "quit": "退出"
     },
     "wiki": "Wiki百科",
