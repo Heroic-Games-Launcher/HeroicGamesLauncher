@@ -9,12 +9,14 @@ import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import classNames from 'classnames'
+import { Tooltip } from '@mui/material'
 
 const { ipcRenderer } = window.require('electron')
 
 interface Props {
   altWine: WineInstallation[]
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   customWinePaths: string[]
   isDefault: boolean
   maxSharpness: number
@@ -27,6 +29,7 @@ interface Props {
   setFsrSharpness: (value: number) => void
   setWineVersion: (wine: WineInstallation) => void
   toggleAutoInstallDxvk: () => void
+  toggleAutoInstallVkd3d: () => void
   toggleFSR: () => void
   toggleResizableBar: () => void
   wineCrossoverBottle: string
@@ -48,9 +51,11 @@ export default function WineSettings({
   wineVersion,
   altWine,
   toggleAutoInstallDxvk,
+  toggleAutoInstallVkd3d,
   enableFSR,
   toggleFSR,
   autoInstallDxvk,
+  autoInstallVkd3d,
   customWinePaths,
   setCustomWinePaths,
   wineCrossoverBottle,
@@ -140,7 +145,13 @@ export default function WineSettings({
                   )
               }
             >
-              <CreateNewFolder data-testid="addWinePrefix" />
+              <CreateNewFolder
+                data-testid="addWinePrefix"
+                titleAccess={t(
+                  'toolbox.settings.wineprefix',
+                  'Select a Folder for new Wine Prefixes'
+                )}
+              />
             </SvgButton>
           </span>
         </span>
@@ -172,7 +183,13 @@ export default function WineSettings({
                   )
               }
             >
-              <CreateNewFolder data-testid="addWinePrefix" />
+              <CreateNewFolder
+                data-testid="addWinePrefix"
+                titleAccess={t(
+                  'toolbox.settings.default-wineprefix',
+                  'Select the default prefix folder for new configs'
+                )}
+              />
             </SvgButton>
           </span>
         </span>
@@ -197,28 +214,38 @@ export default function WineSettings({
             </select>
             <div className="iconsWrapper">
               <SvgButton onClick={() => removeCustomPath()}>
-                <RemoveCircleIcon
-                  data-testid="removeWinePath"
-                  style={{
-                    color: selectedPath
-                      ? 'var(--danger)'
-                      : 'var(--background-darker)',
-                    cursor: selectedPath ? 'pointer' : ''
-                  }}
-                  fontSize="large"
-                  titleAccess={t('tooltip.removepath', 'Remove Path')}
-                />
+                <Tooltip
+                  title={t('tooltip.removepath', 'Remove Path') as string}
+                  placement="bottom"
+                  arrow
+                >
+                  <RemoveCircleIcon
+                    data-testid="removeWinePath"
+                    style={{
+                      color: selectedPath
+                        ? 'var(--danger)'
+                        : 'var(--background-darker)',
+                      cursor: selectedPath ? 'pointer' : ''
+                    }}
+                    fontSize="large"
+                  />
+                </Tooltip>
               </SvgButton>{' '}
               <SvgButton
                 onClick={() => selectCustomPath()}
                 className={`is-primary`}
               >
-                <AddBoxIcon
-                  data-testid="addWinePath"
-                  style={{ color: 'var(--success)', cursor: 'pointer' }}
-                  fontSize="large"
-                  titleAccess={t('tooltip.addpath', 'Add New Path')}
-                />
+                <Tooltip
+                  title={t('tooltip.addpath', 'Add New Path') as string}
+                  placement="bottom"
+                  arrow
+                >
+                  <AddBoxIcon
+                    data-testid="addWinePath"
+                    style={{ color: 'var(--success)', cursor: 'pointer' }}
+                    fontSize="large"
+                  />
+                </Tooltip>
               </SvgButton>
             </div>
           </span>
@@ -296,6 +323,30 @@ export default function WineSettings({
             />
             <span>
               {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+            </span>
+          </span>
+        </span>
+      )}
+      {isLinux && !isProton && (
+        <span className="setting">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              value={autoInstallVkd3d}
+              handleChange={() => {
+                const action = autoInstallVkd3d ? 'restore' : 'backup'
+                ipcRenderer.send('toggleVKD3D', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
+                return toggleAutoInstallVkd3d()
+              }}
+              title={t(
+                'setting.autovkd3d',
+                'Auto Install/Update VKD3D on Prefix'
+              )}
+            />
+            <span>
+              {t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
             </span>
           </span>
         </span>

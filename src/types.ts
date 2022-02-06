@@ -9,6 +9,7 @@ export interface AppSettings {
   addStartMenuShortcuts: boolean
   audioFix: boolean
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>

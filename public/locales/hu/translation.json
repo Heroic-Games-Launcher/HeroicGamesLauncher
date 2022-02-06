@@ -24,15 +24,15 @@
                 "message": "Nincs elég elérhető lemezterület",
                 "title": "Nincs hely"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Ismeretlen hiba lépett fel",
                 "title": "Ismeretlen hiba"
             },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
-            "log": {
-                "message": "Nem találtunk feljegyzést ehhez a játékhoz",
-                "title": "Nem találtunk feljegyzést"
-            },
             "title": "Hiba",
             "wine-not-found": {
                 "message": "Nincs kiválasztva Wine verzió. Ellenőrízd a játék beállításait!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Telepítés Visszavonva",
+            "error": "",
             "finished": "Telepítés Befejezve",
             "imported": "Játék importálva",
             "startInstall": "Telepítés elindult"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
         "alt-legendary-bin": "Válassz egy alternatív Legendary binárist (újraindítás szükséges)",
         "audiofix": "Hangzás javítás (Pulse Audio Latency)",
-        "autodxvk": "DXVK/VKD3D Automatikus Telepítése/Frissítése a Prefix-en",
+        "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
         "autosync": "Mentések Automatikus Szinkronizálása",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Válassz alternatív EXE fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
@@ -255,6 +257,9 @@
         "clear-cache": "Heroic gyorsítótár eltávolítása",
         "copiedToClipboard": "Vágólapra másolva!",
         "copyToClipboard": "Összes beállítás másolása a vágólapra",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Általános",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Bővítmények",
         "unrealProjects": "Unreal - Projektek",
         "updates": "Függőben lévő frissítések"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Új útvonal hozzáadása",

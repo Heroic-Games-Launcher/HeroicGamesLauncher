@@ -24,15 +24,15 @@
                 "message": "Δεν υπάρχει αρκετός διαθέσιμος χώρος στο δίσκο",
                 "title": "Ανεπαρκής χώρος"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Προέκυψε άγνωστο σφάλμα",
                 "title": "Άγνωστο σφάλμα"
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
-            "log": {
-                "message": "Δεν βρέθηκαν αρχεία καταγραφής για το παιχνίδι",
-                "title": "Δεν βρέθηκε αρχείο καταγραφής"
-            },
             "title": "Σφάλμα",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Η εγκατάσταση ακυρώθηκε",
+            "error": "",
             "finished": "Η εγκατάσταση ολοκληρώθηκε",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο του Legendary για χρήση",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
-        "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK/VKD3D στο πρόθεμα",
+        "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
         "checkForUpdatesOnStartup": "Έλεγχος για ενημερώσεις κατά την εκκίνηση",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Γενικά",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Πρόσθετα",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Προσθήκη Νέας Διαδρομής",

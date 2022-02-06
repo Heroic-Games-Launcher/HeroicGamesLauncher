@@ -24,15 +24,15 @@
                 "message": "തകിടില്(disk) ആവശ്യത്തിന് സ്ഥലമില്ലല്ലോ",
                 "title": "സ്ഥലമില്ല"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "എന്തോ കുഴപ്പം പറ്റിയിട്ടുണ്ട്",
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള് നോക്കൂ!",
-            "log": {
-                "message": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
-                "title": "കുറിപ്പുകള് കണ്ടെത്താനായില്ല"
-            },
             "title": "കുഴപ്പം",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "സ്ഥാപനം റദ്ദാക്കി",
+            "error": "",
             "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
             "imported": "കളി കൊണ്ടുവന്നു",
             "startInstall": "നടീല് തുടങ്ങി"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "കളികള് തുടക്കപ്പട്ടികയില് താനേ ചേര്ക്കൂ",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്സ് ഓഡിയോ ലാറ്റന്സി)",
-        "autodxvk": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK/VKD3D തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
+        "autodxvk": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
         "checkForUpdatesOnStartup": "തുടങ്ങുമ്പോള് പുതുക്കലുകള്ക്കായി പരതൂ",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്ത്ത വൈന്/പ്രോട്ടോണ് അറകള്",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "പൊതുവായവ",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "അണ്റിയല് - Plugins",
         "unrealProjects": "അണ്റിയല് - പണികള്",
         "updates": "നടക്കേണ്ട പുതുക്കലുകള്"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "പുതിയ ഇടം ചേര്ക്കുക",

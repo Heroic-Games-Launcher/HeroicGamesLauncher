@@ -24,15 +24,15 @@
                 "message": "사용 가능한 디스크 공간이 충분하지 않습니다",
                 "title": "공간 없음"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "알 수 없는 오류가 발생하였습니다",
                 "title": "알 수 없는 오류"
             },
             "launch": "게임을 실행할 때 오류가 발생했습니다, 로그를 확인 해주세요!",
-            "log": {
-                "message": "이 게임에 대한 로그를 찾을 수 없습니다",
-                "title": "로그를 찾을 수 없음"
-            },
             "title": "오류",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "설치 취소됨",
+            "error": "",
             "finished": "설치 완료됨",
             "imported": "게임을 가져왔습니다",
             "startInstall": "설치 시작됨"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
         "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일을 선택하십시오",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
-        "autodxvk": "Prefix에 DXVK/VKD3D 자동 설치/업데이트",
+        "autodxvk": "Prefix에 DXVK 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "대체하여 실행할 EXE 선택",
         "checkForUpdatesOnStartup": "시작할 때 업데이트 확인",
         "customWineProton": "커스텀 Wine/Proton 경로",
@@ -255,6 +257,9 @@
         "clear-cache": "Heroic 캐시 삭제",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "일반",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - 플러그인",
         "unrealProjects": "Unreal - 프로젝트",
         "updates": "보류 중인 업데이트"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "새 경로 추가",

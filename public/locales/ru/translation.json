@@ -24,15 +24,15 @@
                 "message": "Недостаточно свободного места на диске",
                 "title": "Нет места"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Произошла неизвестная ошибка",
                 "title": "Неизвестная ошибка"
             },
             "launch": "Ошибка при запуске игры, посмотрите логи!",
-            "log": {
-                "message": "Лог для этой игры не найден",
-                "title": "Лог не найден"
-            },
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Установка прервана",
+            "error": "",
             "finished": "Установка завершена",
             "imported": "Игра импортирована",
             "startInstall": "Установка началась"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary (требуется перезапуск)",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
-        "autodxvk": "Автоустановка/обновление DXVK/VKD3D на префикс",
+        "autodxvk": "Автоустановка/обновление DXVK на префикс",
         "autosync": "Автосинхронизация сохранений",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
         "customWineProton": "Пользовательские пути Wine/Proton",
@@ -255,6 +257,9 @@
         "clear-cache": "Очистить кэш Heroic",
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Основные",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Плагины",
         "unrealProjects": "Unreal - Проекты",
         "updates": "Ожидаемые обновления"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Добавить новый путь",

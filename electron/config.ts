@@ -402,6 +402,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,
+      autoInstallVkd3d: false,
       checkForUpdatesOnStartup: true,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,

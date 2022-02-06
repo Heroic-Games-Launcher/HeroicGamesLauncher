@@ -24,15 +24,15 @@
                 "message": "使用可能なディスク容量が不足しています",
                 "title": "ディスク容量がありません"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "不明なエラーが発生しました",
                 "title": "不明なエラー"
             },
             "launch": "ゲームの起動時にエラーが発生しました、ログを確認してください！",
-            "log": {
-                "message": "このゲームのログは見つかりませんでした",
-                "title": "ログが見つかりませんでした"
-            },
             "title": "エラー",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "インストールがキャンセルされました",
+            "error": "",
             "finished": "インストールが完了しました",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
-        "autodxvk": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
+        "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "実行する代替EXEを選択します",
         "checkForUpdatesOnStartup": "起動時に更新を確認する",
         "customWineProton": "カスタムWine/Protonパス",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "一般",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "新しいパスを追加する",

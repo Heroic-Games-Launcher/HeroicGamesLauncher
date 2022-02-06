@@ -26,10 +26,6 @@
   padding-inline: 6px;
   max-height: 25em;
   max-width: 622px;
-  overflow: hidden;
-}
-
-.log-box:hover {
   overflow: auto;
 }
 
@@ -50,4 +46,14 @@
 
 .log-info {
   color: rgb(175, 172, 172);
+}
+
+.long-log-hint {
+  font-style: italic;
+  color: #f5cf69;
+}
+
+.icon {
+  font-size: 40px;
+  animation: refreshing 1.5s infinite;
 }

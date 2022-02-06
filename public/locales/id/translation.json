@@ -24,15 +24,15 @@
                 "message": "Tidak cukup ruang disk yang tersedia",
                 "title": "Tidak ada ruang"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "An Unknown Error has occurred",
                 "title": "Error Tak Dikenal"
             },
             "launch": "Error ketika meluncurkan permainan, periksa log!",
-            "log": {
-                "message": "Tidak ada Log yang ditemukan untuk game ini",
-                "title": "Log Tidak Ditemukan"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "",
+            "error": "",
             "finished": "",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Add games to start menu automatically",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "",
-        "autodxvk": "Auto Install/Update DXVK/VKD3D on Prefix",
+        "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Add New Path",

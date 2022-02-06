@@ -46,7 +46,6 @@ const legendaryConfigPath = isFlatpak
 const heroicFolder = isFlatpak
   ? `${home}/config/heroic/`
   : `${home}/.config/heroic/`
-const heroicLogFolder = `${heroicFolder}/Logs`
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
 const heroicConfigPath = `${heroicFolder}config.json`
@@ -132,7 +131,6 @@ export {
   heroicIconFolder,
   heroicInstallPath,
   heroicToolsPath,
-  heroicLogFolder,
   home,
   kofiPage,
   icon,

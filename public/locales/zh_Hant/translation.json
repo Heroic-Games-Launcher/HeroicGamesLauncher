@@ -24,15 +24,15 @@
                 "message": "磁碟空間不足",
                 "title": "空間不足"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "發生了未知錯誤",
                 "title": "未知錯誤"
             },
             "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
-            "log": {
-                "message": "未找到此遊戲的日誌",
-                "title": "未找到日誌"
-            },
             "title": "錯誤",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "已取消安裝",
+            "error": "",
             "finished": "安裝完成",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
-        "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
+        "autodxvk": "在PREFIX自動安裝並更新DXVK",
         "autosync": "自動同步存檔",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "啟動時檢查更新",
         "customWineProton": "自定義Wine/Proton路徑",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "一般",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "添加新路徑",
