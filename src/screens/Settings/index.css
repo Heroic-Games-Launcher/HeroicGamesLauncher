@@ -109,7 +109,7 @@
   line-height: 19px;
   color: var(--text-default);
 }
-.toggleWrapper span {
+.toggleWrapper label {
   text-align: center;
   margin-block: auto;
 }

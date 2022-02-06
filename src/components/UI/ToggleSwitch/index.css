@@ -15,15 +15,22 @@
   height: 0;
 }
 
-.switch:hover .checkmark {
+.toggleWrapper:hover span {
+  color: var(--text-hover);
+}
+
+.switch:hover .checkmark,
+.toggleWrapper:hover .switch .checkmark {
   border-color: var(--text-hover);
 }
 
-.switch:hover input:checked ~ .checkmark {
+.switch:hover input:checked ~ .checkmark,
+.toggleWrapper:hover .switch input:checked ~ .checkmark {
   border-color: var(--text-hover);
   background-color: var(--text-hover);
 }
-.swtich:hover input:checked ~ .checkmark:after {
+.switch:hover input:checked ~ .checkmark:after,
+.toggleWrapper:hover .switch input:checked ~ .checkmark:after {
   border-color: var(--input-background);
 }
 
@@ -66,58 +73,4 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-
-/* The slider */
-.slider {
-  position: relative;
-  cursor: pointer;
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  background: none;
-  border: 2px solid;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-span.slider.round {
-  top: -1.25px;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  height: 6px;
-  width: 6px;
-  left: 2px;
-  bottom: 1px;
-  background-color: #dadada;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:focus-visible {
-  outline: 1px solid var(--download-button);
-}
-
-input:checked + .slider:focus-visible {
-  outline: -webkit-focus-ring-color auto 1px;
-}
-
-input:checked + .slider {
-  border-color: var(--link-highlight);
-}
-
-input:checked + .slider:before {
-  background-color: var(--link-highlight);
-  transform: translateX(9px);
-}
-
-.slider.round {
-  border-radius: 60px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }
