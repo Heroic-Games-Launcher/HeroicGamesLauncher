@@ -23,7 +23,7 @@
             "title": "Installation abbrechen"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Möchten Sie das Prefix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden",
             "checkbox_prefix": "Prefix",
             "message": "Möchten Sie dieses Spiel deinstallieren?",
             "title": "Deinstallieren"
