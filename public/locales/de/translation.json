@@ -43,7 +43,7 @@
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
+                "not_installed": "Momentan nicht installiert. Installieren?"
             }
         },
         "quit": {
@@ -196,7 +196,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
-        "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen (benötigt Neustart)",
+        "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen (Neustart erforderlich)",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
