@@ -3,17 +3,17 @@
     "Assets": "Assets",
     "box": {
         "appupdate": {
-            "message": "There is a new version of Heroic Available, do you want to update now?",
+            "message": "There is a new version of Heroic available, do you want to update now?",
             "title": "Update Available"
         },
         "cache-cleared": {
             "message": "Heroic cache cleared.",
-            "title": "Cache Cleared"
+            "title": "Cache cleared"
         },
         "choose": "Choose",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
-        "choose-legendary-binary": "Select Legendary Binary",
-        "customWine": "Select the Wine or Proton Binary",
+        "choose-legendary-binary": "Select Legendary binary",
+        "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
         "error": {
             "credentials": {
@@ -101,7 +101,7 @@
     "Filter": "Filter",
     "globalSettings": "Global Settings",
     "help": {
-        "general": "Sync with EGS in case you have a working installation of the Epic Games Store elsewhere and want to import your games to avoid downloading them again.",
+        "general": "Sync with EGL in case you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
             "part1": "Use the ",
             "part2": "Advanced Options",
