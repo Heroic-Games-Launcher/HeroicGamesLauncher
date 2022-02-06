@@ -24,15 +24,15 @@
                 "message": "Няма достатъчно свободно място на диска",
                 "title": "Недостатъчно място"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Възникна неизвестна грешка",
                 "title": "Неизвестна грешка"
             },
             "launch": "Грешка при пускането на играта. Проверете журнала!",
-            "log": {
-                "message": "Не е намерен журнал за тази игра",
-                "title": "Журналът не е намерен"
-            },
             "title": "Грешка",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Инсталирането е преустановено",
+            "error": "",
             "finished": "Инсталирането е завършено",
             "imported": "Играта е внесена",
             "startInstall": "Инсталацията е започната"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
         "alt-legendary-bin": "Избиране на алтернативен изпълним файл на Legendary (изисква рестартиране)",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
-        "autodxvk": "Автоматично инсталиране/обновяване на DXVK/VKD3D в префикса",
+        "autodxvk": "Автоматично инсталиране/обновяване на DXVK в префикса",
         "autosync": "Автоматично синхронизиране на запазените файлове",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
         "checkForUpdatesOnStartup": "Проверка за обновления при стартиране",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
@@ -255,6 +257,9 @@
         "clear-cache": "Изчистване на кеша на Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Копиране на всички настройки в буфера за обмен",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Общи",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal – Добавки",
         "unrealProjects": "Unreal – Проекти",
         "updates": "Изчакващи обновления"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Добавяне на нов път",

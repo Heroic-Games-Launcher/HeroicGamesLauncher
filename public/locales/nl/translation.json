@@ -24,15 +24,15 @@
                 "message": "Niet genoeg ruimte beschikbaar op de harde schijf",
                 "title": "Niet genoeg opslag"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Er is een onbekende fout opgetreden",
                 "title": "Onbekende fout"
             },
             "launch": "Een probleem tijdens het lanceren van het spel, check de logs!",
-            "log": {
-                "message": "Geen Log was gevonden voor dit spel",
-                "title": "Geen Log gevonden"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Installatie geannuleerd",
+            "error": "",
             "finished": "Installatie is voltooid",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
         "alt-legendary-bin": "Kies een andere Legendary Binary om te gebruiken",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
-        "autodxvk": "Automatisch installeren/updated van DXVK/VKD3D op Prefix",
+        "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecteer een alternatieve EXE om uit te voeren",
         "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Algemeen",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Voeg een nieuw pad toe",

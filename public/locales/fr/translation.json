@@ -24,15 +24,15 @@
                 "message": "Espace disque nécessaire insuffisant",
                 "title": "Pas de place"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Une erreur inconnue s'est produite",
                 "title": "Erreur inconnue"
             },
             "launch": "Erreur lors du lancement du jeu, consultez les fichiers de journalisation !",
-            "log": {
-                "message": "Aucun Log n'a été trouvé pour ce jeu",
-                "title": "Aucun Log n'a été trouvé"
-            },
             "title": "Erreur",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -43,7 +43,7 @@
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "n'est pas installé, voulez-vous l'installer ?"
+                "not_installed": "Ceci n'est pas installé, voulez-vous l'installer ?"
             }
         },
         "quit": {
@@ -84,7 +84,7 @@
         "yes": "OUI"
     },
     "button": {
-        "login": "Login",
+        "login": "Connexion",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser"
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Installation Annulée",
+            "error": "",
             "finished": "Installation Terminée",
             "imported": "Jeu Importé",
             "startInstall": "Installation commencée"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
         "alt-legendary-bin": "Choisir un autre exécutable Legendary  (nécessite de relancer Heroic)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
-        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK/VKD3D",
+        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
         "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
@@ -255,6 +257,9 @@
         "clear-cache": "Effacer le cache Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copier tous les paramètres dans le presse-papier",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Général",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projets",
         "updates": "Mises à jour en attente"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Ajouter un nouveau chemin",

@@ -24,15 +24,15 @@
                 "message": "Ei ole piisavalt vaba kettaruumi",
                 "title": "Ei ole ruumi"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Tekkinud on tundmatu viga",
                 "title": "Tundmatu viga"
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
-            "log": {
-                "message": "Selle mängu logi ei leitud",
-                "title": "Logi ei leitud"
-            },
             "title": "Viga",
             "wine-not-found": {
                 "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Paigaldamine tühistatud",
+            "error": "",
             "finished": "Paigaldamine lõpetatud",
             "imported": "Mäng imporditud",
             "startInstall": "Paigaldamine algas"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada (vajab restarti)",
         "audiofix": "Heliparandus (Pulse Audio Latency)",
-        "autodxvk": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile",
+        "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
         "autosync": "Automaatne salvestiste sünkroonimine",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
         "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel",
         "customWineProton": "Kohandatud Wine/Proton teed",
@@ -255,6 +257,9 @@
         "clear-cache": "Tühjenda Heroic'u vahemälu",
         "copiedToClipboard": "Kopeeritud lõikelauale!",
         "copyToClipboard": "Kopeeri kõik seaded lõikelauale",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Üldine",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - pluginad",
         "unrealProjects": "Unreal - Projektid",
         "updates": "Ootel olevad uuendused"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Lisa uus tee",

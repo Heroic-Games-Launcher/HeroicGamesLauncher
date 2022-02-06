@@ -24,15 +24,15 @@
                 "message": "Spazio su disco insufficiente",
                 "title": "Spazio insufficiente"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Si è verificato un errore sconosciuto",
                 "title": "Errore sconosciuto"
             },
             "launch": "Errore durante l'avvio del gioco, controlla i logs!",
-            "log": {
-                "message": "Non è stato trovato nessun log per questo gioco",
-                "title": "Log non trovato"
-            },
             "title": "Errore",
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Installazione annullata",
+            "error": "",
             "finished": "Installazione completata",
             "imported": "Gioco importato",
             "startInstall": "Installazione avviata"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
         "alt-legendary-bin": "Seleziona binari Legendary alternativi (riavvio richiesto)",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
-        "autodxvk": "Installa/Aggiorna automaticamente DXVK/VKD3D sul prefix",
+        "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
         "checkForUpdatesOnStartup": "Verifica la disponibilità di aggiornamenti all'avvio",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
@@ -255,6 +257,9 @@
         "clear-cache": "Pulisci cache Heroic",
         "copiedToClipboard": "Copiato negli appunti!",
         "copyToClipboard": "Copia tutte le impostazioni negli appunti",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Generale",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugin",
         "unrealProjects": "Unreal - Progetti",
         "updates": "Aggiornamenti in sospeso"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Aggiungi nuovo percorso",

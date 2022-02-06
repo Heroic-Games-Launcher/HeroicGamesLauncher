@@ -24,15 +24,15 @@
                 "message": "No hi ha prou espai del disc",
                 "title": "Sense espai del disc dur"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Un error desconegut ha ocorregut",
                 "title": "Error desconegut"
             },
             "launch": "Ha sorgit un error mentres s'intentava iniciar el joc, mira el registre!",
-            "log": {
-                "message": "No s'ha trobat cap registre per aquest joc",
-                "title": "El registre no s'ha trobat"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Instal·lació cancelada",
+            "error": "",
             "finished": "Instal·lació finalitzada",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Arreglar l'audio (Latència de pulse audio)",
-        "autodxvk": "Instal·la/Actualitza DXVK/VKD3D al prefix automàticament",
+        "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
         "autosync": "Sincronitza les dades automàticament",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecciona un EXE alternatiu per córrer",
         "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
         "customWineProton": "Rutes de Wine o Proton personalitzades",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "General",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Extensions",
         "unrealProjects": "Unreal - Projectes",
         "updates": "Actualitzacions pendents"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Afegir nova ruta",

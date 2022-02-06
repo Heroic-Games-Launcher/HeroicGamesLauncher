@@ -24,15 +24,15 @@
                 "message": "Nicht genügend freier Speicherplatz",
                 "title": "Kein Speicherplatz"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Ein unbekannter Fehler ist aufgetreten",
                 "title": "Unbekannter Fehler"
             },
             "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
-            "log": {
-                "message": "Es wurde kein Log für dieses Spiel gefunden",
-                "title": "Log nicht gefunden"
-            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -43,7 +43,7 @@
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Ist nicht installiert, möchten Sie es installieren?"
+                "not_installed": "Momentan nicht installiert. Installieren?"
             }
         },
         "quit": {
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Installation abgebrochen",
+            "error": "",
             "finished": "Installation abgeschlossen",
             "imported": "Spiel importiert",
             "startInstall": "Installation gestartet"
@@ -195,10 +196,11 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
-        "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen (benötigt Neustart)",
+        "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen (Neustart erforderlich)",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
-        "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK/VKD3D im Prefix",
+        "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Wählen Sie eine alternative EXE zum Ausführen",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
@@ -255,6 +257,9 @@
         "clear-cache": "Heroic Cache leeren",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Alle Einstellungen in die Zwischenablage kopieren",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Allgemein",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projekte",
         "updates": "Ausstehende Aktualisierungen"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Neuen Pfad hinzufügen",

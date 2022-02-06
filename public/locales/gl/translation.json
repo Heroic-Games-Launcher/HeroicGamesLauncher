@@ -24,15 +24,15 @@
                 "message": "Non hai suficiente espacio dispoñíbel no disco",
                 "title": "Sen espacio"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Produciuse un erro descoñecido",
                 "title": "Erro descoñecido"
             },
             "launch": "Produciuse un erro ao iniciar o xogo, revisa os rexistros!",
-            "log": {
-                "message": "Non se atopou o rexistro para este xogo",
-                "title": "Rexistro non atopado"
-            },
             "title": "Erro",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Instalación cancelada",
+            "error": "",
             "finished": "Instalación rematada",
             "imported": "Xogo importado",
             "startInstall": "Instalación iniciada"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Engadir xogos ao menú de inicio automaticamente",
         "alt-legendary-bin": "Seleccione o binario de Legendary alternativo (precisa reiniciar)",
         "audiofix": "Correción de audio (latencia de Pulseaudio)",
-        "autodxvk": "Autoinstalar/actualizar DXVK/VKD3D no prefixo",
+        "autodxvk": "Autoinstalar/actualizar DXVK no prefixo",
         "autosync": "Autosincronizar partidas gardadas",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleccionar un EXE alternativo a executar",
         "checkForUpdatesOnStartup": "Buscar actualizacións ao iniciar",
         "customWineProton": "Rutas personalizadas de Wine e Proton",
@@ -255,6 +257,9 @@
         "clear-cache": "Limpar caché de Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copiar todas as preferencias ao portapapeis",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Xeral",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Recursos - Engadidos",
         "unrealProjects": "Unreal - Proxectos",
         "updates": "Actualizacións pendentes"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Agregar unha nova ruta",

@@ -8,13 +8,13 @@
         },
         "cache-cleared": {
             "message": "Heroic önbelleği temizlendi.",
-            "title": "Önbellek Temizlendi"
+            "title": "Önbellek temizlendi"
         },
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
-        "choose-legendary-binary": "Legendary Çalıştırılabilir Dosyası Seç",
-        "customWine": "Wine ya da Proton Dosyasını Seçin",
-        "default-install-path": "Varsayılan Kurulum Yerini Seçin",
+        "choose-legendary-binary": "Legendary çalıştırılabilir dosyasını seç",
+        "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
+        "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
         "error": {
             "credentials": {
                 "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın.",
@@ -24,15 +24,15 @@
                 "message": "Yeterli kullanılabilir disk alanı yok",
                 "title": "Alan Yok"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Bilinmeyen bir hata oluştu",
                 "title": "Bilinmeyen hata"
             },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
-            "log": {
-                "message": "Bu oyun için günlük kaydı bulunamadı",
-                "title": "Günlük Kaydı Bulunamadı"
-            },
             "title": "Hata",
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
@@ -74,11 +74,11 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Epic Sunucuları şu anda büyük bir kesinti yaşıyor, oyun içe aktarılamıyor!",
+                "install": "Epic Sunucuları şu anda büyük bir kesinti yaşıyor, oyun kurulamıyor!",
+                "update": "Epic Sunucuları şu anda büyük bir kesinti yaşıyor, oyun güncellenemiyor!"
             },
-            "title": "Warning"
+            "title": "Uyarı"
         },
         "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET"
@@ -91,7 +91,7 @@
     },
     "Downloading": "İndiriliyor",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Heroic muhtemelen çalışmayacak!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -101,7 +101,7 @@
     "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
     "help": {
-        "general": "Başka bir yerde çalışan bir Epic Games Store kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGS ile eşzamanlayın.",
+        "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
             "part1": "Oyun başlatılmadan önce çağırılması için ",
             "part2": "Gelişmiş Seçenekler",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
+            "error": "",
             "finished": "Kurulum Tamamlandı",
             "imported": "Oyun İçe Aktarıldı",
             "startInstall": "Kurulum Başladı"
@@ -197,13 +198,14 @@
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
         "alt-legendary-bin": "Alternatif bir Legendary dosyası seçin (yeniden başlatma gerekir)",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
-        "autodxvk": "DXVK/VKD3D'yı otomatik kur/güncelle",
+        "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi İkonu Kullan",
-        "default-install-path": "Varsayılan Kurulum Yeri",
+        "default-install-path": "Öntanımlı Kurulum Yeri",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
@@ -215,11 +217,11 @@
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Günlük içeriğini panoya kopyala",
+            "current-log": "Geçerli Günlük",
+            "last-log": "Son Günlük",
+            "no-file": "Günlük dosyası bulunamadı",
+            "show-in-folder": "Günlük dosyasını klasörde göster"
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
@@ -255,6 +257,9 @@
         "clear-cache": "Heroic Önbelleğini Temizle",
         "copiedToClipboard": "Panoya kopyalandı!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Genel",
             "log": "Log",
@@ -280,6 +285,12 @@
         "unrealProjects": "Unreal - Projeler",
         "updates": "Bekleyen Güncellemeler"
     },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Yeni yapılandırmalar için öntanımlı prefix klasörünü seçin",
+            "wineprefix": "Yeni Wine Prefix'leri için bir Klasör Seçin"
+        }
+    },
     "tooltip": {
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
@@ -302,10 +313,10 @@
     "wiki": "Wiki",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "error": "Wine/Proton sürümleri bu defa alınamadı.",
+            "link": "Wine Yöneticisi",
+            "title": "Wine Yöneticisi (Beta)",
+            "unzipping": "Çıkartılıyor"
         }
     }
 }

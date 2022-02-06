@@ -13,6 +13,7 @@ export interface AppSettings {
   altLegendaryBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: string[]
@@ -124,6 +125,7 @@ export interface InstallInfo {
 export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   autoSyncSaves: boolean
   enableEsync: boolean
   enableFSR: boolean

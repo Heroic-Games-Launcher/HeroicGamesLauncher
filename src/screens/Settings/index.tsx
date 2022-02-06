@@ -139,6 +139,11 @@ function Settings() {
     setOn: setAutoInstallDxvk
   } = useToggle(false)
   const {
+    on: autoInstallVkd3d,
+    toggle: toggleAutoInstallVkd3d,
+    setOn: setAutoInstallVkd3d
+  } = useToggle(false)
+  const {
     on: enableFSR,
     toggle: toggleFSR,
     setOn: setEnableFSR
@@ -209,6 +214,7 @@ function Settings() {
       setDarkTrayIcon(config.darkTrayIcon || false)
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
+      setAutoInstallVkd3d(config.autoInstallVkd3d || false)
       setEnableEsync(config.enableEsync || false)
       setEnableFsync(config.enableFsync || false)
       setEnableFSR(config.enableFSR || false)
@@ -255,6 +261,7 @@ function Settings() {
     addStartMenuShortcuts,
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
@@ -284,6 +291,7 @@ function Settings() {
   const GameSettings = {
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     autoSyncSaves,
     enableEsync,
     enableFSR,
@@ -474,7 +482,9 @@ function Settings() {
               wineCrossoverBottle={wineCrossoverBottle}
               setWineCrossoverBottle={setWineCrossoverBottle}
               autoInstallDxvk={autoInstallDxvk}
+              autoInstallVkd3d={autoInstallVkd3d}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}

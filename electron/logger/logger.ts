@@ -4,21 +4,14 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import {
-  openSync,
-  existsSync,
-  readdirSync,
-  mkdirSync,
-  rmSync,
-  appendFileSync
-} from 'graceful-fs'
+import { openSync, readdirSync, unlinkSync, appendFileSync } from 'graceful-fs'
 import Store from 'electron-store'
 import {
   currentLogFile,
   heroicGamesConfigPath,
-  heroicLogFolder,
   lastLogFile
 } from '../constants'
+import { app } from 'electron'
 
 export enum LogPrefix {
   General = '',
@@ -167,11 +160,9 @@ interface createLogFileReturn {
  */
 export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   const date = new Date()
-  const newLogFile = `${heroicLogFolder}/heroic-${date.toISOString()}.log`
+  const logDir = app.getPath('logs')
+  const newLogFile = `${logDir}/heroic-${date.toISOString()}.log`
   try {
-    if (!existsSync(heroicLogFolder)) {
-      mkdirSync(heroicLogFolder)
-    }
     openSync(newLogFile, 'w')
   } catch (error) {
     logError(
@@ -182,20 +173,22 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   }
 
   try {
-    const logs = readdirSync(heroicLogFolder)
+    const logs = readdirSync(logDir)
     logs.forEach((log) => {
-      const dateString = log.replace('heroic-', '').replace('.log', '')
-      const logDate = new Date(dateString)
-      if (
-        logDate.getFullYear() < date.getFullYear() ||
-        logDate.getMonth() < date.getMonth()
-      ) {
-        rmSync(`${heroicLogFolder}/${log}`)
+      if (log.includes('heroic-')) {
+        const dateString = log.replace('heroic-', '').replace('.log', '')
+        const logDate = new Date(dateString)
+        if (
+          logDate.getFullYear() < date.getFullYear() ||
+          logDate.getMonth() < date.getMonth()
+        ) {
+          unlinkSync(`${logDir}/${log}`)
+        }
       }
     })
   } catch (error) {
     logError(
-      `Removing old logs in ${heroicLogFolder} failed with ${error}`,
+      `Removing old logs in ${logDir} failed with ${error}`,
       LogPrefix.Backend,
       true
     )

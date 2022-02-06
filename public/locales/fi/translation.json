@@ -24,15 +24,15 @@
                 "message": "Ei tarpeeksi tilaa levyllä",
                 "title": "Ei ole tilaa levyllä"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Tuntematon Virhe on tapahtunut",
                 "title": "Tuntematon Virhe"
             },
             "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
-            "log": {
-                "message": "Tälle pelille ei löytynyt lokitiedostoja",
-                "title": "Lokitiedostoa ei löytynyt"
-            },
             "title": "Virhe",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -156,6 +156,7 @@
         },
         "install": {
             "canceled": "Asennus peruutettu",
+            "error": "",
             "finished": "Asennus valmis",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -197,8 +198,9 @@
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Äänikorjaus (Pulse Audion viive)",
-        "autodxvk": "Asenna automaattisesti/Päivitä DXVK/VKD3D Prefiksissä",
+        "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",
         "autosync": "Automaattisesti synkronoi tallennukset",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Tarkista päivitysten varalta käynnistyessä",
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
@@ -255,6 +257,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Yleiset",
             "log": "Log",
@@ -279,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Lisää uusi sijainti",
