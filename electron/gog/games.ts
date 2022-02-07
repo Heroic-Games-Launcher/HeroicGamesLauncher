@@ -54,8 +54,20 @@ class GOGGame extends Game {
     }
     return this.instances.get(appName)
   }
-  getExtraInfo(namespace: string): Promise<ExtraInfo> {
-    throw new Error('Method not implemented.')
+  public async getExtraInfo(namespace: string): Promise<ExtraInfo> {
+    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    const extra: ExtraInfo = {
+      about: gameInfo.extra.about,
+      reqs: await GOGLibrary.get().createReqsArray(
+        this.appName,
+        gameInfo.is_mac_native && process.platform == 'darwin'
+          ? 'osx'
+          : gameInfo.is_linux_native && process.platform == 'linux'
+          ? 'linux'
+          : 'windows'
+      )
+    }
+    return extra
   }
   public async getGameInfo(): Promise<GameInfo> {
     return GOGLibrary.get().getGameInfo(this.appName)

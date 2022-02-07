@@ -564,8 +564,7 @@ ipcMain.handle('getGameInfo', async (event, game, runner) => {
   try {
     const info = await Game.get(game, runner).getGameInfo()
     if (!info) return null
-    if (runner != 'gog')
-      info.extra = await Game.get(game, runner).getExtraInfo(info.namespace)
+    info.extra = await Game.get(game, runner).getExtraInfo(info.namespace)
     return info
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)

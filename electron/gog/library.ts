@@ -81,12 +81,20 @@ export class GOGLibrary {
           ? gamesArray.find((value) => value.app_name == String(game.id))
           : null
         if (!unifiedObject) {
-          let apiData = apiInfoCache.get(game.slug)
-          if (!apiData) {
-            apiData = await this.get_games_data(String(game.id))
-            apiInfoCache.set(game.slug, apiData)
+          let apiData = apiInfoCache.get(String(game.id)) as {
+            isUpdated: boolean
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            data: any
           }
-          unifiedObject = this.gogToUnifiedInfo(game, apiData)
+          if (!apiData) {
+            const { data } = await GOGLibrary.get_gamesdb_data(
+              'gog',
+              String(game.id)
+            )
+            apiData = data
+            apiInfoCache.set(String(game.id), apiData)
+          }
+          unifiedObject = await this.gogToUnifiedInfo(game, apiData)
         }
         gamesObjects.push(unifiedObject)
         const installedInfo = this.installedGames.get(String(game.id))
@@ -224,22 +232,35 @@ export class GOGLibrary {
    * Convert GOGGameInfo object to GameInfo
    * That way it will be easly accessible on frontend
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public gogToUnifiedInfo(info: GOGGameInfo, apiData: any): GameInfo {
+  public async gogToUnifiedInfo(
+    info: GOGGameInfo,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    gamesdbData: any
+  ): Promise<GameInfo> {
     let developer: string
     let verticalCover: string
     let horizontalCover: string
-    if (apiData._links) {
-      developer = apiData._embedded.publisher?.name
-      verticalCover = apiData._links.boxArtImage.href
+    let description: string
+    if (gamesdbData.game) {
+      const developers: Array<string> = []
+      for (const developer of gamesdbData.game.developers) {
+        developers.push(developer.name)
+      }
+      developer = developers.join(', ')
+      verticalCover = gamesdbData.game.vertical_cover.url_format
+        .replace('{formatter}', '')
+        .replace('{ext}', 'jpg')
       horizontalCover = `https:${info.image}.jpg`
-      // horizontalCover = apiData._links.logo.href
-      // horizontalCover = apiData.game.background.url_format
+      description = gamesdbData.game.summary['*']
+      // horizontalCover = gamesdbData._links.logo.href
+      // horizontalCover = gamesdbData.game.background.url_format
       //   .replace('{formatter}', '')
       //   .replace('{ext}', 'webp')
     } else {
+      const apiData = await this.get_games_data(String(info.id))
+
+      verticalCover = apiData._links.boxArtImage.href
       horizontalCover = `https:${info.image}.jpg`
-      verticalCover = horizontalCover
     }
 
     const object: GameInfo = {
@@ -253,15 +274,8 @@ export class GOGLibrary {
       cloud_save_enabled: false,
       compatible_apps: [],
       extra: {
-        about: { description: '', shortDescription: '' },
-        reqs: this.createReqsArray(
-          apiData,
-          info.worksOn.Mac && process.platform == 'darwin'
-            ? 'osx'
-            : info.worksOn.Linux && process.platform == 'linux'
-            ? 'linux'
-            : 'windows'
-        )
+        about: { description: description, shortDescription: '' },
+        reqs: []
       },
       folder_name: '',
       install: {
@@ -312,8 +326,11 @@ export class GOGLibrary {
    * @param os
    * @returns parsed data used when rendering requirements on GamePage
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public createReqsArray(apiData: any, os: 'windows' | 'linux' | 'osx') {
+  public async createReqsArray(
+    appName: string,
+    os: 'windows' | 'linux' | 'osx'
+  ) {
+    const apiData = await this.get_games_data(appName)
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -348,24 +365,26 @@ export class GOGLibrary {
   public static async get_gamesdb_data(
     store: string,
     game_id: string,
-    etag: string
+    etag?: string
   ) {
     const url = `https://gamesdb.gog.com/platforms/${store}/external_releases/${game_id}`
     const headers = {
       'If-None-Match': etag
     }
 
-    const response = await axios.get(url, { headers }).catch(() => {
-      return null
-    })
+    const response = await axios
+      .get(url, { headers: etag ? headers : {} })
+      .catch((err) => {
+        if (err.response.status == 404) {
+          return null
+        }
+      })
     if (!response) return { isUpdated: false, data: {} }
     const resEtag = response.headers.etag
     const isUpdated = etag == resEtag
-    let data = null
-    if (isUpdated) {
-      data = response.data
-      data.etag = resEtag
-    }
+    const data = response.data
+
+    data.etag = resEtag
     return {
       isUpdated,
       data
