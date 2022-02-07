@@ -131,74 +131,74 @@ export default function OtherSettings({
 
       {shouldRenderFpsOption && (
         <span data-testid="otherSettings" className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               value={showFps}
               handleChange={toggleFps}
               title={t('setting.showfps')}
             />
             <span>{t('setting.showfps')}</span>
-          </span>
+          </label>
         </span>
       )}
       {isLinux && (
         <>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={useGameMode}
                 handleChange={toggleUseGameMode}
                 title={t('setting.gamemode')}
               />
               <span>{t('setting.gamemode')}</span>
-            </span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={primeRun}
                 handleChange={togglePrimeRun}
                 title={t('setting.primerun', 'Enable Nvidia Prime Render')}
               />
               <span>{t('setting.primerun', 'Enable Nvidia Prime Render')}</span>
-            </span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={audioFix}
                 handleChange={toggleAudioFix}
                 title={t('setting.audiofix')}
               />
               <span>{t('setting.audiofix')}</span>
-            </span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={showMangohud}
                 handleChange={toggleMangoHud}
                 title={t('setting.mangohud')}
               />
               <span>{t('setting.mangohud')}</span>
-            </span>
+            </label>
           </span>
         </>
       )}
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={offlineMode}
             handleChange={toggleOffline}
             title={t('setting.offlinemode')}
           />
           <span>{t('setting.offlinemode')}</span>
-        </span>
+        </label>
       </span>
       {supportsShortcuts && isDefault && (
         <>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={addDesktopShortcuts}
                 handleChange={toggleAddDesktopShortcuts}
@@ -213,10 +213,10 @@ export default function OtherSettings({
                   'Add desktop shortcuts automatically'
                 )}
               </span>
-            </span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={addGamesToStartMenu}
                 handleChange={toggleAddGamesToStartMenu}
@@ -231,13 +231,13 @@ export default function OtherSettings({
                   'Add games to start menu automatically'
                 )}
               </span>
-            </span>
+            </label>
           </span>
         </>
       )}
       {isDefault && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               value={discordRPC}
               handleChange={toggleDiscordRPC}
@@ -246,12 +246,12 @@ export default function OtherSettings({
             <span>
               {t('setting.discordRPC', 'Enable Discord Rich Presence')}
             </span>
-          </span>
+          </label>
         </span>
       )}
       {isDefault && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <select
               data-testid="setMaxRecentGames"
               onChange={(event) =>
@@ -265,7 +265,7 @@ export default function OtherSettings({
               ))}
             </select>
             <span>{t('setting.maxRecentGames', 'Recent Games to Show')}</span>
-          </span>
+          </label>
         </span>
       )}
       {!isWin && (

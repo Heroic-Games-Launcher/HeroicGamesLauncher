@@ -171,7 +171,7 @@ export default function SyncSaves({
         </span>
       </span>
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={autoSyncSaves}
             disabled={!savesPath.length}
@@ -179,7 +179,7 @@ export default function SyncSaves({
             title={t('setting.autosync')}
           />
           <span>{t('setting.autosync')}</span>
-        </span>
+        </label>
       </span>
       <InfoBox text="infobox.help">
         <ul>
