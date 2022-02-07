@@ -16,6 +16,7 @@
 }
 
 .toggleWrapper:hover span {
+  transition: 350ms;
   color: var(--text-hover);
 }
 
