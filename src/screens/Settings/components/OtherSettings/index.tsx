@@ -189,14 +189,14 @@ export default function OtherSettings({
       )}
       {canRunOffline && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               value={offlineMode}
               handleChange={toggleOffline}
               title={t('setting.offlinemode')}
             />
             <span>{t('setting.offlinemode')}</span>
-          </span>
+          </label>
         </span>
       )}
       {supportsShortcuts && isDefault && (
