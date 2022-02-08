@@ -95,12 +95,6 @@ const tsStore = new Store({
 async function createWindow(): Promise<BrowserWindow> {
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
 
-  const sandboxed = process.sandboxed
-  const env = process.env
-  const envHome = process.env.HOME
-  const execpath = process.execPath
-  console.log({ env, home, envHome, sandboxed, execpath })
-
   let windowProps: Electron.Rectangle = {
     height: 690,
     width: 1200,
