@@ -47,5 +47,5 @@ modules:
 
       - type: file
         filename: Heroic-2.1.1.AppImage
-        url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.1.1/Heroic-2.1.1.AppImage
-        sha256: ffb7510fcbb2ab01ee0767990c65b36ea73558dc86b6664c5917d8ab4ae4946b
+        # put right path here
+        path: ~/heroic/dist/Heroic-2.1.1.AppImage
