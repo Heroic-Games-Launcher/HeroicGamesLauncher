@@ -1,7 +1,7 @@
 import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
-import { getGameInfo, sendKill } from './index'
+import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
 import ElectronStore from 'electron-store'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -146,11 +146,33 @@ async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
     type: 'warning'
   }
 
-  const { response } = await ipcRenderer.invoke('openMessageBox', args)
+  let linuxArgs
+  if ((await getPlatform()) === 'linux') {
+    const wineprefix = (await getGameSettings(appName)).winePrefix
+
+    linuxArgs = {
+      checkboxLabel: [
+        t(
+          'gamepage:box.uninstall.checkbox',
+          "Would you like to remove the prefix aswell? This can't be undone."
+        ),
+        `${t(
+          'gamepage:box.uninstall.checkbox_prefix',
+          'Prefix'
+        )}: ${wineprefix}`
+      ].join('\n'),
+      checkboxChecked: false
+    }
+  }
+
+  const { response, checkboxChecked } = await ipcRenderer.invoke(
+    'openMessageBox',
+    { ...args, ...linuxArgs }
+  )
 
   if (response === 0) {
     await handleGameStatus({ appName, status: 'uninstalling' })
-    await ipcRenderer.invoke('uninstall', appName)
+    await ipcRenderer.invoke('uninstall', [appName, checkboxChecked])
     storage.removeItem(appName)
     return await handleGameStatus({ appName, status: 'done' })
   }

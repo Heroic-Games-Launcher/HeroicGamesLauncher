@@ -10,7 +10,7 @@
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
         },
-        "choose": "Ok",
+        "choose": "OK",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
         "customWine": "Välj wine eller proton binär",
@@ -24,16 +24,20 @@
                 "message": "Det finns inte tillräckligt med hårdiskutrymme",
                 "title": "Inget utrymme"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Ett okänt fel har inträffat",
                 "title": "Okänt fel"
             },
             "launch": "Fel vid uppstar av spelet, kontrollera loggarna!",
-            "log": {
-                "message": "Ingen logg hittades för detta spel",
-                "title": "Ingen logg hittades"
-            },
-            "title": "Error"
+            "title": "Error",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "Nej",
         "ok": "Ok",
@@ -68,6 +72,14 @@
             "error": "Ogilltig sökväg",
             "title": "Väl mapp för sparfiler"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Välj wine prefix mapp",
         "yes": "Ja"
     },
@@ -78,11 +90,15 @@
         "unsync": "Ogör synkronisering"
     },
     "Downloading": "Laddar ner",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "Filtrera",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtrera",
     "globalSettings": "Globala inställningar",
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
@@ -140,6 +156,7 @@
         },
         "install": {
             "canceled": "Installation avbröts",
+            "error": "",
             "finished": "Installation klar",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -181,8 +198,9 @@
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
         "alt-legendary-bin": "Välj en Alternativ Legendary binär   (kräver omstart)",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
-        "autodxvk": "Automatiskt installera/uppdatera DXVK/VKD3D i prefix",
+        "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Välj en alternativ EXE att köra",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad wine/proton sökväg",
@@ -198,6 +216,13 @@
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj app-språk",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
+        },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {
             "download": "Ladda ner",
@@ -228,17 +253,22 @@
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
     },
-    "Settings": "Inställningar",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Allmänna",
+            "log": "Log",
             "other": "Övriga",
             "sync": "Synkronisera sparfiler"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Inställningar",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
@@ -254,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Lägg till ny sökväg",
@@ -274,5 +310,13 @@
         "logout_confirmation": "Är du säker på att du vill logga ut?",
         "quit": "Avsluta"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

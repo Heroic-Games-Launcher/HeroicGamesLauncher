@@ -5,19 +5,29 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
 import { execOptions, heroicToolsPath, home } from './constants'
-import { logError, logInfo, logWarning } from './logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import { dialog } from 'electron'
+import i18next from 'i18next'
 
 export const DXVK = {
   getLatest: async () => {
     if (!(await isOnline())) {
-      logWarning('App offline, skipping possible DXVK update.')
+      logWarning(
+        'App offline, skipping possible DXVK update.',
+        LogPrefix.DXVKInstaller
+      )
       return
     }
 
     const tools = [
       {
+        name: 'vkd3d',
+        url: 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/latest',
+        extractCommand: 'tar -I zstd -xvf'
+      },
+      {
         name: 'dxvk',
-        url: 'https://api.github.com/repos/lutris/dxvk/releases/latest',
+        url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
         extractCommand: 'tar -zxf'
       }
     ]
@@ -28,7 +38,7 @@ export const DXVK = {
       } = await axios.default.get(tool.url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
-      const pkg = name.replace('.tar.gz', '')
+      const pkg = name.replace('.tar.gz', '').replace('.tar.zst', '')
 
       const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
       const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
@@ -37,28 +47,54 @@ export const DXVK = {
         pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
       }
 
-      if (pastVersion === pkg) {
+      if (
+        pastVersion === pkg &&
+        existsSync(`${heroicToolsPath}/${tool.name}/${pkg}`)
+      ) {
         return
       }
+
       const downloadCommand = `curl -L ${downloadUrl} -o ${latestVersion} --create-dirs`
       const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${heroicToolsPath}/${tool.name}`
       const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
       const cleanCommand = `rm ${latestVersion}`
 
-      logInfo(`Updating ${tool.name} to:`, pkg)
+      logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
 
       return execAsync(downloadCommand)
         .then(async () => {
-          logInfo(`downloaded ${tool.name}`)
-          logInfo(`extracting ${tool.name}`)
+          logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
+          logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
           await execAsync(extractCommand)
-          logInfo(`extracting ${tool.name} updated!`)
+            .then(() =>
+              logInfo(
+                `extracting ${tool.name} updated!`,
+                LogPrefix.DXVKInstaller
+              )
+            )
+            .catch((error) =>
+              logError(
+                `Extraction of ${tool.name} failed with: ${error}`,
+                LogPrefix.DXVKInstaller
+              )
+            )
+
           exec(cleanCommand)
         })
-        .catch((error) =>
-          logError(`Error when downloading ${tool.name}`, error)
-        )
+        .catch((error) => {
+          logError(
+            [`Error when downloading ${tool.name}`, error],
+            LogPrefix.DXVKInstaller
+          )
+          dialog.showErrorBox(
+            i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
+            i18next.t(
+              'box.error.dxvk.message',
+              'Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed'
+            )
+          )
+        })
     })
   },
 
@@ -72,7 +108,10 @@ export const DXVK = {
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
     if (!isValidPrefix) {
-      logWarning('DXVK cannot be installed on a Proton or a invalid prefix!')
+      logWarning(
+        'DXVK cannot be installed on a Proton or a invalid prefix!',
+        LogPrefix.DXVKInstaller
+      )
       return
     }
 
@@ -82,7 +121,7 @@ export const DXVK = {
     const wineBin = winePathSplit.join('/').concat('/')
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
-      logError('dxvk not found!')
+      logError('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
     }
 
@@ -101,21 +140,24 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup_dxvk.sh install --symlink`
+    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
     const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
 
     if (action === 'restore') {
-      logInfo(`Removing ${tool} version information`)
+      logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup_dxvk.sh uninstall --symlink`
+      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
       return execAsync(removeCommand, execOptions)
         .then(() => {
-          logInfo(`${tool} removed from ${winePrefix}`)
+          logInfo(`${tool} removed from ${winePrefix}`, LogPrefix.DXVKInstaller)
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(error)
-          logError('error when removing DXVK, please try again')
+          logError(`${error}`, LogPrefix.DXVKInstaller)
+          logError(
+            'error when removing DXVK, please try again',
+            LogPrefix.DXVKInstaller
+          )
         })
     }
 
@@ -123,16 +165,17 @@ export const DXVK = {
       return
     }
 
-    logInfo(`installing ${tool} on...`, prefix)
+    logInfo([`installing ${tool} on...`, prefix], LogPrefix.DXVKInstaller)
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
-        logInfo(`${tool} installed on ${winePrefix}`)
+        logInfo(`${tool} installed on ${winePrefix}`, LogPrefix.DXVKInstaller)
         return exec(updatedVersionfile)
       })
       .catch((error) => {
-        logError(error)
+        logError(`${error}`, LogPrefix.DXVKInstaller)
         logError(
-          'error when installing DXVK, please try launching the game again'
+          'error when installing DXVK, please try launching the game again',
+          LogPrefix.DXVKInstaller
         )
       })
   }

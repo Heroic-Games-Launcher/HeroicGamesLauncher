@@ -9,13 +9,14 @@ interface Props {
   title: string
 }
 
-export default function ToggleSwitch({
-  handleChange,
-  value,
-  disabled,
-  title,
-  dataTestId = 'toggleSwitch'
-}: Props) {
+export default function ToggleSwitch(props: Props) {
+  const {
+    handleChange,
+    value,
+    disabled,
+    title,
+    dataTestId = 'toggleSwitch'
+  } = props
   return (
     <label className="switch" aria-label={title}>
       <input
@@ -26,7 +27,8 @@ export default function ToggleSwitch({
         onChange={handleChange}
         aria-label={title}
       />
-      <span className="slider round" />
+
+      <span {...props} className="checkmark" />
     </label>
   )
 }

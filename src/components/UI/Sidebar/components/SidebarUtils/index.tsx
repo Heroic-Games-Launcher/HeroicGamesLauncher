@@ -6,7 +6,8 @@ import {
   faCoffee,
   faUser,
   faDoorOpen,
-  faUserSlash
+  faUserSlash,
+  faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import ElectronStore from 'electron-store'
 
@@ -21,11 +22,13 @@ import { openDiscordLink } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { UserInfo } from 'src/types'
+import { NavLink } from 'react-router-dom'
 
 export default function SidebarUtils() {
   const { t } = useTranslation()
   const user = configStore.get('userInfo') as UserInfo
-  const { refresh } = React.useContext(ContextProvider)
+  const { refresh, platform } = React.useContext(ContextProvider)
+  const isLinux = platform === 'linux'
 
   const handleLogout = async () => {
     if (confirm(t('userselector.logout_confirmation', 'Logout?'))) {
@@ -47,6 +50,23 @@ export default function SidebarUtils() {
 
   return (
     <div className="SidebarUtils">
+      {isLinux && (
+        <NavLink
+          activeStyle={{ color: 'var(--accent)', fontWeight: 500 }}
+          isActive={(match, location) =>
+            location.pathname.includes('wine-manager')
+          }
+          to={{
+            pathname: '/wine-manager'
+          }}
+        >
+          <FontAwesomeIcon
+            style={{ width: 'clamp(2vh, 25px, 30px)' }}
+            icon={faWineGlass}
+          />{' '}
+          {t('wine.manager.link', 'Wine Manager')}
+        </NavLink>
+      )}
       <button onClick={() => openDiscordLink()}>
         <FontAwesomeIcon
           style={{ width: 'clamp(2vh, 25px, 30px)' }}

@@ -24,16 +24,20 @@
                 "message": "போதுமான இடம் இல்லை",
                 "title": "இடம் இல்லை"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "ஒரு அறியப்படாத பிழை ஏற்பட்டது",
                 "title": "அறியப்படாத பிழை"
             },
             "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
-            "log": {
-                "message": "இந்த விளையாட்டுக்கு எந்த பதிவும் கிடைக்கவில்லை",
-                "title": "பதிவு கிடைக்கவில்லை"
-            },
-            "title": "பிழை"
+            "title": "பிழை",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "இல்லை",
         "ok": "Ok",
@@ -68,6 +72,14 @@
             "error": "தவறான பாதை",
             "title": "சேமிக்கும் கோப்பகத்தை தேர்வுசெய்"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
         "yes": "ஆம்"
     },
@@ -78,11 +90,15 @@
         "unsync": "ஒத்திசைவை செயல்தவிர்"
     },
     "Downloading": "பதிவிறக்கப்படுகிறது",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "வடிகட்டி",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "வடிகட்டி",
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "help": {
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
@@ -140,6 +156,7 @@
         },
         "install": {
             "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
+            "error": "",
             "finished": "நிறுவல் முடிவடைந்தது",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -181,8 +198,9 @@
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
-        "autodxvk": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
+        "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
@@ -198,6 +216,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
         "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
+        },
         "mangohud": "Mangohud ஐ இயக்கு (Mangohud நிறுவப்பட்டிருக்க வேண்டும்)",
         "manualsync": {
             "download": "பதிவிறக்கு",
@@ -228,17 +253,22 @@
         "wineprefix": "WinePrefix கோப்புறை",
         "wineversion": "Wine பதிப்பு"
     },
-    "Settings": "அமைப்புகள்",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "பொதுவானவை",
+            "log": "Log",
             "other": "மற்றவை",
             "sync": "சேமிப்பு-ஒத்திசைவு"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "அமைப்புகள்",
     "status": {
         "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
@@ -254,6 +284,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "புதிய பாதையை சேர்",
@@ -274,5 +310,13 @@
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "quit": "வெளியேறு"
     },
-    "wiki": "விக்கி"
+    "wiki": "விக்கி",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

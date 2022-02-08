@@ -7,7 +7,7 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath
 } from './constants'
-import { logError, logInfo } from './logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 
 /**
  * This class does config handling for games.
@@ -80,7 +80,8 @@ abstract class GameConfig {
         break
       default:
         logError(
-          `GameConfig(${appName}): Invalid config version '${version}' requested.`
+          `[${appName}]: Invalid config version '${version}' requested.`,
+          LogPrefix.GameConfig
         )
         break
     }
@@ -88,13 +89,15 @@ abstract class GameConfig {
     if (GameConfig.instances.get(appName).upgrade()) {
       // Upgrade done, we need to fully reload config.
       logInfo(
-        `GameConfig(${appName}): Upgraded outdated ${version} config to ${currentGameConfigVersion}.`
+        `[${appName}]: Upgraded outdated ${version} config to ${currentGameConfigVersion}.`,
+        LogPrefix.GameConfig
       )
       return GameConfig.reload(appName, currentGameConfigVersion)
     } else if (version !== currentGameConfigVersion) {
       // Upgrade failed.
       logError(
-        `GameConfig(${appName}): Failed to upgrade outdated ${version} config.`
+        `[${appName}]: Failed to upgrade outdated ${version} config.`,
+        LogPrefix.GameConfig
       )
     }
   }

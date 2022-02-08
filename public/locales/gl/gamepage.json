@@ -1,22 +1,18 @@
 {
     "box": {
-        "no": "Non",
-        "update": {
-            "message": "Este xogo ten unha actualización, ¿desexas actualizar agora?",
-            "title": "O xogo precisa unha actualización"
-        },
         "change": {
             "message": "Isto cambiará a localización da instalción do xogo, ¿estás seguro?",
-            "title": "Modificar a localización de instalación do xogo",
-            "path": "Escolle o cartafol de instalación"
+            "path": "Escolle o cartafol de instalación",
+            "title": "Modificar a localización de instalación do xogo"
         },
+        "choose": "Seleccionar",
+        "importpath": "Seleccione o cartafol do xogo para importar",
         "move": {
             "message": "Isto pode levar moito tempo, ¿estás seguro?",
             "path": "Selecciona a localización onde queres mover",
             "title": "Mover o cartafol do xogo"
         },
-        "importpath": "Seleccione o cartafol do xogo para importar",
-        "choose": "Seleccionar",
+        "no": "Non",
         "repair": {
             "message": "Queres tentar reparar o xogo? Isto pode levar moito tempo.",
             "title": "Verificar e reparar"
@@ -27,41 +23,39 @@
             "title": "Deter a instalación"
         },
         "uninstall": {
-            "title": "Desinstalar",
-            "message": "Desexas desinstalar o xogo?"
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
+            "message": "Desexas desinstalar o xogo?",
+            "title": "Desinstalar"
         },
-        "yes": "Sí",
-        "wineprefix": "Seleccione o cartafol co prefixo de Wine"
+        "update": {
+            "message": "Este xogo ten unha actualización, ¿desexas actualizar agora?",
+            "title": "O xogo precisa unha actualización"
+        },
+        "wineprefix": "Seleccione o cartafol co prefixo de Wine",
+        "yes": "Sí"
     },
     "button": {
         "cancel": "Pausar/Cancelar",
-        "update": "Actualizar",
         "continue": "Continuar descarga",
         "import": "Importar xogo",
         "install": "Instalar",
-        "uninstall": "Desinstalar"
+        "uninstall": "Desinstalar",
+        "update": "Actualizar"
     },
+    "disabled": "Deshabilitar",
     "dlc": {
-        "title": "DLCs",
-        "installDlcs": "Instalar todos os DLCs"
+        "installDlcs": "Instalar todos os DLCs",
+        "title": "DLCs"
     },
-    "submenu": {
-        "log": "Último rexistro",
-        "protondb": "Verificar compatibilidade",
-        "settings": "Axustes",
-        "store": "Páxina da tenda",
-        "verify": "Verificar e reparar",
-        "addShortcut": "Engadir acceso directo",
-        "change": "Modificar a localización de instalación",
-        "move": "Mover xogo"
-    },
+    "enabled": "Activar",
     "game": {
-        "totalPlayed": "Tempo xogado",
-        "installSize": "Tamaño da instalación",
         "downloadSize": "Tamaño da descarga",
         "firstPlayed": "Xogado por primeira vez",
+        "installSize": "Tamaño da instalación",
         "lastPlayed": "Xogado por última vez",
-        "neverPlayed": "Nunca"
+        "neverPlayed": "Nunca",
+        "totalPlayed": "Tempo xogado"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -102,12 +96,20 @@
         "hasUpdates": "Nova versión dispoñíbel!",
         "installed": "Instalado",
         "installing": "Instalando",
+        "moving": "Instalación en movemento, agarda",
         "notinstalled": "Este xogo non está instalado",
         "reparing": "Reparando xogo, agarda",
-        "moving": "Instalación en movemento, agarda",
-        "updating": "Actualización do xogo",
-        "totalDownloaded": "Total descargado"
+        "totalDownloaded": "Total descargado",
+        "updating": "Actualización do xogo"
     },
-    "disabled": "Deshabilitar",
-    "enabled": "Activar"
+    "submenu": {
+        "addShortcut": "Engadir acceso directo",
+        "change": "Modificar a localización de instalación",
+        "log": "Último rexistro",
+        "move": "Mover xogo",
+        "protondb": "Verificar compatibilidade",
+        "settings": "Axustes",
+        "store": "Páxina da tenda",
+        "verify": "Verificar e reparar"
+    }
 }

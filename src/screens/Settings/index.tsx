@@ -2,8 +2,6 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 
 import { AppSettings, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
@@ -11,6 +9,13 @@ import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import {
+  ContentCopyOutlined,
+  CleaningServicesOutlined,
+  DeleteOutline
+} from '@mui/icons-material'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
@@ -19,6 +24,7 @@ import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
+import LogSettings from './components/LogSettings'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -133,6 +139,11 @@ function Settings() {
     setOn: setAutoInstallDxvk
   } = useToggle(false)
   const {
+    on: autoInstallVkd3d,
+    toggle: toggleAutoInstallVkd3d,
+    setOn: setAutoInstallVkd3d
+  } = useToggle(false)
+  const {
     on: enableFSR,
     toggle: toggleFSR,
     setOn: setEnableFSR
@@ -175,6 +186,7 @@ function Settings() {
   const isWineSettings = type === 'wine'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
+  const isLogSettings = type === 'log'
 
   useEffect(() => {
     const getSettings = async () => {
@@ -202,6 +214,7 @@ function Settings() {
       setDarkTrayIcon(config.darkTrayIcon || false)
       setDiscordRPC(config.discordRPC || false)
       setAutoInstallDxvk(config.autoInstallDxvk || false)
+      setAutoInstallVkd3d(config.autoInstallVkd3d || false)
       setEnableEsync(config.enableEsync || false)
       setEnableFsync(config.enableFsync || false)
       setEnableFSR(config.enableFSR || false)
@@ -246,6 +259,7 @@ function Settings() {
     addStartMenuShortcuts,
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
@@ -275,6 +289,7 @@ function Settings() {
   const GameSettings = {
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     autoSyncSaves,
     enableEsync,
     enableFSR,
@@ -349,6 +364,11 @@ function Settings() {
               {t('settings.navbar.other')}
             </NavLink>
           }
+          {
+            <NavLink to={{ pathname: `/settings/${appName}/log` }}>
+              {t('settings.navbar.log', 'Log')}
+            </NavLink>
+          }
         </div>
         <div className="settingsWrapper">
           {title && (
@@ -389,6 +409,66 @@ function Settings() {
               showUnrealMarket={showUnrealMarket}
             />
           )}
+          {isGeneralSettings && (
+            <div className="footerFlex">
+              <button
+                className={classNames('button', 'is-footer', {
+                  isSuccess: isCopiedToClipboard
+                })}
+                onClick={() => {
+                  clipboard.writeText(
+                    JSON.stringify({ appName, title, ...settingsToSave })
+                  )
+                  setCopiedToClipboard(true)
+                }}
+              >
+                <div className="button-icontext-flex">
+                  <div className="button-icon-flex">
+                    <ContentCopyOutlined />
+                  </div>
+                  <span className="button-icon-text">
+                    {isCopiedToClipboard
+                      ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+                      : t(
+                          'settings.copyToClipboard',
+                          'Copy All Settings to Clipboard'
+                        )}
+                  </span>
+                </div>
+              </button>
+              {isDefault && (
+                <>
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('clearCache')}
+                  >
+                    <div className="button-icontext-flex">
+                      <div className="button-icon-flex">
+                        <CleaningServicesOutlined />
+                      </div>
+                      <span className="button-icon-text">
+                        {t('settings.clear-cache', 'Clear Heroic Cache')}
+                      </span>
+                    </div>
+                  </button>
+
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('resetHeroic')}
+                  >
+                    <div className="button-icontext-flex">
+                      <div className="button-icon-flex">
+                        <DeleteOutline />
+                      </div>
+                      <span className="button-icon-text">
+                        {t('settings.reset-heroic', 'Reset Heroic')}
+                      </span>
+                    </div>
+                  </button>
+                </>
+              )}
+            </div>
+          )}
           {isWineSettings && (
             <WineSettings
               altWine={altWine}
@@ -400,7 +480,9 @@ function Settings() {
               wineCrossoverBottle={wineCrossoverBottle}
               setWineCrossoverBottle={setWineCrossoverBottle}
               autoInstallDxvk={autoInstallDxvk}
+              autoInstallVkd3d={autoInstallVkd3d}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
@@ -464,38 +546,10 @@ function Settings() {
               winePrefix={winePrefix}
             />
           )}
-          <span className="save">{t('info.settings')}</span>
-          <button
-            className={classNames('button', 'is-text', {
-              isSuccess: isCopiedToClipboard
-            })}
-            onClick={() => {
-              clipboard.writeText(
-                JSON.stringify({ appName, title, ...settingsToSave })
-              )
-              setCopiedToClipboard(true)
-            }}
-          >
-            {isCopiedToClipboard
-              ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
-              : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
-          </button>
-          {isDefault && (
-            <>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('clearCache')}
-              >
-                {t('settings.clear-cache', 'Clear Heroic Cache')}
-              </button>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('resetHeroic')}
-              >
-                {t('settings.reset-heroic', 'Reset Heroic')}
-              </button>
-            </>
+          {isLogSettings && (
+            <LogSettings isDefault={isDefault} appName={appName} />
           )}
+          <span className="save">{t('info.settings')}</span>
           {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>

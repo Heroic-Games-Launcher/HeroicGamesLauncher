@@ -7,7 +7,7 @@
             "title": "Dostępna aktualizacja"
         },
         "cache-cleared": {
-            "message": "Wyczyszczono Cache Heroic!",
+            "message": "Wyczyszczono Cache Heroic.",
             "title": "Wyczyszczono Cache"
         },
         "choose": "Wybierz",
@@ -24,22 +24,26 @@
                 "message": "Za mało miejsca na dysku",
                 "title": "Brak miejsca"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Wystąpił nieznany błąd",
                 "title": "Nieznany błąd"
             },
             "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
-            "log": {
-                "message": "Nie znaleziono logów dla tej gry",
-                "title": "Nie znaleziono logu"
-            },
-            "title": "Error"
+            "title": "Error",
+            "wine-not-found": {
+                "message": "Nie Wybrano Wersji Wine . Sprawdź Ustawienia Gry!",
+                "title": "Nie Znaleziono Wine"
+            }
         },
         "no": "NIE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Nie jest zainstalowany, czy chcesz go zainstalować?"
+                "not_installed": "Nie jest obecnie zainstalowany, Zainstalować?"
             }
         },
         "quit": {
@@ -68,21 +72,33 @@
             "error": "Nieprawidłowa ścieżka",
             "title": "Wybierz folder zapisów gry"
         },
+        "warning": {
+            "epic": {
+                "import": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaimportowana!",
+                "install": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zainstalowana!",
+                "update": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaktualizowana!"
+            },
+            "title": "Ostrzeżenie"
+        },
         "wineprefix": "Wybierz Folder Prefiksu Wine",
         "yes": "TAK"
     },
     "button": {
-        "login": "Login",
+        "login": "Zaloguj",
         "sync": "Synchronizuj",
         "syncing": "Synchronizacja",
         "unsync": "Desynchronizacja"
     },
     "Downloading": "Pobieranie",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "Filtr",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtr",
     "globalSettings": "Ustawienia Globalne",
     "help": {
         "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
@@ -121,7 +137,7 @@
         "website": "Ładowanie Strony"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Zaloguj Przez Epic",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -140,6 +156,7 @@
         },
         "install": {
             "canceled": "Instalacja zatrzymana",
+            "error": "",
             "finished": "Instalacja zakończona",
             "imported": "Gra Zaimportowana",
             "startInstall": "Instalacja Rozpoczęta"
@@ -173,22 +190,23 @@
     "Plugins": "Rozszerzenia",
     "Projects": "Projekty",
     "Ready": "Zainstalowane",
-    "Recent": "Played Recently",
+    "Recent": "Ostatnio Grane",
     "Return": "Powrót",
     "search": "Wpisz nazwę gry...",
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
-        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary  (wymaga restartu)",
+        "alt-legendary-bin": "Wybierz Alternatywny plik binarny Legendary (wymaga restartu)",
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
-        "autodxvk": "Automatycznie instaluj / aktualizuj DXVK/VKD3D w Prefiksie Wine",
+        "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Wybierz alternatywny EXE do uruchomienia",
         "checkForUpdatesOnStartup": "Sprawdź aktualizacje podczas uruchamiania",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Ustaw Folder dla nowych Prefiksów Wine",
         "discordRPC": "Włącz Discord Rich Presence",
         "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
@@ -198,6 +216,13 @@
         "fsync": "Włącz Fsync",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
+        },
         "mangohud": "Użyj Mangohud (Mangohud musi być zainstalowane)",
         "manualsync": {
             "download": "Download",
@@ -208,7 +233,7 @@
             "title": "Manualnie synchronizuj zapisy",
             "upload": "Upload"
         },
-        "maxRecentGames": "Pokaż ostatnio używane gry",
+        "maxRecentGames": "Ostatnio Grane do Pokazania",
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "offlinemode": "Uruchom grę w trybie offline",
         "primerun": "Włącz renderowanie Nvidia Prime",
@@ -228,17 +253,22 @@
         "wineprefix": "Folder prefiksu Wine",
         "wineversion": "Wersja Wine"
     },
-    "Settings": "Ustawienia",
     "settings": {
         "clear-cache": "Wyczyść Cache Heroic",
+        "copiedToClipboard": "Skopiowano do Schowka!",
         "copyToClipboard": "Kopiuj Wszystkie Ustawienia do Schowka",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Główne",
+            "log": "Log",
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Ustawienia",
     "status": {
         "loading": "Ładowanie listy Gier, proszę czekać",
         "logging": "Logowanie..."
@@ -254,6 +284,12 @@
         "unrealPlugins": "Unreal - Pluginy",
         "unrealProjects": "Unreal - Projekty",
         "updates": "Oczekujące Aktualizacje"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Dodaj nową ścieżkę",
@@ -274,5 +310,13 @@
         "logout_confirmation": "Czy na pewno chcesz się wylogować?",
         "quit": "Wyjdź"
     },
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

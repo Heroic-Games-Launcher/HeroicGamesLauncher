@@ -23,6 +23,8 @@
             "title": "停止安装"
         },
         "uninstall": {
+            "checkbox": "你是否也要删除前缀？此操作无法撤销。",
+            "checkbox_prefix": "Prefix",
             "message": "你希望卸载这个游戏吗？",
             "title": "卸载"
         },

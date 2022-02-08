@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
 import prettyBytes from 'pretty-bytes'
-import { Checkbox } from '@material-ui/core'
+import { Checkbox } from '@mui/material'
 import { IpcRenderer } from 'electron'
 
 import './index.css'
@@ -143,7 +143,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     const getInfo = async () => {
       const gameInfo = await getInstallInfo(appName)
       setGameInfo(gameInfo)
-      const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+      const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
         .replaceAll(' ', '-')
@@ -275,11 +275,13 @@ export default function InstallModal({ appName, backdropClick }: Props) {
             {haveDLCs && (
               <div className="itemContainer">
                 <div className="itemTitle">{t('dlc.title', 'DLCs')}</div>
-                {DLCList.map(({ app_name, title }) => (
-                  <span key={app_name} className="itemName">
-                    {title}
-                  </span>
-                ))}
+                <div className="dlcList">
+                  {DLCList.map(({ app_name, title }) => (
+                    <span key={app_name} className="itemName">
+                      {title}
+                    </span>
+                  ))}
+                </div>
                 <span className="item">
                   <Checkbox
                     color="primary"

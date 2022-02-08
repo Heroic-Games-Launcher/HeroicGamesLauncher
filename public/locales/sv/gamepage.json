@@ -5,7 +5,7 @@
             "path": "Välj ny installationssökväg",
             "title": "Ändra spelets installationssökväg"
         },
-        "choose": "Ok",
+        "choose": "OK",
         "importpath": "Välj spelmapp för import",
         "move": {
             "message": "Detta kan ta lång tid, är du säker?",
@@ -23,6 +23,8 @@
             "title": "Avbryt installationen"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "Vill du avinstallera spelet?",
             "title": "Avinstallera"
         },

@@ -23,11 +23,13 @@
             "title": "Kurulumu Durdur"
         },
         "uninstall": {
+            "checkbox": "Prefix'i de kaldırmak ister misiniz? Bu geri alınamaz.",
+            "checkbox_prefix": "Prefix",
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "title": "Kaldır"
         },
         "update": {
-            "message": "Bu oyunun bir güncellemesi var, şimdi güncellemek ister misiniz?",
+            "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
         "wineprefix": "Wine Prefix Klasörünü Seçin",

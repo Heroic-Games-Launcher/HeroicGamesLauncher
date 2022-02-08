@@ -44,7 +44,7 @@
 }
 
 .title {
-  color: var(--text-primary);
+  color: var(--text-default);
   place-self: center;
   font-family: Cabin;
   font-size: 24px;
@@ -82,10 +82,18 @@
   margin: 12px;
 }
 
+.dlcList {
+  max-height: 120px;
+  overflow: auto;
+  padding: 12px 0 18px;
+  display: flex;
+  flex-direction: column;
+}
+
 .sizeInfo {
   font-weight: 700;
   margin: 0 10px;
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .itemTitle {
@@ -128,5 +136,5 @@
 
 .MuiIconButton-colorPrimary,
 .MuiCheckbox-colorPrimary.Mui-checked {
-  color: var(--secondary);
+  color: var(--download-button);
 }

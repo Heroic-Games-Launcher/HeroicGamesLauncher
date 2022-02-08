@@ -3,10 +3,10 @@ import React, { ChangeEvent, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
-import Backspace from '@material-ui/icons/Backspace'
+import Backspace from '@mui/icons-material/Backspace'
 import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -132,12 +132,12 @@ export default function OtherSettings({
       {shouldRenderFpsOption && (
         <span data-testid="otherSettings" className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.showfps')}
             <ToggleSwitch
               value={showFps}
               handleChange={toggleFps}
               title={t('setting.showfps')}
             />
+            <span>{t('setting.showfps')}</span>
           </span>
         </span>
       )}
@@ -145,64 +145,60 @@ export default function OtherSettings({
         <>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.gamemode')}
               <ToggleSwitch
                 value={useGameMode}
                 handleChange={toggleUseGameMode}
                 title={t('setting.gamemode')}
               />
+              <span>{t('setting.gamemode')}</span>
             </span>
           </span>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.primerun', 'Enable Nvidia Prime Render')}
               <ToggleSwitch
                 value={primeRun}
                 handleChange={togglePrimeRun}
                 title={t('setting.primerun', 'Enable Nvidia Prime Render')}
               />
+              <span>{t('setting.primerun', 'Enable Nvidia Prime Render')}</span>
             </span>
           </span>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.audiofix')}
               <ToggleSwitch
                 value={audioFix}
                 handleChange={toggleAudioFix}
                 title={t('setting.audiofix')}
               />
+              <span>{t('setting.audiofix')}</span>
             </span>
           </span>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.mangohud')}
               <ToggleSwitch
                 value={showMangohud}
                 handleChange={toggleMangoHud}
                 title={t('setting.mangohud')}
               />
+              <span>{t('setting.mangohud')}</span>
             </span>
           </span>
         </>
       )}
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t('setting.offlinemode')}
           <ToggleSwitch
             value={offlineMode}
             handleChange={toggleOffline}
             title={t('setting.offlinemode')}
           />
+          <span>{t('setting.offlinemode')}</span>
         </span>
       </span>
       {supportsShortcuts && isDefault && (
         <>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t(
-                'setting.adddesktopshortcuts',
-                'Add desktop shortcuts automatically'
-              )}
               <ToggleSwitch
                 value={addDesktopShortcuts}
                 handleChange={toggleAddDesktopShortcuts}
@@ -211,14 +207,16 @@ export default function OtherSettings({
                   'Add desktop shortcuts automatically'
                 )}
               />
+              <span>
+                {t(
+                  'setting.adddesktopshortcuts',
+                  'Add desktop shortcuts automatically'
+                )}
+              </span>
             </span>
           </span>
           <span className="setting">
             <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t(
-                'setting.addgamestostartmenu',
-                'Add games to start menu automatically'
-              )}
               <ToggleSwitch
                 value={addGamesToStartMenu}
                 handleChange={toggleAddGamesToStartMenu}
@@ -227,6 +225,12 @@ export default function OtherSettings({
                   'Add games to start menu automatically'
                 )}
               />
+              <span>
+                {t(
+                  'setting.addgamestostartmenu',
+                  'Add games to start menu automatically'
+                )}
+              </span>
             </span>
           </span>
         </>
@@ -234,19 +238,20 @@ export default function OtherSettings({
       {isDefault && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.discordRPC', 'Enable Discord Rich Presence')}
             <ToggleSwitch
               value={discordRPC}
               handleChange={toggleDiscordRPC}
               title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
             />
+            <span>
+              {t('setting.discordRPC', 'Enable Discord Rich Presence')}
+            </span>
           </span>
         </span>
       )}
       {isDefault && (
         <span className="setting">
           <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.maxRecentGames', 'Recent Games to Show')}
             <select
               data-testid="setMaxRecentGames"
               onChange={(event) =>
@@ -259,6 +264,7 @@ export default function OtherSettings({
                 <option key={n + 1}>{n + 1}</option>
               ))}
             </select>
+            <span>{t('setting.maxRecentGames', 'Recent Games to Show')}</span>
           </span>
         </span>
       )}

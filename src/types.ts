@@ -1,3 +1,4 @@
+import { VersionInfo } from 'heroic-wine-downloader'
 interface About {
   description: string
   shortDescription: string
@@ -8,6 +9,7 @@ export interface AppSettings {
   addStartMenuShortcuts: boolean
   audioFix: boolean
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
@@ -44,6 +46,7 @@ export interface AppSettings {
 export interface ContextType {
   category: string
   data: GameInfo[]
+  wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean
   filter: string
@@ -62,6 +65,7 @@ export interface ContextType {
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
+  refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
 }
 
@@ -91,6 +95,29 @@ export interface GameInfo {
   save_folder: string
   title: string
   canRunOffline: boolean
+}
+
+export interface GameSettings {
+  audioFix: boolean
+  autoInstallDxvk: boolean
+  autoSyncSaves: boolean
+  enableEsync: boolean
+  enableFSR: boolean
+  enableFsync: boolean
+  enableResizableBar: boolean
+  maxSharpness: number
+  launcherArgs: string
+  nvidiaPrime: boolean
+  offlineMode: boolean
+  otherOptions: string
+  savesPath: string
+  showFps: boolean
+  showMangohud: boolean
+  targetExe: string
+  useGameMode: boolean
+  wineCrossoverBottle: string
+  winePrefix: string
+  wineVersion: WineInstallation
 }
 
 type DLCInfo = {
@@ -196,6 +223,11 @@ export interface WineInstallation {
   name: string
 }
 
+export interface WineVersionInfo extends VersionInfo {
+  isInstalled: boolean
+  hasUpdate: boolean
+  installDir: string
+}
 export type ElWebview = {
   goBack: () => void
   goForward: () => void

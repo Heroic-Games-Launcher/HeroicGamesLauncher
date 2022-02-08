@@ -81,23 +81,27 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
-            className="button is-transparent"
+            className="button is-tools"
             style={{
-              color: winecfgRunning ? 'var(--secondary)' : 'var(--primary)'
+              color: winecfgRunning
+                ? 'var(--download-button)'
+                : 'var(--text-default)'
             }}
             onClick={() => callTools('winecfg')}
           >
-            Winecfg
+            <span className="toolTitle">Winecfg</span>
           </button>
           <button
             data-testid="wineTricks"
-            className="button is-transparent"
+            className="button is-tools"
             style={{
-              color: winetricksRunning ? 'var(--secondary)' : 'var(--primary)'
+              color: winetricksRunning
+                ? 'var(--download-button)'
+                : 'var(--text-default)'
             }}
             onClick={() => callTools('winetricks')}
           >
-            Winetricks
+            <span className="toolTitle">Winetricks</span>
           </button>
           <a
             data-testid="toolsDrag"

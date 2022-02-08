@@ -7,6 +7,7 @@
   width: 100%;
 }
 
+.SidebarUtils a,
 .SidebarUtils button {
   text-align: left;
   background: none;
@@ -22,9 +23,13 @@
   display: block;
 }
 
+.SidebarUtils a:hover {
+  color: var(--text-hover);
+}
+
 .SidebarUtils button:hover {
-  color: var(--secondary);
-  fill: var(--secondary);
+  color: var(--text-hover);
+  fill: var(--download-button);
 }
 
 .SidebarUtils button > span {

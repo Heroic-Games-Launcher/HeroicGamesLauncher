@@ -11,9 +11,9 @@ const { ipcRenderer } = window.require('electron') as {
 }
 import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
-import Backspace from '@material-ui/icons/Backspace'
+import Backspace from '@mui/icons-material/Backspace'
 import ContextProvider from 'src/state/ContextProvider'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 
 interface Props {
   appName: string
@@ -172,13 +172,13 @@ export default function SyncSaves({
       </span>
       <span className="setting">
         <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t('setting.autosync')}
           <ToggleSwitch
             value={autoSyncSaves}
             disabled={!savesPath.length}
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
+          <span>{t('setting.autosync')}</span>
         </span>
       </span>
       <InfoBox text="infobox.help">

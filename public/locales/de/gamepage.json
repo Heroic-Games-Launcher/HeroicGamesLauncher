@@ -23,6 +23,8 @@
             "title": "Installation abbrechen"
         },
         "uninstall": {
+            "checkbox": "Möchten Sie das Prefix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden",
+            "checkbox_prefix": "Prefix",
             "message": "Möchten Sie dieses Spiel deinstallieren?",
             "title": "Deinstallieren"
         },

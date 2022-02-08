@@ -2,7 +2,7 @@
   --sidebar-horizontal-padding: 16px;
   --sidebar-vertical-padding: 24px;
   height: 100%;
-  background: var(--background);
+  background: var(--navbar-background);
   display: grid;
   grid-template-rows: 1fr 15% 1fr;
   grid-template-areas: 'links' 'layout' 'other';

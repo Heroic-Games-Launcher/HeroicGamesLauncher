@@ -23,6 +23,8 @@
             "title": "Cancelar Instalação"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "Você deseja desinstalar esse jogo?",
             "title": "Desinstalar"
         },

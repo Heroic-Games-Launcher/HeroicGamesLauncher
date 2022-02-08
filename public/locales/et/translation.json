@@ -7,8 +7,8 @@
             "title": "Uuendus saadaval"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic-u vahemälu puhastati.",
+            "title": "Vahemälu puhastati"
         },
         "choose": "Valige",
         "choose-egs-prefix": "Valige prefiks, kuhu EGS on paigaldatud",
@@ -24,22 +24,26 @@
                 "message": "Ei ole piisavalt vaba kettaruumi",
                 "title": "Ei ole ruumi"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "Tekkinud on tundmatu viga",
                 "title": "Tundmatu viga"
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
-            "log": {
-                "message": "Selle mängu logi ei leitud",
-                "title": "Logi ei leitud"
-            },
-            "title": "Viga"
+            "title": "Viga",
+            "wine-not-found": {
+                "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
+                "title": "Wine-i ei leitud"
+            }
         },
         "no": "EI",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "ei ole paigaldatud, kas soovite selle paigaldada?"
+                "not_installed": "Hetkel ei ole paigaldatud, kas soovite selle paigaldada?"
             }
         },
         "quit": {
@@ -48,7 +52,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Kas olete kindel, et soovite Heroic'u lähtestada? See eemaldab kõik seaded ja vahemälu, kuid ei eemalda installitud mänge ega Epic'u kredentsiaale",
                 "title": "Reset Heroic"
             }
         },
@@ -60,29 +64,41 @@
             "exe": "Vali EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Töölauale ja Start Menüüsse on loodud otseteed",
+            "title": "Otseteed"
         },
         "sync": {
             "button": "Valige",
             "error": "Vale koht",
             "title": "Valige salvestuste kaust"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic-u serveritel on praegu suur katkestus, mängu ei saa importida!",
+                "install": "Epic-u serveritel on praegu suur katkestus, mängu ei saa installida!",
+                "update": "Epic-u serveritel on praegu suur katkestus, mängu ei saa uuendada!"
+            },
+            "title": "Hoiatus"
+        },
         "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH"
     },
     "button": {
-        "login": "Login",
+        "login": "Logi sisse",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine"
     },
     "Downloading": "Allalaadimine",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "Filtreeri",
     "filter": {
         "noFilter": "No Filter"
     },
+    "Filter": "Filtreeri",
     "globalSettings": "Globaalsed seaded",
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -114,14 +130,14 @@
         "requirements": "Süsteeminõuded"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Valige paigaldustee"
     },
     "Library": "Varamu",
     "loading": {
-        "website": "Loading Website"
+        "website": "Veebilehe laadimine"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Logi sisse Epic'uga",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -132,24 +148,25 @@
     "Not Ready": "Pole valmis",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Viga mängu liigutamisel",
+            "reparing": "Viga parandamisel"
         },
         "finished": {
             "reparing": "Parandamine lõpetatud"
         },
         "install": {
             "canceled": "Paigaldamine tühistatud",
+            "error": "",
             "finished": "Paigaldamine lõpetatud",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Mäng imporditud",
+            "startInstall": "Paigaldamine algas"
         },
         "moved": "Teisaldamine on lõpule viidud",
         "uninstalled": "Eemaldatud",
         "update": {
             "canceled": "Uuendatud tühistatud",
             "finished": "Uuendatud lõpetatud",
-            "started": "Update Started"
+            "started": "Uuendamine algas"
         }
     },
     "options": {
@@ -173,22 +190,23 @@
     "Plugins": "Pluginad",
     "Projects": "Projektid",
     "Ready": "Valmis",
-    "Recent": "Hiljutised mängud",
+    "Recent": "Hiljuti mängitud",
     "Return": "Tagasi",
     "search": "Sisestage mängu nimi siia...",
     "setting": {
         "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
-        "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada",
+        "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada (vajab restarti)",
         "audiofix": "Heliparandus (Pulse Audio Latency)",
-        "autodxvk": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile",
+        "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
         "autosync": "Automaatne salvestiste sünkroonimine",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
         "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat tray-ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Määrake uute Wine'i prefikside jaoks kaust",
         "discordRPC": "Luba Discord Rich Presence",
         "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
@@ -198,6 +216,13 @@
         "fsync": "Luba Fsync",
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
         "language": "Valige rakenduse keel",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
+        },
         "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
         "manualsync": {
             "download": "Laadi alla",
@@ -208,7 +233,7 @@
             "title": "Käsitsi salvestuste sünkroonimine",
             "upload": "Laadi üles"
         },
-        "maxRecentGames": "Hiljutised mängud, mida näidata",
+        "maxRecentGames": "Hiljuti mängitud mänge, mida näidata",
         "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
         "offlinemode": "Käivita mäng võrguühenduseta",
         "primerun": "Luba Nvidia Prime Render",
@@ -222,38 +247,49 @@
             "title": "Asenda salvestuse pilvesünkroonkaust"
         },
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritud",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
         "wineversion": "Wine'i versioon"
     },
-    "Settings": "Seaded",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Tühjenda Heroic'u vahemälu",
+        "copiedToClipboard": "Kopeeritud lõikelauale!",
+        "copyToClipboard": "Kopeeri kõik seaded lõikelauale",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "Üldine",
+            "log": "Log",
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "Seaded",
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "Mängude loendi laadimine, palun oodake",
+        "logging": "Sisselogimine..."
     },
     "store": "Pood",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Kõik mängud",
+        "allUnreal": "Unreal - Kõik",
+        "downloading": "Allalaadimine",
+        "installedGames": "Paigaldatud mängud",
+        "notInstalledGames": "Pole installitud",
+        "unrealAssets": "Unreal - varamu",
+        "unrealPlugins": "Unreal - pluginad",
+        "unrealProjects": "Unreal - Projektid",
+        "updates": "Ootel olevad uuendused"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "Lisa uus tee",
@@ -274,5 +310,13 @@
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "quit": "Sulge"
     },
-    "wiki": "Viki"
+    "wiki": "Viki",
+    "wine": {
+        "manager": {
+            "error": "Ei saanud Wine/Proton versioone kätte.",
+            "link": "Wine'i haldur",
+            "title": "Wine'i haldur (beeta)",
+            "unzipping": "Lahtipakkimine"
+        }
+    }
 }
