@@ -250,7 +250,7 @@ class GOGGame extends Game {
       const index = array.findIndex((game) => game.appName == this.appName)
       if (index == -1) throw Error("Game isn't installed")
 
-      const [object] = array.splice(index)
+      const [object] = array.splice(index, 1)
       logInfo(['Removing', object.install_path], LogPrefix.Gog)
       rmSync(object.install_path, { recursive: true })
       installedGamesStore.set('installed', array)
