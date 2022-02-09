@@ -143,9 +143,9 @@ export class GOGLibrary {
     if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
     const credentials = userStore.get('credentials') as GOGLoginData
     const { stdout } = await execAsync(
-      `${gogdlBin} info ${appName} --token=${
+      `${gogdlBin} info ${appName} --token="${
         credentials.access_token
-      } --lang=en-US --os ${process.platform == 'darwin' ? 'osx' : 'windows'}`
+      }" --lang=en-US --os ${process.platform == 'darwin' ? 'osx' : 'windows'}`
     )
     const gogInfo = JSON.parse(stdout)
     const gameData = this.library.get(appName)
@@ -162,9 +162,10 @@ export class GOGLibrary {
         app_name: appName,
         title: gameData.title,
         owned_dlc: gogInfo.dlcs,
-        version: gogInfo.version,
+        version: gogInfo.versionName,
         launch_options: [],
-        platform_versions: null
+        platform_versions: null,
+        buildId: gogInfo.buildId
       },
       manifest: {
         disk_size: Number(gogInfo.disk_size),
@@ -173,7 +174,8 @@ export class GOGLibrary {
         install_tags: [],
         launch_exe: '',
         prerequisites: null,
-        languages: gogInfo.languages
+        languages: gogInfo.languages,
+        versionEtag: gogInfo.versionEtag
       }
     }
     return info
@@ -214,8 +216,9 @@ export class GOGLibrary {
         (await this.getInstallInfo(data.appName)).manifest.disk_size
       ),
       is_dlc: false,
-      version: data.buildId,
-      platform: data.platform
+      version: data.versionName,
+      platform: data.platform,
+      buildId: data.buildId
     }
     this.installedGames.set(data.appName, installInfo)
     const gameData = this.library.get(data.appName)
@@ -226,6 +229,50 @@ export class GOGLibrary {
       'installed',
       Array.from(this.installedGames.values())
     )
+  }
+
+  // This checks for updates of Windows and Mac titles
+  // Linux installers need to be checked differenly
+  public async listUpdateableGames(): Promise<string[]> {
+    const installed = Array.from(this.installedGames.values())
+    const updateable: Array<string> = []
+    for (const game of installed) {
+      // Skip linux
+      if (game.platform == 'linux') continue
+
+      if (
+        await this.checkForGameUpdate(
+          game.appName,
+          game?.versionEtag,
+          game.platform
+        )
+      )
+        updateable.push(game.appName)
+    }
+    logInfo(`Found ${updateable.length} game(s) to update`, LogPrefix.Gog)
+    return updateable
+  }
+
+  public async checkForGameUpdate(
+    appName: string,
+    etag: string,
+    platform: string
+  ) {
+    const buildData = await axios.get(
+      `https://content-system.gog.com/products/${appName}/os/${platform}/builds?generation=2`
+    )
+    const metaUrl = buildData.data?.items[0]?.link
+    const headers = etag
+      ? {
+          'If-None-Match': etag
+        }
+      : null
+    const metaResponse = await axios.get(metaUrl, {
+      headers,
+      validateStatus: (status) => status == 200 || status == 304
+    })
+
+    return metaResponse.status == 200
   }
 
   /**

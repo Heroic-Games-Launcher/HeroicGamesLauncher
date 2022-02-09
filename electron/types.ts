@@ -100,6 +100,7 @@ type GameInstallInfo = {
   title: string
   version: string
   platform_versions: { Mac: string; Windows: string }
+  buildId?: string
 }
 
 type Prerequisites = {
@@ -116,6 +117,7 @@ type GameManifest = {
   launch_exe: string
   prerequisites: Prerequisites
   languages?: Array<string>
+  versionEtag?: string
 }
 export interface InstallInfo {
   game: GameInstallInfo
@@ -177,7 +179,9 @@ export interface InstalledInfo {
   platform: string
   appName?: string
   installedWithDLCs?: boolean // For verifing GOG games
-  language?: string // For verifieng GOG games
+  language?: string // For verifing GOG games
+  versionEtag?: string // Checksum for checking GOG updates
+  buildId?: string // For verifing GOG games
 }
 export interface KeyImage {
   type: string
@@ -303,6 +307,7 @@ export interface GOGImportData {
   }>
   installedLanguage: string
   platform: string
+  versionName: string
 }
 
 export interface GamepadInputEventKey {

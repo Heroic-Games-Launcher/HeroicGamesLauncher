@@ -266,24 +266,25 @@ const launch = ({
         const { response } = await ipcRenderer.invoke('openMessageBox', args)
 
         if (response === 0) {
-          return updateGame(appName)
+          return updateGame(appName, runner)
         }
         await ipcRenderer.invoke('launch', {
           appName,
+          runner,
           launchArguments: '--skip-version-check'
         })
       }
     })
 
-const updateGame = (appName: string): Promise<void> =>
-  ipcRenderer.invoke('updateGame', appName)
+const updateGame = (appName: string, runner: Runner): Promise<void> =>
+  ipcRenderer.invoke('updateGame', appName, runner)
 
 // Todo: Get Back to update all games
-function updateAllGames(gameList: Array<string>) {
-  gameList.forEach(async (appName) => {
-    await updateGame(appName)
-  })
-}
+// function updateAllGames(gameList: Array<string>) {
+//   gameList.forEach(async (appName) => {
+//     await updateGame(appName)
+//   })
+// }
 
 type RecentGame = {
   appName: string
@@ -310,6 +311,6 @@ export {
   launch,
   repair,
   uninstall,
-  updateAllGames,
+  // updateAllGames,
   updateGame
 }

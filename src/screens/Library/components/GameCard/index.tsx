@@ -146,7 +146,7 @@ const GameCard = ({
 
   async function handleUpdate() {
     await handleGameStatus({ appName, status: 'updating' })
-    await updateGame(appName)
+    await updateGame(appName, runner)
     return handleGameStatus({ appName, status: 'done' })
   }
 

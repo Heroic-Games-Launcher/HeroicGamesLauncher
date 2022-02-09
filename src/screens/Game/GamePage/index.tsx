@@ -166,7 +166,7 @@ export default function GamePage(): JSX.Element | null {
 
   async function handleUpdate() {
     await handleGameStatus({ appName, status: 'updating' })
-    await updateGame(appName)
+    await updateGame(appName, gameInfo.runner)
     await handleGameStatus({ appName, status: 'done' })
   }
 

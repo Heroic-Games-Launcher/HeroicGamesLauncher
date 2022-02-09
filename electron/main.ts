@@ -512,9 +512,11 @@ ipcMain.handle(
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', () =>
-  LegendaryLibrary.get().listUpdateableGames()
-)
+ipcMain.handle('checkGameUpdates', async () => {
+  const legendaryUpdates = await LegendaryLibrary.get().listUpdateableGames()
+  const gogUpdates = await GOGLibrary.get().listUpdateableGames()
+  return [...legendaryUpdates, ...gogUpdates]
+})
 
 ipcMain.handle('getEpicGamesStatus', () => isEpicServiceOffline())
 
@@ -971,8 +973,8 @@ ipcMain.handle('importGame', async (event, args) => {
     })
 })
 
-ipcMain.handle('updateGame', async (e, game) => {
-  if (!(await isOnline())) {
+ipcMain.handle('updateGame', async (e, game, runner) => {
+  if (!(await isOnline()) && runner == 'legendary') {
     logWarning(
       `App offline, skipping install for game '${game}'.`,
       LogPrefix.Backend
@@ -981,7 +983,7 @@ ipcMain.handle('updateGame', async (e, game) => {
   }
 
   const epicOffline = await isEpicServiceOffline()
-  if (epicOffline) {
+  if (epicOffline && runner == 'legendary') {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
@@ -992,10 +994,10 @@ ipcMain.handle('updateGame', async (e, game) => {
     return { status: 'error' }
   }
 
-  const title = (await Game.get(game).getGameInfo()).title
+  const title = (await Game.get(game, runner).getGameInfo()).title
   notify({ title, body: i18next.t('notify.update.started', 'Update Started') })
 
-  return Game.get(game)
+  return Game.get(game, runner)
     .update()
     .then(({ status }) => {
       notify({
@@ -1066,8 +1068,20 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
 
 ipcMain.handle(
   'changeInstallPath',
-  async (event, [appName, newPath]: string[]) => {
-    LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
+  async (event, [appName, newPath, runner]: string[]) => {
+    let instance = null
+    switch (runner) {
+      case 'legendary':
+        instance = LegendaryLibrary.get()
+        break
+      case 'gog':
+        instance = GOGLibrary.get()
+        break
+      default:
+        logError(`Unsupported runner ${runner}`, LogPrefix.Backend)
+        return
+    }
+    instance.changeGameInstallPath(appName, newPath)
     logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
   }
 )

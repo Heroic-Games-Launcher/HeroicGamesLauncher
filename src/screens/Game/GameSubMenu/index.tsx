@@ -82,7 +82,7 @@ export default function GamesSubmenu({
         title: t('box.change.path')
       })
       if (path) {
-        await renderer.invoke('changeInstallPath', [appName, path])
+        await renderer.invoke('changeInstallPath', [appName, path, runner])
         await refresh()
       }
       return

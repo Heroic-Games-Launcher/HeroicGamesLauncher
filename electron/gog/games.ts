@@ -141,7 +141,9 @@ class GOGGame extends Game {
           version: installInfo.game.version,
           appName: this.appName,
           installedWithDLCs: installDlcs,
-          language: 'en-US'
+          language: installLanguage,
+          versionEtag: installInfo.manifest.versionEtag,
+          buildId: installInfo.game.buildId
         }
         const array: Array<InstalledInfo> =
           (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
@@ -207,13 +209,13 @@ class GOGGame extends Game {
       gameData.install.install_path
     }" --token="${credentials.access_token}" ${withDlcs} --lang="${
       gameData.install.language || 'en-US'
-    }"`
+    }" -b=${gameData.install.buildId}`
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
     return execAsync(command, execOptions)
       .then((v) => v)
       .catch((error) => {
-        logError(error, LogPrefix.Gog)
+        logError(`${error}`, LogPrefix.Gog)
         return null
       })
   }
@@ -227,7 +229,7 @@ class GOGGame extends Game {
         return logInfo(`${pattern} killed`, LogPrefix.Gog)
       } catch (error) {
         return logError(
-          [`not possible to kill ${pattern}`, error],
+          [`not possible to kill ${pattern}`, `${error}`],
           LogPrefix.Gog
         )
       }
@@ -243,7 +245,7 @@ class GOGGame extends Game {
       "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
     )
   }
-  uninstall(): Promise<ExecResult> {
+  public uninstall(): Promise<ExecResult> {
     return new Promise((res) => {
       const array: Array<InstalledInfo> =
         (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
@@ -255,12 +257,61 @@ class GOGGame extends Game {
       rmSync(object.install_path, { recursive: true })
       installedGamesStore.set('installed', array)
       GOGLibrary.get().refreshInstalled()
-      // This is to satisfy Typescript (we neeed to change it)
+      // This is to satisfy Typescript (we neeed to change it probably)
       res({ stdout: '', stderr: '' })
     })
   }
-  update(): Promise<unknown> {
-    throw new Error('Method not implemented.')
+  public async update(): Promise<unknown> {
+    const gameData = GOGLibrary.get().getGameInfo(this.appName)
+
+    const withDlcs = gameData.install.installedWithDLCs
+      ? '--with-dlcs'
+      : '--skip-dlcs'
+    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
+    const credentials = configStore.get('credentials') as GOGLoginData
+
+    const installPlatform = gameData.install.platform
+    // In the future we need to add Language select option
+    const command = `${gogdlBin} update ${
+      this.appName
+    } --platform ${installPlatform} --path="${
+      gameData.install.install_path
+    }" --token="${credentials.access_token}" ${withDlcs} --lang="${
+      gameData.install.language || 'en-US'
+    }"`
+    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
+
+    return execAsync(command, execOptions)
+      .then(async (v) => {
+        const installInfo = await GOGLibrary.get().getInstallInfo(this.appName)
+        const installedArray = installedGamesStore.get(
+          'installed'
+        ) as InstalledInfo[]
+
+        const gameIndex = installedArray.findIndex(
+          (val) => this.appName == val.appName
+        )
+        const gameObject = installedArray[gameIndex]
+        gameObject.buildId = installInfo.game.buildId
+        gameObject.version = installInfo.game.version
+        gameObject.versionEtag = installInfo.manifest.versionEtag
+        gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
+        installedGamesStore.set('installed', installedArray)
+        GOGLibrary.get().refreshInstalled()
+        this.window.webContents.send('setGameStatus', {
+          appName: this.appName,
+          status: 'done'
+        })
+        return { status: 'done' }
+      })
+      .catch((error) => {
+        logError(`${error}`, LogPrefix.Gog)
+        this.window.webContents.send('setGameStatus', {
+          appName: this.appName,
+          status: 'done'
+        })
+        return { status: 'error' }
+      })
   }
 }
 

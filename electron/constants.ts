@@ -48,6 +48,7 @@ function getGOGdlBin() {
 
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
+const isLinux = platform() == 'linux'
 const isFlatpak = execPath === '/app/main/heroic'
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
@@ -155,6 +156,7 @@ export {
   installed,
   isMac,
   isWindows,
+  isLinux,
   legendaryBin,
   gogdlBin,
   legendaryConfigPath,

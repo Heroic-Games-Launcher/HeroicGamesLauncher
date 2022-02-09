@@ -8,6 +8,7 @@ import { existsSync, mkdirSync } from 'graceful-fs'
 import {
   isWindows,
   isMac,
+  isLinux,
   home,
   execOptions,
   legendaryBin,
@@ -77,6 +78,7 @@ async function launch(
   const exe = targetExe && isLegendary ? `--override-exe ${targetExe}` : ''
   const gameInfo = await getGameInfo(appName, runner)
   const isMacNative = gameInfo.is_mac_native
+  const isLinuxNative = gameInfo.is_linux_native
   const mangohud = showMangohud ? 'mangohud --dlsym' : ''
 
   if (discordRPC) {
@@ -110,7 +112,7 @@ async function launch(
     })
   }
 
-  if (isWindows || (isMac && isMacNative)) {
+  if (isWindows || (isMac && isMacNative) || (isLinux && isLinuxNative)) {
     const command = `${legendaryBin} launch ${appName} ${exe} ${runOffline} ${
       launchArguments ?? ''
     } ${launcherArgs}`
@@ -231,7 +233,7 @@ async function launch(
       return { stderr, command, gameSettings }
     })
     .catch((error) => {
-      logError(error, LogPrefix.Legendary)
+      logError(`${error}`, LogPrefix.Legendary)
       const { stderr } = error
       return { stderr, command, gameSettings }
     })
@@ -257,7 +259,7 @@ async function createNewPrefix(
     logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
     return execAsync(initPrefixCommand)
       .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
-      .catch((error) => logError(error, LogPrefix.Backend))
+      .catch((error) => logError(`${error}`, LogPrefix.Backend))
   }
 }
 
