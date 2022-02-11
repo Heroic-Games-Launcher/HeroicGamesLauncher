@@ -1,12 +1,12 @@
 name: Feature request
-description: 'Are we missing something? Open a feature request and we''ll get it implemented!'
+description: "Are we missing something? Open a feature request and we'll get it implemented!"
 body:
   - type: textarea
     id: feature_problem
     attributes:
       label: Problem description
       description: 'If your feature request is related to a problem, describe it'
-      placeholder: 'I''m always frustrated when [...]'
+      placeholder: "I'm always frustrated when [...]"
   - type: textarea
     id: feature_description
     attributes:

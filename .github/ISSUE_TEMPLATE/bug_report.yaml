@@ -1,5 +1,5 @@
 name: Bug report
-description: 'Things aren''t working right? Create a bug report to let us know!'
+description: "Things aren't working right? Create a bug report to let us know!"
 body:
   - type: markdown
     attributes:
@@ -51,7 +51,8 @@ body:
       label: System Information
       value: |-
         - OS [e. g. "Ubuntu"]: 
-        - Heroic Version [e. g. 2.1.1]: 
+        - Heroic Version [e. g. 2.1.1]:
+
     validations:
       required: true
   - type: textarea
