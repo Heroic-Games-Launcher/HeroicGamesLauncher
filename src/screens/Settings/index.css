@@ -101,6 +101,7 @@
 
 .setting > .toggleWrapper {
   display: flex;
+  cursor: pointer;
   gap: 15px;
   align-content: flex-start;
   place-self: center;

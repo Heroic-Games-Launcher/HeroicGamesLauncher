@@ -263,7 +263,7 @@ export default function WineSettings({
             )
           }
           value={wineVersion.name}
-          className="settingSelect"
+          className="settingSelect is-drop-down"
         >
           {altWine.map(({ name }) => (
             <option key={name}>{name}</option>

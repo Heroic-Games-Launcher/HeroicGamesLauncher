@@ -18,11 +18,13 @@
 .headerIcons > *:hover,
 .headerIcons > .svg-button > *:hover,
 .headerIcons > .svg-button:focus-visible > * {
-  color: var(--download-button);
+  color: var(--text-hover);
 }
 
-.svg-button > .selectedLayout {
-  color: var(--download-button);
+.headerIcons .svg-button > .selectedLayout,
+.headerIcons .svg-button > .selectedLayout:hover,
+.headerIcons .svg-button > .selectedLayout:focus-visible {
+  color: var(--accent);
 }
 
 .headerIcons > .svg-button > svg {

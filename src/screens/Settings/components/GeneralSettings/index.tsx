@@ -433,7 +433,7 @@ export default function GeneralSettings({
             data-testid="setMaxWorkers"
             onChange={(event) => setMaxWorkers(Number(event.target.value))}
             value={maxWorkers}
-            className="settingSelect smaller"
+            className="settingSelect smaller is-drop-down"
           >
             {Array.from(Array(maxCpus).keys()).map((n) => (
               <option key={n + 1}>{n + 1}</option>

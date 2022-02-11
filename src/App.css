@@ -79,7 +79,7 @@ html,
 }
 
 .button.is-secondary {
-  background: var(--download-button);
+  background: var(--accent);
 }
 
 .button.is-tertiary {
@@ -223,6 +223,14 @@ html,
   text-indent: 22px;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.settingSelect ~ span {
+  margin-block: auto;
+}
+
+.settingSelect.is-drop-down {
+  cursor: pointer;
 }
 
 .settingText {

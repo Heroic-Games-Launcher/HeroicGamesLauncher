@@ -258,7 +258,7 @@ export default function OtherSettings({
                 setMaxRecentGames(Number(event.target.value))
               }
               value={maxRecentGames}
-              className="settingSelect smaller"
+              className="settingSelect smaller is-drop-down "
             >
               {Array.from(Array(10).keys()).map((n) => (
                 <option key={n + 1}>{n + 1}</option>

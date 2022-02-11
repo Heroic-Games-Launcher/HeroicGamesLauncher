@@ -247,7 +247,7 @@
 }
 
 .downIcon > circle {
-  fill: var(--download-button);
+  fill: var(--accent);
 }
 
 .cancelIcon > circle {
