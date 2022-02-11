@@ -340,19 +340,26 @@ function Settings() {
   return (
     <>
       <div className="Settings">
-        <div className="settingsNavbar">
+        <nav role={'list'} className="settingsNavbar">
           {isDefault && (
-            <NavLink to={{ pathname: '/settings/default/general' }}>
+            <NavLink
+              role={'link'}
+              to={{ pathname: '/settings/default/general' }}
+            >
               {t('settings.navbar.general')}
             </NavLink>
           )}
           {shouldRenderWineSettings && (
-            <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
+            <NavLink
+              role={'link'}
+              to={{ pathname: `/settings/${appName}/wine` }}
+            >
               Wine
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink
+              role={'link'}
               data-testid="linkSync"
               to={{ pathname: `/settings/${appName}/sync` }}
             >
@@ -360,19 +367,26 @@ function Settings() {
             </NavLink>
           )}
           {
-            <NavLink to={{ pathname: `/settings/${appName}/other` }}>
+            <NavLink
+              role={'link'}
+              to={{ pathname: `/settings/${appName}/other` }}
+            >
               {t('settings.navbar.other')}
             </NavLink>
           }
           {
-            <NavLink to={{ pathname: `/settings/${appName}/log` }}>
+            <NavLink
+              role={'link'}
+              to={{ pathname: `/settings/${appName}/log` }}
+            >
               {t('settings.navbar.log', 'Log')}
             </NavLink>
           }
-        </div>
-        <div className="settingsWrapper">
+        </nav>
+        <div role={'list'} className="settingsWrapper">
           {title && (
             <NavLink
+              role={'link'}
               to={returnPath}
               className="headerTitle"
               data-testid="headerTitle"
