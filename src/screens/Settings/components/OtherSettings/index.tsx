@@ -284,6 +284,21 @@ export default function OtherSettings({
               onChange={handleOtherOptions}
             />
           </span>
+          <InfoBox text="infobox.help">
+            {t('help.other.part1')}
+            <strong>{`${t('help.other.part2')} `}</strong>
+            {t('help.other.part3')}
+            <br />
+            {!isDefault && (
+              <span>
+                {t('help.other.part4')}
+                <strong>{t('help.other.part5')}</strong>
+                {t('help.other.part6')}
+                <strong>{` -nolauncher `}</strong>
+                {t('help.other.part7')}
+              </span>
+            )}
+          </InfoBox>
         </span>
       )}
       {!isDefault && (
@@ -302,23 +317,23 @@ export default function OtherSettings({
               onChange={handleLauncherArgs}
             />
           </span>
+          <InfoBox text="infobox.help">
+            {t('help.other.part1')}
+            <strong>{`${t('help.other.part2')} `}</strong>
+            {t('help.other.part3')}
+            <br />
+            {!isDefault && (
+              <span>
+                {t('help.other.part4')}
+                <strong>{t('help.other.part5')}</strong>
+                {t('help.other.part6')}
+                <strong>{` -nolauncher `}</strong>
+                {t('help.other.part7')}
+              </span>
+            )}
+          </InfoBox>
         </span>
       )}
-      <InfoBox text="infobox.help">
-        {t('help.other.part1')}
-        <strong>{`${t('help.other.part2')} `}</strong>
-        {t('help.other.part3')}
-        <br />
-        {!isDefault && (
-          <span>
-            {t('help.other.part4')}
-            <strong>{t('help.other.part5')}</strong>
-            {t('help.other.part6')}
-            <strong>{` -nolauncher `}</strong>
-            {t('help.other.part7')}
-          </span>
-        )}
-      </InfoBox>
     </>
   )
 }

@@ -338,9 +338,12 @@ export default function GeneralSettings({
               }`}
             </button>
           </span>
+          {!isWindows && (
+            <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
+          )}
         </span>
       )}
-      {!isWindows && <InfoBox text="infobox.help">{t('help.general')}</InfoBox>}
+
       {isWindows && (
         <span className="setting">
           <label className={classNames('toggleWrapper', { isRTL: isRTL })}>

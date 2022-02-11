@@ -5,11 +5,11 @@
   line-height: 19px;
   background-color: var(--input-background);
   border-radius: 10px;
-  margin-inline: 16px;
   text-align: start;
 }
 
 .helpLink {
+  margin-block-start: 4px;
   transition: 500ms;
   color: var(--accent);
   cursor: pointer;
@@ -19,7 +19,6 @@
   align-items: center;
   min-width: 45px;
   justify-content: flex-start;
-  margin-inline-start: 16px;
 }
 
 .helpLink:hover {
