@@ -33,6 +33,10 @@
                 "title": "未知错误"
             },
             "launch": "启动游戏时出现错误，请检查日志！",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "错误",
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",

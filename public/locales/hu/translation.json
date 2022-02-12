@@ -33,6 +33,10 @@
                 "title": "Ismeretlen hiba"
             },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Hiba",
             "wine-not-found": {
                 "message": "Nincs kiválasztva Wine verzió. Ellenőrízd a játék beállításait!",

@@ -33,6 +33,10 @@
                 "title": "Неизвестна грешка"
             },
             "launch": "Грешка при пускането на играта. Проверете журнала!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Грешка",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
