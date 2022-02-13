@@ -884,7 +884,7 @@ ipcMain.handle('uninstall', async (event, args) => {
     .then(() => {
       if (args[1]) {
         logInfo(`Removing prefix ${winePrefix}`)
-        rmSync(winePrefix, { recursive: true }) // remove prefix
+        if (existsSync(winePrefix)) rmSync(winePrefix, { recursive: true }) // remove prefix
       }
       notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling', LogPrefix.Backend)

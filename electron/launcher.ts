@@ -22,6 +22,7 @@ import { DXVK } from './dxvk'
 import { Runner } from './types'
 import { GOGLibrary } from './gog/library'
 import { LegendaryLibrary } from './legendary/library'
+import setup from './gog/setup'
 
 function getGameInfo(appName: string, runner: Runner) {
   switch (runner) {
@@ -42,7 +43,6 @@ async function launch(
   const isLegendary = runner == 'legendary'
   const isGOG = runner == 'gog'
   //   const isExternal = runner == 'heroic'
-
   const epicOffline = isLegendary && (await isEpicServiceOffline())
   const isOffline = isLegendary && (!(await isOnline()) || epicOffline)
   let envVars = ''
@@ -185,7 +185,7 @@ async function launch(
     )
   }
 
-  await createNewPrefix(isProton, fixedWinePrefix, winePath)
+  await createNewPrefix(isProton, fixedWinePrefix, winePath, appName)
 
   // Install DXVK for non Proton/CrossOver Prefixes
   if (!isProton && !isCrossover && autoInstallDxvk) {
@@ -212,7 +212,7 @@ async function launch(
     } ${launcherArgs}`
     logInfo(['Launch Command:', command], LogPrefix.Legendary)
   } else if (isGOG) {
-    command = `${envVars} ${runWithGameMode} ${gogdlBin} launch "${
+    command = `${envVars} ${runWithGameMode} ${mangohud} ${gogdlBin} launch "${
       gameInfo.install.install_path
     }" ${exe} ${appName} ${wineCommand} ${prefix} --os ${gameInfo.install.platform.toLowerCase()} ${
       launchArguments ?? ''
@@ -243,7 +243,8 @@ async function launch(
 async function createNewPrefix(
   isProton: boolean,
   fixedWinePrefix: string,
-  winePath: string
+  winePath: string,
+  appName: string
 ) {
   if (platform() === 'darwin') {
     return
@@ -251,6 +252,7 @@ async function createNewPrefix(
 
   if (isProton && !existsSync(fixedWinePrefix)) {
     mkdirSync(fixedWinePrefix, { recursive: true })
+    await setup(appName)
   }
 
   if (!existsSync(fixedWinePrefix)) {
@@ -258,7 +260,10 @@ async function createNewPrefix(
     const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
     logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
     return execAsync(initPrefixCommand)
-      .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
+      .then(async () => {
+        logInfo('Prefix created succesfuly!', LogPrefix.Backend)
+        await setup(appName)
+      })
       .catch((error) => logError(`${error}`, LogPrefix.Backend))
   }
 }

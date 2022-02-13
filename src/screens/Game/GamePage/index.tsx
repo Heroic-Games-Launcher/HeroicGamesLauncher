@@ -1,12 +1,6 @@
 import './index.css'
 
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useState,
-  MouseEvent
-} from 'react'
+import React, { useContext, useEffect, useState, MouseEvent } from 'react'
 
 import { IpcRenderer } from 'electron'
 import {
@@ -29,8 +23,7 @@ import {
   GameInfo,
   GameStatus,
   InstallInfo,
-  InstallProgress,
-  Runner
+  InstallProgress
 } from 'src/types'
 
 import GamePicture from '../GamePicture'
@@ -360,7 +353,7 @@ export default function GamePage(): JSX.Element | null {
                         <>
                           <button
                             disabled={isReparing || isMoving || isUpdating}
-                            onClick={handlePlay(gameInfo)}
+                            onClick={handlePlay()}
                             className={`button ${getPlayBtnClass()}`}
                           >
                             {getPlayLabel()}
@@ -376,9 +369,7 @@ export default function GamePage(): JSX.Element | null {
                         </Link>
                       ) : (
                         <button
-                          onClick={() =>
-                            handleInstall(is_installed, gameInfo.runner)
-                          }
+                          onClick={() => handleInstall(is_installed)}
                           disabled={
                             isPlaying ||
                             isUpdating ||
@@ -497,7 +488,7 @@ export default function GamePage(): JSX.Element | null {
     return t('button.install')
   }
 
-  function handlePlay(gameInfo: GameInfo) {
+  function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
         return sendKill(appName, gameInfo.runner)
@@ -518,7 +509,7 @@ export default function GamePage(): JSX.Element | null {
     }
   }
 
-  async function handleInstall(is_installed: boolean, runner: Runner) {
+  async function handleInstall(is_installed: boolean) {
     if (!is_installed && !isInstalling) {
       return handleModal()
     }
@@ -539,7 +530,7 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       t,
-      runner
+      runner: gameInfo.runner
     })
   }
 }

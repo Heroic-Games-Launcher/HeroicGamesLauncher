@@ -29,7 +29,7 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { errorHandler, execAsync } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'
-import { rmSync } from 'graceful-fs'
+import { existsSync, rmSync } from 'graceful-fs'
 
 const configStore = new Store({
   cwd: 'gog_store'
@@ -104,8 +104,8 @@ class GOGGame extends Game {
     platformToInstall,
     installLanguage
   }: InstallArgs): Promise<{ status: string }> {
-    // const { maxWorkers } = await GlobalConfig.get().getSettings()
-    // const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
     const credentials = configStore.get('credentials') as GOGLoginData
@@ -117,7 +117,7 @@ class GOGGame extends Game {
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
     // In the future we need to add Language select option
-    const command = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" --token="${credentials.access_token}" ${withDlcs} --lang="${installLanguage}" ${writeLog}`
+    const command = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" --token="${credentials.access_token}" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
@@ -191,8 +191,8 @@ class GOGGame extends Game {
    * Literally installing game, since gogdl verifies files at runtime
    */
   public async repair(): Promise<ExecResult> {
-    // const { maxWorkers } = await GlobalConfig.get().getSettings()
-    // const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const gameData = GOGLibrary.get().getGameInfo(this.appName)
 
     const withDlcs = gameData.install.installedWithDLCs
@@ -200,7 +200,8 @@ class GOGGame extends Game {
       : '--skip-dlcs'
     if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
     const credentials = configStore.get('credentials') as GOGLoginData
-
+    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const installPlatform = gameData.install.platform
     // In the future we need to add Language select option
     const command = `${gogdlBin} repair ${
@@ -209,8 +210,8 @@ class GOGGame extends Game {
       gameData.install.install_path
     }" --token="${credentials.access_token}" ${withDlcs} --lang="${
       gameData.install.language || 'en-US'
-    }" -b=${gameData.install.buildId}`
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
+    }" -b=${gameData.install.buildId} ${workers} ${writeLog}`
+    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
 
     return execAsync(command, execOptions)
       .then((v) => v)
@@ -245,23 +246,38 @@ class GOGGame extends Game {
       "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
     )
   }
-  public uninstall(): Promise<ExecResult> {
-    return new Promise((res) => {
-      const array: Array<InstalledInfo> =
-        (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-      const index = array.findIndex((game) => game.appName == this.appName)
-      if (index == -1) throw Error("Game isn't installed")
+  public async uninstall(): Promise<ExecResult> {
+    const array: Array<InstalledInfo> =
+      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+    const index = array.findIndex((game) => game.appName == this.appName)
+    if (index == -1) throw Error("Game isn't installed")
 
-      const [object] = array.splice(index, 1)
-      logInfo(['Removing', object.install_path], LogPrefix.Gog)
-      rmSync(object.install_path, { recursive: true })
-      installedGamesStore.set('installed', array)
-      GOGLibrary.get().refreshInstalled()
-      // This is to satisfy Typescript (we neeed to change it probably)
-      res({ stdout: '', stderr: '' })
-    })
+    const [object] = array.splice(index, 1)
+    logInfo(['Removing', object.install_path], LogPrefix.Gog)
+    // TODO: Run unins000.exe /verysilent /dir=Z:/path/to/game
+    const uninstallerPath = join(object.install_path, 'unins000.exe')
+    if (existsSync(uninstallerPath)) {
+      const {
+        winePrefix,
+        wineVersion: { bin }
+      } = GameConfig.get(this.appName).config
+      const commandPrefix = `WINEPREFIX="${winePrefix}" ${bin}`
+      const command = `${
+        isWindows ? '' : commandPrefix
+      } "${uninstallerPath}" /verysilent /dir="${isWindows ? '' : 'Z:'}${
+        object.install_path
+      }"`
+      logInfo(['Executing uninstall command', command], LogPrefix.Gog)
+      await execAsync(command)
+    } else rmSync(object.install_path, { recursive: true })
+    installedGamesStore.set('installed', array)
+    GOGLibrary.get().refreshInstalled()
+    // This is to satisfy Typescript (we neeed to change it probably)
+    return { stdout: '', stderr: '' }
   }
   public async update(): Promise<unknown> {
+    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const gameData = GOGLibrary.get().getGameInfo(this.appName)
 
     const withDlcs = gameData.install.installedWithDLCs
@@ -271,6 +287,8 @@ class GOGGame extends Game {
     const credentials = configStore.get('credentials') as GOGLoginData
 
     const installPlatform = gameData.install.platform
+    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     // In the future we need to add Language select option
     const command = `${gogdlBin} update ${
       this.appName
@@ -278,7 +296,7 @@ class GOGGame extends Game {
       gameData.install.install_path
     }" --token="${credentials.access_token}" ${withDlcs} --lang="${
       gameData.install.language || 'en-US'
-    }"`
+    }" ${workers} ${writeLog}`
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
     return execAsync(command, execOptions)
