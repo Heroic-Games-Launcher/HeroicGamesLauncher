@@ -251,7 +251,8 @@ export class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
-    progress
+    progress,
+    runner
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
     const currentApp =
@@ -331,7 +332,7 @@ export class GlobalState extends PureComponent<Props> {
         (game) => game.appName !== appName
       )
       this.setState({ libraryStatus: updatedLibraryStatus })
-      ipcRenderer.send('removeShortcut', appName)
+      ipcRenderer.send('removeShortcut', appName, runner)
 
       return this.refreshLibrary({})
     }
@@ -384,13 +385,13 @@ export class GlobalState extends PureComponent<Props> {
     const { data, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
-    ipcRenderer.on('launchGame', async (e, appName) => {
+    ipcRenderer.on('launchGame', async (e, appName, runner) => {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
       )[0]
       if (!currentApp) {
         // Add finding a runner for games
-        return launch({ appName, t, runner: 'legendary' })
+        return launch({ appName, t, runner })
       }
     })
 
@@ -398,7 +399,7 @@ export class GlobalState extends PureComponent<Props> {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
       )[0]
-      const { appName, installPath } = args
+      const { appName, installPath, runner } = args
       if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
         return install({
           appName,
@@ -411,7 +412,8 @@ export class GlobalState extends PureComponent<Props> {
             eta: '00:00:00',
             percent: '0.00%'
           },
-          t
+          t,
+          runner
         })
       }
     })

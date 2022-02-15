@@ -145,9 +145,9 @@ const GameCard = ({
   const wrapperClasses = `${grid ? 'gameCard' : 'gameListItem'}  ${instClass}`
 
   async function handleUpdate() {
-    await handleGameStatus({ appName, status: 'updating' })
+    await handleGameStatus({ appName, runner, status: 'updating' })
     await updateGame(appName, runner)
-    return handleGameStatus({ appName, status: 'done' })
+    return handleGameStatus({ appName, runner, status: 'done' })
   }
 
   function getStatus() {
@@ -314,7 +314,7 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      await handleGameStatus({ appName, status: 'done' })
+      await handleGameStatus({ appName, runner, status: 'done' })
       return sendKill(appName, runner)
     }
     if (isInstalled) {

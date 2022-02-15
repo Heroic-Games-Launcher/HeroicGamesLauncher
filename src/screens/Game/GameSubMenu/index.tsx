@@ -62,9 +62,9 @@ export default function GamesSubmenu({
         title: t('box.move.path')
       })
       if (path) {
-        await handleGameStatus({ appName, status: 'moving' })
+        await handleGameStatus({ appName, runner, status: 'moving' })
         await renderer.invoke('moveInstall', [appName, path, runner])
-        await handleGameStatus({ appName, status: 'done' })
+        await handleGameStatus({ appName, runner, status: 'done' })
       }
     }
   }
@@ -98,14 +98,14 @@ export default function GamesSubmenu({
     })
 
     if (response === 0) {
-      await handleGameStatus({ appName, status: 'repairing' })
+      await handleGameStatus({ appName, runner, status: 'repairing' })
       await repair(appName, runner)
-      await handleGameStatus({ appName, status: 'done' })
+      await handleGameStatus({ appName, runner, status: 'done' })
     }
   }
 
   function handleShortcuts() {
-    ipcRenderer.send('addShortcut', appName, true)
+    ipcRenderer.send('addShortcut', appName, runner, true)
   }
 
   useEffect(() => {

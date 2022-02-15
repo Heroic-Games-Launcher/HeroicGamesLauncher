@@ -1,4 +1,3 @@
-import { GOGLibrary } from './library'
 import axios from 'axios'
 import Store from 'electron-store'
 import { BrowserWindow } from 'electron'
@@ -36,7 +35,7 @@ export class GOGUser {
   }
 
   static async login(code: string) {
-    logInfo('Logging using GOG credentials')
+    logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
     // Gets token from GOG basaed on authorization code
     const response = await axios
@@ -44,18 +43,21 @@ export class GOGUser {
         `https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&code=${code}`
       )
       .catch((error) => {
-        // TODO: Handle fetching error
+        // Handle fetching error
         logError(['Failed to get access_token', `${error}`], LogPrefix.Gog)
         return null
       })
-    if (!response?.data) logError('Failed to get access_token', LogPrefix.Gog)
+    if (!response?.data) {
+      logError('Failed to get access_token', LogPrefix.Gog)
+      return { status: 'error' }
+    }
 
     const data: GOGLoginData = response.data
     data.loginTime = Date.now()
     configStore.set('credentials', data)
     logInfo('Login Successful', LogPrefix.Gog)
     this.getUserDetails()
-    GOGLibrary.get().sync()
+    return { status: 'done' }
   }
 
   public static async getUserDetails() {
@@ -116,7 +118,11 @@ export class GOGUser {
     return isExpired
   }
   public static logout() {
+    const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
     configStore.delete('credentials')
+    configStore.delete('userData')
+    libraryStore.delete('games')
+    libraryStore.delete('movies')
   }
 
   public static isLoggedIn() {

@@ -427,7 +427,6 @@ ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', () => openUrlOrFile(epicLoginUrl))
-ipcMain.on('openGOGLoginPage', () => GOGUser.handleGOGLogin())
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
@@ -558,6 +557,8 @@ ipcMain.on('resetHeroic', async () => {
   }
 })
 
+ipcMain.handle('authGOG', (event, code) => GOGUser.login(code))
+
 ipcMain.on('createNewWindow', (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
@@ -603,7 +604,8 @@ ipcMain.handle('isLoggedIn', async () => await LegendaryUser.isLoggedIn())
 
 ipcMain.handle('login', async (event, sid) => await LegendaryUser.login(sid))
 
-ipcMain.handle('logout', async () => await LegendaryUser.logout())
+ipcMain.handle('logoutLegendary', async () => await LegendaryUser.logout())
+ipcMain.handle('logoutGOG', async () => GOGUser.logout())
 
 ipcMain.handle('getAlternativeWine', () =>
   GlobalConfig.get().getAlternativeWine()
@@ -683,6 +685,7 @@ ipcMain.handle(
     const window = BrowserWindow.getAllWindows()[0]
     window.webContents.send('setGameStatus', {
       appName,
+      runner,
       status: 'playing'
     })
     const recentGames = (store.get('games.recent') as Array<RecentGame>) || []
@@ -750,6 +753,7 @@ ipcMain.handle(
         }
         window.webContents.send('setGameStatus', {
           appName,
+          runner,
           status: 'done'
         })
 
@@ -770,6 +774,7 @@ ipcMain.handle(
         logError(stderr, LogPrefix.Backend)
         window.webContents.send('setGameStatus', {
           appName,
+          runner,
           status: 'done'
         })
         return stderr
@@ -840,6 +845,7 @@ ipcMain.handle('install', async (event, params) => {
 
   mainWindow.webContents.send('setGameStatus', {
     appName,
+    runner,
     status: 'installing',
     folder: path
   })
@@ -861,6 +867,7 @@ ipcMain.handle('install', async (event, params) => {
       logInfo('finished installing', LogPrefix.Backend)
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       return res
@@ -869,6 +876,7 @@ ipcMain.handle('install', async (event, params) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       return res
@@ -948,6 +956,7 @@ ipcMain.handle('importGame', async (event, args) => {
   const title = (await Game.get(appName, runner).getGameInfo()).title
   mainWindow.webContents.send('setGameStatus', {
     appName,
+    runner,
     status: 'installing'
   })
   Game.get(appName, runner)
@@ -959,6 +968,7 @@ ipcMain.handle('importGame', async (event, args) => {
       })
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       logInfo(`imported ${title}`, LogPrefix.Backend)
@@ -967,6 +977,7 @@ ipcMain.handle('importGame', async (event, args) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       logInfo(err, LogPrefix.Backend)
@@ -1119,21 +1130,24 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
-ipcMain.on('addShortcut', async (event, appName: string, fromMenu: boolean) => {
-  const game = Game.get(appName)
-  game.addShortcuts(fromMenu)
-  openMessageBox({
-    buttons: [i18next.t('box.ok', 'Ok')],
-    message: i18next.t(
-      'box.shortcuts.message',
-      'Shortcuts were created on Desktop and Start Menu'
-    ),
-    title: i18next.t('box.shortcuts.title', 'Shortcuts')
-  })
-})
+ipcMain.on(
+  'addShortcut',
+  async (event, appName: string, runner: Runner, fromMenu: boolean) => {
+    const game = Game.get(appName, runner)
+    game.addShortcuts(fromMenu)
+    openMessageBox({
+      buttons: [i18next.t('box.ok', 'Ok')],
+      message: i18next.t(
+        'box.shortcuts.message',
+        'Shortcuts were created on Desktop and Start Menu'
+      ),
+      title: i18next.t('box.shortcuts.title', 'Shortcuts')
+    })
+  }
+)
 
-ipcMain.on('removeShortcut', async (event, appName: string) => {
-  const game = Game.get(appName)
+ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
+  const game = Game.get(appName, runner)
   game.removeShortcuts()
 })
 

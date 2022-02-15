@@ -1,7 +1,7 @@
-.Login {
-  display: grid;
+.loginPage {
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
 }
 
 .loginBackground {
@@ -11,195 +11,51 @@
   background: url('../../assets/login-background-1536x864.jpg');
   background-size: cover;
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
-.language {
-  cursor: pointer;
-}
-
-.selectedLanguage {
-  color: #07c5ef;
-  font-weight: 600;
-}
-
-.heroicLogo {
-  width: 205px;
-  height: 48px;
-  place-self: baseline;
-  margin-bottom: 14px;
-  display: flex;
-}
-
-.heroicText {
-  width: 150px;
-  height: 47px;
-  margin-left: 57px;
+.loginContentWrapper {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: left;
-}
-
-.heroicTitle {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 25px;
-  line-height: 30px;
-  color: var(--download-button);
-}
-
-.heroicSubTitle {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24.3px;
-  color: var(--text-default);
-}
-
-.logo {
-  position: absolute;
-  width: 46px;
-  height: 46px;
-  border-radius: 5px;
-}
-
-.aboutWrapper {
-  display: grid;
-  place-items: center;
-  place-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.aboutContainer {
-  max-width: 550px;
-  padding-top: 12px;
-}
-
-.loginFormWrapper {
-  display: grid;
-  place-items: center;
-  place-content: center;
-  width: 100%;
-  height: 100%;
-  background: var(--background-darker);
-}
-
-.loginInstructions {
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 27px;
-  color: var(--text-default);
-  text-align: left;
-}
-
-.loginInstructions strong {
-  color: var(--text-default);
-}
-
-.loginInstructions .epicLink {
-  color: var(--download-button);
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.loginInstructions .sid {
-  color: var(--text-hover);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.loginInstructions ol {
-  padding-left: 20px;
-}
-
-.loginInstructions ol li {
-  margin-bottom: 10px;
-}
-
-.loginInstructions p {
-  margin-bottom: 35px;
-  margin-top: 10px;
-}
-
-.pastesidtext {
-  color: var(--text-default);
-  font-weight: 400;
-  font-size: 16px;
-  margin-bottom: 13px;
-}
-
-.loginForm > button {
-  margin-top: 16px;
-  font-weight: 700;
-}
-
-.loginForm {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  width: 400px;
-  align-self: center;
 }
 
-.loginInput {
-  width: 388px;
-  height: 63px;
-  background: var(--background);
-  border-radius: 10px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  outline: none;
-  color: var(--text-default);
-  text-align: center;
-  border: none;
-  margin-bottom: 16px;
-}
-
-.loginForm > .message {
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: var(--text-hover);
+.runnerList {
   display: flex;
-  margin: 0;
-}
-
-.message > .material-icons {
-  font-size: 16px;
-  margin-left: 4px;
-  animation: refreshing 1.5s infinite;
-}
-
-.settingSelect.language-login {
-  width: 140px;
-  height: 30px;
-  text-indent: 10px;
-  position: absolute;
-  bottom: 12px;
-  right: 10px;
-}
-
-.helpWrapper {
-  margin-top: 12px;
-  text-align: center;
-  color: var(--download-button);
-  width: 96%;
-}
-
-.helpWrapper > .buttonWrapper {
-  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  user-select: none;
+  width: 100%;
   flex-wrap: wrap;
-  justify-content: space-between;
+}
+
+.continueLogin {
+  position: relative;
+  font-family: var(--font-primary-bold);
+  top: 20%;
+  background-color: var(--input-background);
+  color: var(--success);
+  border: none;
+  font-size: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.continueLogin:hover {
+  color: var(--text-tertiary);
+  background-color: var(--success);
+}
+
+.continueLogin.disabled {
+  color: var(--danger);
+  opacity: 0.8;
+  cursor: default;
 }

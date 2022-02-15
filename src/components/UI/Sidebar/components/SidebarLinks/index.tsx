@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useHistory, useLocation } from 'react-router-dom'
 import ElectronStore from 'electron-store'
 
 import cx from 'classnames'
@@ -23,10 +23,10 @@ const gogStore: ElectronStore = new Store({
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 import { getAppSettings } from 'src/helpers'
-const { ipcRenderer } = window.require('electron')
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
+  const history = useHistory()
   const [showUnrealMarket, setShowUnrealMarket] = useState(false)
 
   const { category, handleCategory, handleFilter } = useContext(ContextProvider)
@@ -34,7 +34,11 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
   const isEpicLoggedIn = Boolean(configStore.get('userInfo'))
-  const showSubmenu = isLibrary && isEpicLoggedIn
+  const isGOGLoggedIn = Boolean(gogStore.get('credentials'))
+  const showSidebar =
+    ((isEpicLoggedIn && isGOGLoggedIn) ||
+      (isEpicLoggedIn && showUnrealMarket)) &&
+    isLibrary
 
   function toggleCategory(newCategory: string) {
     if (category !== newCategory) {
@@ -43,19 +47,13 @@ export default function SidebarLinks() {
     }
   }
 
-  function handleGOG() {
-    if (gogStore.has('credentials')) {
-      toggleCategory('gog')
-    } else {
-      // Login
-      ipcRenderer.send('openGOGLoginPage')
-    }
-  }
-
   useEffect(() => {
     getAppSettings().then(({ showUnrealMarket }) =>
       setShowUnrealMarket(showUnrealMarket)
     )
+    if (!isEpicLoggedIn && !isGOGLoggedIn) {
+      return history.push('/login')
+    }
   }, [])
 
   return (
@@ -76,31 +74,37 @@ export default function SidebarLinks() {
           )
         }}
         exact
-        to="/"
+        to={!isEpicLoggedIn && !isGOGLoggedIn ? '/login' : '/'}
       >
         <FontAwesomeIcon
           style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={isEpicLoggedIn ? faGamepad : faUser}
+          icon={isEpicLoggedIn || isGOGLoggedIn ? faGamepad : faUser}
         />
-        {isEpicLoggedIn ? t('Library') : t('button.login', 'Login')}
+        {isEpicLoggedIn || isGOGLoggedIn
+          ? t('Library')
+          : t('button.login', 'Login')}
       </NavLink>
-      {showSubmenu && (
+      {showSidebar && (
         <>
-          <a
-            href="#"
-            onClick={() => toggleCategory('epic')}
-            className={cx('subItem', { ['selected']: category === 'epic' })}
-          >
-            {t('Epic Games', 'Epic Games')}
-          </a>
-          <a
-            href="#"
-            onClick={handleGOG}
-            className={cx('subItem', { ['selected']: category === 'gog' })}
-          >
-            {t('GOG', 'GOG')}
-          </a>
-          {showUnrealMarket && (
+          {isEpicLoggedIn && (
+            <a
+              href="#"
+              onClick={() => toggleCategory('epic')}
+              className={cx('subItem', { ['selected']: category === 'epic' })}
+            >
+              {t('Epic Games', 'Epic Games')}
+            </a>
+          )}
+          {isGOGLoggedIn && (
+            <a
+              href="#"
+              onClick={() => toggleCategory('gog')}
+              className={cx('subItem', { ['selected']: category === 'gog' })}
+            >
+              {t('GOG', 'GOG')}
+            </a>
+          )}
+          {showUnrealMarket && isEpicLoggedIn && (
             <a
               href="#"
               onClick={() => toggleCategory('unreal')}
@@ -111,7 +115,7 @@ export default function SidebarLinks() {
           )}
         </>
       )}
-      {!isEpicLoggedIn && (
+      {/* {!isEpicLoggedIn && !isGOGLoggedIn && (
         <>
           <Link
             to="/"
@@ -130,7 +134,7 @@ export default function SidebarLinks() {
             {t('login.loginWithSid', 'Login with SID')}
           </Link>
         </>
-      )}
+      )} */}
       <NavLink
         data-testid="settings"
         activeStyle={{

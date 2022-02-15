@@ -91,6 +91,7 @@ async function install({
     handleGameStatus({
       folder: installPath,
       appName,
+      runner,
       status: 'installing',
       progress: previousProgress?.percent || '0%'
     })
@@ -193,10 +194,10 @@ async function uninstall({
   )
 
   if (response === 0) {
-    await handleGameStatus({ appName, status: 'uninstalling' })
+    await handleGameStatus({ appName, runner, status: 'uninstalling' })
     await ipcRenderer.invoke('uninstall', [appName, checkboxChecked, runner])
     storage.removeItem(appName)
-    return await handleGameStatus({ appName, status: 'done' })
+    return await handleGameStatus({ appName, runner, status: 'done' })
   }
   return
 }

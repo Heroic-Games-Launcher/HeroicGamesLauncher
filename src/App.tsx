@@ -21,7 +21,11 @@ function App() {
   const configStore: ElectronStore = new Store({
     cwd: 'store'
   })
-  const user = configStore.get('userInfo')
+  const gogStore: ElectronStore = new Store({
+    cwd: 'gog_store'
+  })
+
+  const user = configStore.has('userInfo') || gogStore.has('credentials')
   const { data: library, gogLibrary, recentGames, category } = context
 
   const dlcCount = library.filter((lib) => lib.install.is_dlc)
@@ -35,7 +39,7 @@ function App() {
         <main className="content">
           <Switch>
             <Route exact path="/">
-              {user ? (
+              {user && (
                 <>
                   <Header
                     goTo={''}
@@ -52,14 +56,13 @@ function App() {
                     />
                   </div>
                 </>
-              ) : (
-                <WebView isLogin />
               )}
             </Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/epicstore" component={WebView} />
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />
+            <Route path="/login/:runner" component={WebView} />
             <Route path="/settings/:appName/:type" component={Settings} />
             <Route path="/wine-manager" component={WineManager} />
           </Switch>

@@ -9,9 +9,9 @@ import {
   InstalledInfo,
   GOGImportData
 } from '../types'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { execAsync } from '../utils'
-import { gogdlBin } from '../constants'
+import { fallBackImage, gogdlBin } from '../constants'
 import prettyBytes from 'pretty-bytes'
 
 const userStore = new Store({
@@ -304,9 +304,20 @@ export class GOGLibrary {
       //   .replace('{formatter}', '')
       //   .replace('{ext}', 'webp')
     } else {
+      logWarning(
+        `Unable to get covers from gamesdb for ${info.title}. Trying to get it from api.gog.com`,
+        LogPrefix.Gog
+      )
       const apiData = await this.get_games_data(String(info.id))
-
-      verticalCover = apiData._links.boxArtImage.href
+      if (apiData?.__links) {
+        verticalCover = apiData._links.boxArtImage.href
+      } else {
+        logWarning(
+          "Couldn't get info from api.gog.com, Using fallback vertical image",
+          LogPrefix.Gog
+        )
+        verticalCover = fallBackImage
+      }
       horizontalCover = `https:${info.image}.jpg`
     }
 

@@ -1,23 +1,17 @@
-import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
+import { existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
-import { app, BrowserWindow, shell } from 'electron'
+import { BrowserWindow } from 'electron'
 import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import {
-  errorHandler,
-  execAsync,
-  isOnline,
-  removeSpecialcharacters
-} from '../utils'
+import { errorHandler, execAsync, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
-  heroicIconFolder,
   home,
   isWindows,
   legendaryBin
@@ -26,6 +20,7 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { launch } from '../launcher'
+import { addShortcuts, removeShortcuts } from '../shortcuts'
 
 const store = new Store({
   cwd: 'lib-cache',
@@ -230,6 +225,7 @@ class LegendaryGame extends Game {
   public async update() {
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
+      runner: 'legendary',
       status: 'updating'
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
@@ -241,6 +237,7 @@ class LegendaryGame extends Game {
       .then(() => {
         this.window.webContents.send('setGameStatus', {
           appName: this.appName,
+          runner: 'legendary',
           status: 'done'
         })
         return { status: 'done' }
@@ -249,55 +246,11 @@ class LegendaryGame extends Game {
         logError(`${error}`, LogPrefix.Legendary)
         this.window.webContents.send('setGameStatus', {
           appName: this.appName,
+          runner: 'legendary',
           status: 'done'
         })
         return { status: 'error' }
       })
-  }
-
-  public async getIcon(appName: string) {
-    if (!existsSync(heroicIconFolder)) {
-      mkdirSync(heroicIconFolder)
-    }
-
-    const gameInfo = await this.getGameInfo()
-    const image = gameInfo.art_square.replaceAll(' ', '%20')
-    let ext = image.split('.').reverse()[0]
-    if (ext !== 'jpg' && ext !== 'png') {
-      ext = 'jpg'
-    }
-    const icon = `${heroicIconFolder}/${appName}.${ext}`
-    if (!existsSync(icon)) {
-      await execAsync(`curl '${image}' --output ${icon}`)
-    }
-    return icon
-  }
-
-  private shortcutFiles(gameTitle: string) {
-    let desktopFile
-    let menuFile
-
-    switch (process.platform) {
-      case 'linux': {
-        desktopFile = `${app.getPath('desktop')}/${gameTitle}.desktop`
-        menuFile = `${home}/.local/share/applications/${gameTitle}.desktop`
-        break
-      }
-      case 'win32': {
-        desktopFile = `${app.getPath('desktop')}\\${gameTitle}.lnk`
-        menuFile = `${app.getPath(
-          'appData'
-        )}\\Microsoft\\Windows\\Start Menu\\Programs\\${gameTitle}.lnk`
-        break
-      }
-      default:
-        logError(
-          "Shortcuts haven't been implemented in the current platform.",
-          LogPrefix.Backend
-        )
-    }
-
-    return [desktopFile, menuFile]
   }
 
   /**
@@ -308,63 +261,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addShortcuts(fromMenu?: boolean) {
-    if (process.platform === 'darwin') {
-      return
-    }
-
-    const gameInfo = await this.getGameInfo()
-    const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
-    const [desktopFile, menuFile] = this.shortcutFiles(gameInfo.title)
-    const { addDesktopShortcuts, addStartMenuShortcuts } =
-      await GlobalConfig.get().getSettings()
-
-    switch (process.platform) {
-      case 'linux': {
-        const icon = await this.getIcon(gameInfo.app_name)
-        const shortcut = `[Desktop Entry]
-Name=${removeSpecialcharacters(gameInfo.title)}
-Exec=xdg-open ${launchWithProtocol}
-Terminal=false
-Type=Application
-MimeType=x-scheme-handler/heroic;
-Icon=${icon}
-Categories=Game;
-`
-
-        if (addDesktopShortcuts || fromMenu) {
-          writeFile(desktopFile, shortcut, () => {
-            logInfo('Shortcut saved on ' + desktopFile, LogPrefix.Backend)
-          })
-        }
-        if (addStartMenuShortcuts || fromMenu) {
-          writeFile(menuFile, shortcut, () => {
-            logInfo('Shortcut saved on ' + menuFile, LogPrefix.Backend)
-          })
-        }
-        break
-      }
-      case 'win32': {
-        const shortcutOptions = {
-          target: launchWithProtocol,
-          icon: `${gameInfo.install.install_path}\\${gameInfo.install.executable}`,
-          iconIndex: 0
-        }
-
-        if (addDesktopShortcuts || fromMenu) {
-          shell.writeShortcutLink(desktopFile, shortcutOptions)
-        }
-
-        if (addStartMenuShortcuts || fromMenu) {
-          shell.writeShortcutLink(menuFile, shortcutOptions)
-        }
-        break
-      }
-      default:
-        logError(
-          "Shortcuts haven't been implemented in the current platform.",
-          LogPrefix.Backend
-        )
-    }
+    return addShortcuts(await this.getGameInfo(), fromMenu)
   }
 
   /**
@@ -373,19 +270,7 @@ Categories=Game;
    * @public
    */
   public async removeShortcuts() {
-    const gameInfo = await this.getGameInfo()
-    const [desktopFile, menuFile] = this.shortcutFiles(gameInfo.title)
-
-    if (desktopFile) {
-      unlink(desktopFile, () =>
-        logInfo('Desktop shortcut removed', LogPrefix.Backend)
-      )
-    }
-    if (menuFile) {
-      unlink(menuFile, () =>
-        logInfo('Applications shortcut removed', LogPrefix.Backend)
-      )
-    }
+    return removeShortcuts(this.appName, 'legendary')
   }
 
   private getSdlList(sdlList: Array<string>) {

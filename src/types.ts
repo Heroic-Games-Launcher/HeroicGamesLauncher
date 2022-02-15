@@ -167,6 +167,7 @@ export interface GameStatus {
   appName: string
   progress?: string
   folder?: string
+  runner?: Runner
   status:
     | 'installing'
     | 'updating'

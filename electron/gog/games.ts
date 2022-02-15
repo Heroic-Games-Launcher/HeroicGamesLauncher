@@ -19,6 +19,7 @@ import {
   GOGLoginData,
   InstalledInfo
 } from 'types'
+import { existsSync, rmSync } from 'graceful-fs'
 import {
   gogdlBin,
   heroicGamesConfigPath,
@@ -29,7 +30,7 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { errorHandler, execAsync } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'
-import { existsSync, rmSync } from 'graceful-fs'
+import { addShortcuts, removeShortcuts } from '../shortcuts'
 
 const configStore = new Store({
   cwd: 'gog_store'
@@ -157,11 +158,11 @@ class GOGGame extends Game {
         return { status: 'error' }
       })
   }
-  addShortcuts(): Promise<void> {
-    throw new Error('Method not implemented.')
+  public async addShortcuts(fromMenu?: boolean) {
+    return addShortcuts(await this.getGameInfo(), fromMenu)
   }
-  removeShortcuts(): Promise<void> {
-    throw new Error('Method not implemented')
+  public async removeShortcuts() {
+    return removeShortcuts(this.appName, 'gog')
   }
   launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
     return launch(this.appName, launchArguments, 'gog')
@@ -259,9 +260,13 @@ class GOGGame extends Game {
     if (existsSync(uninstallerPath)) {
       const {
         winePrefix,
-        wineVersion: { bin }
+        wineVersion: { bin, name },
+        wineCrossoverBottle
       } = GameConfig.get(this.appName).config
-      const commandPrefix = `WINEPREFIX="${winePrefix}" ${bin}`
+      let commandPrefix = `WINEPREFIX="${winePrefix}" ${bin}`
+      if (name.includes('CrossOver')) {
+        commandPrefix = `CX_BOTTLE=${wineCrossoverBottle} ${bin}`
+      }
       const command = `${
         isWindows ? '' : commandPrefix
       } "${uninstallerPath}" /verysilent /dir="${isWindows ? '' : 'Z:'}${
@@ -318,6 +323,7 @@ class GOGGame extends Game {
         GOGLibrary.get().refreshInstalled()
         this.window.webContents.send('setGameStatus', {
           appName: this.appName,
+          runner: 'gog',
           status: 'done'
         })
         return { status: 'done' }
@@ -326,6 +332,7 @@ class GOGGame extends Game {
         logError(`${error}`, LogPrefix.Gog)
         this.window.webContents.send('setGameStatus', {
           appName: this.appName,
+          runner: 'gog',
           status: 'done'
         })
         return { status: 'error' }

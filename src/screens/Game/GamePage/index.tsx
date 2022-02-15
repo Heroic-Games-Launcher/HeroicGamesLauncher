@@ -150,6 +150,7 @@ export default function GamePage(): JSX.Element | null {
 
         return await handleGameStatus({
           appName,
+          runner: gameInfo.runner,
           status
         })
       }
@@ -158,9 +159,13 @@ export default function GamePage(): JSX.Element | null {
   }, [appName, isInstalling, isUpdating, isReparing])
 
   async function handleUpdate() {
-    await handleGameStatus({ appName, status: 'updating' })
+    await handleGameStatus({
+      appName,
+      runner: gameInfo.runner,
+      status: 'updating'
+    })
     await updateGame(appName, gameInfo.runner)
-    await handleGameStatus({ appName, status: 'done' })
+    await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
   }
 
   function handleModal() {

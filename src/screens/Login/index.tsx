@@ -1,158 +1,107 @@
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
-
-import React, { useContext, useState } from 'react'
-
-import { loginPage, sidInfoPage } from 'src/helpers'
+import EpicLogo from '../../assets/epic-logo.svg'
+import Runner from './components/Runner'
+import ElectronStore from 'electron-store'
 import { useTranslation } from 'react-i18next'
-import LanguageSelector, {
-  FlagPosition
-} from 'src/components/UI/LanguageSelector'
+import cx from 'classnames'
+import { useHistory } from 'react-router'
 
-import { Clipboard, IpcRenderer } from 'electron'
-import Autorenew from '@mui/icons-material/Autorenew'
-import Info from '@mui/icons-material/Info'
-import logo from 'src/assets/heroic-icon.png'
 import ContextProvider from 'src/state/ContextProvider'
-import { useHistory } from 'react-router-dom'
+import { UpdateComponent } from 'src/components/UI'
 
-const storage: Storage = window.localStorage
+const { ipcRenderer } = window.require('electron')
+const Store = window.require('electron-store')
 
-export default function Login() {
-  const { t, i18n } = useTranslation('login')
-  const { refreshLibrary } = useContext(ContextProvider)
+const configStore: ElectronStore = new Store({
+  cwd: 'store'
+})
+const gogStore: ElectronStore = new Store({
+  cwd: 'gog_store'
+})
+
+export default function NewLogin() {
+  const { t } = useTranslation()
   const history = useHistory()
-  const { ipcRenderer, clipboard } = window.require('electron') as {
-    ipcRenderer: IpcRenderer
-    clipboard: Clipboard
-  }
+  const { refreshLibrary, handleCategory } = useContext(ContextProvider)
+  const [epicLogin, setEpicLogin] = useState({})
+  const [gogLogin, setGOGLogin] = useState({})
+  const [loading, setLoading] = useState(false)
 
-  const [input, setInput] = useState('')
-  const [status, setStatus] = useState({
-    loading: false,
-    message: ''
-  })
-  const { loading, message } = status
-
-  const handleChangeLanguage = (language: string) => {
-    storage.setItem('language', language)
-    i18n.changeLanguage(language)
-  }
-
-  const currentLanguage = i18n.language
-
-  const handleLogin = async (sid: string) => {
-    setStatus({
-      loading: true,
-      message: t('status.logging', 'Logging In...')
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setEpicLogin(configStore.get('userInfo') as any)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setGOGLogin(gogStore.get('userData') as any)
+  }, [])
+  async function continueLogin() {
+    setLoading(true)
+    await refreshLibrary({
+      fullRefresh: true,
+      runInBackground: false
     })
-
-    await ipcRenderer.invoke('login', sid).then(async (res) => {
-      ipcRenderer.send('logInfo', 'Called Login')
-      console.log(res)
-      if (res !== 'error') {
-        setStatus({
-          loading: true,
-          message: t('status.loading', 'Loading Game list, please wait')
-        })
-        await ipcRenderer.invoke('getUserInfo')
-        await ipcRenderer.invoke('refreshLibrary', true)
-        await ipcRenderer.invoke('refreshWineVersionInfo', true)
-        await refreshLibrary({
-          fullRefresh: true,
-          runInBackground: false
-        })
-        return history.push('/')
-      } else {
-        ipcRenderer.send('logError', res)
-      }
-
-      setStatus({ loading: true, message: t('status.error', 'Error') })
-      setTimeout(() => {
-        setStatus({ ...status, loading: false })
-      }, 2500)
-    })
+    //Make sure we cannot get to library that we can't see
+    handleCategory(epicLogin ? 'epic' : 'gog')
+    setLoading(false)
+    history.push('/')
   }
-
   return (
-    <div className="Login">
-      <div className="aboutWrapper">
-        <div className="aboutContainer">
-          <div className="heroicLogo">
-            <img className="logo" src={logo} width="50px" height="50px" />
-            <div className="heroicText">
-              <span className="heroicTitle">Heroic</span>
-              <span className="heroicSubTitle">Games Launcher</span>
-            </div>
-          </div>
-          <div className="loginInstructions">
-            <strong>{t('welcome', 'Welcome!')}</strong>
-            <p>
-              {t(
-                'message.part1',
-                'In order for you to be able to log in and install your games, we first need you to follow the steps below:'
-              )}
-            </p>
-            <ol>
-              <li>
-                {`${t('message.part2')} `}
-                <span onClick={() => loginPage()} className="epicLink">
-                  {t('message.part3')}
-                </span>
-                {`${t('message.part4')} `}
-                <span onClick={() => sidInfoPage()} className="sid">
-                  {`${t('message.part5')}`}
-                  <Info
-                    style={{ marginLeft: '4px' }}
-                    className="material-icons"
-                  />
-                </span>
-                .
-              </li>
-              <li>
-                {`${t('message.part6')} `}
-                <span onClick={() => sidInfoPage()} className="sid">
-                  {`${t('message.part7')}`}
-                </span>
-                {` ${t('message.part8')}`}
-              </li>
-            </ol>
-          </div>
+    <div className="loginPage">
+      {loading && (
+        <div>
+          <UpdateComponent />
         </div>
-        <LanguageSelector
-          handleLanguageChange={handleChangeLanguage}
-          currentLanguage={currentLanguage}
-          flagPossition={FlagPosition.PREPEND}
-          className="settingSelect language-login"
-        />
-        <div className="loginBackground"></div>
-      </div>
-      <div className="loginFormWrapper">
-        <div className="loginForm">
-          <span className="pastesidtext">
-            {t('input.placeholder', 'Paste the SID number here')}
-          </span>
-          <input
-            className="loginInput"
-            id="sidInput"
-            onChange={(event) => setInput(event.target.value)}
-            onAuxClick={() => setInput(clipboard.readText('clipboard'))}
-            value={input}
+      )}
+      <div className="loginBackground"></div>
+      <div className="loginContentWrapper">
+        <div className="runnerList">
+          <Runner
+            loginUrl="/login/legendary"
+            icon={() => <img src={EpicLogo} />}
+            isLoggedIn={Boolean(epicLogin)}
+            user={epicLogin}
+            logoutAction={() => ipcRenderer.invoke('logoutLegendary')}
           />
-          {loading && (
-            <p className="message">
-              {message}
-              <Autorenew className="material-icons" />{' '}
-            </p>
-          )}
-          <button
-            onClick={() => handleLogin(input)}
-            className="button is-primary"
-            disabled={loading || input.length < 30}
-          >
-            {t('button.login', 'Login')}
-          </button>
+          <Runner
+            icon={GOGLogo}
+            loginUrl="/login/gog"
+            isLoggedIn={Boolean(gogLogin)}
+            user={gogLogin}
+            logoutAction={() => ipcRenderer.invoke('logoutGOG')}
+          />
         </div>
+        <button
+          onClick={continueLogin}
+          className={cx('continueLogin', {
+            ['disabled']: !epicLogin && !gogLogin
+          })}
+        >
+          {t('button.continue', 'Continue')}
+        </button>
       </div>
     </div>
+  )
+}
+
+function GOGLogo() {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ fill: 'white' }}
+    >
+      <use xlinkHref="#icon-logo-gog">
+        <symbol
+          preserveAspectRatio="xMidYMax meet"
+          viewBox="0 0 34 31"
+          id="icon-logo-gog"
+        >
+          <path
+            className="cls-1"
+            d="M31,31H3a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0H31a3,3,0,0,1,3,3V28A3,3,0,0,1,31,31ZM4,24.5A1.5,1.5,0,0,0,5.5,26H11V24H6.5a.5.5,0,0,1-.5-.5v-3a.5.5,0,0,1,.5-.5H11V18H5.5A1.5,1.5,0,0,0,4,19.5Zm8-18A1.5,1.5,0,0,0,10.5,5h-5A1.5,1.5,0,0,0,4,6.5v5A1.5,1.5,0,0,0,5.5,13H9V11H6.5a.5.5,0,0,1-.5-.5v-3A.5.5,0,0,1,6.5,7h3a.5.5,0,0,1,.5.5v6a.5.5,0,0,1-.5.5H4v2h6.5A1.5,1.5,0,0,0,12,14.5Zm0,13v5A1.5,1.5,0,0,0,13.5,26h5A1.5,1.5,0,0,0,20,24.5v-5A1.5,1.5,0,0,0,18.5,18h-5A1.5,1.5,0,0,0,12,19.5Zm9-13A1.5,1.5,0,0,0,19.5,5h-5A1.5,1.5,0,0,0,13,6.5v5A1.5,1.5,0,0,0,14.5,13h5A1.5,1.5,0,0,0,21,11.5Zm9,0A1.5,1.5,0,0,0,28.5,5h-5A1.5,1.5,0,0,0,22,6.5v5A1.5,1.5,0,0,0,23.5,13H27V11H24.5a.5.5,0,0,1-.5-.5v-3a.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.5.5v6a.5.5,0,0,1-.5.5H22v2h6.5A1.5,1.5,0,0,0,30,14.5ZM30,18H22.5A1.5,1.5,0,0,0,21,19.5V26h2V20.5a.5.5,0,0,1,.5-.5h1v6h2V20H28v6h2ZM18.5,11h-3a.5.5,0,0,1-.5-.5v-3a.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.5.5v3A.5.5,0,0,1,18.5,11Zm-4,9h3a.5.5,0,0,1,.5.5v3a.5.5,0,0,1-.5.5h-3a.5.5,0,0,1-.5-.5v-3A.5.5,0,0,1,14.5,20Z"
+          ></path>
+        </symbol>
+      </use>
+    </svg>
   )
 }
