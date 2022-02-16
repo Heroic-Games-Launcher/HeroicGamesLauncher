@@ -47,10 +47,11 @@ export class GOGLibrary {
     ) as GOGLoginData
     const headers = { Authorization: 'Bearer ' + credentials.access_token }
     logInfo('Getting GOG library', LogPrefix.Gog)
+    let gameApiArray: Array<GOGGameInfo> = []
     const games = await axios
       .get(
-        'https://embed.gog.com/account/getFilteredProducts?mediaType=1&totalPages=1&sortBy=title',
-        { headers: headers }
+        'https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title',
+        { headers }
       )
       .catch((e: AxiosError) => {
         logError(
@@ -59,7 +60,21 @@ export class GOGLibrary {
         )
         return null
       })
-
+    if (games?.data?.products) {
+      const numberOfPages = games?.data.totalPages
+      logInfo(['Number of library pages:', numberOfPages], LogPrefix.Gog)
+      gameApiArray = [...games.data.products]
+      for (let page = 2; page <= numberOfPages; page++) {
+        logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
+        const pageData = await axios.get(
+          `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
+          { headers }
+        )
+        if (pageData.data?.products) {
+          gameApiArray = [...gameApiArray, ...pageData.data.products]
+        }
+      }
+    }
     const movies = await axios
       .get(
         'https://embed.gog.com/account/getFilteredProducts?mediaType=2&totalPages=1&sortBy=title',
@@ -76,7 +91,7 @@ export class GOGLibrary {
     if (games) {
       const gamesObjects: GameInfo[] = []
       const gamesArray = libraryStore.get('games') as GameInfo[]
-      for (const game of games.data.products as GOGGameInfo[]) {
+      for (const game of gameApiArray as GOGGameInfo[]) {
         let unifiedObject = gamesArray
           ? gamesArray.find((value) => value.app_name == String(game.id))
           : null
