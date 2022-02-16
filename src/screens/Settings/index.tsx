@@ -10,7 +10,7 @@ import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
 import {
   ContentCopyOutlined,
   CleaningServicesOutlined,
@@ -177,6 +177,7 @@ function Settings() {
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const [isMacNative, setIsMacNative] = useState(false)
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
 
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
 
@@ -240,10 +241,12 @@ function Settings() {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
           title: gameTitle,
-          is_mac_native
+          is_mac_native,
+          is_linux_native
         } = newInfo
         setTitle(gameTitle)
         setIsMacNative(is_mac_native && (await getPlatform()) == 'darwin')
+        setIsLinuxNative(is_linux_native && (await getPlatform()) == 'linux')
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -313,7 +316,7 @@ function Settings() {
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  const shouldRenderWineSettings = !isWin && !isMacNative
+  const shouldRenderWineSettings = !isWin && !isMacNative && !isLinuxNative
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -381,7 +384,11 @@ function Settings() {
             >
               {title}
               {!isDefault && (
-                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+                <FontAwesomeIcon
+                  icon={
+                    isMacNative ? faApple : isLinuxNative ? faLinux : faWindows
+                  }
+                />
               )}
             </NavLink>
           )}
@@ -535,6 +542,7 @@ function Settings() {
               targetExe={targetExe}
               setTargetExe={setTargetExe}
               isMacNative={isMacNative}
+              isLinuxNative={isLinuxNative}
             />
           )}
           {isSyncSettings && (

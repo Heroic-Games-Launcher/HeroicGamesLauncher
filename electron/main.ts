@@ -819,9 +819,16 @@ ipcMain.handle(
 ipcMain.handle('install', async (event, params) => {
   const { appName, path, installDlcs, sdlList, runner, installLanguage } =
     params as InstallParams
-  const { title, is_mac_native } = await Game.get(appName, runner).getGameInfo()
+  const { title, is_mac_native, is_linux_native } = await Game.get(
+    appName,
+    runner
+  ).getGameInfo()
   const platformToInstall =
-    platform() === 'darwin' && is_mac_native ? 'Mac' : 'Windows'
+    platform() === 'darwin' && is_mac_native
+      ? 'Mac'
+      : platform() === 'linux' && is_linux_native
+      ? 'Linux'
+      : 'Windows'
 
   if (!(await isOnline())) {
     logWarning(

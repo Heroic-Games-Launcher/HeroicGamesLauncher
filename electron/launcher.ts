@@ -78,9 +78,9 @@ async function launch(
   const exe = targetExe && isLegendary ? `--override-exe ${targetExe}` : ''
   const gameInfo = await getGameInfo(appName, runner)
   const isMacNative = gameInfo.is_mac_native
-  const isLinuxNative = gameInfo.is_linux_native
+  // const isLinuxNative = gameInfo.is_linux_native
   const mangohud = showMangohud ? 'mangohud --dlsym' : ''
-
+  let runWithGameMode = ''
   if (discordRPC) {
     // Show DiscordRPC
     // This seems to run when a game is updated, even though the game doesn't start after updating.
@@ -111,12 +111,39 @@ async function launch(
       state: 'via Heroic on ' + os
     })
   }
+  if (isLinux) {
+    // check if Gamemode is installed
+    await execAsync(`which gamemoderun`)
+      .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
+      .catch(() => logWarning('GameMode not installed', LogPrefix.Backend))
 
-  if (isWindows || (isMac && isMacNative) || (isLinux && isLinuxNative)) {
-    const command = `${legendaryBin} launch ${appName} ${exe} ${runOffline} ${
-      launchArguments ?? ''
-    } ${launcherArgs}`
-    logInfo(['Launch Command:', command], LogPrefix.Legendary)
+    runWithGameMode = useGameMode && gameMode ? gameMode : ''
+  }
+  if (
+    isWindows ||
+    (isMac && isMacNative) ||
+    (isLinux && gameInfo.install.platform == 'linux')
+  ) {
+    let command = ''
+    if (runner == 'legendary') {
+      command = `${legendaryBin} launch ${appName} ${exe} ${runOffline} ${
+        launchArguments ?? ''
+      } ${launcherArgs}`
+      logInfo(['Launch Command:', command], LogPrefix.Legendary)
+    } else if (runner == 'gog') {
+      // MangoHud,Gamemode, nvidia prime can be used in native titles
+      command = `${mangohud} ${runWithGameMode} ${
+        nvidiaPrime
+          ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
+          : ''
+      } ${audioFix ? `PULSE_LATENCY_MSEC=60` : ''} ${gogdlBin} launch "${
+        gameInfo.install.install_path
+      }" ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
+        launchArguments ?? ''
+      } ${launcherArgs}`
+      logInfo(['Launch Command:', command], LogPrefix.Gog)
+    }
+
     const v = await execAsync(command, execOptions)
     if (discordRPC) {
       logInfo('Stopping Discord Rich Presence if running...', LogPrefix.Backend)
@@ -199,12 +226,6 @@ async function launch(
       : `--wine ${bin}`
   }
 
-  // check if Gamemode is installed
-  await execAsync(`which gamemoderun`)
-    .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
-    .catch(() => logWarning('GameMode not installed', LogPrefix.Backend))
-
-  const runWithGameMode = useGameMode && gameMode ? gameMode : ''
   let command = ''
   if (isLegendary) {
     command = `${envVars} ${runWithGameMode} ${mangohud} ${legendaryBin} launch ${appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${

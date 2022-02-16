@@ -16,6 +16,7 @@ interface Props {
   audioFix: boolean
   isDefault: boolean
   isMacNative: boolean
+  isLinuxNative: boolean
   launcherArgs: string
   offlineMode: boolean
   otherOptions: string
@@ -71,7 +72,8 @@ export default function OtherSettings({
   maxRecentGames,
   setTargetExe,
   targetExe,
-  isMacNative
+  isMacNative,
+  isLinuxNative
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -82,7 +84,7 @@ export default function OtherSettings({
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
-  const shouldRenderFpsOption = !isMacNative && !isWin
+  const shouldRenderFpsOption = !isMacNative && !isWin && !isLinuxNative
 
   return (
     <>

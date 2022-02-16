@@ -35,6 +35,9 @@ const gogInstalledGamesStore = new Store({
   cwd: 'gog_store',
   name: 'installed'
 })
+const gogConfigStore = new Store({
+  cwd: 'gog_store'
+})
 const RTL_LANGUAGES = ['fa']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
@@ -422,14 +425,15 @@ export class GlobalState extends PureComponent<Props> {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
-    const user = configStore.get('userInfo')
+    const legendaryUser = configStore.get('userInfo')
+    const gogUser = gogConfigStore.get('userData')
     const platform = await getPlatform()
     const category = storage.getItem('category') || 'epic'
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
 
-    if (!user) {
+    if (!legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
     }
 
@@ -441,7 +445,7 @@ export class GlobalState extends PureComponent<Props> {
     i18n.changeLanguage(language)
     this.setState({ category, filter, language, layout, platform })
 
-    if (user) {
+    if (legendaryUser || gogUser) {
       this.refreshLibrary({
         checkForUpdates: true,
         fullRefresh: true,
