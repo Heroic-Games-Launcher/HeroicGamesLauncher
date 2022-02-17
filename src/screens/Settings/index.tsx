@@ -227,7 +227,11 @@ function Settings() {
       setAddDesktopShortcuts(config.addDesktopShortcuts || false)
       setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
       setCustomWinePaths(config.customWinePaths || [])
-      setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
+      setCheckForUpdatesOnStartup(
+        config.checkForUpdatesOnStartup !== undefined
+          ? config.checkForUpdatesOnStartup
+          : true
+      )
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
       setShowUnrealMarket(config.showUnrealMarket || false)
