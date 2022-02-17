@@ -91,7 +91,7 @@ function Settings() {
     on: checkForUpdatesOnStartup,
     toggle: toggleCheckForUpdatesOnStartup,
     setOn: setCheckForUpdatesOnStartup
-  } = useToggle(false)
+  } = useToggle(true)
   const {
     on: nvidiaPrime,
     toggle: toggleNvidiaPrime,
