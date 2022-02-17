@@ -210,7 +210,7 @@ function Settings() {
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
       setExitToTray(config.exitToTray)
-      setStartInTray(config.startInTray )
+      setStartInTray(config.startInTray)
       setDarkTrayIcon(config.darkTrayIcon)
       setDiscordRPC(config.discordRPC)
       setAutoInstallDxvk(config.autoInstallDxvk)
