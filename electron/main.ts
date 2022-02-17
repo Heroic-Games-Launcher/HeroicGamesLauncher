@@ -269,6 +269,11 @@ if (!gotTheLock) {
       store.delete('userinfo')
     }
 
+    // Update user details
+    if (GOGUser.isLoggedIn()) {
+      GOGUser.getUserDetails()
+    }
+
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),

@@ -13,6 +13,16 @@
   color: var(--text-default);
 }
 
+.runnerLogin {
+  padding: 10px;
+  font-size: 25px;
+  border-radius: 15px;
+  background-color: var(--background-secondary);
+  border: none;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0.3s;
+}
+
 .logged {
   color: var(--danger);
   cursor: pointer;
@@ -23,14 +33,13 @@
   color: var(--text-secondary);
 }
 
-.runnerLogin {
-  padding: 10px;
-  font-size: 30px;
-  border-radius: 15px;
-  background-color: var(--input-background);
-  border: none;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  transition: 0.3s;
+.runnerLogin.alternative {
+  margin-top: 20px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+.runnerLogin:hover {
+  color: var(--text-hover);
 }
 
 .runnerWrapper img,
@@ -46,4 +55,11 @@
   overflow: hidden;
   font-size: 20px;
   margin: 10px 0;
+}
+
+.runnerWrapper.epic {
+  margin-right: 32px;
+}
+.runnerWrapper.gog {
+  margin-left: 32px;
 }

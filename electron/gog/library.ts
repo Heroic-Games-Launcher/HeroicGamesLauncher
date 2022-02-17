@@ -324,7 +324,7 @@ export class GOGLibrary {
         LogPrefix.Gog
       )
       const apiData = await this.get_games_data(String(info.id))
-      if (apiData?.__links) {
+      if (apiData._links) {
         verticalCover = apiData._links.boxArtImage.href
       } else {
         logWarning(
@@ -406,8 +406,8 @@ export class GOGLibrary {
     const apiData = await this.get_games_data(appName)
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (v: { operatingSystem: { name: any } }) => v.operatingSystem.name === os
+      (v: { operatingSystem: { name: string } }) =>
+        v.operatingSystem.name === os
     )
 
     if (!requirements) return []

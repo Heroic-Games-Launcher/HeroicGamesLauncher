@@ -276,6 +276,13 @@ function clearCache() {
     cwd: 'lib-cache',
     name: 'gameinfo'
   })
+  const GOGapiInfoCache = new Store({
+    cwd: 'gog_store',
+    name: 'api_info_cache'
+  })
+  const GOGlibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
+  GOGapiInfoCache.clear()
+  GOGlibraryStore.clear()
   installCache.clear()
   libraryCache.clear()
   gameInfoCache.clear()

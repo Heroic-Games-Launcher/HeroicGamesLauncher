@@ -194,7 +194,12 @@ export interface InstalledInfo {
   install_size: string | null
   is_dlc: boolean | null
   version: string | null
+  platform?: string
   appName?: string
+  installedWithDLCs?: boolean // For verifing GOG games
+  language?: string // For verifing GOG games
+  versionEtag?: string // Checksum for checking GOG updates
+  buildId?: string // For verifing GOG games
 }
 
 export interface KeyImage {

@@ -106,21 +106,8 @@ export default function WebView() {
                   await ipcRenderer.invoke('login', sid)
                   handleFilter('all')
                   handleCategory('epic')
-
-                  // setLoading({
-                  //   refresh: true,
-                  //   message: t(
-                  //     'status.loading',
-                  //     'Loading Game list, please wait'
-                  //   )
-                  // })
-                  // await refreshLibrary({
-                  //   fullRefresh: true,
-                  //   runInBackground: false
-                  // })
                   setLoading({ ...loading, refresh: false })
                   history.push('/login')
-                  window.location.reload()
                 } catch (error) {
                   console.error(error)
                   ipcRenderer.send('logError', error)

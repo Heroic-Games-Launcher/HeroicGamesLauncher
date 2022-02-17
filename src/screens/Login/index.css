@@ -18,16 +18,16 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .runnerList {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   position: relative;
   user-select: none;
   width: 100%;
@@ -37,25 +37,32 @@
 .continueLogin {
   position: relative;
   font-family: var(--font-primary-bold);
-  top: 20%;
-  background-color: var(--input-background);
-  color: var(--success);
+  top: 10%;
+  background-color: var(--background-secondary);
+  color: var(--text-default);
   border: none;
-  font-size: 30px;
-  padding: 10px;
+  font-size: 24px;
+  padding: 15px;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  width: fit-content;
 }
 
 .continueLogin:hover {
   color: var(--text-tertiary);
-  background-color: var(--success);
+  background-color: var(--link-highlight);
 }
 
 .continueLogin.disabled {
-  color: var(--danger);
+  color: var(--text-secondary);
   opacity: 0.8;
   cursor: default;
+}
+
+.language-login {
+  position: absolute;
+  width: 300px;
+  top: 10vh;
 }

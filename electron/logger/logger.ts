@@ -161,7 +161,9 @@ interface createLogFileReturn {
 export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   const date = new Date()
   const logDir = app.getPath('logs')
-  const newLogFile = `${logDir}/heroic-${date.toISOString()}.log`
+  const newLogFile = `${logDir}/heroic-${date
+    .toISOString()
+    .replace(':', '_')}.log`
   try {
     openSync(newLogFile, 'w')
   } catch (error) {
@@ -176,7 +178,10 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
     const logs = readdirSync(logDir)
     logs.forEach((log) => {
       if (log.includes('heroic-')) {
-        const dateString = log.replace('heroic-', '').replace('.log', '')
+        const dateString = log
+          .replace('heroic-', '')
+          .replace('.log', '')
+          .replace('_', ':')
         const logDate = new Date(dateString)
         if (
           logDate.getFullYear() < date.getFullYear() ||

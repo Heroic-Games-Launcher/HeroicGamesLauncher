@@ -8,7 +8,9 @@ import cx from 'classnames'
 import { useHistory } from 'react-router'
 
 import ContextProvider from 'src/state/ContextProvider'
-import { UpdateComponent } from 'src/components/UI'
+import { LanguageSelector, UpdateComponent } from 'src/components/UI'
+import { FlagPosition } from 'src/components/UI/LanguageSelector'
+import SIDLogin from './components/SIDLogin'
 
 const { ipcRenderer } = window.require('electron')
 const Store = window.require('electron-store')
@@ -19,20 +21,30 @@ const configStore: ElectronStore = new Store({
 const gogStore: ElectronStore = new Store({
   cwd: 'gog_store'
 })
-
+const storage: Storage = window.localStorage
 export default function NewLogin() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const currentLanguage = i18n.language
+  const handleChangeLanguage = (language: string) => {
+    storage.setItem('language', language)
+    i18n.changeLanguage(language)
+  }
   const history = useHistory()
   const { refreshLibrary, handleCategory } = useContext(ContextProvider)
   const [epicLogin, setEpicLogin] = useState({})
   const [gogLogin, setGOGLogin] = useState({})
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [showSidLogin, setShowSidLogin] = useState(false)
 
-  useEffect(() => {
+  function refreshUserInfo() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setEpicLogin(configStore.get('userInfo') as any)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setGOGLogin(gogStore.get('userData') as any)
+  }
+  useEffect(() => {
+    refreshUserInfo()
+    setLoading(false)
   }, [])
   async function continueLogin() {
     setLoading(true)
@@ -52,21 +64,45 @@ export default function NewLogin() {
           <UpdateComponent />
         </div>
       )}
+      {showSidLogin && (
+        <SIDLogin
+          refresh={refreshUserInfo}
+          backdropClick={() => {
+            setShowSidLogin(false)
+          }}
+        />
+      )}
       <div className="loginBackground"></div>
+
       <div className="loginContentWrapper">
+        {!loading && (
+          <LanguageSelector
+            className="settingSelect language-login"
+            handleLanguageChange={handleChangeLanguage}
+            currentLanguage={currentLanguage}
+            flagPossition={FlagPosition.PREPEND}
+          />
+        )}
         <div className="runnerList">
           <Runner
+            class="epic"
             loginUrl="/login/legendary"
             icon={() => <img src={EpicLogo} />}
             isLoggedIn={Boolean(epicLogin)}
             user={epicLogin}
+            refresh={refreshUserInfo}
             logoutAction={() => ipcRenderer.invoke('logoutLegendary')}
+            alternativeLoginAction={() => {
+              setShowSidLogin(true)
+            }}
           />
           <Runner
+            class="gog"
             icon={GOGLogo}
             loginUrl="/login/gog"
             isLoggedIn={Boolean(gogLogin)}
             user={gogLogin}
+            refresh={refreshUserInfo}
             logoutAction={() => ipcRenderer.invoke('logoutGOG')}
           />
         </div>
