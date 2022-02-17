@@ -35,7 +35,8 @@ async function updateWineVersionInfos(
       repositorys: [
         Repositorys.WINEGE,
         Repositorys.PROTONGE,
-        Repositorys.WINELUTRIS
+        Repositorys.WINELUTRIS,
+        Repositorys.PROTON
       ],
       count
     })
