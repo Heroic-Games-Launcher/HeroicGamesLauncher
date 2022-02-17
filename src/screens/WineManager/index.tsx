@@ -46,27 +46,26 @@ export default function WineManager(): JSX.Element | null {
             }
             className="gameListLayout"
           >
-          <Tabs
-            value={repository}
-            onChange={handleChange}
-            textColor="primary"
-            indicatorColor="primary"
-            aria-label="secondary tabs example"
-            centered={true}
-          >
-            <Tab value={winege} label={winege}/>
-            <Tab value={winelutris} label={winelutris}/>
-            <Tab value={protonge} label={protonge}/>
-            <Tab value={proton} label={proton}/>
-          </Tabs>
+            <Tabs
+              value={repository}
+              onChange={handleChange}
+              textColor="primary"
+              indicatorColor="primary"
+              aria-label="secondary tabs example"
+              centered={true}
+            >
+              <Tab value={winege} label={winege} />
+              <Tab value={winelutris} label={winelutris} />
+              <Tab value={protonge} label={protonge} />
+              <Tab value={proton} label={proton} />
+            </Tabs>
             {!!wineVersions.length &&
               wineVersions.map((release: WineVersionInfo, key) => {
-                if(release.type === repository)
-                {
+                if (release.type === repository) {
                   return <WineItem key={key} {...release} />
                 }
                 return
-                })}
+              })}
           </div>
         </div>
       ) : (
