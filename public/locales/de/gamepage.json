@@ -9,7 +9,7 @@
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
-            "path": "Wählen Sie einen Ort, an welchen Sie das Spiel verschieben möchten",
+            "path": "Wählen Sie, wohin Sie verschieben möchten",
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
@@ -23,13 +23,13 @@
             "title": "Installation abbrechen"
         },
         "uninstall": {
-            "checkbox": "Möchten Sie das Prefix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Möchten Sie das Präfix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden.",
+            "checkbox_prefix": "Präfix",
             "message": "Möchten Sie dieses Spiel deinstallieren?",
             "title": "Deinstallieren"
         },
         "update": {
-            "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
+            "message": "Für dieses Spiel ist ein Update verfügbar, jetzt installieren?",
             "title": "Spiel benötigt eine neuere Version"
         },
         "wineprefix": "Wine Prefix Ordner auswählen",
@@ -70,7 +70,7 @@
     },
     "install": {
         "path": "Installationspfad auswählen",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Wine-Prefix"
     },
     "label": {
         "playing": {
