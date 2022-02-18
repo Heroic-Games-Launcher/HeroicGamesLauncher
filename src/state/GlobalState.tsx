@@ -162,10 +162,7 @@ export class GlobalState extends PureComponent<Props> {
         }
 
         this.setState({ refreshing: false })
-        ipcRenderer.send(
-          'logError',
-          'Sync with upstream releases failed'
-        )
+        ipcRenderer.send('logError', 'Sync with upstream releases failed')
 
         notify([
           'Wine-Manager',
