@@ -20,7 +20,6 @@ export default function WineManager(): JSX.Element | null {
   const winege: Type = 'Wine-GE'
   const winelutris: Type = 'Wine-Lutris'
   const protonge: Type = 'Proton-GE'
-  const proton: Type = 'Proton'
   const [repository, setRepository] = useState<Type>(winege)
 
   useEffect(() => {
@@ -40,25 +39,17 @@ export default function WineManager(): JSX.Element | null {
       <h2>{t('wine.manager.title', 'Wine Manager (Beta)')}</h2>
       {wineVersions?.length ? (
         <div className="WineManager">
+          <Tabs value={repository} onChange={handleChange} centered={true}>
+            <Tab value={winege} label={winege} />
+            <Tab value={winelutris} label={winelutris} />
+            <Tab value={protonge} label={protonge} />
+          </Tabs>
           <div
             style={
               !wineVersions.length ? { backgroundColor: 'transparent' } : {}
             }
             className="gameListLayout"
           >
-            <Tabs
-              value={repository}
-              onChange={handleChange}
-              textColor="primary"
-              indicatorColor="primary"
-              aria-label="secondary tabs example"
-              centered={true}
-            >
-              <Tab value={winege} label={winege} />
-              <Tab value={winelutris} label={winelutris} />
-              <Tab value={protonge} label={protonge} />
-              <Tab value={proton} label={proton} />
-            </Tabs>
             {!!wineVersions.length &&
               wineVersions.map((release: WineVersionInfo, key) => {
                 if (release.type === repository) {

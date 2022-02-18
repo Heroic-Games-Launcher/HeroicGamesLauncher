@@ -41,7 +41,7 @@ ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
     return releases
   } catch (error) {
     logError(String(error), LogPrefix.WineDownloader)
-    return
+    throw error
   }
 })
 

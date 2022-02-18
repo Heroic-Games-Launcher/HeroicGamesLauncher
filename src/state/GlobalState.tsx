@@ -7,8 +7,14 @@ import {
   WineVersionInfo
 } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
-import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
-import { i18n } from 'i18next'
+import {
+  getLegendaryConfig,
+  getPlatform,
+  install,
+  launch,
+  notify
+} from 'src/helpers'
+import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
 import ElectronStore from 'electron-store'
@@ -133,19 +139,43 @@ export class GlobalState extends PureComponent<Props> {
       return
     }
     ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
-    try {
-      this.setState({ refreshing: true })
-      const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
-      this.setState({
-        wineVersions: releases,
-        refreshing: false
+    this.setState({ refreshing: true })
+    await ipcRenderer
+      .invoke('refreshWineVersionInfo', fetch)
+      .then((releases) => {
+        this.setState({
+          wineVersions: releases,
+          refreshing: false
+        })
+        return
       })
-    } catch (error) {
-      this.setState({ refreshing: false })
-      console.error(error)
-      ipcRenderer.send('logError', error)
-      ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
-    }
+      .catch(async () => {
+        if (fetch) {
+          // try to restore the saved information
+          await ipcRenderer
+            .invoke('refreshWineVersionInfo', false)
+            .then((releases) => {
+              this.setState({
+                wineVersions: releases
+              })
+            })
+        }
+
+        this.setState({ refreshing: false })
+        ipcRenderer.send(
+          'logError',
+          'Sync with upstream releases failed'
+        )
+
+        notify([
+          'Wine-Manager',
+          t(
+            'notify.refresh.error',
+            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+          )
+        ])
+        return
+      })
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })

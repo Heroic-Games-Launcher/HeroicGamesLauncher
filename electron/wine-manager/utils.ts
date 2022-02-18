@@ -31,12 +31,12 @@ async function updateWineVersionInfos(
 
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
+    logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
     await getAvailableVersions({
       repositorys: [
         Repositorys.WINEGE,
         Repositorys.PROTONGE,
-        Repositorys.WINELUTRIS,
-        Repositorys.PROTON
+        Repositorys.WINELUTRIS
       ],
       count
     })
@@ -74,6 +74,7 @@ async function updateWineVersionInfos(
 
     wineDownloaderInfoStore.set('wine-releases', releases)
   } else {
+    logInfo('Read local information ...', LogPrefix.WineDownloader)
     if (wineDownloaderInfoStore.has('wine-releases')) {
       releases.push(
         ...(wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
