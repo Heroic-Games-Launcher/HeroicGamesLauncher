@@ -22,9 +22,13 @@ import ini from 'ini'
  */
 async function setup(appName: string): Promise<void> {
   const gameInfo = GOGLibrary.get().getGameInfo(appName)
-  if (!gameInfo || gameInfo.install.platform == 'linux') return
+  if (!gameInfo || gameInfo.install.platform == 'linux') {
+    return
+  }
   const instructions = await obtainSetupInstructions(gameInfo)
-  if (!instructions) return
+  if (!instructions) {
+    return
+  }
   logWarning(
     'Running setup instructions, if you notice issues with launching a game, please report it on our Discord server',
     LogPrefix.Gog
@@ -144,8 +148,9 @@ async function setup(appName: string): Promise<void> {
                 path.join(gameInfo.install.install_path, 'support', appName)
               )
               .replace('{app}', gameInfo.install.install_path)
-            if (existsSync(sourcePath))
+            if (existsSync(sourcePath)) {
               copyFileSync(sourcePath, targetPath, constants.COPYFILE_FICLONE)
+            }
           } else {
             logError(
               ['Setup: Unsupported supportData type:', type],

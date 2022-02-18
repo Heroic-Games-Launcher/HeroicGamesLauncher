@@ -327,8 +327,8 @@ class LegendaryGame extends Game {
     )
     LegendaryLibrary.get().installState(this.appName, false)
     return await execAsync(command, execOptions)
-      .then((v) => {
-        return v
+      .then((value) => {
+        return value
       })
       .catch((error) => {
         logError(`${error}`, LogPrefix.Legendary)
@@ -353,9 +353,9 @@ class LegendaryGame extends Game {
 
     logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Legendary)
     return await execAsync(command, execOptions)
-      .then((v) => {
+      .then((value) => {
         // this.state.status = 'done'
-        return v
+        return value
       })
       .catch((error) => {
         logError(`${error}`, LogPrefix.Legendary)
@@ -371,8 +371,8 @@ class LegendaryGame extends Game {
       LogPrefix.Legendary
     )
     return await execAsync(command, execOptions)
-      .then((v) => {
-        return v
+      .then((value) => {
+        return value
       })
       .catch((error) => {
         logError(`${error}`, LogPrefix.Legendary)

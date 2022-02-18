@@ -144,14 +144,14 @@ async function launch(
       logInfo(['Launch Command:', command], LogPrefix.Gog)
     }
 
-    const v = await execAsync(command, execOptions)
+    const execProcess = await execAsync(command, execOptions)
     if (discordRPC) {
       logInfo('Stopping Discord Rich Presence if running...', LogPrefix.Backend)
       DiscordRPC.disconnect()
       logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
     }
 
-    return v
+    return execProcess
   }
 
   if (!wineVersion.bin) {

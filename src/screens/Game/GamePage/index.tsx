@@ -99,7 +99,9 @@ export default function GamePage(): JSX.Element | null {
     const updateConfig = async () => {
       try {
         let newInfo = await getGameInfo(appName, 'legendary')
-        if (!newInfo) newInfo = await getGameInfo(appName, 'gog')
+        if (!newInfo) {
+          newInfo = await getGameInfo(appName, 'gog')
+        }
         setGameInfo(newInfo)
         getInstallInfo(appName, newInfo.runner)
           .then((info) => setGameInstallInfo(info))

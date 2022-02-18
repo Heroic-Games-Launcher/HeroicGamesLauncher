@@ -14,6 +14,7 @@ const gogRefreshTokenUrl =
   'https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=refresh_token'
 
 export class GOGUser {
+  // This is executed below in edge error cases most likely won't run ever
   public static async handleGOGLogin() {
     const popupWindow = new BrowserWindow({
       width: 450,
@@ -99,7 +100,9 @@ export class GOGUser {
           return null
         })
 
-      if (!response) return
+      if (!response) {
+        return
+      }
 
       const data: GOGLoginData = response.data
       data.loginTime = Date.now()
@@ -113,7 +116,9 @@ export class GOGUser {
 
   public static isTokenExpired() {
     const user: GOGLoginData = configStore.get('credentials') as GOGLoginData
-    if (!user) return true
+    if (!user) {
+      return true
+    }
     const isExpired = Date.now() >= user.loginTime + user.expires_in * 1000
     return isExpired
   }

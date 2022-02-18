@@ -40,12 +40,12 @@ Categories=Game;
 
       if (addDesktopShortcuts || fromMenu) {
         writeFile(desktopFile, shortcut, () => {
-          logInfo('Shortcut saved on ' + desktopFile, LogPrefix.Backend)
+          logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
         })
       }
       if (addStartMenuShortcuts || fromMenu) {
         writeFile(menuFile, shortcut, () => {
-          logInfo('Shortcut saved on ' + menuFile, LogPrefix.Backend)
+          logInfo(`Shortcut saved on ${menuFile}`, LogPrefix.Backend)
         })
       }
       break

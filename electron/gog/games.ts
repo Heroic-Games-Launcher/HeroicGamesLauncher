@@ -108,11 +108,15 @@ class GOGGame extends Game {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
+    if (GOGUser.isTokenExpired()) {
+      await GOGUser.refreshToken()
+    }
     const credentials = configStore.get('credentials') as GOGLoginData
 
     let installPlatform = platformToInstall.toLowerCase()
-    if (installPlatform == 'mac') installPlatform = 'osx'
+    if (installPlatform == 'mac') {
+      installPlatform = 'osx'
+    }
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
@@ -205,7 +209,9 @@ class GOGGame extends Game {
     const withDlcs = gameData.install.installedWithDLCs
       ? '--with-dlcs'
       : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
+    if (GOGUser.isTokenExpired()) {
+      await GOGUser.refreshToken()
+    }
     const credentials = configStore.get('credentials') as GOGLoginData
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
@@ -221,7 +227,7 @@ class GOGGame extends Game {
     logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
 
     return execAsync(command, execOptions)
-      .then((v) => v)
+      .then((value) => value)
       .catch((error) => {
         logError(`${error}`, LogPrefix.Gog)
         return null
@@ -257,7 +263,9 @@ class GOGGame extends Game {
     const array: Array<InstalledInfo> =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
     const index = array.findIndex((game) => game.appName == this.appName)
-    if (index == -1) throw Error("Game isn't installed")
+    if (index == -1) {
+      throw Error("Game isn't installed")
+    }
 
     const [object] = array.splice(index, 1)
     logInfo(['Removing', object.install_path], LogPrefix.Gog)
@@ -294,7 +302,9 @@ class GOGGame extends Game {
     const withDlcs = gameData.install.installedWithDLCs
       ? '--with-dlcs'
       : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
+    if (GOGUser.isTokenExpired()) {
+      await GOGUser.refreshToken()
+    }
     const credentials = configStore.get('credentials') as GOGLoginData
 
     const installPlatform = gameData.install.platform
@@ -311,12 +321,12 @@ class GOGGame extends Game {
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
     return execAsync(command, execOptions)
-      .then(async (v) => {
+      .then(async () => {
         const installedArray = installedGamesStore.get(
           'installed'
         ) as InstalledInfo[]
         const gameIndex = installedArray.findIndex(
-          (val) => this.appName == val.appName
+          (value) => this.appName == value.appName
         )
         const gameObject = installedArray[gameIndex]
 

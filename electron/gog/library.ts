@@ -155,7 +155,9 @@ export class GOGLibrary {
    * @returns InstallInfo object
    */
   public async getInstallInfo(appName: string) {
-    if (GOGUser.isTokenExpired()) await GOGUser.refreshToken()
+    if (GOGUser.isTokenExpired()) {
+      await GOGUser.refreshToken()
+    }
     const credentials = userStore.get('credentials') as GOGLoginData
     const { stdout } = await execAsync(
       `${gogdlBin} info ${appName} --token="${
@@ -166,7 +168,7 @@ export class GOGLibrary {
     const gameData = this.library.get(appName)
     const libraryArray = libraryStore.get('games') as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(
-      (val) => val.app_name == appName
+      (value) => value.app_name == appName
     )
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
     gameData.folder_name = gogInfo.folder_name
@@ -203,8 +205,8 @@ export class GOGLibrary {
     const installedArray =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
     this.installedGames.clear()
-    installedArray.forEach((v) => {
-      this.installedGames.set(v.appName, v)
+    installedArray.forEach((value) => {
+      this.installedGames.set(value.appName, value)
     })
   }
 
@@ -408,7 +410,9 @@ export class GOGLibrary {
     const response: AxiosResponse | null = await axios.get(url).catch(() => {
       return null
     })
-    if (!response) return null
+    if (!response) {
+      return null
+    }
 
     return response.data
   }
@@ -427,13 +431,18 @@ export class GOGLibrary {
     const apiData = await this.get_games_data(appName)
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
-      (v: { operatingSystem: { name: string } }) =>
-        v.operatingSystem.name === os
+      (value: { operatingSystem: { name: string } }) =>
+        value.operatingSystem.name === os
     )
 
-    if (!requirements) return []
-    else requirements = requirements.systemRequirements
-    if (requirements.length == 0) return []
+    if (!requirements) {
+      return []
+    } else {
+      requirements = requirements.systemRequirements
+    }
+    if (requirements.length == 0) {
+      return []
+    }
     const minimum = requirements[0]
     const recommended = requirements.length > 1 ? requirements[1] : null
     const returnValue = []
@@ -443,7 +452,9 @@ export class GOGLibrary {
         minimum: minimum.requirements[i].description,
         recommended: recommended && recommended.requirements[i]?.description
       }
-      if (!object.minimum) continue
+      if (!object.minimum) {
+        continue
+      }
       returnValue.push(object)
     }
     return returnValue
@@ -473,7 +484,9 @@ export class GOGLibrary {
           return null
         }
       })
-    if (!response) return { isUpdated: false, data: {} }
+    if (!response) {
+      return { isUpdated: false, data: {} }
+    }
     const resEtag = response.headers.etag
     const isUpdated = etag == resEtag
     const data = response.data
@@ -494,7 +507,9 @@ export class GOGLibrary {
   public static async get_product_api(appName: string, expand?: string[]) {
     const isExpanded = expand?.length > 0
     let expandString = '?expand='
-    if (isExpanded) expandString += expand.join(',')
+    if (isExpanded) {
+      expandString += expand.join(',')
+    }
     const url = `https://api.gog.com/products/${appName}${
       isExpanded ? expandString : ''
     }`

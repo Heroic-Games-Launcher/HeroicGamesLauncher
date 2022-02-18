@@ -571,7 +571,9 @@ ipcMain.on('createNewWindow', (e, url) =>
 ipcMain.handle('getGameInfo', async (event, game, runner) => {
   try {
     const info = await Game.get(game, runner).getGameInfo()
-    if (!info) return null
+    if (!info) {
+      return null
+    }
     info.extra = await Game.get(game, runner).getExtraInfo(info.namespace)
     return info
   } catch (error) {
@@ -908,7 +910,10 @@ ipcMain.handle('uninstall', async (event, args) => {
     .then(() => {
       if (args[1]) {
         logInfo(`Removing prefix ${winePrefix}`)
-        if (existsSync(winePrefix)) rmSync(winePrefix, { recursive: true }) // remove prefix
+        if (existsSync(winePrefix)) {
+          // remove prefix if exists
+          rmSync(winePrefix, { recursive: true })
+        }
       }
       notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling', LogPrefix.Backend)

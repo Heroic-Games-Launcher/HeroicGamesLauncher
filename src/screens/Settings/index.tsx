@@ -236,7 +236,9 @@ function Settings() {
 
       if (!isDefault) {
         let newInfo = await getGameInfo(appName, 'legendary')
-        if (!newInfo) newInfo = await getGameInfo(appName, 'gog')
+        if (!newInfo) {
+          newInfo = await getGameInfo(appName, 'gog')
+        }
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
