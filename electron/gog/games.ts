@@ -133,18 +133,24 @@ class GOGGame extends Game {
         // Save new game info to installed games store
         const installInfo = await this.getInstallInfo()
         const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+        const isLinuxNative = installPlatform == 'linux'
+        const additionalInfo = isLinuxNative
+          ? await GOGLibrary.get_linux_installer_info(this.appName)
+          : null
         const installedData: InstalledInfo = {
           platform: installPlatform,
           executable: '',
           install_path: join(path, gameInfo.folder_name),
           install_size: prettyBytes(installInfo.manifest.disk_size),
           is_dlc: false,
-          version: installInfo.game.version,
+          version: additionalInfo
+            ? additionalInfo.version
+            : installInfo.game.version,
           appName: this.appName,
           installedWithDLCs: installDlcs,
           language: installLanguage,
-          versionEtag: installInfo.manifest.versionEtag,
-          buildId: installInfo.game.buildId
+          versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
+          buildId: isLinuxNative ? '' : installInfo.game.buildId
         }
         const array: Array<InstalledInfo> =
           (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
@@ -306,19 +312,28 @@ class GOGGame extends Game {
 
     return execAsync(command, execOptions)
       .then(async (v) => {
-        const installInfo = await GOGLibrary.get().getInstallInfo(this.appName)
         const installedArray = installedGamesStore.get(
           'installed'
         ) as InstalledInfo[]
-
         const gameIndex = installedArray.findIndex(
           (val) => this.appName == val.appName
         )
         const gameObject = installedArray[gameIndex]
-        gameObject.buildId = installInfo.game.buildId
-        gameObject.version = installInfo.game.version
-        gameObject.versionEtag = installInfo.manifest.versionEtag
-        gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
+
+        if (gameData.install.platform != 'linux') {
+          const installInfo = await GOGLibrary.get().getInstallInfo(
+            this.appName
+          )
+          gameObject.buildId = installInfo.game.buildId
+          gameObject.version = installInfo.game.version
+          gameObject.versionEtag = installInfo.manifest.versionEtag
+          gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
+        } else {
+          const installerInfo = await GOGLibrary.get_linux_installer_info(
+            this.appName
+          )
+          gameObject.version = installerInfo.version
+        }
         installedGamesStore.set('installed', installedArray)
         GOGLibrary.get().refreshInstalled()
         this.window.webContents.send('setGameStatus', {

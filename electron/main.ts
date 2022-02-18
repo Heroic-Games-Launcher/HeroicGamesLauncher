@@ -588,6 +588,10 @@ ipcMain.handle('getGameSettings', async (event, game, runner) => {
   }
 })
 
+ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
+  return await GOGLibrary.get_linux_installers_languages(appName)
+})
+
 ipcMain.handle('getInstallInfo', async (event, game, runner) => {
   const online = await isOnline()
   if (!online) {

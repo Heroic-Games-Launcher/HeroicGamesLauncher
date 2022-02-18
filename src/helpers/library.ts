@@ -170,7 +170,12 @@ async function uninstall({
   }
 
   let linuxArgs
-  if ((await getPlatform()) === 'linux') {
+  // This assumes native games are installed should be changed in the future
+  // if we add option to install windows games even if native is available
+  if (
+    (await getPlatform()) === 'linux' &&
+    !(await getGameInfo(appName, runner)).is_linux_native
+  ) {
     const wineprefix = (await getGameSettings(appName, runner)).winePrefix
 
     linuxArgs = {

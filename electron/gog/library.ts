@@ -253,7 +253,13 @@ export class GOGLibrary {
     const updateable: Array<string> = []
     for (const game of installed) {
       // Skip linux
-      if (game.platform == 'linux') continue
+      if (game.platform == 'linux') {
+        if (
+          !(await this.checkForLinuxInstallerUpdate(game.appName, game.version))
+        )
+          updateable.push(game.appName)
+        continue
+      }
 
       if (
         await this.checkForGameUpdate(
@@ -266,6 +272,21 @@ export class GOGLibrary {
     }
     logInfo(`Found ${updateable.length} game(s) to update`, LogPrefix.Gog)
     return updateable
+  }
+
+  public async checkForLinuxInstallerUpdate(
+    appName: string,
+    version: string
+  ): Promise<boolean> {
+    const response = await GOGLibrary.get_product_api(appName, ['downloads'])
+    if (response) {
+      const installers = response.data?.downloads?.installers
+      for (const installer of installers) {
+        if (installer.os == 'linux') {
+          return installer.version == version
+        }
+      }
+    } else return false
   }
 
   public async checkForGameUpdate(
@@ -461,6 +482,72 @@ export class GOGLibrary {
     return {
       isUpdated,
       data
+    }
+  }
+
+  /**
+   * Handler of https://api.gog.com/products/ endpoint
+   * @param appName id of game
+   * @param expand expanded results to be returned
+   * @returns raw axios response null when there was a error
+   */
+  public static async get_product_api(appName: string, expand?: string[]) {
+    const isExpanded = expand?.length > 0
+    let expandString = '?expand='
+    if (isExpanded) expandString += expand.join(',')
+    const url = `https://api.gog.com/products/${appName}${
+      isExpanded ? expandString : ''
+    }`
+    const response: AxiosResponse = await axios.get(url).catch(() => null)
+
+    return response
+  }
+
+  /**
+   * Gets array of possible installer languages
+   * @param appName
+   */
+  public static async get_linux_installers_languages(appName: string) {
+    const response = await GOGLibrary.get_product_api(appName, ['downloads'])
+    if (response) {
+      const installers = response.data?.downloads?.installers
+      const linuxInstallers = installers.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (value: any) => value.os == 'linux'
+      )
+      const possibleLanguages = []
+
+      for (const installer of linuxInstallers) {
+        possibleLanguages.push(installer.language)
+      }
+
+      return possibleLanguages
+    } else {
+      return ['en-US']
+    }
+  }
+
+  /**
+   * For now returns a version (we can extend it later)
+   * @param appName
+   * @returns
+   */
+  public static async get_linux_installer_info(appName: string): Promise<{
+    version: string
+  } | null> {
+    const response = await GOGLibrary.get_product_api(appName, ['downloads'])
+    if (response) {
+      const installers = response.data?.downloads?.installers
+
+      for (const installer of installers) {
+        if (installer.os == 'linux')
+          return {
+            version: installer.version
+          }
+      }
+    } else {
+      logError("Couldn't get installer info")
+      return null
     }
   }
 }

@@ -1,5 +1,6 @@
 import {
   getAppSettings,
+  getGameInfo,
   getInstallInfo,
   getProgress,
   install,
@@ -9,7 +10,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
 import prettyBytes from 'pretty-bytes'
 import { Checkbox } from '@mui/material'
 import { IpcRenderer } from 'electron'
@@ -63,12 +64,15 @@ export default function InstallModal({
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || 'default'
   )
+  const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
   const installFolder = gameStatus?.folder || installPath
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
 
   // TODO: Refactor
   const haveSDL = Boolean(SDL_GAMES[appName])
@@ -151,9 +155,21 @@ export default function InstallModal({
   useEffect(() => {
     const getInfo = async () => {
       const gameInfo = await getInstallInfo(appName, runner)
+      const gameData = await getGameInfo(appName, runner)
       setGameInfo(gameInfo)
-      if (gameInfo.manifest.languages)
+      if (gameInfo.manifest?.languages) {
+        setInstallLanguages(gameInfo.manifest.languages)
         setInstallLanguage(gameInfo.manifest.languages[0])
+      }
+      setIsLinuxNative(gameData.is_linux_native)
+      if (isLinux && gameData.is_linux_native && runner == 'gog') {
+        const installer_languages = (await ipcRenderer.invoke(
+          'getGOGLinuxInstallersLangs',
+          appName
+        )) as string[]
+        setInstallLanguages(installer_languages)
+        setInstallLanguage(installer_languages[0])
+      }
       const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
@@ -197,7 +213,9 @@ export default function InstallModal({
           </SvgButton>
           <span className="title">
             {gameInfo?.game?.title}
-            <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+            <FontAwesomeIcon
+              icon={isMacNative ? faApple : isLinuxNative ? faLinux : faWindows}
+            />
           </span>
           <div className="installInfo">
             <div className="itemContainer">
@@ -214,27 +232,26 @@ export default function InstallModal({
                 <span>{installSize}</span>
               </span>
             </div>
-            {gameInfo.manifest.languages &&
-              gameInfo.manifest.languages?.length > 1 && (
-                <div className="languageOptions">
-                  <span className="languageInfo">
-                    {t('game.language', 'Language')}:
-                  </span>
-                  <select
-                    name="language"
-                    id="languagePick"
-                    value={installLanguage}
-                    onChange={(e) => setInstallLanguage(e.target.value)}
-                  >
-                    {gameInfo.manifest.languages &&
-                      gameInfo.manifest.languages.map((value) => (
-                        <option value={value} key={value}>
-                          {value}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-              )}
+            {installLanguages && installLanguages?.length > 1 && (
+              <div className="languageOptions">
+                <span className="languageInfo">
+                  {t('game.language', 'Language')}:
+                </span>
+                <select
+                  name="language"
+                  id="languagePick"
+                  value={installLanguage}
+                  onChange={(e) => setInstallLanguage(e.target.value)}
+                >
+                  {installLanguages &&
+                    installLanguages.map((value) => (
+                      <option value={value} key={value}>
+                        {value}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            )}
             <span className="installPath">
               <span className="settingText">
                 {t('install.path', 'Select Install Path')}:
@@ -269,7 +286,7 @@ export default function InstallModal({
               </span>
               {getDownloadedProgress()}
             </span>
-            {isLinux && (
+            {isLinux && !isLinuxNative && (
               <span className="installPath">
                 <span className="settingText">
                   {t('install.wineprefix', 'WinePrefix')}:
