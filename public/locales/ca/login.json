@@ -1,24 +1,24 @@
 {
     "button": {
-        "login": "Iniciar sessió"
+        "login": "Inicia la sessió"
     },
     "input": {
-        "placeholder": "Enganxa l'SID aquí"
+        "placeholder": "Enganxa el nombre SID aquí"
     },
     "message": {
-        "part1": "Per iniciar sessió i començar a instal·lar els teus jocs, primer has de seguir les passes d'aquí avall:",
-        "part2": "Obrir",
-        "part3": "Botiga d'Epic",
-        "part4": ", inicia sessió i copia el teu",
+        "part1": "Per a iniciar sessió i instal·lar els teus jocs, cal que seguiu primer les passes de sota:",
+        "part2": "Obre el",
+        "part3": "Epic Store aquí",
+        "part4": ", inicia la sessió i copia el teu",
         "part5": "nombre SID",
-        "part6": "Enganxi el",
+        "part6": "Enganxa el",
         "part7": "nombre SID",
-        "part8": "fés clic al botó d'inici de sessió avall i espera."
+        "part8": "a la caixa de sota i fes clic al botó d'inici de sessió."
     },
     "status": {
         "error": "Error",
-        "loading": "Cargant la llista de jocs, si us plau esperi",
-        "logging": "Iniciant sessió…"
+        "loading": "S'està carregant la llista de jocs, espera",
+        "logging": "S'està iniciant la sessió…"
     },
-    "welcome": "Benvingut/da!"
+    "welcome": "Et donem la benvinguda!"
 }

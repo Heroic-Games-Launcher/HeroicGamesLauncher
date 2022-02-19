@@ -3,17 +3,17 @@
         "login": "Iniciar sesión"
     },
     "input": {
-        "placeholder": "Pegue el número SID aquí"
+        "placeholder": "Pega tu número SID aquí"
     },
     "message": {
-        "part1": "Para que pueda iniciar sesión e instalar sus juegos, primero debe seguir los pasos a continuación:",
-        "part2": "Abre",
+        "part1": "Para iniciar la sesión e instalar los juegos, primero hay que seguir los siguientes pasos:",
+        "part2": "Abrir el",
         "part3": "Epic Store aquí",
-        "part4": ", inicie sesión en su cuenta y copie su",
+        "part4": ", inicia sesión en tu cuenta y copia tu",
         "part5": "número de información de SID",
-        "part6": "Pegue el",
+        "part6": "Pega tu",
         "part7": "número SID",
-        "part8": "en el cuadro de abajo, haga clic en el botón de inicio de sesión y espere."
+        "part8": "en el recuadro de entrada y haz clic en el botón de inicio de sesión."
     },
     "status": {
         "error": "Error",

@@ -3,17 +3,17 @@
         "login": "Bejelentkezés"
     },
     "input": {
-        "placeholder": "Illeszd az SID számodat ide"
+        "placeholder": "Illeszd be ide az SID számodat"
     },
     "message": {
-        "part1": "Annak érdekében, hogy be tudj jelentkezni és letöltsd a játékaidat, először követned kell az itt lent felsoroltakat:",
+        "part1": "Annak érdekében, hogy be tudj jelentkezni és le tudd tölteni a játékaid, először követned kell az itt lent felsoroltakat:",
         "part2": "Nyisd meg az",
         "part3": "Epic Store-t itt",
         "part4": ", jelentkezz be a fiókodba és másold ki a",
         "part5": "SID információs számodat",
-        "part6": "Másold be az",
+        "part6": "Illeszd be az",
         "part7": "SID számot",
-        "part8": "a lenti beviteli mezőbe, kattints a bejelentkezés gombra, majd várj."
+        "part8": "a lenti beviteli mezőbe, és kattints a bejelentkezés gombra, majd várj."
     },
     "status": {
         "error": "Hiba",
