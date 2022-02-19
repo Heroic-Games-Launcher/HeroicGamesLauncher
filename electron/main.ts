@@ -1068,7 +1068,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 
   if (isWindows) {
     if (!existsSync(egl_manifestPath)) {
-      mkdirSync(egl_manifestPath)
+      mkdirSync(egl_manifestPath, { recursive: true })
     }
   }
 
