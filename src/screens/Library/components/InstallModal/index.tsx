@@ -73,6 +73,7 @@ export default function InstallModal({
   const isLinux = platform === 'linux'
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
+  const [isMacNative, setIsMacNative] = useState(false)
 
   // TODO: Refactor
   const haveSDL = Boolean(SDL_GAMES[appName])
@@ -161,7 +162,8 @@ export default function InstallModal({
         setInstallLanguages(gameInfo.manifest.languages)
         setInstallLanguage(gameInfo.manifest.languages[0])
       }
-      setIsLinuxNative(gameData.is_linux_native)
+      setIsLinuxNative(gameData.is_linux_native && isLinux)
+      setIsMacNative(gameData.is_mac_native && isMac)
       if (isLinux && gameData.is_linux_native && runner == 'gog') {
         const installer_languages = (await ipcRenderer.invoke(
           'getGOGLinuxInstallersLangs',
@@ -181,7 +183,6 @@ export default function InstallModal({
     getInfo()
   }, [appName])
 
-  const isMacNative = isMac && gameInfo?.game?.platform_versions?.Mac
   const haveDLCs = gameInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInfo?.game?.owned_dlc
   const downloadSize =

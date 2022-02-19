@@ -11,7 +11,7 @@ import {
 } from '../types'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { execAsync } from '../utils'
-import { fallBackImage, gogdlBin } from '../constants'
+import { fallBackImage, gogdlBin, isMac } from '../constants'
 import prettyBytes from 'pretty-bytes'
 
 const userStore = new Store({
@@ -159,13 +159,15 @@ export class GOGLibrary {
       await GOGUser.refreshToken()
     }
     const credentials = userStore.get('credentials') as GOGLoginData
+    const gameData = this.library.get(appName)
     const { stdout } = await execAsync(
       `${gogdlBin} info ${appName} --token="${
         credentials.access_token
-      }" --lang=en-US --os ${process.platform == 'darwin' ? 'osx' : 'windows'}`
+      }" --lang=en-US --os ${
+        isMac && gameData.is_mac_native ? 'osx' : 'windows'
+      }`
     )
     const gogInfo = JSON.parse(stdout)
-    const gameData = this.library.get(appName)
     const libraryArray = libraryStore.get('games') as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name == appName
