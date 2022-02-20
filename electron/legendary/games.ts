@@ -744,18 +744,22 @@ Categories=Game;
       return
     }
 
-    if (isProton && !existsSync(fixedWinePrefix)) {
+    // Create prefix directory if it doesn't exist
+    if (!existsSync(fixedWinePrefix)) {
       mkdirSync(fixedWinePrefix, { recursive: true })
     }
 
-    if (!existsSync(fixedWinePrefix)) {
-      mkdirSync(fixedWinePrefix, { recursive: true })
-      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i`
-      logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
-      return execAsync(initPrefixCommand)
-        .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
-        .catch((error) => logError(`${error}`, LogPrefix.Backend))
+    let initPrefixCommand = ``
+    if (isProton) {
+      initPrefixCommand = `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${fixedWinePrefix}' '${winePath}/proton' run wineboot -i`
+    } else {
+      initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i`
     }
+
+    logInfo(['Creating new prefix', fixedWinePrefix], LogPrefix.Backend)
+    return execAsync(initPrefixCommand)
+      .then(() => logInfo('Prefix created successfully!', LogPrefix.Backend))
+      .catch((error) => logError(`${error}`, LogPrefix.Backend))
   }
 
   public async stop() {
