@@ -29,10 +29,10 @@
             "title": "حذف"
         },
         "update": {
-            "message": "این بازی بهروزرسانی دارد، آیا مایل به بهروزرسانی هستید؟",
+            "message": "این بازی به‌روزرسانی دارد، آیا مایل به به‌روزرسانی هستید؟",
             "title": "بازی نیاز به بهروزرسانی دارد"
         },
-        "wineprefix": "انتخاب پوشه WinePrefix",
+        "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله"
     },
     "button": {
@@ -70,7 +70,7 @@
     },
     "install": {
         "path": "انتخاب محل نصب",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Wine Prefix"
     },
     "label": {
         "playing": {

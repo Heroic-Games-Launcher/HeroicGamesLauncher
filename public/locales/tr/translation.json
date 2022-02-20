@@ -25,8 +25,8 @@
                 "title": "Alan Yok"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "DXVK/VKD3D kurulurken hata oluştu! Bağlantınıza veya zstd/libzstd1 kurulu olup olmadığına bakın",
+                "title": "DXVK/VKD3D hatası"
             },
             "generic": {
                 "message": "Bilinmeyen bir hata oluştu",
@@ -204,7 +204,7 @@
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
@@ -262,7 +262,7 @@
         "copiedToClipboard": "Panoya kopyalandı!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Günlük kısaltıldı, son 1000 satır gösteriliyor!"
         },
         "navbar": {
             "general": "Genel",

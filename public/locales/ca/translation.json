@@ -1,289 +1,289 @@
 {
     "All": "Tot",
-    "Assets": "Assets",
+    "Assets": "Recursos",
     "box": {
         "appupdate": {
-            "message": "Hi ha una nova versió d'Heroic disponible, vols actualitzar-ho?",
+            "message": "Hi ha disponible una versió nova de l'Heroic, el vols actualitzar?",
             "title": "Actualització disponible"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "S'ha buidat la memòria cau de l'Heroic.",
+            "title": "S'ha esborrat la memòria cau"
         },
         "choose": "Tria",
-        "choose-egs-prefix": "Tria el prefix a on EGS està instal·lat",
-        "choose-legendary-binary": "Selecciona binari de legendary",
-        "customWine": "Selecciona el binary de wine o proton",
-        "default-install-path": "Selecciona la ruta d'instal·lació predeterminada",
+        "choose-egs-prefix": "Tria el prefix on l'EGS està instal·lat",
+        "choose-legendary-binary": "Selecciona el binari del Legendary",
+        "customWine": "Selecciona el binary del Wine o del Proton",
+        "default-install-path": "Tria la ruta d'instal·lació predefinida",
         "error": {
             "credentials": {
-                "message": "Les teves credencials han expirat, si us plau tanca sessió i inicia la sessió una altra vegada.",
-                "title": "Les credencials han expirat"
+                "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou.",
+                "title": "Credencials caducades"
             },
             "diskspace": {
-                "message": "No hi ha prou espai del disc",
-                "title": "Sense espai del disc dur"
+                "message": "No hi ha prou espai al disc",
+                "title": "No hi ha espai"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Hi ha hagut un error en instal·lar el DXVK/VKD3D. Comprova la connexió o si teniu instal·lat el zstd/libzstd1",
+                "title": "Error del DXVK/VKD3D"
             },
             "generic": {
-                "message": "Un error desconegut ha ocorregut",
+                "message": "Hi ha hagut un error desconegut",
                 "title": "Error desconegut"
             },
-            "launch": "Ha sorgit un error mentres s'intentava iniciar el joc, mira el registre!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
+            "launch": "Error en iniciar el joc, comprova el registre.",
             "title": "Error",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
+                "title": "No s'ha trobat el Wine"
             }
         },
-        "no": "No",
-        "ok": "Ok",
+        "no": "NO",
+        "ok": "D'acord",
         "protocol": {
             "install": {
-                "not_installed": "no està instal·lat, vols instalar-lo?"
+                "not_installed": "No està instal·lat. El vols instal·lar?"
             }
         },
         "quit": {
-            "message": "Hi ha operacions pendents, estàs del tot segur?",
-            "title": "Sortir"
+            "message": "Hi ha operacions pendents, estàs segur?",
+            "title": "Surt"
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "Segur que vols restablir l'Heroic? Això suprimirà tota la configuració i la memòria cau, però no suprimirà els jocs instal·lats o les credencials de l'Epic",
+                "title": "Restableix l'Heroic"
             }
         },
         "runexe": {
-            "title": "Selecciona un EXE per llençar"
+            "title": "Selecciona un EXE a iniciar"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Selecciona",
+            "exe": "Selecciona l'EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "S'han creat dreceres a l'escriptori i al menú d'inici",
+            "title": "Dreceres"
         },
         "sync": {
             "button": "Tria",
-            "error": "Ruta invàl·lida",
-            "title": "Eligeix el directori de guardats"
+            "error": "Ruta no vàlida",
+            "title": "Tria el directori de partides desades"
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix, no s'ha pogut importar el joc.",
+                "install": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix, no s'ha pogut instal·lar el joc.",
+                "update": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix, no s'ha pogut actualitzar el joc."
             },
-            "title": "Warning"
+            "title": "Atenció"
         },
-        "wineprefix": "Tria la carpeta de wine prefix",
-        "yes": "Sí"
+        "wineprefix": "Tria la carpeta del prefix del Wine",
+        "yes": "SÍ"
     },
     "button": {
-        "login": "Login",
+        "login": "Inicia la sessió",
         "sync": "Sincronitza",
-        "syncing": "Sincronitzant",
-        "unsync": "Des-sincronitza"
+        "syncing": "S'està sincronitzant",
+        "unsync": "Dessincronitza"
     },
-    "Downloading": "Descarregant",
+    "Downloading": "S'està baixant",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
-        "offline-notification-title": "offline"
+        "offline-notification-body": "L'Heroic probablement no funcionarà.",
+        "offline-notification-title": "fora de línia"
     },
     "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Cap filtre"
     },
     "Filter": "Filtra",
     "globalSettings": "Configuració global",
     "help": {
-        "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS.",
+        "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
         "other": {
-            "part1": "Empra la ",
-            "part2": "Configuració avançada",
-            "part3": "per ser llençat abans de llençar el joc; ",
-            "part4": "Empra la ",
-            "part5": "Arguments del joc",
-            "part6": " per ser llençat després d'iniciar el joc, per exemple: ",
-            "part7": " per saltar el launcher a alguns jocs, etc."
+            "part1": "Utilitza les ",
+            "part2": "opcions avançades",
+            "part3": "abans d'iniciar el joc; ",
+            "part4": "Utilitza els ",
+            "part5": "arguments del joc",
+            "part6": " després de l'ordre d'inici, per exemple: ",
+            "part7": " per a ometre el llançador a alguns jocs, etc."
         },
         "sync": {
-            "part1": "Heroic intenta adivinar la carpeta de guardat i això funcionarà a la majoria de casos. En el cas de que la carpeta estigui malament, canvia-la.",
-            "part2": "Si canvies la carpeta de prefix per Wine o Proton, hauràs de comprovar la ruta una altra vegada per què Proton empra un prefix (/pfx) i nom d'usuari (nom d'steam) diferent. Pots borrar la ruta actual, sortir de la configuració de sincronització i torna per que heroic pugui adivinar la carpeta",
-            "part3": "Sincronització manual: Eligeix \"Descarrega\" per descarregar les dades de guardat que estàn al núvol. Puja per pujar les dades locals al núvol. Força la descarga i força la pujada ignorarà la versió que està localment o al núvol.",
-            "part4": "Sincronitza les dades automàticamente sincronitzarà les dades cada vegada que inicis un joc i després de jugar."
+            "part1": "L'Heroic prova d'endevinar el directori on es desen les partides, i això funcionarà a la majoria de casos. En cas que el directori no sigui el correcte, utilitza la caixa per a canviar-lo.",
+            "part2": "Si canvies el directori del prefix del Wine o del Proton, hauràs de comprovar de nou la ruta perquè el Proton empra un prefix (/pfx) i nom d'usuari (steamuser) diferent. Així doncs, pots suprimir la ruta actual, sortir de la configuració de sincronització i tornar-hi de nou perquè l'Heroic pugui esbrinar el directori de nou amb el prefix correcte.",
+            "part3": "Sincronització manual: Tria «Baixa» per a baixar les partides desades al núvol. «Puja» per a pujar les dades locals al núvol. «Força la baixada» i «Força la pujada» ignorarà la versió local o del núvol.",
+            "part4": "«Sincronitza les partides desades automàticament» sincronitzarà les dades cada vegada que iniciïs un joc i quan acabis de jugar."
         },
         "wine": {
-            "part1": "Heroic busca les versions de Wine, Proton i CrossOver a les següents carpetes:",
-            "part2": "Per altres llocs, empra un enllaç simbòlic (symlink) a alguna d'aquestes carpetes"
+            "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
+            "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
         }
     },
     "info": {
-        "settings": "La configuració és guardada automàticament"
+        "settings": "La configuració es desa automàticament"
     },
     "infobox": {
         "help": "Ajuda",
-        "requirements": "Requeriments del sistema"
+        "requirements": "Requisits del sistema"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Selecciona la ruta d'instal·lació"
     },
-    "Library": "Llibreria",
+    "Library": "Biblioteca",
     "loading": {
-        "website": "Loading Website"
+        "website": "S'està carregant el lloc web"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "loginWithEpic": "Inicia la sessió amb Epic",
+        "loginWithSid": "Inicia la sessió amb SID"
     },
     "message": {
-        "sync": "Sincronització completa",
-        "unsync": "Des-sincronització completa"
+        "sync": "S'ha completat la sincronització",
+        "unsync": "S'ha completat la dessincronització"
     },
-    "nogames": "No s'han trobat els jocs",
-    "Not Ready": "No llest",
+    "nogames": "No s'ha trobat cap joc",
+    "Not Ready": "No preparats",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Error en desplaçar el joc",
+            "reparing": "Error en reparar"
         },
         "finished": {
-            "reparing": "Hem acabat de reparar el joc"
+            "reparing": "Ha finalitzat la reparació del joc"
         },
         "install": {
-            "canceled": "Instal·lació cancelada",
+            "canceled": "S'ha cancel·lat la instal·lació",
             "error": "",
-            "finished": "Instal·lació finalitzada",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "finished": "Ha finalitzat la instal·lació",
+            "imported": "S'ha importat el joc",
+            "startInstall": "S'ha iniciat la instal·lació"
         },
-        "moved": "Mudança finalitzada",
-        "uninstalled": "Des-instal·lat",
+        "moved": "Ha finalitzat el desplaçament",
+        "uninstalled": "Desinstal·lat",
         "update": {
-            "canceled": "Actualització cancelada",
-            "finished": "Actualització acabada",
-            "started": "Update Started"
+            "canceled": "S'ha cancel·lat l'actualització",
+            "finished": "Ha finalitzat l'actualització",
+            "started": "S'ha iniciat l'actualització"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "Posa aquí altres opcions de llençament",
-            "title": "Opcions avançades (Variables d'entorn):"
+            "placeholder": "Introdueix altres opcions d'inici",
+            "title": "Opcions avançades (variables d'entorn):"
         },
         "gameargs": {
-            "placeholder": "Posa aquí els arguments del launcher",
-            "title": "Arguments del joc (s'executaràn després de la comanda):"
+            "placeholder": "Introdueix aquí els arguments del llançador",
+            "title": "Arguments del joc (s'executaran després de l'ordre):"
         }
     },
     "other": {
-        "legendary-version": "Versió de Legendary: ",
-        "weblate": "Ajuda a traduïr Heroic."
+        "legendary-version": "Versió del Legendary: ",
+        "weblate": "Ajuda a traduir l'Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Usant binari de Legendary per defecte...",
-        "egs-prefix": "Prefix a on EGS és instal·lat"
+        "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
+        "egs-prefix": "Prefix on l'EGS està instal·lat"
     },
-    "Plugins": "Plugins",
+    "Plugins": "Extensions",
     "Projects": "Projectes",
-    "Ready": "Llest",
-    "Recent": "Jocs recents",
-    "Return": "Tornar",
-    "search": "Introdueixi el nom del joc aquí...",
+    "Ready": "Preparats",
+    "Recent": "Jugats fa poc",
+    "Return": "Torna",
+    "search": "Introdueix el nom del joc...",
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
-        "audiofix": "Arreglar l'audio (Latència de pulse audio)",
-        "autodxvk": "Instal·la/Actualitza DXVK al prefix automàticament",
-        "autosync": "Sincronitza les dades automàticament",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Selecciona un EXE alternatiu per córrer",
-        "checkForUpdatesOnStartup": "Comprova les actualitzacions al iniciar",
-        "customWineProton": "Rutes de Wine o Proton personalitzades",
+        "alt-legendary-bin": "Tria un binari alternatiu del Legendary (cal reiniciar)",
+        "audiofix": "Corregeix l'àudio (latència del Pulse Audio)",
+        "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
+        "autosync": "Sincronitza automàticament les partides desades",
+        "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
+        "change-target-exe": "Selecciona un EXE alternatiu a executar",
+        "checkForUpdatesOnStartup": "Comprova les actualitzacions en iniciar",
+        "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Emprar la icona fosca al Tray",
-        "default-install-path": "Ruta d'instal·lació predeterminada",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "default-install-path": "Ruta d'instal·lació predefinida",
+        "defaultWinePrefix": "Directori de prefixos Wine nous",
         "discordRPC": "Activa la Discord Rich Presence",
-        "egs-sync": "Sincronitza amb Epic Games",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
-        "esync": "Enable Esync",
-        "exit-to-tray": "Sortir al Tray",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Activar Fsync",
-        "gamemode": "Empra el game mode (feral gamemode ha d'estar instal·lat)",
-        "language": "Eligeix el llenguatge de l'app",
+        "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
+        "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
+        "esync": "Activa l'Esync",
+        "exit-to-tray": "Surt a la safata del sistema",
+        "FsrSharpnessStrenght": "Força de la nitidesa de l'FSR",
+        "fsync": "Activa l'Fsync",
+        "gamemode": "Utilitza el GameMode (cal que el Feral Game Mode estigui instal·lat)",
+        "language": "Tria la llengua de l'aplicació",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Copia el registre al porta-retalls",
+            "current-log": "Registre actual",
+            "last-log": "Últim registre",
+            "no-file": "No s'ha trobat cap registre",
+            "show-in-folder": "Obre la carpeta del registre"
         },
-        "mangohud": "Activa Mangohud (Mangohud ha d'estar instal·lat primer)",
+        "mangohud": "Activa el Mangohud (cal que el Mangohud estigui instal·lat)",
         "manualsync": {
-            "download": "Descarrega",
-            "forcedownload": "Força la descarga",
+            "download": "Baixa",
+            "forcedownload": "Força la baixada",
             "forceupload": "Força la pujada",
             "sync": "Sincronitza",
-            "syncing": "Sincronitzant",
-            "title": "Dades de sincronització manuals",
+            "syncing": "S'està sincronitzant",
+            "title": "Sincronització manual de partides desades",
             "upload": "Puja"
         },
-        "maxRecentGames": "Jocs recents per ensenyar",
-        "maxworkers": "Nombre màxim de Workers quan descarreguis",
+        "maxRecentGames": "Jugats recentment a mostrar",
+        "maxworkers": "Nombre màxim de Workers en baixar",
         "offlinemode": "Executa el joc sense connexió",
         "primerun": "Activa l'Nvidia Prime Render",
-        "resizableBar": "Activar Resizable BAR (NVIDIA RTX)",
+        "resizableBar": "Activa el BAR redimensionable (només amb NVIDIA RTX 30xx)",
         "runexe": {
-            "message": "Arrastra arxius aquí",
-            "title": "Executa EXE al prefix"
+            "message": "Arrossega i solta els fitxers aquí",
+            "title": "Executa l'EXE al prefix"
         },
         "savefolder": {
-            "placeholder": "Selcciona la carpeta de dades exacta",
-            "title": "Sobreescriu la carpeta de dades de sincronització al núvol"
+            "placeholder": "Selecciona el directori exacte on es desen els jocs",
+            "title": "Sobreescriu el directori de dades de sincronització al núvol"
         },
-        "showfps": "Ensenya els FPS (DX9, 10 i 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
-        "start-in-tray": "Comença minimitzat",
+        "showfps": "Mostra els FPS (DX9, 10 i 11)",
+        "showUnrealMarket": "Mostra la llibreria d'Unreal (cal reiniciar)",
+        "start-in-tray": "Inicia minimitzat",
         "winecrossoverbottle": "Ampolla CrossOver",
-        "wineprefix": "Carpeta wine prefix",
-        "wineversion": "Versió de Wine"
+        "wineprefix": "Directori WinePrefix",
+        "wineversion": "Versió del Wine"
     },
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Esborra la memòria cau de l'Heroic",
+        "copiedToClipboard": "S'ha copiat al porta-retalls.",
+        "copyToClipboard": "Copia tota la configuració al porta-retalls",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "S'ha truncat el registre, es mostren les últimes 1.000 línies."
         },
         "navbar": {
             "general": "General",
-            "log": "Log",
+            "log": "Registre",
             "other": "Altres",
-            "sync": "Guardar-Sincronitzar"
+            "sync": "Desa-sincronitza"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Restableix l'Heroic"
     },
     "Settings": "Configuració",
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "loading": "S'està carregant la llista de jocs, espera",
+        "logging": "S'està iniciant la sessió..."
     },
     "store": "Botiga",
     "title": {
         "allGames": "Tots els jocs",
         "allUnreal": "Unreal - Tot",
-        "downloading": "Descarregant",
+        "downloading": "S'està baixant",
         "installedGames": "Jocs instal·lats",
-        "notInstalledGames": "No instal·lat",
+        "notInstalledGames": "No instal·lats",
         "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Unreal - Extensions",
         "unrealProjects": "Unreal - Projectes",
@@ -291,36 +291,36 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Selecciona el directori predefinit dels prefixos per a configuracions noves",
+            "wineprefix": "Selecciona un directori per als Wine Prefixes nous"
         }
     },
     "tooltip": {
-        "addpath": "Afegir nova ruta",
-        "removepath": "Eliminar ruta"
+        "addpath": "Afegeix una ruta",
+        "removepath": "Suprimeix la ruta"
     },
     "Total Games": "Jocs en total",
     "tray": {
-        "about": "Sobre nosaltres",
-        "quit": "Sortir",
-        "reload": "Recargar",
-        "show": "Ensenyar"
+        "about": "Quant a",
+        "quit": "Surt",
+        "reload": "Carrega de nou",
+        "show": "Mostra"
     },
-    "Unreal Marketplace": "Botiga d'Unreal",
+    "Unreal Marketplace": "Llibreria d'Unreal",
     "Updates": "Actualitzacions",
     "userselector": {
         "discord": "Discord",
-        "logout": "Sortir de la sessió",
-        "logout_confirmation": "Estàs ben segur de que vols sortir de la sessió?",
-        "quit": "Sortir"
+        "logout": "Tanca la sessió",
+        "logout_confirmation": "Segur que vols tancar la sessió?",
+        "quit": "Surt"
     },
     "wiki": "Wiki",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "error": "No s'ha pogut obtenir les versions de Wine/Proton.",
+            "link": "Gestor del Wine",
+            "title": "Gestor del Wine (beta)",
+            "unzipping": "S'està descomprimint"
         }
     }
 }

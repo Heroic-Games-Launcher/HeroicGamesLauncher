@@ -3,7 +3,7 @@
         "login": "Logga in"
     },
     "input": {
-        "placeholder": "Klistra in SID nummer här"
+        "placeholder": "Klistra in ditt SID nummer här"
     },
     "message": {
         "part1": "För att logga in och installera spel måste du följa instruktionerna nedan:",
@@ -11,7 +11,7 @@
         "part3": "Epic Store här",
         "part4": ", logga in med ditt konto och kopiera ditt",
         "part5": "SID informationsnummer",
-        "part6": "Klistra in",
+        "part6": "Klistra in ditt",
         "part7": "SID numret",
         "part8": "i fältet nedan, klicka på logga in knappen och vänta."
     },
