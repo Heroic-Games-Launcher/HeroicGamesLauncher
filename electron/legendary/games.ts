@@ -682,7 +682,7 @@ Categories=Game;
       )
     }
 
-    await this.createNewPrefix(isProton, fixedWinePrefix, winePath)
+    await this.verifyPrefix(isProton, fixedWinePrefix, winePath)
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
@@ -735,7 +735,7 @@ Categories=Game;
     return startLaunch
   }
 
-  private async createNewPrefix(
+  private async verifyPrefix(
     isProton: boolean,
     fixedWinePrefix: string,
     winePath: string
