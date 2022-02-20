@@ -53,6 +53,7 @@
         "downloadSize": "Download Size",
         "firstPlayed": "Ensimmäisen kerran pelattu",
         "installSize": "Install Size",
+        "language": "Language",
         "lastPlayed": "Viimeksi pelattu",
         "neverPlayed": "Ei koskaan",
         "totalPlayed": "Pelattu aika"

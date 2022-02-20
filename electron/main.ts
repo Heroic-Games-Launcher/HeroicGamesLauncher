@@ -562,7 +562,11 @@ ipcMain.on('resetHeroic', async () => {
   }
 })
 
-ipcMain.handle('authGOG', (event, code) => GOGUser.login(code))
+ipcMain.handle('authGOG', (event, code) =>
+  GOGUser.login(code).then(() =>
+    mainWindow.webContents.send('updateLoginState')
+  )
+)
 
 ipcMain.on('createNewWindow', (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
@@ -613,7 +617,12 @@ ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', async () => await LegendaryUser.isLoggedIn())
 
-ipcMain.handle('login', async (event, sid) => await LegendaryUser.login(sid))
+ipcMain.handle('login', async (event, sid) =>
+  LegendaryUser.login(sid).then((value) => {
+    mainWindow.webContents.send('updateLoginState')
+    return value
+  })
+)
 
 ipcMain.handle('logoutLegendary', async () => await LegendaryUser.logout())
 ipcMain.handle('logoutGOG', async () => GOGUser.logout())
@@ -902,13 +911,15 @@ ipcMain.handle('install', async (event, params) => {
 })
 
 ipcMain.handle('uninstall', async (event, args) => {
-  const title = (await Game.get(args[0], args[2]).getGameInfo()).title
-  const winePrefix = (await Game.get(args[0], args[2]).getSettings()).winePrefix
+  const [appName, shouldRemovePrefix, runner] = args
 
-  return Game.get(args[0], args[2])
+  const title = (await Game.get(appName, runner).getGameInfo()).title
+  const winePrefix = (await Game.get(appName, runner).getSettings()).winePrefix
+
+  return Game.get(appName, runner)
     .uninstall()
     .then(() => {
-      if (args[1]) {
+      if (shouldRemovePrefix) {
         logInfo(`Removing prefix ${winePrefix}`)
         if (existsSync(winePrefix)) {
           // remove prefix if exists
@@ -1006,7 +1017,7 @@ ipcMain.handle('importGame', async (event, args) => {
 })
 
 ipcMain.handle('updateGame', async (e, game, runner) => {
-  if (!(await isOnline()) && runner == 'legendary') {
+  if (!(await isOnline())) {
     logWarning(
       `App offline, skipping install for game '${game}'.`,
       LogPrefix.Backend

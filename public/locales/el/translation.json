@@ -84,6 +84,7 @@
         "yes": "ΝΑΙ"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
@@ -100,6 +101,7 @@
     },
     "Filter": "Φίλτρο",
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
+    "GOG": "GOG",
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -270,7 +271,6 @@
     },
     "Settings": "Ρυθμίσεις",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Κατάστημα",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Αποσύνδεση",
         "logout_confirmation": "Θέλετε πράγματι να αποσυνδεθείτε;",
+        "manageaccounts": "Manage Accounts",
         "quit": "Έξοδος"
     },
     "wiki": "Wiki",

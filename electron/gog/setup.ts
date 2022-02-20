@@ -39,7 +39,7 @@ async function setup(appName: string): Promise<void> {
   const isCrossover = gameSettings.wineVersion.name.includes('CrossOver')
   const crossoverBottle = gameSettings.wineCrossoverBottle
   const crossoverEnv =
-    isCrossover && crossoverBottle != '' ? `CX_BOTTLE=${crossoverBottle}` : ''
+    isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
   const isProton =
     gameSettings.wineVersion.name.includes('Proton') ||
     gameSettings.wineVersion.name.includes('Steam')

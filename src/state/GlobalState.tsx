@@ -50,7 +50,7 @@ interface Props {
 
 interface StateProps {
   category: string
-  data: GameInfo[]
+  epicLibrary: GameInfo[]
   gogLibrary: GameInfo[]
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -85,7 +85,7 @@ export class GlobalState extends PureComponent<Props> {
   }
   state: StateProps = {
     category: 'epic',
-    data: libraryStore.has('library')
+    epicLibrary: libraryStore.has('library')
       ? (libraryStore.get('library') as GameInfo[])
       : [],
     gogLibrary: this.loadGOGLibrary(),
@@ -107,12 +107,12 @@ export class GlobalState extends PureComponent<Props> {
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
     console.log('refreshing')
-    const currentLibraryLength = this.state.data?.length
+    const currentLibraryLength = this.state.epicLibrary?.length
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
-    if (!epicLibrary.length || !this.state.data.length) {
+    if (!epicLibrary.length || !this.state.epicLibrary.length) {
       ipcRenderer.send(
         'logInfo',
         'No cache found, getting data from legendary...'
@@ -131,7 +131,7 @@ export class GlobalState extends PureComponent<Props> {
 
     this.setState({
       filterText: '',
-      data: epicLibrary,
+      epicLibrary,
       gogLibrary,
       gameUpdates: updates,
       refreshing: false
@@ -242,9 +242,15 @@ export class GlobalState extends PureComponent<Props> {
   filterPlatform = (library: GameInfo[], filter: string) => {
     switch (filter) {
       case 'win':
-        return library.filter((game) => !game.is_mac_native)
+        return library.filter((game) =>
+          process.platform == 'darwin'
+            ? !game.is_mac_native
+            : !game.is_linux_native
+        )
       case 'mac':
         return library.filter((game) => game.is_mac_native)
+      case 'linux':
+        return library.filter((game) => game.is_linux_native)
       default:
         return library.filter((game) => game.is_game)
     }
@@ -385,7 +391,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { data, gameUpdates = [], libraryStatus } = this.state
+    const { epicLibrary, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName, runner) => {
@@ -449,7 +455,7 @@ export class GlobalState extends PureComponent<Props> {
       this.refreshLibrary({
         checkForUpdates: true,
         fullRefresh: true,
-        runInBackground: Boolean(data.length)
+        runInBackground: Boolean(epicLibrary.length)
       })
     }
 
@@ -479,7 +485,7 @@ export class GlobalState extends PureComponent<Props> {
   render() {
     const { children } = this.props
     const {
-      data,
+      epicLibrary,
       wineVersions,
       gogLibrary,
       filterText,
@@ -487,7 +493,7 @@ export class GlobalState extends PureComponent<Props> {
       platform,
       filterPlatform
     } = this.state
-    let filteredLibrary = data
+    let filteredEpicLibrary = epicLibrary
     let filteredGOGLibrary = gogLibrary
     const language = storage.getItem('language') || 'en'
     const isRTL = RTL_LANGUAGES.includes(language)
@@ -496,8 +502,8 @@ export class GlobalState extends PureComponent<Props> {
       const filterRegex = new RegExp(filterText, 'i')
       const textFilter = ({ title, app_name }: GameInfo) =>
         filterRegex.test(title) || filterRegex.test(app_name)
-      filteredLibrary = this.filterPlatform(
-        this.filterLibrary(data, filter).filter(textFilter),
+      filteredEpicLibrary = this.filterPlatform(
+        this.filterLibrary(epicLibrary, filter).filter(textFilter),
         filterPlatform
       )
       filteredGOGLibrary = this.filterPlatform(
@@ -508,11 +514,20 @@ export class GlobalState extends PureComponent<Props> {
       console.log(error)
     }
 
+    let recentGames: GameInfo[] = []
+
+    if (epicLibrary.length > 0) {
+      recentGames = [...getRecentGames(epicLibrary)]
+    }
+    if (gogLibrary.length > 0) {
+      recentGames = [...recentGames, ...getRecentGames(gogLibrary)]
+    }
+
     return (
       <ContextProvider.Provider
         value={{
           ...this.state,
-          data: filteredLibrary,
+          epicLibrary: filteredEpicLibrary,
           gogLibrary: filteredGOGLibrary,
           wineVersions: wineVersions,
           handleCategory: this.handleCategory,
@@ -526,7 +541,7 @@ export class GlobalState extends PureComponent<Props> {
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,
-          recentGames: getRecentGames(data)
+          recentGames
         }}
       >
         {children}

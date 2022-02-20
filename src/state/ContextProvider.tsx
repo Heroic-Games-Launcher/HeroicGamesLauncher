@@ -4,7 +4,7 @@ import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
   category: 'epic',
-  data: [],
+  epicLibrary: [],
   gogLibrary: [],
   wineVersions: [],
   error: false,

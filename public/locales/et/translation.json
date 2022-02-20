@@ -84,6 +84,7 @@
         "yes": "JAH"
     },
     "button": {
+        "continue": "Continue",
         "login": "Logi sisse",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filtreeri",
     "globalSettings": "Globaalsed seaded",
+    "GOG": "GOG",
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Veebilehe laadimine"
     },
     "login": {
-        "loginWithEpic": "Logi sisse Epic'uga",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -270,7 +271,6 @@
     },
     "Settings": "Seaded",
     "status": {
-        "loading": "Mängude loendi laadimine, palun oodake",
         "logging": "Sisselogimine..."
     },
     "store": "Pood",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Logi välja",
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Sulge"
     },
     "wiki": "Viki",

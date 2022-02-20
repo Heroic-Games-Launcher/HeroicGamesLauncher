@@ -2,9 +2,6 @@
     "button": {
         "login": "Iniciar sesión"
     },
-    "input": {
-        "placeholder": "Pegue el número SID aquí"
-    },
     "message": {
         "part1": "Para que pueda iniciar sesión e instalar sus juegos, primero debe seguir los pasos a continuación:",
         "part2": "Abre",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Error",
-        "loading": "Cargando la lista de juegos, por favor espere",
-        "logging": "Iniciando sesión…"
+        "loading": "Cargando la lista de juegos, por favor espere"
     },
     "welcome": "¡Bienvenido!"
 }

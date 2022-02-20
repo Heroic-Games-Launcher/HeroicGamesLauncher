@@ -84,6 +84,7 @@
         "yes": "SIM"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filtro",
     "globalSettings": "Configurações Globais",
+    "GOG": "GOG",
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sync Concluído",
@@ -270,7 +271,6 @@
     },
     "Settings": "Configurações",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Loja",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Sair",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Fechar"
     },
     "wiki": "Wiki",

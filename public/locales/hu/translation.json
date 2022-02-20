@@ -84,6 +84,7 @@
         "yes": "IGEN"
     },
     "button": {
+        "continue": "Continue",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
@@ -100,6 +101,7 @@
     },
     "Filter": "Szűrő",
     "globalSettings": "Globális beállítások",
+    "GOG": "GOG",
     "help": {
         "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Weboldal betöltése"
     },
     "login": {
-        "loginWithEpic": "Jelentkezz be Epic-el",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Szinkronizálás Befejezve",
@@ -270,7 +271,6 @@
     },
     "Settings": "Beállítások",
     "status": {
-        "loading": "Játéklista betöltése, kérlek várj",
         "logging": "Bejelentkezés..."
     },
     "store": "Áruház",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Kijelentkezés",
         "logout_confirmation": "Biztos, hogy ki akarsz jelentkezni?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Kilépés"
     },
     "wiki": "Wiki",

@@ -84,6 +84,7 @@
         "yes": "是"
     },
     "button": {
+        "continue": "Continue",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -100,6 +101,7 @@
     },
     "Filter": "筛选",
     "globalSettings": "全局设置",
+    "GOG": "GOG",
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，想要导入你的游戏，以免再次下载它们。",
         "other": {
@@ -137,8 +139,7 @@
         "website": "正在加载网站"
     },
     "login": {
-        "loginWithEpic": "通过 Epic 网页登录",
-        "loginWithSid": "通过 Epic SID 登录"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "同步完成",
@@ -270,7 +271,6 @@
     },
     "Settings": "设置",
     "status": {
-        "loading": "正在加载游戏列表，请稍后",
         "logging": "正在登录..."
     },
     "store": "商店",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
+        "manageaccounts": "Manage Accounts",
         "quit": "退出"
     },
     "wiki": "Wiki百科",

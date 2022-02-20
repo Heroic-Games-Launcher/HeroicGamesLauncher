@@ -45,6 +45,7 @@
   height: 60px;
   place-content: center;
 }
+
 .gamePicture > .store-icon > img {
   background-color: var(--background);
   width: 60px;
@@ -52,9 +53,6 @@
   border-radius: 10px;
 }
 
-.gamePicture > .store-icon > .gogIcon {
-  width: 60px;
-  padding: 0 4px 4px 4px;
-  background-color: var(--background);
-  border-radius: 10px;
+.gamePicture > .store-icon > img.gogIcon {
+  padding: 0px 4px 4px 4px;
 }

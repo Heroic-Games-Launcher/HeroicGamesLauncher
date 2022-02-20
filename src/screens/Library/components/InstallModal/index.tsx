@@ -205,6 +205,16 @@ export default function InstallModal({
     return null
   }
 
+  function getIcon() {
+    if (isMacNative) {
+      return faApple
+    } else if (isLinuxNative) {
+      return faLinux
+    } else {
+      return faWindows
+    }
+  }
+
   return (
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
@@ -214,9 +224,7 @@ export default function InstallModal({
           </SvgButton>
           <span className="title">
             {gameInfo?.game?.title}
-            <FontAwesomeIcon
-              icon={isMacNative ? faApple : isLinuxNative ? faLinux : faWindows}
-            />
+            <FontAwesomeIcon icon={getIcon()} />
           </span>
           <div className="installInfo">
             <div className="itemContainer">

@@ -45,7 +45,7 @@ export interface AppSettings {
 
 export interface ContextType {
   category: string
-  data: GameInfo[]
+  epicLibrary: GameInfo[]
   gogLibrary: GameInfo[]
   wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]

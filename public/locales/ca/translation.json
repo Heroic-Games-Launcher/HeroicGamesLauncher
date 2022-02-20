@@ -84,6 +84,7 @@
         "yes": "Sí"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Sincronitza",
         "syncing": "Sincronitzant",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filtra",
     "globalSettings": "Configuració global",
+    "GOG": "GOG",
     "help": {
         "general": "Si tens una instal·lació d'Epic Games Store a qualsevol altre lloc i vols importar els teus jocs per no descarregar-los una altra vegada, sincronitza amb EGS.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sincronització completa",
@@ -270,7 +271,6 @@
     },
     "Settings": "Configuració",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Botiga",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Sortir de la sessió",
         "logout_confirmation": "Estàs ben segur de que vols sortir de la sessió?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Sortir"
     },
     "wiki": "Wiki",

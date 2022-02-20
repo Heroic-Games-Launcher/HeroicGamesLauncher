@@ -2,9 +2,6 @@
     "button": {
         "login": "Logi sisse"
     },
-    "input": {
-        "placeholder": "Sisestage SID-number siia"
-    },
     "message": {
         "part1": "Selleks, et saaksite sisse logida ja mänge installida, peate kõigepealt järgima alljärgnevaid samme:",
         "part2": "",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Viga",
-        "loading": "Mängude loendi laadimine, palun oodake",
-        "logging": "Sisselogimine…"
+        "loading": "Mängude loendi laadimine, palun oodake"
     },
     "welcome": "Tere tulemast!"
 }

@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import React, { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
 
 import { UE_VERSIONS } from './constants'
 import { useTranslation } from 'react-i18next'
@@ -45,6 +45,7 @@ export default function Header({
   ).length
   const hasUpdates = gameUpdates.length
   const isMac = platform === 'darwin'
+  const isLinux = platform === 'linux'
 
   const link = goTo ? goTo : ''
   function handleClick() {
@@ -80,7 +81,7 @@ export default function Header({
       <div className={cx({ header: !title }, { headerSettings: title })}>
         {category !== 'unreal' && (
           <span className="selectFilter">
-            {isMac && (
+            {(isMac || isLinux) && (
               <div className="macFilter">
                 <button
                   onClick={() => handlePlatformFilter('all')}
@@ -95,11 +96,22 @@ export default function Header({
                   className={cx({ selectedLayout: filterPlatform === 'win' })}
                   icon={faWindows}
                 />
-                <FontAwesomeIcon
-                  onClick={() => handlePlatformFilter('mac')}
-                  className={cx({ selectedLayout: filterPlatform === 'mac' })}
-                  icon={faApple}
-                />
+                {isMac && (
+                  <FontAwesomeIcon
+                    onClick={() => handlePlatformFilter('mac')}
+                    className={cx({ selectedLayout: filterPlatform === 'mac' })}
+                    icon={faApple}
+                  />
+                )}
+                {isLinux && (
+                  <FontAwesomeIcon
+                    onClick={() => handlePlatformFilter('linux')}
+                    className={cx({
+                      selectedLayout: filterPlatform === 'linux'
+                    })}
+                    icon={faLinux}
+                  />
+                )}
               </div>
             )}
             <select

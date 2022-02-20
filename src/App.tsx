@@ -26,11 +26,13 @@ function App() {
   })
 
   const user = configStore.has('userInfo') || gogStore.has('credentials')
-  const { data: library, gogLibrary, recentGames, category } = context
+  const { epicLibrary, gogLibrary, recentGames, category } = context
 
-  const dlcCount = library.filter((lib) => lib.install.is_dlc)
+  const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
   const numberOfGames =
-    category == 'epic' ? library.length - dlcCount.length : gogLibrary.length
+    category == 'epic'
+      ? epicLibrary.length - dlcCount.length
+      : gogLibrary.length
   const showRecentGames = !!recentGames.length && category !== 'unreal'
   return (
     <div className="App">
@@ -52,7 +54,7 @@ function App() {
                       <Library showRecentsOnly library={recentGames} />
                     )}
                     <Library
-                      library={category === 'epic' ? library : gogLibrary}
+                      library={category === 'epic' ? epicLibrary : gogLibrary}
                     />
                   </div>
                 </>

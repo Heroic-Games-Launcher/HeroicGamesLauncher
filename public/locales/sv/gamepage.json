@@ -53,6 +53,7 @@
         "downloadSize": "Nedladdningsstorlek",
         "firstPlayed": "Först spelat",
         "installSize": "Installationsstorlek",
+        "language": "Language",
         "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Speltid"

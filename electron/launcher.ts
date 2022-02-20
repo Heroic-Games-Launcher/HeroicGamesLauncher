@@ -131,12 +131,19 @@ async function launch(
       } ${launcherArgs}`
       logInfo(['Launch Command:', command], LogPrefix.Legendary)
     } else if (runner == 'gog') {
-      // MangoHud,Gamemode, nvidia prime can be used in native titles
-      command = `${mangohud} ${runWithGameMode} ${
-        nvidiaPrime
-          ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
-          : ''
-      } ${audioFix ? `PULSE_LATENCY_MSEC=60` : ''} ${gogdlBin} launch "${
+      // MangoHud,Gamemode, nvidia prime, audio fix can be used in Linux native titles
+      if (isLinux) {
+        const options = [
+          mangohud,
+          runWithGameMode,
+          nvidiaPrime
+            ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
+            : '',
+          audioFix ? `PULSE_LATENCY_MSEC=60` : ''
+        ]
+        envVars = options.join(' ')
+      }
+      command = `${envVars} ${gogdlBin} launch "${
         gameInfo.install.install_path
       }" ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
         launchArguments ?? ''

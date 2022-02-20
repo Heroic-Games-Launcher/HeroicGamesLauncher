@@ -40,6 +40,8 @@ export default function SidebarLinks() {
       (isEpicLoggedIn && showUnrealMarket)) &&
     isLibrary
 
+  const pressAction = !isEpicLoggedIn && !isGOGLoggedIn ? '/login' : '/'
+  const displayIcon = isEpicLoggedIn || isGOGLoggedIn ? faGamepad : faUser
   function toggleCategory(newCategory: string) {
     if (category !== newCategory) {
       handleCategory(newCategory)
@@ -74,11 +76,11 @@ export default function SidebarLinks() {
           )
         }}
         exact
-        to={!isEpicLoggedIn && !isGOGLoggedIn ? '/login' : '/'}
+        to={pressAction}
       >
         <FontAwesomeIcon
           style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={isEpicLoggedIn || isGOGLoggedIn ? faGamepad : faUser}
+          icon={displayIcon}
         />
         {isEpicLoggedIn || isGOGLoggedIn
           ? t('Library')
@@ -115,26 +117,6 @@ export default function SidebarLinks() {
           )}
         </>
       )}
-      {/* {!isEpicLoggedIn && !isGOGLoggedIn && (
-        <>
-          <Link
-            to="/"
-            className={cx('subItem', {
-              ['selected']: location.pathname === '/'
-            })}
-          >
-            {t('login.loginWithEpic', 'Login With Epic')}
-          </Link>
-          <Link
-            to="/login"
-            className={cx('subItem', {
-              ['selected']: location.pathname === '/login'
-            })}
-          >
-            {t('login.loginWithSid', 'Login with SID')}
-          </Link>
-        </>
-      )} */}
       <NavLink
         data-testid="settings"
         activeStyle={{

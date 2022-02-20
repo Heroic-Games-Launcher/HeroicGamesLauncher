@@ -75,18 +75,6 @@ export class GOGLibrary {
         }
       }
     }
-    const movies = await axios
-      .get(
-        'https://embed.gog.com/account/getFilteredProducts?mediaType=2&totalPages=1&sortBy=title',
-        { headers: headers }
-      )
-      .catch((e: AxiosError) => {
-        logError(
-          ['There was an error getting movies library data', e.message],
-          LogPrefix.Gog
-        )
-        return null
-      })
 
     if (games) {
       const gamesObjects: GameInfo[] = []
@@ -125,10 +113,8 @@ export class GOGLibrary {
       libraryStore.set('totalGames', games.data.totalProducts)
       libraryStore.set('totalMovies', games.data.moviesCount)
       logInfo('Saved games data', LogPrefix.Gog)
-    }
-    if (movies) {
-      libraryStore.set('movies', movies.data.products)
-      logInfo('Saved movies data', LogPrefix.Gog)
+    } else {
+      logError('There was an error Loading games library', LogPrefix.Gog)
     }
   }
 

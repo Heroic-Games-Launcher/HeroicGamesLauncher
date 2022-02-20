@@ -84,6 +84,7 @@
         "yes": "EVET"
     },
     "button": {
+        "continue": "Continue",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
+    "GOG": "GOG",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Web Sitesi Yükleniyor"
     },
     "login": {
-        "loginWithEpic": "Epic ile Oturum Aç",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
@@ -270,7 +271,6 @@
     },
     "Settings": "Ayarlar",
     "status": {
-        "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
         "logging": "Oturum Açılıyor…"
     },
     "store": "Mağaza",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Çık"
     },
     "wiki": "Wiki",

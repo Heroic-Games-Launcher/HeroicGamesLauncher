@@ -84,6 +84,7 @@
         "yes": "ДА"
     },
     "button": {
+        "continue": "Continue",
         "login": "Вход",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
@@ -100,6 +101,7 @@
     },
     "Filter": "Филтриране",
     "globalSettings": "Глобални настройки",
+    "GOG": "GOG",
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Store и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Зареждане на уеб сайта"
     },
     "login": {
-        "loginWithEpic": "Вход чрез Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Синхронизацията е завършена",
@@ -270,7 +271,6 @@
     },
     "Settings": "Настройки",
     "status": {
-        "loading": "Зареждане на списъка с игри. Моля, изчакайте",
         "logging": "Влизане…"
     },
     "store": "Магазин",
@@ -308,6 +308,7 @@
         "discord": "Дискорд",
         "logout": "Излизане от акаунта",
         "logout_confirmation": "Наистина ли искате да излезете от акаунта си?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Изход"
     },
     "wiki": "Уики",

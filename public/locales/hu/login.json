@@ -2,9 +2,6 @@
     "button": {
         "login": "Bejelentkezés"
     },
-    "input": {
-        "placeholder": "Illeszd az SID számodat ide"
-    },
     "message": {
         "part1": "Annak érdekében, hogy be tudj jelentkezni és letöltsd a játékaidat, először követned kell az itt lent felsoroltakat:",
         "part2": "Nyisd meg az",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Hiba",
-        "loading": "Játéklista betöltése, kérlek várj",
-        "logging": "Bejelentkezés…"
+        "loading": "Játéklista betöltése, kérlek várj"
     },
     "welcome": "Üdvözlünk!"
 }

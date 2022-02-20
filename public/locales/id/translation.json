@@ -84,6 +84,7 @@
         "yes": "YA"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Sinkronkan",
         "syncing": "",
@@ -100,6 +101,7 @@
     },
     "Filter": "Saring",
     "globalSettings": "Pengaturan Global",
+    "GOG": "GOG",
     "help": {
         "general": "",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "",
@@ -270,7 +271,6 @@
     },
     "Settings": "",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Store",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": ""
     },
     "wiki": "Wiki",

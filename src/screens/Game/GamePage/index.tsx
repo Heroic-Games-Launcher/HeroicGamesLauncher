@@ -53,8 +53,14 @@ export default function GamePage(): JSX.Element | null {
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { libraryStatus, handleGameStatus, data, gameUpdates, platform } =
-    useContext(ContextProvider)
+  const {
+    libraryStatus,
+    handleGameStatus,
+    epicLibrary,
+    gogLibrary,
+    gameUpdates,
+    platform
+  } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -127,7 +133,7 @@ export default function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, data])
+  }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
@@ -369,7 +375,10 @@ export default function GamePage(): JSX.Element | null {
                       )}
                       {is_installed ? (
                         <Link
-                          to={{ pathname, state: { fromGameCard: false } }}
+                          to={{
+                            pathname,
+                            state: { fromGameCard: false, runner }
+                          }}
                           className={`button ${getButtonClass(is_installed)}`}
                         >
                           {`${getButtonLabel(is_installed)}`}

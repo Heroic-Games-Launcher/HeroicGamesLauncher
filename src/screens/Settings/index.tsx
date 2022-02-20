@@ -3,7 +3,7 @@ import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames'
 
-import { AppSettings, WineInstallation } from 'src/types'
+import { AppSettings, Runner, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
@@ -40,6 +40,7 @@ interface RouteParams {
 
 interface LocationState {
   fromGameCard: boolean
+  runner: Runner
 }
 
 function Settings() {
@@ -235,10 +236,7 @@ function Settings() {
       setDefaultWinePrefix(config.defaultWinePrefix)
 
       if (!isDefault) {
-        let newInfo = await getGameInfo(appName, 'legendary')
-        if (!newInfo) {
-          newInfo = await getGameInfo(appName, 'gog')
-        }
+        const newInfo = await getGameInfo(appName, state.runner)
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,

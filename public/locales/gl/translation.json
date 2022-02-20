@@ -84,6 +84,7 @@
         "yes": "Sí"
     },
     "button": {
+        "continue": "Continue",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filtrar",
     "globalSettings": "Preferencias globais",
+    "GOG": "GOG",
     "help": {
         "general": "Sincronizar con EGS no caso que teña unha instalación funcional de EGS noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Cargando sitio web"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sincronización completa",
@@ -270,7 +271,6 @@
     },
     "Settings": "Preferencias",
     "status": {
-        "loading": "Cargando lista de xogos, agarde",
         "logging": "Inciando sesión…"
     },
     "store": "Tenda",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Pechar sesión",
         "logout_confirmation": "Está seguro que quere pechar a sesión?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Saír"
     },
     "wiki": "Wiki",

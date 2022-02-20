@@ -84,6 +84,7 @@
         "yes": "ANO"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filtr",
     "globalSettings": "Globální nastavení",
+    "GOG": "GOG",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -270,7 +271,6 @@
     },
     "Settings": "Nastavení",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Obchod",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Odhlásit",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Ukončit"
     },
     "wiki": "Wiki",

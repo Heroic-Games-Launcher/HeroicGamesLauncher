@@ -10,11 +10,6 @@ import { Runner, Webview } from 'src/types'
 const { clipboard, ipcRenderer } = window.require('electron')
 import './index.css'
 
-// type Props = {
-//   isLogin?: boolean
-//   runner?: Runner
-// }
-
 type SID = {
   sid: string
 }
@@ -38,6 +33,7 @@ export default function WebView() {
   const loginUrl =
     'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
   const epicStore = `https://www.epicgames.com/store/${lang}/`
+  const gogStore = `https://gog.com`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -54,6 +50,7 @@ export default function WebView() {
     : pathname
   const urls = {
     '/epicstore': epicStore,
+    '/gogstore': gogStore,
     '/wiki': wikiURL,
     '/loginEpic': loginUrl,
     '/loginGOG': gogLoginUrl
@@ -83,7 +80,6 @@ export default function WebView() {
               })
               handleCategory('gog')
               history.push('/login')
-              window.location.reload()
             })
           }
         }
@@ -103,11 +99,12 @@ export default function WebView() {
                     refresh: true,
                     message: t('status.logging', 'Logging In...')
                   })
-                  await ipcRenderer.invoke('login', sid)
-                  handleFilter('all')
-                  handleCategory('epic')
-                  setLoading({ ...loading, refresh: false })
-                  history.push('/login')
+                  await ipcRenderer.invoke('login', sid).then(() => {
+                    handleFilter('all')
+                    handleCategory('epic')
+                    setLoading({ ...loading, refresh: false })
+                    history.push('/login')
+                  })
                 } catch (error) {
                   console.error(error)
                   ipcRenderer.send('logError', error)

@@ -84,6 +84,7 @@
         "yes": "SIM"
     },
     "button": {
+        "continue": "Continue",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filtrar",
     "globalSettings": "Configurações globais",
+    "GOG": "GOG",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Store e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Carregando site"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -270,7 +271,6 @@
     },
     "Settings": "Configurações",
     "status": {
-        "loading": "Carregando lista de jogos, aguarde por favor",
         "logging": "Fazendo login..."
     },
     "store": "Loja",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Sair da Conta",
         "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Sair"
     },
     "wiki": "Wiki",

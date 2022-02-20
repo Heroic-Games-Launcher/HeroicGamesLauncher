@@ -2,9 +2,6 @@
     "button": {
         "login": "Connexion"
     },
-    "input": {
-        "placeholder": "Collez le code SID ici"
-    },
     "message": {
         "part1": "Afin de pouvoir vous connecter et installer vos jeux, vous devez d’abord suivre les étapes ci-dessous:",
         "part2": "Ouvrez",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Erreur",
-        "loading": "Chargement de la liste des jeux, veuillez patienter",
-        "logging": "Connexion en cours…"
+        "loading": "Chargement de la liste des jeux, veuillez patienter"
     },
     "welcome": "Bienvenue !"
 }

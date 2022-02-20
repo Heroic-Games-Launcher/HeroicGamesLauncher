@@ -24,7 +24,6 @@ import './index.css'
 import { openDiscordLink } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-// import { UserInfo } from 'src/types'
 import { NavLink, useHistory } from 'react-router-dom'
 
 export default function SidebarUtils() {
@@ -33,14 +32,6 @@ export default function SidebarUtils() {
   const user = configStore.get('userInfo') || gogStore.get('userData')
   const { platform } = React.useContext(ContextProvider)
   const isLinux = platform === 'linux'
-
-  // const handleLogout = async () => {
-  //   if (confirm(t('userselector.logout_confirmation', 'Logout?'))) {
-  //     await ipcRenderer.invoke('logoutLegendary')
-  //     window.localStorage.clear()
-  //     refresh()
-  //   }
-  // }
 
   const quitButton = (
     <button onClick={handleQuit}>

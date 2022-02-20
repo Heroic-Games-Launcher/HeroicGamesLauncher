@@ -2,9 +2,6 @@
     "button": {
         "login": "Anmelden"
     },
-    "input": {
-        "placeholder": "Fügen Sie hier die SID-Nummer ein"
-    },
     "message": {
         "part1": "Damit Sie sich anmelden und Ihre Spiele installieren können, müssen Sie zunächst die folgenden Schritte ausführen:",
         "part2": "Öffnen Sie den",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Fehler",
-        "loading": "Lade Spieleliste, bitte warten",
-        "logging": "Anmelden…"
+        "loading": "Lade Spieleliste, bitte warten"
     },
     "welcome": "Willkommen!"
 }

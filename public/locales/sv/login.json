@@ -2,9 +2,6 @@
     "button": {
         "login": "Logga in"
     },
-    "input": {
-        "placeholder": "Klistra in SID nummer här"
-    },
     "message": {
         "part1": "För att logga in och installera spel måste du följa instruktionerna nedan:",
         "part2": "Öppna",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Fel",
-        "loading": "Laddar spellistan, var god dröj",
-        "logging": "Loggar in…"
+        "loading": "Laddar spellistan, var god dröj"
     },
     "welcome": "Välkommen!"
 }

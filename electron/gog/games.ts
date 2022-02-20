@@ -57,16 +57,29 @@ class GOGGame extends Game {
   }
   public async getExtraInfo(namespace: string): Promise<ExtraInfo> {
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    let targetPlatform: 'windows' | 'osx' | 'linux' = 'windows'
+    switch (process.platform) {
+      case 'darwin': {
+        if (gameInfo.is_mac_native) {
+          targetPlatform = 'osx'
+        }
+        break
+      }
+      case 'linux': {
+        if (gameInfo.is_linux_native) {
+          targetPlatform = 'linux'
+        }
+        break
+      }
+      default: {
+        targetPlatform = 'windows'
+        break
+      }
+    }
+
     const extra: ExtraInfo = {
       about: gameInfo.extra.about,
-      reqs: await GOGLibrary.get().createReqsArray(
-        this.appName,
-        gameInfo.is_mac_native && process.platform == 'darwin'
-          ? 'osx'
-          : gameInfo.is_linux_native && process.platform == 'linux'
-          ? 'linux'
-          : 'windows'
-      )
+      reqs: await GOGLibrary.get().createReqsArray(this.appName, targetPlatform)
     }
     return extra
   }

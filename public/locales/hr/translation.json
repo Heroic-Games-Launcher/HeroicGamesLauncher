@@ -84,6 +84,7 @@
         "yes": "DA"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
@@ -100,6 +101,7 @@
     },
     "Filter": "Filter",
     "globalSettings": "Globalne Postavke",
+    "GOG": "GOG",
     "help": {
         "general": "Sinkronizirajte sa EGS u slučaju da imate instalaciju Epic Games trgovine negdje drugdje i želiš uvesti igrice da ih nemoraš preuzimati opet.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -270,7 +271,6 @@
     },
     "Settings": "Postavke",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Trgovina",
@@ -308,6 +308,7 @@
         "discord": "Discord",
         "logout": "Odjavi se",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Izađi"
     },
     "wiki": "Wiki",

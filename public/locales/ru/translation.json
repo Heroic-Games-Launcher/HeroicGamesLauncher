@@ -84,6 +84,7 @@
         "yes": "ДА"
     },
     "button": {
+        "continue": "Continue",
         "login": "Вход",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
@@ -100,6 +101,7 @@
     },
     "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
+    "GOG": "GOG",
     "help": {
         "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
         "other": {
@@ -137,8 +139,7 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "loginWithEpic": "Вход через Epic",
-        "loginWithSid": "Вход через SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -270,7 +271,6 @@
     },
     "Settings": "Настройки",
     "status": {
-        "loading": "Загружается список игр. Пожалуйста, подождите",
         "logging": "Вход…"
     },
     "store": "Магазин",
@@ -308,6 +308,7 @@
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Закрыть Heroic"
     },
     "wiki": "Вики",

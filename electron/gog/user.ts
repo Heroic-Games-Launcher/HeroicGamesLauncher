@@ -1,48 +1,24 @@
 import axios from 'axios'
 import Store from 'electron-store'
-import { BrowserWindow } from 'electron'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { gogLoginUrl } from '../constants'
 import { GOGLoginData } from '../types'
 
 const configStore = new Store({
   cwd: 'gog_store'
 })
 
-const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
+const gogAuthenticateUrl =
+  'https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&code='
 const gogRefreshTokenUrl =
   'https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=refresh_token'
 
 export class GOGUser {
-  // This is executed below in edge error cases most likely won't run ever
-  public static async handleGOGLogin() {
-    const popupWindow = new BrowserWindow({
-      width: 450,
-      height: 700,
-      title: 'GOG'
-    })
-    popupWindow.loadURL(gogLoginUrl)
-    popupWindow.once('ready-to-show', popupWindow.show)
-
-    popupWindow.webContents.on('did-finish-load', () => {
-      const pageUrl = popupWindow.webContents.getURL()
-      if (pageUrl.match(gogEmbedRegExp)) {
-        const parsedURL = new URL(pageUrl)
-        const code = parsedURL.searchParams.get('code')
-        this.login(code)
-        popupWindow.close()
-      }
-    })
-  }
-
   static async login(code: string) {
     logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
     // Gets token from GOG basaed on authorization code
     const response = await axios
-      .get(
-        `https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&code=${code}`
-      )
+      .get(gogAuthenticateUrl + code)
       .catch((error) => {
         // Handle fetching error
         logError(['Failed to get access_token', `${error}`], LogPrefix.Gog)
@@ -57,7 +33,7 @@ export class GOGUser {
     data.loginTime = Date.now()
     configStore.set('credentials', data)
     logInfo('Login Successful', LogPrefix.Gog)
-    this.getUserDetails()
+    await this.getUserDetails()
     return { status: 'done' }
   }
 
@@ -96,7 +72,6 @@ export class GOGUser {
             'Error with refreshing token, reauth required',
             LogPrefix.Gog
           )
-          this.handleGOGLogin()
           return null
         })
 
@@ -110,7 +85,6 @@ export class GOGUser {
       logInfo('Token refreshed successfully', LogPrefix.Gog)
     } else {
       logError('No credentials, auth required', LogPrefix.Gog)
-      await this.handleGOGLogin()
     }
   }
 
@@ -124,10 +98,9 @@ export class GOGUser {
   }
   public static logout() {
     const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
-    configStore.delete('credentials')
-    configStore.delete('userData')
-    libraryStore.delete('games')
-    libraryStore.delete('movies')
+    configStore.clear()
+    libraryStore.clear()
+    logInfo('Logging user out', LogPrefix.Gog)
   }
 
   public static isLoggedIn() {

@@ -54,7 +54,6 @@ const GameCard = ({
   buttonClick,
   forceCard,
   isMacNative,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isLinuxNative,
   runner
 }: Card) => {
@@ -97,7 +96,7 @@ const GameCard = ({
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
   const path =
-    isWin || isMacNative
+    isWin || isMacNative || isLinuxNative
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
 
@@ -136,18 +135,23 @@ const GameCard = ({
   const instClass = isInstalled ? 'installed' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
   const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
-  const imageSrc =
-    runner == 'legendary'
-      ? `${grid ? cover : coverList}?h=400&resize=1&w=300`
-      : grid
-      ? cover
-      : coverList
+  const imageSrc = getImageFormatting()
+
   const wrapperClasses = `${grid ? 'gameCard' : 'gameListItem'}  ${instClass}`
 
   async function handleUpdate() {
     await handleGameStatus({ appName, runner, status: 'updating' })
     await updateGame(appName, runner)
     return handleGameStatus({ appName, runner, status: 'done' })
+  }
+
+  function getImageFormatting() {
+    const imageBase = grid ? cover : coverList
+    if (runner == 'legendary') {
+      return `${imageBase}?h=400&resize=1&w=300`
+    } else {
+      return imageBase
+    }
   }
 
   function getStatus() {
@@ -242,7 +246,7 @@ const GameCard = ({
                   onClick={() =>
                     history.push({
                       pathname: path,
-                      state: { fromGameCard: true }
+                      state: { fromGameCard: true, runner }
                     })
                   }
                 >
@@ -262,7 +266,7 @@ const GameCard = ({
                 onClick={() =>
                   history.push({
                     pathname: path,
-                    state: { fromGameCard: true }
+                    state: { fromGameCard: true, runner }
                   })
                 }
               >
