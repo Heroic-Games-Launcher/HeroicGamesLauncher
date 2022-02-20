@@ -3,14 +3,14 @@
         "login": "Prijava"
     },
     "message": {
-        "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate pratiti ove korake ispod:",
+        "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate slijediti sljedeće korake:",
         "part2": "Otvori",
         "part3": "Epic Store ovdje",
-        "part4": ", prijavite se u svoj račun i kopirajte svoj",
+        "part4": ", prijavite se na vaš račun i kopirajte svoj",
         "part5": "SID informacijski broj",
-        "part6": "Kopirajte",
+        "part6": "Zalijepite vaš",
         "part7": "SID broj",
-        "part8": "u polje ispod, kliknite na gumb za prijavu i čekajte."
+        "part8": "u donje polje i kliknite gumb za prijavu."
     },
     "status": {
         "error": "Greška",

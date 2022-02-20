@@ -1,0 +1,62 @@
+name: Bug report
+description: "Things aren't working right? Create a bug report to let us know!"
+body:
+  - type: markdown
+    attributes:
+      value: |-
+        ## Important: If this is a game issue, check out [our Discord server](https://discord.gg/rHJ2uqdquK) and [our Wiki](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Troubleshooting) to get help instead!
+        Examples for valid issues: "Heroic doesn't open", "This button is out of place", "Heroic closes unexpectedly", "Installs get interrupted"
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Describe the bug
+      description: 'A clear and concise description of what the bug is.'
+    validations:
+      required: true
+  - type: textarea
+    id: heroic_log
+    attributes:
+      label: Add logs
+      description: 'Open up the "Settings" tab -> "Log" tab -> "Copy log content to clipboard" and paste it into here'
+      render:
+    validations:
+      required: true
+  - type: textarea
+    id: to_reproduce
+    attributes:
+      label: Steps to reproduce
+      description: 'Steps to reproduce this behavior'
+      value: |-
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: 'A clear and concise description of what you expected to happen.'
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+  - type: textarea
+    id: systeminfo
+    attributes:
+      label: System Information
+      value: |-
+        - OS [e. g. "Ubuntu"]: 
+        - Heroic Version [e. g. 2.1.1]:
+
+    validations:
+      required: true
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional information
+      description: Add any other context about the problem here.

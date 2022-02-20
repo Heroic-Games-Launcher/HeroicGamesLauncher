@@ -6,10 +6,10 @@
             "title": "Modificar la ubicación de instalación para los juegos"
         },
         "choose": "Escoger",
-        "importpath": "Elija la carpeta del juego para importar",
+        "importpath": "Elige la carpeta del juego para importar",
         "move": {
             "message": "Esto puede llevar mucho tiempo. ¿Estás seguro?",
-            "path": "Elige la ubicación de destino",
+            "path": "Elige la ubicación del destino",
             "title": "Mover carpeta del juego"
         },
         "no": "No",
@@ -23,13 +23,13 @@
             "title": "Detener la instalación"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "¿Quieres eliminar el prefijo también? Esto no se puede deshacer.",
             "checkbox_prefix": "Prefix",
             "message": "¿Quieres desinstalar este juego?",
             "title": "Desinstalar"
         },
         "update": {
-            "message": "Este juego tiene una actualización, ¿deseas actualizar ahora?",
+            "message": "Este juego tiene una actualización. ¿Quieres aplicarlo ahora?",
             "title": "El juego necesita una actualización"
         },
         "wineprefix": "Elija la Carpeta con el Prefijo de Wine",
@@ -90,16 +90,16 @@
     },
     "specs": {
         "minimum": "Mínimo",
-        "recommended": "recomendado"
+        "recommended": "Recomendado"
     },
     "status": {
-        "clickToUpdate": "Haga clic para actualizar",
+        "clickToUpdate": "Haz clic para actualizar",
         "hasUpdates": "¡Nueva versión disponible!",
         "installed": "Instalado",
         "installing": "Instalando",
-        "moving": "Moviendo la instalación, por favor, espere",
+        "moving": "Moviendo la instalación, por favor, espera",
         "notinstalled": "Este juego no está instalado",
-        "reparing": "Reparando el juego, por favor, espere",
+        "reparing": "Reparando el juego, por favor, espera",
         "totalDownloaded": "Total descargado",
         "updating": "Actualización de juego"
     },

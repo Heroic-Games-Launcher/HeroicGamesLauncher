@@ -3,14 +3,14 @@
         "login": "Anmelden"
     },
     "message": {
-        "part1": "Damit Sie sich anmelden und Ihre Spiele installieren können, müssen Sie zunächst die folgenden Schritte ausführen:",
+        "part1": "Um sich anzumelden und Ihre Spiele zu installieren, müssen Sie zunächst die folgenden Schritte ausführen:",
         "part2": "Öffnen Sie den",
         "part3": "Epic Store hier",
         "part4": ", melden Sie sich mit Ihrem Account an und kopieren Sie ihre",
         "part5": "SID Informations-Nummer",
-        "part6": "Fügen Sie die",
+        "part6": "Fügen Sie ihren",
         "part7": "SID-Nummer",
-        "part8": "in das untere Eingabefeld ein, klicken Sie auf Anmelden und warten Sie."
+        "part8": "in das untere Eingabefeld ein und klicken Sie auf Anmelden."
     },
     "status": {
         "error": "Fehler",

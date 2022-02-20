@@ -29,7 +29,7 @@
             "title": "Avinstallera"
         },
         "update": {
-            "message": "Det finns en speluppdatering, vill du uppdatera?",
+            "message": "Det finns en speluppdatering, Uppdatera nu?",
             "title": "Spelet behöver uppdateras"
         },
         "wineprefix": "Select WinePrefix Folder",

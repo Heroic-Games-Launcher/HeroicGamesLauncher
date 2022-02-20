@@ -52,6 +52,8 @@
       ]
     },
     "mac": {
+      "target": "dmg",
+      "category": "public.app-category.games",
       "icon": "build/icon.icns",
       "asarUnpack": [
         "build/bin/darwin/legendary",
@@ -59,6 +61,26 @@
       ],
       "files": [
         "build/bin/darwin/*"
+      ]
+    },
+    "dmg": {
+      "background": "public/dmg.png",
+      "window": {
+        "width": "600",
+        "height": "500"
+      },
+      "contents": [
+        {
+          "x": 10,
+          "y": 215,
+          "type": "file"
+        },
+        {
+          "x": 420,
+          "y": 215,
+          "type": "link",
+          "path": "/Applications"
+        }
       ]
     },
     "linux": {

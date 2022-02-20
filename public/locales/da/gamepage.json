@@ -1,0 +1,115 @@
+{
+    "box": {
+        "change": {
+            "message": "Dette vil ændre installationens placering. Er du sikker?",
+            "path": "Vælg en ny installation sti",
+            "title": "Skift Spil Installation Sti"
+        },
+        "move": {
+            "path": "Vælg hvor du vil flytte til",
+            "title": "Flyt spil installation",
+            "message": "Dette kan tage lang tid. Er du sikker?"
+        },
+        "no": "NEJ",
+        "repair": {
+            "message": "Vil du forsøge at reparere dette spil? Det kan tage lang tid.",
+            "title": "Verificer og Reparer"
+        },
+        "stopInstall": {
+            "keepInstalling": "Fortsæt installationen",
+            "message": "Vil du fortsætte med at hente filerne?",
+            "title": "Stop installationen"
+        },
+        "uninstall": {
+            "checkbox": "Vil du også fjerne prefixet? Dette kan ikke omgøres.",
+            "checkbox_prefix": "Prefix",
+            "message": "Vil du afinstallere spillet?",
+            "title": "Afinstaller"
+        },
+        "update": {
+            "title": "Spillet skal opdateres",
+            "message": "Der findes en opdatering til spillet. Vil du updatere nu?"
+        },
+        "yes": "JA",
+        "choose": "Vælg",
+        "importpath": "Vælg spil mappe til import",
+        "wineprefix": "Vælg WinePrefix mappe"
+    },
+    "button": {
+        "cancel": "Pause/Afbryd",
+        "continue": "Fortsæt Download",
+        "import": "Importer Spil",
+        "install": "Installer",
+        "uninstall": "Afinstaller",
+        "update": "Opdater"
+    },
+    "disabled": "Slå Fra",
+    "dlc": {
+        "installDlcs": "Installer alle DLC'er",
+        "title": "DLC'er"
+    },
+    "enabled": "Slå til",
+    "game": {
+        "downloadSize": "Download Størrelse",
+        "firstPlayed": "Spillede Første Gang",
+        "neverPlayed": "Aldrig",
+        "totalPlayed": "Spilletid",
+        "installSize": "Installations Størrelse",
+        "lastPlayed": "Sidst Spillet"
+    },
+    "gamecard": {
+        "moving": "Flytter",
+        "repairing": "Reparerer"
+    },
+    "info": {
+        "canRunOffline": "Online Påkrævet",
+        "path": "Installationssti",
+        "size": "Størrelse",
+        "syncsaves": "Synkroniser Saves",
+        "version": "Version"
+    },
+    "install": {
+        "path": "Vælg Installationssti",
+        "wineprefix": "WinePrefix"
+    },
+    "label": {
+        "playing": {
+            "start": "Spil Nu",
+            "stop": "Spiller (Stop)"
+        },
+        "saves": {
+            "syncing": "Synkroniserer Saves"
+        }
+    },
+    "launch": {
+        "options": "Opstartsinstillinger..."
+    },
+    "sdl": {
+        "title": "Vælg komponent der skal installeres"
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Anbefalet"
+    },
+    "status": {
+        "clickToUpdate": "Klik for at opdatere",
+        "hasUpdates": "Ny Version Tilgængelig!",
+        "installed": "Installeret",
+        "installing": "Installerer",
+        "moving": "Flytter installation, vent venligst",
+        "notinstalled": "Spillet er ikke installeret",
+        "reparing": "Reparerer Spillet, vent venligst",
+        "totalDownloaded": "I alt downloaded",
+        "updating": "Opdaterer Spil"
+    },
+    "submenu": {
+        "addShortcut": "Opret genvej",
+        "change": "Ændre installationssti",
+        "log": "Seneste Log",
+        "move": "Flyt Spil",
+        "protondb": "Check Compatabilitet",
+        "settings": "Indstillinger",
+        "store": "Butik",
+        "verify": "Verificer og Reparer"
+    }
+}
