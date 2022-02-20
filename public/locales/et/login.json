@@ -3,11 +3,11 @@
         "login": "Logi sisse"
     },
     "input": {
-        "placeholder": "Sisestage SID-number siia"
+        "placeholder": "Sisestage oma SID-number siia"
     },
     "message": {
-        "part1": "Selleks, et saaksite sisse logida ja mänge installida, peate kõigepealt järgima alljärgnevaid samme:",
-        "part2": "",
+        "part1": "Sisse logimiseks ja mängude paigaldamiseks peate kõigepealt järgima alljärgnevaid samme:",
+        "part2": "Ava",
         "part3": "Epic Store siin",
         "part4": ", logige oma kontole sisse ja kopeerige oma",
         "part5": "SID infonumber",
