@@ -109,23 +109,22 @@ abstract class GlobalConfig {
    * @returns Promise<WineInstallation>
    */
   public async getDefaultWine(): Promise<WineInstallation> {
+    const defaultWine: WineInstallation = {
+      bin: '',
+      name: 'Default Wine - Not Found',
+      type: 'wine'
+    }
     return execAsync(`which wine`)
       .then(async ({ stdout }) => {
-        const defaultWine: WineInstallation = {
-          bin: '',
-          name: 'Default Wine - Not Found'
-        }
         defaultWine.bin = stdout.split('\n')[0]
+
         const { stdout: out } = await execAsync(`wine --version`)
         const version = out.split('\n')[0]
         defaultWine.name = `Wine Default - ${version}`
+
         return defaultWine
       })
       .catch(() => {
-        const defaultWine: WineInstallation = {
-          bin: '',
-          name: 'Default Wine - Not Found'
-        }
         return defaultWine
       })
   }
@@ -136,7 +135,7 @@ abstract class GlobalConfig {
    * @returns Promise<Set<WineInstallation>>
    */
   public async getCrossover(): Promise<Set<WineInstallation>> {
-    const crossover: Set<WineInstallation> = new Set()
+    const crossover = new Set<WineInstallation>()
 
     if (isMac) {
       await execAsync(
@@ -153,7 +152,8 @@ abstract class GlobalConfig {
             const version = info['CFBundleShortVersionString'] || ''
             crossover.add({
               bin: `'${crossoverMacPath}/Contents/SharedSupport/CrossOver/bin/wine'`,
-              name: `CrossOver ${version} - ${crossoverMacPath}`
+              name: `CrossOver ${version} - ${crossoverMacPath}`,
+              type: 'crossover'
             })
           }
         })
@@ -161,10 +161,16 @@ abstract class GlobalConfig {
     } else if (!isWindows) {
       // Linux
       const crossoverPath = '/opt/cxoffice'
+      const crossoverWinePath = `'${crossoverPath}/bin/wine'`
       if (existsSync(crossoverPath)) {
+        const { stdout: out } = await execAsync(
+          `${crossoverWinePath} --version`
+        )
+        const version = out.split('\n')[2].split(':')[1].trim()
         crossover.add({
           bin: `'${crossoverPath}/bin/wine'`,
-          name: `CrossOver - ${crossoverPath}`
+          name: `CrossOver - ${version}`,
+          type: 'crossover'
         })
       }
     }
@@ -178,7 +184,7 @@ abstract class GlobalConfig {
    * @returns An Array of Wine/Proton installations.
    */
   public async getAlternativeWine(
-    scanCustom = true
+    includeCustom = true
   ): Promise<WineInstallation[]> {
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
@@ -188,12 +194,15 @@ abstract class GlobalConfig {
       mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
     }
 
-    const altWine: Set<WineInstallation> = new Set()
+    const altWine = new Set<WineInstallation>()
 
     readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
       altWine.add({
         bin: `'${heroicToolsPath}/wine/${version}/bin/wine64'`,
-        name: `Wine - ${version}`
+        name: `Wine - ${version}`,
+        type: 'wine',
+        wineboot: `'${heroicToolsPath}/wine/${version}/bin/wineboot'`,
+        wineserver: `'${heroicToolsPath}/wine/${version}/bin/wineserver'`
       })
     })
 
@@ -204,7 +213,10 @@ abstract class GlobalConfig {
       readdirSync(lutrisCompatPath).forEach((version) => {
         altWine.add({
           bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-          name: `Wine - ${version}`
+          name: `Wine - ${version}`,
+          type: 'wine',
+          wineboot: `'${lutrisCompatPath}${version}/bin/wineboot'`,
+          wineserver: `'${lutrisCompatPath}${version}/bin/wineserver'`
         })
       })
     }
@@ -227,7 +239,7 @@ abstract class GlobalConfig {
       return
     })
 
-    const proton: Set<WineInstallation> = new Set()
+    const proton = new Set<WineInstallation>()
 
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
@@ -236,7 +248,8 @@ abstract class GlobalConfig {
           if (name.startsWith('proton') && !name.includes('runtime')) {
             proton.add({
               bin: `'${path}${version}/proton'`,
-              name: `Proton - ${version}`
+              name: `Proton - ${version}`,
+              type: 'proton'
             })
           }
         })
@@ -246,25 +259,29 @@ abstract class GlobalConfig {
     const crossover = await this.getCrossover()
 
     const defaultWine = await this.getDefaultWine()
-    const defaultFound = !defaultWine.name.includes('Not Found')
-    const customWine = await this.getCustomWinePaths()
-
-    if (!scanCustom) {
-      return [defaultWine, ...altWine, ...proton, ...crossover]
+    // Only include the default Wine if it's actually found
+    const defaultWineSet = new Set<WineInstallation>()
+    if (!defaultWine.name.includes('Not Found')) {
+      defaultWineSet.add(defaultWine)
     }
 
+    let customWine = new Set<WineInstallation>()
+    if (includeCustom) {
+      customWine = await this.getCustomWinePaths()
+    }
+
+    // On Mac, only CrossOver should work. If it is not installed, still include Wine (to at least have something)
+    // NOTE: Wine 7 should work on Mac again, someone test that please
     if (isMac && crossover.size) {
       return [...crossover, ...customWine]
-    } else if (defaultFound) {
-      return [defaultWine, ...altWine, ...proton, ...crossover, ...customWine]
-    } else if (altWine.size) {
-      return [...altWine, ...proton, ...crossover, ...customWine]
-    } else if (proton.size) {
-      return [...proton, ...crossover, ...customWine]
-    } else if (customWine.size) {
-      return [...crossover, ...customWine]
     } else {
-      return [defaultWine]
+      return [
+        ...defaultWineSet,
+        ...altWine,
+        ...proton,
+        ...crossover,
+        ...customWine
+      ]
     }
   }
 
@@ -371,7 +388,7 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getCustomWinePaths(): Promise<Set<WineInstallation>> {
-    const customPaths: Set<WineInstallation> = new Set()
+    const customPaths = new Set<WineInstallation>()
     // skips this on new installations to avoid infinite loops
     if (existsSync(heroicConfigPath)) {
       const { customWinePaths = [] } = await this.getSettings()
@@ -379,12 +396,14 @@ class GlobalConfigV0 extends GlobalConfig {
         if (path.endsWith('proton')) {
           return customPaths.add({
             bin: `'${path}'`,
-            name: `Custom Proton - ${path}`
+            name: `Custom Proton - ${path}`,
+            type: 'proton'
           })
         }
         return customPaths.add({
           bin: `'${path}'`,
-          name: `Custom Wine - ${path}`
+          name: `Custom Wine - ${path}`,
+          type: 'wine'
         })
       })
     }
