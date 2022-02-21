@@ -8,6 +8,7 @@ import { execOptions, heroicToolsPath, home } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { dialog } from 'electron'
 import i18next from 'i18next'
+import { WineInstallation } from 'types'
 
 export const DXVK = {
   getLatest: async () => {
@@ -103,6 +104,32 @@ export const DXVK = {
           )
         })
     })
+  },
+
+  install: async (
+    wineVersion: WineInstallation,
+    prefix: string,
+    tool: 'dxvk' | 'vkd3d'
+  ) => {
+    const formattedToolName = tool.toUpperCase()
+    if (wineVersion.type != 'wine') {
+      logWarning(
+        `Unable to install ${formattedToolName}: Wine version ${wineVersion.name} unsupported`
+      )
+      return
+    }
+
+    const absolutePrefixDir = prefix.replace('~', home)
+    const isValidPrefix = existsSync(`${absolutePrefixDir}/.update-timestamp`)
+    if (!isValidPrefix) {
+      logWarning(
+        `Unable to install ${formattedToolName}: Prefix invalid`,
+        LogPrefix.DXVKInstaller
+      )
+      return
+    }
+
+    // TODO: Actually install DXVK
   },
 
   installRemove: async (
