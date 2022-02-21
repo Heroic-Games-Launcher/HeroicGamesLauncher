@@ -7,8 +7,8 @@
             "title": "Ažuriranje dostupno"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic Cache je očisten.",
+            "title": "Cache Očisten"
         },
         "choose": "Odaberi",
         "choose-egs-prefix": "Odaberite lokaciju gdje je EGS instaliran",
@@ -25,18 +25,22 @@
                 "title": "Nema prostora"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Pogreška pri instaliranju DXVK/VKD3D! Provjerite svoju konekcije ili ako imate zstd/libzstd1 instaliran",
+                "title": "DXVK/VKD3D greška"
             },
             "generic": {
                 "message": "Nepoznata greška se dogodila",
                 "title": "Nepoznata greška"
             },
             "launch": "Greška kod pokretanja igrice, provjerite dnevnik!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Greška",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Wine nije odabran. Provjerite postavke igre!",
+                "title": "Wine Nije Pronađen"
             }
         },
         "no": "NE",
@@ -52,7 +56,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Jeste li sigurni da želite resetirati Heroic? Ovo če obrisati sve postavke i Cache ali ne igrice i vašu prijavu",
                 "title": "Reset Heroic"
             }
         },
@@ -64,8 +68,8 @@
             "exe": "Odaberi EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Prečaci su napravljeni na Radnoj površini i Start meniu",
+            "title": "Prečaci"
         },
         "sync": {
             "button": "Odaberi",
@@ -74,24 +78,24 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Epic Serveri imaju velike probleme, igra se nemoče importati",
+                "install": "Epic Serveri imaju velike probleme, igra se nemože instalirati!",
+                "update": "Epic Serveri imaju velike probleme, igra se nemože ažurirati"
             },
-            "title": "Warning"
+            "title": "Upozorenje"
         },
         "wineprefix": "Odaberi Wine Prefix mapu",
         "yes": "DA"
     },
     "button": {
-        "login": "Login",
+        "login": "Prijava",
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj"
     },
     "Downloading": "Preuzima se",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Heroic vjerojatno neče raditi",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -130,14 +134,14 @@
         "requirements": "Zahtjevi sustava"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Odaberite put instalacije"
     },
     "Library": "Knižnjica",
     "loading": {
-        "website": "Loading Website"
+        "website": "Učitavanje Stranice"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
+        "loginWithEpic": "Prijava sa Epic-om",
         "loginWithSid": "Login with SID"
     },
     "message": {
@@ -148,8 +152,8 @@
     "Not Ready": "Nije Spremno",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Pogreška premješanje igrice",
+            "reparing": "Pogreška u popravljanju"
         },
         "finished": {
             "reparing": "Zavšen popravak"
@@ -158,15 +162,15 @@
             "canceled": "Instalacije prekinuta",
             "error": "",
             "finished": "Instalacija gotova",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Igrica učitana",
+            "startInstall": "Instalacija pokrenuta"
         },
         "moved": "Premještanje gotovo",
         "uninstalled": "Deinstalirano",
         "update": {
             "canceled": "Ažuriranje prekinuto",
             "finished": "Ažuriranje gotovo",
-            "started": "Update Started"
+            "started": "Ažuriranje pokrenuto"
         }
     },
     "options": {
@@ -190,17 +194,17 @@
     "Plugins": "Dodaci",
     "Projects": "Projekti",
     "Ready": "Spremno",
-    "Recent": "Nedavne igrice",
+    "Recent": "Nedavno igrano",
     "Return": "Nazad",
     "search": "Upiši ime igrice ovdje...",
     "setting": {
         "adddesktopshortcuts": "Dodaje prečace automatski",
         "addgamestostartmenu": "Dodaje igrice u izbornik start automatski",
-        "alt-legendary-bin": "Odaberi drugu Legendary verziju za koristiti",
+        "alt-legendary-bin": "Odaberi drugu Legendary verziju za koristiti (Potrebno ponovno pokrenuti)",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
         "autodxvk": "Automatski instaliraj/ažuriraj DXVK na put",
         "autosync": "Automatsko sinkroniziranje podataka",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "Automatski install/ažuriraj VKD3D",
         "change-target-exe": "Odaberi drugi EXE za pokrenuti",
         "checkForUpdatesOnStartup": "Provjeri za ažuriranjem na pokretanju",
         "customWineProton": "Prilagođen put za WINE/PROTON",
@@ -233,7 +237,7 @@
             "title": "Manualna sinkronizacija podataka",
             "upload": "Prebaci"
         },
-        "maxRecentGames": "Nedavne igrice za pokazati",
+        "maxRecentGames": "Nedavno igrano za pokazati",
         "maxworkers": "Maksimalan broj radnika za preuzimanje",
         "offlinemode": "Pokreni igrice bez pristupa internetu",
         "primerun": "Omogući Nvidia Prime Render",
@@ -256,7 +260,7 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Kopiraj sve postavke",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },

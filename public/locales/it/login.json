@@ -3,17 +3,17 @@
         "login": "Accedi"
     },
     "input": {
-        "placeholder": "Incolla qui il numero SID"
+        "placeholder": "Incolla il tuo SID qui"
     },
     "message": {
         "part1": "Per poter effettuare il login ed installare i tuoi giochi, dovrai prima seguire i passaggi indicati qui sotto:",
         "part2": "Apri",
         "part3": "l'Epic Store",
-        "part4": ", accedi al tuo account e copia il tuo",
+        "part4": ", accedi con il tuo account e copia il tuo",
         "part5": "numero SID",
-        "part6": "Incolla il",
+        "part6": "Incolla il tuo",
         "part7": "numero SID",
-        "part8": "nella casella d'inserimento qui sotto, clicca su accedi ed aspetta."
+        "part8": "nella casella qui sotto, clicca su \"accedi\" ed aspetta."
     },
     "status": {
         "error": "Errore",

@@ -33,6 +33,10 @@
                 "title": "Tuntematon Virhe"
             },
             "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Virhe",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",

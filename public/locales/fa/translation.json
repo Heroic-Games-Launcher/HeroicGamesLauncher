@@ -3,7 +3,7 @@
     "Assets": "داراییها",
     "box": {
         "appupdate": {
-            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان بهروزرسانی کنید؟",
+            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان به‌روزرسانی کنید؟",
             "title": "بهروزرسانی موجود است"
         },
         "cache-cleared": {
@@ -25,17 +25,21 @@
                 "title": "فضایی موجود نیست"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
+                "title": "خطای DXVK/VKD3D"
             },
             "generic": {
                 "message": "خطایی ناشناخته رخ داده است",
                 "title": "خطای ناشناخته"
             },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "خطا",
             "wine-not-found": {
-                "message": "نسخه‌ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
+                "message": "نسخه\u200cای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
             }
         },
@@ -74,9 +78,9 @@
         },
         "warning": {
             "epic": {
-                "import": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی‌تواند اضافه شود!",
-                "install": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی‌تواند نصب شود!",
-                "update": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی‌تواند به‌روزرسانی شود!"
+                "import": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی\u200cتواند اضافه شود!",
+                "install": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی\u200cتواند نصب شود!",
+                "update": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی\u200cتواند به\u200cروزرسانی شود!"
             },
             "title": "هشدار"
         },
@@ -101,7 +105,7 @@
     "Filter": "فیلتر",
     "globalSettings": "تنظیمات عمومی",
     "help": {
-        "general": "در صورتی که در جایی فروشگاه اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGS همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
+        "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کرده‌اید و میخواهید بازی‌های خود را وارد کنید با EGL همگام‌سازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "other": {
             "part1": "استفاده از ",
             "part2": "گزینههای پیشرفته",
@@ -200,7 +204,7 @@
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "نصب/به‌روزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "چک کردن برای به روزرسانی در هنگام راه اندازی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
@@ -258,7 +262,7 @@
         "copiedToClipboard": "در کليپ بورد کپی شد!",
         "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شده‌اند!"
         },
         "navbar": {
             "general": "عمومی",
@@ -271,7 +275,7 @@
     "Settings": "تنظیمات",
     "status": {
         "loading": "در حال بارگیری لیست بازی، لطفا منتظر بمانید",
-        "logging": "در حال ورود..."
+        "logging": "در حال وارد شدن..."
     },
     "store": "فروشگاه",
     "title": {
@@ -287,8 +291,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "انتخاب پوشه مسیر پیش‌فرض برای تنظیمات جدید",
+            "wineprefix": "انتخاب پوشه برای مسیر Wine جدید"
         }
     },
     "tooltip": {
@@ -313,8 +317,8 @@
     "wiki": "ویکی",
     "wine": {
         "manager": {
-            "error": "نمی‌توان در این زمان نسخه‌های Wine/Proton را به دست آورد.",
-            "link": "مدیریت Wine‮",
+            "error": "نمی\u200cتوان در این زمان نسخه\u200cهای Wine/Proton را به دست آورد.",
+            "link": "مدیریت Wine\u202e",
             "title": "مدیریت Wine (آزمایشی)",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         }

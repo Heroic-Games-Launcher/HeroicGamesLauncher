@@ -13,7 +13,7 @@
         "choose": "OK",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
-        "customWine": "Välj wine eller proton binär",
+        "customWine": "Välj Wine eller Proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
             "credentials": {
@@ -33,6 +33,10 @@
                 "title": "Okänt fel"
             },
             "launch": "Fel vid uppstar av spelet, kontrollera loggarna!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -40,7 +44,7 @@
             }
         },
         "no": "Nej",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"
@@ -84,7 +88,7 @@
         "yes": "Ja"
     },
     "button": {
-        "login": "Login",
+        "login": "Logga in",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Ogör synkronisering"
@@ -196,7 +200,7 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
-        "alt-legendary-bin": "Välj en Alternativ Legendary binär   (kräver omstart)",
+        "alt-legendary-bin": "Välj en Alternativ Legendary binär (omstart krävs)",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",

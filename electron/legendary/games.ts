@@ -521,6 +521,7 @@ Categories=Game;
     let envVars = ''
     let gameMode: string
     const gameSettings = await this.getSettings()
+    const gameInfo = await this.getGameInfo()
 
     const {
       winePrefix,
@@ -546,9 +547,26 @@ Categories=Game;
 
     const { discordRPC } = await GlobalConfig.get().getSettings()
     const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
-    const runOffline = isOffline || offlineMode ? '--offline' : ''
+
+    let runOffline = ''
+    if (isOffline || offlineMode) {
+      if (gameInfo.canRunOffline) {
+        runOffline = '--offline'
+      } else {
+        return dialog.showErrorBox(
+          i18next.t(
+            'box.error.no-offline-mode.title',
+            'Offline mode not supported.'
+          ),
+          i18next.t(
+            'box.error.no-offline-mode.message',
+            'Launch aborted! The game requires a internet connection to run it.'
+          )
+        )
+      }
+    }
+
     const exe = targetExe ? `--override-exe ${targetExe}` : ''
-    const gameInfo = await this.getGameInfo()
     const isMacNative = gameInfo.is_mac_native
     const mangohud = showMangohud ? 'mangohud --dlsym' : ''
 

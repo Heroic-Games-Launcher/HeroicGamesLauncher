@@ -3,47 +3,51 @@
     "Assets": "Eszközök",
     "box": {
         "appupdate": {
-            "message": "A Heroic-nak újabb verziója elérhető, szeretnéd most frissíteni?",
-            "title": "Frissítés Elérhető"
+            "message": "A Heroic újabb verziója érhető el, szeretnéd most frissíteni?",
+            "title": "Frissítés elérhető"
         },
         "cache-cleared": {
             "message": "Heroic gyorsítótár törölve.",
             "title": "Gyorsítótár törölve"
         },
-        "choose": "Kiválaszt",
-        "choose-egs-prefix": "Válaszd ki a Prefix-et ahova az EGS telepítve van",
+        "choose": "Kiválasztás",
+        "choose-egs-prefix": "Válaszd ki a prefixet ahol az EGS telepítve van",
         "choose-legendary-binary": "Legendary bináris kiválasztása",
-        "customWine": "Válaszd ki a Wine vagy Proton Binary-t",
+        "customWine": "Válaszd ki a Wine vagy Proton binárist",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
             "credentials": {
                 "message": "Lejártak a hitelesítő adataid, jelentkezz ki, majd jelentkezz be újra.",
-                "title": "Lejárt Hitelesítő Adatok"
+                "title": "Lejárt hitelesítőadatok"
             },
             "diskspace": {
                 "message": "Nincs elég elérhető lemezterület",
                 "title": "Nincs hely"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd le az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van",
+                "title": "DXVK/VKD3D hiba"
             },
             "generic": {
                 "message": "Ismeretlen hiba lépett fel",
                 "title": "Ismeretlen hiba"
             },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Hiba",
             "wine-not-found": {
-                "message": "Nincs kiválasztva Wine verzió. Ellenőrízd a játék beállításait!",
+                "message": "Nincs kiválasztott Wine verzió. Ellenőrizd a játék beállításait!",
                 "title": "Wine nem található"
             }
         },
         "no": "NEM",
-        "ok": "OKÉ",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Jelenleg nincs telepítve. Telepítse?"
+                "not_installed": "Jelenleg nincs telepítve. Telepíted?"
             }
         },
         "quit": {
@@ -52,15 +56,15 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Biztos vagy benne, hogy visszaállítod a Heroic-ot? Ez el fogja távolítani az összes beállításokat és gyorsítótárat de nem fogja eltávolítani a telepített játékokat vagy az Epic hitelesítő adataidat",
+                "message": "Biztos vagy benne, hogy visszaállítod a Heroic-ot? Ez el fogja távolítani az összes beállítást és gyorsítótárat de nem fogja eltávolítani a telepített játékokat vagy az Epic hitelesítő adataid",
                 "title": "Heroic visszaállítása"
             }
         },
         "runexe": {
-            "title": "Válasszd ki a futtatni kívánt EXE fájlt"
+            "title": "Válaszd ki a futtatni kívánt EXE fájlt"
         },
         "select": {
-            "button": "Kiválaszt",
+            "button": "Kiválasztás",
             "exe": "EXE kiválasztása"
         },
         "shortcuts": {
@@ -68,19 +72,19 @@
             "title": "Parancsikonok"
         },
         "sync": {
-            "button": "Választ",
+            "button": "Kiválasztás",
             "error": "Érvénytelen útvonal",
             "title": "Válaszd ki a mentések könyvtárát"
         },
         "warning": {
             "epic": {
-                "import": "Az Epic szerverek nagyobb üzemszünetben vannak épp most, a játékot nem lehet importálni!",
-                "install": "Az Epic szerverek nagyobb üzemszünetben vannak épp most, a játékot nem lehet telepíteni!",
-                "update": "Az Epic szerverek nagyobb üzemszünetben vannak épp most, a játékot nem lehet frissíteni!"
+                "import": "Az Epic szerverek nagyobb üzemszünetben vannak jelenleg, a játékot nem lehet importálni!",
+                "install": "Az Epic szerverek nagyobb üzemszünetben vannak jelenleg, a játékot nem lehet telepíteni!",
+                "update": "Az Epic szerverek nagyobb üzemszünetben vannak jelenleg, a játékot nem lehet frissíteni!"
             },
             "title": "Figyelmeztetés"
         },
-        "wineprefix": "Válassz Wine Prefix Mappát",
+        "wineprefix": "Wine Prefix mappa kiválasztása",
         "yes": "IGEN"
     },
     "button": {
@@ -91,31 +95,31 @@
     },
     "Downloading": "Letöltés",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "A Heroic nem fog megfelelően működni!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Nincs szűrő"
     },
     "Filter": "Szűrő",
     "globalSettings": "Globális beállítások",
     "help": {
-        "general": "Szinkronizálj a EGS-el abban az esetben, ha van egy működő, telepített Epic Games Store-od máshol és importáld a játékaidat, az újonnani letöltés elkerülése végett.",
+        "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
         "other": {
             "part1": "A ",
-            "part2": "Haladó Beállításoknak",
+            "part2": "Haladó beállítások",
             "part3": "azt használd, amit meg akarsz hívni a játék indítása előtt; ",
             "part4": "A ",
-            "part5": "Játék Argumentumoknak",
+            "part5": "Játékargumentumok",
             "part6": " azt használd, amit meg akarsz hívni a játék indítási parancs után, példaképpen: ",
-            "part7": " hogy kihagyd a Launcher-t néhány játékban, stb."
+            "part7": " hogy kihagyd a launchert néhány játékban, stb."
         },
         "sync": {
-            "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd azt.",
+            "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát, és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd.",
             "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj visszaahoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
-            "part3": "Manuális Szinkronizálás: Válaszd a Letöltést, hogy letöltsd a játékmentéseket, amiket a Felhőben tárolsz. Feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített Letöltés és Kényszerített Feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
-            "part4": "Mentések Automatikus Szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor Elindítod a játékot és miután befejezted a játszást."
+            "part3": "Manuális szinkronizálás: válaszd a letöltést, hogy letöltsd a játékmentéseket, amiket a felhőben tárolsz. Válaszd a feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített letöltés és kényszerített feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
+            "part4": "A mentések automatikus szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor elindítod a játékot és miután befejezted a játszást."
         },
         "wine": {
             "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
@@ -123,11 +127,11 @@
         }
     },
     "info": {
-        "settings": "A beállítások maguktól mentődnek"
+        "settings": "A beállítások automatikusan mentődnek"
     },
     "infobox": {
         "help": "Segítség",
-        "requirements": "Rendszer Követelmények"
+        "requirements": "Rendszerkövetelmények"
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"
@@ -137,14 +141,14 @@
         "website": "Weboldal betöltése"
     },
     "login": {
-        "loginWithEpic": "Jelentkezz be Epic-el",
-        "loginWithSid": "Login with SID"
+        "loginWithEpic": "Bejelentkezés Epic-kel",
+        "loginWithSid": "Bejelentkezés SID-vel"
     },
     "message": {
-        "sync": "Szinkronizálás Befejezve",
-        "unsync": "Deszinkronizálás Befejezve"
+        "sync": "Szinkronizálás befejezve",
+        "unsync": "Deszinkronizálás befejezve"
     },
-    "nogames": "Nem találtunk játékot",
+    "nogames": "Nem található játék",
     "Not Ready": "Nincs kész",
     "notify": {
         "error": {
@@ -152,121 +156,121 @@
             "reparing": "Hiba javításkor"
         },
         "finished": {
-            "reparing": "Javítás Befejezve"
+            "reparing": "Javítás befejezve"
         },
         "install": {
-            "canceled": "Telepítés Visszavonva",
+            "canceled": "Telepítés visszavonva",
             "error": "",
-            "finished": "Telepítés Befejezve",
+            "finished": "Telepítés befejezve",
             "imported": "Játék importálva",
             "startInstall": "Telepítés elindult"
         },
-        "moved": "Áthelyezés Befejezve",
+        "moved": "Áthelyezés befejezve",
         "uninstalled": "Eltávolítva",
         "update": {
-            "canceled": "Frissítés Visszavonva",
-            "finished": "Frissítés Befejezve",
+            "canceled": "Frissítés visszavonva",
+            "finished": "Frissítés befejezve",
             "started": "Frissítés elindult"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "Egyéb indítási opciókat ide írd",
-            "title": "Haladó beállítások (Környezeti Változók):"
+            "placeholder": "Ide írd az egyéb indítási opciókat",
+            "title": "Haladó beállítások (környezeti változók):"
         },
         "gameargs": {
-            "placeholder": "Launcher Argumentumokat ide írd",
-            "title": "Játék Argumentumok (amik a parancs után fussanak le):"
+            "placeholder": "Ide írd az indító argumentumait",
+            "title": "Játékargumentumok (futtatás a parancs után):"
         }
     },
     "other": {
-        "legendary-version": "Legendary Verzió: ",
+        "legendary-version": "Legendary verzió: ",
         "weblate": "Segíts lefordítani a Heroic-ot."
     },
     "placeholder": {
-        "alt-legendary-bin": "A beépített Legendary bináris használata...",
-        "egs-prefix": "Prefix ahol EGS telepítve van"
+        "alt-legendary-bin": "Beépített Legendary bináris használata...",
+        "egs-prefix": "Prefix ahol az EGS telepítve van"
     },
-    "Plugins": "Plugins",
+    "Plugins": "Beépülők",
     "Projects": "Projektek",
     "Ready": "Kész",
     "Recent": "Nemrég játszott",
     "Return": "Vissza",
-    "search": "Add meg a játék nevét itt...",
+    "search": "Add meg itt a játék nevét...",
     "setting": {
-        "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalra",
+        "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
         "alt-legendary-bin": "Válassz egy alternatív Legendary binárist (újraindítás szükséges)",
-        "audiofix": "Hangzás javítás (Pulse Audio Latency)",
-        "autodxvk": "DXVK Automatikus Telepítése/Frissítése a Prefix-en",
-        "autosync": "Mentések Automatikus Szinkronizálása",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Válassz alternatív EXE fájlt a futtatáshoz",
-        "checkForUpdatesOnStartup": "Frissítés keresése indításkor",
+        "audiofix": "Hangzásjavítás (Pulse Audio késleltetés)",
+        "autodxvk": "A DXVK automatikus telepítése/frissítése a prefixen",
+        "autosync": "Mentések automatikus szinkronizálása",
+        "autovkd3d": "A VKD3D automatikus telepítése/frissítése a prefixen",
+        "change-target-exe": "Válassz egy alternatív EXE fájlt a futtatáshoz",
+        "checkForUpdatesOnStartup": "Frissítések keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét Tálca Ikon Használata",
-        "default-install-path": "Alapértelmezett Telepítési Útvonal",
-        "defaultWinePrefix": "Mappa beállítása új Wine Prefixeknek",
-        "discordRPC": "Discord Rich Presence Engedélyezése",
-        "egs-sync": "Szinkronizálás a Telepített Epic Games-el",
-        "enableFSRHack": "FSR Hack engedélyezése (Wine verziónak támogatnia kell)",
+        "default-install-path": "Alapértelmezett telepítési útvonal",
+        "defaultWinePrefix": "Mappa beállítása új Wine prefixeknek",
+        "discordRPC": "Discord Rich Presence engedélyezése",
+        "egs-sync": "Szinkronizálás a telepített Epic Games-szel",
+        "enableFSRHack": "FSR Hack engedélyezése (a Wine verziónak támogatnia kell)",
         "esync": "Esync engedélyezése",
-        "exit-to-tray": "Kilépés a Rendszer Tálcára",
-        "FsrSharpnessStrenght": "FSR Élesség Erősség",
+        "exit-to-tray": "Kilépés a rendszertálcára",
+        "FsrSharpnessStrenght": "FSR élesség erőssége",
         "fsync": "Fsync engedélyezése",
-        "gamemode": "GameMode használata (Feral Game Mode-nak telepítve kell lennie)",
-        "language": "Válasszd ki az Alkalmazás Nyelvét",
+        "gamemode": "GameMode használata (a Feral Game Mode-nak telepítve kell lennie)",
+        "language": "Alkalmazás nyelvének kiválasztása",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Napló tartalmának vágólapra másolása",
+            "current-log": "Jelenlegi napló",
+            "last-log": "Utolsó napló",
+            "no-file": "Nem található naplófájl",
+            "show-in-folder": "Naplófájl megjelenítése mappában"
         },
-        "mangohud": "Mangohud engedélyezése (Mangohud-nak telepítve kell lennie)",
+        "mangohud": "Mangohud engedélyezése (a Mangohudnak telepítve kell lennie)",
         "manualsync": {
             "download": "Letöltés",
-            "forcedownload": "Kényszerített Letöltés",
-            "forceupload": "Kényszerített Feltöltés",
+            "forcedownload": "Kényszerített letöltés",
+            "forceupload": "Kényszerített feltöltés",
             "sync": "Szinkronizálás",
             "syncing": "Szinkronizálás folyamatban",
-            "title": "Manuális Mentés Szinkronizálás",
+            "title": "Mentések manuális szinkronizálása",
             "upload": "Feltöltés"
         },
         "maxRecentGames": "Nemrég játszottak megjelenítése",
-        "maxworkers": "Maximum Dolgozók Száma letöltéskor",
-        "offlinemode": "Futtassa a Játékot Offline",
-        "primerun": "Nvidia Prime Render Engedélyezése",
+        "maxworkers": "Maximum dolgozók száma letöltéskor",
+        "offlinemode": "Játék futtatása offline",
+        "primerun": "Nvidia Prime Render engedélyezése",
         "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyával)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
-            "title": "Futtasd az EXE fájlt Prefix-el"
+            "title": "EXE fájl futtatása a prefixen"
         },
         "savefolder": {
-            "placeholder": "Válaszd ki a pontos játék mentési mappát",
-            "title": "Cloud Sync Save Mappa Felülírása"
+            "placeholder": "Pontos játékmentési mappa kiválasztása",
+            "title": "Felhőszinkronizálásra való mappa felülírása"
         },
-        "showfps": "FPS Megjelenítése (DX9, 10 és 11)",
+        "showfps": "FPS megjelenítése (DX9, 10 és 11)",
         "showUnrealMarket": "Unreal piactér mutatása (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix Mappa",
-        "wineversion": "Wine Verzió"
+        "winecrossoverbottle": "CrossOver tároló",
+        "wineprefix": "Wine prefix mappa",
+        "wineversion": "Wine verzió"
     },
     "settings": {
-        "clear-cache": "Heroic gyorsítótár eltávolítása",
+        "clear-cache": "Heroic gyorsítótár törlése",
         "copiedToClipboard": "Vágólapra másolva!",
         "copyToClipboard": "Összes beállítás másolása a vágólapra",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "A napló rövidítve van, az utolsó 1000 sor van megjelenítve!"
         },
         "navbar": {
             "general": "Általános",
-            "log": "Log",
+            "log": "Napló",
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Heroic visszaállítása"
     },
     "Settings": "Beállítások",
     "status": {
@@ -279,7 +283,7 @@
         "allUnreal": "Unreal - Minden",
         "downloading": "Letöltés",
         "installedGames": "Telepített játékok",
-        "notInstalledGames": "Nem telepített",
+        "notInstalledGames": "Nincs telepítve",
         "unrealAssets": "Unreal - Eszközök",
         "unrealPlugins": "Unreal - Bővítmények",
         "unrealProjects": "Unreal - Projektek",
@@ -287,22 +291,22 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Az új konfigurációk számára prefix mappa kiválasztása",
+            "wineprefix": "Mappa kiválasztása az új Wine prefixek számára"
         }
     },
     "tooltip": {
         "addpath": "Új útvonal hozzáadása",
         "removepath": "Útvonal eltávolítása"
     },
-    "Total Games": "Összes Játék",
+    "Total Games": "Összes játék",
     "tray": {
-        "about": "Rólunk",
-        "quit": "Kilép",
-        "reload": "Újratölt",
-        "show": "Mutasd"
+        "about": "Névjegy",
+        "quit": "Kilépés",
+        "reload": "Újratöltés",
+        "show": "Megjelenítés"
     },
-    "Unreal Marketplace": "Unreal Piac",
+    "Unreal Marketplace": "Unreal piactér",
     "Updates": "Frissítések",
     "userselector": {
         "discord": "Discord",
@@ -313,9 +317,9 @@
     "wiki": "Wiki",
     "wine": {
         "manager": {
-            "error": "Nem sikerült Wine/Proton verziókat letölteni ezúttal.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "error": "Nem sikerült most letölteni a Wine/Proton verziókat.",
+            "link": "Wine kezelő",
+            "title": "Wine kezelő (béta)",
             "unzipping": "Kicsomagolás"
         }
     }

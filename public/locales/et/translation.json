@@ -3,7 +3,7 @@
     "Assets": "Varamu",
     "box": {
         "appupdate": {
-            "message": "Heroicu uus versioon on saadaval. Kas soovite uuendada kohe?",
+            "message": "Heroic'u uus versioon on saadaval. Kas soovite uuendada kohe?",
             "title": "Uuendus saadaval"
         },
         "cache-cleared": {
@@ -25,14 +25,18 @@
                 "title": "Ei ole ruumi"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Viga DXVK/VKD3D installimisel! Kontrollige ühendust või seda, kas teil on installitud zstd/libzstd1",
+                "title": "DXVK/VKD3D viga"
             },
             "generic": {
                 "message": "Tekkinud on tundmatu viga",
                 "title": "Tundmatu viga"
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Viga",
             "wine-not-found": {
                 "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
@@ -91,12 +95,12 @@
     },
     "Downloading": "Allalaadimine",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Heroic ilmselt ei tööta!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Filtreerimata"
     },
     "Filter": "Filtreeri",
     "globalSettings": "Globaalsed seaded",
@@ -200,7 +204,7 @@
         "audiofix": "Heliparandus (Pulse Audio Latency)",
         "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
         "autosync": "Automaatne salvestiste sünkroonimine",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
         "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel",
         "customWineProton": "Kohandatud Wine/Proton teed",
@@ -217,11 +221,11 @@
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
         "language": "Valige rakenduse keel",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Kopeeri logi sisu lõikelauale",
+            "current-log": "Praegune logi",
+            "last-log": "Viimane logi",
+            "no-file": "Logifaili ei leitud",
+            "show-in-folder": "Kuva logifail kaustas"
         },
         "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
         "manualsync": {
@@ -258,7 +262,7 @@
         "copiedToClipboard": "Kopeeritud lõikelauale!",
         "copyToClipboard": "Kopeeri kõik seaded lõikelauale",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Logi on kärbitud, näidatakse viimased 1000 rida!"
         },
         "navbar": {
             "general": "Üldine",
@@ -287,8 +291,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Valige vaikimisi prefiksi kaust uute konfiguratsioonide jaoks",
+            "wineprefix": "Valige uute Wine'i prefikside jaoks kaust"
         }
     },
     "tooltip": {

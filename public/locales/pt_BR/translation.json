@@ -12,8 +12,8 @@
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefixo Wine onde a EGS está instalada",
-        "choose-legendary-binary": "Selecionar o binário do Legendary",
-        "customWine": "Selecione o Binário do WINE ou Proton",
+        "choose-legendary-binary": "Selecione o binário do Legendary",
+        "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o local de instalação padrão",
         "error": {
             "credentials": {
@@ -25,18 +25,22 @@
                 "title": "Sem Espaço"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Erro ao Instalar DXVK/VKD3D! Cheque sua conexão Ou se você tem o zstd/libzstd1 instalado",
+                "title": "DXVK/VKD3D Erro"
             },
             "generic": {
                 "message": "Um erro desconhecido ocorreu",
                 "title": "Erro Desconhecido"
             },
             "launch": "Erro ao iniciar o jogo, confira os logs!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Erro",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
+                "title": "Wine Não Encontrado"
             }
         },
         "no": "NÃO",
@@ -91,7 +95,7 @@
     },
     "Downloading": "Baixando",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Provavelmente o Heroic não funcionará!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -101,7 +105,7 @@
     "Filter": "Filtrar",
     "globalSettings": "Configurações globais",
     "help": {
-        "general": "Se você tiver uma instalação funcional da Epic Games Store e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
+        "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
         "other": {
             "part1": "Use o ",
             "part2": "Opções avançadas",
@@ -255,7 +259,7 @@
     },
     "settings": {
         "clear-cache": "Limpar cache do Heroic",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "copiedToClipboard": "Copiado para a área de Transferência!",
         "copyToClipboard": "Copiar todas as configurações para a área de transferência",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
@@ -271,7 +275,7 @@
     "Settings": "Configurações",
     "status": {
         "loading": "Carregando lista de jogos, aguarde por favor",
-        "logging": "Fazendo login..."
+        "logging": "Logando..."
     },
     "store": "Loja",
     "title": {
@@ -288,7 +292,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "wineprefix": "Selecione Uma Pasta para novos Prefixos do Wine"
         }
     },
     "tooltip": {
@@ -306,7 +310,7 @@
     "Updates": "Atualizações",
     "userselector": {
         "discord": "Discord",
-        "logout": "Sair da Conta",
+        "logout": "Sair",
         "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
         "quit": "Sair"
     },
@@ -316,7 +320,7 @@
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "unzipping": "Descompactando"
         }
     }
 }
