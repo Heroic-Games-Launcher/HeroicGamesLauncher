@@ -17,7 +17,7 @@
   font-weight: 500;
   font-size: 25px;
   line-height: 30px;
-  color: var(--accent);
+  color: var(--text-default);
   text-align: left;
 }
 

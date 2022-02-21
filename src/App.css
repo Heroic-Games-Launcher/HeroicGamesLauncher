@@ -99,7 +99,7 @@ html,
 
 .button.is-secondary:hover {
   background: var(--download-button-overlay);
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 .button.is-empty {

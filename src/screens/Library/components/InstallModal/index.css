@@ -38,9 +38,13 @@
 
 .close-button {
   position: absolute;
-  right: 2rem;
-  top: 2rem;
+  right: 1.5rem;
+  top: 1.5rem;
   cursor: pointer;
+}
+.close-button svg {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .title {
