@@ -33,6 +33,10 @@
                 "title": "Nepoznata greška"
             },
             "launch": "Greška kod pokretanja igrice, provjerite dnevnik!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Greška",
             "wine-not-found": {
                 "message": "Wine nije odabran. Provjerite postavke igre!",
