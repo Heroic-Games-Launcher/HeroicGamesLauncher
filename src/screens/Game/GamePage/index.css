@@ -36,6 +36,10 @@
   max-width: 650px;
 }
 
+.gameInfo .title {
+  color: var(--accent);
+}
+
 .gameInfo > .settingSelect {
   margin-bottom: 12px;
 }
