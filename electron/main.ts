@@ -320,7 +320,7 @@ if (!gotTheLock) {
         logError('Failed to register protocol with OS.', LogPrefix.Backend)
       }
     } else {
-      logWarning('Protocol already registered.', LogPrefix.Backend)
+      logInfo('Protocol already registered.', LogPrefix.Backend)
     }
     if (process.argv[1]) {
       const url = process.argv[1]
