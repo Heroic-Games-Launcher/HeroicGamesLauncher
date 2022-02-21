@@ -250,6 +250,7 @@
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü"

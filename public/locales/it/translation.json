@@ -250,6 +250,7 @@
         "showfps": "Mostra FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostra Unreal Marketplace (richiede riavvio)",
         "start-in-tray": "Avvio Minimizzato",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "Bottiglia CrossOver",
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine"

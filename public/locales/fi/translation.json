@@ -250,6 +250,7 @@
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefixin kansio",
         "wineversion": "Winen versio"

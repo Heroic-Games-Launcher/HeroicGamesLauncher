@@ -250,6 +250,7 @@
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "showUnrealMarket": "Mostra la llibreria d'Unreal (cal reiniciar)",
         "start-in-tray": "Inicia minimitzat",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine"

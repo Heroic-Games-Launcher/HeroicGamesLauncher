@@ -250,6 +250,7 @@
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
         "showUnrealMarket": "Unreal piactér mutatása (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver tároló",
         "wineprefix": "Wine prefix mappa",
         "wineversion": "Wine verzió"

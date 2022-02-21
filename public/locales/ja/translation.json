@@ -250,6 +250,7 @@
         "showfps": "FPSを表示（DX9、10、11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver ボトル",
         "wineprefix": "Wineプレフィックスフォルダー",
         "wineversion": "Wineバージョン"

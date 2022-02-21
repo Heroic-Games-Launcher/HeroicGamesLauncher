@@ -250,6 +250,7 @@
         "showfps": "显示帧数（Directx 9，10和11）",
         "showUnrealMarket": "显示 Unreal 市场 (需重启)",
         "start-in-tray": "启动时最小化",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "Wine 版本"

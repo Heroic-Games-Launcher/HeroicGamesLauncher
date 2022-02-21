@@ -250,6 +250,7 @@
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"

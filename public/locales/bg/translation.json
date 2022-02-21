@@ -250,6 +250,7 @@
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
         "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Папка за префикс на Wine",
         "wineversion": "Версия на Wine"

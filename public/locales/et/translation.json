@@ -250,6 +250,7 @@
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
         "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritud",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
         "wineversion": "Wine'i versioon"

@@ -250,6 +250,7 @@
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Starta minimerad",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"

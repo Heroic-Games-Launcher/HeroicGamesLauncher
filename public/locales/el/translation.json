@@ -250,6 +250,7 @@
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Εκκίνηση ελαχιστοποιημένα",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "φάκελος προθεμάτων Wine",
         "wineversion": "Έκδοση Wine"

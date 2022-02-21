@@ -250,6 +250,7 @@
         "showfps": "FPS 표시 (DX9, 10 및 11)",
         "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작 필요)",
         "start-in-tray": "최소화로 시작",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine Prefix 폴더",
         "wineversion": "Wine 버전"

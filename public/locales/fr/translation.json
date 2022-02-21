@@ -250,6 +250,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"

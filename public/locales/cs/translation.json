@@ -250,6 +250,7 @@
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Spustit minimalizované",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
