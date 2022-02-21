@@ -22,10 +22,6 @@
   margin-left: 12px;
 }
 
-.downIcon > circle {
-  fill: var(--download-button);
-}
-
 .wineManagerListItem {
   display: grid;
   grid-template-columns: 2fr 1fr 2fr 1fr;
