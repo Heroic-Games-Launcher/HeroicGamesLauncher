@@ -680,8 +680,7 @@ Categories=Game;
     if (isProton) {
       logWarning(
         [
-          `You are using Proton, this can lead to some bugs,
-          please do not open issues with bugs related with games`,
+          `You are using Proton, this can lead to some bugs. Please do not open issues with bugs related with games`,
           wineVersion.name
         ],
         LogPrefix.Backend
