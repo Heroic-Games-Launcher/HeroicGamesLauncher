@@ -25,14 +25,14 @@
                 "title": "Нет места"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Ошибка при установке DXVK/VKD3D! Проверьте подключение или наличие установленного zstd/libzstd1",
+                "title": "Ошибка DXVK/VKD3D"
             },
             "generic": {
                 "message": "Произошла неизвестная ошибка",
                 "title": "Неизвестная ошибка"
             },
-            "launch": "Ошибка при запуске игры, посмотрите логи!",
+            "launch": "Ошибка при запуске игры, проверьте журнал!",
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -91,7 +91,7 @@
     },
     "Downloading": "Скачивается",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Heroic вероятно не будет работать!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -101,7 +101,7 @@
     "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
     "help": {
-        "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
+        "general": "Синхронизируйте с EGL, в случае если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
             "part1": "Используйте ",
             "part2": "расширенные настройки",
@@ -198,9 +198,9 @@
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary (требуется перезапуск)",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
-        "autodxvk": "Автоустановка/обновление DXVK на префикс",
+        "autodxvk": "Автоматически устанавливать/обновлять DXVK в префиксе",
         "autosync": "Автосинхронизация сохранений",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
         "customWineProton": "Пользовательские пути Wine/Proton",
@@ -217,11 +217,11 @@
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Копировать содержимое журнала в буфер обмена",
+            "current-log": "Текущий журнал",
+            "last-log": "Последний журнал",
+            "no-file": "Файл журнала не найден",
+            "show-in-folder": "Показать файл журнала в папке"
         },
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
         "manualsync": {
@@ -240,7 +240,7 @@
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
             "message": "Перетащите файлы сюда",
-            "title": "Запустить EXE на префиксе"
+            "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
             "placeholder": "Выберите точную папку для сохранений игр",
@@ -258,11 +258,11 @@
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Журнал урезан, показаны последние 1000 строк!"
         },
         "navbar": {
             "general": "Основные",
-            "log": "Log",
+            "log": "Журнал",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },
@@ -287,8 +287,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Выбрать папку префиксов по умолчанию для новых конфигураций",
+            "wineprefix": "Выбрать папку для новых префиксов"
         }
     },
     "tooltip": {
