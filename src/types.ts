@@ -41,6 +41,7 @@ export interface AppSettings {
   defaultWinePrefix: string
   winePrefix: string
   wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
 export interface ContextType {
@@ -122,6 +123,7 @@ export interface GameSettings {
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
 type DLCInfo = {

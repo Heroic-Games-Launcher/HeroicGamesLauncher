@@ -40,8 +40,9 @@ export class GOGLibrary {
     if (GOGUser.isTokenExpired()) {
       await GOGUser.refreshToken()
     }
-    // This gets games and movies library
-    // In the future handle multiple pages
+    // This gets games ibrary
+    // Handles multiple pages
+    this.refreshInstalled()
     const credentials: GOGLoginData = userStore.get(
       'credentials'
     ) as GOGLoginData

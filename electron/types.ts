@@ -46,6 +46,7 @@ export interface AppSettings {
   winePrefix: string
   defaultWinePrefix: string
   wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
 export type ExecResult = { stderr: string; stdout: string }
@@ -143,6 +144,7 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
+  useSteamRuntime: boolean
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation

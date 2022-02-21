@@ -89,6 +89,11 @@ function Settings() {
     setOn: setUseGameMode
   } = useToggle(false)
   const {
+    on: useSteamRuntime,
+    toggle: toggleUseSteamRuntime,
+    setOn: setUseSteamRuntime
+  } = useToggle(false)
+  const {
     on: checkForUpdatesOnStartup,
     toggle: toggleCheckForUpdatesOnStartup,
     setOn: setCheckForUpdatesOnStartup
@@ -234,7 +239,7 @@ function Settings() {
       setAltLegendaryBin(config.altLegendaryBin || '')
       setShowUnrealMarket(config.showUnrealMarket || false)
       setDefaultWinePrefix(config.defaultWinePrefix)
-
+      setUseSteamRuntime(config.useSteamRuntime || false)
       if (!isDefault) {
         const newInfo = await getGameInfo(appName, state.runner)
         const {
@@ -312,7 +317,8 @@ function Settings() {
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
-    wineVersion
+    wineVersion,
+    useSteamRuntime
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
@@ -541,6 +547,8 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
+              useSteamRuntime={useSteamRuntime}
+              toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
             />

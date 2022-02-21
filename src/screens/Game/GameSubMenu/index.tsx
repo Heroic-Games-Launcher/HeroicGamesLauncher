@@ -5,7 +5,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppSettings, Runner } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { SmallInfo } from 'src/components/UI'
-import { createNewWindow, formatStoreUrl, repair } from 'src/helpers'
+import {
+  createNewWindow,
+  formatStoreUrl,
+  getGameInfo,
+  repair
+} from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { uninstall } from 'src/helpers/library'
@@ -40,7 +45,7 @@ export default function GamesSubmenu({
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
-
+  const [isNative, setIsNative] = useState(false)
   const { t, i18n } = useTranslation('gamepage')
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -127,8 +132,14 @@ export default function GamesSubmenu({
         ipcRenderer.send('logError', error)
       }
     }
+    const getGameDetails = async () => {
+      const gameInfo = await getGameInfo(appName, runner)
+      const isLinuxNative = gameInfo.install?.platform == 'linux' && isLinux
+      setIsNative(isLinuxNative)
+    }
     getWineInfo()
-  }, [appName])
+    getGameDetails()
+  }, [appName, runner])
 
   return (
     <div className="gameTools subMenuContainer">
@@ -137,7 +148,10 @@ export default function GamesSubmenu({
           <>
             <NavLink
               to={{
-                pathname: `/settings/${appName}/log`
+                pathname: `/settings/${appName}/log`,
+                state: {
+                  runner
+                }
               }}
               className="link button is-text is-link"
             >
@@ -196,7 +210,7 @@ export default function GamesSubmenu({
           </button>
         )}
       </div>
-      {isInstalled && isLinux && (
+      {isInstalled && isLinux && !isNative && (
         <div className="otherInfo">
           <SmallInfo title="Wine:" subtitle={info.wine} />
           <SmallInfo

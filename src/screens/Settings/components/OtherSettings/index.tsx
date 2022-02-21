@@ -42,6 +42,8 @@ interface Props {
   toggleDiscordRPC: () => void
   targetExe: string
   useGameMode: boolean
+  useSteamRuntime: boolean
+  toggleUseSteamRuntime: () => void
 }
 
 export default function OtherSettings({
@@ -73,7 +75,9 @@ export default function OtherSettings({
   setTargetExe,
   targetExe,
   isMacNative,
-  isLinuxNative
+  isLinuxNative,
+  toggleUseSteamRuntime,
+  useSteamRuntime
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -185,6 +189,18 @@ export default function OtherSettings({
               <span>{t('setting.mangohud')}</span>
             </span>
           </span>
+          {isLinuxNative && (
+            <span className="setting">
+              <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+                <ToggleSwitch
+                  value={useSteamRuntime}
+                  handleChange={toggleUseSteamRuntime}
+                  title={t('setting.steamruntime', 'Use Steam Runtime')}
+                />
+                <span>{t('setting.steamruntime', 'Use Steam Runtime')}</span>
+              </span>
+            </span>
+          )}
         </>
       )}
       <span className="setting">

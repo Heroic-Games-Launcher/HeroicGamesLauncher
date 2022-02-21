@@ -69,7 +69,8 @@ async function launch(
     enableResizableBar,
     enableEsync,
     enableFsync,
-    targetExe
+    targetExe,
+    useSteamRuntime
   } = gameSettings
 
   const { discordRPC } = await GlobalConfig.get().getSettings()
@@ -133,13 +134,46 @@ async function launch(
     } else if (runner == 'gog') {
       // MangoHud,Gamemode, nvidia prime, audio fix can be used in Linux native titles
       if (isLinux) {
+        let steamRuntime: string
+        // Finds a existing runtime path wether it's flatpak or not and set's a variable
+        if (useSteamRuntime) {
+          const nonFlatpakPath =
+            '~/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh'.replace(
+              '~',
+              home
+            )
+          const FlatpakPath =
+            '~/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh'.replace(
+              '~',
+              home
+            )
+
+          if (existsSync(nonFlatpakPath)) {
+            // Escape path in quotes to avoid issues with spaces
+            steamRuntime = `"${nonFlatpakPath}"`
+            logInfo(
+              ['Using non flatpak Steam runtime', steamRuntime],
+              LogPrefix.Backend
+            )
+          } else if (existsSync(FlatpakPath)) {
+            steamRuntime = `"${FlatpakPath}"`
+            logInfo(
+              ['Using flatpak Steam runtime', steamRuntime],
+              LogPrefix.Backend
+            )
+          } else {
+            logWarning("Couldn't find a valid runtime path", LogPrefix.Backend)
+          }
+        }
         const options = [
           mangohud,
           runWithGameMode,
           nvidiaPrime
             ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
             : '',
-          audioFix ? `PULSE_LATENCY_MSEC=60` : ''
+          audioFix ? `PULSE_LATENCY_MSEC=60` : '',
+          // This must be always last
+          steamRuntime
         ]
         envVars = options.join(' ')
       }
@@ -151,14 +185,18 @@ async function launch(
       logInfo(['Launch Command:', command], LogPrefix.Gog)
     }
 
-    const execProcess = await execAsync(command, execOptions)
-    if (discordRPC) {
-      logInfo('Stopping Discord Rich Presence if running...', LogPrefix.Backend)
-      DiscordRPC.disconnect()
-      logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
-    }
+    return await execAsync(command, execOptions).then(({ stderr }) => {
+      if (discordRPC) {
+        logInfo(
+          'Stopping Discord Rich Presence if running...',
+          LogPrefix.Backend
+        )
+        DiscordRPC.disconnect()
+        logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
+      }
 
-    return execProcess
+      return { stderr, command, gameSettings }
+    })
   }
 
   if (!wineVersion.bin) {
