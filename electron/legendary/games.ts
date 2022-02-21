@@ -1,9 +1,10 @@
+import { WineInstallation } from './../types'
 import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
 import axios from 'axios'
 
 import { app, BrowserWindow, dialog, shell } from 'electron'
 import { DXVK } from '../dxvk'
-import { ExtraInfo, InstallArgs } from '../types'
+import { ExecResult, ExtraInfo, InstallArgs } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -25,11 +26,16 @@ import {
   isWindows,
   legendaryBin
 } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import makeClient from 'discord-rich-presence-typescript'
-import { platform } from 'os'
 import i18next from 'i18next'
 
 const store = new Store({
@@ -682,7 +688,7 @@ Categories=Game;
       )
     }
 
-    await this.verifyPrefix(isProton, fixedWinePrefix, winePath)
+    await this.verifyPrefix(fixedWinePrefix)
 
     // Install DXVK for non Proton/CrossOver Prefixes
     if (!isProton && !isCrossover && autoInstallDxvk) {
@@ -735,31 +741,65 @@ Categories=Game;
     return startLaunch
   }
 
-  private async verifyPrefix(
-    isProton: boolean,
-    fixedWinePrefix: string,
-    winePath: string
-  ) {
-    if (platform() === 'darwin') {
+  private async verifyPrefix(winePrefix: string) {
+    if (isMac) {
       return
     }
 
-    // Create prefix directory if it doesn't exist
-    if (!existsSync(fixedWinePrefix)) {
-      mkdirSync(fixedWinePrefix, { recursive: true })
+    if (!existsSync(winePrefix)) {
+      mkdirSync(winePrefix, { recursive: true })
     }
 
-    let initPrefixCommand = ``
-    if (isProton) {
-      initPrefixCommand = `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${fixedWinePrefix}' '${winePath}/proton' run wineboot -i`
+    return this.runWineCommand('wineboot --init', true)
+  }
+
+  public async runWineCommand(
+    command: string,
+    wait = true
+  ): Promise<ExecResult> {
+    const wineVersion = (await this.getSettings()).wineVersion
+    const winePrefix = (await this.getSettings()).winePrefix.replace('~', home)
+
+    const env_vars = this.getEnvSetup(wineVersion, winePrefix)
+
+    let additional_command = ''
+    if (wineVersion.type == 'proton') {
+      command = 'run ' + command
+      // TODO: Respect 'wait' here. Not sure if Proton can even do that
     } else {
-      initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i`
+      // Can't wait if we don't have a Wineserver
+      if (wait && wineVersion.wineserver) {
+        additional_command = `${env_vars} ${wineVersion.wineserver} --wait`
+      }
     }
 
-    logInfo(['Creating new prefix', fixedWinePrefix], LogPrefix.Backend)
-    return execAsync(initPrefixCommand)
-      .then(() => logInfo('Prefix created successfully!', LogPrefix.Backend))
-      .catch((error) => logError(`${error}`, LogPrefix.Backend))
+    let finalCommand = `${env_vars} ${wineVersion.bin} ${command}`
+    if (additional_command) {
+      finalCommand += ` && ${additional_command}`
+    }
+
+    logDebug(['Running Wine command: ', finalCommand], LogPrefix.Backend)
+    return execAsync(finalCommand)
+      .then(() => logDebug('Ran Wine command'))
+      .catch((error) => logError(error, LogPrefix.Backend))
+  }
+
+  private async getEnvSetup(
+    wineVersion?: WineInstallation,
+    winePrefix?: string
+  ): Promise<string> {
+    if (!wineVersion) {
+      wineVersion = (await this.getSettings()).wineVersion
+    }
+    if (!winePrefix) {
+      winePrefix = (await this.getSettings()).winePrefix.replace('~', home)
+    }
+
+    if (wineVersion.type == 'proton') {
+      return `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix}'`
+    } else {
+      return `WINEPREFIX=${winePrefix}`
+    }
   }
 
   public async stop() {

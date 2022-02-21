@@ -36,6 +36,7 @@ abstract class Game {
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<unknown>
+  abstract runWineCommand(command: string): Promise<ExecResult>
 }
 
 import { LegendaryGame } from './legendary/games'
