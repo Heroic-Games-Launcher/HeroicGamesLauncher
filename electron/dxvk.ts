@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { exec } from 'child_process'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync, readFileSync, writeFileSync, rmSync } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
 import { execOptions, heroicToolsPath, home } from './constants'
@@ -38,9 +38,12 @@ export const DXVK = {
       } = await axios.default.get(tool.url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
-      const pkg = name.replace('.tar.gz', '').replace('.tar.zst', '')
+      const extractedFolderName = name
+        .replace('.tar.gz', '')
+        .replace('.tar.zst', '')
+      const latestVersionArchive = `${heroicToolsPath}/${tool.name}/${name}`
 
-      const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
+      // Compare currently downloaded and most recent version
       const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
       let pastVersion = ''
       if (existsSync(pastVersionCheck)) {
@@ -48,24 +51,28 @@ export const DXVK = {
       }
 
       if (
-        pastVersion === pkg &&
-        existsSync(`${heroicToolsPath}/${tool.name}/${pkg}`)
+        pastVersion === extractedFolderName &&
+        existsSync(`${heroicToolsPath}/${tool.name}/${extractedFolderName}`)
       ) {
         return
       }
 
-      const downloadCommand = `curl -L ${downloadUrl} -o ${latestVersion} --create-dirs`
-      const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${heroicToolsPath}/${tool.name}`
-      const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
-      const cleanCommand = `rm ${latestVersion}`
+      const downloadCommand = `curl -L ${downloadUrl} -o ${latestVersionArchive} --create-dirs`
+      const extractCommand = `${tool.extractCommand} ${latestVersionArchive} -C ${heroicToolsPath}/${tool.name}`
 
-      logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
+      logInfo(
+        [`Updating ${tool.name} to:`, extractedFolderName],
+        LogPrefix.DXVKInstaller
+      )
 
       return execAsync(downloadCommand)
         .then(async () => {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
-          exec(echoCommand)
+          writeFileSync(
+            `${heroicToolsPath}/${tool.name}/latest_${tool.name}`,
+            extractedFolderName
+          )
           await execAsync(extractCommand)
             .then(() =>
               logInfo(
@@ -80,7 +87,7 @@ export const DXVK = {
               )
             )
 
-          exec(cleanCommand)
+          rmSync(latestVersionArchive)
         })
         .catch((error) => {
           logError(
