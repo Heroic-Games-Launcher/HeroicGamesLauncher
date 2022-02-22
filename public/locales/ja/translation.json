@@ -33,6 +33,10 @@
                 "title": "不明なエラー"
             },
             "launch": "ゲームの起動時にエラーが発生しました、ログを確認してください！",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "エラー",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",

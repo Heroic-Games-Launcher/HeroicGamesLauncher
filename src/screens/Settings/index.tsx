@@ -67,6 +67,7 @@ function Settings() {
   const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
+  const [canRunOffline, setCanRunOffline] = useState(true)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
@@ -241,14 +242,15 @@ function Settings() {
       setDefaultWinePrefix(config.defaultWinePrefix)
       setUseSteamRuntime(config.useSteamRuntime || false)
       if (!isDefault) {
-        const newInfo = await getGameInfo(appName, state.runner)
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
           title: gameTitle,
+          canRunOffline: can_run_offline,
           is_mac_native,
           is_linux_native
-        } = newInfo
+        } = await getGameInfo(appName, state.runner)
+        setCanRunOffline(can_run_offline)
         setTitle(gameTitle)
         setIsMacNative(is_mac_native && (await getPlatform()) == 'darwin')
         setIsLinuxNative(is_linux_native && (await getPlatform()) == 'linux')
@@ -548,6 +550,7 @@ function Settings() {
               togglePrimeRun={toggleNvidiaPrime}
               showFps={showFps}
               toggleFps={toggleFps}
+              canRunOffline={canRunOffline}
               offlineMode={offlineMode}
               toggleOffline={toggleOffline}
               audioFix={audioFix}

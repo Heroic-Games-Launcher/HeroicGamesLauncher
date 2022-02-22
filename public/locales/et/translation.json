@@ -33,6 +33,10 @@
                 "title": "Tundmatu viga"
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Viga",
             "wine-not-found": {
                 "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",

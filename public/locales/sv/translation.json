@@ -33,6 +33,10 @@
                 "title": "Okänt fel"
             },
             "launch": "Fel vid uppstar av spelet, kontrollera loggarna!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",

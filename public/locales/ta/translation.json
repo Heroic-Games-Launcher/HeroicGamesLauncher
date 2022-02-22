@@ -33,6 +33,10 @@
                 "title": "அறியப்படாத பிழை"
             },
             "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "பிழை",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",

@@ -33,6 +33,10 @@
                 "title": "Error Tak Dikenal"
             },
             "launch": "Error ketika meluncurkan permainan, periksa log!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",

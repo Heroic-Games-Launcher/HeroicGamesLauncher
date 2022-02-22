@@ -32,8 +32,12 @@
                 "message": "An Unknown Error has occurred",
                 "title": "Unknown Error"
             },
-            "launch": "Error when launching the game, check the logs!",
-            "title": "Error",
+            "launch": "Greška kod pokretanja igrice, provjerite dnevnik!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
+            "title": "Greška",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"

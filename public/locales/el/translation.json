@@ -33,6 +33,10 @@
                 "title": "Άγνωστο σφάλμα"
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Σφάλμα",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",

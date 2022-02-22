@@ -33,6 +33,10 @@
                 "title": "Bilinmeyen hata"
             },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Hata",
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",

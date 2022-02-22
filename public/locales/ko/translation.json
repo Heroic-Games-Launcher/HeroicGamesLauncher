@@ -33,6 +33,10 @@
                 "title": "알 수 없는 오류"
             },
             "launch": "게임을 실행할 때 오류가 발생했습니다, 로그를 확인 해주세요!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "오류",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",

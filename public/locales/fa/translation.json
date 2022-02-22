@@ -33,6 +33,10 @@
                 "title": "خطای ناشناخته"
             },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "خطا",
             "wine-not-found": {
                 "message": "نسخه\u200cای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",

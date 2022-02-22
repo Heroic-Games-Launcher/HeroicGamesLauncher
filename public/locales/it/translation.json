@@ -33,6 +33,10 @@
                 "title": "Errore sconosciuto"
             },
             "launch": "Errore durante l'avvio del gioco, controlla i logs!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Errore",
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",

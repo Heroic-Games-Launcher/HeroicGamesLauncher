@@ -18,6 +18,7 @@ interface Props {
   isMacNative: boolean
   isLinuxNative: boolean
   launcherArgs: string
+  canRunOffline: boolean
   offlineMode: boolean
   otherOptions: string
   primeRun: boolean
@@ -53,6 +54,7 @@ export default function OtherSettings({
   toggleUseGameMode,
   showFps,
   toggleFps,
+  canRunOffline,
   offlineMode,
   toggleOffline,
   launcherArgs,
@@ -203,16 +205,18 @@ export default function OtherSettings({
           )}
         </>
       )}
-      <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            value={offlineMode}
-            handleChange={toggleOffline}
-            title={t('setting.offlinemode')}
-          />
-          <span>{t('setting.offlinemode')}</span>
+      {canRunOffline && (
+        <span className="setting">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              value={offlineMode}
+              handleChange={toggleOffline}
+              title={t('setting.offlinemode')}
+            />
+            <span>{t('setting.offlinemode')}</span>
+          </span>
         </span>
-      </span>
+      )}
       {supportsShortcuts && isDefault && (
         <>
           <span className="setting">
