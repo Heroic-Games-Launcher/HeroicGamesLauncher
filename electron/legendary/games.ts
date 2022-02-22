@@ -525,7 +525,7 @@ Categories=Game;
     const epicOffline = await isEpicServiceOffline()
     const isOffline = !(await isOnline()) || epicOffline
     let envVars = ''
-    let gameMode: string
+    let gameModeBin: string
     const gameSettings = await this.getSettings()
     const gameInfo = await this.getGameInfo()
 
@@ -643,18 +643,15 @@ Categories=Game;
 
     // We need to keep replacing the ' to keep compatibility with old configs
     let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
+    prefix = wineVersion.type == 'wine' ? prefix : ''
 
-    const isProton =
-      wineVersion.name.includes('Proton') || wineVersion.name.includes('Steam')
-    const isCrossover = wineVersion.name.includes('CrossOver')
-    prefix = isProton || isCrossover ? '' : prefix
     const x = wineVersion.bin.split('/')
     x.pop()
     const winePath = x.join('/').replaceAll("'", '')
     const options = {
       audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
       crossoverBottle:
-        isCrossover && wineCrossoverBottle != ''
+        wineVersion.type == 'crossover' && wineCrossoverBottle != ''
           ? `CX_BOTTLE=${wineCrossoverBottle}`
           : '',
       fps: showFps ? `DXVK_HUD=fps` : '',
@@ -669,15 +666,13 @@ Categories=Game;
       prime: nvidiaPrime
         ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
         : '',
-      proton: isProton
-        ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
-            .replaceAll("'", '')
-            .replace('~', home)}'`
-        : ''
+      proton: wineVersion.type == 'proton' ? this.getEnvSetup() : ''
     }
 
-    envVars = Object.values(options).join(' ')
-    if (isProton) {
+    envVars = Object.values(options)
+      .filter((n) => n)
+      .join(' ')
+    if (wineVersion.type == 'proton') {
       logWarning(
         [
           `You are using Proton, this can lead to some bugs. Please do not open issues with bugs related with games`,
@@ -701,23 +696,36 @@ Categories=Game;
 
     if (wineVersion.name !== 'Wine Default') {
       const { bin } = wineVersion
-      wineCommand = isProton
-        ? `--no-wine --wrapper "${bin} run"`
-        : `--wine ${bin}`
+      wineCommand =
+        wineVersion.type == 'proton'
+          ? `--no-wine --wrapper "${bin} run"`
+          : `--wine ${bin}`
     }
 
     // check if Gamemode is installed
     await execAsync(`which gamemoderun`)
-      .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
+      .then(({ stdout }) => (gameModeBin = stdout.split('\n')[0]))
       .catch(() => logWarning('GameMode not installed', LogPrefix.Backend))
 
-    const runWithGameMode = useGameMode && gameMode ? gameMode : ''
+    const runWithGameMode = useGameMode && gameModeBin ? gameModeBin : ''
 
-    const command = `${envVars} ${runWithGameMode} ${mangohud} ${legendaryBin} launch ${
-      this.appName
-    } ${exe} ${runOffline} ${wineCommand} ${prefix} ${
-      launchArguments ?? ''
-    } ${launcherArgs}`
+    const command = [
+      envVars,
+      runWithGameMode,
+      mangohud,
+      legendaryBin,
+      'launch',
+      this.appName,
+      exe,
+      runOffline,
+      wineCommand,
+      prefix,
+      launchArguments,
+      launcherArgs
+    ]
+      .filter((n) => n)
+      .join(' ')
+
     logInfo(['Launch Command:', command], LogPrefix.Legendary)
 
     const startLaunch = await execAsync(command, execOptions)
