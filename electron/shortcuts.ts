@@ -51,7 +51,11 @@ Categories=Game;
       break
     }
     case 'win32': {
-      const icon = `${gameInfo.install.install_path}\\${gameInfo.install.executable}`
+      let executable = gameInfo.install.executable
+      if (gameInfo.runner === 'gog') {
+        executable = GOGLibrary.get().getExecutable(gameInfo.app_name)
+      }
+      const icon = `${gameInfo.install.install_path}\\${executable}`
 
       const shortcutOptions = {
         target: launchWithProtocol,

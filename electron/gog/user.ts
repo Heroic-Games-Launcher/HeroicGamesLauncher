@@ -39,6 +39,9 @@ export class GOGUser {
 
   public static async getUserDetails() {
     logInfo('Getting data about the user', LogPrefix.Gog)
+    if (!this.isLoggedIn()) {
+      return
+    }
     if (this.isTokenExpired()) {
       this.refreshToken()
     }
@@ -47,8 +50,8 @@ export class GOGUser {
       .get(`https://embed.gog.com/userData.json`, {
         headers: { Authorization: `Bearer ${user.access_token}` }
       })
-      .catch(() => {
-        logError('Error getting user Data')
+      .catch((error) => {
+        logError(['Error getting user Data', `${error}`], LogPrefix.Gog)
         return null
       })
 

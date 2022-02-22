@@ -9,10 +9,12 @@ import {
   InstalledInfo,
   GOGImportData
 } from '../types'
+import { join } from 'node:path'
+import { existsSync, readFileSync } from 'graceful-fs'
+import prettyBytes from 'pretty-bytes'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { execAsync } from '../utils'
 import { fallBackImage, gogdlBin, isMac } from '../constants'
-import prettyBytes from 'pretty-bytes'
 
 const userStore = new Store({
   cwd: 'gog_store'
@@ -449,6 +451,33 @@ export class GOGLibrary {
     }
     return returnValue
   }
+
+  public getExecutable(appName: string): string {
+    const gameInfo = this.getGameInfo(appName)
+    const infoFileName = `goggame-${appName}.info`
+    const infoFilePath = join(gameInfo.install.install_path, infoFileName)
+
+    if (existsSync(infoFilePath)) {
+      logInfo(`Loading playTask data from ${infoFilePath}`, LogPrefix.Backend)
+      const fileData = readFileSync(infoFilePath, { encoding: 'utf-8' })
+
+      const jsonData = JSON.parse(fileData)
+      const playTasks = jsonData.playTasks
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const primary = playTasks.find((value: any) => value?.isPrimary)
+
+      const workingDir = primary?.workingDir
+
+      if (workingDir) {
+        return join(workingDir, primary.path)
+      }
+      return primary.path
+    }
+
+    return ''
+  }
+
   /**
    * This function can be also used with outher stores
    * This endpoint doesn't require user to be authenticated.
