@@ -260,6 +260,9 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
+  if (url.startsWith('http')) {
+    return shell.openExternal(url)
+  }
   return shell.openPath(url)
 }
 
