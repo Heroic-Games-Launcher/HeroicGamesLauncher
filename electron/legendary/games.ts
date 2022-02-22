@@ -757,7 +757,7 @@ Categories=Game;
       mkdirSync(winePrefix, { recursive: true })
     }
 
-    return this.runWineCommand('wineboot --init', true)
+    return this.runWineCommand('wineboot --init')
   }
 
   public async runWineCommand(
