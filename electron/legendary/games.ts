@@ -764,10 +764,9 @@ Categories=Game;
     command: string,
     wait = true
   ): Promise<ExecResult> {
-    const wineVersion = (await this.getSettings()).wineVersion
-    const winePrefix = (await this.getSettings()).winePrefix.replace('~', home)
+    const { wineVersion, winePrefix } = await this.getSettings()
 
-    const env_vars = this.getEnvSetup(wineVersion, winePrefix)
+    const env_vars = await this.getEnvSetup(wineVersion, winePrefix)
 
     let additional_command = ''
     if (wineVersion.type == 'proton') {
@@ -787,20 +786,19 @@ Categories=Game;
 
     logDebug(['Running Wine command: ', finalCommand], LogPrefix.Backend)
     return execAsync(finalCommand)
-      .then(() => logDebug('Ran Wine command'))
-      .catch((error) => logError(error, LogPrefix.Backend))
+      .then(() => logDebug('Ran Wine command', LogPrefix.Backend))
+      .catch((error) =>
+        logError(['Error running Wine command: ', error], LogPrefix.Backend)
+      )
   }
 
   private async getEnvSetup(
     wineVersion?: WineInstallation,
     winePrefix?: string
   ): Promise<string> {
-    if (!wineVersion) {
-      wineVersion = (await this.getSettings()).wineVersion
-    }
-    if (!winePrefix) {
-      winePrefix = (await this.getSettings()).winePrefix.replace('~', home)
-    }
+    wineVersion = wineVersion ?? (await this.getSettings()).wineVersion
+    winePrefix =
+      winePrefix ?? (await this.getSettings()).winePrefix.replace('~', home)
 
     if (wineVersion.type == 'proton') {
       return `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix}'`
