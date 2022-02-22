@@ -81,7 +81,7 @@ export default function Header({
       <div className={cx({ header: !title }, { headerSettings: title })}>
         {category !== 'unreal' && (
           <span className="selectFilter">
-            {(isMac || isLinux) && (
+            {(isMac || (isLinux && category === 'gog')) && (
               <div className="macFilter">
                 <button
                   onClick={() => handlePlatformFilter('all')}
