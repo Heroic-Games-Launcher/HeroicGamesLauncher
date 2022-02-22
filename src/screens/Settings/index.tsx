@@ -358,25 +358,43 @@ function Settings() {
             </NavLink>
           )}
           {shouldRenderWineSettings && (
-            <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
+            <NavLink
+              to={{
+                pathname: `/settings/${appName}/wine`,
+                state: { runner: state?.runner }
+              }}
+            >
               Wine
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink
               data-testid="linkSync"
-              to={{ pathname: `/settings/${appName}/sync` }}
+              to={{
+                pathname: `/settings/${appName}/sync`,
+                state: { runner: state?.runner }
+              }}
             >
               {t('settings.navbar.sync')}
             </NavLink>
           )}
           {
-            <NavLink to={{ pathname: `/settings/${appName}/other` }}>
+            <NavLink
+              to={{
+                pathname: `/settings/${appName}/other`,
+                state: { runner: state?.runner }
+              }}
+            >
               {t('settings.navbar.other')}
             </NavLink>
           }
           {
-            <NavLink to={{ pathname: `/settings/${appName}/log` }}>
+            <NavLink
+              to={{
+                pathname: `/settings/${appName}/log`,
+                state: { runner: state?.runner }
+              }}
+            >
               {t('settings.navbar.log', 'Log')}
             </NavLink>
           }

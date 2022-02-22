@@ -147,7 +147,7 @@ const GameCard = ({
 
   function getImageFormatting() {
     const imageBase = grid ? cover : coverList
-    if (runner == 'legendary') {
+    if (runner === 'legendary') {
       return `${imageBase}?h=400&resize=1&w=300`
     } else {
       return imageBase

@@ -310,6 +310,7 @@ export interface GOGImportData {
   installedLanguage: string
   platform: string
   versionName: string
+  installedWithDlcs: boolean
 }
 
 export interface GamepadInputEventKey {

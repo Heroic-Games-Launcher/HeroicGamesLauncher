@@ -224,7 +224,8 @@ export class GOGLibrary {
       is_dlc: false,
       version: data.versionName,
       platform: data.platform,
-      buildId: data.buildId
+      buildId: data.buildId,
+      installedWithDLCs: data.installedWithDlcs
     }
     this.installedGames.set(data.appName, installInfo)
     const gameData = this.library.get(data.appName)
