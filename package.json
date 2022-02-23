@@ -1,11 +1,11 @@
 {
   "name": "heroic",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
   "license": "GPL-3.0-only",
-  "description": "An Open Source alternative to the Epic Games launcher",
+  "description": "An Open Source Launcher for GOG and Epic Games",
   "repository": {
     "type": "Github",
     "url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
@@ -205,8 +205,8 @@
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
-    "electron": "15.3.4",
-    "electron-builder": "^22.14.5",
+    "electron": "^17.0.1",
+    "electron-builder": "^22.14.13",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
