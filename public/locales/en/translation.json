@@ -96,7 +96,7 @@
     },
     "Downloading": "Downloading",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -162,7 +162,7 @@
         },
         "install": {
             "canceled": "Install Canceled",
-            "error": "",
+            "error": "Installation Failed",
             "finished": "Install Finished",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
