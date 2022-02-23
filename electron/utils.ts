@@ -9,7 +9,12 @@ import si from 'systeminformation'
 import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
+import {
+  heroicConfigPath,
+  heroicGamesConfigPath,
+  icon,
+  legendaryBin
+} from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 const execAsync = promisify(exec)
@@ -260,6 +265,9 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
+  if (url.startsWith('http')) {
+    return shell.openExternal(url)
+  }
   return shell.openPath(url)
 }
 
@@ -276,17 +284,28 @@ function clearCache() {
     cwd: 'lib-cache',
     name: 'gameinfo'
   })
+  const GOGapiInfoCache = new Store({
+    cwd: 'gog_store',
+    name: 'api_info_cache'
+  })
+  const GOGlibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
+  GOGapiInfoCache.clear()
+  GOGlibraryStore.clear()
   installCache.clear()
   libraryCache.clear()
   gameInfoCache.clear()
 }
 
 function resetHeroic() {
-  const heroicFolder = `${app.getPath('appData')}/heroic`
-  rm(heroicFolder, { recursive: true, force: true }, () => {
+  const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
+  heroicFolders.forEach((folder) => {
+    rm(folder, { recursive: true, force: true }, () => null)
+  })
+  // wait a sec to avoid racing conditions
+  setTimeout(() => {
     app.relaunch()
     app.quit()
-  })
+  }, 1000)
 }
 
 function showItemInFolder(item: string) {

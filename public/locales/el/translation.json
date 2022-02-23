@@ -33,6 +33,10 @@
                 "title": "Άγνωστο σφάλμα"
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Σφάλμα",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +88,7 @@
         "yes": "ΝΑΙ"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
@@ -100,6 +105,8 @@
     },
     "Filter": "Φίλτρο",
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
         "other": {
@@ -137,8 +144,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -249,6 +255,7 @@
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Εκκίνηση ελαχιστοποιημένα",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "φάκελος προθεμάτων Wine",
         "wineversion": "Έκδοση Wine"
@@ -270,10 +277,10 @@
     },
     "Settings": "Ρυθμίσεις",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Κατάστημα",
+    "stores": "Stores",
     "title": {
         "allGames": "Όλα τα παιχνίδια",
         "allUnreal": "Unreal - Όλα",
@@ -308,6 +315,7 @@
         "discord": "Discord",
         "logout": "Αποσύνδεση",
         "logout_confirmation": "Θέλετε πράγματι να αποσυνδεθείτε;",
+        "manageaccounts": "Manage Accounts",
         "quit": "Έξοδος"
     },
     "wiki": "Wiki",

@@ -2,23 +2,19 @@
     "button": {
         "login": "Conecte-se"
     },
-    "input": {
-        "placeholder": "Cole o número SID aqui"
-    },
     "message": {
-        "part1": "Para que você possa fazer login e instalar seus jogos, primeiro você precisa seguir as etapas abaixo:",
-        "part2": "Abrir",
+        "part1": "Para fazer login e instalar seus jogos, primeiro você precisa seguir as etapas abaixo:",
+        "part2": "Abrir o",
         "part3": "Epic Store aqui",
         "part4": ", faça login em sua conta e copie seu",
         "part5": "Número de informação SID",
-        "part6": "Cole o",
+        "part6": "Cole seu",
         "part7": "Número SID",
-        "part8": "na caixa de entrada abaixo, clique no botão de login e aguarde."
+        "part8": "na caixa de entrada abaixo e clique no botão de login."
     },
     "status": {
         "error": "Erro",
-        "loading": "Carregando lista de jogos, aguarde por favor",
-        "logging": "Fazendo login…"
+        "loading": "Carregando lista de jogos, aguarde por favor"
     },
     "welcome": "Bem-vindo(a)!"
 }

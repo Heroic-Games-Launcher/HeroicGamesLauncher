@@ -25,14 +25,18 @@
                 "title": "没有空间"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "安装 DXVK/VKD3D 出错！检查你的互联网连接或者是否已安装 zstd/libzstd1",
+                "title": "DXVK/VKD3D 错误"
             },
             "generic": {
                 "message": "发生了未知错误",
                 "title": "未知错误"
             },
             "launch": "启动游戏时出现错误，请检查日志！",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "错误",
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
@@ -84,6 +88,7 @@
         "yes": "是"
     },
     "button": {
+        "continue": "Continue",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -100,6 +105,8 @@
     },
     "Filter": "筛选",
     "globalSettings": "全局设置",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，想要导入你的游戏，以免再次下载它们。",
         "other": {
@@ -137,8 +144,7 @@
         "website": "正在加载网站"
     },
     "login": {
-        "loginWithEpic": "通过 Epic 网页登录",
-        "loginWithSid": "通过 Epic SID 登录"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "同步完成",
@@ -200,7 +206,7 @@
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在PREFIX自动安装并更新DXVK",
         "autosync": "自动同步存档",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "遇到前缀时自动安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代EXE",
         "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",
@@ -249,6 +255,7 @@
         "showfps": "显示帧数（Directx 9，10和11）",
         "showUnrealMarket": "显示 Unreal 市场 (需重启)",
         "start-in-tray": "启动时最小化",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "Wine 版本"
@@ -258,7 +265,7 @@
         "copiedToClipboard": "已复制到剪贴板！",
         "copyToClipboard": "复制所有设置到剪贴板",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "日志被截断，显示最后 1000 行！"
         },
         "navbar": {
             "general": "常规",
@@ -270,10 +277,10 @@
     },
     "Settings": "设置",
     "status": {
-        "loading": "正在加载游戏列表，请稍后",
         "logging": "正在登录..."
     },
     "store": "商店",
+    "stores": "Stores",
     "title": {
         "allGames": "所有游戏",
         "allUnreal": "Unreal - 所有",
@@ -308,6 +315,7 @@
         "discord": "Discord",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
+        "manageaccounts": "Manage Accounts",
         "quit": "退出"
     },
     "wiki": "Wiki百科",

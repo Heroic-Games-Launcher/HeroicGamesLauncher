@@ -16,7 +16,9 @@ interface Props {
   audioFix: boolean
   isDefault: boolean
   isMacNative: boolean
+  isLinuxNative: boolean
   launcherArgs: string
+  canRunOffline: boolean
   offlineMode: boolean
   otherOptions: string
   primeRun: boolean
@@ -41,6 +43,8 @@ interface Props {
   toggleDiscordRPC: () => void
   targetExe: string
   useGameMode: boolean
+  useSteamRuntime: boolean
+  toggleUseSteamRuntime: () => void
 }
 
 export default function OtherSettings({
@@ -50,6 +54,7 @@ export default function OtherSettings({
   toggleUseGameMode,
   showFps,
   toggleFps,
+  canRunOffline,
   offlineMode,
   toggleOffline,
   launcherArgs,
@@ -71,7 +76,10 @@ export default function OtherSettings({
   maxRecentGames,
   setTargetExe,
   targetExe,
-  isMacNative
+  isMacNative,
+  isLinuxNative,
+  toggleUseSteamRuntime,
+  useSteamRuntime
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -82,7 +90,7 @@ export default function OtherSettings({
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
-  const shouldRenderFpsOption = !isMacNative && !isWin
+  const shouldRenderFpsOption = !isMacNative && !isWin && !isLinuxNative
 
   return (
     <>
@@ -183,18 +191,32 @@ export default function OtherSettings({
               <span>{t('setting.mangohud')}</span>
             </span>
           </span>
+          {isLinuxNative && (
+            <span className="setting">
+              <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+                <ToggleSwitch
+                  value={useSteamRuntime}
+                  handleChange={toggleUseSteamRuntime}
+                  title={t('setting.steamruntime', 'Use Steam Runtime')}
+                />
+                <span>{t('setting.steamruntime', 'Use Steam Runtime')}</span>
+              </span>
+            </span>
+          )}
         </>
       )}
-      <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            value={offlineMode}
-            handleChange={toggleOffline}
-            title={t('setting.offlinemode')}
-          />
-          <span>{t('setting.offlinemode')}</span>
+      {canRunOffline && (
+        <span className="setting">
+          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              value={offlineMode}
+              handleChange={toggleOffline}
+              title={t('setting.offlinemode')}
+            />
+            <span>{t('setting.offlinemode')}</span>
+          </span>
         </span>
-      </span>
+      )}
       {supportsShortcuts && isDefault && (
         <>
           <span className="setting">

@@ -9,7 +9,7 @@
         "importpath": "Выбрать папку с игрой для импорта",
         "move": {
             "message": "Это может занять много времени. Вы уверены?",
-            "path": "Выберите путь куда вы хотите переместить",
+            "path": "Выбрать куда переместить",
             "title": "Переместить установленную игру"
         },
         "no": "НЕТ",
@@ -23,8 +23,8 @@
             "title": "Прекращение установки"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Вы хотите также удалить префикс? Это нельзя отменить.",
+            "checkbox_prefix": "Префикс",
             "message": "Вы хотите удалить эту игру?",
             "title": "Удалить"
         },
@@ -53,6 +53,7 @@
         "downloadSize": "Размер загрузки",
         "firstPlayed": "Первый запуск",
         "installSize": "Размер установки",
+        "language": "Language",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
         "totalPlayed": "Проведено в игре"
@@ -105,7 +106,7 @@
     "submenu": {
         "addShortcut": "Создать ярлык",
         "change": "Изменить путь установки",
-        "log": "Последние логи",
+        "log": "Последний журнал",
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",
         "settings": "Настройки",

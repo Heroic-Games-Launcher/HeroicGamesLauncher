@@ -25,14 +25,18 @@
                 "title": "Alan Yok"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "DXVK/VKD3D kurulurken hata oluştu! Bağlantınıza veya zstd/libzstd1 kurulu olup olmadığına bakın",
+                "title": "DXVK/VKD3D hatası"
             },
             "generic": {
                 "message": "Bilinmeyen bir hata oluştu",
                 "title": "Bilinmeyen hata"
             },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Hata",
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
@@ -84,6 +88,7 @@
         "yes": "EVET"
     },
     "button": {
+        "continue": "Continue",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
@@ -100,6 +105,8 @@
     },
     "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
@@ -137,8 +144,7 @@
         "website": "Web Sitesi Yükleniyor"
     },
     "login": {
-        "loginWithEpic": "Epic ile Oturum Aç",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
@@ -200,7 +206,7 @@
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
@@ -249,6 +255,7 @@
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü"
@@ -258,7 +265,7 @@
         "copiedToClipboard": "Panoya kopyalandı!",
         "copyToClipboard": "Tüm Ayarları Panoya Kopyala",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Günlük kısaltıldı, son 1000 satır gösteriliyor!"
         },
         "navbar": {
             "general": "Genel",
@@ -270,10 +277,10 @@
     },
     "Settings": "Ayarlar",
     "status": {
-        "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
         "logging": "Oturum Açılıyor…"
     },
     "store": "Mağaza",
+    "stores": "Stores",
     "title": {
         "allGames": "Tüm Oyunlar",
         "allUnreal": "Unreal - Her şey",
@@ -308,6 +315,7 @@
         "discord": "Discord",
         "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Çık"
     },
     "wiki": "Wiki",

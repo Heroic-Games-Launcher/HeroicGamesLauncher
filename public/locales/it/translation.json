@@ -33,6 +33,10 @@
                 "title": "Errore sconosciuto"
             },
             "launch": "Errore durante l'avvio del gioco, controlla i logs!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Errore",
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
@@ -84,6 +88,7 @@
         "yes": "SI"
     },
     "button": {
+        "continue": "Continue",
         "login": "Accedi",
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
@@ -100,6 +105,8 @@
     },
     "Filter": "Filtra",
     "globalSettings": "Impostazioni globali",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
         "other": {
@@ -137,8 +144,7 @@
         "website": "Caricamento sito web incorso"
     },
     "login": {
-        "loginWithEpic": "Accedi con Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sincronizzazione completata",
@@ -249,6 +255,7 @@
         "showfps": "Mostra FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostra Unreal Marketplace (richiede riavvio)",
         "start-in-tray": "Avvio Minimizzato",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "Bottiglia CrossOver",
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine"
@@ -270,10 +277,10 @@
     },
     "Settings": "Impostazioni",
     "status": {
-        "loading": "Caricamento elenco dei giochi, attendere",
         "logging": "Sto accedendo..."
     },
     "store": "Negozio",
+    "stores": "Stores",
     "title": {
         "allGames": "Tutti i giochi",
         "allUnreal": "Unreal - Tutto",
@@ -308,6 +315,7 @@
         "discord": "Discord",
         "logout": "Disconnetti",
         "logout_confirmation": "Sei sicuro di voler uscire?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Esci"
     },
     "wiki": "Wiki",

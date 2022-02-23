@@ -2,9 +2,6 @@
     "button": {
         "login": "登入"
     },
-    "input": {
-        "placeholder": "在此處貼上SID號碼"
-    },
     "message": {
         "part1": "為了讓您能夠登入並安裝您的遊戲，您首先需要按照以下步驟操作：",
         "part2": "打開",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "錯誤",
-        "loading": "正在讀取遊戲列表，請稍候",
-        "logging": "正在登入…"
+        "loading": "正在讀取遊戲列表，請稍候"
     },
     "welcome": "歡迎您！"
 }

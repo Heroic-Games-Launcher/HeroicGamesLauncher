@@ -13,7 +13,7 @@
         "choose": "OK",
         "choose-egs-prefix": "Välj prefix där EGS är installerad",
         "choose-legendary-binary": "Välj Legendary binär",
-        "customWine": "Välj wine eller proton binär",
+        "customWine": "Välj Wine eller Proton binär",
         "default-install-path": "Väjl standard installationssökväg",
         "error": {
             "credentials": {
@@ -33,6 +33,10 @@
                 "title": "Okänt fel"
             },
             "launch": "Fel vid uppstar av spelet, kontrollera loggarna!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -40,7 +44,7 @@
             }
         },
         "no": "Nej",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Är inte installerad, vill du installera?"
@@ -84,7 +88,8 @@
         "yes": "Ja"
     },
     "button": {
-        "login": "Login",
+        "continue": "Continue",
+        "login": "Logga in",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Ogör synkronisering"
@@ -100,6 +105,8 @@
     },
     "Filter": "Filtrera",
     "globalSettings": "Globala inställningar",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
         "other": {
@@ -137,8 +144,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synkronisering klar",
@@ -196,7 +202,7 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
-        "alt-legendary-bin": "Välj en Alternativ Legendary binär   (kräver omstart)",
+        "alt-legendary-bin": "Välj en Alternativ Legendary binär (omstart krävs)",
         "audiofix": "Ljudfix (Pulse Audio Latens)",
         "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
         "autosync": "Autosynkronisera sparfiler",
@@ -249,6 +255,7 @@
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Starta minimerad",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
@@ -270,10 +277,10 @@
     },
     "Settings": "Inställningar",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Butik",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -308,6 +315,7 @@
         "discord": "Discord",
         "logout": "Logga ut",
         "logout_confirmation": "Är du säker på att du vill logga ut?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Avsluta"
     },
     "wiki": "Wiki",

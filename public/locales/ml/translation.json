@@ -33,6 +33,10 @@
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള് നോക്കൂ!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "കുഴപ്പം",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +88,7 @@
         "yes": "ശരി"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
@@ -100,6 +105,8 @@
     },
     "Filter": "",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടൂല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
@@ -137,8 +144,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -249,6 +255,7 @@
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
         "wineversion": "വൈനിന്റെ പതിപ്പ്"
@@ -270,10 +277,10 @@
     },
     "Settings": "ക്രമീകരണങ്ങള്",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "കട",
+    "stores": "Stores",
     "title": {
         "allGames": "മൊത്തം കളികള്",
         "allUnreal": "അണ്റിയല് - എല്ലാം",
@@ -308,6 +315,7 @@
         "discord": "ഡിസ്കോഡ഻്",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": "പുറത്തുകടക്കൂ"
     },
     "wiki": "അറിവിന്കൂട്ടം",

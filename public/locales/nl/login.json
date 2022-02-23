@@ -2,9 +2,6 @@
     "button": {
         "login": "Inloggen"
     },
-    "input": {
-        "placeholder": "Plak het SID nummer hier"
-    },
     "message": {
         "part1": "Om in te loggen en je spellen te installeren, moet je de volgende stappen volgen:",
         "part2": "Open de",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Error",
-        "loading": "Spellen lijst word geladen, geduld alstublieft",
-        "logging": "Inloggen…"
+        "loading": "Spellen lijst word geladen, geduld alstublieft"
     },
     "welcome": "Welkom!"
 }

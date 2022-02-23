@@ -1,0 +1,77 @@
+.SIDLoginModal {
+  display: grid;
+  place-items: center;
+  width: var(--content-width);
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  z-index: 8;
+}
+
+.backdrop {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  background: var(--background-darker-80);
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+}
+
+.sid-modal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: fit-content;
+  background: var(--background-darker);
+  border-radius: 10px;
+  width: 48vw;
+  max-width: 560px;
+  z-index: 7;
+  padding: 32px;
+  height: fit-content;
+  min-height: 225px;
+  border: solid 1px var(--background);
+  overflow: auto;
+  max-height: 100vh;
+  font-size: 17px;
+}
+
+.loginInstructions > strong {
+  color: var(--text-hover);
+  font-size: 1.5em;
+}
+
+.loginInstructions .epicLink {
+  color: var(--text-hover);
+  cursor: pointer;
+}
+.loginInstructions .epicLink:hover {
+  color: var(--link-highlight);
+}
+
+.loginInstructions .material-icons {
+  color: var(--link-highlight);
+}
+
+.loginInstructions li {
+  text-align: left;
+}
+
+.sid-modal > .sid-input {
+  color: var(--text-default);
+  font-size: 17px;
+  padding: 5px;
+  background-color: var(--background);
+  border: none;
+  height: 50px;
+  width: 250px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.SIDLoginModal .message > .material-icons {
+  color: var(--text-hover);
+  animation: 2s refreshing;
+  animation-iteration-count: infinite;
+}

@@ -2,9 +2,6 @@
     "button": {
         "login": "Kirjaudu sisään"
     },
-    "input": {
-        "placeholder": "Liitä SID numero tähän"
-    },
     "message": {
         "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, seuraa alla olevia vaiheita:",
         "part2": "Avaa",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Virhe",
-        "loading": "Ladataan pelilistaa, odota hetki",
-        "logging": "Kirjaudutaan sisään…"
+        "loading": "Ladataan pelilistaa, odota hetki"
     },
     "welcome": "Tervetuloa!"
 }

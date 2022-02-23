@@ -1,5 +1,6 @@
 import {
   getAppSettings,
+  getGameInfo,
   getInstallInfo,
   getProgress,
   install,
@@ -9,7 +10,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
 import prettyBytes from 'pretty-bytes'
 import { Checkbox } from '@mui/material'
 import { IpcRenderer } from 'electron'
@@ -20,7 +21,8 @@ import {
   GameStatus,
   InstallInfo,
   InstallProgress,
-  Path
+  Path,
+  Runner
 } from 'src/types'
 
 import { UpdateComponent, SvgButton } from 'src/components/UI'
@@ -36,11 +38,16 @@ const { ipcRenderer } = window.require('electron') as {
 type Props = {
   appName: string
   backdropClick: () => void
+  runner: Runner
 }
 
 const storage: Storage = window.localStorage
 
-export default function InstallModal({ appName, backdropClick }: Props) {
+export default function InstallModal({
+  appName,
+  backdropClick,
+  runner
+}: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
@@ -57,11 +64,16 @@ export default function InstallModal({ appName, backdropClick }: Props) {
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || 'default'
   )
+  const [installLanguages, setInstallLanguages] = useState(Array<string>())
+  const [installLanguage, setInstallLanguage] = useState('')
 
   const installFolder = gameStatus?.folder || installPath
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
+  const [isMacNative, setIsMacNative] = useState(false)
 
   // TODO: Refactor
   const haveSDL = Boolean(SDL_GAMES[appName])
@@ -104,7 +116,9 @@ export default function InstallModal({ appName, backdropClick }: Props) {
       progress: previousProgress,
       t,
       sdlList,
-      installDlcs
+      installDlcs,
+      installLanguage,
+      runner
     })
   }
 
@@ -141,8 +155,23 @@ export default function InstallModal({ appName, backdropClick }: Props) {
 
   useEffect(() => {
     const getInfo = async () => {
-      const gameInfo = await getInstallInfo(appName)
+      const gameInfo = await getInstallInfo(appName, runner)
+      const gameData = await getGameInfo(appName, runner)
       setGameInfo(gameInfo)
+      if (gameInfo.manifest?.languages) {
+        setInstallLanguages(gameInfo.manifest.languages)
+        setInstallLanguage(gameInfo.manifest.languages[0])
+      }
+      setIsLinuxNative(gameData.is_linux_native && isLinux)
+      setIsMacNative(gameData.is_mac_native && isMac)
+      if (isLinux && gameData.is_linux_native && runner == 'gog') {
+        const installer_languages = (await ipcRenderer.invoke(
+          'getGOGLinuxInstallersLangs',
+          appName
+        )) as string[]
+        setInstallLanguages(installer_languages)
+        setInstallLanguage(installer_languages[0])
+      }
       const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
@@ -154,7 +183,6 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     getInfo()
   }, [appName])
 
-  const isMacNative = isMac && gameInfo?.game?.platform_versions?.Mac
   const haveDLCs = gameInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInfo?.game?.owned_dlc
   const downloadSize =
@@ -177,6 +205,16 @@ export default function InstallModal({ appName, backdropClick }: Props) {
     return null
   }
 
+  function getIcon() {
+    if (isMacNative) {
+      return faApple
+    } else if (isLinuxNative) {
+      return faLinux
+    } else {
+      return faWindows
+    }
+  }
+
   return (
     <span className="modalContainer">
       {gameInfo?.game?.title ? (
@@ -186,7 +224,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
           </SvgButton>
           <span className="title">
             {gameInfo?.game?.title}
-            <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+            <FontAwesomeIcon icon={getIcon()} />
           </span>
           <div className="installInfo">
             <div className="itemContainer">
@@ -203,6 +241,26 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                 <span>{installSize}</span>
               </span>
             </div>
+            {installLanguages && installLanguages?.length > 1 && (
+              <div className="languageOptions">
+                <span className="languageInfo">
+                  {t('game.language', 'Language')}:
+                </span>
+                <select
+                  name="language"
+                  id="languagePick"
+                  value={installLanguage}
+                  onChange={(e) => setInstallLanguage(e.target.value)}
+                >
+                  {installLanguages &&
+                    installLanguages.map((value) => (
+                      <option value={value} key={value}>
+                        {value}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            )}
             <span className="installPath">
               <span className="settingText">
                 {t('install.path', 'Select Install Path')}:
@@ -225,7 +283,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
                         title: t('install.path')
                       })
                       .then(({ path }: Path) =>
-                        setInstallPath(path ? `'${path}'` : defaultPath)
+                        setInstallPath(path ? path : defaultPath)
                       )
                   }
                 >
@@ -237,7 +295,7 @@ export default function InstallModal({ appName, backdropClick }: Props) {
               </span>
               {getDownloadedProgress()}
             </span>
-            {isLinux && (
+            {isLinux && !isLinuxNative && (
               <span className="installPath">
                 <span className="settingText">
                   {t('install.wineprefix', 'WinePrefix')}:

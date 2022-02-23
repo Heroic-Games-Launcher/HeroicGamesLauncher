@@ -41,11 +41,13 @@ export interface AppSettings {
   defaultWinePrefix: string
   winePrefix: string
   wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
 export interface ContextType {
   category: string
-  data: GameInfo[]
+  epicLibrary: GameInfo[]
+  gogLibrary: GameInfo[]
   wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean
@@ -75,6 +77,8 @@ interface ExtraInfo {
 }
 
 export interface GameInfo {
+  runner: Runner
+  store_url: string
   app_name: string
   art_cover: string
   art_logo: string
@@ -87,6 +91,7 @@ export interface GameInfo {
   install: InstalledInfo
   is_game: boolean
   is_mac_native: boolean
+  is_linux_native: boolean
   is_installed: boolean
   is_ue_asset: boolean
   is_ue_plugin: boolean
@@ -118,6 +123,7 @@ export interface GameSettings {
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
 type DLCInfo = {
@@ -152,6 +158,7 @@ type GameManifest = {
   install_tags: Array<string>
   launch_exe: string
   prerequisites: Prerequisites
+  languages?: Array<string>
 }
 export interface InstallInfo {
   game: GameInstallInfo
@@ -162,6 +169,7 @@ export interface GameStatus {
   appName: string
   progress?: string
   folder?: string
+  runner?: Runner
   status:
     | 'installing'
     | 'updating'
@@ -188,6 +196,12 @@ export interface InstalledInfo {
   install_size: string | null
   is_dlc: boolean | null
   version: string | null
+  platform?: string
+  appName?: string
+  installedWithDLCs?: boolean // For verifing GOG games
+  language?: string // For verifing GOG games
+  versionEtag?: string // Checksum for checking GOG updates
+  buildId?: string // For verifing GOG games
 }
 
 export interface KeyImage {
@@ -241,9 +255,44 @@ export type ElWebview = {
 
 export type Webview = HTMLWebViewElement & ElWebview
 
+export interface GOGGameInfo {
+  tags: string[]
+  id: number
+  availability: {
+    isAvailable: boolean
+    isAvailableInAccount: boolean
+  }
+  title: string
+  url: string
+  worksOn: {
+    Windows: boolean
+    Mac: boolean
+    Linux: boolean
+  }
+  category: string
+  rating: number
+  isComingSoom: boolean
+  isGame: boolean
+  slug: string
+  isNew: boolean
+  dlcCount: number
+  releaseDate: {
+    date: string
+    timezone_type: number
+    timezone: string
+  }
+  isBaseProductMissing: boolean
+  isHidingDisabled: boolean
+  isInDevelopment: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  extraInfo: any[]
+  isHidden: boolean
+}
 export interface GamepadActionStatus {
   [key: string]: {
     triggeredAt: { [key: number]: number }
     repeatDelay: false | number
   }
 }
+
+export type Runner = 'legendary' | 'gog' | 'heroic'

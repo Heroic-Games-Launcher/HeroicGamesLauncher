@@ -1,32 +1,29 @@
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router'
+import { useLocation, useParams, useHistory } from 'react-router'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
 import ContextProvider from 'src/state/ContextProvider'
-import { Webview } from 'src/types'
+import { Runner, Webview } from 'src/types'
 
 const { clipboard, ipcRenderer } = window.require('electron')
 import './index.css'
-
-type Props = {
-  isLogin?: boolean
-}
 
 type SID = {
   sid: string
 }
 
-export default function WebView({ isLogin }: Props) {
+export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname } = useLocation()
   const { t } = useTranslation()
-  const { refreshLibrary, handleFilter } = useContext(ContextProvider)
+  const { handleFilter, handleCategory } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
   }>({ refresh: true, message: t('loading.website', 'Loading Website') })
+  const history = useHistory()
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -36,17 +33,27 @@ export default function WebView({ isLogin }: Props) {
   const loginUrl =
     'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
   const epicStore = `https://www.epicgames.com/store/${lang}/`
+  const gogStore = `https://gog.com`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
+  const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
+  const gogLoginUrl =
+    'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 
   const trueAsStr = 'true' as unknown as boolean | undefined
   const webview = document.querySelector('webview') as Webview
-
-  const startUrl = isLogin ? '/login' : pathname
+  const { runner } = useParams() as { runner: Runner }
+  const startUrl = runner
+    ? runner == 'legendary'
+      ? '/loginEpic'
+      : '/loginGOG'
+    : pathname
   const urls = {
     '/epicstore': epicStore,
+    '/gogstore': gogStore,
     '/wiki': wikiURL,
-    '/login': loginUrl
+    '/loginEpic': loginUrl,
+    '/loginGOG': gogLoginUrl
   }
 
   useLayoutEffect(() => {
@@ -55,8 +62,26 @@ export default function WebView({ isLogin }: Props) {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
         // Ignore the login handling if not on login page
-        if (pathname !== '/') {
+        if (!runner) {
           return
+        } else if (runner === 'gog') {
+          const pageUrl = webview.getURL()
+          if (pageUrl.match(gogEmbedRegExp)) {
+            const parsedURL = new URL(pageUrl)
+            const code = parsedURL.searchParams.get('code')
+            setLoading({
+              refresh: true,
+              message: t('status.logging', 'Logging In...')
+            })
+            ipcRenderer.invoke('authGOG', code).then(() => {
+              setLoading({
+                refresh: false,
+                message: t('status.logging', 'Logging In...')
+              })
+              handleCategory('gog')
+              history.push('/login')
+            })
+          }
         }
         // Deals with Login
         else {
@@ -74,21 +99,12 @@ export default function WebView({ isLogin }: Props) {
                     refresh: true,
                     message: t('status.logging', 'Logging In...')
                   })
-                  await ipcRenderer.invoke('login', sid)
-                  handleFilter('all')
-
-                  setLoading({
-                    refresh: true,
-                    message: t(
-                      'status.loading',
-                      'Loading Game list, please wait'
-                    )
+                  await ipcRenderer.invoke('login', sid).then(() => {
+                    handleFilter('all')
+                    handleCategory('epic')
+                    setLoading({ ...loading, refresh: false })
+                    history.push('/login')
                   })
-                  await refreshLibrary({
-                    fullRefresh: true,
-                    runInBackground: false
-                  })
-                  setLoading({ ...loading, refresh: false })
                 } catch (error) {
                   console.error(error)
                   ipcRenderer.send('logError', error)

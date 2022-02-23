@@ -33,6 +33,10 @@
                 "title": "不明なエラー"
             },
             "launch": "ゲームの起動時にエラーが発生しました、ログを確認してください！",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "エラー",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +88,7 @@
         "yes": "はい"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "同期",
         "syncing": "同期しています",
@@ -100,6 +105,8 @@
     },
     "Filter": "フィルター",
     "globalSettings": "全体設定",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
         "other": {
@@ -137,8 +144,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "同期が完了しました",
@@ -249,6 +255,7 @@
         "showfps": "FPSを表示（DX9、10、11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver ボトル",
         "wineprefix": "Wineプレフィックスフォルダー",
         "wineversion": "Wineバージョン"
@@ -270,10 +277,10 @@
     },
     "Settings": "設定",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "ストア",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -308,6 +315,7 @@
         "discord": "Discord",
         "logout": "ログアウト",
         "logout_confirmation": "ログアウトしてもよろしいですか？",
+        "manageaccounts": "Manage Accounts",
         "quit": "終了"
     },
     "wiki": "Wiki",
