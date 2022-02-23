@@ -86,7 +86,7 @@
     "linux": {
       "category": "Game",
       "icon": "build/icon.icns",
-      "description": "An Open Source alternative to the Epic Games launcher",
+      "description": "An Open Source Launcher for GOG and Epic Games",
       "desktop": {
         "Name": "Heroic Games Launcher"
       },
