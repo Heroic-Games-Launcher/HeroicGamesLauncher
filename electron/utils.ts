@@ -9,7 +9,12 @@ import si from 'systeminformation'
 import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
+import {
+  heroicConfigPath,
+  heroicGamesConfigPath,
+  icon,
+  legendaryBin
+} from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 const execAsync = promisify(exec)
@@ -292,11 +297,15 @@ function clearCache() {
 }
 
 function resetHeroic() {
-  const heroicFolder = `${app.getPath('appData')}/heroic`
-  rm(heroicFolder, { recursive: true, force: true }, () => {
+  const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
+  heroicFolders.forEach((folder) => {
+    rm(folder, { recursive: true, force: true }, () => null)
+  })
+  // wait a sec to avoid racing conditions
+  setTimeout(() => {
     app.relaunch()
     app.quit()
-  })
+  }, 1000)
 }
 
 function showItemInFolder(item: string) {
