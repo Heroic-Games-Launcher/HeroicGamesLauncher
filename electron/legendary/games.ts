@@ -754,7 +754,7 @@ Categories=Game;
         return logInfo(`${pattern} killed`, LogPrefix.Legendary)
       } catch (error) {
         return logError(
-          [`not possible to kill ${pattern}`, error],
+          [`not possible to kill ${pattern}`, `${error}`],
           LogPrefix.Legendary
         )
       }
