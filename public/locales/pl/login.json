@@ -3,14 +3,14 @@
         "login": "Zaloguj"
     },
     "message": {
-        "part1": "Żeby zainstalować gry wykonaj następujące kroki :",
+        "part1": "Żeby się zalogować i instalować gry, najpierw wykonaj następujące kroki :",
         "part2": "Otwórz",
         "part3": "Epic Games Store",
         "part4": ", zaloguj się na swoje konto i skopiuj swój",
         "part5": "numer informacyjny SID",
-        "part6": "Wklej",
+        "part6": "Wklej swój",
         "part7": "numer SID",
-        "part8": "w pole poniżej, kliknij na przycisk login i czekaj."
+        "part8": "w pole poniżej, i kliknij na przycisk zaloguj się."
     },
     "status": {
         "error": "Błąd",
