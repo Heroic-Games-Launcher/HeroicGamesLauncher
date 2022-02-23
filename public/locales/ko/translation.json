@@ -106,6 +106,7 @@
     "Filter": "필터",
     "globalSettings": "글로벌 설정",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Epic Games Store가 다른 곳에 설치되어 있고 게임을 다시 다운로드하지 않도록 가져오려는 경우 Epic Games Store와 동기화 하십시오.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "로그인 중…"
     },
     "store": "스토어",
+    "stores": "Stores",
     "title": {
         "allGames": "모든 게임",
         "allUnreal": "Unreal - Everything",

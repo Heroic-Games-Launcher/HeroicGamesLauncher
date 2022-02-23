@@ -106,6 +106,7 @@
     "Filter": "Saring",
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logging In..."
     },
     "store": "Epic Store",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",

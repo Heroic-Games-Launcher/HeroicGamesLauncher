@@ -106,6 +106,7 @@
     "Filter": "Filtreeri",
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Sisselogimine..."
     },
     "store": "Pood",
+    "stores": "Stores",
     "title": {
         "allGames": "Kõik mängud",
         "allUnreal": "Unreal - Kõik",

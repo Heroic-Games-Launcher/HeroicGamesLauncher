@@ -106,6 +106,7 @@
     "Filter": "Szűrő",
     "globalSettings": "Globális beállítások",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Bejelentkezés..."
     },
     "store": "Áruház",
+    "stores": "Stores",
     "title": {
         "allGames": "Összes játék",
         "allUnreal": "Unreal - Minden",

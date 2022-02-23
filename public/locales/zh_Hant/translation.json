@@ -106,6 +106,7 @@
     "Filter": "篩選",
     "globalSettings": "全域設定",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logging In..."
     },
     "store": "商店",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",

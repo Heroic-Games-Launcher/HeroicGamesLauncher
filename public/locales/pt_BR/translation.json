@@ -106,6 +106,7 @@
     "Filter": "Filtrar",
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logando..."
     },
     "store": "Loja Epic",
+    "stores": "Stores",
     "title": {
         "allGames": "Todos os Jogos",
         "allUnreal": "Unreal - Tudo",

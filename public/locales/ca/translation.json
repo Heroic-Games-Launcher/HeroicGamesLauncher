@@ -32,11 +32,11 @@
                 "message": "Hi ha hagut un error desconegut",
                 "title": "Error desconegut"
             },
+            "launch": "Error en iniciar el joc, comprova el registre.",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
-            "launch": "Error en iniciar el joc, comprova el registre.",
             "title": "Error",
             "wine-not-found": {
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
@@ -106,6 +106,7 @@
     "Filter": "Filtra",
     "globalSettings": "Configuració global",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "S'està iniciant la sessió..."
     },
     "store": "Botiga",
+    "stores": "Stores",
     "title": {
         "allGames": "Tots els jocs",
         "allUnreal": "Unreal - Tot",

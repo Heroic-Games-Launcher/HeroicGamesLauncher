@@ -106,6 +106,7 @@
     "Filter": "Filtrar",
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Sincronice con EGL en caso de que tenga una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Iniciando sesión…"
     },
     "store": "Tienda",
+    "stores": "Stores",
     "title": {
         "allGames": "Todos los juegos",
         "allUnreal": "Unreal - Todo",

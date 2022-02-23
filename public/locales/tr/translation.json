@@ -106,6 +106,7 @@
     "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Oturum Açılıyor…"
     },
     "store": "Mağaza",
+    "stores": "Stores",
     "title": {
         "allGames": "Tüm Oyunlar",
         "allUnreal": "Unreal - Her şey",
