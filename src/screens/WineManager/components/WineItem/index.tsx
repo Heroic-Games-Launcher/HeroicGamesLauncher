@@ -38,7 +38,7 @@ const WineItem = ({
     setProgress(progress)
   })
 
-  if (!version || !downsize || type === 'Proton') {
+  if (!version || !downsize) {
     return null
   }
 
