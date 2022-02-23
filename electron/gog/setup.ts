@@ -124,7 +124,7 @@ async function setup(appName: string): Promise<void> {
             workingDir ? 'cd ' + workingDir + ' &&' : ''
           } ${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
-          if (process.platform == 'win32') {
+          if (isWindows) {
             command = `${
               workingDir ? 'cd ' + workingDir + ' &&' : ''
             } Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`

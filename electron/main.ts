@@ -595,7 +595,7 @@ ipcMain.handle('getGameSettings', async (event, game, runner) => {
 })
 
 ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
-  return await GOGLibrary.get_linux_installers_languages(appName)
+  return await GOGLibrary.getLinuxInstallersLanguages(appName)
 })
 
 ipcMain.handle('getInstallInfo', async (event, game, runner) => {
@@ -859,7 +859,7 @@ ipcMain.handle('install', async (event, params) => {
   }
 
   const epicOffline = await isEpicServiceOffline()
-  if (epicOffline) {
+  if (epicOffline && runner === 'legendary') {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
@@ -973,8 +973,9 @@ ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
 })
 
 ipcMain.handle('importGame', async (event, args) => {
+  const { appName, path, runner } = args
   const epicOffline = await isEpicServiceOffline()
-  if (epicOffline) {
+  if (epicOffline && runner === 'legendary') {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
@@ -984,7 +985,6 @@ ipcMain.handle('importGame', async (event, args) => {
     )
     return { status: 'error' }
   }
-  const { appName, path, runner } = args
   const title = (await Game.get(appName, runner).getGameInfo()).title
   mainWindow.webContents.send('setGameStatus', {
     appName,
@@ -1026,7 +1026,7 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
   }
 
   const epicOffline = await isEpicServiceOffline()
-  if (epicOffline && runner == 'legendary') {
+  if (epicOffline && runner === 'legendary') {
     dialog.showErrorBox(
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(

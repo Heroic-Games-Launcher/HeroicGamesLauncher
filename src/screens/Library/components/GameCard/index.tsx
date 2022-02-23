@@ -16,7 +16,7 @@ import { getProgress, install, launch, sendKill } from 'src/helpers'
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-
+import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
 import { SvgButton } from 'src/components/UI'
 
@@ -147,6 +147,9 @@ const GameCard = ({
 
   function getImageFormatting() {
     const imageBase = grid ? cover : coverList
+    if (imageBase === 'fallback') {
+      return fallbackImage
+    }
     if (runner === 'legendary') {
       return `${imageBase}?h=400&resize=1&w=300`
     } else {

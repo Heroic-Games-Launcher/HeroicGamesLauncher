@@ -144,7 +144,7 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     }
     return icon
   } else if (gameInfo.runner == 'gog') {
-    const apiData = await GOGLibrary.get().get_games_data(appName)
+    const apiData = await GOGLibrary.get().getGamesData(appName)
     let iconUrl = apiData?._links?.icon.href
     iconUrl = iconUrl.replace('{ext}', 'png')
     const icon = `${heroicIconFolder}/${appName}.png`

@@ -24,7 +24,9 @@ import {
   gogdlBin,
   heroicGamesConfigPath,
   isWindows,
-  execOptions
+  execOptions,
+  isMac,
+  isLinux
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { errorHandler, execAsync } from '../utils'
@@ -58,23 +60,13 @@ class GOGGame extends Game {
   public async getExtraInfo(namespace: string): Promise<ExtraInfo> {
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     let targetPlatform: 'windows' | 'osx' | 'linux' = 'windows'
-    switch (process.platform) {
-      case 'darwin': {
-        if (gameInfo.is_mac_native) {
-          targetPlatform = 'osx'
-        }
-        break
-      }
-      case 'linux': {
-        if (gameInfo.is_linux_native) {
-          targetPlatform = 'linux'
-        }
-        break
-      }
-      default: {
-        targetPlatform = 'windows'
-        break
-      }
+
+    if (isMac && gameInfo.is_mac_native) {
+      targetPlatform = 'osx'
+    } else if (isLinux && gameInfo.is_linux_native) {
+      targetPlatform = 'linux'
+    } else {
+      targetPlatform = 'windows'
     }
 
     const extra: ExtraInfo = {
@@ -152,7 +144,7 @@ class GOGGame extends Game {
         const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
         const isLinuxNative = installPlatform == 'linux'
         const additionalInfo = isLinuxNative
-          ? await GOGLibrary.get_linux_installer_info(this.appName)
+          ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
           : null
         const installedData: InstalledInfo = {
           platform: installPlatform,
@@ -215,20 +207,14 @@ class GOGGame extends Game {
    * Literally installing game, since gogdl verifies files at runtime
    */
   public async repair(): Promise<ExecResult> {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-    const gameData = GOGLibrary.get().getGameInfo(this.appName)
-
-    const withDlcs = gameData.install.installedWithDLCs
-      ? '--with-dlcs'
-      : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
-    const credentials = configStore.get('credentials') as GOGLoginData
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const installPlatform = gameData.install.platform
+    const {
+      installPlatform,
+      gameData,
+      credentials,
+      withDlcs,
+      writeLog,
+      workers
+    } = await this.getCommandParameters()
     // In the future we need to add Language select option
     const command = `${gogdlBin} repair ${
       this.appName
@@ -247,10 +233,10 @@ class GOGGame extends Game {
       })
   }
   public async stop(): Promise<void> {
-    const pattern = process.platform === 'linux' ? this.appName : 'gogdl'
+    const pattern = isLinux ? this.appName : 'gogdl'
     logInfo(['killing', pattern], LogPrefix.Gog)
 
-    if (process.platform === 'win32') {
+    if (isWindows) {
       try {
         await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
         return logInfo(`${pattern} killed`, LogPrefix.Gog)
@@ -308,22 +294,14 @@ class GOGGame extends Game {
     return { stdout: '', stderr: '' }
   }
   public async update(): Promise<unknown> {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-    const gameData = GOGLibrary.get().getGameInfo(this.appName)
-
-    const withDlcs = gameData.install.installedWithDLCs
-      ? '--with-dlcs'
-      : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
-    const credentials = configStore.get('credentials') as GOGLoginData
-
-    const installPlatform = gameData.install.platform
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    // In the future we need to add Language select option
+    const {
+      installPlatform,
+      gameData,
+      credentials,
+      withDlcs,
+      writeLog,
+      workers
+    } = await this.getCommandParameters()
     const command = `${gogdlBin} update ${
       this.appName
     } --platform ${installPlatform} --path="${
@@ -352,7 +330,7 @@ class GOGGame extends Game {
           gameObject.versionEtag = installInfo.manifest.versionEtag
           gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
         } else {
-          const installerInfo = await GOGLibrary.get_linux_installer_info(
+          const installerInfo = await GOGLibrary.getLinuxInstallerInfo(
             this.appName
           )
           gameObject.version = installerInfo.version
@@ -375,6 +353,38 @@ class GOGGame extends Game {
         })
         return { status: 'error' }
       })
+  }
+
+  /**
+   * Reads game installed data and returns proper parameters
+   * Useful for Update and Repair
+   * @returns
+   */
+  public async getCommandParameters() {
+    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const gameData = GOGLibrary.get().getGameInfo(this.appName)
+
+    const withDlcs = gameData.install.installedWithDLCs
+      ? '--with-dlcs'
+      : '--skip-dlcs'
+    if (GOGUser.isTokenExpired()) {
+      await GOGUser.refreshToken()
+    }
+    const credentials = configStore.get('credentials') as GOGLoginData
+
+    const installPlatform = gameData.install.platform
+    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+
+    return {
+      withDlcs,
+      workers,
+      installPlatform,
+      writeLog,
+      credentials,
+      gameData
+    }
   }
 }
 

@@ -3,7 +3,6 @@
 import { dialog } from 'electron'
 import makeClient from 'discord-rich-presence-typescript'
 import i18next from 'i18next'
-import { platform } from 'os'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import {
   isWindows,
@@ -329,7 +328,7 @@ async function createNewPrefix(
   winePath: string,
   appName: string
 ) {
-  if (platform() === 'darwin') {
+  if (isMac) {
     return
   }
 
