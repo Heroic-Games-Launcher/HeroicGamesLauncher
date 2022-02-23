@@ -3,51 +3,51 @@
     "Assets": "Tillgångar",
     "box": {
         "appupdate": {
-            "message": "Det finns en ny version av Heroic tillgänglig, Vill du uppdatera nu?",
+            "message": "En nyare version av Heroic är tillgänglig, vill du uppdatera nu?",
             "title": "Updatering tillgänglig"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic cache rensades.",
+            "title": "Cache rensades"
         },
         "choose": "OK",
-        "choose-egs-prefix": "Välj prefix där EGS är installerad",
-        "choose-legendary-binary": "Välj Legendary binär",
-        "customWine": "Välj Wine eller Proton binär",
-        "default-install-path": "Väjl standard installationssökväg",
+        "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
+        "choose-legendary-binary": "Ange Legendary version",
+        "customWine": "Ange Wine/Proton version",
+        "default-install-path": "Ange standard installationssökväg",
         "error": {
             "credentials": {
-                "message": "Din autentisering har upphört, var god logga ut och logga sedan in igen.",
-                "title": "Utgången autentisering"
+                "message": "Autentisering har utgått, logga ut och logga sedan in igen.",
+                "title": "Autentisering utgått"
             },
             "diskspace": {
-                "message": "Det finns inte tillräckligt med hårdiskutrymme",
-                "title": "Inget utrymme"
+                "message": "Otillräckligt ledigt hårdiskutrymme",
+                "title": "Otillräckligt utrymme"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Problem vid installation av DXVK/VKD3D! Kontrollera internetanslutningen och att du har zstd/libzstd1 installerade",
+                "title": "DXVK/VKD3D problem"
             },
             "generic": {
                 "message": "Ett okänt fel har inträffat",
                 "title": "Okänt fel"
             },
-            "launch": "Fel vid uppstar av spelet, kontrollera loggarna!",
+            "launch": "Problem vid speluppstart, kontrollera loggen!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Speluppstart avbröts! Internetanslutning krävs.",
+                "title": "Offline-läge stöds ej."
             },
-            "title": "Error",
+            "title": "Problem",
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
+                "title": "Wine hittades ej"
             }
         },
         "no": "Nej",
         "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Är inte installerad, vill du installera?"
+                "not_installed": "Spel ej installerat. Vill du installera nu?"
             }
         },
         "quit": {
@@ -56,20 +56,20 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "Är du säker att du vill grundåterställa Heroic? Alla inställningar och cache kommer raderas, installerade spel och EGS login kommer behållas",
+                "title": "Grundåterställ Heroic"
             }
         },
         "runexe": {
-            "title": "Välj EXE-fil att köra"
+            "title": "Ange EXE-fil att köra"
         },
         "select": {
             "button": "Välj",
-            "exe": "Välj EXE"
+            "exe": "Ange EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Genvägar skapades på Skrivbordet och Startmenyn",
+            "title": "Genvägar"
         },
         "sync": {
             "button": "Ok",
@@ -78,54 +78,54 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Epics servrar är nere för tillfället, spelet kan inte importeras!",
+                "install": "Epics servrar är nere för tillfället, spelet kan inte installeras!",
+                "update": "Epics servrar är nere för tillfället, spelet kan inte uppdateras!"
             },
-            "title": "Warning"
+            "title": "Varning"
         },
-        "wineprefix": "Välj wine prefix mapp",
+        "wineprefix": "Ange Wine-prefix mapp",
         "yes": "Ja"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Fortsätt",
         "login": "Logga in",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
-        "unsync": "Ogör synkronisering"
+        "unsync": "Avbryt synkronisering"
     },
     "Downloading": "Laddar ner",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
-        "offline-notification-title": "offline"
+        "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
+        "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Inga filter"
     },
     "Filter": "Filtrera",
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "help": {
-        "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
+        "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
         "other": {
-            "part1": "Använda ",
-            "part2": "Miljövariabler (Environment Variables)",
+            "part1": "Använd ",
+            "part2": "Avancerade inställningar",
             "part3": "laddas innan speluppstart; ",
-            "part4": "Använda ",
-            "part5": "Argument eller flaggor",
-            "part6": " skrivs efter startkommandot, t.ex.: ",
+            "part4": "Använd ",
+            "part5": "Spelspecifika argument",
+            "part6": " körs efter startkommandot, t.ex.: ",
             "part7": " för att starta utan launcher i vissa spel."
         },
         "sync": {
-            "part1": "Heroic försöker gissa mapp för sparfiler vilket oftast fungerar. Om det blir fel mapp så använd fältet för att ändra det.",
-            "part2": "Om du ändrar prefix mapp för Wine eller Proton, kommer du behöva kontrollera sökvägen igen då Proton använder ett annorlunda prefix (/pfx) och användarnamn (steamuser). Du kan enkelt radera aktuell sökväg och lämna synkroniseringsinställningarssidan och öppna den på nytt för att Heroic ska göra ett nytt försök att hitta rätt prefix.",
-            "part3": "Manuell synkronisering: Välj ladda ner för att ladda ner sparfiler sparade i molnet. Ladda upp för att ladda upp lokala sparfiler till molnlagring. Tvingad nedladdning och tvingad uppladning kommer ignorera versionering lokalt eller i molnlagring.",
-            "part4": "Synkronisera spelspraningar automatisk kommer synkronisera sparfiler var gång ett spel startas samt avslutas."
+            "part1": "Heroic försöker gissa mapp för sparfiler vilket oftast fungerar. Om det blir fel, använd fältet för att ange korrekt sökväg.",
+            "part2": "Om du ändrar sökväg för Wine eller Proton prefix kommer du behöva kontrollera sökvägen igen. Proton använder annorlunda prefix (/pfx) och användarnamn (steamuser) jämfört med Wine. Du kan radera aktuell sökväg och lämna synkroniseringsinställningarna, öppna dem på nytt så försöker Heroic automatiskt hitta rätt prefix igen.",
+            "part3": "Manuell synkronisering: Ladda ner sparfiler från molnlagring. Ladda upp lokala sparfiler till molnlagring. Tvingad nedladdning och tvingad uppladdning ignorerar versionskontroll både lokalt och i molnlagring.",
+            "part4": "Synkronisera sparfiler automatiskt kommer synkronisera sparfiler varje gång ett spel startas samt avslutas."
         },
         "wine": {
-            "part1": "Heroic söker efter versioner av Wine, Proton och CrossOver i följade mappar:",
-            "part2": "För andra platser, använd en symbolisk länk till en av mapparna"
+            "part1": "Heroic söker efter Wine, Proton och CrossOver i dessa mappar:",
+            "part2": "För övriga platser, använd symbolisk länk till en av dessa mappar"
         }
     },
     "info": {
@@ -136,97 +136,97 @@
         "requirements": "Systemkrav"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Ange installationssökväg"
     },
     "Library": "Bibliotek",
     "loading": {
-        "website": "Loading Website"
+        "website": "Laddar websida"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Externt login"
     },
     "message": {
-        "sync": "Synkronisering klar",
-        "unsync": "Ogör synkronisering klar"
+        "sync": "Synkronisering slutförd",
+        "unsync": "Avbryt synkronisering slutfört"
     },
     "nogames": "Inga spel hittades",
-    "Not Ready": "Ej nedladdade",
+    "Not Ready": "Ej redo att spelas",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Problem vid flytt av spel",
+            "reparing": "Problem vid reparation"
         },
         "finished": {
-            "reparing": "Reparation klar"
+            "reparing": "Reparation slutförd"
         },
         "install": {
-            "canceled": "Installation avbröts",
-            "error": "",
-            "finished": "Installation klar",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "canceled": "Installationen avbröts",
+            "error": "Installation misslyckades",
+            "finished": "Installation slutförd",
+            "imported": "Spelimport slutförd",
+            "startInstall": "Installation påbörjad"
         },
-        "moved": "Flytta klar",
-        "uninstalled": "Avinstallerad",
+        "moved": "Spelflytt slutförd",
+        "uninstalled": "Avinstallerat",
         "update": {
-            "canceled": "Updatering avbruten",
-            "finished": "Updatering klar",
-            "started": "Update Started"
+            "canceled": "Uppdatering avbröts",
+            "finished": "Uppdatering slutförd",
+            "started": "Uppdatering påbörjad"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "Skriv in önkade variabler",
-            "title": "Miljövariabler (Environment Variables):"
+            "placeholder": "Ange övriga startalternativ här",
+            "title": "Avancerade alternativ (Miljövariabler):"
         },
         "gameargs": {
-            "placeholder": "Skriv in spelets argument/flaggor",
-            "title": "Argument eller flaggor (körs efter startkommandot):"
+            "placeholder": "Ange Launcher-specifika argument",
+            "title": "Spelspecifika argument (körs efter startkommandot):"
         }
     },
     "other": {
         "legendary-version": "Legendary version: ",
-        "weblate": "Hjälp till med översättning av Heroic."
+        "weblate": "Bidra till översättning av Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Använd inbyggd Legendary binär...",
-        "egs-prefix": "Prefix där EGS är installerad"
+        "alt-legendary-bin": "Använd inbyggd Legendary version...",
+        "egs-prefix": "Prefix för befintlig EGS installation"
     },
     "Plugins": "Plugins",
     "Projects": "Projekt",
-    "Ready": "Nedladdade",
-    "Recent": "Spelade nyligen",
+    "Ready": "Redo",
+    "Recent": "Nyligen spelat",
     "Return": "Tillbaka",
-    "search": "Skriv in spelets namn här...",
+    "search": "Ange spelets titel här...",
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
-        "addgamestostartmenu": "Lägg automatiskt till spel i startmenyn",
-        "alt-legendary-bin": "Välj en Alternativ Legendary binär (omstart krävs)",
-        "audiofix": "Ljudfix (Pulse Audio Latens)",
-        "autodxvk": "Automatiskt installera/uppdatera DXVK i prefix",
-        "autosync": "Autosynkronisera sparfiler",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Välj en alternativ EXE att köra",
+        "addgamestostartmenu": "Lägg till spel i startmenyn automatiskt",
+        "alt-legendary-bin": "Ange alternativ Legendary version (omstart krävs)",
+        "audiofix": "Ljudfix (Pulse Audio latens)",
+        "autodxvk": "Installera/uppdatera DXVK i prefix automatiskt",
+        "autosync": "Synkronisera sparfiler automatiskt",
+        "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
+        "change-target-exe": "Ange alternativ EXE-fil att köra",
         "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
-        "customWineProton": "Anpassad wine/proton sökväg",
-        "darktray": "Använd mörk ikon i systembrickan",
+        "customWineProton": "Anpassad Wine/Proton sökväg",
+        "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Ange sökväg för nya Wine-prefix",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
-        "enableFSRHack": "Aktivera FSR Hack (Wine versionen behöver stöd för det)",
+        "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
         "esync": "Aktivera Esync",
-        "exit-to-tray": "Avsluta till systembrickan",
-        "FsrSharpnessStrenght": "FSR Skärpanivå",
+        "exit-to-tray": "Minimera till systemfältet",
+        "FsrSharpnessStrenght": "FSR skärpningsnivå",
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
-        "language": "Välj app-språk",
+        "language": "Välj språk",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
+            "current-log": "Aktuell logg",
+            "last-log": "Senaste logg",
+            "no-file": "Ingen loggfil hittades",
+            "show-in-folder": "Visa loggfiler i mapp"
         },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {
@@ -235,10 +235,10 @@
             "forceupload": "Tvinga uppladdning",
             "sync": "Synkronisera",
             "syncing": "Synkroniserar",
-            "title": "Manuell sparfilssynkronisering",
+            "title": "Synkronisera sparfiler manuellt",
             "upload": "Ladda upp"
         },
-        "maxRecentGames": "Spelade nyligen att visa",
+        "maxRecentGames": "Visa nyligen spelat",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
@@ -248,59 +248,59 @@
             "title": "Kör EXE-fil i prefix"
         },
         "savefolder": {
-            "placeholder": "Välj exakt sparfilsmapp",
+            "placeholder": "Ange specifik sparfilsmapp",
             "title": "Synkroniseringsmapp för sparfiler"
         },
         "showfps": "Visa FPS (DX9, 10 och 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Visa Unreal Marketplace (kräver omstart)",
         "start-in-tray": "Starta minimerad",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Använd Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix mapp",
+        "wineprefix": "Wine-prefix mapp",
         "wineversion": "Wine version"
     },
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Rensa Heroic cache",
+        "copiedToClipboard": "Kopierat till urklipp/klippbord!",
+        "copyToClipboard": "Kopiera all inställningar till urklipp/klippbord",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Loggen avkortad , enbart senaste 1000 rader visas!"
         },
         "navbar": {
-            "general": "Allmänna",
-            "log": "Log",
-            "other": "Övriga",
+            "general": "Allmänt",
+            "log": "Logg",
+            "other": "Övrigt",
             "sync": "Synkronisera sparfiler"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Grundinställ Heroic"
     },
     "Settings": "Inställningar",
     "status": {
-        "logging": "Logging In..."
+        "logging": "Loggar in..."
     },
     "store": "Butik",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
+        "allGames": "Alla spel",
+        "allUnreal": "Unreal - allt",
+        "downloading": "Laddar ner",
+        "installedGames": "Installerade spel",
+        "notInstalledGames": "Ej installerade",
+        "unrealAssets": "Unreal - Tillgångar",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projekt",
+        "updates": "Tillgängliga uppdateringar"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Ange standard prefix-sökväg för nya konfigurationer",
+            "wineprefix": "Ange sökväg för nya Wine prefix"
         }
     },
     "tooltip": {
         "addpath": "Lägg till ny sökväg",
         "removepath": "Ta bort sökväg"
     },
-    "Total Games": "Antal spel",
+    "Total Games": "Totalt antal spel",
     "tray": {
         "about": "Om",
         "quit": "Avsluta",
@@ -312,17 +312,17 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Logga ut",
-        "logout_confirmation": "Är du säker på att du vill logga ut?",
-        "manageaccounts": "Manage Accounts",
+        "logout_confirmation": "Är du säker att du vill logga ut?",
+        "manageaccounts": "Hantera konton",
         "quit": "Avsluta"
     },
     "wiki": "Wiki",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
+            "error": "Kunde inte hämta Wine/Proton versioner.",
             "link": "Wine Manager",
             "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "unzipping": "Packar upp"
         }
     }
 }

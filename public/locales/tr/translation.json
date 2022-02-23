@@ -34,8 +34,8 @@
             },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Başlatma iptal edildi! Oyunu çalıştırmak için internet bağlantısı gereklidir.",
+                "title": "Çevrim dışı mod desteklenmiyor."
             },
             "title": "Hata",
             "wine-not-found": {
@@ -88,7 +88,7 @@
         "yes": "EVET"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Devam et",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
@@ -96,7 +96,7 @@
     },
     "Downloading": "İndiriliyor",
     "epic": {
-        "offline-notification-body": "Heroic muhtemelen çalışmayacak!",
+        "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -143,7 +143,7 @@
         "website": "Web Sitesi Yükleniyor"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Harici Oturum Açma"
     },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
@@ -161,7 +161,7 @@
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
-            "error": "",
+            "error": "Kurulum Başarısız Oldu",
             "finished": "Kurulum Tamamlandı",
             "imported": "Oyun İçe Aktarıldı",
             "startInstall": "Kurulum Başladı"
@@ -209,7 +209,7 @@
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
-        "darktray": "Karanlık Tepsi İkonu Kullan",
+        "darktray": "Karanlık Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
@@ -254,7 +254,7 @@
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü"
@@ -313,7 +313,7 @@
         "discord": "Discord",
         "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "Hesapları Yönet",
         "quit": "Çık"
     },
     "wiki": "Wiki",
