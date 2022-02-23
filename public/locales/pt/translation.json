@@ -106,6 +106,7 @@
     "Filter": "Filtro",
     "globalSettings": "Configurações Globais",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
         "other": {
@@ -278,7 +279,8 @@
     "status": {
         "logging": "Logging In..."
     },
-    "store": "Loja",
+    "store": "Loja Epic",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",

@@ -32,11 +32,11 @@
                 "message": "Произошла неизвестная ошибка",
                 "title": "Неизвестная ошибка"
             },
+            "launch": "Ошибка при запуске игры, проверьте журнал!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
-            "launch": "Ошибка при запуске игры, проверьте журнал!",
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -106,6 +106,7 @@
     "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Синхронизируйте с EGL, в случае если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Вход…"
     },
     "store": "Магазин",
+    "stores": "Stores",
     "title": {
         "allGames": "Все игры",
         "allUnreal": "Unreal - Все",

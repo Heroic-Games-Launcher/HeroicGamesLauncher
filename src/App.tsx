@@ -62,6 +62,7 @@ function App() {
             </Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/epicstore" component={WebView} />
+            <Route exact path="/gogstore" component={WebView} />
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />
             <Route path="/login/:runner" component={WebView} />

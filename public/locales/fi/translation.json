@@ -106,6 +106,7 @@
     "Filter": "Suodata",
     "globalSettings": "Globaalit asetukset",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logging In..."
     },
     "store": "Kauppa",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",

@@ -106,6 +106,7 @@
     "Filter": "Филтриране",
     "globalSettings": "Глобални настройки",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Store и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Влизане…"
     },
     "store": "Магазин",
+    "stores": "Stores",
     "title": {
         "allGames": "Всички игри",
         "allUnreal": "Unreal – Всичко",

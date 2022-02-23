@@ -106,6 +106,7 @@
     "Filter": "Φίλτρο",
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logging In..."
     },
     "store": "Κατάστημα",
+    "stores": "Stores",
     "title": {
         "allGames": "Όλα τα παιχνίδια",
         "allUnreal": "Unreal - Όλα",

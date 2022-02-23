@@ -96,7 +96,7 @@
     },
     "Downloading": "Downloading",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -106,6 +106,7 @@
     "Filter": "Filter",
     "globalSettings": "Global Settings",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Sync with EGL in case you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
@@ -161,7 +162,7 @@
         },
         "install": {
             "canceled": "Install Canceled",
-            "error": "",
+            "error": "Installation Failed",
             "finished": "Install Finished",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -278,7 +279,8 @@
     "status": {
         "logging": "Logging In..."
     },
-    "store": "Store",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",

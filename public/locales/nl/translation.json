@@ -106,6 +106,7 @@
     "Filter": "Filter",
     "globalSettings": "Algemene instellingen",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logging In..."
     },
     "store": "Winkel",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
