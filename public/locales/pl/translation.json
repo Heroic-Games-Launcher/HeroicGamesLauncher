@@ -106,6 +106,7 @@
     "Filter": "Filtr",
     "globalSettings": "Ustawienia Globalne",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Store w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logowanie..."
     },
     "store": "Sklep",
+    "stores": "Stores",
     "title": {
         "allGames": "Wszystkie Gry",
         "allUnreal": "Unreal - Wszystko",

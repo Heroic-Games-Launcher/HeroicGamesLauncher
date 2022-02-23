@@ -106,6 +106,7 @@
     "Filter": "フィルター",
     "globalSettings": "全体設定",
     "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
         "other": {
@@ -279,6 +280,7 @@
         "logging": "Logging In..."
     },
     "store": "ストア",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
