@@ -33,6 +33,7 @@ export default function SidebarLinks() {
 
   const location = useLocation() as { pathname: string }
   const isLibrary = location.pathname === '/'
+  const isStore = location.pathname.includes('store')
   const isEpicLoggedIn = Boolean(configStore.get('userInfo'))
   const isGOGLoggedIn = Boolean(gogStore.get('credentials'))
   const showSidebar =
@@ -150,32 +151,40 @@ export default function SidebarLinks() {
         />
         {t('stores', 'Stores')}
       </NavLink>
-      <NavLink
-        data-testid="store"
-        activeStyle={{
-          color: 'var(--accent)'
-        }}
-        className="subItem"
-        isActive={(match, location) => location.pathname.includes('epicstore')}
-        to={{
-          pathname: '/epicstore'
-        }}
-      >
-        {t('store', 'Epic Store')}
-      </NavLink>
-      <NavLink
-        data-testid="store"
-        activeStyle={{
-          color: 'var(--accent)'
-        }}
-        className="subItem"
-        isActive={(match, location) => location.pathname.includes('gogstore')}
-        to={{
-          pathname: '/gogstore'
-        }}
-      >
-        {t('gog-store', 'GOG Store')}
-      </NavLink>
+      {isStore && (
+        <>
+          <NavLink
+            data-testid="store"
+            activeStyle={{
+              color: 'var(--accent)'
+            }}
+            className="subItem"
+            isActive={(match, location) =>
+              location.pathname.includes('epicstore')
+            }
+            to={{
+              pathname: '/epicstore'
+            }}
+          >
+            {t('store', 'Epic Store')}
+          </NavLink>
+          <NavLink
+            data-testid="store"
+            activeStyle={{
+              color: 'var(--accent)'
+            }}
+            className="subItem"
+            isActive={(match, location) =>
+              location.pathname.includes('gogstore')
+            }
+            to={{
+              pathname: '/gogstore'
+            }}
+          >
+            {t('gog-store', 'GOG Store')}
+          </NavLink>
+        </>
+      )}
       <NavLink
         data-testid="wiki"
         activeStyle={{
