@@ -336,7 +336,7 @@ export class GOGLibrary {
         LogPrefix.Gog
       )
       const apiData = await this.getGamesData(String(info.id))
-      if (apiData._links) {
+      if (apiData?._links) {
         verticalCover = apiData._links.boxArtImage.href
       } else {
         logWarning(

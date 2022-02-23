@@ -128,7 +128,10 @@ class GOGGame extends Game {
 
     // In the future we need to add Language select option
     const command = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" --token="${credentials.access_token}" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
+
+    // Doesnt contain confidential token
+    const saveCommand = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
+    logInfo([`Installing ${this.appName} with:`, saveCommand], LogPrefix.Gog)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
         if (
@@ -223,7 +226,15 @@ class GOGGame extends Game {
     }" --token="${credentials.access_token}" ${withDlcs} --lang="${
       gameData.install.language || 'en-US'
     }" -b=${gameData.install.buildId} ${workers} ${writeLog}`
-    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
+    // Doesnt contain confidential token
+    const saveCommand = `${gogdlBin} repair ${
+      this.appName
+    } --platform ${installPlatform} --path="${
+      gameData.install.install_path
+    }" ${withDlcs} --lang="${gameData.install.language || 'en-US'}" -b=${
+      gameData.install.buildId
+    } ${workers} ${writeLog}`
+    logInfo([`Repairing ${this.appName} with:`, saveCommand], LogPrefix.Gog)
 
     return execAsync(command, execOptions)
       .then((value) => value)
@@ -309,7 +320,15 @@ class GOGGame extends Game {
     }" --token="${credentials.access_token}" ${withDlcs} --lang="${
       gameData.install.language || 'en-US'
     }" ${workers} ${writeLog}`
-    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
+    // Doesnt contain confidential token
+    const saveCommand = `${gogdlBin} update ${
+      this.appName
+    } --platform ${installPlatform} --path="${
+      gameData.install.install_path
+    }" ${withDlcs} --lang="${
+      gameData.install.language || 'en-US'
+    }" ${workers} ${writeLog}`
+    logInfo([`Updating ${this.appName} with:`, saveCommand], LogPrefix.Gog)
 
     return execAsync(command, execOptions)
       .then(async () => {
