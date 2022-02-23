@@ -136,37 +136,44 @@ export default function SidebarLinks() {
         {t('Settings')}
       </NavLink>
       <NavLink
+        to={{
+          pathname: '/epicstore'
+        }}
+        activeStyle={{
+          color: 'var(--accent)'
+        }}
+        isActive={(match, location) => location.pathname.includes('store')}
+      >
+        <FontAwesomeIcon
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
+          icon={faStore}
+        />
+        {t('stores', 'Stores')}
+      </NavLink>
+      <NavLink
         data-testid="store"
         activeStyle={{
-          color: 'var(--accent)',
-          font: 'var(--font-primary-bold)'
+          color: 'var(--accent)'
         }}
+        className="subItem"
         isActive={(match, location) => location.pathname.includes('epicstore')}
         to={{
           pathname: '/epicstore'
         }}
       >
-        <FontAwesomeIcon
-          style={{ width: 'clamp(1vh, 22px, 28px)' }}
-          icon={faStore}
-        />
         {t('store', 'Epic Store')}
       </NavLink>
       <NavLink
         data-testid="store"
         activeStyle={{
-          color: 'var(--accent)',
-          font: 'var(--font-primary-bold)'
+          color: 'var(--accent)'
         }}
+        className="subItem"
         isActive={(match, location) => location.pathname.includes('gogstore')}
         to={{
           pathname: '/gogstore'
         }}
       >
-        <FontAwesomeIcon
-          style={{ width: 'clamp(1vh, 22px, 28px)' }}
-          icon={faStore}
-        />
         {t('gog-store', 'GOG Store')}
       </NavLink>
       <NavLink
