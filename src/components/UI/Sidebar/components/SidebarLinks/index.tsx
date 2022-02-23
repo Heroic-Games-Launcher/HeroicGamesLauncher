@@ -150,7 +150,24 @@ export default function SidebarLinks() {
           style={{ width: 'clamp(1vh, 22px, 28px)' }}
           icon={faStore}
         />
-        {t('store', 'Store')}
+        {t('store', 'Epic Store')}
+      </NavLink>
+      <NavLink
+        data-testid="store"
+        activeStyle={{
+          color: 'var(--accent)',
+          font: 'var(--font-primary-bold)'
+        }}
+        isActive={(match, location) => location.pathname.includes('gogstore')}
+        to={{
+          pathname: '/gogstore'
+        }}
+      >
+        <FontAwesomeIcon
+          style={{ width: 'clamp(1vh, 22px, 28px)' }}
+          icon={faStore}
+        />
+        {t('gog-store', 'GOG Store')}
       </NavLink>
       <NavLink
         data-testid="wiki"
