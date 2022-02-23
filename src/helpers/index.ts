@@ -3,6 +3,7 @@ import {
   GameInfo,
   InstallInfo,
   InstallProgress,
+  Runner,
   GameSettings
 } from 'src/types'
 import { IpcRenderer } from 'electron'
@@ -37,8 +38,8 @@ const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
 let progress: string
 
-const sendKill = (appName: string): Promise<void> =>
-  ipcRenderer.invoke('kill', appName)
+const sendKill = (appName: string, runner: Runner): Promise<void> =>
+  ipcRenderer.invoke('kill', appName, runner)
 
 /**
  * Deprecated API to spawn a subprocess with a legendary command.
@@ -99,16 +100,25 @@ const cleanTitle = (title: string) =>
     .toLowerCase()
     .split('--definitive')[0]
 
-const getGameInfo = async (appName: string): Promise<GameInfo> => {
-  return await ipcRenderer.invoke('getGameInfo', appName)
+const getGameInfo = async (
+  appName: string,
+  runner: Runner = 'legendary'
+): Promise<GameInfo> => {
+  return await ipcRenderer.invoke('getGameInfo', appName, runner)
 }
 
-const getGameSettings = async (appName: string): Promise<GameSettings> => {
-  return await ipcRenderer.invoke('getGameSettings', appName)
+const getGameSettings = async (
+  appName: string,
+  runner: Runner
+): Promise<GameSettings> => {
+  return await ipcRenderer.invoke('getGameSettings', appName, runner)
 }
 
-const getInstallInfo = async (appName: string): Promise<InstallInfo> => {
-  return await ipcRenderer.invoke('getInstallInfo', appName)
+const getInstallInfo = async (
+  appName: string,
+  runner: Runner
+): Promise<InstallInfo> => {
+  return await ipcRenderer.invoke('getInstallInfo', appName, runner)
 }
 
 const handleSavePath = async (game: string) => {

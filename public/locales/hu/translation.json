@@ -88,6 +88,7 @@
         "yes": "IGEN"
     },
     "button": {
+        "continue": "Continue",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
@@ -104,6 +105,7 @@
     },
     "Filter": "Szűrő",
     "globalSettings": "Globális beállítások",
+    "GOG": "GOG",
     "help": {
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Weboldal betöltése"
     },
     "login": {
-        "loginWithEpic": "Bejelentkezés Epic-kel",
-        "loginWithSid": "Bejelentkezés SID-vel"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Szinkronizálás befejezve",
@@ -253,6 +254,7 @@
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
         "showUnrealMarket": "Unreal piactér mutatása (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver tároló",
         "wineprefix": "Wine prefix mappa",
         "wineversion": "Wine verzió"
@@ -274,7 +276,6 @@
     },
     "Settings": "Beállítások",
     "status": {
-        "loading": "Játéklista betöltése, kérlek várj",
         "logging": "Bejelentkezés..."
     },
     "store": "Áruház",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "Kijelentkezés",
         "logout_confirmation": "Biztos, hogy ki akarsz jelentkezni?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Kilépés"
     },
     "wiki": "Wiki",

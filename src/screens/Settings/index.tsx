@@ -3,14 +3,14 @@ import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames'
 
-import { AppSettings, WineInstallation } from 'src/types'
+import { AppSettings, Runner, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { getGameInfo, writeConfig } from 'src/helpers'
+import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
 import {
   ContentCopyOutlined,
   CleaningServicesOutlined,
@@ -40,6 +40,7 @@ interface RouteParams {
 
 interface LocationState {
   fromGameCard: boolean
+  runner: Runner
 }
 
 function Settings() {
@@ -87,6 +88,11 @@ function Settings() {
     on: useGameMode,
     toggle: toggleUseGameMode,
     setOn: setUseGameMode
+  } = useToggle(false)
+  const {
+    on: useSteamRuntime,
+    toggle: toggleUseSteamRuntime,
+    setOn: setUseSteamRuntime
   } = useToggle(false)
   const {
     on: checkForUpdatesOnStartup,
@@ -178,6 +184,7 @@ function Settings() {
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const [isMacNative, setIsMacNative] = useState(false)
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
 
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
 
@@ -233,18 +240,20 @@ function Settings() {
       setAltLegendaryBin(config.altLegendaryBin || '')
       setShowUnrealMarket(config.showUnrealMarket || false)
       setDefaultWinePrefix(config.defaultWinePrefix)
-
+      setUseSteamRuntime(config.useSteamRuntime || false)
       if (!isDefault) {
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
           title: gameTitle,
           canRunOffline: can_run_offline,
-          is_mac_native
-        } = await getGameInfo(appName)
+          is_mac_native,
+          is_linux_native
+        } = await getGameInfo(appName, state.runner)
         setCanRunOffline(can_run_offline)
         setTitle(gameTitle)
-        setIsMacNative(is_mac_native)
+        setIsMacNative(is_mac_native && (await getPlatform()) == 'darwin')
+        setIsLinuxNative(is_linux_native && (await getPlatform()) == 'linux')
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -310,11 +319,12 @@ function Settings() {
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
-    wineVersion
+    wineVersion,
+    useSteamRuntime
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  const shouldRenderWineSettings = !isWin && !isMacNative
+  const shouldRenderWineSettings = !isWin && !isMacNative && !isLinuxNative
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -350,25 +360,43 @@ function Settings() {
             </NavLink>
           )}
           {shouldRenderWineSettings && (
-            <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
+            <NavLink
+              to={{
+                pathname: `/settings/${appName}/wine`,
+                state: { runner: state?.runner }
+              }}
+            >
               Wine
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink
               data-testid="linkSync"
-              to={{ pathname: `/settings/${appName}/sync` }}
+              to={{
+                pathname: `/settings/${appName}/sync`,
+                state: { runner: state?.runner }
+              }}
             >
               {t('settings.navbar.sync')}
             </NavLink>
           )}
           {
-            <NavLink to={{ pathname: `/settings/${appName}/other` }}>
+            <NavLink
+              to={{
+                pathname: `/settings/${appName}/other`,
+                state: { runner: state?.runner }
+              }}
+            >
               {t('settings.navbar.other')}
             </NavLink>
           }
           {
-            <NavLink to={{ pathname: `/settings/${appName}/log` }}>
+            <NavLink
+              to={{
+                pathname: `/settings/${appName}/log`,
+                state: { runner: state?.runner }
+              }}
+            >
               {t('settings.navbar.log', 'Log')}
             </NavLink>
           }
@@ -382,7 +410,11 @@ function Settings() {
             >
               {title}
               {!isDefault && (
-                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+                <FontAwesomeIcon
+                  icon={
+                    isMacNative ? faApple : isLinuxNative ? faLinux : faWindows
+                  }
+                />
               )}
             </NavLink>
           )}
@@ -536,7 +568,10 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
+              useSteamRuntime={useSteamRuntime}
+              toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
+              isLinuxNative={isLinuxNative}
             />
           )}
           {isSyncSettings && (

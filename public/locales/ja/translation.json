@@ -88,6 +88,7 @@
         "yes": "はい"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "同期",
         "syncing": "同期しています",
@@ -104,6 +105,7 @@
     },
     "Filter": "フィルター",
     "globalSettings": "全体設定",
+    "GOG": "GOG",
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "同期が完了しました",
@@ -253,6 +254,7 @@
         "showfps": "FPSを表示（DX9、10、11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver ボトル",
         "wineprefix": "Wineプレフィックスフォルダー",
         "wineversion": "Wineバージョン"
@@ -274,7 +276,6 @@
     },
     "Settings": "設定",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "ストア",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "ログアウト",
         "logout_confirmation": "ログアウトしてもよろしいですか？",
+        "manageaccounts": "Manage Accounts",
         "quit": "終了"
     },
     "wiki": "Wiki",

@@ -88,6 +88,7 @@
         "yes": "是"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "同步",
         "syncing": "正在同步",
@@ -104,6 +105,7 @@
     },
     "Filter": "篩選",
     "globalSettings": "全域設定",
+    "GOG": "GOG",
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "同步完成",
@@ -253,6 +254,7 @@
         "showfps": "顯示幀數（Directx 9，10和11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夾",
         "wineversion": "WINE版本"
@@ -274,7 +276,6 @@
     },
     "Settings": "設定",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "商店",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "登出",
         "logout_confirmation": "您確定要登出嗎？",
+        "manageaccounts": "Manage Accounts",
         "quit": "退出"
     },
     "wiki": "Wiki百科",

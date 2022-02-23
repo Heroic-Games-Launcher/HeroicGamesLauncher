@@ -88,6 +88,7 @@
         "yes": "KYLLÄ"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Synkronoi",
         "syncing": "Synkronoidaan",
@@ -104,6 +105,7 @@
     },
     "Filter": "Suodata",
     "globalSettings": "Globaalit asetukset",
+    "GOG": "GOG",
     "help": {
         "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synkronointi valmis",
@@ -253,6 +254,7 @@
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefixin kansio",
         "wineversion": "Winen versio"
@@ -274,7 +276,6 @@
     },
     "Settings": "Asetukset",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Kauppa",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "Kirjaudu ulos",
         "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Poistu"
     },
     "wiki": "Wiki",

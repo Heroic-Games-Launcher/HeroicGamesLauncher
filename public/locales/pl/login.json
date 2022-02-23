@@ -2,9 +2,6 @@
     "button": {
         "login": "Zaloguj"
     },
-    "input": {
-        "placeholder": "Wklej tutaj numer SID"
-    },
     "message": {
         "part1": "Żeby zainstalować gry wykonaj następujące kroki :",
         "part2": "Otwórz",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Błąd",
-        "loading": "Ładowanie listy Gier, proszę czekać",
-        "logging": "Logowanie…"
+        "loading": "Ładowanie listy Gier, proszę czekać"
     },
     "welcome": "Witaj!"
 }

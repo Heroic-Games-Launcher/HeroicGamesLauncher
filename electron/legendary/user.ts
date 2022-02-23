@@ -39,7 +39,7 @@ export class LegendaryUser {
       })
       child.on('close', () => {
         logInfo('finished login', LogPrefix.Legendary)
-        res('finished')
+        this.getUserInfo().then(() => res('finished'))
       })
     })
   }

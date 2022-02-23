@@ -2,9 +2,6 @@
     "button": {
         "login": "Prijava"
     },
-    "input": {
-        "placeholder": "Zalijepite vaš SID broj ovdje"
-    },
     "message": {
         "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate slijediti sljedeće korake:",
         "part2": "Otvori",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Greška",
-        "loading": "Učitavanje liste Igrica, pričekajte",
-        "logging": "Prijavljivljanje…"
+        "loading": "Učitavanje liste Igrica, pričekajte"
     },
     "welcome": "Dobrodošli!"
 }

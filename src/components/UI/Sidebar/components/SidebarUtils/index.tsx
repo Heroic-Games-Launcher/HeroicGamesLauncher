@@ -6,7 +6,7 @@ import {
   faCoffee,
   faUser,
   faDoorOpen,
-  faUserSlash,
+  faUserAlt,
   faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import ElectronStore from 'electron-store'
@@ -16,27 +16,22 @@ const Store = window.require('electron-store')
 const configStore: ElectronStore = new Store({
   cwd: 'store'
 })
+const gogStore = new Store({
+  cwd: 'gog_store'
+})
 import { handleQuit } from 'src/helpers'
 import './index.css'
 import { openDiscordLink } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import { UserInfo } from 'src/types'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 export default function SidebarUtils() {
   const { t } = useTranslation()
-  const user = configStore.get('userInfo') as UserInfo
-  const { refresh, platform } = React.useContext(ContextProvider)
+  const history = useHistory()
+  const user = configStore.get('userInfo') || gogStore.get('userData')
+  const { platform } = React.useContext(ContextProvider)
   const isLinux = platform === 'linux'
-
-  const handleLogout = async () => {
-    if (confirm(t('userselector.logout_confirmation', 'Logout?'))) {
-      await ipcRenderer.invoke('logout')
-      window.localStorage.clear()
-      refresh()
-    }
-  }
 
   const quitButton = (
     <button onClick={handleQuit}>
@@ -95,15 +90,15 @@ export default function SidebarUtils() {
               style={{ width: 'clamp(2vh, 25px, 30px)' }}
               icon={faUser}
             />{' '}
-            <span>{user.displayName}</span>
+            <span>{user.displayName || user.username}</span>
           </button>
           <div className="userDropdown">
-            <button onClick={handleLogout}>
+            <button onClick={() => history.push('/login')}>
               <FontAwesomeIcon
+                icon={faUserAlt}
                 style={{ width: 'clamp(2vh, 25px, 30px)' }}
-                icon={faUserSlash}
-              />{' '}
-              <span>{t('userselector.logout', 'Logout')}</span>
+              />
+              <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
             </button>
             {quitButton}
           </div>

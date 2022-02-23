@@ -1,3 +1,5 @@
+export type Runner = 'legendary' | 'gog' | 'heroic'
+
 interface About {
   description: string
   shortDescription: string
@@ -44,9 +46,10 @@ export interface AppSettings {
   winePrefix: string
   defaultWinePrefix: string
   wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
-export type ExecResult = void | { stderr: string; stdout: string }
+export type ExecResult = { stderr: string; stdout: string }
 
 export type LaunchResult = {
   stderr: string
@@ -61,6 +64,8 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 export interface GameInfo {
+  runner: Runner
+  store_url: string
   app_name: string
   art_cover: string
   art_logo: string
@@ -81,6 +86,7 @@ export interface GameInfo {
   title: string
   canRunOffline: boolean
   is_mac_native: boolean
+  is_linux_native: boolean
 }
 
 type DLCInfo = {
@@ -95,6 +101,7 @@ type GameInstallInfo = {
   title: string
   version: string
   platform_versions: { Mac: string; Windows: string }
+  buildId?: string
 }
 
 type Prerequisites = {
@@ -110,6 +117,8 @@ type GameManifest = {
   install_tags: Array<string>
   launch_exe: string
   prerequisites: Prerequisites
+  languages?: Array<string>
+  versionEtag?: string
 }
 export interface InstallInfo {
   game: GameInstallInfo
@@ -135,6 +144,7 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
+  useSteamRuntime: boolean
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -169,6 +179,11 @@ export interface InstalledInfo {
   is_dlc: boolean
   version: string | null
   platform: string
+  appName?: string
+  installedWithDLCs?: boolean // For verifing GOG games
+  language?: string // For verifing GOG games
+  versionEtag?: string // Checksum for checking GOG updates
+  buildId?: string // For verifing GOG games
 }
 export interface KeyImage {
   type: string
@@ -222,7 +237,8 @@ export interface InstallArgs {
   path: string
   installDlcs?: boolean
   sdlList?: Array<string>
-  platformToInstall: 'Windows' | 'Mac'
+  platformToInstall: 'Windows' | 'Mac' | 'Linux'
+  installLanguage?: string
 }
 
 export interface InstallParams {
@@ -230,6 +246,71 @@ export interface InstallParams {
   path: string
   installDlcs?: boolean
   sdlList?: Array<string>
+  installLanguage?: string
+  runner: Runner
+}
+
+export interface GOGLoginData {
+  expires_in: number
+  access_token: string
+  refresh_token: string
+  user_id: string
+  loginTime: number
+}
+
+export interface GOGGameInfo {
+  tags: string[]
+  id: number
+  image: string
+  availability: {
+    isAvailable: boolean
+    isAvailableInAccount: boolean
+  }
+  title: string
+  url: string
+  worksOn: {
+    Windows: boolean
+    Mac: boolean
+    Linux: boolean
+  }
+  category: string
+  rating: number
+  isComingSoom: boolean
+  isGame: boolean
+  slug: string
+  isNew: boolean
+  dlcCount: number
+  releaseDate: {
+    date: string
+    timezone_type: number
+    timezone: string
+  }
+  isBaseProductMissing: boolean
+  isHidingDisabled: boolean
+  isInDevelopment: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  extraInfo: any[]
+  isHidden: boolean
+}
+
+export interface GOGImportData {
+  // "appName": "1441974651", "buildId": "55136646198962890", "title": "Prison Architect", "tasks": [{"category": "launcher", "isPrimary": true, "languages": ["en-US"], "name": "Prison Architect", "osBitness": ["64"], "path": "Launcher/dowser.exe", "type": "FileTask"}, {"category": "game", "isHidden": true, "languages": ["en-US"], "name": "Prison Architect - launcher process Prison Architect64_exe", "osBitness": ["64"], "path": "Prison Architect64.exe", "type": "FileTask"}, {"category": "document", "languages": ["en-US"], "link": "http://www.gog.com/support/prison_architect", "name": "Support", "type": "URLTask"}, {"category": "other", "languages": ["en-US"], "link": "http://www.gog.com/forum/prison_architect/prison_break_escape_map_megathread/post1", "name": "Escape Map Megathread", "type": "URLTask"}], "installedLanguage": "en-US"}
+  appName: string
+  buildId: string
+  title: string
+  tasks: Array<{
+    category: string
+    isPrimary?: boolean
+    languages?: Array<string>
+    arguments?: Array<string> | string
+    path: string
+    name: string
+    type: string
+  }>
+  installedLanguage: string
+  platform: string
+  versionName: string
+  installedWithDlcs: boolean
 }
 
 export interface GamepadInputEventKey {

@@ -2,9 +2,6 @@
     "button": {
         "login": "Conecte-se"
     },
-    "input": {
-        "placeholder": "Cole seu número SID aqui"
-    },
     "message": {
         "part1": "Para fazer login e instalar seus jogos, primeiro você precisa seguir as etapas abaixo:",
         "part2": "Abrir o",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Erro",
-        "loading": "Carregando lista de jogos, aguarde por favor",
-        "logging": "Logando…"
+        "loading": "Carregando lista de jogos, aguarde por favor"
     },
     "welcome": "Bem-vindo(a)!"
 }

@@ -2,9 +2,6 @@
     "button": {
         "login": "Masuk"
     },
-    "input": {
-        "placeholder": "Tempel nomor SID disini"
-    },
     "message": {
         "part1": "Untuk bisa masuk ke akunmu dan menginstall permainanmu, kamu harus mengikuti langkah-langkah di bawah:",
         "part2": "Buka",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Kesalahan",
-        "loading": "Memuat daftar permainan, mohon tunggu",
-        "logging": "Masuk…"
+        "loading": "Memuat daftar permainan, mohon tunggu"
     },
     "welcome": "Selamat Datang!"
 }
