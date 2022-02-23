@@ -53,6 +53,7 @@
         "downloadSize": "다운로드 크기",
         "firstPlayed": "처음 플레이",
         "installSize": "설치 크기",
+        "language": "Language",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "totalPlayed": "플레이 시간"

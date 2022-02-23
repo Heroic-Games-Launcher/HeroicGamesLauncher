@@ -88,6 +88,7 @@
         "yes": "Ja"
     },
     "button": {
+        "continue": "Continue",
         "login": "Logga in",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
@@ -104,6 +105,7 @@
     },
     "Filter": "Filtrera",
     "globalSettings": "Globala inställningar",
+    "GOG": "GOG",
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande installation av Epic Games Store någon annanstans och vill importera dina spel för att undvika att ladda ner dem på nytt.",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synkronisering klar",
@@ -253,6 +254,7 @@
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Starta minimerad",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapp",
         "wineversion": "Wine version"
@@ -274,7 +276,6 @@
     },
     "Settings": "Inställningar",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Butik",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "Logga ut",
         "logout_confirmation": "Är du säker på att du vill logga ut?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Avsluta"
     },
     "wiki": "Wiki",

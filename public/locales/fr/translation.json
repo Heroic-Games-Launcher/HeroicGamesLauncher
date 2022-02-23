@@ -88,6 +88,7 @@
         "yes": "OUI"
     },
     "button": {
+        "continue": "Continue",
         "login": "Connexion",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
@@ -104,6 +105,7 @@
     },
     "Filter": "Filtre",
     "globalSettings": "Paramètres généraux",
+    "GOG": "GOG",
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Chargement du site internet"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synchronisation Complète",
@@ -253,6 +254,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
@@ -274,7 +276,6 @@
     },
     "Settings": "Options",
     "status": {
-        "loading": "Chargement de la liste des jeux, veuillez patienter",
         "logging": "Connexion en cours..."
     },
     "store": "Boutique",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "Déconnexion",
         "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Quitter"
     },
     "wiki": "Wiki",

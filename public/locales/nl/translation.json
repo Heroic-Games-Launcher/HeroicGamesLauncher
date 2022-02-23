@@ -88,6 +88,7 @@
         "yes": "JA"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
@@ -104,6 +105,7 @@
     },
     "Filter": "Filter",
     "globalSettings": "Algemene instellingen",
+    "GOG": "GOG",
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -253,6 +254,7 @@
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Geminimaliseerd",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie"
@@ -274,7 +276,6 @@
     },
     "Settings": "Instellingen",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Winkel",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "Log uit",
         "logout_confirmation": "weet u zeker dat u wil uitloggen?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Sluiten"
     },
     "wiki": "Wiki",

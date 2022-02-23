@@ -3,7 +3,7 @@
     "Assets": "داراییها",
     "box": {
         "appupdate": {
-            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان به‌روزرسانی کنید؟",
+            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان به\u200cروزرسانی کنید؟",
             "title": "بهروزرسانی موجود است"
         },
         "cache-cleared": {
@@ -88,6 +88,7 @@
         "yes": "بله"
     },
     "button": {
+        "continue": "Continue",
         "login": "ورود",
         "sync": "همگامسازی",
         "syncing": "در حال همگامسازی",
@@ -104,8 +105,9 @@
     },
     "Filter": "فیلتر",
     "globalSettings": "تنظیمات عمومی",
+    "GOG": "GOG",
     "help": {
-        "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کرده‌اید و میخواهید بازی‌های خود را وارد کنید با EGL همگام‌سازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
+        "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کرده\u200cاید و میخواهید بازی\u200cهای خود را وارد کنید با EGL همگام\u200cسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "other": {
             "part1": "استفاده از ",
             "part2": "گزینههای پیشرفته",
@@ -141,8 +143,7 @@
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
-        "loginWithEpic": "ورود با اپیک",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -204,7 +205,7 @@
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
-        "autovkd3d": "نصب/به‌روزرسانی خودکار VKD3D در مسیر",
+        "autovkd3d": "نصب/به\u200cروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "چک کردن برای به روزرسانی در هنگام راه اندازی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
@@ -253,6 +254,7 @@
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
@@ -262,7 +264,7 @@
         "copiedToClipboard": "در کليپ بورد کپی شد!",
         "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
         "log": {
-            "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شده‌اند!"
+            "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شده\u200cاند!"
         },
         "navbar": {
             "general": "عمومی",
@@ -274,7 +276,6 @@
     },
     "Settings": "تنظیمات",
     "status": {
-        "loading": "در حال بارگیری لیست بازی، لطفا منتظر بمانید",
         "logging": "در حال وارد شدن..."
     },
     "store": "فروشگاه",
@@ -291,7 +292,7 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "انتخاب پوشه مسیر پیش‌فرض برای تنظیمات جدید",
+            "default-wineprefix": "انتخاب پوشه مسیر پیش\u200cفرض برای تنظیمات جدید",
             "wineprefix": "انتخاب پوشه برای مسیر Wine جدید"
         }
     },
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
+        "manageaccounts": "Manage Accounts",
         "quit": "خروج"
     },
     "wiki": "ویکی",

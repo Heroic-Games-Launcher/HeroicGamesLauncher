@@ -88,6 +88,7 @@
         "yes": "YES"
     },
     "button": {
+        "continue": "Continue",
         "login": "Log in",
         "sync": "Sync",
         "syncing": "Syncing",
@@ -104,6 +105,7 @@
     },
     "Filter": "Filter",
     "globalSettings": "Global Settings",
+    "GOG": "GOG",
     "help": {
         "general": "Sync with EGL in case you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sync Complete",
@@ -253,6 +254,7 @@
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"
@@ -274,7 +276,6 @@
     },
     "Settings": "Settings",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Store",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "Log out",
         "logout_confirmation": "Are you sure you want to log out?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Quit"
     },
     "wiki": "Wiki",

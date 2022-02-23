@@ -88,6 +88,7 @@
         "yes": "SIM"
     },
     "button": {
+        "continue": "Continue",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -104,6 +105,7 @@
     },
     "Filter": "Filtrar",
     "globalSettings": "Configurações globais",
+    "GOG": "GOG",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
         "other": {
@@ -141,8 +143,7 @@
         "website": "Carregando site"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -253,6 +254,7 @@
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Pasta do prefixo Wine",
         "wineversion": "Versão do WINE"
@@ -274,7 +276,6 @@
     },
     "Settings": "Configurações",
     "status": {
-        "loading": "Carregando lista de jogos, aguarde por favor",
         "logging": "Logando..."
     },
     "store": "Loja",
@@ -312,6 +313,7 @@
         "discord": "Discord",
         "logout": "Sair",
         "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Sair"
     },
     "wiki": "Wiki",

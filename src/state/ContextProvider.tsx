@@ -3,8 +3,9 @@ import React from 'react'
 import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
-  category: 'games',
-  data: [],
+  category: 'epic',
+  epicLibrary: [],
+  gogLibrary: [],
   wineVersions: [],
   error: false,
   filter: 'all',

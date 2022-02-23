@@ -260,6 +260,9 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
+  if (url.startsWith('http')) {
+    return shell.openExternal(url)
+  }
   return shell.openPath(url)
 }
 
@@ -276,6 +279,13 @@ function clearCache() {
     cwd: 'lib-cache',
     name: 'gameinfo'
   })
+  const GOGapiInfoCache = new Store({
+    cwd: 'gog_store',
+    name: 'api_info_cache'
+  })
+  const GOGlibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
+  GOGapiInfoCache.clear()
+  GOGlibraryStore.clear()
   installCache.clear()
   libraryCache.clear()
   gameInfoCache.clear()

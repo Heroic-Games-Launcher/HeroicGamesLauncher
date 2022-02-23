@@ -231,7 +231,7 @@ download Heroic.Setup.x.x.x.exe or the Portable Heroic-x.x.x.exe file and run it
 
 ### macOS
 
-Download Heroic-x.x.x.dmg and move the Heroic App to the Applications folder.
+If you use Homebrew, just type: `brew install --cask heroic`. Otherwise, download Heroic-x.x.x.dmg and move the Heroic App to the Applications folder.
 
 ### Build binaries locally (All platforms)
 
