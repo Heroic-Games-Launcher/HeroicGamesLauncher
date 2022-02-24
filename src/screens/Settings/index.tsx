@@ -343,26 +343,20 @@ function Settings() {
   return (
     <>
       <div className="Settings">
-        <nav role={'list'} className="settingsNavbar">
+        <nav role="list" className="settingsNavbar">
           {isDefault && (
-            <NavLink
-              role={'link'}
-              to={{ pathname: '/settings/default/general' }}
-            >
+            <NavLink role="link" to={{ pathname: '/settings/default/general' }}>
               {t('settings.navbar.general')}
             </NavLink>
           )}
           {shouldRenderWineSettings && (
-            <NavLink
-              role={'link'}
-              to={{ pathname: `/settings/${appName}/wine` }}
-            >
+            <NavLink role="link" to={{ pathname: `/settings/${appName}/wine` }}>
               Wine
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink
-              role={'link'}
+              role="link"
               data-testid="linkSync"
               to={{ pathname: `/settings/${appName}/sync` }}
             >
@@ -371,25 +365,22 @@ function Settings() {
           )}
           {
             <NavLink
-              role={'link'}
+              role="link"
               to={{ pathname: `/settings/${appName}/other` }}
             >
               {t('settings.navbar.other')}
             </NavLink>
           }
           {
-            <NavLink
-              role={'link'}
-              to={{ pathname: `/settings/${appName}/log` }}
-            >
+            <NavLink role="link" to={{ pathname: `/settings/${appName}/log` }}>
               {t('settings.navbar.log', 'Log')}
             </NavLink>
           }
         </nav>
-        <div role={'list'} className="settingsWrapper">
+        <div role="list" className="settingsWrapper">
           {title && (
             <NavLink
-              role={'link'}
+              role="link"
               to={returnPath}
               className="headerTitle"
               data-testid="headerTitle"
