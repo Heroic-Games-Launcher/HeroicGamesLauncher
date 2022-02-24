@@ -190,7 +190,7 @@ async function launch(
           audioFix ? `PULSE_LATENCY_MSEC=60` : '',
           // This must be always last
           steamRuntime
-        ]
+        ].filter((n) => n)
         envVars = options.join(' ')
       }
       command = `${envVars} ${gogdlBin} launch "${
@@ -261,7 +261,9 @@ async function launch(
       : ''
   }
 
-  envVars = Object.values(options).join(' ')
+  envVars = Object.values(options)
+    .filter((n) => n)
+    .join(' ')
   if (isProton) {
     logWarning(
       [
@@ -289,16 +291,42 @@ async function launch(
 
   let command = ''
   if (isLegendary) {
-    command = `${envVars} ${runWithGameMode} ${mangohud} ${legendaryBin} launch ${appName} ${exe} ${runOffline} ${wineCommand} ${prefix} ${
-      launchArguments ?? ''
-    } ${launcherArgs}`
+    command = [
+      envVars,
+      runWithGameMode,
+      mangohud,
+      legendaryBin,
+      'launch',
+      appName,
+      exe,
+      runOffline,
+      wineCommand,
+      prefix,
+      launchArguments,
+      launcherArgs
+    ]
+      .filter((n) => n)
+      .join(' ')
     logInfo(['Launch Command:', command], LogPrefix.Legendary)
   } else if (isGOG) {
-    command = `${envVars} ${runWithGameMode} ${mangohud} ${gogdlBin} launch "${
-      gameInfo.install.install_path
-    }" ${exe} ${appName} ${wineCommand} ${prefix} --os ${gameInfo.install.platform.toLowerCase()} ${
-      launchArguments ?? ''
-    } ${launcherArgs}`
+    command = [
+      envVars,
+      runWithGameMode,
+      mangohud,
+      gogdlBin,
+      'launch',
+      `"${gameInfo.install.install_path}"`,
+      exe,
+      appName,
+      wineCommand,
+      prefix,
+      '--os',
+      gameInfo.install.platform.toLowerCase(),
+      launchArguments,
+      launcherArgs
+    ]
+      .filter((n) => n)
+      .join(' ')
     logInfo(['Launch Command:', command], LogPrefix.Gog)
   }
 
