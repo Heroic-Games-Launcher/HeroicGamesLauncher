@@ -22,6 +22,7 @@ import {
 } from './constants'
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
+import { dirname, join } from 'path'
 
 /**
  * This class does config handling.
@@ -109,23 +110,26 @@ abstract class GlobalConfig {
    * @returns Promise<WineInstallation>
    */
   public async getDefaultWine(): Promise<WineInstallation> {
+    const defaultWine: WineInstallation = {
+      bin: '',
+      name: 'Default Wine - Not Found',
+      type: 'wine'
+    }
     return execAsync(`which wine`)
       .then(async ({ stdout }) => {
-        const defaultWine: WineInstallation = {
-          bin: '',
-          name: 'Default Wine - Not Found'
-        }
-        defaultWine.bin = stdout.split('\n')[0]
+        const wineBin = stdout.split('\n')[0]
+        defaultWine.bin = `'${wineBin}'`
+
         const { stdout: out } = await execAsync(`wine --version`)
         const version = out.split('\n')[0]
         defaultWine.name = `Wine Default - ${version}`
-        return defaultWine
+
+        return {
+          ...defaultWine,
+          ...this.getWineExecs(wineBin)
+        }
       })
       .catch(() => {
-        const defaultWine: WineInstallation = {
-          bin: '',
-          name: 'Default Wine - Not Found'
-        }
         return defaultWine
       })
   }
@@ -136,35 +140,52 @@ abstract class GlobalConfig {
    * @returns Promise<Set<WineInstallation>>
    */
   public async getCrossover(): Promise<Set<WineInstallation>> {
-    const crossover: Set<WineInstallation> = new Set()
+    const crossover = new Set<WineInstallation>()
 
     if (isMac) {
       await execAsync(
         'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
       ).then(async ({ stdout }) => {
         stdout.split('\n').forEach((crossoverMacPath) => {
-          if (
-            crossoverMacPath != '' &&
-            existsSync(crossoverMacPath + '/Contents/Info.plist')
-          ) {
+          const infoFilePath = join(crossoverMacPath, 'Contents', 'Info.plist')
+          if (crossoverMacPath && existsSync(infoFilePath)) {
             const info = plistParse(
-              readFileSync(crossoverMacPath + '/Contents/Info.plist', 'utf-8')
+              readFileSync(infoFilePath, 'utf-8')
             ) as PlistObject
             const version = info['CFBundleShortVersionString'] || ''
+            const crossoverWineBin = join(
+              crossoverMacPath,
+              'Contents',
+              'SharedSupport',
+              'CrossOver',
+              'bin',
+              'wine'
+            )
             crossover.add({
-              bin: `'${crossoverMacPath}/Contents/SharedSupport/CrossOver/bin/wine'`,
-              name: `CrossOver ${version} - ${crossoverMacPath}`
+              bin: `'${crossoverWineBin}'`,
+              name: `CrossOver - ${version}`,
+              type: 'crossover',
+              ...this.getWineExecs(crossoverWineBin)
             })
           }
         })
       })
     } else if (!isWindows) {
       // Linux
-      const crossoverPath = '/opt/cxoffice'
-      if (existsSync(crossoverPath)) {
+      const crossoverWineBin = '/opt/cxoffice/bin/wine'
+      const crossoverVersion = (
+        await execAsync(crossoverWineBin + ' --version')
+      ).stdout
+        .toString()
+        .split('\n')[2]
+        .split(':')[1]
+        .trim()
+      if (existsSync(crossoverWineBin)) {
         crossover.add({
-          bin: `'${crossoverPath}/bin/wine'`,
-          name: `CrossOver - ${crossoverPath}`
+          bin: `'${crossoverWineBin}'`,
+          name: `CrossOver - ${crossoverVersion}`,
+          type: 'crossover',
+          ...this.getWineExecs(crossoverWineBin)
         })
       }
     }
@@ -188,12 +209,15 @@ abstract class GlobalConfig {
       mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
     }
 
-    const altWine: Set<WineInstallation> = new Set()
+    const altWine = new Set<WineInstallation>()
 
     readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
+      const wineBin = join(heroicToolsPath, 'wine', version, 'bin', 'wine')
       altWine.add({
-        bin: `'${heroicToolsPath}/wine/${version}/bin/wine64'`,
-        name: `Wine - ${version}`
+        bin: `'${wineBin}'`,
+        name: `Wine - ${version}`,
+        type: 'wine',
+        ...this.getWineExecs(wineBin)
       })
     })
 
@@ -202,41 +226,47 @@ abstract class GlobalConfig {
 
     if (existsSync(lutrisCompatPath)) {
       readdirSync(lutrisCompatPath).forEach((version) => {
+        const wineBin = join(lutrisCompatPath, version, 'bin', 'wine')
         altWine.add({
-          bin: `'${lutrisCompatPath}${version}/bin/wine64'`,
-          name: `Wine - ${version}`
+          bin: `'${wineBin}'`,
+          name: `Wine - ${version}`,
+          type: 'wine',
+          ...this.getWineExecs(wineBin)
         })
       })
     }
 
-    const protonPaths: string[] = [`${heroicToolsPath}/proton/`]
+    const protonPaths = [`${heroicToolsPath}/proton/`]
 
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
-    const steamPaths: string[] = [
+    const steamPaths = [
       `${home}/.steam`,
       `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
     steamPaths.forEach((path) => {
-      protonPaths.push(`${path}/steam/steamapps/common/`)
-      protonPaths.push(`${path}/steamapps/common/`)
-      protonPaths.push(`${path}/root/compatibilitytools.d/`)
-      protonPaths.push(`${path}/compatibilitytools.d/`)
+      protonPaths.push(`${path}/steam/steamapps/common`)
+      protonPaths.push(`${path}/steamapps/common`)
+      protonPaths.push(`${path}/root/compatibilitytools.d`)
+      protonPaths.push(`${path}/compatibilitytools.d`)
       return
     })
 
-    const proton: Set<WineInstallation> = new Set()
+    const proton = new Set<WineInstallation>()
 
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
           const name = version.toLowerCase()
           if (name.startsWith('proton') && !name.includes('runtime')) {
+            const protonBin = join(path, version, 'proton')
             proton.add({
-              bin: `'${path}${version}/proton'`,
-              name: `Proton - ${version}`
+              bin: `'${protonBin}'`,
+              name: `Proton - ${version}`,
+              type: 'proton'
+              // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
             })
           }
         })
@@ -245,27 +275,57 @@ abstract class GlobalConfig {
 
     const crossover = await this.getCrossover()
 
+    const defaultWineSet = new Set<WineInstallation>()
     const defaultWine = await this.getDefaultWine()
-    const defaultFound = !defaultWine.name.includes('Not Found')
-    const customWine = await this.getCustomWinePaths()
-
-    if (!scanCustom) {
-      return [defaultWine, ...altWine, ...proton, ...crossover]
+    if (!defaultWine.name.includes('Not Found')) {
+      defaultWineSet.add(defaultWine)
     }
 
+    let customWineSet = new Set<WineInstallation>()
+    if (scanCustom) {
+      customWineSet = await this.getCustomWinePaths()
+    }
+
+    // On Mac, prioritise CX installations since Wine/Proton does not work
     if (isMac && crossover.size) {
-      return [...crossover, ...customWine]
-    } else if (defaultFound) {
-      return [defaultWine, ...altWine, ...proton, ...crossover, ...customWine]
-    } else if (altWine.size) {
-      return [...altWine, ...proton, ...crossover, ...customWine]
-    } else if (proton.size) {
-      return [...proton, ...crossover, ...customWine]
-    } else if (customWine.size) {
-      return [...crossover, ...customWine]
-    } else {
-      return [defaultWine]
+      return [...crossover, ...customWineSet]
     }
+    return [
+      ...defaultWineSet,
+      ...altWine,
+      ...proton,
+      ...crossover,
+      ...customWineSet
+    ]
+  }
+
+  /**
+   * Checks if a Wine version has Wineboot/Wineserver executables and returns the path to those if they're present
+   * @param wineBin The unquoted path to the Wine binary ('wine')
+   * @returns The quoted paths to wineboot and wineserver, if present
+   */
+  public getWineExecs(wineBin: string): {
+    wineboot: string
+    wineserver: string
+  } {
+    const wineDir = dirname(wineBin)
+    const ret = { wineserver: '', wineboot: '' }
+    const potWineserverPath = join(wineDir, 'wineserver')
+    if (existsSync(potWineserverPath)) {
+      ret.wineserver = `'${potWineserverPath}'`
+    }
+    const potWinebootPath = join(wineDir, 'wineboot')
+    if (existsSync(potWinebootPath)) {
+      ret.wineboot = `'${potWinebootPath}'`
+    } else {
+      /**
+       * NOTE: This will only work as long as no function removes and then re-adds the quotes
+       *       Although then again no (default) Wine version should ship without wineboot so
+       *       this most likely isn't an issue
+       */
+      ret.wineboot = `'${wineBin}' wineboot`
+    }
+    return ret
   }
 
   /**
@@ -371,7 +431,7 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getCustomWinePaths(): Promise<Set<WineInstallation>> {
-    const customPaths: Set<WineInstallation> = new Set()
+    const customPaths = new Set<WineInstallation>()
     // skips this on new installations to avoid infinite loops
     if (existsSync(heroicConfigPath)) {
       const { customWinePaths = [] } = await this.getSettings()
@@ -379,12 +439,15 @@ class GlobalConfigV0 extends GlobalConfig {
         if (path.endsWith('proton')) {
           return customPaths.add({
             bin: `'${path}'`,
-            name: `Custom Proton - ${path}`
+            name: `Custom Proton - ${path}`,
+            type: 'proton'
           })
         }
         return customPaths.add({
           bin: `'${path}'`,
-          name: `Custom Wine - ${path}`
+          name: `Custom Wine - ${path}`,
+          type: 'wine',
+          ...this.getWineExecs(path)
         })
       })
     }
