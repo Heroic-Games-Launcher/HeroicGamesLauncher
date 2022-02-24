@@ -300,7 +300,11 @@ export class GlobalState extends PureComponent<Props> {
         libraryStatus: updatedLibraryStatus
       })
 
-      return this.refreshLibrary({})
+      // This waits for backend to synchronize installed games (GOG)
+      setTimeout(() => {
+        this.refreshLibrary({})
+      }, 500)
+      return
     }
 
     if (currentApp && currentApp.status === 'updating' && status === 'done') {
