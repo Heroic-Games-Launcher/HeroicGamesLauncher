@@ -56,6 +56,10 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+}
+
 .button.is-small {
   min-width: 130px;
 }
@@ -225,6 +229,10 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.settingSelect:disabled {
+  cursor: not-allowed;
+}
+
 .settingSelect ~ span {
   margin-block: auto;
 }
@@ -234,6 +242,7 @@ html,
 }
 
 .settingText {
+  cursor: default;
   margin-bottom: 14px;
   font: var(--font-secondary-regular);
   font-size: 16px;

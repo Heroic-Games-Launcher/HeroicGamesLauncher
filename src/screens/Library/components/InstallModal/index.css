@@ -48,6 +48,7 @@
 }
 
 .title {
+  cursor: default;
   color: var(--text-default);
   place-self: center;
   font-family: Cabin;
