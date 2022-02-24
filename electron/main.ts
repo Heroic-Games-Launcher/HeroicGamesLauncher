@@ -882,7 +882,13 @@ ipcMain.handle('install', async (event, params) => {
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
   return Game.get(appName, runner)
-    .install({ path, installDlcs, sdlList, platformToInstall, installLanguage })
+    .install({
+      path: path.replaceAll("'", ''),
+      installDlcs,
+      sdlList,
+      platformToInstall,
+      installLanguage
+    })
     .then(async (res) => {
       notify({
         title,

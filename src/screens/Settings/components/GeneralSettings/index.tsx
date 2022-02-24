@@ -224,7 +224,7 @@ export default function GeneralSettings({
                   title: t('box.default-install-path')
                 })
                 .then(({ path }: Path) =>
-                  setDefaultInstallPath(path ? `'${path}'` : defaultInstallPath)
+                  setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
                 )
             }
             className="material-icons settings folder"
