@@ -855,7 +855,7 @@ ipcMain.handle('install', async (event, params) => {
       `App offline, skipping install for game '${title}'.`,
       LogPrefix.Backend
     )
-    return
+    return { status: 'error' }
   }
 
   const epicOffline = await isEpicServiceOffline()
