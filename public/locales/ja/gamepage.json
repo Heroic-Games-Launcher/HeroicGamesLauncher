@@ -53,6 +53,7 @@
         "downloadSize": "ダウンロードサイズ",
         "firstPlayed": "最初にプレイした",
         "installSize": "インストールサイズ",
+        "language": "Language",
         "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
         "totalPlayed": "プレイ時間"

@@ -23,6 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .eslintcache
+package-lock.json
 
 public/**/*.js
 downloads*.json

@@ -3,14 +3,14 @@ import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames'
 
-import { AppSettings, WineInstallation } from 'src/types'
+import { AppSettings, Runner, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { getGameInfo, writeConfig } from 'src/helpers'
+import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
 import {
   ContentCopyOutlined,
   CleaningServicesOutlined,
@@ -40,6 +40,7 @@ interface RouteParams {
 
 interface LocationState {
   fromGameCard: boolean
+  runner: Runner
 }
 
 function Settings() {
@@ -89,10 +90,15 @@ function Settings() {
     setOn: setUseGameMode
   } = useToggle(false)
   const {
+    on: useSteamRuntime,
+    toggle: toggleUseSteamRuntime,
+    setOn: setUseSteamRuntime
+  } = useToggle(false)
+  const {
     on: checkForUpdatesOnStartup,
     toggle: toggleCheckForUpdatesOnStartup,
     setOn: setCheckForUpdatesOnStartup
-  } = useToggle(false)
+  } = useToggle(true)
   const {
     on: nvidiaPrime,
     toggle: toggleNvidiaPrime,
@@ -178,6 +184,7 @@ function Settings() {
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const [isMacNative, setIsMacNative] = useState(false)
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
 
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
 
@@ -195,56 +202,62 @@ function Settings() {
         'requestSettings',
         appName
       )
-      setAutoSyncSaves(config.autoSyncSaves || false)
-      setUseGameMode(config.useGameMode || false)
-      setShowFps(config.showFps || false)
-      setShowOffline(config.offlineMode || false)
-      setAudioFix(config.audioFix || false)
-      setShowMangoHud(config.showMangohud || false)
+      setAutoSyncSaves(config.autoSyncSaves)
+      setUseGameMode(config.useGameMode)
+      setShowFps(config.showFps)
+      setShowOffline(config.offlineMode)
+      setAudioFix(config.audioFix)
+      setShowMangoHud(config.showMangohud)
       setDefaultInstallPath(config.defaultInstallPath)
       setWineVersion(config.wineVersion)
       setWinePrefix(config.winePrefix)
       setWineCrossoverBottle(config.wineCrossoverBottle)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
-      setUseNvidiaPrime(config.nvidiaPrime || false)
+      setUseNvidiaPrime(config.nvidiaPrime)
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
-      setExitToTray(config.exitToTray || false)
-      setStartInTray(config.startInTray || false)
-      setDarkTrayIcon(config.darkTrayIcon || false)
-      setDiscordRPC(config.discordRPC || false)
-      setAutoInstallDxvk(config.autoInstallDxvk || false)
-      setAutoInstallVkd3d(config.autoInstallVkd3d || false)
-      setEnableEsync(config.enableEsync || false)
-      setEnableFsync(config.enableFsync || false)
-      setEnableFSR(config.enableFSR || false)
+      setExitToTray(config.exitToTray)
+      setStartInTray(config.startInTray)
+      setDarkTrayIcon(config.darkTrayIcon)
+      setDiscordRPC(config.discordRPC)
+      setAutoInstallDxvk(config.autoInstallDxvk)
+      setAutoInstallVkd3d(config.autoInstallVkd3d)
+      setEnableEsync(config.enableEsync)
+      setEnableFsync(config.enableFsync)
+      setEnableFSR(config.enableFSR)
       setFsrSharpness(config.maxSharpness || 2)
-      setResizableBar(config.enableResizableBar || false)
+      setResizableBar(config.enableResizableBar)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 0)
       setMaxRecentGames(config.maxRecentGames ?? 5)
       setCustomWinePaths(config.customWinePaths || [])
-      setAddDesktopShortcuts(config.addDesktopShortcuts || false)
-      setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
+      setAddDesktopShortcuts(config.addDesktopShortcuts)
+      setAddGamesToStartMenu(config.addStartMenuShortcuts)
       setCustomWinePaths(config.customWinePaths || [])
-      setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
+      setCheckForUpdatesOnStartup(
+        config.checkForUpdatesOnStartup !== undefined
+          ? config.checkForUpdatesOnStartup
+          : true
+      )
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
-      setShowUnrealMarket(config.showUnrealMarket || false)
+      setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
-
+      setUseSteamRuntime(config.useSteamRuntime || false)
       if (!isDefault) {
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
           title: gameTitle,
           canRunOffline: can_run_offline,
-          is_mac_native
-        } = await getGameInfo(appName)
+          is_mac_native,
+          is_linux_native
+        } = await getGameInfo(appName, state.runner)
         setCanRunOffline(can_run_offline)
         setTitle(gameTitle)
-        setIsMacNative(is_mac_native)
+        setIsMacNative(is_mac_native && (await getPlatform()) == 'darwin')
+        setIsLinuxNative(is_linux_native && (await getPlatform()) == 'linux')
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -310,11 +323,12 @@ function Settings() {
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
-    wineVersion
+    wineVersion,
+    useSteamRuntime
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  const shouldRenderWineSettings = !isWin && !isMacNative
+  const shouldRenderWineSettings = !isWin && !isMacNative && !isLinuxNative
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -350,7 +364,13 @@ function Settings() {
             </NavLink>
           )}
           {shouldRenderWineSettings && (
-            <NavLink role="link" to={{ pathname: `/settings/${appName}/wine` }}>
+            <NavLink
+              role="link"
+              to={{
+                pathname: `/settings/${appName}/wine`,
+                state: { runner: state?.runner }
+              }}
+            >
               Wine
             </NavLink>
           )}
@@ -358,21 +378,32 @@ function Settings() {
             <NavLink
               role="link"
               data-testid="linkSync"
-              to={{ pathname: `/settings/${appName}/sync` }}
+              to={{
+                pathname: `/settings/${appName}/sync`,
+                state: { runner: state?.runner }
+              }}
             >
               {t('settings.navbar.sync')}
             </NavLink>
           )}
           {
-            <NavLink
-              role="link"
-              to={{ pathname: `/settings/${appName}/other` }}
+            <NavLink     role="link"
+              to={{
+                pathname: `/settings/${appName}/other`,
+                state: { runner: state?.runner }
+              }}
             >
               {t('settings.navbar.other')}
             </NavLink>
           }
           {
-            <NavLink role="link" to={{ pathname: `/settings/${appName}/log` }}>
+            <NavLink
+              role="link" 
+              to={{
+                pathname: `/settings/${appName}/log`,
+                state: { runner: state?.runner }
+              }}
+            >
               {t('settings.navbar.log', 'Log')}
             </NavLink>
           }
@@ -387,7 +418,11 @@ function Settings() {
             >
               {title}
               {!isDefault && (
-                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+                <FontAwesomeIcon
+                  icon={
+                    isMacNative ? faApple : isLinuxNative ? faLinux : faWindows
+                  }
+                />
               )}
             </NavLink>
           )}
@@ -541,7 +576,10 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
+              useSteamRuntime={useSteamRuntime}
+              toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
+              isLinuxNative={isLinuxNative}
             />
           )}
           {isSyncSettings && (

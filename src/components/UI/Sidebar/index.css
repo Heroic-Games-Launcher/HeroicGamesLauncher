@@ -18,6 +18,7 @@
 }
 
 .sidebar button,
+.sidebar span,
 .sidebar a {
   width: 100%;
   padding: 7px var(--sidebar-horizontal-padding);

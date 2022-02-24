@@ -2,23 +2,19 @@
     "button": {
         "login": "Logga in"
     },
-    "input": {
-        "placeholder": "Klistra in ditt SID nummer här"
-    },
     "message": {
-        "part1": "För att logga in och installera spel måste du följa instruktionerna nedan:",
+        "part1": "För att logga in och installera spel, följ dessa instruktioner:",
         "part2": "Öppna",
         "part3": "Epic Store här",
         "part4": ", logga in med ditt konto och kopiera ditt",
         "part5": "SID informationsnummer",
         "part6": "Klistra in ditt",
-        "part7": "SID numret",
-        "part8": "i fältet nedan, klicka på logga in knappen och vänta."
+        "part7": "SID nummer",
+        "part8": "i fältet nedan och klicka på Logga in."
     },
     "status": {
-        "error": "Fel",
-        "loading": "Laddar spellistan, var god dröj",
-        "logging": "Loggar in…"
+        "error": "Problem",
+        "loading": "Laddar spellistan, vänligen vänta"
     },
     "welcome": "Välkommen!"
 }

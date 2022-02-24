@@ -88,6 +88,7 @@
         "yes": "ஆம்"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "ஒத்திசைவு செய்",
         "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
@@ -104,6 +105,8 @@
     },
     "Filter": "வடிகட்டி",
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
         "other": {
@@ -141,8 +144,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
@@ -253,6 +255,7 @@
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",
         "wineversion": "Wine பதிப்பு"
@@ -274,10 +277,10 @@
     },
     "Settings": "அமைப்புகள்",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "விற்பனைக்கூடம்",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -312,6 +315,7 @@
         "discord": "டிஸ்கார்ட் (Discord)",
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
+        "manageaccounts": "Manage Accounts",
         "quit": "வெளியேறு"
     },
     "wiki": "விக்கி",

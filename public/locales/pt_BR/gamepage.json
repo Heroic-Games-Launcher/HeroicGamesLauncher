@@ -53,6 +53,7 @@
         "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado inicialmente em",
         "installSize": "Tamanho Instalado",
+        "language": "Language",
         "lastPlayed": "Jogado pela última vez em",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo de jogo"
@@ -109,7 +110,7 @@
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
         "settings": "Configurações",
-        "store": "Loja",
+        "store": "Loja Epic",
         "verify": "Verificar e Reparar"
     }
 }

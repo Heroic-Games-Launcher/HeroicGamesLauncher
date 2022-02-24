@@ -32,11 +32,11 @@
                 "message": "Произошла неизвестная ошибка",
                 "title": "Неизвестная ошибка"
             },
+            "launch": "Ошибка при запуске игры, проверьте журнал!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
-            "launch": "Ошибка при запуске игры, проверьте журнал!",
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -88,6 +88,7 @@
         "yes": "ДА"
     },
     "button": {
+        "continue": "Continue",
         "login": "Вход",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
@@ -104,6 +105,8 @@
     },
     "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Синхронизируйте с EGL, в случае если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
@@ -141,8 +144,7 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "loginWithEpic": "Вход через Epic",
-        "loginWithSid": "Вход через SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -253,6 +255,7 @@
         "showfps": "Показывать FPS (DX9, 10 и 11)",
         "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
@@ -274,10 +277,10 @@
     },
     "Settings": "Настройки",
     "status": {
-        "loading": "Загружается список игр. Пожалуйста, подождите",
         "logging": "Вход…"
     },
     "store": "Магазин",
+    "stores": "Stores",
     "title": {
         "allGames": "Все игры",
         "allUnreal": "Unreal - Все",
@@ -312,6 +315,7 @@
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Закрыть Heroic"
     },
     "wiki": "Вики",

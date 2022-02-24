@@ -2,9 +2,6 @@
     "button": {
         "login": "Inicia la sessió"
     },
-    "input": {
-        "placeholder": "Enganxa el nombre SID aquí"
-    },
     "message": {
         "part1": "Per a iniciar sessió i instal·lar els teus jocs, cal que seguiu primer les passes de sota:",
         "part2": "Obre el",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Error",
-        "loading": "S'està carregant la llista de jocs, espera",
-        "logging": "S'està iniciant la sessió…"
+        "loading": "S'està carregant la llista de jocs, espera"
     },
     "welcome": "Et donem la benvinguda!"
 }

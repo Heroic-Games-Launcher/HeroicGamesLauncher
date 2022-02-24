@@ -88,6 +88,7 @@
         "yes": "ДА"
     },
     "button": {
+        "continue": "Continue",
         "login": "Вход",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
@@ -104,6 +105,8 @@
     },
     "Filter": "Филтриране",
     "globalSettings": "Глобални настройки",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Store и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
         "other": {
@@ -141,8 +144,7 @@
         "website": "Зареждане на уеб сайта"
     },
     "login": {
-        "loginWithEpic": "Вход чрез Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Синхронизацията е завършена",
@@ -253,6 +255,7 @@
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
         "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Папка за префикс на Wine",
         "wineversion": "Версия на Wine"
@@ -274,10 +277,10 @@
     },
     "Settings": "Настройки",
     "status": {
-        "loading": "Зареждане на списъка с игри. Моля, изчакайте",
         "logging": "Влизане…"
     },
     "store": "Магазин",
+    "stores": "Stores",
     "title": {
         "allGames": "Всички игри",
         "allUnreal": "Unreal – Всичко",
@@ -312,6 +315,7 @@
         "discord": "Дискорд",
         "logout": "Излизане от акаунта",
         "logout_confirmation": "Наистина ли искате да излезете от акаунта си?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Изход"
     },
     "wiki": "Уики",

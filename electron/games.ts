@@ -5,17 +5,19 @@ import {
   GameSettings,
   InstallArgs,
   InstallInfo,
-  LaunchResult
+  LaunchResult,
+  Runner
 } from './types'
 
-type Runner = 'legendary' | 'gog'
 abstract class Game {
-  public static get(appName: string, runner: Runner = 'legendary') {
+  public static get(
+    appName: string,
+    runner: Runner = 'legendary'
+  ): LegendaryGame | GOGGame {
     if (runner === 'legendary') {
       return LegendaryGame.get(appName)
     } else if (runner === 'gog') {
-      logWarning('GOG integration is unimplemented.', LogPrefix.Gog)
-      return null
+      return GOGGame.get(appName)
     }
   }
 
@@ -39,7 +41,7 @@ abstract class Game {
 }
 
 import { LegendaryGame } from './legendary/games'
-import { LogPrefix, logWarning } from './logger/logger'
 import { BrowserWindow } from 'electron'
+import { GOGGame } from './gog/games'
 
 export { Game, Runner }

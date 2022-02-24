@@ -88,6 +88,7 @@
         "yes": "YA"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Sinkronkan",
         "syncing": "",
@@ -104,6 +105,8 @@
     },
     "Filter": "Saring",
     "globalSettings": "Pengaturan Global",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "",
         "other": {
@@ -141,8 +144,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "",
@@ -253,6 +255,7 @@
         "showfps": "",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "",
         "wineversion": ""
@@ -274,10 +277,10 @@
     },
     "Settings": "",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
-    "store": "Store",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -312,6 +315,7 @@
         "discord": "Discord",
         "logout": "",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": ""
     },
     "wiki": "Wiki",

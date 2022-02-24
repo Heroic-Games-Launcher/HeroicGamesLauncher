@@ -32,11 +32,11 @@
                 "message": "Hi ha hagut un error desconegut",
                 "title": "Error desconegut"
             },
+            "launch": "Error en iniciar el joc, comprova el registre.",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
-            "launch": "Error en iniciar el joc, comprova el registre.",
             "title": "Error",
             "wine-not-found": {
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
@@ -88,6 +88,7 @@
         "yes": "SÍ"
     },
     "button": {
+        "continue": "Continue",
         "login": "Inicia la sessió",
         "sync": "Sincronitza",
         "syncing": "S'està sincronitzant",
@@ -104,6 +105,8 @@
     },
     "Filter": "Filtra",
     "globalSettings": "Configuració global",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
         "other": {
@@ -141,8 +144,7 @@
         "website": "S'està carregant el lloc web"
     },
     "login": {
-        "loginWithEpic": "Inicia la sessió amb Epic",
-        "loginWithSid": "Inicia la sessió amb SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -253,6 +255,7 @@
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "showUnrealMarket": "Mostra la llibreria d'Unreal (cal reiniciar)",
         "start-in-tray": "Inicia minimitzat",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine"
@@ -274,10 +277,10 @@
     },
     "Settings": "Configuració",
     "status": {
-        "loading": "S'està carregant la llista de jocs, espera",
         "logging": "S'està iniciant la sessió..."
     },
     "store": "Botiga",
+    "stores": "Stores",
     "title": {
         "allGames": "Tots els jocs",
         "allUnreal": "Unreal - Tot",
@@ -312,6 +315,7 @@
         "discord": "Discord",
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Surt"
     },
     "wiki": "Wiki",

@@ -88,6 +88,7 @@
         "yes": "JA"
     },
     "button": {
+        "continue": "Continue",
         "login": "Anmelden",
         "sync": "Synchronisieren",
         "syncing": "Synchronisiere",
@@ -104,6 +105,8 @@
     },
     "Filter": "Filter",
     "globalSettings": "Globale Einstellungen",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Synchronisiere mit EGL für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Launcher haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
         "other": {
@@ -141,8 +144,7 @@
         "website": "Lade Webseite"
     },
     "login": {
-        "loginWithEpic": "Anmelden mit Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synchronisation abgeschlossen",
@@ -253,6 +255,7 @@
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "showUnrealMarket": "Unreal Marketplace anzeigen (benötigt Neustart)",
         "start-in-tray": "Minimiert starten",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Flasche",
         "wineprefix": "Wine Prefix Ordner",
         "wineversion": "Wine-Version"
@@ -274,10 +277,10 @@
     },
     "Settings": "Einstellungen",
     "status": {
-        "loading": "Lade Spieleliste, bitte warten",
         "logging": "Anmelden…"
     },
-    "store": "Store",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
         "allGames": "Alle Spiele",
         "allUnreal": "Unreal - Alles",
@@ -312,6 +315,7 @@
         "discord": "Discord",
         "logout": "Abmelden",
         "logout_confirmation": "Möchten Sie sich wirklich abmelden?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Beenden"
     },
     "wiki": "Wiki",

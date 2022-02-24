@@ -88,6 +88,7 @@
         "yes": "Sí"
     },
     "button": {
+        "continue": "Continue",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -104,6 +105,8 @@
     },
     "Filter": "Filtrar",
     "globalSettings": "Preferencias globais",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Sincronizar con EGS no caso que teña unha instalación funcional de EGS noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
         "other": {
@@ -141,8 +144,7 @@
         "website": "Cargando sitio web"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sincronización completa",
@@ -253,6 +255,7 @@
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar a tenda de Unreal (require reinicio)",
         "start-in-tray": "Iniciar minimizado",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "",
         "wineversion": ""
@@ -274,10 +277,10 @@
     },
     "Settings": "Preferencias",
     "status": {
-        "loading": "Cargando lista de xogos, agarde",
         "logging": "Inciando sesión…"
     },
     "store": "Tenda",
+    "stores": "Stores",
     "title": {
         "allGames": "Todos os xogos",
         "allUnreal": "Unreal - Todo",
@@ -312,6 +315,7 @@
         "discord": "Discord",
         "logout": "Pechar sesión",
         "logout_confirmation": "Está seguro que quere pechar a sesión?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Saír"
     },
     "wiki": "Wiki",

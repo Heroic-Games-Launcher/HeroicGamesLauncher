@@ -9,7 +9,12 @@ import si from 'systeminformation'
 import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
+import {
+  heroicConfigPath,
+  heroicGamesConfigPath,
+  icon,
+  legendaryBin
+} from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 
 const execAsync = promisify(exec)
@@ -100,7 +105,7 @@ export const getLegendaryVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Rayleigh'
+  const STABLE_VERSION_NAME = 'Oden'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -279,17 +284,28 @@ function clearCache() {
     cwd: 'lib-cache',
     name: 'gameinfo'
   })
+  const GOGapiInfoCache = new Store({
+    cwd: 'gog_store',
+    name: 'api_info_cache'
+  })
+  const GOGlibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
+  GOGapiInfoCache.clear()
+  GOGlibraryStore.clear()
   installCache.clear()
   libraryCache.clear()
   gameInfoCache.clear()
 }
 
 function resetHeroic() {
-  const heroicFolder = `${app.getPath('appData')}/heroic`
-  rm(heroicFolder, { recursive: true, force: true }, () => {
+  const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
+  heroicFolders.forEach((folder) => {
+    rm(folder, { recursive: true, force: true }, () => null)
+  })
+  // wait a sec to avoid racing conditions
+  setTimeout(() => {
     app.relaunch()
     app.quit()
-  })
+  }, 1000)
 }
 
 function showItemInFolder(item: string) {
