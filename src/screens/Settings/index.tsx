@@ -387,7 +387,8 @@ function Settings() {
             </NavLink>
           )}
           {
-            <NavLink     role="link"
+            <NavLink
+              role="link"
               to={{
                 pathname: `/settings/${appName}/other`,
                 state: { runner: state?.runner }
@@ -398,7 +399,7 @@ function Settings() {
           }
           {
             <NavLink
-              role="link" 
+              role="link"
               to={{
                 pathname: `/settings/${appName}/log`,
                 state: { runner: state?.runner }
