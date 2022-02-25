@@ -23,7 +23,7 @@
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Czy chcesz również usunąć wine prefix? Ta operacja nie może być cofnięta.",
             "checkbox_prefix": "Prefix",
             "message": "Czy chcesz odinstalować tę grę?",
             "title": "Odinstaluj"
@@ -53,6 +53,7 @@
         "downloadSize": "Rozmiar Pobierania",
         "firstPlayed": "Pierwsza Gra",
         "installSize": "Rozmiar Instalacji",
+        "language": "Język",
         "lastPlayed": "Ostatnia Gra",
         "neverPlayed": "Nigdy",
         "totalPlayed": "Czas Gry"

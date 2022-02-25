@@ -33,3 +33,26 @@
   width: 70%;
   min-width: 140px;
 }
+
+.gamePicture > .store-icon {
+  border-radius: 10px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 2;
+  padding: 5px;
+  width: 60px;
+  height: 60px;
+  place-content: center;
+}
+
+.gamePicture > .store-icon > img {
+  background-color: var(--background);
+  width: 60px;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.gamePicture > .store-icon > img.gogIcon {
+  padding: 0px 4px 4px 4px;
+}

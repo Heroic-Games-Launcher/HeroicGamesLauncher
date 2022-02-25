@@ -2,9 +2,6 @@
     "button": {
         "login": "Oturum Aç"
     },
-    "input": {
-        "placeholder": "SID numaranızı buraya yapıştırın"
-    },
     "message": {
         "part1": "Oturum açabilmeniz ve oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
         "part2": "Epic Store'u",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Hata",
-        "loading": "Oyun listesi yükleniyor, lütfen bekleyin",
-        "logging": "Oturum Açılıyor…"
+        "loading": "Oyun listesi yükleniyor, lütfen bekleyin"
     },
     "welcome": "Hoş Geldiniz!"
 }

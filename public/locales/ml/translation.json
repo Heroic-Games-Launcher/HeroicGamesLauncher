@@ -7,8 +7,8 @@
             "title": "പുതുക്കല് വന്നിട്ടുണ്ട്"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "ഹീറോയിക് പിടിച്ചുവച്ചവ വിട്ടു.",
+            "title": "പിടിച്ചുവച്ചവ നീക്കി."
         },
         "choose": "തിരഞ്ഞെടുക്കൂ",
         "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
@@ -33,6 +33,10 @@
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള് നോക്കൂ!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "കുഴപ്പം",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -40,10 +44,10 @@
             }
         },
         "no": "വേണ്ട",
-        "ok": "Ok",
+        "ok": "ശരി",
         "protocol": {
             "install": {
-                "not_installed": "ഇത് സ്ഥാപിച്ചിട്ടില്ല, സ്ഥാപിക്കണോ?"
+                "not_installed": "ഇത് നട്ടിട്ടില്ല, നടണോ?"
             }
         },
         "quit": {
@@ -84,7 +88,8 @@
         "yes": "ശരി"
     },
     "button": {
-        "login": "Login",
+        "continue": "Continue",
+        "login": "അകത്ത് കയറുക",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ"
@@ -98,10 +103,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "",
+    "Filter": "അരിപ്പ",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
-        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടൂല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
+        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല്‍ മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്‍ നിങ്ങളുടെ കളികള്‍ വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
             "part1": "കളി ഓടിക്കുന്നതിനുമുന്പുള്ള വിളികള്ക്കായി ",
             "part2": "ഉയര്ന്ന ക്രമീകരണങ്ങള്",
@@ -137,8 +144,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -249,6 +255,7 @@
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
         "wineversion": "വൈനിന്റെ പതിപ്പ്"
@@ -270,10 +277,10 @@
     },
     "Settings": "ക്രമീകരണങ്ങള്",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "കട",
+    "stores": "Stores",
     "title": {
         "allGames": "മൊത്തം കളികള്",
         "allUnreal": "അണ്റിയല് - എല്ലാം",
@@ -308,6 +315,7 @@
         "discord": "ഡിസ്കോഡ഻്",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": "പുറത്തുകടക്കൂ"
     },
     "wiki": "അറിവിന്കൂട്ടം",

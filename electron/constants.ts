@@ -34,8 +34,22 @@ function getLegendaryBin() {
   return bin
 }
 
+function getGOGdlBin() {
+  const bin = fixAsarPath(
+    join(
+      __dirname,
+      '/bin/',
+      process.platform,
+      isWindows ? '/gogdl.exe' : '/gogdl'
+    )
+  )
+  logInfo(`Location: ${bin}`, LogPrefix.Gog)
+  return bin
+}
+
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
+const isLinux = platform() == 'linux'
 const isFlatpak = execPath === '/app/main/heroic'
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
@@ -56,13 +70,17 @@ const heroicInstallPath = isWindows
   ? `${home}\\Games\\heroic`
   : `${home}/Games/heroic`
 const legendaryBin = getLegendaryBin()
+const gogdlBin = getGOGdlBin()
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
 const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
 const installed = `${legendaryConfigPath}/installed.json`
 const libraryPath = `${legendaryConfigPath}/metadata/`
-const loginUrl =
+const fallBackImage = 'fallback'
+const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
+const gogLoginUrl =
+  'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
@@ -138,13 +156,17 @@ export {
   installed,
   isMac,
   isWindows,
+  isLinux,
   legendaryBin,
+  gogdlBin,
   legendaryConfigPath,
   libraryPath,
-  loginUrl,
+  epicLoginUrl,
+  gogLoginUrl,
   patreonPage,
   sidInfoUrl,
   supportURL,
+  fallBackImage,
   userInfo,
   weblateUrl,
   wikiLink

@@ -33,6 +33,10 @@
                 "title": "알 수 없는 오류"
             },
             "launch": "게임을 실행할 때 오류가 발생했습니다, 로그를 확인 해주세요!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "오류",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +88,7 @@
         "yes": "예"
     },
     "button": {
+        "continue": "Continue",
         "login": "로그인",
         "sync": "싱크",
         "syncing": "싱크중",
@@ -100,6 +105,8 @@
     },
     "Filter": "필터",
     "globalSettings": "글로벌 설정",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
     "help": {
         "general": "Epic Games Store가 다른 곳에 설치되어 있고 게임을 다시 다운로드하지 않도록 가져오려는 경우 Epic Games Store와 동기화 하십시오.",
         "other": {
@@ -137,8 +144,7 @@
         "website": "웹사이트 로드 중"
     },
     "login": {
-        "loginWithEpic": "Epic으로 로그인",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "동기화 완료",
@@ -249,6 +255,7 @@
         "showfps": "FPS 표시 (DX9, 10 및 11)",
         "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작 필요)",
         "start-in-tray": "최소화로 시작",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine Prefix 폴더",
         "wineversion": "Wine 버전"
@@ -270,10 +277,10 @@
     },
     "Settings": "설정",
     "status": {
-        "loading": "게임 목록을 불러오고 있습니다, 잠시만 기다려 주세요",
         "logging": "로그인 중…"
     },
     "store": "스토어",
+    "stores": "Stores",
     "title": {
         "allGames": "모든 게임",
         "allUnreal": "Unreal - Everything",
@@ -308,6 +315,7 @@
         "discord": "Discord",
         "logout": "로그아웃",
         "logout_confirmation": "정말로 로그아웃 하시겠습니까?",
+        "manageaccounts": "Manage Accounts",
         "quit": "종료"
     },
     "wiki": "위키",

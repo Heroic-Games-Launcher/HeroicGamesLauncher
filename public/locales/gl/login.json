@@ -2,9 +2,6 @@
     "button": {
         "login": "Iniciar sesión"
     },
-    "input": {
-        "placeholder": "Pega o número SID aquí"
-    },
     "message": {
         "part1": "Para que poidas iniciar sesión e instalar os teus xogos, primeiro debes seguir os pasos a continuación:",
         "part2": "",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Erro",
-        "loading": "Cargando lista de xogos, agarde",
-        "logging": "Iniciando sesión…"
+        "loading": "Cargando lista de xogos, agarde"
     },
     "welcome": "Bendida/o!"
 }

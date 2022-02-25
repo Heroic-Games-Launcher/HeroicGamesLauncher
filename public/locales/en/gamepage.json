@@ -53,6 +53,7 @@
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "installSize": "Install Size",
+        "language": "Language",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"

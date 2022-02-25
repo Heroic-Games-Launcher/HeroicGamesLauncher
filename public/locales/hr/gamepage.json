@@ -23,7 +23,7 @@
             "title": "Zaustavi instalaciju"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Želite li obrisati i prefix? Nemože se poništiti.",
             "checkbox_prefix": "Prefix",
             "message": "Želite li deinstalirati igricu?",
             "title": "Deinstaliraj"
@@ -32,7 +32,7 @@
             "message": "Ova igrica ima ažuriranje, želite li ažurirati sada?",
             "title": "Igrica treba ažuriranje"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Odaberite WinePrefix mapu",
         "yes": "DA"
     },
     "button": {
@@ -53,6 +53,7 @@
         "downloadSize": "Veličina Preuzimanja",
         "firstPlayed": "Prvo odigrano",
         "installSize": "Veličina Instalacije",
+        "language": "Language",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "totalPlayed": "Vrijeme igranja"
@@ -69,7 +70,7 @@
         "version": "Verzija"
     },
     "install": {
-        "path": "Select Install Path",
+        "path": "Odaberite put instalacije",
         "wineprefix": "WinePrefix"
     },
     "label": {

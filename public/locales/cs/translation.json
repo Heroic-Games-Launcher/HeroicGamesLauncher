@@ -33,6 +33,10 @@
                 "title": "Neočekávaná chyba"
             },
             "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +88,7 @@
         "yes": "ANO"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
@@ -100,6 +105,7 @@
     },
     "Filter": "Filtr",
     "globalSettings": "Globální nastavení",
+    "GOG": "GOG",
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
@@ -137,8 +143,7 @@
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -249,6 +254,7 @@
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Spustit minimalizované",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine"
@@ -270,7 +276,6 @@
     },
     "Settings": "Nastavení",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Obchod",
@@ -308,6 +313,7 @@
         "discord": "Discord",
         "logout": "Odhlásit",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Ukončit"
     },
     "wiki": "Wiki",
