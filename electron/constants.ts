@@ -55,7 +55,9 @@ const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const home = isFlatpak ? flatPakHome : homedir()
-const configFolder = app.getPath('appData')
+const configFolder = isFlatpak
+  ? `${flatPakHome}/config`
+  : app.getPath('appData')
 const legendaryConfigPath = `${configFolder}/legendary`
 const heroicFolder = `${configFolder}/heroic`
 
