@@ -195,7 +195,7 @@ async function launch(
       }
       command = `${envVars} ${gogdlBin} launch "${
         gameInfo.install.install_path
-      }" ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
+      }" ${exe} ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
         launchArguments ?? ''
       } ${launcherArgs}`
       logInfo(['Launch Command:', command], LogPrefix.Gog)
