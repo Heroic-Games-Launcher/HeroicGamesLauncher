@@ -25,7 +25,8 @@
         "syncing": "Синхронізую",
         "sync": "Синхронізувати",
         "unsync": "Десинхронізувати",
-        "login": "Увійти"
+        "login": "Увійти",
+        "continue": "Продовжувати"
     },
     "box": {
         "yes": "ТАК",
@@ -78,6 +79,10 @@
             "dxvk": {
                 "title": "Помилка DXVK/VKD3D",
                 "message": "Помилка встановлення DXVK/VKD3D! Перевірте з'єднання та чи встановлено zstd/libzstd1"
+            },
+            "no-offline-mode": {
+                "message": "Запуск перервано! Гра потребує з'єднання з інтернетом.",
+                "title": "Офлайн-режим не підтримується."
             }
         },
         "default-install-path": "Вкажіть стандартний шлях встановлення",
@@ -258,7 +263,7 @@
     },
     "Epic Games": "Epic Games",
     "epic": {
-        "offline-notification-body": "Heroic ймовірно не працюватиме!",
+        "offline-notification-body": "Онлайн послуги можуть не працювати на повну силу оскільки сервери Epic Games офлайн!",
         "offline-notification-title": "офлайн"
     },
     "settings": {
@@ -322,5 +327,7 @@
     },
     "Total Games": "Ігор загалом",
     "Settings": "Налаштування",
-    "store": "Крамниця"
+    "store": "Крамниця",
+    "gog-store": "Крамниця GOG",
+    "GOG": "GOG"
 }
