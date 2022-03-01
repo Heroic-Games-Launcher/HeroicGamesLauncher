@@ -61,6 +61,7 @@ export default function LanguageSelector({
     el: '🇬🇷',
     en: '🇬🇧',
     es: '🇪🇸',
+    et: '🇪🇪',
     fa: '🇮🇷',
     fi: '🇫🇮',
     fr: '🇫🇷',
