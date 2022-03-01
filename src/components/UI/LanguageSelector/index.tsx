@@ -47,6 +47,7 @@ export default function LanguageSelector({
     sv: 'Svenska',
     ta: 'தமிழ்',
     tr: 'Türkçe',
+    uk: 'украї́нська мо́ва',
     zh_Hans: '简化字',
     zh_Hant: '漢語'
   }
@@ -60,6 +61,7 @@ export default function LanguageSelector({
     el: '🇬🇷',
     en: '🇬🇧',
     es: '🇪🇸',
+    et: '🇪🇪',
     fa: '🇮🇷',
     fi: '🇫🇮',
     fr: '🇫🇷',
@@ -79,6 +81,7 @@ export default function LanguageSelector({
     sv: '🇸🇪',
     ta: '🇮🇳',
     tr: '🇹🇷',
+    uk: '🇺🇦',
     zh_Hans: '🇨🇳',
     zh_Hant: '🇨🇳'
   }
