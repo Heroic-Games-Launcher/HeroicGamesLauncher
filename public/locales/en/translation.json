@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "help": {
-        "general": "Sync with EGL in case you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
             "part1": "Use the ",
             "part2": "Advanced Options",
