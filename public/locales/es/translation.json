@@ -96,7 +96,7 @@
     },
     "Downloading": "Descargando",
     "epic": {
-        "offline-notification-body": "¡Probablemente Heroic no funcione!",
+        "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "help": {
-        "general": "Sincronice con EGL en caso de que tenga una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
+        "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
         "other": {
             "part1": "Utilizar las ",
             "part2": "Opciones avanzadas",
@@ -162,7 +162,7 @@
         },
         "install": {
             "canceled": "Instalación cancelada",
-            "error": "",
+            "error": "Error en la instalación",
             "finished": "Instalación terminado",
             "imported": "Juego importado",
             "startInstall": "Instalación iniciada"
@@ -279,7 +279,7 @@
     "status": {
         "logging": "Iniciando sesión…"
     },
-    "store": "Tienda",
+    "store": "Epic Store",
     "stores": "Stores",
     "title": {
         "allGames": "Todos los juegos",
