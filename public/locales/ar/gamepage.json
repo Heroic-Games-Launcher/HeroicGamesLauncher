@@ -115,7 +115,8 @@
         "installSize": "حجم التثبيت",
         "firstPlayed": "لُعبت لأول مرة في",
         "lastPlayed": "لُعِبت آخر مرة في",
-        "neverPlayed": "لَم تُلعَب مُطلَقاً"
+        "neverPlayed": "لَم تُلعَب مُطلَقاً",
+        "language": "اللغة"
     },
     "dlc": {
         "installDlcs": "تحميل جميع المحتويات القابلة للتحميل (DLC)",
