@@ -102,7 +102,7 @@ export default function LanguageSelector({
     <select
       data-testid="languageSelector"
       onChange={(event) => handleLanguageChange(event.target.value)}
-      className={className + ' is-drop-down'}
+      className={`${className} is-drop-down`}
       value={currentLanguage}
     >
       {Object.keys(languageLabels).map((lang) => renderOption(lang))}
