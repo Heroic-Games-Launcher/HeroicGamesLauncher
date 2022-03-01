@@ -34,8 +34,8 @@
             },
             "launch": "Ошибка при запуске игры, проверьте журнал!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Запуск прерван! Для запуска игры требуется подключение к интернету.",
+                "title": "Автономный режим не поддерживается."
             },
             "title": "Ошибка",
             "wine-not-found": {
@@ -88,7 +88,7 @@
         "yes": "ДА"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Продолжить",
         "login": "Вход",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
@@ -96,7 +96,7 @@
     },
     "Downloading": "Скачивается",
     "epic": {
-        "offline-notification-body": "Heroic вероятно не будет работать!",
+        "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -106,9 +106,9 @@
     "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Магазин GOG",
     "help": {
-        "general": "Синхронизируйте с EGL, в случае если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
+        "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
             "part1": "Используйте ",
             "part2": "расширенные настройки",
@@ -144,7 +144,7 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Внешний вход"
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -162,7 +162,7 @@
         },
         "install": {
             "canceled": "Установка прервана",
-            "error": "",
+            "error": "Установка не удалась",
             "finished": "Установка завершена",
             "imported": "Игра импортирована",
             "startInstall": "Установка началась"
@@ -255,7 +255,7 @@
         "showfps": "Показывать FPS (DX9, 10 и 11)",
         "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Использовать Steam Runtime",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
@@ -279,8 +279,8 @@
     "status": {
         "logging": "Вход…"
     },
-    "store": "Магазин",
-    "stores": "Stores",
+    "store": "Магазин Epic",
+    "stores": "Магазины",
     "title": {
         "allGames": "Все игры",
         "allUnreal": "Unreal - Все",
@@ -315,7 +315,7 @@
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "Управление аккаунтами",
         "quit": "Закрыть Heroic"
     },
     "wiki": "Вики",
