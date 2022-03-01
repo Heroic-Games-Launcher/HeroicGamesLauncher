@@ -48,7 +48,10 @@ export class GOGLibrary {
     const credentials: GOGLoginData = userStore.get(
       'credentials'
     ) as GOGLoginData
-    const headers = { Authorization: 'Bearer ' + credentials.access_token }
+    const headers = {
+      Authorization: 'Bearer ' + credentials.access_token,
+      'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
+    }
     logInfo('Getting GOG library', LogPrefix.Gog)
     let gameApiArray: Array<GOGGameInfo> = []
     const games = await axios

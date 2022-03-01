@@ -48,7 +48,10 @@ export class GOGUser {
     const user: GOGLoginData = configStore.get('credentials') as GOGLoginData
     const response = await axios
       .get(`https://embed.gog.com/userData.json`, {
-        headers: { Authorization: `Bearer ${user.access_token}` }
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+          'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
+        }
       })
       .catch((error) => {
         logError(['Error getting user Data', `${error}`], LogPrefix.Gog)
