@@ -58,7 +58,8 @@
         "lastPlayed": "Востаннє зіграно",
         "firstPlayed": "Вперше зіграно",
         "downloadSize": "Розмір завантаження",
-        "installSize": "Розмір встановлення"
+        "installSize": "Розмір встановлення",
+        "language": "Мова"
     },
     "enabled": "Увімкнено",
     "disabled": "Вимкнено",
