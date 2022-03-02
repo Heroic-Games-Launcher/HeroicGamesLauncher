@@ -263,30 +263,31 @@ export default function WineSettings({
             )
           }
           value={wineVersion.name}
-          className="settingSelect"
+          className="settingSelect is-drop-down"
         >
           {altWine.map(({ name }) => (
             <option key={name}>{name}</option>
           ))}
         </select>
+        <InfoBox text="infobox.help">
+          <span>{t('help.wine.part1')}</span>
+          <ul>
+            <i>
+              <li>~/.config/heroic/tools/wine</li>
+              <li>~/.config/heroic/tools/proton</li>
+              <li>~/.steam/root/compatibilitytools.d</li>
+              <li>~/.steam/steamapps/common</li>
+              <li>~/.local/share/lutris/runners/wine</li>
+              <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+              <li>/usr/share/steam</li>
+              <li>Everywhere on the system (CrossOver Mac)</li>
+              <li>/opt/cxoffice (CrossOver Linux)</li>
+            </i>
+          </ul>
+          <span>{t('help.wine.part2')}</span>
+        </InfoBox>
       </span>
-      <InfoBox text="infobox.help">
-        <span>{t('help.wine.part1')}</span>
-        <ul>
-          <i>
-            <li>~/.config/heroic/tools/wine</li>
-            <li>~/.config/heroic/tools/proton</li>
-            <li>~/.steam/root/compatibilitytools.d</li>
-            <li>~/.steam/steamapps/common</li>
-            <li>~/.local/share/lutris/runners/wine</li>
-            <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
-            <li>/usr/share/steam</li>
-            <li>Everywhere on the system (CrossOver Mac)</li>
-            <li>/opt/cxoffice (CrossOver Linux)</li>
-          </i>
-        </ul>
-        <span>{t('help.wine.part2')}</span>
-      </InfoBox>
+
       {wineVersion.name.includes('CrossOver') && (
         <span className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
@@ -305,7 +306,7 @@ export default function WineSettings({
       )}
       {isLinux && !isProton && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               value={autoInstallDxvk}
               handleChange={() => {
@@ -324,12 +325,12 @@ export default function WineSettings({
             <span>
               {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
             </span>
-          </span>
+          </label>
         </span>
       )}
       {isLinux && !isProton && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               value={autoInstallVkd3d}
               handleChange={() => {
@@ -348,11 +349,11 @@ export default function WineSettings({
             <span>
               {t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
             </span>
-          </span>
+          </label>
         </span>
       )}
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={enableFSR || false}
             handleChange={toggleFSR}
@@ -367,11 +368,11 @@ export default function WineSettings({
               'Enable FSR Hack (Wine version needs to support it)'
             )}
           </span>
-        </span>
+        </label>
       </span>
       {enableFSR && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <select
               data-testid="setMaxRecentGames"
               onChange={(event) => setFsrSharpness(Number(event.target.value))}
@@ -385,13 +386,13 @@ export default function WineSettings({
             <span>
               {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
             </span>
-          </span>
+          </label>
         </span>
       )}
       {isLinux && (
         <>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={enableResizableBar || false}
                 handleChange={toggleResizableBar}
@@ -406,10 +407,10 @@ export default function WineSettings({
                   'Enable Resizable BAR (NVIDIA RTX only)'
                 )}
               </span>
-            </span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={enableEsync || false}
                 handleChange={toggleEsync}
@@ -417,10 +418,10 @@ export default function WineSettings({
                 title={t('setting.esync', 'Enable Esync')}
               />
               <span>{t('setting.esync', 'Enable Esync')}</span>
-            </span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={enableFsync || false}
                 handleChange={toggleFsync}
@@ -428,7 +429,7 @@ export default function WineSettings({
                 title={t('setting.fsync', 'Enable Fsync')}
               />
               <span>{t('setting.fsync', 'Enable Fsync')}</span>
-            </span>
+            </label>
           </span>
         </>
       )}

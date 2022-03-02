@@ -33,7 +33,7 @@
 .gameCard > .progress {
   position: absolute;
   z-index: 5;
-  bottom: 10px;
+  bottom: 5px;
   left: 5px;
   color: var(--success);
   font-family: Rubik;
@@ -46,6 +46,7 @@
   word-wrap: break-word;
   padding: 2px;
   background: var(--background-gradient);
+  border-radius: 4px;
 }
 .gameCard > .progress svg {
   color: var(--success);
@@ -247,7 +248,7 @@
 }
 
 .downIcon > circle {
-  fill: var(--download-button);
+  fill: var(--accent);
 }
 
 .cancelIcon > circle {
