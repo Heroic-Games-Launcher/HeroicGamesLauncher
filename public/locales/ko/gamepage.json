@@ -9,7 +9,7 @@
         "importpath": "가져올 게임 폴더 선택",
         "move": {
             "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하시겠습니까?",
-            "path": "이동하려는 위치 선택",
+            "path": "이동할 위치 선택",
             "title": "게임 설치 이동"
         },
         "no": "아니오",
@@ -23,7 +23,7 @@
             "title": "설치 중지"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "접두사도 제거하시겠습니까? 이 작업은 취소할 수 없습니다.",
             "checkbox_prefix": "Prefix",
             "message": "이 게임을 제거하시겠습니까?",
             "title": "설치 제거"

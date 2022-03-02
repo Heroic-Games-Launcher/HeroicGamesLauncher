@@ -338,12 +338,15 @@ export default function GeneralSettings({
               }`}
             </button>
           </span>
+          {!isWindows && (
+            <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
+          )}
         </span>
       )}
-      {!isWindows && <InfoBox text="infobox.help">{t('help.general')}</InfoBox>}
+
       {isWindows && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               dataTestId="syncToggle"
               value={isLinked}
@@ -351,11 +354,11 @@ export default function GeneralSettings({
               title={t('setting.egs-sync')}
             />
             <span>{t('setting.egs-sync')}</span>
-          </span>
+          </label>
         </span>
       )}
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             dataTestId="exitToTray"
             value={exitToTray}
@@ -363,11 +366,11 @@ export default function GeneralSettings({
             title={t('setting.exit-to-tray')}
           />
           <span>{t('setting.exit-to-tray')}</span>
-        </span>
+        </label>
       </span>
       {exitToTray && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               dataTestId="startInTray"
               value={startInTray}
@@ -375,11 +378,11 @@ export default function GeneralSettings({
               title={t('setting.start-in-tray', 'Start Minimized')}
             />
             <span>{t('setting.start-in-tray', 'Start Minimized')}</span>
-          </span>
+          </label>
         </span>
       )}
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={showUnrealMarket}
             handleChange={() => toggleUnrealMarket()}
@@ -394,10 +397,10 @@ export default function GeneralSettings({
               'Show Unreal Marketplace (needs restart)'
             )}
           </span>
-        </span>
+        </label>
       </span>
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={darkTrayIcon}
             handleChange={() => {
@@ -407,10 +410,10 @@ export default function GeneralSettings({
             title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           />
           <span>{t('setting.darktray', 'Use Dark Tray Icon')}</span>
-        </span>
+        </label>
       </span>
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}
@@ -425,15 +428,15 @@ export default function GeneralSettings({
               'Check For Updates On Startup'
             )}
           </span>
-        </span>
+        </label>
       </span>
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <select
             data-testid="setMaxWorkers"
             onChange={(event) => setMaxWorkers(Number(event.target.value))}
             value={maxWorkers}
-            className="settingSelect smaller"
+            className="settingSelect smaller is-drop-down"
           >
             {Array.from(Array(maxCpus).keys()).map((n) => (
               <option key={n + 1}>{n + 1}</option>
@@ -443,7 +446,7 @@ export default function GeneralSettings({
             </option>
           </select>
           <span>{t('setting.maxworkers')}</span>
-        </span>
+        </label>
       </span>
     </>
   )

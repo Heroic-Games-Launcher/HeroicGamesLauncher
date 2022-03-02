@@ -101,6 +101,7 @@
 
 .setting > .toggleWrapper {
   display: flex;
+  cursor: pointer;
   gap: 15px;
   align-content: flex-start;
   place-self: center;
@@ -109,7 +110,7 @@
   line-height: 19px;
   color: var(--text-default);
 }
-.toggleWrapper span {
+.toggleWrapper label {
   text-align: center;
   margin-block: auto;
 }
@@ -137,6 +138,7 @@
 }
 
 .save {
+  cursor: default;
   margin: 1em 0 0 18px;
   padding-block-end: 8px;
   display: flex;

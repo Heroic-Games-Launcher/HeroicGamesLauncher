@@ -34,8 +34,8 @@
             },
             "launch": "Erro ao iniciar o jogo, confira os logs!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Lançamento cancelado! O jogo requer uma conexão com a internet para executá-lo.",
+                "title": "Modo offline não suportado."
             },
             "title": "Erro",
             "wine-not-found": {
@@ -78,9 +78,9 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Os Servidores Epic estão tendo grandes interrupções no momento, o jogo não pode ser importado!",
+                "install": "Os Servidores Epic estão tendo grandes interrupções no momento, o jogo não pode ser instalado!",
+                "update": "Os Servidores Epic estão tendo grandes interrupções no momento, o jogo não pode ser atualizado!"
             },
             "title": "Aviso"
         },
@@ -88,7 +88,7 @@
         "yes": "SIM"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Continuar",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -96,7 +96,7 @@
     },
     "Downloading": "Baixando",
     "epic": {
-        "offline-notification-body": "Provavelmente o Heroic não funcionará!",
+        "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "help": {
-        "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos use a sincronização para evitar baixá-los novamente.",
+        "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
         "other": {
             "part1": "Use o ",
             "part2": "Opções avançadas",
@@ -144,7 +144,7 @@
         "website": "Carregando site"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Login externo"
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -162,7 +162,7 @@
         },
         "install": {
             "canceled": "Instalação Cancelada",
-            "error": "",
+            "error": "Erro na instalação",
             "finished": "Instalação concluída",
             "imported": "Jogo importado",
             "startInstall": "Instalação iniciada"
@@ -206,7 +206,7 @@
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com WINE/Proton Customizados",
@@ -215,19 +215,19 @@
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
-        "enableFSRHack": "Habilitar Hack FSR (Wine precisa supportar a feature)",
+        "enableFSRHack": "Habilitar Hack FSR (Wine precisa suportar o recurso)",
         "esync": "Habilitar Esync",
         "exit-to-tray": "Fechar para a barra de tarefas",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (Necessita ter gamemode instalado)",
         "language": "Selecione o idioma do app",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Copiar o conteúdo do log para a área de transferência",
+            "current-log": "Log atual",
+            "last-log": "Último log",
+            "no-file": "Arquivo de log não encontrado",
+            "show-in-folder": "Mostrar arquivo de log na pasta"
         },
         "mangohud": "Habilitar o MangoHud (mangohud precisa estar instalado)",
         "manualsync": {

@@ -383,7 +383,7 @@ export default function InstallModal({
             </button>
             <button
               onClick={() => handleInstall()}
-              className={`button is-primary`}
+              className={`button is-secondary`}
             >
               {getDownloadedProgress()
                 ? t('button.continue', 'Continue Download')
