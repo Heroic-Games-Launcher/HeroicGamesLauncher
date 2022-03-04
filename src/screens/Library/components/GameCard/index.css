@@ -95,6 +95,7 @@
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
+  backdrop-filter: blur(4px);
 }
 
 .gameCard > .icons {
