@@ -41,8 +41,9 @@ async function setup(appName: string): Promise<void> {
   const crossoverEnv =
     isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
   const isProton =
-    gameSettings.wineVersion.name.includes('Proton') ||
-    gameSettings.wineVersion.name.includes('Steam')
+    (gameSettings.wineVersion.name.includes('Proton') ||
+      gameSettings.wineVersion.name.includes('Steam')) &&
+    !gameSettings.wineVersion.name.includes('lutris')
   const prefix = isProton
     ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
         .replaceAll("'", '')

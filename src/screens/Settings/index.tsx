@@ -590,7 +590,11 @@ function Settings() {
               appName={appName}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
-              isProton={!isWin && wineVersion.name.includes('Proton')}
+              isProton={
+                !isWin &&
+                wineVersion.name.includes('Proton') &&
+                !wineVersion.name.includes('lutris')
+              }
               winePrefix={winePrefix}
             />
           )}
