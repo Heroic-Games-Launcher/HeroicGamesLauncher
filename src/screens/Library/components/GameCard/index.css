@@ -11,9 +11,6 @@
   transition-duration: 0.5s;
 }
 
-.gameCard {
-}
-
 .gameCard:focus-within {
   outline: -webkit-focus-ring-color auto 1px;
 }
