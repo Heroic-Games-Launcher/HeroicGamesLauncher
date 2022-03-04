@@ -173,20 +173,22 @@ abstract class GlobalConfig {
     } else if (!isWindows) {
       // Linux
       const crossoverWineBin = '/opt/cxoffice/bin/wine'
-      const crossoverVersion = (
-        await execAsync(crossoverWineBin + ' --version')
-      ).stdout
-        .toString()
-        .split('\n')[2]
-        .split(':')[1]
-        .trim()
       if (existsSync(crossoverWineBin)) {
-        crossover.add({
-          bin: `'${crossoverWineBin}'`,
-          name: `CrossOver - ${crossoverVersion}`,
-          type: 'crossover',
-          ...this.getWineExecs(crossoverWineBin)
-        })
+        const crossoverVersion = (
+          await execAsync(crossoverWineBin + ' --version')
+        ).stdout
+          .toString()
+          .split('\n')[2]
+          .split(':')[1]
+          .trim()
+        if (existsSync(crossoverWineBin)) {
+          crossover.add({
+            bin: `'${crossoverWineBin}'`,
+            name: `CrossOver - ${crossoverVersion}`,
+            type: 'crossover',
+            ...this.getWineExecs(crossoverWineBin)
+          })
+        }
       }
     }
 
