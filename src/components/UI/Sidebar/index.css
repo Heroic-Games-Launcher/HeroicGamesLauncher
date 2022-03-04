@@ -11,6 +11,7 @@
   padding: 0px;
   position: relative;
   z-index: 10;
+  box-shadow: -24px 0px 64px 16px #000000;
 }
 
 .sidebar > * {
