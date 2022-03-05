@@ -747,7 +747,7 @@ ipcMain.handle(
       tsStore.set(`${game}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo([`launching`, title, game], LogPrefix.Backend)
+    logInfo(`Launching ${title} (${game})`, LogPrefix.Backend)
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter(
