@@ -172,7 +172,7 @@ abstract class GlobalConfig {
       })
     } else if (!isWindows) {
       // Linux
-      const crossoverWineBin = '/opt/cxoffice/bin/wine'
+      const crossoverWineBin = join('opt', 'cxoffice', 'bin', 'wine')
       if (!existsSync(crossoverWineBin)) {
         return crossover
       }
@@ -242,9 +242,17 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths = [
-      `${home}/.steam`,
-      `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
-      '/usr/share/steam'
+      join(home, '.steam'),
+      join(
+        home,
+        '.var',
+        'app',
+        'com.valvesoftware.Steam',
+        '.local',
+        'share',
+        'Steam'
+      ),
+      join('/', 'usr', 'share', 'steam')
     ].filter((path) => existsSync(path))
 
     steamPaths.forEach((path) => {

@@ -23,6 +23,7 @@ import { Runner } from './types'
 import { GOGLibrary } from './gog/library'
 import { LegendaryLibrary } from './legendary/library'
 import setup from './gog/setup'
+import { dirname } from 'path'
 
 function getGameInfo(appName: string, runner: Runner) {
   switch (runner) {
@@ -235,9 +236,7 @@ async function launch(
   const isProton = wineVersion.type === 'proton'
   const isCrossover = wineVersion.type === 'crossover'
   prefix = isProton || isCrossover ? '' : prefix
-  const x = wineVersion.bin.split('/')
-  x.pop()
-  const winePath = x.join('/').replaceAll("'", '')
+  const winePath = dirname(wineVersion.bin)
   const options = {
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
     crossoverBottle:

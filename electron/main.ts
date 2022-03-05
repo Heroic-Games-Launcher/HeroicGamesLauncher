@@ -286,9 +286,9 @@ if (!gotTheLock) {
 
     await i18next.use(Backend).init({
       backend: {
-        addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
+        addPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
         allowMultiLoading: false,
-        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json')
+        loadPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
       },
       debug: false,
       fallbackLng: 'en',

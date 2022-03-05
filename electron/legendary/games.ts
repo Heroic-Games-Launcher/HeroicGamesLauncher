@@ -21,6 +21,7 @@ import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
+import { join } from 'path'
 
 const store = new Store({
   cwd: 'lib-cache',
@@ -230,7 +231,7 @@ class LegendaryGame extends Game {
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
     return execAsync(command, execOptions)
@@ -300,7 +301,7 @@ class LegendaryGame extends Game {
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
     const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path '${path}' ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
@@ -346,7 +347,7 @@ class LegendaryGame extends Game {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
     const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
@@ -392,7 +393,7 @@ class LegendaryGame extends Game {
       : path.replaceAll("'", '')
 
     const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
-    const legendarySavesPath = `${home}/legendary/.saves`
+    const legendarySavesPath = join(home, 'legendary', '.saves')
 
     //workaround error when no .saves folder exists
     if (!existsSync(legendarySavesPath)) {
