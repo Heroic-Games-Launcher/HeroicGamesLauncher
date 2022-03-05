@@ -100,7 +100,7 @@ class LegendaryGame extends Game {
     if (gameInfoStore.has(namespace)) {
       return gameInfoStore.get(namespace) as ExtraInfo
     }
-    if (!(await isOnline())) {
+    if (!isOnline()) {
       return {
         about: {},
         reqs: []

@@ -178,7 +178,7 @@ export class LegendaryLibrary {
    * @param appName
    * @returns GameInfo
    */
-  public async getGameInfo(appName: string) {
+  public getGameInfo(appName: string) {
     const info = this.library.get(appName)
     if (info === undefined) {
       return null
@@ -228,8 +228,7 @@ export class LegendaryLibrary {
   public async listUpdateableGames() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
 
-    const online = await isOnline()
-    if (!isLoggedIn || !online) {
+    if (!isLoggedIn || !isOnline()) {
       return []
     }
     const epicOffline = await isEpicServiceOffline()

@@ -624,8 +624,7 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
 })
 
 ipcMain.handle('getInstallInfo', async (event, game, runner) => {
-  const online = await isOnline()
-  if (!online) {
+  if (!isOnline()) {
     return { game: {}, metadata: {} }
   }
   try {
@@ -891,7 +890,7 @@ ipcMain.handle('install', async (event, params) => {
       ? 'Linux'
       : 'Windows'
 
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping install for game '${title}'.`,
       LogPrefix.Backend
@@ -981,7 +980,7 @@ ipcMain.handle('uninstall', async (event, args) => {
 })
 
 ipcMain.handle('repair', async (event, game, runner) => {
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping repair for game '${game}'.`,
       LogPrefix.Backend
@@ -1066,7 +1065,7 @@ ipcMain.handle('importGame', async (event, args) => {
 })
 
 ipcMain.handle('updateGame', async (e, game, runner) => {
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping install for game '${game}'.`,
       LogPrefix.Backend
@@ -1192,7 +1191,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
     logWarning('Epic is Offline right now, cannot sync saves!')
     return 'Epic is Offline right now, cannot sync saves!'
   }
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping syncing saves for game '${appName}'.`,
       LogPrefix.Backend

@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, rm, stat } from 'graceful-fs'
+import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -83,7 +83,7 @@ function semverGt(target: string, base: string) {
   return isGE
 }
 
-async function isOnline() {
+function isOnline() {
   return net.isOnline()
 }
 
@@ -317,7 +317,7 @@ function clearCache() {
 function resetHeroic() {
   const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
   heroicFolders.forEach((folder) => {
-    rm(folder, { recursive: true, force: true }, () => null)
+    rmSync(folder, { recursive: true, force: true })
   })
   // wait a sec to avoid racing conditions
   setTimeout(() => {
