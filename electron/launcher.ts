@@ -231,11 +231,8 @@ async function launch(
   // We need to keep replacing the ' to keep compatibility with old configs
   let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
 
-  const isProton =
-    (wineVersion.name.includes('Proton') ||
-      wineVersion.name.includes('Steam')) &&
-    !wineVersion.name.includes('lutris')
-  const isCrossover = wineVersion.name.includes('CrossOver')
+  const isProton = wineVersion.type === 'proton'
+  const isCrossover = wineVersion.type === 'crossover'
   prefix = isProton || isCrossover ? '' : prefix
   const x = wineVersion.bin.split('/')
   x.pop()
