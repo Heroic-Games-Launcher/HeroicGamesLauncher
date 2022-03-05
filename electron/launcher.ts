@@ -274,8 +274,11 @@ async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
+  // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
+  const haveToWait = !existsSync(join(winePrefix, 'system.reg'))
+
   return game
-    .runWineCommand('wineboot --init', '', true)
+    .runWineCommand('wineboot --init', '', haveToWait)
     .then((result) => {
       // This is kinda hacky
       const wasUpdated = result.stderr.includes('has been updated')
