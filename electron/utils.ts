@@ -14,6 +14,7 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
+  isWindows,
   legendaryBin
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -326,7 +327,11 @@ function resetHeroic() {
 function showItemInFolder(item: string) {
   if (existsSync(item)) {
     try {
-      shell.showItemInFolder(item)
+      if (isWindows) {
+        execAsync(`explorer /Select,"${item}"`)
+      } else {
+        shell.showItemInFolder(item)
+      }
     } catch (error) {
       logError(
         `Failed to show item in folder with: ${error}`,
