@@ -50,7 +50,7 @@ function getGOGdlBin() {
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() == 'linux'
-const isFlatpak = execPath === '/app/main/heroic'
+const isFlatpak = execPath === '/app/bin/heroic/heroic'
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
