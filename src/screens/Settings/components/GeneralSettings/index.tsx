@@ -213,7 +213,7 @@ export default function GeneralSettings({
           'Select GOGDL Binary (needs restart)'
         )
       })
-      .then(({ path }: Path) => setAltLegendaryBin(path ? `'${path}'` : ''))
+      .then(({ path }: Path) => setAltLegendaryBin(path ? `${path}` : ''))
   }
 
   async function handleChangeLanguage(language: string) {

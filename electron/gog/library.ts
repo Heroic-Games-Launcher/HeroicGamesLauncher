@@ -13,7 +13,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { execAsync } from '../utils'
-import { fallBackImage, gogdlBin, isMac } from '../constants'
+import { fallBackImage, gogdlBin, isMac, isWindows } from '../constants'
 
 const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
 const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
@@ -146,13 +146,24 @@ export class GOGLibrary {
       return
     }
     const gameData = this.library.get(appName)
+
+    const saveCommand = `"${gogdlBin}" info ${appName} --token="${
+      credentials.access_token
+    }" --lang=en-US --os ${isMac && gameData.is_mac_native ? 'osx' : 'windows'}`
+
     const { stdout } = await execAsync(
-      `${gogdlBin} info ${appName} --token="${
+      `${isWindows ? '&' : ''} "${gogdlBin}" info ${appName} --token="${
         credentials.access_token
       }" --lang=en-US --os ${
         isMac && gameData.is_mac_native ? 'osx' : 'windows'
       }`
-    )
+    ).catch(() => {
+      logError(['Info command failed', saveCommand], LogPrefix.Gog)
+      return { stdout: null }
+    })
+    if (!stdout) {
+      return
+    }
     const gogInfo = JSON.parse(stdout)
     const libraryArray = libraryStore.get('games') as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(

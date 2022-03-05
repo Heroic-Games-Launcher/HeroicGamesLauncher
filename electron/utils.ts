@@ -109,7 +109,7 @@ export const getGogdlVersion = async () => {
     if (altGogdlBin && !altGogdlBin.includes('gogdl')) {
       return 'invalid'
     }
-    const { stdout } = await execAsync(`${gogdlBin} --version`)
+    const { stdout } = await execAsync(`"${gogdlBin}" --version`)
     return stdout
   } catch (error) {
     logError(`${error}`, LogPrefix.Gog)
