@@ -38,6 +38,11 @@ abstract class Game {
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' }>
+  abstract runWineCommand(
+    command: string,
+    altWineBin?: string,
+    wait?: boolean
+  ): Promise<ExecResult>
 }
 
 import { LegendaryGame } from './legendary/games'

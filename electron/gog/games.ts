@@ -31,7 +31,13 @@ import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { execAsync, size } from '../utils'
 import { GOGUser } from './user'
-import { launch } from '../launcher'
+import {
+  prepareLaunch,
+  prepareWineLaunch,
+  runWineCommand,
+  setupEnvVars,
+  wrappedLaunch
+} from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { getGogdlCommand, runGogdlCommand } from './library'
@@ -232,9 +238,116 @@ class GOGGame extends Game {
   public async removeShortcuts() {
     return removeShortcuts(this.appName, 'gog')
   }
+  async launch(launchArguments?: string): Promise<LaunchResult> {
+    const gameSettings =
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
+    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
 
-  async launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
-    return launch(this.appName, launchArguments, 'gog')
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      rpcClient,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    } = await prepareLaunch(this, gameInfo)
+    if (!launchPrepSuccess) {
+      return {
+        success: false,
+        stderr: 'Launch aborted: ' + launchPrepFailReason,
+        gameSettings: gameSettings
+      }
+    }
+
+    const exeOverrideFlag = gameSettings.targetExe
+      ? `--override-exe ${gameSettings.targetExe}`
+      : ''
+
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      (isLinux && gameInfo.is_linux_native)
+    let command = new Array<string>()
+    if (isNative) {
+      let extraEnvVars = ''
+      if (!isWindows) {
+        // These options can only be used on Mac/Linux
+        extraEnvVars = setupEnvVars(
+          gameSettings,
+          mangoHudCommand,
+          gameModeBin,
+          steamRuntime
+        )
+      }
+      command = [
+        extraEnvVars,
+        isWindows ? '&' : '',
+        `"${gogdlBin}"`,
+        'launch',
+        `"${gameInfo.install.install_path}"`,
+        exeOverrideFlag,
+        gameInfo.app_name,
+        `--platform=${gameInfo.install.platform}`,
+        launchArguments,
+        gameSettings.launcherArgs
+      ]
+    } else {
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch(this)
+      if (!wineLaunchPrepSuccess) {
+        return {
+          success: false,
+          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
+          gameSettings: gameSettings
+        }
+      }
+
+      const envVars = [
+        setupEnvVars(gameSettings, mangoHudCommand, gameModeBin, steamRuntime),
+        wineEnvVars
+      ]
+        .filter((n) => n)
+        .join(' ')
+
+      const { wineVersion, winePrefix, launcherArgs } = gameSettings
+      let wineFlag = `--wine ${wineVersion.bin}`
+      let winePrefixFlag = `--wine-prefix '${winePrefix}'`
+      if (wineVersion.type === 'proton') {
+        wineFlag = `--no-wine --wrapper "${wineVersion.bin} run"`
+        winePrefixFlag = ''
+      }
+
+      command = [
+        envVars,
+        gameModeBin,
+        mangoHudCommand,
+        `"${gogdlBin}"`,
+        'launch',
+        `"${gameInfo.install.install_path}"`,
+        exeOverrideFlag,
+        this.appName,
+        wineFlag,
+        winePrefixFlag,
+        '--os',
+        gameInfo.install.platform.toLowerCase(),
+        launchArguments,
+        launcherArgs
+      ]
+    }
+    const { success, stderr, commandString } = await wrappedLaunch(
+      command,
+      rpcClient
+    )
+    return {
+      success: success,
+      stderr: stderr,
+      gameSettings: gameSettings,
+      command: commandString
+    }
   }
 
   public async moveInstall(newInstallPath: string): Promise<string> {
@@ -470,6 +583,24 @@ class GOGGame extends Game {
       credentials,
       gameData
     }
+  }
+
+  public async runWineCommand(
+    command: string,
+    altWineBin = '',
+    wait = false
+  ): Promise<ExecResult> {
+    const gameInfo = await this.getGameInfo()
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      (isLinux && gameInfo.is_linux_native)
+    if (isNative) {
+      logError('runWineCommand called on native game!', LogPrefix.Gog)
+      return { stdout: '', stderr: '' }
+    }
+
+    return runWineCommand(await this.getSettings(), command, altWineBin, wait)
   }
 }
 

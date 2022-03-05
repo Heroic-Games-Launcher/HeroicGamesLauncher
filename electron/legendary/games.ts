@@ -13,11 +13,20 @@ import {
   execOptions,
   heroicGamesConfigPath,
   userHome,
-  isWindows
+  isLinux,
+  isMac,
+  isWindows,
+  legendaryBin
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
-import { launch } from '../launcher'
+import {
+  wrappedLaunch,
+  prepareLaunch,
+  prepareWineLaunch,
+  setupEnvVars,
+  runWineCommand
+} from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
@@ -505,10 +514,132 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async launch(
-    launchArguments?: string
-  ): Promise<ExecResult | LaunchResult> {
-    return launch(this.appName, launchArguments, 'legendary')
+  public async launch(launchArguments = ''): Promise<LaunchResult> {
+    const gameSettings =
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
+    const gameInfo = LegendaryLibrary.get().getGameInfo(this.appName)
+
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      rpcClient,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    } = await prepareLaunch(this, gameInfo)
+    if (!launchPrepSuccess) {
+      return {
+        success: false,
+        stderr: 'Launch aborted: ' + launchPrepFailReason,
+        gameSettings: gameSettings
+      }
+    }
+
+    const offlineFlag = gameSettings.offlineMode ? '--offline' : ''
+    const exeOverrideFlag = gameSettings.targetExe
+      ? `--override-exe ${gameSettings.targetExe}`
+      : ''
+
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      // This right now is impossible, but one can still hope, right?
+      (isLinux && gameInfo.is_linux_native)
+    let command = new Array<string>()
+    if (isNative) {
+      let extraEnvVars = ''
+      if (!isWindows) {
+        // These options can only be used on Mac
+        extraEnvVars = setupEnvVars(
+          gameSettings,
+          mangoHudCommand,
+          gameModeBin,
+          steamRuntime
+        )
+      }
+      // These options are required on both Windows and Mac
+      command = [
+        extraEnvVars,
+        legendaryBin,
+        'launch',
+        this.appName,
+        exeOverrideFlag,
+        offlineFlag,
+        launchArguments
+      ]
+    } else {
+      // -> We're using Wine/Proton/CX on either Linux or Mac
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch(this)
+      if (!wineLaunchPrepSuccess) {
+        return {
+          success: false,
+          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
+          gameSettings: gameSettings
+        }
+      }
+      const envVars = [
+        setupEnvVars(gameSettings, mangoHudCommand, gameModeBin, steamRuntime),
+        wineEnvVars
+      ]
+        .filter((n) => n)
+        .join(' ')
+
+      const { wineVersion, winePrefix, launcherArgs } = gameSettings
+      let wineFlag = `--wine ${wineVersion.bin}`
+      let winePrefixFlag = `--wine-prefix '${winePrefix}'`
+      if (wineVersion.type === 'proton') {
+        wineFlag = `--no-wine --wrapper "${wineVersion.bin} run"`
+        winePrefixFlag = ''
+      }
+
+      command = [
+        envVars,
+        gameModeBin,
+        mangoHudCommand,
+        legendaryBin,
+        'launch',
+        this.appName,
+        exeOverrideFlag,
+        offlineFlag,
+        wineFlag,
+        winePrefixFlag,
+        launchArguments,
+        launcherArgs
+      ]
+    }
+    const { success, stderr, commandString } = await wrappedLaunch(
+      command,
+      rpcClient
+    )
+    return {
+      success: success,
+      stderr: stderr,
+      gameSettings: gameSettings,
+      command: commandString
+    }
+  }
+
+  public async runWineCommand(
+    command: string,
+    altWineBin = '',
+    wait = false
+  ): Promise<ExecResult> {
+    const gameInfo = await this.getGameInfo()
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      (isLinux && gameInfo.is_linux_native)
+    if (isNative) {
+      logError('runWineCommand called on native game!', LogPrefix.Legendary)
+      return { stdout: '', stderr: '' }
+    }
+
+    return runWineCommand(await this.getSettings(), command, altWineBin, wait)
   }
 
   public async stop() {
