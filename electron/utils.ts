@@ -28,6 +28,7 @@ import {
   libraryStore as GOGlibraryStore
 } from './gog/electronStores'
 import fileSize from 'filesize'
+import makeClient from 'discord-rich-presence-typescript'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -371,6 +372,79 @@ function getGOGdlBin(): { dir: string; bin: string } {
     fixAsarPath(join(__dirname, 'bin', process.platform, 'gogdl'))
   )
 }
+function getFormattedOsName(): string {
+  switch (process.platform) {
+    case 'linux':
+      return 'Linux'
+    case 'win32':
+      return 'Windows'
+    case 'darwin':
+      return 'macOS'
+    default:
+      return 'Unknown OS'
+  }
+}
+
+/**
+ * Finds an executable on %PATH%/$PATH
+ * @param executable The executable to find
+ * @returns The full path to the executable, or nothing if it was not found
+ */
+// This name could use some work
+async function searchForExecutableOnPath(executable: string): Promise<string> {
+  if (isWindows) {
+    // Todo: Respect %PATHEXT% here
+    const paths = process.env.PATH.split(';')
+    paths.forEach((path) => {
+      const fullPath = join(path, executable)
+      if (existsSync(fullPath)) {
+        return fullPath
+      }
+    })
+    return ''
+  } else {
+    return execAsync(`which ${executable}`)
+      .then(({ stdout }) => {
+        return stdout.split('\n')[0]
+      })
+      .catch((error) => {
+        logError(error, LogPrefix.Backend)
+        return ''
+      })
+  }
+}
+
+function getSteamRuntime(): SteamRuntime {
+  const possibleRuntimes: Array<SteamRuntime> = [
+    {
+      path: `${home}/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh`,
+      type: 'unpackaged'
+    },
+    {
+      path: `${home}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
+      type: 'flatpak'
+    }
+  ]
+  possibleRuntimes.forEach((runtime) => {
+    if (existsSync(runtime.path)) {
+      return `'${runtime.path}'`
+    }
+  })
+  return { path: '', type: 'unpackaged' }
+}
+
+function constructAndUpdateRPC(gameName: string): RpcClient {
+  const client = makeClient('852942976564723722')
+  client.updatePresence({
+    details: gameName,
+    instance: true,
+    largeImageKey: 'icon',
+    large_text: gameName,
+    startTimestamp: Date.now(),
+    state: 'via Heroic on ' + getFormattedOsName()
+  })
+  return client
+}
 
 const specialCharactersRegex =
   /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
@@ -403,5 +477,9 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
-  formatEpicStoreUrl
+  formatEpicStoreUrl,
+  getFormattedOsName,
+  searchForExecutableOnPath,
+  getSteamRuntime,
+  constructAndUpdateRPC
 }
