@@ -12,6 +12,7 @@
         },
         "choose": "Оберіть",
         "choose-egs-prefix": "Оберіть префікс під яким встановлено EGS",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Оберіть бінарний файл Legendary",
         "customWine": "Оберіть бінарний файл Wine або Proton",
         "default-install-path": "Вкажіть стандартний шлях встановлення",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Версія Legendary: ",
         "weblate": "Допоможіть перекласти Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Використовую вбудований бінарник Legendary...",
         "egs-prefix": "Префікс де встановлено EGS"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Призначити альтернативний бінарний файл Legendary (необхідний перезапуск)",
         "audiofix": "Лагодження звуку (затримка Pulse Audio)",
         "autodxvk": "Автоматично встановлювати/оновлювати DXVK на префіксі",
