@@ -29,7 +29,6 @@ import {
   rmSync,
   unlinkSync,
   watch,
-  writeFile,
   writeFileSync
 } from 'graceful-fs'
 
@@ -47,7 +46,6 @@ import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import {
   clearCache,
-  errorHandler,
   execAsync,
   isEpicServiceOffline,
   getLegendaryVersion,
@@ -62,7 +60,8 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  size
+  size,
+  showErrorBoxModalAuto
 } from './utils'
 import {
   configStore,
@@ -774,68 +773,65 @@ ipcMain.handle(
       mainWindow.hide()
     }
 
+    let logResult = ''
     return Game.get(appName, runner)
       .launch(launchArguments)
-      .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
-        mainWindow.show()
+      .then(
+        async ({ stderr, success, command, gameSettings }: LaunchResult) => {
+          if (!success) {
+            showErrorBoxModalAuto(
+              i18next.t('box.error.title', 'Something Went Wrong'),
+              i18next.t(
+                'box.error.launch',
+                'Error when launching the game, check the logs!'
+              )
+            )
+          }
+
+          logResult = `Launch Command: ${command}
+
+System Info:
+${await getSystemInfo()}
+
+Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
+
+Game Log:
+${stderr}`
+        }
+      )
+      .catch((exception) => {
+        logResult = `${exception.name} - ${exception.message}`
+        logError(logResult, LogPrefix.Backend)
+      })
+      .finally(() => {
+        // Write log file
+        const logFileLocation = path.join(
+          heroicGamesConfigPath,
+          `${game}-lastPlay.log`
+        )
+        writeFileSync(logFileLocation, logResult)
+        logInfo(`Log was written to ${logFileLocation}`, LogPrefix.Backend)
+
+        // Update playtime and last played date
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
-        const sessionPlayingTime =
-          (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
-        const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`)
-          ? (tsStore.get(`${game}.totalPlayed`) as number) + sessionPlayingTime
-          : sessionPlayingTime
-        // I'll send the calculated time here because then the user can set it manually on the file if desired
-        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
-        const systemInfo = await getSystemInfo()
-
-        const logResult = `Launch Command: ${command}
-        System Info:
-        ${systemInfo}
-        Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
-
-        Game Log:
-        ${stderr}
-        `
-
-        if (stderr.includes('Errno')) {
-          showErrorBoxModal(
-            mainWindow,
-            i18next.t('box.error.title', 'Something Went Wrong'),
-            i18next.t(
-              'box.error.launch',
-              'Error when launching the game, check the logs!'
-            )
-          )
+        // Playtime of this session in minutes
+        const sessionPlaytime =
+          (finishedPlayingDate.getTime() - startPlayingDate.getTime()) /
+          1000 /
+          60
+        let totalPlaytime = sessionPlaytime
+        if (tsStore.has(`${game}.totalPlayed`)) {
+          totalPlaytime += tsStore.get(`${game}.totalPlayed`) as number
         }
-        window.webContents.send('setGameStatus', {
-          appName,
-          runner,
-          status: 'done'
-        })
+        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlaytime))
 
-        const gameLogFile = join(heroicGamesConfigPath, game + '-lastPlay.log')
-        writeFile(gameLogFile, logResult, () =>
-          logInfo(`Log was written to ${gameLogFile}`, LogPrefix.Backend)
-        )
-        return stderr
-      })
-      .catch(async (exception) => {
         mainWindow.show()
-        const stderr = `${exception.name} - ${exception.message}`
-        errorHandler({ error: { stderr, stdout: '' } }, mainWindow)
-        writeFile(
-          join(heroicGamesConfigPath, game + '-lastPlay.log'),
-          stderr,
-          () => 'done'
-        )
-        logError(stderr, LogPrefix.Backend)
         window.webContents.send('setGameStatus', {
           appName,
           runner,
           status: 'done'
         })
-        return stderr
       })
   }
 )
