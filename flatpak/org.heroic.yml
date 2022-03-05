@@ -19,6 +19,7 @@ finish-args:
   - --socket=pulseaudio
   - --allow=multiarch
   - --allow=devel
+  - --device=all
   - --talk-name=org.freedesktop.Notifications
   - --persist=.wine
   - --filesystem=host
@@ -49,8 +50,10 @@ add-extensions:
     merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
     download-if: active-gl-driver
     enable-if: active-gl-driver
-    
+
 modules:
+
+  # --- Tools ---
   - name: unappimage
     buildsystem: simple
     build-commands:
@@ -60,6 +63,18 @@ modules:
         url: https://github.com/refi64/unappimage
         commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
 
+  - name: vulkan-tools
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DGLSLANG_INSTALL_DIR=/app
+      - -DVULKAN_HEADERS_INSTALL_DIR=/app
+      - -DCMAKE_BUILD_TYPE=Release
+    sources:
+      - type: archive
+        url: https://github.com/KhronosGroup/Vulkan-Tools/archive/refs/tags/v1.2.186.tar.gz
+        sha256: 8ba0e21e8de0b70d31985d251d11150efee71266875262798784e9d1ec9b717b
+
+  # --- Heroic ---
   - name: heroic
     buildsystem: simple
     build-commands:
@@ -77,7 +92,7 @@ modules:
         filename: Heroic-2.2.1.AppImage
         url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.2.1/Heroic-2.2.1.AppImage
         sha256: cf3c5fdde3357d459356dcf3001730966a6d36e09541a7efa2d9db3a20b3bb47
-  
+
   - name: platform-bootstrap
     buildsystem: simple
     build-commands:
