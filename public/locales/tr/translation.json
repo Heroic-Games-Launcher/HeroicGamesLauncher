@@ -97,16 +97,16 @@
     "Downloading": "İndiriliyor",
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "çevrim dışı"
     },
     "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Filtre Yok"
     },
     "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG Mağazası",
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
@@ -279,8 +279,8 @@
     "status": {
         "logging": "Oturum Açılıyor…"
     },
-    "store": "Mağaza",
-    "stores": "Stores",
+    "store": "Epic Mağazası",
+    "stores": "Mağazalar",
     "title": {
         "allGames": "Tüm Oyunlar",
         "allUnreal": "Unreal - Her şey",

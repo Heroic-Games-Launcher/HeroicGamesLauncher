@@ -18,7 +18,7 @@ export default function ToggleSwitch(props: Props) {
     dataTestId = 'toggleSwitch'
   } = props
   return (
-    <label className="switch" aria-label={title}>
+    <div className="switch" aria-label={title}>
       <input
         data-testid={dataTestId}
         disabled={disabled}
@@ -29,6 +29,6 @@ export default function ToggleSwitch(props: Props) {
       />
 
       <span {...props} className="checkmark" />
-    </label>
+    </div>
   )
 }

@@ -245,6 +245,7 @@ const contextMenu = () => {
 }
 
 if (!gotTheLock) {
+  logInfo('Heroic is already running, quitting this instance')
   app.quit()
 } else {
   app.on('second-instance', (event, argv) => {
@@ -252,9 +253,17 @@ if (!gotTheLock) {
     if (mainWindow) {
       mainWindow.show()
     }
-    if (argv[1]) {
-      const url = argv[1]
-      handleProtocol(mainWindow, url)
+
+    // Figure out which argv element is our protocol
+    let heroicProtocolString = ''
+    argv.forEach((value) => {
+      if (value.startsWith('heroic://')) {
+        heroicProtocolString = value
+      }
+    })
+
+    if (heroicProtocolString) {
+      handleProtocol(mainWindow, heroicProtocolString)
     }
   })
   app.whenReady().then(async () => {
@@ -311,6 +320,7 @@ if (!gotTheLock) {
         'sv',
         'ta',
         'tr',
+        'uk',
         'zh_Hans',
         'zh_Hant'
       ]

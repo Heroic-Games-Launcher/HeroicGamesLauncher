@@ -23,6 +23,7 @@ export default function InfoBox({ children, text }: Props) {
   return (
     <>
       <a
+        role={'tooltip'}
         href="#"
         className="helpLink"
         onClick={(e) => {

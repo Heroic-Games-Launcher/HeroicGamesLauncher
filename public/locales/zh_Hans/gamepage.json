@@ -41,7 +41,7 @@
         "import": "导入游戏",
         "install": "安装",
         "uninstall": "卸载",
-        "update": "Update"
+        "update": "更新"
     },
     "disabled": "已禁用",
     "dlc": {
@@ -53,7 +53,7 @@
         "downloadSize": "下载大小",
         "firstPlayed": "首次游玩",
         "installSize": "安装大小",
-        "language": "Language",
+        "language": "语言",
         "lastPlayed": "上次游玩",
         "neverPlayed": "从未游玩",
         "totalPlayed": "游玩时间"
