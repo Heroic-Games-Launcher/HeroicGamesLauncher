@@ -25,6 +25,7 @@ const storage: Storage = window.localStorage
 
 interface Props {
   altLegendaryBin: string
+  altGogdlBin: string
   checkForUpdatesOnStartup: boolean
   darkTrayIcon: boolean
   defaultInstallPath: string
@@ -39,6 +40,7 @@ interface Props {
   setEgsPath: (value: string) => void
   setLanguage: (value: string) => void
   setAltLegendaryBin: (value: string) => void
+  setAltGogdlBin: (value: string) => void
   setMaxWorkers: (value: number) => void
   startInTray: boolean
   toggleDarkTrayIcon: () => void
@@ -56,6 +58,8 @@ export default function GeneralSettings({
   setEgsPath,
   altLegendaryBin,
   setAltLegendaryBin,
+  altGogdlBin,
+  setAltGogdlBin,
   egsLinkedPath,
   setEgsLinkedPath,
   showUnrealMarket,
@@ -75,12 +79,16 @@ export default function GeneralSettings({
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const [legendaryVersion, setLegendaryVersion] = useState('')
+  const [gogdlVersion, setGogdlVersion] = useState('')
   const { platform, refreshLibrary, isRTL } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
 
-  const settings = configStore.get('settings') as { altLeg: string }
+  const settings = configStore.get('settings') as {
+    altLeg: string
+    altGogdl: string
+  }
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -109,6 +117,26 @@ export default function GeneralSettings({
     }
     getMoreInfo()
   }, [maxWorkers, altLegendaryBin])
+
+  useEffect(() => {
+    const getGogdlVersion = async () => {
+      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
+      configStore.set('settings', {
+        ...settings,
+        altGogdl: altGogdlBin
+      })
+      if (gogdlVersion === 'invalid') {
+        setGogdlVersion('Invalid')
+        setTimeout(() => {
+          setAltGogdlBin('')
+          return setGogdlVersion('')
+        }, 3000)
+      }
+      return setGogdlVersion(gogdlVersion)
+    }
+
+    getGogdlVersion()
+  }, [altGogdlBin])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -170,6 +198,19 @@ export default function GeneralSettings({
         title: t(
           'box.choose-legendary-binary',
           'Select Legendary Binary (needs restart)'
+        )
+      })
+      .then(({ path }: Path) => setAltLegendaryBin(path ? `'${path}'` : ''))
+  }
+
+  function handleGogdlBinary() {
+    return ipcRenderer
+      .invoke('openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openFile'],
+        title: t(
+          'box.choose-gogdl-binary',
+          'Select GOGDL Binary (needs restart)'
         )
       })
       .then(({ path }: Path) => setAltLegendaryBin(path ? `'${path}'` : ''))
@@ -279,6 +320,54 @@ export default function GeneralSettings({
         <span className="smallMessage">
           {t('other.legendary-version', 'Legendary Version: ')}
           {legendaryVersion}
+        </span>
+      </span>
+      <span className="setting">
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t(
+            'setting.alt-gogdl-bin',
+            'Choose an Alternative GOGDL Binary to use (needs restart)'
+          )}
+        </span>
+        <span>
+          <input
+            data-testid="setting-alt-gogdl"
+            type="text"
+            placeholder={t(
+              'placeholder.alt-gogdl-bin',
+              'Using built-in GOGDL binary...'
+            )}
+            className="settingSelect"
+            value={altGogdlBin.replaceAll("'", '')}
+            onChange={(event) => setAltGogdlBin(event.target.value)}
+          />
+          {!altGogdlBin.length ? (
+            <SvgButton
+              onClick={() => handleGogdlBinary()}
+              className="material-icons settings folder"
+            >
+              <CreateNewFolder
+                data-testid="setGogdlBinaryButton"
+                style={{
+                  color: altGogdlBin.length ? 'transparent' : '#B0ABB6'
+                }}
+              />
+            </SvgButton>
+          ) : (
+            <SvgButton
+              className="material-icons settings folder"
+              onClick={() => setAltGogdlBin('')}
+            >
+              <Backspace
+                data-testid="setLegendaryBinaryBackspace"
+                style={{ color: '#B0ABB6' }}
+              />
+            </SvgButton>
+          )}
+        </span>
+        <span className="smallMessage">
+          {t('other.gogdl-version', 'GOGDL Version: ')}
+          {gogdlVersion}
         </span>
       </span>
       {!isWindows && (

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Store from 'electron-store'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGLoginData } from '../types'
 
 const configStore = new Store({
@@ -40,12 +40,10 @@ export class GOGUser {
   public static async getUserDetails() {
     logInfo('Getting data about the user', LogPrefix.Gog)
     if (!this.isLoggedIn()) {
+      logWarning('User is not logged in', LogPrefix.Gog)
       return
     }
-    if (this.isTokenExpired()) {
-      this.refreshToken()
-    }
-    const user: GOGLoginData = configStore.get('credentials') as GOGLoginData
+    const user = await this.getCredentials()
     const response = await axios
       .get(`https://embed.gog.com/userData.json`, {
         headers: {
@@ -66,8 +64,23 @@ export class GOGUser {
     configStore.set('userData', data)
     logInfo('Saved user data to config', LogPrefix.Gog)
   }
+  /**
+   * Loads user credentials from config
+   * if needed refreshes token and returns new credentials
+   * @returns user credentials
+   */
+  public static async getCredentials() {
+    if (this.isTokenExpired()) {
+      return await this.refreshToken()
+    }
 
-  public static async refreshToken() {
+    return configStore.get('credentials') as GOGLoginData
+  }
+
+  /**
+   * Refreshes token and returns new credentials
+   */
+  public static async refreshToken(): Promise<GOGLoginData | null> {
     const user: GOGLoginData = configStore.get('credentials') as GOGLoginData
     logInfo('Refreshing access_token', LogPrefix.Gog)
     if (user) {
@@ -89,8 +102,10 @@ export class GOGUser {
       data.loginTime = Date.now()
       configStore.set('credentials', data)
       logInfo('Token refreshed successfully', LogPrefix.Gog)
+      return data
     } else {
       logError('No credentials, auth required', LogPrefix.Gog)
+      return null
     }
   }
 
