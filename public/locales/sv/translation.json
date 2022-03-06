@@ -12,6 +12,7 @@
         },
         "choose": "OK",
         "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Ange Legendary version",
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary version: ",
         "weblate": "Bidra till översättning av Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Använd inbyggd Legendary version...",
         "egs-prefix": "Prefix för befintlig EGS installation"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg till spel i startmenyn automatiskt",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Ange alternativ Legendary version (omstart krävs)",
         "audiofix": "Ljudfix (Pulse Audio latens)",
         "autodxvk": "Installera/uppdatera DXVK i prefix automatiskt",

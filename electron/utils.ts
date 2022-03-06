@@ -10,6 +10,7 @@ import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
 import {
+  gogdlBin,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
@@ -98,6 +99,20 @@ export const getLegendaryVersion = async () => {
       .replaceAll('\n', '')
   } catch (error) {
     logError(`${error}`, LogPrefix.Legendary)
+    return 'invalid'
+  }
+}
+
+export const getGogdlVersion = async () => {
+  const { altGogdlBin } = await GlobalConfig.get().getSettings()
+  try {
+    if (altGogdlBin && !altGogdlBin.includes('gogdl')) {
+      return 'invalid'
+    }
+    const { stdout } = await execAsync(`"${gogdlBin}" --version`)
+    return stdout
+  } catch (error) {
+    logError(`${error}`, LogPrefix.Gog)
     return 'invalid'
   }
 }

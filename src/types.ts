@@ -5,6 +5,7 @@ interface About {
 }
 export interface AppSettings {
   altLegendaryBin: string
+  altGogdlBin: string
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean

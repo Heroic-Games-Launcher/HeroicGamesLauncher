@@ -12,6 +12,7 @@
         },
         "choose": "선택",
         "choose-egs-prefix": "Epic Games Store가 설치된 접두사를 선택합니다",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Legendary 바이너리 파일 선택",
         "customWine": "Wine 혹은 Proton 바이너리 선택",
         "default-install-path": "기본 설치 경로 선택",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary 버전: ",
         "weblate": "Heroric 번역을 도와주세요."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",
         "egs-prefix": "Epic Games Store가 설치된 위치의 접두사"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택 (다시 시작 필요)",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "접두사에서 DXVK 자동 설치/업데이트",
