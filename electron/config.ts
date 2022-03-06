@@ -183,14 +183,12 @@ abstract class GlobalConfig {
         .split('\n')[2]
         .split(':')[1]
         .trim()
-      if (existsSync(crossoverWineBin)) {
-        crossover.add({
-          bin: `'${crossoverWineBin}'`,
-          name: `CrossOver - ${crossoverVersion}`,
-          type: 'crossover',
-          ...this.getWineExecs(crossoverWineBin)
-        })
-      }
+      crossover.add({
+        bin: `'${crossoverWineBin}'`,
+        name: `CrossOver - ${crossoverVersion}`,
+        type: 'crossover',
+        ...this.getWineExecs(crossoverWineBin)
+      })
     }
 
     return crossover
