@@ -302,7 +302,7 @@ class LegendaryGame extends Game {
 
     const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
+    const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path '${path}' ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
