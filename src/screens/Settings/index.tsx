@@ -67,6 +67,7 @@ function Settings() {
   const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
+  const [altGogdlBin, setAltGogdlBin] = useState('')
   const [canRunOffline, setCanRunOffline] = useState(true)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
@@ -242,6 +243,7 @@ function Settings() {
       )
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
+      setAltGogdlBin(config.altGogdlBin || '')
       setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
       setUseSteamRuntime(config.useSteamRuntime || false)
@@ -271,6 +273,7 @@ function Settings() {
 
   const GlobalSettings = {
     altLegendaryBin,
+    altGogdlBin,
     addDesktopShortcuts,
     addStartMenuShortcuts,
     audioFix,
@@ -357,14 +360,15 @@ function Settings() {
   return (
     <>
       <div className="Settings">
-        <div className="settingsNavbar">
+        <nav role="list" className="settingsNavbar">
           {isDefault && (
-            <NavLink to={{ pathname: '/settings/default/general' }}>
+            <NavLink role="link" to={{ pathname: '/settings/default/general' }}>
               {t('settings.navbar.general')}
             </NavLink>
           )}
           {shouldRenderWineSettings && (
             <NavLink
+              role="link"
               to={{
                 pathname: `/settings/${appName}/wine`,
                 state: { runner: state?.runner }
@@ -375,6 +379,7 @@ function Settings() {
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink
+              role="link"
               data-testid="linkSync"
               to={{
                 pathname: `/settings/${appName}/sync`,
@@ -386,6 +391,7 @@ function Settings() {
           )}
           {
             <NavLink
+              role="link"
               to={{
                 pathname: `/settings/${appName}/other`,
                 state: { runner: state?.runner }
@@ -396,6 +402,7 @@ function Settings() {
           }
           {
             <NavLink
+              role="link"
               to={{
                 pathname: `/settings/${appName}/log`,
                 state: { runner: state?.runner }
@@ -404,10 +411,11 @@ function Settings() {
               {t('settings.navbar.log', 'Log')}
             </NavLink>
           }
-        </div>
-        <div className="settingsWrapper">
+        </nav>
+        <div role="list" className="settingsWrapper">
           {title && (
             <NavLink
+              role="link"
               to={returnPath}
               className="headerTitle"
               data-testid="headerTitle"
@@ -444,6 +452,8 @@ function Settings() {
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
               altLegendaryBin={altLegendaryBin}
               setAltLegendaryBin={setAltLegendaryBin}
+              altGogdlBin={altGogdlBin}
+              setAltGogdlBin={setAltGogdlBin}
               toggleUnrealMarket={toggleUnrealMarket}
               showUnrealMarket={showUnrealMarket}
             />

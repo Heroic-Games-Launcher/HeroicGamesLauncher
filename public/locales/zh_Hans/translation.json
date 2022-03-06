@@ -12,6 +12,7 @@
         },
         "choose": "请选择",
         "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "选择 Legendary 二进制文件",
         "customWine": "选择Wine或Proton二进制文件",
         "default-install-path": "选择默认安装路径",
@@ -34,8 +35,8 @@
             },
             "launch": "启动游戏时出现错误，请检查日志！",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "启动失败！游戏需要网络连接才能运行。",
+                "title": "不支持离线模式。"
             },
             "title": "错误",
             "wine-not-found": {
@@ -88,7 +89,7 @@
         "yes": "是"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "继续",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -96,7 +97,7 @@
     },
     "Downloading": "正在下载",
     "epic": {
-        "offline-notification-body": "Heroic 也许不会正常工作！",
+        "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic 游戏",
@@ -106,9 +107,9 @@
     "Filter": "筛选",
     "globalSettings": "全局设置",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG 商店",
     "help": {
-        "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，想要导入你的游戏，以免再次下载它们。",
+        "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "other": {
             "part1": "使用 ",
             "part2": "高级选项",
@@ -144,7 +145,7 @@
         "website": "正在加载网站"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "外部登录"
     },
     "message": {
         "sync": "同步完成",
@@ -162,7 +163,7 @@
         },
         "install": {
             "canceled": "已取消安装",
-            "error": "",
+            "error": "安装失败",
             "finished": "安装完成",
             "imported": "游戏已导入",
             "startInstall": "安装已开始"
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary版本: ",
         "weblate": "请帮助翻译Heroic启动器。"
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "使用内置的Legendary二进制文件...",
         "egs-prefix": "Epic Games商城安装位置"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件 (需要重启)",
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在PREFIX自动安装并更新DXVK",
@@ -255,7 +259,7 @@
         "showfps": "显示帧数（Directx 9，10和11）",
         "showUnrealMarket": "显示 Unreal 市场 (需重启)",
         "start-in-tray": "启动时最小化",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "使用 Steam Runtime",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "Wine 版本"
@@ -279,8 +283,8 @@
     "status": {
         "logging": "正在登录..."
     },
-    "store": "商店",
-    "stores": "Stores",
+    "store": "Epic 商店",
+    "stores": "商店",
     "title": {
         "allGames": "所有游戏",
         "allUnreal": "Unreal - 所有",
@@ -315,7 +319,7 @@
         "discord": "Discord",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "管理帐户",
         "quit": "退出"
     },
     "wiki": "Wiki百科",

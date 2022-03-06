@@ -12,6 +12,7 @@
         },
         "choose": "Auswählen",
         "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Legendary Binärdatei auswählen",
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
@@ -34,8 +35,8 @@
             },
             "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
+                "title": "Offline-Modus wird nicht unterstützt."
             },
             "title": "Error",
             "wine-not-found": {
@@ -88,7 +89,7 @@
         "yes": "JA"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Fortsetzen",
         "login": "Anmelden",
         "sync": "Synchronisieren",
         "syncing": "Synchronisiere",
@@ -96,7 +97,7 @@
     },
     "Downloading": "Am Herunterladen",
     "epic": {
-        "offline-notification-body": "Heroic wird wahrscheinlich nicht funktionieren!",
+        "offline-notification-body": "Online-Dienste funktionieren möglicherweise nicht vollständig, da die Server von Epic Games offline sind!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -108,7 +109,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "help": {
-        "general": "Synchronisiere mit EGL für den Fall, dass Sie anderswo eine funktioniere Installation des Epic Games Launcher haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
+        "general": "Synchronisiere mit EGL, falls Sie anderswo eine funktioniere Installation des Epic Games Launcher haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
         "other": {
             "part1": "Benutzen Sie die ",
             "part2": "Erweiterten Optionen",
@@ -144,7 +145,7 @@
         "website": "Lade Webseite"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Externe Anmeldung"
     },
     "message": {
         "sync": "Synchronisation abgeschlossen",
@@ -162,7 +163,7 @@
         },
         "install": {
             "canceled": "Installation abgebrochen",
-            "error": "",
+            "error": "Installation fehlgeschlagen",
             "finished": "Installation abgeschlossen",
             "imported": "Spiel importiert",
             "startInstall": "Installation gestartet"
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Benutze eingebaute Legendary Binärdatei...",
         "egs-prefix": "Prefix, in dem EGS installiert ist"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen (Neustart erforderlich)",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
@@ -255,7 +259,7 @@
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "showUnrealMarket": "Unreal Marketplace anzeigen (benötigt Neustart)",
         "start-in-tray": "Minimiert starten",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Steam Runtime verwenden",
         "winecrossoverbottle": "CrossOver Flasche",
         "wineprefix": "Wine Prefix Ordner",
         "wineversion": "Wine-Version"
@@ -315,7 +319,7 @@
         "discord": "Discord",
         "logout": "Abmelden",
         "logout_confirmation": "Möchten Sie sich wirklich abmelden?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "Konten verwalten",
         "quit": "Beenden"
     },
     "wiki": "Wiki",

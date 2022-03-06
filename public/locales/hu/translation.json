@@ -12,6 +12,7 @@
         },
         "choose": "Kiválasztás",
         "choose-egs-prefix": "Válaszd ki a prefixet ahol az EGS telepítve van",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Legendary bináris kiválasztása",
         "customWine": "Válaszd ki a Wine vagy Proton binárist",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
@@ -84,11 +85,11 @@
             },
             "title": "Figyelmeztetés"
         },
-        "wineprefix": "Wine Prefix mappa kiválasztása",
+        "wineprefix": "Wine prefix mappa kiválasztása",
         "yes": "IGEN"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Folytatás",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
@@ -96,7 +97,7 @@
     },
     "Downloading": "Letöltés",
     "epic": {
-        "offline-notification-body": "A Heroic nem fog megfelelően működni!",
+        "offline-notification-body": "Az online szolgáltatások lehet, hogy nem fognak teljesen működni, mert az Epic szerverek offline vannak!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -120,7 +121,7 @@
         },
         "sync": {
             "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát, és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd.",
-            "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj visszaahoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
+            "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj vissza ahhoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
             "part3": "Manuális szinkronizálás: válaszd a letöltést, hogy letöltsd a játékmentéseket, amiket a felhőben tárolsz. Válaszd a feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített letöltés és kényszerített feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
             "part4": "A mentések automatikus szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor elindítod a játékot és miután befejezted a játszást."
         },
@@ -162,7 +163,7 @@
         },
         "install": {
             "canceled": "Telepítés visszavonva",
-            "error": "",
+            "error": "A telepítés meghiúsult",
             "finished": "Telepítés befejezve",
             "imported": "Játék importálva",
             "startInstall": "Telepítés elindult"
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary verzió: ",
         "weblate": "Segíts lefordítani a Heroic-ot."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Beépített Legendary bináris használata...",
         "egs-prefix": "Prefix ahol az EGS telepítve van"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Válassz egy alternatív Legendary binárist (újraindítás szükséges)",
         "audiofix": "Hangzásjavítás (Pulse Audio késleltetés)",
         "autodxvk": "A DXVK automatikus telepítése/frissítése a prefixen",

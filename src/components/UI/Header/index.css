@@ -105,6 +105,7 @@ option {
 }
 
 .totalGamesText {
+  cursor: default;
   right: 55px;
   top: 108px;
   grid-area: total;

@@ -11,6 +11,7 @@ export interface AppSettings {
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   altLegendaryBin: string
+  altGogdlBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
@@ -229,6 +230,7 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
+  type: 'wine' | 'proton' | 'crossover'
   wineboot?: string
   wineserver?: string
 }

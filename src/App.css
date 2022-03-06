@@ -56,6 +56,10 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+}
+
 .button.is-small {
   min-width: 130px;
 }
@@ -79,7 +83,7 @@ html,
 }
 
 .button.is-secondary {
-  background: var(--download-button);
+  background: var(--accent);
 }
 
 .button.is-tertiary {
@@ -99,7 +103,7 @@ html,
 
 .button.is-secondary:hover {
   background: var(--download-button-overlay);
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 .button.is-empty {
@@ -225,7 +229,20 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.settingSelect:disabled {
+  cursor: not-allowed;
+}
+
+.settingSelect ~ span {
+  margin-block: auto;
+}
+
+.settingSelect.is-drop-down {
+  cursor: pointer;
+}
+
 .settingText {
+  cursor: default;
   margin-bottom: 14px;
   font: var(--font-secondary-regular);
   font-size: 16px;

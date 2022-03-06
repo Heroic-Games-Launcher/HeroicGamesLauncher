@@ -25,6 +25,7 @@ const storage: Storage = window.localStorage
 
 interface Props {
   altLegendaryBin: string
+  altGogdlBin: string
   checkForUpdatesOnStartup: boolean
   darkTrayIcon: boolean
   defaultInstallPath: string
@@ -39,6 +40,7 @@ interface Props {
   setEgsPath: (value: string) => void
   setLanguage: (value: string) => void
   setAltLegendaryBin: (value: string) => void
+  setAltGogdlBin: (value: string) => void
   setMaxWorkers: (value: number) => void
   startInTray: boolean
   toggleDarkTrayIcon: () => void
@@ -56,6 +58,8 @@ export default function GeneralSettings({
   setEgsPath,
   altLegendaryBin,
   setAltLegendaryBin,
+  altGogdlBin,
+  setAltGogdlBin,
   egsLinkedPath,
   setEgsLinkedPath,
   showUnrealMarket,
@@ -75,12 +79,16 @@ export default function GeneralSettings({
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const [legendaryVersion, setLegendaryVersion] = useState('')
+  const [gogdlVersion, setGogdlVersion] = useState('')
   const { platform, refreshLibrary, isRTL } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
 
-  const settings = configStore.get('settings') as { altLeg: string }
+  const settings = configStore.get('settings') as {
+    altLeg: string
+    altGogdl: string
+  }
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -109,6 +117,26 @@ export default function GeneralSettings({
     }
     getMoreInfo()
   }, [maxWorkers, altLegendaryBin])
+
+  useEffect(() => {
+    const getGogdlVersion = async () => {
+      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
+      configStore.set('settings', {
+        ...settings,
+        altGogdl: altGogdlBin
+      })
+      if (gogdlVersion === 'invalid') {
+        setGogdlVersion('Invalid')
+        setTimeout(() => {
+          setAltGogdlBin('')
+          return setGogdlVersion('')
+        }, 3000)
+      }
+      return setGogdlVersion(gogdlVersion)
+    }
+
+    getGogdlVersion()
+  }, [altGogdlBin])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -173,6 +201,19 @@ export default function GeneralSettings({
         )
       })
       .then(({ path }: Path) => setAltLegendaryBin(path ? `'${path}'` : ''))
+  }
+
+  function handleGogdlBinary() {
+    return ipcRenderer
+      .invoke('openDialog', {
+        buttonLabel: t('box.choose'),
+        properties: ['openFile'],
+        title: t(
+          'box.choose-gogdl-binary',
+          'Select GOGDL Binary (needs restart)'
+        )
+      })
+      .then(({ path }: Path) => setAltLegendaryBin(path ? `${path}` : ''))
   }
 
   async function handleChangeLanguage(language: string) {
@@ -281,6 +322,54 @@ export default function GeneralSettings({
           {legendaryVersion}
         </span>
       </span>
+      <span className="setting">
+        <span className={classNames('settingText', { isRTL: isRTL })}>
+          {t(
+            'setting.alt-gogdl-bin',
+            'Choose an Alternative GOGDL Binary to use (needs restart)'
+          )}
+        </span>
+        <span>
+          <input
+            data-testid="setting-alt-gogdl"
+            type="text"
+            placeholder={t(
+              'placeholder.alt-gogdl-bin',
+              'Using built-in GOGDL binary...'
+            )}
+            className="settingSelect"
+            value={altGogdlBin.replaceAll("'", '')}
+            onChange={(event) => setAltGogdlBin(event.target.value)}
+          />
+          {!altGogdlBin.length ? (
+            <SvgButton
+              onClick={() => handleGogdlBinary()}
+              className="material-icons settings folder"
+            >
+              <CreateNewFolder
+                data-testid="setGogdlBinaryButton"
+                style={{
+                  color: altGogdlBin.length ? 'transparent' : '#B0ABB6'
+                }}
+              />
+            </SvgButton>
+          ) : (
+            <SvgButton
+              className="material-icons settings folder"
+              onClick={() => setAltGogdlBin('')}
+            >
+              <Backspace
+                data-testid="setLegendaryBinaryBackspace"
+                style={{ color: '#B0ABB6' }}
+              />
+            </SvgButton>
+          )}
+        </span>
+        <span className="smallMessage">
+          {t('other.gogdl-version', 'GOGDL Version: ')}
+          {gogdlVersion}
+        </span>
+      </span>
       {!isWindows && (
         <span className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
@@ -338,12 +427,15 @@ export default function GeneralSettings({
               }`}
             </button>
           </span>
+          {!isWindows && (
+            <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
+          )}
         </span>
       )}
-      {!isWindows && <InfoBox text="infobox.help">{t('help.general')}</InfoBox>}
+
       {isWindows && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               dataTestId="syncToggle"
               value={isLinked}
@@ -351,11 +443,11 @@ export default function GeneralSettings({
               title={t('setting.egs-sync')}
             />
             <span>{t('setting.egs-sync')}</span>
-          </span>
+          </label>
         </span>
       )}
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             dataTestId="exitToTray"
             value={exitToTray}
@@ -363,11 +455,11 @@ export default function GeneralSettings({
             title={t('setting.exit-to-tray')}
           />
           <span>{t('setting.exit-to-tray')}</span>
-        </span>
+        </label>
       </span>
       {exitToTray && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               dataTestId="startInTray"
               value={startInTray}
@@ -375,11 +467,11 @@ export default function GeneralSettings({
               title={t('setting.start-in-tray', 'Start Minimized')}
             />
             <span>{t('setting.start-in-tray', 'Start Minimized')}</span>
-          </span>
+          </label>
         </span>
       )}
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={showUnrealMarket}
             handleChange={() => toggleUnrealMarket()}
@@ -394,10 +486,10 @@ export default function GeneralSettings({
               'Show Unreal Marketplace (needs restart)'
             )}
           </span>
-        </span>
+        </label>
       </span>
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={darkTrayIcon}
             handleChange={() => {
@@ -407,10 +499,10 @@ export default function GeneralSettings({
             title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           />
           <span>{t('setting.darktray', 'Use Dark Tray Icon')}</span>
-        </span>
+        </label>
       </span>
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
             value={checkForUpdatesOnStartup}
             handleChange={toggleCheckUpdatesOnStartup}
@@ -425,15 +517,15 @@ export default function GeneralSettings({
               'Check For Updates On Startup'
             )}
           </span>
-        </span>
+        </label>
       </span>
       <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <select
             data-testid="setMaxWorkers"
             onChange={(event) => setMaxWorkers(Number(event.target.value))}
             value={maxWorkers}
-            className="settingSelect smaller"
+            className="settingSelect smaller is-drop-down"
           >
             {Array.from(Array(maxCpus).keys()).map((n) => (
               <option key={n + 1}>{n + 1}</option>
@@ -443,7 +535,7 @@ export default function GeneralSettings({
             </option>
           </select>
           <span>{t('setting.maxworkers')}</span>
-        </span>
+        </label>
       </span>
     </>
   )

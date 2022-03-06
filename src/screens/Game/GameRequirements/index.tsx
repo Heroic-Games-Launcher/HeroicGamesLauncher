@@ -21,7 +21,6 @@ function GameRequirements({ gameInfo }: Props) {
     >
       {haveSystemRequirements && is_game && (
         <>
-          <div className="title">System Requirements</div>
           <table>
             <tbody>
               <tr>

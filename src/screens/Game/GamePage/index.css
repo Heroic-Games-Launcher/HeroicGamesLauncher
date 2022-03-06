@@ -17,7 +17,7 @@
   font-weight: 500;
   font-size: 25px;
   line-height: 30px;
-  color: var(--accent);
+  color: var(--text-default);
   text-align: left;
 }
 
@@ -28,12 +28,17 @@
 }
 
 .gameInfo {
+  cursor: default;
   text-align: initial;
   font-size: 1rem;
   color: var(--text-default);
   display: flex;
   flex-direction: column;
   max-width: 650px;
+}
+
+.gameInfo .title {
+  color: var(--accent);
 }
 
 .gameInfo > .settingSelect {

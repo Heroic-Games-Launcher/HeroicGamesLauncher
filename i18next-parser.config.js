@@ -81,6 +81,7 @@ module.exports = {
     'sv',
     'ta',
     'tr',
+    'uk',
     'zh_Hans',
     'zh_Hant'
   ],

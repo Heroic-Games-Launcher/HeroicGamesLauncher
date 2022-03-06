@@ -12,6 +12,7 @@
         },
         "choose": "தேர்வு செய்",
         "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Wine அல்லது Proton இருமத்தை தேர்வு செய்",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
         "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",

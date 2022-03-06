@@ -23,13 +23,13 @@
             "title": "Спиране на инсталацията"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Искате ли да премахнете и префикса? Това действие е необратимо.",
             "checkbox_prefix": "Prefix",
             "message": "Искате ли да деинсталирате тази игра?",
             "title": "Деинсталиране"
         },
         "update": {
-            "message": "Има ново обновление за играта. Искате ли да я обновите?",
+            "message": "Има ново обновление за играта. Искате ли да го приложите сега?",
             "title": "Играта се нуждае от обновяване"
         },
         "wineprefix": "Изберете папка за префикс на Wine",
@@ -53,7 +53,7 @@
         "downloadSize": "Размер за сваляне",
         "firstPlayed": "Пусната за пръв път",
         "installSize": "Размер на инсталацията",
-        "language": "Language",
+        "language": "Език",
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
         "totalPlayed": "Изиграно време"
@@ -71,7 +71,7 @@
     },
     "install": {
         "path": "Изберете местоположение за инсталиране",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Префикс на Wine"
     },
     "label": {
         "playing": {
