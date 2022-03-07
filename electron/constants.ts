@@ -60,14 +60,12 @@ const configFolder = isFlatpak
   : app.getPath('appData')
 const legendaryConfigPath = `${configFolder}/legendary`
 const heroicFolder = `${configFolder}/heroic`
-
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
 const heroicConfigPath = `${heroicFolder}/config.json`
 const heroicGamesConfigPath = `${heroicFolder}/GamesConfig/`
 const heroicToolsPath = `${heroicFolder}/tools`
 const heroicIconFolder = `${heroicFolder}/icons`
-
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows
   ? `${home}\\Games\\heroic`

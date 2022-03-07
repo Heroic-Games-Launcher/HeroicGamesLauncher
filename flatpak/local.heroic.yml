@@ -1,4 +1,4 @@
-id: org.hgl.heroic
+id: com.heroicgameslauncher
 sdk: org.freedesktop.Sdk
 runtime: org.freedesktop.Platform
 runtime-version: '21.08'
