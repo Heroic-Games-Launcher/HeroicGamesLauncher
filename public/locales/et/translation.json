@@ -12,7 +12,7 @@
         },
         "choose": "Valige",
         "choose-egs-prefix": "Valige prefiks, kuhu EGS on paigaldatud",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Vali GOGDL binaarfail (vajab taaskäivitust)",
         "choose-legendary-binary": "Valige Legendary binaarfail",
         "customWine": "Valige Wine või Proton-i binaar",
         "default-install-path": "Valige Vaikimisi paigalduskoht",
@@ -35,8 +35,8 @@
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
+                "title": "Võrguühenduseta režiim ei ole toetatud."
             },
             "title": "Viga",
             "wine-not-found": {
@@ -89,7 +89,7 @@
         "yes": "JAH"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Jätka",
         "login": "Logi sisse",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
@@ -97,7 +97,7 @@
     },
     "Downloading": "Allalaadimine",
     "epic": {
-        "offline-notification-body": "Heroic ilmselt ei tööta!",
+        "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -107,7 +107,7 @@
     "Filter": "Filtreeri",
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG Pood",
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
         "other": {
@@ -145,7 +145,7 @@
         "website": "Veebilehe laadimine"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Väline sisselogimine"
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -163,7 +163,7 @@
         },
         "install": {
             "canceled": "Paigaldamine tühistatud",
-            "error": "",
+            "error": "Paigaldamine ebaõnnestus",
             "finished": "Paigaldamine lõpetatud",
             "imported": "Mäng imporditud",
             "startInstall": "Paigaldamine algas"
@@ -187,12 +187,12 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "GOGDL versioon: ",
         "legendary-version": "Legendary versioon: ",
         "weblate": "Aidake tõlkida Heroic'ut."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "Kasutatakse sisse-ehitatud GOGDL binaarfaili...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud"
     },
@@ -205,7 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-gogdl-bin": "Valige alternatiivne GOGDL-i binaarfail, mida kasutada (vajab taaskäivitada)",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada (vajab restarti)",
         "audiofix": "Heliparandus (Pulse Audio Latency)",
         "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
@@ -259,7 +259,7 @@
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
         "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritud",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Kasutage Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
         "wineversion": "Wine'i versioon"
@@ -283,8 +283,8 @@
     "status": {
         "logging": "Sisselogimine..."
     },
-    "store": "Pood",
-    "stores": "Stores",
+    "store": "Epic Pood",
+    "stores": "Poed",
     "title": {
         "allGames": "Kõik mängud",
         "allUnreal": "Unreal - Kõik",
@@ -319,7 +319,7 @@
         "discord": "Discord",
         "logout": "Logi välja",
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "Kontode haldamine",
         "quit": "Sulge"
     },
     "wiki": "Viki",
