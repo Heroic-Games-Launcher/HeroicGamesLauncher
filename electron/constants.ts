@@ -10,6 +10,7 @@ import {
 } from './logger/logger'
 import { env } from 'process'
 import { app } from 'electron'
+import { existsSync } from 'graceful-fs'
 
 const configStore = new Store({
   cwd: 'store'
@@ -77,6 +78,7 @@ const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
 const installed = `${legendaryConfigPath}/installed.json`
 const libraryPath = `${legendaryConfigPath}/metadata/`
+const steamCompatFolder: string = getSteamCompatFolder()
 const fallBackImage = 'fallback'
 const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
@@ -126,6 +128,13 @@ function fixAsarPath(origin: string): string {
   return origin
 }
 
+function getSteamCompatFolder() {
+  if (existsSync(`${home}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
+    return `${home}/.var/app/com.valvesoftware.Steam/.steam/steam`
+  }
+  return `${home}/.steam/steam`
+}
+
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
 
 const execOptions = {
@@ -171,5 +180,6 @@ export {
   fallBackImage,
   userInfo,
   weblateUrl,
-  wikiLink
+  wikiLink,
+  steamCompatFolder
 }
