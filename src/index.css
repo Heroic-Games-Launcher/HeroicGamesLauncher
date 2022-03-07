@@ -14,7 +14,7 @@ html {
     rgba(0, 0, 0, 0.418) 2.4%,
     #0d0f1cd2 64%
   );
-  --background-light: #17237c;
+  --background-light: #1a264b;
   --background-color: #13172a;
   /* --- ENDNOTE --- */
   --tooltip-background-color: #0d0e0e;
@@ -73,6 +73,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background-color);
+  user-select: none;
 }
 
 a {

@@ -8,6 +8,7 @@
   overflow: hidden;
   position: relative;
   border-radius: 0.5rem;
+  transition-duration: 0.5s;
 }
 
 .gameCard:focus-within {
@@ -95,6 +96,7 @@
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
+  backdrop-filter: blur(4px);
 }
 
 .gameCard > .icons {
@@ -219,6 +221,12 @@
 .gameImg:not(.installed),
 .gameLogo:not(.installed) {
   filter: grayscale(var(--installing-effect));
+}
+
+.gameImg:hover:not(.installed),
+.gameLogo:hover:not(.installed) {
+  filter: grayscale(0);
+  transition-duration: 0.2s;
 }
 
 .icons {
