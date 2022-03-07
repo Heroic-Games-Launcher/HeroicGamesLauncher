@@ -33,6 +33,7 @@ import { errorHandler, execAsync } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
+import setup from './setup'
 
 const configStore = new Store({
   cwd: 'gog_store'
@@ -91,7 +92,7 @@ class GOGGame extends Game {
     throw new Error('Method not implemented.')
   }
   public async import(path: string): Promise<ExecResult> {
-    const command = `"${gogdlBin}" import "${path}"`
+    const command = `${isWindows ? '&' : ''} "${gogdlBin}" import "${path}"`
 
     logInfo(
       [`Importing ${this.appName} from ${path} with:`, command],
@@ -127,10 +128,14 @@ class GOGGame extends Game {
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
     // In the future we need to add Language select option
-    const command = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" --token="${credentials.access_token}" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
+    const command = `${isWindows ? '&' : ''} "${gogdlBin}" download ${
+      this.appName
+    } --platform ${installPlatform} --path="${path}" --token="${
+      credentials.access_token
+    }" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
 
     // Doesnt contain confidential token
-    const saveCommand = `${gogdlBin} download ${this.appName} --platform ${installPlatform} --path="${path}" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
+    const saveCommand = `"${gogdlBin}" download ${this.appName} --platform ${installPlatform} --path="${path}" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
     logInfo([`Installing ${this.appName} with:`, saveCommand], LogPrefix.Gog)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
@@ -169,6 +174,9 @@ class GOGGame extends Game {
         array.push(installedData)
         installedGamesStore.set('installed', array)
         GOGLibrary.get().refreshInstalled()
+        if (isWindows) {
+          await setup(this.appName)
+        }
         return { status: 'done' }
       })
       .catch(() => {
@@ -219,7 +227,7 @@ class GOGGame extends Game {
       workers
     } = await this.getCommandParameters()
     // In the future we need to add Language select option
-    const command = `${gogdlBin} repair ${
+    const command = `${isWindows ? '&' : ''} "${gogdlBin}" repair ${
       this.appName
     } --platform ${installPlatform} --path="${
       gameData.install.install_path
@@ -227,7 +235,7 @@ class GOGGame extends Game {
       gameData.install.language || 'en-US'
     }" -b=${gameData.install.buildId} ${workers} ${writeLog}`
     // Doesnt contain confidential token
-    const saveCommand = `${gogdlBin} repair ${
+    const saveCommand = `"${gogdlBin}" repair ${
       this.appName
     } --platform ${installPlatform} --path="${
       gameData.install.install_path
@@ -313,7 +321,7 @@ class GOGGame extends Game {
       writeLog,
       workers
     } = await this.getCommandParameters()
-    const command = `${gogdlBin} update ${
+    const command = `${isWindows ? '&' : ''} "${gogdlBin}" update ${
       this.appName
     } --platform ${installPlatform} --path="${
       gameData.install.install_path
@@ -321,7 +329,7 @@ class GOGGame extends Game {
       gameData.install.language || 'en-US'
     }" ${workers} ${writeLog}`
     // Doesnt contain confidential token
-    const saveCommand = `${gogdlBin} update ${
+    const saveCommand = `"${gogdlBin}" update ${
       this.appName
     } --platform ${installPlatform} --path="${
       gameData.install.install_path

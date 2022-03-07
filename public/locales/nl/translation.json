@@ -12,6 +12,7 @@
         },
         "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Selecteer Legendary Binary",
         "customWine": "Selecteer de Wine of Proton Binary",
         "default-install-path": "Selecteer een standaard map",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Versie: ",
         "weblate": "Help met het vertalen van Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Gebruik built-in Legendary binary...",
         "egs-prefix": "Prefix waar EGS is geïnstalleerd"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Kies een andere Legendary Binary om te gebruiken",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",

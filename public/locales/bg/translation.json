@@ -12,6 +12,7 @@
         },
         "choose": "Избиране",
         "choose-egs-prefix": "Изберете префикс, в който е инсталиран EGS",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Изберете изпълнимия файл на Legendary",
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Версия на Legendary: ",
         "weblate": "Помогнете за превода на Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
         "egs-prefix": "Префикс, където е инсталиран EGS"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Избиране на алтернативен изпълним файл на Legendary (изисква рестартиране)",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
         "autodxvk": "Автоматично инсталиране/обновяване на DXVK в префикса",
