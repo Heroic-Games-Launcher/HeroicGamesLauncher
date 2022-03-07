@@ -56,9 +56,7 @@ const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const home = isFlatpak ? flatPakHome : homedir()
-const configFolder = isFlatpak
-  ? `${flatPakHome}/config`
-  : app.getPath('appData')
+const configFolder = app.getPath('appData')
 const legendaryConfigPath = `${configFolder}/legendary`
 const heroicFolder = `${configFolder}/heroic`
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
@@ -69,8 +67,8 @@ const heroicToolsPath = `${heroicFolder}/tools`
 const heroicIconFolder = `${heroicFolder}/icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows
-  ? `${home}\\Games\\heroic`
-  : `${home}/Games/heroic`
+  ? `${home}\\Games\\Heroic`
+  : `${home}/Games/Heroic`
 const legendaryBin = getLegendaryBin()
 const gogdlBin = getGOGdlBin()
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
