@@ -325,7 +325,7 @@ export class GOGLibrary {
     let verticalCover: string
     let horizontalCover: string
     let description: string
-    if (gamesdbData.game) {
+    if (gamesdbData?.game) {
       const developers: Array<string> = []
       for (const developer of gamesdbData.game.developers) {
         developers.push(developer.name)
@@ -506,10 +506,8 @@ export class GOGLibrary {
 
     const response = await axios
       .get(url, { headers: etag ? headers : {} })
-      .catch((err) => {
-        if (err.response.status == 404) {
-          return null
-        }
+      .catch(() => {
+        return null
       })
     if (!response) {
       return { isUpdated: false, data: {} }
