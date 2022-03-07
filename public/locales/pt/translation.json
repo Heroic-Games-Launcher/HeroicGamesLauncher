@@ -90,7 +90,7 @@
     },
     "button": {
         "continue": "Continue",
-        "login": "Login",
+        "login": "Entrar",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
