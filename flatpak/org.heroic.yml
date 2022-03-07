@@ -22,7 +22,7 @@ finish-args:
   - --device=all
   - --talk-name=org.freedesktop.Notifications
   - --persist=.wine
-  - --filesystem=host
+  - --filesystem=home
   - --filesystem=xdg-data/Steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
   - --require-version=1.1.2
@@ -73,6 +73,33 @@ modules:
       - type: archive
         url: https://github.com/KhronosGroup/Vulkan-Tools/archive/refs/tags/v1.2.186.tar.gz
         sha256: 8ba0e21e8de0b70d31985d251d11150efee71266875262798784e9d1ec9b717b
+
+  - name: gamemode
+    buildsystem: meson
+    config-opts: &gamemode_opts
+      - -Dwith-systemd=false
+      - -Dwith-daemon=false
+      - -Dwith-examples=false
+      - -Dwith-util=false
+      - -Dwith-sd-bus-provider=no-daemon
+    sources: &gamemode_sources
+      - type: archive
+        url: https://github.com/FeralInteractive/gamemode/releases/download/1.6.1/gamemode-1.6.1.tar.xz
+        sha256: 10c2a3f142eae472f5a09e42616e38c666c05b25ca3e61e562a543bb3fda66c5
+
+  - name: gamemode-32bit
+    build-options:
+      arch:
+        x86_64: &compat_i386_opts
+    buildsystem: meson
+    config-opts: *gamemode_opts
+    sources: *gamemode_sources
+
+  - name: gamemoderun
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 data/gamemoderun -t /app/bin
+    sources: *gamemode_sources
 
   # --- Heroic ---
   - name: heroic

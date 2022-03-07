@@ -8,7 +8,7 @@ import {
   logInfo,
   LogPrefix
 } from './logger/logger'
-import { env, execPath } from 'process'
+import { env } from 'process'
 import { app } from 'electron'
 
 const configStore = new Store({
@@ -50,7 +50,7 @@ function getGOGdlBin() {
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() == 'linux'
-const isFlatpak = execPath === '/app/bin/heroic/heroic'
+const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
@@ -67,6 +67,7 @@ const heroicConfigPath = `${heroicFolder}/config.json`
 const heroicGamesConfigPath = `${heroicFolder}/GamesConfig/`
 const heroicToolsPath = `${heroicFolder}/tools`
 const heroicIconFolder = `${heroicFolder}/icons`
+
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows
   ? `${home}\\Games\\heroic`
@@ -156,6 +157,7 @@ export {
   iconDark,
   iconLight,
   installed,
+  isFlatpak,
   isMac,
   isWindows,
   isLinux,
