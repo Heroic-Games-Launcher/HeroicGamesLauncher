@@ -8,7 +8,9 @@ import {
   logInfo,
   LogPrefix
 } from './logger/logger'
-import { env, execPath } from 'process'
+import { env } from 'process'
+import { app } from 'electron'
+import { existsSync } from 'graceful-fs'
 
 const configStore = new Store({
   cwd: 'store'
@@ -51,23 +53,20 @@ function getGOGdlBin() {
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() == 'linux'
-const isFlatpak = execPath === '/app/main/heroic'
+const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const home = isFlatpak ? flatPakHome : homedir()
-const legendaryConfigPath = isFlatpak
-  ? `${home}/config/legendary`
-  : `${home}/.config/legendary`
-const heroicFolder = isFlatpak
-  ? `${home}/config/heroic/`
-  : `${home}/.config/heroic/`
+const configFolder = app.getPath('appData')
+const legendaryConfigPath = `${configFolder}/legendary`
+const heroicFolder = `${configFolder}/heroic`
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
-const heroicConfigPath = `${heroicFolder}config.json`
-const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
-const heroicToolsPath = `${heroicFolder}tools`
-const heroicIconFolder = `${heroicFolder}icons`
+const heroicConfigPath = `${heroicFolder}/config.json`
+const heroicGamesConfigPath = `${heroicFolder}/GamesConfig/`
+const heroicToolsPath = `${heroicFolder}/tools`
+const heroicIconFolder = `${heroicFolder}/icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows
   ? `${home}\\Games\\Heroic`
@@ -79,6 +78,7 @@ const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
 const installed = `${legendaryConfigPath}/installed.json`
 const libraryPath = `${legendaryConfigPath}/metadata/`
+const steamCompatFolder: string = getSteamCompatFolder()
 const fallBackImage = 'fallback'
 const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
@@ -128,6 +128,13 @@ function fixAsarPath(origin: string): string {
   return origin
 }
 
+function getSteamCompatFolder() {
+  if (existsSync(`${home}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
+    return `${home}/.var/app/com.valvesoftware.Steam/.steam/steam`
+  }
+  return `${home}/.steam/steam`
+}
+
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
 
 const execOptions = {
@@ -157,6 +164,7 @@ export {
   iconDark,
   iconLight,
   installed,
+  isFlatpak,
   isMac,
   isWindows,
   isLinux,
@@ -172,5 +180,6 @@ export {
   fallBackImage,
   userInfo,
   weblateUrl,
-  wikiLink
+  wikiLink,
+  steamCompatFolder
 }

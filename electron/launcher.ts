@@ -11,7 +11,8 @@ import {
   home,
   execOptions,
   legendaryBin,
-  gogdlBin
+  gogdlBin,
+  steamCompatFolder
 } from './constants'
 import { execAsync, isEpicServiceOffline, isOnline } from './utils'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -254,7 +255,7 @@ async function launch(
       ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
       : '',
     proton: isProton
-      ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
+      ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamCompatFolder} STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')
           .replace('~', home)}'`
       : ''

@@ -75,8 +75,7 @@ export default function WineSettings({
   const [selectedPath, setSelectedPath] = useState('')
   const { platform, isRTL } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const isProton =
-    wineVersion.type === 'proton'
+  const isProton = wineVersion.type === 'proton'
 
   useEffect(() => {
     const getAltWine = async () => {
