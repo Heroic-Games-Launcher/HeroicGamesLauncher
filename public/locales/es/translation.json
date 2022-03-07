@@ -12,7 +12,7 @@
         },
         "choose": "Escoger",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere un reinicio)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
         "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
@@ -35,8 +35,8 @@
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "¡Lanzamiento abortado! El juego requiere una conexión a Internet para ejecutarlo.",
+                "title": "El modo sin conexión no está soportado."
             },
             "title": "Error",
             "wine-not-found": {
@@ -44,7 +44,7 @@
                 "title": "No se ha encontrado Wine"
             }
         },
-        "no": "No",
+        "no": "NO",
         "ok": "Vale",
         "protocol": {
             "install": {
@@ -89,7 +89,7 @@
         "yes": "SÍ"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Continuar",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -102,12 +102,12 @@
     },
     "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Sin filtrar"
     },
     "Filter": "Filtrar",
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Tienda de GOG",
     "help": {
         "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
         "other": {
@@ -145,14 +145,14 @@
         "website": "Cargando el sitio web"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Inicio de sesión externo"
     },
     "message": {
         "sync": "Sincronización completa",
         "unsync": "Desincronizacion completa"
     },
     "nogames": "No se han encontrado juegos",
-    "Not Ready": "No listo",
+    "Not Ready": "No está listo",
     "notify": {
         "error": {
             "move": "Error al mover el juego",
@@ -164,15 +164,15 @@
         "install": {
             "canceled": "Instalación cancelada",
             "error": "Error en la instalación",
-            "finished": "Instalación terminado",
+            "finished": "Instalación terminada",
             "imported": "Juego importado",
             "startInstall": "Instalación iniciada"
         },
         "moved": "Movimiento terminado",
         "uninstalled": "Desinstalado",
         "update": {
-            "canceled": "Actualizacion cancelado",
-            "finished": "Actualizacion terminado",
+            "canceled": "Actualización cancelada",
+            "finished": "Actualización terminada",
             "started": "Actualización iniciada"
         }
     },
@@ -187,12 +187,12 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "Versión de GOGDL: ",
         "legendary-version": "Versión de Legendary: ",
         "weblate": "Ayuda a traducir Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "Utilizando el binario incorporado de GOGDL...",
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
         "egs-prefix": "Prefix donde está instalado EGS"
     },
@@ -205,11 +205,11 @@
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar (requiere un reinicio)",
         "alt-legendary-bin": "Elige un binario de Legendary alternativo (es necesario reiniciar)",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
-        "autodxvk": "Autoinstalar / actualizar DXVK en el Prefix",
-        "autosync": "Autosyncronizar guardados",
+        "autodxvk": "Autoinstalar/actualizar DXVK en el Prefix",
+        "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
@@ -224,7 +224,7 @@
         "exit-to-tray": "Salir a la bandeja del sistema",
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
         "fsync": "Habilitar Fsync",
-        "gamemode": "Usar GameMode (el FeralGameMode debe estar instalado)",
+        "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
@@ -235,13 +235,13 @@
         },
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
         "manualsync": {
-            "download": "Download",
-            "forcedownload": "Forzar Descarga",
-            "forceupload": "Forzar Subida",
+            "download": "Descargar",
+            "forcedownload": "Forzar descarga",
+            "forceupload": "Forzar subida",
             "sync": "Sincronizar",
             "syncing": "Sincronizando",
             "title": "Guardado de sincronización manual",
-            "upload": "Upload"
+            "upload": "Subida"
         },
         "maxRecentGames": "Jugado recientemente para mostrar",
         "maxworkers": "Número máximo de descargas",
@@ -259,7 +259,7 @@
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
         "showUnrealMarket": "Mostrar la tienda de Unreal (requiere reiniciar)",
         "start-in-tray": "Iniciar minimizado",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Usar Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Carpeta WinePrefix",
         "wineversion": "Versión de Wine"
@@ -273,7 +273,7 @@
         },
         "navbar": {
             "general": "General",
-            "log": "Log",
+            "log": "Registro",
             "other": "Otro",
             "sync": "Guardar-Sincronización"
         },
@@ -284,7 +284,7 @@
         "logging": "Iniciando sesión…"
     },
     "store": "Epic Store",
-    "stores": "Stores",
+    "stores": "Tiendas",
     "title": {
         "allGames": "Todos los juegos",
         "allUnreal": "Unreal - Todo",
@@ -319,7 +319,7 @@
         "discord": "Discord",
         "logout": "Cerrar sesión",
         "logout_confirmation": "¿Estás seguro de que quieres cerrar la sesión?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "Gestionar cuentas",
         "quit": "Salir"
     },
     "wiki": "Wiki",
