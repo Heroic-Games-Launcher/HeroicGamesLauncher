@@ -12,6 +12,7 @@
         },
         "choose": "തിരഞ്ഞെടുക്കൂ",
         "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "ലെജന്ററിയുടെ ഈരക്കരേഖ തിരഞ്ഞെടുക്കുക",
         "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ ഈരക്കരേഖ(Binary file) നല്കൂ",
         "default-install-path": "പൊതു ഇന്സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
@@ -108,7 +109,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "help": {
-        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല്‍ മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്‍ നിങ്ങളുടെ കളികള്‍ വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
+        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല്\u200d മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്\u200d നിങ്ങളുടെ കളികള്\u200d വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
             "part1": "കളി ഓടിക്കുന്നതിനുമുന്പുള്ള വിളികള്ക്കായി ",
             "part2": "ഉയര്ന്ന ക്രമീകരണങ്ങള്",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
         "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന് സഹായിക്കൂ."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "കുറുക്കുവഴികള് മേശപ്പുറത്ത് താനേ ചേര്ക്കൂ",
         "addgamestostartmenu": "കളികള് തുടക്കപ്പട്ടികയില് താനേ ചേര്ക്കൂ",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്സ് ഓഡിയോ ലാറ്റന്സി)",
         "autodxvk": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",

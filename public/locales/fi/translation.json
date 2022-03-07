@@ -12,6 +12,7 @@
         },
         "choose": "Valitse",
         "choose-egs-prefix": "Valitse Prefiksi, jonne EGS asennetaan",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Valitse Wine tai Proton Binary",
         "default-install-path": "Valitse Oletus Asennussijainti",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "Auta kääntämään Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefiksi johon EGS on asennettu"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Äänikorjaus (Pulse Audion viive)",
         "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",

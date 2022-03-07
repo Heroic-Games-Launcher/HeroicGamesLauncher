@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import Store from 'electron-store'
 import { GOGUser } from './user'
 import {
-  GOGLoginData,
   GOGGameInfo,
   GameInfo,
   InstallInfo,
@@ -14,11 +13,8 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { execAsync } from '../utils'
-import { fallBackImage, gogdlBin, isMac } from '../constants'
+import { fallBackImage, gogdlBin, isMac, isWindows } from '../constants'
 
-const userStore = new Store({
-  cwd: 'gog_store'
-})
 const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
 const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
 const installedGamesStore = new Store({
@@ -39,16 +35,18 @@ export class GOGLibrary {
     if (!GOGUser.isLoggedIn()) {
       return
     }
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
+    this.refreshInstalled()
+
     // This gets games ibrary
     // Handles multiple pages
-    this.refreshInstalled()
-    const credentials: GOGLoginData = userStore.get(
-      'credentials'
-    ) as GOGLoginData
-    const headers = { Authorization: 'Bearer ' + credentials.access_token }
+    const credentials = await GOGUser.getCredentials()
+    if (!credentials) {
+      return
+    }
+    const headers = {
+      Authorization: 'Bearer ' + credentials.access_token,
+      'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
+    }
     logInfo('Getting GOG library', LogPrefix.Gog)
     let gameApiArray: Array<GOGGameInfo> = []
     const games = await axios
@@ -142,18 +140,30 @@ export class GOGLibrary {
    * @returns InstallInfo object
    */
   public async getInstallInfo(appName: string) {
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
+    const credentials = await GOGUser.getCredentials()
+    if (!credentials) {
+      logError('No credentials, cannot get install info')
+      return
     }
-    const credentials = userStore.get('credentials') as GOGLoginData
     const gameData = this.library.get(appName)
+
+    const saveCommand = `"${gogdlBin}" info ${appName} --token="${
+      credentials.access_token
+    }" --lang=en-US --os ${isMac && gameData.is_mac_native ? 'osx' : 'windows'}`
+
     const { stdout } = await execAsync(
-      `${gogdlBin} info ${appName} --token="${
+      `${isWindows ? '&' : ''} "${gogdlBin}" info ${appName} --token="${
         credentials.access_token
       }" --lang=en-US --os ${
         isMac && gameData.is_mac_native ? 'osx' : 'windows'
       }`
-    )
+    ).catch(() => {
+      logError(['Info command failed', saveCommand], LogPrefix.Gog)
+      return { stdout: null }
+    })
+    if (!stdout) {
+      return
+    }
     const gogInfo = JSON.parse(stdout)
     const libraryArray = libraryStore.get('games') as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(

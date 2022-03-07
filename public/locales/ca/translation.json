@@ -12,6 +12,7 @@
         },
         "choose": "Tria",
         "choose-egs-prefix": "Tria el prefix on l'EGS està instal·lat",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Selecciona el binari del Legendary",
         "customWine": "Selecciona el binary del Wine o del Proton",
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Versió del Legendary: ",
         "weblate": "Ajuda a traduir l'Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
         "egs-prefix": "Prefix on l'EGS està instal·lat"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary (cal reiniciar)",
         "audiofix": "Corregeix l'àudio (latència del Pulse Audio)",
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
