@@ -69,8 +69,8 @@ const heroicToolsPath = `${heroicFolder}/tools`
 const heroicIconFolder = `${heroicFolder}/icons`
 const userInfo = `${legendaryConfigPath}/user.json`
 const heroicInstallPath = isWindows
-  ? `${home}\\Games\\Heroic`
-  : `${home}/Games/Heroic`
+  ? `${homedir()}\\Games\\Heroic`
+  : `${homedir()}/Games/Heroic`
 const legendaryBin = getLegendaryBin()
 const gogdlBin = getGOGdlBin()
 const icon = fixAsarPath(join(__dirname, '/icon.png'))
