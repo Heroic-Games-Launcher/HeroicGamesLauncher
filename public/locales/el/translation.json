@@ -12,6 +12,7 @@
         },
         "choose": "Επιλογή",
         "choose-egs-prefix": "Επιλέξτε πρόθεμα όπου το EGS είναι εγκατεστημένο",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
         "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Έκδοση Legendary: ",
         "weblate": "Βοηθήστε να μεταφραστεί το Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Χρήση προεγκατεστημένου δυαδικού αρχείου Legendary...",
         "egs-prefix": "Πρόθεμα εγκατάστασης EGS"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο του Legendary για χρήση",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη εγκατάσταση/ενημέρωση DXVK στο πρόθεμα",

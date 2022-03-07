@@ -11,6 +11,7 @@ export interface AppSettings {
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   altLegendaryBin: string
+  altGogdlBin: string
   audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean

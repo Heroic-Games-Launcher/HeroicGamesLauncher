@@ -193,7 +193,7 @@ async function launch(
         ].filter((n) => n)
         envVars = options.join(' ')
       }
-      command = `${envVars} ${gogdlBin} launch "${
+      command = `${envVars} ${isWindows ? '&' : ''} "${gogdlBin}" launch "${
         gameInfo.install.install_path
       }" ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
         launchArguments ?? ''
@@ -312,7 +312,7 @@ async function launch(
       envVars,
       runWithGameMode,
       mangohud,
-      gogdlBin,
+      `"${gogdlBin}"`,
       'launch',
       `"${gameInfo.install.install_path}"`,
       exe,

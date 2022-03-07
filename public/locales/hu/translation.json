@@ -12,6 +12,7 @@
         },
         "choose": "Kiválasztás",
         "choose-egs-prefix": "Válaszd ki a prefixet ahol az EGS telepítve van",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Legendary bináris kiválasztása",
         "customWine": "Válaszd ki a Wine vagy Proton binárist",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary verzió: ",
         "weblate": "Segíts lefordítani a Heroic-ot."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Beépített Legendary bináris használata...",
         "egs-prefix": "Prefix ahol az EGS telepítve van"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Válassz egy alternatív Legendary binárist (újraindítás szükséges)",
         "audiofix": "Hangzásjavítás (Pulse Audio késleltetés)",
         "autodxvk": "A DXVK automatikus telepítése/frissítése a prefixen",
