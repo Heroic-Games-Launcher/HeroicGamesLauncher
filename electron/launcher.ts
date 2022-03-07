@@ -194,9 +194,9 @@ async function launch(
         ].filter((n) => n)
         envVars = options.join(' ')
       }
-      command = `${envVars} ${gogdlBin} launch "${
+      command = `${envVars} ${isWindows ? '&' : ''} "${gogdlBin}" launch "${
         gameInfo.install.install_path
-      }" ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
+      }" ${exe} ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
         launchArguments ?? ''
       } ${launcherArgs}`
       logInfo(['Launch Command:', command], LogPrefix.Gog)
@@ -232,9 +232,8 @@ async function launch(
   // We need to keep replacing the ' to keep compatibility with old configs
   let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
 
-  const isProton =
-    wineVersion.name.includes('Proton') || wineVersion.name.includes('Steam')
-  const isCrossover = wineVersion.name.includes('CrossOver')
+  const isProton = wineVersion.type === 'proton'
+  const isCrossover = wineVersion.type === 'crossover'
   prefix = isProton || isCrossover ? '' : prefix
   const x = wineVersion.bin.split('/')
   x.pop()
@@ -314,7 +313,7 @@ async function launch(
       envVars,
       runWithGameMode,
       mangohud,
-      gogdlBin,
+      `"${gogdlBin}"`,
       'launch',
       `"${gameInfo.install.install_path}"`,
       exe,

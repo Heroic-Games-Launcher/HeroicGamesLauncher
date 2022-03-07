@@ -173,6 +173,9 @@ abstract class GlobalConfig {
     } else if (!isWindows) {
       // Linux
       const crossoverWineBin = '/opt/cxoffice/bin/wine'
+      if (!existsSync(crossoverWineBin)) {
+        return crossover
+      }
       const crossoverVersion = (
         await execAsync(crossoverWineBin + ' --version')
       ).stdout
@@ -180,14 +183,12 @@ abstract class GlobalConfig {
         .split('\n')[2]
         .split(':')[1]
         .trim()
-      if (existsSync(crossoverWineBin)) {
-        crossover.add({
-          bin: `'${crossoverWineBin}'`,
-          name: `CrossOver - ${crossoverVersion}`,
-          type: 'crossover',
-          ...this.getWineExecs(crossoverWineBin)
-        })
-      }
+      crossover.add({
+        bin: `'${crossoverWineBin}'`,
+        name: `CrossOver - ${crossoverVersion}`,
+        type: 'crossover',
+        ...this.getWineExecs(crossoverWineBin)
+      })
     }
 
     return crossover

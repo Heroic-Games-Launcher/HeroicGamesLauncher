@@ -36,13 +36,15 @@ function getLegendaryBin() {
 }
 
 function getGOGdlBin() {
+  const settings = configStore.get('settings') as { altGogdl: string }
   const bin = fixAsarPath(
-    join(
-      __dirname,
-      '/bin/',
-      process.platform,
-      isWindows ? '/gogdl.exe' : '/gogdl'
-    )
+    settings?.altGogdl ||
+      join(
+        __dirname,
+        '/bin/',
+        process.platform,
+        isWindows ? '/gogdl.exe' : '/gogdl'
+      )
   )
   logInfo(`Location: ${bin}`, LogPrefix.Gog)
   return bin

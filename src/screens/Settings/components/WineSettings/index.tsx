@@ -75,7 +75,8 @@ export default function WineSettings({
   const [selectedPath, setSelectedPath] = useState('')
   const { platform, isRTL } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const isProton = wineVersion.name.includes('Proton')
+  const isProton =
+    wineVersion.type === 'proton'
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -288,7 +289,7 @@ export default function WineSettings({
         </InfoBox>
       </span>
 
-      {wineVersion.name.includes('CrossOver') && (
+      {wineVersion.type === 'crossover' && (
         <span className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.winecrossoverbottle', 'CrossOver Bottle')}

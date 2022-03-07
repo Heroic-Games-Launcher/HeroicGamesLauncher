@@ -45,6 +45,7 @@ import {
   execAsync,
   isEpicServiceOffline,
   getLegendaryVersion,
+  getGogdlVersion,
   getSystemInfo,
   handleExit,
   isOnline,
@@ -542,6 +543,7 @@ ipcMain.handle('checkVersion', () => checkForUpdates())
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
+ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
 
 ipcMain.handle('getPlatform', () => process.platform)
 

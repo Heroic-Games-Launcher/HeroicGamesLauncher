@@ -5,6 +5,7 @@ interface About {
 }
 export interface AppSettings {
   altLegendaryBin: string
+  altGogdlBin: string
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean
@@ -235,6 +236,9 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
+  type: 'wine' | 'proton' | 'crossover'
+  wineboot?: string
+  wineserver?: string
 }
 
 export interface WineVersionInfo extends VersionInfo {

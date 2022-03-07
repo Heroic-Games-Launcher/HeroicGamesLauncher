@@ -12,6 +12,7 @@
         },
         "choose": "Scegli",
         "choose-egs-prefix": "Scegli il prefix dove EGS è installato",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Seleziona binari Legendary",
         "customWine": "Scegli fra il binario Wine o Proton",
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Versione Legendary: ",
         "weblate": "Aiuta a tradurre Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "In uso i binari Legendary integrati...",
         "egs-prefix": "Prefix dove è installato EGS"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Seleziona binari Legendary alternativi (riavvio richiesto)",
         "audiofix": "Audio Fix (Latenza Pulse Audio)",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",

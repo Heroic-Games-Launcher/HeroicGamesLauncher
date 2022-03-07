@@ -12,6 +12,7 @@
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Local de instalação padrão",
@@ -89,7 +90,7 @@
     },
     "button": {
         "continue": "Continue",
-        "login": "Login",
+        "login": "Entrar",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "Ajude a traduzir o Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix onde a Epic Games está instalada"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",

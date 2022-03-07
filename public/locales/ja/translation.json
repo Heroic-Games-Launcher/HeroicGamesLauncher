@@ -12,6 +12,7 @@
         },
         "choose": "選ぶ",
         "choose-egs-prefix": "EGSがインストールされているプレフィックスを選択します",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "WineまたはProtonバイナリを選択します",
         "default-install-path": "デフォルトのインストールパスを選択します",
@@ -162,7 +163,7 @@
         },
         "install": {
             "canceled": "インストールがキャンセルされました",
-            "error": "",
+            "error": "インストールに失敗しました",
             "finished": "インストールが完了しました",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "Heroicの翻訳を手伝ってください。"
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGSがインストールされているプレフィックス"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
         "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",

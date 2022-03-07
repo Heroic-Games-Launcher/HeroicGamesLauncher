@@ -67,6 +67,7 @@ function Settings() {
   const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
+  const [altGogdlBin, setAltGogdlBin] = useState('')
   const [canRunOffline, setCanRunOffline] = useState(true)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
@@ -242,6 +243,7 @@ function Settings() {
       )
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
+      setAltGogdlBin(config.altGogdlBin || '')
       setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
       setUseSteamRuntime(config.useSteamRuntime || false)
@@ -271,6 +273,7 @@ function Settings() {
 
   const GlobalSettings = {
     altLegendaryBin,
+    altGogdlBin,
     addDesktopShortcuts,
     addStartMenuShortcuts,
     audioFix,
@@ -449,6 +452,8 @@ function Settings() {
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
               altLegendaryBin={altLegendaryBin}
               setAltLegendaryBin={setAltLegendaryBin}
+              altGogdlBin={altGogdlBin}
+              setAltGogdlBin={setAltGogdlBin}
               toggleUnrealMarket={toggleUnrealMarket}
               showUnrealMarket={showUnrealMarket}
             />
@@ -590,7 +595,10 @@ function Settings() {
               appName={appName}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
-              isProton={!isWin && wineVersion.name.includes('Proton')}
+              isProton={
+                !isWin &&
+                wineVersion.type === 'proton'
+              }
               winePrefix={winePrefix}
             />
           )}

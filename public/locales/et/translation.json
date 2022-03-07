@@ -12,6 +12,7 @@
         },
         "choose": "Valige",
         "choose-egs-prefix": "Valige prefiks, kuhu EGS on paigaldatud",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Valige Legendary binaarfail",
         "customWine": "Valige Wine või Proton-i binaar",
         "default-install-path": "Valige Vaikimisi paigalduskoht",
@@ -186,10 +187,12 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary versioon: ",
         "weblate": "Aidake tõlkida Heroic'ut."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud"
     },
@@ -202,6 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada (vajab restarti)",
         "audiofix": "Heliparandus (Pulse Audio Latency)",
         "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
