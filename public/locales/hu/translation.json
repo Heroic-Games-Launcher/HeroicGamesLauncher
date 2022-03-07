@@ -89,7 +89,7 @@
         "yes": "IGEN"
     },
     "button": {
-        "continue": "Folytatás",
+        "continue": "Letöltés folytatása",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
@@ -214,7 +214,7 @@
         "change-target-exe": "Válassz egy alternatív EXE fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "Frissítések keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
-        "darktray": "Sötét Tálca Ikon Használata",
+        "darktray": "Sötét tálcaikon használata",
         "default-install-path": "Alapértelmezett telepítési útvonal",
         "defaultWinePrefix": "Mappa beállítása új Wine prefixeknek",
         "discordRPC": "Discord Rich Presence engedélyezése",
@@ -283,7 +283,7 @@
     "status": {
         "logging": "Bejelentkezés..."
     },
-    "store": "Áruház",
+    "store": "Epic Store",
     "stores": "Stores",
     "title": {
         "allGames": "Összes játék",

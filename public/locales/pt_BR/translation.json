@@ -1,6 +1,6 @@
 {
     "All": "Todos",
-    "Assets": "Assets",
+    "Assets": "Recursos",
     "box": {
         "appupdate": {
             "message": "Existe uma nova versão do Heroic disponível, deseja atualizar agora?",
@@ -89,7 +89,7 @@
         "yes": "SIM"
     },
     "button": {
-        "continue": "Continuar",
+        "continue": "Prosseguir",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -107,7 +107,7 @@
     "Filter": "Filtrar",
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Loja GOG",
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
         "other": {
@@ -222,12 +222,12 @@
         "enableFSRHack": "Habilitar Hack FSR (Wine precisa suportar o recurso)",
         "esync": "Habilitar Esync",
         "exit-to-tray": "Fechar para a barra de tarefas",
-        "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR",
+        "FsrSharpnessStrenght": "FSR Força de nitidez",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (Necessita ter gamemode instalado)",
         "language": "Selecione o idioma do app",
         "log": {
-            "copy-to-clipboard": "Copiar o conteúdo do log para a área de transferência",
+            "copy-to-clipboard": "Copiar log para a área de transferência",
             "current-log": "Log atual",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
@@ -259,7 +259,7 @@
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Utilizar Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Pasta do prefixo Wine",
         "wineversion": "Versão do WINE"
@@ -269,7 +269,7 @@
         "copiedToClipboard": "Copiado para a área de Transferência!",
         "copyToClipboard": "Copiar todas as configurações para a área de transferência",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Log truncado, últimas 1000 linhas serão mostradas!"
         },
         "navbar": {
             "general": "Config. Gerais",
@@ -284,21 +284,21 @@
         "logging": "Logando..."
     },
     "store": "Loja Epic",
-    "stores": "Stores",
+    "stores": "Lojas",
     "title": {
         "allGames": "Todos os Jogos",
         "allUnreal": "Unreal - Tudo",
         "downloading": "Baixando",
         "installedGames": "Jogos Instalados",
         "notInstalledGames": "Não instalados",
-        "unrealAssets": "Unreal - Assets",
+        "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projetos",
         "updates": "Atualizações pendentes"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
+            "default-wineprefix": "Selecione o local padrão de prefixos para novas configurações",
             "wineprefix": "Selecione Uma Pasta para novos Prefixos do Wine"
         }
     },
@@ -319,15 +319,15 @@
         "discord": "Discord",
         "logout": "Sair",
         "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "Gerenciar Contas",
         "quit": "Sair"
     },
     "wiki": "Wiki",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "error": "Não foi possível encontrar as versões do Wine/Proton.",
+            "link": "Versões do Wine",
+            "title": "Versões do Wine (Beta)",
             "unzipping": "Descompactando"
         }
     }

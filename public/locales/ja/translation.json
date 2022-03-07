@@ -163,7 +163,7 @@
         },
         "install": {
             "canceled": "インストールがキャンセルされました",
-            "error": "",
+            "error": "インストールに失敗しました",
             "finished": "インストールが完了しました",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

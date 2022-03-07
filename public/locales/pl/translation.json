@@ -107,9 +107,9 @@
     "Filter": "Filtr",
     "globalSettings": "Ustawienia Globalne",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Sklep GOG",
     "help": {
-        "general": "Synchronizuj z EGS, gdy masz zainstalowane Epic Games Launcher w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
+        "general": "Synchronizuj z EGS, gdy Epic Games Launcher jest zainstalowane w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
         "other": {
             "part1": "Użyj ",
             "part2": "Opcje zaawansowane",
@@ -283,8 +283,8 @@
     "status": {
         "logging": "Logowanie..."
     },
-    "store": "Sklep",
-    "stores": "Stores",
+    "store": "Sklep Epic",
+    "stores": "Sklepy",
     "title": {
         "allGames": "Wszystkie Gry",
         "allUnreal": "Unreal - Wszystko",
