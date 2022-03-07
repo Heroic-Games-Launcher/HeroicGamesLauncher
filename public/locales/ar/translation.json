@@ -2,7 +2,7 @@
     "All": "الكل",
     "box": {
         "appupdate": {
-            "message": "يتوفر تحديث جديد لهيرويك، هل تريد تنزيله؟",
+            "message": "يتوفر تحديث جديد لهيرويك، هل تريد التحديث الان؟",
             "title": "يتوفر تحديث"
         },
         "choose": "اختر",
@@ -42,6 +42,9 @@
             "dxvk": {
                 "title": "خطأ DXVK / VKD3D",
                 "message": "خطأ في تثبيت DXVK / VKD3D! تحقق من اتصالك أو إذا كان لديك zstd / libzstd1 مثبتًا"
+            },
+            "no-offline-mode": {
+                "message": "إحباط إلاطلاق! تتطلب اللعبة اتصالاً بالإنترنت لتشغيلها."
             }
         },
         "no": "لا",
@@ -136,7 +139,8 @@
     },
     "login": {
         "loginWithEpic": "تسجيل الدخول بإستخدام Epic",
-        "loginWithSid": "تسجيل الدخول بإستخدام SID"
+        "loginWithSid": "تسجيل الدخول بإستخدام SID",
+        "externalLogin": "تسجيل الدخول الخارجي"
     },
     "options": {
         "gameargs": {
@@ -186,7 +190,8 @@
             "imported": "تم استيراد اللعبة",
             "startInstall": "بدأ التثبيت",
             "canceled": "تم إلغاء التثبيت",
-            "finished": "انتهى التثبيت"
+            "finished": "انتهى التثبيت",
+            "error": "فشل التثبيت"
         },
         "moved": "تم الانتهاء من النقل",
         "update": {
@@ -310,14 +315,15 @@
         "addpath": "أضف مسار جديد",
         "removepath": "إزالة المسار"
     },
-    "store": "متجر",
+    "store": "متجر Epic",
     "Unreal Marketplace": "سوق Unreal",
     "Updates": "التحديثات",
     "userselector": {
         "discord": "ديسكورد",
         "logout": "تسجيل الخروج",
         "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج ؟",
-        "quit": "خروج"
+        "quit": "خروج",
+        "manageaccounts": "إدارة الحسابات"
     },
     "wiki": "ويكي",
     "toolbox": {
@@ -329,5 +335,7 @@
     "epic": {
         "offline-notification-title": "غير متصل بالانترنت",
         "offline-notification-body": "هرويك ربما لن يعمل"
-    }
+    },
+    "gog-store": "متجر GOG",
+    "GOG": "GOG"
 }
