@@ -36,13 +36,11 @@ async function setup(appName: string): Promise<void> {
 
   const gameSettings = GameConfig.get(appName).config
 
-  const isCrossover = gameSettings.wineVersion.name.includes('CrossOver')
+  const isCrossover = gameSettings.wineVersion.type === 'crossover'
   const crossoverBottle = gameSettings.wineCrossoverBottle
   const crossoverEnv =
     isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
-  const isProton =
-    gameSettings.wineVersion.name.includes('Proton') ||
-    gameSettings.wineVersion.name.includes('Steam')
+  const isProton = gameSettings.wineVersion.type === 'proton'
   const prefix = isProton
     ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
         .replaceAll("'", '')
