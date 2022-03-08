@@ -25,10 +25,12 @@ import {
   rmSync,
   unlinkSync,
   watch,
-  writeFile
+  writeFile,
+  writeFileSync
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
+import { join } from 'path'
 
 import { DXVK } from './dxvk'
 import { Game } from './games'
@@ -399,8 +401,8 @@ process.on('uncaughtException', (err) => {
 
 let powerId: number | null
 ipcMain.on('lock', () => {
-  if (!existsSync(`${heroicGamesConfigPath}/lock`)) {
-    writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
+  if (!existsSync(join(heroicGamesConfigPath, 'lock'))) {
+    writeFileSync(join(heroicGamesConfigPath, 'lock'), '')
     if (!powerId) {
       powerId = powerSaveBlocker.start('prevent-app-suspension')
       return powerId
@@ -409,8 +411,8 @@ ipcMain.on('lock', () => {
 })
 
 ipcMain.on('unlock', () => {
-  if (existsSync(`${heroicGamesConfigPath}/lock`)) {
-    unlinkSync(`${heroicGamesConfigPath}/lock`)
+  if (existsSync(join(heroicGamesConfigPath, 'lock'))) {
+    unlinkSync(join(heroicGamesConfigPath, 'lock'))
     if (powerId) {
       return powerSaveBlocker.stop(powerId)
     }
@@ -796,7 +798,7 @@ ipcMain.handle(
           status: 'done'
         })
 
-        const gameLogFile = `${heroicGamesConfigPath}${game}-lastPlay.log`
+        const gameLogFile = join(heroicGamesConfigPath, game + '-lastPlay.log')
         writeFile(gameLogFile, logResult, () =>
           logInfo(`Log was written to ${gameLogFile}`, LogPrefix.Backend)
         )
@@ -807,7 +809,7 @@ ipcMain.handle(
         const stderr = `${exception.name} - ${exception.message}`
         errorHandler({ error: { stderr, stdout: '' } })
         writeFile(
-          `${heroicGamesConfigPath}${game}-lastPlay.log`,
+          join(heroicGamesConfigPath, game + '-lastPlay.log'),
           stderr,
           () => 'done'
         )
@@ -1086,7 +1088,7 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
 })
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `${heroicGamesConfigPath}${appName}.log`
+  const logPath = join(heroicGamesConfigPath, appName + '.log')
   // eslint-disable-next-line no-debugger
   debugger
   if (!existsSync(logPath)) {
