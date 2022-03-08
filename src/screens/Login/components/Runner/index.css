@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(var(--blur-strong));
 }
 
 .runnerWrapper > h1 {
@@ -16,10 +16,7 @@
 .runnerLogin {
   padding: 10px;
   font-size: 25px;
-  border-radius: 15px;
-  background-color: var(--background-secondary);
   border: none;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   transition: 0.3s;
 }
 

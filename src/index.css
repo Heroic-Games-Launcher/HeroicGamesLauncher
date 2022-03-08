@@ -2,32 +2,22 @@ html {
   /* Colours */
   --navbar-background: #151f3d;
   --input-background: #0d0f1c;
-  /* --- NOTE please try avoid using the bg colours below (to ENDNOTE) --- */
-  --background-transparent: #151f3dcb;
-  --background: #151f3d;
-  --background-transparent-62: rgba(66, 69, 70, 0.62);
-  --background-darker: #0d0f1c;
-  --background-darker-80: #0d0f1ce0;
-  --background-secondary: #323035;
-  --background-gradient: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    #0d0f1cd2 64%
-  );
-  --background-light: #1a264b;
-  --background-color: #13172a;
-  /* --- ENDNOTE --- */
+  --body-background: #13172a;
   --tooltip-background-color: #0d0e0e;
   --menu-background-color: #0d0e0e;
+  --blur-light: 4px;
+  --blur-strong: 16px;
   --text-hover: #59d0ea;
   --link-highlight: #07c5ef;
   --accent: #eaa114;
   --input-background: #0d0f1c;
+  --login-background: #13172a;
   --login-card-background: #03030355;
   --play-button: #59d0ea;
   --download-button: #3082d9;
   --download-button-overlay: #5a5e5f;
   --stop-button: #252121;
+  --scrollbar-thumb: #ffffff33;
   --favourite-active: #97f4e9;
   --favourite-inactive: #eae8e5;
   --danger: #bd0a0a; /* These success, danger and disabled colours need to be documented */
@@ -41,6 +31,11 @@ html {
     #13172a 100%,
     #1d1f1f 31.77%,
     #1d1f1f 0%
+  );
+  --gradient-gamecard: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    #0d0f1cd2 64%
   );
   --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
   /* Text colours */
@@ -73,7 +68,7 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-color);
+  background-color: var(--body-background);
   user-select: none;
 }
 
@@ -101,7 +96,7 @@ code {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--text-secondary);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 

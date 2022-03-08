@@ -46,7 +46,7 @@
   max-width: 96px;
   word-wrap: break-word;
   padding: 2px;
-  background: var(--background-gradient);
+  background: var(--gradient-gamecard);
   border-radius: 4px;
 }
 .gameCard > .progress svg {
@@ -85,7 +85,7 @@
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;
-  background: var(--background-gradient);
+  background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: Cabin;
   font-size: 14px;
@@ -96,7 +96,7 @@
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(var(--blur-light));
 }
 
 .gameCard > .icons {
