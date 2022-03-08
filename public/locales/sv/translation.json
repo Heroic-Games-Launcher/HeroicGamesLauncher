@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Visa nyligen spelat",
         "maxworkers": "Maximalt antal samtida nedladdningar",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
         "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",

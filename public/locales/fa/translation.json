@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "اخیرا بازی شده برای نمایش",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "اجرای آفلاین بازی",
         "primerun": "فعالسازی Nvidia Prime Render",
         "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
@@ -326,7 +327,7 @@
     "wine": {
         "manager": {
             "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
-            "link": "مدیریت Wine‮",
+            "link": "مدیریت Wine\u202e",
             "title": "مدیریت Wine (آزمایشی)",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         }

@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "最近要展示的遊戲",
         "maxworkers": "下載時的最大Worker數量",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "離線運行遊戲",
         "primerun": "啟用Nvidia Prime渲染",
         "resizableBar": "啟用 Resizable BAR (僅限 NVIDIA RTX 30xx)",

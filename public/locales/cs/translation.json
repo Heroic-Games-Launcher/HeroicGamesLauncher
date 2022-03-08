@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Max. nedávno hraných her k zobrazení",
         "maxworkers": "Maximální počet vláken při stahování",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Spustit hru offline",
         "primerun": "Povolení vykreslování Nvidia Prime",
         "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",

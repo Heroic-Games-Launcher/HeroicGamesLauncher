@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Играно наскоро за показване",
         "maxworkers": "Максимален брой работни процеси при сваляне",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Пускане на играта в режим „извън линия“",
         "primerun": "Включване на „Nvidia Prime Render“",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",

@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Viimeisten pelien näytetty lukumäärä",
         "maxworkers": "Työntekijöiden enimmäismäärä ladattaessa",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Käynnistä peli offline-tilassa",
         "primerun": "Ota käyttöön Nvidia Prime Render",
         "resizableBar": "Ota käyttöön Resizable BAR (Vain NVIDIA RTX 30xx)",

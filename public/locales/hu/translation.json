@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Nemrég játszottak megjelenítése",
         "maxworkers": "Maximum dolgozók száma letöltéskor",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Játék futtatása offline",
         "primerun": "Nvidia Prime Render engedélyezése",
         "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyával)",

@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "അടുത്തിടെയുള്ള പതിവ് കളികള്",
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള് പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",
         "primerun": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ",
         "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്വിഡിയ RTX 30xxനു മാത്രം)",

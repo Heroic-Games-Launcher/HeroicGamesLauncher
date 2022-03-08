@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Played Recently to Show",
         "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
         "primerun": "Nvidia Prime Render ஐ துவக்கு",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
