@@ -6,6 +6,7 @@
   padding: 2px 0;
   width: inherit;
   background: var(--background-darker);
+  user-select: text;
 }
 
 .webviewIcons {
