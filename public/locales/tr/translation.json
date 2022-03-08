@@ -12,7 +12,7 @@
         },
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu yeri seçin",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "GOGDL çalıştırılabilir dosyasını seçin (yeniden başlatılması gerekiyor)",
         "choose-legendary-binary": "Legendary çalıştırılabilir dosyasını seç",
         "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
@@ -187,12 +187,12 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "GOGDL Sürümü: ",
         "legendary-version": "Legendary Sürüm: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "Yerleşik GOGDL çalıştırılabilir dosyasını kullanılıyor...",
         "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
@@ -205,8 +205,8 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Alternatif bir Legendary dosyası seçin (yeniden başlatma gerekir)",
+        "alt-gogdl-bin": "Bir muadil GOGDL çalıştırılabilir dosyasını seçin (yeniden başlatılması gerekir)",
+        "alt-legendary-bin": "Bir muadil Legendary dosyası seçin (yeniden başlatma gerekir)",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
