@@ -35,6 +35,7 @@ interface Props {
   language: string
   maxWorkers: number
   showUnrealMarket: boolean
+  minimizeOnLaunch: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
@@ -47,6 +48,7 @@ interface Props {
   toggleStartInTray: () => void
   toggleCheckUpdatesOnStartup: () => void
   toggleTray: () => void
+  toggleMinimizeOnLaunch: () => void
   toggleUnrealMarket: () => void
 }
 
@@ -74,7 +76,9 @@ export default function GeneralSettings({
   setMaxWorkers,
   darkTrayIcon,
   toggleDarkTrayIcon,
-  toggleCheckUpdatesOnStartup
+  toggleCheckUpdatesOnStartup,
+  toggleMinimizeOnLaunch,
+  minimizeOnLaunch
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -213,7 +217,7 @@ export default function GeneralSettings({
           'Select GOGDL Binary (needs restart)'
         )
       })
-      .then(({ path }: Path) => setAltLegendaryBin(path ? `${path}` : ''))
+      .then(({ path }: Path) => setAltGogdlBin(path ? `${path}` : ''))
   }
 
   async function handleChangeLanguage(language: string) {
@@ -359,7 +363,7 @@ export default function GeneralSettings({
               onClick={() => setAltGogdlBin('')}
             >
               <Backspace
-                data-testid="setLegendaryBinaryBackspace"
+                data-testid="setGogdlBinaryBackspace"
                 style={{ color: '#B0ABB6' }}
               />
             </SvgButton>
@@ -470,6 +474,25 @@ export default function GeneralSettings({
           </label>
         </span>
       )}
+      <span className="setting">
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <ToggleSwitch
+            dataTestId="minimizeOnLaunch"
+            value={minimizeOnLaunch}
+            handleChange={toggleMinimizeOnLaunch}
+            title={t(
+              'setting.minimize-on-launch',
+              'Minimize Heroic After Game Launch'
+            )}
+          />
+          <span>
+            {t(
+              'setting.minimize-on-launch',
+              'Minimize Heroic After Game Launch'
+            )}
+          </span>
+        </label>
+      </span>
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
