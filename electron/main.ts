@@ -724,7 +724,9 @@ ipcMain.handle(
     const game = appName.split(' ')[0]
     const gameData = await Game.get(game, runner).getGameInfo()
     const { title } = gameData
-    const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
+    const { minimizeOnLaunch, maxRecentGames: MAX_RECENT_GAMES = 5 } =
+      await GlobalConfig.get().getSettings()
+
     const startPlayingDate = new Date()
 
     if (!tsStore.has(game)) {
@@ -751,9 +753,14 @@ ipcMain.handle(
       store.set('games.recent', [{ game, title: title }])
     }
 
+    if (minimizeOnLaunch) {
+      mainWindow.hide()
+    }
+
     return Game.get(appName, runner)
       .launch(launchArguments)
       .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
+        mainWindow.show()
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
         const sessionPlayingTime =
@@ -796,6 +803,7 @@ ipcMain.handle(
         return stderr
       })
       .catch(async (exception) => {
+        mainWindow.show()
         const stderr = `${exception.name} - ${exception.message}`
         errorHandler({ error: { stderr, stdout: '' } })
         writeFile(

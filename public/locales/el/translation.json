@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Πρόσφατα Παιχνίδια για Προβολή",
         "maxworkers": "Μέγιστος αριθμός εργατών κατά την λήψη",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Τρέξιμο παιχνιδιού εκτός δικτύου",
         "primerun": "Ενεργοποίηση Nvidia Prime Render",
         "resizableBar": "Ενεργοποίηση Μεταβλητού BAR (NVIDIA RTX 30xx μόνο)",

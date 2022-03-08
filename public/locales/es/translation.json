@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Jugado recientemente para mostrar",
         "maxworkers": "Número máximo de descargas",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
         "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",

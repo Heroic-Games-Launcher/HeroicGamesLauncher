@@ -56,28 +56,32 @@ const isLinux = platform() == 'linux'
 const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
+
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const home = isFlatpak ? flatPakHome : homedir()
 const configFolder = app.getPath('appData')
-const legendaryConfigPath = `${configFolder}/legendary`
-const heroicFolder = `${configFolder}/heroic`
+const legendaryConfigPath = isLinux
+  ? join(configFolder, 'legendary')
+  : join(home, '.config', 'legendary')
+const heroicFolder = join(configFolder, 'heroic')
+const heroicConfigPath = join(heroicFolder, 'config.json')
+const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
+const heroicToolsPath = join(heroicFolder, 'tools')
+const heroicIconFolder = join(heroicFolder, 'icons')
+const userInfo = join(legendaryConfigPath, 'user.json')
+const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
+
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
-const heroicConfigPath = `${heroicFolder}/config.json`
-const heroicGamesConfigPath = `${heroicFolder}/GamesConfig/`
-const heroicToolsPath = `${heroicFolder}/tools`
-const heroicIconFolder = `${heroicFolder}/icons`
-const userInfo = `${legendaryConfigPath}/user.json`
-const heroicInstallPath = isWindows
-  ? `${homedir()}\\Games\\Heroic`
-  : `${homedir()}/Games/Heroic`
+
 const legendaryBin = getLegendaryBin()
 const gogdlBin = getGOGdlBin()
-const icon = fixAsarPath(join(__dirname, '/icon.png'))
-const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
-const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
-const installed = `${legendaryConfigPath}/installed.json`
-const libraryPath = `${legendaryConfigPath}/metadata/`
+
+const icon = fixAsarPath(join(__dirname, 'icon.png'))
+const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
+const iconLight = fixAsarPath(join(__dirname, 'icon-light.png'))
+const installed = join(legendaryConfigPath, 'installed.json')
+const libraryPath = join(legendaryConfigPath, 'metadata')
 const steamCompatFolder: string = getSteamCompatFolder()
 const fallBackImage = 'fallback'
 const epicLoginUrl =

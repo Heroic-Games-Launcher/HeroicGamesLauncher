@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Máximo de jogos em Jogados Recentemente",
         "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Iniciar o jogo offline",
         "primerun": "Habilitar o PRIME Render da NVIDIA",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",

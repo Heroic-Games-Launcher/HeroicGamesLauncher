@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Recent Games to Show",
         "maxworkers": "",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "",
         "primerun": "Enable Nvidia Prime Render",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
