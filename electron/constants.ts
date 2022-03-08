@@ -77,11 +77,11 @@ const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
 const legendaryBin = getLegendaryBin()
 const gogdlBin = getGOGdlBin()
 
-const icon = fixAsarPath(join(__dirname, '/icon.png'))
-const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
-const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
+const icon = fixAsarPath(join(__dirname, 'icon.png'))
+const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
+const iconLight = fixAsarPath(join(__dirname, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
-const libraryPath = join(legendaryConfigPath, 'metadata/')
+const libraryPath = join(legendaryConfigPath, 'metadata')
 const steamCompatFolder: string = getSteamCompatFolder()
 const fallBackImage = 'fallback'
 const epicLoginUrl =
