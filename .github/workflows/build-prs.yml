@@ -16,8 +16,10 @@ jobs:
         with:
           node-version: '16'
       - name: Install modules.
+        continue-on-error: true
         run: npm i --legacy-peer-deps
       - name: Build artifacts.
+        continue-on-error: true
         run: npm run dist-win portable
       - name: Upload EXE.
         uses: actions/upload-artifact@v2
@@ -54,8 +56,10 @@ jobs:
         with:
           node-version: '16'
       - name: Install modules.
+        continue-on-error: true
         run: yarn
       - name: Build artifacts.
+        continue-on-error: true
         run: yarn dist-mac --publish=never
       - name: Upload DMG.
         uses: actions/upload-artifact@v2
