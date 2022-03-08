@@ -191,7 +191,7 @@ export default function GeneralSettings({
         properties: ['openDirectory'],
         title: t('box.choose-egs-prefix')
       })
-      .then(({ path }: Path) => setEgsPath(path ? `${path}` : ''))
+      .then(({ path }: Path) => setEgsPath(path ? path : ''))
   }
 
   function handleLegendaryBinary() {
@@ -204,7 +204,7 @@ export default function GeneralSettings({
           'Select Legendary Binary (needs restart)'
         )
       })
-      .then(({ path }: Path) => setAltLegendaryBin(path ? `${path}` : ''))
+      .then(({ path }: Path) => setAltLegendaryBin(path ? path : ''))
   }
 
   function handleGogdlBinary() {
@@ -217,7 +217,7 @@ export default function GeneralSettings({
           'Select GOGDL Binary (needs restart)'
         )
       })
-      .then(({ path }: Path) => setAltGogdlBin(path ? `${path}` : ''))
+      .then(({ path }: Path) => setAltGogdlBin(path ? path : ''))
   }
 
   async function handleChangeLanguage(language: string) {
