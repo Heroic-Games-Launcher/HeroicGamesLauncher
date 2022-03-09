@@ -13,10 +13,12 @@ import { LegendaryUser } from './legendary/user'
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
+  heroicDefaultWinePrefix,
   heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
   home,
+  isFlatpak,
   isMac,
   isWindows
 } from './constants'
@@ -242,8 +244,8 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths = [
-      `${home}/.steam`,
-      `${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam`,
+      join(home, '.steam'),
+      join(home, '.var/app/com.valvesoftware.Steam/.local/share/Steam'),
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
@@ -467,10 +469,10 @@ class GlobalConfigV0 extends GlobalConfig {
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,
       autoInstallVkd3d: false,
-      checkForUpdatesOnStartup: true,
+      checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
-      defaultWinePrefix: `${home}/Games/Heroic/Prefixes`,
+      defaultWinePrefix: heroicDefaultWinePrefix,
       language: 'en',
       maxWorkers: 0,
       minimizeOnLaunch: false,

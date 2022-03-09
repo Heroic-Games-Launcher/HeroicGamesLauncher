@@ -70,6 +70,7 @@ const heroicToolsPath = join(heroicFolder, 'tools')
 const heroicIconFolder = join(heroicFolder, 'icons')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
+const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
 
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
@@ -162,6 +163,7 @@ export {
   heroicIconFolder,
   heroicInstallPath,
   heroicToolsPath,
+  heroicDefaultWinePrefix,
   home,
   kofiPage,
   icon,
