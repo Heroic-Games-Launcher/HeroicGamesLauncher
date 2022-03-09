@@ -55,7 +55,7 @@
 .SidebarUtils .userDropdownWrapper:hover,
 .SidebarUtils .userDropdownWrapper:focus-within,
 .SidebarUtils .userDropdownWrapper .userDropdown {
-  background: var(--background-light);
+  background: var(--dropdown-background);
 }
 
 .SidebarUtils .userDropdownWrapper:hover .userDropdown,
