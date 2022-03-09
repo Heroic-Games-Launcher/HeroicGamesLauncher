@@ -9,6 +9,7 @@
   position: relative;
   border-radius: 0.8rem;
   transition-duration: 0.5s;
+  box-shadow: 0px 0px 12px 4px #00000055;
 }
 
 .gameCard:focus-within {
