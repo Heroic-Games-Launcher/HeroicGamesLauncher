@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Build Test Files'
+        required: false
 
 jobs:
   build_windows:

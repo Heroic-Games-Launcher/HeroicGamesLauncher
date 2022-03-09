@@ -107,7 +107,7 @@
     "Filter": "Фільтр",
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Магазин GOG",
     "help": {
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
         "other": {
@@ -163,7 +163,7 @@
         },
         "install": {
             "canceled": "Встановлення скасовано",
-            "error": "",
+            "error": "Встановлення не відбулось",
             "finished": "Встановлення закінчено",
             "imported": "Гра імпортована",
             "startInstall": "Розпочалось встановлення"
@@ -284,8 +284,8 @@
     "status": {
         "logging": "Заходжу..."
     },
-    "store": "Крамниця",
-    "stores": "Stores",
+    "store": "Магазин Епік",
+    "stores": "Крамниці",
     "title": {
         "allGames": "Всі ігри",
         "allUnreal": "Unreal - Все",

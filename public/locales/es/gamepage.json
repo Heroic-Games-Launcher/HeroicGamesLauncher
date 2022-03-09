@@ -12,7 +12,7 @@
             "path": "Elige la ubicación del destino",
             "title": "Mover carpeta del juego"
         },
-        "no": "No",
+        "no": "NO",
         "repair": {
             "message": "¿Quieres intentar reparar este juego? Esto puede llevar mucho tiempo.",
             "title": "Verificar y reparar"

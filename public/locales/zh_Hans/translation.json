@@ -12,7 +12,7 @@
         },
         "choose": "请选择",
         "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "选择 GOGDL 二进制文件 （需要重启）",
         "choose-legendary-binary": "选择 Legendary 二进制文件",
         "customWine": "选择Wine或Proton二进制文件",
         "default-install-path": "选择默认安装路径",
@@ -187,12 +187,12 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "GOGDL 版本： ",
         "legendary-version": "Legendary版本: ",
         "weblate": "请帮助翻译Heroic启动器。"
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的Legendary二进制文件...",
         "egs-prefix": "Epic Games商城安装位置"
     },
@@ -205,7 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件 （二进制文件）",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件 (需要重启)",
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在PREFIX自动安装并更新DXVK",

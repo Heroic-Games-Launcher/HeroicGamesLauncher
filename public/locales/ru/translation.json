@@ -12,7 +12,7 @@
         },
         "choose": "Выбрать",
         "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Выбрать исполняемый файл GOGDL (требуется перезапуск)",
         "choose-legendary-binary": "Выбрать исполняемый файл Legendary",
         "customWine": "Выбрать исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
@@ -187,12 +187,12 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "Версия GOGDL : ",
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
         "egs-prefix": "Префикс куда установлен EGS"
     },
@@ -205,7 +205,7 @@
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL (требуется перезапуск)",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary (требуется перезапуск)",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоматически устанавливать/обновлять DXVK в префиксе",

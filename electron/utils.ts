@@ -14,9 +14,11 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
+  isWindows,
   legendaryBin
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import { join } from 'path'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -165,7 +167,7 @@ const showAboutWindow = () => {
 }
 
 const handleExit = async () => {
-  const isLocked = existsSync(`${heroicGamesConfigPath}/lock`)
+  const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
 
   if (isLocked) {
     const { response } = await showMessageBox({
@@ -326,7 +328,11 @@ function resetHeroic() {
 function showItemInFolder(item: string) {
   if (existsSync(item)) {
     try {
-      shell.showItemInFolder(item)
+      if (isWindows) {
+        execAsync(`explorer /Select,"${item}"`)
+      } else {
+        shell.showItemInFolder(item)
+      }
     } catch (error) {
       logError(
         `Failed to show item in folder with: ${error}`,

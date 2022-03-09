@@ -20,17 +20,14 @@ function getLegendaryBin() {
   const settings = configStore.get('settings') as { altLeg: string }
   const bin =
     settings?.altLeg ||
-    `${fixAsarPath(
+    `"${fixAsarPath(
       join(
         __dirname,
-        '/bin/',
+        'bin',
         process.platform,
-        isWindows ? '/legendary.exe' : '/legendary'
+        isWindows ? 'legendary.exe' : 'legendary'
       )
-    )}`
-  if (bin.includes(' ')) {
-    return `"${bin}"`
-  }
+    )}"`
   logInfo(`Location: ${bin}`, LogPrefix.Legendary)
   return bin
 }
@@ -41,9 +38,9 @@ function getGOGdlBin() {
     settings?.altGogdl ||
       join(
         __dirname,
-        '/bin/',
+        'bin',
         process.platform,
-        isWindows ? '/gogdl.exe' : '/gogdl'
+        isWindows ? 'gogdl.exe' : 'gogdl'
       )
   )
   logInfo(`Location: ${bin}`, LogPrefix.Gog)
@@ -70,6 +67,7 @@ const heroicToolsPath = join(heroicFolder, 'tools')
 const heroicIconFolder = join(heroicFolder, 'icons')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
+const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
 
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
@@ -162,6 +160,7 @@ export {
   heroicIconFolder,
   heroicInstallPath,
   heroicToolsPath,
+  heroicDefaultWinePrefix,
   home,
   kofiPage,
   icon,

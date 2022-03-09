@@ -12,6 +12,7 @@ import {
   lastLogFile
 } from '../constants'
 import { app } from 'electron'
+import { join } from 'path'
 
 export enum LogPrefix {
   General = '',
@@ -161,9 +162,8 @@ interface createLogFileReturn {
 export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   const date = new Date()
   const logDir = app.getPath('logs')
-  const newLogFile = `${logDir}/heroic-${date
-    .toISOString()
-    .replace(':', '_')}.log`
+  const fmtDate = date.toISOString().replace(':', '_')
+  const newLogFile = join(logDir, `heroic-${fmtDate}.log`)
   try {
     openSync(newLogFile, 'w')
   } catch (error) {
@@ -238,7 +238,7 @@ export function getLogFile(
     ? defaultLast
       ? lastLogFile
       : currentLogFile
-    : `${heroicGamesConfigPath}${appName}-lastPlay.log`
+    : join(heroicGamesConfigPath, appName + '-lastPlay.log')
 }
 
 /**
