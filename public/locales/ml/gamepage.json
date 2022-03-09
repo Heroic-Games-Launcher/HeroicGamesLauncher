@@ -23,22 +23,22 @@
             "title": "നടീല് നിര്ത്തൂ"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "പ്രിഫിക്സ് നീക്കംചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ? ഇത് പഴയപടിയാക്കാൻ കഴിയില്ല.",
             "checkbox_prefix": "Prefix",
             "message": "ഇാ കളി എടുത്തുനീക്കട്ടെ?",
             "title": "എടുത്തു നീക്കൂ"
         },
         "update": {
-            "message": "ഈ കളിയുടെ പുതുക്കല് വന്നിട്ടുണ്ട്, ഇതിപ്പോള് പുതുക്കട്ടെ?",
+            "message": "ഈ ഗെയിമിന് ഒരു അപ്ഡേറ്റ് ഉണ്ട്, ഇപ്പോൾ അപ്ഡേറ്റ് ചെയ്യട്ടെ?",
             "title": "കളി പുതുക്കേണ്ടതുണ്ട്"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "വൈൻ പ്രിഫിക്സ് ഫോൾഡർ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി"
     },
     "button": {
         "cancel": "നിര്ത്തൂ/റദ്ദാക്കൂ",
-        "continue": "ഇറക്കല് തുടരൂ",
-        "import": "ഇറക്കുമതി ചെയ്യൂ",
+        "continue": "ഇറക്കൽ തുടരൂ",
+        "import": "കളി ഇറക്കുമതി ചെയ്യൂ",
         "install": "നടൂ",
         "uninstall": "എടുത്തുനീക്കൂ",
         "update": "പുതുക്കൂ"
@@ -53,7 +53,7 @@
         "downloadSize": "ഇറക്കിയെടുപ്പിന്റെ വലുപ്പം",
         "firstPlayed": "ആദ്യം കളിച്ചത്",
         "installSize": "നടീലിന്റെ വലുപ്പം",
-        "language": "Language",
+        "language": "ഭാഷ",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
         "totalPlayed": "കളിച്ച നേരം"
@@ -63,15 +63,15 @@
         "repairing": "നന്നാക്കുന്നു"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "ഓൺലൈൻ ആകേണ്ടത് ആവശ്യമാണ്",
         "path": "നടീലിടം",
         "size": "വലുപ്പം",
         "syncsaves": "സൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
         "version": "പതിപ്പ്"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ",
+        "wineprefix": "വൈൻ പ്രിഫിക്സ്"
     },
     "label": {
         "playing": {
@@ -83,7 +83,7 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "വിക്ഷേപണ ബദലുകൾ..."
     },
     "sdl": {
         "title": "നടുവാനുള്ള ഘടകങ്ങള് തിരഞ്ഞെടുക്കൂ"
