@@ -8,6 +8,7 @@ import { execOptions, heroicToolsPath, home } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { dialog } from 'electron'
 import i18next from 'i18next'
+import { dirname } from 'path'
 
 export const DXVK = {
   getLatest: async () => {
@@ -116,9 +117,7 @@ export const DXVK = {
     }
 
     // remove the last part of the path since we need the folder only
-    const winePathSplit = winePath.replaceAll("'", '').split('/')
-    winePathSplit.pop()
-    const wineBin = winePathSplit.join('/').concat('/')
+    const wineBin = dirname(winePath.replace("'", ''))
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logError('dxvk not found!', LogPrefix.DXVKInstaller)

@@ -124,7 +124,7 @@ class GOGGame extends Game {
       installPlatform = 'osx'
     }
 
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
     // In the future we need to add Language select option
@@ -401,7 +401,7 @@ class GOGGame extends Game {
     const credentials = configStore.get('credentials') as GOGLoginData
 
     const installPlatform = gameData.install.platform
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
     return {

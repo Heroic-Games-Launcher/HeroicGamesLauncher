@@ -8,6 +8,7 @@ import {
   heroicGamesConfigPath
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
+import { join } from 'path'
 
 /**
  * This class does config handling for games.
@@ -28,7 +29,7 @@ abstract class GameConfig {
 
   protected constructor(appName: string) {
     this.appName = appName
-    this.path = `${heroicGamesConfigPath}${appName}.json`
+    this.path = join(heroicGamesConfigPath, appName + '.json')
   }
 
   /**
@@ -40,7 +41,7 @@ abstract class GameConfig {
    */
   public static get(appName: string): GameConfig {
     let version: GameConfigVersion
-    const path = `${heroicGamesConfigPath}${appName}.json`
+    const path = join(heroicGamesConfigPath, appName + '.json')
     // Config file doesn't already exist, make one with the current version.
     if (!existsSync(path)) {
       version = currentGameConfigVersion
