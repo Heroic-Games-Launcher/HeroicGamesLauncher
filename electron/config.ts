@@ -13,6 +13,7 @@ import { LegendaryUser } from './legendary/user'
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
+  heroicDefaultWinePrefix,
   heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
@@ -471,7 +472,7 @@ class GlobalConfigV0 extends GlobalConfig {
       checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
-      defaultWinePrefix: `${home}/Games/Heroic/Prefixes`,
+      defaultWinePrefix: heroicDefaultWinePrefix,
       language: 'en',
       maxWorkers: 0,
       minimizeOnLaunch: false,
