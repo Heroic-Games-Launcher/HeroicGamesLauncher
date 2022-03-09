@@ -27,6 +27,7 @@ interface Props {
   altLegendaryBin: string
   altGogdlBin: string
   checkForUpdatesOnStartup: boolean
+  performanceMode: boolean
   darkTrayIcon: boolean
   defaultInstallPath: string
   egsLinkedPath: string
@@ -47,6 +48,7 @@ interface Props {
   toggleDarkTrayIcon: () => void
   toggleStartInTray: () => void
   toggleCheckUpdatesOnStartup: () => void
+  togglePerformanceMode: () => void
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
   toggleUnrealMarket: () => void
@@ -78,7 +80,8 @@ export default function GeneralSettings({
   toggleDarkTrayIcon,
   toggleCheckUpdatesOnStartup,
   toggleMinimizeOnLaunch,
-  minimizeOnLaunch
+  minimizeOnLaunch,
+  togglePerformanceMode
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -540,6 +543,16 @@ export default function GeneralSettings({
               'Check For Updates On Startup'
             )}
           </span>
+        </label>
+      </span>
+      <span className="setting">
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <ToggleSwitch
+            value={performanceMode}
+            handleChange={togglePerformanceMode}
+            title={t('setting.performanceMode', 'Performance Mode')}
+          />
+          <span>{t('setting.performanceMode', 'Performance Mode')}</span>
         </label>
       </span>
       <span className="setting">
