@@ -32,6 +32,7 @@ export interface AppSettings {
   maxRecentGames: number
   maxSharpness: number
   maxWorkers: number
+  minimizeOnLaunch: boolean
   nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions: string

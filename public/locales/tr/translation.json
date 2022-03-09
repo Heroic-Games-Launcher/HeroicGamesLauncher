@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Gösterilecek Son Oynananlar",
         "maxworkers": "İndirirken azami işçi sayısı",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
         "primerun": "Nvidia Prime Render'ı Etkinleştir",
         "resizableBar": "Resizable BAR'ı etkinleştir (yalnızca NVIDIA RTX 30xx)",

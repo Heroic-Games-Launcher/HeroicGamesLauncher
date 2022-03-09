@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Recente spellen om te tonen",
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Spel offline draaien",
         "primerun": "Aciveer Nvidia Prime Render",
         "resizableBar": "Resizable BAR inschakelen (Alleen voor NVIDIA RTX 30xx)",

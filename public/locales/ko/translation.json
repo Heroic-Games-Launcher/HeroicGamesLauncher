@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "표시할 최근 플레이한 게임",
         "maxworkers": "다운로드할 때 최대 워커 개수",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "게임 오프라인으로 실행",
         "primerun": "Nvidia Prime 렌더 활성화",
         "resizableBar": "Resizable BAR 활성화 (NVIDIA RTX 30xx 전용)",

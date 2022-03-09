@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Показывать недавно запускавшихся игр",
         "maxworkers": "Максимальное количество потоков при скачивании",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Запускать игру офлайн",
         "primerun": "Включить Nvidia Prime Render",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",

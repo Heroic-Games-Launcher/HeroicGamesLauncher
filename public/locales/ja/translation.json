@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "表示する最近のゲーム",
         "maxworkers": "ダウンロード時のワーカーの最大数",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ゲームをオフラインで実行する",
         "primerun": "Nvidia Prime Renderを有効にする",
         "resizableBar": "サイズ変更可能なBARを有効にする（NVIDIA RTX 30xxのみ）",

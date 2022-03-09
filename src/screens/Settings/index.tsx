@@ -132,6 +132,11 @@ function Settings() {
     setOn: setStartInTray
   } = useToggle(false)
   const {
+    on: minimizeOnLaunch,
+    toggle: toggleMinimizeOnLaunch,
+    setOn: setMinimizeOnLaunch
+  } = useToggle(false)
+  const {
     on: darkTrayIcon,
     toggle: toggleDarkTrayIcon,
     setOn: setDarkTrayIcon
@@ -220,6 +225,7 @@ function Settings() {
       setEgsPath(config.egsLinkedPath || '')
       setExitToTray(config.exitToTray)
       setStartInTray(config.startInTray)
+      setMinimizeOnLaunch(config.minimizeOnLaunch)
       setDarkTrayIcon(config.darkTrayIcon)
       setDiscordRPC(config.discordRPC)
       setAutoInstallDxvk(config.autoInstallDxvk)
@@ -292,6 +298,7 @@ function Settings() {
     language,
     maxRecentGames,
     maxWorkers,
+    minimizeOnLaunch,
     nvidiaPrime,
     offlineMode,
     otherOptions,
@@ -456,6 +463,8 @@ function Settings() {
               setAltGogdlBin={setAltGogdlBin}
               toggleUnrealMarket={toggleUnrealMarket}
               showUnrealMarket={showUnrealMarket}
+              minimizeOnLaunch={minimizeOnLaunch}
+              toggleMinimizeOnLaunch={toggleMinimizeOnLaunch}
             />
           )}
           {isGeneralSettings && (

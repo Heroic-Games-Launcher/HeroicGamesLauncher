@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Jugats recentment a mostrar",
         "maxworkers": "Nombre màxim de Workers en baixar",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Executa el joc sense connexió",
         "primerun": "Activa l'Nvidia Prime Render",
         "resizableBar": "Activa el BAR redimensionable (només amb NVIDIA RTX 30xx)",

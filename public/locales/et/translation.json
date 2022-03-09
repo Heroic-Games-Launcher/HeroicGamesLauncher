@@ -245,6 +245,7 @@
         },
         "maxRecentGames": "Hiljuti mängitud mänge, mida näidata",
         "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Käivita mäng võrguühenduseta",
         "primerun": "Luba Nvidia Prime Render",
         "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",

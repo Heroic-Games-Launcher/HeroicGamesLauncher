@@ -473,6 +473,7 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultWinePrefix: `${home}/Games/Heroic/Prefixes`,
       language: 'en',
       maxWorkers: 0,
+      minimizeOnLaunch: false,
       nvidiaPrime: false,
       otherOptions: '',
       showUnrealMarket: false,
