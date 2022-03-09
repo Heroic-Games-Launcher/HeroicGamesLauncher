@@ -28,13 +28,13 @@
 }
 
 .gameInfo {
-  cursor: default;
   text-align: initial;
   font-size: 1rem;
   color: var(--text-default);
   display: flex;
   flex-direction: column;
   max-width: 650px;
+  user-select: text;
 }
 
 .gameInfo .title {
