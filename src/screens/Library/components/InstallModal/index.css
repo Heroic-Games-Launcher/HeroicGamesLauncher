@@ -12,7 +12,7 @@
   display: grid;
   place-items: center;
   position: fixed;
-  background: var(--background-darker-80);
+  background: var(--modal-backdrop);
   width: 100%;
   height: 100%;
   z-index: 6;
@@ -23,7 +23,7 @@
   display: grid;
   place-items: center;
   min-width: fit-content;
-  background: var(--background-darker);
+  background: var(--body-background);
   border-radius: 10px;
   width: 48vw;
   max-width: 560px;
@@ -31,7 +31,7 @@
   padding: 32px;
   height: fit-content;
   min-height: 225px;
-  border: solid 1px var(--background);
+  border: solid 1px var(--body-background);
   overflow: auto;
   max-height: 100vh;
 }

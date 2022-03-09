@@ -5,8 +5,7 @@ html {
   --body-background: #13172a;
   --tooltip-background-color: #0d0e0e;
   --menu-background-color: #0d0e0e;
-  --blur-light: 4px;
-  --blur-strong: 16px;
+  --modal-backdrop: #00000048;
   --text-hover: #59d0ea;
   --link-highlight: #07c5ef;
   --accent: #eaa114;
@@ -58,6 +57,9 @@ html {
   --sidebar-width: 218px;
   --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
+  /* Effects */
+  --blur-light: 4px;
+  --blur-strong: 16px;
 }
 
 body {

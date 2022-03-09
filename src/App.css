@@ -262,7 +262,7 @@ svg.disabled {
 }
 
 .react-contextmenu--visible {
-  background-color: var(--background);
+  background-color: var(--input-background);
   padding: 14px 22px;
   border-radius: 6px;
   z-index: 99;

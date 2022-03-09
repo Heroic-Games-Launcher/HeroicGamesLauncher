@@ -69,7 +69,7 @@
   padding-inline-start: 0.5px;
   padding-block-end: 0.5px;
   bottom: 2.5px;
-  border: solid var(--background);
+  border: solid var(--body-background);
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
