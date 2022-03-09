@@ -17,6 +17,7 @@ import {
   heroicInstallPath,
   heroicToolsPath,
   home,
+  isFlatpak,
   isMac,
   isWindows
 } from './constants'
@@ -475,7 +476,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,
       autoInstallVkd3d: false,
-      checkForUpdatesOnStartup: true,
+      checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
       defaultWinePrefix: `${home}/Games/Heroic/Prefixes`,
