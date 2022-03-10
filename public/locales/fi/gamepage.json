@@ -9,7 +9,7 @@
         "importpath": "Valitse tuotavan pelin kansio",
         "move": {
             "message": "Tämä prosessi voi viedä paljon aikaa, haluatko jatkaa?",
-            "path": "Valitse, minne haluat siirtää",
+            "path": "Valitse mihin haluat siirtää",
             "title": "Siirrä pelin asennus"
         },
         "no": "EI",
@@ -23,22 +23,22 @@
             "title": "Pysäytä asennus"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Haluatko poistaa myös etuliitteen? Tätä ei voida perua.",
             "checkbox_prefix": "Prefix",
             "message": "Haluatko poistaa pelin?",
             "title": "Poista"
         },
         "update": {
-            "message": "Tälle pelille on saatavilla päivitys, haluatko päivittää sen nyt?",
+            "message": "Tälle pelille on saatavilla päivitys, suorita päivitys nyt?",
             "title": "Peli tarvitsee päivityksen"
         },
         "wineprefix": "Select WinePrefix Folder",
         "yes": "KYLLÄ"
     },
     "button": {
-        "cancel": "Peruuta",
+        "cancel": "Tauota/peruuta",
         "continue": "Jatka latausta",
-        "import": "Tuo",
+        "import": "Tuo peli",
         "install": "Asenna",
         "uninstall": "Poista",
         "update": "Päivitä"
