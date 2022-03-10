@@ -13,6 +13,9 @@ import { dirname } from 'path'
 const configStore = new Store({
   cwd: 'store'
 })
+
+const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
+process.chdir(legendaryPath)
 export class LegendaryUser {
   public static async login(sid: string) {
     logInfo('Logging with Legendary...', LogPrefix.Legendary)
@@ -50,7 +53,9 @@ export class LegendaryUser {
   }
 
   public static async logout() {
-    await execAsync(`${legendaryBin} auth --delete`)
+    await execAsync(
+      `${isWindows ? 'legendary.exe' : 'legendary'} auth --delete`
+    )
     const ses = session.fromPartition('persist:epicstore')
     await ses.clearStorageData()
     await ses.clearCache()

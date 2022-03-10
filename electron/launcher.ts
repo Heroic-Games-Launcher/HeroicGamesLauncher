@@ -145,10 +145,14 @@ async function launch(
   ) {
     let command = ''
     if (runner == 'legendary') {
-      command = `${legendaryBin} launch ${appName} ${exe} ${runOffline} ${
+      const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
+      logInfo(['Launch Command:', command], LogPrefix.Legendary)
+      process.chdir(legendaryPath)
+      command = `${
+        isWindows ? './legendary.exe' : './legendary'
+      } launch ${appName} ${exe} ${runOffline} ${
         launchArguments ?? ''
       } ${launcherArgs}`
-      logInfo(['Launch Command:', command], LogPrefix.Legendary)
     } else if (runner == 'gog') {
       // MangoHud,Gamemode, nvidia prime, audio fix can be used in Linux native titles
       if (isLinux) {

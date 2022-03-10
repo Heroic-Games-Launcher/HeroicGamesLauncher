@@ -31,6 +31,9 @@ import Store from 'electron-store'
 import { GlobalConfig } from '../config'
 import path from 'path'
 
+const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
+process.chdir(legendaryPath)
+
 const libraryStore = new Store({
   cwd: 'lib-cache',
   name: 'library'
@@ -232,7 +235,7 @@ class LegendaryLibrary {
     }
     try {
       const { stdout } = await execAsync(
-        `${legendaryBin} -J info ${appName} ${
+        `${isWindows ? 'legendary.exe' : 'legendary'} -J info ${appName} ${
           epicOffline ? '--offline' : ''
         } --json`
       )
@@ -266,7 +269,11 @@ class LegendaryLibrary {
       return []
     }
 
-    const command = `${legendaryBin} list-installed --check-updates --tsv`
+    const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
+    process.chdir(legendaryPath)
+    const command = `${
+      isWindows ? 'legendary.exe' : 'legendary'
+    } list-installed --check-updates --tsv`
     try {
       const { stdout } = await execAsync(command)
       logInfo('Checking for game updates', LogPrefix.Legendary)

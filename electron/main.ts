@@ -30,7 +30,7 @@ import {
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { join } from 'path'
+import { dirname, join } from 'path'
 
 import { DXVK } from './dxvk'
 import { Game } from './games'
@@ -1167,6 +1167,9 @@ ipcMain.handle('egsSync', async (event, args) => {
     }
   }
 
+  const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
+  process.chdir(legendaryPath)
+
   const linkArgs = isWindows
     ? `--enable-sync`
     : `--enable-sync --egl-wine-prefix ${args}`
@@ -1176,7 +1179,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 
   try {
     const { stderr, stdout } = await execAsync(
-      `${legendaryBin} egl-sync ${command} -y`
+      `${isWindows ? 'legendary.exe' : 'legendary'} egl-sync ${command} -y`
     )
     logInfo(`${stdout}`, LogPrefix.Legendary)
     if (stderr.includes('ERROR')) {

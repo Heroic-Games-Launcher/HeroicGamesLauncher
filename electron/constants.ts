@@ -58,6 +58,8 @@ function getLegendaryBin() {
         isWindows ? 'legendary.exe' : 'legendary'
       )
     )}`
+
+  // dont fix windows issues
   if (bin.includes(' ')) {
     return `"${bin}"`
   }
@@ -77,6 +79,8 @@ function getGOGdlBin() {
         isWindows ? 'gogdl.exe' : 'gogdl'
       )
   )
+
+  // dont fix windows issues
   if (bin.includes(' ')) {
     return `"${bin}"`
   }
