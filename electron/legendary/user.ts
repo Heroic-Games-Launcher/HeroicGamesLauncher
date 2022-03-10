@@ -16,14 +16,13 @@ const configStore = new Store({
 
 const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
 process.chdir(legendaryPath)
+
 export class LegendaryUser {
   public static async login(sid: string) {
     logInfo('Logging with Legendary...', LogPrefix.Legendary)
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
-      process.chdir(legendaryPath)
       const child = spawn(isWindows ? 'legendary.exe' : 'legendary', command, {
         shell: isWindows
       })

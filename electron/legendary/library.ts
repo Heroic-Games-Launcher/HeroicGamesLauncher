@@ -101,8 +101,6 @@ class LegendaryLibrary {
 
     return new Promise((res, rej) => {
       const getUeAssets = showUnrealMarket ? '--include-ue' : ''
-      const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
-      process.chdir(legendaryPath)
       const child = spawn(
         isWindows ? 'legendary.exe' : 'legendary',
         ['list', getUeAssets],
@@ -269,8 +267,6 @@ class LegendaryLibrary {
       return []
     }
 
-    const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
-    process.chdir(legendaryPath)
     const command = `${
       isWindows ? 'legendary.exe' : 'legendary'
     } list-installed --check-updates --tsv`

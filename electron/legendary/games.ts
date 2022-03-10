@@ -237,8 +237,6 @@ class LegendaryGame extends Game {
     const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
-    const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
-    process.chdir(legendaryPath)
     const command = `${isWindows ? './legendary.exe' : './legendary'} update ${
       this.appName
     }${workers} -y ${writeLog}`
@@ -311,8 +309,6 @@ class LegendaryGame extends Game {
 
     const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
-    process.chdir(legendaryPath)
     const command = `${isWindows ? './legendary.exe' : './legendary'} install ${
       this.appName
     } --platform ${platformToInstall} --base-path '${path}' ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
