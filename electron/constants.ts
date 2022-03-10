@@ -79,13 +79,8 @@ function getGOGdlBin() {
         isWindows ? 'gogdl.exe' : 'gogdl'
       )
   )
-
-  // dont fix windows issues
-  if (bin.includes(' ')) {
-    return `"${bin}"`
-  }
   logInfo(`Location: ${bin}`, LogPrefix.Gog)
-  return fixPathWithSpaces(bin)
+  return bin
 }
 
 const isMac = platform() === 'darwin'
