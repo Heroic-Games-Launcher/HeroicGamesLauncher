@@ -20,23 +20,23 @@
   transition: 0.1s;
 }
 
+.runnerLogin.alternative {
+  margin-top: 20px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.runnerLogin:hover {
+  color: var(--text-hover);
+}
+
 .logged {
   color: var(--danger);
   cursor: pointer;
 }
 
 .logged:hover {
-  background-color: var(--danger-hover);
-  color: var(--text-secondary);
-}
-
-.runnerLogin.alternative {
-  margin-top: 20px;
-  cursor: pointer;
-  color: var(--text-secondary);
-}
-.runnerLogin:hover {
-  color: var(--text-hover);
+  color: var(--danger-hover);
 }
 
 .runnerWrapper img,
