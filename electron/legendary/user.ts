@@ -8,6 +8,7 @@ import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
 import { session } from 'electron'
+import { dirname } from 'path'
 
 const configStore = new Store({
   cwd: 'store'
@@ -18,7 +19,7 @@ export class LegendaryUser {
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
+      const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
       process.chdir(legendaryPath)
       const child = spawn(isWindows ? 'legendary.exe' : 'legendary', command, {
         shell: isWindows
