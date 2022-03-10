@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from '../types'
 import { clearCache, execAsync } from '../utils'
-import { legendaryBin, userInfo } from '../constants'
+import { isWindows, legendaryBin, userInfo } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
@@ -18,7 +18,11 @@ export class LegendaryUser {
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const child = spawn(legendaryBin, command, { shell: true })
+      const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
+      process.chdir(legendaryPath)
+      const child = spawn(isWindows ? 'legendary.exe' : 'legendary', command, {
+        shell: isWindows
+      })
       child.stderr.on('data', (data) => {
         if (`${data}`.includes('ERROR')) {
           logError(`${data}`, LogPrefix.Legendary)

@@ -35,12 +35,15 @@ function fixPathWithSpaces(path: string) {
   }
 
   // for windows, it depend of the build
-  return should_not_escape(...windows_version_regex.exec(version).splice(1))
+  const fixedPath = should_not_escape(
+    ...windows_version_regex.exec(version).splice(1)
+  )
     ? // on major version, no need to escape anymore
       // https://support.microsoft.com/en-us/help/4467268/url-encoded-unc-paths-not-url-decoded-in-windows-10-version-1803-later
       path
     : // on older version, replace space with symbol %20
       path.replace(/(\s+)/g, '%20')
+  return fixedPath
 }
 
 function getLegendaryBin() {
@@ -55,6 +58,9 @@ function getLegendaryBin() {
         isWindows ? 'legendary.exe' : 'legendary'
       )
     )}`
+  if (bin.includes(' ')) {
+    return `"${bin}"`
+  }
 
   logInfo(`Location: ${bin}`, LogPrefix.Legendary)
   return fixPathWithSpaces(bin)
@@ -71,6 +77,9 @@ function getGOGdlBin() {
         isWindows ? 'gogdl.exe' : 'gogdl'
       )
   )
+  if (bin.includes(' ')) {
+    return `"${bin}"`
+  }
   logInfo(`Location: ${bin}`, LogPrefix.Gog)
   return fixPathWithSpaces(bin)
 }

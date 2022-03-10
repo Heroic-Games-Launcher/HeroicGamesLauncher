@@ -20,6 +20,7 @@ import { execAsync, isEpicServiceOffline, isOnline } from '../utils'
 import {
   fallBackImage,
   installed,
+  isWindows,
   legendaryBin,
   legendaryConfigPath,
   libraryPath
@@ -28,6 +29,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
+import path from 'path'
 
 const libraryStore = new Store({
   cwd: 'lib-cache',
@@ -96,9 +98,16 @@ class LegendaryLibrary {
 
     return new Promise((res, rej) => {
       const getUeAssets = showUnrealMarket ? '--include-ue' : ''
-      const child = spawn(legendaryBin, ['list', getUeAssets], { shell: true })
+      const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
+      process.chdir(legendaryPath)
+      const child = spawn(
+        isWindows ? 'legendary.exe' : 'legendary',
+        ['list', getUeAssets],
+        { shell: isWindows }
+      )
       child.stderr.on('data', (data) => {
         if (`${data}`.includes('ERROR')) {
+          console.log(`${data}`)
           logError(`${data}`.trim(), LogPrefix.Legendary)
         } else {
           logInfo(`${data}`.trim(), LogPrefix.Legendary)
@@ -112,6 +121,8 @@ class LegendaryLibrary {
         this.loadAll()
       })
       .catch((err) => {
+        console.log(`${err}`)
+
         logError(err, LogPrefix.Legendary)
       })
   }
