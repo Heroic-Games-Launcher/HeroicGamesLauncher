@@ -245,7 +245,7 @@
         },
         "maxRecentGames": "要显示的最近玩过的游戏",
         "maxworkers": "下载时的最大Worker数量",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
         "primerun": "启用英伟达Prime渲染",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
