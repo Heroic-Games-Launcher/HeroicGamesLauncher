@@ -3,18 +3,18 @@
     "Assets": "Omaisuuserät",
     "box": {
         "appupdate": {
-            "message": "Uusi versio Heroicista on saatavilla, haluatko päivittää siihen nyt?",
+            "message": "Heroic-käynnistimestä on saatavilla uusi julkaisu, haluatko suorittaa päivityksen siihen nyt?",
             "title": "Päivitys Saatavilla"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic:in välimuisti tyhjennettiin.",
+            "title": "Välimuisti tyhjennetty"
         },
         "choose": "Valitse",
         "choose-egs-prefix": "Valitse Prefiksi, jonne EGS asennetaan",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Select Legendary Binary",
-        "customWine": "Valitse Wine tai Proton Binary",
+        "choose-legendary-binary": "Valitse Legendary:n ajettava binääritiedosto",
+        "customWine": "Valitse Wine tai Proton-binääritiedosto",
         "default-install-path": "Valitse Oletus Asennussijainti",
         "error": {
             "credentials": {
@@ -45,10 +45,10 @@
             }
         },
         "no": "EI",
-        "ok": "Ok",
+        "ok": "Selvä",
         "protocol": {
             "install": {
-                "not_installed": "Ei ole asennettu, haluatteko asentaa sen?"
+                "not_installed": "Ei asennettuna tällä hetkellä. Asennetaanko?"
             }
         },
         "quit": {
@@ -90,14 +90,14 @@
     },
     "button": {
         "continue": "Continue",
-        "login": "Login",
+        "login": "Kirjaudu sisään",
         "sync": "Synkronoi",
         "syncing": "Synkronoidaan",
         "unsync": "Älä synkronoi"
     },
     "Downloading": "Ladataan",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi kokonaisuudessaan Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -109,7 +109,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "help": {
-        "general": "Synkronoi EGS:n kanssa, jos sinulla on toimiva Epic Games Store asennus ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
+        "general": "Synkronisoi EGL:n kanssa mikäli sinulla on toimiva Epic Games Launcher:in asennus toisaalla ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
         "other": {
             "part1": "Käytä ",
             "part2": "Edistyneet asetukset",
@@ -126,7 +126,7 @@
             "part4": "\"Synkronoi tallennukset automaattisesti\" synkronoi tallennukset joka kerta kun käynnistät pelin ja suljet sen."
         },
         "wine": {
-            "part1": "Heroic etsii Wine- ja Proton-versioita seuraavista kansioista:",
+            "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
             "part2": "Muille sijainneille käytä symbolista linkkiä kansioon"
         }
     },
@@ -163,7 +163,7 @@
         },
         "install": {
             "canceled": "Asennus peruutettu",
-            "error": "",
+            "error": "Asennus epäonnistui",
             "finished": "Asennus valmis",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -178,7 +178,7 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Lisää tähän muut käynnistysasetukset",
+            "placeholder": "Aseta muut käynnistysasetukset tähän",
             "title": "Lisäasetukset (Ympäristömuuttujat):"
         },
         "gameargs": {
@@ -199,14 +199,14 @@
     "Plugins": "Laajennukset",
     "Projects": "Projektit",
     "Ready": "Valmis",
-    "Recent": "Viimeisimmät pelit",
+    "Recent": "Viimeksi pelatut",
     "Return": "Palaa",
     "search": "Kirjoita tähän pelin nimi...",
     "setting": {
         "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
         "audiofix": "Äänikorjaus (Pulse Audion viive)",
         "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",
         "autosync": "Automaattisesti synkronoi tallennukset",
@@ -243,7 +243,7 @@
             "title": "Manuaalinen tallennusten synkronointi",
             "upload": "Lähetä"
         },
-        "maxRecentGames": "Viimeisten pelien näytetty lukumäärä",
+        "maxRecentGames": "Viimeksi pelatut näkyvillä",
         "maxworkers": "Työntekijöiden enimmäismäärä ladattaessa",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Käynnistä peli offline-tilassa",
@@ -268,7 +268,7 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Jäljennä kaikki asetukset leikepöydälle",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -284,7 +284,7 @@
     "status": {
         "logging": "Logging In..."
     },
-    "store": "Kauppa",
+    "store": "Epic-kauppa",
     "stores": "Stores",
     "title": {
         "allGames": "All Games",
