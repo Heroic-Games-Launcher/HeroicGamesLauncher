@@ -1,5 +1,5 @@
 import { homedir, platform } from 'os'
-import { join } from 'path'
+import { dirname, join } from 'path'
 import Store from 'electron-store'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
@@ -20,19 +20,17 @@ const configStore = new Store({
 // based on https://github.com/jy95/escape-path-with-spaces/blob/master/index.js
 // unfortunatelly this cant go into utils since it needs to be loaded on app start
 function fixPathWithSpaces(path: string) {
-  // to detect on with os user had used path.resolve(...)
-  const is_posix_os = !isWindows
-  const version = os.release()
+  if (!isWindows) {
+    return path.replace(/(\s+)/g, '\\$1')
+  }
 
   // For some windows version (Windows 10 v1803), it is not useful to escape spaces in path
   // https://docs.microsoft.com/en-us/windows/release-information/
+  // to detect on with os user had used path.resolve(...)
+  const version = os.release()
   const windows_version_regex = /(\d+\.\d+)\.(\d+)/
   const should_not_escape = (major_release = '', os_build = '') =>
     /1\d+\.\d+/.test(major_release) && Number(os_build) >= 17134.1184
-
-  if (is_posix_os) {
-    return path.replace(/(\s+)/g, '\\$1')
-  }
 
   // for windows, it depend of the build
   const fixedPath = should_not_escape(
@@ -59,12 +57,11 @@ function getLegendaryBin() {
       )
     )}`
 
-  // dont fix windows issues
+  logInfo(`Location: ${bin}`, LogPrefix.Legendary)
   if (bin.includes(' ')) {
     return `"${bin}"`
   }
 
-  logInfo(`Location: ${bin}`, LogPrefix.Legendary)
   return fixPathWithSpaces(bin)
 }
 
@@ -109,6 +106,7 @@ const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
 
 const legendaryBin = getLegendaryBin()
+const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
 const gogdlBin = getGOGdlBin()
 
 const icon = fixAsarPath(join(__dirname, 'icon.png'))
@@ -210,6 +208,7 @@ export {
   legendaryBin,
   gogdlBin,
   legendaryConfigPath,
+  legendaryPath,
   libraryPath,
   epicLoginUrl,
   gogLoginUrl,

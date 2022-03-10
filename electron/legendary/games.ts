@@ -14,16 +14,15 @@ import {
   heroicGamesConfigPath,
   home,
   isWindows,
-  legendaryBin
+  legendaryPath
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
-import { dirname, join } from 'path'
+import { join } from 'path'
 
-const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
 process.chdir(legendaryPath)
 
 const store = new Store({

@@ -2,19 +2,17 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from '../types'
 import { clearCache, execAsync } from '../utils'
-import { isWindows, legendaryBin, userInfo } from '../constants'
+import { isWindows, legendaryPath, userInfo } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
 import { session } from 'electron'
-import { dirname } from 'path'
 
 const configStore = new Store({
   cwd: 'store'
 })
 
-const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
 process.chdir(legendaryPath)
 
 export class LegendaryUser {

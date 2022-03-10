@@ -21,17 +21,15 @@ import {
   fallBackImage,
   installed,
   isWindows,
-  legendaryBin,
   legendaryConfigPath,
+  legendaryPath,
   libraryPath
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
-import path from 'path'
 
-const legendaryPath = path.dirname(legendaryBin).replaceAll('"', '')
 process.chdir(legendaryPath)
 
 const libraryStore = new Store({
