@@ -18,7 +18,7 @@ export class LegendaryUser {
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const child = spawn(legendaryBin, command)
+      const child = spawn(legendaryBin, command, { shell: true })
       child.stderr.on('data', (data) => {
         if (`${data}`.includes('ERROR')) {
           logError(`${data}`, LogPrefix.Legendary)

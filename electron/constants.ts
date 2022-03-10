@@ -11,25 +11,53 @@ import {
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync } from 'graceful-fs'
+import os from 'os'
 
 const configStore = new Store({
   cwd: 'store'
 })
 
+// based on https://github.com/jy95/escape-path-with-spaces/blob/master/index.js
+// unfortunatelly this cant go into utils since it needs to be loaded on app start
+function fixPathWithSpaces(path: string) {
+  // to detect on with os user had used path.resolve(...)
+  const is_posix_os = !isWindows
+  const version = os.release()
+
+  // For some windows version (Windows 10 v1803), it is not useful to escape spaces in path
+  // https://docs.microsoft.com/en-us/windows/release-information/
+  const windows_version_regex = /(\d+\.\d+)\.(\d+)/
+  const should_not_escape = (major_release = '', os_build = '') =>
+    /1\d+\.\d+/.test(major_release) && Number(os_build) >= 17134.1184
+
+  if (is_posix_os) {
+    return path.replace(/(\s+)/g, '\\$1')
+  }
+
+  // for windows, it depend of the build
+  return should_not_escape(...windows_version_regex.exec(version).splice(1))
+    ? // on major version, no need to escape anymore
+      // https://support.microsoft.com/en-us/help/4467268/url-encoded-unc-paths-not-url-decoded-in-windows-10-version-1803-later
+      path
+    : // on older version, replace space with symbol %20
+      path.replace(/(\s+)/g, '%20')
+}
+
 function getLegendaryBin() {
   const settings = configStore.get('settings') as { altLeg: string }
   const bin =
     settings?.altLeg ||
-    `"${fixAsarPath(
+    `${fixAsarPath(
       join(
         __dirname,
         'bin',
         process.platform,
         isWindows ? 'legendary.exe' : 'legendary'
       )
-    )}"`
+    )}`
+
   logInfo(`Location: ${bin}`, LogPrefix.Legendary)
-  return bin
+  return fixPathWithSpaces(bin)
 }
 
 function getGOGdlBin() {
@@ -44,7 +72,7 @@ function getGOGdlBin() {
       )
   )
   logInfo(`Location: ${bin}`, LogPrefix.Gog)
-  return bin
+  return fixPathWithSpaces(bin)
 }
 
 const isMac = platform() === 'darwin'
