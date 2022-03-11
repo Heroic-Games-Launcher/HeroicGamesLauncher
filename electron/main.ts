@@ -279,7 +279,7 @@ if (!gotTheLock) {
       LogPrefix.Legendary
     )
     logInfo(
-      ['GOGdl location:', join(...Object.values(getGOGdlBin()))],
+      ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
       LogPrefix.Gog
     )
     logInfo(`${systemInfo}`, LogPrefix.Backend)
