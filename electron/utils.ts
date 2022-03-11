@@ -10,23 +10,22 @@ import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
 import {
-  gogdlBin,
+  configStore,
+  fixAsarPath,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  isWindows,
-  legendaryBin
+  isWindows
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { dirname, join } from 'path'
+import { basename, dirname, join } from 'path'
+import { runLegendaryCommand } from './legendary/library'
+import { runGogdlCommand } from './gog/library'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
-
-const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
-process.chdir(legendaryPath)
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -91,37 +90,23 @@ async function isEpicServiceOffline(
 }
 
 export const getLegendaryVersion = async () => {
-  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(
-      `${isWindows ? 'legendary.exe' : 'legendary'} --version`
-    )
-    return stdout
-      .split('legendary version')[1]
-      .replaceAll('"', '')
-      .replaceAll(', codename', '')
-      .replaceAll('\n', '')
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Legendary)
+  const { stdout } = await runLegendaryCommand(['--version'])
+
+  if (!stdout) {
     return 'invalid'
   }
+
+  return stdout
+    .split('legendary version')[1]
+    .replaceAll('"', '')
+    .replaceAll(', codename', '')
+    .replaceAll('\n', '')
 }
 
 export const getGogdlVersion = async () => {
-  const { altGogdlBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altGogdlBin && !altGogdlBin.includes('gogdl')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(`"${gogdlBin}" --version`)
-    return stdout
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Gog)
-    return 'invalid'
-  }
+  const { stdout } = await runGogdlCommand(['--version'])
+
+  return stdout || 'invalid'
 }
 
 export const getHeroicVersion = () => {
@@ -343,6 +328,37 @@ function showItemInFolder(item: string) {
   }
 }
 
+function splitPathAndName(fullPath: string): { dir: string; bin: string } {
+  const dir = dirname(fullPath)
+  let bin = basename(fullPath)
+  // On Windows, you can just launch executables that are in the current working directory
+  // On Linux, you have to add a ./
+  if (!isWindows) {
+    bin = './' + bin
+  }
+  return { dir: dir, bin: bin }
+}
+
+function getLegendaryBin(): { dir: string; bin: string } {
+  const settings = configStore.get('settings') as { altLeg: string }
+  if (settings?.altLeg) {
+    return splitPathAndName(settings.altLeg)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(__dirname, 'bin', process.platform, 'legendary'))
+  )
+}
+
+function getGOGdlBin(): { dir: string; bin: string } {
+  const settings = configStore.get('settings') as { altGogdl: string }
+  if (settings?.altGogdl) {
+    return splitPathAndName(settings.altGogdl)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(__dirname, 'bin', process.platform, 'gogdl'))
+  )
+}
+
 export {
   checkForUpdates,
   errorHandler,
@@ -358,5 +374,7 @@ export {
   statAsync,
   removeSpecialcharacters,
   clearCache,
-  resetHeroic
+  resetHeroic,
+  getLegendaryBin,
+  getGOGdlBin
 }

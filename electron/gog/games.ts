@@ -21,7 +21,6 @@ import {
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
-  gogdlBin,
   heroicGamesConfigPath,
   isWindows,
   execOptions,
@@ -29,11 +28,12 @@ import {
   isLinux
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { errorHandler, execAsync } from '../utils'
+import { execAsync } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
+import { getGogdlCommand, runGogdlCommand } from './library'
 
 const configStore = new Store({
   cwd: 'gog_store'
@@ -91,20 +91,21 @@ class GOGGame extends Game {
   hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
+
   public async import(path: string): Promise<ExecResult> {
-    const command = `${isWindows ? '&' : ''} "${gogdlBin}" import "${path}"`
+    const command = ['import', `"${path}"`]
 
     logInfo(
-      [`Importing ${this.appName} from ${path} with:`, command],
+      [`Importing ${this.appName} from ${path} with:`, command.join(' ')],
       LogPrefix.Gog
     )
 
-    return execAsync(command, execOptions).then(async (value) => {
-      await GOGLibrary.get().importGame(JSON.parse(value.stdout), path)
-      return value
+    return runGogdlCommand(['import', `"${path}"`]).then(async (res) => {
+      await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
+      return res
     })
-    // throw new Error('Method not implemented.')
   }
+
   public async install({
     path,
     installDlcs,
@@ -124,65 +125,68 @@ class GOGGame extends Game {
       installPlatform = 'osx'
     }
 
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    // In the future we need to add Language select option
-    const command = `${isWindows ? '&' : ''} "${gogdlBin}" download ${
-      this.appName
-    } --platform ${installPlatform} --path="${path}" --token="${
-      credentials.access_token
-    }" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
+    const commandParts = [
+      'download',
+      this.appName,
+      '--platform',
+      installPlatform,
+      `--path="${path}"`,
+      `--token="${credentials.access_token}"`,
+      withDlcs,
+      `--lang="${installLanguage}"`,
+      workers
+    ]
+    const command = getGogdlCommand(commandParts)
 
-    // Doesnt contain confidential token
-    const saveCommand = `"${gogdlBin}" download ${this.appName} --platform ${installPlatform} --path="${path}" ${withDlcs} --lang="${installLanguage}" ${workers} ${writeLog}`
-    logInfo([`Installing ${this.appName} with:`, saveCommand], LogPrefix.Gog)
-    return execAsync(command, execOptions)
-      .then(async ({ stdout, stderr }) => {
-        if (
-          stdout.includes('ERROR') ||
-          stdout.includes('Failed to execute script')
-        ) {
-          errorHandler({ error: { stdout, stderr }, logPath })
-          return { status: 'error' }
-        }
-        // Installation succeded
-        // Save new game info to installed games store
-        const installInfo = await this.getInstallInfo()
-        const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-        const isLinuxNative = installPlatform == 'linux'
-        const additionalInfo = isLinuxNative
-          ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
-          : null
-        const installedData: InstalledInfo = {
-          platform: installPlatform,
-          executable: '',
-          install_path: join(path, gameInfo.folder_name),
-          install_size: prettyBytes(installInfo.manifest.disk_size),
-          is_dlc: false,
-          version: additionalInfo
-            ? additionalInfo.version
-            : installInfo.game.version,
-          appName: this.appName,
-          installedWithDLCs: installDlcs,
-          language: installLanguage,
-          versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
-          buildId: isLinuxNative ? '' : installInfo.game.buildId
-        }
-        const array: Array<InstalledInfo> =
-          (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-        array.push(installedData)
-        installedGamesStore.set('installed', array)
-        GOGLibrary.get().refreshInstalled()
-        if (isWindows) {
-          await setup(this.appName)
-        }
-        return { status: 'done' }
-      })
-      .catch(() => {
-        logInfo('Installaton canceled', LogPrefix.Gog)
-        return { status: 'error' }
-      })
+    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
+
+    const { stdout, stderr } = await runGogdlCommand(commandParts, logPath)
+    if (
+      !stdout ||
+      stdout.includes('ERROR') ||
+      stdout.includes('Failed to execute script')
+    ) {
+      logError(
+        `Failed to install ${this.appName}` + (stdout ? '' : `: ${stderr}`),
+        LogPrefix.Gog
+      )
+      return { status: 'error' }
+    }
+
+    // Installation succeded
+    // Save new game info to installed games store
+    const installInfo = await this.getInstallInfo()
+    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    const isLinuxNative = installPlatform == 'linux'
+    const additionalInfo = isLinuxNative
+      ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
+      : null
+    const installedData: InstalledInfo = {
+      platform: installPlatform,
+      executable: '',
+      install_path: join(path, gameInfo.folder_name),
+      install_size: prettyBytes(installInfo.manifest.disk_size),
+      is_dlc: false,
+      version: additionalInfo
+        ? additionalInfo.version
+        : installInfo.game.version,
+      appName: this.appName,
+      installedWithDLCs: installDlcs,
+      language: installLanguage,
+      versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
+      buildId: isLinuxNative ? '' : installInfo.game.buildId
+    }
+    const array: Array<InstalledInfo> =
+      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+    array.push(installedData)
+    installedGamesStore.set('installed', array)
+    GOGLibrary.get().refreshInstalled()
+    if (isWindows) {
+      await setup(this.appName)
+    }
+    return { status: 'done' }
   }
   public async addShortcuts(fromMenu?: boolean) {
     return addShortcuts(await this.getGameInfo(), fromMenu)
@@ -214,6 +218,7 @@ class GOGGame extends Game {
       .catch((error) => logError(`${error}`, LogPrefix.Gog))
     return newInstallPath
   }
+
   /**
    * Literally installing game, since gogdl verifies files at runtime
    */
@@ -223,34 +228,34 @@ class GOGGame extends Game {
       gameData,
       credentials,
       withDlcs,
-      writeLog,
+      logPath,
       workers
     } = await this.getCommandParameters()
-    // In the future we need to add Language select option
-    const command = `${isWindows ? '&' : ''} "${gogdlBin}" repair ${
-      this.appName
-    } --platform ${installPlatform} --path="${
-      gameData.install.install_path
-    }" --token="${credentials.access_token}" ${withDlcs} --lang="${
-      gameData.install.language || 'en-US'
-    }" -b=${gameData.install.buildId} ${workers} ${writeLog}`
-    // Doesnt contain confidential token
-    const saveCommand = `"${gogdlBin}" repair ${
-      this.appName
-    } --platform ${installPlatform} --path="${
-      gameData.install.install_path
-    }" ${withDlcs} --lang="${gameData.install.language || 'en-US'}" -b=${
-      gameData.install.buildId
-    } ${workers} ${writeLog}`
-    logInfo([`Repairing ${this.appName} with:`, saveCommand], LogPrefix.Gog)
 
-    return execAsync(command, execOptions)
+    const commandParts = [
+      'repair',
+      this.appName,
+      '--platform',
+      installPlatform,
+      `--path="${gameData.install.install_path}"`,
+      `--token="${credentials.access_token}"`,
+      withDlcs,
+      `--lang="${gameData.install.language || 'en-US'}"`,
+      '-b=' + gameData.install.buildId,
+      workers
+    ]
+    const command = getGogdlCommand(commandParts)
+
+    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
+
+    return runGogdlCommand(commandParts, logPath)
       .then((value) => value)
       .catch((error) => {
-        logError(`${error}`, LogPrefix.Gog)
-        return null
+        logError(error, LogPrefix.Gog)
+        return { stdout: '', stderr: error }
       })
   }
+
   public async stop(): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
     logInfo(['killing', pattern], LogPrefix.Gog)
@@ -318,27 +323,26 @@ class GOGGame extends Game {
       gameData,
       credentials,
       withDlcs,
-      writeLog,
+      logPath,
       workers
     } = await this.getCommandParameters()
-    const command = `${isWindows ? '&' : ''} "${gogdlBin}" update ${
-      this.appName
-    } --platform ${installPlatform} --path="${
-      gameData.install.install_path
-    }" --token="${credentials.access_token}" ${withDlcs} --lang="${
-      gameData.install.language || 'en-US'
-    }" ${workers} ${writeLog}`
-    // Doesnt contain confidential token
-    const saveCommand = `"${gogdlBin}" update ${
-      this.appName
-    } --platform ${installPlatform} --path="${
-      gameData.install.install_path
-    }" ${withDlcs} --lang="${
-      gameData.install.language || 'en-US'
-    }" ${workers} ${writeLog}`
-    logInfo([`Updating ${this.appName} with:`, saveCommand], LogPrefix.Gog)
+    const commandParts = [
+      'update',
+      this.appName,
+      '--platform',
+      installPlatform,
+      `--path="${gameData.install.install_path}"`,
+      `--token="${credentials.access_token}"`,
+      withDlcs,
+      `--lang="${gameData.install.language || 'en-US'}"`,
+      workers
+    ]
+    const command = getGogdlCommand(commandParts)
 
-    return execAsync(command, execOptions)
+    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
+
+    let status = ''
+    return runGogdlCommand(commandParts, logPath)
       .then(async () => {
         const installedArray = installedGamesStore.get(
           'installed'
@@ -364,21 +368,20 @@ class GOGGame extends Game {
         }
         installedGamesStore.set('installed', installedArray)
         GOGLibrary.get().refreshInstalled()
-        this.window.webContents.send('setGameStatus', {
-          appName: this.appName,
-          runner: 'gog',
-          status: 'done'
-        })
-        return { status: 'done' }
+
+        status = 'done'
       })
       .catch((error) => {
-        logError(`${error}`, LogPrefix.Gog)
+        logError(error, LogPrefix.Gog)
+        status = 'error'
+      })
+      .finally(() => {
         this.window.webContents.send('setGameStatus', {
           appName: this.appName,
           runner: 'gog',
           status: 'done'
         })
-        return { status: 'error' }
+        return status
       })
   }
 
@@ -401,14 +404,13 @@ class GOGGame extends Game {
     const credentials = configStore.get('credentials') as GOGLoginData
 
     const installPlatform = gameData.install.platform
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
     return {
       withDlcs,
       workers,
       installPlatform,
-      writeLog,
+      logPath,
       credentials,
       gameData
     }

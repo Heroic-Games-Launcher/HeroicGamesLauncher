@@ -30,13 +30,13 @@ import {
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { dirname, join } from 'path'
+import { join } from 'path'
 
 import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
-import { LegendaryLibrary } from './legendary/library'
+import { LegendaryLibrary, runLegendaryCommand } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
@@ -54,7 +54,9 @@ import {
   openUrlOrFile,
   resetHeroic,
   showAboutWindow,
-  showItemInFolder
+  showItemInFolder,
+  getLegendaryBin,
+  getGOGdlBin
 } from './utils'
 import {
   currentLogFile,
@@ -69,7 +71,6 @@ import {
   iconLight,
   installed,
   kofiPage,
-  legendaryBin,
   epicLoginUrl,
   patreonPage,
   sidInfoUrl,
@@ -273,10 +274,18 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
+    logInfo(
+      ['Legendary location:', join(...Object.values(getLegendaryBin()))],
+      LogPrefix.Legendary
+    )
+    logInfo(
+      ['GOGdl location:', join(...Object.values(getGOGdlBin()))],
+      LogPrefix.Gog
+    )
     logInfo(`${systemInfo}`, LogPrefix.Backend)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
-    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    const isLoggedIn = LegendaryUser.isLoggedIn()
 
     if (!isLoggedIn) {
       logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
@@ -1161,39 +1170,24 @@ ipcMain.handle(
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const egl_manifestPath =
-    'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
-
   if (isWindows) {
+    const egl_manifestPath =
+      'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
     if (!existsSync(egl_manifestPath)) {
       mkdirSync(egl_manifestPath, { recursive: true })
     }
   }
 
-  const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
-  process.chdir(legendaryPath)
-
-  const linkArgs = isWindows
-    ? `--enable-sync`
-    : `--enable-sync --egl-wine-prefix ${args}`
-  const unlinkArgs = `--unlink`
-  const isLink = args !== 'unlink'
-  const command = isLink ? linkArgs : unlinkArgs
-
-  try {
-    const { stderr, stdout } = await execAsync(
-      `${isWindows ? 'legendary.exe' : 'legendary'} egl-sync ${command} -y`
-    )
-    logInfo(`${stdout}`, LogPrefix.Legendary)
-    if (stderr.includes('ERROR')) {
-      logError(`${stderr}`, LogPrefix.Legendary)
-      return 'Error'
-    }
-    return `${stdout} - ${stderr}`
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Legendary)
-    return 'Error'
+  let legendaryArgs = Array<string>()
+  if (args != 'unlink') {
+    legendaryArgs = isWindows
+      ? ['--enable-sync']
+      : ['--enable-sync', `--egl-wine-prefix ${args}`]
+  } else {
+    legendaryArgs = ['--unlink']
   }
+
+  return runLegendaryCommand(['egl-sync', ...legendaryArgs, '-y'])
 })
 
 ipcMain.on(

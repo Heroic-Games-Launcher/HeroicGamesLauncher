@@ -1,58 +1,30 @@
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from '../types'
-import { clearCache, execAsync } from '../utils'
-import { isWindows, legendaryPath, userInfo } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { spawn } from 'child_process'
+import { clearCache } from '../utils'
+import { userInfo } from '../constants'
+import { logInfo, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
 import { session } from 'electron'
+import { runLegendaryCommand } from './library'
 
 const configStore = new Store({
   cwd: 'store'
 })
 
-process.chdir(legendaryPath)
-
 export class LegendaryUser {
   public static async login(sid: string) {
     logInfo('Logging with Legendary...', LogPrefix.Legendary)
 
-    const command = `auth --sid ${sid}`.split(' ')
-    return new Promise((res) => {
-      const child = spawn(isWindows ? 'legendary.exe' : 'legendary', command, {
-        shell: isWindows
-      })
-      child.stderr.on('data', (data) => {
-        if (`${data}`.includes('ERROR')) {
-          logError(`${data}`, LogPrefix.Legendary)
-          return res('error')
-        } else {
-          logInfo(`stderr: ${data}`, LogPrefix.Legendary)
-          return
-        }
-      })
-      child.stdout.on('data', (data) => {
-        if (`${data}`.includes('ERROR')) {
-          logError(`${data}`, LogPrefix.Legendary)
-          return res('error')
-        } else {
-          logInfo(`stdout: ${data}`, LogPrefix.Legendary)
-          return
-        }
-      })
-      child.on('close', () => {
-        logInfo('finished login', LogPrefix.Legendary)
-        this.getUserInfo().then(() => res('finished'))
-      })
+    return runLegendaryCommand(['auth', '--sid', sid]).then(() => {
+      this.getUserInfo()
     })
   }
 
   public static async logout() {
-    await execAsync(
-      `${isWindows ? 'legendary.exe' : 'legendary'} auth --delete`
-    )
+    await runLegendaryCommand(['auth', '--delete'])
+
     const ses = session.fromPartition('persist:epicstore')
     await ses.clearStorageData()
     await ses.clearCache()
@@ -62,19 +34,12 @@ export class LegendaryUser {
     clearCache()
   }
 
-  public static async isLoggedIn() {
+  public static isLoggedIn() {
     return existsSync(userInfo)
   }
 
   public static async getUserInfo(): Promise<UserInfo> {
-    let isLoggedIn = false
-    try {
-      isLoggedIn = await LegendaryUser.isLoggedIn()
-    } catch (error) {
-      logError(`${error}`, LogPrefix.Backend)
-      configStore.delete('userInfo')
-    }
-    if (isLoggedIn) {
+    if (LegendaryUser.isLoggedIn()) {
       const info = {
         ...JSON.parse(readFileSync(userInfo, 'utf-8')),
         user: user().username

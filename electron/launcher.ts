@@ -10,11 +10,15 @@ import {
   isLinux,
   home,
   execOptions,
-  legendaryBin,
-  gogdlBin,
   steamCompatFolder
 } from './constants'
-import { execAsync, isEpicServiceOffline, isOnline } from './utils'
+import {
+  execAsync,
+  getGOGdlBin,
+  getLegendaryBin,
+  isEpicServiceOffline,
+  isOnline
+} from './utils'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
@@ -23,7 +27,7 @@ import { Runner } from './types'
 import { GOGLibrary } from './gog/library'
 import { LegendaryLibrary } from './legendary/library'
 import setup from './gog/setup'
-import { dirname } from 'path'
+import { dirname, join } from 'path'
 
 function getGameInfo(appName: string, runner: Runner) {
   switch (runner) {
@@ -145,7 +149,10 @@ async function launch(
   ) {
     let command = ''
     if (runner == 'legendary') {
-      const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
+      // FIXME: Make this work with the new legendary handling
+      //        Since I remove this function with my launch rework anyways,
+      //        this might not be worth it
+      const legendaryPath = getLegendaryBin().dir
       logInfo(['Launch Command:', command], LogPrefix.Legendary)
       process.chdir(legendaryPath)
       command = `${
@@ -199,6 +206,7 @@ async function launch(
         ].filter((n) => n)
         envVars = options.join(' ')
       }
+      const gogdlBin = `"${join(...Object.values(getGOGdlBin()))}"`
       command = `${envVars} ${isWindows ? '&' : ''} "${gogdlBin}" launch "${
         gameInfo.install.install_path
       }" ${exe} ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
@@ -294,6 +302,7 @@ async function launch(
 
   let command = ''
   if (isLegendary) {
+    const legendaryBin = `"${join(...Object.values(getLegendaryBin()))}"`
     command = [
       envVars,
       runWithGameMode,
@@ -312,6 +321,7 @@ async function launch(
       .join(' ')
     logInfo(['Launch Command:', command], LogPrefix.Legendary)
   } else if (isGOG) {
+    const gogdlBin = `"${join(...Object.values(getGOGdlBin()))}"`
     command = [
       envVars,
       runWithGameMode,
