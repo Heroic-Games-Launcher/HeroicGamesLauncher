@@ -1138,15 +1138,14 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   if (!isWindows) {
     percent = progress_result.split(' ')[0]
     eta = progress_result.split(' ')[1]
-    bytes = downloaded_result + 'MiB'
+    bytes = downloaded_result.trim() + 'MiB'
   }
 
-  const progress = { bytes, eta, percent }
   logInfo(
-    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`,
+    [`Progress for ${appName}:`, `${percent}/${bytes}/${eta}`.trim()],
     LogPrefix.Backend
   )
-  return progress
+  return { bytes, eta, percent }
 })
 
 ipcMain.handle(
