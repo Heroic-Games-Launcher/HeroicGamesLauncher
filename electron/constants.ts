@@ -107,7 +107,10 @@ const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
 
 const legendaryBin = getLegendaryBin()
 const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
+const legendary = isWindows ? 'legendary.exe' : 'legendary'
 const gogdlBin = getGOGdlBin()
+const gogdlPath = dirname(gogdlBin).replaceAll('"', '')
+const gogdl = isWindows ? 'gogdl.exe' : 'gogdl'
 
 const icon = fixAsarPath(join(__dirname, 'icon.png'))
 const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
@@ -187,6 +190,7 @@ export {
   execOptions,
   fixAsarPath,
   getShell,
+  gogdlPath,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
@@ -206,7 +210,9 @@ export {
   isWindows,
   isLinux,
   legendaryBin,
+  gogdl,
   gogdlBin,
+  legendary,
   legendaryConfigPath,
   legendaryPath,
   libraryPath,
