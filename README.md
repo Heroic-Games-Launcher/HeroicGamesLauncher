@@ -20,6 +20,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
     - [Building with VS Code](#building-with-vs-code)
     - [Development Using a Container](#development-using-a-container)
     - [Linux](#linux)
+      - [Flatpak](#flatpak)
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
       - [Debian (third party `apt` repository)](#debian-third-party-apt-repository)
       - [Arch (AUR)](#arch-aur)
