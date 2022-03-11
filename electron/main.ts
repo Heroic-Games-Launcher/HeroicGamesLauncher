@@ -274,7 +274,8 @@ if (!gotTheLock) {
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
 
     // add legendary and gogdl to PATH
-    process.env.PATH = `${process.env.PATH}:${legendaryPath}:${gogdlPath}`
+    const separator = isWindows ? ';' : ':'
+    process.env.PATH = `${process.env.PATH}${separator}${legendaryPath}${separator}${gogdlPath}`
     const systemInfo = await getSystemInfo()
     logInfo(`${systemInfo}`, LogPrefix.Backend)
 
