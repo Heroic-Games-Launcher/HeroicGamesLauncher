@@ -6,7 +6,6 @@ import {
   GamepadInputEventMouse,
   Runner
 } from './types'
-import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
@@ -69,13 +68,15 @@ import {
   iconLight,
   installed,
   kofiPage,
-  legendaryBin,
   epicLoginUrl,
   patreonPage,
   sidInfoUrl,
   supportURL,
   weblateUrl,
-  wikiLink
+  wikiLink,
+  legendaryPath,
+  gogdlPath,
+  legendary
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -184,7 +185,7 @@ async function createWindow(): Promise<BrowserWindow> {
     Menu.setApplicationMenu(null)
 
     onMainWindowClose()
-    mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+    mainWindow.loadURL(`file://${join(__dirname, '../build/index.html')}`)
 
     return mainWindow
   }
@@ -270,10 +271,15 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
+    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
+
+    // add legendary and gogdl to PATH
+    const separator = isWindows ? ';' : ':'
+    process.env.PATH = `${process.env.PATH}${separator}${legendaryPath}${separator}${gogdlPath}`
     const systemInfo = await getSystemInfo()
     logInfo(`${systemInfo}`, LogPrefix.Backend)
+
     // We can't use .config since apparently its not loaded fast enough.
-    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
 
     if (!isLoggedIn) {
@@ -288,9 +294,9 @@ if (!gotTheLock) {
 
     await i18next.use(Backend).init({
       backend: {
-        addPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
+        addPath: join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
         allowMultiLoading: false,
-        loadPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
+        loadPath: join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
       },
       debug: false,
       fallbackLng: 'en',
@@ -1176,7 +1182,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 
   try {
     const { stderr, stdout } = await execAsync(
-      `${legendaryBin} egl-sync ${command} -y`
+      `${legendary} egl-sync ${command} -y`
     )
     logInfo(`${stdout}`, LogPrefix.Legendary)
     if (stderr.includes('ERROR')) {

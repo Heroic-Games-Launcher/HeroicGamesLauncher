@@ -14,7 +14,7 @@ import {
   heroicGamesConfigPath,
   home,
   isWindows,
-  legendaryBin
+  legendary
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -233,7 +233,8 @@ class LegendaryGame extends Game {
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
+
+    const command = `${legendary} update ${this.appName}${workers} -y ${writeLog}`
     return execAsync(command, execOptions)
       .then(() => {
         this.window.webContents.send('setGameStatus', {
@@ -303,7 +304,7 @@ class LegendaryGame extends Game {
 
     const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path '${path}' ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
+    const command = `${legendary} install ${this.appName} --platform ${platformToInstall} --base-path '${path}' ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
     return execAsync(command, execOptions)
       .then(async ({ stdout, stderr }) => {
@@ -321,7 +322,7 @@ class LegendaryGame extends Game {
   }
 
   public async uninstall() {
-    const command = `${legendaryBin} uninstall ${this.appName} -y`
+    const command = `${legendary} uninstall ${this.appName} -y`
     logInfo(
       [`Uninstalling ${this.appName} with:`, command],
       LogPrefix.Legendary
@@ -350,7 +351,7 @@ class LegendaryGame extends Game {
     const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
     const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
 
-    const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
+    const command = `${legendary} repair ${this.appName} ${workers} -y ${writeLog}`
 
     logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Legendary)
     return await execAsync(command, execOptions)
@@ -365,7 +366,7 @@ class LegendaryGame extends Game {
   }
 
   public async import(path: string) {
-    const command = `${legendaryBin} import-game ${this.appName} '${path}'`
+    const command = `${legendary} import-game ${this.appName} '${path}'`
 
     logInfo(
       [`Importing ${this.appName} from ${path} with:`, command],
@@ -392,7 +393,7 @@ class LegendaryGame extends Game {
       ? path.replaceAll("'", '').slice(0, -1)
       : path.replaceAll("'", '')
 
-    const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
+    const command = `${legendary} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
     const legendarySavesPath = join(home, 'legendary', '.saves')
 
     //workaround error when no .saves folder exists

@@ -12,7 +12,8 @@ import {
   execOptions,
   legendaryBin,
   gogdlBin,
-  steamCompatFolder
+  steamCompatFolder,
+  legendary
 } from './constants'
 import { execAsync, isEpicServiceOffline, isOnline } from './utils'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -145,10 +146,10 @@ async function launch(
   ) {
     let command = ''
     if (runner == 'legendary') {
-      command = `${legendaryBin} launch ${appName} ${exe} ${runOffline} ${
+      logInfo(['Launch Command:', command], LogPrefix.Legendary)
+      command = `${legendary} launch ${appName} ${exe} ${runOffline} ${
         launchArguments ?? ''
       } ${launcherArgs}`
-      logInfo(['Launch Command:', command], LogPrefix.Legendary)
     } else if (runner == 'gog') {
       // MangoHud,Gamemode, nvidia prime, audio fix can be used in Linux native titles
       if (isLinux) {

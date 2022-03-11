@@ -15,7 +15,7 @@ import {
   heroicGamesConfigPath,
   icon,
   isWindows,
-  legendaryBin
+  legendary
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { join } from 'path'
@@ -93,7 +93,7 @@ export const getLegendaryVersion = async () => {
     if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
       return 'invalid'
     }
-    const { stdout } = await execAsync(`${legendaryBin} --version`)
+    const { stdout } = await execAsync(`${legendary} --version`)
     return stdout
       .split('legendary version')[1]
       .replaceAll('"', '')
