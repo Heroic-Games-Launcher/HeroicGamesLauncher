@@ -12,22 +12,18 @@ sdk-extensions:
   - org.freedesktop.Sdk.Extension.toolchain-i386
 
 finish-args:
-  - --allow=devel
-  - --allow=multiarch
-  - --device=all
-  - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/
-  - --filesystem=xdg-data/lutris:ro
-  - --filesystem=xdg-data/Steam:ro
-  - --filesystem=~/.steam:ro
-  - --filesystem=~/Games/Heroic:create
-  - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
-  - --require-version=1.1.2
   - --share=ipc
   - --share=network
   - --socket=x11
   - --socket=wayland
   - --socket=pulseaudio
+  - --allow=multiarch
+  - --allow=devel
+  - --device=all
   - --talk-name=org.freedesktop.Notifications
+  - --persist=.wine
+  - --filesystem=host
+  - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:

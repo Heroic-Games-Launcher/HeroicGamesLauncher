@@ -5,7 +5,7 @@ import {
   readdirSync,
   writeFileSync
 } from 'graceful-fs'
-import { homedir, userInfo as user } from 'os'
+import { userInfo as user } from 'os'
 import { parse as plistParse, PlistObject } from 'plist'
 
 import { AppSettings, GlobalConfigVersion, WineInstallation } from './types'
@@ -17,6 +17,7 @@ import {
   heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
+  home,
   isFlatpak,
   isMac,
   isWindows
@@ -223,7 +224,7 @@ abstract class GlobalConfig {
       })
     })
 
-    const lutrisPath = `${homedir()}/.local/share/lutris`
+    const lutrisPath = `${home}/.local/share/lutris`
     const lutrisCompatPath = `${lutrisPath}/runners/wine/`
 
     if (existsSync(lutrisCompatPath)) {
@@ -243,8 +244,8 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths = [
-      join(homedir(), '.steam'),
-      join(homedir(), '.var/app/com.valvesoftware.Steam/.local/share/Steam'),
+      join(home, '.steam'),
+      join(home, '.var/app/com.valvesoftware.Steam/.local/share/Steam'),
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
@@ -485,9 +486,7 @@ class GlobalConfigV0 extends GlobalConfig {
         name: userName
       },
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows
-        ? defaultWine
-        : `${heroicDefaultWinePrefix}/Default`,
+      winePrefix: isWindows ? defaultWine : `${home}/.wine`,
       wineVersion: isWindows ? {} : defaultWine
     } as AppSettings
   }

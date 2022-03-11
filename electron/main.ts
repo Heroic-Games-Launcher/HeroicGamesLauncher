@@ -6,6 +6,7 @@ import {
   GamepadInputEventMouse,
   Runner
 } from './types'
+import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
@@ -29,7 +30,7 @@ import {
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { join } from 'path'
+import { dirname, join } from 'path'
 
 import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
@@ -68,15 +69,13 @@ import {
   iconLight,
   installed,
   kofiPage,
+  legendaryBin,
   epicLoginUrl,
   patreonPage,
   sidInfoUrl,
   supportURL,
   weblateUrl,
   wikiLink,
-  legendaryPath,
-  gogdlPath,
-  legendary,
   heroicToolsPath
 } from './constants'
 import { handleProtocol } from './protocol'
@@ -187,7 +186,7 @@ async function createWindow(): Promise<BrowserWindow> {
     Menu.setApplicationMenu(null)
 
     onMainWindowClose()
-    mainWindow.loadURL(`file://${join(__dirname, '../build/index.html')}`)
+    mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
 
     return mainWindow
   }
@@ -273,15 +272,10 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
-
-    // add legendary and gogdl to PATH
-    const separator = isWindows ? ';' : ':'
-    process.env.PATH = `${process.env.PATH}${separator}${legendaryPath}${separator}${gogdlPath}`
     const systemInfo = await getSystemInfo()
     logInfo(`${systemInfo}`, LogPrefix.Backend)
-
     // We can't use .config since apparently its not loaded fast enough.
+    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = await LegendaryUser.isLoggedIn()
 
     if (!isLoggedIn) {
@@ -296,9 +290,9 @@ if (!gotTheLock) {
 
     await i18next.use(Backend).init({
       backend: {
-        addPath: join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
+        addPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
         allowMultiLoading: false,
-        loadPath: join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
+        loadPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
       },
       debug: false,
       fallbackLng: 'en',
@@ -1176,6 +1170,9 @@ ipcMain.handle('egsSync', async (event, args) => {
     }
   }
 
+  const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
+  process.chdir(legendaryPath)
+
   const linkArgs = isWindows
     ? `--enable-sync`
     : `--enable-sync --egl-wine-prefix ${args}`
@@ -1185,7 +1182,7 @@ ipcMain.handle('egsSync', async (event, args) => {
 
   try {
     const { stderr, stdout } = await execAsync(
-      `${legendary} egl-sync ${command} -y`
+      `${isWindows ? 'legendary.exe' : 'legendary'} egl-sync ${command} -y`
     )
     logInfo(`${stdout}`, LogPrefix.Legendary)
     if (stderr.includes('ERROR')) {
