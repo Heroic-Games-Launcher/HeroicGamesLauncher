@@ -15,18 +15,15 @@ import {
   heroicGamesConfigPath,
   icon,
   isWindows,
-  legendaryBin
+  legendary
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { dirname, join } from 'path'
+import { join } from 'path'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
-
-const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
-process.chdir(legendaryPath)
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -96,9 +93,7 @@ export const getLegendaryVersion = async () => {
     if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
       return 'invalid'
     }
-    const { stdout } = await execAsync(
-      `${isWindows ? 'legendary.exe' : 'legendary'} --version`
-    )
+    const { stdout } = await execAsync(`${legendary} --version`)
     return stdout
       .split('legendary version')[1]
       .replaceAll('"', '')

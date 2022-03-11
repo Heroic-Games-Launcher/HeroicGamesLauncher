@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from '../types'
 import { clearCache, execAsync } from '../utils'
-import { isWindows, legendaryPath, userInfo } from '../constants'
+import { isWindows, legendary, userInfo } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
@@ -13,15 +13,13 @@ const configStore = new Store({
   cwd: 'store'
 })
 
-process.chdir(legendaryPath)
-
 export class LegendaryUser {
   public static async login(sid: string) {
     logInfo('Logging with Legendary...', LogPrefix.Legendary)
 
     const command = `auth --sid ${sid}`.split(' ')
     return new Promise((res) => {
-      const child = spawn(isWindows ? 'legendary.exe' : 'legendary', command, {
+      const child = spawn(legendary, command, {
         shell: isWindows
       })
       child.stderr.on('data', (data) => {
@@ -50,9 +48,7 @@ export class LegendaryUser {
   }
 
   public static async logout() {
-    await execAsync(
-      `${isWindows ? 'legendary.exe' : 'legendary'} auth --delete`
-    )
+    await execAsync(`${legendary} auth --delete`)
     const ses = session.fromPartition('persist:epicstore')
     await ses.clearStorageData()
     await ses.clearCache()

@@ -18,19 +18,18 @@ import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
 import { execAsync, isEpicServiceOffline, isOnline } from '../utils'
 import {
+  execOptions,
   fallBackImage,
   installed,
   isWindows,
+  legendary,
   legendaryConfigPath,
-  legendaryPath,
   libraryPath
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
-
-process.chdir(legendaryPath)
 
 const libraryStore = new Store({
   cwd: 'lib-cache',
@@ -99,11 +98,9 @@ class LegendaryLibrary {
 
     return new Promise((res, rej) => {
       const getUeAssets = showUnrealMarket ? '--include-ue' : ''
-      const child = spawn(
-        isWindows ? 'legendary.exe' : 'legendary',
-        ['list', getUeAssets],
-        { shell: isWindows }
-      )
+      const child = spawn(legendary, ['list', getUeAssets], {
+        shell: isWindows
+      })
       child.stderr.on('data', (data) => {
         if (`${data}`.includes('ERROR')) {
           console.log(`${data}`)
@@ -231,7 +228,7 @@ class LegendaryLibrary {
     }
     try {
       const { stdout } = await execAsync(
-        `${isWindows ? 'legendary.exe' : 'legendary'} -J info ${appName} ${
+        `${legendary} -J info ${appName} ${
           epicOffline ? '--offline' : ''
         } --json`
       )
@@ -265,11 +262,9 @@ class LegendaryLibrary {
       return []
     }
 
-    const command = `${
-      isWindows ? 'legendary.exe' : 'legendary'
-    } list-installed --check-updates --tsv`
+    const command = `${legendary} list-installed --check-updates --tsv`
     try {
-      const { stdout } = await execAsync(command)
+      const { stdout } = await execAsync(command, execOptions)
       logInfo('Checking for game updates', LogPrefix.Legendary)
       const updates = stdout
         .split('\n')

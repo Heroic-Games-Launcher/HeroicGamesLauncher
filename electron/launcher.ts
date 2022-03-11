@@ -12,7 +12,8 @@ import {
   execOptions,
   legendaryBin,
   gogdlBin,
-  steamCompatFolder
+  steamCompatFolder,
+  legendary
 } from './constants'
 import { execAsync, isEpicServiceOffline, isOnline } from './utils'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -145,12 +146,8 @@ async function launch(
   ) {
     let command = ''
     if (runner == 'legendary') {
-      const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
       logInfo(['Launch Command:', command], LogPrefix.Legendary)
-      process.chdir(legendaryPath)
-      command = `${
-        isWindows ? './legendary.exe' : './legendary'
-      } launch ${appName} ${exe} ${runOffline} ${
+      command = `${legendary} launch ${appName} ${exe} ${runOffline} ${
         launchArguments ?? ''
       } ${launcherArgs}`
     } else if (runner == 'gog') {
