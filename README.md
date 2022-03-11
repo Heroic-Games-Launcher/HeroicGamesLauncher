@@ -20,6 +20,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
     - [Building with VS Code](#building-with-vs-code)
     - [Development Using a Container](#development-using-a-container)
     - [Linux](#linux)
+      - [Flatpak](#flatpak)
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
       - [Debian (third party `apt` repository)](#debian-third-party-apt-repository)
       - [Arch (AUR)](#arch-aur)
@@ -148,6 +149,11 @@ And you should be good to go, code and build away!
 
 ### Linux
 
+#### Flatpak
+
+Heroic is available on Flathub, so should be on most distros when using Software Centers like Pop_OS! Store or Discover.
+But can also be accessed [**here**](https://flathub.org/apps/details/com.heroicgameslauncher.hgl)
+
 #### Debian, Ubuntu and Derivatives
 
 Download the `heroic_x.x.x_amd64.deb` from the Releases section
@@ -272,10 +278,11 @@ yarn (or npm run) dist-mac
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/26871415/147581846-2a059a3b-9880-42fc-88b6-b850514f3c42.png)
-![image](https://user-images.githubusercontent.com/26871415/147582001-df640925-2536-4fe0-8885-a5be5c7af3d4.png)
-![image](https://user-images.githubusercontent.com/26871415/147581885-7bd7a0f9-4bf7-4cbf-9dca-b00f247e9111.png)
-![image](https://user-images.githubusercontent.com/26871415/147581932-3e8f693f-a6f6-484f-9c1b-e255ff45413d.png)
-![image](https://user-images.githubusercontent.com/26871415/147581944-4d3d0b3f-2bbe-460e-8e41-2ec370585e89.png)
+![epic](https://user-images.githubusercontent.com/26871415/157914736-469d3f69-ddfc-4b63-af0b-4d8600f5744d.png)
+![gog](https://user-images.githubusercontent.com/26871415/157914739-06adfe07-f20e-4902-8dac-9b655b872a86.png)
+![login](https://user-images.githubusercontent.com/26871415/157914743-7281713a-069f-4035-885e-412e3d4e49ec.png)
+![stores](https://user-images.githubusercontent.com/26871415/157914747-a37c9d35-7aae-413e-9aaa-0f8823046c5a.png)
+![wine-manager](https://user-images.githubusercontent.com/26871415/157914748-5f6648b8-0bb3-4f2a-ba6d-44d035e5c1fb.png)
+![gamepage](https://user-images.githubusercontent.com/26871415/157915094-2d07dca1-bbca-4cd8-8be5-62bd91c87d16.png)
 
 [![jump](https://img.shields.io/badge/Back%20to%20top-%20?style=flat&color=grey&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTQgMTJsMS40MSAxLjQxTDExIDcuODNWMjBoMlY3LjgzbDUuNTggNS41OUwyMCAxMmwtOC04LTggOHoiLz48L3N2Zz4=)](#heroic-games-launcher)
