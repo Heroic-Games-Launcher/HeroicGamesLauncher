@@ -93,12 +93,10 @@ class GOGGame extends Game {
   }
 
   public async import(path: string): Promise<ExecResult> {
-    const command = ['import', `"${path}"`]
+    const commandParts = ['import', `"${path}"`]
+    const command = getGogdlCommand(commandParts)
 
-    logInfo(
-      [`Importing ${this.appName} from ${path} with:`, command.join(' ')],
-      LogPrefix.Gog
-    )
+    logInfo([`Importing ${this.appName} with:`, command], LogPrefix.Gog)
 
     return runGogdlCommand(['import', `"${path}"`]).then(async (res) => {
       await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
