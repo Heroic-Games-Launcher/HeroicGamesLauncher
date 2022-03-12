@@ -162,7 +162,7 @@ interface createLogFileReturn {
 export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   const date = new Date()
   const logDir = app.getPath('logs')
-  const fmtDate = date.toISOString().replace(':', '_')
+  const fmtDate = date.toISOString().replaceAll(':', '_')
   const newLogFile = join(logDir, `heroic-${fmtDate}.log`)
   try {
     openSync(newLogFile, 'w')
@@ -174,6 +174,7 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
     )
   }
 
+  // Clean out logs that are more than a month old
   try {
     const logs = readdirSync(logDir)
     logs.forEach((log) => {
@@ -181,7 +182,7 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
         const dateString = log
           .replace('heroic-', '')
           .replace('.log', '')
-          .replace('_', ':')
+          .replaceAll('_', ':')
         const logDate = new Date(dateString)
         if (
           logDate.getFullYear() < date.getFullYear() ||
