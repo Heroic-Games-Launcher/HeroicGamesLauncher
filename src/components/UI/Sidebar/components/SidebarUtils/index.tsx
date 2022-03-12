@@ -1,30 +1,41 @@
-import React from 'react'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPatreon, faDiscord } from '@fortawesome/free-brands-svg-icons'
+import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import {
   faCoffee,
-  faUser,
   faDoorOpen,
+  faUser,
   faUserAlt,
   faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ElectronStore from 'electron-store'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { NavLink, useHistory } from 'react-router-dom'
+import { handleQuit, openDiscordLink } from 'src/helpers'
+import ContextProvider from 'src/state/ContextProvider'
+import './index.css'
 
 const { ipcRenderer } = window.require('electron')
 const Store = window.require('electron-store')
+
 const configStore: ElectronStore = new Store({
   cwd: 'store'
 })
 const gogStore = new Store({
   cwd: 'gog_store'
 })
-import { handleQuit } from 'src/helpers'
-import './index.css'
-import { openDiscordLink } from 'src/helpers'
-import { useTranslation } from 'react-i18next'
-import ContextProvider from 'src/state/ContextProvider'
-import { NavLink, useHistory } from 'react-router-dom'
+
+const QuitButton: React.FC = () => {
+  const { t } = useTranslation()
+  return (
+    <button className="Sidebar__item" onClick={handleQuit}>
+      <div className="Sidebar__itemIcon">
+        <FontAwesomeIcon icon={faDoorOpen} />
+      </div>
+      {t('userselector.quit', 'Quit')}
+    </button>
+  )
+}
 
 export default function SidebarUtils() {
   const { t } = useTranslation()
@@ -33,78 +44,70 @@ export default function SidebarUtils() {
   const { platform } = React.useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const quitButton = (
-    <button onClick={handleQuit}>
-      <FontAwesomeIcon
-        style={{ width: 'clamp(2vh, 25px, 30px)' }}
-        icon={faDoorOpen}
-      />{' '}
-      <span>{t('userselector.quit', 'Quit')}</span>
-    </button>
-  )
-
   return (
-    <div className="SidebarUtils">
+    <div className="SidebarUtils Sidebar__section">
       {isLinux && (
         <NavLink
-          activeStyle={{ color: 'var(--accent)', fontWeight: 500 }}
+          className="Sidebar__item"
           isActive={(match, location) =>
             location.pathname.includes('wine-manager')
           }
-          to={{
-            pathname: '/wine-manager'
-          }}
+          to={{ pathname: '/wine-manager' }}
         >
-          <FontAwesomeIcon
-            style={{ width: 'clamp(2vh, 25px, 30px)' }}
-            icon={faWineGlass}
-          />{' '}
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={faWineGlass} />
+          </div>
           {t('wine.manager.link', 'Wine Manager')}
         </NavLink>
       )}
-      <button onClick={() => openDiscordLink()}>
-        <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={faDiscord}
-        />{' '}
-        <span>{t('userselector.discord', 'Discord')}</span>
+      <button className="Sidebar__item" onClick={() => openDiscordLink()}>
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faDiscord} />
+        </div>
+        {t('userselector.discord', 'Discord')}
       </button>
-      <button onClick={() => ipcRenderer.send('openPatreonPage')}>
-        <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={faPatreon}
-        />{' '}
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openPatreonPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faPatreon} />
+        </div>
         <span>Patreon</span>
       </button>
-      <button onClick={() => ipcRenderer.send('openKofiPage')}>
-        <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={faCoffee}
-        />{' '}
-        <span>Ko-fi</span>
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openKofiPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faCoffee} />
+        </div>
+        Ko-fi
       </button>
-      {user && (
-        <div className="userDropdownWrapper">
-          <button>
-            <FontAwesomeIcon
-              style={{ width: 'clamp(2vh, 25px, 30px)' }}
-              icon={faUser}
-            />{' '}
-            <span>{user.displayName || user.username}</span>
+      {user ? (
+        <div className="SidebarUtils__dropdown">
+          <button className="Sidebar__item">
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+            {user.displayName || user.username}
           </button>
-          <div className="userDropdown">
-            <button onClick={() => history.push('/login')}>
-              <FontAwesomeIcon
-                icon={faUserAlt}
-                style={{ width: 'clamp(2vh, 25px, 30px)' }}
-              />
-              <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
+          <div className="SidebarUtils__dropdownPopup ">
+            <button
+              className="Sidebar__item"
+              onClick={() => history.push('/login')}
+            >
+              <div className="Sidebar__itemIcon">
+                <FontAwesomeIcon icon={faUserAlt} />
+              </div>
+              {t('userselector.manageaccounts', 'Manage Accounts')}
             </button>
-            {quitButton}
+            <QuitButton />
           </div>
         </div>
+      ) : (
+        <QuitButton />
       )}
-      {!user && quitButton}
     </div>
   )
 }

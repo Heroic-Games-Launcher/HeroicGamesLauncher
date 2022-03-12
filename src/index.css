@@ -16,6 +16,12 @@ html {
   );
   --background-light: #1a264b;
   --background-color: #13172a;
+  --background-shadow: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--background-color) 64px,
+    var(--background-color) 100%
+  );
   /* --- ENDNOTE --- */
   --tooltip-background-color: #0d0e0e;
   --menu-background-color: #0d0e0e;

@@ -1,65 +1,34 @@
 .SidebarUtils {
-  grid-area: other;
+  grid-area: utils;
   align-self: end;
-  display: flex;
-  flex-direction: column;
   padding-bottom: var(--sidebar-vertical-padding);
-  width: 100%;
+  font-size: 16px;
 }
 
-.SidebarUtils a,
-.SidebarUtils button {
-  text-align: left;
-  background: none;
-  border: none;
-  color: white;
-  padding: 7px 0;
-  cursor: pointer;
-  transition: 400ms;
-  font-weight: 400;
-  font-family: 'Rubik', sans-serif;
-  font-size: clamp(1.5vh, 16px, 18.5px);
-  transition: 250ms;
-  display: block;
-}
-
-.SidebarUtils a:hover {
-  color: var(--text-hover);
-}
-
-.SidebarUtils button:hover {
-  color: var(--text-hover);
-  fill: var(--download-button);
-}
-
-.SidebarUtils button > span {
-  padding-left: 2px;
-}
-
-.SidebarUtils .userDropdownWrapper {
+.SidebarUtils__dropdown {
   position: relative;
   width: 100%;
 }
 
-.SidebarUtils .userDropdownWrapper .userDropdown {
+.SidebarUtils__dropdownPopup {
   position: absolute;
   left: 100%;
-  bottom: 0px;
+  bottom: 0;
   width: max-content;
   z-index: 1;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
-}
-
-.SidebarUtils .userDropdownWrapper:hover,
-.SidebarUtils .userDropdownWrapper:focus-within,
-.SidebarUtils .userDropdownWrapper .userDropdown {
   background: var(--background-light);
 }
 
-.SidebarUtils .userDropdownWrapper:hover .userDropdown,
-.SidebarUtils .userDropdownWrapper:focus-within .userDropdown {
+.SidebarUtils__dropdown:hover,
+.SidebarUtils__dropdown:focus-within {
+  background: var(--background-light);
+}
+
+.SidebarUtils__dropdown:hover .SidebarUtils__dropdownPopup,
+.SidebarUtils__dropdown:focus-within .SidebarUtils__dropdownPopup {
   opacity: 1;
   pointer-events: initial;
 }
