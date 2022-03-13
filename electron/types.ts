@@ -55,6 +55,7 @@ export type ExecResult = {
   stderr: string
   stdout: string
   fullCommand?: string
+  error?: string
 }
 
 export type LaunchResult = {
