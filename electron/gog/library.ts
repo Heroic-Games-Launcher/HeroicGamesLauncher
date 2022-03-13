@@ -160,14 +160,19 @@ export class GOGLibrary {
     }
     const gameData = this.library.get(appName)
 
-    const { stdout } = await runGogdlCommand([
+    const commandParts = [
       'info',
       appName,
-      `--token="${credentials.access_token}"`,
+      `--token=${credentials.access_token}`,
       '--lang=en-US',
       '--os',
       isMac && gameData.is_mac_native ? 'osx' : 'windows'
-    ])
+    ]
+    const command = getGogdlCommand(commandParts)
+
+    logInfo(['Getting game metadata:', command])
+
+    const { stdout } = await runGogdlCommand(commandParts)
 
     if (!stdout) {
       return

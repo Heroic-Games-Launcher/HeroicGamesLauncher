@@ -93,12 +93,12 @@ class GOGGame extends Game {
   }
 
   public async import(path: string): Promise<ExecResult> {
-    const commandParts = ['import', `"${path}"`]
+    const commandParts = ['import', path]
     const command = getGogdlCommand(commandParts)
 
     logInfo([`Importing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    return runGogdlCommand(['import', `"${path}"`]).then(async (res) => {
+    return runGogdlCommand(commandParts).then(async (res) => {
       await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
       return res
     })
@@ -130,10 +130,10 @@ class GOGGame extends Game {
       this.appName,
       '--platform',
       installPlatform,
-      `--path="${path}"`,
-      `--token="${credentials.access_token}"`,
+      `--path=${path}`,
+      `--token=${credentials.access_token}`,
       withDlcs,
-      `--lang="${installLanguage}"`,
+      `--lang=${installLanguage}`,
       workers
     ]
     const command = getGogdlCommand(commandParts)
@@ -235,10 +235,10 @@ class GOGGame extends Game {
       this.appName,
       '--platform',
       installPlatform,
-      `--path="${gameData.install.install_path}"`,
-      `--token="${credentials.access_token}"`,
+      `--path=${gameData.install.install_path}`,
+      `--token=${credentials.access_token}`,
       withDlcs,
-      `--lang="${gameData.install.language || 'en-US'}"`,
+      `--lang=${gameData.install.language || 'en-US'}`,
       '-b=' + gameData.install.buildId,
       workers
     ]
@@ -329,10 +329,10 @@ class GOGGame extends Game {
       this.appName,
       '--platform',
       installPlatform,
-      `--path="${gameData.install.install_path}"`,
-      `--token="${credentials.access_token}"`,
+      `--path=${gameData.install.install_path}`,
+      `--token=${credentials.access_token}`,
       withDlcs,
-      `--lang="${gameData.install.language || 'en-US'}"`,
+      `--lang=${gameData.install.language || 'en-US'}`,
       workers
     ]
     const command = getGogdlCommand(commandParts)
