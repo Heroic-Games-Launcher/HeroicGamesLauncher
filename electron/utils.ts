@@ -156,7 +156,7 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
-const handleExit = async () => {
+async function handleExit() {
   const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
 
   if (isLocked) {
@@ -172,7 +172,19 @@ const handleExit = async () => {
     if (response === 0) {
       return
     }
-    return app.exit()
+
+    // Kill all child processes
+    // This is very hacky
+    let killCommand = 'pkill --signal SIGINT '
+    if (isWindows) {
+      killCommand = 'Stop-Process -name '
+    }
+    const possibleChildren = ['legendary', 'gogdl']
+    possibleChildren.forEach(async (procName) => {
+      await execAsync(killCommand + procName).catch((error) => {
+        logInfo([`Unable to kill ${procName}, ignoring.`, error])
+      })
+    })
   }
   app.exit()
 }
