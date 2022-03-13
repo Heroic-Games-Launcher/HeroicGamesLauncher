@@ -98,10 +98,16 @@ class GOGGame extends Game {
 
     logInfo([`Importing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    return runGogdlCommand(commandParts).then(async (res) => {
-      await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
-      return res
-    })
+    const res = await runGogdlCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to import', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
+    }
+    await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
+    return res
   }
 
   public async install({
@@ -109,7 +115,7 @@ class GOGGame extends Game {
     installDlcs,
     platformToInstall,
     installLanguage
-  }: InstallArgs): Promise<{ status: string }> {
+  }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
@@ -140,14 +146,11 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const { stdout, stderr } = await runGogdlCommand(commandParts, logPath)
-    if (
-      !stdout ||
-      stdout.includes('ERROR') ||
-      stdout.includes('Failed to execute script')
-    ) {
+    const res = await runGogdlCommand(commandParts, logPath)
+
+    if (res.error) {
       logError(
-        `Failed to install ${this.appName}` + (stdout ? '' : `: ${stderr}`),
+        ['Failed to install', `${this.appName}:`, res.error],
         LogPrefix.Gog
       )
       return { status: 'error' }
@@ -186,15 +189,19 @@ class GOGGame extends Game {
     }
     return { status: 'done' }
   }
+
   public async addShortcuts(fromMenu?: boolean) {
     return addShortcuts(await this.getGameInfo(), fromMenu)
   }
+
   public async removeShortcuts() {
     return removeShortcuts(this.appName, 'gog')
   }
+
   launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
     return launch(this.appName, launchArguments, 'gog')
   }
+
   public async moveInstall(newInstallPath: string): Promise<string> {
     const {
       install: { install_path },
@@ -246,12 +253,15 @@ class GOGGame extends Game {
 
     logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    return runGogdlCommand(commandParts, logPath)
-      .then((value) => value)
-      .catch((error) => {
-        logError(error, LogPrefix.Gog)
-        return { stdout: '', stderr: error }
-      })
+    const res = await runGogdlCommand(commandParts, logPath)
+
+    if (res.error) {
+      logError(
+        ['Failed to repair', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
+    }
+    return res
   }
 
   public async stop(): Promise<void> {
@@ -275,6 +285,7 @@ class GOGGame extends Game {
       return logInfo(`${pattern} killed`, LogPrefix.Gog)
     })
   }
+
   syncSaves(arg: string, path: string): Promise<ExecResult> {
     throw new Error(
       "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
@@ -292,6 +303,8 @@ class GOGGame extends Game {
     logInfo(['Removing', object.install_path], LogPrefix.Gog)
     // TODO: Run unins000.exe /verysilent /dir=Z:/path/to/game
     const uninstallerPath = join(object.install_path, 'unins000.exe')
+
+    const res: ExecResult = { stdout: '', stderr: '' }
     if (existsSync(uninstallerPath)) {
       const {
         winePrefix,
@@ -308,14 +321,23 @@ class GOGGame extends Game {
         object.install_path
       }"`
       logInfo(['Executing uninstall command', command], LogPrefix.Gog)
-      await execAsync(command)
-    } else rmSync(object.install_path, { recursive: true })
+      execAsync(command)
+        .then(({ stdout, stderr }) => {
+          res.stdout = stdout
+          res.stderr = stderr
+        })
+        .catch((error) => {
+          res.error = error
+        })
+    } else {
+      rmSync(object.install_path, { recursive: true })
+    }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    // This is to satisfy Typescript (we neeed to change it probably)
-    return { stdout: '', stderr: '' }
+    return res
   }
-  public async update(): Promise<unknown> {
+
+  public async update(): Promise<{ status: 'done' | 'error' }> {
     const {
       installPlatform,
       gameData,
@@ -339,54 +361,51 @@ class GOGGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    let status = ''
-    return runGogdlCommand(commandParts, logPath)
-      .then(async () => {
-        const installedArray = installedGamesStore.get(
-          'installed'
-        ) as InstalledInfo[]
-        const gameIndex = installedArray.findIndex(
-          (value) => this.appName == value.appName
-        )
-        const gameObject = installedArray[gameIndex]
+    const res = await runGogdlCommand(commandParts, logPath)
 
-        if (gameData.install.platform != 'linux') {
-          const installInfo = await GOGLibrary.get().getInstallInfo(
-            this.appName
-          )
-          gameObject.buildId = installInfo.game.buildId
-          gameObject.version = installInfo.game.version
-          gameObject.versionEtag = installInfo.manifest.versionEtag
-          gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
-        } else {
-          const installerInfo = await GOGLibrary.getLinuxInstallerInfo(
-            this.appName
-          )
-          gameObject.version = installerInfo.version
-        }
-        installedGamesStore.set('installed', installedArray)
-        GOGLibrary.get().refreshInstalled()
+    // This always has to be done, so we do it before checking for res.error
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      runner: 'gog',
+      status: 'done'
+    })
 
-        status = 'done'
-      })
-      .catch((error) => {
-        logError(error, LogPrefix.Gog)
-        status = 'error'
-      })
-      .finally(() => {
-        this.window.webContents.send('setGameStatus', {
-          appName: this.appName,
-          runner: 'gog',
-          status: 'done'
-        })
-        return status
-      })
+    if (res.error) {
+      logError(
+        ['Failed to update', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
+      return { status: 'error' }
+    }
+
+    // Update was successful
+
+    const installedArray = installedGamesStore.get(
+      'installed'
+    ) as InstalledInfo[]
+    const gameIndex = installedArray.findIndex(
+      (value) => this.appName == value.appName
+    )
+    const gameObject = installedArray[gameIndex]
+
+    if (gameData.install.platform != 'linux') {
+      const installInfo = await GOGLibrary.get().getInstallInfo(this.appName)
+      gameObject.buildId = installInfo.game.buildId
+      gameObject.version = installInfo.game.version
+      gameObject.versionEtag = installInfo.manifest.versionEtag
+      gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
+    } else {
+      const installerInfo = await GOGLibrary.getLinuxInstallerInfo(this.appName)
+      gameObject.version = installerInfo.version
+    }
+    installedGamesStore.set('installed', installedArray)
+    GOGLibrary.get().refreshInstalled()
+    return { status: 'done' }
   }
 
   /**
    * Reads game installed data and returns proper parameters
    * Useful for Update and Repair
-   * @returns
    */
   public async getCommandParameters() {
     const { maxWorkers } = await GlobalConfig.get().getSettings()

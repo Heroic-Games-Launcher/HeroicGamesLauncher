@@ -90,7 +90,7 @@ export class LegendaryLibrary {
   /**
    * Refresh library.
    */
-  public async refresh() {
+  public async refresh(): Promise<ExecResult> {
     logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
     const { showUnrealMarket } = await GlobalConfig.get().getSettings()
     const epicOffline = await isEpicServiceOffline()
@@ -103,14 +103,14 @@ export class LegendaryLibrary {
     }
 
     const includeUEFlag = showUnrealMarket ? '--include-ue' : ''
-    return runLegendaryCommand(['list', includeUEFlag])
-      .then(() => {
-        this.refreshInstalled()
-        this.loadAll()
-      })
-      .catch((err) => {
-        logError(err, LogPrefix.Legendary)
-      })
+    const res = await runLegendaryCommand(['list', includeUEFlag])
+
+    if (res.error) {
+      logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
+    }
+    this.refreshInstalled()
+    this.loadAll()
+    return res
   }
 
   /**
@@ -202,11 +202,8 @@ export class LegendaryLibrary {
 
   /**
    * Get game info for a particular game.
-   *
-   * @param appName
-   * @returns InstallInfo
    */
-  public async getInstallInfo(appName: string) {
+  public async getInstallInfo(appName: string): Promise<InstallInfo> {
     const cache = installStore.get(appName) as InstallInfo
     if (cache) {
       logDebug('Using cached install info', LogPrefix.Legendary)
@@ -215,7 +212,7 @@ export class LegendaryLibrary {
 
     logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
 
-    const { stdout } = await runLegendaryCommand([
+    const res = await runLegendaryCommand([
       '--pretty-json',
       'info',
       appName,
@@ -223,11 +220,11 @@ export class LegendaryLibrary {
       (await isEpicServiceOffline()) ? '--offline' : ''
     ])
 
-    if (!stdout) {
-      logError('Unable to get more details', LogPrefix.Legendary)
+    if (res.error) {
+      logError(['Failed to get more details:', res.error], LogPrefix.Legendary)
     }
 
-    const info: InstallInfo = JSON.parse(stdout)
+    const info: InstallInfo = JSON.parse(res.stdout)
     installStore.set(appName, info)
     return info
   }
@@ -253,14 +250,21 @@ export class LegendaryLibrary {
       return []
     }
 
-    logInfo('Checking for game updates', LogPrefix.Legendary)
-    const { stdout } = await runLegendaryCommand([
-      'list-installed',
-      '--check-updates',
-      '--tsv'
-    ])
+    const commandParts = ['list-installed', '--check-updates', '--tsv']
+    const command = getLegendaryCommand(commandParts)
 
-    const updates = stdout
+    logInfo(['Checking for game updates:', command], LogPrefix.Legendary)
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to check for game updates:', res.error],
+        LogPrefix.Legendary
+      )
+      return []
+    }
+
+    const updates = res.stdout
       .split('\n')
       .filter((item) => item.split('\t')[4] === 'True')
       .map((item) => item.split('\t')[0])
@@ -592,15 +596,14 @@ export async function runLegendaryCommand(
     child.on('close', () => {
       res({
         stdout: stdout.join('\n'),
-        stderr: stderr.join('\n'),
-        fullCommand
+        stderr: stderr.join('\n')
       })
     })
     child.on('error', (error) => {
       rej(error)
     })
   })
-    .then(({ stdout, stderr, fullCommand }) => {
+    .then(({ stdout, stderr }) => {
       return { stdout, stderr, fullCommand }
     })
     .catch((error) => {
@@ -608,7 +611,7 @@ export async function runLegendaryCommand(
         [`Error running Legendary command "${fullCommand}": ${error}`],
         LogPrefix.Legendary
       )
-      return { stdout: '', stderr: error }
+      return { stdout: '', stderr: '', fullCommand, error: error }
     })
 }
 

@@ -90,9 +90,9 @@ async function isEpicServiceOffline(
 }
 
 export const getLegendaryVersion = async () => {
-  const { stdout } = await runLegendaryCommand(['--version'])
+  const { stdout, error } = await runLegendaryCommand(['--version'])
 
-  if (!stdout) {
+  if (error) {
     return 'invalid'
   }
 
@@ -104,9 +104,13 @@ export const getLegendaryVersion = async () => {
 }
 
 export const getGogdlVersion = async () => {
-  const { stdout } = await runGogdlCommand(['--version'])
+  const { stdout, error } = await runGogdlCommand(['--version'])
 
-  return stdout || 'invalid'
+  if (error) {
+    return 'invalid'
+  }
+
+  return stdout
 }
 
 export const getHeroicVersion = () => {

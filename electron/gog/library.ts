@@ -170,15 +170,18 @@ export class GOGLibrary {
     ]
     const command = getGogdlCommand(commandParts)
 
-    logInfo(['Getting game metadata:', command])
+    logInfo(['Getting game metadata:', command], LogPrefix.Gog)
 
-    const { stdout } = await runGogdlCommand(commandParts)
+    const res = await runGogdlCommand(commandParts)
 
-    if (!stdout) {
-      return
+    if (res.error) {
+      logError(
+        ['Failed to get game metadata for', `${appName}:`, res.error],
+        LogPrefix.Gog
+      )
     }
 
-    const gogInfo = JSON.parse(stdout)
+    const gogInfo = JSON.parse(res.stdout)
     const libraryArray = libraryStore.get('games') as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name == appName
@@ -653,23 +656,22 @@ export async function runGogdlCommand(
     child.on('close', () => {
       res({
         stdout: stdout.join('\n'),
-        stderr: stderr.join('\n'),
-        safeCommand
+        stderr: stderr.join('\n')
       })
     })
     child.on('error', (error) => {
       rej(error)
     })
   })
-    .then(({ stdout, stderr, fullCommand }) => {
-      return { stdout, stderr, fullCommand }
+    .then(({ stdout, stderr }) => {
+      return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
       logError(
         [`Error running GOGDL command "${safeCommand}": ${error}`],
         LogPrefix.Legendary
       )
-      return { stdout: '', stderr: error }
+      return { stdout: '', stderr: '', fullCommand: safeCommand, error: error }
     })
 }
 

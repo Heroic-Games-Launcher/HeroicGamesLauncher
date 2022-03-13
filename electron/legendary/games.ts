@@ -224,7 +224,7 @@ class LegendaryGame extends Game {
    * Update game.
    * Does NOT check for online connectivity.
    */
-  public async update(): Promise<ExecResult> {
+  public async update(): Promise<{ status: 'done' | 'error' }> {
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
       runner: 'legendary',
@@ -239,14 +239,7 @@ class LegendaryGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const { stdout, stderr } = await runLegendaryCommand(commandParts, logPath)
-
-    if (stderr.includes('ERROR')) {
-      logError(
-        `Failed to update ${this.appName}` + (stdout ? '' : `: ${stderr}`),
-        LogPrefix.Legendary
-      )
-    }
+    const res = await runLegendaryCommand(commandParts, logPath)
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -254,7 +247,14 @@ class LegendaryGame extends Game {
       status: 'done'
     })
 
-    return { stdout, stderr, fullCommand: command }
+    if (res.error) {
+      logError(
+        ['Failed to update', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+      return { status: 'error' }
+    }
+    return { status: 'done' }
   }
 
   /**
@@ -319,16 +319,15 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const { stdout, stderr } = await runLegendaryCommand(commandParts, logPath)
-    if (stderr.includes('ERROR')) {
+    const res = await runLegendaryCommand(commandParts, logPath)
+
+    if (res.error) {
       logError(
-        `Failed to install ${this.appName}` +
-          (stdout && stderr.split('\n').length < 2 ? '' : `: ${stderr}`),
+        ['Failed to install', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
       return { status: 'error' }
     }
-
     return { status: 'done' }
   }
 
@@ -336,21 +335,18 @@ class LegendaryGame extends Game {
     const commandParts = ['uninstall', this.appName, '-y']
     const command = getLegendaryCommand(commandParts)
 
-    logInfo(
-      [`Uninstalling ${this.appName} with:`, command],
-      LogPrefix.Legendary
-    )
+    logInfo([`Uninstalling ${this.appName}:`, command], LogPrefix.Legendary)
 
     LegendaryLibrary.get().installState(this.appName, false)
-    const { stdout, stderr } = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts)
 
-    if (stderr.includes('ERROR')) {
+    if (res.error) {
       logError(
-        `Failed to uninstall ${this.appName}` + (stdout ? '' : `: ${stderr}`),
+        ['Failed to uninstall', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
-    return { stdout, stderr, fullCommand: command }
+    return res
   }
   /**
    * Repair game.
@@ -366,34 +362,34 @@ class LegendaryGame extends Game {
     const commandParts = ['repair', this.appName, workers, '-y']
     const command = getLegendaryCommand(commandParts)
 
-    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Legendary)
+    logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
 
-    const { stdout, stderr } = await runLegendaryCommand(commandParts, logPath)
+    const res = await runLegendaryCommand(commandParts, logPath)
 
-    if (stderr.includes('ERROR')) {
+    if (res.error) {
       logError(
-        `Failed to repair ${this.appName}` + (stdout ? '' : `: ${stderr}`),
+        ['Failed to repair', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
-    return { stdout, stderr, fullCommand: command }
+    return res
   }
 
   public async import(path: string): Promise<ExecResult> {
     const commandParts = ['import', this.appName, path]
     const command = getLegendaryCommand(commandParts)
 
-    logInfo([`Importing ${this.appName} with:`, command], LogPrefix.Legendary)
+    logInfo([`Importing ${this.appName}:`, command], LogPrefix.Legendary)
 
-    const { stdout, stderr } = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts)
 
-    if (stderr.includes('ERROR')) {
+    if (res.error) {
       logError(
-        `Failed to import ${this.appName}` + (stdout ? '' : `: ${stderr}`),
+        ['Failed to import', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
-    return { stdout, stderr, fullCommand: command }
+    return res
   }
 
   /**
@@ -422,20 +418,19 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts)
 
     logInfo(
-      [`Syncing saves for ${this.appName} with:`, command],
+      [`Syncing saves for ${this.appName}:`, command],
       LogPrefix.Legendary
     )
 
-    const { stdout, stderr } = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts)
 
-    if (stderr.includes('ERROR')) {
+    if (res.error) {
       logError(
-        `Failed to sync saves for ${this.appName}` +
-          (stdout ? '' : `: ${stderr}`),
+        ['Failed to sync saves for', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
-    return { stdout, stderr, fullCommand: command }
+    return res
   }
 
   public async launch(

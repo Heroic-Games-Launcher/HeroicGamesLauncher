@@ -3,11 +3,11 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { UserInfo } from '../types'
 import { clearCache } from '../utils'
 import { userInfo } from '../constants'
-import { logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
 import { session } from 'electron'
-import { runLegendaryCommand } from './library'
+import { getLegendaryCommand, runLegendaryCommand } from './library'
 
 const configStore = new Store({
   cwd: 'store'
@@ -15,15 +15,32 @@ const configStore = new Store({
 
 export class LegendaryUser {
   public static async login(sid: string) {
-    logInfo('Logging with Legendary...', LogPrefix.Legendary)
+    const commandParts = ['auth', '--sid', sid]
+    const command = getLegendaryCommand(commandParts)
+    logInfo(['Logging with Legendary:', command], LogPrefix.Legendary)
 
-    return runLegendaryCommand(['auth', '--sid', sid]).then(() => {
-      this.getUserInfo()
-    })
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to login with Legendary:', res.error],
+        LogPrefix.Legendary
+      )
+      return
+    }
+    this.getUserInfo()
   }
 
   public static async logout() {
-    await runLegendaryCommand(['auth', '--delete'])
+    const commandParts = ['auth', '--delete']
+    const command = getLegendaryCommand(commandParts)
+    logInfo(['Logging out:', command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(['Failed to logout:', res.error], LogPrefix.Legendary)
+    }
 
     const ses = session.fromPartition('persist:epicstore')
     await ses.clearStorageData()
