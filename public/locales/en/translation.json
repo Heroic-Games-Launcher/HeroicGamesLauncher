@@ -323,6 +323,14 @@
         "manageaccounts": "Manage Accounts",
         "quit": "Quit"
     },
+    "webview": {
+        "controls": {
+            "back": "Go back",
+            "forward": "Go forward",
+            "reload": "Reload page",
+            "openInBrowser": "Open in browser"
+        }
+    },
     "wiki": "Wiki",
     "wine": {
         "manager": {
