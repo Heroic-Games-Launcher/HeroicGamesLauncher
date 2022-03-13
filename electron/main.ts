@@ -151,22 +151,20 @@ async function createWindow(): Promise<BrowserWindow> {
   app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
-  const onMainWindowClose = async () => {
-    mainWindow.on('close', async (e) => {
-      e.preventDefault()
+  mainWindow.on('close', async (e) => {
+    e.preventDefault()
 
-      // store windows properties
-      store.set('window-props', mainWindow.getBounds())
+    // store windows properties
+    store.set('window-props', mainWindow.getBounds())
 
-      const { exitToTray } = await GlobalConfig.get().config
+    const { exitToTray } = GlobalConfig.get().config
 
-      if (exitToTray) {
-        return mainWindow.hide()
-      }
+    if (exitToTray) {
+      return mainWindow.hide()
+    }
 
-      return await handleExit()
-    })
-  }
+    handleExit()
+  })
 
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -181,12 +179,8 @@ async function createWindow(): Promise<BrowserWindow> {
     mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
-
-    onMainWindowClose()
   } else {
     Menu.setApplicationMenu(null)
-
-    onMainWindowClose()
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
 
     return mainWindow
