@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Filtre Yok"
     },
-    "Filter": "Filtre",
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "Kütüphane",
     "loading": {
+        "default": "",
         "website": "Web Sitesi Yükleniyor"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Eklentiler",
     "Projects": "Projeler",
     "Ready": "Hazır",
     "Recent": "Son Oynanan",
-    "Return": "Geri",
     "search": "Buraya oyun adı girin...",
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",

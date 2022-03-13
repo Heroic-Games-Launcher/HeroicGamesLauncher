@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filtro",
     "globalSettings": "Configurações Globais",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "Biblioteca",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix onde a Epic Games está instalada"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Projetos",
     "Ready": "Baixados",
     "Recent": "Played Recently",
-    "Return": "Voltar",
     "search": "Digite o nome do jogo...",
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",

@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filtre",
     "globalSettings": "Paramètres généraux",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "Bibliothèque",
     "loading": {
+        "default": "",
         "website": "Chargement du site internet"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "Utilisation du binaire Legendary intégré...",
         "egs-prefix": "Prefix où EGS est installé"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Projets",
     "Ready": "Prêt",
     "Recent": "Joué récemment",
-    "Return": "Retour",
     "search": "Insérez le nom du jeu ici...",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",

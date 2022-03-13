@@ -17,6 +17,12 @@ export default function ToggleSwitch(props: Props) {
     title,
     dataTestId = 'toggleSwitch'
   } = props
+  // TODO fixes errors in the console, but the props may not be necessary at all
+  const checkmarkProps = {
+    value,
+    title,
+    datatestid: dataTestId
+  }
   return (
     <div className="switch" aria-label={title}>
       <input
@@ -28,7 +34,7 @@ export default function ToggleSwitch(props: Props) {
         aria-label={title}
       />
 
-      <span {...props} className="checkmark" />
+      <span {...checkmarkProps} className="checkmark" />
     </div>
   )
 }

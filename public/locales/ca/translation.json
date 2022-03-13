@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Cap filtre"
     },
-    "Filter": "Filtra",
     "globalSettings": "Configuració global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "Biblioteca",
     "loading": {
+        "default": "",
         "website": "S'està carregant el lloc web"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
         "egs-prefix": "Prefix on l'EGS està instal·lat"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Extensions",
     "Projects": "Projectes",
     "Ready": "Preparats",
     "Recent": "Jugats fa poc",
-    "Return": "Torna",
     "search": "Introdueix el nom del joc...",
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",

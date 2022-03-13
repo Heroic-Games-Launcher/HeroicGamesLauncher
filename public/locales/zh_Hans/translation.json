@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "全部"
     },
-    "Filter": "筛选",
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "库",
     "loading": {
+        "default": "",
         "website": "正在加载网站"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "使用内置的Legendary二进制文件...",
         "egs-prefix": "Epic Games商城安装位置"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "插件",
     "Projects": "项目",
     "Ready": "准备就绪",
     "Recent": "最近玩过",
-    "Return": "返回",
     "search": "在此处输入游戏名称…",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",

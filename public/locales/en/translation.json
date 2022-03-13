@@ -104,7 +104,6 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filter",
     "globalSettings": "Global Settings",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -145,6 +144,7 @@
     },
     "Library": "Library",
     "loading": {
+        "default": "Loading",
         "website": "Loading Website"
     },
     "login": {
@@ -208,7 +208,6 @@
     "Projects": "Projects",
     "Ready": "Ready",
     "Recent": "Played Recently",
-    "Return": "Return",
     "search": "Enter the game name here...",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",

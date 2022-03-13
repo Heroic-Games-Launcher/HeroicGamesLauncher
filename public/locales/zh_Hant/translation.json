@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "篩選",
     "globalSettings": "全域設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "收藏庫",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Epic Games商城安裝位置"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "外掛插件",
     "Projects": "專案",
     "Ready": "準備就緒",
     "Recent": "最近的遊戲",
-    "Return": "返回",
     "search": "在此處輸入遊戲名稱...",
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",

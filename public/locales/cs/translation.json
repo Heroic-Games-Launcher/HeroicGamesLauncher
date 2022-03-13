@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filtr",
     "globalSettings": "Globální nastavení",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "Knihovna",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Projekty",
     "Ready": "Připraveno",
     "Recent": "Recently Played",
-    "Return": "Zpět",
     "search": "Zde zadejte název hry...",
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",

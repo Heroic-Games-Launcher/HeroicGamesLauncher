@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Suodata",
     "globalSettings": "Globaalit asetukset",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Synkronisoi EGL:n kanssa mikäli sinulla on toimiva Epic Games Launcher:in asennus toisaalla ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "Kirjasto",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefiksi johon EGS on asennettu"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Laajennukset",
     "Projects": "Projektit",
     "Ready": "Valmis",
     "Recent": "Viimeksi pelatut",
-    "Return": "Palaa",
     "search": "Kirjoita tähän pelin nimi...",
     "setting": {
         "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",

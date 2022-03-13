@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Nincs szűrő"
     },
-    "Filter": "Szűrő",
     "globalSettings": "Globális beállítások",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
         "other": {
@@ -142,6 +144,7 @@
     },
     "Library": "Könyvtár",
     "loading": {
+        "default": "",
         "website": "Weboldal betöltése"
     },
     "login": {
@@ -196,11 +199,15 @@
         "alt-legendary-bin": "Beépített Legendary bináris használata...",
         "egs-prefix": "Prefix ahol az EGS telepítve van"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Beépülők",
     "Projects": "Projektek",
     "Ready": "Kész",
     "Recent": "Nemrég játszott",
-    "Return": "Vissza",
     "search": "Add meg itt a játék nevét...",
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",

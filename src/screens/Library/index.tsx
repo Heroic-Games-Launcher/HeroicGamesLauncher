@@ -61,7 +61,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
   }
 
   if (refreshing && !showRecentsOnly) {
-    return <UpdateComponent />
+    return <UpdateComponent inline />
   }
 
   function titleWithIcons() {

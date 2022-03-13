@@ -29,7 +29,7 @@ html,
   overflow-x: hidden;
 }
 
-.App .content .updateIcon {
+.App .content .UpdateComponent--topLevel {
   height: 100vh;
   position: initial;
   width: var(--content-width);
