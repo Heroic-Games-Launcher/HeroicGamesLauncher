@@ -352,7 +352,9 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
   if (!isWindows) {
     bin = './' + bin
   }
-  return { dir: dir, bin: bin }
+  // Make sure to always return this as `dir, bin` to not break path
+  // resolution when using `join(...Object.values(...))`
+  return { dir, bin }
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {

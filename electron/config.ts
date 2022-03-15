@@ -5,7 +5,7 @@ import {
   readdirSync,
   writeFileSync
 } from 'graceful-fs'
-import { userInfo as user } from 'os'
+import { homedir, userInfo as user } from 'os'
 import { parse as plistParse, PlistObject } from 'plist'
 
 import { AppSettings, GlobalConfigVersion, WineInstallation } from './types'
@@ -224,7 +224,7 @@ abstract class GlobalConfig {
       })
     })
 
-    const lutrisPath = `${home}/.local/share/lutris`
+    const lutrisPath = `${homedir()}/.local/share/lutris`
     const lutrisCompatPath = `${lutrisPath}/runners/wine/`
 
     if (existsSync(lutrisCompatPath)) {

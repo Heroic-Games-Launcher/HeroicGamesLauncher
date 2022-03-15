@@ -1172,7 +1172,7 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 
   let legendaryArgs = Array<string>()
-  if (args != 'unlink') {
+  if (args !== 'unlink') {
     legendaryArgs = isWindows
       ? ['--enable-sync']
       : ['--enable-sync', `--egl-wine-prefix ${args}`]
