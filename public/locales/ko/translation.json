@@ -12,9 +12,9 @@
         },
         "choose": "선택",
         "choose-egs-prefix": "Epic Games Store가 설치된 접두사를 선택합니다",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "GOGDL 바이너리 파일 선택 (다시 시작해야 함)",
         "choose-legendary-binary": "Legendary 바이너리 파일 선택",
-        "customWine": "Wine 혹은 Proton 바이너리 선택",
+        "customWine": "Wine 혹은 Proton 바이너리 파일 선택",
         "default-install-path": "기본 설치 경로 선택",
         "error": {
             "credentials": {
@@ -85,7 +85,7 @@
             },
             "title": "경고"
         },
-        "wineprefix": "Wine 접두사 폴더 선택",
+        "wineprefix": "WinePrefix 폴더 선택",
         "yes": "예"
     },
     "button": {
@@ -187,12 +187,12 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "GOGDL 버전: ",
         "legendary-version": "Legendary 버전: ",
         "weblate": "Heroric 번역을 도와주세요."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "내장된 GOGDL 바이너리 파일 사용...",
         "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",
         "egs-prefix": "Epic Games Store가 설치된 위치의 접두사"
     },
@@ -205,8 +205,8 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택 (다시 시작 필요)",
+        "alt-gogdl-bin": "대신 사용할 GOGDL 바이너리 파일 선택 (다시 시작해야 함)",
+        "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택 (다시 시작해야 함)",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "접두사에서 DXVK 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",
@@ -245,7 +245,7 @@
         },
         "maxRecentGames": "표시할 최근 플레이한 게임",
         "maxworkers": "다운로드할 때 최대 워커 개수",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "게임 실행 후 Heroic 최소화",
         "offlinemode": "게임 오프라인으로 실행",
         "primerun": "Nvidia Prime 렌더 활성화",
         "resizableBar": "Resizable BAR 활성화 (NVIDIA RTX 30xx 전용)",
@@ -258,7 +258,7 @@
             "title": "클라우드 세이브 동기화 폴더 덮어쓰기"
         },
         "showfps": "FPS 표시 (DX9, 10 및 11)",
-        "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작 필요)",
+        "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작해야 함)",
         "start-in-tray": "최소화로 시작",
         "steamruntime": "Steam 런타임 사용",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -284,7 +284,7 @@
     "status": {
         "logging": "로그인 중…"
     },
-    "store": "스토어",
+    "store": "Epic Store",
     "stores": "Stores",
     "title": {
         "allGames": "모든 게임",
