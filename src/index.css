@@ -89,8 +89,9 @@ code {
 /* Overlay Scrollbar*/
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
+  background: var(--current-background, var(--background-color));
 }
 
 /* Track */
@@ -101,7 +102,17 @@ code {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--text-secondary);
-  border-radius: 4px;
+  border-radius: 5px;
+  margin: 2px;
+  border: 2px solid var(--current-background, var(--background-color));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--link-highlight);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
 }
 
 .simple-keyboard {

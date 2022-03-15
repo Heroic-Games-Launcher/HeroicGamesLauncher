@@ -1,10 +1,8 @@
-import './index.css'
-
-import React, { useContext, useEffect, useRef } from 'react'
-
+import React, { useCallback, useContext, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import classNames from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
+import FormControl from '../FormControl'
+import './index.css'
 
 export default function SearchBar() {
   const { handleSearch, filterText } = useContext(ContextProvider)
@@ -17,34 +15,37 @@ export default function SearchBar() {
     if (input.current) {
       const element = input.current
       element.value = filterText
-      element.addEventListener('input', () => {
+      const handler = () => {
         handleSearch(element.value)
-      })
+      }
+      element.addEventListener('input', handler)
+      return () => {
+        element.removeEventListener('input', handler)
+      }
+    }
+    return
+  }, [input])
+
+  const onClear = useCallback(() => {
+    handleSearch('')
+    if (input.current) {
+      input.current.value = ''
+      input.current.focus()
     }
   }, [input])
 
   return (
     <div className="SearchBar" data-testid="searchBar">
-      <input
-        ref={input}
-        data-testid="searchInput"
-        className="searchInput"
-        placeholder={t('search')}
-        id="search"
-      />
-      <span
-        className={classNames('clearSearchInput', {
-          isEmpty: !input.current || input.current.value == ''
-        })}
-        onClick={() => {
-          handleSearch('')
-          if (input.current) {
-            input.current.value = ''
-          }
-        }}
-      >
-        &times;
-      </span>
+      {/* TODO change placeholder for Unreal Marketplace */}
+      <FormControl onClear={onClear}>
+        <input
+          ref={input}
+          data-testid="searchInput"
+          placeholder={t('search')}
+          id="search"
+          className="FormControl__input"
+        />
+      </FormControl>
     </div>
   )
 }
