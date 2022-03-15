@@ -31,7 +31,7 @@ import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
 
-import { DXVK } from './dxvk'
+import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
@@ -76,7 +76,8 @@ import {
   wikiLink,
   legendaryPath,
   gogdlPath,
-  legendary
+  legendary,
+  heroicToolsPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -138,6 +139,7 @@ async function createWindow(): Promise<BrowserWindow> {
   setTimeout(() => {
     if (process.platform === 'linux') {
       DXVK.getLatest()
+      Winetricks.download()
     }
   }, 2500)
 
@@ -488,6 +490,7 @@ ipcMain.handle(
     const newProtonWinePath = wine.replace("proton'", "files/bin/wine64'")
     const oldProtonWinePath = wine.replace("proton'", "dist/bin/wine64'")
     const isProton = wine.includes('proton')
+    const winetricks = `${heroicToolsPath}/winetricks`
 
     // existsSync is weird because it returns false always if the path has single-quotes in it
     const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
@@ -515,7 +518,7 @@ ipcMain.handle(
     }
 
     let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+      tool === 'winecfg' ? `${wineBin} ${tool}` : winetricks
     }`
 
     if (tool === 'runExe') {
