@@ -211,14 +211,14 @@ export default function OtherSettings({
           </span>
           {isLinuxNative && (
             <span className="setting">
-              <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
+              <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
                 <ToggleSwitch
                   value={useSteamRuntime}
                   handleChange={toggleUseSteamRuntime}
                   title={t('setting.steamruntime', 'Use Steam Runtime')}
                 />
                 <span>{t('setting.steamruntime', 'Use Steam Runtime')}</span>
-              </span>
+              </label>
             </span>
           )}
         </>

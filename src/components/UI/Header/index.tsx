@@ -1,33 +1,20 @@
+import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import cx from 'classnames'
+import React, { useContext, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { SearchBar } from 'src/components/UI'
+import ContextProvider from 'src/state/ContextProvider'
+import FormControl from '../FormControl'
+import { UE_VERSIONS } from './constants'
 import './index.css'
 
-import { Link, useHistory } from 'react-router-dom'
-import React, { useContext } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
-
-import { UE_VERSIONS } from './constants'
-import { useTranslation } from 'react-i18next'
-import ArrowBack from '@mui/icons-material/ArrowBack'
-import ContextProvider from 'src/state/ContextProvider'
-import { SearchBar } from 'src/components/UI'
-import cx from 'classnames'
-
-interface Props {
-  goTo: string | void | null
-  numberOfGames?: number
-  renderBackButton: boolean
-  title?: string
+export interface HeaderProps {
+  numberOfGames: number
 }
 
-export default function Header({
-  renderBackButton,
-  numberOfGames,
-  goTo,
-  title
-}: Props) {
+export default function Header({ numberOfGames }: HeaderProps) {
   const { t } = useTranslation()
-
   const {
     category,
     filter,
@@ -38,139 +25,114 @@ export default function Header({
     handlePlatformFilter,
     platform
   } = useContext(ContextProvider)
-  const history = useHistory()
 
-  const hasDownloads = libraryStatus.filter(
-    (game) => game.status === 'installing' || game.status === 'updating'
-  ).length
-  const hasUpdates = gameUpdates.length
+  const hasDownloads = useMemo(
+    () =>
+      libraryStatus.filter(
+        (game) => game.status === 'installing' || game.status === 'updating'
+      ).length !== 0,
+    [libraryStatus]
+  )
+  const hasUpdates = gameUpdates.length !== 0
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
-  const link = goTo ? goTo : ''
-  function handleClick() {
-    if (goTo) {
-      return
-    }
-    return history.goBack()
-  }
-
-  if (renderBackButton) {
-    return (
-      <div className={cx({ header: !title }, { headerSettings: title })}>
-        <Link
-          data-testid="returnLink"
-          className="returnLink"
-          to={link}
-          onClick={handleClick}
-        >
-          <ArrowBack className="material-icons" />
-          {t('Return')}
-        </Link>
-        {title && (
-          <div className="headerTitle" data-testid="headerTitle">
-            {title}
-          </div>
-        )}
-      </div>
-    )
-  }
-
   return (
-    <>
-      <div className={cx({ header: !title }, { headerSettings: title })}>
-        {category !== 'unreal' && (
-          <span className="selectFilter">
-            {(isMac || (isLinux && category === 'gog')) && (
-              <div className="macFilter">
-                <button
-                  onClick={() => handlePlatformFilter('all')}
-                  className={cx('allFilter', {
-                    selectedLayout: filterPlatform === 'all'
-                  })}
-                >
-                  {t('All')}
-                </button>
+    <div className="Header">
+      {category !== 'unreal' && (
+        <div className="Header__filters">
+          {(isMac || (isLinux && category === 'gog')) && (
+            <FormControl segmented>
+              <button
+                onClick={() => handlePlatformFilter('all')}
+                className={cx('FormControl__button', {
+                  active: filterPlatform === 'all'
+                })}
+                title={`${t('header.platform')}: ${t('All')}`}
+              >
+                {t('All')}
+              </button>
+              <button
+                onClick={() => handlePlatformFilter('win')}
+                className={cx('FormControl__button', {
+                  active: filterPlatform === 'win'
+                })}
+                title={`${t('header.platform')}: ${t('platforms.win')}`}
+              >
                 <FontAwesomeIcon
-                  onClick={() => handlePlatformFilter('win')}
-                  className={cx({ selectedLayout: filterPlatform === 'win' })}
+                  className="FormControl__segmentedFaIcon"
                   icon={faWindows}
+                  tabIndex={-1}
                 />
-                {isMac && (
+              </button>
+              {isMac && (
+                <button
+                  onClick={() => handlePlatformFilter('mac')}
+                  className={cx('FormControl__button', {
+                    active: filterPlatform === 'mac'
+                  })}
+                  title={`${t('header.platform')}: ${t('platforms.mac')}`}
+                >
                   <FontAwesomeIcon
-                    onClick={() => handlePlatformFilter('mac')}
-                    className={cx({ selectedLayout: filterPlatform === 'mac' })}
+                    className="FormControl__segmentedFaIcon"
                     icon={faApple}
+                    tabIndex={-1}
                   />
-                )}
-                {isLinux && (
+                </button>
+              )}
+              {isLinux && (
+                <button
+                  onClick={() => handlePlatformFilter('linux')}
+                  className={cx('FormControl__button', {
+                    active: filterPlatform === 'linux'
+                  })}
+                  title={`${t('header.platform')}: ${t('platforms.linux')}`}
+                >
                   <FontAwesomeIcon
-                    onClick={() => handlePlatformFilter('linux')}
-                    className={cx({
-                      selectedLayout: filterPlatform === 'linux'
-                    })}
+                    className="FormControl__segmentedFaIcon"
                     icon={faLinux}
+                    tabIndex={-1}
                   />
-                )}
-              </div>
-            )}
+                </button>
+              )}
+            </FormControl>
+          )}
+          <FormControl select>
             <select
               id="games-filter"
+              className="FormControl__select"
               onChange={(e) => handleFilter(e.target.value)}
               value={filter}
               data-testid="games-filter"
             >
-              <option
-                data-testid="all"
-                className={filter === 'all' ? 'selected' : ''}
-                value="all"
-              >
+              <option data-testid="all" value="all">
                 {t('filter.noFilter', 'No Filter')}
               </option>
-              <option
-                data-testid="installed"
-                className={filter === 'installed' ? 'selected' : ''}
-                value="installed"
-              >
+              <option data-testid="installed" value="installed">
                 {t('Ready')}
               </option>
-              <option
-                data-testid="uninstalled"
-                className={filter === 'uninstalled' ? 'selected' : ''}
-                value="uninstalled"
-              >
+              <option data-testid="uninstalled" value="uninstalled">
                 {t('Not Ready')}
               </option>
-              {!!hasDownloads && (
-                <option
-                  data-testid="downloading"
-                  className={filter === 'downloading' ? 'selected' : ''}
-                  value="downloading"
-                >
+              {hasDownloads && (
+                <option data-testid="downloading" value="downloading">
                   {`${t('Downloading')} (${hasDownloads})`}
                 </option>
               )}
-              {!!hasUpdates && (
-                <option
-                  data-testid="updates"
-                  className={filter === 'updates' ? 'selected' : ''}
-                  value="updates"
-                >
+              {hasUpdates && (
+                <option data-testid="updates" value="updates">
                   {`${t('Updates', 'Updates')} (${hasUpdates})`}
                 </option>
               )}
             </select>
-          </span>
-        )}
-        {title && (
-          <div className="headerTitle" data-testid="headerTitle">
-            {title}
-          </div>
-        )}
-        {category === 'unreal' && (
-          <span className="selectFilter">
-            <span>{t('Filter')}:</span>
+          </FormControl>
+        </div>
+      )}
+      {category === 'unreal' && (
+        <div className="Header__filters">
+          <FormControl select>
             <select
+              className="FormControl__select"
               onChange={(e) => handleFilter(e.target.value)}
               defaultValue={filter}
               data-testid="games-filter"
@@ -188,11 +150,13 @@ export default function Header({
                 {t('Projects', 'Projects')}
               </option>
             </select>
+          </FormControl>
+          <FormControl select>
             <select
-              data-testid="ueVersionSelect"
-              className={filter.includes('UE_') ? 'selected' : ''}
               id="ueVersionSelect"
+              className="FormControl__select"
               onChange={(event) => handleFilter(event.target.value)}
+              data-testid="ueVersionSelect"
             >
               {UE_VERSIONS.map((version: string, key) => (
                 <option key={key} value={'UE_' + version}>
@@ -200,20 +164,18 @@ export default function Header({
                 </option>
               ))}
             </select>
-          </span>
-        )}
-        {numberOfGames !== undefined && numberOfGames > 0 && (
-          <span className="totalGamesText" data-testid="totalGamesText">
-            {t('Total Games')}: {numberOfGames}
-          </span>
-        )}
+          </FormControl>
+        </div>
+      )}
+      <div className="Header__search">
         <SearchBar />
-        {numberOfGames !== undefined && numberOfGames === 0 && (
-          <div className="totalGamesText" data-testid="totalGamesText">
-            {t('nogames')}
-          </div>
-        )}
       </div>
-    </>
+      <div className="Header__summary" data-testid="totalGamesText">
+        {/* TODO change labels for Unreal Marketplace, maybe change "Total" to "Found" */}
+        {numberOfGames !== undefined && numberOfGames > 0
+          ? `${t('Total Games')}: ${numberOfGames}`
+          : `${t('nogames')}`}
+      </div>
+    </div>
   )
 }
