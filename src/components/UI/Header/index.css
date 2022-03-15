@@ -1,147 +1,63 @@
-.header {
-  display: grid;
+.Header {
   position: sticky;
   top: 0;
   z-index: 7;
-  background: var(--background-color);
-  grid-template-columns: 3fr 4fr 2fr 1fr;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  font-size: clamp(1em, 0.5vw, 2rem);
-  line-height: 17px;
-  color: var(--text-secondary);
-  grid-template-areas: 'filter search total refresh';
-  place-content: center;
-  justify-items: center;
-  align-items: center;
-  padding: 15px 0;
-}
-
-.headerSettings {
-  grid-template-columns: 1fr 6fr;
   display: grid;
-  grid-template-areas: 'return title';
-  width: 70vw;
-  min-width: 513px;
-  max-width: 912px;
-  place-self: center;
+  grid-template-columns: 3fr 4fr 3fr;
+  grid-template-areas: 'filters search summary';
+  grid-gap: 8px;
   align-items: center;
-  margin: 22px 0;
+  margin: 0 32px;
+  padding: 15px 0;
+  background: var(--background-color);
+  color: var(--text-secondary);
+}
+@media (max-width: 1400px) {
+  .Header {
+    grid-template-columns: 3fr 4fr 2fr;
+  }
 }
 
-.headerSettings > .headerTitle {
-  font-size: 1.5rem;
-  grid-area: title;
-  width: fit-content;
-  place-self: center;
-  padding-right: 100px;
+@media screen and (max-width: 1200px) {
+  .Header {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      'search search'
+      'filters summary';
+  }
 }
 
-.selectFilter {
+.Header__filters {
+  grid-area: filters;
   display: flex;
-  width: 90%;
-  justify-self: baseline;
-  justify-content: space-between;
-  grid-area: filter;
-  flex-wrap: wrap;
-  font-size: 16px;
-  align-content: center;
-  margin-left: 32px;
-  height: 29px;
-}
-
-.selectFilter > select {
-  cursor: pointer;
-  padding: 0 8px;
-  color: var(--text-secondary);
-  border: none;
-  background: var(--input-background);
-  font-size: 16px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
-  color: var(--text-secondary);
-  width: fit-content;
-  margin-right: 10px;
-  border-radius: 6px;
-}
-
-option {
-  background: var(--background);
-  color: var(--text-secondary);
-}
-
-.selectCategory {
-  display: flex;
-  width: fit-content;
-  justify-self: end;
-  justify-content: space-evenly;
-  cursor: pointer;
-  grid-area: category;
-  align-content: center;
   flex-wrap: wrap;
 }
 
-.selectCategory > span:hover {
-  color: var(--download-button);
+.Header__filters .FormControl {
+  margin-right: 8px;
 }
 
-.selectCategory > .selected {
-  font-size: clamp(1.1em, 0.6vw, 2.1rem);
-  font-weight: 600;
-  color: var(--text-hover);
+.Header__search {
+  grid-area: search;
 }
 
-.selectCategory > :not(:first-child) {
-  padding: 0 8px;
+.Header__search .FormControl {
+  width: 100%;
 }
+
+.Header__summary {
+  grid-area: summary;
+  text-align: right;
+}
+
+/* TODO move following styles to the components which use them */
 
 .iconsWrapper {
   display: flex;
   align-content: center;
   justify-content: center;
   padding-left: 6px;
-}
-
-.totalGamesText {
-  cursor: default;
-  right: 55px;
-  top: 108px;
-  grid-area: total;
-  margin: auto;
-}
-
-.returnLink {
-  display: grid;
-  place-items: center;
-  grid-template-columns: 1fr 1fr;
-  width: 100px;
-  margin: 0 -10px;
-  height: fit-content;
-}
-
-.allFilter {
-  background: none;
-  color: var(--text-default);
-  border: 0;
-  padding: 0;
-  font-size: 14px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.macFilter {
-  width: 50%;
-  padding-right: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  max-width: 100px;
-}
-
-.macFilter > .selectedLayout {
-  color: var(--download-button);
 }
 
 .refreshIcon:hover,

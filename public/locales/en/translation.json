@@ -108,6 +108,9 @@
     "globalSettings": "Global Settings",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": "Platform"
+    },
     "help": {
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
@@ -195,6 +198,11 @@
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix where EGS is installed"
+    },
+    "platforms": {
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Projects",
