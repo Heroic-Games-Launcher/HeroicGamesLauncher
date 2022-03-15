@@ -179,3 +179,25 @@ export const DXVK = {
       })
   }
 }
+
+export const Winetricks = {
+  download: () => {
+    const url =
+      'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
+    const path = `${heroicToolsPath}/winetricks`
+    const downloadCommand = `curl -L ${url} -o ${path} --create-dirs`
+
+    if (existsSync(path)) {
+      return
+    }
+
+    return execAsync(downloadCommand)
+      .then(() => {
+        exec(`chmod +x ${path}`)
+        logInfo('Downloaded Winetricks', LogPrefix.Backend)
+      })
+      .catch(() => {
+        logError('Error Downloading Winetricks', LogPrefix.Backend)
+      })
+  }
+}
