@@ -1,5 +1,5 @@
 .gameCard {
-  background-color: var(--background-darker);
+  background-color: var(--gradient-gamecard);
   text-align: left;
   width: clamp(130px, 8vw, 200px);
   height: 10vw;
