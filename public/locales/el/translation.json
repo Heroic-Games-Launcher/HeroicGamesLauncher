@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Φίλτρο",
     "globalSettings": "Παγκόσμιες Ρυθμίσεις",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Συγχρονισμός με EGS σε περίπτωση εγκατάστασης του Καταστήματος Epic Games κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
         "other": {
@@ -196,11 +198,15 @@
         "alt-legendary-bin": "Χρήση προεγκατεστημένου δυαδικού αρχείου Legendary...",
         "egs-prefix": "Πρόθεμα εγκατάστασης EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Πρότζεκτ",
     "Ready": "Έτοιμο",
     "Recent": "Played Recently",
-    "Return": "Επιστροφή",
     "search": "Εισαγάγετε όνομα παιχνιδιού...",
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
@@ -322,6 +328,14 @@
         "logout_confirmation": "Θέλετε πράγματι να αποσυνδεθείτε;",
         "manageaccounts": "Manage Accounts",
         "quit": "Έξοδος"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

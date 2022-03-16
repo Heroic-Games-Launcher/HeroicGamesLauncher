@@ -104,7 +104,6 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filter",
     "globalSettings": "Global Settings",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -208,7 +207,6 @@
     "Projects": "Projects",
     "Ready": "Ready",
     "Recent": "Played Recently",
-    "Return": "Return",
     "search": "Enter the game name here...",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
@@ -330,6 +328,14 @@
         "logout_confirmation": "Are you sure you want to log out?",
         "manageaccounts": "Manage Accounts",
         "quit": "Quit"
+    },
+    "webview": {
+        "controls": {
+            "back": "Go back",
+            "forward": "Go forward",
+            "openInBrowser": "Open in browser",
+            "reload": "Reload page"
+        }
     },
     "wiki": "Wiki",
     "wine": {
