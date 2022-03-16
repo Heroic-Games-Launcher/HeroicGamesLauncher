@@ -248,6 +248,8 @@ export interface WineVersionInfo extends VersionInfo {
   installDir: string
 }
 export type ElWebview = {
+  canGoBack: () => boolean
+  canGoForward: () => boolean
   goBack: () => void
   goForward: () => void
   reload: () => void
