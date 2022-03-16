@@ -1,28 +1,94 @@
-.webviewControls {
-  display: grid;
-  grid-template-columns: 2fr 10fr 2fr;
+.WebviewControls {
+  display: flex;
   align-items: center;
-  position: fixed;
-  padding: 2px 0;
+  box-sizing: border-box;
   width: inherit;
+  height: 40px;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--accent);
   background: var(--background-darker);
   user-select: text;
 }
 
-.webviewIcons {
-  margin: auto 12px;
-  justify-self: baseline;
-  flex-wrap: nowrap;
+.WebviewControls__icons {
   display: flex;
+  flex: 0 1 120px;
+  flex-wrap: nowrap;
 }
 
-.webviewURL {
+.WebviewControls__icons:last-child {
+  justify-content: flex-end;
+}
+
+.WebviewControls__icon {
+  border: none;
+  margin: 2px;
+  padding: 2px;
+  background: none;
+  color: inherit;
+  transition: 250ms color;
+}
+
+.WebviewControls__icon:hover {
+  color: var(--text-hover);
+}
+
+.WebviewControls__icon:active {
+  color: var(--accent);
+}
+
+.WebviewControls__icon:disabled {
+  color: var(--icon-disabled);
+  cursor: default;
+}
+
+.WebviewControls__icon:disabled svg {
+  cursor: default;
+}
+
+.WebviewControls__icon:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.WebviewControls__url {
+  flex: 1 1 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  user-select: text;
   font-size: 14px;
 }
 
+.WebviewControls__urlInput {
+  width: 100%;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: inherit;
+  text-align: center;
+  user-select: text;
+}
+
+.WebviewControls__urlInput:focus {
+  outline: none;
+}
+
+.WebviewControls__urlInput::selection {
+  background: var(--accent);
+  color: var(--text-tertiary);
+}
+
+.WebviewControls__urlInput--warning {
+  color: var(--text-danger);
+}
+
+.WebviewControls__urlInput--warning::selection {
+  background: var(--danger);
+}
+
+/* TODO check if it's not used in other part of app and it can be safely removed */
 .MuiSvgIcon-root {
   cursor: pointer;
 }

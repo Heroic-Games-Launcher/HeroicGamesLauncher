@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "フィルター",
     "globalSettings": "全体設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
         "other": {
@@ -196,11 +198,15 @@
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGSがインストールされているプレフィックス"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "プラグイン",
     "Projects": "プロジェクト",
     "Ready": "準備",
     "Recent": "最近のゲーム",
-    "Return": "戻る",
     "search": "ここにゲーム名を入力してください...",
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
@@ -322,6 +328,14 @@
         "logout_confirmation": "ログアウトしてもよろしいですか？",
         "manageaccounts": "Manage Accounts",
         "quit": "終了"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Saring",
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "",
         "other": {
@@ -196,11 +198,15 @@
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": ""
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "",
     "Recent": "Played Recently",
-    "Return": "",
     "search": "",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
@@ -322,6 +328,14 @@
         "logout_confirmation": "Logout?",
         "manageaccounts": "Manage Accounts",
         "quit": ""
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {
