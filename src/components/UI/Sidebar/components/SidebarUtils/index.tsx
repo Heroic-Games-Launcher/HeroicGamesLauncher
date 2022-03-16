@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { NavLink, useHistory } from 'react-router-dom'
 import { openDiscordLink } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
-import QuitButton from './QuitButton'
+import QuitButton from '../QuitButton'
 import './index.css'
 
 const { ipcRenderer } = window.require('electron')
