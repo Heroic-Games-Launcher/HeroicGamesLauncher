@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Inga filter"
     },
-    "Filter": "Filtrera",
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
         "other": {
@@ -196,11 +198,15 @@
         "alt-legendary-bin": "Använd inbyggd Legendary version...",
         "egs-prefix": "Prefix för befintlig EGS installation"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Ready": "Redo",
     "Recent": "Nyligen spelat",
-    "Return": "Tillbaka",
     "search": "Ange spelets titel här...",
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
@@ -322,6 +328,14 @@
         "logout_confirmation": "Är du säker att du vill logga ut?",
         "manageaccounts": "Hantera konton",
         "quit": "Avsluta"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

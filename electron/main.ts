@@ -453,6 +453,7 @@ ipcMain.on('openLoginPage', () => openUrlOrFile(epicLoginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
+ipcMain.on('openWebviewPage', (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 

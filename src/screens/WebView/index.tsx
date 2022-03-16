@@ -1,14 +1,14 @@
-import React, { useContext, useLayoutEffect, useState } from 'react'
+import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useParams, useHistory } from 'react-router'
+import { useHistory, useLocation, useParams } from 'react-router'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner, Webview } from 'src/types'
+import './index.css'
 
 const { clipboard, ipcRenderer } = window.require('electron')
-import './index.css'
 
 type SID = {
   sid: string
@@ -22,8 +22,12 @@ export default function WebView() {
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
-  }>({ refresh: true, message: t('loading.website', 'Loading Website') })
+  }>(() => ({
+    refresh: true,
+    message: t('loading.website', 'Loading Website')
+  }))
   const history = useHistory()
+  const webviewRef = useRef<Webview>(null)
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -41,7 +45,6 @@ export default function WebView() {
     'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 
   const trueAsStr = 'true' as unknown as boolean | undefined
-  const webview = document.querySelector('webview') as Webview
   const { runner } = useParams() as { runner: Runner }
   const startUrl = runner
     ? runner == 'legendary'
@@ -57,7 +60,7 @@ export default function WebView() {
   }
 
   useLayoutEffect(() => {
-    const webview = document.querySelector('webview') as Webview
+    const webview = webviewRef.current
     if (webview) {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
@@ -116,14 +119,25 @@ export default function WebView() {
       }
 
       webview.addEventListener('dom-ready', loadstop)
+
+      return () => {
+        webview.removeEventListener('dom-ready', loadstop)
+      }
     }
-  }, [])
+    return
+  }, [webviewRef.current])
 
   return (
-    <div className="webViewContainer">
-      <WebviewControls webview={webview} initURL={urls[startUrl]} />
+    <div className="WebView">
+      <WebviewControls
+        webview={webviewRef.current}
+        initURL={urls[startUrl]}
+        openInBrowser={!startUrl.startsWith('/login')}
+      />
       {loading.refresh && <UpdateComponent message={loading.message} />}
       <webview
+        ref={webviewRef}
+        className="WebView__webview"
         partition="persist:epicstore"
         src={urls[startUrl]}
         allowpopups={trueAsStr}
