@@ -144,6 +144,7 @@
     },
     "Library": "Bibliotek",
     "loading": {
+        "default": "",
         "website": "Laddar websida"
     },
     "login": {
