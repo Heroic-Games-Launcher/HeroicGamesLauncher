@@ -1,7 +1,6 @@
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import {
   faCoffee,
-  faDoorOpen,
   faUser,
   faUserAlt,
   faWineGlass
@@ -11,8 +10,9 @@ import ElectronStore from 'electron-store'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useHistory } from 'react-router-dom'
-import { handleQuit, openDiscordLink } from 'src/helpers'
+import { openDiscordLink } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
+import QuitButton from './QuitButton'
 import './index.css'
 
 const { ipcRenderer } = window.require('electron')
@@ -24,18 +24,6 @@ const configStore: ElectronStore = new Store({
 const gogStore = new Store({
   cwd: 'gog_store'
 })
-
-const QuitButton: React.FC = () => {
-  const { t } = useTranslation()
-  return (
-    <button className="Sidebar__item" onClick={handleQuit}>
-      <div className="Sidebar__itemIcon">
-        <FontAwesomeIcon icon={faDoorOpen} />
-      </div>
-      {t('userselector.quit', 'Quit')}
-    </button>
-  )
-}
 
 export default function SidebarUtils() {
   const { t } = useTranslation()
