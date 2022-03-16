@@ -142,6 +142,11 @@
     "install": {
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "കളിശാല",
     "loading": {
         "default": "",
