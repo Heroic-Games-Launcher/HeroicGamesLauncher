@@ -9,7 +9,7 @@
   align-items: center;
   margin: 0 32px;
   padding: 15px 0;
-  background: var(--background-color);
+  background: var(--background-shadow);
   color: var(--text-secondary);
 }
 @media (max-width: 1400px) {

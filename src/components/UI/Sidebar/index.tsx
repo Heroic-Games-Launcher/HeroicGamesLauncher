@@ -1,13 +1,11 @@
 import React from 'react'
-
-import SidebarUtils from './components/SidebarUtils'
-
-import './index.css'
 import SidebarLinks from './components/SidebarLinks'
+import SidebarUtils from './components/SidebarUtils'
+import './index.css'
 
 export default function Sidebar() {
   return (
-    <aside className="sidebar">
+    <aside className="Sidebar">
       <SidebarLinks />
       <SidebarUtils />
     </aside>
