@@ -7,7 +7,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 300px;
-  backdrop-filter: blur(var(--blur-strong));
+  backdrop-filter: blur(var(--blur-light));
 }
 
 .runnerWrapper > h1 {
@@ -18,7 +18,7 @@
   padding: 10px;
   font-size: 25px;
   border: none;
-  transition: 0.1s;
+  transition: 0.2s;
 }
 
 .runnerLogin.alternative {

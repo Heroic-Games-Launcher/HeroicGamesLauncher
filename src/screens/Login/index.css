@@ -39,14 +39,15 @@
   font-family: var(--font-primary-bold);
   top: 10%;
   color: var(--text-default);
-  background-color: #00000000;
+  background-color: var(--login-card-background);
   border: none;
   font-size: 24px;
   padding: 15px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
   width: fit-content;
+  backdrop-filter: blur(var(--blur-light));
 }
 
 .continueLogin:hover {
