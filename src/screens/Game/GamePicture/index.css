@@ -47,7 +47,7 @@
 }
 
 .gamePicture > .store-icon > img {
-  background-color: var(--background);
+  background-color: var(--body-background);
   width: 60px;
   padding: 4px;
   border-radius: 10px;

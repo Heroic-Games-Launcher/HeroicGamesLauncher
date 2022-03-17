@@ -138,7 +138,7 @@
 }
 
 .FormControl option {
-  background: var(--background-color);
+  background: var(--body-background);
 }
 
 .FormControl option:checked {

@@ -3,6 +3,7 @@ html {
   --navbar-background: #151f3d;
   --input-background: #0d0f1c;
   --body-background: #13172a;
+  --current-background: var(--body-background);
   --tooltip-background-color: #0d0e0e;
   --dropdown-background: #1a264b;
   --menu-background-color: #0d0e0e;
@@ -10,7 +11,6 @@ html {
   --text-hover: #59d0ea;
   --link-highlight: #07c5ef;
   --accent: #eaa114;
-  --input-background: #0d0f1c;
   --login-card-background: #0e1527ee;
   --play-button: #59d0ea;
   --download-button: #3082d9;
@@ -24,6 +24,16 @@ html {
   --success-hover: #30eca8;
   --danger-hover: #e43f3f;
   --icon-disabled: #625e69;
+  /* Legacy: Don't use it */
+  --background: #151f3d;
+  --background-darker: #0d0f1c;
+  --background-darker-80: #0d0f1ce0;
+  --background-secondary: #323035;
+  --background-gradient: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    #0d0f1cd2 64%
+  );
   /* Gradients */
   --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
   --gradient-big-game-menu: linear-gradient(
@@ -37,6 +47,12 @@ html {
     #0d0f1cd2 64%
   );
   --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
+  --gradient-body-background: linear-gradient(
+    90deg,
+    #0d0f1c -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
   /* Text colours */
   --text-default: #eae8e5;
   --text-secondary: #b1b1b1;
@@ -89,7 +105,7 @@ code {
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  background: var(--current-background, var(--background-color));
+  background: var(--current-background, var(--body-background));
 }
 
 /* Track */
@@ -102,7 +118,7 @@ code {
   background: var(--text-secondary);
   border-radius: 5px;
   margin: 2px;
-  border: 2px solid var(--current-background, var(--background-color));
+  border: 2px solid var(--current-background, var(--body-background));
 }
 
 ::-webkit-scrollbar-thumb:hover {
