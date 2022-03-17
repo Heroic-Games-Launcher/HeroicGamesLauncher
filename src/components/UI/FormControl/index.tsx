@@ -1,7 +1,7 @@
 import { faCaretDown, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import './index.css'
 
 export interface FormControlProps {
@@ -10,6 +10,7 @@ export interface FormControlProps {
   segmented?: boolean
   small?: boolean
   onClear?: () => void
+  sideButton?: ReactNode
 }
 
 const FormControl: React.FC<FormControlProps> = ({
@@ -18,7 +19,8 @@ const FormControl: React.FC<FormControlProps> = ({
   select = false,
   segmented = false,
   small = false,
-  onClear = undefined
+  onClear = undefined,
+  sideButton = undefined
 }) => {
   return (
     <div
@@ -26,7 +28,8 @@ const FormControl: React.FC<FormControlProps> = ({
         'FormControl--select': select,
         'FormControl--segmented': segmented,
         'FormControl--small': small,
-        'FormControl--clearable': !!onClear
+        'FormControl--clearable': !!onClear,
+        'FormControl--hasSideButton': !!sideButton
       })}
     >
       {children}
@@ -38,6 +41,15 @@ const FormControl: React.FC<FormControlProps> = ({
       {onClear && (
         <span className="FormControl__clear" onClick={onClear} tabIndex={-1}>
           <FontAwesomeIcon icon={faXmark} />
+        </span>
+      )}
+      {sideButton && (
+        <span
+          className="FormControl__sideButton"
+          onClick={onClear}
+          tabIndex={-1}
+        >
+          {sideButton}
         </span>
       )}
     </div>

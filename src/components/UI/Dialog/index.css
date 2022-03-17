@@ -1,0 +1,91 @@
+.Dialog {
+  padding: 0;
+  text-align: left;
+
+  --dialog-margin-horizontal: 32px;
+  --dialog-margin-vertical: 24px;
+  --dialog-gap: 24px;
+}
+
+.Dialog__element {
+  top: 0;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  height: fit-content;
+  min-width: fit-content;
+  overflow: auto;
+  border: solid 1px var(--modal-border);
+  border-radius: 10px;
+  background: var(--modal-background);
+  color: var(--text-default);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.Dialog__element[open] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.Dialog__element::backdrop {
+  /* var() doesn't work here */
+  background: rgba(13, 15, 28, 0.8);
+}
+
+.Dialog__header {
+  display: flex;
+}
+
+.Dialog__headerTitle {
+  flex: 100% 1 1;
+  padding: var(--dialog-margin-vertical) 16px 0 var(--dialog-margin-horizontal);
+  font-size: 24px;
+}
+
+.Dialog__headerClose {
+  padding: var(--dialog-margin-vertical) var(--dialog-margin-horizontal) 0 0;
+}
+
+.Dialog__headerCloseButton {
+  border: none;
+  margin: -8px;
+  padding: 8px;
+  border-radius: 10px;
+  background: none;
+  color: var(--text-default);
+  cursor: pointer;
+  transition: 250ms color;
+}
+
+.Dialog__headerCloseButton:focus-visible {
+  outline: none;
+  box-shadow: var(--accent) 0 0 0 2px inset;
+}
+
+.Dialog__headerCloseButton:hover {
+  color: var(--text-hover);
+}
+
+.Dialog__headerCloseButton:active {
+  color: var(--accent);
+}
+
+.Dialog__headerCloseIcon {
+  font-size: 20px;
+}
+
+.Dialog__content {
+  padding: var(--dialog-gap) var(--dialog-margin-horizontal);
+}
+
+.Dialog__footer {
+  display: grid;
+  grid-gap: 16px;
+  grid-auto-flow: column;
+  margin: 0 0 0 auto;
+  padding: 0 var(--dialog-margin-horizontal) var(--dialog-margin-vertical)
+    var(--dialog-margin-horizontal);
+}

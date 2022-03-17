@@ -1,10 +1,10 @@
+import React, { ChangeEventHandler } from 'react'
 import './index.css'
-import React from 'react'
 
 interface Props {
   dataTestId?: string
   disabled?: boolean
-  handleChange: () => void
+  handleChange: ChangeEventHandler<HTMLInputElement>
   value: boolean
   title: string
 }
