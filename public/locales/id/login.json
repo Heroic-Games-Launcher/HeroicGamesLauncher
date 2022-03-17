@@ -3,14 +3,14 @@
         "login": "Masuk"
     },
     "message": {
-        "part1": "Untuk bisa masuk ke akunmu dan menginstall permainanmu, kamu harus mengikuti langkah-langkah di bawah:",
+        "part1": "Untuk masuk dan memasang permainanmu, kamu harus mengikuti langkah-langkah di bawah:",
         "part2": "Buka",
-        "part3": "Toko Epic disini",
+        "part3": "Epic Store di sini",
         "part4": ", masuk ke akun Anda dan salin",
         "part5": "Nomor informasi SID",
         "part6": "Tempel",
         "part7": "Nomor SID",
-        "part8": "di kotak input di bawah, klik tombol login dan tunggu."
+        "part8": "di kotak masukan di bawah dan klik tombol masuk."
     },
     "status": {
         "error": "Kesalahan",

@@ -58,11 +58,11 @@
         "reset-heroic": {
             "question": {
                 "message": "Tem certeza que deseja redefinir o Heroic? Isso removerá todas as configurações e o cache, mas não removerá seus jogos instalados ou suas credenciais da Epic",
-                "title": "Reset Heroic"
+                "title": "Redefinir Heroic"
             }
         },
         "runexe": {
-            "title": "Selecione o EXE para iniciar"
+            "title": "Selecione o EXE para executar"
         },
         "select": {
             "button": "Selecionar",
@@ -102,7 +102,7 @@
     },
     "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Sem Filtro"
     },
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
@@ -128,12 +128,12 @@
             "part4": "Sincronizar Saves Automaticamente sincronizará os saves toda vez que você iniciar ou parar de jogar um jogo."
         },
         "wine": {
-            "part1": "O Heroic busca por versões do WINE, Proton e CrossOver nas pastas a seguir:",
+            "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
         }
     },
     "info": {
-        "settings": "Configurações são salvas automaticamente"
+        "settings": "As configurações são salvas automaticamente"
     },
     "infobox": {
         "help": "Ajuda",
@@ -216,7 +216,7 @@
     "search": "Insira o nome do jogo aqui…",
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
-        "addgamestostartmenu": "Adicionar atalhos dos jogos no menu inicial automaticamente",
+        "addgamestostartmenu": "Adicionar atalhos dos jogos no menu iniciar automaticamente",
         "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar (requer reinício)",
         "alt-legendary-bin": "Escolha um binário alternativo do Legendary (requer reinício)",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
@@ -225,18 +225,18 @@
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
-        "customWineProton": "Locais com WINE/Proton Customizados",
+        "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
-        "enableFSRHack": "Habilitar Hack FSR (Wine precisa suportar o recurso)",
+        "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
         "esync": "Habilitar Esync",
         "exit-to-tray": "Fechar para a barra de tarefas",
         "FsrSharpnessStrenght": "FSR Força de nitidez",
         "fsync": "Habilitar Fsync",
-        "gamemode": "Usar o GameMode (Necessita ter gamemode instalado)",
+        "gamemode": "Usar o GameMode (precisa do gamemode instalado)",
         "language": "Selecione o idioma do app",
         "log": {
             "copy-to-clipboard": "Copiar log para a área de transferência",
@@ -245,7 +245,7 @@
             "no-file": "Arquivo de log não encontrado",
             "show-in-folder": "Mostrar arquivo de log na pasta"
         },
-        "mangohud": "Habilitar o MangoHud (mangohud precisa estar instalado)",
+        "mangohud": "Habilitar o MangoHud (precisa do mangohud instalado)",
         "manualsync": {
             "download": "Download",
             "forcedownload": "Forçar Download",
@@ -257,10 +257,10 @@
         },
         "maxRecentGames": "Máximo de jogos em Jogados Recentemente",
         "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Minimizar Heroic ao iniciar um jogo",
         "offlinemode": "Iniciar o jogo offline",
         "primerun": "Habilitar o PRIME Render da NVIDIA",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
             "title": "Executar EXE no prefixo"
@@ -290,7 +290,7 @@
             "other": "Outros",
             "sync": "Sincronização"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Redefinir Heroic"
     },
     "Settings": "Configurações",
     "status": {

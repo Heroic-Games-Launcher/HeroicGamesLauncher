@@ -1,0 +1,116 @@
+{
+    "box": {
+        "stopInstall": {
+            "title": "Dừng quá trình cài đặt",
+            "keepInstalling": "Tiếp tục cài",
+            "message": "Bạn có muốn GIỮ lại những file đã tải không?"
+        },
+        "update": {
+            "title": "Game cần cập nhật",
+            "message": "Game có bản cập nhật, bạn có muốn cập nhật không?"
+        },
+        "yes": "Có",
+        "move": {
+            "title": "Di chuyển game",
+            "path": "Chọn vị trí muốn chyển tới",
+            "message": "Quá trình này có thể sẽ tốn nhiều thời gian, bạn chắc chứ?"
+        },
+        "importpath": "Chọn thư mục game để import",
+        "uninstall": {
+            "checkbox_prefix": "Prefix",
+            "checkbox": "Bạn có muốn xóa cả prefix không? (Không thể hoàn tác)",
+            "message": "Xác nhận gỡ cài đặt game?",
+            "title": "Gỡ cài đặt"
+        },
+        "wineprefix": "Chọn thư mục WinePrefix",
+        "change": {
+            "path": "Chọn đường dẫn mới",
+            "title": "Đổi đường dẫn",
+            "message": "Xác nhận thay đổi vị trí cài của game này?"
+        },
+        "no": "Không",
+        "repair": {
+            "title": "Kiểm tra và sửa chữa",
+            "message": "Bạn có muốn thử sửa game không? Quá trình này có thể tốn nhiều thời gian."
+        },
+        "choose": "Chọn"
+    },
+    "install": {
+        "path": "Chọn đường dẫn cài",
+        "wineprefix": "WinePrefix"
+    },
+    "button": {
+        "import": "Import Game",
+        "install": "Cài đặt",
+        "uninstall": "Gỡ cài đặt",
+        "update": "Cập nhật",
+        "continue": "Tiếp tục tải",
+        "cancel": "Tạm dừng/Huỷ"
+    },
+    "label": {
+        "saves": {
+            "syncing": "Đang đồng bộ bản lưu"
+        },
+        "playing": {
+            "start": "Chơi ngay",
+            "stop": "Đang chơi (Dừng)"
+        }
+    },
+    "info": {
+        "syncsaves": "Đồng bộ bản lưu",
+        "canRunOffline": "Cần kết nối mạng",
+        "path": "Đường dẫn cài đặt",
+        "size": "Kích thước",
+        "version": "Phiên bản"
+    },
+    "disabled": "Tắt",
+    "dlc": {
+        "installDlcs": "Cài đặt tất cả bản mở rộng",
+        "title": "Bản mở rộng"
+    },
+    "enabled": "Bật",
+    "game": {
+        "downloadSize": "Kích thước tải",
+        "firstPlayed": "Lần chơi đầu",
+        "installSize": "Kích thước cài",
+        "language": "Ngôn ngữ",
+        "lastPlayed": "Lần chơi cuối",
+        "neverPlayed": "Không bao giờ",
+        "totalPlayed": "Thời gian chơi"
+    },
+    "gamecard": {
+        "moving": "Đang chuyển",
+        "repairing": "Đang sửa"
+    },
+    "launch": {
+        "options": "Tuỳ chọn khởi động..."
+    },
+    "status": {
+        "totalDownloaded": "Tổng số đã tải",
+        "moving": "Đang chuyển, vui lòng đợi",
+        "clickToUpdate": "Nhấn để cập nhật",
+        "hasUpdates": "Có phiên bản mới!",
+        "installed": "Đã cài",
+        "notinstalled": "Game chưa được cài",
+        "reparing": "Đang sửa game, vui lòng đợi",
+        "updating": "Đang cập nhật Game",
+        "installing": "Đang cài"
+    },
+    "submenu": {
+        "change": "Đổi đường dẫn",
+        "log": "Log mới nhất",
+        "addShortcut": "Thêm shortcut",
+        "move": "Di chuyển game",
+        "protondb": "Kiểm tra độ tương thích",
+        "settings": "Cài đặt",
+        "store": "Cửa hàng",
+        "verify": "Kiểm tra và sửa chữa"
+    },
+    "sdl": {
+        "title": "Chọn các thành phần cần cài"
+    },
+    "specs": {
+        "minimum": "Tối thiểu",
+        "recommended": "Đề xuất"
+    }
+}

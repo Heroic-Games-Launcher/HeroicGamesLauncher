@@ -11,7 +11,7 @@
             "title": "Gyorsítótár törölve"
         },
         "choose": "Kiválasztás",
-        "choose-egs-prefix": "Válaszd ki a prefixet ahol az EGS telepítve van",
+        "choose-egs-prefix": "Válaszd ki a prefixet ahol telepítve van az EGS",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Legendary bináris kiválasztása",
         "customWine": "Válaszd ki a Wine vagy Proton binárist",
@@ -97,7 +97,7 @@
     },
     "Downloading": "Letöltés",
     "epic": {
-        "offline-notification-body": "Az online szolgáltatások lehet, hogy nem fognak teljesen működni, mert az Epic szerverek offline vannak!",
+        "offline-notification-body": "Az online szolgáltatások lehet, hogy nem működnek teljesen, mert az Epic Games szerverek offline vannak!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -202,7 +202,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Beépített Legendary bináris használata...",
-        "egs-prefix": "Prefix ahol az EGS telepítve van"
+        "egs-prefix": "Prefix ahol telepítve van az EGS"
     },
     "platforms": {
         "linux": "",
@@ -230,8 +230,8 @@
         "default-install-path": "Alapértelmezett telepítési útvonal",
         "defaultWinePrefix": "Mappa beállítása új Wine prefixeknek",
         "discordRPC": "Discord Rich Presence engedélyezése",
-        "egs-sync": "Szinkronizálás a telepített Epic Games-szel",
-        "enableFSRHack": "FSR Hack engedélyezése (a Wine verziónak támogatnia kell)",
+        "egs-sync": "Szinkronizálás a telepített Epic Gamesszel",
+        "enableFSRHack": "FSR hack engedélyezése (a Wine verziónak támogatnia kell)",
         "esync": "Esync engedélyezése",
         "exit-to-tray": "Kilépés a rendszertálcára",
         "FsrSharpnessStrenght": "FSR élesség erőssége",
@@ -260,7 +260,7 @@
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Játék futtatása offline",
         "primerun": "Nvidia Prime Render engedélyezése",
-        "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyával)",
+        "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyáknál)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
             "title": "EXE fájl futtatása a prefixen"
@@ -270,7 +270,7 @@
             "title": "Felhőszinkronizálásra való mappa felülírása"
         },
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
-        "showUnrealMarket": "Unreal piactér mutatása (újraindítás szükséges)",
+        "showUnrealMarket": "Unreal piactér megjelenítése (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver tároló",

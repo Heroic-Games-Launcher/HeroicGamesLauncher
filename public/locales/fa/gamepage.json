@@ -37,7 +37,7 @@
     },
     "button": {
         "cancel": "توقف/انصراف",
-        "continue": "ادامه به دانلود",
+        "continue": "ادامه دانلود",
         "import": "وارد کردن بازی",
         "install": "نصب",
         "uninstall": "حذف",
@@ -53,7 +53,7 @@
         "downloadSize": "سایز دانلود",
         "firstPlayed": "اولین اجرا",
         "installSize": "سایز نصب",
-        "language": "Language",
+        "language": "زبان",
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
         "totalPlayed": "زمان بازی"

@@ -12,7 +12,7 @@
         },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "انتخاب باینری GOGDL (نیازمند راه‌اندازی مجدد)",
         "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیشفرض نصب",
@@ -35,8 +35,8 @@
             },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
+                "title": "حالت آفلاین پشتیبانی نمی‌شود."
             },
             "title": "خطا",
             "wine-not-found": {
@@ -89,7 +89,7 @@
         "yes": "بله"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "ادامه",
         "login": "ورود",
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
@@ -97,7 +97,7 @@
     },
     "Downloading": "در حال دانلود",
     "epic": {
-        "offline-notification-body": "احتمالا Heroic کار نخواهد کرد!",
+        "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویس‌های آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
@@ -106,10 +106,10 @@
     },
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
     "header": {
         "platform": ""
     },
+    "gog-store": "فروشگاه GOG",
     "help": {
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "other": {
@@ -153,7 +153,7 @@
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "ورود خارجی"
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -171,7 +171,7 @@
         },
         "install": {
             "canceled": "نصب لغو شد",
-            "error": "",
+            "error": "نصب با شکست مواجه شد",
             "finished": "نصب به پایان رسید",
             "imported": "بازی وارد شد",
             "startInstall": "نصب آغاز شد"
@@ -195,12 +195,12 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "نسخه GOGDL: ",
         "legendary-version": "نسخه Legendary: ",
         "weblate": "کمک به ترجمه Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "egs-prefix": "محل نصب شده EGS"
     },
@@ -217,7 +217,7 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده (نیازمند راه‌اندازی مجدد)",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راهاندازی مجدد)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
@@ -257,7 +257,7 @@
         },
         "maxRecentGames": "اخیرا بازی شده برای نمایش",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",
         "primerun": "فعالسازی Nvidia Prime Render",
         "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
@@ -272,7 +272,7 @@
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "استفاده از Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
@@ -296,8 +296,8 @@
     "status": {
         "logging": "در حال وارد شدن..."
     },
-    "store": "فروشگاه",
-    "stores": "Stores",
+    "store": "فروشگاه اپیک",
+    "stores": "فروشگاه‌ها",
     "title": {
         "allGames": "همه بازیها",
         "allUnreal": "Unreal - همهچیز",
@@ -332,7 +332,7 @@
         "discord": "Discord",
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "مدیریت حساب‌ها",
         "quit": "خروج"
     },
     "webview": {
