@@ -144,6 +144,7 @@
     },
     "Library": "Varamu",
     "loading": {
+        "default": "",
         "website": "Veebilehe laadimine"
     },
     "login": {

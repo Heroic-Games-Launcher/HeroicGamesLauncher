@@ -24,8 +24,8 @@
   border-radius: 10px;
   padding-block: 4px;
   padding-inline: 6px;
-  max-height: 25em;
-  max-width: 622px;
+  height: 25em;
+  width: 622px;
   overflow: auto;
   user-select: text;
 }

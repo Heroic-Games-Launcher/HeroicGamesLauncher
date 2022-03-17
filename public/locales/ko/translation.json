@@ -144,6 +144,7 @@
     },
     "Library": "라이브러리",
     "loading": {
+        "default": "",
         "website": "웹사이트 로드 중"
     },
     "login": {

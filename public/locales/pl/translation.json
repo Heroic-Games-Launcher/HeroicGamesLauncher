@@ -144,6 +144,7 @@
     },
     "Library": "Biblioteka",
     "loading": {
+        "default": "",
         "website": "Ładowanie Strony"
     },
     "login": {

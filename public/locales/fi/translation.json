@@ -144,6 +144,7 @@
     },
     "Library": "Kirjasto",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {

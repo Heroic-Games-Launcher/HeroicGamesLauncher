@@ -110,10 +110,6 @@
   margin: 0 10px;
 }
 
-.modalContainer > .updateIcon > svg {
-  z-index: 10;
-}
-
 .installPath {
   display: flex;
   flex-direction: column;

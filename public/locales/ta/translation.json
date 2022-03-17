@@ -144,6 +144,7 @@
     },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
