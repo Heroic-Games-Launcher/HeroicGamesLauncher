@@ -142,6 +142,11 @@
     "install": {
         "path": "Вкажіть шлях встановлення"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Бібліотека",
     "loading": {
         "default": "",

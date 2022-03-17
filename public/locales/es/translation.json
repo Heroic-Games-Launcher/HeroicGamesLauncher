@@ -142,6 +142,11 @@
     "install": {
         "path": "Seleccione la ruta de instalación"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Biblioteca",
     "loading": {
         "default": "",

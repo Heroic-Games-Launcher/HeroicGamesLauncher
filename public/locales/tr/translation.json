@@ -142,6 +142,11 @@
     "install": {
         "path": "Kurulum Yolunu Seçin"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Kütüphane",
     "loading": {
         "default": "",

@@ -142,6 +142,11 @@
     "install": {
         "path": "Telepítési útvonal kiválasztása"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Könyvtár",
     "loading": {
         "default": "",

@@ -142,6 +142,11 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "收藏庫",
     "loading": {
         "default": "",

@@ -142,6 +142,11 @@
     "install": {
         "path": "选择安装路径"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "库",
     "loading": {
         "default": "",

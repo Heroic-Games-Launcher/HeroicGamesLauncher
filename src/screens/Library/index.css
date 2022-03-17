@@ -17,11 +17,13 @@
 
 .libraryHeader {
   text-align: left;
-  padding-left: 2rem;
+  padding: 0 2rem;
 }
 
 .titleWithIcons {
   display: flex;
+  align-items: baseline;
+  margin: -4px 0;
 }
 
 #backToTopBtn {

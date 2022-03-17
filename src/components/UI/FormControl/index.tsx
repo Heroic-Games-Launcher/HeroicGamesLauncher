@@ -8,6 +8,7 @@ export interface FormControlProps {
   className?: string
   select?: boolean
   segmented?: boolean
+  small?: boolean
   onClear?: () => void
 }
 
@@ -16,6 +17,7 @@ const FormControl: React.FC<FormControlProps> = ({
   className = undefined,
   select = false,
   segmented = false,
+  small = false,
   onClear = undefined
 }) => {
   return (
@@ -23,6 +25,7 @@ const FormControl: React.FC<FormControlProps> = ({
       className={cx('FormControl', className, {
         'FormControl--select': select,
         'FormControl--segmented': segmented,
+        'FormControl--small': small,
         'FormControl--clearable': !!onClear
       })}
     >

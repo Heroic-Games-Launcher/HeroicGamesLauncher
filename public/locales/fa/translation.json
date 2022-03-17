@@ -142,6 +142,11 @@
     "install": {
         "path": "انتخاب محل نصب"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "کتابخانه",
     "loading": {
         "default": "",

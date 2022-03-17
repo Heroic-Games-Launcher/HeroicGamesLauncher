@@ -142,6 +142,11 @@
     "install": {
         "path": "설치 경로 선택"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "라이브러리",
     "loading": {
         "default": "",
