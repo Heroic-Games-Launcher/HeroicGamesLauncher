@@ -27,6 +27,7 @@
   height: 25em;
   width: 622px;
   overflow: auto;
+  user-select: text;
 }
 
 .log-error,

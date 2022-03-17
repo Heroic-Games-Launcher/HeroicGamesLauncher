@@ -19,12 +19,12 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
-  background: var(--background-light);
+  background: var(--dropdown-background);
 }
 
 .SidebarUtils__dropdown:hover,
 .SidebarUtils__dropdown:focus-within {
-  background: var(--background-light);
+  background: var(--dropdown-background);
 }
 
 .SidebarUtils__dropdown:hover .SidebarUtils__dropdownPopup,
