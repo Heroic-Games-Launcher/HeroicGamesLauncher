@@ -332,6 +332,7 @@ if (!gotTheLock) {
         'ta',
         'tr',
         'uk',
+        'vi',
         'zh_Hans',
         'zh_Hant'
       ]

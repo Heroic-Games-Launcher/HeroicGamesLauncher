@@ -1,49 +1,59 @@
 {
+    "All": "Tất cả",
+    "Assets": "Asset",
     "box": {
+        "appupdate": {
+            "message": "Heroic có phiên bản mới, bạn có muốn cập nhật không?",
+            "title": "Có thể cập nhật"
+        },
+        "cache-cleared": {
+            "message": "Đã xoá bộ nhớ đệm của Heroic.",
+            "title": "Đã xoá bộ nhớ đệm"
+        },
+        "choose": "Chọn",
+        "choose-egs-prefix": "Chọn Prefix nơi EGS được cài đặt",
+        "choose-gogdl-binary": "Chọn GOGDL Binary (cần khởi động lại)",
+        "choose-legendary-binary": "Chọn Legendary binary",
+        "customWine": "Chọn Wine/Proton binary",
+        "default-install-path": "Chọn đường dẫn cài mặc định",
         "error": {
-            "generic": {
-                "message": "Lỗi chưa xác định",
-                "title": "Lỗi chưa xác định"
-            },
-            "dxvk": {
-                "title": "DXVK/VKD3D lỗi",
-                "message": "Lỗi cài đặt DXVK/VKD3D! Kiểm tra kết nối hoặc zstd/libzstd1"
+            "credentials": {
+                "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại.",
+                "title": "Thông tin đăng nhập đã hết hạn"
             },
             "diskspace": {
                 "message": "Không đủ bộ nhớ trống",
                 "title": "Không đủ bộ nhớ"
             },
-            "title": "Lỗi",
-            "no-offline-mode": {
-                "title": "Không hỗ trợ chế độ offline.",
-                "message": "Quá trình khởi chạy đã hủy! Cần có kết nối mạng để chạy game."
+            "dxvk": {
+                "message": "Lỗi cài đặt DXVK/VKD3D! Kiểm tra kết nối hoặc zstd/libzstd1",
+                "title": "DXVK/VKD3D lỗi"
             },
-            "wine-not-found": {
-                "title": "Không tìm thấy Wine",
-                "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!"
+            "generic": {
+                "message": "Lỗi chưa xác định",
+                "title": "Lỗi chưa xác định"
             },
             "launch": "Lỗi khi khởi chạy game, vui lòng kiểm tra log!",
-            "credentials": {
-                "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại.",
-                "title": "Thông tin đăng nhập đã hết hạn"
+            "no-offline-mode": {
+                "message": "Quá trình khởi chạy đã hủy! Cần có kết nối mạng để chạy game.",
+                "title": "Không hỗ trợ chế độ offline."
+            },
+            "title": "Lỗi",
+            "wine-not-found": {
+                "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
+                "title": "Không tìm thấy Wine"
             }
         },
-        "quit": {
-            "message": "Vẫn có lệnh đang chờ, bạn chắc chứ?",
-            "title": "Thoát"
-        },
+        "no": "Không",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Chưa được cài. Cài ngay?"
             }
         },
-        "ok": "OK",
-        "runexe": {
-            "title": "Chọn file EXE để chạy"
-        },
-        "select": {
-            "exe": "Chọn file EXE",
-            "button": "Chọn"
+        "quit": {
+            "message": "Vẫn có lệnh đang chờ, bạn chắc chứ?",
+            "title": "Thoát"
         },
         "reset-heroic": {
             "question": {
@@ -51,9 +61,20 @@
                 "title": "Đặt lại Heroic"
             }
         },
-        "sync": {
-            "error": "Đường dẫn không hợp lệ",
+        "runexe": {
+            "title": "Chọn file EXE để chạy"
+        },
+        "select": {
             "button": "Chọn",
+            "exe": "Chọn file EXE"
+        },
+        "shortcuts": {
+            "message": "Shortcut đã được tạo ở màn hình chính và menu Start",
+            "title": "Shortcut"
+        },
+        "sync": {
+            "button": "Chọn",
+            "error": "Đường dẫn không hợp lệ",
             "title": "Chọn thư mục lưu"
         },
         "warning": {
@@ -64,51 +85,82 @@
             },
             "title": "Cảnh báo"
         },
-        "shortcuts": {
-            "message": "Shortcut đã được tạo ở màn hình chính và menu Start",
-            "title": "Shortcut"
-        },
-        "choose-egs-prefix": "Chọn Prefix nơi EGS được cài đặt",
-        "choose-gogdl-binary": "Chọn GOGDL Binary (cần khởi động lại)",
-        "no": "Không",
-        "choose-legendary-binary": "Chọn Legendary binary",
-        "customWine": "Chọn Wine/Proton binary",
-        "default-install-path": "Chọn đường dẫn cài mặc định",
-        "appupdate": {
-            "message": "Heroic có phiên bản mới, bạn có muốn cập nhật không?",
-            "title": "Có thể cập nhật"
-        },
-        "yes": "Có",
         "wineprefix": "Chọn thư mục Wine Prefix",
-        "choose": "Chọn",
-        "cache-cleared": {
-            "message": "Đã xoá bộ nhớ đệm của Heroic.",
-            "title": "Đã xoá bộ nhớ đệm"
-        }
+        "yes": "Có"
     },
+    "button": {
+        "continue": "Tiếp tục",
+        "login": "Đăng nhập",
+        "sync": "Đồng bộ",
+        "syncing": "Đang đồng bộ",
+        "unsync": "Hủy đồng bộ"
+    },
+    "Downloading": "Đang tải",
+    "epic": {
+        "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
+        "offline-notification-title": "offline"
+    },
+    "Epic Games": "Epic Game",
+    "filter": {
+        "noFilter": "Không lọc"
+    },
+    "globalSettings": "Cài đặt chung",
+    "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Đồng bộ với EGL nếu bạn đang cài Epic Games Launcher trên máy và muốn import game của mình để không phải tải lại.",
-        "sync": {
-            "part3": "Đồng bộ thủ công: Chọn Tải xuống để tải xuống các trò chơi được lưu trên Đám mây. Tải lên để tải game trong máy lên đám mây. Buộc Tải xuống và Buộc Tải lên sẽ bỏ qua phiên bản trong máy hoặc trên đám mây.",
-            "part1": "Heroic đang tìm thư mục lưu, đa phần đều đúng. Trong trường hợp Heroic tìm sai, hãy sử dụng ô ghi đè để thay đổi.",
-            "part2": "Trong trường hợp bạn thay đổi thư mục prefix cho Wine hoặc Proton, bạn sẽ cần kiểm tra lại đường dẫn vì Proton sử dụng prefix (/pfx) và tên người dùng (steamuser) khác. Bạn có thể xóa đường dẫn hiện tại, thoát khỏi trang cài đặt đồng bộ và quay lại lần nữa để Heroic tìm thư mục với prefix đúng.",
-            "part4": "Đồng bộ lưu tự động sẽ đồng bộ các bản sao lưu mỗi lần bạn bắt đầu và kết thúc chơi game."
-        },
         "other": {
-            "part3": "được gọi trước khi khởi chạy game; ",
             "part1": "Sử dụng ",
             "part2": "Tùy chọn nâng cao",
-            "part6": " được gọi sau lệnh khởi chạy, ví dụ: ",
-            "part7": " để bỏ qua trình khởi chạy trong một số trò chơi, v.v.",
+            "part3": "được gọi trước khi khởi chạy game; ",
             "part4": "Sử dụng ",
-            "part5": "Game Argument"
+            "part5": "Game Argument",
+            "part6": " được gọi sau lệnh khởi chạy, ví dụ: ",
+            "part7": " để bỏ qua trình khởi chạy trong một số trò chơi, v.v."
+        },
+        "sync": {
+            "part1": "Heroic đang tìm thư mục lưu, đa phần đều đúng. Trong trường hợp Heroic tìm sai, hãy sử dụng ô ghi đè để thay đổi.",
+            "part2": "Trong trường hợp bạn thay đổi thư mục prefix cho Wine hoặc Proton, bạn sẽ cần kiểm tra lại đường dẫn vì Proton sử dụng prefix (/pfx) và tên người dùng (steamuser) khác. Bạn có thể xóa đường dẫn hiện tại, thoát khỏi trang cài đặt đồng bộ và quay lại lần nữa để Heroic tìm thư mục với prefix đúng.",
+            "part3": "Đồng bộ thủ công: Chọn Tải xuống để tải xuống các trò chơi được lưu trên Đám mây. Tải lên để tải game trong máy lên đám mây. Buộc Tải xuống và Buộc Tải lên sẽ bỏ qua phiên bản trong máy hoặc trên đám mây.",
+            "part4": "Đồng bộ lưu tự động sẽ đồng bộ các bản sao lưu mỗi lần bạn bắt đầu và kết thúc chơi game."
         },
         "wine": {
             "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
             "part2": "Đối với vị trí khác, sử dụng biểu tượng liên kết với một trong những thư mục này"
         }
     },
+    "info": {
+        "settings": "Cài đặt được tự đông lưu"
+    },
+    "infobox": {
+        "help": "Hỗ trợ",
+        "requirements": "Yêu cầu về hệ thống"
+    },
+    "install": {
+        "path": "Chọn đường dẫn cài"
+    },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
+    "Library": "Thư viện",
+    "loading": {
+        "default": "",
+        "website": "Đang tải trang web"
+    },
+    "login": {
+        "externalLogin": "Đăng nhập bên ngoài"
+    },
+    "message": {
+        "sync": "Hoàn tất quá trình đồng bộ",
+        "unsync": "Hoàn tất quá trình hủy đồng bộ"
+    },
+    "nogames": "Không tìm thấy game nào",
+    "Not Ready": "Chưa sẵn sàng",
     "notify": {
         "error": {
             "move": "Gặp lỗi khi di chuyển game",
@@ -132,9 +184,6 @@
             "started": "Quá trình cập nhật đã bắt đầu"
         }
     },
-    "login": {
-        "externalLogin": "Đăng nhập bên ngoài"
-    },
     "options": {
         "advanced": {
             "placeholder": "Đặt các tùy chọn khởi chạy khác tại đây",
@@ -145,34 +194,73 @@
             "title": "Game Argument (Để chạy sau lệnh):"
         }
     },
+    "other": {
+        "gogdl-version": "Phiên bản GOGDL: ",
+        "legendary-version": "Phiên bản Legendary ",
+        "weblate": "Giúp dịch Heroic."
+    },
     "placeholder": {
-        "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",
         "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
+        "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",
         "egs-prefix": "Prefix nơi EGS được cài đặt"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
+    "Plugins": "Plugin",
+    "Projects": "Project",
+    "Ready": "Sẵn sàng",
+    "Recent": "Chơi gần đây",
+    "search": "Nhập tên game ở đây...",
     "setting": {
+        "adddesktopshortcuts": "Tự động thêm shortcut trên màn hình chính",
         "addgamestostartmenu": "Tự động thêm game vào menu Start",
+        "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng (cần khởi động lại)",
+        "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng (cần khởi động lại)",
         "audiofix": "Sửa âm thanh (Pulse Audio Latency)",
+        "autodxvk": "Tự động cài đặt/cập nhật DXVK trên prefix",
+        "autosync": "Tự động đồng bộ bản sao lưu",
+        "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
+        "change-target-exe": "Chọn một EXE thay thế để chạy",
+        "checkForUpdatesOnStartup": "Kiểm tra cập nhật khi khởi động",
+        "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
+        "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
+        "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
+        "discordRPC": "Bật tính năng Discord Rich Presence",
         "egs-sync": "Đồng bộ với Game Epic đã cài",
+        "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
+        "esync": "Bật Esync",
+        "exit-to-tray": "Thoát ra khay hệ thống",
+        "FsrSharpnessStrenght": "Độ sắc nét FSR",
         "fsync": "Bật Fsync",
         "gamemode": "Sử dụng GameMode (Cần cài đặt Feral Game Mode)",
+        "language": "Chọn ngôn ngữ của ứng dụng",
         "log": {
-            "current-log": "Log hiện tại",
             "copy-to-clipboard": "Sao chép nội dung log vào bộ nhớ tạm",
+            "current-log": "Log hiện tại",
             "last-log": "Log lần trước",
             "no-file": "Không tìm thấy file log",
             "show-in-folder": "Hiển thị file log trong thư mục"
         },
+        "mangohud": "Bật Mangohud (Cần cài mangohud)",
         "manualsync": {
-            "forcedownload": "Buộc tải xuống",
-            "syncing": "Đang đồng bộ",
             "download": "Tải xuống",
+            "forcedownload": "Buộc tải xuống",
             "forceupload": "Buộc tải lên",
             "sync": "Đồng bộ",
+            "syncing": "Đang đồng bộ",
             "title": "Đồng bộ thủ công bản sao lưu",
             "upload": "Tải lên"
         },
+        "maxRecentGames": "Hiển thị số game đã chơi gần đây",
+        "maxworkers": "Số lượng tối đa khi tải xuống",
+        "minimize-on-launch": "Thu nhỏ Heroic sau khi khởi chạy trò chơi",
+        "offlinemode": "Chạy game oflline",
+        "primerun": "Bật Nvidia Prime Render",
+        "resizableBar": "Bật tính năng thay đổi kích thước bar (chỉ dùng được với NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Kéo thả file vào đây",
             "title": "Chạy EXE trên prefix"
@@ -181,121 +269,45 @@
             "placeholder": "Chọn chính xác thư mục lưu game",
             "title": "Ghi đè thư mục Lưu đồng bộ đám mây"
         },
-        "wineversion": "Phiên bản Wine",
-        "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
-        "adddesktopshortcuts": "Tự động thêm shortcut trên màn hình chính",
-        "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng (cần khởi động lại)",
-        "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng (cần khởi động lại)",
-        "change-target-exe": "Chọn một EXE thay thế để chạy",
-        "checkForUpdatesOnStartup": "Kiểm tra cập nhật khi khởi động",
-        "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
-        "darktray": "Sử dụng icon tối",
-        "discordRPC": "Bật tính năng Discord Rich Presence",
-        "esync": "Bật Esync",
-        "exit-to-tray": "Thoát ra khay hệ thống",
-        "FsrSharpnessStrenght": "Độ sắc nét FSR",
-        "autodxvk": "Tự động cài đặt/cập nhật DXVK trên prefix",
-        "autosync": "Tự động đồng bộ bản sao lưu",
-        "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
-        "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
-        "language": "Chọn ngôn ngữ của ứng dụng",
-        "mangohud": "Bật Mangohud (Cần cài mangohud)",
-        "maxworkers": "Số lượng tối đa khi tải xuống",
-        "minimize-on-launch": "Thu nhỏ Heroic sau khi khởi chạy trò chơi",
-        "offlinemode": "Chạy game oflline",
-        "primerun": "Bật Nvidia Prime Render",
-        "resizableBar": "Bật tính năng thay đổi kích thước bar (chỉ dùng được với NVIDIA RTX 30xx)",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
         "showUnrealMarket": "Hiển thị Unreal Marketplace (cần khởi động lại)",
         "start-in-tray": "Thu nhỏ khi khởi động",
         "steamruntime": "Sử dụng Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Thư mục WinePrefix",
-        "maxRecentGames": "Hiển thị số game đã chơi gần đây"
+        "wineversion": "Phiên bản Wine"
     },
-    "stores": "Cửa hàng",
     "settings": {
-        "navbar": {
-            "log": "Log",
-            "general": "Tổng quan",
-            "other": "Khác",
-            "sync": "Lưu - Đồng bộ"
-        },
-        "reset-heroic": "Đặt lại Heroic",
         "clear-cache": "Xóa bộ nhớ đệm của Heroic",
         "copiedToClipboard": "Đã sao chép vào bộ nhớ tạm!",
         "copyToClipboard": "Sao chép toàn bộ cài đặt vào bộ nhớ tạm",
         "log": {
             "long-log-hint": "Log bị cắt ngắn, hiển thị 1000 dòng cuối!"
-        }
+        },
+        "navbar": {
+            "general": "Tổng quan",
+            "log": "Log",
+            "other": "Khác",
+            "sync": "Lưu - Đồng bộ"
+        },
+        "reset-heroic": "Đặt lại Heroic"
+    },
+    "Settings": "Cài đặt",
+    "status": {
+        "logging": "Đang đăng nhập..."
     },
     "store": "Cửa hàng Epic",
+    "stores": "Cửa hàng",
     "title": {
-        "unrealPlugins": "Unreal - Plugin",
         "allGames": "Tất cả game",
         "allUnreal": "Unreal - Tất cả",
         "downloading": "Đang tải",
         "installedGames": "Game đã cài",
         "notInstalledGames": "Chưa cài",
-        "unrealProjects": "Unreal - Project",
         "unrealAssets": "Unreal - Asset",
+        "unrealPlugins": "Unreal - Plugin",
+        "unrealProjects": "Unreal - Project",
         "updates": "Đang chờ cập nhật"
-    },
-    "All": "Tất cả",
-    "Assets": "Asset",
-    "button": {
-        "continue": "Tiếp tục",
-        "login": "Đăng nhập",
-        "sync": "Đồng bộ",
-        "syncing": "Đang đồng bộ",
-        "unsync": "Hủy đồng bộ"
-    },
-    "Downloading": "Đang tải",
-    "epic": {
-        "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
-        "offline-notification-title": "offline"
-    },
-    "filter": {
-        "noFilter": "Không lọc"
-    },
-    "Filter": "Lọc",
-    "globalSettings": "Cài đặt chung",
-    "GOG": "GOG",
-    "info": {
-        "settings": "Cài đặt được tự đông lưu"
-    },
-    "infobox": {
-        "help": "Hỗ trợ",
-        "requirements": "Yêu cầu về hệ thống"
-    },
-    "install": {
-        "path": "Chọn đường dẫn cài"
-    },
-    "Library": "Thư viện",
-    "loading": {
-        "website": "Đang tải trang web"
-    },
-    "message": {
-        "sync": "Hoàn tất quá trình đồng bộ",
-        "unsync": "Hoàn tất quá trình hủy đồng bộ"
-    },
-    "nogames": "Không tìm thấy game nào",
-    "Not Ready": "Chưa sẵn sàng",
-    "Epic Games": "Epic Game",
-    "other": {
-        "gogdl-version": "Phiên bản GOGDL: ",
-        "weblate": "Giúp dịch Heroic.",
-        "legendary-version": "Phiên bản Legendary "
-    },
-    "Plugins": "Plugin",
-    "Projects": "Project",
-    "Ready": "Sẵn sàng",
-    "Return": "Quay lại",
-    "search": "Nhập tên game ở đây...",
-    "Recent": "Chơi gần đây",
-    "Settings": "Cài đặt",
-    "status": {
-        "logging": "Đang đăng nhập..."
     },
     "toolbox": {
         "settings": {
@@ -322,6 +334,14 @@
         "logout_confirmation": "Xác nhận đăng xuất?",
         "manageaccounts": "Quản lý tài khoản",
         "quit": "Thoát"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

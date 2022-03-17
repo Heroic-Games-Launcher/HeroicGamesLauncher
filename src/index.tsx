@@ -65,6 +65,7 @@ i18next
       'ta',
       'tr',
       'uk',
+      'vi',
       'zh_Hans',
       'zh_Hant'
     ]
