@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Без фильтра"
     },
-    "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "Выберите путь установки"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Библиотека",
     "loading": {
+        "default": "",
         "website": "Загрузка веб-сайта"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "Используется встроенный Legendary...",
         "egs-prefix": "Префикс куда установлен EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Плагины",
     "Projects": "Проекты",
     "Ready": "Готово",
     "Recent": "Запускались недавно",
-    "Return": "Вернуться",
     "search": "Введите здесь название игры...",
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
@@ -322,6 +334,14 @@
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Управление аккаунтами",
         "quit": "Закрыть Heroic"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Вики",
     "wine": {

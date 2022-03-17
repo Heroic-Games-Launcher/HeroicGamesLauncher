@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Filtreerimata"
     },
-    "Filter": "Filtreeri",
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
     "gog-store": "GOG Pood",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "Valige paigaldustee"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Varamu",
     "loading": {
+        "default": "",
         "website": "Veebilehe laadimine"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Pluginad",
     "Projects": "Projektid",
     "Ready": "Valmis",
     "Recent": "Hiljuti mängitud",
-    "Return": "Tagasi",
     "search": "Sisestage mängu nimi siia...",
     "setting": {
         "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
@@ -322,6 +334,14 @@
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "manageaccounts": "Kontode haldamine",
         "quit": "Sulge"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Viki",
     "wine": {

@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filtra",
     "globalSettings": "Impostazioni globali",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "Seleziona percorso di installazione"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Libreria",
     "loading": {
+        "default": "",
         "website": "Caricamento sito web incorso"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "In uso i binari Legendary integrati...",
         "egs-prefix": "Prefix dove è installato EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Progetti",
     "Ready": "Pronto",
     "Recent": "Giocato di recente",
-    "Return": "Torna indietro",
     "search": "Inserisci qui il nome del gioco...",
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
@@ -322,6 +334,14 @@
         "logout_confirmation": "Sei sicuro di voler uscire?",
         "manageaccounts": "Manage Accounts",
         "quit": "Esci"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

@@ -104,9 +104,11 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "فیلتر",
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
+    "header": {
+        "platform": ""
+    },
     "gog-store": "فروشگاه GOG",
     "help": {
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
@@ -140,8 +142,14 @@
     "install": {
         "path": "انتخاب محل نصب"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "کتابخانه",
     "loading": {
+        "default": "",
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "egs-prefix": "محل نصب شده EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "افزونهها",
     "Projects": "پروژهها",
     "Ready": "آماده",
     "Recent": "اخیرا بازی شده",
-    "Return": "بازگشت",
     "search": "نام بازی را اینجا وارد کنید...",
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
@@ -322,6 +334,14 @@
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
         "manageaccounts": "مدیریت حساب‌ها",
         "quit": "خروج"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "ویکی",
     "wine": {

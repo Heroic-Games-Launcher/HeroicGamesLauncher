@@ -1,5 +1,6 @@
 .gameRequirements {
   flex-direction: column;
+  user-select: text;
 }
 .gameRequirements table td {
   width: 40%;

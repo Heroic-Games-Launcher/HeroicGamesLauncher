@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Sin filtrar"
     },
-    "Filter": "Filtrar",
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "Seleccione la ruta de instalación"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Biblioteca",
     "loading": {
+        "default": "",
         "website": "Cargando el sitio web"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
         "egs-prefix": "Prefix donde está instalado EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Plugins",
     "Projects": "Proyectos",
     "Ready": "Listo",
     "Recent": "Jugado recientemente",
-    "Return": "Regresar",
     "search": "Ingrese el nombre del juego aquí…",
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
@@ -322,6 +334,14 @@
         "logout_confirmation": "¿Estás seguro de que quieres cerrar la sesión?",
         "manageaccounts": "Gestionar cuentas",
         "quit": "Salir"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

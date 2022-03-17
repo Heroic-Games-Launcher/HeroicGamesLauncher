@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Non hai filtro"
     },
-    "Filter": "Filtrar",
     "globalSettings": "Preferencias globais",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Sincronizar con EGS no caso que teña unha instalación funcional de EGS noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "Seleccionar a ruta de instalación"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Biblioteca",
     "loading": {
+        "default": "",
         "website": "Cargando sitio web"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "Usando o binario de Legendary embebeido...",
         "egs-prefix": "Prefixo onde está instalado EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Engadidos",
     "Projects": "Proxectos",
     "Ready": "Listo",
     "Recent": "Xogado recentemente",
-    "Return": "Volver",
     "search": "Escribe o nome do xogo aquí...",
     "setting": {
         "adddesktopshortcuts": "Engadir atallos de escritorio automaticamente",
@@ -322,6 +334,14 @@
         "logout_confirmation": "Está seguro que quere pechar a sesión?",
         "manageaccounts": "Manage Accounts",
         "quit": "Saír"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

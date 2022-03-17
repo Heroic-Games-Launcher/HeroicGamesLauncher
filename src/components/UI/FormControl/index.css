@@ -1,0 +1,146 @@
+.FormControl {
+  position: relative;
+  display: inline-flex;
+}
+
+.FormControl__button,
+.FormControl__select,
+.FormControl__input {
+  width: 100%;
+  appearance: none;
+  height: 40px;
+  background: var(--input-background);
+  border-radius: 10px;
+  font: var(--font-secondary-bold);
+  color: var(--text-secondary);
+  padding: 0 22px;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  transition: color 250ms;
+}
+
+.FormControl--small {
+  height: 32px;
+}
+
+.FormControl__button:focus-visible,
+.FormControl__select:focus-visible,
+.FormControl__input:focus-visible {
+  outline: none;
+  box-shadow: var(--accent) 0 0 0 2px inset;
+}
+
+.FormControl__select,
+.FormControl__input {
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.FormControl__input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.FormControl__button:disabled,
+.FormControl__select:disabled,
+.FormControl__input:disabled {
+  cursor: default;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.FormControl--clearable > input {
+  padding-right: 40px;
+}
+
+.FormControl--select > select {
+  cursor: pointer;
+  padding-right: 40px;
+}
+
+.FormControl--segmented > button {
+  box-sizing: border-box;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-default);
+}
+
+.FormControl--segmented > button:not(:disabled):hover {
+  color: var(--text-hover);
+}
+
+.FormControl--segmented > button:not(.non-important):active,
+.FormControl--segmented > button:not(.non-important).active {
+  color: var(--accent);
+}
+
+.FormControl--segmented > button:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: 1px;
+}
+
+.FormControl--segmented > button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.FormControl__segmentedFaIcon {
+  font-size: 20px;
+  outline: none;
+}
+
+.FormControl--small .FormControl__segmentedFaIcon {
+  height: 16px;
+}
+
+.FormControl__caret,
+.FormControl__clear {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translate(0, -50%);
+  transition: color 250ms;
+}
+
+.FormControl__caret {
+  pointer-events: none;
+}
+
+.FormControl__clear {
+  cursor: pointer;
+}
+
+.FormControl__clear:hover {
+  color: var(--text-hover);
+}
+
+.FormControl__clear:active {
+  color: var(--accent);
+}
+
+.FormControl__input:disabled ~ .FormControl__clear,
+.FormControl__input:placeholder-shown ~ .FormControl__clear {
+  display: none;
+}
+
+.FormControl__select:hover + .FormControl__caret {
+  color: var(--text-hover);
+}
+
+.FormControl__select:disabled + .FormControl__caret {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.FormControl option {
+  background: var(--background-color);
+}
+
+.FormControl option:checked {
+  color: var(--accent);
+}

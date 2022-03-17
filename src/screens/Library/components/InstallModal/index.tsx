@@ -6,7 +6,7 @@ import {
   install,
   writeConfig
 } from 'src/helpers'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -43,6 +43,24 @@ type Props = {
 
 const storage: Storage = window.localStorage
 
+function getInstallLanguage(
+  availableLanguages: string[],
+  preferredLanguages: readonly string[]
+) {
+  const foundPreffered = preferredLanguages.find((plang) =>
+    availableLanguages.some((alang) => alang.startsWith(plang))
+  )
+  if (foundPreffered) {
+    const foundAvailable = availableLanguages.find((alang) =>
+      alang.startsWith(foundPreffered)
+    )
+    if (foundAvailable) {
+      return foundAvailable
+    }
+  }
+  return availableLanguages[0]
+}
+
 export default function InstallModal({
   appName,
   backdropClick,
@@ -52,6 +70,7 @@ export default function InstallModal({
     storage.getItem(appName) || '{}'
   ) as InstallProgress
 
+  const { i18n } = useTranslation()
   const { libraryStatus, handleGameStatus, platform } =
     useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
@@ -160,7 +179,9 @@ export default function InstallModal({
       setGameInfo(gameInfo)
       if (gameInfo.manifest?.languages) {
         setInstallLanguages(gameInfo.manifest.languages)
-        setInstallLanguage(gameInfo.manifest.languages[0])
+        setInstallLanguage(
+          getInstallLanguage(gameInfo.manifest.languages, i18n.languages)
+        )
       }
       setIsLinuxNative(gameData.is_linux_native && isLinux)
       setIsMacNative(gameData.is_mac_native && isMac)
@@ -170,7 +191,9 @@ export default function InstallModal({
           appName
         )) as string[]
         setInstallLanguages(installer_languages)
-        setInstallLanguage(installer_languages[0])
+        setInstallLanguage(
+          getInstallLanguage(installer_languages, i18n.languages)
+        )
       }
       const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
       const fixedTitle = gameInfo.game.title
@@ -181,7 +204,7 @@ export default function InstallModal({
       setWinePrefix(sugestedWinePrefix)
     }
     getInfo()
-  }, [appName])
+  }, [appName, i18n.languages])
 
   const haveDLCs = gameInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInfo?.game?.owned_dlc
@@ -214,6 +237,24 @@ export default function InstallModal({
       return faWindows
     }
   }
+
+  const getLanguageName = useMemo(() => {
+    return (language: string) => {
+      try {
+        const locale = language.replace('_', '-')
+        const displayNames = new Intl.DisplayNames(
+          [locale, ...i18n.languages, 'en'],
+          {
+            type: 'language',
+            style: 'long'
+          }
+        )
+        return displayNames.of(locale)
+      } catch (e) {
+        return language
+      }
+    }
+  }, [i18n.language])
 
   return (
     <span className="modalContainer">
@@ -255,7 +296,7 @@ export default function InstallModal({
                   {installLanguages &&
                     installLanguages.map((value) => (
                       <option value={value} key={value}>
-                        {value}
+                        {getLanguageName(value)}
                       </option>
                     ))}
                 </select>

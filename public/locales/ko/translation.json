@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "필터",
     "globalSettings": "글로벌 설정",
     "GOG": "GOG",
     "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Epic Games Launcher가 다른 곳에 설치되어 있고 게임을 가져와서 다시 다운로드하지 않으려면 Epic Games Launcher와 동기화 하십시오.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "설치 경로 선택"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "라이브러리",
     "loading": {
+        "default": "",
         "website": "웹사이트 로드 중"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",
         "egs-prefix": "Epic Games Store가 설치된 위치의 접두사"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "플러그인",
     "Projects": "프로젝트",
     "Ready": "준비됨",
     "Recent": "최근 플레이한 게임",
-    "Return": "돌아가기",
     "search": "여기에 게임 이름을 입력 ...",
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
@@ -322,6 +334,14 @@
         "logout_confirmation": "정말로 로그아웃 하시겠습니까?",
         "manageaccounts": "계정 관리",
         "quit": "종료"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "위키",
     "wine": {

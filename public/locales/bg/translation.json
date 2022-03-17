@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Филтриране",
     "globalSettings": "Глобални настройки",
     "GOG": "GOG",
     "gog-store": "Магазин на GOG",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "Изберете местоположение за инсталиране"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Библиотека",
     "loading": {
+        "default": "",
         "website": "Зареждане на уеб сайта"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
         "egs-prefix": "Префикс, където е инсталиран EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Добавки",
     "Projects": "Проекти",
     "Ready": "Готово",
     "Recent": "Играно наскоро",
-    "Return": "Обратно",
     "search": "Въведете името на играта...",
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
@@ -322,6 +334,14 @@
         "logout_confirmation": "Наистина ли искате да излезете?",
         "manageaccounts": "Управление на акаунтите",
         "quit": "Изход"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Уики",
     "wine": {

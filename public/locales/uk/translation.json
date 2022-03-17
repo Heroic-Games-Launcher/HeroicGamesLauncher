@@ -104,10 +104,12 @@
     "filter": {
         "noFilter": "Без фільтра"
     },
-    "Filter": "Фільтр",
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
         "other": {
@@ -140,8 +142,14 @@
     "install": {
         "path": "Вкажіть шлях встановлення"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Бібліотека",
     "loading": {
+        "default": "",
         "website": "Завантажую вебсайт"
     },
     "login": {
@@ -196,11 +204,15 @@
         "alt-legendary-bin": "Використовую вбудований бінарник Legendary...",
         "egs-prefix": "Префікс де встановлено EGS"
     },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
+    },
     "Plugins": "Плаґіни",
     "Projects": "Проєкти",
     "Ready": "Готові",
     "Recent": "Нещодавно зіграні",
-    "Return": "Повернутись",
     "search": "Вкажіть тут назву гри...",
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
@@ -322,6 +334,14 @@
         "logout_confirmation": "Точно бажаєте вийти?",
         "manageaccounts": "Manage Accounts",
         "quit": "Закрити"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Вікі",
     "wine": {

@@ -1,33 +1,3 @@
-.headerIcons {
-  width: min(100px, 6vw);
-  max-width: 150px;
-  display: flex;
-  justify-content: space-around;
-  grid-area: refresh;
+.ActionIcons {
   margin-left: 24px;
-}
-
-.headerIcons > * {
-  cursor: pointer;
-}
-
-.headerIcons > .svg-button {
-  color: var(--text-default);
-}
-
-.headerIcons > *:hover,
-.headerIcons > .svg-button > *:hover,
-.headerIcons > .svg-button:focus-visible > * {
-  color: var(--text-hover);
-}
-
-.headerIcons .svg-button > .selectedLayout,
-.headerIcons .svg-button > .selectedLayout:hover,
-.headerIcons .svg-button > .selectedLayout:focus-visible {
-  color: var(--accent);
-}
-
-.headerIcons > .svg-button > svg {
-  height: 1.5vh;
-  min-height: 1.1rem;
 }

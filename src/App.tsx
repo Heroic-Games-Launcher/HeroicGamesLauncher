@@ -43,11 +43,7 @@ function App() {
             <Route exact path="/">
               {user && (
                 <>
-                  <Header
-                    goTo={''}
-                    renderBackButton={false}
-                    numberOfGames={numberOfGames}
-                  />
+                  <Header numberOfGames={numberOfGames} />
                   <div className="listing">
                     <span id="top" />
                     {showRecentGames && (

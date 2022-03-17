@@ -1,12 +1,13 @@
 .runnerWrapper {
-  background-color: var(--background-darker-80);
+  background-color: var(--login-card-background);
   padding: 20px;
   border-radius: 15px;
   min-width: min(500px, 30%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  backdrop-filter: blur(10px);
+  height: 300px;
+  backdrop-filter: blur(var(--blur-light));
 }
 
 .runnerWrapper > h1 {
@@ -16,11 +17,18 @@
 .runnerLogin {
   padding: 10px;
   font-size: 25px;
-  border-radius: 15px;
-  background-color: var(--background-secondary);
   border: none;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  transition: 0.3s;
+  transition: 0.2s;
+}
+
+.runnerLogin.alternative {
+  margin-top: 20px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.runnerLogin:hover {
+  color: var(--text-hover);
 }
 
 .logged {
@@ -29,17 +37,7 @@
 }
 
 .logged:hover {
-  background-color: var(--danger-hover);
-  color: var(--text-secondary);
-}
-
-.runnerLogin.alternative {
-  margin-top: 20px;
-  cursor: pointer;
-  color: var(--text-secondary);
-}
-.runnerLogin:hover {
-  color: var(--text-hover);
+  color: var(--danger-hover);
 }
 
 .runnerWrapper img,
