@@ -6,22 +6,22 @@ import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { LegendaryLibrary } from './library'
+import { getLegendaryCommand, LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { errorHandler, execAsync, isOnline } from '../utils'
+import { execAsync, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
-  home,
-  isWindows,
-  legendary
+  userHome,
+  isWindows
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
-import { join } from 'path'
+import { basename, join } from 'path'
+import { runLegendaryCommand } from './library'
 
 const store = new Store({
   cwd: 'lib-cache',
@@ -193,37 +193,38 @@ class LegendaryGame extends Game {
    * @returns The amended install path.
    */
   public async moveInstall(newInstallPath: string) {
-    const {
-      install: { install_path },
-      title
-    } = await this.getGameInfo()
+    const oldInstallPath = (await this.getGameInfo()).install.install_path
 
-    if (isWindows) {
-      newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
-    } else {
-      newInstallPath += '/' + install_path.split('/').slice(-1)[0]
-    }
+    newInstallPath = join(newInstallPath, basename(oldInstallPath))
 
-    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Legendary)
-    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
+    const command = `mv -f '${oldInstallPath}' '${newInstallPath}'`
+
+    logInfo(
+      [`Moving ${this.appName} to ${newInstallPath} with`, command],
+      LogPrefix.Legendary
+    )
+
+    await execAsync(command)
       .then(() => {
         LegendaryLibrary.get().changeGameInstallPath(
           this.appName,
           newInstallPath
         )
-        logInfo(`Finished Moving ${title}`, LogPrefix.Legendary)
       })
-      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
+      .catch((error) => {
+        logError(
+          `Failed to move ${this.appName}: ${error}`,
+          LogPrefix.Legendary
+        )
+      })
     return newInstallPath
   }
 
   /**
    * Update game.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
-  public async update() {
+  public async update(): Promise<{ status: 'done' | 'error' }> {
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
       runner: 'legendary',
@@ -231,28 +232,29 @@ class LegendaryGame extends Game {
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const command = `${legendary} update ${this.appName}${workers} -y ${writeLog}`
-    return execAsync(command, execOptions)
-      .then(() => {
-        this.window.webContents.send('setGameStatus', {
-          appName: this.appName,
-          runner: 'legendary',
-          status: 'done'
-        })
-        return { status: 'done' }
-      })
-      .catch((error) => {
-        logError(`${error}`, LogPrefix.Legendary)
-        this.window.webContents.send('setGameStatus', {
-          appName: this.appName,
-          runner: 'legendary',
-          status: 'done'
-        })
-        return { status: 'error' }
-      })
+    const commandParts = ['update', this.appName, workers, '-y']
+    const command = getLegendaryCommand(commandParts)
+
+    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts, logPath)
+
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      runner: 'legendary',
+      status: 'done'
+    })
+
+    if (res.error) {
+      logError(
+        ['Failed to update', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+      return { status: 'error' }
+    }
+    return { status: 'done' }
   }
 
   /**
@@ -288,121 +290,147 @@ class LegendaryGame extends Game {
   /**
    * Install game.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
   public async install({
     path,
     installDlcs,
     sdlList,
     platformToInstall
-  }: InstallArgs) {
+  }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendary} install ${this.appName} --platform ${platformToInstall} --base-path '${path}' ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
-    return execAsync(command, execOptions)
-      .then(async ({ stdout, stderr }) => {
-        if (stdout.includes('ERROR')) {
-          errorHandler({ error: { stdout, stderr }, logPath })
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-          return { status: 'error' }
-        }
-        return { status: 'done' }
-      })
-      .catch(() => {
-        logInfo('Installaton canceled', LogPrefix.Legendary)
-        return { status: 'error' }
-      })
+    const commandParts = [
+      'install',
+      this.appName,
+      '--platform',
+      platformToInstall,
+      '--base-path',
+      path,
+      withDlcs,
+      installSdl,
+      workers,
+      '-y'
+    ]
+    const command = getLegendaryCommand(commandParts)
+    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts, logPath)
+
+    if (res.error) {
+      logError(
+        ['Failed to install', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+      return { status: 'error' }
+    }
+    return { status: 'done' }
   }
 
-  public async uninstall() {
-    const command = `${legendary} uninstall ${this.appName} -y`
-    logInfo(
-      [`Uninstalling ${this.appName} with:`, command],
-      LogPrefix.Legendary
-    )
+  public async uninstall(): Promise<ExecResult> {
+    const commandParts = ['uninstall', this.appName, '-y']
+    const command = getLegendaryCommand(commandParts)
+
+    logInfo([`Uninstalling ${this.appName}:`, command], LogPrefix.Legendary)
+
     LegendaryLibrary.get().installState(this.appName, false)
-    return await execAsync(command, execOptions)
-      .then((value) => {
-        return value
-      })
-      .catch((error) => {
-        logError(`${error}`, LogPrefix.Legendary)
-        return null
-      })
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to uninstall', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
   }
   /**
    * Repair game.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
-  public async repair() {
+  public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const command = `${legendary} repair ${this.appName} ${workers} -y ${writeLog}`
+    const commandParts = ['repair', this.appName, workers, '-y']
+    const command = getLegendaryCommand(commandParts)
 
-    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Legendary)
-    return await execAsync(command, execOptions)
-      .then((value) => {
-        // this.state.status = 'done'
-        return value
-      })
-      .catch((error) => {
-        logError(`${error}`, LogPrefix.Legendary)
-        return null
-      })
+    logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts, logPath)
+
+    if (res.error) {
+      logError(
+        ['Failed to repair', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
   }
 
-  public async import(path: string) {
-    const command = `${legendary} import-game ${this.appName} '${path}'`
+  public async import(path: string): Promise<ExecResult> {
+    const commandParts = ['import', this.appName, path]
+    const command = getLegendaryCommand(commandParts)
 
-    logInfo(
-      [`Importing ${this.appName} from ${path} with:`, command],
-      LogPrefix.Legendary
-    )
-    return await execAsync(command, execOptions)
-      .then((value) => {
-        return value
-      })
-      .catch((error) => {
-        logError(`${error}`, LogPrefix.Legendary)
-        return null
-      })
+    logInfo([`Importing ${this.appName}:`, command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to import', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
   }
 
   /**
    * Sync saves.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
   public async syncSaves(arg: string, path: string) {
     const fixedPath = isWindows
       ? path.replaceAll("'", '').slice(0, -1)
       : path.replaceAll("'", '')
 
-    const command = `${legendary} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
-    const legendarySavesPath = join(home, 'legendary', '.saves')
-
-    //workaround error when no .saves folder exists
+    // workaround error when no .saves folder exists
+    const legendarySavesPath = join(userHome, 'legendary', '.saves')
     if (!existsSync(legendarySavesPath)) {
       mkdirSync(legendarySavesPath, { recursive: true })
     }
 
-    logInfo(['Syncing saves for ', this.appName], LogPrefix.Legendary)
-    return await execAsync(command, execOptions)
+    const commandParts = [
+      'sync-saves',
+      arg,
+      '--save-path',
+      `"${fixedPath}"`,
+      this.appName,
+      '-y'
+    ]
+    const command = getLegendaryCommand(commandParts)
+
+    logInfo(
+      [`Syncing saves for ${this.appName}:`, command],
+      LogPrefix.Legendary
+    )
+
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to sync saves for', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
   }
 
   public async launch(

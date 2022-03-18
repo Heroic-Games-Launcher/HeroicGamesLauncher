@@ -12,7 +12,7 @@
         },
         "choose": "Избиране",
         "choose-egs-prefix": "Изберете префикс, в който е инсталиран EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Изберете изпълнимия файл на GOGDL (изисква рестартиране)",
         "choose-legendary-binary": "Изберете изпълнимия файл на Legendary",
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "Магазин на GOG",
     "header": {
-        "platform": ""
+        "platform": "Платформа"
     },
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
@@ -143,13 +143,13 @@
         "path": "Изберете местоположение за инсталиране"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Изглед във вид на решетка",
+        "listView": "Изглед във вид на списък",
+        "refresh": "Опресняване"
     },
     "Library": "Библиотека",
     "loading": {
-        "default": "",
+        "default": "Зареждане",
         "website": "Зареждане на уеб сайта"
     },
     "login": {
@@ -195,19 +195,19 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "Версия на GOGDL: ",
         "legendary-version": "Версия на Legendary: ",
         "weblate": "Помогнете за превода на Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "Използване на вградения изпълним файл на GOGDL…",
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
         "egs-prefix": "Префикс, където е инсталиран EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Линукс",
+        "mac": "Мак",
+        "win": "Уиндоус"
     },
     "Plugins": "Добавки",
     "Projects": "Проекти",
@@ -217,7 +217,7 @@
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-gogdl-bin": "Избиране на алтернативен изпълним файл на GOGDL (изисква рестартиране)",
         "alt-legendary-bin": "Избиране на алтернативен изпълним файл на Legendary (изисква рестартиране)",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
         "autodxvk": "Автоматично инсталиране/обновяване на DXVK в префикса",
@@ -257,7 +257,7 @@
         },
         "maxRecentGames": "Играно наскоро за показване",
         "maxworkers": "Максимален брой работни процеси при сваляне",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
         "primerun": "Включване на „Nvidia Prime Render“",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Назад",
+            "forward": "Напред",
+            "openInBrowser": "Отваряне в браузъра",
+            "reload": "Презареждане на страницата"
         }
     },
     "wiki": "Уики",

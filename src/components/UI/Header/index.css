@@ -9,7 +9,7 @@
   align-items: center;
   margin: 0 32px;
   padding: 15px 0;
-  background: var(--background-shadow);
+  background: var(--gradient-body-background);
   color: var(--text-secondary);
 }
 @media (max-width: 1400px) {

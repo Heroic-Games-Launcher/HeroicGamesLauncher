@@ -41,22 +41,6 @@ let progress: string
 const sendKill = (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('kill', appName, runner)
 
-/**
- * Deprecated API to spawn a subprocess with a legendary command.
- *
- * @param args
- * @returns Return code. ('error' or 'done')
- * @deprecated Avoid using, old code will be migrated.
- */
-const legendary = async (args: string): Promise<string> =>
-  await ipcRenderer
-    .invoke('legendary', args)
-    .then(async (res: string) => {
-      const isError = res.includes('ERROR')
-      return isError ? 'error' : 'done'
-    })
-    .catch((err: string | null) => String(err))
-
 const isLoggedIn = async (): Promise<void> =>
   await ipcRenderer.invoke('isLoggedIn')
 
@@ -256,7 +240,6 @@ export {
   install,
   isLoggedIn,
   launch,
-  legendary,
   loginPage,
   notify,
   openAboutWindow,

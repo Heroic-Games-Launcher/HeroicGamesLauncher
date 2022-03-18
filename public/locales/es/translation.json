@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
     "header": {
-        "platform": ""
+        "platform": "Plataforma"
     },
     "help": {
         "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -143,13 +143,13 @@
         "path": "Seleccione la ruta de instalación"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Vista de cuadrícula",
+        "listView": "Vista de lista",
+        "refresh": "Actualizar"
     },
     "Library": "Biblioteca",
     "loading": {
-        "default": "",
+        "default": "Cargando",
         "website": "Cargando el sitio web"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Prefix donde está instalado EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "macOS",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Proyectos",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Regresar",
+            "forward": "Avanzar",
+            "openInBrowser": "Abrir en el navegador",
+            "reload": "Recargar página"
         }
     },
     "wiki": "Wiki",

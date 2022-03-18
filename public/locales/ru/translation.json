@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
     "header": {
-        "platform": ""
+        "platform": "Платформа"
     },
     "help": {
         "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
@@ -143,13 +143,13 @@
         "path": "Выберите путь установки"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "В виде сетки",
+        "listView": "В виде списка",
+        "refresh": "Обновить"
     },
     "Library": "Библиотека",
     "loading": {
-        "default": "",
+        "default": "Загрузка",
         "website": "Загрузка веб-сайта"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Префикс куда установлен EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Плагины",
     "Projects": "Проекты",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Назад",
+            "forward": "Вперёд",
+            "openInBrowser": "Открыть в браузере",
+            "reload": "Перезагрузить страницу"
         }
     },
     "wiki": "Вики",

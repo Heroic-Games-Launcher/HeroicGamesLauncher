@@ -51,7 +51,12 @@ export interface AppSettings {
   useSteamRuntime: boolean
 }
 
-export type ExecResult = { stderr: string; stdout: string }
+export type ExecResult = {
+  stderr: string
+  stdout: string
+  fullCommand?: string
+  error?: string
+}
 
 export type LaunchResult = {
   stderr: string

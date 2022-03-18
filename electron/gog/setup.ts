@@ -13,7 +13,7 @@ import { GameInfo } from '../types'
 import { execAsync } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { home, isWindows, steamCompatFolder } from '../constants'
+import { userHome, isWindows, steamCompatFolder } from '../constants'
 import ini from 'ini'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
@@ -44,10 +44,10 @@ async function setup(appName: string): Promise<void> {
   const prefix = isProton
     ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamCompatFolder} STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
         .replaceAll("'", '')
-        .replace('~', home)}'`
+        .replace('~', userHome)}'`
     : `WINEPREFIX="${gameSettings.winePrefix
         .replaceAll("'", '')
-        .replace('~', home)}"`
+        .replace('~', userHome)}"`
 
   const commandPrefix = isWindows
     ? ''

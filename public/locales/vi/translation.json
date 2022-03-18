@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
     "header": {
-        "platform": ""
+        "platform": "Nền tảng"
     },
     "help": {
         "general": "Đồng bộ với EGL nếu bạn đang cài Epic Games Launcher trên máy và muốn import game của mình để không phải tải lại.",
@@ -143,13 +143,13 @@
         "path": "Chọn đường dẫn cài"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Hiển thị dạng ô",
+        "listView": "Hiển thị dạng danh sánh",
+        "refresh": "Tải lại"
     },
     "Library": "Thư viện",
     "loading": {
-        "default": "",
+        "default": "Đang tải",
         "website": "Đang tải trang web"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Prefix nơi EGS được cài đặt"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "LInux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugin",
     "Projects": "Project",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Quay lại",
+            "forward": "Đi tiếp",
+            "openInBrowser": "Mở trong trình duyệt",
+            "reload": "Tải lại trang"
         }
     },
     "wiki": "Wiki",

@@ -5,7 +5,7 @@ import { GlobalConfig } from './config'
 import { execAsync, removeSpecialcharacters } from './utils'
 import { Game } from './games'
 import { Runner, GameInfo } from './types'
-import { heroicIconFolder, home } from './constants'
+import { heroicIconFolder, userHome } from './constants'
 import { GOGLibrary } from './gog/library'
 
 /**
@@ -108,7 +108,7 @@ function shortcutFiles(gameTitle: string) {
   switch (process.platform) {
     case 'linux': {
       desktopFile = `${app.getPath('desktop')}/${gameTitle}.desktop`
-      menuFile = `${home}/.local/share/applications/${gameTitle}.desktop`
+      menuFile = `${userHome}/.local/share/applications/${gameTitle}.desktop`
       break
     }
     case 'win32': {

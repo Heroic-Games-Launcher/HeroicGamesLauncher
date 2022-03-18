@@ -4,7 +4,7 @@ import { exec } from 'child_process'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { execAsync, isOnline } from './utils'
-import { execOptions, heroicToolsPath, home } from './constants'
+import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { dialog } from 'electron'
 import i18next from 'i18next'
@@ -105,7 +105,7 @@ export const DXVK = {
     tool: 'dxvk' | 'vkd3d',
     action: 'backup' | 'restore'
   ) => {
-    const winePrefix = prefix.replace('~', home)
+    const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
     if (!isValidPrefix) {
