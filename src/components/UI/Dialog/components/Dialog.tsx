@@ -1,5 +1,4 @@
 import React, { SyntheticEvent, useCallback, useEffect, useRef } from 'react'
-import './index.css'
 
 export interface DialogProps {
   className?: string

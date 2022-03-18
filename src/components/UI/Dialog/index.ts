@@ -1,4 +1,6 @@
-export * from './Dialog'
-export * from './DialogContent'
-export * from './DialogFooter'
-export * from './DialogHeader'
+import './index.css'
+
+export * from './components/Dialog'
+export * from './components/DialogContent'
+export * from './components/DialogFooter'
+export * from './components/DialogHeader'
