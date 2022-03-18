@@ -45,8 +45,7 @@
     },
     "disabled": "Keelatud",
     "dlc": {
-        "installDlcs": "Paigalda kõik DLC'd",
-        "title": "DLC'd"
+        "installDlcs": "Paigalda kõik DLC'd"
     },
     "enabled": "Lubatud",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Valige paigaldustee",
-        "wineprefix": "WinePrefiks"
+        "wineprefix": "WinePrefiks",
+        "wineversion": ""
     },
     "label": {
         "playing": {

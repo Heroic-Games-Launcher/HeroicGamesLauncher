@@ -45,8 +45,7 @@
     },
     "disabled": "Letiltva",
     "dlc": {
-        "installDlcs": "Összes DLC telepítése",
-        "title": "DLC-k"
+        "installDlcs": "Összes DLC telepítése"
     },
     "enabled": "Engedélyezve",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása",
-        "wineprefix": "Wine prefix"
+        "wineprefix": "Wine prefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

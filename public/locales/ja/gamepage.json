@@ -45,8 +45,7 @@
     },
     "disabled": "無効になっています",
     "dlc": {
-        "installDlcs": "すべてのDLCをインストールします",
-        "title": "DLCs"
+        "installDlcs": "すべてのDLCをインストールします"
     },
     "enabled": "有効になっています",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

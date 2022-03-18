@@ -36,7 +36,8 @@ import {
   InstallInfo,
   InstallProgress,
   Path,
-  Runner
+  Runner,
+  WineInstallation
 } from 'src/types'
 import {
   Dialog,
@@ -94,7 +95,7 @@ export default function InstallModal({
     storage.getItem(appName) || '{}'
   ) as InstallProgress
 
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation('gamepage')
   const { libraryStatus, handleGameStatus, platform } =
     useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
@@ -103,6 +104,9 @@ export default function InstallModal({
   const [gameInfo, setGameInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
   const [winePrefix, setWinePrefix] = useState('...')
+  const [wineVersion, setWineVersion] = useState<WineInstallation | undefined>(
+    undefined
+  )
   const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || 'default'
@@ -153,8 +157,6 @@ export default function InstallModal({
     setInstallDlcs(!installDlcs)
   }
 
-  const { t } = useTranslation('gamepage')
-
   async function handleInstall(path?: string) {
     backdropClick()
 
@@ -165,7 +167,7 @@ export default function InstallModal({
         appName
       )
 
-      writeConfig([appName, { ...appSettings, winePrefix }])
+      writeConfig([appName, { ...appSettings, winePrefix, wineVersion }])
     }
 
     return await install({
@@ -224,9 +226,10 @@ export default function InstallModal({
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
         .replaceAll(' ', '-')
-      const { defaultWinePrefix } = await getAppSettings()
+      const { defaultWinePrefix, wineVersion } = await getAppSettings()
       const sugestedWinePrefix = `${defaultWinePrefix}/${fixedTitle}`
       setWinePrefix(sugestedWinePrefix)
+      setWineVersion(wineVersion || undefined)
     }
     getInfo()
   }, [appName, i18n.languages])
@@ -267,6 +270,29 @@ export default function InstallModal({
       }
     }
   }, [i18n.language])
+
+  const hasWine = isLinux && !isLinuxNative
+
+  const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
+  useEffect(() => {
+    if (hasWine) {
+      ;(async () => {
+        const newWineList: WineInstallation[] = await ipcRenderer.invoke(
+          'getAlternativeWine'
+        )
+        if (Array.isArray(newWineList)) {
+          setWineVersionList(newWineList)
+          if (
+            !newWineList.some(
+              (newWine) => wineVersion && newWine.bin === wineVersion.bin
+            )
+          ) {
+            setWineVersion(undefined)
+          }
+        }
+      })()
+    }
+  }, [hasWine, wineVersion])
 
   const title = gameInfo?.game?.title
 
@@ -385,46 +411,78 @@ export default function InstallModal({
                   </FormControl>
                 </div>
               </div>
-              {isLinux && !isLinuxNative && (
-                <div className="InstallModal__control">
-                  <div className="InstallModal__controlLabel">
-                    {t('install.wineprefix', 'WinePrefix')}:
-                  </div>
-                  <div className="InstallModal__controlInput">
-                    <FormControl
-                      sideButton={
-                        <button
-                          className="FormControl__sideButton"
-                          onClick={() =>
-                            ipcRenderer
-                              .invoke('openDialog', {
-                                buttonLabel: t('box.choose'),
-                                properties: ['openDirectory'],
-                                title: t(
-                                  'box.wineprefix',
-                                  'Select WinePrefix Folder'
+              {hasWine && (
+                <>
+                  <div className="InstallModal__control">
+                    <div className="InstallModal__controlLabel">
+                      {t('install.wineprefix', 'WinePrefix')}:
+                    </div>
+                    <div className="InstallModal__controlInput">
+                      <FormControl
+                        sideButton={
+                          <button
+                            className="FormControl__sideButton"
+                            onClick={() =>
+                              ipcRenderer
+                                .invoke('openDialog', {
+                                  buttonLabel: t('box.choose'),
+                                  properties: ['openDirectory'],
+                                  title: t(
+                                    'box.wineprefix',
+                                    'Select WinePrefix Folder'
+                                  )
+                                })
+                                .then(({ path }: Path) =>
+                                  setWinePrefix(path ? path : winePrefix)
                                 )
-                              })
-                              .then(({ path }: Path) =>
-                                setWinePrefix(path ? path : winePrefix)
+                            }
+                          >
+                            <FontAwesomeIcon icon={faFolderOpen} />
+                          </button>
+                        }
+                      >
+                        <input
+                          type="text"
+                          data-testid="setinstallpath"
+                          className="FormControl__input"
+                          placeholder={winePrefix}
+                          value={winePrefix.replaceAll("'", '')}
+                          onChange={(event) =>
+                            setWinePrefix(event.target.value)
+                          }
+                        />
+                      </FormControl>
+                    </div>
+                  </div>
+                  <div className="InstallModal__control">
+                    <div className="InstallModal__controlLabel">
+                      {t('install.wineversion')}:
+                    </div>
+                    <div className="InstallModal__controlInput">
+                      <FormControl select>
+                        <select
+                          className="FormControl__select"
+                          name="wineVersion"
+                          value={wineVersion && wineVersion.bin}
+                          onChange={(e) =>
+                            setWineVersion(
+                              wineVersionList.find(
+                                (version) => version.bin === e.target.value
                               )
+                            )
                           }
                         >
-                          <FontAwesomeIcon icon={faFolderOpen} />
-                        </button>
-                      }
-                    >
-                      <input
-                        type="text"
-                        data-testid="setinstallpath"
-                        className="FormControl__input"
-                        placeholder={winePrefix}
-                        value={winePrefix.replaceAll("'", '')}
-                        onChange={(event) => setWinePrefix(event.target.value)}
-                      />
-                    </FormControl>
+                          {wineVersionList &&
+                            wineVersionList.map((version) => (
+                              <option value={version.bin} key={version.bin}>
+                                {version.name}
+                              </option>
+                            ))}
+                        </select>
+                      </FormControl>
+                    </div>
                   </div>
-                </div>
+                </>
               )}
               {(haveDLCs || haveSDL) && (
                 <div className="InstallModal__sectionHeader">

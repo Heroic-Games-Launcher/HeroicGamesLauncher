@@ -45,8 +45,7 @@
     },
     "disabled": "Tắt",
     "dlc": {
-        "installDlcs": "Cài đặt tất cả bản mở rộng",
-        "title": "Bản mở rộng"
+        "installDlcs": "Cài đặt tất cả bản mở rộng"
     },
     "enabled": "Bật",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Chọn đường dẫn cài",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

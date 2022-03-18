@@ -45,8 +45,7 @@
     },
     "disabled": "غیر فعال",
     "dlc": {
-        "installDlcs": "نصب همه DLCها",
-        "title": "DLCها"
+        "installDlcs": "نصب همه DLCها"
     },
     "enabled": "فعال",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "انتخاب محل نصب",
-        "wineprefix": "Wine Prefix"
+        "wineprefix": "Wine Prefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {
