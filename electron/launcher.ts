@@ -96,7 +96,8 @@ async function launch(
       return
     }
   }
-  const exe = targetExe && isLegendary ? `--override-exe ${targetExe}` : ''
+  const exe =
+    targetExe && (isLegendary || isGOG) ? `--override-exe ${targetExe}` : ''
   const isMacNative = gameInfo.is_mac_native
   // const isLinuxNative = gameInfo.is_linux_native
   const mangohud = showMangohud ? 'mangohud --dlsym' : ''
