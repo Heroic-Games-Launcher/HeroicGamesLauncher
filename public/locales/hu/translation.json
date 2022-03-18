@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "Platform"
     },
     "help": {
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
@@ -143,13 +143,13 @@
         "path": "Telepítési útvonal kiválasztása"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Rács nézet",
+        "listView": "Lista nézet",
+        "refresh": "Frissítés"
     },
     "Library": "Könyvtár",
     "loading": {
-        "default": "",
+        "default": "Betöltés",
         "website": "Weboldal betöltése"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Prefix ahol telepítve van az EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Beépülők",
     "Projects": "Projektek",
@@ -273,7 +273,7 @@
         "showUnrealMarket": "Unreal piactér megjelenítése (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
         "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver tároló",
+        "winecrossoverbottle": "CrossOver palack",
         "wineprefix": "Wine prefix mappa",
         "wineversion": "Wine verzió"
     },
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Vissza",
+            "forward": "Előre",
+            "openInBrowser": "Megnyitás böngészőben",
+            "reload": "Lap újratöltése"
         }
     },
     "wiki": "Wiki",

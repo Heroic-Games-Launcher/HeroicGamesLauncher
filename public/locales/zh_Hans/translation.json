@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
-        "platform": ""
+        "platform": "平台"
     },
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
@@ -143,13 +143,13 @@
         "path": "选择安装路径"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "网格视图",
+        "listView": "列表视图",
+        "refresh": "刷新"
     },
     "Library": "库",
     "loading": {
-        "default": "",
+        "default": "加载中",
         "website": "正在加载网站"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Epic Games商城安装位置"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "插件",
     "Projects": "项目",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "返回",
+            "forward": "向前",
+            "openInBrowser": "在浏览器中打开",
+            "reload": "重新加载页面"
         }
     },
     "wiki": "Wiki百科",
