@@ -9,7 +9,7 @@
         "importpath": "Επιλέξτε φάκελο παιχνιδιών για εισαγωγή",
         "move": {
             "message": "Αυτό μπορεί να πάρει πολύ ώρα, είστε σίγουροι;",
-            "path": "Επιλέξτε που θέλετε να το μετακινήσετε",
+            "path": "Επιλέξτε που θέλετε μετακινήσετε",
             "title": "Μετακίνηση εγκατάστασης παιχνιδιού"
         },
         "no": "ΟΧΙ",
@@ -23,16 +23,16 @@
             "title": "Διακοπή εγκατάστασης"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Θέλετε να αφαιρέσετε και τα προθέματα; Αυτό δεν μπορεί να αναιρεθεί.",
             "checkbox_prefix": "Prefix",
             "message": "Θέλετε να απεγκαταστήσετε αυτό το παιχνίδι;",
             "title": "Απεγκατάσταση"
         },
         "update": {
-            "message": "Το παιχνίδι έχει μια ενημέρωση, θέλετε να το ενημερώσετε τώρα;",
+            "message": "Το παιχνίδι έχει μια ενημέρωση, εφαρμογή ενημερώσεως τώρα;",
             "title": "Το παιχνίδι χρειάζεται ενημέρωση"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Επιλογή φακέλου προθεμάτων Wine",
         "yes": "ΝΑΙ"
     },
     "button": {
@@ -53,7 +53,7 @@
         "downloadSize": "Μέγεθος λήψης",
         "firstPlayed": "Παίχτηκε πρώτη φορά",
         "installSize": "Μέγεθος Εγκατάστασης",
-        "language": "Language",
+        "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
@@ -70,8 +70,8 @@
         "version": "Έκδοση"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "Επιλέξτε διαδρομή εγκατάστασης",
+        "wineprefix": "Πρόθεμα Wine"
     },
     "label": {
         "playing": {
