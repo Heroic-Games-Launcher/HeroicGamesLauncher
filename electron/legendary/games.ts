@@ -12,7 +12,7 @@ import { execAsync, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
-  home,
+  userHome,
   isWindows
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
@@ -402,7 +402,7 @@ class LegendaryGame extends Game {
       : path.replaceAll("'", '')
 
     // workaround error when no .saves folder exists
-    const legendarySavesPath = join(home, 'legendary', '.saves')
+    const legendarySavesPath = join(userHome, 'legendary', '.saves')
     if (!existsSync(legendarySavesPath)) {
       mkdirSync(legendarySavesPath, { recursive: true })
     }

@@ -65,7 +65,7 @@ import {
   getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
-  home,
+  userHome,
   icon,
   iconDark,
   iconLight,
@@ -494,7 +494,7 @@ ipcMain.handle(
       ? newProtonWinePath
       : oldProtonWinePath
     let wineBin = isProton ? protonWinePath : wine
-    let winePrefix: string = prefix.replace('~', home)
+    let winePrefix = prefix.replace('~', userHome)
 
     if (wine.includes('proton')) {
       const protonPrefix = winePrefix.replaceAll("'", '')

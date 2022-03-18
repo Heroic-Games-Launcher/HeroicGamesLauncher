@@ -20,11 +20,11 @@ const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-const home = isFlatpak ? flatPakHome : homedir()
+const userHome = homedir()
 const configFolder = app.getPath('appData')
 const legendaryConfigPath = isLinux
   ? join(configFolder, 'legendary')
-  : join(home, '.config', 'legendary')
+  : join(userHome, '.config', 'legendary')
 const heroicFolder = join(configFolder, 'heroic')
 const heroicConfigPath = join(heroicFolder, 'config.json')
 const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
@@ -93,10 +93,10 @@ function fixAsarPath(origin: string): string {
 }
 
 function getSteamCompatFolder() {
-  if (existsSync(`${home}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
-    return `${home}/.var/app/com.valvesoftware.Steam/.steam/steam`
+  if (existsSync(`${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
+    return `${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`
   }
-  return `${home}/.steam/steam`
+  return `${userHome}/.steam/steam`
 }
 
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
@@ -124,7 +124,8 @@ export {
   heroicInstallPath,
   heroicToolsPath,
   heroicDefaultWinePrefix,
-  home,
+  userHome,
+  flatPakHome,
   kofiPage,
   icon,
   iconDark,

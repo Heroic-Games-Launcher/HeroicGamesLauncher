@@ -8,7 +8,7 @@ import {
   isWindows,
   isMac,
   isLinux,
-  home,
+  userHome,
   execOptions,
   steamCompatFolder
 } from './constants'
@@ -169,12 +169,12 @@ async function launch(
           const nonFlatpakPath =
             '~/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh'.replace(
               '~',
-              home
+              userHome
             )
           const FlatpakPath =
             '~/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh'.replace(
               '~',
-              home
+              userHome
             )
 
           if (existsSync(nonFlatpakPath)) {
@@ -239,7 +239,7 @@ async function launch(
     )
   }
 
-  const fixedWinePrefix = winePrefix.replace('~', home)
+  const fixedWinePrefix = winePrefix.replace('~', userHome)
   let wineCommand = `--wine ${wineVersion.bin}`
 
   // We need to keep replacing the ' to keep compatibility with old configs
@@ -268,7 +268,7 @@ async function launch(
     proton: isProton
       ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamCompatFolder} STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')
-          .replace('~', home)}'`
+          .replace('~', userHome)}'`
       : ''
   }
 

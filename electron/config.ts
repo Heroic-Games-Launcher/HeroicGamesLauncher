@@ -17,7 +17,7 @@ import {
   heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
-  home,
+  userHome,
   isFlatpak,
   isMac,
   isWindows
@@ -244,8 +244,8 @@ abstract class GlobalConfig {
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
     const steamPaths = [
-      join(home, '.steam'),
-      join(home, '.var/app/com.valvesoftware.Steam/.local/share/Steam'),
+      join(userHome, '.steam'),
+      join(userHome, '.var/app/com.valvesoftware.Steam/.local/share/Steam'),
       '/usr/share/steam'
     ].filter((path) => existsSync(path))
 
@@ -486,7 +486,7 @@ class GlobalConfigV0 extends GlobalConfig {
         name: userName
       },
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows ? defaultWine : `${home}/.wine`,
+      winePrefix: isWindows ? defaultWine : `${userHome}/.wine`,
       wineVersion: isWindows ? {} : defaultWine
     } as AppSettings
   }
