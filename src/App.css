@@ -27,7 +27,7 @@ html,
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background: var(--background-shadow);
+  background: var(--gradient-body-background);
 }
 
 .App .content .UpdateComponent--topLevel {
@@ -88,7 +88,7 @@ html,
 }
 
 .button.is-tertiary {
-  background: var(--background-color);
+  background: var(--body-background);
   color: white;
 }
 
