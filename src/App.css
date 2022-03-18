@@ -1,5 +1,16 @@
 @import '~@fontsource/rubik/index.css';
 @import '~@fontsource/cabin/index.css';
+/*
+  Subset of font https://github.com/googlefonts/noto-emoji
+  which includes only flags emoji generated using command:
+  $ fonttools subset NotoColorEmoji.ttf --ignore-missing-glyphs --text-file=data.txt
+  where data.txt is a text file containing all the glyphs you want to include
+*/
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('./assets/NotoColorEmoji.subset.ttf');
+}
+
 * {
   box-sizing: border-box;
 }
@@ -221,7 +232,8 @@ html,
   height: 40px;
   background: var(--input-background);
   border-radius: 10px;
-  font: var(--font-secondary-bold);
+  font-family: Cabin, sans-serif, 'Noto Color Emoji';
+  font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   color: var(--text-secondary);
