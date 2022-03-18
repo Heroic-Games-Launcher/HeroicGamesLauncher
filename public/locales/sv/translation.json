@@ -144,12 +144,12 @@
     },
     "library": {
         "gridView": "",
-        "listView": "",
+        "listView": "Listvy",
         "refresh": ""
     },
     "Library": "Bibliotek",
     "loading": {
-        "default": "",
+        "default": "Laddar",
         "website": "Laddar websida"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Prefix för befintlig EGS installation"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Projekt",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Gå tillbaka",
+            "forward": "Gå framåt",
+            "openInBrowser": "Öppna i webbläsare",
+            "reload": "Ladda om sida"
         }
     },
     "wiki": "Wiki",
