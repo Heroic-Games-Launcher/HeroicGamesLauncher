@@ -38,27 +38,26 @@
   position: relative;
   font-family: var(--font-primary-bold);
   top: 10%;
-  background-color: var(--background-secondary);
   color: var(--text-default);
+  background-color: var(--login-card-background);
   border: none;
   font-size: 24px;
   padding: 15px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0.2s;
   width: fit-content;
+  backdrop-filter: blur(var(--blur-light));
 }
 
 .continueLogin:hover {
-  color: var(--text-tertiary);
-  background-color: var(--link-highlight);
+  color: var(--text-hover);
 }
 
 .continueLogin.disabled {
-  color: var(--text-secondary);
-  opacity: 0.8;
   cursor: default;
+  color: var(--text-default);
+  display: none;
 }
 
 .language-login {

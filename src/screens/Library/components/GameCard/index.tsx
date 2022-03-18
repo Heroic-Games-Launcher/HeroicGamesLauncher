@@ -219,7 +219,7 @@ const GameCard = ({
 
   return (
     <>
-      <ContextMenuTrigger id={appName}>
+      <ContextMenuTrigger id={appName} attributes={{ tabIndex: -1 }}>
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link

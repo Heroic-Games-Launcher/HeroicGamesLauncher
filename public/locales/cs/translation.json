@@ -142,8 +142,14 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Knihovna",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {

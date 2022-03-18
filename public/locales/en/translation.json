@@ -142,8 +142,14 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "Grid view",
+        "listView": "List view",
+        "refresh": "Refresh"
+    },
     "Library": "Library",
     "loading": {
+        "default": "Loading",
         "website": "Loading Website"
     },
     "login": {

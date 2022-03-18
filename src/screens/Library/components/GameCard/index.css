@@ -1,5 +1,5 @@
 .gameCard {
-  background-color: var(--background-darker);
+  background-color: var(--gradient-gamecard);
   text-align: left;
   width: clamp(130px, 8vw, 200px);
   height: 10vw;
@@ -7,8 +7,9 @@
   min-height: 173px;
   overflow: hidden;
   position: relative;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   transition-duration: 0.5s;
+  box-shadow: 0px 0px 12px 4px #00000055;
 }
 
 .gameCard:focus-within {
@@ -46,7 +47,7 @@
   max-width: 96px;
   word-wrap: break-word;
   padding: 2px;
-  background: var(--background-gradient);
+  background: var(--gradient-gamecard);
   border-radius: 4px;
 }
 .gameCard > .progress svg {
@@ -85,7 +86,7 @@
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;
-  background: var(--background-gradient);
+  background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: Cabin;
   font-size: 14px;
@@ -96,7 +97,7 @@
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(var(--blur-light));
 }
 
 .gameCard > .icons {

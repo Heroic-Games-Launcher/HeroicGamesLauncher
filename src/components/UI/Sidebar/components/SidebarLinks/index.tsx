@@ -1,17 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { NavLink, useHistory, useLocation } from 'react-router-dom'
-import ElectronStore from 'electron-store'
-
-import cx from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faStore,
-  faSlidersH,
   faBookOpen,
   faGamepad,
+  faSlidersH,
+  faStore,
   faUser
 } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import cx from 'classnames'
+import ElectronStore from 'electron-store'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { NavLink, useHistory, useLocation } from 'react-router-dom'
+import { getAppSettings } from 'src/helpers'
+import ContextProvider from 'src/state/ContextProvider'
+import './index.css'
+
 const Store = window.require('electron-store')
 const configStore: ElectronStore = new Store({
   cwd: 'store'
@@ -19,10 +22,6 @@ const configStore: ElectronStore = new Store({
 const gogStore: ElectronStore = new Store({
   cwd: 'gog_store'
 })
-
-import ContextProvider from 'src/state/ContextProvider'
-import './index.css'
-import { getAppSettings } from 'src/helpers'
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
@@ -43,12 +42,16 @@ export default function SidebarLinks() {
 
   const pressAction = !isEpicLoggedIn && !isGOGLoggedIn ? '/login' : '/'
   const displayIcon = isEpicLoggedIn || isGOGLoggedIn ? faGamepad : faUser
-  function toggleCategory(newCategory: string) {
-    if (category !== newCategory) {
-      handleCategory(newCategory)
-      handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
-    }
-  }
+
+  const toggleCategory = useCallback(
+    (newCategory: string) => {
+      if (category !== newCategory) {
+        handleCategory(newCategory)
+        handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
+      }
+    },
+    [category, handleCategory, handleFilter]
+  )
 
   useEffect(() => {
     getAppSettings().then(({ showUnrealMarket }) =>
@@ -60,13 +63,10 @@ export default function SidebarLinks() {
   }, [])
 
   return (
-    <div className="Links">
+    <div className="SidebarLinks Sidebar__section">
       <NavLink
+        className="Sidebar__item"
         data-testid="library"
-        activeStyle={{
-          color: 'var(--accent)',
-          font: 'var(--font-primary-bold)'
-        }}
         isActive={(match, location) => {
           if (match) {
             return true
@@ -79,10 +79,9 @@ export default function SidebarLinks() {
         exact
         to={pressAction}
       >
-        <FontAwesomeIcon
-          style={{ width: 'clamp(2vh, 25px, 30px)' }}
-          icon={displayIcon}
-        />
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={displayIcon} />
+        </div>
         {isEpicLoggedIn || isGOGLoggedIn
           ? t('Library')
           : t('button.login', 'Login')}
@@ -93,7 +92,9 @@ export default function SidebarLinks() {
             <a
               href="#"
               onClick={() => toggleCategory('epic')}
-              className={cx('subItem', { ['selected']: category === 'epic' })}
+              className={cx('Sidebar__item SidebarLinks__subItem', {
+                ['active']: category === 'epic'
+              })}
             >
               {t('Epic Games', 'Epic Games')}
             </a>
@@ -102,7 +103,9 @@ export default function SidebarLinks() {
             <a
               href="#"
               onClick={() => toggleCategory('gog')}
-              className={cx('subItem', { ['selected']: category === 'gog' })}
+              className={cx('Sidebar__item SidebarLinks__subItem', {
+                ['active']: category === 'gog'
+              })}
             >
               {t('GOG', 'GOG')}
             </a>
@@ -111,7 +114,9 @@ export default function SidebarLinks() {
             <a
               href="#"
               onClick={() => toggleCategory('unreal')}
-              className={cx('subItem', { ['selected']: category === 'unreal' })}
+              className={cx('Sidebar__item SidebarLinks__subItem', {
+                ['active']: category === 'unreal'
+              })}
             >
               {t('Unreal Marketplace', 'Unreal Marketplace')}
             </a>
@@ -119,67 +124,45 @@ export default function SidebarLinks() {
         </>
       )}
       <NavLink
+        className="Sidebar__item"
         data-testid="settings"
-        activeStyle={{
-          color: 'var(--accent)',
-          font: 'var(--font-primary-bold)'
-        }}
         isActive={(match, location) => location.pathname.includes('settings')}
-        to={{
-          pathname: '/settings/default/general'
-        }}
+        to={{ pathname: '/settings/default/general' }}
       >
-        <FontAwesomeIcon
-          style={{ width: 'clamp(1vh, 22px, 28px)' }}
-          icon={faSlidersH}
-        />
-
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faSlidersH} />
+        </div>
         {t('Settings')}
       </NavLink>
       <NavLink
-        to={{
-          pathname: '/epicstore'
-        }}
-        activeStyle={{
-          color: 'var(--accent)'
-        }}
+        className="Sidebar__item"
+        to={{ pathname: '/epicstore' }}
         isActive={(match, location) => location.pathname.includes('store')}
       >
-        <FontAwesomeIcon
-          style={{ width: 'clamp(1vh, 22px, 28px)' }}
-          icon={faStore}
-        />
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faStore} />
+        </div>
         {t('stores', 'Stores')}
       </NavLink>
       {isStore && (
         <>
           <NavLink
             data-testid="store"
-            activeStyle={{
-              color: 'var(--accent)'
-            }}
-            className="subItem"
+            className="Sidebar__item SidebarLinks__subItem"
             isActive={(match, location) =>
               location.pathname.includes('epicstore')
             }
-            to={{
-              pathname: '/epicstore'
-            }}
+            to={{ pathname: '/epicstore' }}
           >
             {t('store', 'Epic Store')}
           </NavLink>
           <NavLink
             data-testid="store"
-            activeStyle={{
-              color: 'var(--accent)'
-            }}
-            className="subItem"
+            className="Sidebar__item SidebarLinks__subItem"
             isActive={(match, location) =>
               location.pathname.includes('gogstore')
             }
-            to={{
-              pathname: '/gogstore'
-            }}
+            to={{ pathname: '/gogstore' }}
           >
             {t('gog-store', 'GOG Store')}
           </NavLink>
@@ -187,19 +170,13 @@ export default function SidebarLinks() {
       )}
       <NavLink
         data-testid="wiki"
-        activeStyle={{
-          color: 'var(--accent)',
-          font: 'var(--font-primary-bold)'
-        }}
+        className="Sidebar__item"
         isActive={(match, location) => location.pathname.includes('wiki')}
-        to={{
-          pathname: '/wiki'
-        }}
+        to={{ pathname: '/wiki' }}
       >
-        <FontAwesomeIcon
-          style={{ width: 'clamp(1vh, 22px, 28px)' }}
-          icon={faBookOpen}
-        />
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faBookOpen} />
+        </div>
         {t('wiki', 'Wiki')}
       </NavLink>
     </div>

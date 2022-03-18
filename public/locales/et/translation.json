@@ -142,8 +142,14 @@
     "install": {
         "path": "Valige paigaldustee"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Varamu",
     "loading": {
+        "default": "",
         "website": "Veebilehe laadimine"
     },
     "login": {

@@ -142,8 +142,14 @@
     "install": {
         "path": "Ange installationssökväg"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Bibliotek",
     "loading": {
+        "default": "",
         "website": "Laddar websida"
     },
     "login": {

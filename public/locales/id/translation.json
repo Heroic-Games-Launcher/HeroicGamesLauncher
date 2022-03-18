@@ -90,7 +90,7 @@
     },
     "button": {
         "continue": "Continue",
-        "login": "Login",
+        "login": "Masuk",
         "sync": "Sinkronkan",
         "syncing": "",
         "unsync": ""
@@ -142,8 +142,14 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {

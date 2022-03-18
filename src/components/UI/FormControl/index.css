@@ -20,6 +20,10 @@
   transition: color 250ms;
 }
 
+.FormControl--small {
+  height: 32px;
+}
+
 .FormControl__button:focus-visible,
 .FormControl__select:focus-visible,
 .FormControl__input:focus-visible {
@@ -57,7 +61,6 @@
 
 .FormControl--segmented > button {
   box-sizing: border-box;
-  height: 100%;
   padding: 0 10px;
   cursor: pointer;
   font-size: 14px;
@@ -89,6 +92,10 @@
 .FormControl__segmentedFaIcon {
   font-size: 20px;
   outline: none;
+}
+
+.FormControl--small .FormControl__segmentedFaIcon {
+  height: 16px;
 }
 
 .FormControl__caret,

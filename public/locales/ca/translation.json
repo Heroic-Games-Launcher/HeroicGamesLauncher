@@ -142,8 +142,14 @@
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Biblioteca",
     "loading": {
+        "default": "",
         "website": "S'està carregant el lloc web"
     },
     "login": {

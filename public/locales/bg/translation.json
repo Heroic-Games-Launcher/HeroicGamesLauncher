@@ -142,8 +142,14 @@
     "install": {
         "path": "Изберете местоположение за инсталиране"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Библиотека",
     "loading": {
+        "default": "",
         "website": "Зареждане на уеб сайта"
     },
     "login": {

@@ -48,6 +48,7 @@ export default function LanguageSelector({
     ta: 'தமிழ்',
     tr: 'Türkçe',
     uk: 'украї́нська мо́ва',
+    vi: 'tiếng Việt',
     zh_Hans: '简化字',
     zh_Hant: '漢語'
   }
@@ -82,6 +83,7 @@ export default function LanguageSelector({
     ta: '🇮🇳',
     tr: '🇹🇷',
     uk: '🇺🇦',
+    vi: '🇻🇳',
     zh_Hans: '🇨🇳',
     zh_Hant: '🇨🇳'
   }
