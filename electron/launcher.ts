@@ -8,14 +8,17 @@ import {
   isWindows,
   isMac,
   isLinux,
-  home,
+  userHome,
   execOptions,
-  legendaryBin,
-  gogdlBin,
-  steamCompatFolder,
-  legendary
+  steamCompatFolder
 } from './constants'
-import { execAsync, isEpicServiceOffline, isOnline } from './utils'
+import {
+  execAsync,
+  getGOGdlBin,
+  getLegendaryBin,
+  isEpicServiceOffline,
+  isOnline
+} from './utils'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
@@ -24,7 +27,7 @@ import { Runner } from './types'
 import { GOGLibrary } from './gog/library'
 import { LegendaryLibrary } from './legendary/library'
 import setup from './gog/setup'
-import { dirname } from 'path'
+import { dirname, join } from 'path'
 
 function getGameInfo(appName: string, runner: Runner) {
   switch (runner) {
@@ -146,8 +149,15 @@ async function launch(
   ) {
     let command = ''
     if (runner == 'legendary') {
+      // FIXME: Make this work with the new legendary handling
+      //        Since I remove this function with my launch rework anyways,
+      //        this might not be worth it
+      const legendaryPath = getLegendaryBin().dir
       logInfo(['Launch Command:', command], LogPrefix.Legendary)
-      command = `${legendary} launch ${appName} ${exe} ${runOffline} ${
+      process.chdir(legendaryPath)
+      command = `${
+        isWindows ? './legendary.exe' : './legendary'
+      } launch ${appName} ${exe} ${runOffline} ${
         launchArguments ?? ''
       } ${launcherArgs}`
     } else if (runner == 'gog') {
@@ -159,12 +169,12 @@ async function launch(
           const nonFlatpakPath =
             '~/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh'.replace(
               '~',
-              home
+              userHome
             )
           const FlatpakPath =
             '~/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh'.replace(
               '~',
-              home
+              userHome
             )
 
           if (existsSync(nonFlatpakPath)) {
@@ -196,6 +206,7 @@ async function launch(
         ].filter((n) => n)
         envVars = options.join(' ')
       }
+      const gogdlBin = `"${join(...Object.values(getGOGdlBin()))}"`
       command = `${envVars} ${isWindows ? '&' : ''} "${gogdlBin}" launch "${
         gameInfo.install.install_path
       }" ${exe} ${gameInfo.app_name} --platform=${gameInfo.install.platform} ${
@@ -228,7 +239,7 @@ async function launch(
     )
   }
 
-  const fixedWinePrefix = winePrefix.replace('~', home)
+  const fixedWinePrefix = winePrefix.replace('~', userHome)
   let wineCommand = `--wine ${wineVersion.bin}`
 
   // We need to keep replacing the ' to keep compatibility with old configs
@@ -257,7 +268,7 @@ async function launch(
     proton: isProton
       ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamCompatFolder} STEAM_COMPAT_DATA_PATH='${winePrefix
           .replaceAll("'", '')
-          .replace('~', home)}'`
+          .replace('~', userHome)}'`
       : ''
   }
 
@@ -291,6 +302,7 @@ async function launch(
 
   let command = ''
   if (isLegendary) {
+    const legendaryBin = `"${join(...Object.values(getLegendaryBin()))}"`
     command = [
       envVars,
       runWithGameMode,
@@ -309,6 +321,7 @@ async function launch(
       .join(' ')
     logInfo(['Launch Command:', command], LogPrefix.Legendary)
   } else if (isGOG) {
+    const gogdlBin = `"${join(...Object.values(getGOGdlBin()))}"`
     command = [
       envVars,
       runWithGameMode,

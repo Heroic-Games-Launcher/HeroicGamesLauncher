@@ -37,7 +37,7 @@ abstract class Game {
   abstract stop(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
-  abstract update(): Promise<unknown>
+  abstract update(): Promise<{ status: 'done' | 'error' }>
 }
 
 import { LegendaryGame } from './legendary/games'

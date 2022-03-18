@@ -10,14 +10,17 @@ import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
 import {
-  gogdlBin,
+  configStore,
+  fixAsarPath,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  legendary
+  isWindows
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { join } from 'path'
+import { basename, dirname, join } from 'path'
+import { runLegendaryCommand } from './legendary/library'
+import { runGogdlCommand } from './gog/library'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -87,35 +90,27 @@ async function isEpicServiceOffline(
 }
 
 export const getLegendaryVersion = async () => {
-  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(`${legendary} --version`)
-    return stdout
-      .split('legendary version')[1]
-      .replaceAll('"', '')
-      .replaceAll(', codename', '')
-      .replaceAll('\n', '')
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Legendary)
+  const { stdout, error } = await runLegendaryCommand(['--version'])
+
+  if (error) {
     return 'invalid'
   }
+
+  return stdout
+    .split('legendary version')[1]
+    .replaceAll('"', '')
+    .replaceAll(', codename', '')
+    .replaceAll('\n', '')
 }
 
 export const getGogdlVersion = async () => {
-  const { altGogdlBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altGogdlBin && !altGogdlBin.includes('gogdl')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(`"${gogdlBin}" --version`)
-    return stdout
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Gog)
+  const { stdout, error } = await runGogdlCommand(['--version'])
+
+  if (error) {
     return 'invalid'
   }
+
+  return stdout
 }
 
 export const getHeroicVersion = () => {
@@ -165,7 +160,7 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
-const handleExit = async () => {
+async function handleExit() {
   const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
 
   if (isLocked) {
@@ -181,7 +176,19 @@ const handleExit = async () => {
     if (response === 0) {
       return
     }
-    return app.exit()
+
+    // Kill all child processes
+    // This is very hacky
+    let killCommand = 'pkill --signal SIGINT '
+    if (isWindows) {
+      killCommand = 'Stop-Process -name '
+    }
+    const possibleChildren = ['legendary', 'gogdl']
+    possibleChildren.forEach(async (procName) => {
+      await execAsync(killCommand + procName).catch((error) => {
+        logInfo([`Unable to kill ${procName}, ignoring.`, error])
+      })
+    })
   }
   app.exit()
 }
@@ -337,6 +344,39 @@ function showItemInFolder(item: string) {
   }
 }
 
+function splitPathAndName(fullPath: string): { dir: string; bin: string } {
+  const dir = dirname(fullPath)
+  let bin = basename(fullPath)
+  // On Windows, you can just launch executables that are in the current working directory
+  // On Linux, you have to add a ./
+  if (!isWindows) {
+    bin = './' + bin
+  }
+  // Make sure to always return this as `dir, bin` to not break path
+  // resolution when using `join(...Object.values(...))`
+  return { dir, bin }
+}
+
+function getLegendaryBin(): { dir: string; bin: string } {
+  const settings = configStore.get('settings') as { altLeg: string }
+  if (settings?.altLeg) {
+    return splitPathAndName(settings.altLeg)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(__dirname, 'bin', process.platform, 'legendary'))
+  )
+}
+
+function getGOGdlBin(): { dir: string; bin: string } {
+  const settings = configStore.get('settings') as { altGogdl: string }
+  if (settings?.altGogdl) {
+    return splitPathAndName(settings.altGogdl)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(__dirname, 'bin', process.platform, 'gogdl'))
+  )
+}
+
 export {
   checkForUpdates,
   errorHandler,
@@ -352,5 +392,7 @@ export {
   statAsync,
   removeSpecialcharacters,
   clearCache,
-  resetHeroic
+  resetHeroic,
+  getLegendaryBin,
+  getGOGdlBin
 }

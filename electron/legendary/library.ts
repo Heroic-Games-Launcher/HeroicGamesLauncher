@@ -1,8 +1,10 @@
+import { ExecResult } from './../types'
 import {
   existsSync,
   readFileSync,
   readdirSync,
-  writeFileSync
+  writeFileSync,
+  appendFileSync
 } from 'graceful-fs'
 import prettyBytes from 'pretty-bytes'
 
@@ -16,20 +18,24 @@ import {
 } from '../types'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
-import { execAsync, isEpicServiceOffline, isOnline } from '../utils'
+import { getLegendaryBin, isEpicServiceOffline, isOnline } from '../utils'
 import {
-  execOptions,
   fallBackImage,
   installed,
-  isWindows,
-  legendary,
   legendaryConfigPath,
   libraryPath
 } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { spawn } from 'child_process'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../logger/logger'
 import Store from 'electron-store'
 import { GlobalConfig } from '../config'
+import { join } from 'path'
+import { spawn } from 'child_process'
 
 const libraryStore = new Store({
   cwd: 'lib-cache',
@@ -47,7 +53,7 @@ const installStore = new Store({
  * For multi-account support, the single global instance will need to become a instance map.
  * @see GameConfig
  */
-class LegendaryLibrary {
+export class LegendaryLibrary {
   private static globalInstance: LegendaryLibrary = null
 
   private library: Map<string, null | GameInfo> = new Map()
@@ -84,7 +90,7 @@ class LegendaryLibrary {
   /**
    * Refresh library.
    */
-  public async refresh() {
+  public async refresh(): Promise<ExecResult> {
     logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
     const { showUnrealMarket } = await GlobalConfig.get().getSettings()
     const epicOffline = await isEpicServiceOffline()
@@ -96,31 +102,15 @@ class LegendaryLibrary {
       return
     }
 
-    return new Promise((res, rej) => {
-      const getUeAssets = showUnrealMarket ? '--include-ue' : ''
-      const child = spawn(legendary, ['list', getUeAssets], {
-        shell: isWindows
-      })
-      child.stderr.on('data', (data) => {
-        if (`${data}`.includes('ERROR')) {
-          console.log(`${data}`)
-          logError(`${data}`.trim(), LogPrefix.Legendary)
-        } else {
-          logInfo(`${data}`.trim(), LogPrefix.Legendary)
-        }
-      })
-      child.on('error', (err) => rej(`${err}`))
-      child.on('close', () => res('finished'))
-    })
-      .then(() => {
-        this.refreshInstalled()
-        this.loadAll()
-      })
-      .catch((err) => {
-        console.log(`${err}`)
+    const includeUEFlag = showUnrealMarket ? '--include-ue' : ''
+    const res = await runLegendaryCommand(['list', includeUEFlag])
 
-        logError(err, LogPrefix.Legendary)
-      })
+    if (res.error) {
+      logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
+    }
+    this.refreshInstalled()
+    this.loadAll()
+    return res
   }
 
   /**
@@ -212,33 +202,31 @@ class LegendaryLibrary {
 
   /**
    * Get game info for a particular game.
-   *
-   * @param appName
-   * @returns InstallInfo
    */
-  public async getInstallInfo(appName: string) {
+  public async getInstallInfo(appName: string): Promise<InstallInfo> {
     const cache = installStore.get(appName) as InstallInfo
-    const epicOffline = await isEpicServiceOffline()
-    logInfo(
-      'Getting More details with Legendary info command... ',
-      LogPrefix.Legendary
-    )
     if (cache) {
+      logDebug('Using cached install info', LogPrefix.Legendary)
       return cache
     }
-    try {
-      const { stdout } = await execAsync(
-        `${legendary} -J info ${appName} ${
-          epicOffline ? '--offline' : ''
-        } --json`
-      )
-      const info: InstallInfo = JSON.parse(stdout)
-      installStore.set(appName, info)
-      return info
-    } catch (error) {
-      logError('Error running the Legendary Info command', LogPrefix.Legendary)
-      logError(`${error}`, LogPrefix.Legendary)
+
+    logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand([
+      '--pretty-json',
+      'info',
+      appName,
+      '--json',
+      (await isEpicServiceOffline()) ? '--offline' : ''
+    ])
+
+    if (res.error) {
+      logError(['Failed to get more details:', res.error], LogPrefix.Legendary)
     }
+
+    const info: InstallInfo = JSON.parse(res.stdout)
+    installStore.set(appName, info)
+    return info
   }
 
   /**
@@ -262,20 +250,27 @@ class LegendaryLibrary {
       return []
     }
 
-    const command = `${legendary} list-installed --check-updates --tsv`
-    try {
-      const { stdout } = await execAsync(command, execOptions)
-      logInfo('Checking for game updates', LogPrefix.Legendary)
-      const updates = stdout
-        .split('\n')
-        .filter((item) => item.split('\t')[4] === 'True')
-        .map((item) => item.split('\t')[0])
-        .filter((item) => item.length > 1)
-      logInfo(`Found ${updates.length} game(s) to update`, LogPrefix.Legendary)
-      return updates
-    } catch (error) {
-      logError(`${error}`, LogPrefix.Legendary)
+    const commandParts = ['list-installed', '--check-updates', '--tsv']
+    const command = getLegendaryCommand(commandParts)
+
+    logInfo(['Checking for game updates:', command], LogPrefix.Legendary)
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to check for game updates:', res.error],
+        LogPrefix.Legendary
+      )
+      return []
     }
+
+    const updates = res.stdout
+      .split('\n')
+      .filter((item) => item.split('\t')[4] === 'True')
+      .map((item) => item.split('\t')[0])
+      .filter((item) => item.length > 1)
+    logInfo(`Found ${updates.length} game(s) to update`, LogPrefix.Legendary)
+    return updates
   }
 
   /**
@@ -550,4 +545,87 @@ class LegendaryLibrary {
   }
 }
 
-export { LegendaryLibrary }
+/**
+ * Runs legendary with the given command
+ * @param commandParts The command to run, e. g. 'list', 'egl-sync'...
+ */
+// TODO: This isn't the right place for this, but I don't know where else to put it. 'launcher.ts' maybe?
+export async function runLegendaryCommand(
+  commandParts: Array<string>,
+  logFile?: string,
+  env = process.env
+): Promise<ExecResult> {
+  commandParts = commandParts.filter((n) => n)
+  const { bin, dir } = getLegendaryBin()
+  const fullCommand = getLegendaryCommand(commandParts)
+
+  logDebug(['Running Legendary command:', fullCommand], LogPrefix.Legendary)
+  if (logFile) {
+    logDebug(['Logging to file', `"${logFile}"`], LogPrefix.Legendary)
+  }
+
+  // Clear out the log file (existsSync returns false for an empty string, so there's no `if (logFile)` needed)
+  if (existsSync(logFile)) {
+    writeFileSync(logFile, '')
+  }
+
+  return new Promise((res, rej) => {
+    const child = spawn(bin, commandParts, { cwd: dir, env: env })
+
+    const stdout = new Array<string>()
+    const stderr = new Array<string>()
+
+    // If we're logging to a file, convert new data to a string and write it to the file
+    if (logFile) {
+      child.stdout.on('data', (data: Buffer) => {
+        appendFileSync(logFile, data.toString())
+      })
+      child.stderr.on('data', (data: Buffer) => {
+        appendFileSync(logFile, data.toString())
+      })
+    }
+
+    // Store stdout and stderr to return them at the end
+    child.stdout.on('data', (data: Buffer) => {
+      stdout.push(data.toString().trim())
+    })
+    child.stderr.on('data', (data: Buffer) => {
+      stderr.push(data.toString().trim())
+    })
+
+    child.on('close', () => {
+      res({
+        stdout: stdout.join('\n'),
+        stderr: stderr.join('\n')
+      })
+    })
+    child.on('error', (error) => {
+      rej(error)
+    })
+  })
+    .then(({ stdout, stderr }) => {
+      return { stdout, stderr, fullCommand }
+    })
+    .catch((error) => {
+      logError(
+        [`Error running Legendary command "${fullCommand}": ${error}`],
+        LogPrefix.Legendary
+      )
+      return { stdout: '', stderr: '', fullCommand, error: error }
+    })
+}
+
+/**
+ * Generates a legendary command **for formatting**.
+ * Commands generated by this function are not ment to be ran directly, use runLegendaryCommand for that.
+ * @param commandParts The command to run, e. g. 'list', 'egl-sync'...
+ * @returns The full command as a string
+ */
+export function getLegendaryCommand(commandParts: Array<string>) {
+  commandParts = commandParts.filter((n) => n)
+  let legendaryFullPath = join(...Object.values(getLegendaryBin()))
+  if (legendaryFullPath.includes(' ')) {
+    legendaryFullPath = `"${legendaryFullPath}"`
+  }
+  return [legendaryFullPath, ...commandParts].join(' ')
+}

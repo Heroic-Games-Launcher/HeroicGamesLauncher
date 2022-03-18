@@ -6,6 +6,7 @@ import {
   GamepadInputEventMouse,
   Runner
 } from './types'
+import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
@@ -35,7 +36,7 @@ import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
-import { LegendaryLibrary } from './legendary/library'
+import { LegendaryLibrary, runLegendaryCommand } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
@@ -53,7 +54,9 @@ import {
   openUrlOrFile,
   resetHeroic,
   showAboutWindow,
-  showItemInFolder
+  showItemInFolder,
+  getLegendaryBin,
+  getGOGdlBin
 } from './utils'
 import {
   currentLogFile,
@@ -62,7 +65,7 @@ import {
   getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
-  home,
+  userHome,
   icon,
   iconDark,
   iconLight,
@@ -74,9 +77,6 @@ import {
   supportURL,
   weblateUrl,
   wikiLink,
-  legendaryPath,
-  gogdlPath,
-  legendary,
   heroicToolsPath
 } from './constants'
 import { handleProtocol } from './protocol'
@@ -151,22 +151,20 @@ async function createWindow(): Promise<BrowserWindow> {
   app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
-  const onMainWindowClose = async () => {
-    mainWindow.on('close', async (e) => {
-      e.preventDefault()
+  mainWindow.on('close', async (e) => {
+    e.preventDefault()
 
-      // store windows properties
-      store.set('window-props', mainWindow.getBounds())
+    // store windows properties
+    store.set('window-props', mainWindow.getBounds())
 
-      const { exitToTray } = await GlobalConfig.get().config
+    const { exitToTray } = GlobalConfig.get().config
 
-      if (exitToTray) {
-        return mainWindow.hide()
-      }
+    if (exitToTray) {
+      return mainWindow.hide()
+    }
 
-      return await handleExit()
-    })
-  }
+    handleExit()
+  })
 
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -181,13 +179,9 @@ async function createWindow(): Promise<BrowserWindow> {
     mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
-
-    onMainWindowClose()
   } else {
     Menu.setApplicationMenu(null)
-
-    onMainWindowClose()
-    mainWindow.loadURL(`file://${join(__dirname, '../build/index.html')}`)
+    mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
 
     return mainWindow
   }
@@ -273,16 +267,19 @@ if (!gotTheLock) {
     }
   })
   app.whenReady().then(async () => {
-    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
-
-    // add legendary and gogdl to PATH
-    const separator = isWindows ? ';' : ':'
-    process.env.PATH = `${process.env.PATH}${separator}${legendaryPath}${separator}${gogdlPath}`
     const systemInfo = await getSystemInfo()
+    logInfo(
+      ['Legendary location:', join(...Object.values(getLegendaryBin()))],
+      LogPrefix.Legendary
+    )
+    logInfo(
+      ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
+      LogPrefix.Gog
+    )
     logInfo(`${systemInfo}`, LogPrefix.Backend)
-
     // We can't use .config since apparently its not loaded fast enough.
-    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
+    const isLoggedIn = LegendaryUser.isLoggedIn()
 
     if (!isLoggedIn) {
       logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
@@ -296,9 +293,9 @@ if (!gotTheLock) {
 
     await i18next.use(Backend).init({
       backend: {
-        addPath: join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
+        addPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
         allowMultiLoading: false,
-        loadPath: join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
+        loadPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
       },
       debug: false,
       fallbackLng: 'en',
@@ -498,7 +495,7 @@ ipcMain.handle(
       ? newProtonWinePath
       : oldProtonWinePath
     let wineBin = isProton ? protonWinePath : wine
-    let winePrefix: string = prefix.replace('~', home)
+    let winePrefix = prefix.replace('~', userHome)
 
     if (wine.includes('proton')) {
       const protonPrefix = winePrefix.replaceAll("'", '')
@@ -1137,15 +1134,14 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   if (!isWindows) {
     percent = progress_result.split(' ')[0]
     eta = progress_result.split(' ')[1]
-    bytes = downloaded_result + 'MiB'
+    bytes = downloaded_result.trim() + 'MiB'
   }
 
-  const progress = { bytes, eta, percent }
   logInfo(
-    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`,
+    [`Progress for ${appName}:`, `${percent}/${bytes}/${eta}`.trim()],
     LogPrefix.Backend
   )
-  return progress
+  return { bytes, eta, percent }
 })
 
 ipcMain.handle(
@@ -1169,36 +1165,24 @@ ipcMain.handle(
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const egl_manifestPath =
-    'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
-
   if (isWindows) {
+    const egl_manifestPath =
+      'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
     if (!existsSync(egl_manifestPath)) {
       mkdirSync(egl_manifestPath, { recursive: true })
     }
   }
 
-  const linkArgs = isWindows
-    ? `--enable-sync`
-    : `--enable-sync --egl-wine-prefix ${args}`
-  const unlinkArgs = `--unlink`
-  const isLink = args !== 'unlink'
-  const command = isLink ? linkArgs : unlinkArgs
-
-  try {
-    const { stderr, stdout } = await execAsync(
-      `${legendary} egl-sync ${command} -y`
-    )
-    logInfo(`${stdout}`, LogPrefix.Legendary)
-    if (stderr.includes('ERROR')) {
-      logError(`${stderr}`, LogPrefix.Legendary)
-      return 'Error'
-    }
-    return `${stdout} - ${stderr}`
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Legendary)
-    return 'Error'
+  let legendaryArgs = Array<string>()
+  if (args !== 'unlink') {
+    legendaryArgs = isWindows
+      ? ['--enable-sync']
+      : ['--enable-sync', `--egl-wine-prefix ${args}`]
+  } else {
+    legendaryArgs = ['--unlink']
   }
+
+  return runLegendaryCommand(['egl-sync', ...legendaryArgs, '-y'])
 })
 
 ipcMain.on(

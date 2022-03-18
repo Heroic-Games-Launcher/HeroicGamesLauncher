@@ -1,84 +1,16 @@
 import { homedir, platform } from 'os'
-import { dirname, join } from 'path'
+import { join } from 'path'
 import Store from 'electron-store'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
-import {
-  createNewLogFileAndClearOldOnces,
-  logInfo,
-  LogPrefix
-} from './logger/logger'
+import { createNewLogFileAndClearOldOnces } from './logger/logger'
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync } from 'graceful-fs'
-import os from 'os'
 
 const configStore = new Store({
   cwd: 'store'
 })
-
-// based on https://github.com/jy95/escape-path-with-spaces/blob/master/index.js
-// unfortunatelly this cant go into utils since it needs to be loaded on app start
-function fixPathWithSpaces(path: string) {
-  if (!isWindows) {
-    return path.replace(/(\s+)/g, '\\$1')
-  }
-
-  // For some windows version (Windows 10 v1803), it is not useful to escape spaces in path
-  // https://docs.microsoft.com/en-us/windows/release-information/
-  // to detect on with os user had used path.resolve(...)
-  const version = os.release()
-  const windows_version_regex = /(\d+\.\d+)\.(\d+)/
-  const should_not_escape = (major_release = '', os_build = '') =>
-    /1\d+\.\d+/.test(major_release) && Number(os_build) >= 17134.1184
-
-  // for windows, it depend of the build
-  const fixedPath = should_not_escape(
-    ...windows_version_regex.exec(version).splice(1)
-  )
-    ? // on major version, no need to escape anymore
-      // https://support.microsoft.com/en-us/help/4467268/url-encoded-unc-paths-not-url-decoded-in-windows-10-version-1803-later
-      path
-    : // on older version, replace space with symbol %20
-      path.replace(/(\s+)/g, '%20')
-  return fixedPath
-}
-
-function getLegendaryBin() {
-  const settings = configStore.get('settings') as { altLeg: string }
-  const bin =
-    settings?.altLeg ||
-    `${fixAsarPath(
-      join(
-        __dirname,
-        'bin',
-        process.platform,
-        isWindows ? 'legendary.exe' : 'legendary'
-      )
-    )}`
-
-  logInfo(`Location: ${bin}`, LogPrefix.Legendary)
-  if (bin.includes(' ')) {
-    return `"${bin}"`
-  }
-
-  return fixPathWithSpaces(bin)
-}
-
-function getGOGdlBin() {
-  const settings = configStore.get('settings') as { altGogdl: string }
-  const bin = fixAsarPath(
-    settings?.altGogdl ||
-      join(
-        __dirname,
-        'bin',
-        process.platform,
-        isWindows ? 'gogdl.exe' : 'gogdl'
-      )
-  )
-  logInfo(`Location: ${bin}`, LogPrefix.Gog)
-  return bin
-}
 
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
@@ -88,11 +20,11 @@ const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-const home = isFlatpak ? flatPakHome : homedir()
+const userHome = homedir()
 const configFolder = app.getPath('appData')
 const legendaryConfigPath = isLinux
   ? join(configFolder, 'legendary')
-  : join(home, '.config', 'legendary')
+  : join(userHome, '.config', 'legendary')
 const heroicFolder = join(configFolder, 'heroic')
 const heroicConfigPath = join(heroicFolder, 'config.json')
 const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
@@ -104,13 +36,6 @@ const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
 
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
-
-const legendaryBin = getLegendaryBin()
-const legendaryPath = dirname(legendaryBin).replaceAll('"', '')
-const legendary = isWindows ? 'legendary.exe' : 'legendary'
-const gogdlBin = getGOGdlBin()
-const gogdlPath = dirname(gogdlBin).replaceAll('"', '')
-const gogdl = isWindows ? 'gogdl.exe' : 'gogdl'
 
 const icon = fixAsarPath(join(__dirname, 'icon.png'))
 const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
@@ -168,10 +93,10 @@ function fixAsarPath(origin: string): string {
 }
 
 function getSteamCompatFolder() {
-  if (existsSync(`${home}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
-    return `${home}/.var/app/com.valvesoftware.Steam/.steam/steam`
+  if (existsSync(`${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
+    return `${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`
   }
-  return `${home}/.steam/steam`
+  return `${userHome}/.steam/steam`
 }
 
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
@@ -190,7 +115,7 @@ export {
   execOptions,
   fixAsarPath,
   getShell,
-  gogdlPath,
+  configStore,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
@@ -199,7 +124,8 @@ export {
   heroicInstallPath,
   heroicToolsPath,
   heroicDefaultWinePrefix,
-  home,
+  userHome,
+  flatPakHome,
   kofiPage,
   icon,
   iconDark,
@@ -209,12 +135,7 @@ export {
   isMac,
   isWindows,
   isLinux,
-  legendaryBin,
-  gogdl,
-  gogdlBin,
-  legendary,
   legendaryConfigPath,
-  legendaryPath,
   libraryPath,
   epicLoginUrl,
   gogLoginUrl,

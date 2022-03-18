@@ -102,7 +102,6 @@ export default function GeneralSettings({
   useEffect(() => {
     const getMoreInfo = async () => {
       const cores = await ipcRenderer.invoke('getMaxCpus')
-      const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
       configStore.set('settings', {
         ...settings,
         altLeg: altLegendaryBin
@@ -110,6 +109,7 @@ export default function GeneralSettings({
 
       setMaxCpus(cores)
 
+      const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
       if (legendaryVer === 'invalid') {
         setLegendaryVersion('Invalid')
         setTimeout(() => {
@@ -124,11 +124,11 @@ export default function GeneralSettings({
 
   useEffect(() => {
     const getGogdlVersion = async () => {
-      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
       configStore.set('settings', {
         ...settings,
         altGogdl: altGogdlBin
       })
+      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
       if (gogdlVersion === 'invalid') {
         setGogdlVersion('Invalid')
         setTimeout(() => {
