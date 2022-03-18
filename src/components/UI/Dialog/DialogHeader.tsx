@@ -6,7 +6,10 @@ export interface DialogHeaderProps {
   onClose: () => void
 }
 
-const DialogHeader: React.FC<DialogHeaderProps> = ({ children, onClose }) => {
+export const DialogHeader: React.FC<DialogHeaderProps> = ({
+  children,
+  onClose
+}) => {
   return (
     <div className="Dialog__header">
       <div className="Dialog__headerTitle">{children}</div>
@@ -18,5 +21,3 @@ const DialogHeader: React.FC<DialogHeaderProps> = ({ children, onClose }) => {
     </div>
   )
 }
-
-export default DialogHeader

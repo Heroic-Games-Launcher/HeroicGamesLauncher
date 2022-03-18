@@ -38,12 +38,14 @@ import {
   Path,
   Runner
 } from 'src/types'
-import Dialog from '../../../../components/UI/Dialog'
-import DialogContent from '../../../../components/UI/Dialog/DialogContent'
-import DialogFooter from '../../../../components/UI/Dialog/DialogFooter'
-import DialogHeader from '../../../../components/UI/Dialog/DialogHeader'
-import FormControl from '../../../../components/UI/FormControl'
-import ToggleSwitch from '../../../../components/UI/ToggleSwitch'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader
+} from 'src/components/UI/Dialog'
+import FormControl from 'src/components/UI/FormControl'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 import './index.css'
 

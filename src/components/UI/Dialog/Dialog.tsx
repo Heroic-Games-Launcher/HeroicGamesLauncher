@@ -6,7 +6,11 @@ export interface DialogProps {
   onClose: () => void
 }
 
-const Dialog: React.FC<DialogProps> = ({ children, className, onClose }) => {
+export const Dialog: React.FC<DialogProps> = ({
+  children,
+  className,
+  onClose
+}) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null)
   const onCloseRef = useRef(onClose)
   onCloseRef.current = onClose
@@ -48,5 +52,3 @@ const Dialog: React.FC<DialogProps> = ({ children, className, onClose }) => {
     </div>
   )
 }
-
-export default Dialog
