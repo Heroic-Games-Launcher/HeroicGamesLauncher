@@ -101,7 +101,7 @@ const getGameSettings = async (
 const getInstallInfo = async (
   appName: string,
   runner: Runner
-): Promise<InstallInfo> => {
+): Promise<InstallInfo | null> => {
   return await ipcRenderer.invoke('getInstallInfo', appName, runner)
 }
 

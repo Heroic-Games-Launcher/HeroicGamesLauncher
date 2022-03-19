@@ -112,6 +112,7 @@ export default function InstallModal({
   }
   const [sdlList, setSdlList] = useState([...mandatoryTags])
   const { t } = useTranslation('gamepage')
+  const { t: tr } = useTranslation()
 
   async function handleInstall(path?: string) {
     backdropClick()
@@ -175,6 +176,14 @@ export default function InstallModal({
   useEffect(() => {
     const getInfo = async () => {
       const gameInfo = await getInstallInfo(appName, runner)
+      if (!gameInfo) {
+        ipcRenderer.invoke('showErrorBox', [
+          tr('box.error.generic.title'),
+          tr('box.error.generic.message')
+        ])
+        backdropClick()
+        return
+      }
       const gameData = await getGameInfo(appName, runner)
       setGameInfo(gameInfo)
       if (gameInfo.manifest?.languages) {
@@ -196,6 +205,7 @@ export default function InstallModal({
         )
       }
       const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
+      console.log(gameInfo, gameData)
       const fixedTitle = gameInfo.game.title
         .replaceAll(regexp, '')
         .replaceAll(' ', '-')
