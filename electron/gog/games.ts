@@ -167,7 +167,11 @@ class GOGGame extends Game {
     const success = verifyProgress(res.stderr)
     if (!success) {
       logError(
-        ['Failed to install', `${this.appName}:`, 'Command aborted unexpectedly'],
+        [
+          'Failed to install',
+          `${this.appName}:`,
+          'Command aborted unexpectedly'
+        ],
         LogPrefix.Gog
       )
       return { status: 'error' }
@@ -282,7 +286,11 @@ class GOGGame extends Game {
     const success = verifyProgress(res.stderr)
     if (!success) {
       logError(
-        ['Failed to update', `${this.appName}:`, 'Command aborted unexpectedly'],
+        [
+          'Failed to update',
+          `${this.appName}:`,
+          'Command aborted unexpectedly'
+        ],
         LogPrefix.Gog
       )
     }
@@ -407,7 +415,11 @@ class GOGGame extends Game {
     const success = verifyProgress(res.stderr)
     if (!success) {
       logError(
-        ['Failed to update', `${this.appName}:`, 'Command aborted unexpectedly'],
+        [
+          'Failed to update',
+          `${this.appName}:`,
+          'Command aborted unexpectedly'
+        ],
         LogPrefix.Gog
       )
       return { status: 'error' }
