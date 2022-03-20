@@ -19,7 +19,7 @@
         },
         "stopInstall": {
             "keepInstalling": "Tetap Menginstal",
-            "message": "Apakah Anda ingin MENYIMPAN file yang diunduh?",
+            "message": "Apakah Anda ingin MENYIMPAN berkas yang diunduh?",
             "title": "Hentikan Instalasi"
         },
         "uninstall": {
