@@ -45,8 +45,7 @@
     },
     "disabled": "비활성화",
     "dlc": {
-        "installDlcs": "모든 DLC를 설치합니다",
-        "title": "DLCs"
+        "installDlcs": "모든 DLC를 설치합니다"
     },
     "enabled": "활성화",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "설치 경로 선택",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

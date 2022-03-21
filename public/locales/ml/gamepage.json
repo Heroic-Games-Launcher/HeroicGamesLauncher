@@ -45,8 +45,7 @@
     },
     "disabled": "പ്രവര്ത്തനരഹിതം",
     "dlc": {
-        "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ",
-        "title": "DLCs"
+        "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ"
     },
     "enabled": "പ്രവര്ത്തനക്ഷമം",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ",
-        "wineprefix": "വൈൻ പ്രിഫിക്സ്"
+        "wineprefix": "വൈൻ പ്രിഫിക്സ്",
+        "wineversion": ""
     },
     "label": {
         "playing": {

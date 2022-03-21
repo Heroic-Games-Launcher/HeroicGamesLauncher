@@ -45,8 +45,7 @@
     },
     "disabled": "Nonaktifkan",
     "dlc": {
-        "installDlcs": "Pasang semua DLC",
-        "title": "DLC"
+        "installDlcs": "Pasang semua DLC"
     },
     "enabled": "Aktifkan",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

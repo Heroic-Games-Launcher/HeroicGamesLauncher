@@ -45,8 +45,7 @@
     },
     "disabled": "已禁用",
     "dlc": {
-        "installDlcs": "安装所有DLC",
-        "title": "DLCs"
+        "installDlcs": "安装所有DLC"
     },
     "enabled": "已启用",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "选择安装路径",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

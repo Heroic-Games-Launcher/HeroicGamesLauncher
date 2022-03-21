@@ -45,8 +45,7 @@
     },
     "disabled": "Onemogućeno",
     "dlc": {
-        "installDlcs": "Instaliraj sve DLC-eve",
-        "title": "DLCs"
+        "installDlcs": "Instaliraj sve DLC-eve"
     },
     "enabled": "Omogućeno",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Odaberite put instalacije",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {
