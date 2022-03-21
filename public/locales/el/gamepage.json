@@ -45,8 +45,7 @@
     },
     "disabled": "Απενεργοποιημένο",
     "dlc": {
-        "installDlcs": "Εγκατάσταση όλων των DLCs",
-        "title": "DLCs"
+        "installDlcs": "Εγκατάσταση όλων των DLCs"
     },
     "enabled": "Ενεργοποιημένο",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης",
-        "wineprefix": "Πρόθεμα Wine"
+        "wineprefix": "Πρόθεμα Wine",
+        "wineversion": ""
     },
     "label": {
         "playing": {

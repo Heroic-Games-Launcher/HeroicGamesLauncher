@@ -45,8 +45,7 @@
     },
     "disabled": "Desabilitado",
     "dlc": {
-        "installDlcs": "Instalar todas as DLCs",
-        "title": "DLCs"
+        "installDlcs": "Instalar todas as DLCs"
     },
     "enabled": "Habilitado",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

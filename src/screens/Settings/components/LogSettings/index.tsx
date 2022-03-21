@@ -2,7 +2,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { UpdateComponent } from '../../../../components/UI'
+import { UpdateComponent } from 'src/components/UI'
 import './index.css'
 
 const { ipcRenderer } = window.require('electron')

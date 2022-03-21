@@ -139,7 +139,7 @@ export default function GamesSubmenu({
     }
     getWineInfo()
     getGameDetails()
-  }, [appName, runner])
+  }, [])
 
   return (
     <div className="gameTools subMenuContainer">

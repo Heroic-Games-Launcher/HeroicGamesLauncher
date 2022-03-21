@@ -1,3 +1,5 @@
+import { ExecOptions } from 'child_process'
+import { dirname } from 'path'
 import {
   InstallParams,
   LaunchResult,
@@ -489,6 +491,9 @@ ipcMain.handle(
     const oldProtonWinePath = wine.replace("proton'", "dist/bin/wine64'")
     const isProton = wine.includes('proton')
     const winetricks = `${heroicToolsPath}/winetricks`
+    const options: ExecOptions = {
+      ...execOptions
+    }
 
     // existsSync is weird because it returns false always if the path has single-quotes in it
     const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
@@ -521,11 +526,12 @@ ipcMain.handle(
 
     if (tool === 'runExe') {
       command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
+      options.cwd = dirname(exe)
     }
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {
-      await execAsync(command, execOptions)
+      await execAsync(command, options)
     } catch (error) {
       logError(
         `Something went wrong! Check if ${tool} is available and ${wineBin} exists`,

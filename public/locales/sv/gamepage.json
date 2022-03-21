@@ -45,8 +45,7 @@
     },
     "disabled": "Inaktiverad",
     "dlc": {
-        "installDlcs": "Installera alla DLC",
-        "title": "DLC"
+        "installDlcs": "Installera alla DLC"
     },
     "enabled": "Aktiverad",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Ange installationssökväg",
-        "wineprefix": "Wine-prefix"
+        "wineprefix": "Wine-prefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

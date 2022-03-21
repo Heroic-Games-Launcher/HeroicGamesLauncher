@@ -45,8 +45,7 @@
     },
     "disabled": "Devre dışı",
     "dlc": {
-        "installDlcs": "Tüm DLC'leri kur",
-        "title": "DLCs"
+        "installDlcs": "Tüm DLC'leri kur"
     },
     "enabled": "Etkin",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Kurulum Yolunu Seçin",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {
