@@ -96,6 +96,7 @@ export default function InstallModal({
   ) as InstallProgress
 
   const { i18n, t } = useTranslation('gamepage')
+  const { t: tr } = useTranslation()
   const { libraryStatus, handleGameStatus, platform } =
     useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
@@ -156,8 +157,6 @@ export default function InstallModal({
   function handleDlcs() {
     setInstallDlcs(!installDlcs)
   }
-  const [sdlList, setSdlList] = useState([...mandatoryTags])
-  const { t: tr } = useTranslation()
 
   async function handleInstall(path?: string) {
     backdropClick()
