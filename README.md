@@ -60,7 +60,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Theming Support
 - Download queue
 - Add Games outside GOG and Epic Games
-- Support Other Store (Amazon Gaming, IndieGaga, etc)
+- Support Other Store (Amazon Gaming, IndieGala, etc)
 
 ## Language Support
 
