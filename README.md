@@ -57,7 +57,10 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ## Planned features
 
-- Add Games outside Epic Games
+- Theming Support
+- Download queue
+- Add Games outside GOG and Epic Games
+- Support Other Store (Amazon Gaming, IndieGaga, etc)
 
 ## Language Support
 
@@ -89,6 +92,8 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Swedish
 - Tamil
 - Turkish
+- Ukranian
+- Vietnamize
 
 ### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
