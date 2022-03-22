@@ -112,7 +112,12 @@ export default function GamePage(): JSX.Element | null {
         }
         setGameInfo(newInfo)
         getInstallInfo(appName, newInfo.runner)
-          .then((info) => setGameInstallInfo(info))
+          .then((info) => {
+            if (!info) {
+              throw 'Cannot get game info'
+            }
+            setGameInstallInfo(info)
+          })
           .catch((error) => {
             console.error(error)
             ipcRenderer.send('logError', error)

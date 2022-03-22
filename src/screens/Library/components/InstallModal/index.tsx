@@ -96,6 +96,7 @@ export default function InstallModal({
   ) as InstallProgress
 
   const { i18n, t } = useTranslation('gamepage')
+  const { t: tr } = useTranslation()
   const { libraryStatus, handleGameStatus, platform } =
     useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
@@ -202,6 +203,14 @@ export default function InstallModal({
   useEffect(() => {
     const getInfo = async () => {
       const gameInfo = await getInstallInfo(appName, runner)
+      if (!gameInfo) {
+        ipcRenderer.invoke('showErrorBox', [
+          tr('box.error.generic.title'),
+          tr('box.error.generic.message')
+        ])
+        backdropClick()
+        return
+      }
       const gameData = await getGameInfo(appName, runner)
       setGameInfo(gameInfo)
       if (gameInfo.manifest?.languages) {

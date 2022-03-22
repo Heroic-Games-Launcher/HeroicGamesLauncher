@@ -636,7 +636,7 @@ ipcMain.handle('getInstallInfo', async (event, game, runner) => {
     return info
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)
-    return {}
+    return null
   }
 })
 
