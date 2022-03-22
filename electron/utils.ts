@@ -1,5 +1,5 @@
 import * as axios from 'axios'
-import { app, dialog, net, shell, Notification } from 'electron'
+import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
 import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
@@ -26,6 +26,39 @@ const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
+
+export function showErrorBoxModal(
+  window: BrowserWindow | undefined | null,
+  title: string,
+  message: string
+) {
+  if (window) {
+    showMessageBox(window, {
+      type: 'error',
+      title,
+      message
+    })
+  } else {
+    showErrorBox(title, message)
+  }
+}
+
+export function showErrorBoxModalAuto(title: string, message: string) {
+  let window: BrowserWindow
+  try {
+    window = BrowserWindow.getFocusedWindow()
+    if (!window) {
+      window = BrowserWindow.getAllWindows()[0]
+    }
+  } catch (e) {
+    // empty
+  }
+  if (window) {
+    showErrorBoxModal(window, title, message)
+  } else {
+    showErrorBox(title, message)
+  }
+}
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -160,11 +193,11 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
-async function handleExit() {
+async function handleExit(window: BrowserWindow) {
   const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
 
   if (isLocked) {
-    const { response } = await showMessageBox({
+    const { response } = await showMessageBox(window, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -240,10 +273,10 @@ type ErrorHandlerMessage = {
   logPath?: string
 }
 
-async function errorHandler({
-  error,
-  logPath
-}: ErrorHandlerMessage): Promise<void> {
+async function errorHandler(
+  { error, logPath }: ErrorHandlerMessage,
+  window?: BrowserWindow
+): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
   const noCredentialsError = 'No saved credentials'
   if (logPath) {
@@ -251,7 +284,8 @@ async function errorHandler({
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, LogPrefix.Backend)
-          return showErrorBox(
+          return showErrorBoxModal(
+            window,
             i18next.t('box.error.diskspace.title', 'No Space'),
             i18next.t(
               'box.error.diskspace.message',
@@ -264,7 +298,8 @@ async function errorHandler({
   }
   if (error) {
     if (error.stderr.includes(noCredentialsError)) {
-      return showErrorBox(
+      return showErrorBoxModal(
+        window,
         i18next.t('box.error.credentials.title', 'Expired Credentials'),
         i18next.t(
           'box.error.credentials.message',
@@ -273,13 +308,6 @@ async function errorHandler({
       )
     }
   }
-}
-
-function genericErrorMessage(): void {
-  return showErrorBox(
-    i18next.t('box.error.generic.title', 'Unknown Error'),
-    i18next.t('box.error.generic.message', 'An Unknown Error has occurred')
-  )
 }
 
 function removeSpecialcharacters(text: string): string {
@@ -381,7 +409,6 @@ export {
   checkForUpdates,
   errorHandler,
   execAsync,
-  genericErrorMessage,
   handleExit,
   isOnline,
   isEpicServiceOffline,
