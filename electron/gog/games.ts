@@ -49,7 +49,7 @@ function verifyProgress(stderr: string): boolean {
   index = stderr.lastIndexOf('\n', index - 1)
   const status = stderr.substring(index)
   const match = status.match(/Progress: ([0-9.]+) ([0-9]+)\/([0-9]+)/)
-  return match != null && 100 === Number(match[1]) && match[2] === match[3]
+  return match !== null && 100 === Number(match[1]) && match[2] === match[3]
 }
 
 class GOGGame extends Game {
