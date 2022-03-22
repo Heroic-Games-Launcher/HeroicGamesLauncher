@@ -16,7 +16,7 @@ type SID = {
 
 export default function WebView() {
   const { i18n } = useTranslation()
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
   const { t } = useTranslation()
   const { handleFilter, handleCategory } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
@@ -34,7 +34,7 @@ export default function WebView() {
     lang = 'pt-BR'
   }
 
-  const loginUrl =
+  const epicLoginUrl =
     'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://gog.com`
@@ -46,17 +46,24 @@ export default function WebView() {
 
   const trueAsStr = 'true' as unknown as boolean | undefined
   const { runner } = useParams() as { runner: Runner }
-  const startUrl = runner
-    ? runner == 'legendary'
-      ? '/loginEpic'
-      : '/loginGOG'
-    : pathname
+
   const urls = {
     '/epicstore': epicStore,
     '/gogstore': gogStore,
     '/wiki': wikiURL,
-    '/loginEpic': loginUrl,
-    '/loginGOG': gogLoginUrl
+    '/loginEpic': epicLoginUrl,
+    '/loginGOG': gogLoginUrl,
+    '/login/legandary': epicLoginUrl,
+    '/login/gog': gogLoginUrl
+  }
+  let startUrl = urls[pathname]
+
+  if (pathname.match(/store-page/)) {
+    const searchParams = new URLSearchParams(search)
+    const queryParam = searchParams.get('store-url')
+    if (queryParam) {
+      startUrl = queryParam
+    }
   }
 
   useLayoutEffect(() => {
@@ -131,7 +138,7 @@ export default function WebView() {
     <div className="WebView">
       <WebviewControls
         webview={webviewRef.current}
-        initURL={urls[startUrl]}
+        initURL={startUrl}
         openInBrowser={!startUrl.startsWith('/login')}
       />
       {loading.refresh && <UpdateComponent message={loading.message} />}
@@ -139,7 +146,7 @@ export default function WebView() {
         ref={webviewRef}
         className="WebView__webview"
         partition="persist:epicstore"
-        src={urls[startUrl]}
+        src={startUrl}
         allowpopups={trueAsStr}
       />
     </div>

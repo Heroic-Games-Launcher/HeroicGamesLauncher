@@ -5,12 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppSettings, Runner } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { SmallInfo } from 'src/components/UI'
-import {
-  createNewWindow,
-  formatStoreUrl,
-  getGameInfo,
-  repair
-} from 'src/helpers'
+import { createNewWindow, getGameInfo, repair } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { uninstall } from 'src/helpers/library'
@@ -46,11 +41,7 @@ export default function GamesSubmenu({
   const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
   const [isNative, setIsNative] = useState(false)
-  const { t, i18n } = useTranslation('gamepage')
-  let lang = i18n.language
-  if (i18n.language === 'pt') {
-    lang = 'pt-BR'
-  }
+  const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
@@ -193,14 +184,13 @@ export default function GamesSubmenu({
             )}
           </>
         )}
-        <button
-          onClick={() =>
-            createNewWindow(storeUrl || formatStoreUrl(title, lang))
-          }
+        <NavLink
           className="link button is-text is-link"
+          exact
+          to={`/store-page?store-url=${storeUrl}`}
         >
           {t('submenu.store')}
-        </button>
+        </NavLink>
         {!isWin && (
           <button
             onClick={() => createNewWindow(protonDBurl)}

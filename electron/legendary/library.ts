@@ -18,7 +18,12 @@ import {
 } from '../types'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
-import { getLegendaryBin, isEpicServiceOffline, isOnline } from '../utils'
+import {
+  formatEpicStoreUrl,
+  getLegendaryBin,
+  isEpicServiceOffline,
+  isOnline
+} from '../utils'
 import {
   fallBackImage,
   installed,
@@ -483,7 +488,8 @@ export class LegendaryLibrary {
       title,
       canRunOffline,
       is_linux_native: false,
-      runner: 'legendary'
+      runner: 'legendary',
+      store_url: formatEpicStoreUrl(title)
     } as GameInfo)
 
     return app_name
