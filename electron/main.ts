@@ -58,7 +58,8 @@ import {
   showAboutWindow,
   showItemInFolder,
   getLegendaryBin,
-  getGOGdlBin
+  getGOGdlBin,
+  showErrorBoxModal
 } from './utils'
 import {
   currentLogFile,
@@ -85,7 +86,7 @@ import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import Store from 'electron-store'
 
-const { showErrorBox, showMessageBox, showOpenDialog } = dialog
+const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
@@ -165,7 +166,7 @@ async function createWindow(): Promise<BrowserWindow> {
       return mainWindow.hide()
     }
 
-    handleExit()
+    handleExit(mainWindow)
   })
 
   if (!app.isPackaged) {
@@ -238,7 +239,7 @@ const contextMenu = () => {
     },
     {
       click: function () {
-        handleExit()
+        handleExit(mainWindow)
       },
       label: i18next.t('tray.quit', 'Quit'),
       accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
@@ -431,7 +432,7 @@ ipcMain.handle('kill', async (event, appName, runner) => {
   return await Game.get(appName, runner).stop()
 })
 
-ipcMain.on('quit', async () => handleExit())
+ipcMain.on('quit', async () => handleExit(mainWindow))
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -565,7 +566,7 @@ ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.on('clearCache', () => {
   clearCache()
-  dialog.showMessageBox({
+  dialog.showMessageBox(mainWindow, {
     title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
     message: i18next.t(
       'box.cache-cleared.message',
@@ -576,7 +577,7 @@ ipcMain.on('clearCache', () => {
 })
 
 ipcMain.on('resetHeroic', async () => {
-  const { response } = await dialog.showMessageBox({
+  const { response } = await dialog.showMessageBox(mainWindow, {
     title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
     message: i18next.t(
       'box.reset-heroic.question.message',
@@ -798,7 +799,8 @@ ipcMain.handle(
         `
 
         if (stderr.includes('Errno')) {
-          showErrorBox(
+          showErrorBoxModal(
+            mainWindow,
             i18next.t('box.error.title', 'Something Went Wrong'),
             i18next.t(
               'box.error.launch',
@@ -821,7 +823,7 @@ ipcMain.handle(
       .catch(async (exception) => {
         mainWindow.show()
         const stderr = `${exception.name} - ${exception.message}`
-        errorHandler({ error: { stderr, stdout: '' } })
+        errorHandler({ error: { stderr, stdout: '' } }, mainWindow)
         writeFile(
           join(heroicGamesConfigPath, game + '-lastPlay.log'),
           stderr,
@@ -839,7 +841,7 @@ ipcMain.handle(
 )
 
 ipcMain.handle('openDialog', async (e, args) => {
-  const { filePaths, canceled } = await showOpenDialog({
+  const { filePaths, canceled } = await showOpenDialog(mainWindow, {
     ...args
   })
   if (filePaths[0]) {
@@ -853,7 +855,9 @@ ipcMain.on('showItemInFolder', async (e, item) => {
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response, checkboxChecked } = await showMessageBox({ ...args })
+  const { response, checkboxChecked } = await showMessageBox(mainWindow, {
+    ...args
+  })
   return { response, checkboxChecked }
 }
 
@@ -868,7 +872,7 @@ ipcMain.handle(
   'showErrorBox',
   async (e, args: [title: string, message: string]) => {
     const [title, content] = args
-    return showErrorBox(title, content)
+    return showErrorBoxModal(mainWindow, title, content)
   }
 )
 
@@ -896,7 +900,8 @@ ipcMain.handle('install', async (event, params) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    dialog.showErrorBox(
+    showErrorBoxModal(
+      mainWindow,
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
         'box.warning.epic.install',
@@ -1018,7 +1023,8 @@ ipcMain.handle('importGame', async (event, args) => {
   const { appName, path, runner } = args
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    dialog.showErrorBox(
+    showErrorBoxModal(
+      mainWindow,
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
         'box.warning.epic.import',
@@ -1069,7 +1075,8 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    dialog.showErrorBox(
+    showErrorBoxModal(
+      mainWindow,
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
         'box.warning.epic.update',

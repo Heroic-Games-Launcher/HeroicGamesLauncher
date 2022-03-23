@@ -30,7 +30,7 @@ export async function handleProtocol(window: BrowserWindow, url: string) {
       // wait for the frontend to be ready
       if (!is_installed) {
         logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
-        const { response } = await dialog.showMessageBox({
+        const { response } = await dialog.showMessageBox(window, {
           buttons: [i18next.t('box.yes'), i18next.t('box.no')],
           cancelId: 1,
           message: `${title} ${i18next.t(
