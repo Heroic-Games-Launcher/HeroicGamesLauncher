@@ -224,7 +224,7 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
-  type: 'wine' | 'proton' | 'crossover'
+  type: 'wine' | 'proton' | 'crossover' | 'bottles'
   lib?: string
   lib32?: string
   wineboot?: string

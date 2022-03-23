@@ -26,7 +26,8 @@ import {
   isMac,
   isWindows,
   getSteamLibraries,
-  getSteamCompatFolder
+  getSteamCompatFolder,
+  isLinux
 } from './constants'
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -187,6 +188,49 @@ abstract class GlobalConfig {
   }
 
   /**
+   * Find Bottles version
+   * @returns WineInstallation of bottles
+   */
+  public async getBottles(): Promise<Set<WineInstallation>> {
+    const bottles = new Set<WineInstallation>()
+    if (!isLinux) return bottles
+
+    // Check if bottles are installed through AUR
+    const AURversion = await execAsync('bottles --version').catch(() => null)
+    const version = AURversion?.stdout.split('\n')[0]
+    if (version) {
+      const binPath = await execAsync('which bottles').catch(() => null)
+      if (!binPath) {
+        return null
+      }
+      bottles.add({
+        name: `Bottles - ${version}`,
+        type: 'bottles',
+        bin: binPath?.stdout
+      })
+      return bottles
+    }
+
+    // Check if bottles are installed through Flatpak
+    if (existsSync(join(homedir(), '.var', 'app', 'com.usebottles.bottles'))) {
+      const FlatpakVersion = await execAsync(
+        'flatpak run com.usebottles.bottles --version'
+      ).catch(() => null)
+      const version = FlatpakVersion?.stdout.split('\n')[0]
+      if (version) {
+        bottles.add({
+          name: `Bottles - ${version}`,
+          type: 'bottles',
+          bin: 'flatpak run com.usebottles.bottles'
+        })
+        return bottles
+      }
+    }
+
+    return bottles
+  }
+
+  /**
    * Detects Wine/Proton on the user's system.
    *
    * @returns An Array of Wine/Proton installations.
@@ -271,6 +315,8 @@ abstract class GlobalConfig {
       }
     })
 
+    const bottles = await this.getBottles()
+
     const defaultWineSet = new Set<WineInstallation>()
     const defaultWine = await this.getDefaultWine()
     if (!defaultWine.name.includes('Not Found')) {
@@ -282,7 +328,13 @@ abstract class GlobalConfig {
       customWineSet = await this.getCustomWinePaths()
     }
 
-    return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
+    return [
+      ...defaultWineSet,
+      ...altWine,
+      ...proton,
+      ...customWineSet,
+      ...bottles
+    ]
   }
 
   /**
