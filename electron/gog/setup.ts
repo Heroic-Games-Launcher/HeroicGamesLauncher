@@ -17,7 +17,8 @@ import { userHome, isWindows, steamCompatFolder } from '../constants'
 import ini from 'ini'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
- * For Galaxy games only (Mac and Windows for now)
+ * For Galaxy games only (Windows)
+ * This relies on root file system mounted at Z: in prefixes (We need better approach to access game path from prefix)
  * @param appName
  */
 async function setup(appName: string): Promise<void> {
@@ -64,18 +65,49 @@ async function setup(appName: string): Promise<void> {
         case 'setRegistry': {
           const registryPath =
             actionArguments.root + '\\' + actionArguments.subkey
+          const valueData = actionArguments?.valueData?.replace(
+            '{app}',
+            `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`
+          )
+          const valueName = actionArguments?.valueName
+          const valueType = actionArguments?.valueType
           // If deleteSubkeys is true remove path first
-          if (actionArguments.deleteSubkeys) {
-            const command = `${commandPrefix} reg delete "${registryPath}" /f`
+          if (actionArguments?.deleteSubkeys) {
+            const command = `${commandPrefix} reg delete "${registryPath}" /va /f`
             logInfo(
               ['Setup: Deleting a registry key', registryPath],
               LogPrefix.Gog
             )
-            await execAsync(command)
+            await execAsync(command).catch((error) =>
+              logWarning(
+                ['Setup: Error removing key', `${error}`],
+                LogPrefix.Gog
+              )
+            )
+          }
+          const regType = getRegDataType(valueType)
+          let keyCommand = ''
+          if (valueData && valueName) {
+            if (!regType) {
+              logError(
+                `Setup: Unsupported registry type ${valueType}, skipping this key`
+              )
+              break
+            }
+            keyCommand = `/d "${valueData}" /v ${valueName} /t ${regType}`
           }
           // Now create a key
-          const command = `${commandPrefix} reg add "${registryPath}" /f`
-          logInfo(['Setup: Adding a registry key', registryPath], LogPrefix.Gog)
+          const command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f`
+          logInfo(
+            [
+              'Setup: Adding a registry key',
+              registryPath,
+              valueName,
+              valueData,
+              regType
+            ],
+            LogPrefix.Gog
+          )
           await execAsync(command)
           break
         }
@@ -248,5 +280,13 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
   // TODO: find if there are V2 games with something like support_commands in manifest
   return null
 }
+
+const registryDataTypes = new Map([
+  ['string', 'REG_SZ'],
+  ['dword', 'REG_DWORD']
+  // If needed please add those values REG_BINARY REG_NONE REG_EXPAND_SZ REG_MULTI_SZ
+])
+const getRegDataType = (dataType: string): string =>
+  registryDataTypes.get(dataType)
 
 export default setup
