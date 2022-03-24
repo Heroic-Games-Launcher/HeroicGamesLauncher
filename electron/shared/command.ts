@@ -62,7 +62,11 @@ export class RunCommand {
         variables.push(`${key}=${quoteArgument(value)}`)
       }
     }
-    return [...variables, executable, ...parts].map(quoteArgument).join(' ')
+    return [
+      ...variables,
+      quoteArgument(executable),
+      ...parts.map(quoteArgument)
+    ].join(' ')
   }
 
   run(
