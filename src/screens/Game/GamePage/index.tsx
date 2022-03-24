@@ -452,7 +452,7 @@ export default function GamePage(): JSX.Element | null {
 
     const currentProgress = `${
       percent && bytes
-        ? `${percent}% [${bytes}]${displayEta && `| ETA: ${displayEta}`}`
+        ? `${percent}% [${bytes}]${displayEta && ` | ETA: ${displayEta}`}`
         : '...'
     }`
 
