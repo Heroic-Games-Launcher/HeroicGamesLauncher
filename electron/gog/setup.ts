@@ -285,8 +285,9 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
 
 const registryDataTypes = new Map([
   ['string', 'REG_SZ'],
-  ['dword', 'REG_DWORD']
-  // If needed please add those values REG_BINARY REG_NONE REG_EXPAND_SZ REG_MULTI_SZ
+  ['dword', 'REG_DWORD'],
+  ['binary', 'REG_BINARY']
+  // If needed please add those values REG_NONE REG_EXPAND_SZ REG_MULTI_SZ
 ])
 const getRegDataType = (dataType: string): string =>
   registryDataTypes.get(dataType)
