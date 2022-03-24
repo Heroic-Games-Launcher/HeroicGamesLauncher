@@ -133,15 +133,21 @@ async function setup(appName: string): Promise<void> {
           } /versionName="${
             gameInfo.install.version
           }" /nodesktopshorctut /nodesktopshortcut`
-          const workingDir = actionArguments?.workingDir?.replace(
-            '%SUPPORT%',
-            `"${path.join(gameInfo.install.install_path, 'support', appName)}"`
-          )
-          const executablePath = path.join(
+
+          const supportPath = `"${path.join(
             gameInfo.install.install_path,
             'support',
-            appName,
-            executableName
+            appName
+          )}"`
+          const workingDir = actionArguments?.workingDir
+            ?.replace('%SUPPORT%', supportPath)
+            .replace('{supportDir}', supportPath)
+          const executablePath = path.join(
+            gameInfo.install.install_path,
+            executableName.replace(
+              '{supportDir}',
+              path.join('support', appName)
+            )
           )
           if (!existsSync(executablePath)) {
             logError(
@@ -150,17 +156,13 @@ async function setup(appName: string): Promise<void> {
             )
             break
           }
-          let command = `${
-            workingDir ? 'cd ' + workingDir + ' &&' : ''
-          } ${commandPrefix} "${executablePath}" ${exeArguments}`
+          let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
           if (isWindows) {
-            command = `${
-              workingDir ? 'cd ' + workingDir + ' &&' : ''
-            } Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
+            command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
           }
           logInfo(['Setup: Executing', command], LogPrefix.Gog)
-          await execAsync(command)
+          await execAsync(command, { cwd: workingDir })
           break
         }
         case 'supportData': {
