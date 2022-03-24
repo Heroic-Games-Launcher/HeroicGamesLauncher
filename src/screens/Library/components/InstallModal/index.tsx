@@ -34,7 +34,7 @@ import {
   AppSettings,
   GameStatus,
   InstallInfo,
-  InstallProgress,
+  SavedInstallProgress,
   Path,
   Runner,
   WineInstallation
@@ -93,7 +93,7 @@ export default function InstallModal({
 }: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
-  ) as InstallProgress
+  ) as SavedInstallProgress
 
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()

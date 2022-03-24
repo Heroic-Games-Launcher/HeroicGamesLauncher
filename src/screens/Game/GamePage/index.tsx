@@ -1,6 +1,12 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState, MouseEvent } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  MouseEvent,
+  useMemo
+} from 'react'
 
 import { IpcRenderer } from 'electron'
 import {
@@ -23,8 +29,9 @@ import {
   GameInfo,
   GameStatus,
   InstallInfo,
-  InstallProgress
+  SavedInstallProgress
 } from 'src/types'
+import { useInstallProgress } from '../../../hooks'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -68,17 +75,9 @@ export default function GamePage(): JSX.Element | null {
   const { status } = gameStatus || {}
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
-  ) as InstallProgress
+  ) as SavedInstallProgress
 
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
-  const [progress, setProgress] = useState(
-    previousProgress ??
-      ({
-        bytes: '0.00MiB',
-        eta: '00:00:00',
-        percent: '0.00%'
-      } as InstallProgress)
-  )
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -142,36 +141,8 @@ export default function GamePage(): JSX.Element | null {
     updateConfig()
   }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
 
-  useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling || isUpdating || isReparing) {
-        const progress: InstallProgress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          gameInfo.runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        return await handleGameStatus({
-          appName,
-          runner: gameInfo.runner,
-          status
-        })
-      }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [appName, isInstalling, isUpdating, isReparing])
+  const progressSince = useMemo(() => Date.now(), [gameStatus])
+  const progress = useInstallProgress(appName, gameInfo.runner, progressSince)
 
   async function handleUpdate() {
     await handleGameStatus({
@@ -455,8 +426,24 @@ export default function GamePage(): JSX.Element | null {
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
 
+    let displayEta: string
+    const secondsLeft = eta
+    if (secondsLeft === Infinity) {
+      displayEta = ''
+    } else {
+      const seconds = `${secondsLeft % 60}`
+      const minutesLeft = Math.floor(secondsLeft / 60)
+      const minutes = `${minutesLeft % 60}`
+      const hours = `${Math.floor(minutesLeft / 60)}`
+      displayEta = [
+        hours.padStart(2, '0'),
+        minutes.padStart(2, '0'),
+        seconds.padStart(2, '0')
+      ].join(':')
+    }
+
     if (isReparing) {
-      return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
+      return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
     }
 
     if (isMoving) {
@@ -464,13 +451,16 @@ export default function GamePage(): JSX.Element | null {
     }
 
     const currentProgress = `${
-      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
+      percent && bytes
+        ? `${percent}% [${bytes}]${displayEta && `| ETA: ${displayEta}`}`
+        : '...'
     }`
 
     if (isUpdating && is_installed) {
-      if (eta && eta.includes('verifying')) {
-        return `${t('status.reparing')}: ${percent} [${bytes}]`
-      }
+      // TODO what's that?
+      // if (eta && eta.includes('verifying')) {
+      //   return `${t('status.reparing')}: ${percent}% [${bytes}]`
+      // }
       return `${t('status.updating')} ${currentProgress}`
     }
 

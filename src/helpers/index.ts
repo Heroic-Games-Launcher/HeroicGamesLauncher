@@ -2,7 +2,7 @@ import {
   AppSettings,
   GameInfo,
   InstallInfo,
-  InstallProgress,
+  SavedInstallProgress,
   Runner,
   GameSettings
 } from 'src/types'
@@ -119,9 +119,9 @@ const formatStoreUrl = (title: string, lang: string) => {
   return `${storeUrl}${cleanTitle(title)}`
 }
 
-function getProgress(progress: InstallProgress): number {
+function getProgress(progress: SavedInstallProgress): number {
   if (progress && progress.percent) {
-    return Number(progress.percent.replace('%', ''))
+    return progress.percent
   }
   return 0
 }
