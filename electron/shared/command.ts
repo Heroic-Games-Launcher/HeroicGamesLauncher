@@ -92,7 +92,7 @@ export class RunCommand {
       return new Promise<RunCommandResults>((res) => {
         const spawnOptions = {
           cwd: options.cwd ? options.cwd : dir,
-          env: options.env ? { ...process.env, ...options.env } : undefined,
+          env: options.env ? { ...process.env, ...options.env } : undefined
         }
         const child = spawn(bin, filteredArgs, spawnOptions)
         this.processes = [...this.processes, child]
@@ -235,7 +235,11 @@ export class AppendToFileCollector extends RunCommandCollector {
 }
 
 export class RunCommandExecutor {
-  constructor(private executable: string, private args: string[], private command: RunCommand) {}
+  constructor(
+    private executable: string,
+    private args: string[],
+    private command: RunCommand
+  ) {}
 
   run(args: string[], options: RunCommandOptions) {
     const buffer = new BufferCollector()

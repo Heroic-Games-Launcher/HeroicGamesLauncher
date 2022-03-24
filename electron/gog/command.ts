@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto'
 import { join } from 'path'
 import { configStore, fixAsarPath } from '../constants'
-import { LogPrefix } from '../logger/logger';
+import { LogPrefix } from '../logger/logger'
 import { ProgressStatus } from '../progress'
 import {
   RunCommand,
