@@ -65,7 +65,7 @@ async function setup(appName: string): Promise<void> {
         case 'setRegistry': {
           const registryPath =
             actionArguments.root + '\\' + actionArguments.subkey
-          const valueData = actionArguments?.valueData?.replace(
+          let valueData = actionArguments?.valueData?.replace(
             '{app}',
             `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`
           )
@@ -94,7 +94,10 @@ async function setup(appName: string): Promise<void> {
               )
               break
             }
-            keyCommand = `/d "${valueData}" /v ${valueName} /t ${regType}`
+            if (valueType === 'binary') {
+              valueData = Buffer.from(valueData).toString('hex')
+            }
+            keyCommand = `/d "${valueData}" /v "${valueName}" /t ${regType}`
           }
           // Now create a key
           const command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f`
@@ -276,7 +279,7 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
   // Get data only if it's V1 depot game
   if (buildItem?.generation == 1) {
     const metaResponse = await axios.get(buildItem.link)
-    metaResponse.data.support_commands
+    return metaResponse.data?.support_commands
   }
 
   // TODO: find if there are V2 games with something like support_commands in manifest
