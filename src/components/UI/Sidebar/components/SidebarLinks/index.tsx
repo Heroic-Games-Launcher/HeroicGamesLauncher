@@ -62,8 +62,6 @@ export default function SidebarLinks() {
     }
   }, [])
 
-  console.log(location)
-
   return (
     <div className="SidebarLinks Sidebar__section">
       <NavLink
