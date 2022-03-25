@@ -3,10 +3,9 @@ import * as axios from 'axios'
 import { exec } from 'child_process'
 import { existsSync, readFileSync } from 'graceful-fs'
 
-import { execAsync, isOnline } from './utils'
+import { execAsync, isOnline, showErrorBoxModalAuto } from './utils'
 import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { dialog } from 'electron'
 import i18next from 'i18next'
 import { dirname } from 'path'
 
@@ -88,7 +87,7 @@ export const DXVK = {
             [`Error when downloading ${tool.name}`, error],
             LogPrefix.DXVKInstaller
           )
-          dialog.showErrorBox(
+          showErrorBoxModalAuto(
             i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
             i18next.t(
               'box.error.dxvk.message',
