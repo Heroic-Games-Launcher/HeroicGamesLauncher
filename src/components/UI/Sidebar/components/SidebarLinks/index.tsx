@@ -62,6 +62,8 @@ export default function SidebarLinks() {
     }
   }, [])
 
+  console.log(location)
+
   return (
     <div className="SidebarLinks Sidebar__section">
       <NavLink
@@ -150,7 +152,9 @@ export default function SidebarLinks() {
             data-testid="store"
             className="Sidebar__item SidebarLinks__subItem"
             isActive={(match, location) =>
-              location.pathname.includes('epicstore')
+              location.pathname.includes('epicstore') ||
+              (location.pathname === '/store-page' &&
+                location.search.includes('epicgames.com/store'))
             }
             to={{ pathname: '/epicstore' }}
           >
@@ -160,7 +164,9 @@ export default function SidebarLinks() {
             data-testid="store"
             className="Sidebar__item SidebarLinks__subItem"
             isActive={(match, location) =>
-              location.pathname.includes('gogstore')
+              location.pathname.includes('gogstore') ||
+              (location.pathname === '/store-page' &&
+                location.search.includes('gog.com/en/game'))
             }
             to={{ pathname: '/gogstore' }}
           >
