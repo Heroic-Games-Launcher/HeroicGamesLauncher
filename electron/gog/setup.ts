@@ -52,9 +52,16 @@ async function setup(appName: string): Promise<void> {
 
   const commandPrefix = isWindows
     ? ''
-    : `${isCrossover ? crossoverEnv : prefix} ${gameSettings.wineVersion.bin}`
+    : `${isCrossover ? crossoverEnv : prefix} ${gameSettings.wineVersion.bin} ${
+        isProton ? 'runinprefix' : ''
+      }`
+  // Make sure Proton initialized prefix correctly
+  if (isProton) {
+    await execAsync(
+      `${prefix} ${gameSettings.wineVersion.bin} run reg /?` // This is a help command for reg, it's enough to initialize a prefix
+    ).catch()
+  }
   // Funny part begins here
-
   // Deterimine if it's basicly from .script file or from manifest
   if (instructions[0]?.install) {
     // It's from .script file
