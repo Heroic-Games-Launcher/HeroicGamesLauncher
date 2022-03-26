@@ -10,7 +10,7 @@ import {
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo } from '../types'
-import { execAsync } from '../utils'
+import { execAsync, isOnline } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows, steamCompatFolder } from '../constants'
@@ -72,19 +72,19 @@ async function setup(appName: string): Promise<void> {
           const valueName = actionArguments?.valueName
           const valueType = actionArguments?.valueType
           // If deleteSubkeys is true remove path first
-          if (actionArguments?.deleteSubkeys) {
-            const command = `${commandPrefix} reg delete "${registryPath}" /va /f`
-            logInfo(
-              ['Setup: Deleting a registry key', registryPath],
-              LogPrefix.Gog
-            )
-            await execAsync(command).catch((error) =>
-              logWarning(
-                ['Setup: Error removing key', `${error}`],
-                LogPrefix.Gog
-              )
-            )
-          }
+          // if (actionArguments?.deleteSubkeys) {
+          //   const command = `${commandPrefix} reg delete "${registryPath}" /va /f`
+          //   logInfo(
+          //     ['Setup: Deleting a registry key', registryPath],
+          //     LogPrefix.Gog
+          //   )
+          //   await execAsync(command).catch((error) =>
+          //     logWarning(
+          //       ['Setup: Error removing key', `${error}`],
+          //       LogPrefix.Gog
+          //     )
+          //   )
+          // }
           const regType = getRegDataType(valueType)
           let keyCommand = ''
           if (valueData && valueName) {
@@ -95,7 +95,7 @@ async function setup(appName: string): Promise<void> {
               break
             }
             if (valueType === 'binary') {
-              valueData = Buffer.from(valueData).toString('hex')
+              valueData = Buffer.from(valueData, 'base64').toString('hex')
             }
             keyCommand = `/d "${valueData}" /v "${valueName}" /t ${regType}`
           }
@@ -254,6 +254,7 @@ async function setup(appName: string): Promise<void> {
             }
         ],
     */
+    //TODO
   }
   logInfo('Setup: Finished', LogPrefix.Gog)
 }
@@ -267,7 +268,13 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
     return JSON.parse(data).actions
   }
   // No .script is present, check for support_commands in repository.json of V1 games
-
+  if (!isOnline()) {
+    logWarning(
+      "Setup: App is offline, couldn't check if there are any support_commands in manifest",
+      LogPrefix.Gog
+    )
+    return null
+  }
   const buildResponse = await axios.get(
     `https://content-system.gog.com/products/${appName}/os/windows/builds`
   )
