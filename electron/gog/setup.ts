@@ -4,9 +4,9 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
-  constants,
   writeFileSync
 } from 'graceful-fs'
+import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo } from '../types'
@@ -71,7 +71,9 @@ async function setup(appName: string): Promise<void> {
       switch (action.install.action) {
         case 'setRegistry': {
           const registryPath =
-            actionArguments.root + '\\' + actionArguments.subkey
+            actionArguments.root +
+            '\\' +
+            actionArguments.subkey.replace('{productID}', appName)
           let valueData = actionArguments?.valueData?.replace(
             '{app}',
             `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`
@@ -181,17 +183,33 @@ async function setup(appName: string): Promise<void> {
             gameInfo.install.install_path
           )
           const type = actionArguments.type
+          const sourcePath = actionArguments.source
+            .replace(
+              '{supportDir}',
+              path.join(gameInfo.install.install_path, 'support', appName)
+            )
+            .replace('{app}', gameInfo.install.install_path)
           if (type == 'folder') {
-            mkdirSync(targetPath, { recursive: true })
-          } else if (type == 'file') {
-            const sourcePath = actionArguments.source
-              .replace(
-                '{supportDir}',
-                path.join(gameInfo.install.install_path, 'support', appName)
+            if (!actionArguments?.source) {
+              logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
+              mkdirSync(targetPath, { recursive: true })
+            } else {
+              logInfo(
+                ['Setup: Copying directory', sourcePath, 'to', targetPath],
+                LogPrefix.Gog
               )
-              .replace('{app}', gameInfo.install.install_path)
+              copySync(sourcePath, targetPath, {
+                overwrite: actionArguments?.overwrite,
+                recursive: true
+              })
+            }
+          } else if (type == 'file') {
             if (existsSync(sourcePath)) {
-              copyFileSync(sourcePath, targetPath, constants.COPYFILE_FICLONE)
+              logInfo(
+                ['Setup: Copying file', sourcePath, 'to', targetPath],
+                LogPrefix.Gog
+              )
+              copyFileSync(sourcePath, targetPath)
             }
           } else {
             logError(
@@ -307,6 +325,6 @@ const registryDataTypes = new Map([
   // If needed please add those values REG_NONE REG_EXPAND_SZ REG_MULTI_SZ
 ])
 const getRegDataType = (dataType: string): string =>
-  registryDataTypes.get(dataType)
+  registryDataTypes.get(dataType.toLowerCase())
 
 export default setup
