@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
     "header": {
-        "platform": ""
+        "platform": "Platform"
     },
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
@@ -143,13 +143,13 @@
         "path": "Kurulum Yolunu Seçin"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Izgara görünümü",
+        "listView": "Liste görünümü",
+        "refresh": "Yenile"
     },
     "Library": "Kütüphane",
     "loading": {
-        "default": "",
+        "default": "Yükleniyor",
         "website": "Web Sitesi Yükleniyor"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "EGS'nin kurulu olduğu yer"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Eklentiler",
     "Projects": "Projeler",
@@ -217,8 +217,8 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
-        "alt-gogdl-bin": "Bir muadil GOGDL çalıştırılabilir dosyasını seçin (yeniden başlatılması gerekir)",
-        "alt-legendary-bin": "Bir muadil Legendary dosyası seçin (yeniden başlatma gerekir)",
+        "alt-gogdl-bin": "Bir muadil GOGDL çalıştırılabilir dosyasını seçin",
+        "alt-legendary-bin": "Bir muadil Legendary dosyası seçin",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Geri",
+            "forward": "İleri",
+            "openInBrowser": "Tarayıcıda aç",
+            "reload": "Sayfayı yeniden yükle"
         }
     },
     "wiki": "Wiki",

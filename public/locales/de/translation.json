@@ -12,7 +12,7 @@
         },
         "choose": "Auswählen",
         "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "GOGDL Binary auswählen (benötigt Neustart)",
         "choose-legendary-binary": "Legendary Binärdatei auswählen",
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wählen Sie den Standard Installations-Pfad",
@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "Plattform"
     },
     "help": {
         "general": "Synchronisiere mit EGL, falls Sie anderswo eine funktioniere Installation des Epic Games Launcher haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
@@ -143,13 +143,13 @@
         "path": "Installationspfad auswählen"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Rasteransicht",
+        "listView": "Listenansicht",
+        "refresh": "Aktualisieren"
     },
     "Library": "Bibliothek",
     "loading": {
-        "default": "",
+        "default": "Wird geladen",
         "website": "Lade Webseite"
     },
     "login": {
@@ -200,14 +200,14 @@
         "weblate": "Helfen Sie bei der Übersetzung von Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "Nutze eingebaute GOGDL Binary...",
         "alt-legendary-bin": "Benutze eingebaute Legendary Binärdatei...",
         "egs-prefix": "Prefix, in dem EGS installiert ist"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Projekte",
@@ -217,7 +217,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-gogdl-bin": "Alternative GOGDL Binary zur Verwendung auswählen (Neustart erforderlich)",
         "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen (Neustart erforderlich)",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
@@ -257,7 +257,7 @@
         },
         "maxRecentGames": "Zuletzt gespielte Spiele anzeigen",
         "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Heroic nach Spielstart minimieren",
         "offlinemode": "Spiel offline ausführen",
         "primerun": "Nvidia Prime Render aktivieren",
         "resizableBar": "Resizable BAR aktivieren (nur NVIDIA RTX 30xx)",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Zurück",
+            "forward": "Vorwärts",
+            "openInBrowser": "Im Browser öffnen",
+            "reload": "Seite neu laden"
         }
     },
     "wiki": "Wiki",

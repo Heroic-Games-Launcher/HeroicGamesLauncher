@@ -89,7 +89,7 @@
         "yes": "SIM"
     },
     "button": {
-        "continue": "Prosseguir",
+        "continue": "Continuar",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
-        "platform": ""
+        "platform": "Plataforma"
     },
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -143,13 +143,13 @@
         "path": "Selecione o local de instalação"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Visualização em grade",
+        "listView": "Visto por último",
+        "refresh": "Atualizar"
     },
     "Library": "Biblioteca",
     "loading": {
-        "default": "",
+        "default": "Carregando",
         "website": "Carregando site"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Prefixo onde a EGS está instalada"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Projetos",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Voltar",
+            "forward": "Avançar",
+            "openInBrowser": "Abrir no navegador",
+            "reload": "Recarregar página"
         }
     },
     "wiki": "Wiki",
