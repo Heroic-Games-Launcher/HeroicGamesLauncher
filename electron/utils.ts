@@ -405,6 +405,21 @@ function getGOGdlBin(): { dir: string; bin: string } {
   )
 }
 
+const specialCharactersRegex =
+  /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
+const cleanTitle = (title: string) =>
+  title
+    .replaceAll(specialCharactersRegex, '')
+    .replaceAll(' ', '-')
+    .replaceAll('®', '')
+    .toLowerCase()
+    .split('--definitive')[0]
+
+const formatEpicStoreUrl = (title: string) => {
+  const storeUrl = `https://www.epicgames.com/store/product/`
+  return `${storeUrl}${cleanTitle(title)}`
+}
+
 export {
   checkForUpdates,
   errorHandler,
@@ -421,5 +436,6 @@ export {
   clearCache,
   resetHeroic,
   getLegendaryBin,
-  getGOGdlBin
+  getGOGdlBin,
+  formatEpicStoreUrl
 }

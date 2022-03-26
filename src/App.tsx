@@ -61,6 +61,7 @@ function App() {
             <Route exact path="/gogstore" component={WebView} />
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />
+            <Route path="/store-page" component={WebView} />
             <Route path="/login/:runner" component={WebView} />
             <Route path="/settings/:appName/:type" component={Settings} />
             <Route path="/wine-manager" component={WineManager} />
