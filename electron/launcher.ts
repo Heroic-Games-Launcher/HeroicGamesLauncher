@@ -1,6 +1,5 @@
 // This handles launching games, prefix creation etc..
 
-import { dialog } from 'electron'
 import makeClient from 'discord-rich-presence-typescript'
 import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
@@ -17,7 +16,8 @@ import {
   getGOGdlBin,
   getLegendaryBin,
   isEpicServiceOffline,
-  isOnline
+  isOnline,
+  showErrorBoxModalAuto
 } from './utils'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { GlobalConfig } from './config'
@@ -86,7 +86,7 @@ async function launch(
     if (gameInfo.canRunOffline) {
       runOffline = '--offline'
     } else {
-      dialog.showErrorBox(
+      showErrorBoxModalAuto(
         i18next.t(
           'box.error.no-offline-mode.title',
           'Offline mode not supported.'
@@ -99,7 +99,8 @@ async function launch(
       return
     }
   }
-  const exe = targetExe && isLegendary ? `--override-exe ${targetExe}` : ''
+  const exe =
+    targetExe && (isLegendary || isGOG) ? `--override-exe ${targetExe}` : ''
   const isMacNative = gameInfo.is_mac_native
   // const isLinuxNative = gameInfo.is_linux_native
   const mangohud = showMangohud ? 'mangohud --dlsym' : ''
@@ -230,7 +231,7 @@ async function launch(
   }
 
   if (!wineVersion.bin) {
-    dialog.showErrorBox(
+    showErrorBoxModalAuto(
       i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
       i18next.t(
         'box.error.wine-not-found.message',

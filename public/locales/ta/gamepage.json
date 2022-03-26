@@ -45,8 +45,7 @@
     },
     "disabled": "முடக்கப்பட்டது",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Install all DLCs"
     },
     "enabled": "இயக்கப்பட்டது",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

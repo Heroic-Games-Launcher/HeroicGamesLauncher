@@ -45,8 +45,7 @@
     },
     "disabled": "Pois käytöstä",
     "dlc": {
-        "installDlcs": "Asenna kaikki ladattava sisältö",
-        "title": "DLCs"
+        "installDlcs": "Asenna kaikki ladattava sisältö"
     },
     "enabled": "Käytössä",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Valitse asennuspolku",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

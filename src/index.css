@@ -7,6 +7,8 @@ html {
   --tooltip-background-color: #0d0e0e;
   --dropdown-background: #1a264b;
   --menu-background-color: #0d0e0e;
+  --modal-background: #13172a;
+  --modal-border: #1f253f;
   --modal-backdrop: #00000048;
   --text-hover: #59d0ea;
   --link-highlight: #07c5ef;

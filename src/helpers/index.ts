@@ -74,16 +74,6 @@ const getLegendaryConfig = async (): Promise<{
   return { library, user }
 }
 
-const specialCharactersRegex =
-  /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
-const cleanTitle = (title: string) =>
-  title
-    .replaceAll(specialCharactersRegex, '')
-    .replaceAll(' ', '-')
-    .replaceAll('®', '')
-    .toLowerCase()
-    .split('--definitive')[0]
-
 const getGameInfo = async (
   appName: string,
   runner: Runner = 'legendary'
@@ -101,7 +91,7 @@ const getGameSettings = async (
 const getInstallInfo = async (
   appName: string,
   runner: Runner
-): Promise<InstallInfo> => {
+): Promise<InstallInfo | null> => {
   return await ipcRenderer.invoke('getInstallInfo', appName, runner)
 }
 
@@ -113,11 +103,6 @@ const handleSavePath = async (game: string) => {
 
 const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
-
-const formatStoreUrl = (title: string, lang: string) => {
-  const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
-  return `${storeUrl}${cleanTitle(title)}`
-}
 
 function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {
@@ -226,7 +211,6 @@ function getAppSettings(): Promise<AppSettings> {
 export {
   createNewWindow,
   fixSaveFolder,
-  formatStoreUrl,
   getGameInfo,
   getGameSettings,
   getInstallInfo,

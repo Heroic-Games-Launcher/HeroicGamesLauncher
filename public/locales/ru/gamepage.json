@@ -45,8 +45,7 @@
     },
     "disabled": "Выключено",
     "dlc": {
-        "installDlcs": "Установить все DLC",
-        "title": "DLC"
+        "installDlcs": "Установить все DLC"
     },
     "enabled": "Включено",
     "game": {
@@ -71,7 +70,8 @@
     },
     "install": {
         "path": "Выберите путь установки",
-        "wineprefix": "Префикс Wine"
+        "wineprefix": "Префикс Wine",
+        "wineversion": ""
     },
     "label": {
         "playing": {
