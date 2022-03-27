@@ -132,11 +132,20 @@ export class RunCommand {
           })
         }
         child.on('close', () => {
-          res({
-            success: true,
-            command,
-            process: child
-          })
+          if (child.signalCode) {
+            res({
+              success: false,
+              error: `Processes was terminated with ${child.signalCode}`,
+              command,
+              process: child
+            })
+          } else {
+            res({
+              success: true,
+              command,
+              process: child
+            })
+          }
         })
         child.on('error', (error) => {
           logError(
