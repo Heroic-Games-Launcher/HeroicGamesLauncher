@@ -31,7 +31,7 @@ import {
   InstallInfo,
   SavedInstallProgress
 } from 'src/types'
-import { useInstallProgress } from '../../../hooks'
+import { useInstallProgress } from 'src/hooks'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -457,10 +457,6 @@ export default function GamePage(): JSX.Element | null {
     }`
 
     if (isUpdating && is_installed) {
-      // TODO what's that?
-      // if (eta && eta.includes('verifying')) {
-      //   return `${t('status.reparing')}: ${percent}% [${bytes}]`
-      // }
       return `${t('status.updating')} ${currentProgress}`
     }
 

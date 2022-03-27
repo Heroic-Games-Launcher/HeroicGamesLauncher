@@ -44,10 +44,6 @@ const installedGamesStore = new Store({
   name: 'installed'
 })
 
-function verifyProgress(stderr: string): boolean {
-  return true
-}
-
 class GOGGame extends Game {
   public appName: string
   public window = BrowserWindow.getAllWindows()[0]
@@ -161,19 +157,6 @@ class GOGGame extends Game {
     if (res.error) {
       logError(
         ['Failed to install', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
-      return { status: 'error' }
-    }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to install',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
         LogPrefix.Gog
       )
       return { status: 'error' }
@@ -296,18 +279,6 @@ class GOGGame extends Game {
       )
     }
 
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to update',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
-        LogPrefix.Gog
-      )
-    }
-
     return res
   }
 
@@ -426,19 +397,6 @@ class GOGGame extends Game {
     if (res.error) {
       logError(
         ['Failed to update', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
-      return { status: 'error' }
-    }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to update',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
         LogPrefix.Gog
       )
       return { status: 'error' }

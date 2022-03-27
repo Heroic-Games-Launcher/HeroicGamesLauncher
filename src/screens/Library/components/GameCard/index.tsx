@@ -19,7 +19,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
 import { SvgButton } from 'src/components/UI'
-import { useInstallProgress } from '../../../../hooks'
+import { useInstallProgress } from 'src/hooks'
 
 const storage: Storage = window.localStorage
 
