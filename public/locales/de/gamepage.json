@@ -14,7 +14,7 @@
         },
         "no": "NEIN",
         "repair": {
-            "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
+            "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies kann einige Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und Reparieren"
         },
         "stopInstall": {

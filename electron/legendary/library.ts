@@ -30,7 +30,7 @@ import {
   KeyImage,
   RawGameJSON
 } from '../types'
-import { isEpicServiceOffline, isOnline } from '../utils'
+import { isEpicServiceOffline, isOnline, formatEpicStoreUrl } from '../utils'
 import { ExecResult } from './../types'
 import { LegendaryProgressCollector, LegendaryRunCommand } from './command'
 import { LegendaryGame } from './games'
@@ -482,7 +482,8 @@ export class LegendaryLibrary {
       title,
       canRunOffline,
       is_linux_native: false,
-      runner: 'legendary'
+      runner: 'legendary',
+      store_url: formatEpicStoreUrl(title)
     } as GameInfo)
 
     return app_name

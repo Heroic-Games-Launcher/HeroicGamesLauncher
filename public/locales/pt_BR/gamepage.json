@@ -37,7 +37,7 @@
     },
     "button": {
         "cancel": "Pausar/Cancelar",
-        "continue": "Continuar o Download",
+        "continue": "Continuar a baixar",
         "import": "Importar Jogo",
         "install": "Instalar",
         "uninstall": "Desinstalar",

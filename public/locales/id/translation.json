@@ -7,14 +7,14 @@
             "title": "Pembaruan Tersedia"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Tembolok Heroic dibersihkan.",
+            "title": "Tembolok dibersihkan"
         },
         "choose": "Pilih",
         "choose-egs-prefix": "",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Pilih Legendary Binary",
-        "customWine": "Pilih Wine atau Proton Binary",
+        "choose-legendary-binary": "Pilih program Legendary",
+        "customWine": "Pilih program Wine atau Proton",
         "default-install-path": "Pilih tempat Instal Default",
         "error": {
             "credentials": {
@@ -45,10 +45,10 @@
             }
         },
         "no": "TIDAK",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Tidak diinstal, apakah Anda ingin menginstalnya?"
+                "not_installed": "Saat ini tidak dipasang. Pasang?"
             }
         },
         "quit": {
@@ -74,7 +74,7 @@
         },
         "sync": {
             "button": "Pilih",
-            "error": "",
+            "error": "Jalur Tidak Valid",
             "title": "Pilih direktori penyimpanan"
         },
         "warning": {
@@ -89,7 +89,7 @@
         "yes": "YA"
     },
     "button": {
-        "continue": "Continue",
+        "continue": "Lanjut",
         "login": "Masuk",
         "sync": "Sinkronkan",
         "syncing": "",
@@ -97,7 +97,7 @@
     },
     "Downloading": "Mengunduh",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena peladen Epic Games sedang luring!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Game Epic",
@@ -111,20 +111,20 @@
         "platform": ""
     },
     "help": {
-        "general": "",
+        "general": "Sinkronisasi dengan EGL jika Anda mempunyai pemasangan yang berjalan dari Epic Games Launcher di suatu tempat dan ingin mengimpor permainan Anda untuk menghindari mengunduh mereka lagi.",
         "other": {
-            "part1": "",
+            "part1": "Gunakan ",
             "part2": "",
             "part3": "",
-            "part4": "",
+            "part4": "Gunakan ",
             "part5": "",
             "part6": "",
-            "part7": ""
+            "part7": " untuk melewati peluncur di beberapa permainan dll."
         },
         "sync": {
-            "part1": "",
+            "part1": "Heroic mencoba untuk mengira folder penyimpanan yang benar dan ini akan bekerja di kebanyakan. Jikalau foldernya salah, gunakan bilah penimpaan untuk mengubahnya.",
             "part2": "",
-            "part3": "",
+            "part3": "Sinkronisasi Manual: Pilih Unduh untuk mengunduh simpanan permainan yang disimpan di Awan. Unggah untuk mengunggah berkas lokal ke Awan. Unduh Paksa dan Unggah Paksa akan mengabaikan versi yang ada di lokal atau awan.",
             "part4": ""
         },
         "wine": {
@@ -247,9 +247,9 @@
         },
         "mangohud": "",
         "manualsync": {
-            "download": "",
-            "forcedownload": "",
-            "forceupload": "",
+            "download": "Unduh",
+            "forcedownload": "Unduh Paksa",
+            "forceupload": "Unggah Paksa",
             "sync": "",
             "syncing": "",
             "title": "",
@@ -301,7 +301,7 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
+        "downloading": "Mengunduh",
         "installedGames": "Installed Games",
         "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
