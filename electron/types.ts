@@ -232,6 +232,7 @@ export type UserInfo = {
   displayName?: string
   epicId?: string
   name?: string
+  user?: string
 }
 export interface WineInstallation {
   bin: string

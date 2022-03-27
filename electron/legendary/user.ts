@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync, readFile } from 'graceful-fs'
 
 import { UserInfo } from '../types'
 import { clearCache } from '../utils'
@@ -57,8 +57,19 @@ export class LegendaryUser {
 
   public static async getUserInfo(): Promise<UserInfo> {
     if (LegendaryUser.isLoggedIn()) {
-      const info = {
-        ...JSON.parse(readFileSync(userInfo, 'utf-8')),
+      const userInfoContent = await new Promise<string>((resolve, reject) => {
+        readFile(userInfo, 'utf-8', (err, content) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(content)
+          }
+        })
+      })
+      const userInfoObject = JSON.parse(userInfoContent)
+      const info: UserInfo = {
+        account_id: userInfoObject.account_id,
+        displayName: userInfoObject.displayName,
         user: user().username
       }
       configStore.set('userInfo', info)

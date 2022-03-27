@@ -435,8 +435,8 @@ export class GlobalState extends PureComponent<Props> {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
-    const legendaryUser = configStore.get('userInfo')
-    const gogUser = gogConfigStore.get('userData')
+    const legendaryUser = Boolean(configStore.get('userInfo'))
+    const gogUser = Boolean(gogConfigStore.get('userData'))
     const platform = await getPlatform()
     const category = storage.getItem('category') || 'epic'
     const filter = storage.getItem('filter') || 'all'
