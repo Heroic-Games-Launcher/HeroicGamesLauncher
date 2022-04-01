@@ -94,9 +94,9 @@ async function setup(appName: string): Promise<void> {
           //     )
           //   )
           // }
-          const regType = getRegDataType(valueType)
           let keyCommand = ''
           if (valueData && valueName) {
+            const regType = getRegDataType(valueType)
             if (!regType) {
               logError(
                 `Setup: Unsupported registry type ${valueType}, skipping this key`
@@ -115,8 +115,7 @@ async function setup(appName: string): Promise<void> {
               'Setup: Adding a registry key',
               registryPath,
               valueName,
-              valueData,
-              regType
+              valueData
             ],
             LogPrefix.Gog
           )
@@ -183,12 +182,12 @@ async function setup(appName: string): Promise<void> {
             gameInfo.install.install_path
           )
           const type = actionArguments.type
-          const sourcePath = actionArguments.source
-            .replace(
+          const sourcePath = actionArguments?.source
+            ?.replace(
               '{supportDir}',
               path.join(gameInfo.install.install_path, 'support', appName)
             )
-            .replace('{app}', gameInfo.install.install_path)
+            ?.replace('{app}', gameInfo.install.install_path)
           if (type == 'folder') {
             if (!actionArguments?.source) {
               logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
