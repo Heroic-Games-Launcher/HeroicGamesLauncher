@@ -80,20 +80,7 @@ async function setup(appName: string): Promise<void> {
           )
           const valueName = actionArguments?.valueName
           const valueType = actionArguments?.valueType
-          // If deleteSubkeys is true remove path first
-          // if (actionArguments?.deleteSubkeys) {
-          //   const command = `${commandPrefix} reg delete "${registryPath}" /va /f`
-          //   logInfo(
-          //     ['Setup: Deleting a registry key', registryPath],
-          //     LogPrefix.Gog
-          //   )
-          //   await execAsync(command).catch((error) =>
-          //     logWarning(
-          //       ['Setup: Error removing key', `${error}`],
-          //       LogPrefix.Gog
-          //     )
-          //   )
-          // }
+
           let keyCommand = ''
           if (valueData && valueName) {
             const regType = getRegDataType(valueType)
@@ -203,12 +190,17 @@ async function setup(appName: string): Promise<void> {
               })
             }
           } else if (type == 'file') {
-            if (existsSync(sourcePath)) {
+            if (sourcePath && existsSync(sourcePath)) {
               logInfo(
                 ['Setup: Copying file', sourcePath, 'to', targetPath],
                 LogPrefix.Gog
               )
               copyFileSync(sourcePath, targetPath)
+            } else {
+              logWarning(
+                ['Setup: sourcePath:', sourcePath, 'does not exist.'],
+                LogPrefix.Gog
+              )
             }
           } else {
             logError(
