@@ -238,7 +238,7 @@ To run it use:
 
 ### Windows
 
-If you use WinGet, just type: `winget install heroic`. otherwise
+If you use WinGet, just type: `winget install HeroicGamesLauncher.HeroicGamesLauncher`. otherwise
 download Heroic.Setup.x.x.x.exe or the Portable Heroic-x.x.x.exe file and run it. It will install it to the start menu and desktop, use those to run it.
 
 ### macOS
