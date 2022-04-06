@@ -2,10 +2,10 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings } from 'src/types'
+import { AppSettings, Runner } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { SmallInfo } from 'src/components/UI'
-import { createNewWindow, formatStoreUrl, repair } from 'src/helpers'
+import { createNewWindow, getGameInfo, repair } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { uninstall } from 'src/helpers/library'
@@ -19,6 +19,8 @@ interface Props {
   appName: string
   isInstalled: boolean
   title: string
+  storeUrl: string
+  runner: Runner
 }
 
 type otherInfo = {
@@ -26,18 +28,20 @@ type otherInfo = {
   wine: string
 }
 
-export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
+export default function GamesSubmenu({
+  appName,
+  isInstalled,
+  title,
+  storeUrl,
+  runner
+}: Props) {
   const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
-
-  const { t, i18n } = useTranslation('gamepage')
-  let lang = i18n.language
-  if (i18n.language === 'pt') {
-    lang = 'pt-BR'
-  }
+  const [isNative, setIsNative] = useState(false)
+  const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
@@ -54,9 +58,9 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
         title: t('box.move.path')
       })
       if (path) {
-        await handleGameStatus({ appName, status: 'moving' })
-        await renderer.invoke('moveInstall', [appName, path])
-        await handleGameStatus({ appName, status: 'done' })
+        await handleGameStatus({ appName, runner, status: 'moving' })
+        await renderer.invoke('moveInstall', [appName, path, runner])
+        await handleGameStatus({ appName, runner, status: 'done' })
       }
     }
   }
@@ -74,7 +78,7 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
         title: t('box.change.path')
       })
       if (path) {
-        await renderer.invoke('changeInstallPath', [appName, path])
+        await renderer.invoke('changeInstallPath', [appName, path, runner])
         await refresh()
       }
       return
@@ -90,14 +94,14 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
     })
 
     if (response === 0) {
-      await handleGameStatus({ appName, status: 'repairing' })
-      await repair(appName)
-      await handleGameStatus({ appName, status: 'done' })
+      await handleGameStatus({ appName, runner, status: 'repairing' })
+      await repair(appName, runner)
+      await handleGameStatus({ appName, runner, status: 'done' })
     }
   }
 
   function handleShortcuts() {
-    ipcRenderer.send('addShortcut', appName, true)
+    ipcRenderer.send('addShortcut', appName, runner, true)
   }
 
   useEffect(() => {
@@ -119,8 +123,14 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
         ipcRenderer.send('logError', error)
       }
     }
+    const getGameDetails = async () => {
+      const gameInfo = await getGameInfo(appName, runner)
+      const isLinuxNative = gameInfo.install?.platform == 'linux' && isLinux
+      setIsNative(isLinuxNative)
+    }
     getWineInfo()
-  }, [appName])
+    getGameDetails()
+  }, [])
 
   return (
     <div className="gameTools subMenuContainer">
@@ -129,7 +139,10 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
           <>
             <NavLink
               to={{
-                pathname: `/settings/${appName}/log`
+                pathname: `/settings/${appName}/log`,
+                state: {
+                  runner
+                }
               }}
               className="link button is-text is-link"
             >
@@ -154,7 +167,9 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
               {t('submenu.verify')}
             </button>{' '}
             <button
-              onClick={() => uninstall({ appName, t, handleGameStatus })}
+              onClick={() =>
+                uninstall({ appName, t, handleGameStatus, runner })
+              }
               className="link button is-text is-link"
             >
               {t('button.uninstall')}
@@ -169,12 +184,13 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
             )}
           </>
         )}
-        <button
-          onClick={() => createNewWindow(formatStoreUrl(title, lang))}
+        <NavLink
           className="link button is-text is-link"
+          exact
+          to={`/store-page?store-url=${storeUrl}`}
         >
           {t('submenu.store')}
-        </button>
+        </NavLink>
         {!isWin && (
           <button
             onClick={() => createNewWindow(protonDBurl)}
@@ -184,7 +200,7 @@ export default function GamesSubmenu({ appName, isInstalled, title }: Props) {
           </button>
         )}
       </div>
-      {isInstalled && isLinux && (
+      {isInstalled && isLinux && !isNative && (
         <div className="otherInfo">
           <SmallInfo title="Wine:" subtitle={info.wine} />
           <SmallInfo

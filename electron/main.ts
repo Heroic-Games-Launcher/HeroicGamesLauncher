@@ -1,9 +1,12 @@
+import { ExecOptions } from 'child_process'
+import { dirname } from 'path'
 import {
   InstallParams,
   LaunchResult,
   GamepadInputEventKey,
   GamepadInputEventWheel,
-  GamepadInputEventMouse
+  GamepadInputEventMouse,
+  Runner
 } from './types'
 import * as path from 'path'
 import {
@@ -24,17 +27,21 @@ import {
   rmSync,
   unlinkSync,
   watch,
-  writeFile
+  writeFile,
+  writeFileSync
 } from 'graceful-fs'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
+import { join } from 'path'
 
-import { DXVK } from './dxvk'
+import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
-import { LegendaryLibrary } from './legendary/library'
+import { LegendaryLibrary, runLegendaryCommand } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
+import { GOGUser } from './gog/user'
+import { GOGLibrary } from './gog/library'
 import {
   checkForUpdates,
   clearCache,
@@ -42,13 +49,17 @@ import {
   execAsync,
   isEpicServiceOffline,
   getLegendaryVersion,
+  getGogdlVersion,
   getSystemInfo,
   handleExit,
   isOnline,
   openUrlOrFile,
   resetHeroic,
   showAboutWindow,
-  showItemInFolder
+  showItemInFolder,
+  getLegendaryBin,
+  getGOGdlBin,
+  showErrorBoxModal
 } from './utils'
 import {
   currentLogFile,
@@ -57,25 +68,25 @@ import {
   getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
-  home,
+  userHome,
   icon,
   iconDark,
   iconLight,
   installed,
   kofiPage,
-  legendaryBin,
-  loginUrl,
+  epicLoginUrl,
   patreonPage,
   sidInfoUrl,
   supportURL,
   weblateUrl,
-  wikiLink
+  wikiLink,
+  heroicToolsPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import Store from 'electron-store'
 
-const { showErrorBox, showMessageBox, showOpenDialog } = dialog
+const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
@@ -131,32 +142,32 @@ async function createWindow(): Promise<BrowserWindow> {
   setTimeout(() => {
     if (process.platform === 'linux') {
       DXVK.getLatest()
+      Winetricks.download()
     }
   }, 2500)
 
   GlobalConfig.get()
   LegendaryLibrary.get()
+  GOGLibrary.get()
 
   mainWindow.setIcon(icon)
   app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
-  const onMainWindowClose = async () => {
-    mainWindow.on('close', async (e) => {
-      e.preventDefault()
+  mainWindow.on('close', async (e) => {
+    e.preventDefault()
 
-      // store windows properties
-      store.set('window-props', mainWindow.getBounds())
+    // store windows properties
+    store.set('window-props', mainWindow.getBounds())
 
-      const { exitToTray } = await GlobalConfig.get().config
+    const { exitToTray } = GlobalConfig.get().config
 
-      if (exitToTray) {
-        return mainWindow.hide()
-      }
+    if (exitToTray) {
+      return mainWindow.hide()
+    }
 
-      return await handleExit()
-    })
-  }
+    handleExit(mainWindow)
+  })
 
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -171,12 +182,8 @@ async function createWindow(): Promise<BrowserWindow> {
     mainWindow.loadURL('http://localhost:3000')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
-
-    onMainWindowClose()
   } else {
     Menu.setApplicationMenu(null)
-
-    onMainWindowClose()
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
 
     return mainWindow
@@ -232,7 +239,7 @@ const contextMenu = () => {
     },
     {
       click: function () {
-        handleExit()
+        handleExit(mainWindow)
       },
       label: i18next.t('tray.quit', 'Quit'),
       accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
@@ -241,6 +248,7 @@ const contextMenu = () => {
 }
 
 if (!gotTheLock) {
+  logInfo('Heroic is already running, quitting this instance')
   app.quit()
 } else {
   app.on('second-instance', (event, argv) => {
@@ -248,28 +256,49 @@ if (!gotTheLock) {
     if (mainWindow) {
       mainWindow.show()
     }
-    if (argv[1]) {
-      const url = argv[1]
-      handleProtocol(mainWindow, url)
+
+    // Figure out which argv element is our protocol
+    let heroicProtocolString = ''
+    argv.forEach((value) => {
+      if (value.startsWith('heroic://')) {
+        heroicProtocolString = value
+      }
+    })
+
+    if (heroicProtocolString) {
+      handleProtocol(mainWindow, heroicProtocolString)
     }
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
+    logInfo(
+      ['Legendary location:', join(...Object.values(getLegendaryBin()))],
+      LogPrefix.Legendary
+    )
+    logInfo(
+      ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
+      LogPrefix.Gog
+    )
     logInfo(`${systemInfo}`, LogPrefix.Backend)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
-    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    const isLoggedIn = LegendaryUser.isLoggedIn()
 
     if (!isLoggedIn) {
       logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
       store.delete('userinfo')
     }
 
+    // Update user details
+    if (GOGUser.isLoggedIn()) {
+      GOGUser.getUserDetails()
+    }
+
     await i18next.use(Backend).init({
       backend: {
-        addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}'),
+        addPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}'),
         allowMultiLoading: false,
-        loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json')
+        loadPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
       },
       debug: false,
       fallbackLng: 'en',
@@ -302,6 +331,8 @@ if (!gotTheLock) {
         'sv',
         'ta',
         'tr',
+        'uk',
+        'vi',
         'zh_Hans',
         'zh_Hant'
       ]
@@ -379,8 +410,8 @@ process.on('uncaughtException', (err) => {
 
 let powerId: number | null
 ipcMain.on('lock', () => {
-  if (!existsSync(`${heroicGamesConfigPath}/lock`)) {
-    writeFile(`${heroicGamesConfigPath}/lock`, '', () => 'done')
+  if (!existsSync(join(heroicGamesConfigPath, 'lock'))) {
+    writeFileSync(join(heroicGamesConfigPath, 'lock'), '')
     if (!powerId) {
       powerId = powerSaveBlocker.start('prevent-app-suspension')
       return powerId
@@ -389,19 +420,19 @@ ipcMain.on('lock', () => {
 })
 
 ipcMain.on('unlock', () => {
-  if (existsSync(`${heroicGamesConfigPath}/lock`)) {
-    unlinkSync(`${heroicGamesConfigPath}/lock`)
+  if (existsSync(join(heroicGamesConfigPath, 'lock'))) {
+    unlinkSync(join(heroicGamesConfigPath, 'lock'))
     if (powerId) {
       return powerSaveBlocker.stop(powerId)
     }
   }
 })
 
-ipcMain.handle('kill', async (event, appName) => {
-  return await Game.get(appName).stop()
+ipcMain.handle('kill', async (event, appName, runner) => {
+  return await Game.get(appName, runner).stop()
 })
 
-ipcMain.on('quit', async () => handleExit())
+ipcMain.on('quit', async () => handleExit(mainWindow))
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -422,10 +453,11 @@ ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
 ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
-ipcMain.on('openLoginPage', () => openUrlOrFile(loginUrl))
+ipcMain.on('openLoginPage', () => openUrlOrFile(epicLoginUrl))
 ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
 ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
+ipcMain.on('openWebviewPage', (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
 
@@ -459,13 +491,17 @@ ipcMain.handle(
     const newProtonWinePath = wine.replace("proton'", "files/bin/wine64'")
     const oldProtonWinePath = wine.replace("proton'", "dist/bin/wine64'")
     const isProton = wine.includes('proton')
+    const winetricks = `${heroicToolsPath}/winetricks`
+    const options: ExecOptions = {
+      ...execOptions
+    }
 
     // existsSync is weird because it returns false always if the path has single-quotes in it
     const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
       ? newProtonWinePath
       : oldProtonWinePath
     let wineBin = isProton ? protonWinePath : wine
-    let winePrefix: string = prefix.replace('~', home)
+    let winePrefix = prefix.replace('~', userHome)
 
     if (wine.includes('proton')) {
       const protonPrefix = winePrefix.replaceAll("'", '')
@@ -486,16 +522,17 @@ ipcMain.handle(
     }
 
     let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : tool
+      tool === 'winecfg' ? `${wineBin} ${tool}` : winetricks
     }`
 
     if (tool === 'runExe') {
       command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
+      options.cwd = dirname(exe)
     }
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {
-      await execAsync(command, execOptions)
+      await execAsync(command, options)
     } catch (error) {
       logError(
         `Something went wrong! Check if ${tool} is available and ${wineBin} exists`,
@@ -507,9 +544,11 @@ ipcMain.handle(
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', () =>
-  LegendaryLibrary.get().listUpdateableGames()
-)
+ipcMain.handle('checkGameUpdates', async () => {
+  const legendaryUpdates = await LegendaryLibrary.get().listUpdateableGames()
+  const gogUpdates = await GOGLibrary.get().listUpdateableGames()
+  return [...legendaryUpdates, ...gogUpdates]
+})
 
 ipcMain.handle('getEpicGamesStatus', () => isEpicServiceOffline())
 
@@ -521,12 +560,13 @@ ipcMain.handle('checkVersion', () => checkForUpdates())
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
+ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
 
 ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.on('clearCache', () => {
   clearCache()
-  dialog.showMessageBox({
+  dialog.showMessageBox(mainWindow, {
     title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
     message: i18next.t(
       'box.cache-cleared.message',
@@ -537,7 +577,7 @@ ipcMain.on('clearCache', () => {
 })
 
 ipcMain.on('resetHeroic', async () => {
-  const { response } = await dialog.showMessageBox({
+  const { response } = await dialog.showMessageBox(mainWindow, {
     title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
     message: i18next.t(
       'box.reset-heroic.question.message',
@@ -551,40 +591,53 @@ ipcMain.on('resetHeroic', async () => {
   }
 })
 
+ipcMain.handle('authGOG', (event, code) =>
+  GOGUser.login(code).then(() =>
+    mainWindow.webContents.send('updateLoginState')
+  )
+)
+
 ipcMain.on('createNewWindow', (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
 
-ipcMain.handle('getGameInfo', async (event, game) => {
+ipcMain.handle('getGameInfo', async (event, game, runner) => {
   try {
-    const info = await Game.get(game).getGameInfo()
-    info.extra = await Game.get(game).getExtraInfo(info.namespace)
+    const info = await Game.get(game, runner).getGameInfo()
+    if (!info) {
+      return null
+    }
+    info.extra = await Game.get(game, runner).getExtraInfo(info.namespace)
     return info
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)
   }
 })
 
-ipcMain.handle('getGameSettings', async (event, game) => {
+ipcMain.handle('getGameSettings', async (event, game, runner) => {
   try {
-    const settings = await Game.get(game).getSettings()
+    const settings = await Game.get(game, runner).getSettings()
     return settings
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)
   }
 })
 
-ipcMain.handle('getInstallInfo', async (event, game) => {
+ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
+  return await GOGLibrary.getLinuxInstallersLanguages(appName)
+})
+
+ipcMain.handle('getInstallInfo', async (event, game, runner) => {
   const online = await isOnline()
   if (!online) {
     return { game: {}, metadata: {} }
   }
   try {
-    const info = await Game.get(game).getInstallInfo()
+    const info = await Game.get(game, runner).getInstallInfo()
     return info
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)
-    return {}
+    return null
   }
 })
 
@@ -593,9 +646,15 @@ ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', async () => await LegendaryUser.isLoggedIn())
 
-ipcMain.handle('login', async (event, sid) => await LegendaryUser.login(sid))
+ipcMain.handle('login', async (event, sid) =>
+  LegendaryUser.login(sid).then((value) => {
+    mainWindow.webContents.send('updateLoginState')
+    return value
+  })
+)
 
-ipcMain.handle('logout', async () => await LegendaryUser.logout())
+ipcMain.handle('logoutLegendary', async () => await LegendaryUser.logout())
+ipcMain.handle('logoutGOG', async () => GOGUser.logout())
 
 ipcMain.handle('getAlternativeWine', () =>
   GlobalConfig.get().getAlternativeWine()
@@ -651,6 +710,7 @@ if (existsSync(installed)) {
 }
 
 ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
+  await GOGLibrary.get().sync()
   return await LegendaryLibrary.get().getGames('info', fullRefresh)
 })
 
@@ -665,20 +725,25 @@ type RecentGame = {
 type LaunchParams = {
   appName: string
   launchArguments: string
+  runner: Runner
 }
 
 ipcMain.handle(
   'launch',
-  async (event, { appName, launchArguments }: LaunchParams) => {
+  async (event, { appName, launchArguments, runner }: LaunchParams) => {
     const window = BrowserWindow.getAllWindows()[0]
     window.webContents.send('setGameStatus', {
       appName,
+      runner,
       status: 'playing'
     })
     const recentGames = (store.get('games.recent') as Array<RecentGame>) || []
     const game = appName.split(' ')[0]
-    const { title } = await Game.get(game).getGameInfo()
-    const MAX_RECENT_GAMES = GlobalConfig.get().config.maxRecentGames || 5
+    const gameData = await Game.get(game, runner).getGameInfo()
+    const { title } = gameData
+    const { minimizeOnLaunch, maxRecentGames: MAX_RECENT_GAMES = 5 } =
+      await GlobalConfig.get().getSettings()
+
     const startPlayingDate = new Date()
 
     if (!tsStore.has(game)) {
@@ -705,9 +770,14 @@ ipcMain.handle(
       store.set('games.recent', [{ game, title: title }])
     }
 
-    return Game.get(appName)
+    if (minimizeOnLaunch) {
+      mainWindow.hide()
+    }
+
+    return Game.get(appName, runner)
       .launch(launchArguments)
       .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
+        mainWindow.show()
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
         const sessionPlayingTime =
@@ -724,12 +794,13 @@ ipcMain.handle(
         ${systemInfo}
         Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
 
-        Legendary Log:
+        Game Log:
         ${stderr}
         `
 
         if (stderr.includes('Errno')) {
-          showErrorBox(
+          showErrorBoxModal(
+            mainWindow,
             i18next.t('box.error.title', 'Something Went Wrong'),
             i18next.t(
               'box.error.launch',
@@ -739,26 +810,29 @@ ipcMain.handle(
         }
         window.webContents.send('setGameStatus', {
           appName,
+          runner,
           status: 'done'
         })
 
-        const gameLogFile = `${heroicGamesConfigPath}${game}-lastPlay.log`
+        const gameLogFile = join(heroicGamesConfigPath, game + '-lastPlay.log')
         writeFile(gameLogFile, logResult, () =>
           logInfo(`Log was written to ${gameLogFile}`, LogPrefix.Backend)
         )
         return stderr
       })
       .catch(async (exception) => {
+        mainWindow.show()
         const stderr = `${exception.name} - ${exception.message}`
-        errorHandler({ error: { stderr, stdout: '' } })
+        errorHandler({ error: { stderr, stdout: '' } }, mainWindow)
         writeFile(
-          `${heroicGamesConfigPath}${game}-lastPlay.log`,
+          join(heroicGamesConfigPath, game + '-lastPlay.log'),
           stderr,
           () => 'done'
         )
         logError(stderr, LogPrefix.Backend)
         window.webContents.send('setGameStatus', {
           appName,
+          runner,
           status: 'done'
         })
         return stderr
@@ -767,7 +841,7 @@ ipcMain.handle(
 )
 
 ipcMain.handle('openDialog', async (e, args) => {
-  const { filePaths, canceled } = await showOpenDialog({
+  const { filePaths, canceled } = await showOpenDialog(mainWindow, {
     ...args
   })
   if (filePaths[0]) {
@@ -781,7 +855,9 @@ ipcMain.on('showItemInFolder', async (e, item) => {
 })
 
 const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response, checkboxChecked } = await showMessageBox({ ...args })
+  const { response, checkboxChecked } = await showMessageBox(mainWindow, {
+    ...args
+  })
   return { response, checkboxChecked }
 }
 
@@ -796,27 +872,36 @@ ipcMain.handle(
   'showErrorBox',
   async (e, args: [title: string, message: string]) => {
     const [title, content] = args
-    return showErrorBox(title, content)
+    return showErrorBoxModal(mainWindow, title, content)
   }
 )
 
 ipcMain.handle('install', async (event, params) => {
-  const { appName, path, installDlcs, sdlList } = params as InstallParams
-  const { title, is_mac_native } = await Game.get(appName).getGameInfo()
+  const { appName, path, installDlcs, sdlList, runner, installLanguage } =
+    params as InstallParams
+  const { title, is_mac_native, is_linux_native } = await Game.get(
+    appName,
+    runner
+  ).getGameInfo()
   const platformToInstall =
-    platform() === 'darwin' && is_mac_native ? 'Mac' : 'Windows'
+    platform() === 'darwin' && is_mac_native
+      ? 'Mac'
+      : platform() === 'linux' && is_linux_native
+      ? 'Linux'
+      : 'Windows'
 
   if (!(await isOnline())) {
     logWarning(
       `App offline, skipping install for game '${title}'.`,
       LogPrefix.Backend
     )
-    return
+    return { status: 'error' }
   }
 
   const epicOffline = await isEpicServiceOffline()
-  if (epicOffline) {
-    dialog.showErrorBox(
+  if (epicOffline && runner === 'legendary') {
+    showErrorBoxModal(
+      mainWindow,
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
         'box.warning.epic.install',
@@ -828,6 +913,7 @@ ipcMain.handle('install', async (event, params) => {
 
   mainWindow.webContents.send('setGameStatus', {
     appName,
+    runner,
     status: 'installing',
     folder: path
   })
@@ -836,8 +922,14 @@ ipcMain.handle('install', async (event, params) => {
     title,
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
-  return Game.get(appName)
-    .install({ path, installDlcs, sdlList, platformToInstall })
+  return Game.get(appName, runner)
+    .install({
+      path: path.replaceAll("'", ''),
+      installDlcs,
+      sdlList,
+      platformToInstall,
+      installLanguage
+    })
     .then(async (res) => {
       notify({
         title,
@@ -849,6 +941,7 @@ ipcMain.handle('install', async (event, params) => {
       logInfo('finished installing', LogPrefix.Backend)
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       return res
@@ -857,6 +950,7 @@ ipcMain.handle('install', async (event, params) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       return res
@@ -864,15 +958,20 @@ ipcMain.handle('install', async (event, params) => {
 })
 
 ipcMain.handle('uninstall', async (event, args) => {
-  const title = (await Game.get(args[0]).getGameInfo()).title
-  const winePrefix = (await Game.get(args[0]).getSettings()).winePrefix
+  const [appName, shouldRemovePrefix, runner] = args
 
-  return Game.get(args[0])
+  const title = (await Game.get(appName, runner).getGameInfo()).title
+  const winePrefix = (await Game.get(appName, runner).getSettings()).winePrefix
+
+  return Game.get(appName, runner)
     .uninstall()
     .then(() => {
-      if (args[1]) {
+      if (shouldRemovePrefix) {
         logInfo(`Removing prefix ${winePrefix}`)
-        rmSync(winePrefix, { recursive: true }) // remove prefix
+        if (existsSync(winePrefix)) {
+          // remove prefix if exists
+          rmSync(winePrefix, { recursive: true })
+        }
       }
       notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling', LogPrefix.Backend)
@@ -880,7 +979,7 @@ ipcMain.handle('uninstall', async (event, args) => {
     .catch((error) => logError(`${error}`, LogPrefix.Backend))
 })
 
-ipcMain.handle('repair', async (event, game) => {
+ipcMain.handle('repair', async (event, game, runner) => {
   if (!(await isOnline())) {
     logWarning(
       `App offline, skipping repair for game '${game}'.`,
@@ -888,9 +987,9 @@ ipcMain.handle('repair', async (event, game) => {
     )
     return
   }
-  const title = (await Game.get(game).getGameInfo()).title
+  const title = (await Game.get(game, runner).getGameInfo()).title
 
-  return Game.get(game)
+  return Game.get(game, runner)
     .repair()
     .then(() => {
       notify({ title, body: i18next.t('notify.finished.reparing') })
@@ -905,10 +1004,10 @@ ipcMain.handle('repair', async (event, game) => {
     })
 })
 
-ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
-  const title = (await Game.get(appName).getGameInfo()).title
+ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
+  const title = (await Game.get(appName, runner).getGameInfo()).title
   try {
-    const newPath = await Game.get(appName).moveInstall(path)
+    const newPath = await Game.get(appName, runner).moveInstall(path)
     notify({ title, body: i18next.t('notify.moved') })
     logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
   } catch (error) {
@@ -921,9 +1020,11 @@ ipcMain.handle('moveInstall', async (event, [appName, path]: string[]) => {
 })
 
 ipcMain.handle('importGame', async (event, args) => {
+  const { appName, path, runner } = args
   const epicOffline = await isEpicServiceOffline()
-  if (epicOffline) {
-    dialog.showErrorBox(
+  if (epicOffline && runner === 'legendary') {
+    showErrorBoxModal(
+      mainWindow,
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
         'box.warning.epic.import',
@@ -932,13 +1033,13 @@ ipcMain.handle('importGame', async (event, args) => {
     )
     return { status: 'error' }
   }
-  const { appName, path } = args
-  const title = (await Game.get(appName).getGameInfo()).title
+  const title = (await Game.get(appName, runner).getGameInfo()).title
   mainWindow.webContents.send('setGameStatus', {
     appName,
+    runner,
     status: 'installing'
   })
-  Game.get(appName)
+  Game.get(appName, runner)
     .import(path)
     .then(() => {
       notify({
@@ -947,6 +1048,7 @@ ipcMain.handle('importGame', async (event, args) => {
       })
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       logInfo(`imported ${title}`, LogPrefix.Backend)
@@ -955,13 +1057,14 @@ ipcMain.handle('importGame', async (event, args) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
       mainWindow.webContents.send('setGameStatus', {
         appName,
+        runner,
         status: 'done'
       })
       logInfo(err, LogPrefix.Backend)
     })
 })
 
-ipcMain.handle('updateGame', async (e, game) => {
+ipcMain.handle('updateGame', async (e, game, runner) => {
   if (!(await isOnline())) {
     logWarning(
       `App offline, skipping install for game '${game}'.`,
@@ -971,8 +1074,9 @@ ipcMain.handle('updateGame', async (e, game) => {
   }
 
   const epicOffline = await isEpicServiceOffline()
-  if (epicOffline) {
-    dialog.showErrorBox(
+  if (epicOffline && runner === 'legendary') {
+    showErrorBoxModal(
+      mainWindow,
       i18next.t('box.warning.title', 'Warning'),
       i18next.t(
         'box.warning.epic.update',
@@ -982,10 +1086,10 @@ ipcMain.handle('updateGame', async (e, game) => {
     return { status: 'error' }
   }
 
-  const title = (await Game.get(game).getGameInfo()).title
+  const title = (await Game.get(game, runner).getGameInfo()).title
   notify({ title, body: i18next.t('notify.update.started', 'Update Started') })
 
-  return Game.get(game)
+  return Game.get(game, runner)
     .update()
     .then(({ status }) => {
       notify({
@@ -1005,7 +1109,7 @@ ipcMain.handle('updateGame', async (e, game) => {
 })
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `${heroicGamesConfigPath}${appName}.log`
+  const logPath = join(heroicGamesConfigPath, appName + '.log')
   // eslint-disable-next-line no-debugger
   debugger
   if (!existsSync(logPath)) {
@@ -1043,73 +1147,75 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   if (!isWindows) {
     percent = progress_result.split(' ')[0]
     eta = progress_result.split(' ')[1]
-    bytes = downloaded_result + 'MiB'
+    bytes = downloaded_result.trim() + 'MiB'
   }
 
-  const progress = { bytes, eta, percent }
   logInfo(
-    `Progress: ${appName} ${progress.percent}/${progress.bytes}/${progress.eta}`,
+    [`Progress for ${appName}:`, `${percent}/${bytes}/${eta}`.trim()],
     LogPrefix.Backend
   )
-  return progress
+  return { bytes, eta, percent }
 })
 
 ipcMain.handle(
   'changeInstallPath',
-  async (event, [appName, newPath]: string[]) => {
-    LegendaryLibrary.get().changeGameInstallPath(appName, newPath)
+  async (event, [appName, newPath, runner]: string[]) => {
+    let instance = null
+    switch (runner) {
+      case 'legendary':
+        instance = LegendaryLibrary.get()
+        break
+      case 'gog':
+        instance = GOGLibrary.get()
+        break
+      default:
+        logError(`Unsupported runner ${runner}`, LogPrefix.Backend)
+        return
+    }
+    instance.changeGameInstallPath(appName, newPath)
     logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
   }
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  const egl_manifestPath =
-    'C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests'
-
   if (isWindows) {
+    const egl_manifestPath =
+      'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
     if (!existsSync(egl_manifestPath)) {
-      mkdirSync(egl_manifestPath)
+      mkdirSync(egl_manifestPath, { recursive: true })
     }
   }
 
-  const linkArgs = isWindows
-    ? `--enable-sync`
-    : `--enable-sync --egl-wine-prefix ${args}`
-  const unlinkArgs = `--unlink`
-  const isLink = args !== 'unlink'
-  const command = isLink ? linkArgs : unlinkArgs
-
-  try {
-    const { stderr, stdout } = await execAsync(
-      `${legendaryBin} egl-sync ${command} -y`
-    )
-    logInfo(`${stdout}`, LogPrefix.Legendary)
-    if (stderr.includes('ERROR')) {
-      logError(`${stderr}`, LogPrefix.Legendary)
-      return 'Error'
-    }
-    return `${stdout} - ${stderr}`
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Legendary)
-    return 'Error'
+  let legendaryArgs = Array<string>()
+  if (args !== 'unlink') {
+    legendaryArgs = isWindows
+      ? ['--enable-sync']
+      : ['--enable-sync', `--egl-wine-prefix ${args}`]
+  } else {
+    legendaryArgs = ['--unlink']
   }
+
+  return runLegendaryCommand(['egl-sync', ...legendaryArgs, '-y'])
 })
 
-ipcMain.on('addShortcut', async (event, appName: string, fromMenu: boolean) => {
-  const game = Game.get(appName)
-  game.addShortcuts(fromMenu)
-  openMessageBox({
-    buttons: [i18next.t('box.ok', 'Ok')],
-    message: i18next.t(
-      'box.shortcuts.message',
-      'Shortcuts were created on Desktop and Start Menu'
-    ),
-    title: i18next.t('box.shortcuts.title', 'Shortcuts')
-  })
-})
+ipcMain.on(
+  'addShortcut',
+  async (event, appName: string, runner: Runner, fromMenu: boolean) => {
+    const game = Game.get(appName, runner)
+    game.addShortcuts(fromMenu)
+    openMessageBox({
+      buttons: [i18next.t('box.ok', 'Ok')],
+      message: i18next.t(
+        'box.shortcuts.message',
+        'Shortcuts were created on Desktop and Start Menu'
+      ),
+      title: i18next.t('box.shortcuts.title', 'Shortcuts')
+    })
+  }
+)
 
-ipcMain.on('removeShortcut', async (event, appName: string) => {
-  const game = Game.get(appName)
+ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
+  const game = Game.get(appName, runner)
   game.removeShortcuts()
 })
 

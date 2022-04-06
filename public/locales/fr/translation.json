@@ -12,6 +12,7 @@
         },
         "choose": "Séléctionner",
         "choose-egs-prefix": "Choisir où le préfixe EGS est installé",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Sélectionnez le binaire Legendary",
         "customWine": "Sélectionner le binaire Wine ou Proton",
         "default-install-path": "Choisir le chemin par défaut",
@@ -33,6 +34,10 @@
                 "title": "Erreur inconnue"
             },
             "launch": "Erreur lors du lancement du jeu, consultez les fichiers de journalisation !",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Erreur",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +89,7 @@
         "yes": "OUI"
     },
     "button": {
+        "continue": "Continue",
         "login": "Connexion",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
@@ -98,8 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filtre",
     "globalSettings": "Paramètres généraux",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
         "other": {
@@ -132,13 +142,18 @@
     "install": {
         "path": "Sélectionner le chemin d'installation"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Bibliothèque",
     "loading": {
+        "default": "",
         "website": "Chargement du site internet"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synchronisation Complète",
@@ -180,22 +195,29 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Version de Legendary : ",
         "weblate": "Aidez à traduire Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Utilisation du binaire Legendary intégré...",
         "egs-prefix": "Prefix où EGS est installé"
+    },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Plugins": "Plugins",
     "Projects": "Projets",
     "Ready": "Prêt",
     "Recent": "Joué récemment",
-    "Return": "Retour",
     "search": "Insérez le nom du jeu ici...",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choisir un autre exécutable Legendary  (nécessite de relancer Heroic)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "Jeux récents à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Lancer le jeu hors ligne",
         "primerun": "Activer Nvidia Prime Render",
         "resizableBar": "Activer Resizable BAR (NVIDIA RTX 30xx seulement)",
@@ -249,6 +272,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
@@ -270,10 +294,10 @@
     },
     "Settings": "Options",
     "status": {
-        "loading": "Chargement de la liste des jeux, veuillez patienter",
         "logging": "Connexion en cours..."
     },
     "store": "Boutique",
+    "stores": "Stores",
     "title": {
         "allGames": "Tous les jeux",
         "allUnreal": "Unreal - Tout",
@@ -308,7 +332,16 @@
         "discord": "Discord",
         "logout": "Déconnexion",
         "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Quitter"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

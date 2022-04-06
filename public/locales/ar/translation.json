@@ -2,7 +2,7 @@
     "All": "الكل",
     "box": {
         "appupdate": {
-            "message": "يتوفر تحديث جديد لهرويك، هل تريد تنزيله؟",
+            "message": "يتوفر تحديث جديد لهيرويك، هل تريد التحديث الان؟",
             "title": "يتوفر تحديث"
         },
         "choose": "اختر",
@@ -19,7 +19,7 @@
                 "title": "لم يُعثر على سجلات"
             },
             "credentials": {
-                "message": "انتهت صلاحية بيانات الاعتماد ، رجاءً اخرج ثم لِج.",
+                "message": "انتهت صلاحية بيانات الاعتماد الخاصة بك ، يرجى تسجيل الخروج وتسجيل الدخول مرة أخرى.",
                 "title": "انتهت صلاحية بيانات الاعتماد"
             },
             "generic": {
@@ -38,6 +38,14 @@
             },
             "login": {
                 "tittle": "تعذر الولوج!"
+            },
+            "dxvk": {
+                "title": "خطأ DXVK / VKD3D",
+                "message": "خطأ في تثبيت DXVK / VKD3D! تحقق من اتصالك أو إذا كان لديك zstd / libzstd1 مثبتًا"
+            },
+            "no-offline-mode": {
+                "message": "إحباط إلاطلاق! تتطلب اللعبة اتصالاً بالإنترنت لتشغيلها.",
+                "title": "وضع عدم الاتصال غير مدعوم."
             }
         },
         "no": "لا",
@@ -87,7 +95,8 @@
                 "message": "هل أنت متأكد أنك تريد إعادة تعيين هيرويك ؟ سيؤدي هذا إلى إزالة جميع الإعدادات وذاكرة التخزين المؤقت ولكنه لن يزيل الألعاب المثبتة أو بيانات اعتماد Epic الخاصة بك"
             }
         },
-        "choose-egs-prefix": "اختر Prefix حيث تم تنزيل متجر العاب Epic"
+        "choose-egs-prefix": "اختر Prefix حيث تم تنزيل متجر العاب Epic",
+        "choose-gogdl-binary": "حدد ملف تشغيل GOGDL (يحتاج إلى إعادة التشغيل)"
     },
     "install": {
         "path": "اختر مسار التثبيت"
@@ -96,7 +105,8 @@
         "login": "تسجيل الدخول",
         "sync": "زامن",
         "unsync": "ألغ المزامنة",
-        "syncing": "يزامن"
+        "syncing": "يزامن",
+        "continue": "تابع"
     },
     "status": {
         "loading": "يتم تحميل قائمة الألعاب ، يرجى الانتظار",
@@ -117,7 +127,7 @@
             "part7": " لتخطي المشغل في بعض الألعاب وما إلى ذلك.",
             "part3": "ليتم استدعاؤهم قبل بدء اللعبة ؛ "
         },
-        "general": "قم بالمزامنة مع EGS في حالة وجود تثبيت عملي لمتجر Epic Games Store في مكان آخر وترغب في استيراد ألعابك لتجنب تنزيلها مرة أخرى.",
+        "general": "قم بالمزامنة مع EGL إذا كان لديك تثبيت عملي لمتجر Epic Games في مكان آخر وترغب في استيراد ألعابك لتجنب تنزيلها مرة أخرى.",
         "sync": {
             "part3": "مزامنة يدوية: اختر تنزيل لتنزيل الألعاب المحفوظة المخزنة على السحابة. تحميل لتحميل تلك المحلية على السحابة. سيؤدي فرض التنزيل وفرض التحميل إلى تجاهل الإصدار الموجود محليًا أو على السحابة.",
             "part1": "يحاول Heroic تخمين مجلد الحفظ الصحيح وسيعمل هذا على معظم الحالات. في حالة وجود خطأ بالمجلد ، استخدم مربع التجاوز لتغييره.",
@@ -131,7 +141,8 @@
     },
     "login": {
         "loginWithEpic": "تسجيل الدخول بإستخدام Epic",
-        "loginWithSid": "تسجيل الدخول بإستخدام SID"
+        "loginWithSid": "تسجيل الدخول بإستخدام SID",
+        "externalLogin": "تسجيل الدخول الخارجي"
     },
     "options": {
         "gameargs": {
@@ -145,11 +156,13 @@
     },
     "other": {
         "legendary-version": "إصدار Legendary: ",
-        "weblate": "ساعد في ترجمة هيرويك."
+        "weblate": "ساعد في ترجمة هيرويك.",
+        "gogdl-version": "إصدار GOGDL: "
     },
     "placeholder": {
         "alt-legendary-bin": "يتم استخدام Legendary binary المدمج...",
-        "egs-prefix": "Prefix حيث تم تثبيت EGS"
+        "egs-prefix": "Prefix حيث تم تثبيت EGS",
+        "alt-gogdl-bin": "يتم استخدام ملف تشغيل GOGDL المدمج..."
     },
     "Filter": "فلتر",
     "info": {
@@ -181,7 +194,8 @@
             "imported": "تم استيراد اللعبة",
             "startInstall": "بدأ التثبيت",
             "canceled": "تم إلغاء التثبيت",
-            "finished": "انتهى التثبيت"
+            "finished": "انتهى التثبيت",
+            "error": "فشل التثبيت"
         },
         "moved": "تم الانتهاء من النقل",
         "update": {
@@ -205,7 +219,7 @@
         "checkForUpdatesOnStartup": "تحقق من وجود تحديثات عند بدء التشغيل",
         "darktray": "إستخدم أيقونة لوحة النظام الداكنة",
         "addgamestostartmenu": "أضف ألعابًا لبدء القائمة تلقائيًا",
-        "autodxvk": "التثبيت التلقائي / التحديث DXVK / VKD3D على Prefix",
+        "autodxvk": "التثبيت التلقائي / التحديث لـ DXVK على Prefix",
         "customWineProton": "مسارات Wine / Proton المخصصة",
         "default-install-path": "مسار التثبيت الافتراضي",
         "primerun": "تفعيل Nvidia Prime Render",
@@ -222,7 +236,7 @@
         "exit-to-tray": "الخروج إلى لوحة النظام",
         "language": "اختر لغة التطبيق",
         "mangohud": "تمكين Mangohud (يجب تثبيت Mangohud)",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "",
         "discordRPC": "تمكين Discord Rich Presence",
         "egs-sync": "تزامن مع Epic Games المثبتة",
         "enableFSRHack": "تمكين FSR Hack (يحتاج إصدار Wine إلى دعمه)",
@@ -245,7 +259,18 @@
         "showUnrealMarket": "إظهار Unreal Marketplace (يحتاج إلى إعادة التشغيل)",
         "wineprefix": "مجلد WinePrefix",
         "wineversion": "نسخة Wine",
-        "esync": "تمكين Esync"
+        "esync": "تمكين Esync",
+        "autovkd3d": "تثبيت تلقائي / تحديث VKD3D على Prefix",
+        "log": {
+            "copy-to-clipboard": "نسخ محتوى السجل إلى الحافظة",
+            "current-log": "السجل الحالي",
+            "last-log": "آخر سجل",
+            "no-file": "لم يتم العثور على ملف سجل",
+            "show-in-folder": "إظهار ملف السجل في المجلد"
+        },
+        "steamruntime": "استخدم Steam Runtime",
+        "minimize-on-launch": "تصغير هيرويك بعد بدء اللعبة",
+        "alt-gogdl-bin": "اختر بديل لملف تشغيل GOGDL لاستخدامه (يحتاج إلى إعادة التشغيل)"
     },
     "Recent": "لعبت مؤخرا",
     "Return": "عودة",
@@ -258,9 +283,13 @@
         "navbar": {
             "general": "عام",
             "other": "آخر",
-            "sync": "مزامنة المحفوظات"
+            "sync": "مزامنة المحفوظات",
+            "log": "سجل"
         },
-        "copyToClipboard": "نسخ جميع الإعدادات إلى الحافظة"
+        "copyToClipboard": "نسخ جميع الإعدادات إلى الحافظة",
+        "log": {
+            "long-log-hint": "تم قطع السجل ، يتم عرض آخر 1000 سطر!"
+        }
     },
     "title": {
         "allUnreal": "Unreal - كل شيء",
@@ -293,14 +322,28 @@
         "addpath": "أضف مسار جديد",
         "removepath": "إزالة المسار"
     },
-    "store": "متجر",
+    "store": "متجر Epic",
     "Unreal Marketplace": "سوق Unreal",
     "Updates": "التحديثات",
     "userselector": {
         "discord": "ديسكورد",
         "logout": "تسجيل الخروج",
         "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج ؟",
-        "quit": "خروج"
+        "quit": "خروج",
+        "manageaccounts": "إدارة الحسابات"
     },
-    "wiki": "ويكي"
+    "wiki": "ويكي",
+    "toolbox": {
+        "settings": {
+            "wineprefix": "حدد مجلدًا خاص ب Wine Prefixes الجديدة",
+            "default-wineprefix": "حدد مجلد Prefix الافتراضي للتكوينات الجديدة"
+        }
+    },
+    "epic": {
+        "offline-notification-title": "غير متصل بالانترنت",
+        "offline-notification-body": "قد لا تعمل الخدمات عبر الإنترنت بشكل كامل لأن خوادم Epic Games غير متصلة بالإنترنت!"
+    },
+    "gog-store": "متجر GOG",
+    "GOG": "GOG",
+    "stores": "المتاجر"
 }

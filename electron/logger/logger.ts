@@ -12,6 +12,7 @@ import {
   lastLogFile
 } from '../constants'
 import { app } from 'electron'
+import { join } from 'path'
 
 export enum LogPrefix {
   General = '',
@@ -161,9 +162,8 @@ interface createLogFileReturn {
 export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   const date = new Date()
   const logDir = app.getPath('logs')
-  const newLogFile = `${logDir}/heroic-${date
-    .toISOString()
-    .replace(':', '_')}.log`
+  const fmtDate = date.toISOString().replaceAll(':', '_')
+  const newLogFile = join(logDir, `heroic-${fmtDate}.log`)
   try {
     openSync(newLogFile, 'w')
   } catch (error) {
@@ -174,6 +174,7 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
     )
   }
 
+  // Clean out logs that are more than a month old
   try {
     const logs = readdirSync(logDir)
     logs.forEach((log) => {
@@ -181,7 +182,7 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
         const dateString = log
           .replace('heroic-', '')
           .replace('.log', '')
-          .replace('_', ':')
+          .replaceAll('_', ':')
         const logDate = new Date(dateString)
         if (
           logDate.getFullYear() < date.getFullYear() ||
@@ -238,7 +239,7 @@ export function getLogFile(
     ? defaultLast
       ? lastLogFile
       : currentLogFile
-    : `${heroicGamesConfigPath}${appName}-lastPlay.log`
+    : join(heroicGamesConfigPath, appName + '-lastPlay.log')
 }
 
 /**

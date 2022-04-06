@@ -1,2 +1,2 @@
 #!/bin/bash
-yarn lint-fix
+#yarn lint-fix

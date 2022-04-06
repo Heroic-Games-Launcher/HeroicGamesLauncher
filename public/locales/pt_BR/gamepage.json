@@ -9,8 +9,8 @@
         "importpath": "Selecione a pasta do jogo a ser importado",
         "move": {
             "message": "Isto pode levar um longo tempo, tem certeza disso?",
-            "path": "Selecione a pasta de para onde deseja mover",
-            "title": "Mover a pasta de instalação de jogos"
+            "path": "Selecione a pasta para onde deseja mover",
+            "title": "Mover a pasta de instalação do jogo"
         },
         "no": "NÃO",
         "repair": {
@@ -23,13 +23,13 @@
             "title": "Parar a Instalação"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Você gostaria de remover o prefixo também? Isso não pode ser desfeito.",
+            "checkbox_prefix": "Prefixo",
             "message": "Deseja desinstalar este jogo?",
             "title": "Desinstalar"
         },
         "update": {
-            "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?",
+            "message": "Este jogo tem uma atualização, aplicar atualização agora?",
             "title": "Atualização Disponível"
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
@@ -37,7 +37,7 @@
     },
     "button": {
         "cancel": "Pausar/Cancelar",
-        "continue": "Continuar Download",
+        "continue": "Continuar a baixar",
         "import": "Importar Jogo",
         "install": "Instalar",
         "uninstall": "Desinstalar",
@@ -45,14 +45,14 @@
     },
     "disabled": "Desabilitado",
     "dlc": {
-        "installDlcs": "Instalar DLCs",
-        "title": "DLCs"
+        "installDlcs": "Instalar DLCs"
     },
     "enabled": "Habilitado",
     "game": {
         "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado inicialmente em",
         "installSize": "Tamanho Instalado",
+        "language": "Idioma",
         "lastPlayed": "Jogado pela última vez em",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo de jogo"
@@ -70,7 +70,8 @@
     },
     "install": {
         "path": "Selecione o local de instalação",
-        "wineprefix": "Prefixo Wine"
+        "wineprefix": "Prefixo Wine",
+        "wineversion": ""
     },
     "label": {
         "playing": {
@@ -109,7 +110,7 @@
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
         "settings": "Configurações",
-        "store": "Loja",
+        "store": "Loja Epic",
         "verify": "Verificar e Reparar"
     }
 }

@@ -1,12 +1,6 @@
 import './index.css'
 
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useState,
-  MouseEvent
-} from 'react'
+import React, { useContext, useEffect, useState, MouseEvent } from 'react'
 
 import { IpcRenderer } from 'electron'
 import {
@@ -59,8 +53,14 @@ export default function GamePage(): JSX.Element | null {
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { libraryStatus, handleGameStatus, data, gameUpdates, platform } =
-    useContext(ContextProvider)
+  const {
+    libraryStatus,
+    handleGameStatus,
+    epicLibrary,
+    gogLibrary,
+    gameUpdates,
+    platform
+  } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -90,6 +90,8 @@ export default function GamePage(): JSX.Element | null {
   }>({ error: false, message: '' })
 
   const isWin = platform === 'win32'
+  const isMac = platform === 'darwin'
+  const isLinux = platform === 'linux'
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
@@ -104,10 +106,18 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       try {
-        const newInfo = await getGameInfo(appName)
+        let newInfo = await getGameInfo(appName, 'legendary')
+        if (!newInfo) {
+          newInfo = await getGameInfo(appName, 'gog')
+        }
         setGameInfo(newInfo)
-        getInstallInfo(appName)
-          .then((info) => setGameInstallInfo(info))
+        getInstallInfo(appName, newInfo.runner)
+          .then((info) => {
+            if (!info) {
+              throw 'Cannot get game info'
+            }
+            setGameInstallInfo(info)
+          })
           .catch((error) => {
             console.error(error)
             ipcRenderer.send('logError', error)
@@ -130,14 +140,15 @@ export default function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, data])
+  }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
 
   useEffect(() => {
     const progressInterval = setInterval(async () => {
       if (isInstalling || isUpdating || isReparing) {
         const progress: InstallProgress = await ipcRenderer.invoke(
           'requestGameProgress',
-          appName
+          appName,
+          gameInfo.runner
         )
 
         if (progress) {
@@ -154,6 +165,7 @@ export default function GamePage(): JSX.Element | null {
 
         return await handleGameStatus({
           appName,
+          runner: gameInfo.runner,
           status
         })
       }
@@ -162,9 +174,13 @@ export default function GamePage(): JSX.Element | null {
   }, [appName, isInstalling, isUpdating, isReparing])
 
   async function handleUpdate() {
-    await handleGameStatus({ appName, status: 'updating' })
-    await updateGame(appName)
-    await handleGameStatus({ appName, status: 'done' })
+    await handleGameStatus({
+      appName,
+      runner: gameInfo.runner,
+      status: 'updating'
+    })
+    await updateGame(appName, gameInfo.runner)
+    await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
   }
 
   function handleModal() {
@@ -175,6 +191,7 @@ export default function GamePage(): JSX.Element | null {
 
   if (gameInfo && gameInfo.install) {
     const {
+      runner,
       title,
       art_square,
       install: { install_path, install_size, version },
@@ -184,7 +201,9 @@ export default function GamePage(): JSX.Element | null {
       extra,
       developer,
       cloud_save_enabled,
-      canRunOffline
+      canRunOffline,
+      is_linux_native,
+      is_mac_native
     }: GameInfo = gameInfo
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -193,9 +212,13 @@ export default function GamePage(): JSX.Element | null {
       gameInstallInfo?.manifest?.disk_size &&
       prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
     const launchOptions = gameInstallInfo?.game?.launch_options || []
-    const pathname = isWin
-      ? `/settings/${appName}/other`
-      : `/settings/${appName}/wine`
+    // This should check for installed platform in the future
+    const isMacNative = isMac && is_mac_native
+    const isLinuxNative = isLinux && is_linux_native
+    const pathname =
+      isWin || isMacNative || isLinuxNative
+        ? `/settings/${appName}/other`
+        : `/settings/${appName}/wine`
 
     /*
     Other Keys:
@@ -223,12 +246,13 @@ export default function GamePage(): JSX.Element | null {
         {showModal.show && (
           <InstallModal
             appName={showModal.game}
+            runner={runner}
             backdropClick={() => setShowModal({ game: '', show: false })}
           />
         )}
         {title ? (
           <>
-            <GamePicture art_square={art_square} />
+            <GamePicture art_square={art_square} store={runner} />
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
                 <>
@@ -364,7 +388,10 @@ export default function GamePage(): JSX.Element | null {
                       )}
                       {is_installed ? (
                         <Link
-                          to={{ pathname, state: { fromGameCard: false } }}
+                          to={{
+                            pathname,
+                            state: { fromGameCard: false, runner }
+                          }}
                           className={`button ${getButtonClass(is_installed)}`}
                         >
                           {`${getButtonLabel(is_installed)}`}
@@ -391,6 +418,8 @@ export default function GamePage(): JSX.Element | null {
                     appName={appName}
                     isInstalled={is_installed}
                     title={title}
+                    storeUrl={gameInfo.store_url}
+                    runner={gameInfo.runner}
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>
@@ -491,7 +520,7 @@ export default function GamePage(): JSX.Element | null {
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
-        return sendKill(appName)
+        return sendKill(appName, gameInfo.runner)
       }
 
       if (autoSyncSaves) {
@@ -499,8 +528,7 @@ export default function GamePage(): JSX.Element | null {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-
-      await launch({ appName, t, launchArguments })
+      await launch({ appName, t, launchArguments, runner: gameInfo.runner })
 
       if (autoSyncSaves) {
         setIsSyncing(true)
@@ -530,7 +558,8 @@ export default function GamePage(): JSX.Element | null {
       isInstalling,
       previousProgress,
       progress,
-      t
+      t,
+      runner: gameInfo.runner
     })
   }
 }

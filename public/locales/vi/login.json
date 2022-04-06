@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Đăng nhập"
+    },
+    "message": {
+        "part1": "Để đăng nhập và cài đặt game, làm theo hướng dẫn sau:",
+        "part2": "Mở",
+        "part3": "Cửa hàng Epic",
+        "part4": ",Đăng nhập vào tài khoản rồi sao chép",
+        "part5": "Thông tin SID",
+        "part6": "Dán",
+        "part7": "SID",
+        "part8": "trong ô bên dưới và nhấp vào nút đăng nhập."
+    },
+    "status": {
+        "error": "Lỗi",
+        "loading": "Đang tải danh sách game, vui lòng đợi"
+    },
+    "welcome": "Chào mừng!"
+}

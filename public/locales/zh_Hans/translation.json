@@ -12,6 +12,7 @@
         },
         "choose": "请选择",
         "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
+        "choose-gogdl-binary": "选择 GOGDL 二进制文件 （需要重启）",
         "choose-legendary-binary": "选择 Legendary 二进制文件",
         "customWine": "选择Wine或Proton二进制文件",
         "default-install-path": "选择默认安装路径",
@@ -25,14 +26,18 @@
                 "title": "没有空间"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "安装 DXVK/VKD3D 出错！检查你的互联网连接或者是否已安装 zstd/libzstd1",
+                "title": "DXVK/VKD3D 错误"
             },
             "generic": {
                 "message": "发生了未知错误",
                 "title": "未知错误"
             },
             "launch": "启动游戏时出现错误，请检查日志！",
+            "no-offline-mode": {
+                "message": "启动失败！游戏需要网络连接才能运行。",
+                "title": "不支持离线模式。"
+            },
             "title": "错误",
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
@@ -84,6 +89,7 @@
         "yes": "是"
     },
     "button": {
+        "continue": "继续",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -91,17 +97,21 @@
     },
     "Downloading": "正在下载",
     "epic": {
-        "offline-notification-body": "Heroic 也许不会正常工作！",
+        "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic 游戏",
     "filter": {
         "noFilter": "全部"
     },
-    "Filter": "筛选",
     "globalSettings": "全局设置",
+    "GOG": "GOG",
+    "gog-store": "GOG 商店",
+    "header": {
+        "platform": "平台"
+    },
     "help": {
-        "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，想要导入你的游戏，以免再次下载它们。",
+        "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "other": {
             "part1": "使用 ",
             "part2": "高级选项",
@@ -132,13 +142,18 @@
     "install": {
         "path": "选择安装路径"
     },
+    "library": {
+        "gridView": "网格视图",
+        "listView": "列表视图",
+        "refresh": "刷新"
+    },
     "Library": "库",
     "loading": {
+        "default": "加载中",
         "website": "正在加载网站"
     },
     "login": {
-        "loginWithEpic": "通过 Epic 网页登录",
-        "loginWithSid": "通过 Epic SID 登录"
+        "externalLogin": "外部登录"
     },
     "message": {
         "sync": "同步完成",
@@ -156,7 +171,7 @@
         },
         "install": {
             "canceled": "已取消安装",
-            "error": "",
+            "error": "安装失败",
             "finished": "安装完成",
             "imported": "游戏已导入",
             "startInstall": "安装已开始"
@@ -180,27 +195,34 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL 版本： ",
         "legendary-version": "Legendary版本: ",
         "weblate": "请帮助翻译Heroic启动器。"
     },
     "placeholder": {
+        "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的Legendary二进制文件...",
         "egs-prefix": "Epic Games商城安装位置"
+    },
+    "platforms": {
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "插件",
     "Projects": "项目",
     "Ready": "准备就绪",
     "Recent": "最近玩过",
-    "Return": "返回",
     "search": "在此处输入游戏名称…",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
-        "alt-legendary-bin": "选择备选的 Legendary 二进制文件 (需要重启)",
+        "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
+        "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在PREFIX自动安装并更新DXVK",
         "autosync": "自动同步存档",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "遇到前缀时自动安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代EXE",
         "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义Wine/Proton路径",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "要显示的最近玩过的游戏",
         "maxworkers": "下载时的最大Worker数量",
+        "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
         "primerun": "启用英伟达Prime渲染",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
@@ -249,6 +272,7 @@
         "showfps": "显示帧数（Directx 9，10和11）",
         "showUnrealMarket": "显示 Unreal 市场 (需重启)",
         "start-in-tray": "启动时最小化",
+        "steamruntime": "使用 Steam Runtime",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夹",
         "wineversion": "Wine 版本"
@@ -258,7 +282,7 @@
         "copiedToClipboard": "已复制到剪贴板！",
         "copyToClipboard": "复制所有设置到剪贴板",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "日志被截断，显示最后 1000 行！"
         },
         "navbar": {
             "general": "常规",
@@ -270,10 +294,10 @@
     },
     "Settings": "设置",
     "status": {
-        "loading": "正在加载游戏列表，请稍后",
         "logging": "正在登录..."
     },
-    "store": "商店",
+    "store": "Epic 商店",
+    "stores": "商店",
     "title": {
         "allGames": "所有游戏",
         "allUnreal": "Unreal - 所有",
@@ -308,7 +332,16 @@
         "discord": "Discord",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
+        "manageaccounts": "管理帐户",
         "quit": "退出"
+    },
+    "webview": {
+        "controls": {
+            "back": "返回",
+            "forward": "向前",
+            "openInBrowser": "在浏览器中打开",
+            "reload": "重新加载页面"
+        }
     },
     "wiki": "Wiki百科",
     "wine": {

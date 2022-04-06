@@ -1,5 +1,5 @@
 import { BrowserWindow, dialog } from 'electron'
-import { Game } from './games'
+import { Game, Runner } from './games'
 import { logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 
@@ -19,13 +19,18 @@ export async function handleProtocol(window: BrowserWindow, url: string) {
     return logInfo(['Received ping! Arg:', arg], LogPrefix.ProtocolHandler)
   }
   if (command === 'launch') {
-    const game = Game.get(arg)
-    const { is_installed, title, app_name } = await game.getGameInfo()
+    let runner: Runner = 'legendary'
+    let game = await Game.get(arg, runner).getGameInfo()
+    if (!game) {
+      runner = 'gog'
+      game = await Game.get(arg, runner).getGameInfo()
+    }
+    const { is_installed, title, app_name } = game
     setTimeout(async () => {
       // wait for the frontend to be ready
       if (!is_installed) {
         logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
-        const { response } = await dialog.showMessageBox({
+        const { response } = await dialog.showMessageBox(window, {
           buttons: [i18next.t('box.yes'), i18next.t('box.no')],
           cancelId: 1,
           message: `${title} ${i18next.t(
@@ -46,6 +51,7 @@ export async function handleProtocol(window: BrowserWindow, url: string) {
           if (filePaths[0]) {
             return window.webContents.send('installGame', {
               appName: app_name,
+              runner,
               installPath: filePaths[0]
             })
           }
@@ -55,7 +61,7 @@ export async function handleProtocol(window: BrowserWindow, url: string) {
         }
       }
       mainWindow.hide()
-      window.webContents.send('launchGame', arg)
+      window.webContents.send('launchGame', arg, runner)
     }, 3000)
   }
 }

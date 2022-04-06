@@ -1,51 +1,47 @@
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from '../types'
-import { clearCache, execAsync } from '../utils'
-import { legendaryBin, userInfo } from '../constants'
+import { clearCache } from '../utils'
+import { userInfo } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { spawn } from 'child_process'
 import { userInfo as user } from 'os'
 import Store from 'electron-store'
 import { session } from 'electron'
+import { getLegendaryCommand, runLegendaryCommand } from './library'
 
 const configStore = new Store({
   cwd: 'store'
 })
+
 export class LegendaryUser {
   public static async login(sid: string) {
-    logInfo('Logging with Legendary...', LogPrefix.Legendary)
+    const commandParts = ['auth', '--sid', sid]
+    const command = getLegendaryCommand(commandParts)
+    logInfo(['Logging with Legendary:', command], LogPrefix.Legendary)
 
-    const command = `auth --sid ${sid}`.split(' ')
-    return new Promise((res) => {
-      const child = spawn(legendaryBin, command)
-      child.stderr.on('data', (data) => {
-        if (`${data}`.includes('ERROR')) {
-          logError(`${data}`, LogPrefix.Legendary)
-          return res('error')
-        } else {
-          logInfo(`stderr: ${data}`, LogPrefix.Legendary)
-          return
-        }
-      })
-      child.stdout.on('data', (data) => {
-        if (`${data}`.includes('ERROR')) {
-          logError(`${data}`, LogPrefix.Legendary)
-          return res('error')
-        } else {
-          logInfo(`stdout: ${data}`, LogPrefix.Legendary)
-          return
-        }
-      })
-      child.on('close', () => {
-        logInfo('finished login', LogPrefix.Legendary)
-        res('finished')
-      })
-    })
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to login with Legendary:', res.error],
+        LogPrefix.Legendary
+      )
+      return
+    }
+    this.getUserInfo()
   }
 
   public static async logout() {
-    await execAsync(`${legendaryBin} auth --delete`)
+    const commandParts = ['auth', '--delete']
+    const command = getLegendaryCommand(commandParts)
+    logInfo(['Logging out:', command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(['Failed to logout:', res.error], LogPrefix.Legendary)
+    }
+
     const ses = session.fromPartition('persist:epicstore')
     await ses.clearStorageData()
     await ses.clearCache()
@@ -55,19 +51,12 @@ export class LegendaryUser {
     clearCache()
   }
 
-  public static async isLoggedIn() {
+  public static isLoggedIn() {
     return existsSync(userInfo)
   }
 
   public static async getUserInfo(): Promise<UserInfo> {
-    let isLoggedIn = false
-    try {
-      isLoggedIn = await LegendaryUser.isLoggedIn()
-    } catch (error) {
-      logError(`${error}`, LogPrefix.Backend)
-      configStore.delete('userInfo')
-    }
-    if (isLoggedIn) {
+    if (LegendaryUser.isLoggedIn()) {
       const info = {
         ...JSON.parse(readFileSync(userInfo, 'utf-8')),
         user: user().username

@@ -7,11 +7,12 @@
             "title": "പുതുക്കല് വന്നിട്ടുണ്ട്"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "ഹീറോയിക് പിടിച്ചുവച്ചവ വിട്ടു.",
+            "title": "പിടിച്ചുവച്ചവ നീക്കി"
         },
         "choose": "തിരഞ്ഞെടുക്കൂ",
         "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "ലെജന്ററിയുടെ ഈരക്കരേഖ തിരഞ്ഞെടുക്കുക",
         "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ ഈരക്കരേഖ(Binary file) നല്കൂ",
         "default-install-path": "പൊതു ഇന്സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
@@ -33,6 +34,10 @@
                 "title": "കുഴപ്പമുണ്ടല്ലോ"
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള് നോക്കൂ!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "കുഴപ്പം",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -40,10 +45,10 @@
             }
         },
         "no": "വേണ്ട",
-        "ok": "Ok",
+        "ok": "ശരി",
         "protocol": {
             "install": {
-                "not_installed": "ഇത് സ്ഥാപിച്ചിട്ടില്ല, സ്ഥാപിക്കണോ?"
+                "not_installed": "ഇത് നട്ടിട്ടില്ല, നടണോ?"
             }
         },
         "quit": {
@@ -84,7 +89,8 @@
         "yes": "ശരി"
     },
     "button": {
-        "login": "Login",
+        "continue": "തുടരുക",
+        "login": "അകത്ത് കയറുക",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ"
@@ -98,10 +104,14 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
-        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടൂല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
+        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല്\u200d മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്\u200d നിങ്ങളുടെ കളികള്\u200d വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
             "part1": "കളി ഓടിക്കുന്നതിനുമുന്പുള്ള വിളികള്ക്കായി ",
             "part2": "ഉയര്ന്ന ക്രമീകരണങ്ങള്",
@@ -130,15 +140,20 @@
         "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
+    },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
     },
     "Library": "കളിശാല",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -156,7 +171,7 @@
         },
         "install": {
             "canceled": "സ്ഥാപനം റദ്ദാക്കി",
-            "error": "",
+            "error": "നടീല് പരാജയപ്പെട്ടു",
             "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
             "imported": "കളി കൊണ്ടുവന്നു",
             "startInstall": "നടീല് തുടങ്ങി"
@@ -180,22 +195,29 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
         "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന് സഹായിക്കൂ."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
+    },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Plugins": "കൂടുതലുകള്",
     "Projects": "ഏര്പാടുകള്",
     "Ready": "തയ്യാറായവ",
     "Recent": "പതിവ് കളികള്",
-    "Return": "തിരിച്ചുപോകൂ",
     "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
     "setting": {
         "adddesktopshortcuts": "കുറുക്കുവഴികള് മേശപ്പുറത്ത് താനേ ചേര്ക്കൂ",
         "addgamestostartmenu": "കളികള് തുടക്കപ്പട്ടികയില് താനേ ചേര്ക്കൂ",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്സ് ഓഡിയോ ലാറ്റന്സി)",
         "autodxvk": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "അടുത്തിടെയുള്ള പതിവ് കളികള്",
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള് പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",
         "primerun": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ",
         "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്വിഡിയ RTX 30xxനു മാത്രം)",
@@ -249,6 +272,7 @@
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
         "wineversion": "വൈനിന്റെ പതിപ്പ്"
@@ -270,10 +294,10 @@
     },
     "Settings": "ക്രമീകരണങ്ങള്",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "കട",
+    "stores": "Stores",
     "title": {
         "allGames": "മൊത്തം കളികള്",
         "allUnreal": "അണ്റിയല് - എല്ലാം",
@@ -308,7 +332,16 @@
         "discord": "ഡിസ്കോഡ഻്",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": "പുറത്തുകടക്കൂ"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "അറിവിന്കൂട്ടം",
     "wine": {

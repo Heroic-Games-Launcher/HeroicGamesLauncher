@@ -1,5 +1,16 @@
 @import '~@fontsource/rubik/index.css';
 @import '~@fontsource/cabin/index.css';
+/*
+  Subset of font https://github.com/googlefonts/noto-emoji
+  which includes only flags emoji generated using command:
+  $ fonttools subset NotoColorEmoji.ttf --ignore-missing-glyphs --text-file=data.txt
+  where data.txt is a text file containing all the glyphs you want to include
+*/
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('./assets/NotoColorEmoji.subset.ttf');
+}
+
 * {
   box-sizing: border-box;
 }
@@ -27,9 +38,10 @@ html,
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  background: var(--gradient-body-background);
 }
 
-.App .content .updateIcon {
+.App .content .UpdateComponent--topLevel {
   height: 100vh;
   position: initial;
   width: var(--content-width);
@@ -56,6 +68,10 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+}
+
 .button.is-small {
   min-width: 130px;
 }
@@ -79,11 +95,11 @@ html,
 }
 
 .button.is-secondary {
-  background: var(--download-button);
+  background: var(--accent);
 }
 
 .button.is-tertiary {
-  background: var(--background-color);
+  background: var(--body-background);
   color: white;
 }
 
@@ -99,7 +115,7 @@ html,
 
 .button.is-secondary:hover {
   background: var(--download-button-overlay);
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 .button.is-empty {
@@ -216,7 +232,8 @@ html,
   height: 40px;
   background: var(--input-background);
   border-radius: 10px;
-  font: var(--font-secondary-bold);
+  font-family: Cabin, sans-serif, 'Noto Color Emoji';
+  font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   color: var(--text-secondary);
@@ -225,7 +242,20 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.settingSelect:disabled {
+  cursor: not-allowed;
+}
+
+.settingSelect ~ span {
+  margin-block: auto;
+}
+
+.settingSelect.is-drop-down {
+  cursor: pointer;
+}
+
 .settingText {
+  cursor: default;
   margin-bottom: 14px;
   font: var(--font-secondary-regular);
   font-size: 16px;
@@ -245,7 +275,7 @@ svg.disabled {
 }
 
 .react-contextmenu--visible {
-  background-color: var(--background);
+  background-color: var(--input-background);
   padding: 14px 22px;
   border-radius: 6px;
   z-index: 99;

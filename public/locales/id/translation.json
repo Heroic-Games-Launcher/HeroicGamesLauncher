@@ -7,13 +7,14 @@
             "title": "Pembaruan Tersedia"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Tembolok Heroic dibersihkan.",
+            "title": "Tembolok dibersihkan"
         },
         "choose": "Pilih",
         "choose-egs-prefix": "",
-        "choose-legendary-binary": "Pilih Legendary Binary",
-        "customWine": "Pilih Wine atau Proton Binary",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-legendary-binary": "Pilih program Legendary",
+        "customWine": "Pilih program Wine atau Proton",
         "default-install-path": "Pilih tempat Instal Default",
         "error": {
             "credentials": {
@@ -33,6 +34,10 @@
                 "title": "Error Tak Dikenal"
             },
             "launch": "Error ketika meluncurkan permainan, periksa log!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -40,10 +45,10 @@
             }
         },
         "no": "TIDAK",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Tidak diinstal, apakah Anda ingin menginstalnya?"
+                "not_installed": "Saat ini tidak dipasang. Pasang?"
             }
         },
         "quit": {
@@ -69,7 +74,7 @@
         },
         "sync": {
             "button": "Pilih",
-            "error": "",
+            "error": "Jalur Tidak Valid",
             "title": "Pilih direktori penyimpanan"
         },
         "warning": {
@@ -84,37 +89,42 @@
         "yes": "YA"
     },
     "button": {
-        "login": "Login",
+        "continue": "Lanjut",
+        "login": "Masuk",
         "sync": "Sinkronkan",
         "syncing": "",
         "unsync": ""
     },
     "Downloading": "Mengunduh",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena peladen Epic Games sedang luring!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Game Epic",
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Saring",
     "globalSettings": "Pengaturan Global",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
-        "general": "",
+        "general": "Sinkronisasi dengan EGL jika Anda mempunyai pemasangan yang berjalan dari Epic Games Launcher di suatu tempat dan ingin mengimpor permainan Anda untuk menghindari mengunduh mereka lagi.",
         "other": {
-            "part1": "",
+            "part1": "Gunakan ",
             "part2": "",
             "part3": "",
-            "part4": "",
+            "part4": "Gunakan ",
             "part5": "",
             "part6": "",
-            "part7": ""
+            "part7": " untuk melewati peluncur di beberapa permainan dll."
         },
         "sync": {
-            "part1": "",
+            "part1": "Heroic mencoba untuk mengira folder penyimpanan yang benar dan ini akan bekerja di kebanyakan. Jikalau foldernya salah, gunakan bilah penimpaan untuk mengubahnya.",
             "part2": "",
-            "part3": "",
+            "part3": "Sinkronisasi Manual: Pilih Unduh untuk mengunduh simpanan permainan yang disimpan di Awan. Unggah untuk mengunggah berkas lokal ke Awan. Unduh Paksa dan Unggah Paksa akan mengabaikan versi yang ada di lokal atau awan.",
             "part4": ""
         },
         "wine": {
@@ -132,13 +142,18 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "",
@@ -180,22 +195,29 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "Help Improve this translation."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": ""
+    },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "",
     "Recent": "Played Recently",
-    "Return": "",
     "search": "",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
@@ -225,9 +247,9 @@
         },
         "mangohud": "",
         "manualsync": {
-            "download": "",
-            "forcedownload": "",
-            "forceupload": "",
+            "download": "Unduh",
+            "forcedownload": "Unduh Paksa",
+            "forceupload": "Unggah Paksa",
             "sync": "",
             "syncing": "",
             "title": "",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "Played Recently to Show",
         "maxworkers": "",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "",
         "primerun": "Enable Nvidia Prime Render",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
@@ -249,6 +272,7 @@
         "showfps": "",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "",
         "wineversion": ""
@@ -270,14 +294,14 @@
     },
     "Settings": "",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
-    "store": "Store",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
+        "downloading": "Mengunduh",
         "installedGames": "Installed Games",
         "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
@@ -308,7 +332,16 @@
         "discord": "Discord",
         "logout": "",
         "logout_confirmation": "Logout?",
+        "manageaccounts": "Manage Accounts",
         "quit": ""
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

@@ -45,14 +45,14 @@
     },
     "disabled": "முடக்கப்பட்டது",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Install all DLCs"
     },
     "enabled": "இயக்கப்பட்டது",
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "installSize": "Install Size",
+        "language": "Language",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"
@@ -70,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

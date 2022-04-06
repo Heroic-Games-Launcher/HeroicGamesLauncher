@@ -1,36 +1,27 @@
-import { existsSync, mkdirSync, unlink, writeFile } from 'graceful-fs'
+import { existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
-import { app, BrowserWindow, dialog, shell } from 'electron'
-import { DXVK } from '../dxvk'
-import { ExtraInfo, InstallArgs } from '../types'
+import { BrowserWindow } from 'electron'
+import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { LegendaryLibrary } from './library'
+import { getLegendaryCommand, LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import {
-  errorHandler,
-  execAsync,
-  isEpicServiceOffline,
-  isOnline,
-  removeSpecialcharacters
-} from '../utils'
+import { execAsync, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
-  heroicIconFolder,
-  home,
-  isMac,
-  isWindows,
-  legendaryBin
+  userHome,
+  isWindows
 } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import Store from 'electron-store'
-import makeClient from 'discord-rich-presence-typescript'
-import { platform } from 'os'
-import i18next from 'i18next'
+import { launch } from '../launcher'
+import { addShortcuts, removeShortcuts } from '../shortcuts'
+import { basename, join } from 'path'
+import { runLegendaryCommand } from './library'
 
 const store = new Store({
   cwd: 'lib-cache',
@@ -202,107 +193,68 @@ class LegendaryGame extends Game {
    * @returns The amended install path.
    */
   public async moveInstall(newInstallPath: string) {
-    const {
-      install: { install_path },
-      title
-    } = await this.getGameInfo()
+    const oldInstallPath = (await this.getGameInfo()).install.install_path
 
-    if (isWindows) {
-      newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
-    } else {
-      newInstallPath += '/' + install_path.split('/').slice(-1)[0]
-    }
+    newInstallPath = join(newInstallPath, basename(oldInstallPath))
 
-    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Legendary)
-    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
+    const command = `mv -f '${oldInstallPath}' '${newInstallPath}'`
+
+    logInfo(
+      [`Moving ${this.appName} to ${newInstallPath} with`, command],
+      LogPrefix.Legendary
+    )
+
+    await execAsync(command)
       .then(() => {
         LegendaryLibrary.get().changeGameInstallPath(
           this.appName,
           newInstallPath
         )
-        logInfo(`Finished Moving ${title}`, LogPrefix.Legendary)
       })
-      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
+      .catch((error) => {
+        logError(
+          `Failed to move ${this.appName}: ${error}`,
+          LogPrefix.Legendary
+        )
+      })
     return newInstallPath
   }
 
   /**
    * Update game.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
-  public async update() {
+  public async update(): Promise<{ status: 'done' | 'error' }> {
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
+      runner: 'legendary',
       status: 'updating'
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} update ${this.appName}${workers} -y ${writeLog}`
-    return execAsync(command, execOptions)
-      .then(() => {
-        this.window.webContents.send('setGameStatus', {
-          appName: this.appName,
-          status: 'done'
-        })
-        return { status: 'done' }
-      })
-      .catch((error) => {
-        logError(`${error}`, LogPrefix.Legendary)
-        this.window.webContents.send('setGameStatus', {
-          appName: this.appName,
-          status: 'done'
-        })
-        return { status: 'error' }
-      })
-  }
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-  public async getIcon(appName: string) {
-    if (!existsSync(heroicIconFolder)) {
-      mkdirSync(heroicIconFolder)
+    const commandParts = ['update', this.appName, workers, '-y']
+    const command = getLegendaryCommand(commandParts)
+
+    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts, logPath)
+
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      runner: 'legendary',
+      status: 'done'
+    })
+
+    if (res.error) {
+      logError(
+        ['Failed to update', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+      return { status: 'error' }
     }
-
-    const gameInfo = await this.getGameInfo()
-    const image = gameInfo.art_square.replaceAll(' ', '%20')
-    let ext = image.split('.').reverse()[0]
-    if (ext !== 'jpg' && ext !== 'png') {
-      ext = 'jpg'
-    }
-    const icon = `${heroicIconFolder}/${appName}.${ext}`
-    if (!existsSync(icon)) {
-      await execAsync(`curl '${image}' --output ${icon}`)
-    }
-    return icon
-  }
-
-  private shortcutFiles(gameTitle: string) {
-    let desktopFile
-    let menuFile
-
-    switch (process.platform) {
-      case 'linux': {
-        desktopFile = `${app.getPath('desktop')}/${gameTitle}.desktop`
-        menuFile = `${home}/.local/share/applications/${gameTitle}.desktop`
-        break
-      }
-      case 'win32': {
-        desktopFile = `${app.getPath('desktop')}\\${gameTitle}.lnk`
-        menuFile = `${app.getPath(
-          'appData'
-        )}\\Microsoft\\Windows\\Start Menu\\Programs\\${gameTitle}.lnk`
-        break
-      }
-      default:
-        logError(
-          "Shortcuts haven't been implemented in the current platform.",
-          LogPrefix.Backend
-        )
-    }
-
-    return [desktopFile, menuFile]
+    return { status: 'done' }
   }
 
   /**
@@ -313,63 +265,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addShortcuts(fromMenu?: boolean) {
-    if (process.platform === 'darwin') {
-      return
-    }
-
-    const gameInfo = await this.getGameInfo()
-    const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
-    const [desktopFile, menuFile] = this.shortcutFiles(gameInfo.title)
-    const { addDesktopShortcuts, addStartMenuShortcuts } =
-      await GlobalConfig.get().getSettings()
-
-    switch (process.platform) {
-      case 'linux': {
-        const icon = await this.getIcon(gameInfo.app_name)
-        const shortcut = `[Desktop Entry]
-Name=${removeSpecialcharacters(gameInfo.title)}
-Exec=xdg-open ${launchWithProtocol}
-Terminal=false
-Type=Application
-MimeType=x-scheme-handler/heroic;
-Icon=${icon}
-Categories=Game;
-`
-
-        if (addDesktopShortcuts || fromMenu) {
-          writeFile(desktopFile, shortcut, () => {
-            logInfo('Shortcut saved on ' + desktopFile, LogPrefix.Backend)
-          })
-        }
-        if (addStartMenuShortcuts || fromMenu) {
-          writeFile(menuFile, shortcut, () => {
-            logInfo('Shortcut saved on ' + menuFile, LogPrefix.Backend)
-          })
-        }
-        break
-      }
-      case 'win32': {
-        const shortcutOptions = {
-          target: launchWithProtocol,
-          icon: `${gameInfo.install.install_path}\\${gameInfo.install.executable}`,
-          iconIndex: 0
-        }
-
-        if (addDesktopShortcuts || fromMenu) {
-          shell.writeShortcutLink(desktopFile, shortcutOptions)
-        }
-
-        if (addStartMenuShortcuts || fromMenu) {
-          shell.writeShortcutLink(menuFile, shortcutOptions)
-        }
-        break
-      }
-      default:
-        logError(
-          "Shortcuts haven't been implemented in the current platform.",
-          LogPrefix.Backend
-        )
-    }
+    return addShortcuts(await this.getGameInfo(), fromMenu)
   }
 
   /**
@@ -378,19 +274,7 @@ Categories=Game;
    * @public
    */
   public async removeShortcuts() {
-    const gameInfo = await this.getGameInfo()
-    const [desktopFile, menuFile] = this.shortcutFiles(gameInfo.title)
-
-    if (desktopFile) {
-      unlink(desktopFile, () =>
-        logInfo('Desktop shortcut removed', LogPrefix.Backend)
-      )
-    }
-    if (menuFile) {
-      unlink(menuFile, () =>
-        logInfo('Applications shortcut removed', LogPrefix.Backend)
-      )
-    }
+    return removeShortcuts(this.appName, 'legendary')
   }
 
   private getSdlList(sdlList: Array<string>) {
@@ -406,338 +290,153 @@ Categories=Game;
   /**
    * Install game.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
   public async install({
     path,
     installDlcs,
     sdlList,
     platformToInstall
-  }: InstallArgs) {
+  }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
-    const command = `${legendaryBin} install ${this.appName} --platform ${platformToInstall} --base-path ${path} ${withDlcs} ${installSdl} ${workers} -y ${writeLog}`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
+
+    const commandParts = [
+      'install',
+      this.appName,
+      '--platform',
+      platformToInstall,
+      '--base-path',
+      path,
+      withDlcs,
+      installSdl,
+      workers,
+      '-y'
+    ]
+    const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
-    return execAsync(command, execOptions)
-      .then(async ({ stdout, stderr }) => {
-        if (stdout.includes('ERROR')) {
-          errorHandler({ error: { stdout, stderr }, logPath })
 
-          return { status: 'error' }
-        }
-        return { status: 'done' }
-      })
-      .catch(() => {
-        logInfo('Installaton canceled', LogPrefix.Legendary)
-        return { status: 'error' }
-      })
+    const res = await runLegendaryCommand(commandParts, logPath)
+
+    if (res.error) {
+      logError(
+        ['Failed to install', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+      return { status: 'error' }
+    }
+    return { status: 'done' }
   }
 
-  public async uninstall() {
-    const command = `${legendaryBin} uninstall ${this.appName} -y`
-    logInfo(
-      [`Uninstalling ${this.appName} with:`, command],
-      LogPrefix.Legendary
-    )
+  public async uninstall(): Promise<ExecResult> {
+    const commandParts = ['uninstall', this.appName, '-y']
+    const command = getLegendaryCommand(commandParts)
+
+    logInfo([`Uninstalling ${this.appName}:`, command], LogPrefix.Legendary)
+
     LegendaryLibrary.get().installState(this.appName, false)
-    return await execAsync(command, execOptions)
-      .then((v) => {
-        return v
-      })
-      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
-  }
+    const res = await runLegendaryCommand(commandParts)
 
+    if (res.error) {
+      logError(
+        ['Failed to uninstall', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
+  }
   /**
    * Repair game.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
-  public async repair() {
+  public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
-    const logPath = `"${heroicGamesConfigPath}${this.appName}.log"`
-    const writeLog = isWindows ? `2>&1 > ${logPath}` : `|& tee ${logPath}`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const command = `${legendaryBin} repair ${this.appName} ${workers} -y ${writeLog}`
+    const commandParts = ['repair', this.appName, workers, '-y']
+    const command = getLegendaryCommand(commandParts)
 
-    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Legendary)
-    return await execAsync(command, execOptions)
-      .then((v) => {
-        // this.state.status = 'done'
-        return v
-      })
-      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
+    logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts, logPath)
+
+    if (res.error) {
+      logError(
+        ['Failed to repair', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
   }
 
-  public async import(path: string) {
-    const command = `${legendaryBin} import-game ${this.appName} '${path}'`
+  public async import(path: string): Promise<ExecResult> {
+    const commandParts = ['import', this.appName, path]
+    const command = getLegendaryCommand(commandParts)
 
-    logInfo(
-      [`Importing ${this.appName} from ${path} with:`, command],
-      LogPrefix.Legendary
-    )
-    return await execAsync(command, execOptions)
-      .then((v) => {
-        return v
-      })
-      .catch((error) => logError(`${error}`, LogPrefix.Legendary))
+    logInfo([`Importing ${this.appName}:`, command], LogPrefix.Legendary)
+
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to import', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
   }
 
   /**
    * Sync saves.
    * Does NOT check for online connectivity.
-   *
-   * @returns Result of execAsync.
    */
   public async syncSaves(arg: string, path: string) {
     const fixedPath = isWindows
       ? path.replaceAll("'", '').slice(0, -1)
       : path.replaceAll("'", '')
 
-    const command = `${legendaryBin} sync-saves ${arg} --save-path "${fixedPath}" ${this.appName} -y`
-    const legendarySavesPath = `${home}/legendary/.saves`
-
-    //workaround error when no .saves folder exists
+    // workaround error when no .saves folder exists
+    const legendarySavesPath = join(userHome, 'legendary', '.saves')
     if (!existsSync(legendarySavesPath)) {
       mkdirSync(legendarySavesPath, { recursive: true })
     }
 
-    logInfo(['Syncing saves for ', this.appName], LogPrefix.Legendary)
-    return await execAsync(command, execOptions)
+    const commandParts = [
+      'sync-saves',
+      arg,
+      '--save-path',
+      `"${fixedPath}"`,
+      this.appName,
+      '-y'
+    ]
+    const command = getLegendaryCommand(commandParts)
+
+    logInfo(
+      [`Syncing saves for ${this.appName}:`, command],
+      LogPrefix.Legendary
+    )
+
+    const res = await runLegendaryCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to sync saves for', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return res
   }
 
-  public async launch(launchArguments?: string) {
-    const epicOffline = await isEpicServiceOffline()
-    const isOffline = !(await isOnline()) || epicOffline
-    let envVars = ''
-    let gameMode: string
-    const gameSettings = await this.getSettings()
-
-    const {
-      winePrefix,
-      wineVersion,
-      wineCrossoverBottle,
-      otherOptions,
-      useGameMode,
-      showFps,
-      nvidiaPrime,
-      launcherArgs = '',
-      showMangohud,
-      audioFix,
-      autoInstallDxvk,
-      autoInstallVkd3d,
-      offlineMode,
-      enableFSR,
-      maxSharpness,
-      enableResizableBar,
-      enableEsync,
-      enableFsync,
-      targetExe
-    } = gameSettings
-
-    const { discordRPC } = await GlobalConfig.get().getSettings()
-    const DiscordRPC = discordRPC ? makeClient('852942976564723722') : null
-    const runOffline = isOffline || offlineMode ? '--offline' : ''
-    const exe = targetExe ? `--override-exe ${targetExe}` : ''
-    const gameInfo = await this.getGameInfo()
-    const isMacNative = gameInfo.is_mac_native
-    const mangohud = showMangohud ? 'mangohud --dlsym' : ''
-
-    if (discordRPC) {
-      // Show DiscordRPC
-      // This seems to run when a game is updated, even though the game doesn't start after updating.
-      let os: string
-
-      switch (process.platform) {
-        case 'linux':
-          os = 'Linux'
-          break
-        case 'win32':
-          os = 'Windows'
-          break
-        case 'darwin':
-          os = 'macOS'
-          break
-        default:
-          os = 'Unknown OS'
-          break
-      }
-
-      logInfo(
-        'Updating Discord Rich Presence information...',
-        LogPrefix.Backend
-      )
-      DiscordRPC.updatePresence({
-        details: gameInfo.title,
-        instance: true,
-        largeImageKey: 'icon',
-        large_text: gameInfo.title,
-        startTimestamp: Date.now(),
-        state: 'via Heroic on ' + os
-      })
-    }
-
-    if (isWindows || (isMac && isMacNative)) {
-      const command = `${legendaryBin} launch ${
-        this.appName
-      } ${exe} ${runOffline} ${launchArguments ?? ''} ${launcherArgs}`
-      logInfo(['Launch Command:', command], LogPrefix.Legendary)
-      const v = await execAsync(command, execOptions)
-      if (discordRPC) {
-        logInfo(
-          'Stopping Discord Rich Presence if running...',
-          LogPrefix.Backend
-        )
-        DiscordRPC.disconnect()
-        logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
-      }
-
-      return v
-    }
-
-    if (!existsSync(wineVersion.bin.replaceAll("'", ''))) {
-      return dialog.showErrorBox(
-        i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-        i18next.t(
-          'box.error.wine-not-found.message',
-          'No Wine Version Selected. Check Game Settings!'
-        )
-      )
-    }
-
-    const fixedWinePrefix = winePrefix.replace('~', home)
-    let wineCommand = `--wine ${wineVersion.bin}`
-
-    // We need to keep replacing the ' to keep compatibility with old configs
-    let prefix = `--wine-prefix '${fixedWinePrefix.replaceAll("'", '')}'`
-
-    const isProton =
-      wineVersion.name.includes('Proton') || wineVersion.name.includes('Steam')
-    const isCrossover = wineVersion.name.includes('CrossOver')
-    prefix = isProton || isCrossover ? '' : prefix
-    const x = wineVersion.bin.split('/')
-    x.pop()
-    const winePath = x.join('/').replaceAll("'", '')
-    const options = {
-      audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
-      crossoverBottle:
-        isCrossover && wineCrossoverBottle != ''
-          ? `CX_BOTTLE=${wineCrossoverBottle}`
-          : '',
-      fps: showFps ? `DXVK_HUD=fps` : '',
-      fsr: enableFSR ? 'WINE_FULLSCREEN_FSR=1' : '',
-      esync: enableEsync ? 'WINEESYNC=1' : '',
-      fsync: enableFsync ? 'WINEFSYNC=1' : '',
-      sharpness: enableFSR
-        ? `WINE_FULLSCREEN_FSR_STRENGTH=${maxSharpness}`
-        : '',
-      resizableBar: enableResizableBar ? `VKD3D_CONFIG=upload_hvv` : '',
-      other: otherOptions ? otherOptions : '',
-      prime: nvidiaPrime
-        ? 'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
-        : '',
-      proton: isProton
-        ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${home}/.steam/steam STEAM_COMPAT_DATA_PATH='${winePrefix
-            .replaceAll("'", '')
-            .replace('~', home)}'`
-        : ''
-    }
-
-    envVars = Object.values(options).join(' ')
-    if (isProton) {
-      logWarning(
-        [
-          `You are using Proton, this can lead to some bugs,
-          please do not open issues with bugs related with games`,
-          wineVersion.name
-        ],
-        LogPrefix.Backend
-      )
-    }
-
-    await this.createNewPrefix(isProton, fixedWinePrefix, winePath)
-
-    // Install DXVK for non Proton/CrossOver Prefixes
-    if (!isProton && !isCrossover && autoInstallDxvk) {
-      await DXVK.installRemove(winePrefix, wineVersion.bin, 'dxvk', 'backup')
-    }
-
-    // Install VKD3D for non Proton/CrossOver Prefixes
-    if (!isProton && !isCrossover && autoInstallVkd3d) {
-      await DXVK.installRemove(winePrefix, winePath, 'vkd3d', 'backup')
-    }
-
-    if (wineVersion.name !== 'Wine Default') {
-      const { bin } = wineVersion
-      wineCommand = isProton
-        ? `--no-wine --wrapper "${bin} run"`
-        : `--wine ${bin}`
-    }
-
-    // check if Gamemode is installed
-    await execAsync(`which gamemoderun`)
-      .then(({ stdout }) => (gameMode = stdout.split('\n')[0]))
-      .catch(() => logWarning('GameMode not installed', LogPrefix.Backend))
-
-    const runWithGameMode = useGameMode && gameMode ? gameMode : ''
-
-    const command = `${envVars} ${runWithGameMode} ${mangohud} ${legendaryBin} launch ${
-      this.appName
-    } ${exe} ${runOffline} ${wineCommand} ${prefix} ${
-      launchArguments ?? ''
-    } ${launcherArgs}`
-    logInfo(['Launch Command:', command], LogPrefix.Legendary)
-
-    const startLaunch = await execAsync(command, execOptions)
-      .then(({ stderr }) => {
-        if (discordRPC) {
-          logInfo(
-            'Stopping Discord Rich Presence if running...',
-            LogPrefix.Backend
-          )
-          DiscordRPC.disconnect()
-          logInfo('Stopped Discord Rich Presence.', LogPrefix.Backend)
-        }
-        return { stderr, command, gameSettings }
-      })
-      .catch((error) => {
-        logError(`${error}`, LogPrefix.Legendary)
-        const { stderr } = error
-        return { stderr, command, gameSettings }
-      })
-    return startLaunch
-  }
-
-  private async createNewPrefix(
-    isProton: boolean,
-    fixedWinePrefix: string,
-    winePath: string
-  ) {
-    if (platform() === 'darwin') {
-      return
-    }
-
-    if (isProton && !existsSync(fixedWinePrefix)) {
-      mkdirSync(fixedWinePrefix, { recursive: true })
-    }
-
-    if (!existsSync(fixedWinePrefix)) {
-      mkdirSync(fixedWinePrefix, { recursive: true })
-      const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i`
-      logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
-      return execAsync(initPrefixCommand)
-        .then(() => logInfo('Prefix created succesfuly!', LogPrefix.Backend))
-        .catch((error) => logError(`${error}`, LogPrefix.Backend))
-    }
+  public async launch(
+    launchArguments?: string
+  ): Promise<ExecResult | LaunchResult> {
+    return launch(this.appName, launchArguments, 'legendary')
   }
 
   public async stop() {
@@ -754,7 +453,7 @@ Categories=Game;
         return logInfo(`${pattern} killed`, LogPrefix.Legendary)
       } catch (error) {
         return logError(
-          [`not possible to kill ${pattern}`, error],
+          [`not possible to kill ${pattern}`, `${error}`],
           LogPrefix.Legendary
         )
       }

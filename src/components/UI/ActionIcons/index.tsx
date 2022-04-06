@@ -1,44 +1,60 @@
-import React, { useContext } from 'react'
-import './index.css'
-
 import {
-  faSyncAlt,
   faBorderAll,
-  faList
+  faList,
+  faSyncAlt
 } from '@fortawesome/free-solid-svg-icons'
-import cx from 'classnames'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { SvgButton } from '..'
+import cx from 'classnames'
+import React, { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
+import FormControl from '../FormControl'
+import './index.css'
 
-export default function index() {
+export default function ActionIcons() {
+  const { t } = useTranslation()
   const { refreshLibrary, handleLayout, layout } = useContext(ContextProvider)
   return (
-    <div className="headerIcons">
-      <SvgButton onClick={() => handleLayout('grid')}>
-        <FontAwesomeIcon
-          className={cx({ selectedLayout: layout === 'grid' })}
-          icon={faBorderAll}
-        />
-      </SvgButton>
-      <SvgButton onClick={() => handleLayout('list')}>
-        <FontAwesomeIcon
-          className={cx({ selectedLayout: layout === 'list' })}
-          icon={faList}
-        />
-      </SvgButton>
-      <SvgButton
-        onClick={() =>
-          refreshLibrary({
-            checkForUpdates: true,
-            fullRefresh: true,
-            runInBackground: false
-          })
-        }
-      >
-        <FontAwesomeIcon className="refreshIcon" icon={faSyncAlt} />
-      </SvgButton>
+    <div className="ActionIcons">
+      <FormControl segmented small>
+        <button
+          className={cx('FormControl__button', { active: layout === 'grid' })}
+          title={t('library.gridView')}
+          onClick={() => handleLayout('grid')}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={faBorderAll}
+          />
+        </button>
+        <button
+          className={cx('FormControl__button', { active: layout === 'list' })}
+          title={t('library.listView')}
+          onClick={() => handleLayout('list')}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={faList}
+          />
+        </button>
+        <button
+          className="FormControl__button"
+          title={t('library.refresh')}
+          onClick={() =>
+            refreshLibrary({
+              checkForUpdates: true,
+              fullRefresh: true,
+              runInBackground: false
+            })
+          }
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={faSyncAlt}
+          />
+        </button>
+      </FormControl>
     </div>
   )
 }

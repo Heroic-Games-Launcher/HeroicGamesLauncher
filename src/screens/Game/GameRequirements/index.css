@@ -1,5 +1,6 @@
 .gameRequirements {
   flex-direction: column;
+  user-select: text;
 }
 .gameRequirements table td {
   width: 40%;
@@ -12,7 +13,8 @@
 }
 
 table td.specs {
-  color: var(--download-button);
+  cursor: default;
+  color: var(--accent);
   opacity: 0.8;
 }
 

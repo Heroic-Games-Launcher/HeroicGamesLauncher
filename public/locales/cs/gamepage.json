@@ -45,14 +45,14 @@
     },
     "disabled": "Zakázáno",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Install all DLCs"
     },
     "enabled": "Povoleno",
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "Poprvé hráno",
         "installSize": "Install Size",
+        "language": "Language",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "totalPlayed": "Odehraný čas"
@@ -70,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

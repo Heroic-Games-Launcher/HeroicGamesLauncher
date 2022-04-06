@@ -4,7 +4,7 @@
     "box": {
         "appupdate": {
             "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان بهروزرسانی کنید؟",
-            "title": "بهروزرسانی موجود است"
+            "title": "بروزرسانی موجود است"
         },
         "cache-cleared": {
             "message": "کش Heroic پاک شد.",
@@ -12,6 +12,7 @@
         },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
+        "choose-gogdl-binary": "انتخاب باینری GOGDL (نیازمند راه\u200cاندازی مجدد)",
         "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیشفرض نصب",
@@ -21,26 +22,30 @@
                 "title": "اعتبار ورود منقضی شده"
             },
             "diskspace": {
-                "message": "فضای ذخیرهسازی کافی موجود نیست",
+                "message": "فضای ذخیره سازی کافی موجود نیست",
                 "title": "فضایی موجود نیست"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
+                "title": "خطای DXVK/VKD3D"
             },
             "generic": {
                 "message": "خطایی ناشناخته رخ داده است",
                 "title": "خطای ناشناخته"
             },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
+            "no-offline-mode": {
+                "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
+                "title": "حالت آفلاین پشتیبانی نمی\u200cشود."
+            },
             "title": "خطا",
             "wine-not-found": {
-                "message": "نسخه‌ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
+                "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
             }
         },
         "no": "خیر",
-        "ok": "Ok",
+        "ok": "اوکی",
         "protocol": {
             "install": {
                 "not_installed": "نصب نشده است، آیا میخواهید آن را نصب کنید؟"
@@ -74,9 +79,9 @@
         },
         "warning": {
             "epic": {
-                "import": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی‌تواند اضافه شود!",
-                "install": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی‌تواند نصب شود!",
-                "update": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمی‌تواند به‌روزرسانی شود!"
+                "import": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمیتواند اضافه شود!",
+                "install": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمیتواند نصب شود!",
+                "update": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمیتواند بهروزرسانی شود!"
             },
             "title": "هشدار"
         },
@@ -84,27 +89,32 @@
         "yes": "بله"
     },
     "button": {
+        "continue": "ادامه",
         "login": "ورود",
-        "sync": "همگامسازی",
-        "syncing": "در حال همگامسازی",
-        "unsync": "عدم همگامسازی"
+        "sync": "همگام سازی",
+        "syncing": "در حال همگام سازی",
+        "unsync": "عدم همگام سازی"
     },
     "Downloading": "در حال دانلود",
     "epic": {
-        "offline-notification-body": "احتمالا Heroic کار نخواهد کرد!",
+        "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویس\u200cهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "فیلتر",
     "globalSettings": "تنظیمات عمومی",
+    "GOG": "GOG",
+    "gog-store": "فروشگاه GOG",
+    "header": {
+        "platform": ""
+    },
     "help": {
-        "general": "در صورتی که در جایی فروشگاه اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGS همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
+        "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "other": {
             "part1": "استفاده از ",
-            "part2": "گزینههای پیشرفته",
+            "part2": "گزینه های پیشرفته",
             "part3": "تا قبل از اجرای بازی صدا زده شود ",
             "part4": "استفاده کنید ",
             "part5": "آرگومانهای بازی",
@@ -112,7 +122,7 @@
             "part7": " تا لانچر در برخی بازیها رد شود، غیره."
         },
         "sync": {
-            "part1": "Heroic تلاش میکند تا پوشه صحیح ذخیرهسازی را پیدا کند و در اکثر مواقع کار خواهد کرد. در صورتی که پوشه اشتباه بود، از بخش رونویسی برای تغییر آن استفاده کنید.",
+            "part1": "Heroic تلاش میکند تا پوشه صحیح ذخیره سازی را پیدا کند و در اکثر مواقع کار خواهد کرد. در صورتی که پوشه اشتباه بود، از بخش رونویسی برای تغییر آن استفاده کنید.",
             "part2": "در صورتی که محل Wine یا Proton را تغییر دهید، شما باید دوباره مسیر را چک کنید از آنجایی که Proton از محل و کاربری متفاوتی استفاده میکند. پس شما میتوانید مسیر فعلی را حذف ساده کنید از صفحه تنظیمات همگامسازی خارج شده و دوباره برگردید تا Heroic یک بار دیگر با محل درست پوشه را حدس بزند.",
             "part3": "همگام سازی دستی: برای بارگیری ذخیره بازیهای ذخیره شده در Cloud ، بارگیری را انتخاب کنید. آپلود تا موارد محلی را روی ابر آپلود کنید. دانلود اجباری و آپلود اجباری نسخه ای را که بصورت محلی یا روی ابر است نادیده می گیرند.",
             "part4": "همگامسازی ذخیرهها به طور خودکار هر زمان که یک بازی را شروع می کنید و پس از اتمام بازی ، ذخیره ها را همگامسازی می کند."
@@ -132,13 +142,18 @@
     "install": {
         "path": "انتخاب محل نصب"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "کتابخانه",
     "loading": {
+        "default": "",
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
-        "loginWithEpic": "ورود با اپیک",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "ورود خارجی"
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -156,7 +171,7 @@
         },
         "install": {
             "canceled": "نصب لغو شد",
-            "error": "",
+            "error": "نصب با شکست مواجه شد",
             "finished": "نصب به پایان رسید",
             "imported": "بازی وارد شد",
             "startInstall": "نصب آغاز شد"
@@ -180,27 +195,34 @@
         }
     },
     "other": {
+        "gogdl-version": "نسخه GOGDL: ",
         "legendary-version": "نسخه Legendary: ",
         "weblate": "کمک به ترجمه Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "egs-prefix": "محل نصب شده EGS"
+    },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Plugins": "افزونهها",
     "Projects": "پروژهها",
     "Ready": "آماده",
     "Recent": "اخیرا بازی شده",
-    "Return": "بازگشت",
     "search": "نام بازی را اینجا وارد کنید...",
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
+        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده (نیازمند راه\u200cاندازی مجدد)",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راهاندازی مجدد)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "چک کردن برای به روزرسانی در هنگام راه اندازی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "اخیرا بازی شده برای نمایش",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
+        "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",
         "primerun": "فعالسازی Nvidia Prime Render",
         "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
@@ -249,6 +272,7 @@
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
+        "steamruntime": "استفاده از Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
@@ -258,7 +282,7 @@
         "copiedToClipboard": "در کليپ بورد کپی شد!",
         "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شدهاند!"
         },
         "navbar": {
             "general": "عمومی",
@@ -270,10 +294,10 @@
     },
     "Settings": "تنظیمات",
     "status": {
-        "loading": "در حال بارگیری لیست بازی، لطفا منتظر بمانید",
-        "logging": "در حال ورود..."
+        "logging": "در حال وارد شدن..."
     },
-    "store": "فروشگاه",
+    "store": "فروشگاه اپیک",
+    "stores": "فروشگاه\u200cها",
     "title": {
         "allGames": "همه بازیها",
         "allUnreal": "Unreal - همهچیز",
@@ -287,8 +311,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "انتخاب پوشه مسیر پیشفرض برای تنظیمات جدید",
+            "wineprefix": "انتخاب پوشه برای مسیر Wine جدید"
         }
     },
     "tooltip": {
@@ -308,13 +332,22 @@
         "discord": "Discord",
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
+        "manageaccounts": "مدیریت حساب\u200cها",
         "quit": "خروج"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "ویکی",
     "wine": {
         "manager": {
-            "error": "نمی‌توان در این زمان نسخه‌های Wine/Proton را به دست آورد.",
-            "link": "مدیریت Wine‮",
+            "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
+            "link": "مدیریت Wine",
             "title": "مدیریت Wine (آزمایشی)",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         }

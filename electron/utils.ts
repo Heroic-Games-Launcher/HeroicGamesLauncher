@@ -1,5 +1,5 @@
 import * as axios from 'axios'
-import { app, dialog, net, shell, Notification } from 'electron'
+import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
 import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
@@ -9,13 +9,56 @@ import si from 'systeminformation'
 import Store from 'electron-store'
 
 import { GlobalConfig } from './config'
-import { heroicGamesConfigPath, icon, legendaryBin } from './constants'
+import {
+  configStore,
+  fixAsarPath,
+  heroicConfigPath,
+  heroicGamesConfigPath,
+  icon,
+  isWindows
+} from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import { basename, dirname, join } from 'path'
+import { runLegendaryCommand } from './legendary/library'
+import { runGogdlCommand } from './gog/library'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
+
+export function showErrorBoxModal(
+  window: BrowserWindow | undefined | null,
+  title: string,
+  message: string
+) {
+  if (window) {
+    showMessageBox(window, {
+      type: 'error',
+      title,
+      message
+    })
+  } else {
+    showErrorBox(title, message)
+  }
+}
+
+export function showErrorBoxModalAuto(title: string, message: string) {
+  let window: BrowserWindow
+  try {
+    window = BrowserWindow.getFocusedWindow()
+    if (!window) {
+      window = BrowserWindow.getAllWindows()[0]
+    }
+  } catch (e) {
+    // empty
+  }
+  if (window) {
+    showErrorBoxModal(window, title, message)
+  } else {
+    showErrorBox(title, message)
+  }
+}
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -80,27 +123,33 @@ async function isEpicServiceOffline(
 }
 
 export const getLegendaryVersion = async () => {
-  const { altLegendaryBin } = await GlobalConfig.get().getSettings()
-  try {
-    if (altLegendaryBin && !altLegendaryBin.includes('legendary')) {
-      return 'invalid'
-    }
-    const { stdout } = await execAsync(`${legendaryBin} --version`)
-    return stdout
-      .split('legendary version')[1]
-      .replaceAll('"', '')
-      .replaceAll(', codename', '')
-      .replaceAll('\n', '')
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Legendary)
+  const { stdout, error } = await runLegendaryCommand(['--version'])
+
+  if (error) {
     return 'invalid'
   }
+
+  return stdout
+    .split('legendary version')[1]
+    .replaceAll('"', '')
+    .replaceAll(', codename', '')
+    .replaceAll('\n', '')
+}
+
+export const getGogdlVersion = async () => {
+  const { stdout, error } = await runGogdlCommand(['--version'])
+
+  if (error) {
+    return 'invalid'
+  }
+
+  return stdout
 }
 
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Rayleigh'
+  const STABLE_VERSION_NAME = 'Oden'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -144,11 +193,11 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
-const handleExit = async () => {
-  const isLocked = existsSync(`${heroicGamesConfigPath}/lock`)
+async function handleExit(window: BrowserWindow) {
+  const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
 
   if (isLocked) {
-    const { response } = await showMessageBox({
+    const { response } = await showMessageBox(window, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -160,7 +209,19 @@ const handleExit = async () => {
     if (response === 0) {
       return
     }
-    return app.exit()
+
+    // Kill all child processes
+    // This is very hacky
+    let killCommand = 'pkill --signal SIGINT '
+    if (isWindows) {
+      killCommand = 'Stop-Process -name '
+    }
+    const possibleChildren = ['legendary', 'gogdl']
+    possibleChildren.forEach(async (procName) => {
+      await execAsync(killCommand + procName).catch((error) => {
+        logInfo([`Unable to kill ${procName}, ignoring.`, error])
+      })
+    })
   }
   app.exit()
 }
@@ -212,10 +273,10 @@ type ErrorHandlerMessage = {
   logPath?: string
 }
 
-async function errorHandler({
-  error,
-  logPath
-}: ErrorHandlerMessage): Promise<void> {
+async function errorHandler(
+  { error, logPath }: ErrorHandlerMessage,
+  window?: BrowserWindow
+): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
   const noCredentialsError = 'No saved credentials'
   if (logPath) {
@@ -223,7 +284,8 @@ async function errorHandler({
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, LogPrefix.Backend)
-          return showErrorBox(
+          return showErrorBoxModal(
+            window,
             i18next.t('box.error.diskspace.title', 'No Space'),
             i18next.t(
               'box.error.diskspace.message',
@@ -236,7 +298,8 @@ async function errorHandler({
   }
   if (error) {
     if (error.stderr.includes(noCredentialsError)) {
-      return showErrorBox(
+      return showErrorBoxModal(
+        window,
         i18next.t('box.error.credentials.title', 'Expired Credentials'),
         i18next.t(
           'box.error.credentials.message',
@@ -247,19 +310,15 @@ async function errorHandler({
   }
 }
 
-function genericErrorMessage(): void {
-  return showErrorBox(
-    i18next.t('box.error.generic.title', 'Unknown Error'),
-    i18next.t('box.error.generic.message', 'An Unknown Error has occurred')
-  )
-}
-
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
   return text.replaceAll(regexp, '')
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
+  if (url.startsWith('http')) {
+    return shell.openExternal(url)
+  }
   return shell.openPath(url)
 }
 
@@ -276,17 +335,28 @@ function clearCache() {
     cwd: 'lib-cache',
     name: 'gameinfo'
   })
+  const GOGapiInfoCache = new Store({
+    cwd: 'gog_store',
+    name: 'api_info_cache'
+  })
+  const GOGlibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
+  GOGapiInfoCache.clear()
+  GOGlibraryStore.clear()
   installCache.clear()
   libraryCache.clear()
   gameInfoCache.clear()
 }
 
 function resetHeroic() {
-  const heroicFolder = `${app.getPath('appData')}/heroic`
-  rm(heroicFolder, { recursive: true, force: true }, () => {
+  const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
+  heroicFolders.forEach((folder) => {
+    rm(folder, { recursive: true, force: true }, () => null)
+  })
+  // wait a sec to avoid racing conditions
+  setTimeout(() => {
     app.relaunch()
     app.quit()
-  })
+  }, 1000)
 }
 
 function showItemInFolder(item: string) {
@@ -302,11 +372,58 @@ function showItemInFolder(item: string) {
   }
 }
 
+function splitPathAndName(fullPath: string): { dir: string; bin: string } {
+  const dir = dirname(fullPath)
+  let bin = basename(fullPath)
+  // On Windows, you can just launch executables that are in the current working directory
+  // On Linux, you have to add a ./
+  if (!isWindows) {
+    bin = './' + bin
+  }
+  // Make sure to always return this as `dir, bin` to not break path
+  // resolution when using `join(...Object.values(...))`
+  return { dir, bin }
+}
+
+function getLegendaryBin(): { dir: string; bin: string } {
+  const settings = configStore.get('settings') as { altLeg: string }
+  if (settings?.altLeg) {
+    return splitPathAndName(settings.altLeg)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(__dirname, 'bin', process.platform, 'legendary'))
+  )
+}
+
+function getGOGdlBin(): { dir: string; bin: string } {
+  const settings = configStore.get('settings') as { altGogdl: string }
+  if (settings?.altGogdl) {
+    return splitPathAndName(settings.altGogdl)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(__dirname, 'bin', process.platform, 'gogdl'))
+  )
+}
+
+const specialCharactersRegex =
+  /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
+const cleanTitle = (title: string) =>
+  title
+    .replaceAll(specialCharactersRegex, '')
+    .replaceAll(' ', '-')
+    .replaceAll('®', '')
+    .toLowerCase()
+    .split('--definitive')[0]
+
+const formatEpicStoreUrl = (title: string) => {
+  const storeUrl = `https://www.epicgames.com/store/product/`
+  return `${storeUrl}${cleanTitle(title)}`
+}
+
 export {
   checkForUpdates,
   errorHandler,
   execAsync,
-  genericErrorMessage,
   handleExit,
   isOnline,
   isEpicServiceOffline,
@@ -317,5 +434,8 @@ export {
   statAsync,
   removeSpecialcharacters,
   clearCache,
-  resetHeroic
+  resetHeroic,
+  getLegendaryBin,
+  getGOGdlBin,
+  formatEpicStoreUrl
 }

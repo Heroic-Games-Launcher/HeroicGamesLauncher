@@ -2,20 +2,20 @@
     "box": {
         "change": {
             "message": "Ez megfogja változtatni ennek a játéknak a telepítési helyét, biztos vagy benne?",
-            "path": "Válassz egy új Telepítési Útvonalat",
-            "title": "Játék Telepítési Útvonal Megváltoztatása"
+            "path": "Válassz egy új telepítési útvonalat",
+            "title": "Játék telepítési útvonal megváltoztatása"
         },
-        "choose": "Kiválaszt",
-        "importpath": "Válassz Játék Mappát az importáláshoz",
+        "choose": "Kiválasztás",
+        "importpath": "Importálandó játékmappa kiválasztása",
         "move": {
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
-            "path": "Válaszd ki, hova szeretnéd áthelyezni",
+            "path": "Válaszd ki, hogy hova szeretnéd áthelyezni",
             "title": "Játék telepítés áthelyezése"
         },
         "no": "NEM",
         "repair": {
             "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
-            "title": "Ellenőrzés és Javítás"
+            "title": "Ellenőrzés és javítás"
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
@@ -23,36 +23,36 @@
             "title": "Telepítés megállítása"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Szeretnéd a prefixet is eltávolítani? Ezt nem lehet visszacsinálni.",
             "checkbox_prefix": "Prefix",
             "message": "El akarod távolítani ezt a játékot?",
             "title": "Eltávolítás"
         },
         "update": {
-            "message": "Ennek a játéknak van egy frissítése, szeretnéd most frissíteni?",
-            "title": "Játéknak frissítésre van szüksége"
+            "message": "Ennek a játéknak van egy frissítése, alkalmazzuk a frissítést most?",
+            "title": "A játékot frissíteni kell"
         },
-        "wineprefix": "Wine Prefix mappa kiválasztása",
+        "wineprefix": "Wine prefix mappa kiválasztása",
         "yes": "IGEN"
     },
     "button": {
-        "cancel": "Szüneteltetés/Mégse",
+        "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
         "import": "Játék importálása",
         "install": "Telepítés",
         "uninstall": "Eltávolítás",
-        "update": "Update"
+        "update": "Frissítés"
     },
     "disabled": "Letiltva",
     "dlc": {
-        "installDlcs": "Összes DLC telepítése",
-        "title": "DLCs"
+        "installDlcs": "Összes DLC telepítése"
     },
     "enabled": "Engedélyezve",
     "game": {
         "downloadSize": "Letöltési méret",
-        "firstPlayed": "Először Játszott",
+        "firstPlayed": "Először játszott",
         "installSize": "Telepítési méret",
+        "language": "Nyelv",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
         "totalPlayed": "Játszott idő"
@@ -70,29 +70,30 @@
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Wine prefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {
-            "start": "Indítás Most",
-            "stop": "Játékban (Megállítás)"
+            "start": "Indítás most",
+            "stop": "Játékban (leállítás)"
         },
         "saves": {
             "syncing": "Mentések szinkronizálása"
         }
     },
     "launch": {
-        "options": "Elindítási opciók..."
+        "options": "Indítási opciók..."
     },
     "sdl": {
-        "title": "Válasszd ki a telepíteni kívánt elemeket"
+        "title": "Válaszd ki a telepíteni kívánt elemeket"
     },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Ajánlott"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Kattints a frissítéshez",
         "hasUpdates": "Új verzió elérhető!",
         "installed": "Telepítve",
         "installing": "Telepítés",
@@ -100,16 +101,16 @@
         "notinstalled": "Ez a játék nincs telepítve",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
-        "updating": "Játék Frissítése"
+        "updating": "Játék frissítése"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
         "change": "Telepítési útvonal megváltoztatása",
-        "log": "Legutóbbi Naplózás (Log)",
+        "log": "Legutóbbi napló",
         "move": "Játék áthelyezése",
         "protondb": "Kompatibilitás ellenőrzése",
         "settings": "Beállítások",
-        "store": "Áruházi Oldala",
-        "verify": "Ellenőrzés és Javítás"
+        "store": "Áruházi oldal",
+        "verify": "Ellenőrzés és javítás"
     }
 }

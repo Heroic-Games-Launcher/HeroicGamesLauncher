@@ -45,14 +45,14 @@
     },
     "disabled": "Uitgeschakeld",
     "dlc": {
-        "installDlcs": "Installeer alle DLC's",
-        "title": "DLCs"
+        "installDlcs": "Installeer alle DLC's"
     },
     "enabled": "Ingeschakeld",
     "game": {
         "downloadSize": "Downloadgrootte",
         "firstPlayed": "Eerst gespeeld",
         "installSize": "Installatie grootte",
+        "language": "Language",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "totalPlayed": "Tijd gespeeld"
@@ -70,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

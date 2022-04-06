@@ -12,6 +12,7 @@
         },
         "choose": "Choose",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary binary",
         "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
@@ -33,6 +34,10 @@
                 "title": "Unknown Error"
             },
             "launch": "Error when launching the game, check the logs!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +89,7 @@
         "yes": "YES"
     },
     "button": {
+        "continue": "Continue",
         "login": "Log in",
         "sync": "Sync",
         "syncing": "Syncing",
@@ -91,17 +97,21 @@
     },
     "Downloading": "Downloading",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filter",
     "globalSettings": "Global Settings",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "platform": "Platform"
+    },
     "help": {
-        "general": "Sync with EGL in case you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
             "part1": "Use the ",
             "part2": "Advanced Options",
@@ -132,13 +142,18 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "Grid view",
+        "listView": "List view",
+        "refresh": "Refresh"
+    },
     "Library": "Library",
     "loading": {
+        "default": "Loading",
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Sync Complete",
@@ -156,7 +171,7 @@
         },
         "install": {
             "canceled": "Install Canceled",
-            "error": "",
+            "error": "Installation Failed",
             "finished": "Install Finished",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -180,23 +195,30 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "Help translate Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Prefix where EGS is installed"
+    },
+    "platforms": {
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Ready": "Ready",
     "Recent": "Played Recently",
-    "Return": "Return",
     "search": "Enter the game name here...",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary (restart required)",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "audiofix": "Audio Fix (Pulse Audio Latency)",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "Played Recently to Show",
         "maxworkers": "Maximum Number of Workers when downloading",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Run Game Offline",
         "primerun": "Enable Nvidia Prime Render",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX 30xx only)",
@@ -249,6 +272,7 @@
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"
@@ -270,10 +294,10 @@
     },
     "Settings": "Settings",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
-    "store": "Store",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -308,7 +332,16 @@
         "discord": "Discord",
         "logout": "Log out",
         "logout_confirmation": "Are you sure you want to log out?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Quit"
+    },
+    "webview": {
+        "controls": {
+            "back": "Go back",
+            "forward": "Go forward",
+            "openInBrowser": "Open in browser",
+            "reload": "Reload page"
+        }
     },
     "wiki": "Wiki",
     "wine": {

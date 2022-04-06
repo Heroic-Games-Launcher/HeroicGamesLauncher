@@ -3,67 +3,51 @@ import { join } from 'path'
 import Store from 'electron-store'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
-import {
-  createNewLogFileAndClearOldOnces,
-  logInfo,
-  LogPrefix
-} from './logger/logger'
-import { env, execPath } from 'process'
+import { createNewLogFileAndClearOldOnces } from './logger/logger'
+import { env } from 'process'
+import { app } from 'electron'
+import { existsSync } from 'graceful-fs'
 
 const configStore = new Store({
   cwd: 'store'
 })
 
-function getLegendaryBin() {
-  const settings = configStore.get('settings') as { altLeg: string }
-  const bin =
-    settings?.altLeg ||
-    `${fixAsarPath(
-      join(
-        __dirname,
-        '/bin/',
-        process.platform,
-        isWindows ? '/legendary.exe' : '/legendary'
-      )
-    )}`
-  if (bin.includes(' ')) {
-    return `"${bin}"`
-  }
-  logInfo(`Location: ${bin}`, LogPrefix.Legendary)
-  return bin
-}
-
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
-const isFlatpak = execPath === '/app/main/heroic'
+const isLinux = platform() == 'linux'
+const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
+
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-const home = isFlatpak ? flatPakHome : homedir()
-const legendaryConfigPath = isFlatpak
-  ? `${home}/config/legendary`
-  : `${home}/.config/legendary`
-const heroicFolder = isFlatpak
-  ? `${home}/config/heroic/`
-  : `${home}/.config/heroic/`
+const userHome = homedir()
+const configFolder = app.getPath('appData')
+const legendaryConfigPath = isLinux
+  ? join(configFolder, 'legendary')
+  : join(userHome, '.config', 'legendary')
+const heroicFolder = join(configFolder, 'heroic')
+const heroicConfigPath = join(heroicFolder, 'config.json')
+const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
+const heroicToolsPath = join(heroicFolder, 'tools')
+const heroicIconFolder = join(heroicFolder, 'icons')
+const userInfo = join(legendaryConfigPath, 'user.json')
+const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
+const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
+
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
-const heroicConfigPath = `${heroicFolder}config.json`
-const heroicGamesConfigPath = `${heroicFolder}GamesConfig/`
-const heroicToolsPath = `${heroicFolder}tools`
-const heroicIconFolder = `${heroicFolder}icons`
-const userInfo = `${legendaryConfigPath}/user.json`
-const heroicInstallPath = isWindows
-  ? `${home}\\Games\\Heroic`
-  : `${home}/Games/Heroic`
-const legendaryBin = getLegendaryBin()
-const icon = fixAsarPath(join(__dirname, '/icon.png'))
-const iconDark = fixAsarPath(join(__dirname, '/icon-dark.png'))
-const iconLight = fixAsarPath(join(__dirname, '/icon-light.png'))
-const installed = `${legendaryConfigPath}/installed.json`
-const libraryPath = `${legendaryConfigPath}/metadata/`
-const loginUrl =
+
+const icon = fixAsarPath(join(__dirname, 'icon.png'))
+const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
+const iconLight = fixAsarPath(join(__dirname, 'icon-light.png'))
+const installed = join(legendaryConfigPath, 'installed.json')
+const libraryPath = join(legendaryConfigPath, 'metadata')
+const steamCompatFolder: string = getSteamCompatFolder()
+const fallBackImage = 'fallback'
+const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
+const gogLoginUrl =
+  'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
   'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
@@ -108,6 +92,13 @@ function fixAsarPath(origin: string): string {
   return origin
 }
 
+function getSteamCompatFolder() {
+  if (existsSync(`${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
+    return `${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`
+  }
+  return `${userHome}/.steam/steam`
+}
+
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet
 
 const execOptions = {
@@ -124,6 +115,7 @@ export {
   execOptions,
   fixAsarPath,
   getShell,
+  configStore,
   heroicConfigPath,
   heroicFolder,
   heroicGamesConfigPath,
@@ -131,22 +123,28 @@ export {
   heroicIconFolder,
   heroicInstallPath,
   heroicToolsPath,
-  home,
+  heroicDefaultWinePrefix,
+  userHome,
+  flatPakHome,
   kofiPage,
   icon,
   iconDark,
   iconLight,
   installed,
+  isFlatpak,
   isMac,
   isWindows,
-  legendaryBin,
+  isLinux,
   legendaryConfigPath,
   libraryPath,
-  loginUrl,
+  epicLoginUrl,
+  gogLoginUrl,
   patreonPage,
   sidInfoUrl,
   supportURL,
+  fallBackImage,
   userInfo,
   weblateUrl,
-  wikiLink
+  wikiLink,
+  steamCompatFolder
 }

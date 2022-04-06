@@ -12,6 +12,7 @@
         },
         "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Selecteer Legendary Binary",
         "customWine": "Selecteer de Wine of Proton Binary",
         "default-install-path": "Selecteer een standaard map",
@@ -33,6 +34,10 @@
                 "title": "Onbekende fout"
             },
             "launch": "Een probleem tijdens het lanceren van het spel, check de logs!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "Error",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +89,7 @@
         "yes": "JA"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
@@ -98,8 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "Filter",
     "globalSettings": "Algemene instellingen",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "other": {
@@ -132,13 +142,18 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "Bibliotheek",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -180,22 +195,29 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Versie: ",
         "weblate": "Help met het vertalen van Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Gebruik built-in Legendary binary...",
         "egs-prefix": "Prefix waar EGS is geïnstalleerd"
+    },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Plugins": "Plugins",
     "Projects": "Projecten",
     "Ready": "Gereed",
     "Recent": "Recente Spellen",
-    "Return": "Terug",
     "search": "Voor je spel naam hier in...",
     "setting": {
         "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Kies een andere Legendary Binary om te gebruiken",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "Recente spellen om te tonen",
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Spel offline draaien",
         "primerun": "Aciveer Nvidia Prime Render",
         "resizableBar": "Resizable BAR inschakelen (Alleen voor NVIDIA RTX 30xx)",
@@ -249,6 +272,7 @@
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Geminimaliseerd",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie"
@@ -270,10 +294,10 @@
     },
     "Settings": "Instellingen",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "Winkel",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -308,7 +332,16 @@
         "discord": "Discord",
         "logout": "Log uit",
         "logout_confirmation": "weet u zeker dat u wil uitloggen?",
+        "manageaccounts": "Manage Accounts",
         "quit": "Sluiten"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "Wiki",
     "wine": {

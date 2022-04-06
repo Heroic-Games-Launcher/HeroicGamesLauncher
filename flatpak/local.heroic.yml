@@ -1,0 +1,142 @@
+id: com.heroicgameslauncher.hgl
+sdk: org.freedesktop.Sdk
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+base: org.electronjs.Electron2.BaseApp
+base-version: '21.08'
+command: heroic-run
+separate-locales: false
+
+sdk-extensions:
+  - org.freedesktop.Sdk.Compat.i386
+  - org.freedesktop.Sdk.Extension.toolchain-i386
+
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --allow=multiarch
+  - --allow=devel
+  - --device=all
+  - --talk-name=org.freedesktop.Notifications
+  - --persist=.wine
+  - --filesystem=host
+  - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/
+
+add-extensions:
+  org.freedesktop.Platform.Compat.i386:
+    directory: lib/i386-linux-gnu
+    version: '21.08'
+
+  org.freedesktop.Platform.Compat.i386.Debug:
+    directory: lib/debug/lib/i386-linux-gnu
+    version: '21.08'
+    no-autodownload: true
+
+  org.freedesktop.Platform.GL32:
+    directory: lib/i386-linux-gnu/GL
+    version: '1.4'
+    versions: 21.08;1.4
+    subdirectories: true
+    no-autodownload: true
+    autodelete: false
+    add-ld-path: lib
+    merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
+    download-if: active-gl-driver
+    enable-if: active-gl-driver
+
+
+modules:
+  - name: unappimage
+    buildsystem: simple
+    build-commands:
+      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=/app/bin
+    sources:
+      - type: git
+        url: https://github.com/refi64/unappimage
+        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
+
+  - name: vulkan-tools
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DGLSLANG_INSTALL_DIR=/app
+      - -DVULKAN_HEADERS_INSTALL_DIR=/app
+      - -DCMAKE_BUILD_TYPE=Release
+    sources:
+      - type: archive
+        url: https://github.com/KhronosGroup/Vulkan-Tools/archive/refs/tags/v1.2.186.tar.gz
+        sha256: 8ba0e21e8de0b70d31985d251d11150efee71266875262798784e9d1ec9b717b
+
+  - name: gamemode
+    buildsystem: meson
+    config-opts: &gamemode_opts
+      - -Dwith-systemd=false
+      - -Dwith-daemon=false
+      - -Dwith-examples=false
+      - -Dwith-util=false
+      - -Dwith-sd-bus-provider=no-daemon
+    sources: &gamemode_sources
+      - type: archive
+        url: https://github.com/FeralInteractive/gamemode/releases/download/1.6.1/gamemode-1.6.1.tar.xz
+        sha256: 10c2a3f142eae472f5a09e42616e38c666c05b25ca3e61e562a543bb3fda66c5
+
+  - name: gamemode-32bit
+    build-options:
+      arch:
+        x86_64: &compat_i386_opts
+    buildsystem: meson
+    config-opts: *gamemode_opts
+    sources: *gamemode_sources
+
+  - name: gamemoderun
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 data/gamemoderun -t /app/bin
+    sources: *gamemode_sources
+
+  - name: heroic
+    buildsystem: simple
+    build-commands:
+      - unappimage Heroic-2.2.6.AppImage
+      - rm Heroic-2.2.6.AppImage
+      - mv squashfs-root /app/bin/heroic
+      - install -D heroic-run -t /app/bin
+    sources:
+      - type: script
+        dest-filename: heroic-run
+        commands:
+          - zypak-wrapper /app/bin/heroic/heroic "$@"
+
+      - type: file
+        filename: Heroic-2.2.6.AppImage
+        # put right path here
+        path: ../dist/Heroic-2.2.6.AppImage
+
+  - name: platform-bootstrap
+    buildsystem: simple
+    build-commands:
+      - |
+        set -e
+        mkdir -p /app/bin
+        mkdir -p /app/lib/i386-linux-gnu
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/i386-linux-gnu/GL
+        mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
+        install -Dm644 com.heroicgameslauncher.hgl.png /app/share/icons/hicolor/128x128/apps/com.heroicgameslauncher.hgl.png
+        install -Dm644 com.heroicgameslauncher.hgl.desktop /app/share/applications/${FLATPAK_ID}.desktop
+        install -Dm644 -t /app/etc ld.so.conf
+        install -Dm644 $FLATPAK_ID.metainfo.xml /app/share/metainfo/$FLATPAK_ID.appdata.xml
+    sources:
+      - type: inline
+        dest-filename: ld.so.conf
+        contents: |
+          /app/lib32
+          /app/lib/i386-linux-gnu
+      - type: file
+        path: com.heroicgameslauncher.hgl.metainfo.xml
+      - type: file
+        path: com.heroicgameslauncher.hgl.png
+      - type: file
+        path: com.heroicgameslauncher.hgl.desktop

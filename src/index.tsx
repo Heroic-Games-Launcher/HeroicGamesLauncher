@@ -8,7 +8,7 @@ import { initGamepad } from './helpers/gamepad'
 import './index.css'
 import App from 'src/App'
 import GlobalState from 'src/state/GlobalState'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
+import { UpdateComponentBase } from 'src/components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 
 const Backend = new HttpApi(null, {
@@ -64,6 +64,8 @@ i18next
       'sv',
       'ta',
       'tr',
+      'uk',
+      'vi',
       'zh_Hans',
       'zh_Hant'
     ]
@@ -72,7 +74,7 @@ i18next
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<UpdateComponent />}>
+      <Suspense fallback={<UpdateComponentBase message="Loading" />}>
         <GlobalState>
           <App />
         </GlobalState>

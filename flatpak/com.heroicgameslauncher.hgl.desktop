@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Heroic Games Launcher
+Exec=heroic-run
+Terminal=false
+Type=Application
+Icon=com.heroicgameslauncher.hgl
+StartupWMClass=Heroic
+Comment=An Open Source GOG and Epic Games launcher
+MimeType=x-scheme-handler/heroic;
+Categories=Game;

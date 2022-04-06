@@ -12,6 +12,7 @@
         },
         "choose": "தேர்வு செய்",
         "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "Wine அல்லது Proton இருமத்தை தேர்வு செய்",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
@@ -33,6 +34,10 @@
                 "title": "அறியப்படாத பிழை"
             },
             "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
+            },
             "title": "பிழை",
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
@@ -84,6 +89,7 @@
         "yes": "ஆம்"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "ஒத்திசைவு செய்",
         "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
@@ -98,8 +104,12 @@
     "filter": {
         "noFilter": "No Filter"
     },
-    "Filter": "வடிகட்டி",
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
         "other": {
@@ -132,13 +142,18 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
@@ -180,22 +195,29 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு"
+    },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Plugins": "செருகுநிரல்கள்",
     "Projects": "செயல்திட்டம்",
     "Ready": "தயார்",
     "Recent": "சமீபத்திய விளையாட்டுகள்",
-    "Return": "திரும்பிச் செல்",
     "search": "விளையாட்டின் பெயரை இங்கே உள்ளிடு...",
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
         "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
@@ -235,6 +257,7 @@
         },
         "maxRecentGames": "Played Recently to Show",
         "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
         "primerun": "Nvidia Prime Render ஐ துவக்கு",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
@@ -249,6 +272,7 @@
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",
         "wineversion": "Wine பதிப்பு"
@@ -270,10 +294,10 @@
     },
     "Settings": "அமைப்புகள்",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "விற்பனைக்கூடம்",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -308,7 +332,16 @@
         "discord": "டிஸ்கார்ட் (Discord)",
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
+        "manageaccounts": "Manage Accounts",
         "quit": "வெளியேறு"
+    },
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
     },
     "wiki": "விக்கி",
     "wine": {

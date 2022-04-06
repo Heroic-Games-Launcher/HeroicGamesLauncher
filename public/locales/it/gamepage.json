@@ -23,7 +23,7 @@
             "title": "Ferma l'installazione"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Vuoi rimuovere anche il prefisso? Non può essere annullato.",
             "checkbox_prefix": "Prefix",
             "message": "Vuoi disinstallare questo gioco?",
             "title": "Disinstalla"
@@ -45,14 +45,14 @@
     },
     "disabled": "Disattivato",
     "dlc": {
-        "installDlcs": "Installa tutti i DLC",
-        "title": "DLCs"
+        "installDlcs": "Installa tutti i DLC"
     },
     "enabled": "attivato",
     "game": {
         "downloadSize": "Dimensione del download",
         "firstPlayed": "Giocato per la prima volta",
         "installSize": "Dimensione dell'installazione",
+        "language": "Language",
         "lastPlayed": "Giocato recentemente",
         "neverPlayed": "Mai",
         "totalPlayed": "Tempo giocato"
@@ -70,7 +70,8 @@
     },
     "install": {
         "path": "Seleziona percorso di installazione",
-        "wineprefix": "Prefisso Wine"
+        "wineprefix": "Prefisso Wine",
+        "wineversion": ""
     },
     "label": {
         "playing": {

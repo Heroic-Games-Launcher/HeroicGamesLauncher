@@ -45,14 +45,14 @@
     },
     "disabled": "Désactivé",
     "dlc": {
-        "installDlcs": "Installer tout le contenu téléchargeable (DLC)",
-        "title": "DLCs"
+        "installDlcs": "Installer tout le contenu téléchargeable (DLC)"
     },
     "enabled": "Activé",
     "game": {
         "downloadSize": "Taille du téléchargement",
         "firstPlayed": "Joué pour la première fois",
         "installSize": "Taille de l'installation",
+        "language": "Language",
         "lastPlayed": "Joué la dernière fois",
         "neverPlayed": "Jamais",
         "totalPlayed": "Temps passé à jouer"
@@ -70,7 +70,8 @@
     },
     "install": {
         "path": "Sélectionner le chemin d'installation",
-        "wineprefix": "Préfixe Wine"
+        "wineprefix": "Préfixe Wine",
+        "wineversion": ""
     },
     "label": {
         "playing": {

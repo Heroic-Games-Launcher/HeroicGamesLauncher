@@ -2,15 +2,15 @@
     "box": {
         "change": {
             "message": "Detta kommer ändra installationssökvägen, är du säker?",
-            "path": "Välj ny installationssökväg",
+            "path": "Ange ny installationssökväg",
             "title": "Ändra spelets installationssökväg"
         },
         "choose": "OK",
-        "importpath": "Välj spelmapp för import",
+        "importpath": "Ange spelmapp att importera",
         "move": {
             "message": "Detta kan ta lång tid, är du säker?",
-            "path": "Välj vart du vill flytta",
-            "title": "Flytta var spelet är installerat"
+            "path": "Ange var du vill flytta spelet",
+            "title": "Flytta spel"
         },
         "no": "Nej",
         "repair": {
@@ -23,16 +23,16 @@
             "title": "Avbryt installationen"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Vill du radera Wine-prefix också? Radering kan ej ångras!",
             "checkbox_prefix": "Prefix",
             "message": "Vill du avinstallera spelet?",
             "title": "Avinstallera"
         },
         "update": {
-            "message": "Det finns en speluppdatering, vill du uppdatera?",
+            "message": "Det finns en speluppdatering, uppdatera nu?",
             "title": "Spelet behöver uppdateras"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Ange Wine-prefix mapp",
         "yes": "Ja"
     },
     "button": {
@@ -45,14 +45,14 @@
     },
     "disabled": "Inaktiverad",
     "dlc": {
-        "installDlcs": "Installera alla DLC",
-        "title": "DLCs"
+        "installDlcs": "Installera alla DLC"
     },
     "enabled": "Aktiverad",
     "game": {
         "downloadSize": "Nedladdningsstorlek",
         "firstPlayed": "Först spelat",
         "installSize": "Installationsstorlek",
+        "language": "Språk",
         "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Speltid"
@@ -69,8 +69,9 @@
         "version": "Version"
     },
     "install": {
-        "path": "Välj installationssökväg",
-        "wineprefix": "WinePrefix"
+        "path": "Ange installationssökväg",
+        "wineprefix": "Wine-prefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {
@@ -85,7 +86,7 @@
         "options": "Startalternativ..."
     },
     "sdl": {
-        "title": "Välj komponenter att installera"
+        "title": "Ange komponenter att installera"
     },
     "specs": {
         "minimum": "Minimum",

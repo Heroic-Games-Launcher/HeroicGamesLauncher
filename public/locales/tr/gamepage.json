@@ -45,14 +45,14 @@
     },
     "disabled": "Devre dışı",
     "dlc": {
-        "installDlcs": "Tüm DLC'leri kur",
-        "title": "DLCs"
+        "installDlcs": "Tüm DLC'leri kur"
     },
     "enabled": "Etkin",
     "game": {
         "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
         "installSize": "Kurulum Boyutu",
+        "language": "Dil",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "totalPlayed": "Oynanan Zaman"
@@ -70,7 +70,8 @@
     },
     "install": {
         "path": "Kurulum Yolunu Seçin",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

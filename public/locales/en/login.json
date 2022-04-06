@@ -2,9 +2,6 @@
     "button": {
         "login": "Log in"
     },
-    "input": {
-        "placeholder": "Paste your SID number here"
-    },
     "message": {
         "part1": "In order to log in and install your games, you first need to follow the steps below:",
         "part2": "Open the",
@@ -17,8 +14,7 @@
     },
     "status": {
         "error": "Error",
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In…"
+        "loading": "Loading Game list, please wait"
     },
     "welcome": "Welcome!"
 }

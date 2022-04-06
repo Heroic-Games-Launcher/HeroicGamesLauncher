@@ -12,6 +12,7 @@
         },
         "choose": "Выбрать",
         "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
+        "choose-gogdl-binary": "Выбрать исполняемый файл GOGDL (требуется перезапуск)",
         "choose-legendary-binary": "Выбрать исполняемый файл Legendary",
         "customWine": "Выбрать исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
@@ -25,14 +26,18 @@
                 "title": "Нет места"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Ошибка при установке DXVK/VKD3D! Проверьте подключение или наличие установленного zstd/libzstd1",
+                "title": "Ошибка DXVK/VKD3D"
             },
             "generic": {
                 "message": "Произошла неизвестная ошибка",
                 "title": "Неизвестная ошибка"
             },
-            "launch": "Ошибка при запуске игры, посмотрите логи!",
+            "launch": "Ошибка при запуске игры, проверьте журнал!",
+            "no-offline-mode": {
+                "message": "Запуск прерван! Для запуска игры требуется подключение к интернету.",
+                "title": "Автономный режим не поддерживается."
+            },
             "title": "Ошибка",
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -84,6 +89,7 @@
         "yes": "ДА"
     },
     "button": {
+        "continue": "Продолжить",
         "login": "Вход",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
@@ -91,17 +97,21 @@
     },
     "Downloading": "Скачивается",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "filter": {
         "noFilter": "Без фильтра"
     },
-    "Filter": "Фильтр",
     "globalSettings": "Глобальные настройки",
+    "GOG": "GOG",
+    "gog-store": "Магазин GOG",
+    "header": {
+        "platform": "Платформа"
+    },
     "help": {
-        "general": "Синхронизируйте с EGS, в случае если у вас есть работающий Epic Games Store в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторной загрузки.",
+        "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
             "part1": "Используйте ",
             "part2": "расширенные настройки",
@@ -132,13 +142,18 @@
     "install": {
         "path": "Выберите путь установки"
     },
+    "library": {
+        "gridView": "В виде сетки",
+        "listView": "В виде списка",
+        "refresh": "Обновить"
+    },
     "Library": "Библиотека",
     "loading": {
+        "default": "Загрузка",
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "loginWithEpic": "Вход через Epic",
-        "loginWithSid": "Вход через SID"
+        "externalLogin": "Внешний вход"
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -156,7 +171,7 @@
         },
         "install": {
             "canceled": "Установка прервана",
-            "error": "",
+            "error": "Установка не удалась",
             "finished": "Установка завершена",
             "imported": "Игра импортирована",
             "startInstall": "Установка началась"
@@ -180,27 +195,34 @@
         }
     },
     "other": {
+        "gogdl-version": "Версия GOGDL : ",
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
     "placeholder": {
+        "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
         "egs-prefix": "Префикс куда установлен EGS"
+    },
+    "platforms": {
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Плагины",
     "Projects": "Проекты",
     "Ready": "Готово",
     "Recent": "Запускались недавно",
-    "Return": "Вернуться",
     "search": "Введите здесь название игры...",
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
-        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary (требуется перезапуск)",
+        "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL",
+        "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
-        "autodxvk": "Автоустановка/обновление DXVK на префикс",
+        "autodxvk": "Автоматически устанавливать/обновлять DXVK в префиксе",
         "autosync": "Автосинхронизация сохранений",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
         "customWineProton": "Пользовательские пути Wine/Proton",
@@ -217,11 +239,11 @@
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Копировать содержимое журнала в буфер обмена",
+            "current-log": "Текущий журнал",
+            "last-log": "Последний журнал",
+            "no-file": "Файл журнала не найден",
+            "show-in-folder": "Показать файл журнала в папке"
         },
         "mangohud": "Включить Mangohud (Нужен Mangohud)",
         "manualsync": {
@@ -235,12 +257,13 @@
         },
         "maxRecentGames": "Показывать недавно запускавшихся игр",
         "maxworkers": "Максимальное количество потоков при скачивании",
+        "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
         "offlinemode": "Запускать игру офлайн",
         "primerun": "Включить Nvidia Prime Render",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
             "message": "Перетащите файлы сюда",
-            "title": "Запустить EXE на префиксе"
+            "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
             "placeholder": "Выберите точную папку для сохранений игр",
@@ -249,6 +272,7 @@
         "showfps": "Показывать FPS (DX9, 10 и 11)",
         "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
+        "steamruntime": "Использовать Steam Runtime",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
@@ -258,11 +282,11 @@
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Журнал урезан, показаны последние 1000 строк!"
         },
         "navbar": {
             "general": "Основные",
-            "log": "Log",
+            "log": "Журнал",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },
@@ -270,10 +294,10 @@
     },
     "Settings": "Настройки",
     "status": {
-        "loading": "Загружается список игр. Пожалуйста, подождите",
         "logging": "Вход…"
     },
-    "store": "Магазин",
+    "store": "Магазин Epic",
+    "stores": "Магазины",
     "title": {
         "allGames": "Все игры",
         "allUnreal": "Unreal - Все",
@@ -287,8 +311,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Выбрать папку префиксов по умолчанию для новых конфигураций",
+            "wineprefix": "Выбрать папку для новых префиксов"
         }
     },
     "tooltip": {
@@ -308,7 +332,16 @@
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
+        "manageaccounts": "Управление аккаунтами",
         "quit": "Закрыть Heroic"
+    },
+    "webview": {
+        "controls": {
+            "back": "Назад",
+            "forward": "Вперёд",
+            "openInBrowser": "Открыть в браузере",
+            "reload": "Перезагрузить страницу"
+        }
     },
     "wiki": "Вики",
     "wine": {
