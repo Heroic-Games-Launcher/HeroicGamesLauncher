@@ -1,12 +1,10 @@
 # Changelog
 
-
 ## 2.2.6 Oden - Hotfix 5
 
 ### What's Changed
 
 - [Bugfix] fix an issue on Linux and Mac where the Login is not working for the Epic Games
-
 
 ## 2.2.5 Oden - Hotfix 4
 
@@ -14,7 +12,6 @@
 
 - [Bugfix] Issues with Epic Login and refresh Library by @flavioislima in #1073
 - [i18n] Translations update from Hosted Weblate by @weblate in #1075
-
 
 ## 2.2.4 Oden - Flatpak and other fixes
 
@@ -25,13 +22,11 @@
 - [Linux] Disable check for updates by default on Flatpak.
 - [Linux] Fixes Default wine prefix for Flatpak
 
-
 ## 2.2.3 Oden - Windows and MacOS fixes
 
 ### What's Changed
 
 - [Bugfix | Windows / MacOS] Fixes Config Path on Windows and Mac and add minimize to tray on launch setting by @flavioislima in #1059
-
 
 ## 2.2.2 Oden - General improvements
 
@@ -47,7 +42,6 @@
 - [Bugfix] Fixup protocol handling when Heroic is already running by @CommandMC in #1019
 - [i18n] Translations update from Hosted Weblate by @weblate in #1035
 
-
 ## 2.2.1 Oden - Hotfix 1
 
 ### What's Changed
@@ -55,7 +49,6 @@
 - [Bugfix] Library not loading, games not installing by @imLinguin in #1001
 - [Bugfix] Quotes on default install path making installation fail.
 - [Bugfix | Linux] Trying to run the native game through wine by @imLinguin in #1006
-
 
 ## 2.2.0 Oden - GOG is Here! 🎉
 
@@ -84,7 +77,6 @@
 - [Bugfix] External URLs not opening by @imLinguin in #994
 - [i18n] Translations update from Hosted Weblate by @weblate in #988
 
-
 ## 2.1.1 Rayleigh - Improvements and Fixes
 
 ### What's Changed
@@ -100,7 +92,6 @@
 - [i18n] Translations update from Hosted Weblate by @weblate in #923
 
 Important: Heroic now depends on ZSTD to be installed for it to properly extract VKD3D on linux. We will try to remove that dependency on next release somehow.
-
 
 ## 2.1.0 Rayleigh
 
@@ -122,13 +113,11 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix] Fixes DLC list that was too long and was hiding the install button #891
 - [Bugfix] Other small fixes.
 
-
 ## 2.0.2 Zoro - Hotfix 2
 
 ### What's Changed
 
 - [Bugfix | Linux] Fix Wrong settings path (config folder that was changed from heroic to Heroic under $HOME/.config).
-
 
 ## 2.0.1 Zoro - Hotfix 1
 
@@ -148,7 +137,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix] Fix issue with some game pages breaking when the system requirements were empty (eg. Chicory: A Colorful Tale)
 - [Bugfix | Linux] Fix wine prefixes not being created by @imLinguin in #845
 - [i18n] Add Galego Language and several translations update from Hosted Weblate by @weblate in #823
-
 
 ## 2.0.0 Zoro
 
@@ -185,7 +173,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix | Windows] Icon on the Heroic windows won't be shown correctly
 - [Bugfix | Windows] Move install now working
 
-
 ## 1.10.3
 
 ### What's Changed
@@ -195,7 +182,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [MacOS] Some unused settings were removed
 - [Bugfix] Other small UI fixes;
 - [Bugfix | MacOS] Fixed an issue on BigSur that was causing Heroic screen to become blank;
-
 
 ## 1.10.2
 
@@ -207,7 +193,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix] Fixed an issue with games that have Selective Download not downloading the whole game.
 - [Bugfix] Fixed an issue where the integrated store wasn't opening the login popup.
 - [Bugfix] Other small fixes and translations update.
-
 
 ## 1.10.1
 
@@ -232,7 +217,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [i18n] Added Japanese Language.
 - [i18n] Other translations updates and fixes.
 
-
 ## 1.9.3
 
 ### What's Changed
@@ -243,7 +227,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [i18n] Added Korean, Croatian and Traditional Chinese languages.
 - [i18n] Other translations updates and fixes.
 
-
 ## 1.9.2
 
 ### What's Changed
@@ -251,7 +234,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix] Fixes a bug where a game wasn't shown as installed after finishing the installation.
 - [Bugfix] Changes default and minimal Heroic window size to acomodate lower resolutions.
 - [Bugfix] Fixed a small bug where the return button on settings were leading to the Game page instead of the Library when coming from there.
-
 
 ## 1.9.1
 
@@ -262,7 +244,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix] Fixed a bug that the cached library would not load correctly leading to a Blank Screen.
 - [Bugfix] Other small UI fixes and inconsistencies.
 - [Bugfix | MacOS] Fixed Big Icon tray.
-
 
 ## 1.9.0
 
@@ -294,7 +275,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix | Windows] Fixed default install path using wrong slashes.
 - [i18n] Added Portuguese (Brazil), Català and Tamil
 
-
 ## 1.8.0
 
 ### What's Changed
@@ -304,7 +284,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix] Fix some shortcuts being created without proper icon.
 - [Bugfix] Fix Sync Save folder with wrong slashes on Linux.
 - [Bugfix] Fix Offline option not working.
-
 
 ## 1.8.0-rc2
 
@@ -332,7 +311,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix | Windows] Fixed Verify and Repair function
 - [i18n] Added Simplified Chinese language
 
-
 ## 1.8.0-rc1
 
 ### What's Changed
@@ -351,7 +329,6 @@ Important: Heroic now depends on ZSTD to be installed for it to properly extract
 - [Bugfix] Fixed installing on the wrong directory when not choosing a proper folder for install.
 - [Bugfix] Fixed some cover resolution for some games Thanks @StefanLobbenmeier
 - [i18n] Added Greek Language
-
 
 ## 1.7.0
 
