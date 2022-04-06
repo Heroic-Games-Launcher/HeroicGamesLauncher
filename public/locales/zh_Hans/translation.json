@@ -3,7 +3,7 @@
     "Assets": "素材",
     "box": {
         "appupdate": {
-            "message": "有新版本的Heroic启动器可用，你要立即更新吗？",
+            "message": "有新版本的 Heroic 启动器可用，您要立即更新吗？",
             "title": "有可用更新"
         },
         "cache-cleared": {
@@ -11,10 +11,10 @@
             "title": "缓存已清理"
         },
         "choose": "请选择",
-        "choose-egs-prefix": "选择已安装Epic Game商城的前缀",
+        "choose-egs-prefix": "选择已安装 Epic 的前置",
         "choose-gogdl-binary": "选择 GOGDL 二进制文件 （需要重启）",
         "choose-legendary-binary": "选择 Legendary 二进制文件",
-        "customWine": "选择Wine或Proton二进制文件",
+        "customWine": "选择 Wine 或 Proton 二进制文件",
         "default-install-path": "选择默认安装路径",
         "error": {
             "credentials": {
@@ -57,16 +57,16 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "你确定你要重置Heroic吗？这将删除所有设置和缓存，但不会删除你的已安装游戏或你的Epic证书",
+                "message": "你确定你要重置 Heroic 吗？这将删除所有设置和缓存，但不会删除你的已安装游戏或你的 Epic 登录凭据",
                 "title": "重置 Heroic"
             }
         },
         "runexe": {
-            "title": "选择要运行的EXE文件"
+            "title": "选择要运行的 EXE 文件"
         },
         "select": {
             "button": "选择",
-            "exe": "选择EXE"
+            "exe": "选择 EXE"
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
@@ -85,7 +85,7 @@
             },
             "title": "警告"
         },
-        "wineprefix": "选择 WinePrefix 文件夹",
+        "wineprefix": "选择 WinePrefix文件夹",
         "yes": "是"
     },
     "button": {
@@ -98,7 +98,7 @@
     "Downloading": "正在下载",
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
     "filter": {
@@ -122,13 +122,13 @@
             "part7": " 在某些游戏中跳过启动器等。"
         },
         "sync": {
-            "part1": "大多数情况下，Heroic启动器会正确猜测的存档的位置。但如果位置是错误的，请使用覆盖框更改。",
-            "part2": "如果你改变了Wine或Proton的文件夹，你将需要再次检查路径，因为Proton使用不同的前缀（/pfx）和用户名（steamuser）。很简单，你可以直接删除当前的路径，离开同步设置页面再回来，Heroic会去重新猜测正确PREFIX的文件夹。",
+            "part1": "大多数情况下，Heroic 启动器会正确猜测的存档的位置。但如果位置是错误的，请使用覆盖框更改。",
+            "part2": "如果你改变了 Wine 或 Proton 的文件夹，你将需要再次检查路径，因为 Proton 使用不同的前置（/pfx）和用户名（steamuser）。很简单，你可以直接删除当前的路径，离开同步设置页面再回来，Heroic 会去重新猜测正确前置的文件夹。",
             "part3": "手动同步：选择下载以下载存储在云端的存档。选择上传将会把本地存档上传到云端。强制下载将会忽略本地版本，强制上传将会忽略云端版本。",
             "part4": "自动同步将在你每次开始游戏时和结束游戏后同步存档。"
         },
         "wine": {
-            "part1": "Heroic启动器会在以下文件夹中查找现有的Wine/Proton/CrossOver：",
+            "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         }
     },
@@ -147,7 +147,7 @@
         "listView": "列表视图",
         "refresh": "刷新"
     },
-    "Library": "库",
+    "Library": "仓库",
     "loading": {
         "default": "加载中",
         "website": "正在加载网站"
@@ -196,13 +196,13 @@
     },
     "other": {
         "gogdl-version": "GOGDL 版本： ",
-        "legendary-version": "Legendary版本: ",
-        "weblate": "请帮助翻译Heroic启动器。"
+        "legendary-version": "Legendary 版本： ",
+        "weblate": "请帮助翻译 Heroic。"
     },
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
-        "alt-legendary-bin": "使用内置的Legendary二进制文件...",
-        "egs-prefix": "Epic Games商城安装位置"
+        "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
+        "egs-prefix": "Epic 游戏商城安装位置"
     },
     "platforms": {
         "linux": "Linux",
@@ -220,23 +220,23 @@
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
         "audiofix": "音频修复（Pulse Audio延迟）",
-        "autodxvk": "在PREFIX自动安装并更新DXVK",
+        "autodxvk": "在前置自动安装并更新 DXVK",
         "autosync": "自动同步存档",
         "autovkd3d": "遇到前缀时自动安装/更新 VKD3D",
-        "change-target-exe": "选择要运行的替代EXE",
+        "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查更新",
-        "customWineProton": "自定义Wine/Proton路径",
+        "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
-        "defaultWinePrefix": "为新的 Wine Prefixes 设置文件夹",
+        "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
-        "egs-sync": "与已安装的Epic Games同步",
-        "enableFSRHack": "启用FSR（需要支持的WINE版本）",
-        "esync": "启用Esync",
+        "egs-sync": "与已安装的 Epic 游戏同步",
+        "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
+        "esync": "启用 Esync",
         "exit-to-tray": "退出到系统托盘",
         "FsrSharpnessStrenght": "FSR 锐化度",
-        "fsync": "启用Fsync",
-        "gamemode": "使用GameMode（需要已安装Feral Game Mode）",
+        "fsync": "启用 Fsync",
+        "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
         "language": "选择应用语言",
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
@@ -245,7 +245,7 @@
             "no-file": "未找到日志文件",
             "show-in-folder": "显示文件夹中的日志文件"
         },
-        "mangohud": "启用MangoHud（需要已安装Mangohud）",
+        "mangohud": "启用 MangoHud（需要已安装 Mangohud）",
         "manualsync": {
             "download": "下载",
             "forcedownload": "强制下载",
@@ -256,25 +256,25 @@
             "upload": "上传"
         },
         "maxRecentGames": "要显示的最近玩过的游戏",
-        "maxworkers": "下载时的最大Worker数量",
+        "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
-        "primerun": "启用英伟达Prime渲染",
+        "primerun": "启用英伟达 Prime 渲染",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "将文件拖放到此处",
-            "title": "在PREFIX上运行exe文件"
+            "title": "在前置上运行 EXE"
         },
         "savefolder": {
             "placeholder": "选择存档的保存位置",
             "title": "覆盖云端存档文件夹"
         },
-        "showfps": "显示帧数（Directx 9，10和11）",
-        "showUnrealMarket": "显示 Unreal 市场 (需重启)",
+        "showfps": "显示帧率（DX 9、10 和 11）",
+        "showUnrealMarket": "显示虚幻市场（需重启）",
         "start-in-tray": "启动时最小化",
-        "steamruntime": "使用 Steam Runtime",
+        "steamruntime": "使用 Steam 运行时",
         "winecrossoverbottle": "CrossOver 容器",
-        "wineprefix": "WINEPREFIX文件夹",
+        "wineprefix": "WinePrefix文件夹",
         "wineversion": "Wine 版本"
     },
     "settings": {
@@ -300,19 +300,19 @@
     "stores": "商店",
     "title": {
         "allGames": "所有游戏",
-        "allUnreal": "Unreal - 所有",
+        "allUnreal": "虚幻 - 所有",
         "downloading": "下载中",
         "installedGames": "已安装的游戏",
         "notInstalledGames": "未安装",
-        "unrealAssets": "Unreal - 资源",
-        "unrealPlugins": "Unreal - 插件",
-        "unrealProjects": "Unreal - 项目",
+        "unrealAssets": "虚幻 - 素材",
+        "unrealPlugins": "虚幻 - 插件",
+        "unrealProjects": "虚幻 - 项目",
         "updates": "待更新"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "选择新配置的默认前缀文件夹",
-            "wineprefix": "为新的 Wine 前缀选择一个文件夹"
+            "default-wineprefix": "选择新配置的默认前置文件夹",
+            "wineprefix": "为新的 WinePrefix选择一个文件夹"
         }
     },
     "tooltip": {
@@ -343,7 +343,7 @@
             "reload": "重新加载页面"
         }
     },
-    "wiki": "Wiki百科",
+    "wiki": "维基",
     "wine": {
         "manager": {
             "error": "此次无法获取 Wine/Proton 版本。",
