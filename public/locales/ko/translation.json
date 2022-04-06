@@ -108,7 +108,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "플랫폼"
     },
     "help": {
         "general": "Epic Games Launcher가 다른 곳에 설치되어 있고 게임을 가져와서 다시 다운로드하지 않으려면 Epic Games Launcher와 동기화 하십시오.",
@@ -143,13 +143,13 @@
         "path": "설치 경로 선택"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "그리드 보기",
+        "listView": "목록 보기",
+        "refresh": "새로고침"
     },
     "Library": "라이브러리",
     "loading": {
-        "default": "",
+        "default": "로딩 중",
         "website": "웹사이트 로드 중"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "Epic Games Store가 설치된 위치의 접두사"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "플러그인",
     "Projects": "프로젝트",
@@ -217,8 +217,8 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
-        "alt-gogdl-bin": "대신 사용할 GOGDL 바이너리 파일 선택 (다시 시작해야 함)",
-        "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택 (다시 시작해야 함)",
+        "alt-gogdl-bin": "대신 사용할 GOGDL 바이너리 파일 선택",
+        "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "접두사에서 DXVK 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "돌아가기",
+            "forward": "앞으로",
+            "openInBrowser": "브라우저에서 열기",
+            "reload": "페이지 새로고침"
         }
     },
     "wiki": "위키",
