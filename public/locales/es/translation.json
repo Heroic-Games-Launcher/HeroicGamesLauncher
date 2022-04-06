@@ -10,7 +10,7 @@
             "message": "El caché de Heroic ha sido limpiado.",
             "title": "Caché borrado"
         },
-        "choose": "Escoger",
+        "choose": "Elegir",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
         "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere un reinicio)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",

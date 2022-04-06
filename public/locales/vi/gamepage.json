@@ -71,7 +71,7 @@
     "install": {
         "path": "Chọn đường dẫn cài",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "phiên bản wine"
     },
     "label": {
         "playing": {

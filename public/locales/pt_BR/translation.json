@@ -217,8 +217,8 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu iniciar automaticamente",
-        "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar (requer reinício)",
-        "alt-legendary-bin": "Escolha um binário alternativo do Legendary (requer reinício)",
+        "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar",
+        "alt-legendary-bin": "Escolha um binário alternativo do Legendary",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
