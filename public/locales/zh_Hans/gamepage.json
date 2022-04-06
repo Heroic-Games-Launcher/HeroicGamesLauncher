@@ -1,20 +1,20 @@
 {
     "box": {
         "change": {
-            "message": "这将会更改此游戏的安装位置，你确定吗？",
+            "message": "这将会更改此游戏的安装位置，您确定吗？",
             "path": "选择新的安装路径",
             "title": "更改游戏安装路径"
         },
         "choose": "请选择",
         "importpath": "选择要导入的游戏文件夹",
         "move": {
-            "message": "这可能需要很长的时间，确定？",
+            "message": "这可能需要很长的时间，您确定吗？",
             "path": "选择要移动的位置",
             "title": "移动游戏安装"
         },
         "no": "否",
         "repair": {
-            "message": "你想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
+            "message": "您想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
             "title": "验证并修复游戏文件"
         },
         "stopInstall": {
@@ -23,13 +23,13 @@
             "title": "停止安装"
         },
         "uninstall": {
-            "checkbox": "你是否也要删除前缀？此操作无法撤销。",
-            "checkbox_prefix": "Prefix",
-            "message": "你希望卸载这个游戏吗？",
+            "checkbox": "是否同时删除前置？此操作无法撤销。",
+            "checkbox_prefix": "前置",
+            "message": "您想要卸载该游戏吗？",
             "title": "卸载"
         },
         "update": {
-            "message": "此游戏有更新，你希望现在更新吗？",
+            "message": "该游戏有更新，您想要现在更新吗？",
             "title": "游戏需要更新"
         },
         "wineprefix": "选择 WinePrefix 文件夹",
@@ -45,7 +45,7 @@
     },
     "disabled": "已禁用",
     "dlc": {
-        "installDlcs": "安装所有DLC"
+        "installDlcs": "安装所有 DLC"
     },
     "enabled": "已启用",
     "game": {
@@ -71,7 +71,7 @@
     "install": {
         "path": "选择安装路径",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine 版本"
     },
     "label": {
         "playing": {
@@ -97,10 +97,10 @@
         "hasUpdates": "新版本可用！",
         "installed": "已安装",
         "installing": "正在安装",
-        "moving": "正在移动，请稍等",
+        "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
-        "reparing": "游戏修复中，请稍等",
-        "totalDownloaded": "总共已下载",
+        "reparing": "正在修复游戏，请稍等",
+        "totalDownloaded": "下载总计",
         "updating": "游戏更新中"
     },
     "submenu": {
@@ -111,6 +111,6 @@
         "protondb": "检查兼容性",
         "settings": "设置",
         "store": "商店页面",
-        "verify": "验证并修复游戏文件"
+        "verify": "验证并修复"
     }
 }

@@ -23,7 +23,7 @@
             "title": "Avbryt installationen"
         },
         "uninstall": {
-            "checkbox": "Vill du radera Wine-prefix också? Radering kan ej ångras!",
+            "checkbox": "Vill du även radera Wine-prefix? Radering kan ej ångras.",
             "checkbox_prefix": "Prefix",
             "message": "Vill du avinstallera spelet?",
             "title": "Avinstallera"
@@ -71,7 +71,7 @@
     "install": {
         "path": "Ange installationssökväg",
         "wineprefix": "Wine-prefix",
-        "wineversion": ""
+        "wineversion": "Wine version"
     },
     "label": {
         "playing": {

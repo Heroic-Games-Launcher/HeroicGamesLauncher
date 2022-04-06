@@ -1,31 +1,31 @@
 {
     "box": {
         "change": {
-            "message": "Dies wird den Installationsort dieses Spiels ändern, sind Sie sicher?",
-            "path": "Wählen Sie einen neuen Installationspfad",
+            "message": "Dies wird den Installationsort dieses Spiels ändern, bist du sicher?",
+            "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
-            "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
-            "path": "Wählen Sie, wohin Sie verschieben möchten",
+            "message": "Dies kann einige Zeit in Anspruch nehmen, möchtest du wirklich fortfahren?",
+            "path": "Wähle, wohin du verschieben möchtest",
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
         "repair": {
-            "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies kann einige Zeit in Anspruch nehmen.",
+            "message": "Möchtest du versuchen, dieses Spiel zu reparieren? Dies kann einige Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und Reparieren"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
-            "message": "Möchten Sie die heruntergeladenen Dateien BEHALTEN?",
+            "message": "Möchtest du die heruntergeladenen Dateien BEHALTEN?",
             "title": "Installation abbrechen"
         },
         "uninstall": {
-            "checkbox": "Möchten Sie das Präfix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden.",
+            "checkbox": "Möchtest du das Präfix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden.",
             "checkbox_prefix": "Präfix",
-            "message": "Möchten Sie dieses Spiel deinstallieren?",
+            "message": "Möchtest du dieses Spiel deinstallieren?",
             "title": "Deinstallieren"
         },
         "update": {
@@ -71,7 +71,7 @@
     "install": {
         "path": "Installationspfad auswählen",
         "wineprefix": "Wine-Prefix",
-        "wineversion": ""
+        "wineversion": "Wine-Version"
     },
     "label": {
         "playing": {
