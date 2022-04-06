@@ -102,7 +102,7 @@ export default function InstallModal({
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
-  const [gameInfo, setGameInfo] = useState({} as InstallInfo)
+  const [gameInstallInfo, setGameInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation | undefined>(
@@ -202,8 +202,9 @@ export default function InstallModal({
 
   useEffect(() => {
     const getInfo = async () => {
-      const gameInfo = await getInstallInfo(appName, runner)
-      if (!gameInfo) {
+      const gameInstallInfo = await getInstallInfo(appName, runner)
+      const gameInfo = await getGameInfo(appName, runner)
+      if (!gameInstallInfo) {
         ipcRenderer.invoke('showErrorBox', [
           tr('box.error.generic.title'),
           tr('box.error.generic.message')
@@ -212,11 +213,11 @@ export default function InstallModal({
         return
       }
       const gameData = await getGameInfo(appName, runner)
-      setGameInfo(gameInfo)
-      if (gameInfo.manifest?.languages) {
-        setInstallLanguages(gameInfo.manifest.languages)
+      setGameInfo(gameInstallInfo)
+      if (gameInstallInfo.manifest?.languages) {
+        setInstallLanguages(gameInstallInfo.manifest.languages)
         setInstallLanguage(
-          getInstallLanguage(gameInfo.manifest.languages, i18n.languages)
+          getInstallLanguage(gameInstallInfo.manifest.languages, i18n.languages)
         )
       }
       setIsLinuxNative(gameData.is_linux_native && isLinux)
@@ -231,26 +232,23 @@ export default function InstallModal({
           getInstallLanguage(installer_languages, i18n.languages)
         )
       }
-      const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|']/, 'gi')
-      const fixedTitle = gameInfo.game.title
-        .replaceAll(regexp, '')
-        .replaceAll(' ', '-')
+      const bottleName = gameInfo.folder_name
       const { defaultWinePrefix, wineVersion } = await getAppSettings()
-      const sugestedWinePrefix = `${defaultWinePrefix}/${fixedTitle}`
+      const sugestedWinePrefix = `${defaultWinePrefix}/${bottleName}`
       setWinePrefix(sugestedWinePrefix)
       setWineVersion(wineVersion || undefined)
     }
     getInfo()
   }, [appName, i18n.languages])
 
-  const haveDLCs = gameInfo?.game?.owned_dlc?.length > 0
-  const DLCList = gameInfo?.game?.owned_dlc
+  const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
+  const DLCList = gameInstallInfo?.game?.owned_dlc
   const downloadSize =
-    gameInfo?.manifest?.download_size &&
-    prettyBytes(Number(gameInfo?.manifest?.download_size))
+    gameInstallInfo?.manifest?.download_size &&
+    prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
   const installSize =
-    gameInfo?.manifest?.disk_size &&
-    prettyBytes(Number(gameInfo?.manifest?.disk_size))
+    gameInstallInfo?.manifest?.disk_size &&
+    prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
 
   function getIcon() {
     if (isMacNative) {
@@ -303,7 +301,7 @@ export default function InstallModal({
     }
   }, [hasWine, wineVersion])
 
-  const title = gameInfo?.game?.title
+  const title = gameInstallInfo?.game?.title
 
   return (
     <div className="InstallModal">
