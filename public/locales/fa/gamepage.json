@@ -37,7 +37,7 @@
     },
     "button": {
         "cancel": "توقف/انصراف",
-        "continue": "ادامه دانلود",
+        "continue": "ادامه بارگیری",
         "import": "وارد کردن بازی",
         "install": "نصب",
         "uninstall": "حذف",
@@ -71,7 +71,7 @@
     "install": {
         "path": "انتخاب محل نصب",
         "wineprefix": "Wine Prefix",
-        "wineversion": ""
+        "wineversion": "نسخه Wine"
     },
     "label": {
         "playing": {

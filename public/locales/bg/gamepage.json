@@ -71,7 +71,7 @@
     "install": {
         "path": "Изберете местоположение за инсталиране",
         "wineprefix": "Префикс на Wine",
-        "wineversion": ""
+        "wineversion": "Версия на Wine"
     },
     "label": {
         "playing": {

@@ -217,8 +217,8 @@
     "setting": {
         "adddesktopshortcuts": "Tự động thêm shortcut trên màn hình chính",
         "addgamestostartmenu": "Tự động thêm game vào menu Start",
-        "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng (cần khởi động lại)",
-        "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng (cần khởi động lại)",
+        "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng",
+        "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng",
         "audiofix": "Sửa âm thanh (Pulse Audio Latency)",
         "autodxvk": "Tự động cài đặt/cập nhật DXVK trên prefix",
         "autosync": "Tự động đồng bộ bản sao lưu",
