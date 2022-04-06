@@ -12,8 +12,8 @@
         },
         "choose": "OK",
         "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Ange Legendary version",
+        "choose-gogdl-binary": "Ange GOGDL binärfil (omstart krävs)",
+        "choose-legendary-binary": "Ange Legendary binärfil",
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
         "error": {
@@ -106,15 +106,15 @@
     },
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG Butik",
     "header": {
-        "platform": ""
+        "platform": "Plattform"
     },
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
         "other": {
             "part1": "Använd ",
-            "part2": "Avancerade inställningar",
+            "part2": "Avancerade alternativ",
             "part3": "laddas innan speluppstart; ",
             "part4": "Använd ",
             "part5": "Spelspecifika argument",
@@ -145,7 +145,7 @@
     "library": {
         "gridView": "",
         "listView": "Listvy",
-        "refresh": ""
+        "refresh": "Uppdatera"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -195,13 +195,13 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "GOGDL version: ",
         "legendary-version": "Legendary version: ",
         "weblate": "Bidra till översättning av Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
-        "alt-legendary-bin": "Använd inbyggd Legendary version...",
+        "alt-gogdl-bin": "Använder inbyggd GOGDL version...",
+        "alt-legendary-bin": "Använder inbyggd Legendary version...",
         "egs-prefix": "Prefix för befintlig EGS installation"
     },
     "platforms": {
@@ -217,8 +217,8 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg till spel i startmenyn automatiskt",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Ange alternativ Legendary version (omstart krävs)",
+        "alt-gogdl-bin": "Ange alternativ GOGDL version (omstart krävs)",
+        "alt-legendary-bin": "Ange alternativ Legendary version",
         "audiofix": "Ljudfix (Pulse Audio latens)",
         "autodxvk": "Installera/uppdatera DXVK i prefix automatiskt",
         "autosync": "Synkronisera sparfiler automatiskt",
@@ -257,7 +257,7 @@
         },
         "maxRecentGames": "Visa nyligen spelat",
         "maxworkers": "Maximalt antal samtida nedladdningar",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Minimera Heroic efter spelstart",
         "offlinemode": "Kör spelet offline",
         "primerun": "Aktivera Nvidia Prime Render",
         "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
@@ -297,7 +297,7 @@
         "logging": "Loggar in..."
     },
     "store": "Epic Butik",
-    "stores": "Stores",
+    "stores": "Butiker",
     "title": {
         "allGames": "Alla spel",
         "allUnreal": "Unreal - allt",
@@ -347,8 +347,8 @@
     "wine": {
         "manager": {
             "error": "Kunde inte hämta Wine/Proton versioner.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "link": "Wine hanterare",
+            "title": "Wine hanterare (Beta)",
             "unzipping": "Packar upp"
         }
     }
