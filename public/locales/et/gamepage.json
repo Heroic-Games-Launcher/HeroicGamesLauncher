@@ -71,7 +71,7 @@
     "install": {
         "path": "Valige paigaldustee",
         "wineprefix": "WinePrefiks",
-        "wineversion": ""
+        "wineversion": "Wine'i versioon"
     },
     "label": {
         "playing": {

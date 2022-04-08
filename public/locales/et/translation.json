@@ -217,8 +217,8 @@
     "setting": {
         "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
-        "alt-gogdl-bin": "Valige alternatiivne GOGDL binaarfail, mida kasutada (vajab taaskäivitada)",
-        "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail, mida kasutada (vajab restarti)",
+        "alt-gogdl-bin": "Valige alternatiivne GOGDL binaarfail",
+        "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail",
         "audiofix": "Heliparandus (Pulse Audio Latency)",
         "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
         "autosync": "Automaatne salvestiste sünkroonimine",

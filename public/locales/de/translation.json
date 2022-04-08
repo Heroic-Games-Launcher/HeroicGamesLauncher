@@ -3,7 +3,7 @@
     "Assets": "Assets",
     "box": {
         "appupdate": {
-            "message": "Es ist eine neue Version von Heroic verfügbar, möchten Sie diese jetzt installieren?",
+            "message": "Es ist eine neue Version von Heroic verfügbar, möchtest du diese jetzt installieren?",
             "title": "Update verfügbar"
         },
         "cache-cleared": {
@@ -11,14 +11,14 @@
             "title": "Cache geleert"
         },
         "choose": "Auswählen",
-        "choose-egs-prefix": "Wählen Sie den Prefix unter dem EGS installiert ist",
+        "choose-egs-prefix": "Wähle den Präfix unter dem EGS installiert ist",
         "choose-gogdl-binary": "GOGDL Binary auswählen (benötigt Neustart)",
         "choose-legendary-binary": "Legendary Binärdatei auswählen",
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
-        "default-install-path": "Wählen Sie den Standard Installations-Pfad",
+        "default-install-path": "Wähle den Standard Installations-Pfad",
         "error": {
             "credentials": {
-                "message": "Ihre Anmeldedaten sind abgelaufen, bitte loggen Sie sich aus und melden Sie sich erneut an.",
+                "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an.",
                 "title": "Abgelaufene Anmeldedaten"
             },
             "diskspace": {
@@ -26,21 +26,21 @@
                 "title": "Kein Speicherplatz"
             },
             "dxvk": {
-                "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfen Sie Ihre Verbindung oder ob Sie zstd/libzstd1 installiert haben",
+                "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfe deine Verbindung oder ob du zstd/libzstd1 installiert hast",
                 "title": "DXVK/VKD3D Fehler"
             },
             "generic": {
                 "message": "Ein unbekannter Fehler ist aufgetreten",
                 "title": "Unbekannter Fehler"
             },
-            "launch": "Fehler beim Starten des Spiels, prüfen Sie die Logs!",
+            "launch": "Fehler beim Starten des Spiels, prüfe die Logs!",
             "no-offline-mode": {
                 "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
                 "title": "Offline-Modus wird nicht unterstützt."
             },
             "title": "Error",
             "wine-not-found": {
-                "message": "Keine Wine Version ausgewählt. Überprüfen Sie die Spieleinstellungen!",
+                "message": "Keine Wine Version ausgewählt. Überprüfe die Spieleinstellungen!",
                 "title": "Wine nicht gefunden"
             }
         },
@@ -52,12 +52,12 @@
             }
         },
         "quit": {
-            "message": "Es gibt anstehende Operationen, möchten Sie wirklich fortfahren?",
+            "message": "Es gibt anstehende Operationen, möchtst du wirklich fortfahren?",
             "title": "Beenden"
         },
         "reset-heroic": {
             "question": {
-                "message": "Möchte Sie Heroic wirklich zurücksetzten? Hiermit werden alle Einstellungen und der Cache gelöscht aber nicht Ihre installierten Spiele oder Epic Anmeldedaten",
+                "message": "Möchtest du Heroic wirklich zurücksetzen? Hiermit werden alle Einstellungen und der Cache, aber nicht deine installierten Spiele oder Epic Anmeldedaten gelöscht",
                 "title": "Heroic zurücksetzen"
             }
         },
@@ -75,7 +75,7 @@
         "sync": {
             "button": "Auswählen",
             "error": "Ungültiger Pfad",
-            "title": "Wählen Sie das Spielstand-Verzeichnis"
+            "title": "Wähle das Spielstand-Verzeichnis"
         },
         "warning": {
             "epic": {
@@ -111,25 +111,25 @@
         "platform": "Plattform"
     },
     "help": {
-        "general": "Synchronisiere mit EGL, falls Sie anderswo eine funktioniere Installation des Epic Games Launcher haben und Ihre Spiele importieren möchten, um ein erneutes Herunterladen zu vermeiden.",
+        "general": "Synchronisiere mit EGL, falls du woanders eine funktionierende Installation des Epic Games Launcher hast und deine Spiele importieren möchtest, um ein erneutes Herunterladen zu vermeiden.",
         "other": {
-            "part1": "Benutzen Sie die ",
+            "part1": "Benutze die ",
             "part2": "Erweiterten Optionen",
             "part3": "die vor dem Start des Spiels aufgerufen werden; ",
-            "part4": "Benutzen Sie die ",
+            "part4": "Benutze die ",
             "part5": "Spiel-Argumente",
             "part6": " die nach dem Startbefehl aufgerufen werden, z.B.: ",
             "part7": " um den Launcher in einigen Spielen zu überspringen, usw."
         },
         "sync": {
-            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, was in den meisten Fällen auch funktioniert. Falls der richtige Ordner nicht gefunden wurde, verwenden Sie das Feld, um den jetzigen Ordner zu überschreiben.",
-            "part2": "Falls Sie den Prefix-Ordner für Wine oder Proton ändern, müssen Sie auch den Pfad erneut überprüfen, da Proton einen anderen Prefix (/pfx) und Benutzernamen (steamuser) verwendet. Sie können in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren. Heroic wird dann erneut versuchen, den Ordner erneut mit dem richtigen Prefix zu finden.",
-            "part3": "Manuelle Synchronisierung: Wählen Sie Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
+            "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, was in den meisten Fällen auch funktioniert. Falls der richtige Ordner nicht gefunden wurde, verwende das Feld, um den jetzigen Ordner zu überschreiben.",
+            "part2": "Falls du den Präfix-Ordner für Wine oder Proton änderst, musst du auch den Pfad erneut überprüfen, da Proton einen anderen Präfix (/pfx) und Benutzernamen (steamuser) verwendet. Du kannst in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren. Heroic wird dann erneut versuchen, den Ordner erneut mit dem richtigen Prefix zu finden.",
+            "part3": "Manuelle Synchronisierung: Wähle Download, um die in der Cloud gespeicherten Spielstände herunterzuladen. Upload, um die lokalen in die Cloud hochzuladen. Force Download und Force Upload ignorieren die Version, die sich lokal oder in der Cloud befindet.",
             "part4": "Die Spielstände werden automatisch bei jedem Spielstart und nach Beendigung des Spiels synchronisiert."
         },
         "wine": {
             "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine, Proton und CrossOver:",
-            "part2": "Für andere Orte verwenden Sie einen symbolischen Link zu einem dieser Ordner"
+            "part2": "Für andere Orte verwende einen symbolischen Link zu einem dieser Ordner"
         }
     },
     "info": {
@@ -186,18 +186,18 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Geben Sie hier andere Startoptionen ein",
+            "placeholder": "Gebe hier andere Startoptionen ein",
             "title": "Erweiterte Optionen (Umgebungsvariablen):"
         },
         "gameargs": {
-            "placeholder": "Legen Sie hier die Spiel-Argumente fest",
+            "placeholder": "Lege hier die Spiel-Argumente fest",
             "title": "Spiel-Argumente (Zur Ausführung nach dem Befehl):"
         }
     },
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
-        "weblate": "Helfen Sie bei der Übersetzung von Heroic."
+        "weblate": "Hilf bei der Übersetzung von Heroic."
     },
     "placeholder": {
         "alt-gogdl-bin": "Nutze eingebaute GOGDL Binary...",
@@ -213,19 +213,19 @@
     "Projects": "Projekte",
     "Ready": "Installiert",
     "Recent": "Zuletzt gespielte Spiele",
-    "search": "Geben Sie hier den Namen des Spiels ein...",
+    "search": "Gebe hier den Namen des Spiels ein...",
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
-        "alt-gogdl-bin": "Alternative GOGDL Binary zur Verwendung auswählen (Neustart erforderlich)",
-        "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen (Neustart erforderlich)",
+        "alt-gogdl-bin": "Alternative GOGDL Binary zur Verwendung auswählen",
+        "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
         "autovkd3d": "VKD3D automatisch im Präfix installieren/aktualisieren",
-        "change-target-exe": "Wählen Sie eine alternative EXE zum Ausführen",
+        "change-target-exe": "Wähle eine alternative EXE zum Ausführen",
         "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
-        "customWineProton": "Wählen Sie die Wine oder Proton Binärdatei",
+        "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
@@ -311,8 +311,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Wählen Sie den Standard Präfix-Ordner für neue Konfigurationen",
-            "wineprefix": "Wählen Sie einen Ordner für neue Wine Präfixe"
+            "default-wineprefix": "Wähle den Standard Präfix-Ordner für neue Konfigurationen",
+            "wineprefix": "Wähle einen Ordner für neue Wine Präfixe"
         }
     },
     "tooltip": {
@@ -331,7 +331,7 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Abmelden",
-        "logout_confirmation": "Möchten Sie sich wirklich abmelden?",
+        "logout_confirmation": "Möchtest du dich wirklich abmelden?",
         "manageaccounts": "Konten verwalten",
         "quit": "Beenden"
     },

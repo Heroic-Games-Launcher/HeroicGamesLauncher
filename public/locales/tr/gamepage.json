@@ -71,7 +71,7 @@
     "install": {
         "path": "Kurulum Yolunu Seçin",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine sürümü"
     },
     "label": {
         "playing": {

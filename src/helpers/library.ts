@@ -2,7 +2,7 @@ import {
   AppSettings,
   GameInfo,
   GameStatus,
-  InstallProgress,
+  SavedInstallProgress,
   Runner
 } from 'src/types'
 import { IpcRenderer } from 'electron'
@@ -21,8 +21,8 @@ type InstallArgs = {
   handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: string
   isInstalling: boolean
-  previousProgress: InstallProgress | null
-  progress: InstallProgress
+  previousProgress: SavedInstallProgress | null
+  progress: SavedInstallProgress
   setInstallPath?: (path: string) => void
   t: TFunction<'gamepage'>
   installDlcs?: boolean
@@ -82,6 +82,11 @@ async function install({
     return await importGame({ appName, path, runner })
   }
 
+  const previousProgressPercent =
+    previousProgress && previousProgress.folder === installPath
+      ? Math.min(100, Math.max(0, previousProgress.percent || 0))
+      : 0
+
   if (installPath !== 'default' || !is_game) {
     setInstallPath && setInstallPath(installPath)
     // If the user changed the previous folder, the percentage should start from zero again.
@@ -93,7 +98,7 @@ async function install({
       appName,
       runner,
       status: 'installing',
-      progress: previousProgress?.percent || '0%'
+      progress: `${previousProgress?.percent || 0}%`
     })
     return await ipcRenderer
       .invoke('install', {
@@ -102,10 +107,11 @@ async function install({
         installDlcs,
         sdlList,
         installLanguage,
-        runner
+        runner,
+        previousProgress: previousProgressPercent
       })
       .finally(() => {
-        if (progress.percent === '100%') {
+        if (progress.percent === 100) {
           storage.removeItem(appName)
         }
         return
@@ -132,10 +138,11 @@ async function install({
         path: `${path}`,
         installDlcs,
         sdlList,
-        runner
+        runner,
+        previousProgress: previousProgressPercent
       })
       .finally(() => {
-        if (progress.percent === '100%') {
+        if (progress.percent === 100) {
           storage.removeItem(appName)
         }
         return
@@ -211,7 +218,7 @@ async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
-  progress: InstallProgress,
+  progress: SavedInstallProgress,
   runner: Runner
 ) {
   const args = {

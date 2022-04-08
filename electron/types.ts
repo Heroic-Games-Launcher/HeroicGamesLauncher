@@ -174,10 +174,10 @@ export interface GameStatus {
 
 export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
+  timestamp: number
   bytes: string
-  eta: string
-  folder?: string
-  percent: string
+  eta: number
+  percent: number
 }
 export interface InstalledInfo {
   executable: string | null
@@ -232,6 +232,7 @@ export type UserInfo = {
   displayName?: string
   epicId?: string
   name?: string
+  user?: string
 }
 export interface WineInstallation {
   bin: string
@@ -247,6 +248,7 @@ export interface InstallArgs {
   sdlList?: Array<string>
   platformToInstall: 'Windows' | 'Mac' | 'Linux'
   installLanguage?: string
+  previousProgress?: number
 }
 
 export interface InstallParams {
@@ -256,6 +258,7 @@ export interface InstallParams {
   sdlList?: Array<string>
   installLanguage?: string
   runner: Runner
+  previousProgress?: number
 }
 
 export interface GOGLoginData {

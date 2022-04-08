@@ -19,7 +19,7 @@ import {
   GOGLoginData,
   InstalledInfo
 } from 'types'
-import { existsSync, rmSync } from 'graceful-fs'
+import { existsSync, rmSync, rename } from 'graceful-fs'
 import {
   heroicGamesConfigPath,
   isWindows,
@@ -43,17 +43,6 @@ const installedGamesStore = new Store({
   cwd: 'gog_store',
   name: 'installed'
 })
-
-function verifyProgress(stderr: string): boolean {
-  let index = stderr.lastIndexOf('\n')
-  index = stderr.lastIndexOf('\n', index - 1)
-  const status = stderr.substring(index)
-  // For Linux install there is INFO: Done at the end when it finishes
-  const match = status.match(
-    /(Progress: ([0-9.]+) ([0-9]+)\/([0-9]+))|(INFO: Done)/
-  )
-  return match !== null && match[2] === match[3]
-}
 
 class GOGGame extends Game {
   public appName: string
@@ -128,7 +117,7 @@ class GOGGame extends Game {
     installLanguage
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const workers = maxWorkers === 0 ? [] : ['--max-workers', `${maxWorkers}`]
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     if (GOGUser.isTokenExpired()) {
       await GOGUser.refreshToken()
@@ -151,30 +140,23 @@ class GOGGame extends Game {
       `--token=${credentials.access_token}`,
       withDlcs,
       `--lang=${installLanguage}`,
-      workers
+      ...workers
     ]
     const command = getGogdlCommand(commandParts)
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const res = await runGogdlCommand(
+      commandParts,
+      logPath,
+      undefined,
+      this.appName,
+      'install'
+    )
 
     if (res.error) {
       logError(
         ['Failed to install', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
-      return { status: 'error' }
-    }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to install',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
         LogPrefix.Gog
       )
       return { status: 'error' }
@@ -239,13 +221,18 @@ class GOGGame extends Game {
     }
 
     logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
-    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
-      .then(() => {
-        GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
-        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
+
+    return new Promise<string>((resolve, reject) => {
+      rename(install_path, newInstallPath, (error) => {
+        if (error) {
+          reject(error)
+        } else {
+          GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
+          logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
+          resolve('')
+        }
       })
-      .catch((error) => logError(`${error}`, LogPrefix.Gog))
-    return newInstallPath
+    })
   }
 
   /**
@@ -271,29 +258,23 @@ class GOGGame extends Game {
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
       '-b=' + gameData.install.buildId,
-      workers
+      ...workers
     ]
     const command = getGogdlCommand(commandParts)
 
     logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const res = await runGogdlCommand(
+      commandParts,
+      logPath,
+      undefined,
+      this.appName,
+      'repair'
+    )
 
     if (res.error) {
       logError(
         ['Failed to repair', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
-    }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to update',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
         LogPrefix.Gog
       )
     }
@@ -392,13 +373,19 @@ class GOGGame extends Game {
       `--token=${credentials.access_token}`,
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
-      workers
+      ...workers
     ]
     const command = getGogdlCommand(commandParts)
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const res = await runGogdlCommand(
+      commandParts,
+      logPath,
+      undefined,
+      this.appName,
+      'update'
+    )
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {
@@ -410,19 +397,6 @@ class GOGGame extends Game {
     if (res.error) {
       logError(
         ['Failed to update', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
-      return { status: 'error' }
-    }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to update',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
         LogPrefix.Gog
       )
       return { status: 'error' }
@@ -459,7 +433,7 @@ class GOGGame extends Game {
    */
   public async getCommandParameters() {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const workers = maxWorkers === 0 ? [] : ['--max-workers', `${maxWorkers}`]
     const gameData = GOGLibrary.get().getGameInfo(this.appName)
 
     const withDlcs = gameData.install.installedWithDLCs

@@ -186,12 +186,18 @@ export interface GameStatus {
     | 'error'
 }
 
-export interface InstallProgress {
-  bytes: string
-  eta: string
+export interface SavedInstallProgress {
   folder?: string
-  percent: string
+  percent?: number
 }
+
+export interface InstallProgress {
+  timestamp: number
+  bytes: string
+  eta: number
+  percent: number
+}
+
 export interface InstalledInfo {
   executable: string | null
   install_path: string | null

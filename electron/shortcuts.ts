@@ -33,7 +33,6 @@ Name=${removeSpecialcharacters(gameInfo.title)}
 Exec=xdg-open ${launchWithProtocol}
 Terminal=false
 Type=Application
-MimeType=x-scheme-handler/heroic;
 Icon=${icon}
 Categories=Game;
 `

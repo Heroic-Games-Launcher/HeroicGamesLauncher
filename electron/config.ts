@@ -263,7 +263,9 @@ abstract class GlobalConfig {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
           const name = version.toLowerCase()
-          if (name.startsWith('proton') && !name.includes('runtime')) {
+          const hasProtonName =
+            name.startsWith('proton') || name.startsWith('ge-proton')
+          if (hasProtonName && !name.includes('runtime')) {
             const protonBin = join(path, version, 'proton')
             proton.add({
               bin: `'${protonBin}'`,

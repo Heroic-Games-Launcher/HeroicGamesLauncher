@@ -421,9 +421,7 @@ export class GlobalState extends PureComponent<Props> {
           isInstalling: false,
           previousProgress: null,
           progress: {
-            bytes: '0.00MiB',
-            eta: '00:00:00',
-            percent: '0.00%'
+            percent: 0
           },
           t,
           runner
@@ -435,8 +433,8 @@ export class GlobalState extends PureComponent<Props> {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
-    const legendaryUser = configStore.get('userInfo')
-    const gogUser = gogConfigStore.get('userData')
+    const legendaryUser = Boolean(configStore.get('userInfo'))
+    const gogUser = Boolean(gogConfigStore.get('userData'))
     const platform = await getPlatform()
     const category = storage.getItem('category') || 'epic'
     const filter = storage.getItem('filter') || 'all'
