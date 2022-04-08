@@ -66,6 +66,20 @@ async function setup(appName: string): Promise<void> {
   if (instructions[0]?.install) {
     // It's from .script file
     // Parse actions
+    const supportDir = path.join(
+      gameInfo.install.install_path,
+      'support',
+      appName
+    )
+
+    // In the future we need to find more path cases
+    const pathsValues = new Map<string, string>([
+      ['productid', appName],
+      ['app', `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`],
+      ['support', supportDir],
+      ['supportdir', supportDir]
+    ])
+
     for (const action of instructions) {
       const actionArguments = action.install?.arguments
       switch (action.install.action) {
@@ -73,10 +87,11 @@ async function setup(appName: string): Promise<void> {
           const registryPath =
             actionArguments.root +
             '\\' +
-            actionArguments.subkey.replace('{productID}', appName)
-          let valueData = actionArguments?.valueData?.replace(
-            '{app}',
-            `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`
+            handlePathVars(actionArguments.subkey, pathsValues)
+
+          let valueData = handlePathVars(
+            actionArguments?.valueData,
+            pathsValues
           )
           const valueName = actionArguments?.valueName
           const valueType = actionArguments?.valueType
@@ -132,20 +147,14 @@ async function setup(appName: string): Promise<void> {
             gameInfo.install.version
           }" /nodesktopshorctut /nodesktopshortcut`
 
-          const supportPath = `"${path.join(
-            gameInfo.install.install_path,
-            'support',
-            appName
-          )}"`
-          const workingDir = actionArguments?.workingDir
-            ?.replace('%SUPPORT%', supportPath)
-            .replace('{supportDir}', supportPath)
+          const workingDir = handlePathVars(
+            actionArguments.workingDir,
+            pathsValues
+          )
+
           const executablePath = path.join(
             gameInfo.install.install_path,
-            executableName.replace(
-              '{supportDir}',
-              path.join('support', appName)
-            )
+            handlePathVars(executableName, pathsValues)
           )
           if (!existsSync(executablePath)) {
             logError(
@@ -164,17 +173,12 @@ async function setup(appName: string): Promise<void> {
           break
         }
         case 'supportData': {
-          const targetPath = actionArguments.target.replace(
-            '{app}',
-            gameInfo.install.install_path
-          )
+          const targetPath = handlePathVars(actionArguments.target, pathsValues)
           const type = actionArguments.type
-          const sourcePath = actionArguments?.source
-            ?.replace(
-              '{supportDir}',
-              path.join(gameInfo.install.install_path, 'support', appName)
-            )
-            ?.replace('{app}', gameInfo.install.install_path)
+          const sourcePath = handlePathVars(
+            actionArguments?.source,
+            pathsValues
+          )
           if (type == 'folder') {
             if (!actionArguments?.source) {
               logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
@@ -211,9 +215,9 @@ async function setup(appName: string): Promise<void> {
           break
         }
         case 'setIni': {
-          const filePath = actionArguments?.filename.replace(
-            '{app}',
-            gameInfo.install.install_path
+          const filePath = handlePathVars(
+            actionArguments?.filename,
+            pathsValues
           )
           if (!filePath || !existsSync(filePath)) {
             logError("Setup: setIni file doesn't exists", LogPrefix.Gog)
@@ -234,9 +238,9 @@ async function setup(appName: string): Promise<void> {
             break
           }
 
-          config[section][keyName] = actionArguments.keyValue.replace(
-            '{app}',
-            isWindows ? '' : 'Z:' + gameInfo.install.install_path
+          config[section][keyName] = handlePathVars(
+            actionArguments.keyValue,
+            pathsValues
           )
           writeFileSync(filePath, ini.stringify(config), { encoding })
           break
@@ -317,5 +321,30 @@ const registryDataTypes = new Map([
 ])
 const getRegDataType = (dataType: string): string =>
   registryDataTypes.get(dataType.toLowerCase())
+
+/**
+ * Handles getting a path variable from possibleValues Map
+ * Every key is lower cased to avoid edge cases
+ * @returns
+ */
+const handlePathVars = (
+  path: string,
+  possibleValues: Map<string, string>
+): string => {
+  if (!path) {
+    return path
+  }
+  const variables = path.match(/{[a-zA-Z]+}|%[a-zA-Z]+%/g)
+  if (!variables) {
+    return path
+  }
+  for (const value of variables) {
+    const trimmedValue = value.slice(1, -1)
+
+    return path.replace(value, possibleValues.get(trimmedValue.toLowerCase()))
+  }
+
+  return ''
+}
 
 export default setup
