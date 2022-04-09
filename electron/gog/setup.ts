@@ -9,7 +9,7 @@ import {
 import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
-import { GameInfo } from '../types'
+import { GameInfo, InstalledInfo } from '../types'
 import { execAsync, isOnline } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
@@ -20,14 +20,22 @@ import ini from 'ini'
  * For Galaxy games only (Windows)
  * This relies on root file system mounted at Z: in prefixes (We need better approach to access game path from prefix)
  * @param appName
+ * @param installInfo Allows passing install instructions directly
  */
-async function setup(appName: string): Promise<void> {
+async function setup(
+  appName: string,
+  installInfo?: InstalledInfo
+): Promise<void> {
   const gameInfo = GOGLibrary.get().getGameInfo(appName)
+  if (installInfo && gameInfo) {
+    gameInfo.install = installInfo
+  }
   if (!gameInfo || gameInfo.install.platform == 'linux') {
     return
   }
   const instructions = await obtainSetupInstructions(gameInfo)
   if (!instructions) {
+    logInfo('Setup: No instructions', LogPrefix.Gog)
     return
   }
   logWarning(
@@ -111,7 +119,7 @@ async function setup(appName: string): Promise<void> {
             keyCommand = `/d "${valueData}" /v "${valueName}" /t ${regType}`
           }
           // Now create a key
-          const command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f`
+          const command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f /reg:32`
           logInfo(
             [
               'Setup: Adding a registry key',
