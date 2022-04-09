@@ -181,10 +181,19 @@ async function setup(
           break
         }
         case 'supportData': {
-          const targetPath = handlePathVars(actionArguments.target, pathsValues)
+          const targetPath = handlePathVars(
+            actionArguments.target.replace(
+              '{app}',
+              gameInfo.install.install_path
+            ),
+            pathsValues
+          )
           const type = actionArguments.type
           const sourcePath = handlePathVars(
-            actionArguments?.source,
+            actionArguments?.source?.replace(
+              '{app}',
+              gameInfo.install.install_path
+            ),
             pathsValues
           )
           if (type == 'folder') {
