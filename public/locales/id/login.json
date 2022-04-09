@@ -1,19 +1,19 @@
 {
     "button": {
-        "login": "Masuk"
+        "login": "Log Masuk"
     },
     "message": {
         "part1": "Untuk masuk dan memasang permainanmu, kamu harus mengikuti langkah-langkah di bawah:",
         "part2": "Buka",
         "part3": "Epic Store di sini",
-        "part4": ", masuk ke akun Anda dan salin",
+        "part4": ", log masuk ke akun Anda dan salin",
         "part5": "Nomor informasi SID",
         "part6": "Tempel",
         "part7": "Nomor SID",
-        "part8": "di kotak masukan di bawah dan klik tombol masuk."
+        "part8": "di kotak input di bawah dan klik tombol log masuk."
     },
     "status": {
-        "error": "Kesalahan",
+        "error": "Galat",
         "loading": "Memuat daftar permainan, mohon tunggu"
     },
     "welcome": "Selamat Datang!"
