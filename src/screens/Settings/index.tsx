@@ -96,11 +96,6 @@ function Settings() {
     setOn: setUseSteamRuntime
   } = useToggle(false)
   const {
-    on: checkForUpdatesOnStartup,
-    toggle: toggleCheckForUpdatesOnStartup,
-    setOn: setCheckForUpdatesOnStartup
-  } = useToggle(true)
-  const {
     on: nvidiaPrime,
     toggle: toggleNvidiaPrime,
     setOn: setUseNvidiaPrime
@@ -242,11 +237,6 @@ function Settings() {
       setAddDesktopShortcuts(config.addDesktopShortcuts)
       setAddGamesToStartMenu(config.addStartMenuShortcuts)
       setCustomWinePaths(config.customWinePaths || [])
-      setCheckForUpdatesOnStartup(
-        config.checkForUpdatesOnStartup !== undefined
-          ? config.checkForUpdatesOnStartup
-          : true
-      )
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
       setAltGogdlBin(config.altGogdlBin || '')
@@ -285,7 +275,6 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoInstallVkd3d,
-    checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
@@ -455,8 +444,6 @@ function Settings() {
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
-              checkForUpdatesOnStartup={checkForUpdatesOnStartup}
               altLegendaryBin={altLegendaryBin}
               setAltLegendaryBin={setAltLegendaryBin}
               altGogdlBin={altGogdlBin}

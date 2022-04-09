@@ -171,7 +171,7 @@
     "test:ci": "jest --runInBand --silent",
     "eject": "react-scripts eject",
     "release:linux": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --linux deb AppImage rpm pacman tar.xz",
-    "release:mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --mac dmg",
+    "release:mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --mac",
     "release:win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --win nsis portable",
     "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "dist-mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",

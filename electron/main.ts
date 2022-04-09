@@ -46,7 +46,6 @@ import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import {
-  checkForUpdates,
   clearCache,
   errorHandler,
   execAsync,
@@ -556,8 +555,6 @@ ipcMain.handle('getEpicGamesStatus', () => isEpicServiceOffline())
 
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
-
-ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 

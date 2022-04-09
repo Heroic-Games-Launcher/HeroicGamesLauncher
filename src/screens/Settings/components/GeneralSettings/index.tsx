@@ -26,7 +26,6 @@ const storage: Storage = window.localStorage
 interface Props {
   altLegendaryBin: string
   altGogdlBin: string
-  checkForUpdatesOnStartup: boolean
   darkTrayIcon: boolean
   defaultInstallPath: string
   egsLinkedPath: string
@@ -46,7 +45,6 @@ interface Props {
   startInTray: boolean
   toggleDarkTrayIcon: () => void
   toggleStartInTray: () => void
-  toggleCheckUpdatesOnStartup: () => void
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
   toggleUnrealMarket: () => void
@@ -56,7 +54,6 @@ export default function GeneralSettings({
   defaultInstallPath,
   setDefaultInstallPath,
   egsPath,
-  checkForUpdatesOnStartup,
   setEgsPath,
   altLegendaryBin,
   setAltLegendaryBin,
@@ -76,7 +73,6 @@ export default function GeneralSettings({
   setMaxWorkers,
   darkTrayIcon,
   toggleDarkTrayIcon,
-  toggleCheckUpdatesOnStartup,
   toggleMinimizeOnLaunch,
   minimizeOnLaunch
 }: Props) {
@@ -522,24 +518,6 @@ export default function GeneralSettings({
             title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           />
           <span>{t('setting.darktray', 'Use Dark Tray Icon')}</span>
-        </label>
-      </span>
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            value={checkForUpdatesOnStartup}
-            handleChange={toggleCheckUpdatesOnStartup}
-            title={t(
-              'setting.checkForUpdatesOnStartup',
-              'Check For Updates On Startup'
-            )}
-          />
-          <span>
-            {t(
-              'setting.checkForUpdatesOnStartup',
-              'Check For Updates On Startup'
-            )}
-          </span>
         </label>
       </span>
       <span className="setting">
