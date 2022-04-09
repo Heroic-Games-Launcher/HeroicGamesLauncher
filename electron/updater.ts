@@ -1,9 +1,9 @@
-import { app, dialog, shell } from 'electron'
+import { dialog, shell } from 'electron'
 import { autoUpdater } from 'electron-updater'
 
 import { icon } from './constants'
 import { checkForUpdates } from './utils'
-import { logError } from './logger'
+import { logError } from './logger/logger'
 import { nativeImage } from 'electron/common'
 
 autoUpdater.autoDownload = false
@@ -29,8 +29,7 @@ autoUpdater.on('update-available', async () => {
   }
 })
 autoUpdater.on('update-downloaded', async () => {
-  app.relaunch()
-  app.quit()
+  autoUpdater.quitAndInstall()
 })
 autoUpdater.once('error', () => {
   checkForUpdates() // legacy check for updates
