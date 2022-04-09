@@ -12,7 +12,8 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  isWindows
+  isWindows,
+  userHome
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { basename, dirname, join } from 'path'
@@ -29,6 +30,7 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
+import { RpcClient, SteamRuntime } from 'types'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -417,19 +419,19 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
 function getSteamRuntime(): SteamRuntime {
   const possibleRuntimes: Array<SteamRuntime> = [
     {
-      path: `${home}/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh`,
+      path: `${userHome}/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh`,
       type: 'unpackaged'
     },
     {
-      path: `${home}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
+      path: `${userHome}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
       type: 'flatpak'
     }
   ]
-  possibleRuntimes.forEach((runtime) => {
+  for (const runtime of possibleRuntimes) {
     if (existsSync(runtime.path)) {
-      return `'${runtime.path}'`
+      return runtime
     }
-  })
+  }
   return { path: '', type: 'unpackaged' }
 }
 
@@ -461,6 +463,13 @@ const formatEpicStoreUrl = (title: string) => {
   return `${storeUrl}${cleanTitle(title)}`
 }
 
+function quoteIfNecessary(stringToQuote: string) {
+  if (stringToQuote.includes(' ')) {
+    return `"${stringToQuote}"`
+  }
+  return stringToQuote
+}
+
 export {
   errorHandler,
   execAsync,
@@ -481,5 +490,6 @@ export {
   getFormattedOsName,
   searchForExecutableOnPath,
   getSteamRuntime,
-  constructAndUpdateRPC
+  constructAndUpdateRPC,
+  quoteIfNecessary
 }

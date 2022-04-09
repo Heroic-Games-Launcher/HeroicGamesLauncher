@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
-import Store from 'electron-store'
 import { spawn } from 'child_process'
 import { join } from 'path'
 import { Game } from '../games'
@@ -32,11 +31,12 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { execAsync, size } from '../utils'
 import { GOGUser } from './user'
 import {
+  launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
-  wrappedLaunch
+  setupWrappers
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
@@ -183,7 +183,10 @@ class GOGGame extends Game {
       this.onInstallOrUpdateOutput('installing', data)
     }
 
-    const res = await runGogdlCommand(commandParts, logPath, onOutput)
+    const res = await runGogdlCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     if (res.error) {
       logError(
@@ -261,34 +264,38 @@ class GOGGame extends Game {
     }
 
     const exeOverrideFlag = gameSettings.targetExe
-      ? `--override-exe ${gameSettings.targetExe}`
-      : ''
+      ? ['--override-exe', gameSettings.targetExe]
+      : []
 
     const isNative =
       isWindows ||
       (isMac && gameInfo.is_mac_native) ||
       (isLinux && gameInfo.is_linux_native)
-    let command = new Array<string>()
+
+    let commandParts = new Array<string>()
+    let commandEnv = {}
+    let wrappers = new Array<string>()
     if (isNative) {
-      let extraEnvVars = ''
       if (!isWindows) {
         // These options can only be used on Mac/Linux
-        extraEnvVars = setupEnvVars(
+        commandEnv = {
+          ...commandEnv,
+          ...setupEnvVars(gameSettings)
+        }
+        wrappers = setupWrappers(
           gameSettings,
           mangoHudCommand,
           gameModeBin,
           steamRuntime
         )
       }
-      command = [
-        extraEnvVars,
-        isWindows ? '&' : '',
-        `"${gogdlBin}"`,
+      commandParts = [
         'launch',
-        `"${gameInfo.install.install_path}"`,
-        exeOverrideFlag,
+        gameInfo.install.install_path,
+        ...exeOverrideFlag,
         gameInfo.app_name,
-        `--platform=${gameInfo.install.platform}`,
+        '--platform',
+        `${gameInfo.install.platform}`,
         launchArguments,
         gameSettings.launcherArgs
       ]
@@ -306,47 +313,59 @@ class GOGGame extends Game {
         }
       }
 
-      const envVars = [
-        setupEnvVars(gameSettings, mangoHudCommand, gameModeBin, steamRuntime),
-        wineEnvVars
-      ]
-        .filter((n) => n)
-        .join(' ')
+      commandEnv = {
+        ...commandEnv,
+        ...setupEnvVars(gameSettings),
+        ...wineEnvVars
+      }
+      wrappers = setupWrappers(
+        gameSettings,
+        mangoHudCommand,
+        gameModeBin,
+        steamRuntime
+      )
 
       const { wineVersion, winePrefix, launcherArgs } = gameSettings
-      let wineFlag = `--wine ${wineVersion.bin}`
-      let winePrefixFlag = `--wine-prefix '${winePrefix}'`
+      let wineFlag = ['--wine', wineVersion.bin]
+      let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = `--no-wine --wrapper "${wineVersion.bin} run"`
-        winePrefixFlag = ''
+        wineFlag = ['--no-wine', '--wrapper', `${wineVersion.bin} run`]
+        winePrefixFlag = []
       }
 
-      command = [
-        envVars,
-        gameModeBin,
-        mangoHudCommand,
-        `"${gogdlBin}"`,
+      commandParts = [
         'launch',
-        `"${gameInfo.install.install_path}"`,
-        exeOverrideFlag,
-        this.appName,
-        wineFlag,
-        winePrefixFlag,
+        gameInfo.install.install_path,
+        ...exeOverrideFlag,
+        gameInfo.app_name,
+        ...wineFlag,
+        ...winePrefixFlag,
         '--os',
         gameInfo.install.platform.toLowerCase(),
         launchArguments,
         launcherArgs
       ]
     }
-    const { success, stderr, commandString } = await wrappedLaunch(
-      command,
-      rpcClient
-    )
+    const command = getGogdlCommand(commandParts, commandEnv, wrappers)
+
+    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Gog)
+
+    const { error, stderr } = await runGogdlCommand(commandParts, {
+      env: commandEnv,
+      wrappers
+    })
+
+    if (error) {
+      logError(['Error launching game:', error], LogPrefix.Gog)
+    }
+
+    launchCleanup(rpcClient)
+
     return {
-      success: success,
-      stderr: stderr,
-      gameSettings: gameSettings,
-      command: commandString
+      success: !error,
+      stderr,
+      gameSettings,
+      command
     }
   }
 
@@ -401,7 +420,7 @@ class GOGGame extends Game {
 
     logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const res = await runGogdlCommand(commandParts, { logFile: logPath })
 
     if (res.error) {
       logError(
@@ -515,7 +534,10 @@ class GOGGame extends Game {
       this.onInstallOrUpdateOutput('updating', data)
     }
 
-    const res = await runGogdlCommand(commandParts, logPath, onOutput)
+    const res = await runGogdlCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {

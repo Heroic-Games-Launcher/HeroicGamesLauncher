@@ -1,10 +1,11 @@
+import { appendFileSync, writeFileSync } from 'graceful-fs'
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 
-import { isLinux, userHome } from './constants'
+import { flatPakHome, isLinux, isMac } from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -12,7 +13,8 @@ import {
   isEpicServiceOffline,
   isOnline,
   showErrorBoxModalAuto,
-  searchForExecutableOnPath
+  searchForExecutableOnPath,
+  quoteIfNecessary
 } from './utils'
 import {
   logDebug,
@@ -35,6 +37,7 @@ import {
   RpcClient,
   WineInstallation
 } from './types'
+import { spawn } from 'child_process'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -89,7 +92,7 @@ async function prepareLaunch(
       logWarning('MangoHud enabled but not installed', LogPrefix.Backend)
       // Should we display an error box and return { success: false } here?
     } else {
-      mangoHudCommand = `'${mangoHudBin}' --dlsym`
+      mangoHudCommand = `${mangoHudBin} --dlsym`
     }
   }
   if (gameSettings.useGameMode) {
@@ -120,9 +123,11 @@ async function prepareLaunch(
   }
 }
 
-async function prepareWineLaunch(
-  game: LegendaryGame | GOGGame
-): Promise<{ success: boolean; failureReason?: string; envVars?: string }> {
+async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
+  success: boolean
+  failureReason?: string
+  envVars?: Record<string, string>
+}> {
   const gameSettings =
     GameConfig.get(game.appName).config ||
     (await GameConfig.get(game.appName).getSettings())
@@ -187,32 +192,18 @@ async function prepareWineLaunch(
  * @param gameSettings The GameSettings to get the environment variables for
  * @returns A big string of environment variables, structured key=value
  */
-function setupEnvVars(
-  gameSettings: GameSettings,
-  mangoHudCommand: string,
-  gameModeBin: string,
-  steamRuntime: string
-): string {
-  const appliedEnvVars = new Array<string>()
-  const envVarsList: Array<{ toggle: boolean; value: string }> = [
-    { toggle: gameSettings.showMangohud, value: mangoHudCommand },
-    { toggle: gameSettings.useGameMode, value: gameModeBin },
-    {
-      toggle: gameSettings.nvidiaPrime,
-      value:
-        'DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
-    },
-    { toggle: gameSettings.audioFix, value: 'PULSE_LATENCY_MSEC=60' },
-    { toggle: gameSettings.useSteamRuntime, value: steamRuntime }
-  ]
+function setupEnvVars(gameSettings: GameSettings) {
+  const ret: Record<string, string> = {}
+  if (gameSettings.nvidiaPrime) {
+    ret.DRI_PRIME = '1'
+    ret.__NV_PRIME_RENDER_OFFLOAD = '1'
+    ret.__GLX_VENDOR_LIBRARY_NAME = 'nvidia'
+  }
+  if (gameSettings.audioFix) {
+    ret.PULSE_LATENCY_MSEC = '60'
+  }
 
-  envVarsList.forEach(({ toggle, value }) => {
-    if (toggle) {
-      appliedEnvVars.push(value)
-    }
-  })
-
-  return appliedEnvVars.filter((n) => n).join(' ')
+  return ret
 }
 
 /**
@@ -220,44 +211,61 @@ function setupEnvVars(
  * @param gameSettings The GameSettings to get the environment variables for
  * @returns A big string of environment variables, structured key=value
  */
-function setupWineEnvVars(gameSettings: GameSettings): string {
+function setupWineEnvVars(gameSettings: GameSettings) {
+  let ret: Record<string, string> = {}
   const { wineVersion } = gameSettings
-  const appliedEnvVars = new Array<string>()
-  // toggle -> Env var is "enabled"; value -> What gets inserted when it's enabled
-  const envVarsList: Array<{ toggle: boolean; value: string }> = [
-    {
-      toggle:
-        gameSettings.wineCrossoverBottle && wineVersion.type === 'crossover',
-      value: `CX_BOTTLE=${gameSettings.wineCrossoverBottle}`
-    },
-    { toggle: gameSettings.showFps, value: 'DXVK_HUD=fps' },
-    {
-      toggle: gameSettings.enableFSR,
-      value: `WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=${gameSettings.maxSharpness}`
-    },
-    { toggle: gameSettings.enableEsync, value: 'WINEESYNC=1' },
-    { toggle: gameSettings.enableFsync, value: 'WINEFSYNC=1' },
-    {
-      toggle: gameSettings.enableResizableBar,
-      value: 'VKD3D_CONFIG=upload_hvv'
-    },
-    {
-      toggle: wineVersion.type === 'proton',
-      value: getWineEnvSetup(wineVersion, gameSettings.winePrefix)
-    },
-    {
-      toggle: Boolean(gameSettings.otherOptions),
-      value: gameSettings.otherOptions
-    }
-  ]
-  // Go through all possible settings, check if they're set, and store them if they are
-  envVarsList.forEach(({ toggle, value }) => {
-    if (toggle) {
-      appliedEnvVars.push(value)
-    }
-  })
-  // Join all applied settings together and return them
-  return appliedEnvVars.filter((n) => n).join(' ')
+
+  if (gameSettings.wineCrossoverBottle && wineVersion.type === 'crossover') {
+    ret.CX_BOTTLE = gameSettings.wineCrossoverBottle
+  }
+  if (gameSettings.showFps) {
+    ret.DXVK_HUD = 'fps'
+  }
+  if (gameSettings.enableFSR) {
+    ret.WINE_FULLSCREEN_FSR = '1'
+    ret.WINE_FULLSCREEN_FSR_STRENGTH = gameSettings.maxSharpness.toString()
+  }
+  if (gameSettings.enableEsync) {
+    ret.WINEESYNC = '1'
+  }
+  if (gameSettings.enableFsync) {
+    ret.WINEFSYNC = '1'
+  }
+  if (gameSettings.enableResizableBar) {
+    ret.VKD3D_CONFIG = 'upload_hvv'
+  }
+  if (wineVersion.type === 'proton') {
+    ret = { ...ret, ...getWineEnvSetup(wineVersion, gameSettings.winePrefix) }
+  }
+  if (gameSettings.otherOptions) {
+    gameSettings.otherOptions.split(' ').forEach((envKeyAndVar) => {
+      const keyAndValueSplit = envKeyAndVar.split('=')
+      const key = keyAndValueSplit.shift()
+      const value = keyAndValueSplit.join('=')
+      ret[key] = value
+    })
+  }
+  return ret
+}
+
+function setupWrappers(
+  gameSettings: GameSettings,
+  mangoHudBin: string,
+  gameModeBin: string,
+  steamRuntime: string
+): Array<string> {
+  const wrappers = Array<string>()
+  if (gameSettings.showMangohud) {
+    // Mangohud needs some arguments in addition to the command, so we have to split here
+    wrappers.push(...mangoHudBin.split(' '))
+  }
+  if (gameSettings.useGameMode) {
+    wrappers.push(gameModeBin)
+  }
+  if (gameSettings.useSteamRuntime) {
+    wrappers.push(steamRuntime)
+  }
+  return wrappers.filter((n) => n)
 }
 
 /**
@@ -294,45 +302,26 @@ async function verifyWinePrefix(
  * Returns appropriate environment variables for running either a Wine or Proton command
  * @returns The required environment variables (WINEPREFIX=... or STEAM_COMPAT_DATA_PATH=...)
  */
-function getWineEnvSetup(wineVersion: WineInstallation, winePrefix: string) {
+function getWineEnvSetup(
+  wineVersion: WineInstallation,
+  winePrefix: string
+): Record<string, string> {
+  const baseEnv = process.env
   if (wineVersion.type === 'proton') {
-    const steamInstallPath = join(userHome, '.steam', 'steam')
-    return `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamInstallPath} STEAM_COMPAT_DATA_PATH='${winePrefix}'`
+    const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+    baseEnv.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
+    baseEnv.STEAM_COMPAT_DATA_PATH = winePrefix
+  } else {
+    baseEnv.WINEPREFIX = winePrefix
   }
-  return `WINEPREFIX=${winePrefix}`
+  return baseEnv
 }
 
-/**
- * @param command The command to run, will be joined together with spaces
- * @param rpcClient A Discord Rich Presence Client, gets disconnected after the command exits
- * @returns Success, Stderr: Self-explanatory, commandString: Formatted command as it was executed
- */
-async function wrappedLaunch(
-  command: string[],
-  rpcClient: RpcClient
-): Promise<{ success: boolean; stderr: string; commandString: string }> {
-  const commandString = command.filter((n) => n).join(' ')
-  logInfo(['Launching game! Launch command:', commandString], LogPrefix.Backend)
-  return execAsync(commandString)
-    .then(({ stderr }) => {
-      if (rpcClient) {
-        rpcClient.disconnect()
-        logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
-      }
-      return {
-        success: true,
-        stderr: stderr,
-        commandString: commandString
-      }
-    })
-    .catch((error) => {
-      logError(error, LogPrefix.Backend)
-      return {
-        success: false,
-        stderr: error,
-        commandString: commandString
-      }
-    })
+function launchCleanup(rpcClient: RpcClient) {
+  if (rpcClient) {
+    rpcClient.disconnect()
+    logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
+  }
 }
 
 async function runWineCommand(
@@ -358,7 +347,7 @@ async function runWineCommand(
     // Can't wait if we don't have a Wineserver
     if (wait) {
       if (wineVersion.wineserver) {
-        additional_command = `${env_vars} ${wineVersion.wineserver} --wait`
+        additional_command = `${wineVersion.wineserver} --wait`
       } else {
         logWarning(
           'Unable to wait on Wine command, no Wineserver!',
@@ -368,13 +357,13 @@ async function runWineCommand(
     }
   }
 
-  let finalCommand = `${env_vars} ${wineBin} ${command}`
+  let finalCommand = `${wineBin} ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
   }
 
   logDebug(['Running Wine command:', finalCommand], LogPrefix.Legendary)
-  return execAsync(finalCommand)
+  return execAsync(finalCommand, { env: env_vars })
     .then((response) => {
       logDebug(['Ran Wine command:', finalCommand], LogPrefix.Legendary)
       return response
@@ -385,12 +374,151 @@ async function runWineCommand(
     })
 }
 
+async function runLegendaryOrGogdlCommand(
+  commandParts: string[],
+  runner: {
+    name: 'GOGDL' | 'Legendary'
+    logPrefix: LogPrefix
+    bin: string
+    dir: string
+  },
+  options?: {
+    logFile?: string
+    env?: Record<string, string>
+    wrappers?: string[]
+    onOutput?: (output: string) => void
+  }
+): Promise<ExecResult> {
+  const fullRunnerPath = join(runner.dir, runner.bin)
+  const safeCommand = getLegendaryOrGogdlCommand(
+    commandParts,
+    options?.env,
+    options?.wrappers,
+    fullRunnerPath
+  )
+  logDebug(['Running', runner.name, 'command:', safeCommand], runner.logPrefix)
+  if (options?.logFile) {
+    logDebug([`Logging to file "${options.logFile}"`], runner.logPrefix)
+  }
+
+  commandParts = commandParts.filter((n) => n)
+  if (existsSync(options?.logFile)) {
+    writeFileSync(options.logFile, '')
+  }
+
+  // If we have wrappers (things we want to run before the command), set bin to the first wrapper
+  // and add every other wrapper and the actual bin to the start of filteredArgs
+  const wrappers = options?.wrappers || []
+  let bin = ''
+  if (wrappers.length) {
+    bin = wrappers.shift()
+    commandParts.unshift(...wrappers, runner.bin)
+  } else {
+    bin = runner.bin
+  }
+
+  return new Promise((res, rej) => {
+    const child = spawn(bin, commandParts, {
+      cwd: runner.dir,
+      env: { ...options?.env, ...process.env },
+      // On Mac, launching some executables doesn't work without shell for some reason
+      shell: isMac
+    })
+
+    const stdout: string[] = []
+    const stderr: string[] = []
+
+    if (options?.logFile) {
+      child.stdout.on('data', (data: Buffer) => {
+        appendFileSync(options.logFile, data.toString())
+      })
+      child.stderr.on('data', (data: Buffer) => {
+        appendFileSync(options.logFile, data.toString())
+      })
+    }
+
+    if (options?.onOutput) {
+      child.stdout.on('data', (data: Buffer) => {
+        options.onOutput(data.toString())
+      })
+      child.stderr.on('data', (data: Buffer) => {
+        options.onOutput(data.toString())
+      })
+    }
+
+    child.stdout.on('data', (data: Buffer) => {
+      stdout.push(data.toString().trim())
+    })
+    child.stderr.on('data', (data: Buffer) => {
+      stderr.push(data.toString().trim())
+    })
+
+    child.on('close', () => {
+      res({
+        stdout: stdout.join('\n'),
+        stderr: stderr.join('\n')
+      })
+    })
+    child.on('error', (error) => {
+      rej(error)
+    })
+  })
+    .then(({ stdout, stderr }) => {
+      return { stdout, stderr, fullCommand: safeCommand }
+    })
+    .catch((error) => {
+      logError(
+        ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
+        runner.logPrefix
+      )
+      return { stdout: '', stderr: '', fullCommand: safeCommand, error }
+    })
+}
+
+function getLegendaryOrGogdlCommand(
+  commandParts: string[],
+  env: Record<string, string> = {},
+  wrappers: string[] = [],
+  runnerPath: string
+): string {
+  commandParts = commandParts.filter((n) => n)
+
+  // Redact sensitive arguments (SID for Legendary, token for GOGDL)
+  for (const sensitiveArg of ['--sid', '--token']) {
+    if (sensitiveArg in commandParts) {
+      const sensitiveArgIndex = commandParts.indexOf(sensitiveArg)
+      commandParts[sensitiveArgIndex + 1] = '<redacted>'
+    }
+  }
+
+  const formattedEnvVars: string[] = []
+  for (const [key, value] of Object.entries(env)) {
+    // Only add variables if they aren't already defined in our own env
+    if (key in process.env) {
+      if (value === process.env[key]) {
+        continue
+      }
+    }
+    formattedEnvVars.push(`${key}=${value}`)
+  }
+
+  return [
+    ...formattedEnvVars,
+    ...wrappers.map(quoteIfNecessary),
+    quoteIfNecessary(runnerPath),
+    ...commandParts.map(quoteIfNecessary)
+  ].join(' ')
+}
+
 export {
   prepareLaunch,
-  wrappedLaunch,
+  launchCleanup,
   getWineEnvSetup,
   prepareWineLaunch,
   setupEnvVars,
   setupWineEnvVars,
-  runWineCommand
+  setupWrappers,
+  runWineCommand,
+  runLegendaryOrGogdlCommand,
+  getLegendaryOrGogdlCommand
 }

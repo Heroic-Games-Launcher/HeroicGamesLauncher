@@ -15,17 +15,17 @@ import {
   userHome,
   isLinux,
   isMac,
-  isWindows,
-  legendaryBin
+  isWindows
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
 import {
-  wrappedLaunch,
   prepareLaunch,
   prepareWineLaunch,
   setupEnvVars,
-  runWineCommand
+  runWineCommand,
+  setupWrappers,
+  launchCleanup
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
@@ -309,7 +309,10 @@ class LegendaryGame extends Game {
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
+    const res = await runLegendaryCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -398,7 +401,10 @@ class LegendaryGame extends Game {
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
+    const res = await runLegendaryCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     if (res.error) {
       logError(
@@ -445,7 +451,7 @@ class LegendaryGame extends Game {
 
     logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(commandParts, logPath)
+    const res = await runLegendaryCommand(commandParts, { logFile: logPath })
 
     if (res.error) {
       logError(
@@ -538,20 +544,26 @@ class LegendaryGame extends Game {
 
     const offlineFlag = gameSettings.offlineMode ? '--offline' : ''
     const exeOverrideFlag = gameSettings.targetExe
-      ? `--override-exe ${gameSettings.targetExe}`
-      : ''
+      ? ['--override-exe', gameSettings.targetExe]
+      : []
 
     const isNative =
       isWindows ||
       (isMac && gameInfo.is_mac_native) ||
       // This right now is impossible, but one can still hope, right?
       (isLinux && gameInfo.is_linux_native)
-    let command = new Array<string>()
+
+    let commandParts = new Array<string>()
+    let commandEnv = process.env
+    let wrappers = new Array<string>()
     if (isNative) {
-      let extraEnvVars = ''
       if (!isWindows) {
-        // These options can only be used on Mac
-        extraEnvVars = setupEnvVars(
+        // These options can only be used on Mac/Linux
+        commandEnv = {
+          ...commandEnv,
+          ...setupEnvVars(gameSettings)
+        }
+        wrappers = setupWrappers(
           gameSettings,
           mangoHudCommand,
           gameModeBin,
@@ -559,12 +571,10 @@ class LegendaryGame extends Game {
         )
       }
       // These options are required on both Windows and Mac
-      command = [
-        extraEnvVars,
-        legendaryBin,
+      commandParts = [
         'launch',
-        this.appName,
-        exeOverrideFlag,
+        gameInfo.app_name,
+        ...exeOverrideFlag,
         offlineFlag,
         launchArguments
       ]
@@ -582,45 +592,57 @@ class LegendaryGame extends Game {
           gameSettings: gameSettings
         }
       }
-      const envVars = [
-        setupEnvVars(gameSettings, mangoHudCommand, gameModeBin, steamRuntime),
-        wineEnvVars
-      ]
-        .filter((n) => n)
-        .join(' ')
+
+      commandEnv = {
+        ...commandEnv,
+        ...setupEnvVars(gameSettings),
+        ...wineEnvVars
+      }
+      wrappers = setupWrappers(
+        gameSettings,
+        mangoHudCommand,
+        gameModeBin,
+        steamRuntime
+      )
 
       const { wineVersion, winePrefix, launcherArgs } = gameSettings
-      let wineFlag = `--wine ${wineVersion.bin}`
-      let winePrefixFlag = `--wine-prefix '${winePrefix}'`
+      let wineFlag = ['--wine', wineVersion.bin]
+      let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = `--no-wine --wrapper "${wineVersion.bin} run"`
-        winePrefixFlag = ''
+        wineFlag = ['--no-wine', '--wrapper', `${wineVersion.bin} run`]
+        winePrefixFlag = []
       }
 
-      command = [
-        envVars,
-        gameModeBin,
-        mangoHudCommand,
-        legendaryBin,
+      commandParts = [
         'launch',
-        this.appName,
-        exeOverrideFlag,
+        gameInfo.app_name,
+        ...exeOverrideFlag,
         offlineFlag,
-        wineFlag,
-        winePrefixFlag,
-        launchArguments,
+        ...wineFlag,
+        ...winePrefixFlag,
         launcherArgs
       ]
     }
-    const { success, stderr, commandString } = await wrappedLaunch(
-      command,
-      rpcClient
-    )
+    const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
+
+    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
+
+    const { error, stderr } = await runLegendaryCommand(commandParts, {
+      env: commandEnv,
+      wrappers: wrappers
+    })
+
+    if (error) {
+      logError(['Error launching game:', error], LogPrefix.Legendary)
+    }
+
+    launchCleanup(rpcClient)
+
     return {
-      success: success,
-      stderr: stderr,
-      gameSettings: gameSettings,
-      command: commandString
+      success: !error,
+      stderr,
+      gameSettings,
+      command
     }
   }
 
