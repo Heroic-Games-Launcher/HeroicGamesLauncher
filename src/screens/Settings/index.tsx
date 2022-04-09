@@ -1,15 +1,21 @@
 import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple } from '@fortawesome/free-brands-svg-icons'
+import classNames from 'classnames'
 
-import { AppSettings, WineInstallation } from 'src/types'
+import { AppSettings, Runner, WineInstallation } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { getGameInfo, writeConfig } from 'src/helpers'
+import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
+import {
+  ContentCopyOutlined,
+  CleaningServicesOutlined,
+  DeleteOutline
+} from '@mui/icons-material'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
@@ -18,6 +24,7 @@ import OtherSettings from './components/OtherSettings'
 import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
+import LogSettings from './components/LogSettings'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -33,6 +40,7 @@ interface RouteParams {
 
 interface LocationState {
   fromGameCard: boolean
+  runner: Runner
 }
 
 function Settings() {
@@ -59,6 +67,8 @@ function Settings() {
   const [maxSharpness, setFsrSharpness] = useState(5)
   const [egsPath, setEgsPath] = useState(egsLinkedPath)
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
+  const [altGogdlBin, setAltGogdlBin] = useState('')
+  const [canRunOffline, setCanRunOffline] = useState(true)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
@@ -81,10 +91,15 @@ function Settings() {
     setOn: setUseGameMode
   } = useToggle(false)
   const {
+    on: useSteamRuntime,
+    toggle: toggleUseSteamRuntime,
+    setOn: setUseSteamRuntime
+  } = useToggle(false)
+  const {
     on: checkForUpdatesOnStartup,
     toggle: toggleCheckForUpdatesOnStartup,
     setOn: setCheckForUpdatesOnStartup
-  } = useToggle(false)
+  } = useToggle(true)
   const {
     on: nvidiaPrime,
     toggle: toggleNvidiaPrime,
@@ -117,6 +132,11 @@ function Settings() {
     setOn: setStartInTray
   } = useToggle(false)
   const {
+    on: minimizeOnLaunch,
+    toggle: toggleMinimizeOnLaunch,
+    setOn: setMinimizeOnLaunch
+  } = useToggle(false)
+  const {
     on: darkTrayIcon,
     toggle: toggleDarkTrayIcon,
     setOn: setDarkTrayIcon
@@ -130,6 +150,11 @@ function Settings() {
     on: autoInstallDxvk,
     toggle: toggleAutoInstallDxvk,
     setOn: setAutoInstallDxvk
+  } = useToggle(false)
+  const {
+    on: autoInstallVkd3d,
+    toggle: toggleAutoInstallVkd3d,
+    setOn: setAutoInstallVkd3d
   } = useToggle(false)
   const {
     on: enableFSR,
@@ -165,6 +190,9 @@ function Settings() {
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const [isMacNative, setIsMacNative] = useState(false)
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
+
+  const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
 
   const { appName, type } = useParams() as RouteParams
   const isDefault = appName === 'default'
@@ -172,6 +200,7 @@ function Settings() {
   const isWineSettings = type === 'wine'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
+  const isLogSettings = type === 'log'
 
   useEffect(() => {
     const getSettings = async () => {
@@ -179,53 +208,64 @@ function Settings() {
         'requestSettings',
         appName
       )
-      setAutoSyncSaves(config.autoSyncSaves || false)
-      setUseGameMode(config.useGameMode || false)
-      setShowFps(config.showFps || false)
-      setShowOffline(config.offlineMode || false)
-      setAudioFix(config.audioFix || false)
-      setShowMangoHud(config.showMangohud || false)
+      setAutoSyncSaves(config.autoSyncSaves)
+      setUseGameMode(config.useGameMode)
+      setShowFps(config.showFps)
+      setShowOffline(config.offlineMode)
+      setAudioFix(config.audioFix)
+      setShowMangoHud(config.showMangohud)
       setDefaultInstallPath(config.defaultInstallPath)
       setWineVersion(config.wineVersion)
       setWinePrefix(config.winePrefix)
       setWineCrossoverBottle(config.wineCrossoverBottle)
       setOtherOptions(config.otherOptions)
       setLauncherArgs(config.launcherArgs)
-      setUseNvidiaPrime(config.nvidiaPrime || false)
+      setUseNvidiaPrime(config.nvidiaPrime)
       setEgsLinkedPath(config.egsLinkedPath || '')
       setEgsPath(config.egsLinkedPath || '')
-      setExitToTray(config.exitToTray || false)
-      setStartInTray(config.startInTray || false)
-      setDarkTrayIcon(config.darkTrayIcon || false)
-      setDiscordRPC(config.discordRPC || false)
-      setAutoInstallDxvk(config.autoInstallDxvk || false)
-      setEnableEsync(config.enableEsync || false)
-      setEnableFsync(config.enableFsync || false)
-      setEnableFSR(config.enableFSR || false)
+      setExitToTray(config.exitToTray)
+      setStartInTray(config.startInTray)
+      setMinimizeOnLaunch(config.minimizeOnLaunch)
+      setDarkTrayIcon(config.darkTrayIcon)
+      setDiscordRPC(config.discordRPC)
+      setAutoInstallDxvk(config.autoInstallDxvk)
+      setAutoInstallVkd3d(config.autoInstallVkd3d)
+      setEnableEsync(config.enableEsync)
+      setEnableFsync(config.enableFsync)
+      setEnableFSR(config.enableFSR)
       setFsrSharpness(config.maxSharpness || 2)
-      setResizableBar(config.enableResizableBar || false)
+      setResizableBar(config.enableResizableBar)
       setSavesPath(config.savesPath || '')
       setMaxWorkers(config.maxWorkers ?? 0)
       setMaxRecentGames(config.maxRecentGames ?? 5)
       setCustomWinePaths(config.customWinePaths || [])
-      setAddDesktopShortcuts(config.addDesktopShortcuts || false)
-      setAddGamesToStartMenu(config.addStartMenuShortcuts || false)
+      setAddDesktopShortcuts(config.addDesktopShortcuts)
+      setAddGamesToStartMenu(config.addStartMenuShortcuts)
       setCustomWinePaths(config.customWinePaths || [])
-      setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup || true)
+      setCheckForUpdatesOnStartup(
+        config.checkForUpdatesOnStartup !== undefined
+          ? config.checkForUpdatesOnStartup
+          : true
+      )
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
-      setShowUnrealMarket(config.showUnrealMarket || false)
+      setAltGogdlBin(config.altGogdlBin || '')
+      setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
-
+      setUseSteamRuntime(config.useSteamRuntime || false)
       if (!isDefault) {
         const {
           cloud_save_enabled: cloudSaveEnabled,
           save_folder: saveFolder,
           title: gameTitle,
-          is_mac_native
-        } = await getGameInfo(appName)
+          canRunOffline: can_run_offline,
+          is_mac_native,
+          is_linux_native
+        } = await getGameInfo(appName, state.runner)
+        setCanRunOffline(can_run_offline)
         setTitle(gameTitle)
-        setIsMacNative(is_mac_native)
+        setIsMacNative(is_mac_native && (await getPlatform()) == 'darwin')
+        setIsLinuxNative(is_linux_native && (await getPlatform()) == 'linux')
         return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
       }
       return setTitle(t('globalSettings', 'Global Settings'))
@@ -239,10 +279,12 @@ function Settings() {
 
   const GlobalSettings = {
     altLegendaryBin,
+    altGogdlBin,
     addDesktopShortcuts,
     addStartMenuShortcuts,
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
@@ -256,6 +298,7 @@ function Settings() {
     language,
     maxRecentGames,
     maxWorkers,
+    minimizeOnLaunch,
     nvidiaPrime,
     offlineMode,
     otherOptions,
@@ -272,6 +315,7 @@ function Settings() {
   const GameSettings = {
     audioFix,
     autoInstallDxvk,
+    autoInstallVkd3d,
     autoSyncSaves,
     enableEsync,
     enableFSR,
@@ -289,11 +333,12 @@ function Settings() {
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
-    wineVersion
+    wineVersion,
+    useSteamRuntime
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  const shouldRenderWineSettings = !isWin && !isMacNative
+  const shouldRenderWineSettings = !isWin && !isMacNative && !isLinuxNative
   let returnPath: string | null = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
@@ -303,6 +348,18 @@ function Settings() {
     writeConfig([appName, settingsToSave])
   }, [GlobalSettings, GameSettings, appName])
 
+  useEffect(() => {
+    // set copied to clipboard status to true if it's not already set to true
+    // used for changing text and color
+    if (!isCopiedToClipboard) return
+
+    const timer = setTimeout(() => {
+      setCopiedToClipboard(false)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [isCopiedToClipboard])
+
   if (!title) {
     return <UpdateComponent />
   }
@@ -310,41 +367,73 @@ function Settings() {
   return (
     <>
       <div className="Settings">
-        <div className="settingsNavbar">
+        <nav role="list" className="settingsNavbar">
           {isDefault && (
-            <NavLink to={{ pathname: '/settings/default/general' }}>
+            <NavLink role="link" to={{ pathname: '/settings/default/general' }}>
               {t('settings.navbar.general')}
             </NavLink>
           )}
           {shouldRenderWineSettings && (
-            <NavLink to={{ pathname: `/settings/${appName}/wine` }}>
+            <NavLink
+              role="link"
+              to={{
+                pathname: `/settings/${appName}/wine`,
+                state: { runner: state?.runner }
+              }}
+            >
               Wine
             </NavLink>
           )}
           {!isDefault && haveCloudSaving.cloudSaveEnabled && (
             <NavLink
+              role="link"
               data-testid="linkSync"
-              to={{ pathname: `/settings/${appName}/sync` }}
+              to={{
+                pathname: `/settings/${appName}/sync`,
+                state: { runner: state?.runner }
+              }}
             >
               {t('settings.navbar.sync')}
             </NavLink>
           )}
           {
-            <NavLink to={{ pathname: `/settings/${appName}/other` }}>
+            <NavLink
+              role="link"
+              to={{
+                pathname: `/settings/${appName}/other`,
+                state: { runner: state?.runner }
+              }}
+            >
               {t('settings.navbar.other')}
             </NavLink>
           }
-        </div>
-        <div className="settingsWrapper">
+          {
+            <NavLink
+              role="link"
+              to={{
+                pathname: `/settings/${appName}/log`,
+                state: { runner: state?.runner }
+              }}
+            >
+              {t('settings.navbar.log', 'Log')}
+            </NavLink>
+          }
+        </nav>
+        <div role="list" className="settingsWrapper">
           {title && (
             <NavLink
+              role="link"
               to={returnPath}
               className="headerTitle"
               data-testid="headerTitle"
             >
               {title}
               {!isDefault && (
-                <FontAwesomeIcon icon={isMacNative ? faApple : faWindows} />
+                <FontAwesomeIcon
+                  icon={
+                    isMacNative ? faApple : isLinuxNative ? faLinux : faWindows
+                  }
+                />
               )}
             </NavLink>
           )}
@@ -370,9 +459,73 @@ function Settings() {
               checkForUpdatesOnStartup={checkForUpdatesOnStartup}
               altLegendaryBin={altLegendaryBin}
               setAltLegendaryBin={setAltLegendaryBin}
+              altGogdlBin={altGogdlBin}
+              setAltGogdlBin={setAltGogdlBin}
               toggleUnrealMarket={toggleUnrealMarket}
               showUnrealMarket={showUnrealMarket}
+              minimizeOnLaunch={minimizeOnLaunch}
+              toggleMinimizeOnLaunch={toggleMinimizeOnLaunch}
             />
+          )}
+          {isGeneralSettings && (
+            <div className="footerFlex">
+              <button
+                className={classNames('button', 'is-footer', {
+                  isSuccess: isCopiedToClipboard
+                })}
+                onClick={() => {
+                  clipboard.writeText(
+                    JSON.stringify({ appName, title, ...settingsToSave })
+                  )
+                  setCopiedToClipboard(true)
+                }}
+              >
+                <div className="button-icontext-flex">
+                  <div className="button-icon-flex">
+                    <ContentCopyOutlined />
+                  </div>
+                  <span className="button-icon-text">
+                    {isCopiedToClipboard
+                      ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+                      : t(
+                          'settings.copyToClipboard',
+                          'Copy All Settings to Clipboard'
+                        )}
+                  </span>
+                </div>
+              </button>
+              {isDefault && (
+                <>
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('clearCache')}
+                  >
+                    <div className="button-icontext-flex">
+                      <div className="button-icon-flex">
+                        <CleaningServicesOutlined />
+                      </div>
+                      <span className="button-icon-text">
+                        {t('settings.clear-cache', 'Clear Heroic Cache')}
+                      </span>
+                    </div>
+                  </button>
+
+                  <button
+                    className="button is-footer is-danger"
+                    onClick={() => ipcRenderer.send('resetHeroic')}
+                  >
+                    <div className="button-icontext-flex">
+                      <div className="button-icon-flex">
+                        <DeleteOutline />
+                      </div>
+                      <span className="button-icon-text">
+                        {t('settings.reset-heroic', 'Reset Heroic')}
+                      </span>
+                    </div>
+                  </button>
+                </>
+              )}
+            </div>
           )}
           {isWineSettings && (
             <WineSettings
@@ -385,7 +538,9 @@ function Settings() {
               wineCrossoverBottle={wineCrossoverBottle}
               setWineCrossoverBottle={setWineCrossoverBottle}
               autoInstallDxvk={autoInstallDxvk}
+              autoInstallVkd3d={autoInstallVkd3d}
               toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
@@ -418,6 +573,7 @@ function Settings() {
               togglePrimeRun={toggleNvidiaPrime}
               showFps={showFps}
               toggleFps={toggleFps}
+              canRunOffline={canRunOffline}
               offlineMode={offlineMode}
               toggleOffline={toggleOffline}
               audioFix={audioFix}
@@ -435,7 +591,10 @@ function Settings() {
               discordRPC={discordRPC}
               targetExe={targetExe}
               setTargetExe={setTargetExe}
+              useSteamRuntime={useSteamRuntime}
+              toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
+              isLinuxNative={isLinuxNative}
             />
           )}
           {isSyncSettings && (
@@ -445,37 +604,14 @@ function Settings() {
               appName={appName}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
-              isProton={!isWin && wineVersion.name.includes('Proton')}
+              isProton={!isWin && wineVersion.type === 'proton'}
               winePrefix={winePrefix}
             />
           )}
-          <span className="save">{t('info.settings')}</span>
-          <button
-            className="button is-text"
-            onClick={() =>
-              clipboard.writeText(
-                JSON.stringify({ appName, title, ...settingsToSave })
-              )
-            }
-          >
-            {t('settings.copyToClipboard', 'Copy All Setting to Clipboard')}
-          </button>
-          {isDefault && (
-            <>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('clearCache')}
-              >
-                {t('settings.clear-cache', 'Clear Heroic Cache')}
-              </button>
-              <button
-                className="button is-text"
-                onClick={() => ipcRenderer.send('resetHeroic')}
-              >
-                {t('settings.reset-heroic', 'Reset Heroic')}
-              </button>
-            </>
+          {isLogSettings && (
+            <LogSettings isDefault={isDefault} appName={appName} />
           )}
+          <span className="save">{t('info.settings')}</span>
           {!isDefault && <span className="appName">AppName: {appName}</span>}
         </div>
       </div>

@@ -3,8 +3,10 @@ import React from 'react'
 import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
-  category: 'games',
-  data: [],
+  category: 'epic',
+  epicLibrary: [],
+  gogLibrary: [],
+  wineVersions: [],
   error: false,
   filter: 'all',
   filterText: '',
@@ -22,6 +24,7 @@ const initialContext: ContextType = {
   refresh: () => Promise.resolve(),
   recentGames: [],
   refreshLibrary: () => Promise.resolve(),
+  refreshWineVersionInfo: () => Promise.resolve(),
   refreshing: false,
   isRTL: false
 }

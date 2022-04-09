@@ -1,13 +1,16 @@
+import { VersionInfo } from 'heroic-wine-downloader'
 interface About {
   description: string
   shortDescription: string
 }
 export interface AppSettings {
   altLegendaryBin: string
+  altGogdlBin: string
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   audioFix: boolean
   autoInstallDxvk: boolean
+  autoInstallVkd3d: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
@@ -25,6 +28,7 @@ export interface AppSettings {
   maxRecentGames: number
   maxSharpness: number
   maxWorkers: number
+  minimizeOnLaunch: boolean
   nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions: string
@@ -39,11 +43,14 @@ export interface AppSettings {
   defaultWinePrefix: string
   winePrefix: string
   wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
 export interface ContextType {
   category: string
-  data: GameInfo[]
+  epicLibrary: GameInfo[]
+  gogLibrary: GameInfo[]
+  wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean
   filter: string
@@ -62,6 +69,7 @@ export interface ContextType {
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
+  refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
 }
 
@@ -71,6 +79,8 @@ interface ExtraInfo {
 }
 
 export interface GameInfo {
+  runner: Runner
+  store_url: string
   app_name: string
   art_cover: string
   art_logo: string
@@ -83,6 +93,7 @@ export interface GameInfo {
   install: InstalledInfo
   is_game: boolean
   is_mac_native: boolean
+  is_linux_native: boolean
   is_installed: boolean
   is_ue_asset: boolean
   is_ue_plugin: boolean
@@ -91,6 +102,30 @@ export interface GameInfo {
   save_folder: string
   title: string
   canRunOffline: boolean
+}
+
+export interface GameSettings {
+  audioFix: boolean
+  autoInstallDxvk: boolean
+  autoSyncSaves: boolean
+  enableEsync: boolean
+  enableFSR: boolean
+  enableFsync: boolean
+  enableResizableBar: boolean
+  maxSharpness: number
+  launcherArgs: string
+  nvidiaPrime: boolean
+  offlineMode: boolean
+  otherOptions: string
+  savesPath: string
+  showFps: boolean
+  showMangohud: boolean
+  targetExe: string
+  useGameMode: boolean
+  wineCrossoverBottle: string
+  winePrefix: string
+  wineVersion: WineInstallation
+  useSteamRuntime: boolean
 }
 
 type DLCInfo = {
@@ -125,6 +160,7 @@ type GameManifest = {
   install_tags: Array<string>
   launch_exe: string
   prerequisites: Prerequisites
+  languages?: Array<string>
 }
 export interface InstallInfo {
   game: GameInstallInfo
@@ -135,6 +171,7 @@ export interface GameStatus {
   appName: string
   progress?: string
   folder?: string
+  runner?: Runner
   status:
     | 'installing'
     | 'updating'
@@ -149,18 +186,30 @@ export interface GameStatus {
     | 'error'
 }
 
-export interface InstallProgress {
-  bytes: string
-  eta: string
+export interface SavedInstallProgress {
   folder?: string
-  percent: string
+  percent?: number
 }
+
+export interface InstallProgress {
+  timestamp: number
+  bytes: string
+  eta: number
+  percent: number
+}
+
 export interface InstalledInfo {
   executable: string | null
   install_path: string | null
   install_size: string | null
   is_dlc: boolean | null
   version: string | null
+  platform?: string
+  appName?: string
+  installedWithDLCs?: boolean // For verifing GOG games
+  language?: string // For verifing GOG games
+  versionEtag?: string // Checksum for checking GOG updates
+  buildId?: string // For verifing GOG games
 }
 
 export interface KeyImage {
@@ -194,9 +243,19 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
+  type: 'wine' | 'proton' | 'crossover'
+  wineboot?: string
+  wineserver?: string
 }
 
+export interface WineVersionInfo extends VersionInfo {
+  isInstalled: boolean
+  hasUpdate: boolean
+  installDir: string
+}
 export type ElWebview = {
+  canGoBack: () => boolean
+  canGoForward: () => boolean
   goBack: () => void
   goForward: () => void
   reload: () => void
@@ -208,3 +267,45 @@ export type ElWebview = {
 }
 
 export type Webview = HTMLWebViewElement & ElWebview
+
+export interface GOGGameInfo {
+  tags: string[]
+  id: number
+  availability: {
+    isAvailable: boolean
+    isAvailableInAccount: boolean
+  }
+  title: string
+  url: string
+  worksOn: {
+    Windows: boolean
+    Mac: boolean
+    Linux: boolean
+  }
+  category: string
+  rating: number
+  isComingSoom: boolean
+  isGame: boolean
+  slug: string
+  isNew: boolean
+  dlcCount: number
+  releaseDate: {
+    date: string
+    timezone_type: number
+    timezone: string
+  }
+  isBaseProductMissing: boolean
+  isHidingDisabled: boolean
+  isInDevelopment: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  extraInfo: any[]
+  isHidden: boolean
+}
+export interface GamepadActionStatus {
+  [key: string]: {
+    triggeredAt: { [key: number]: number }
+    repeatDelay: false | number
+  }
+}
+
+export type Runner = 'legendary' | 'gog' | 'heroic'

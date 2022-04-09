@@ -17,11 +17,13 @@
 
 .libraryHeader {
   text-align: left;
-  padding-left: 2rem;
+  padding: 0 2rem;
 }
 
 .titleWithIcons {
   display: flex;
+  align-items: baseline;
+  margin: -4px 0;
 }
 
 #backToTopBtn {
@@ -32,9 +34,9 @@
   bottom: 3%;
   right: 0;
   margin: 1em 3em;
-  border: 1px var(--secondary) solid;
+  border: 1px var(--download-button) solid;
   background-color: var(--background);
-  color: var(--secondary);
+  color: var(--download-button);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,8 +48,8 @@
 }
 
 #backToTopBtn:hover {
-  background-color: var(--secondary);
-  color: var(--text-primary);
+  background-color: var(--download-button);
+  color: var(--text-default);
 }
 
 .listing {

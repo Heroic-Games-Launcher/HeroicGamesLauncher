@@ -23,14 +23,16 @@
             "title": "Kurulumu Durdur"
         },
         "uninstall": {
+            "checkbox": "Prefix'i de kaldırmak ister misiniz? Bu geri alınamaz.",
+            "checkbox_prefix": "Prefix",
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "title": "Kaldır"
         },
         "update": {
-            "message": "Bu oyunun bir güncellemesi var, şimdi güncellemek ister misiniz?",
+            "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET"
     },
     "button": {
@@ -43,14 +45,14 @@
     },
     "disabled": "Devre dışı",
     "dlc": {
-        "installDlcs": "Tüm DLC'leri kur",
-        "title": "DLCs"
+        "installDlcs": "Tüm DLC'leri kur"
     },
     "enabled": "Etkin",
     "game": {
         "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
         "installSize": "Kurulum Boyutu",
+        "language": "Dil",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "totalPlayed": "Oynanan Zaman"
@@ -67,8 +69,9 @@
         "version": "Sürüm"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "Kurulum Yolunu Seçin",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Wine sürümü"
     },
     "label": {
         "playing": {

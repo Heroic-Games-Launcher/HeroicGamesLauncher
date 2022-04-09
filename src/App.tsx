@@ -14,19 +14,26 @@ const Store = window.require('electron-store')
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const Header = lazy(() => import('./components/UI/Header'))
+const WineManager = lazy(() => import('./screens/WineManager'))
 
 function App() {
   const context = useContext(ContextProvider)
   const configStore: ElectronStore = new Store({
     cwd: 'store'
   })
-  const user = configStore.get('userInfo')
-  const { data: library, recentGames, category } = context
+  const gogStore: ElectronStore = new Store({
+    cwd: 'gog_store'
+  })
 
-  const dlcCount = library.filter((lib) => lib.install.is_dlc)
-  const numberOfGames = library.length - dlcCount.length
-  const showRecentGames = !!recentGames.length && category === 'games'
+  const user = configStore.has('userInfo') || gogStore.has('credentials')
+  const { epicLibrary, gogLibrary, recentGames, category } = context
 
+  const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
+  const numberOfGames =
+    category == 'epic'
+      ? epicLibrary.length - dlcCount.length
+      : gogLibrary.length
+  const showRecentGames = !!recentGames.length && category !== 'unreal'
   return (
     <div className="App">
       <HashRouter>
@@ -34,30 +41,30 @@ function App() {
         <main className="content">
           <Switch>
             <Route exact path="/">
-              {user ? (
+              {user && (
                 <>
-                  <Header
-                    goTo={''}
-                    renderBackButton={false}
-                    numberOfGames={numberOfGames}
-                  />
+                  <Header numberOfGames={numberOfGames} />
                   <div className="listing">
                     <span id="top" />
                     {showRecentGames && (
                       <Library showRecentsOnly library={recentGames} />
                     )}
-                    <Library library={library} />
+                    <Library
+                      library={category === 'epic' ? epicLibrary : gogLibrary}
+                    />
                   </div>
                 </>
-              ) : (
-                <WebView isLogin />
               )}
             </Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/epicstore" component={WebView} />
+            <Route exact path="/gogstore" component={WebView} />
             <Route exact path="/wiki" component={WebView} />
             <Route exact path="/gameconfig/:appName" component={GamePage} />
+            <Route path="/store-page" component={WebView} />
+            <Route path="/login/:runner" component={WebView} />
             <Route path="/settings/:appName/:type" component={Settings} />
+            <Route path="/wine-manager" component={WineManager} />
           </Switch>
         </main>
       </HashRouter>

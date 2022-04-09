@@ -1,12 +1,12 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState, CSSProperties } from 'react'
+import React, { useContext, CSSProperties, useMemo } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
-import { GameStatus, InstallProgress } from 'src/types'
+import { GameStatus, Runner, SavedInstallProgress } from 'src/types'
 import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
@@ -16,11 +16,11 @@ import { getProgress, install, launch, sendKill } from 'src/helpers'
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-
+import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
 import { SvgButton } from 'src/components/UI'
+import { useInstallProgress } from 'src/hooks'
 
-const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
 
 interface Card {
@@ -36,6 +36,8 @@ interface Card {
   title: string
   version: string
   isMacNative: boolean
+  isLinuxNative: boolean
+  runner: Runner
   forceCard?: boolean
 }
 
@@ -51,21 +53,13 @@ const GameCard = ({
   hasUpdate,
   buttonClick,
   forceCard,
-  isMacNative
+  isMacNative,
+  isLinuxNative,
+  runner
 }: Card) => {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
-  ) as InstallProgress
-  const [progress, setProgress] = useState(
-    previousProgress ??
-      ({
-        bytes: '0.00MiB',
-        eta: '00:00:00',
-        path: '',
-        percent: '0.00%',
-        folder: ''
-      } as InstallProgress)
-  )
+  ) as SavedInstallProgress
   const { t } = useTranslation('gamepage')
 
   const { libraryStatus, layout, handleGameStatus, platform } =
@@ -92,54 +86,49 @@ const GameCard = ({
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
   const path =
-    isWin || isMacNative
+    isWin || isMacNative || isLinuxNative
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
 
-  useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling) {
-        const progress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName
-        )
+  const progressSince = useMemo(() => Date.now(), [gameStatus])
+  const progress = useInstallProgress(appName, runner, progressSince)
 
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        setProgress(progress)
-      }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [isInstalling, appName])
-
-  const { percent = '' } = progress
+  const { percent = 0 } = progress
   const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
 
+  const instClass = isInstalled ? 'installed' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
   const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
-  const imageSrc = `${grid ? cover : coverList}?h=400&resize=1&w=300`
+  const imageSrc = getImageFormatting()
+
+  const wrapperClasses = `${grid ? 'gameCard' : 'gameListItem'}  ${instClass}`
 
   async function handleUpdate() {
-    await handleGameStatus({ appName, status: 'updating' })
-    await updateGame(appName)
-    return handleGameStatus({ appName, status: 'done' })
+    await handleGameStatus({ appName, runner, status: 'updating' })
+    await updateGame(appName, runner)
+    return handleGameStatus({ appName, runner, status: 'done' })
+  }
+
+  function getImageFormatting() {
+    const imageBase = grid ? cover : coverList
+    if (imageBase === 'fallback') {
+      return fallbackImage
+    }
+    if (runner === 'legendary') {
+      return `${imageBase}?h=400&resize=1&w=300`
+    } else {
+      return imageBase
+    }
   }
 
   function getStatus() {
     if (isInstalling) {
-      return t('status.installing') + ` ${percent}`
+      return (
+        t('status.installing') +
+        (percent === 0 && progress.eta === Infinity ? '...' : ` ${percent}%`)
+      )
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -161,21 +150,21 @@ const GameCard = ({
   const renderIcon = () => {
     if (isPlaying) {
       return (
-        <SvgButton onClick={() => handlePlay()}>
+        <SvgButton onClick={() => handlePlay(runner)}>
           <StopIconAlt className="cancelIcon" />
         </SvgButton>
       )
     }
     if (isInstalling) {
       return (
-        <SvgButton onClick={() => handlePlay()}>
+        <SvgButton onClick={() => handlePlay(runner)}>
           <StopIcon />
         </SvgButton>
       )
     }
     if (isInstalled && isGame) {
       return (
-        <SvgButton onClick={() => handlePlay()}>
+        <SvgButton className="playButton" onClick={() => handlePlay(runner)}>
           <PlayIcon className="playIcon" />
         </SvgButton>
       )
@@ -199,8 +188,8 @@ const GameCard = ({
 
   return (
     <>
-      <ContextMenuTrigger id={appName}>
-        <div className={grid ? 'gameCard' : 'gameListItem'}>
+      <ContextMenuTrigger id={appName} attributes={{ tabIndex: -1 }}>
+        <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
             to={{
@@ -229,11 +218,11 @@ const GameCard = ({
                   onClick={() =>
                     history.push({
                       pathname: path,
-                      state: { fromGameCard: true }
+                      state: { fromGameCard: true, runner }
                     })
                   }
                 >
-                  <SettingsIcon fill={'var(--text-primary)'} />
+                  <SettingsIcon fill={'var(--text-default)'} />
                 </SvgButton>
               )}
             </span>
@@ -242,14 +231,14 @@ const GameCard = ({
         <ContextMenu id={appName} className="contextMenu">
           {isInstalled && (
             <>
-              <MenuItem onClick={() => handlePlay()}>
+              <MenuItem onClick={() => handlePlay(runner)}>
                 {t('label.playing.start')}
               </MenuItem>
               <MenuItem
                 onClick={() =>
                   history.push({
                     pathname: path,
-                    state: { fromGameCard: true }
+                    state: { fromGameCard: true, runner }
                   })
                 }
               >
@@ -261,7 +250,9 @@ const GameCard = ({
                 </MenuItem>
               )}
               <MenuItem
-                onClick={() => uninstall({ appName, handleGameStatus, t })}
+                onClick={() =>
+                  uninstall({ appName, handleGameStatus, t, runner })
+                }
               >
                 {t('button.uninstall')}
               </MenuItem>
@@ -276,7 +267,7 @@ const GameCard = ({
             </MenuItem>
           )}
           {isInstalling && (
-            <MenuItem onClick={() => handlePlay()}>
+            <MenuItem onClick={() => handlePlay(runner)}>
               {t('button.cancel')}
             </MenuItem>
           )}
@@ -285,7 +276,7 @@ const GameCard = ({
     </>
   )
 
-  async function handlePlay() {
+  async function handlePlay(runner: Runner) {
     if (!isInstalled) {
       return await install({
         appName,
@@ -294,15 +285,16 @@ const GameCard = ({
         isInstalling,
         previousProgress,
         progress,
-        t
+        t,
+        runner
       })
     }
     if (status === 'playing' || status === 'updating') {
-      await handleGameStatus({ appName, status: 'done' })
-      return sendKill(appName)
+      await handleGameStatus({ appName, runner, status: 'done' })
+      return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return await launch({ appName, t })
+      return await launch({ appName, t, runner })
     }
     return
   }

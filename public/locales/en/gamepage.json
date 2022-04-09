@@ -9,7 +9,7 @@
         "importpath": "Choose Game Folder to import",
         "move": {
             "message": "This can take a long time, are you sure?",
-            "path": "Choose where do you want to move",
+            "path": "Choose where you want to move",
             "title": "Move Game Installation"
         },
         "no": "NO",
@@ -23,11 +23,13 @@
             "title": "Stop Installation"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix as well? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "Do you want to uninstall this game?",
             "title": "Uninstall"
         },
         "update": {
-            "message": "This game has an update, do you wish to update now?",
+            "message": "This game has an update, apply update now?",
             "title": "Game Needs Update"
         },
         "wineprefix": "Select WinePrefix Folder",
@@ -43,14 +45,14 @@
     },
     "disabled": "Disabled",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Install all DLCs"
     },
     "enabled": "Enabled",
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "installSize": "Install Size",
+        "language": "Language",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "totalPlayed": "Time Played"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": "Wine version"
     },
     "label": {
         "playing": {

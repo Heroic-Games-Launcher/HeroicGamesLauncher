@@ -1,24 +1,20 @@
 {
     "button": {
-        "login": "Login"
-    },
-    "input": {
-        "placeholder": "Paste the SID number here"
+        "login": "Log in"
     },
     "message": {
-        "part1": "In order for you to be able to log in and install your games, you first need you to follow the steps below:",
-        "part2": "Open",
+        "part1": "In order to log in and install your games, you first need to follow the steps below:",
+        "part2": "Open the",
         "part3": "Epic Store here",
-        "part4": ", log in your account and copy your",
+        "part4": ", log in to your account and copy your",
         "part5": "SID information number",
-        "part6": "Paste the",
+        "part6": "Paste your",
         "part7": "SID number",
-        "part8": "in the input box below, click on the login button and wait."
+        "part8": "in the input box below and click on the login button."
     },
     "status": {
         "error": "Error",
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In…"
+        "loading": "Loading Game list, please wait"
     },
     "welcome": "Welcome!"
 }

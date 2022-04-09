@@ -23,6 +23,8 @@
             "title": "停止安裝"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "你希望將這個遊戲解除安裝嗎？",
             "title": "解除安裝"
         },
@@ -43,14 +45,14 @@
     },
     "disabled": "已禁用",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Install all DLCs"
     },
     "enabled": "已啟用",
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "首次遊玩",
         "installSize": "Install Size",
+        "language": "Language",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
         "totalPlayed": "遊玩時間"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

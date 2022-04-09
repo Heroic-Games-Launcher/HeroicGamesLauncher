@@ -1,7 +1,13 @@
-import { AppSettings, GameInfo, GameStatus, InstallProgress } from 'src/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameStatus,
+  SavedInstallProgress,
+  Runner
+} from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
-import { getGameInfo, sendKill } from './index'
+import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
 import ElectronStore from 'electron-store'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -15,12 +21,14 @@ type InstallArgs = {
   handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: string
   isInstalling: boolean
-  previousProgress: InstallProgress | null
-  progress: InstallProgress
+  previousProgress: SavedInstallProgress | null
+  progress: SavedInstallProgress
   setInstallPath?: (path: string) => void
   t: TFunction<'gamepage'>
   installDlcs?: boolean
   sdlList?: Array<string>
+  installLanguage?: string
+  runner?: Runner
 }
 
 async function install({
@@ -33,26 +41,30 @@ async function install({
   previousProgress,
   setInstallPath,
   sdlList = [],
-  installDlcs = false
+  installDlcs = false,
+  installLanguage = 'en-US',
+  runner = 'legendary'
 }: InstallArgs) {
   if (!installPath) {
     return
   }
 
   const { folder_name, is_game, is_installed }: GameInfo = await getGameInfo(
-    appName
+    appName,
+    runner
   )
   if (isInstalling) {
     return handleStopInstallation(
       appName,
       [installPath, folder_name],
       t,
-      progress
+      progress,
+      runner
     )
   }
 
   if (is_installed) {
-    return uninstall({ appName, handleGameStatus, t })
+    return uninstall({ appName, handleGameStatus, t, runner })
   }
 
   if (installPath === 'import' && is_game) {
@@ -67,8 +79,13 @@ async function install({
       return
     }
 
-    return await importGame({ appName, path })
+    return await importGame({ appName, path, runner })
   }
+
+  const previousProgressPercent =
+    previousProgress && previousProgress.folder === installPath
+      ? Math.min(100, Math.max(0, previousProgress.percent || 0))
+      : 0
 
   if (installPath !== 'default' || !is_game) {
     setInstallPath && setInstallPath(installPath)
@@ -79,18 +96,22 @@ async function install({
     handleGameStatus({
       folder: installPath,
       appName,
+      runner,
       status: 'installing',
-      progress: previousProgress?.percent || '0%'
+      progress: `${previousProgress?.percent || 0}%`
     })
     return await ipcRenderer
       .invoke('install', {
         appName,
         path: `${installPath}`,
         installDlcs,
-        sdlList
+        sdlList,
+        installLanguage,
+        runner,
+        previousProgress: previousProgressPercent
       })
       .finally(() => {
-        if (progress.percent === '100%') {
+        if (progress.percent === 100) {
           storage.removeItem(appName)
         }
         return
@@ -114,12 +135,14 @@ async function install({
     return await ipcRenderer
       .invoke('install', {
         appName,
-        path: `'${path}'`,
+        path: `${path}`,
         installDlcs,
-        sdlList
+        sdlList,
+        runner,
+        previousProgress: previousProgressPercent
       })
       .finally(() => {
-        if (progress.percent === '100%') {
+        if (progress.percent === 100) {
           storage.removeItem(appName)
         }
         return
@@ -130,15 +153,22 @@ async function install({
 const importGame = async (args: {
   appName: string
   path: string
+  runner: Runner
 }): Promise<void> => await ipcRenderer.invoke('importGame', args)
 
 type UninstallArgs = {
   appName: string
   handleGameStatus: (game: GameStatus) => Promise<void>
   t: TFunction<'gamepage'>
+  runner: Runner
 }
 
-async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
+async function uninstall({
+  appName,
+  handleGameStatus,
+  t,
+  runner
+}: UninstallArgs) {
   const args = {
     buttons: [t('box.yes'), t('box.no')],
     message: t('gamepage:box.uninstall.message'),
@@ -146,13 +176,40 @@ async function uninstall({ appName, handleGameStatus, t }: UninstallArgs) {
     type: 'warning'
   }
 
-  const { response } = await ipcRenderer.invoke('openMessageBox', args)
+  let linuxArgs
+  // This assumes native games are installed should be changed in the future
+  // if we add option to install windows games even if native is available
+  if (
+    (await getPlatform()) === 'linux' &&
+    !(await getGameInfo(appName, runner)).is_linux_native
+  ) {
+    const wineprefix = (await getGameSettings(appName, runner)).winePrefix
+
+    linuxArgs = {
+      checkboxLabel: [
+        t(
+          'gamepage:box.uninstall.checkbox',
+          "Would you like to remove the prefix aswell? This can't be undone."
+        ),
+        `${t(
+          'gamepage:box.uninstall.checkbox_prefix',
+          'Prefix'
+        )}: ${wineprefix}`
+      ].join('\n'),
+      checkboxChecked: false
+    }
+  }
+
+  const { response, checkboxChecked } = await ipcRenderer.invoke(
+    'openMessageBox',
+    { ...args, ...linuxArgs }
+  )
 
   if (response === 0) {
-    await handleGameStatus({ appName, status: 'uninstalling' })
-    await ipcRenderer.invoke('uninstall', appName)
+    await handleGameStatus({ appName, runner, status: 'uninstalling' })
+    await ipcRenderer.invoke('uninstall', [appName, checkboxChecked, runner])
     storage.removeItem(appName)
-    return await handleGameStatus({ appName, status: 'done' })
+    return await handleGameStatus({ appName, runner, status: 'done' })
   }
   return
 }
@@ -161,7 +218,8 @@ async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
-  progress: InstallProgress
+  progress: SavedInstallProgress,
+  runner: Runner
 ) {
   const args = {
     buttons: [
@@ -177,30 +235,32 @@ async function handleStopInstallation(
 
   if (response === 1) {
     storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
-    return sendKill(appName)
+    return sendKill(appName, runner)
   } else if (response === 2) {
-    await sendKill(appName)
+    await sendKill(appName, runner)
     storage.removeItem(appName)
     return ipcRenderer.send('removeFolder', [path, folderName])
   }
 }
 
-const repair = async (appName: string): Promise<void> =>
-  await ipcRenderer.invoke('repair', appName)
+const repair = async (appName: string, runner: Runner): Promise<void> =>
+  await ipcRenderer.invoke('repair', appName, runner)
 
 type LaunchOptions = {
   appName: string
   t: TFunction<'gamepage'>
   launchArguments?: string
+  runner: Runner
 }
 
 const launch = ({
   appName,
   t,
-  launchArguments
+  launchArguments,
+  runner
 }: LaunchOptions): Promise<void> =>
   ipcRenderer
-    .invoke('launch', { appName, launchArguments })
+    .invoke('launch', { appName, launchArguments, runner })
     .then(async (err: string | string[]) => {
       if (!err) {
         return
@@ -219,24 +279,25 @@ const launch = ({
         const { response } = await ipcRenderer.invoke('openMessageBox', args)
 
         if (response === 0) {
-          return updateGame(appName)
+          return updateGame(appName, runner)
         }
         await ipcRenderer.invoke('launch', {
           appName,
+          runner,
           launchArguments: '--skip-version-check'
         })
       }
     })
 
-const updateGame = (appName: string): Promise<void> =>
-  ipcRenderer.invoke('updateGame', appName)
+const updateGame = (appName: string, runner: Runner): Promise<void> =>
+  ipcRenderer.invoke('updateGame', appName, runner)
 
 // Todo: Get Back to update all games
-function updateAllGames(gameList: Array<string>) {
-  gameList.forEach(async (appName) => {
-    await updateGame(appName)
-  })
-}
+// function updateAllGames(gameList: Array<string>) {
+//   gameList.forEach(async (appName) => {
+//     await updateGame(appName)
+//   })
+// }
 
 type RecentGame = {
   appName: string
@@ -263,6 +324,6 @@ export {
   launch,
   repair,
   uninstall,
-  updateAllGames,
+  // updateAllGames,
   updateGame
 }

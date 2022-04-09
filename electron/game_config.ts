@@ -7,7 +7,8 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath
 } from './constants'
-import { logError, logInfo } from './logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
+import { join } from 'path'
 
 /**
  * This class does config handling for games.
@@ -28,7 +29,7 @@ abstract class GameConfig {
 
   protected constructor(appName: string) {
     this.appName = appName
-    this.path = `${heroicGamesConfigPath}${appName}.json`
+    this.path = join(heroicGamesConfigPath, appName + '.json')
   }
 
   /**
@@ -40,7 +41,7 @@ abstract class GameConfig {
    */
   public static get(appName: string): GameConfig {
     let version: GameConfigVersion
-    const path = `${heroicGamesConfigPath}${appName}.json`
+    const path = join(heroicGamesConfigPath, appName + '.json')
     // Config file doesn't already exist, make one with the current version.
     if (!existsSync(path)) {
       version = currentGameConfigVersion
@@ -80,7 +81,8 @@ abstract class GameConfig {
         break
       default:
         logError(
-          `GameConfig(${appName}): Invalid config version '${version}' requested.`
+          `[${appName}]: Invalid config version '${version}' requested.`,
+          LogPrefix.GameConfig
         )
         break
     }
@@ -88,13 +90,15 @@ abstract class GameConfig {
     if (GameConfig.instances.get(appName).upgrade()) {
       // Upgrade done, we need to fully reload config.
       logInfo(
-        `GameConfig(${appName}): Upgraded outdated ${version} config to ${currentGameConfigVersion}.`
+        `[${appName}]: Upgraded outdated ${version} config to ${currentGameConfigVersion}.`,
+        LogPrefix.GameConfig
       )
       return GameConfig.reload(appName, currentGameConfigVersion)
     } else if (version !== currentGameConfigVersion) {
       // Upgrade failed.
       logError(
-        `GameConfig(${appName}): Failed to upgrade outdated ${version} config.`
+        `[${appName}]: Failed to upgrade outdated ${version} config.`,
+        LogPrefix.GameConfig
       )
     }
   }

@@ -31,7 +31,15 @@
                 "message": "Nu a fost găsit niciun jurnal pentru acest joc",
                 "title": "Jurnalul nu a fost găsit"
             },
-            "title": "Eroare"
+            "title": "Eroare",
+            "python": {
+                "message": "Heroic necesită Python 3.8 sau mai nou.",
+                "title": "Eroare Python!"
+            },
+            "wine-not-found": {
+                "message": "Nicio versiune Wine selectată. Verificați setările jocului!",
+                "title": "Wine nu a fost găsit"
+            }
         },
         "no": "NU",
         "protocol": {
@@ -56,12 +64,14 @@
             "title": "Alegeți directorul de salvare"
         },
         "wineprefix": "Alegeți dosarul Wine Prefix",
-        "yes": "DA"
+        "yes": "DA",
+        "ok": "O.K"
     },
     "button": {
         "sync": "Sincronizează",
         "syncing": "Sincronizare",
-        "unsync": "Desincronizare"
+        "unsync": "Desincronizare",
+        "login": "Autentificare"
     },
     "Downloading": "Descărcare",
     "Epic Games": "Epic Games",
@@ -139,7 +149,7 @@
         "addgamestostartmenu": "Adăugați jocuri în meniul Start automat",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
         "audiofix": "Fixare Audio (Latență în PulseAudio)",
-        "autodxvk": "Instalare/Actualizare automată DXVK/VKD3D în Prefix",
+        "autodxvk": "Instalare/Actualizare automată DXVK în Prefix",
         "autosync": "Salvări de sincronizare automată",
         "change-target-exe": "Selectați un EXE alternativ pentru a rula",
         "checkForUpdatesOnStartup": "Verificare pentru actualizări la pornire",
@@ -231,5 +241,8 @@
     "info": {
         "settings": "Setările sunt salvate automat"
     },
-    "Plugins": "Pluginuri"
+    "Plugins": "Pluginuri",
+    "status": {
+        "loading": "Se încarcă lista de jocuri, așteptați"
+    }
 }

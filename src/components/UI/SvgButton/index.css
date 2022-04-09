@@ -1,7 +1,8 @@
 .svg-button {
+  cursor: pointer;
   border: none;
   background: none;
   padding: 0;
   margin: 0;
-  color: var(--text-primary);
+  color: var(--text-default);
 }

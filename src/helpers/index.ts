@@ -1,4 +1,11 @@
-import { AppSettings, GameInfo, InstallInfo, InstallProgress } from 'src/types'
+import {
+  AppSettings,
+  GameInfo,
+  InstallInfo,
+  SavedInstallProgress,
+  Runner,
+  GameSettings
+} from 'src/types'
 import { IpcRenderer } from 'electron'
 import { install, launch, repair, updateGame } from './library'
 const { ipcRenderer } = window.require('electron') as {
@@ -31,24 +38,8 @@ const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
 let progress: string
 
-const sendKill = (appName: string): Promise<void> =>
-  ipcRenderer.invoke('kill', appName)
-
-/**
- * Deprecated API to spawn a subprocess with a legendary command.
- *
- * @param args
- * @returns Return code. ('error' or 'done')
- * @deprecated Avoid using, old code will be migrated.
- */
-const legendary = async (args: string): Promise<string> =>
-  await ipcRenderer
-    .invoke('legendary', args)
-    .then(async (res: string) => {
-      const isError = res.includes('ERROR')
-      return isError ? 'error' : 'done'
-    })
-    .catch((err: string | null) => String(err))
+const sendKill = (appName: string, runner: Runner): Promise<void> =>
+  ipcRenderer.invoke('kill', appName, runner)
 
 const isLoggedIn = async (): Promise<void> =>
   await ipcRenderer.invoke('isLoggedIn')
@@ -83,22 +74,25 @@ const getLegendaryConfig = async (): Promise<{
   return { library, user }
 }
 
-const specialCharactersRegex =
-  /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
-const cleanTitle = (title: string) =>
-  title
-    .replaceAll(specialCharactersRegex, '')
-    .replaceAll(' ', '-')
-    .replaceAll('®', '')
-    .toLowerCase()
-    .split('--definitive')[0]
-
-const getGameInfo = async (appName: string): Promise<GameInfo> => {
-  return await ipcRenderer.invoke('getGameInfo', appName)
+const getGameInfo = async (
+  appName: string,
+  runner: Runner = 'legendary'
+): Promise<GameInfo> => {
+  return await ipcRenderer.invoke('getGameInfo', appName, runner)
 }
 
-const getInstallInfo = async (appName: string): Promise<InstallInfo> => {
-  return await ipcRenderer.invoke('getInstallInfo', appName)
+const getGameSettings = async (
+  appName: string,
+  runner: Runner
+): Promise<GameSettings> => {
+  return await ipcRenderer.invoke('getGameSettings', appName, runner)
+}
+
+const getInstallInfo = async (
+  appName: string,
+  runner: Runner
+): Promise<InstallInfo | null> => {
+  return await ipcRenderer.invoke('getInstallInfo', appName, runner)
 }
 
 const handleSavePath = async (game: string) => {
@@ -110,14 +104,9 @@ const handleSavePath = async (game: string) => {
 const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
-const formatStoreUrl = (title: string, lang: string) => {
-  const storeUrl = `https://www.epicgames.com/store/${lang}/product/`
-  return `${storeUrl}${cleanTitle(title)}`
-}
-
-function getProgress(progress: InstallProgress): number {
+function getProgress(progress: SavedInstallProgress): number {
   if (progress && progress.percent) {
-    return Number(progress.percent.replace('%', ''))
+    return progress.percent
   }
   return 0
 }
@@ -222,8 +211,8 @@ function getAppSettings(): Promise<AppSettings> {
 export {
   createNewWindow,
   fixSaveFolder,
-  formatStoreUrl,
   getGameInfo,
+  getGameSettings,
   getInstallInfo,
   getLegendaryConfig,
   getPlatform,
@@ -235,7 +224,6 @@ export {
   install,
   isLoggedIn,
   launch,
-  legendary,
   loginPage,
   notify,
   openAboutWindow,

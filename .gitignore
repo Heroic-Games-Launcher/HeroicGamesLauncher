@@ -19,13 +19,17 @@
 .env.test.local
 .env.production.local
 
+# editors
+/.idea
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .eslintcache
+package-lock.json
 
 public/**/*.js
 downloads*.json
 
 flatpak/build
-flatpak/.flatpak-builder
+.flatpak-builder

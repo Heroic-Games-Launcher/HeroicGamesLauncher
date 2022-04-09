@@ -2,55 +2,57 @@
     "box": {
         "change": {
             "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
-            "path": "Seleccione la carpeta de instalación",
+            "path": "Seleccione la ubicación de instalación",
             "title": "Modificar la ubicación de instalación para los juegos"
         },
-        "choose": "Escoger",
-        "importpath": "Elija la carpeta del juego para importar",
+        "choose": "Elegir",
+        "importpath": "Elija la carpeta del juego a ser importada",
         "move": {
-            "message": "Esto puede llevar mucho tiempo, ¿estás seguro?",
-            "path": "Elige la ubicación de destino",
+            "message": "Esto puede tardar mucho tiempo, esta seguro?",
+            "path": "Elige la ubicación del destino",
             "title": "Mover carpeta del juego"
         },
-        "no": "No",
+        "no": "NO",
         "repair": {
             "message": "¿Quieres intentar reparar este juego? Esto puede llevar mucho tiempo.",
             "title": "Verificar y reparar"
         },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
-            "message": "¿Desea MANTENER los archivos descargados?",
+            "message": "¿Deseas MANTENER los archivos descargados?",
             "title": "Detener la instalación"
         },
         "uninstall": {
+            "checkbox": "¿Quieres eliminar el prefijo también? Esto no se puede deshacer.",
+            "checkbox_prefix": "Prefix",
             "message": "¿Quieres desinstalar este juego?",
             "title": "Desinstalar"
         },
         "update": {
-            "message": "Este juego tiene una actualización, ¿deseas actualizar ahora?",
+            "message": "Este juego tiene una actualización. ¿Quieres aplicarlo ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Elija la Carpeta con el Prefijo de Wine",
+        "wineprefix": "Elija la carpeta con el WinePrefix",
         "yes": "SÍ"
     },
     "button": {
         "cancel": "Pausar/Cancelar",
-        "continue": "Continuar Descarga",
+        "continue": "Seguir descargando",
         "import": "Importar juego",
         "install": "Instalar",
         "uninstall": "Desinstalar",
-        "update": "Update"
+        "update": "Actualizar"
     },
-    "disabled": "Deshabilitar",
+    "disabled": "Deshabilitado",
     "dlc": {
-        "installDlcs": "Instalar todos los DLCs",
-        "title": "DLCs"
+        "installDlcs": "Instalar todos los DLCs"
     },
     "enabled": "Habilitar",
     "game": {
         "downloadSize": "Tamaño de Descarga",
         "firstPlayed": "Jugado por Primera Vez",
         "installSize": "Tamaño de Instalación",
+        "language": "Lenguaje",
         "lastPlayed": "Jugado por Última Vez",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tiempo Jugado"
@@ -61,14 +63,15 @@
     },
     "info": {
         "canRunOffline": "Requiere Online",
-        "path": "Instalar ruta",
+        "path": "Ruta de instalación",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
         "version": "Versión"
     },
     "install": {
-        "path": "Elija una Ruta de Instalación",
-        "wineprefix": "Prefijo de Wine"
+        "path": "Seleccione la ruta de instalación",
+        "wineprefix": "Prefijo de Wine",
+        "wineversion": "Version de Wine"
     },
     "label": {
         "playing": {
@@ -86,18 +89,18 @@
         "title": "Elija Componentes a Instalar"
     },
     "specs": {
-        "minimum": "mínimo",
-        "recommended": "recomendado"
+        "minimum": "Mínimo",
+        "recommended": "Recomendado"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
-        "hasUpdates": "Nueva versión disponible!",
+        "clickToUpdate": "Click para Actualizar",
+        "hasUpdates": "¡Nueva versión disponible!",
         "installed": "Instalado",
         "installing": "Instalando",
-        "moving": "Instalación en movimiento, espere",
+        "moving": "Moviendo la instalación, por favor espere",
         "notinstalled": "Este juego no está instalado",
-        "reparing": "Reparando juego, espera",
-        "totalDownloaded": "Total Descargado",
+        "reparing": "Reparando el juego, por favor espere",
+        "totalDownloaded": "Total descargado",
         "updating": "Actualización de juego"
     },
     "submenu": {

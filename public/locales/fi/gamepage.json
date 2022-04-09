@@ -1,56 +1,58 @@
 {
     "box": {
         "change": {
-            "message": "Tämä vaihtaa pelin asennuksen sijaintia, haluatko jatkaa?",
-            "path": "Valitse uusi sijainti asennukselle",
-            "title": "Vaihda pelin asennuksen sijaintia"
+            "message": "Tämä muuttaa pelin asennussijaintia, haluatko jatkaa?",
+            "path": "Valitse uusi asennussijainti",
+            "title": "Vaihda pelin asennussijaintia"
         },
         "choose": "Valitse",
-        "importpath": "Valitse tuotavan pelin kansio",
+        "importpath": "Valitse tuotava pelikansio",
         "move": {
-            "message": "Tämä prosessi voi viedä paljon aikaa, haluatko jatkaa?",
-            "path": "Valitse, minne haluat siirtää",
+            "message": "Tämä voi kestää kauan, oletko varma?",
+            "path": "Valitse mihin haluat siirtää",
             "title": "Siirrä pelin asennus"
         },
         "no": "EI",
         "repair": {
-            "message": "Haluatko yrittää korjata tämän pelin? Tämä prosessi voi viedä paljon aikaa.",
-            "title": "Vahvista ja korjaa"
+            "message": "Haluatko yrittää korjata tämän pelin? Tämä voi kestää kauan.",
+            "title": "Tarkista ja korjaa"
         },
         "stopInstall": {
-            "keepInstalling": "Jatka asennusta",
+            "keepInstalling": "Jatka asentamista",
             "message": "Haluatko SÄILYTTÄÄ ladatut tiedostot?",
             "title": "Pysäytä asennus"
         },
         "uninstall": {
-            "message": "Haluatko poistaa pelin?",
+            "checkbox": "Haluatko poistaa myös etuliitteen? Tätä ei voi perua.",
+            "checkbox_prefix": "Prefix",
+            "message": "Haluatko poistaa pelin asennuksen?",
             "title": "Poista"
         },
         "update": {
-            "message": "Tälle pelille on saatavilla päivitys, haluatko päivittää sen nyt?",
+            "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
             "title": "Peli tarvitsee päivityksen"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Valitse WinePrefix-kansio",
         "yes": "KYLLÄ"
     },
     "button": {
-        "cancel": "Peruuta",
-        "continue": "Jatka latausta",
-        "import": "Tuo",
+        "cancel": "Pysäytä/Peruuta",
+        "continue": "Jatka lataamista",
+        "import": "Tuo peli",
         "install": "Asenna",
         "uninstall": "Poista",
         "update": "Päivitä"
     },
     "disabled": "Pois käytöstä",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Asenna kaikki ladattava sisältö"
     },
     "enabled": "Käytössä",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Latauksen koko",
         "firstPlayed": "Ensimmäisen kerran pelattu",
-        "installSize": "Install Size",
+        "installSize": "Asennuskoko",
+        "language": "Kieli",
         "lastPlayed": "Viimeksi pelattu",
         "neverPlayed": "Ei koskaan",
         "totalPlayed": "Pelattu aika"
@@ -60,15 +62,16 @@
         "repairing": "Korjataan"
     },
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Online-tila vaaditaan",
         "path": "Asennuksen sijainti",
         "size": "Koko",
         "syncsaves": "Synkronoi tallennukset",
         "version": "Versio"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "Valitse asennuspolku",
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {
@@ -80,10 +83,10 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Käynnistysasetukset..."
     },
     "sdl": {
-        "title": "Select components to Install"
+        "title": "Valitse asennettavat komponentit"
     },
     "specs": {
         "minimum": "Minimi",

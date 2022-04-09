@@ -7,12 +7,13 @@
             "title": "有可用更新"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic緩存已清理",
+            "title": "緩存清理"
         },
         "choose": "請選擇",
         "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-legendary-binary": "選擇Legendary二進制文件",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
         "error": {
@@ -24,16 +25,24 @@
                 "message": "磁碟空間不足",
                 "title": "空間不足"
             },
+            "dxvk": {
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "title": "DXVK/VKD3D error"
+            },
             "generic": {
                 "message": "發生了未知錯誤",
                 "title": "未知錯誤"
             },
             "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
-            "log": {
-                "message": "未找到此遊戲的日誌",
-                "title": "未找到日誌"
+            "no-offline-mode": {
+                "message": "Launch aborted! The game requires a internet connection to run it.",
+                "title": "Offline mode not supported."
             },
-            "title": "錯誤"
+            "title": "錯誤",
+            "wine-not-found": {
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
+            }
         },
         "no": "否",
         "ok": "Ok",
@@ -68,22 +77,39 @@
             "error": "無效路徑",
             "title": "選擇存檔的目錄"
         },
+        "warning": {
+            "epic": {
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "title": "Warning"
+        },
         "wineprefix": "選擇WINEPREFIX的資料夾",
         "yes": "是"
     },
     "button": {
+        "continue": "Continue",
         "login": "Login",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步"
     },
     "Downloading": "正在下載",
+    "epic": {
+        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "篩選",
     "filter": {
         "noFilter": "No Filter"
     },
     "globalSettings": "全域設定",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "platform": ""
+    },
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
         "other": {
@@ -116,13 +142,18 @@
     "install": {
         "path": "Select Install Path"
     },
+    "library": {
+        "gridView": "",
+        "listView": "",
+        "refresh": ""
+    },
     "Library": "收藏庫",
     "loading": {
+        "default": "",
         "website": "Loading Website"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "External Login"
     },
     "message": {
         "sync": "同步完成",
@@ -140,6 +171,7 @@
         },
         "install": {
             "canceled": "已取消安裝",
+            "error": "",
             "finished": "安裝完成",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -163,26 +195,34 @@
         }
     },
     "other": {
+        "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "請幫助翻譯Heroic啟動器。"
     },
     "placeholder": {
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "egs-prefix": "Epic Games商城安裝位置"
+    },
+    "platforms": {
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Plugins": "外掛插件",
     "Projects": "專案",
     "Ready": "準備就緒",
     "Recent": "最近的遊戲",
-    "Return": "返回",
     "search": "在此處輸入遊戲名稱...",
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
-        "autodxvk": "在PREFIX自動安裝並更新DXVK/VKD3D",
+        "autodxvk": "在PREFIX自動安裝並更新DXVK",
         "autosync": "自動同步存檔",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "啟動時檢查更新",
         "customWineProton": "自定義Wine/Proton路徑",
@@ -198,6 +238,13 @@
         "fsync": "Enable Fsync",
         "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
         "language": "選擇應用語言",
+        "log": {
+            "copy-to-clipboard": "Copy log content to clipboard",
+            "current-log": "Current Log",
+            "last-log": "Last Log",
+            "no-file": "No log file found",
+            "show-in-folder": "Show log file in folder"
+        },
         "mangohud": "啟用MangoHud（需要已安裝Mangohud）",
         "manualsync": {
             "download": "下載",
@@ -210,6 +257,7 @@
         },
         "maxRecentGames": "最近要展示的遊戲",
         "maxworkers": "下載時的最大Worker數量",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "離線運行遊戲",
         "primerun": "啟用Nvidia Prime渲染",
         "resizableBar": "啟用 Resizable BAR (僅限 NVIDIA RTX 30xx)",
@@ -224,26 +272,32 @@
         "showfps": "顯示幀數（Directx 9，10和11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WINEPREFIX文件夾",
         "wineversion": "WINE版本"
     },
-    "Settings": "設定",
     "settings": {
         "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
+        "log": {
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+        },
         "navbar": {
             "general": "一般",
+            "log": "Log",
             "other": "其它",
             "sync": "存檔-同步"
         },
         "reset-heroic": "Reset Heroic"
     },
+    "Settings": "設定",
     "status": {
-        "loading": "Loading Game list, please wait",
         "logging": "Logging In..."
     },
     "store": "商店",
+    "stores": "Stores",
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
@@ -254,6 +308,12 @@
         "unrealPlugins": "Unreal - Plugins",
         "unrealProjects": "Unreal - Projects",
         "updates": "Pending Updates"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
+        }
     },
     "tooltip": {
         "addpath": "添加新路徑",
@@ -272,7 +332,24 @@
         "discord": "Discord",
         "logout": "登出",
         "logout_confirmation": "您確定要登出嗎？",
+        "manageaccounts": "Manage Accounts",
         "quit": "退出"
     },
-    "wiki": "Wiki百科"
+    "webview": {
+        "controls": {
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
+        }
+    },
+    "wiki": "Wiki百科",
+    "wine": {
+        "manager": {
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
+        }
+    }
 }

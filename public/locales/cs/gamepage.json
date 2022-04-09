@@ -23,6 +23,8 @@
             "title": "Zastavit instalaci"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "Chcete odinstalovat tuto hru?",
             "title": "Odinstalovat"
         },
@@ -43,14 +45,14 @@
     },
     "disabled": "Zakázáno",
     "dlc": {
-        "installDlcs": "Install all DLCs",
-        "title": "DLCs"
+        "installDlcs": "Install all DLCs"
     },
     "enabled": "Povoleno",
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "Poprvé hráno",
         "installSize": "Install Size",
+        "language": "Language",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "totalPlayed": "Odehraný čas"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {

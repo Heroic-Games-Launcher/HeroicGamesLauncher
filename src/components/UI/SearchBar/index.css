@@ -1,24 +1,5 @@
 .SearchBar {
   grid-area: search;
   width: 100%;
-}
-
-.searchInput {
-  height: 35px;
-  border-radius: 5px;
-  border: none;
-  color: var(--text-primary);
-  text-indent: 8px;
-  font-size: 16px;
-  outline: none;
-  background: var(--background);
-  width: 80%;
-}
-
-.SearchBar > label {
-  color: var(--secondary);
-}
-
-.SearchBar > .close:hover {
-  cursor: pointer;
+  position: relative;
 }

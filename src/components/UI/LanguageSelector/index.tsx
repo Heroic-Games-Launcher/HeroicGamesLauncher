@@ -47,6 +47,8 @@ export default function LanguageSelector({
     sv: 'Svenska',
     ta: 'தமிழ்',
     tr: 'Türkçe',
+    uk: 'украї́нська мо́ва',
+    vi: 'tiếng Việt',
     zh_Hans: '简化字',
     zh_Hant: '漢語'
   }
@@ -60,6 +62,7 @@ export default function LanguageSelector({
     el: '🇬🇷',
     en: '🇬🇧',
     es: '🇪🇸',
+    et: '🇪🇪',
     fa: '🇮🇷',
     fi: '🇫🇮',
     fr: '🇫🇷',
@@ -79,6 +82,8 @@ export default function LanguageSelector({
     sv: '🇸🇪',
     ta: '🇮🇳',
     tr: '🇹🇷',
+    uk: '🇺🇦',
+    vi: '🇻🇳',
     zh_Hans: '🇨🇳',
     zh_Hant: '🇨🇳'
   }
@@ -99,7 +104,7 @@ export default function LanguageSelector({
     <select
       data-testid="languageSelector"
       onChange={(event) => handleLanguageChange(event.target.value)}
-      className={className}
+      className={`${className} is-drop-down`}
       value={currentLanguage}
     >
       {Object.keys(languageLabels).map((lang) => renderOption(lang))}

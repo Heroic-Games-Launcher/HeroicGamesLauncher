@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Isto mudará o local de instalação do jogo, está certo disso?",
+            "message": "Isso mudará o local de instalação deste jogo, você tem certeza?",
             "path": "Selecione um novo local de instalação",
             "title": "Mudar o local de instalação do jogo"
         },
@@ -9,8 +9,8 @@
         "importpath": "Selecione a pasta do jogo a ser importado",
         "move": {
             "message": "Isto pode levar um longo tempo, tem certeza disso?",
-            "path": "Selecione a pasta de para onde deseja mover",
-            "title": "Mover a pasta de instalação de jogos"
+            "path": "Selecione a pasta para onde deseja mover",
+            "title": "Mover a pasta de instalação do jogo"
         },
         "no": "NÃO",
         "repair": {
@@ -23,19 +23,21 @@
             "title": "Parar a Instalação"
         },
         "uninstall": {
+            "checkbox": "Você gostaria de remover o prefixo também? Isso não pode ser desfeito.",
+            "checkbox_prefix": "Prefixo",
             "message": "Deseja desinstalar este jogo?",
             "title": "Desinstalar"
         },
         "update": {
-            "message": "Este jogo possui uma atualização disponível, deseja atualizar agora?",
+            "message": "Este jogo tem uma atualização, aplicar atualização agora?",
             "title": "Atualização Disponível"
         },
-        "wineprefix": "Selecione a pasta do WINE Prefix",
+        "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM"
     },
     "button": {
         "cancel": "Pausar/Cancelar",
-        "continue": "Continuar Download",
+        "continue": "Continuar baixando",
         "import": "Importar Jogo",
         "install": "Instalar",
         "uninstall": "Desinstalar",
@@ -43,14 +45,14 @@
     },
     "disabled": "Desabilitado",
     "dlc": {
-        "installDlcs": "Instalar DLCs",
-        "title": "DLCs"
+        "installDlcs": "Instalar DLCs"
     },
     "enabled": "Habilitado",
     "game": {
         "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado inicialmente em",
         "installSize": "Tamanho Instalado",
+        "language": "Idioma",
         "lastPlayed": "Jogado pela última vez em",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo de jogo"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Selecione o local de instalação",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Prefixo Wine",
+        "wineversion": "Versão do Wine"
     },
     "label": {
         "playing": {
@@ -95,7 +98,7 @@
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
-        "notinstalled": "Este Jogo Não está Instalado",
+        "notinstalled": "Este jogo não está instalado",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"
@@ -107,7 +110,7 @@
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
         "settings": "Configurações",
-        "store": "Loja",
+        "store": "Loja Epic",
         "verify": "Verificar e Reparar"
     }
 }

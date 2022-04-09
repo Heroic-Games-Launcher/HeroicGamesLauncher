@@ -9,15 +9,15 @@
 
 .smallSubtitle {
   font-size: 12px;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .clickable {
-  color: var(--text-primary);
+  color: var(--text-default);
   cursor: pointer;
 }
 
 .clickable:hover {
-  color: var(--secondary-hover);
+  color: var(--link-highlight);
   transition: 300ms;
 }

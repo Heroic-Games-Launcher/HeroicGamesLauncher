@@ -6,15 +6,24 @@ interface Props {
   onClick: (e: MouseEvent) => void
   children: JSX.Element
   className?: string
+  disabled?: boolean
+  title?: string
 }
 
 export default function SvgButton({
   onClick,
   children,
-  className = ''
+  className = '',
+  disabled = false,
+  title = undefined
 }: Props) {
   return (
-    <button className={`svg-button ${className}`} onClick={onClick}>
+    <button
+      title={title}
+      disabled={disabled}
+      className={`svg-button ${className}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   )

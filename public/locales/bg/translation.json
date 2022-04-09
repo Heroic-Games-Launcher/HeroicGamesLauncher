@@ -7,12 +7,13 @@
             "title": "Има ново обновление"
         },
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Кешът на Heroic беше изчистен.",
+            "title": "Кешът е изчистен"
         },
         "choose": "Избиране",
         "choose-egs-prefix": "Изберете префикс, в който е инсталиран EGS",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-gogdl-binary": "Изберете изпълнимия файл на GOGDL (изисква рестартиране)",
+        "choose-legendary-binary": "Изберете изпълнимия файл на Legendary",
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
         "error": {
@@ -24,22 +25,30 @@
                 "message": "Няма достатъчно свободно място на диска",
                 "title": "Недостатъчно място"
             },
+            "dxvk": {
+                "message": "Грешка при инсталирането на DXVK/VKD3D! Проверете връзката си, или дали имате инсталиран пакета zstd/libzstd1",
+                "title": "Грешка от DXVK/VKD3D"
+            },
             "generic": {
                 "message": "Възникна неизвестна грешка",
                 "title": "Неизвестна грешка"
             },
             "launch": "Грешка при пускането на играта. Проверете журнала!",
-            "log": {
-                "message": "Не е намерен журнал за тази игра",
-                "title": "Журналът не е намерен"
+            "no-offline-mode": {
+                "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
+                "title": "Не се поддържа режим извън линия."
             },
-            "title": "Грешка"
+            "title": "Грешка",
+            "wine-not-found": {
+                "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
+                "title": "Wine не е намерен"
+            }
         },
         "no": "НЕ",
-        "ok": "Ok",
+        "ok": "ДОБРЕ",
         "protocol": {
             "install": {
-                "not_installed": "Не е инсталирано. Искате ли да го инсталирате?"
+                "not_installed": "В момента не е инсталирано. Искате ли да го инсталирате?"
             }
         },
         "quit": {
@@ -48,8 +57,8 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
-                "title": "Reset Heroic"
+                "message": "Наистина ли искате да зачистите Heroic? Това ще премахне всички настройки и кеша, но няма да изтрие инсталираните игри, нито удостоверителните данни за Epic",
+                "title": "Зачистване на Heroic"
             }
         },
         "runexe": {
@@ -60,32 +69,49 @@
             "exe": "Изберете EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Бяха създадени преки пътища на работния плот и в менюто с приложения",
+            "title": "Преки пътища"
         },
         "sync": {
             "button": "Избиране",
             "error": "Неправилен път",
             "title": "Изберете папка за запазване на файлове"
         },
+        "warning": {
+            "epic": {
+                "import": "Сървърите на Epic в момента имат сериозни проблеми с връзката. Играта не може да бъде внесена!",
+                "install": "Сървърите на Epic в момента имат сериозни проблеми с връзката. Играта не може да бъде инсталирана!",
+                "update": "Сървърите на Epic в момента имат сериозни проблеми с връзката. Играта не може да бъде обновена!"
+            },
+            "title": "Внимание"
+        },
         "wineprefix": "Изберете папка за префикс на Wine",
         "yes": "ДА"
     },
     "button": {
-        "login": "Login",
+        "continue": "Продължаване",
+        "login": "Влизане",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране"
     },
     "Downloading": "Сваляне",
+    "epic": {
+        "offline-notification-body": "Услугите, зависещи от Интернет, може да не работят изцяло, тъй като сървърите на Epic Games не са достъпни!",
+        "offline-notification-title": "offline"
+    },
     "Epic Games": "Epic Games",
-    "Filter": "Филтриране",
     "filter": {
         "noFilter": "No Filter"
     },
     "globalSettings": "Глобални настройки",
+    "GOG": "GOG",
+    "gog-store": "Магазин на GOG",
+    "header": {
+        "platform": "Платформа"
+    },
     "help": {
-        "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Store и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
+        "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
         "other": {
             "part1": "Използвайте ",
             "part2": "Разширените настройки",
@@ -114,15 +140,20 @@
         "requirements": "Системни изисквания"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Изберете местоположение за инсталиране"
+    },
+    "library": {
+        "gridView": "Изглед във вид на решетка",
+        "listView": "Изглед във вид на списък",
+        "refresh": "Опресняване"
     },
     "Library": "Библиотека",
     "loading": {
-        "website": "Loading Website"
+        "default": "Зареждане",
+        "website": "Зареждане на уеб сайта"
     },
     "login": {
-        "loginWithEpic": "Login With Epic",
-        "loginWithSid": "Login with SID"
+        "externalLogin": "Вход чрез външна услуга"
     },
     "message": {
         "sync": "Синхронизацията е завършена",
@@ -132,24 +163,25 @@
     "Not Ready": "Не е готово",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Грешка при преместването на играта",
+            "reparing": "Грешка при поправянето"
         },
         "finished": {
             "reparing": "Поправката е завършена"
         },
         "install": {
             "canceled": "Инсталирането е преустановено",
+            "error": "Инсталирането беше неуспешно",
             "finished": "Инсталирането е завършено",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Играта е внесена",
+            "startInstall": "Инсталацията е започната"
         },
         "moved": "Преместването е завършено",
         "uninstalled": "Деинсталирано",
         "update": {
             "canceled": "Обновяването е преустановено",
             "finished": "Обновяването е завършено",
-            "started": "Update Started"
+            "started": "Обновяването е започнато"
         }
     },
     "options": {
@@ -163,32 +195,40 @@
         }
     },
     "other": {
-        "legendary-version": "Legendary Version: ",
+        "gogdl-version": "Версия на GOGDL: ",
+        "legendary-version": "Версия на Legendary: ",
         "weblate": "Помогнете за превода на Heroic."
     },
     "placeholder": {
-        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-gogdl-bin": "Използване на вградения изпълним файл на GOGDL…",
+        "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
         "egs-prefix": "Префикс, където е инсталиран EGS"
+    },
+    "platforms": {
+        "linux": "Линукс",
+        "mac": "Мак",
+        "win": "Уиндоус"
     },
     "Plugins": "Добавки",
     "Projects": "Проекти",
     "Ready": "Готово",
     "Recent": "Играно наскоро",
-    "Return": "Обратно",
     "search": "Въведете името на играта...",
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-gogdl-bin": "Избиране на алтернативен изпълним файл на GOGDL",
+        "alt-legendary-bin": "Избиране на алтернативен изпълним файл на Legendary",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
-        "autodxvk": "Автоматично инсталиране/обновяване на DXVK/VKD3D в префикса",
+        "autodxvk": "Автоматично инсталиране/обновяване на DXVK в префикса",
         "autosync": "Автоматично синхронизиране на запазените файлове",
+        "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
         "checkForUpdatesOnStartup": "Проверка за обновления при стартиране",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
@@ -198,6 +238,13 @@
         "fsync": "Включване на Fsync",
         "gamemode": "Използване на „GameMode“ („Feral Game Mode“ трябва да е инсталирано)",
         "language": "Изберете езика на приложението",
+        "log": {
+            "copy-to-clipboard": "Копиране на съдържанието на журнала в буфера за обмен",
+            "current-log": "Текущ журнал",
+            "last-log": "Последен журнал",
+            "no-file": "Не е намерен файл с журнал",
+            "show-in-folder": "Показване на файла с журнала в папката му"
+        },
         "mangohud": "Използване на Mangohud (Mangohud трябва да е инсталирано)",
         "manualsync": {
             "download": "Сваляне",
@@ -210,6 +257,7 @@
         },
         "maxRecentGames": "Играно наскоро за показване",
         "maxworkers": "Максимален брой работни процеси при сваляне",
+        "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
         "primerun": "Включване на „Nvidia Prime Render“",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
@@ -222,38 +270,50 @@
             "title": "Замяна на папката за синхронизиране на запазени файлове в облака"
         },
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
+        "steamruntime": "Използване на средата за изпълнение на Steam",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Папка за префикс на Wine",
         "wineversion": "Версия на Wine"
     },
-    "Settings": "Настройки",
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Изчистване на кеша на Heroic",
+        "copiedToClipboard": "Копирано в буфера за обмен!",
+        "copyToClipboard": "Копиране на всички настройки в буфера за обмен",
+        "log": {
+            "long-log-hint": "Журналът е отрязан. Показани са последните 1000 реда!"
+        },
         "navbar": {
             "general": "Общи",
+            "log": "Log",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Зачистване на Heroic"
     },
+    "Settings": "Настройки",
     "status": {
-        "loading": "Loading Game list, please wait",
-        "logging": "Logging In..."
+        "logging": "Влизане…"
     },
-    "store": "Магазин",
+    "store": "Мазагин на Epic",
+    "stores": "Магазини",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "allGames": "Всички игри",
+        "allUnreal": "Unreal – Всичко",
+        "downloading": "Сваляне",
+        "installedGames": "Инсталирани игри",
+        "notInstalledGames": "Не инсталирани",
+        "unrealAssets": "Unreal – Ресурси",
+        "unrealPlugins": "Unreal – Добавки",
+        "unrealProjects": "Unreal – Проекти",
+        "updates": "Изчакващи обновления"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Изберете папката на префикса по подразбиране за нови конфигурации",
+            "wineprefix": "Изберете папка за нови префикси на Wine"
+        }
     },
     "tooltip": {
         "addpath": "Добавяне на нов път",
@@ -270,9 +330,26 @@
     "Updates": "Обновления",
     "userselector": {
         "discord": "Дискорд",
-        "logout": "Излизане от акаунта",
-        "logout_confirmation": "Наистина ли искате да излезете от акаунта си?",
+        "logout": "Излизане",
+        "logout_confirmation": "Наистина ли искате да излезете?",
+        "manageaccounts": "Управление на акаунтите",
         "quit": "Изход"
     },
-    "wiki": "Уики"
+    "webview": {
+        "controls": {
+            "back": "Назад",
+            "forward": "Напред",
+            "openInBrowser": "Отваряне в браузъра",
+            "reload": "Презареждане на страницата"
+        }
+    },
+    "wiki": "Уики",
+    "wine": {
+        "manager": {
+            "error": "В момента не могат да бъдат получени версиите на Wine/Proton.",
+            "link": "Управление на Wine",
+            "title": "Управление на Wine (бета)",
+            "unzipping": "Разархивиране"
+        }
+    }
 }

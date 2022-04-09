@@ -1,33 +1,35 @@
 {
     "box": {
         "change": {
-            "message": "Dies wird den Installationsort dieses Spiels ändern, sind Sie sicher?",
-            "path": "Wählen Sie einen neuen Installationspfad",
+            "message": "Dies wird den Installationsort dieses Spiels ändern, bist du sicher?",
+            "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
-            "message": "Dies kann einige Zeit in Anspruch nehmen, möchten Sie wirklich fortfahren?",
-            "path": "Wählen Sie einen Ort, an welchen Sie das Spiel verschieben möchten",
+            "message": "Dies kann einige Zeit in Anspruch nehmen, möchtest du wirklich fortfahren?",
+            "path": "Wähle, wohin du verschieben möchtest",
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
         "repair": {
-            "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Dies einige Zeit in Anspruch nehmen.",
+            "message": "Möchtest du versuchen, dieses Spiel zu reparieren? Dies kann einige Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und Reparieren"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
-            "message": "Möchten Sie die heruntergeladenen Dateien BEHALTEN?",
+            "message": "Möchtest du die heruntergeladenen Dateien BEHALTEN?",
             "title": "Installation abbrechen"
         },
         "uninstall": {
-            "message": "Möchten Sie dieses Spiel deinstallieren?",
+            "checkbox": "Möchtest du das Präfix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden.",
+            "checkbox_prefix": "Präfix",
+            "message": "Möchtest du dieses Spiel deinstallieren?",
             "title": "Deinstallieren"
         },
         "update": {
-            "message": "Für dieses Spiel ist ein Update verfügbar, möchten Sie dieses jetzt installieren?",
+            "message": "Für dieses Spiel ist ein Update verfügbar, jetzt installieren?",
             "title": "Spiel benötigt eine neuere Version"
         },
         "wineprefix": "Wine Prefix Ordner auswählen",
@@ -43,14 +45,14 @@
     },
     "disabled": "Deaktiviert",
     "dlc": {
-        "installDlcs": "Alle DLCs installieren",
-        "title": "DLCs"
+        "installDlcs": "Alle DLCs installieren"
     },
     "enabled": "Aktiviert",
     "game": {
         "downloadSize": "Downloadgröße",
         "firstPlayed": "Erstmals gespielt",
         "installSize": "Installierte Größe",
+        "language": "Sprache",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
         "totalPlayed": "Spielzeit"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Installationspfad auswählen",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Wine-Prefix",
+        "wineversion": "Wine-Version"
     },
     "label": {
         "playing": {

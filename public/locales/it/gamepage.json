@@ -23,6 +23,8 @@
             "title": "Ferma l'installazione"
         },
         "uninstall": {
+            "checkbox": "Vuoi rimuovere anche il prefisso? Non può essere annullato.",
+            "checkbox_prefix": "Prefix",
             "message": "Vuoi disinstallare questo gioco?",
             "title": "Disinstalla"
         },
@@ -30,7 +32,7 @@
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
             "title": "Il gioco richiede un aggiornamento"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI"
     },
     "button": {
@@ -43,14 +45,14 @@
     },
     "disabled": "Disattivato",
     "dlc": {
-        "installDlcs": "Installa tutti i DLC",
-        "title": "DLCs"
+        "installDlcs": "Installa tutti i DLC"
     },
     "enabled": "attivato",
     "game": {
         "downloadSize": "Dimensione del download",
         "firstPlayed": "Giocato per la prima volta",
         "installSize": "Dimensione dell'installazione",
+        "language": "Language",
         "lastPlayed": "Giocato recentemente",
         "neverPlayed": "Mai",
         "totalPlayed": "Tempo giocato"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Seleziona percorso di installazione",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "Prefisso Wine",
+        "wineversion": ""
     },
     "label": {
         "playing": {

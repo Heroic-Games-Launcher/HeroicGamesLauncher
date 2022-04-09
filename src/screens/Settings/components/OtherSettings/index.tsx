@@ -3,10 +3,10 @@ import React, { ChangeEvent, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
-import CreateNewFolder from '@material-ui/icons/CreateNewFolder'
+import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
-import Backspace from '@material-ui/icons/Backspace'
+import Backspace from '@mui/icons-material/Backspace'
 import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -16,7 +16,9 @@ interface Props {
   audioFix: boolean
   isDefault: boolean
   isMacNative: boolean
+  isLinuxNative: boolean
   launcherArgs: string
+  canRunOffline: boolean
   offlineMode: boolean
   otherOptions: string
   primeRun: boolean
@@ -41,6 +43,8 @@ interface Props {
   toggleDiscordRPC: () => void
   targetExe: string
   useGameMode: boolean
+  useSteamRuntime: boolean
+  toggleUseSteamRuntime: () => void
 }
 
 export default function OtherSettings({
@@ -50,6 +54,7 @@ export default function OtherSettings({
   toggleUseGameMode,
   showFps,
   toggleFps,
+  canRunOffline,
   offlineMode,
   toggleOffline,
   launcherArgs,
@@ -71,7 +76,10 @@ export default function OtherSettings({
   maxRecentGames,
   setTargetExe,
   targetExe,
-  isMacNative
+  isMacNative,
+  isLinuxNative,
+  toggleUseSteamRuntime,
+  useSteamRuntime
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -82,7 +90,25 @@ export default function OtherSettings({
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
-  const shouldRenderFpsOption = !isMacNative && !isWin
+  const shouldRenderFpsOption = !isMacNative && !isWin && !isLinuxNative
+
+  const info = (
+    <InfoBox text="infobox.help">
+      {t('help.other.part1')}
+      <strong>{`${t('help.other.part2')} `}</strong>
+      {t('help.other.part3')}
+      <br />
+      {!isDefault && (
+        <span>
+          {t('help.other.part4')}
+          <strong>{t('help.other.part5')}</strong>
+          {t('help.other.part6')}
+          <strong>{` -nolauncher `}</strong>
+          {t('help.other.part7')}
+        </span>
+      )}
+    </InfoBox>
+  )
 
   return (
     <>
@@ -131,78 +157,88 @@ export default function OtherSettings({
 
       {shouldRenderFpsOption && (
         <span data-testid="otherSettings" className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.showfps')}
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               value={showFps}
               handleChange={toggleFps}
               title={t('setting.showfps')}
             />
-          </span>
+            <span>{t('setting.showfps')}</span>
+          </label>
         </span>
       )}
       {isLinux && (
         <>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.gamemode')}
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={useGameMode}
                 handleChange={toggleUseGameMode}
                 title={t('setting.gamemode')}
               />
-            </span>
+              <span>{t('setting.gamemode')}</span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.primerun', 'Enable Nvidia Prime Render')}
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={primeRun}
                 handleChange={togglePrimeRun}
                 title={t('setting.primerun', 'Enable Nvidia Prime Render')}
               />
-            </span>
+              <span>{t('setting.primerun', 'Enable Nvidia Prime Render')}</span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.audiofix')}
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={audioFix}
                 handleChange={toggleAudioFix}
                 title={t('setting.audiofix')}
               />
-            </span>
+              <span>{t('setting.audiofix')}</span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t('setting.mangohud')}
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={showMangohud}
                 handleChange={toggleMangoHud}
                 title={t('setting.mangohud')}
               />
-            </span>
+              <span>{t('setting.mangohud')}</span>
+            </label>
           </span>
+          {isLinuxNative && (
+            <span className="setting">
+              <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+                <ToggleSwitch
+                  value={useSteamRuntime}
+                  handleChange={toggleUseSteamRuntime}
+                  title={t('setting.steamruntime', 'Use Steam Runtime')}
+                />
+                <span>{t('setting.steamruntime', 'Use Steam Runtime')}</span>
+              </label>
+            </span>
+          )}
         </>
       )}
-      <span className="setting">
-        <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          {t('setting.offlinemode')}
-          <ToggleSwitch
-            value={offlineMode}
-            handleChange={toggleOffline}
-            title={t('setting.offlinemode')}
-          />
+      {canRunOffline && (
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              value={offlineMode}
+              handleChange={toggleOffline}
+              title={t('setting.offlinemode')}
+            />
+            <span>{t('setting.offlinemode')}</span>
+          </label>
         </span>
-      </span>
+      )}
       {supportsShortcuts && isDefault && (
         <>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t(
-                'setting.adddesktopshortcuts',
-                'Add desktop shortcuts automatically'
-              )}
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={addDesktopShortcuts}
                 handleChange={toggleAddDesktopShortcuts}
@@ -211,14 +247,16 @@ export default function OtherSettings({
                   'Add desktop shortcuts automatically'
                 )}
               />
-            </span>
+              <span>
+                {t(
+                  'setting.adddesktopshortcuts',
+                  'Add desktop shortcuts automatically'
+                )}
+              </span>
+            </label>
           </span>
           <span className="setting">
-            <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              {t(
-                'setting.addgamestostartmenu',
-                'Add games to start menu automatically'
-              )}
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch
                 value={addGamesToStartMenu}
                 handleChange={toggleAddGamesToStartMenu}
@@ -227,39 +265,47 @@ export default function OtherSettings({
                   'Add games to start menu automatically'
                 )}
               />
-            </span>
+              <span>
+                {t(
+                  'setting.addgamestostartmenu',
+                  'Add games to start menu automatically'
+                )}
+              </span>
+            </label>
           </span>
         </>
       )}
       {isDefault && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.discordRPC', 'Enable Discord Rich Presence')}
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               value={discordRPC}
               handleChange={toggleDiscordRPC}
               title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
             />
-          </span>
+            <span>
+              {t('setting.discordRPC', 'Enable Discord Rich Presence')}
+            </span>
+          </label>
         </span>
       )}
       {isDefault && (
         <span className="setting">
-          <span className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            {t('setting.maxRecentGames', 'Recent Games to Show')}
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <select
               data-testid="setMaxRecentGames"
               onChange={(event) =>
                 setMaxRecentGames(Number(event.target.value))
               }
               value={maxRecentGames}
-              className="settingSelect smaller"
+              className="settingSelect smaller is-drop-down "
             >
               {Array.from(Array(10).keys()).map((n) => (
                 <option key={n + 1}>{n + 1}</option>
               ))}
             </select>
-          </span>
+            <span>{t('setting.maxRecentGames', 'Recent Games to Show')}</span>
+          </label>
         </span>
       )}
       {!isWin && (
@@ -278,6 +324,7 @@ export default function OtherSettings({
               onChange={handleOtherOptions}
             />
           </span>
+          {info}
         </span>
       )}
       {!isDefault && (
@@ -296,23 +343,9 @@ export default function OtherSettings({
               onChange={handleLauncherArgs}
             />
           </span>
+          {info}
         </span>
       )}
-      <InfoBox text="infobox.help">
-        {t('help.other.part1')}
-        <strong>{`${t('help.other.part2')} `}</strong>
-        {t('help.other.part3')}
-        <br />
-        {!isDefault && (
-          <span>
-            {t('help.other.part4')}
-            <strong>{t('help.other.part5')}</strong>
-            {t('help.other.part6')}
-            <strong>{` -nolauncher `}</strong>
-            {t('help.other.part7')}
-          </span>
-        )}
-      </InfoBox>
     </>
   )
 }

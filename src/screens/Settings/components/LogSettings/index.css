@@ -1,0 +1,60 @@
+.log-buttongroup {
+  display: flex;
+  flex-direction: row;
+}
+
+.log-buttons.log-choosen,
+.log-buttons.log-choosen:hover {
+  color: var(--accent);
+  transition: all 350ms ease-out 0s;
+  transform: scale(1.2);
+}
+
+.log-buttons {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.log-buttons:hover {
+  color: var(--text-hover);
+}
+
+.log-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
+  height: 25em;
+  width: 622px;
+  overflow: auto;
+  user-select: text;
+}
+
+.log-error,
+.log-warning,
+.log-info {
+  text-align: left;
+  margin-block: 0;
+}
+
+.log-error {
+  color: #c18672;
+}
+
+.log-warning {
+  color: #f5cf69;
+}
+
+.log-info {
+  color: rgb(175, 172, 172);
+}
+
+.long-log-hint {
+  font-style: italic;
+  color: #f5cf69;
+}
+
+.icon {
+  font-size: 40px;
+  animation: refreshing 1.5s infinite;
+}

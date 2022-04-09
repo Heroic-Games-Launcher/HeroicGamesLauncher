@@ -23,14 +23,16 @@
             "title": "Спиране на инсталацията"
         },
         "uninstall": {
+            "checkbox": "Искате ли да премахнете и префикса? Това действие е необратимо.",
+            "checkbox_prefix": "Prefix",
             "message": "Искате ли да деинсталирате тази игра?",
             "title": "Деинсталиране"
         },
         "update": {
-            "message": "Има ново обновление за играта. Искате ли да я обновите?",
+            "message": "Има ново обновление за играта. Искате ли да го приложите сега?",
             "title": "Играта се нуждае от обновяване"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Изберете папка за префикс на Wine",
         "yes": "ДА"
     },
     "button": {
@@ -43,14 +45,14 @@
     },
     "disabled": "Изключено",
     "dlc": {
-        "installDlcs": "Инсталиране на всички сваляеми съдържания",
-        "title": "Сваляеми съдържания"
+        "installDlcs": "Инсталиране на всички сваляеми съдържания"
     },
     "enabled": "Включено",
     "game": {
         "downloadSize": "Размер за сваляне",
         "firstPlayed": "Пусната за пръв път",
         "installSize": "Размер на инсталацията",
+        "language": "Език",
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
         "totalPlayed": "Изиграно време"
@@ -67,8 +69,9 @@
         "version": "Версия"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "path": "Изберете местоположение за инсталиране",
+        "wineprefix": "Префикс на Wine",
+        "wineversion": "Версия на Wine"
     },
     "label": {
         "playing": {

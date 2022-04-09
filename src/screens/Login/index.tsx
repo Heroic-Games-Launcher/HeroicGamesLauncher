@@ -1,154 +1,137 @@
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
-
-import React, { useContext, useState } from 'react'
-
-import { loginPage, sidInfoPage } from 'src/helpers'
+import EpicLogo from '../../assets/epic-logo.svg'
+import Runner from './components/Runner'
+import ElectronStore from 'electron-store'
 import { useTranslation } from 'react-i18next'
-import LanguageSelector, {
-  FlagPosition
-} from 'src/components/UI/LanguageSelector'
+import cx from 'classnames'
+import { useHistory } from 'react-router'
 
-import { Clipboard, IpcRenderer } from 'electron'
-import Autorenew from '@material-ui/icons/Autorenew'
-import Info from '@material-ui/icons/Info'
-import logo from 'src/assets/heroic-icon.png'
 import ContextProvider from 'src/state/ContextProvider'
-import { useHistory } from 'react-router-dom'
+import GOGLogo from 'src/assets/gog-logo.svg'
+import { LanguageSelector, UpdateComponent } from 'src/components/UI'
+import { FlagPosition } from 'src/components/UI/LanguageSelector'
+import SIDLogin from './components/SIDLogin'
+
+const { ipcRenderer } = window.require('electron')
+const Store = window.require('electron-store')
 
 const storage: Storage = window.localStorage
-
-export default function Login() {
-  const { t, i18n } = useTranslation('login')
-  const { refreshLibrary } = useContext(ContextProvider)
-  const history = useHistory()
-  const { ipcRenderer, clipboard } = window.require('electron') as {
-    ipcRenderer: IpcRenderer
-    clipboard: Clipboard
-  }
-
-  const [input, setInput] = useState('')
-  const [status, setStatus] = useState({
-    loading: false,
-    message: ''
-  })
-  const { loading, message } = status
-
+export default function NewLogin() {
+  const { t, i18n } = useTranslation()
+  const currentLanguage = i18n.language
   const handleChangeLanguage = (language: string) => {
     storage.setItem('language', language)
     i18n.changeLanguage(language)
   }
+  const history = useHistory()
+  const { refreshLibrary, handleCategory } = useContext(ContextProvider)
+  const [epicLogin, setEpicLogin] = useState({})
+  const [gogLogin, setGOGLogin] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [showSidLogin, setShowSidLogin] = useState(false)
 
-  const currentLanguage = i18n.language
-
-  const handleLogin = async (sid: string) => {
-    setStatus({
-      loading: true,
-      message: t('status.logging', 'Logging In...')
+  function refreshUserInfo() {
+    const configStore: ElectronStore = new Store({
+      cwd: 'store'
     })
-
-    await ipcRenderer.invoke('login', sid).then(async (res) => {
-      ipcRenderer.send('logInfo', 'Called Login')
-      console.log(res)
-      if (res !== 'error') {
-        setStatus({
-          loading: true,
-          message: t('status.loading', 'Loading Game list, please wait')
-        })
-        await ipcRenderer.invoke('getUserInfo')
-        await ipcRenderer.invoke('refreshLibrary', true)
-        await refreshLibrary({
-          fullRefresh: true,
-          runInBackground: false
-        })
-        return history.push('/')
-      }
-
-      setStatus({ loading: true, message: t('status.error', 'Error') })
-      setTimeout(() => {
-        setStatus({ ...status, loading: false })
-      }, 2500)
+    const gogStore: ElectronStore = new Store({
+      cwd: 'gog_store'
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setEpicLogin(configStore.get('userInfo') as any)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setGOGLogin(gogStore.get('userData') as any)
   }
 
+  function eventHandler() {
+    setTimeout(refreshUserInfo, 1000)
+    console.log('Caught signal')
+  }
+
+  useEffect(() => {
+    refreshUserInfo()
+    setLoading(false)
+    ipcRenderer.on('updateLoginState', () => eventHandler)
+    return () => {
+      ipcRenderer.removeListener('updateLoginState', () => eventHandler)
+    }
+  }, [])
+  async function continueLogin() {
+    setLoading(true)
+    await refreshLibrary({
+      fullRefresh: true,
+      runInBackground: false
+    })
+    //Make sure we cannot get to library that we can't see
+    handleCategory(epicLogin ? 'epic' : 'gog')
+    setLoading(false)
+    history.push('/')
+  }
   return (
-    <div className="Login">
-      <div className="aboutWrapper">
-        <div className="aboutContainer">
-          <div className="heroicLogo">
-            <img className="logo" src={logo} width="50px" height="50px" />
-            <div className="heroicText">
-              <span className="heroicTitle">Heroic</span>
-              <span className="heroicSubTitle">Games Launcher</span>
-            </div>
-          </div>
-          <div className="loginInstructions">
-            <strong>{t('welcome', 'Welcome!')}</strong>
-            <p>
-              {t(
-                'message.part1',
-                'In order for you to be able to log in and install your games, we first need you to follow the steps below:'
-              )}
-            </p>
-            <ol>
-              <li>
-                {`${t('message.part2')} `}
-                <span onClick={() => loginPage()} className="epicLink">
-                  {t('message.part3')}
-                </span>
-                {`${t('message.part4')} `}
-                <span onClick={() => sidInfoPage()} className="sid">
-                  {`${t('message.part5')}`}
-                  <Info
-                    style={{ marginLeft: '4px' }}
-                    className="material-icons"
-                  />
-                </span>
-                .
-              </li>
-              <li>
-                {`${t('message.part6')} `}
-                <span onClick={() => sidInfoPage()} className="sid">
-                  {`${t('message.part7')}`}
-                </span>
-                {` ${t('message.part8')}`}
-              </li>
-            </ol>
-          </div>
+    <div className="loginPage">
+      {loading && (
+        <div>
+          <UpdateComponent />
         </div>
-        <LanguageSelector
-          handleLanguageChange={handleChangeLanguage}
-          currentLanguage={currentLanguage}
-          flagPossition={FlagPosition.PREPEND}
-          className="settingSelect language-login"
+      )}
+      {showSidLogin && (
+        <SIDLogin
+          refresh={refreshUserInfo}
+          backdropClick={() => {
+            setShowSidLogin(false)
+          }}
         />
-        <div className="loginBackground"></div>
-      </div>
-      <div className="loginFormWrapper">
-        <div className="loginForm">
-          <span className="pastesidtext">
-            {t('input.placeholder', 'Paste the SID number here')}
-          </span>
-          <input
-            className="loginInput"
-            id="sidInput"
-            onChange={(event) => setInput(event.target.value)}
-            onAuxClick={() => setInput(clipboard.readText('clipboard'))}
-            value={input}
+      )}
+      <div className="loginBackground"></div>
+
+      <div className="loginContentWrapper">
+        {!loading && (
+          <LanguageSelector
+            className="settingSelect language-login"
+            handleLanguageChange={handleChangeLanguage}
+            currentLanguage={currentLanguage}
+            flagPossition={FlagPosition.PREPEND}
           />
-          {loading && (
-            <p className="message">
-              {message}
-              <Autorenew className="material-icons" />{' '}
-            </p>
-          )}
-          <button
-            onClick={() => handleLogin(input)}
-            className="button is-primary"
-            disabled={loading || input.length < 30}
-          >
-            {t('button.login', 'Login')}
-          </button>
+        )}
+        <div className="runnerList">
+          <Runner
+            class="epic"
+            loginUrl="/login/legendary"
+            icon={() => <img src={EpicLogo} />}
+            isLoggedIn={Boolean(epicLogin)}
+            user={epicLogin}
+            refresh={refreshUserInfo}
+            logoutAction={() => {
+              ipcRenderer.invoke('logoutLegendary')
+              console.log('Logging out')
+              window.location.reload()
+            }}
+            alternativeLoginAction={() => {
+              setShowSidLogin(true)
+            }}
+          />
+          <Runner
+            class="gog"
+            icon={() => <img src={GOGLogo} />}
+            loginUrl="/login/gog"
+            isLoggedIn={Boolean(gogLogin)}
+            user={gogLogin}
+            refresh={refreshUserInfo}
+            logoutAction={() => {
+              ipcRenderer.invoke('logoutGOG')
+              setGOGLogin({})
+            }}
+          />
         </div>
+        <button
+          onClick={continueLogin}
+          className={cx('continueLogin', {
+            ['disabled']: !epicLogin && !gogLogin
+          })}
+        >
+          {t('button.continue', 'Continue')}
+        </button>
       </div>
     </div>
   )

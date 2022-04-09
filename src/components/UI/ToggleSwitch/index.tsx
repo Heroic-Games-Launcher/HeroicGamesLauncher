@@ -1,23 +1,30 @@
+import React, { ChangeEventHandler } from 'react'
 import './index.css'
-import React from 'react'
 
 interface Props {
   dataTestId?: string
   disabled?: boolean
-  handleChange: () => void
+  handleChange: ChangeEventHandler<HTMLInputElement>
   value: boolean
   title: string
 }
 
-export default function ToggleSwitch({
-  handleChange,
-  value,
-  disabled,
-  title,
-  dataTestId = 'toggleSwitch'
-}: Props) {
+export default function ToggleSwitch(props: Props) {
+  const {
+    handleChange,
+    value,
+    disabled,
+    title,
+    dataTestId = 'toggleSwitch'
+  } = props
+  // TODO fixes errors in the console, but the props may not be necessary at all
+  const checkmarkProps = {
+    value,
+    title,
+    datatestid: dataTestId
+  }
   return (
-    <label className="switch" aria-label={title}>
+    <div className="switch" aria-label={title}>
       <input
         data-testid={dataTestId}
         disabled={disabled}
@@ -26,7 +33,8 @@ export default function ToggleSwitch({
         onChange={handleChange}
         aria-label={title}
       />
-      <span className="slider round" />
-    </label>
+
+      <span {...checkmarkProps} className="checkmark" />
+    </div>
   )
 }

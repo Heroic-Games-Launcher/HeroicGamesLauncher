@@ -1,5 +1,16 @@
 @import '~@fontsource/rubik/index.css';
 @import '~@fontsource/cabin/index.css';
+/*
+  Subset of font https://github.com/googlefonts/noto-emoji
+  which includes only flags emoji generated using command:
+  $ fonttools subset NotoColorEmoji.ttf --ignore-missing-glyphs --text-file=data.txt
+  where data.txt is a text file containing all the glyphs you want to include
+*/
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('./assets/NotoColorEmoji.subset.ttf');
+}
+
 * {
   box-sizing: border-box;
 }
@@ -14,7 +25,7 @@ html,
 
 .App {
   text-align: center;
-  color: var(--text-primary);
+  color: var(--text-default);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-areas: 'sidebar content';
@@ -27,9 +38,10 @@ html,
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  background: var(--gradient-body-background);
 }
 
-.App .content .updateIcon {
+.App .content .UpdateComponent--topLevel {
   height: 100vh;
   position: initial;
   width: var(--content-width);
@@ -56,6 +68,10 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+}
+
 .button.is-small {
   min-width: 130px;
 }
@@ -65,11 +81,11 @@ html,
 }
 
 .button.is-primary {
-  background: var(--primary);
+  background: var(--link-highlight);
 }
 
 .button.is-primary:hover {
-  background: var(--primary-hover);
+  background: var(--text-hover);
 }
 
 .button.is-primary:disabled {
@@ -79,22 +95,43 @@ html,
 }
 
 .button.is-secondary {
-  background: var(--secondary);
+  background: var(--accent);
 }
 
 .button.is-tertiary {
-  background: var(--tertiary);
+  background: var(--body-background);
   color: white;
 }
 
+.button.is-tools:hover,
+.button.is-tools:focus-visible {
+  background-color: var(--stop-button);
+}
+.button.is-tools:hover .toolTitle,
+.button.is-tools:focus-visible .toolTitle {
+  transition: 500ms;
+  color: var(--text-hover);
+}
+
 .button.is-secondary:hover {
-  background: var(--secondary-hover);
-  color: var(--text-tertiary);
+  background: var(--download-button-overlay);
+  color: var(--text-secondary);
 }
 
 .button.is-empty {
   background: transparent;
   text-decoration: underline;
+}
+
+.button.is-danger {
+  background: var(--input-background);
+  color: var(--danger-hover);
+}
+
+.button.is-danger:hover,
+.button.is-danger:focus-visible {
+  background: var(--danger);
+  color: var(--text-secondary);
 }
 
 .button.is-success {
@@ -108,29 +145,16 @@ html,
 .button.is-success:hover:disabled,
 .button.is-success:disabled {
   background: var(--background);
-  color: var(--text-primary);
-}
-
-.button.is-danger {
-  background: var(--tertiary);
-  color: var(--text-danger);
-}
-
-.button.is-danger:hover {
-  background: var(--tertiary-hover);
-}
-
-.button.is-danger:disabled {
-  background: var(--background);
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .material-icons.is-primary {
-  color: var(--primary);
+  /* I can't find any elements that use this, so idk what colour this should be */
+  color: var(--danger);
 }
 
 .material-icons.is-secondary {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .material-icons.is-success {
@@ -150,7 +174,7 @@ html,
   right: 42px;
   top: 5px;
   cursor: pointer;
-  color: var(--text-primary);
+  color: var(--text-default);
 }
 
 .button.settings {
@@ -171,7 +195,7 @@ html,
   border: none;
   border-radius: 0;
   background: transparent;
-  color: var(--text-primary);
+  color: var(--text-default);
   box-shadow: none;
   text-transform: none;
   min-width: fit-content;
@@ -180,7 +204,7 @@ html,
 }
 
 .button.is-text:hover {
-  color: var(--secondary);
+  color: var(--text-hover);
 }
 
 .button.is-link {
@@ -189,14 +213,14 @@ html,
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: var(--secondary);
+  color: var(--accent);
   margin: 4px 0px;
   cursor: pointer;
   padding: 0.25rem;
 }
 
 .button.is-link:hover {
-  color: var(--secondary-hover);
+  color: var(--text-hover);
 }
 
 .icons > * {
@@ -206,11 +230,10 @@ html,
 .settingSelect {
   width: 513px;
   height: 40px;
-  background: var(--background);
+  background: var(--input-background);
   border-radius: 10px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: 600;
+  font-family: Cabin, sans-serif, 'Noto Color Emoji';
+  font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   color: var(--text-secondary);
@@ -219,14 +242,25 @@ html,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.settingSelect:disabled {
+  cursor: not-allowed;
+}
+
+.settingSelect ~ span {
+  margin-block: auto;
+}
+
+.settingSelect.is-drop-down {
+  cursor: pointer;
+}
+
 .settingText {
+  cursor: default;
   margin-bottom: 14px;
-  font-family: Cabin;
-  font-style: normal;
-  font-weight: normal;
+  font: var(--font-secondary-regular);
   font-size: 16px;
   line-height: 19px;
-  color: var(--text-primary);
+  color: var(--text-secondary);
 }
 
 .smallMessage {
@@ -241,14 +275,14 @@ svg.disabled {
 }
 
 .react-contextmenu--visible {
-  background-color: var(--background);
+  background-color: var(--input-background);
   padding: 14px 22px;
   border-radius: 6px;
   z-index: 99;
 }
 
 .react-contextmenu-item {
-  color: var(--text-primary);
+  color: var(--text-default);
   font-size: 14px;
   line-height: 26px;
   font-family: Rubik;
@@ -257,7 +291,7 @@ svg.disabled {
 }
 
 .react-contextmenu-item:hover {
-  color: var(--secondary);
+  color: var(--download-button);
 }
 
 .react-contextmenu-item.disabled {

@@ -23,14 +23,16 @@
             "title": "Peata paigaldamine"
         },
         "uninstall": {
+            "checkbox": "Kas soovite ka prefiksi eemaldada? Seda ei saa tagasi võtta.",
+            "checkbox_prefix": "Prefix",
             "message": "Kas soovite selle mängu eemaldada?",
             "title": "Eemalda"
         },
         "update": {
-            "message": "Sellele mängule on saadaval uuendus. Kas soovite uuendada kohe?",
+            "message": "Sellele mängule on saadaval uuendus, rakenda uuendus kohe?",
             "title": "Mäng vajab uuendust"
         },
-        "wineprefix": "Vali WinePrefix'i kaust",
+        "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH"
     },
     "button": {
@@ -43,14 +45,14 @@
     },
     "disabled": "Keelatud",
     "dlc": {
-        "installDlcs": "Paigalda kõik DLC'd",
-        "title": "DLC'd"
+        "installDlcs": "Paigalda kõik DLC'd"
     },
     "enabled": "Lubatud",
     "game": {
         "downloadSize": "Allalaadimise suurus",
         "firstPlayed": "Esimest korda mängitud",
         "installSize": "Paigaldamise suurus",
+        "language": "Keel",
         "lastPlayed": "Viimati mängitud",
         "neverPlayed": "Mitte kunagi",
         "totalPlayed": "Mängitud aeg"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Valige paigaldustee",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefiks",
+        "wineversion": "Wine'i versioon"
     },
     "label": {
         "playing": {

@@ -23,6 +23,8 @@
             "title": "インストールを停止する"
         },
         "uninstall": {
+            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox_prefix": "Prefix",
             "message": "このゲームをアンインストールしたいですか？",
             "title": "アンインストール"
         },
@@ -43,14 +45,14 @@
     },
     "disabled": "無効になっています",
     "dlc": {
-        "installDlcs": "すべてのDLCをインストールします",
-        "title": "DLCs"
+        "installDlcs": "すべてのDLCをインストールします"
     },
     "enabled": "有効になっています",
     "game": {
         "downloadSize": "ダウンロードサイズ",
         "firstPlayed": "最初にプレイした",
         "installSize": "インストールサイズ",
+        "language": "Language",
         "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
         "totalPlayed": "プレイ時間"
@@ -68,7 +70,8 @@
     },
     "install": {
         "path": "Select Install Path",
-        "wineprefix": "WinePrefix"
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
     },
     "label": {
         "playing": {
