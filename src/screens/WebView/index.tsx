@@ -53,7 +53,7 @@ export default function WebView() {
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
-    '/login/legandary': epicLoginUrl,
+    '/login/legendary': epicLoginUrl,
     '/login/gog': gogLoginUrl
   }
   let startUrl = urls[pathname]
