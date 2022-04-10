@@ -40,15 +40,15 @@
 }
 
 .Sidebar__item:hover {
-  color: var(--text-hover);
+  background-color: var(--background-lighter);
 }
 
 .Sidebar__item.active {
   color: var(--accent);
-  font-weight: 700;
 }
 
 .Sidebar__item.active.SidebarLinks__subItem {
+  font-weight: 700;
   background-color: var(--background-lighter);
 }
 
