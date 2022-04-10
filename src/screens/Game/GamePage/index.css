@@ -60,8 +60,8 @@
 }
 
 .backButton > .MuiSvgIcon-root {
-  width: 50px;
-  height: 50px;
+  width: 32px;
+  height: 32px;
   transition: 300ms;
 }
 

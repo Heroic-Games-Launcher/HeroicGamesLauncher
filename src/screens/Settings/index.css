@@ -39,13 +39,8 @@
 
 .settingsWrapper > .backButton {
   position: relative;
-  top: -4px;
-  left: 4px;
-}
-
-.settingsWrapper > .backButton > .MuiSvgIcon-root {
-  width: 32px;
-  height: 32px;
+  top: -10px;
+  left: -38px;
 }
 
 .settingsTools {
