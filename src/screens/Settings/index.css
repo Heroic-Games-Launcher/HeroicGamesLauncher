@@ -4,38 +4,10 @@
   justify-content: flex-start;
   grid-template-columns: 1fr 5fr;
   width: 100%;
-  left: 0;
   border-radius: 1rem;
   grid-area: content;
-  margin-block-start: 63px;
-}
-
-.settingsNavbar {
-  display: flex;
-  flex-direction: column;
-  margin-block-start: 16px;
-  margin-inline-start: 61.5px;
-  margin-inline-end: clamp(65px, 8vw, 103px);
-  font: var(--font-primary-bold);
-  font-size: 18.5px;
-  line-height: 19px;
-}
-
-.settingsNavbar > a {
-  color: var(--accent);
-  margin-block-end: 11px;
-  padding-block: 6px;
-}
-
-.settingsNavbar > a:hover {
-  color: var(--text-hover);
-}
-
-.settingsNavbar > a.active {
-  transition: all 350ms ease-out 0s;
-  transform: scale(1.2);
-  color: var(--text-default);
-  font-weight: 500;
+  margin-block-start: 20px;
+  padding-left: 48px;
 }
 
 .settingsWrapper {
