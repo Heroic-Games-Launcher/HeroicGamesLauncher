@@ -12,7 +12,7 @@
         },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
-        "choose-gogdl-binary": "انتخاب باینری GOGDL (نیازمند راه‌اندازی مجدد)",
+        "choose-gogdl-binary": "انتخاب باینری GOGDL (نیازمند راهاندازی مجدد)",
         "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیشفرض نصب",
@@ -36,7 +36,7 @@
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
-                "title": "حالت آفلاین پشتیبانی نمی‌شود."
+                "title": "حالت آفلاین پشتیبانی نمیشود."
             },
             "title": "خطا",
             "wine-not-found": {
@@ -97,7 +97,7 @@
     },
     "Downloading": "در حال دانلود",
     "epic": {
-        "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویس‌های آنلاین ممکن است کار نکنند!",
+        "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
@@ -217,7 +217,7 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده (نیازمند راه‌اندازی مجدد)",
+        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده (نیازمند راهاندازی مجدد)",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راهاندازی مجدد)",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
@@ -285,6 +285,7 @@
             "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شدهاند!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "عمومی",
             "log": "Log",
             "other": "بقیه",
@@ -297,7 +298,7 @@
         "logging": "در حال وارد شدن..."
     },
     "store": "فروشگاه اپیک",
-    "stores": "فروشگاه‌ها",
+    "stores": "فروشگاهها",
     "title": {
         "allGames": "همه بازیها",
         "allUnreal": "Unreal - همهچیز",
@@ -332,7 +333,7 @@
         "discord": "Discord",
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
-        "manageaccounts": "مدیریت حساب‌ها",
+        "manageaccounts": "مدیریت حسابها",
         "quit": "خروج"
     },
     "webview": {

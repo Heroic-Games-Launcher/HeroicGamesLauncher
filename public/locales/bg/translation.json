@@ -285,6 +285,7 @@
             "long-log-hint": "Журналът е отрязан. Показани са последните 1000 реда!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Общи",
             "log": "Log",
             "other": "Други",

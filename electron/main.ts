@@ -1308,6 +1308,12 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 /*
+  Other Keys that should go into translation files:
+  t('box.error.generic.title')
+  t('box.error.generic.message')
+ */
+
+/*
  * INSERT OTHER IPC HANLDER HERE
  */
 import './logger/ipc_handler'

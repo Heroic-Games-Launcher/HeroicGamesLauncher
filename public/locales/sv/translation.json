@@ -285,6 +285,7 @@
             "long-log-hint": "Loggen avkortad , enbart senaste 1000 rader visas!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",

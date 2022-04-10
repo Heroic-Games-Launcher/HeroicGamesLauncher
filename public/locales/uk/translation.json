@@ -285,6 +285,7 @@
             "long-log-hint": "Лог усічений, показані останні 1000 рядків!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Загальні",
             "log": "Лог",
             "other": "Інше",
