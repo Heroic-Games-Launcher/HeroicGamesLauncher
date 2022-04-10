@@ -19,7 +19,7 @@ import {
   sendKill,
   syncSaves
 } from 'src/helpers'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
@@ -90,8 +90,6 @@ export default function GamePage(): JSX.Element | null {
     error: boolean
     message: string | unknown
   }>({ error: false, message: '' })
-
-  const history = useHistory()
 
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
@@ -229,9 +227,9 @@ export default function GamePage(): JSX.Element | null {
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
-            <button className="backButton" onClick={() => history.goBack()}>
+            <NavLink className="backButton" to="/">
               <ArrowCircleLeftIcon />
-            </button>
+            </NavLink>
             <div className="store-icon">
               <img
                 src={runner == 'legendary' ? EpicLogo : GOGLogo}

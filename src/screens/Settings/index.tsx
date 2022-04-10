@@ -10,6 +10,7 @@ import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
@@ -325,9 +326,12 @@ function Settings() {
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  let returnPath: string | null = '/'
+  let returnPath = '/'
   if (state && !state.fromGameCard) {
     returnPath = `/gameconfig/${appName}`
+    if (returnPath === '/gameconfig/default') {
+      returnPath = '/'
+    }
   }
 
   useEffect(() => {
@@ -342,6 +346,9 @@ function Settings() {
     <>
       <div className="Settings">
         <div role="list" className="settingsWrapper">
+          <NavLink to={returnPath} role="link" className="backButton">
+            <ArrowCircleLeftIcon />
+          </NavLink>
           {title && (
             <NavLink
               role="link"

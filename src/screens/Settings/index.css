@@ -25,15 +25,27 @@
   font-size: 2rem;
   margin-inline-end: auto;
   padding: 8px;
+  color: var(--accent);
+  transition: 350ms;
 }
 
 .headerTitle:hover {
-  transition: 350ms;
   color: var(--text-hover);
 }
 
 .headerTitle > svg {
   margin-left: 12px;
+}
+
+.settingsWrapper > .backButton {
+  position: relative;
+  top: -4px;
+  left: 4px;
+}
+
+.settingsWrapper > .backButton > .MuiSvgIcon-root {
+  width: 32px;
+  height: 32px;
 }
 
 .settingsTools {
