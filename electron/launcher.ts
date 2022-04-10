@@ -110,7 +110,7 @@ async function prepareLaunch(
       logWarning(`Couldn't find a valid Steam runtime path`, LogPrefix.Backend)
     } else {
       logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-      steamRuntime = `'${runtime.path}'`
+      steamRuntime = runtime.path
     }
   }
 
