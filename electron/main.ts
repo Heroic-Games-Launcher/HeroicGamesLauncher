@@ -39,7 +39,7 @@ import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
-import { LegendaryLibrary, runLegendaryCommand } from './legendary/library'
+import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
@@ -1144,21 +1144,35 @@ ipcMain.handle('egsSync', async (event, args) => {
   if (isWindows) {
     const egl_manifestPath =
       'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
+
     if (!existsSync(egl_manifestPath)) {
       mkdirSync(egl_manifestPath, { recursive: true })
     }
   }
 
-  let legendaryArgs = Array<string>()
-  if (args !== 'unlink') {
-    legendaryArgs = isWindows
-      ? ['--enable-sync']
-      : ['--enable-sync', `--egl-wine-prefix ${args}`]
-  } else {
-    legendaryArgs = ['--unlink']
-  }
+  const linkArgs = isWindows
+    ? `--enable-sync`
+    : `--enable-sync --egl-wine-prefix ${args}`
+  const unlinkArgs = `--unlink`
+  const isLink = args !== 'unlink'
+  const command = isLink ? linkArgs : unlinkArgs
+  const { bin, dir } = getLegendaryBin()
+  const legendary = path.join(dir, bin)
 
-  return runLegendaryCommand(['egl-sync', ...legendaryArgs, '-y'])
+  try {
+    const { stderr, stdout } = await execAsync(
+      `${legendary} egl-sync ${command} -y`
+    )
+    logInfo(`${stdout}`, LogPrefix.Legendary)
+    if (stderr.includes('ERROR')) {
+      logError(`${stderr}`, LogPrefix.Legendary)
+      return 'Error'
+    }
+    return `${stdout} - ${stderr}`
+  } catch (error) {
+    logError(`${error}`, LogPrefix.Legendary)
+    return 'Error'
+  }
 })
 
 ipcMain.on(
