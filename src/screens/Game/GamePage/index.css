@@ -27,6 +27,48 @@
   flex-grow: 0;
 }
 
+.store-icon {
+  border-radius: 10px;
+  position: absolute;
+  right: 18px;
+  top: 6px;
+  z-index: 2;
+  padding: 5px;
+  width: 60px;
+  height: 60px;
+  place-content: center;
+}
+
+.store-icon > img {
+  background-color: var(--body-background);
+  width: 60px;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.store-icon > img.gogIcon {
+  padding: 0px 4px 4px 4px;
+}
+
+.backButton {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: none;
+  border: none;
+  color: var(--text-default);
+}
+
+.backButton > .MuiSvgIcon-root {
+  width: 50px;
+  height: 50px;
+  transition: 300ms;
+}
+
+.backButton > .MuiSvgIcon-root:hover {
+  color: var(--accent);
+}
+
 .gameInfo {
   text-align: initial;
   font-size: 1rem;

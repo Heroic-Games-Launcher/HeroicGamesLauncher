@@ -8,6 +8,8 @@ import React, {
   useMemo
 } from 'react'
 
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
+
 import { IpcRenderer } from 'electron'
 import {
   getGameInfo,
@@ -17,7 +19,7 @@ import {
   sendKill,
   syncSaves
 } from 'src/helpers'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
@@ -40,7 +42,8 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
-
+import EpicLogo from 'src/assets/epic-logo.svg'
+import GOGLogo from 'src/assets/gog-logo.svg'
 const storage: Storage = window.localStorage
 
 const { ipcRenderer } = window.require('electron') as {
@@ -87,6 +90,8 @@ export default function GamePage(): JSX.Element | null {
     error: boolean
     message: string | unknown
   }>({ error: false, message: '' })
+
+  const history = useHistory()
 
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
@@ -224,6 +229,16 @@ export default function GamePage(): JSX.Element | null {
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
+            <button className="backButton" onClick={() => history.goBack()}>
+              <ArrowCircleLeftIcon />
+            </button>
+            <div className="store-icon">
+              <img
+                src={runner == 'legendary' ? EpicLogo : GOGLogo}
+                className={runner == 'legendary' ? '' : 'gogIcon'}
+                alt=""
+              />
+            </div>
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
                 <>
