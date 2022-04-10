@@ -9,7 +9,7 @@
         "importpath": "Seleccione o cartafol do xogo para importar",
         "move": {
             "message": "Isto pode levar moito tempo, ¿estás seguro?",
-            "path": "Selecciona a localización onde queres mover",
+            "path": "Selecciona a localización de destino",
             "title": "Mover o cartafol do xogo"
         },
         "no": "Non",
@@ -23,7 +23,7 @@
             "title": "Deter a instalación"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Queres eliminar o prefixo tam'en? Isto non se pode desfacer.",
             "checkbox_prefix": "Prefix",
             "message": "Desexas desinstalar o xogo?",
             "title": "Desinstalar"
@@ -52,7 +52,7 @@
         "downloadSize": "Tamaño da descarga",
         "firstPlayed": "Xogado por primeira vez",
         "installSize": "Tamaño da instalación",
-        "language": "Language",
+        "language": "Idioma",
         "lastPlayed": "Xogado por última vez",
         "neverPlayed": "Nunca",
         "totalPlayed": "Tempo xogado"
@@ -71,7 +71,7 @@
     "install": {
         "path": "Seleccionar a ruta de instalación",
         "wineprefix": "Prefixo de Wine",
-        "wineversion": ""
+        "wineversion": "Versión de Wine"
     },
     "label": {
         "playing": {

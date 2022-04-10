@@ -1,77 +1,77 @@
 {
     "box": {
         "change": {
-            "message": "Ini akan mengubah lokasi pemasangan gim ini, kamu yakin?",
-            "path": "Pilih jalur instal baru",
-            "title": "Ubah Jalur Instalasi Gim"
+            "message": "Ini akan mengubah lokasi pemasangan gim ini, apakah Anda yakin?",
+            "path": "Pilih lokasi pemasangan baru",
+            "title": "Ubah Lokasi Pemasangan Gim"
         },
         "choose": "Pilih",
         "importpath": "Pilih Folder Gim untuk diimpor",
         "move": {
-            "message": "Ini bisa memakan waktu yang lama, apa kamu yakin?",
-            "path": "Pilih dimana kamu ingin pindahkan",
-            "title": "Pindahkan instalasi permainan"
+            "message": "Ini bisa memakan waktu yang lama, apakah kamu yakin?",
+            "path": "Pilih di mana kamu ingin pindahkan",
+            "title": "Pindahkan Pemasangan Gim"
         },
         "no": "TIDAK",
         "repair": {
-            "message": "Apakah Anda ingin mencoba memperbaiki gim ini? Ini bisa memakan waktu lama.",
+            "message": "Apakah Anda ingin mencoba untuk memperbaiki gim ini? Ini bisa memakan waktu lama.",
             "title": "Verifikasi dan Perbaiki"
         },
         "stopInstall": {
-            "keepInstalling": "Tetap Menginstal",
+            "keepInstalling": "Tetap Memasang",
             "message": "Apakah Anda ingin MENYIMPAN berkas yang diunduh?",
-            "title": "Hentikan Instalasi"
+            "title": "Hentikan Pemasangan"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
-            "checkbox_prefix": "Prefix",
-            "message": "Apakah Anda ingin mencopot instalasi gim ini?",
-            "title": "Copot instalasi"
+            "checkbox": "Apakah Anda ingin menghapus prefiks juga? Ini tidak dapat dibatalkan.",
+            "checkbox_prefix": "Prefiks",
+            "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
+            "title": "Copot Pemasangan"
         },
         "update": {
-            "message": "Gim ini memiliki pembaruan, apakah Anda ingin memperbarui sekarang?",
-            "title": "Gim perlu diperbarui"
+            "message": "Gim ini memiliki pembaruan, terapkan pembaruan sekarang?",
+            "title": "Gim Perlu Diperbarui"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA"
     },
     "button": {
-        "cancel": "Batal",
-        "continue": "Lanjutkan Mengunduh",
-        "import": "Impor",
-        "install": "Instal",
+        "cancel": "Jeda/Batal",
+        "continue": "Lanjutkan Unduhan",
+        "import": "Impor Gim",
+        "install": "Pasang",
         "uninstall": "Copot",
         "update": "Perbarui"
     },
-    "disabled": "Nonaktifkan",
+    "disabled": "Dinonaktifkan",
     "dlc": {
         "installDlcs": "Pasang semua DLC"
     },
-    "enabled": "Aktifkan",
+    "enabled": "Diaktifkan",
     "game": {
         "downloadSize": "Ukuran Unduhan",
-        "firstPlayed": "Pertama Dimainkan",
+        "firstPlayed": "Pertama Kali Dimainkan",
         "installSize": "Ukuran Pemasangan",
-        "language": "Language",
+        "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
-        "neverPlayed": "Tak pernah",
-        "totalPlayed": "Waktu Dimainkan"
+        "neverPlayed": "Tidak pernah",
+        "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {
         "moving": "Memindahkan",
         "repairing": "Memperbaiki"
     },
     "info": {
-        "canRunOffline": "Online Required",
-        "path": "Jalur instal",
+        "canRunOffline": "Internet Dibutuhkan",
+        "path": "Lokasi Pemasangan",
         "size": "Ukuran",
-        "syncsaves": "Sinkronkan Simpanan",
+        "syncsaves": "Sinkronkan Penyimpanan",
         "version": "Versi"
     },
     "install": {
-        "path": "Select Install Path",
-        "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "path": "Pilih Lokasi Pemasangan",
+        "wineprefix": "PrefiksWine",
+        "wineversion": "Versi Wine"
     },
     "label": {
         "playing": {
@@ -79,11 +79,11 @@
             "stop": "Memainkan (Berhenti)"
         },
         "saves": {
-            "syncing": "Menyinkronkan Simpanan"
+            "syncing": "Menyinkronkan Penyimpanan"
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opsi Peluncuran…"
     },
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
@@ -95,17 +95,17 @@
     "status": {
         "clickToUpdate": "Klik untuk Memperbarui",
         "hasUpdates": "Versi Baru Tersedia!",
-        "installed": "Terinstal",
-        "installing": "Menginstal",
-        "moving": "Memindahkan Instalasi, harap tunggu",
-        "notinstalled": "Gim ini tidak diinstal",
+        "installed": "Terpasang",
+        "installing": "Memasang",
+        "moving": "Memindahkan Pemasangan, harap tunggu",
+        "notinstalled": "Gim ini tidak dipasang",
         "reparing": "Memperbaiki Gim, harap tunggu",
         "totalDownloaded": "Jumlah yang Diunduh",
-        "updating": "Memperbarui gim"
+        "updating": "Memperbarui Gim"
     },
     "submenu": {
-        "addShortcut": "Tambah pintasan",
-        "change": "Ubah jalur instal",
+        "addShortcut": "Tambahkan pintasan",
+        "change": "Ubah lokasi pemsangan",
         "log": "Log Terbaru",
         "move": "Pindahkan gim",
         "protondb": "Periksa Kompatibilitas",
