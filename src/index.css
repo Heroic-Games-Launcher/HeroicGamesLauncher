@@ -1,6 +1,6 @@
 html {
   /* Colours */
-  --navbar-background: #151f3d;
+  --navbar-background: var(--background);
   --input-background: #0d0f1c;
   --body-background: #13172a;
   --current-background: var(--body-background);
@@ -26,11 +26,12 @@ html {
   --success-hover: #30eca8;
   --danger-hover: #e43f3f;
   --icon-disabled: #625e69;
-  /* Legacy: Don't use it */
+  /* Generic colors */
   --background: #151f3d;
   --background-darker: #0d0f1c;
   --background-darker-80: #0d0f1ce0;
   --background-secondary: #323035;
+  --background-lighter: #151f5d;
   --background-gradient: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.418) 2.4%,
@@ -71,13 +72,20 @@ html {
   --font-secondary-bold: Cabin normal 500;
   --font-secondary-regular-italic: Cabin italic 400;
   --font-secondary-bold-italic: Cabin italic 500;
+
   /* Measurements */
-  --sidebar-width: 218px;
+  --sidebar-width: 240px;
   --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
   /* Effects */
   --blur-light: 4px;
   --blur-strong: 16px;
+}
+
+@media screen and (max-width: 730px) {
+  * {
+    --sidebar-width: calc(var(--sidebar-width) - 1em);
+  }
 }
 
 body {

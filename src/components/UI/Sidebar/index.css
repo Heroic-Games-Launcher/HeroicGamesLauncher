@@ -29,13 +29,13 @@
   border: none;
   background: none;
   cursor: pointer;
-  font-size: inherit;
-  color: inherit;
+  font-size: 18px;
+  color: var(--accent);
   transition: color 250ms;
 }
 
 .Sidebar__item:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--text-hover);
   outline-offset: -2px;
 }
 
@@ -45,6 +45,11 @@
 
 .Sidebar__item.active {
   color: var(--accent);
+  font-weight: 700;
+}
+
+.Sidebar__item.active.SidebarLinks__subItem {
+  background-color: var(--background-lighter);
 }
 
 .Sidebar__itemIcon {

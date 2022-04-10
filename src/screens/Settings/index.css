@@ -19,10 +19,10 @@
   font: var(--font-primary-bold);
   font-size: 18.5px;
   line-height: 19px;
-  color: var(--text-default);
 }
 
 .settingsNavbar > a {
+  color: var(--accent);
   margin-block-end: 11px;
   padding-block: 6px;
 }
@@ -34,7 +34,7 @@
 .settingsNavbar > a.active {
   transition: all 350ms ease-out 0s;
   transform: scale(1.2);
-  color: var(--accent);
+  color: var(--text-default);
   font-weight: 500;
 }
 
