@@ -85,6 +85,7 @@
 
 .gameInfo > .settingSelect {
   margin-bottom: 12px;
+  max-width: 420px;
 }
 
 .gameInfo .infoWrapper {
