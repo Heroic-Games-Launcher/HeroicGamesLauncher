@@ -777,7 +777,13 @@ ipcMain.handle(
     return Game.get(appName, runner)
       .launch(launchArguments)
       .then(
-        async ({ stderr, success, command, gameSettings }: LaunchResult) => {
+        async ({
+          stdout,
+          stderr,
+          success,
+          command,
+          gameSettings
+        }: LaunchResult) => {
           if (!success) {
             showErrorBoxModalAuto(
               i18next.t('box.error.title', 'Something Went Wrong'),
@@ -794,9 +800,13 @@ System Info:
 ${await getSystemInfo()}
 
 Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
-
-Game Log:
-${stderr}`
+`
+          if (stderr) {
+            logResult += `\nError Log:\n${stderr}\n`
+          }
+          if (stdout) {
+            logResult += `\nGame Log:\n${stdout}\n`
+          }
         }
       )
       .catch((exception) => {

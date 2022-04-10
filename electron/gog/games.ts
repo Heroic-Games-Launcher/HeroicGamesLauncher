@@ -258,8 +258,9 @@ class GOGGame extends Game {
     if (!launchPrepSuccess) {
       return {
         success: false,
+        stdout: '',
         stderr: 'Launch aborted: ' + launchPrepFailReason,
-        gameSettings: gameSettings
+        gameSettings
       }
     }
 
@@ -308,8 +309,9 @@ class GOGGame extends Game {
       if (!wineLaunchPrepSuccess) {
         return {
           success: false,
+          stdout: '',
           stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
-          gameSettings: gameSettings
+          gameSettings
         }
       }
 
@@ -350,7 +352,7 @@ class GOGGame extends Game {
 
     logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Gog)
 
-    const { error, stderr } = await runGogdlCommand(commandParts, {
+    const { error, stderr, stdout } = await runGogdlCommand(commandParts, {
       env: commandEnv,
       wrappers
     })
@@ -363,6 +365,7 @@ class GOGGame extends Game {
 
     return {
       success: !error,
+      stdout,
       stderr,
       gameSettings,
       command

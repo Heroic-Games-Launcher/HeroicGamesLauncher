@@ -537,8 +537,9 @@ class LegendaryGame extends Game {
     if (!launchPrepSuccess) {
       return {
         success: false,
+        stdout: '',
         stderr: 'Launch aborted: ' + launchPrepFailReason,
-        gameSettings: gameSettings
+        gameSettings
       }
     }
 
@@ -588,8 +589,9 @@ class LegendaryGame extends Game {
       if (!wineLaunchPrepSuccess) {
         return {
           success: false,
+          stdout: '',
           stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
-          gameSettings: gameSettings
+          gameSettings
         }
       }
 
@@ -627,7 +629,7 @@ class LegendaryGame extends Game {
 
     logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
 
-    const { error, stderr } = await runLegendaryCommand(commandParts, {
+    const { error, stderr, stdout } = await runLegendaryCommand(commandParts, {
       env: commandEnv,
       wrappers: wrappers
     })
@@ -640,6 +642,7 @@ class LegendaryGame extends Game {
 
     return {
       success: !error,
+      stdout,
       stderr,
       gameSettings,
       command

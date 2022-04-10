@@ -61,6 +61,7 @@ export type ExecResult = {
 
 export type LaunchResult = {
   success: boolean
+  stdout: string
   stderr: string
   gameSettings: GameSettings
   command?: string
