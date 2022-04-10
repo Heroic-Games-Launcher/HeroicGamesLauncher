@@ -34,9 +34,11 @@ const WineItem = ({
     progress: ProgressInfo
   }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
 
-  ipcRenderer.on('progressOf' + version, (e, progress) => {
-    setProgress(progress)
-  })
+  if (version) {
+    ipcRenderer.on('progressOf' + version, (e, progress) => {
+      setProgress(progress)
+    })
+  }
 
   if (!version || !downsize) {
     return null
