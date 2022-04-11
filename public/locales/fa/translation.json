@@ -2,10 +2,6 @@
     "All": "همه",
     "Assets": "داراییها",
     "box": {
-        "appupdate": {
-            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان بهروزرسانی کنید؟",
-            "title": "بروزرسانی موجود است"
-        },
         "cache-cleared": {
             "message": "کش Heroic پاک شد.",
             "title": "کش پاک شد"
@@ -29,19 +25,29 @@
                 "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
                 "title": "خطای DXVK/VKD3D"
             },
-            "generic": {
-                "message": "خطایی ناشناخته رخ داده است",
-                "title": "خطای ناشناخته"
-            },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
                 "title": "حالت آفلاین پشتیبانی نمیشود."
             },
             "title": "خطا",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "خیر",
@@ -224,7 +230,6 @@
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
-        "checkForUpdatesOnStartup": "چک کردن برای به روزرسانی در هنگام راه اندازی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",

@@ -2,10 +2,6 @@
     "All": "அனைத்தும்",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "ஹீரோயிக் இன் புதிய பதிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?",
-            "title": "புதுப்பிப்பு உள்ளது"
-        },
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
@@ -29,19 +25,29 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
-            "generic": {
-                "message": "ஒரு அறியப்படாத பிழை ஏற்பட்டது",
-                "title": "அறியப்படாத பிழை"
-            },
             "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
             "title": "பிழை",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "இல்லை",
@@ -224,7 +230,6 @@
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
         "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதை",

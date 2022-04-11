@@ -2,10 +2,6 @@
     "All": "Kõik",
     "Assets": "Varamu",
     "box": {
-        "appupdate": {
-            "message": "Heroic'u uus versioon on saadaval. Kas soovite uuendada kohe?",
-            "title": "Uuendus saadaval"
-        },
         "cache-cleared": {
             "message": "Heroic-u vahemälu puhastati.",
             "title": "Vahemälu puhastati"
@@ -29,19 +25,29 @@
                 "message": "Viga DXVK/VKD3D installimisel! Kontrollige ühendust või seda, kas teil on installitud zstd/libzstd1",
                 "title": "DXVK/VKD3D viga"
             },
-            "generic": {
-                "message": "Tekkinud on tundmatu viga",
-                "title": "Tundmatu viga"
-            },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
                 "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
                 "title": "Võrguühenduseta režiim ei ole toetatud."
             },
             "title": "Viga",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine-i ei leitud"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "EI",
@@ -224,7 +230,6 @@
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
-        "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",

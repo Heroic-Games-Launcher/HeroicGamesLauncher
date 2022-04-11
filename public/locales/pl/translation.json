@@ -2,10 +2,6 @@
     "All": "Wszystkie",
     "Assets": "Assety",
     "box": {
-        "appupdate": {
-            "message": "Dostępna jest nowa wersja Heroic do pobrania, czy chcesz aktualizować teraz?",
-            "title": "Dostępna aktualizacja"
-        },
         "cache-cleared": {
             "message": "Wyczyszczono Cache Heroic.",
             "title": "Wyczyszczono Cache"
@@ -29,19 +25,29 @@
                 "message": "Błąd podczas instalacji DXVK/VKD3D! Sprawdź połączenie lub czy zstd/libzstd1 jest zainstalowany",
                 "title": "Błąd DXVK/VKD3D"
             },
-            "generic": {
-                "message": "Wystąpił nieznany błąd",
-                "title": "Nieznany błąd"
-            },
             "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
             "no-offline-mode": {
                 "message": "Uruchomienie przerwane! Gra wymaga połączenia z internetem aby ją uruchomić.",
                 "title": "Tryb Offline nie jest wspierany."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nie Wybrano Wersji Wine . Sprawdź Ustawienia Gry!",
                 "title": "Nie Znaleziono Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NIE",
@@ -224,7 +230,6 @@
         "autosync": "Autosynchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w Prefixie",
         "change-target-exe": "Wybierz alternatywny EXE do uruchomienia",
-        "checkForUpdatesOnStartup": "Sprawdź aktualizacje podczas uruchamiania",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",

@@ -2,10 +2,6 @@
     "All": "എല്ലാം",
     "Assets": "വഹകള്",
     "box": {
-        "appupdate": {
-            "message": "ഹീറോക്കടയുടെ പുതിയ പതിപ്പിറങ്ങിയിട്ടുണ്ട്, പുതുക്കട്ടെ?",
-            "title": "പുതുക്കല് വന്നിട്ടുണ്ട്"
-        },
         "cache-cleared": {
             "message": "ഹീറോയിക് പിടിച്ചുവച്ചവ വിട്ടു.",
             "title": "പിടിച്ചുവച്ചവ നീക്കി"
@@ -29,19 +25,29 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
-            "generic": {
-                "message": "എന്തോ കുഴപ്പം പറ്റിയിട്ടുണ്ട്",
-                "title": "കുഴപ്പമുണ്ടല്ലോ"
-            },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള് നോക്കൂ!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
             "title": "കുഴപ്പം",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "വേണ്ട",
@@ -224,7 +230,6 @@
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
-        "checkForUpdatesOnStartup": "തുടങ്ങുമ്പോള് പുതുക്കലുകള്ക്കായി പരതൂ",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്ത്ത വൈന്/പ്രോട്ടോണ് അറകള്",
         "darktray": "താലത്തില്(ട്രേയില്) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",

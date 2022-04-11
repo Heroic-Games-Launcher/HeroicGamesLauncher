@@ -2,10 +2,6 @@
     "All": "全部",
     "Assets": "素材",
     "box": {
-        "appupdate": {
-            "message": "有新版本的 Heroic 启动器可用，您要立即更新吗？",
-            "title": "有可用更新"
-        },
         "cache-cleared": {
             "message": "Heroic 缓存已清理。",
             "title": "缓存已清理"
@@ -29,19 +25,29 @@
                 "message": "安装 DXVK/VKD3D 出错！检查你的互联网连接或者是否已安装 zstd/libzstd1",
                 "title": "DXVK/VKD3D 错误"
             },
-            "generic": {
-                "message": "发生了未知错误",
-                "title": "未知错误"
-            },
             "launch": "启动游戏时出现错误，请检查日志！",
             "no-offline-mode": {
                 "message": "启动失败！游戏需要网络连接才能运行。",
                 "title": "不支持离线模式。"
             },
             "title": "错误",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "否",
@@ -224,7 +230,6 @@
         "autosync": "自动同步存档",
         "autovkd3d": "遇到前缀时自动安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
-        "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",

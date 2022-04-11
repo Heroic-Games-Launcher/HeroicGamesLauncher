@@ -2,10 +2,6 @@
     "All": "Semua",
     "Assets": "Aset",
     "box": {
-        "appupdate": {
-            "message": "Versi baru Heroic telah tersedia, apakah Anda ingin memperbarui sekarang?",
-            "title": "Pembaruan Tersedia"
-        },
         "cache-cleared": {
             "message": "Tembolok Heroic telah dibersihkan.",
             "title": "Tembolok telah dibersihkan"
@@ -29,19 +25,29 @@
                 "message": "Galat saat memasang DXVK/VKD3D! Periksa koneksi Anda atau apakah Anda telah memasang zstd/libzstd1",
                 "title": "Galat DXVK/VKD3D"
             },
-            "generic": {
-                "message": "Terjadi kesalahan yang tidak diketahui",
-                "title": "Galat Tak Diketahui"
-            },
             "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
                 "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
                 "title": "Mode luring tidak didukung."
             },
             "title": "Galat",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "TIDAK",
@@ -224,7 +230,6 @@
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
-        "checkForUpdatesOnStartup": "Periksa Pembaruan Saat Startup",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Asali",

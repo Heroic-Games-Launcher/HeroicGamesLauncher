@@ -21,6 +21,8 @@ import {
   powerSaveBlocker,
   protocol
 } from 'electron'
+import './updater'
+import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
   existsSync,
@@ -44,7 +46,6 @@ import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import {
-  checkForUpdates,
   clearCache,
   errorHandler,
   execAsync,
@@ -185,7 +186,7 @@ async function createWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-
+    autoUpdater.checkForUpdates()
     return mainWindow
   }
 }
@@ -554,8 +555,6 @@ ipcMain.handle('getEpicGamesStatus', () => isEpicServiceOffline())
 
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
-
-ipcMain.handle('checkVersion', () => checkForUpdates())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 

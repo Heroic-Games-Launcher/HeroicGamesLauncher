@@ -2,10 +2,6 @@
     "All": "Всі",
     "Assets": "Ассети",
     "box": {
-        "appupdate": {
-            "message": "Доступна нова версія Heroic. Бажаєте оновити зараз?",
-            "title": "Доступне оновлення"
-        },
         "cache-cleared": {
             "message": "Кеш Heroic очищено.",
             "title": "Кеш очищено"
@@ -29,19 +25,29 @@
                 "message": "Помилка встановлення DXVK/VKD3D! Перевірте з'єднання та чи встановлено zstd/libzstd1",
                 "title": "Помилка DXVK/VKD3D"
             },
-            "generic": {
-                "message": "Сталася невідома помилка",
-                "title": "Невідома помилка"
-            },
             "launch": "Помилка під час запуску гри, перевірте лоґи!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
             "title": "Помилка",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Не обрана версія Wine. Перевірте налаштування гри!",
                 "title": "Wine не знайдено"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "НІ",
@@ -224,7 +230,6 @@
         "autosync": "Автосинхронізувати збереження",
         "autovkd3d": "Автоматично встановлювати/оновлювати VKD3D на префіксі",
         "change-target-exe": "Обрати для запуску альтернативний EXE файл",
-        "checkForUpdatesOnStartup": "Перевіряти наявність оновлень при запуску",
         "customWineProton": "Інші шляхи до Wine/Proton",
         "darktray": "Використовувати темну піктограму на панелі",
         "default-install-path": "Стандартний шлях встановлення",

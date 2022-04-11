@@ -2,10 +2,6 @@
     "All": "Alle",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "Es ist eine neue Version von Heroic verfügbar, möchtest du diese jetzt installieren?",
-            "title": "Update verfügbar"
-        },
         "cache-cleared": {
             "message": "Heroic Cache wurde geleert.",
             "title": "Cache geleert"
@@ -29,19 +25,29 @@
                 "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfe deine Verbindung oder ob du zstd/libzstd1 installiert hast",
                 "title": "DXVK/VKD3D Fehler"
             },
-            "generic": {
-                "message": "Ein unbekannter Fehler ist aufgetreten",
-                "title": "Unbekannter Fehler"
-            },
             "launch": "Fehler beim Starten des Spiels, prüfe die Logs!",
             "no-offline-mode": {
                 "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
                 "title": "Offline-Modus wird nicht unterstützt."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Keine Wine Version ausgewählt. Überprüfe die Spieleinstellungen!",
                 "title": "Wine nicht gefunden"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NEIN",
@@ -224,7 +230,6 @@
         "autosync": "Spielstände automatisch synchronisieren",
         "autovkd3d": "VKD3D automatisch im Präfix installieren/aktualisieren",
         "change-target-exe": "Wähle eine alternative EXE zum Ausführen",
-        "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
