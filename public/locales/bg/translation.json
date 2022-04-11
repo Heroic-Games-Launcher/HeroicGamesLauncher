@@ -31,6 +31,10 @@
                 "title": "Не се поддържа режим извън линия."
             },
             "title": "Грешка",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
                 "title": "Wine не е намерен"

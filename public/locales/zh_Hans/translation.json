@@ -31,6 +31,10 @@
                 "title": "不支持离线模式。"
             },
             "title": "错误",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"

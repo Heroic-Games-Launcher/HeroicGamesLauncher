@@ -31,6 +31,10 @@
                 "title": "حالت آفلاین پشتیبانی نمیشود."
             },
             "title": "خطا",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"

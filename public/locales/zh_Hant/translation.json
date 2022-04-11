@@ -31,6 +31,10 @@
                 "title": "Offline mode not supported."
             },
             "title": "錯誤",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"

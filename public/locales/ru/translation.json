@@ -31,6 +31,10 @@
                 "title": "Автономный режим не поддерживается."
             },
             "title": "Ошибка",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"

@@ -31,6 +31,10 @@
                 "title": "Võrguühenduseta režiim ei ole toetatud."
             },
             "title": "Viga",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine-i ei leitud"

@@ -31,6 +31,10 @@
                 "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
             },
             "title": "Σφάλμα",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"

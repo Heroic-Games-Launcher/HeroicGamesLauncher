@@ -45,9 +45,16 @@ autoUpdater.on('update-downloaded', async () => {
     return autoUpdater.quitAndInstall()
   }
 
-  return (autoUpdater.autoInstallOnAppQuit = true)
+  autoUpdater.autoInstallOnAppQuit = true
 })
 
 autoUpdater.on('error', (err) => {
+  dialog.showErrorBox(
+    t('box.error.update.title', 'Update Error'),
+    t(
+      'box.error.update.message',
+      'Something went wrong with the update, please check the logs or try again later!'
+    )
+  )
   logError('failed to update', err)
 })

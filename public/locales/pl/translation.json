@@ -31,6 +31,10 @@
                 "title": "Tryb Offline nie jest wspierany."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nie Wybrano Wersji Wine . Sprawdź Ustawienia Gry!",
                 "title": "Nie Znaleziono Wine"
