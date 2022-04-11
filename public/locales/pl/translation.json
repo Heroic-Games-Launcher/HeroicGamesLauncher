@@ -290,6 +290,7 @@
             "long-log-hint": "Log skrócony, wyświetlam ostatnie 1000 linijek!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Główne",
             "log": "Log",
             "other": "Inne",

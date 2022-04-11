@@ -290,6 +290,7 @@
             "long-log-hint": "S'ha truncat el registre, es mostren les últimes 1.000 línies."
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "General",
             "log": "Registre",
             "other": "Altres",

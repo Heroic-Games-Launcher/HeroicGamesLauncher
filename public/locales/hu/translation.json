@@ -290,6 +290,7 @@
             "long-log-hint": "A napló rövidítve van, az utolsó 1000 sor van megjelenítve!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Általános",
             "log": "Napló",
             "other": "Egyéb",

@@ -290,6 +290,7 @@
             "long-log-hint": "Günlük kısaltıldı, son 1000 satır gösteriliyor!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Genel",
             "log": "Log",
             "other": "Diğer",

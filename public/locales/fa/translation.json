@@ -290,6 +290,7 @@
             "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شدهاند!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "عمومی",
             "log": "Log",
             "other": "بقیه",

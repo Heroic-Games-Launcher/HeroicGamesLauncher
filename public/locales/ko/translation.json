@@ -290,6 +290,7 @@
             "long-log-hint": "로그 잘림, 마지막 1000줄이 표시됩니다!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "일반",
             "log": "Log",
             "other": "기타",

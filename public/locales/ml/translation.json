@@ -290,6 +290,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "പൊതുവായവ",
             "log": "Log",
             "other": "മറ്റുള്ളവ",

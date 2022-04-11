@@ -29,6 +29,7 @@ interface Card {
   cover: string
   coverList: string
   hasUpdate: boolean
+  hasCloudSave: boolean
   isGame: boolean
   isInstalled: boolean
   logo: string
@@ -51,6 +52,7 @@ const GameCard = ({
   coverList,
   size = '',
   hasUpdate,
+  hasCloudSave,
   buttonClick,
   forceCard,
   isMacNative,
@@ -218,7 +220,13 @@ const GameCard = ({
                   onClick={() =>
                     history.push({
                       pathname: path,
-                      state: { fromGameCard: true, runner }
+                      state: {
+                        fromGameCard: true,
+                        runner,
+                        hasCloudSave,
+                        isLinuxNative,
+                        isMacNative
+                      }
                     })
                   }
                 >

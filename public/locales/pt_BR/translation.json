@@ -290,6 +290,7 @@
             "long-log-hint": "Log truncado, últimas 1000 linhas serão mostradas!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",

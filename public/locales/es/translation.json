@@ -290,6 +290,7 @@
             "long-log-hint": "Registro truncado. ¡Se mostrarán las últimas 1000 líneas!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "General",
             "log": "Registro",
             "other": "Otro",
