@@ -285,6 +285,7 @@
             "long-log-hint": "Loki typistetty, viimeiset 1000 riviä näytetään!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Yleiset",
             "log": "Log",
             "other": "Muut",

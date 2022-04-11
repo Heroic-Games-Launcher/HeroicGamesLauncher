@@ -285,6 +285,7 @@
             "long-log-hint": "Log abgeschnitten, die letzten 1000 Zeilen werden angezeigt!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Allgemein",
             "log": "Log",
             "other": "Andere",

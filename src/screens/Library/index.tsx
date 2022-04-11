@@ -106,6 +106,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
               is_mac_native,
               is_linux_native,
               runner,
+              cloud_save_enabled,
               is_game,
               install: { version, install_size, is_dlc }
             }: GameInfo) => {
@@ -120,6 +121,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
                   cover={art_square}
                   coverList={art_cover}
                   logo={art_logo}
+                  hasCloudSave={cloud_save_enabled}
                   title={title}
                   appName={app_name}
                   isInstalled={is_installed}

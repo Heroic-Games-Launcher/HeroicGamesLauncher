@@ -285,6 +285,7 @@
             "long-log-hint": "Log terpotong, 1000 baris terakhir akan ditampilkan!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",

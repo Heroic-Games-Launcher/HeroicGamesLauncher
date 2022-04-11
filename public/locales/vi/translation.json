@@ -285,6 +285,7 @@
             "long-log-hint": "Log bị cắt ngắn, hiển thị 1000 dòng cuối!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Tổng quan",
             "log": "Log",
             "other": "Khác",

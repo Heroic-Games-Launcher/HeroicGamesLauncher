@@ -285,6 +285,7 @@
             "long-log-hint": "日志被截断，显示最后 1000 行！"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "常规",
             "log": "Log",
             "other": "其它",

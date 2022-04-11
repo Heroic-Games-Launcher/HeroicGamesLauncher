@@ -27,6 +27,48 @@
   flex-grow: 0;
 }
 
+.store-icon {
+  border-radius: 10px;
+  position: absolute;
+  right: 18px;
+  top: 6px;
+  z-index: 2;
+  padding: 5px;
+  width: 60px;
+  height: 60px;
+  place-content: center;
+}
+
+.store-icon > img {
+  background-color: var(--body-background);
+  width: 60px;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.store-icon > img.gogIcon {
+  padding: 0px 4px 4px 4px;
+}
+
+.backButton {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: none;
+  border: none;
+  color: var(--accent);
+}
+
+.backButton > .MuiSvgIcon-root {
+  width: 32px;
+  height: 32px;
+  transition: 300ms;
+}
+
+.backButton > .MuiSvgIcon-root:hover {
+  color: var(--text-hover);
+}
+
 .gameInfo {
   text-align: initial;
   font-size: 1rem;
@@ -38,11 +80,13 @@
 }
 
 .gameInfo .title {
-  color: var(--accent);
+  color: var(--text-default);
+  font-weight: 700;
 }
 
 .gameInfo > .settingSelect {
   margin-bottom: 12px;
+  max-width: 420px;
 }
 
 .gameInfo .infoWrapper {
@@ -107,7 +151,7 @@
   transition: 350ms;
   border: none;
   background: none;
-  color: var(--text-default);
+  color: var(--accent);
   cursor: pointer;
   font-size: 1em;
 }
@@ -119,7 +163,7 @@
 .gameTabs.infoTab button[data-tab='info'],
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
-  color: var(--accent);
+  color: var(--text-default);
 }
 
 .installProgress[value] {
@@ -131,11 +175,6 @@
 .installProgress[value]::-webkit-progress-value {
   color: var(--success);
   animation: animate-stripes 5s linear infinite;
-}
-
-.clickable:hover {
-  cursor: pointer;
-  color: var(--download-button);
 }
 
 .buttonsWrapper {

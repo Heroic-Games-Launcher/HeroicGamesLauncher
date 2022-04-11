@@ -70,7 +70,7 @@
   font-size: 14px;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--text-default);
+  color: var(--accent);
 }
 
 .FormControl--segmented > button:not(:disabled):hover {
@@ -79,7 +79,7 @@
 
 .FormControl--segmented > button:not(.non-important):active,
 .FormControl--segmented > button:not(.non-important).active {
-  color: var(--accent);
+  color: var(--text-default);
 }
 
 .FormControl--segmented > button:not(:first-child) {

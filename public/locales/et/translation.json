@@ -285,6 +285,7 @@
             "long-log-hint": "Logi on kärbitud, näidatakse viimased 1000 rida!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Üldine",
             "log": "Logi",
             "other": "Muu",

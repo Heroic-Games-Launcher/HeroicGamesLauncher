@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { NavLink, useHistory, useLocation } from 'react-router-dom'
 import { getAppSettings } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
+import { Runner } from 'src/types'
 import './index.css'
 
 const Store = window.require('electron-store')
@@ -23,19 +24,46 @@ const gogStore: ElectronStore = new Store({
   cwd: 'gog_store'
 })
 
+interface LocationState {
+  fromGameCard: boolean
+  hasCloudSave: boolean
+  runner: Runner
+  isLinuxNative: boolean
+  isMacNative: boolean
+}
+
 export default function SidebarLinks() {
   const { t } = useTranslation()
   const history = useHistory()
   const [showUnrealMarket, setShowUnrealMarket] = useState(false)
-
-  const { category, handleCategory, handleFilter } = useContext(ContextProvider)
-
+  const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
+  const [appName, type] = location.pathname
+    .replaceAll('/settings/', '')
+    .split('/')
+
+  const { category, handleCategory, handleFilter, platform } =
+    useContext(ContextProvider)
+
   const isLibrary = location.pathname === '/'
   const isStore = location.pathname.includes('store')
+  const isSettings = location.pathname.includes('settings')
+  const isDefaultSetting = location.pathname.startsWith('/settings/default')
+
+  const {
+    hasCloudSave = false,
+    isLinuxNative = false,
+    isMacNative = false
+  } = state || {}
+  const isWin = platform === 'win32'
+  const isLinuxGame = isLinuxNative && platform === 'linux'
+  const isMacGame = isMacNative && platform === 'darwin'
+
+  const shouldRenderWineSettings = !isWin && !isMacGame && !isLinuxGame
+
   const isEpicLoggedIn = Boolean(configStore.get('userInfo'))
   const isGOGLoggedIn = Boolean(gogStore.get('credentials'))
-  const showSidebar =
+  const showLibrarySubmenu =
     ((isEpicLoggedIn && isGOGLoggedIn) ||
       (isEpicLoggedIn && showUnrealMarket)) &&
     isLibrary
@@ -62,6 +90,8 @@ export default function SidebarLinks() {
     }
   }, [])
 
+  console.log({ cloudsave: state?.hasCloudSave, appName, type, location })
+
   return (
     <div className="SidebarLinks Sidebar__section">
       <NavLink
@@ -86,7 +116,7 @@ export default function SidebarLinks() {
           ? t('Library')
           : t('button.login', 'Login')}
       </NavLink>
-      {showSidebar && (
+      {showLibrarySubmenu && (
         <>
           {isEpicLoggedIn && (
             <a
@@ -125,17 +155,6 @@ export default function SidebarLinks() {
       )}
       <NavLink
         className="Sidebar__item"
-        data-testid="settings"
-        isActive={(match, location) => location.pathname.includes('settings')}
-        to={{ pathname: '/settings/default/general' }}
-      >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faSlidersH} />
-        </div>
-        {t('Settings')}
-      </NavLink>
-      <NavLink
-        className="Sidebar__item"
         to={{ pathname: '/epicstore' }}
         isActive={(match, location) => location.pathname.includes('store')}
       >
@@ -169,6 +188,96 @@ export default function SidebarLinks() {
             to={{ pathname: '/gogstore' }}
           >
             {t('gog-store', 'GOG Store')}
+          </NavLink>
+        </>
+      )}
+      <NavLink
+        className="Sidebar__item"
+        data-testid="settings"
+        isActive={(match, location) => location.pathname.includes('settings')}
+        to={{ pathname: '/settings/default/general' }}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faSlidersH} />
+        </div>
+        {t('Settings')}
+      </NavLink>
+      {isSettings && (
+        <>
+          {isDefaultSetting && (
+            <NavLink
+              role="link"
+              to={{ pathname: '/settings/default/general' }}
+              className={cx('Sidebar__item SidebarLinks__subItem', {
+                ['active']: type === 'general'
+              })}
+            >
+              {t('settings.navbar.general')}
+            </NavLink>
+          )}
+          {shouldRenderWineSettings && (
+            <NavLink
+              role="link"
+              to={{
+                pathname: `/settings/${appName}/wine`,
+                state: { ...state, runner: state?.runner }
+              }}
+            >
+              Wine
+            </NavLink>
+          )}
+          {hasCloudSave && (
+            <NavLink
+              role="link"
+              data-testid="linkSync"
+              to={{
+                pathname: `/settings/${appName}/sync`,
+                state: { ...state, runner: state?.runner }
+              }}
+              className={cx('Sidebar__item SidebarLinks__subItem', {
+                ['active']: type === 'sync'
+              })}
+            >
+              {t('settings.navbar.sync')}
+            </NavLink>
+          )}
+          <NavLink
+            role="link"
+            to={{
+              pathname: `/settings/${appName}/other`,
+              state: { ...state, runner: state?.runner }
+            }}
+            className={cx('Sidebar__item SidebarLinks__subItem', {
+              ['active']: type === 'other'
+            })}
+          >
+            {t('settings.navbar.other')}
+          </NavLink>
+          {isDefaultSetting && (
+            <NavLink
+              role="link"
+              to={{
+                pathname: `/settings/${appName}/advanced`,
+                state: { ...state, runner: state?.runner }
+              }}
+              className={cx('Sidebar__item SidebarLinks__subItem', {
+                ['active']: type === 'advanced'
+              })}
+            >
+              {t('settings.navbar.advanced', 'Advanced')}
+            </NavLink>
+          )}
+          <NavLink
+            role="link"
+            to={{
+              pathname: `/settings/${appName}/log`,
+              state: { ...state, runner: state?.runner }
+            }}
+            className={cx('Sidebar__item SidebarLinks__subItem', {
+              ['active']: type === 'log'
+            })}
+          >
+            {t('settings.navbar.log', 'Log')}
           </NavLink>
         </>
       )}
