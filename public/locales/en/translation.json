@@ -43,7 +43,7 @@
                 "message": "There is a new Version available!",
                 "message-finished": "Do you want to restart Heroic now?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Updated Finished"
+                "title-finished": "Update Finished"
             }
         },
         "no": "NO",
@@ -182,7 +182,7 @@
         "uninstalled": "Uninstalled",
         "update": {
             "canceled": "Updated Canceled",
-            "finished": "Updated Finished",
+            "finished": "Update Finished",
             "started": "Update Started"
         }
     },

@@ -33,7 +33,7 @@ autoUpdater.on('update-available', async () => {
 })
 autoUpdater.on('update-downloaded', async () => {
   const { response } = await dialog.showMessageBox({
-    title: t('box.info.update.title-finished', 'Updated Finished'),
+    title: t('box.info.update.title-finished', 'Update Finished'),
     message: t(
       'box.info.update.message-finished',
       'Do you want to restart Heroic now?'
