@@ -836,7 +836,9 @@ Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
         }
         tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlaytime))
 
-        mainWindow.show()
+        if (minimizeOnLaunch) {
+          mainWindow.show()
+        }
         window.webContents.send('setGameStatus', {
           appName,
           runner,
