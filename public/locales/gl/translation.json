@@ -2,10 +2,6 @@
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Hai unha nova versión de Heroic dispoñíbel, ¿queres actualizar agora?",
-            "title": "Actualización dispoñíbel"
-        },
         "cache-cleared": {
             "message": "Limpouse a caché de Heroic.",
             "title": "Caché borrada"
@@ -29,10 +25,6 @@
                 "message": "Erro ao instalar DXVK/VKD3D! Comproba a túa conexión ou se tes instalado zstd/libzstd1",
                 "title": "Erro de DXVK/VKD3D"
             },
-            "generic": {
-                "message": "Produciuse un erro descoñecido",
-                "title": "Erro descoñecido"
-            },
             "launch": "Produciuse un erro ao iniciar o xogo, revisa os rexistros!",
             "no-offline-mode": {
                 "message": "Lanzamento abortado! O xogo reqire dunha conexión a Internet para executalo.",
@@ -42,6 +34,16 @@
             "wine-not-found": {
                 "message": "No se seleccionou a versión de Wine. ¡Comprueba a configuración do xogo!",
                 "title": "No se atopou Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Updated Finished"
             }
         },
         "no": "Non",
@@ -224,7 +226,6 @@
         "autosync": "Autosincronizar partidas gardadas",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleccionar un EXE alternativo a executar",
-        "checkForUpdatesOnStartup": "Buscar actualizacións ao iniciar",
         "customWineProton": "Rutas personalizadas de Wine e Proton",
         "darktray": "Usar icona escura na bandexa do sistema",
         "default-install-path": "Ruta de instalación predeterminada",

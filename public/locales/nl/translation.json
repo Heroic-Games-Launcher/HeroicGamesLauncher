@@ -2,10 +2,6 @@
     "All": "Allemaal",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u nu updaten?",
-            "title": "Update beschikbaar"
-        },
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
@@ -29,10 +25,6 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
-            "generic": {
-                "message": "Er is een onbekende fout opgetreden",
-                "title": "Onbekende fout"
-            },
             "launch": "Een probleem tijdens het lanceren van het spel, check de logs!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
@@ -42,6 +34,16 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Updated Finished"
             }
         },
         "no": "NEE",
@@ -224,7 +226,6 @@
         "autosync": "Automatisch Synchroniseren van saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecteer een alternatieve EXE om uit te voeren",
-        "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie pad",

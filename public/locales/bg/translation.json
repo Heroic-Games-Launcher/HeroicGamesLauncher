@@ -2,10 +2,6 @@
     "All": "Всички",
     "Assets": "Ресурси",
     "box": {
-        "appupdate": {
-            "message": "Има нова версия на Heroic. Искате ли да го обновите сега?",
-            "title": "Има ново обновление"
-        },
         "cache-cleared": {
             "message": "Кешът на Heroic беше изчистен.",
             "title": "Кешът е изчистен"
@@ -29,10 +25,6 @@
                 "message": "Грешка при инсталирането на DXVK/VKD3D! Проверете връзката си, или дали имате инсталиран пакета zstd/libzstd1",
                 "title": "Грешка от DXVK/VKD3D"
             },
-            "generic": {
-                "message": "Възникна неизвестна грешка",
-                "title": "Неизвестна грешка"
-            },
             "launch": "Грешка при пускането на играта. Проверете журнала!",
             "no-offline-mode": {
                 "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
@@ -42,6 +34,16 @@
             "wine-not-found": {
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
                 "title": "Wine не е намерен"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Updated Finished"
             }
         },
         "no": "НЕ",
@@ -224,7 +226,6 @@
         "autosync": "Автоматично синхронизиране на запазените файлове",
         "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
-        "checkForUpdatesOnStartup": "Проверка за обновления при стартиране",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",

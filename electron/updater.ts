@@ -1,5 +1,6 @@
 import { dialog, shell } from 'electron'
 import { autoUpdater } from 'electron-updater'
+import { t } from 'i18next'
 
 import { icon } from './constants'
 import { logError } from './logger/logger'
@@ -10,13 +11,16 @@ autoUpdater.autoInstallOnAppQuit = false
 
 autoUpdater.on('update-available', async () => {
   const { response, checkboxChecked } = await dialog.showMessageBox({
-    title: 'Heroic',
-    message: 'Update available',
-    detail: 'There is an update available. Do you want to update Heroic?',
-    checkboxLabel: 'Open changelog',
+    title: t('box.info.update.title', 'Heroic Games Launcher'),
+    message: t('box.info.update.message', 'There is a new Version available!'),
+    detail: t(
+      'box.info.update.detail',
+      'Do you want to download the update in the background?'
+    ),
+    checkboxLabel: t('box.info.update.changelog', 'Open changelog'),
     checkboxChecked: false,
     icon: nativeImage.createFromPath(icon),
-    buttons: ['No', 'Yes']
+    buttons: [t('box.no'), t('box.yes')]
   })
   if (checkboxChecked) {
     shell.openExternal(
@@ -28,7 +32,20 @@ autoUpdater.on('update-available', async () => {
   }
 })
 autoUpdater.on('update-downloaded', async () => {
-  autoUpdater.quitAndInstall()
+  const { response } = await dialog.showMessageBox({
+    title: t('box.info.update.title-finished', 'Updated Finished'),
+    message: t(
+      'box.info.update.message-finished',
+      'Do you want to restart Heroic now?'
+    ),
+    buttons: [t('box.no'), t('box.yes')]
+  })
+
+  if (response === 1) {
+    return autoUpdater.quitAndInstall()
+  }
+
+  return (autoUpdater.autoInstallOnAppQuit = true)
 })
 
 autoUpdater.on('error', (err) => {
