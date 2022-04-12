@@ -26,6 +26,7 @@ import {
 } from '../utils'
 import {
   fallBackImage,
+  getShell,
   installed,
   legendaryConfigPath,
   libraryPath
@@ -576,7 +577,11 @@ export async function runLegendaryCommand(
   }
 
   return new Promise((res, rej) => {
-    const child = spawn(bin, commandParts, { cwd: dir, env: env })
+    const child = spawn(bin, commandParts, {
+      cwd: dir,
+      env: env,
+      shell: getShell()
+    })
 
     const stdout = new Array<string>()
     const stderr = new Array<string>()

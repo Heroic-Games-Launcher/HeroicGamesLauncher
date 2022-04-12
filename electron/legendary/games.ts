@@ -302,7 +302,7 @@ class LegendaryGame extends Game {
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
-    const logPath = `${join(heroicGamesConfigPath, this.appName + '.log')}`
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
 
     const commandParts = [
       'install',
