@@ -1108,12 +1108,7 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
 })
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = join(heroicGamesConfigPath, appName + '.log')
-  // eslint-disable-next-line no-debugger
-  debugger
-  if (!existsSync(logPath)) {
-    return {}
-  }
+  const logPath = `"${join(heroicGamesConfigPath, appName + '.log')}"`
 
   const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
   const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
@@ -1138,14 +1133,14 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   let eta = ''
   let bytes = ''
   if (isWindows) {
-    percent = progress_result.split(' ')[4]
-    eta = progress_result.split(' ')[10]
+    percent = progress_result.split(' ')[4] || ''
+    eta = progress_result.split(' ')[10] || ''
     bytes = downloaded_result.split(' ')[5] + 'MiB'
   }
 
   if (!isWindows) {
-    percent = progress_result.split(' ')[0]
-    eta = progress_result.split(' ')[1]
+    percent = progress_result.split(' ')[0] || ''
+    eta = progress_result.split(' ')[1] || ''
     bytes = downloaded_result.trim() + 'MiB'
   }
 

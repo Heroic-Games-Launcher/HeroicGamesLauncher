@@ -137,7 +137,7 @@ class GOGGame extends Game {
       installPlatform = 'osx'
     }
 
-    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
 
     const commandParts = [
       'download',
@@ -468,7 +468,7 @@ class GOGGame extends Game {
     const credentials = configStore.get('credentials') as GOGLoginData
 
     const installPlatform = gameData.install.platform
-    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
+    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
 
     return {
       withDlcs,

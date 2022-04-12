@@ -254,7 +254,7 @@ async function errorHandler(
   const noSpaceMsg = 'Not enough available disk space'
   const noCredentialsError = 'No saved credentials'
   if (logPath) {
-    execAsync(`tail ${logPath} | grep 'disk space'`)
+    execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, LogPrefix.Backend)
