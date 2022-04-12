@@ -231,21 +231,15 @@ class LegendaryGame extends Game {
       status: 'updating'
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? [] : ['--max-workers', `${maxWorkers}`]
+    const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['update', this.appName, ...workers, '-y']
+    const commandParts = ['update', this.appName, workers, '-y']
     const command = getLegendaryCommand(commandParts)
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(
-      commandParts,
-      logPath,
-      undefined,
-      this.appName,
-      'update'
-    )
+    const res = await runLegendaryCommand(commandParts, logPath)
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -301,11 +295,10 @@ class LegendaryGame extends Game {
     path,
     installDlcs,
     sdlList,
-    platformToInstall,
-    previousProgress
+    platformToInstall
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? [] : ['--max-workers', `${maxWorkers}`]
+    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
@@ -320,20 +313,13 @@ class LegendaryGame extends Game {
       path,
       withDlcs,
       installSdl,
-      ...workers,
+      workers,
       '-y'
     ]
     const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(
-      commandParts,
-      logPath,
-      undefined,
-      this.appName,
-      'install',
-      previousProgress
-    )
+    const res = await runLegendaryCommand(commandParts, logPath)
 
     if (res.error) {
       logError(
@@ -369,22 +355,16 @@ class LegendaryGame extends Game {
   public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? [] : ['--max-workers', `${maxWorkers}`]
+    const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['repair', this.appName, ...workers, '-y']
+    const commandParts = ['repair', this.appName, workers, '-y']
     const command = getLegendaryCommand(commandParts)
 
     logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(
-      commandParts,
-      logPath,
-      undefined,
-      this.appName,
-      'repair'
-    )
+    const res = await runLegendaryCommand(commandParts, logPath)
 
     if (res.error) {
       logError(
