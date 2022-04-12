@@ -2,7 +2,7 @@ import {
   AppSettings,
   GameInfo,
   InstallInfo,
-  SavedInstallProgress,
+  InstallProgress,
   Runner,
   GameSettings
 } from 'src/types'
@@ -104,9 +104,9 @@ const handleSavePath = async (game: string) => {
 const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
-function getProgress(progress: SavedInstallProgress): number {
+function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {
-    return progress.percent
+    return Number(progress.percent.replace('%', ''))
   }
   return 0
 }

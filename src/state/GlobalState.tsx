@@ -402,7 +402,9 @@ export class GlobalState extends PureComponent<Props> {
           isInstalling: false,
           previousProgress: null,
           progress: {
-            percent: 0
+            bytes: '0.00MiB',
+            eta: '00:00:00',
+            percent: '0.00%'
           },
           t,
           runner
