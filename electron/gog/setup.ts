@@ -51,7 +51,7 @@ async function setup(
     isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
   const isProton = gameSettings.wineVersion.type === 'proton'
   const prefix = isProton
-    ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamCompatFolder} STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
+    ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${steamCompatFolder}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
         .replaceAll("'", '')
         .replace('~', userHome)}'`
     : `WINEPREFIX="${gameSettings.winePrefix
@@ -116,6 +116,7 @@ async function setup(
             if (valueType === 'binary') {
               valueData = Buffer.from(valueData, 'base64').toString('hex')
             }
+            valueData = valueData.replaceAll('\\', '/')
             keyCommand = `/d "${valueData}" /v "${valueName}" /t ${regType}`
           }
           // Now create a key
