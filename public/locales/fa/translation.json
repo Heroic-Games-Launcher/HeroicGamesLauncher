@@ -1,10 +1,10 @@
 {
     "All": "همه",
-    "Assets": "داراییها",
+    "Assets": "دارایی ها",
     "box": {
         "appupdate": {
-            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان بهروزرسانی کنید؟",
-            "title": "بروزرسانی موجود است"
+            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان به روزرسانی کنید؟",
+            "title": "به روزرسانی موجود است"
         },
         "cache-cleared": {
             "message": "کش Heroic پاک شد.",
@@ -89,7 +89,7 @@
         "yes": "بله"
     },
     "button": {
-        "continue": "ادامه",
+        "continue": "ادامه دادن",
         "login": "ورود",
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
@@ -143,13 +143,13 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "نمای شبکه‌ای",
+        "listView": "نمای لیستی",
+        "refresh": "تازه کردن"
     },
     "Library": "کتابخانه",
     "loading": {
-        "default": "",
+        "default": "در حال بارگذاری",
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
@@ -205,9 +205,9 @@
         "egs-prefix": "محل نصب شده EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "لینوکس",
+        "mac": "مک",
+        "win": "ویندوز"
     },
     "Plugins": "افزونهها",
     "Projects": "پروژهها",
@@ -217,8 +217,8 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده (نیازمند راه‌اندازی مجدد)",
-        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راهاندازی مجدد)",
+        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
+        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
@@ -337,10 +337,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "بازگشت به عقب",
+            "forward": "بازگشت به جلو",
+            "openInBrowser": "باز کردن در مرورگر",
+            "reload": "تازه کردن صفحه"
         }
     },
     "wiki": "ویکی",
