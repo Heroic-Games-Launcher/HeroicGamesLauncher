@@ -1,22 +1,32 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import Store from 'electron-store'
-import { existsSync, readFileSync } from 'graceful-fs'
-import { join } from 'path'
-import prettyBytes from 'pretty-bytes'
-import { fallBackImage, isMac } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { progressService, ProgressStatus } from '../progress'
-import { AppendToFileCollector } from '../shared/command'
-import {
-  ExecResult,
-  GameInfo,
-  GOGGameInfo,
-  GOGImportData,
-  InstalledInfo,
-  InstallInfo
-} from '../types'
-import { GogProgressCollector, GogRunCommand } from './command'
 import { GOGUser } from './user'
+import {
+  GOGGameInfo,
+  GameInfo,
+  InstallInfo,
+  InstalledInfo,
+  GOGImportData,
+  ExecResult
+} from '../types'
+import { join } from 'node:path'
+import {
+  appendFileSync,
+  existsSync,
+  readFileSync,
+  writeFileSync
+} from 'graceful-fs'
+import prettyBytes from 'pretty-bytes'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../logger/logger'
+import { getGOGdlBin } from '../utils'
+import { fallBackImage, isMac } from '../constants'
+import { spawn } from 'child_process'
 
 const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
 const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
@@ -603,32 +613,66 @@ export class GOGLibrary {
  * Runs GOGDL with the given command
  * @param commandParts The command to run, e. g. 'update', 'install'...
  */
-export function runGogdlCommand(
+export async function runGogdlCommand(
   commandParts: Array<string>,
   logFile?: string,
-  env?: Record<string, string>,
-  appName?: string,
-  action?: ProgressStatus['action']
+  env = process.env
 ): Promise<ExecResult> {
-  const collectors = []
+  commandParts = commandParts.filter((n) => n)
+  const { bin, dir } = getGOGdlBin()
+  const safeCommand = getGogdlCommand(commandParts)
+
+  logDebug(['Running GOGDL command:', safeCommand], LogPrefix.Gog)
   if (logFile) {
-    collectors.push(new AppendToFileCollector(logFile, LogPrefix.Gog))
+    logDebug(['Logging to file', `"${logFile}"`], LogPrefix.Gog)
   }
-  if (appName && action) {
-    collectors.push(
-      new GogProgressCollector((progress) =>
-        progressService.reportProgressStatus(appName, {
-          ...progress,
-          action
-        })
-      )
-    )
+
+  if (existsSync(logFile)) {
+    writeFileSync(logFile, '')
   }
-  progressService.clearProgressStatus(appName, action)
-  return GogRunCommand.getExecutor().run(commandParts, {
-    collectors,
-    env
+
+  return new Promise((res, rej) => {
+    const child = spawn(bin, commandParts, { cwd: dir, env: env })
+
+    const stdout = new Array<string>()
+    const stderr = new Array<string>()
+
+    if (logFile) {
+      child.stdout.on('data', (data: Buffer) => {
+        appendFileSync(logFile, data.toString())
+      })
+      child.stderr.on('data', (data: Buffer) => {
+        appendFileSync(logFile, data.toString())
+      })
+    }
+
+    child.stdout.on('data', (data: Buffer) => {
+      stdout.push(data.toString().trim())
+    })
+    child.stderr.on('data', (data: Buffer) => {
+      stderr.push(data.toString().trim())
+    })
+
+    child.on('close', () => {
+      res({
+        stdout: stdout.join('\n'),
+        stderr: stderr.join('\n')
+      })
+    })
+    child.on('error', (error) => {
+      rej(error)
+    })
   })
+    .then(({ stdout, stderr }) => {
+      return { stdout, stderr, fullCommand: safeCommand }
+    })
+    .catch((error) => {
+      logError(
+        [`Error running GOGDL command "${safeCommand}": ${error}`],
+        LogPrefix.Legendary
+      )
+      return { stdout: '', stderr: '', fullCommand: safeCommand, error: error }
+    })
 }
 
 /**
@@ -639,5 +683,14 @@ export function runGogdlCommand(
  * @returns The full command as a string
  */
 export function getGogdlCommand(commandParts: Array<string>): string {
-  return GogRunCommand.getExecutor().getCommand(commandParts)
+  commandParts = commandParts
+    // Filter out empty entries and the '--token' field
+    .filter((val) => {
+      return val && !val.startsWith('--token')
+    })
+  let gogdlFullPath = join(...Object.values(getGOGdlBin()))
+  if (gogdlFullPath.includes(' ')) {
+    gogdlFullPath = `"${gogdlFullPath}"`
+  }
+  return [gogdlFullPath, ...commandParts].join(' ')
 }

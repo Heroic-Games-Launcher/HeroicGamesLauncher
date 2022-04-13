@@ -1,12 +1,12 @@
 import './index.css'
 
-import React, { useContext, CSSProperties, useMemo } from 'react'
+import React, { useContext, useEffect, useState, CSSProperties } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
-import { GameStatus, Runner, SavedInstallProgress } from 'src/types'
+import { GameStatus, InstallProgress, Runner } from 'src/types'
 import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
@@ -19,8 +19,8 @@ import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
 import { SvgButton } from 'src/components/UI'
-import { useInstallProgress } from 'src/hooks'
 
+const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
 
 interface Card {
@@ -29,6 +29,7 @@ interface Card {
   cover: string
   coverList: string
   hasUpdate: boolean
+  hasCloudSave: boolean
   isGame: boolean
   isInstalled: boolean
   logo: string
@@ -51,6 +52,7 @@ const GameCard = ({
   coverList,
   size = '',
   hasUpdate,
+  hasCloudSave,
   buttonClick,
   forceCard,
   isMacNative,
@@ -59,7 +61,17 @@ const GameCard = ({
 }: Card) => {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
-  ) as SavedInstallProgress
+  ) as InstallProgress
+  const [progress, setProgress] = useState(
+    previousProgress ??
+      ({
+        bytes: '0.00MiB',
+        eta: '00:00:00',
+        path: '',
+        percent: '0.00%',
+        folder: ''
+      } as InstallProgress)
+  )
   const { t } = useTranslation('gamepage')
 
   const { libraryStatus, layout, handleGameStatus, platform } =
@@ -90,10 +102,34 @@ const GameCard = ({
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
 
-  const progressSince = useMemo(() => Date.now(), [gameStatus])
-  const progress = useInstallProgress(appName, runner, progressSince)
+  useEffect(() => {
+    const progressInterval = setInterval(async () => {
+      if (isInstalling) {
+        const progress = await ipcRenderer.invoke(
+          'requestGameProgress',
+          appName,
+          runner
+        )
 
-  const { percent = 0 } = progress
+        if (progress) {
+          if (previousProgress) {
+            const legendaryPercent = getProgress(progress)
+            const heroicPercent = getProgress(previousProgress)
+            const newPercent: number = Math.round(
+              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
+            )
+            progress.percent = `${newPercent}%`
+          }
+          return setProgress(progress)
+        }
+
+        setProgress(progress)
+      }
+    }, 1500)
+    return () => clearInterval(progressInterval)
+  }, [isInstalling, appName])
+
+  const { percent = '' } = progress
   const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
@@ -125,10 +161,7 @@ const GameCard = ({
 
   function getStatus() {
     if (isInstalling) {
-      return (
-        t('status.installing') +
-        (percent === 0 && progress.eta === Infinity ? '...' : ` ${percent}%`)
-      )
+      return t('status.installing') + ` ${percent}`
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -218,7 +251,13 @@ const GameCard = ({
                   onClick={() =>
                     history.push({
                       pathname: path,
-                      state: { fromGameCard: true, runner }
+                      state: {
+                        fromGameCard: true,
+                        runner,
+                        hasCloudSave,
+                        isLinuxNative,
+                        isMacNative
+                      }
                     })
                   }
                 >

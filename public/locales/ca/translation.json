@@ -2,10 +2,6 @@
     "All": "Tot",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Hi ha disponible una versió nova de l'Heroic, el vols actualitzar?",
-            "title": "Actualització disponible"
-        },
         "cache-cleared": {
             "message": "S'ha buidat la memòria cau de l'Heroic.",
             "title": "S'ha esborrat la memòria cau"
@@ -29,19 +25,29 @@
                 "message": "Hi ha hagut un error en instal·lar el DXVK/VKD3D. Comprova la connexió o si teniu instal·lat el zstd/libzstd1",
                 "title": "Error del DXVK/VKD3D"
             },
-            "generic": {
-                "message": "Hi ha hagut un error desconegut",
-                "title": "Error desconegut"
-            },
             "launch": "Error en iniciar el joc, comprova el registre.",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
                 "title": "No s'ha trobat el Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NO",
@@ -224,7 +230,6 @@
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
-        "checkForUpdatesOnStartup": "Comprova les actualitzacions en iniciar",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Emprar la icona fosca al Tray",
         "default-install-path": "Ruta d'instal·lació predefinida",
@@ -285,6 +290,7 @@
             "long-log-hint": "S'ha truncat el registre, es mostren les últimes 1.000 línies."
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "General",
             "log": "Registre",
             "other": "Altres",

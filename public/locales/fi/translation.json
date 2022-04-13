@@ -2,10 +2,6 @@
     "All": "Kaikki",
     "Assets": "Omaisuuserät",
     "box": {
-        "appupdate": {
-            "message": "Uusi versio Heroicista on saatavilla, haluatko asentaa sen nyt?",
-            "title": "Päivitys Saatavilla"
-        },
         "cache-cleared": {
             "message": "Heroic:in välimuisti tyhjennettiin.",
             "title": "Välimuisti tyhjennetty"
@@ -29,19 +25,29 @@
                 "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys tai onko zstd/libzstd1 asennettu",
                 "title": "DXVK/VKD3D-virhe"
             },
-            "generic": {
-                "message": "Tuntematon Virhe on tapahtunut",
-                "title": "Tuntematon Virhe"
-            },
             "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
             "no-offline-mode": {
                 "message": "Käynnistys keskeytetty! Peli vaatii Internet-yhteyden toimiakseen.",
                 "title": "Offline-tilaa ei tueta."
             },
             "title": "Virhe",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Winen versiota ei ole valittu. Tarkista peliasetukset!",
                 "title": "Wineä ei löytynyt"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "EI",
@@ -224,7 +230,6 @@
         "autosync": "Automaattisesti synkronoi tallennukset",
         "autovkd3d": "VKD3D:n automaattinen asennus/päivitys prefixille",
         "change-target-exe": "Valitse vaihtoehtoinen EXE suoritettavaksi",
-        "checkForUpdatesOnStartup": "Tarkista päivitysten varalta käynnistyessä",
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",
@@ -285,6 +290,7 @@
             "long-log-hint": "Loki typistetty, viimeiset 1000 riviä näytetään!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Yleiset",
             "log": "Log",
             "other": "Muut",

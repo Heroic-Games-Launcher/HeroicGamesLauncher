@@ -2,10 +2,6 @@
     "All": "Tout",
     "Assets": "Objets",
     "box": {
-        "appupdate": {
-            "message": "Une nouvelle version de Heroic est disponible, voulez-vous effectuer la mise à jour maintenant?",
-            "title": "Mise à jour disponible"
-        },
         "cache-cleared": {
             "message": "Le cache Heroic a été effacé !",
             "title": "Cache effacé"
@@ -29,19 +25,29 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
-            "generic": {
-                "message": "Une erreur inconnue s'est produite",
-                "title": "Erreur inconnue"
-            },
             "launch": "Erreur lors du lancement du jeu, consultez les fichiers de journalisation !",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
             "title": "Erreur",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NON",
@@ -224,7 +230,6 @@
         "autosync": "Sauvegardes Autosync",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
-        "checkForUpdatesOnStartup": "Vérifier les mises à jour au démarrage",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
         "default-install-path": "Chemin par défaut de l'installation",
@@ -285,6 +290,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Général",
             "log": "Log",
             "other": "Autre",

@@ -8,7 +8,6 @@ import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
 import Store from 'electron-store'
 
-import { GlobalConfig } from './config'
 import {
   configStore,
   fixAsarPath,
@@ -17,7 +16,7 @@ import {
   icon,
   isWindows
 } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 import { basename, dirname, join } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
@@ -155,31 +154,6 @@ export const getHeroicVersion = () => {
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
 
   return `${VERSION_NUMBER} ${VERSION_NAME}`
-}
-
-async function checkForUpdates() {
-  const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
-  logInfo('checking for heroic updates', LogPrefix.Backend)
-  if (!checkForUpdatesOnStartup) {
-    logInfo('skipping heroic updates', LogPrefix.Backend)
-    return
-  }
-  if (!(await isOnline())) {
-    logWarning('Version check failed, app is offline.', LogPrefix.Backend)
-    return false
-  }
-  try {
-    const {
-      data: { tag_name }
-    } = await axios.default.get(
-      'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
-    )
-    const newVersion = tag_name.replace('v', '')
-    const currentVersion = app.getVersion()
-    return semverGt(newVersion, currentVersion)
-  } catch (error) {
-    logError('Could not check for new version of heroic', LogPrefix.Backend)
-  }
 }
 
 const showAboutWindow = () => {
@@ -421,7 +395,6 @@ const formatEpicStoreUrl = (title: string) => {
 }
 
 export {
-  checkForUpdates,
   errorHandler,
   execAsync,
   handleExit,

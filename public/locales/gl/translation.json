@@ -2,19 +2,15 @@
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Hai unha nova versión de Heroic dispoñíbel, ¿queres actualizar agora?",
-            "title": "Actualización dispoñíbel"
-        },
         "cache-cleared": {
-            "message": "Limpouse a caché de Heroic!",
-            "title": "Caché limpada"
+            "message": "Limpouse a caché de Heroic.",
+            "title": "Caché borrada"
         },
         "choose": "Seleccionar",
         "choose-egs-prefix": "Seleccionar o prefixo onde se instalará EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Seleccionar binario GOGDL (precisa reinicio)",
         "choose-legendary-binary": "Seleccionar o binario Legendary",
-        "customWine": "Seleccionar o binario de Wine ou Proton",
+        "customWine": "Selecciona o binario de Wine ou Proton",
         "default-install-path": "Seleccionar a ruta de instalación predeterminada",
         "error": {
             "credentials": {
@@ -26,26 +22,36 @@
                 "title": "Sen espacio"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
-            },
-            "generic": {
-                "message": "Produciuse un erro descoñecido",
-                "title": "Erro descoñecido"
+                "message": "Erro ao instalar DXVK/VKD3D! Comproba a túa conexión ou se tes instalado zstd/libzstd1",
+                "title": "Erro de DXVK/VKD3D"
             },
             "launch": "Produciuse un erro ao iniciar o xogo, revisa os rexistros!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Lanzamento abortado! O xogo reqire dunha conexión a Internet para executalo.",
+                "title": "O modo sin conexión non está soportado."
             },
             "title": "Erro",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "No se seleccionou a versión de Wine. ¡Comprueba a configuración do xogo!",
+                "title": "No se atopou Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "Non",
-        "ok": "Ok",
+        "ok": "Aceptar",
         "protocol": {
             "install": {
                 "not_installed": "Non está instalado, ¿desexas instalalo?"
@@ -79,7 +85,7 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "import": "Os servidores de Epic están tendo unha grande interrupción neste momento. ¡O xogo non pode importarse!",
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
@@ -97,7 +103,7 @@
     },
     "Downloading": "Descargando",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Os servizos en liña podería non funcionar correctamente xa que os servidores de Epic Games están sen conexión!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -108,10 +114,10 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "Plataforma"
     },
     "help": {
-        "general": "Sincronizar con EGS no caso que teña unha instalación funcional de EGS noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
+        "general": "Sincronizar con EGS no caso que teña unha instalación funcional de Epic Games Launcher noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
         "other": {
             "part1": "Utilizar as ",
             "part2": "Opcións avanzadas",
@@ -123,13 +129,13 @@
         },
         "sync": {
             "part1": "Heroic intenta adiviñar o cartafol de gardado correcto e isto funcionará na maioría dos casos. No caso de que o cartafol sexa incorrecto, use a caixa de sobrescritura para cambialo.",
-            "part2": "",
-            "part3": "",
-            "part4": ""
+            "part2": "En caso de que cambie o cartafol de Prefix para Wine ou Proton, deberá verificar a ruta novamente, xa que Proton usa un Prefix (/pfx) e un nome de usuario (steamuser) diferentes. Polo tanto, pode borrar a ruta actual, saír da páxina de configuración de sincronización e volver para que Heroic adiviñe o cartafol unha vez máis co Prefix correcto.",
+            "part3": "Sincronización manual: elixa Descargar para descargar os xogos gardados na nube. Subir para subir os locais á nube. Forzar descarga e Carga forzada ignorarán a versión local ou na nube.",
+            "part4": "Sincronizar gardados automáticamente sincronizará os gardados cada vez que inicie un xogo e despois terminar de xogar."
         },
         "wine": {
-            "part1": "",
-            "part2": ""
+            "part1": "Búsquedas de versións de Wine, Proton e CrossOver nos seguintes cartafoles:",
+            "part2": "Para outros lugares, use unha ligazón simbólica a un destos cartafoles"
         }
     },
     "info": {
@@ -143,13 +149,13 @@
         "path": "Seleccionar a ruta de instalación"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Vista de cadrícula",
+        "listView": "Vista de lista",
+        "refresh": "Actualizar"
     },
     "Library": "Biblioteca",
     "loading": {
-        "default": "",
+        "default": "Cargando",
         "website": "Cargando sitio web"
     },
     "login": {
@@ -171,7 +177,7 @@
         },
         "install": {
             "canceled": "Instalación cancelada",
-            "error": "",
+            "error": "Erro na instalación",
             "finished": "Instalación rematada",
             "imported": "Xogo importado",
             "startInstall": "Instalación iniciada"
@@ -186,12 +192,12 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Escribe aquí as opcións de lanzamento",
+            "placeholder": "Escribe aquí outras opcións de lanzamento",
             "title": "Opcións avanzadas (variables de ambiente):"
         },
         "gameargs": {
             "placeholder": "Escribe aquí os argumentos de lanzamento",
-            "title": ""
+            "title": "Argumentos do xgo (para executar despois da orde):"
         }
     },
     "other": {
@@ -205,9 +211,9 @@
         "egs-prefix": "Prefixo onde está instalado EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "macOS",
+        "win": "Windows"
     },
     "Plugins": "Engadidos",
     "Projects": "Proxectos",
@@ -217,14 +223,13 @@
     "setting": {
         "adddesktopshortcuts": "Engadir atallos de escritorio automaticamente",
         "addgamestostartmenu": "Engadir xogos ao menú de inicio automaticamente",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Seleccione o binario de Legendary alternativo (precisa reiniciar)",
+        "alt-gogdl-bin": "Selecciona un binario de GOGDL alternativo a usar",
+        "alt-legendary-bin": "Seleccione o binario de Legendary alternativo",
         "audiofix": "Correción de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar/actualizar DXVK no prefixo",
         "autosync": "Autosincronizar partidas gardadas",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleccionar un EXE alternativo a executar",
-        "checkForUpdatesOnStartup": "Buscar actualizacións ao iniciar",
         "customWineProton": "Rutas personalizadas de Wine e Proton",
         "darktray": "Usar icona escura na bandexa do sistema",
         "default-install-path": "Ruta de instalación predeterminada",
@@ -236,7 +241,7 @@
         "exit-to-tray": "Saír á bandexa do sistema",
         "FsrSharpnessStrenght": "FSR forza de nitidez",
         "fsync": "Activar Fsync",
-        "gamemode": "",
+        "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
         "language": "Seleccionar o idioma da aplicación",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
@@ -245,7 +250,7 @@
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "",
+        "mangohud": "Habilitar Mangohud (precísase instalar Mangohud)",
         "manualsync": {
             "download": "Descargar",
             "forcedownload": "Forzar descarga",
@@ -256,7 +261,7 @@
             "upload": "Subir"
         },
         "maxRecentGames": "Recent Games to Show",
-        "maxworkers": "",
+        "maxworkers": "Número máximo de descargas",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Executar xogo sen conexión",
         "primerun": "Activar renderizado de Nvidia Prime",
@@ -274,17 +279,18 @@
         "start-in-tray": "Iniciar minimizado",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "",
-        "wineversion": ""
+        "wineprefix": "Cartafol WinePrefix",
+        "wineversion": "Versión de Wine"
     },
     "settings": {
         "clear-cache": "Limpar caché de Heroic",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copiar todas as preferencias ao portapapeis",
+        "copyToClipboard": "Copiar todas as configuracións al portapapeis",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Xeral",
             "log": "Log",
             "other": "Outro",
@@ -296,7 +302,7 @@
     "status": {
         "logging": "Inciando sesión…"
     },
-    "store": "Tenda",
+    "store": "Epic Store",
     "stores": "Stores",
     "title": {
         "allGames": "Todos os xogos",
@@ -331,16 +337,16 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Pechar sesión",
-        "logout_confirmation": "Está seguro que quere pechar a sesión?",
+        "logout_confirmation": "Tes certeza que queres pechar a sesión?",
         "manageaccounts": "Manage Accounts",
         "quit": "Saír"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Regresar",
+            "forward": "Avanzar",
+            "openInBrowser": "Abrir no navegador",
+            "reload": "Recargar páxina"
         }
     },
     "wiki": "Wiki",

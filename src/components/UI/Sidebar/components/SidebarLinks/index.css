@@ -5,16 +5,22 @@
 }
 
 .Sidebar__item.SidebarLinks__subItem {
-  padding: 4px var(--sidebar-horizontal-padding) 4px 24px;
+  padding: 4px var(--sidebar-horizontal-padding) 4px 50px;
   font-size: 14px;
   line-height: 20px;
   white-space: break-spaces;
 }
 
 .Sidebar__item.SidebarLinks__subItem::before {
-  content: '- ';
+  content: '• ';
 }
 
 .SidebarLinks__subItem + .Sidebar__item:not(.SidebarLinks__subItem) {
   margin-top: 4px;
+}
+
+@media screen and (max-width: 730px) {
+  .Sidebar__item.SidebarLinks__subItem {
+    padding: 4px var(--sidebar-horizontal-padding) 4px 20px;
+  }
 }

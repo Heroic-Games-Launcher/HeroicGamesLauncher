@@ -2,50 +2,56 @@
     "All": "Semua",
     "Assets": "Aset",
     "box": {
-        "appupdate": {
-            "message": "Versi baru Heroic telah tersedia, apakah Anda ingin memperbarui sekarang?",
-            "title": "Pembaruan Tersedia"
-        },
         "cache-cleared": {
-            "message": "Tembolok Heroic dibersihkan.",
-            "title": "Tembolok dibersihkan"
+            "message": "Tembolok Heroic telah dibersihkan.",
+            "title": "Tembolok telah dibersihkan"
         },
         "choose": "Pilih",
-        "choose-egs-prefix": "",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Pilih program Legendary",
-        "customWine": "Pilih program Wine atau Proton",
-        "default-install-path": "Pilih tempat Instal Default",
+        "choose-egs-prefix": "Pilih Prefiks di mana EGS dipasang",
+        "choose-gogdl-binary": "Pilih GOGDL Binary (perlu memulai ulang)",
+        "choose-legendary-binary": "Pilih Legendary binary",
+        "customWine": "Pilih Wine atau Proton Binary",
+        "default-install-path": "Pilih Lokasi Pemasangan Asali",
         "error": {
             "credentials": {
                 "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi.",
                 "title": "Kredensial Kedaluwarsa"
             },
             "diskspace": {
-                "message": "Tidak cukup ruang disk yang tersedia",
-                "title": "Tidak ada ruang"
+                "message": "Tidak cukup ruang penyimpanan yang tersedia",
+                "title": "Tidak Ada Ruang"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Galat saat memasang DXVK/VKD3D! Periksa koneksi Anda atau apakah Anda telah memasang zstd/libzstd1",
+                "title": "Galat DXVK/VKD3D"
             },
-            "generic": {
-                "message": "An Unknown Error has occurred",
-                "title": "Error Tak Dikenal"
-            },
-            "launch": "Error ketika meluncurkan permainan, periksa log!",
+            "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
+                "title": "Mode luring tidak didukung."
             },
-            "title": "Error",
+            "title": "Galat",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
+                "title": "Wine Tidak Ditemukan"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "TIDAK",
-        "ok": "OK",
+        "ok": "OKE",
         "protocol": {
             "install": {
                 "not_installed": "Saat ini tidak dipasang. Pasang?"
@@ -57,12 +63,12 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda",
                 "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "Pilih EXE untuk menjalankan"
+            "title": "Pilih EXE untuk Dijalankan"
         },
         "select": {
             "button": "Pilih",
@@ -74,282 +80,282 @@
         },
         "sync": {
             "button": "Pilih",
-            "error": "Jalur Tidak Valid",
+            "error": "Lokasi Tidak Valid",
             "title": "Pilih direktori penyimpanan"
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diimpor!",
+                "install": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat dipasang!",
+                "update": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diperbarui!"
             },
-            "title": "Warning"
+            "title": "Peringatan"
         },
-        "wineprefix": "Pilih Folder Prefix Winie",
+        "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA"
     },
     "button": {
-        "continue": "Lanjut",
-        "login": "Masuk",
+        "continue": "Lanjutkan",
+        "login": "Log Masuk",
         "sync": "Sinkronkan",
-        "syncing": "",
-        "unsync": ""
+        "syncing": "Menyinkronkan",
+        "unsync": "Batalkan sinkronisasi"
     },
     "Downloading": "Mengunduh",
     "epic": {
-        "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena peladen Epic Games sedang luring!",
-        "offline-notification-title": "offline"
+        "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
+        "offline-notification-title": "luring"
     },
-    "Epic Games": "Game Epic",
+    "Epic Games": "Epic Games",
     "filter": {
-        "noFilter": "No Filter"
+        "noFilter": "Tidak Ada Filter"
     },
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "Platform"
     },
     "help": {
-        "general": "Sinkronisasi dengan EGL jika Anda mempunyai pemasangan yang berjalan dari Epic Games Launcher di suatu tempat dan ingin mengimpor permainan Anda untuk menghindari mengunduh mereka lagi.",
+        "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
         "other": {
             "part1": "Gunakan ",
-            "part2": "",
-            "part3": "",
+            "part2": "Opsi Lanjutan",
+            "part3": "dipanggil sebelum meluncurkan gim; ",
             "part4": "Gunakan ",
-            "part5": "",
-            "part6": "",
-            "part7": " untuk melewati peluncur di beberapa permainan dll."
+            "part5": "Argumen Permainan",
+            "part6": " dipanggil setelah perintah peluncuran, misalnya: ",
+            "part7": " untuk melewati peluncur di beberapa gim, dll."
         },
         "sync": {
-            "part1": "Heroic mencoba untuk mengira folder penyimpanan yang benar dan ini akan bekerja di kebanyakan. Jikalau foldernya salah, gunakan bilah penimpaan untuk mengubahnya.",
-            "part2": "",
-            "part3": "Sinkronisasi Manual: Pilih Unduh untuk mengunduh simpanan permainan yang disimpan di Awan. Unggah untuk mengunggah berkas lokal ke Awan. Unduh Paksa dan Unggah Paksa akan mengabaikan versi yang ada di lokal atau awan.",
-            "part4": ""
+            "part1": "Heroic mencoba untuk menebak folder penyimpanan yang tepat dan ini biasanya akan berhasil. Jika folder salah, gunakan kotak penimpaan untuk mengubahnya.",
+            "part2": "Jika Anda mengubah prefiks folder untuk Wine atau Proton, Anda perlu memeriksa lokasinya lagi karena Proton menggunakan prefiks (/pfx) dan nama pengguna (steamuser) yang berbeda. Jadi Anda dapat dengan mudah menghapus lokasi saat ini, keluar dari halaman pengaturan sinkronisasi, lalu kembali lagi dan biarkan Heroic menebak folder dengan prefiks yang tepat sekali lagi.",
+            "part3": "Sinkronisasi Manual: Pilih Unduh untuk mengunduh gim yang tersimpan di Awan. Unggah untuk mengunggah berkas lokal ke Awan. Unduh Paksa dan Unggah Paksa akan mengabaikan versi yang ada di penyimpanan lokal atau awan.",
+            "part4": "Sinkroninasi Penyimpanan Secara Otomatis akan menyinkronkan penyimpanan setiap kali Anda Memulai Gim dan setelah Anda selesai bermain."
         },
         "wine": {
-            "part1": "",
-            "part2": ""
+            "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
+            "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
         }
     },
     "info": {
-        "settings": ""
+        "settings": "Pengaturan disimpan secara otomatis"
     },
     "infobox": {
-        "help": "",
-        "requirements": ""
+        "help": "Bantuan",
+        "requirements": "Persyaratan Sistem"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Pilih Lokasi Pemasangan"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "Tampilan bergaris",
+        "listView": "Tampilan daftar",
+        "refresh": "Segarkan"
     },
-    "Library": "",
+    "Library": "Perpustakaan",
     "loading": {
-        "default": "",
-        "website": "Loading Website"
+        "default": "Memuat",
+        "website": "Memuat Situs Web"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Log Masuk Eksternal"
     },
     "message": {
-        "sync": "",
-        "unsync": ""
+        "sync": "Sinkronisasi Selesai",
+        "unsync": "Pembatalan Sinkronisasi Selesai"
     },
-    "nogames": "",
-    "Not Ready": "",
+    "nogames": "Tidak Ada Gim yang Ditemukan",
+    "Not Ready": "Belum Siap",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "Galat dalam Memindahkan Gim",
+            "reparing": "Perbaikan Kesalahan"
         },
         "finished": {
-            "reparing": ""
+            "reparing": "Perbaikan Selesai"
         },
         "install": {
-            "canceled": "",
-            "error": "",
-            "finished": "",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "canceled": "Pemasangan Dibatalkan",
+            "error": "Pemasangan Gagal",
+            "finished": "Pemasangan Selesai",
+            "imported": "Gim Diimpor",
+            "startInstall": "Pemasangan Dimulai"
         },
-        "moved": "",
-        "uninstalled": "",
+        "moved": "Selesai Memindahkan",
+        "uninstalled": "Dihapus",
         "update": {
-            "canceled": "",
-            "finished": "",
-            "started": "Update Started"
+            "canceled": "Pembaruan Dibatalkan",
+            "finished": "Pembaruan Selesai",
+            "started": "Pembaruan Dimulai"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "",
-            "title": ""
+            "placeholder": "Letakkan opsi peluncuran lainnya di sini",
+            "title": "Opsi Lanjutan (Variabel Lingkungan):"
         },
         "gameargs": {
-            "placeholder": "",
-            "title": ""
+            "placeholder": "Letakkan Argumen Peluncur di sini",
+            "title": "Argumen Gim (Untuk dijalankan setelah perintah):"
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
-        "legendary-version": "Legendary Version: ",
-        "weblate": "Help Improve this translation."
+        "gogdl-version": "Versi GOGDL: ",
+        "legendary-version": "Versi Legendary: ",
+        "weblate": "Bantu kami untuk menerjemahkan Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
-        "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": ""
+        "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
+        "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
+        "egs-prefix": "Prefiks di mana EGS dipasang"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
-    "Plugins": "Plugins",
-    "Projects": "Projects",
-    "Ready": "",
-    "Recent": "Played Recently",
-    "search": "",
+    "Plugins": "Plugin",
+    "Projects": "Proyek",
+    "Ready": "Siap",
+    "Recent": "Dimainkan Baru-Baru Ini",
+    "search": "Masukkan nama gim di sini...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
-        "audiofix": "",
-        "autodxvk": "Auto Install/Update DXVK on Prefix",
-        "autosync": "",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Select an alternative EXE to run",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
-        "customWineProton": "Custom Wine/Proton Paths",
-        "darktray": "Use Dark Tray Icon (needs restart)",
-        "default-install-path": "",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
-        "discordRPC": "Enable Discord Rich Presence",
-        "egs-sync": "",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
-        "esync": "Enable Esync",
-        "exit-to-tray": "",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
-        "gamemode": "",
-        "language": "",
+        "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
+        "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
+        "alt-gogdl-bin": "Pilih GOGDL Binary alternatif untuk digunakan",
+        "alt-legendary-bin": "Pilih Legendary Binary Alternatif",
+        "audiofix": "Perbaikan Audio (Latensi Pulsa Audio )",
+        "autodxvk": "Pasang/Perbarui Otomatis DXVK di Prefiks",
+        "autosync": "Sinkronisasi Penyimpanan Otomatis",
+        "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
+        "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
+        "customWineProton": "Lokasi Wine/Proton Khusus",
+        "darktray": "Gunakan Ikon Baki Gelap",
+        "default-install-path": "Lokasi Pemasangan Asali",
+        "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
+        "discordRPC": "Aktifkan Discord Rich Presence",
+        "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
+        "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
+        "esync": "Aktifkan Esync",
+        "exit-to-tray": "Keluar ke Baki Sistem",
+        "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
+        "fsync": "Aktifkan Fsync",
+        "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
+        "language": "Pilih Bahasa",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Salin konten log ke papan klip",
+            "current-log": "Log Saat Ini",
+            "last-log": "Log Terakhir",
+            "no-file": "Tidak ditemukan berkas log",
+            "show-in-folder": "Tampilkan berkas log di dalam folder"
         },
-        "mangohud": "",
+        "mangohud": "Aktifkan Mangohud (Mangohud perlu dipasang)",
         "manualsync": {
             "download": "Unduh",
             "forcedownload": "Unduh Paksa",
             "forceupload": "Unggah Paksa",
-            "sync": "",
-            "syncing": "",
-            "title": "",
-            "upload": ""
+            "sync": "Sinkronisasi",
+            "syncing": "Menyinkronkan",
+            "title": "Sinkronisasi Penyimpanan Secara Manual",
+            "upload": "Unggah"
         },
-        "maxRecentGames": "Played Recently to Show",
-        "maxworkers": "",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
-        "offlinemode": "",
-        "primerun": "Enable Nvidia Prime Render",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "maxRecentGames": "Gim yang Dimainkan Baru-Baru Ini",
+        "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
+        "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
+        "offlinemode": "Jalankan Game Secara Luring",
+        "primerun": "Aktifkan Nvidia Prime Render",
+        "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
-            "message": "",
-            "title": ""
+            "message": "Seret dan Jatuhkan Berkas di sini",
+            "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "placeholder": "",
-            "title": ""
+            "placeholder": "Pilih folder gim tersimpan yang tepat",
+            "title": "Timpa folder Sinkronisasi Penyimpanan Awan"
         },
-        "showfps": "",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
-        "start-in-tray": "Start Minimized",
-        "steamruntime": "Use Steam Runtime",
+        "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
+        "showUnrealMarket": "Tampilkan Unreal Marketplace (perlu memulai ulang)",
+        "start-in-tray": "Mulai Diminimalkan",
+        "steamruntime": "Gunakan Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "",
-        "wineversion": ""
+        "wineprefix": "Folder Prefiks Wine",
+        "wineversion": "Versi Wine"
     },
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "clear-cache": "Hapus Tembolok Heroic",
+        "copiedToClipboard": "Disalin ke Papan Klip!",
+        "copyToClipboard": "Salin Semua Pengaturan ke Papan Klip",
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Log terpotong, 1000 baris terakhir akan ditampilkan!"
         },
         "navbar": {
-            "general": "",
+            "advanced": "Advanced",
+            "general": "Umum",
             "log": "Log",
-            "other": "",
-            "sync": ""
+            "other": "Lainnya",
+            "sync": "Sinkronisasi Penyimpanan"
         },
         "reset-heroic": "Reset Heroic"
     },
-    "Settings": "",
+    "Settings": "Pengaturan",
     "status": {
-        "logging": "Logging In..."
+        "logging": "Log Masuk..."
     },
     "store": "Epic Store",
-    "stores": "Stores",
+    "stores": "Toko",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
+        "allGames": "Semua Gim",
+        "allUnreal": "Unreal - Semuanya",
         "downloading": "Mengunduh",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "installedGames": "Gim Terpasang",
+        "notInstalledGames": "Tidak Terpasang",
+        "unrealAssets": "Unreal - Aset",
+        "unrealPlugins": "Unreal - Plugin",
+        "unrealProjects": "Unreal - Proyek",
+        "updates": "Pembaruan Tertunda"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Pilih folder prefiks asali untuk konfigurasi yang baru",
+            "wineprefix": "Pilih Folder untuk Prefiks Wine yang Baru"
         }
     },
     "tooltip": {
-        "addpath": "Add New Path",
-        "removepath": "Remove Path"
+        "addpath": "Tambahkan Lokasi Baru",
+        "removepath": "Hapus Lokasi"
     },
-    "Total Games": "",
+    "Total Games": "Total Gim",
     "tray": {
-        "about": "About",
-        "quit": "Quit",
-        "reload": "Reload",
-        "show": ""
+        "about": "Tentang",
+        "quit": "Keluar",
+        "reload": "Muat Ulang",
+        "show": "Tampilkan"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Updates",
+    "Updates": "Pembaruan",
     "userselector": {
         "discord": "Discord",
-        "logout": "",
-        "logout_confirmation": "Logout?",
-        "manageaccounts": "Manage Accounts",
-        "quit": ""
+        "logout": "Log keluar",
+        "logout_confirmation": "Apakah Anda yakin ingin log keluar?",
+        "manageaccounts": "Kelola Akun",
+        "quit": "Keluar"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Kembali",
+            "forward": "Maju",
+            "openInBrowser": "Buka di peramban",
+            "reload": "Muat ulang halaman"
         }
     },
     "wiki": "Wiki",
     "wine": {
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
-            "unzipping": "Unzipping"
+            "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
+            "link": "Manajer Wine",
+            "title": "Manajer Wine (Beta)",
+            "unzipping": "Mengekstrak"
         }
     }
 }

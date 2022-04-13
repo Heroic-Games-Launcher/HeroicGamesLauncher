@@ -174,10 +174,10 @@ export interface GameStatus {
 
 export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
-  timestamp: number
   bytes: string
-  eta: number
-  percent: number
+  eta: string
+  folder?: string
+  percent: string
 }
 export interface InstalledInfo {
   executable: string | null
@@ -248,7 +248,6 @@ export interface InstallArgs {
   sdlList?: Array<string>
   platformToInstall: 'Windows' | 'Mac' | 'Linux'
   installLanguage?: string
-  previousProgress?: number
 }
 
 export interface InstallParams {
@@ -258,7 +257,6 @@ export interface InstallParams {
   sdlList?: Array<string>
   installLanguage?: string
   runner: Runner
-  previousProgress?: number
 }
 
 export interface GOGLoginData {

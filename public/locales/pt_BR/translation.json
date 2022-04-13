@@ -2,10 +2,6 @@
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Existe uma nova versão do Heroic disponível, deseja atualizar agora?",
-            "title": "Atualização Disponível"
-        },
         "cache-cleared": {
             "message": "O cache do Heroic foi limpo.",
             "title": "Cache limpo"
@@ -29,19 +25,29 @@
                 "message": "Erro ao Instalar DXVK/VKD3D! Cheque sua conexão Ou se você tem o zstd/libzstd1 instalado",
                 "title": "DXVK/VKD3D Erro"
             },
-            "generic": {
-                "message": "Um erro desconhecido ocorreu",
-                "title": "Erro Desconhecido"
-            },
             "launch": "Erro ao iniciar o jogo, confira os logs!",
             "no-offline-mode": {
                 "message": "Lançamento cancelado! O jogo requer uma conexão com a internet para executá-lo.",
                 "title": "Modo offline não suportado."
             },
             "title": "Erro",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
                 "title": "Wine Não Encontrado"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NÃO",
@@ -224,7 +230,6 @@
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
-        "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
@@ -285,6 +290,7 @@
             "long-log-hint": "Log truncado, últimas 1000 linhas serão mostradas!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",

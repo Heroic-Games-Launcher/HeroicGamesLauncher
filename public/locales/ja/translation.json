@@ -2,10 +2,6 @@
     "All": "全て",
     "Assets": "資産",
     "box": {
-        "appupdate": {
-            "message": "Heroic の新しいバージョンが利用可能になりました、今すぐ更新しますか？",
-            "title": "アップデートが利用可能です"
-        },
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
@@ -29,19 +25,29 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
-            "generic": {
-                "message": "不明なエラーが発生しました",
-                "title": "不明なエラー"
-            },
             "launch": "ゲームの起動時にエラーが発生しました、ログを確認してください！",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
             "title": "エラー",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "いいえ",
@@ -224,7 +230,6 @@
         "autosync": "保存を自動的に同期する",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "実行する代替EXEを選択します",
-        "checkForUpdatesOnStartup": "起動時に更新を確認する",
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",
         "default-install-path": "デフォルトのインストールパス",
@@ -285,6 +290,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "一般",
             "log": "Log",
             "other": "他",
