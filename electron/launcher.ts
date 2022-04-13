@@ -485,10 +485,11 @@ function getLegendaryOrGogdlCommand(
 
   // Redact sensitive arguments (SID for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--sid', '--token']) {
-    if (sensitiveArg in commandParts) {
-      const sensitiveArgIndex = commandParts.indexOf(sensitiveArg)
-      commandParts[sensitiveArgIndex + 1] = '<redacted>'
+    const sensitiveArgIndex = commandParts.indexOf(sensitiveArg)
+    if (sensitiveArgIndex === -1) {
+      continue
     }
+    commandParts[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
