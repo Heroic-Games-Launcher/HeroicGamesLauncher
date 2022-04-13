@@ -152,7 +152,8 @@ export class GOGLibrary {
     const commandParts = [
       'info',
       appName,
-      `--token=${credentials.access_token}`,
+      '--token',
+      `"${credentials.access_token}"`,
       '--lang=en-US',
       '--os',
       isMac && gameData.is_mac_native ? 'osx' : 'windows'
