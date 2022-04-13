@@ -148,7 +148,6 @@ class GOGGame extends Game {
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts, logPath)
-    console.log({ res })
 
     if (res.error) {
       logError(
