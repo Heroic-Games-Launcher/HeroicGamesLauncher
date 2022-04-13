@@ -232,7 +232,7 @@ class LegendaryGame extends Game {
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
     const commandParts = ['update', this.appName, workers, '-y']
     const command = getLegendaryCommand(commandParts)
@@ -302,7 +302,7 @@ class LegendaryGame extends Game {
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
     const commandParts = [
       'install',
@@ -357,7 +357,7 @@ class LegendaryGame extends Game {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
 
-    const logPath = `"${join(heroicGamesConfigPath, this.appName + '.log')}"`
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
     const commandParts = ['repair', this.appName, workers, '-y']
     const command = getLegendaryCommand(commandParts)

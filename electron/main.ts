@@ -1110,6 +1110,11 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
 ipcMain.handle('requestGameProgress', async (event, appName) => {
   const logPath = `"${join(heroicGamesConfigPath, appName + '.log')}"`
 
+  // existsync doesnt work when the path has quotes in it
+  if (!existsSync(logPath.replaceAll('"', ''))) {
+    return {}
+  }
+
   const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
   const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
   const progress_command = isWindows
