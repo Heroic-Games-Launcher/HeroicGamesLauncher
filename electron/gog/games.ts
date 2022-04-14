@@ -149,7 +149,7 @@ class GOGGame extends Game {
     installLanguage
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     if (GOGUser.isTokenExpired()) {
       await GOGUser.refreshToken()
@@ -163,7 +163,7 @@ class GOGGame extends Game {
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = [
+    const commandParts: string[] = [
       'download',
       this.appName,
       '--platform',
@@ -173,7 +173,7 @@ class GOGGame extends Game {
       `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${installLanguage}`,
-      workers
+      ...workers
     ]
     const command = getGogdlCommand(commandParts)
 
@@ -418,7 +418,7 @@ class GOGGame extends Game {
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
       '-b=' + gameData.install.buildId,
-      workers
+      ...workers
     ]
     const command = getGogdlCommand(commandParts)
 
@@ -529,7 +529,7 @@ class GOGGame extends Game {
       `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
-      workers
+      ...workers
     ]
     const command = getGogdlCommand(commandParts)
 
@@ -588,7 +588,7 @@ class GOGGame extends Game {
    */
   public async getCommandParameters() {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const gameData = GOGLibrary.get().getGameInfo(this.appName)
 
     const withDlcs = gameData.install.installedWithDLCs
