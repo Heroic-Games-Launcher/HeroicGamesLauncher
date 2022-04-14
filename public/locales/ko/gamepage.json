@@ -85,6 +85,7 @@
     "launch": {
         "options": "시작 옵션..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "설치할 구성 요소를 선택합니다"
     },

@@ -85,6 +85,7 @@
     "launch": {
         "options": "Opsi Peluncuran…"
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
     },

@@ -25,6 +25,10 @@
                 "message": "Viga DXVK/VKD3D installimisel! Kontrollige ühendust või seda, kas teil on installitud zstd/libzstd1",
                 "title": "DXVK/VKD3D viga"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
                 "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Kopeeri logi sisu lõikelauale",
             "current-log": "Praegune logi",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Viimane logi",
             "no-file": "Logifaili ei leitud",
             "show-in-folder": "Kuva logifail kaustas"
