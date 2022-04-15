@@ -42,6 +42,11 @@ import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { getGogdlCommand, runGogdlCommand } from './library'
 
+function verifyProgress(stderr: string): boolean {
+  const text = stderr.split('\n').at(-1)
+  return text.includes('INFO: Done')
+}
+
 class GOGGame extends Game {
   public appName: string
   public window = BrowserWindow.getAllWindows()[0]
