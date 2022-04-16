@@ -336,7 +336,7 @@ class GOGGame extends Game {
       let wineFlag = ['--wine', wineVersion.bin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = ['--no-wine', '--wrapper', `${wineVersion.bin} run`]
+        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
         winePrefixFlag = []
       }
 

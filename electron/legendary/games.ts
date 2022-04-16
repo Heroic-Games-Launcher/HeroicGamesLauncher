@@ -371,12 +371,8 @@ class LegendaryGame extends Game {
     platformToInstall
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-<<<<<<< HEAD
     const info = await Game.get(this.appName, 'legendary').getInstallInfo()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
-=======
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
->>>>>>> 71e4a1e (Send workers arguments as 2 separate arguments)
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
@@ -615,7 +611,7 @@ class LegendaryGame extends Game {
       let wineFlag = ['--wine', wineVersion.bin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = ['--no-wine', '--wrapper', `${wineVersion.bin} run`]
+        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
         winePrefixFlag = []
       }
 
