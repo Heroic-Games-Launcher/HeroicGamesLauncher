@@ -85,6 +85,7 @@
     "launch": {
         "options": "گزینههای اجرا..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "انتخاب محتواها برای نصب"
     },

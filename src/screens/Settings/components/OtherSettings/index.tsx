@@ -223,7 +223,7 @@ export default function OtherSettings({
           )}
         </>
       )}
-      {canRunOffline && (
+      {!isDefault && canRunOffline && (
         <span className="setting">
           <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch

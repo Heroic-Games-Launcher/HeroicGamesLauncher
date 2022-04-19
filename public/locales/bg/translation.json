@@ -2,10 +2,6 @@
     "All": "Всички",
     "Assets": "Ресурси",
     "box": {
-        "appupdate": {
-            "message": "Има нова версия на Heroic. Искате ли да го обновите сега?",
-            "title": "Има ново обновление"
-        },
         "cache-cleared": {
             "message": "Кешът на Heroic беше изчистен.",
             "title": "Кешът е изчистен"
@@ -30,8 +26,8 @@
                 "title": "Грешка от DXVK/VKD3D"
             },
             "generic": {
-                "message": "Възникна неизвестна грешка",
-                "title": "Неизвестна грешка"
+                "message": "",
+                "title": ""
             },
             "launch": "Грешка при пускането на играта. Проверете журнала!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Не се поддържа режим извън линия."
             },
             "title": "Грешка",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
                 "title": "Wine не е намерен"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "НЕ",
@@ -224,7 +234,6 @@
         "autosync": "Автоматично синхронизиране на запазените файлове",
         "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
-        "checkForUpdatesOnStartup": "Проверка за обновления при стартиране",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Копиране на съдържанието на журнала в буфера за обмен",
             "current-log": "Текущ журнал",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Последен журнал",
             "no-file": "Не е намерен файл с журнал",
             "show-in-folder": "Показване на файла с журнала в папката му"
@@ -285,6 +296,7 @@
             "long-log-hint": "Журналът е отрязан. Показани са последните 1000 реда!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Общи",
             "log": "Log",
             "other": "Други",

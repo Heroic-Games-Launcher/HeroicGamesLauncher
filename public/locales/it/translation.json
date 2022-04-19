@@ -2,10 +2,6 @@
     "All": "Tutto",
     "Assets": "Asset",
     "box": {
-        "appupdate": {
-            "message": "C'è una nuova versione di Heroic disponibile, vuoi aggiornare ora?",
-            "title": "Aggiornamento disponibile"
-        },
         "cache-cleared": {
             "message": "Cache di Heroic cancellata.",
             "title": "Cache cancellata"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "Si è verificato un errore sconosciuto",
-                "title": "Errore sconosciuto"
+                "message": "",
+                "title": ""
             },
             "launch": "Errore durante l'avvio del gioco, controlla i logs!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Errore",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
                 "title": "Wine non trovato"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NO",
@@ -224,7 +234,6 @@
         "autosync": "Sincronizza automaticamente i salvataggi",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
-        "checkForUpdatesOnStartup": "Verifica la disponibilità di aggiornamenti all'avvio",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
         "default-install-path": "Percorso d'installazione predefinito",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -285,6 +296,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Generale",
             "log": "Log",
             "other": "Altro",

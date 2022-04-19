@@ -2,10 +2,6 @@
     "All": "Όλα",
     "Assets": "Αντικείμενα",
     "box": {
-        "appupdate": {
-            "message": "Υπάρχει μια νέα έκδοση του Heroic, θέλετε να το ενημερώσετε τώρα;",
-            "title": "Ενημέρωση Διαθέσιμη"
-        },
         "cache-cleared": {
             "message": "Η προσωρινή μνήμη Heroic καθαρίστηκε.",
             "title": "Προσωρινή Μνήμη Καθαρίστηκε"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D σφάλμα"
             },
             "generic": {
-                "message": "Προέκυψε άγνωστο σφάλμα",
-                "title": "Άγνωστο σφάλμα"
+                "message": "",
+                "title": ""
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
             },
             "title": "Σφάλμα",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "ΟΧΙ",
@@ -224,7 +234,6 @@
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
-        "checkForUpdatesOnStartup": "Έλεγχος για ενημερώσεις κατά την εκκίνηση",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Αντιγραφή αρχείου καταγραφής στο πρόχειρο",
             "current-log": "Τρέχων Αρχείο Καταγραφής",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Τελευταίο Αρχείο Καταγραφής",
             "no-file": "Δεν βρέθηκε αρχείο σύνδεσης",
             "show-in-folder": "Εμφάνιση αρχείου καταγραφής στον φάκελο"
@@ -285,6 +296,7 @@
             "long-log-hint": "Το αρχείο καταγραφής ελαττώθηκε, εμφάνιση τελευταίων 1000 γραμμών!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Γενικά",
             "log": "Log",
             "other": "Άλλα",

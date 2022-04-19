@@ -2,10 +2,6 @@
     "All": "Alla",
     "Assets": "Tillgångar",
     "box": {
-        "appupdate": {
-            "message": "En nyare version av Heroic är tillgänglig, vill du uppdatera nu?",
-            "title": "Updatering tillgänglig"
-        },
         "cache-cleared": {
             "message": "Heroic cache rensades.",
             "title": "Cache rensades"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D problem"
             },
             "generic": {
-                "message": "Ett okänt fel har inträffat",
-                "title": "Okänt fel"
+                "message": "",
+                "title": ""
             },
             "launch": "Problem vid speluppstart, kontrollera loggen!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Offline-läge stöds ej."
             },
             "title": "Problem",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "Nej",
@@ -224,7 +234,6 @@
         "autosync": "Synkronisera sparfiler automatiskt",
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
-        "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad Wine/Proton sökväg",
         "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
             "show-in-folder": "Visa loggfiler i mapp"
@@ -285,6 +296,7 @@
             "long-log-hint": "Loggen avkortad , enbart senaste 1000 rader visas!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",

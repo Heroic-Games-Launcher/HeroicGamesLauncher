@@ -2,10 +2,6 @@
     "All": "All",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "There is a new version of Heroic available, do you want to update now?",
-            "title": "Update Available"
-        },
         "cache-cleared": {
             "message": "Heroic cache cleared.",
             "title": "Cache cleared"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "An Unknown Error has occurred",
-                "title": "Unknown Error"
+                "message": "",
+                "title": ""
             },
             "launch": "Error when launching the game, check the logs!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NO",
@@ -180,7 +190,7 @@
         "uninstalled": "Uninstalled",
         "update": {
             "canceled": "Updated Canceled",
-            "finished": "Updated Finished",
+            "finished": "Update Finished",
             "started": "Update Started"
         }
     },
@@ -224,7 +234,6 @@
         "autosync": "Autosync Saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -285,6 +296,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "General",
             "log": "Log",
             "other": "Other",

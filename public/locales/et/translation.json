@@ -2,10 +2,6 @@
     "All": "Kõik",
     "Assets": "Varamu",
     "box": {
-        "appupdate": {
-            "message": "Heroic'u uus versioon on saadaval. Kas soovite uuendada kohe?",
-            "title": "Uuendus saadaval"
-        },
         "cache-cleared": {
             "message": "Heroic-u vahemälu puhastati.",
             "title": "Vahemälu puhastati"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D viga"
             },
             "generic": {
-                "message": "Tekkinud on tundmatu viga",
-                "title": "Tundmatu viga"
+                "message": "",
+                "title": ""
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Võrguühenduseta režiim ei ole toetatud."
             },
             "title": "Viga",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine-i ei leitud"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "EI",
@@ -224,7 +234,6 @@
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
-        "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Kopeeri logi sisu lõikelauale",
             "current-log": "Praegune logi",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Viimane logi",
             "no-file": "Logifaili ei leitud",
             "show-in-folder": "Kuva logifail kaustas"
@@ -285,6 +296,7 @@
             "long-log-hint": "Logi on kärbitud, näidatakse viimased 1000 rida!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Üldine",
             "log": "Logi",
             "other": "Muu",

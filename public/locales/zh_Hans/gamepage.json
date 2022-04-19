@@ -85,6 +85,7 @@
     "launch": {
         "options": "启动选项..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "选择要安装的组件"
     },
