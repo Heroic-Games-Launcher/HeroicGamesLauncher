@@ -85,6 +85,7 @@
     "launch": {
         "options": "Opcije za pokretanje..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Odaberite kompomente za instalaciju"
     },

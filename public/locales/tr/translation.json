@@ -25,6 +25,10 @@
                 "message": "DXVK/VKD3D kurulurken hata oluştu! Bağlantınıza veya zstd/libzstd1 kurulu olup olmadığına bakın",
                 "title": "DXVK/VKD3D hatası"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
             "no-offline-mode": {
                 "message": "Başlatma iptal edildi! Oyunu çalıştırmak için internet bağlantısı gereklidir.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Günlük içeriğini panoya kopyala",
             "current-log": "Geçerli Günlük",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Son Günlük",
             "no-file": "Günlük dosyası bulunamadı",
             "show-in-folder": "Günlük dosyasını klasörde göster"

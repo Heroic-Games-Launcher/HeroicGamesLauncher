@@ -25,6 +25,10 @@
                 "message": "Galat saat memasang DXVK/VKD3D! Periksa koneksi Anda atau apakah Anda telah memasang zstd/libzstd1",
                 "title": "Galat DXVK/VKD3D"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
                 "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
             "show-in-folder": "Tampilkan berkas log di dalam folder"

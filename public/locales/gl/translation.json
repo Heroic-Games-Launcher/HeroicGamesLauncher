@@ -25,6 +25,10 @@
                 "message": "Erro ao instalar DXVK/VKD3D! Comproba a túa conexión ou se tes instalado zstd/libzstd1",
                 "title": "Erro de DXVK/VKD3D"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Produciuse un erro ao iniciar o xogo, revisa os rexistros!",
             "no-offline-mode": {
                 "message": "Lanzamento abortado! O xogo reqire dunha conexión a Internet para executalo.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
