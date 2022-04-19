@@ -85,6 +85,7 @@
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },

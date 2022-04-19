@@ -1,12 +1,8 @@
 import './index.css'
 
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  MouseEvent,
-  useMemo
-} from 'react'
+import React, { useContext, useEffect, useState, MouseEvent } from 'react'
+
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import { IpcRenderer } from 'electron'
 import {
@@ -17,7 +13,7 @@ import {
   sendKill,
   syncSaves
 } from 'src/helpers'
-import { Link, useParams } from 'react-router-dom'
+import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
@@ -29,9 +25,8 @@ import {
   GameInfo,
   GameStatus,
   InstallInfo,
-  SavedInstallProgress
+  InstallProgress
 } from 'src/types'
-import { useInstallProgress } from 'src/hooks'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -40,6 +35,10 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
+import EpicLogo from 'src/assets/epic-logo.svg'
+import GOGLogo from 'src/assets/gog-logo.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 const storage: Storage = window.localStorage
 
@@ -75,9 +74,17 @@ export default function GamePage(): JSX.Element | null {
   const { status } = gameStatus || {}
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
-  ) as SavedInstallProgress
+  ) as InstallProgress
 
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
+  const [progress, setProgress] = useState(
+    previousProgress ??
+      ({
+        bytes: '0.00MiB',
+        eta: '00:00:00',
+        percent: '0.00%'
+      } as InstallProgress)
+  )
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -141,8 +148,36 @@ export default function GamePage(): JSX.Element | null {
     updateConfig()
   }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
 
-  const progressSince = useMemo(() => Date.now(), [gameStatus])
-  const progress = useInstallProgress(appName, gameInfo.runner, progressSince)
+  useEffect(() => {
+    const progressInterval = setInterval(async () => {
+      if (isInstalling || isUpdating || isReparing) {
+        const progress: InstallProgress = await ipcRenderer.invoke(
+          'requestGameProgress',
+          appName,
+          gameInfo.runner
+        )
+
+        if (progress) {
+          if (previousProgress) {
+            const legendaryPercent = getProgress(progress)
+            const heroicPercent = getProgress(previousProgress)
+            const newPercent: number = Math.round(
+              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
+            )
+            progress.percent = `${newPercent}%`
+          }
+          return setProgress(progress)
+        }
+
+        return await handleGameStatus({
+          appName,
+          runner: gameInfo.runner,
+          status
+        })
+      }
+    }, 1500)
+    return () => clearInterval(progressInterval)
+  }, [appName, isInstalling, isUpdating, isReparing])
 
   async function handleUpdate() {
     await handleGameStatus({
@@ -224,6 +259,16 @@ export default function GamePage(): JSX.Element | null {
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
+            <NavLink className="backButton" to="/">
+              <ArrowCircleLeftIcon />
+            </NavLink>
+            <div className="store-icon">
+              <img
+                src={runner == 'legendary' ? EpicLogo : GOGLogo}
+                className={runner == 'legendary' ? '' : 'gogIcon'}
+                alt=""
+              />
+            </div>
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
                 <>
@@ -383,6 +428,21 @@ export default function GamePage(): JSX.Element | null {
                         </button>
                       )}
                     </div>
+                    <NavLink
+                      to={{
+                        pathname: `/settings/${appName}/log`,
+                        state: {
+                          runner
+                        }
+                      }}
+                      className="link is-text is-link reportProblem"
+                    >
+                      {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                      {t(
+                        'report_problem',
+                        'Report a problem running this game'
+                      )}
+                    </NavLink>
                   </div>
 
                   <GameSubMenu
@@ -426,24 +486,8 @@ export default function GamePage(): JSX.Element | null {
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
 
-    let displayEta: string
-    const secondsLeft = eta
-    if (secondsLeft === Infinity) {
-      displayEta = ''
-    } else {
-      const seconds = `${secondsLeft % 60}`
-      const minutesLeft = Math.floor(secondsLeft / 60)
-      const minutes = `${minutesLeft % 60}`
-      const hours = `${Math.floor(minutesLeft / 60)}`
-      displayEta = [
-        hours.padStart(2, '0'),
-        minutes.padStart(2, '0'),
-        seconds.padStart(2, '0')
-      ].join(':')
-    }
-
     if (isReparing) {
-      return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
+      return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
 
     if (isMoving) {
@@ -451,12 +495,13 @@ export default function GamePage(): JSX.Element | null {
     }
 
     const currentProgress = `${
-      percent && bytes
-        ? `${percent}% [${bytes}]${displayEta && ` | ETA: ${displayEta}`}`
-        : '...'
+      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
     }`
 
     if (isUpdating && is_installed) {
+      if (eta && eta.includes('verifying')) {
+        return `${t('status.reparing')}: ${percent} [${bytes}]`
+      }
       return `${t('status.updating')} ${currentProgress}`
     }
 

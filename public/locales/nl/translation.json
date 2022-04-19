@@ -2,10 +2,6 @@
     "All": "Allemaal",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u nu updaten?",
-            "title": "Update beschikbaar"
-        },
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "Er is een onbekende fout opgetreden",
-                "title": "Onbekende fout"
+                "message": "",
+                "title": ""
             },
             "launch": "Een probleem tijdens het lanceren van het spel, check de logs!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NEE",
@@ -224,7 +234,6 @@
         "autosync": "Automatisch Synchroniseren van saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecteer een alternatieve EXE om uit te voeren",
-        "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie pad",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -285,6 +296,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Algemeen",
             "log": "Log",
             "other": "Overig",

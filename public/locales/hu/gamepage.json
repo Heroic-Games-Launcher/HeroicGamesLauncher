@@ -85,6 +85,7 @@
     "launch": {
         "options": "Indítási opciók..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"
     },

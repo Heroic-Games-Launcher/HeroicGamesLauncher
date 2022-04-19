@@ -85,6 +85,7 @@
     "launch": {
         "options": "Käivitusvalikud..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Valige komponendid, mida installida"
     },

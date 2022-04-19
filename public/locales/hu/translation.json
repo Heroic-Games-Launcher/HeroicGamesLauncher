@@ -2,10 +2,6 @@
     "All": "Összes",
     "Assets": "Eszközök",
     "box": {
-        "appupdate": {
-            "message": "A Heroic újabb verziója érhető el, szeretnéd most frissíteni?",
-            "title": "Frissítés elérhető"
-        },
         "cache-cleared": {
             "message": "Heroic gyorsítótár törölve.",
             "title": "Gyorsítótár törölve"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D hiba"
             },
             "generic": {
-                "message": "Ismeretlen hiba lépett fel",
-                "title": "Ismeretlen hiba"
+                "message": "",
+                "title": ""
             },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Hiba",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nincs kiválasztott Wine verzió. Ellenőrizd a játék beállításait!",
                 "title": "Wine nem található"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NEM",
@@ -224,7 +234,6 @@
         "autosync": "Mentések automatikus szinkronizálása",
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése a prefixen",
         "change-target-exe": "Válassz egy alternatív EXE fájlt a futtatáshoz",
-        "checkForUpdatesOnStartup": "Frissítések keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét tálcaikon használata",
         "default-install-path": "Alapértelmezett telepítési útvonal",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Napló tartalmának vágólapra másolása",
             "current-log": "Jelenlegi napló",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Utolsó napló",
             "no-file": "Nem található naplófájl",
             "show-in-folder": "Naplófájl megjelenítése mappában"
@@ -285,6 +296,7 @@
             "long-log-hint": "A napló rövidítve van, az utolsó 1000 sor van megjelenítve!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Általános",
             "log": "Napló",
             "other": "Egyéb",

@@ -2,10 +2,6 @@
     "All": "모두",
     "Assets": "에셋",
     "box": {
-        "appupdate": {
-            "message": "새 버전의 Heroric이 존재합니다, 지금 업데이트 하시겠습니까?",
-            "title": "업데이트 사용 가능"
-        },
         "cache-cleared": {
             "message": "Heroic 캐시 삭제됨.",
             "title": "캐시 삭제됨"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D 오류"
             },
             "generic": {
-                "message": "알 수 없는 오류가 발생하였습니다",
-                "title": "알 수 없는 오류"
+                "message": "",
+                "title": ""
             },
             "launch": "게임을 실행할 때 오류가 발생했습니다, 로그를 확인 해주세요!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "오프라인 모드는 지원되지 않습니다."
             },
             "title": "오류",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Wine 버전이 선택되지 않았습니다. 게임 설정을 확인하세요!",
                 "title": "Wine을 찾을 수 없음"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "아니오",
@@ -224,7 +234,6 @@
         "autosync": "세이브 자동 동기화",
         "autovkd3d": "접두사에서 VKD3D 자동 설치/업데이트",
         "change-target-exe": "대체하여 실행할 EXE 선택",
-        "checkForUpdatesOnStartup": "시작할 때 업데이트 확인",
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "로그 내용을 클립보드에 복사",
             "current-log": "현재 로그",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "마지막 로그",
             "no-file": "로그 파일을 찾을 수 없습니다",
             "show-in-folder": "폴더에 있는 로그 파일 표시"
@@ -285,6 +296,7 @@
             "long-log-hint": "로그 잘림, 마지막 1000줄이 표시됩니다!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "일반",
             "log": "Log",
             "other": "기타",

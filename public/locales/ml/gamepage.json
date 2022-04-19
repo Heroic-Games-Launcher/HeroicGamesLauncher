@@ -85,6 +85,7 @@
     "launch": {
         "options": "വിക്ഷേപണ ബദലുകൾ..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "നടുവാനുള്ള ഘടകങ്ങള് തിരഞ്ഞെടുക്കൂ"
     },

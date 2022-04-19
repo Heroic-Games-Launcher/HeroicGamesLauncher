@@ -2,10 +2,6 @@
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
-            "title": "Actualización disponible"
-        },
         "cache-cleared": {
             "message": "El caché de Heroic ha sido limpiado.",
             "title": "Caché borrado"
@@ -30,8 +26,8 @@
                 "title": "Error de DXVK/VKD3D"
             },
             "generic": {
-                "message": "Ha ocurrido un error desconocido",
-                "title": "Error desconocido"
+                "message": "",
+                "title": ""
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "El modo sin conexión no está soportado."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No se ha seleccionado la versión de Wine. ¡Comprueba la configuración del juego!",
                 "title": "No se ha encontrado Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NO",
@@ -224,7 +234,6 @@
         "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
-        "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
             "current-log": "Registro actual",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
             "show-in-folder": "Mostrar el archivo de registro en la carpeta"
@@ -285,6 +296,7 @@
             "long-log-hint": "Registro truncado. ¡Se mostrarán las últimas 1000 líneas!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "General",
             "log": "Registro",
             "other": "Otro",

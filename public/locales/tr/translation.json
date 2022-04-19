@@ -2,10 +2,6 @@
     "All": "Tümü",
     "Assets": "Varlıklar",
     "box": {
-        "appupdate": {
-            "message": "Heroic'in yeni bir sürümü var, şimdi güncellemek ister misiniz?",
-            "title": "Güncelleme Var"
-        },
         "cache-cleared": {
             "message": "Heroic önbelleği temizlendi.",
             "title": "Önbellek temizlendi"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D hatası"
             },
             "generic": {
-                "message": "Bilinmeyen bir hata oluştu",
-                "title": "Bilinmeyen hata"
+                "message": "",
+                "title": ""
             },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Çevrim dışı mod desteklenmiyor."
             },
             "title": "Hata",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "HAYIR",
@@ -224,7 +234,6 @@
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
-        "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Karanlık Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Günlük içeriğini panoya kopyala",
             "current-log": "Geçerli Günlük",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Son Günlük",
             "no-file": "Günlük dosyası bulunamadı",
             "show-in-folder": "Günlük dosyasını klasörde göster"
@@ -285,6 +296,7 @@
             "long-log-hint": "Günlük kısaltıldı, son 1000 satır gösteriliyor!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Genel",
             "log": "Log",
             "other": "Diğer",

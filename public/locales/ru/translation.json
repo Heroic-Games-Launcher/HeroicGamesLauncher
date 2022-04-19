@@ -2,10 +2,6 @@
     "All": "Все",
     "Assets": "Ресурсы",
     "box": {
-        "appupdate": {
-            "message": "Доступна новая версия Heroic. Обновить сейчас?",
-            "title": "Доступно обновление"
-        },
         "cache-cleared": {
             "message": "Кэш Heroic очищен.",
             "title": "Кэш очищен"
@@ -30,8 +26,8 @@
                 "title": "Ошибка DXVK/VKD3D"
             },
             "generic": {
-                "message": "Произошла неизвестная ошибка",
-                "title": "Неизвестная ошибка"
+                "message": "",
+                "title": ""
             },
             "launch": "Ошибка при запуске игры, проверьте журнал!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Автономный режим не поддерживается."
             },
             "title": "Ошибка",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "НЕТ",
@@ -224,7 +234,6 @@
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
-        "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Копировать содержимое журнала в буфер обмена",
             "current-log": "Текущий журнал",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Последний журнал",
             "no-file": "Файл журнала не найден",
             "show-in-folder": "Показать файл журнала в папке"
@@ -285,6 +296,7 @@
             "long-log-hint": "Журнал урезан, показаны последние 1000 строк!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Основные",
             "log": "Журнал",
             "other": "Другие",

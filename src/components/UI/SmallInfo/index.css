@@ -13,11 +13,11 @@
 }
 
 .clickable {
-  color: var(--text-default);
+  color: var(--accent);
   cursor: pointer;
 }
 
 .clickable:hover {
-  color: var(--link-highlight);
+  color: var(--text-default);
   transition: 300ms;
 }

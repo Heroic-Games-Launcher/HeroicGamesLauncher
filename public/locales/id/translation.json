@@ -2,10 +2,6 @@
     "All": "Semua",
     "Assets": "Aset",
     "box": {
-        "appupdate": {
-            "message": "Versi baru Heroic telah tersedia, apakah Anda ingin memperbarui sekarang?",
-            "title": "Pembaruan Tersedia"
-        },
         "cache-cleared": {
             "message": "Tembolok Heroic telah dibersihkan.",
             "title": "Tembolok telah dibersihkan"
@@ -30,8 +26,8 @@
                 "title": "Galat DXVK/VKD3D"
             },
             "generic": {
-                "message": "Terjadi kesalahan yang tidak diketahui",
-                "title": "Galat Tak Diketahui"
+                "message": "",
+                "title": ""
             },
             "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Mode luring tidak didukung."
             },
             "title": "Galat",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "TIDAK",
@@ -224,7 +234,6 @@
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
-        "checkForUpdatesOnStartup": "Periksa Pembaruan Saat Startup",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Asali",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
             "show-in-folder": "Tampilkan berkas log di dalam folder"
@@ -285,6 +296,7 @@
             "long-log-hint": "Log terpotong, 1000 baris terakhir akan ditampilkan!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",

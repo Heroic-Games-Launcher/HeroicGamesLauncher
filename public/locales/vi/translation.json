@@ -2,10 +2,6 @@
     "All": "Tất cả",
     "Assets": "Asset",
     "box": {
-        "appupdate": {
-            "message": "Heroic có phiên bản mới, bạn có muốn cập nhật không?",
-            "title": "Có thể cập nhật"
-        },
         "cache-cleared": {
             "message": "Đã xoá bộ nhớ đệm của Heroic.",
             "title": "Đã xoá bộ nhớ đệm"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D lỗi"
             },
             "generic": {
-                "message": "Lỗi chưa xác định",
-                "title": "Lỗi chưa xác định"
+                "message": "",
+                "title": ""
             },
             "launch": "Lỗi khi khởi chạy game, vui lòng kiểm tra log!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Không hỗ trợ chế độ offline."
             },
             "title": "Lỗi",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
                 "title": "Không tìm thấy Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "Không",
@@ -224,7 +234,6 @@
         "autosync": "Tự động đồng bộ bản sao lưu",
         "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
         "change-target-exe": "Chọn một EXE thay thế để chạy",
-        "checkForUpdatesOnStartup": "Kiểm tra cập nhật khi khởi động",
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Sao chép nội dung log vào bộ nhớ tạm",
             "current-log": "Log hiện tại",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Log lần trước",
             "no-file": "Không tìm thấy file log",
             "show-in-folder": "Hiển thị file log trong thư mục"
@@ -285,6 +296,7 @@
             "long-log-hint": "Log bị cắt ngắn, hiển thị 1000 dòng cuối!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Tổng quan",
             "log": "Log",
             "other": "Khác",

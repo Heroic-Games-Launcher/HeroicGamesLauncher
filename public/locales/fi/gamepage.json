@@ -85,6 +85,7 @@
     "launch": {
         "options": "Käynnistysasetukset..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Valitse asennettavat komponentit"
     },

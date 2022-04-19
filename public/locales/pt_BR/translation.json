@@ -2,10 +2,6 @@
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Existe uma nova versão do Heroic disponível, deseja atualizar agora?",
-            "title": "Atualização Disponível"
-        },
         "cache-cleared": {
             "message": "O cache do Heroic foi limpo.",
             "title": "Cache limpo"
@@ -30,8 +26,8 @@
                 "title": "DXVK/VKD3D Erro"
             },
             "generic": {
-                "message": "Um erro desconhecido ocorreu",
-                "title": "Erro Desconhecido"
+                "message": "",
+                "title": ""
             },
             "launch": "Erro ao iniciar o jogo, confira os logs!",
             "no-offline-mode": {
@@ -39,9 +35,23 @@
                 "title": "Modo offline não suportado."
             },
             "title": "Erro",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
                 "title": "Wine Não Encontrado"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NÃO",
@@ -224,7 +234,6 @@
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
-        "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
@@ -241,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Copiar log para a área de transferência",
             "current-log": "Log atual",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
             "show-in-folder": "Mostrar arquivo de log na pasta"
@@ -285,6 +296,7 @@
             "long-log-hint": "Log truncado, últimas 1000 linhas serão mostradas!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",
