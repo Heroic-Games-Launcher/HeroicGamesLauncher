@@ -25,6 +25,10 @@
                 "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd le az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van",
                 "title": "DXVK/VKD3D hiba"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Napló tartalmának vágólapra másolása",
             "current-log": "Jelenlegi napló",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Utolsó napló",
             "no-file": "Nem található naplófájl",
             "show-in-folder": "Naplófájl megjelenítése mappában"

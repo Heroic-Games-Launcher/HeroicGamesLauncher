@@ -25,6 +25,10 @@
                 "message": "DXVK/VKD3D 설치 오류! 연결을 확인하거나 zstd/libzstd1이 설치되어 있는지 확인하십시오",
                 "title": "DXVK/VKD3D 오류"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "게임을 실행할 때 오류가 발생했습니다, 로그를 확인 해주세요!",
             "no-offline-mode": {
                 "message": "시작 실패! 게임을 실행하려면 인터넷 연결이 필요합니다.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "로그 내용을 클립보드에 복사",
             "current-log": "현재 로그",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "마지막 로그",
             "no-file": "로그 파일을 찾을 수 없습니다",
             "show-in-folder": "폴더에 있는 로그 파일 표시"

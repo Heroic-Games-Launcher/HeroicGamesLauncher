@@ -85,6 +85,7 @@
     "launch": {
         "options": "Opcións de arrinque..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Seleccione os compoñentes a instalar"
     },

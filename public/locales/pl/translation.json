@@ -25,6 +25,10 @@
                 "message": "Błąd podczas instalacji DXVK/VKD3D! Sprawdź połączenie lub czy zstd/libzstd1 jest zainstalowany",
                 "title": "Błąd DXVK/VKD3D"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
             "no-offline-mode": {
                 "message": "Uruchomienie przerwane! Gra wymaga połączenia z internetem aby ją uruchomić.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "Skopiuj zawartość logu do schowka",
             "current-log": "Obecny Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Ostatni Log",
             "no-file": "Plik logu nie znaleziony",
             "show-in-folder": "Pokaż plik logu w folderze"

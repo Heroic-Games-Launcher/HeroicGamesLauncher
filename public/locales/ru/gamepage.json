@@ -85,6 +85,7 @@
     "launch": {
         "options": "Параметры запуска..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Выбрать компоненты для установки"
     },

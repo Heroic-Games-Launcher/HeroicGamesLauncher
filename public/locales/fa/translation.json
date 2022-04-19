@@ -25,6 +25,10 @@
                 "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
                 "title": "خطای DXVK/VKD3D"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
@@ -246,6 +250,8 @@
         "log": {
             "copy-to-clipboard": "کپی کردن محتوای لاگ در کليپ بورد",
             "current-log": "لاگ اخیر",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "آخرین لاگ",
             "no-file": "فایل لاگی پیدا نشد",
             "show-in-folder": "نمایش فایل لاگ در پوشه"
