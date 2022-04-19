@@ -26,8 +26,8 @@ import {
 } from '../utils'
 import {
   fallBackImage,
-  getShell,
   installed,
+  isMac,
   legendaryConfigPath,
   libraryPath
 } from '../constants'
@@ -580,7 +580,7 @@ export async function runLegendaryCommand(
     const child = spawn(bin, commandParts, {
       cwd: dir,
       env: env,
-      shell: getShell()
+      shell: isMac
     })
 
     const stdout = new Array<string>()

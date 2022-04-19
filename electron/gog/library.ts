@@ -25,7 +25,7 @@ import {
   logWarning
 } from '../logger/logger'
 import { getGOGdlBin } from '../utils'
-import { fallBackImage, getShell, isMac } from '../constants'
+import { fallBackImage, isMac } from '../constants'
 import { spawn } from 'child_process'
 
 const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
@@ -635,7 +635,7 @@ export async function runGogdlCommand(
     const child = spawn(bin, commandParts, {
       cwd: dir,
       env: env,
-      shell: getShell()
+      shell: isMac
     })
 
     const stdout = new Array<string>()
