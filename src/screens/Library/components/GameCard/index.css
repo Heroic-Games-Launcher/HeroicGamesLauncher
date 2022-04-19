@@ -224,8 +224,8 @@
   filter: grayscale(var(--installing-effect));
 }
 
-.gameImg:hover:not(.installed),
-.gameLogo:hover:not(.installed) {
+.gameCard:hover .gameImg:not(.installed),
+.gameCard:hover .gameLogo:not(.installed) {
   filter: grayscale(0);
   transition-duration: 0.2s;
 }
