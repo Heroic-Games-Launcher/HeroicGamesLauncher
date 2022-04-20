@@ -238,6 +238,7 @@
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
         "defaultWinePrefix": "Указать папку для новых префиксов Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Включить Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",

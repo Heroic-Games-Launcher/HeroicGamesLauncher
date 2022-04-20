@@ -238,6 +238,7 @@
         "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",
         "defaultWinePrefix": "Ange sökväg för nya Wine-prefix",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",

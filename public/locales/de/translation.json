@@ -238,6 +238,7 @@
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",

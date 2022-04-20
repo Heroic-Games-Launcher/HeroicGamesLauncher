@@ -238,6 +238,7 @@
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",

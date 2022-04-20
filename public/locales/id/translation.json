@@ -238,6 +238,7 @@
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Asali",
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Aktifkan Discord Rich Presence",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
