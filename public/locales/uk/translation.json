@@ -25,6 +25,10 @@
                 "message": "Помилка встановлення DXVK/VKD3D! Перевірте з'єднання та чи встановлено zstd/libzstd1",
                 "title": "Помилка DXVK/VKD3D"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Помилка під час запуску гри, перевірте лоґи!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
@@ -234,6 +238,7 @@
         "darktray": "Використовувати темну піктограму на панелі",
         "default-install-path": "Стандартний шлях встановлення",
         "defaultWinePrefix": "Обрати теку для нових префіксів Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ввімкнути Discord Rich Presence",
         "egs-sync": "Синхронізуватися із встановленим Epic Games Launcher",
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
@@ -246,6 +251,8 @@
         "log": {
             "copy-to-clipboard": "Копіювати вміст логу в сховище обміну",
             "current-log": "Поточний лог",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Останній лог",
             "no-file": "Лог файл не знайдено",
             "show-in-folder": "Показати файл логу в теці"

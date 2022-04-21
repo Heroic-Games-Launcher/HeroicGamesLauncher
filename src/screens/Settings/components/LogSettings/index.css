@@ -58,3 +58,7 @@
   font-size: 40px;
   animation: refreshing 1.5s infinite;
 }
+
+.report-problem-instructions {
+  text-align: left;
+}

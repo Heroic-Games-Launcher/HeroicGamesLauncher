@@ -25,6 +25,10 @@
                 "message": "¡Error al instalar DXVK/VKD3D! Comprueba tu conexión o si tienes instalado zstd/libzstd1",
                 "title": "Error de DXVK/VKD3D"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
             "no-offline-mode": {
                 "message": "¡Lanzamiento abortado! El juego requiere una conexión a Internet para ejecutarlo.",
@@ -234,6 +238,7 @@
         "darktray": "Utilice el icono de bandeja oscura",
         "default-install-path": "Ruta de instalación predeterminada",
         "defaultWinePrefix": "Establecer carpeta para nuevos prefijos de Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
@@ -246,6 +251,8 @@
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
             "current-log": "Registro actual",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
             "show-in-folder": "Mostrar el archivo de registro en la carpeta"

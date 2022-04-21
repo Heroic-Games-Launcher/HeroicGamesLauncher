@@ -85,6 +85,7 @@
     "launch": {
         "options": "Opciones de Arranque..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Elija Componentes a Instalar"
     },

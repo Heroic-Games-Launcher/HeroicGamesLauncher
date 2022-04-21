@@ -85,6 +85,7 @@
     "launch": {
         "options": "Opcions d'execució..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecciona els components a instal·lar"
     },

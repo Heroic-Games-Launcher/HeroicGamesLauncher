@@ -37,6 +37,9 @@ import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
 import EpicLogo from 'src/assets/epic-logo.svg'
 import GOGLogo from 'src/assets/gog-logo.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+
 const storage: Storage = window.localStorage
 
 const { ipcRenderer } = window.require('electron') as {
@@ -425,6 +428,21 @@ export default function GamePage(): JSX.Element | null {
                         </button>
                       )}
                     </div>
+                    <NavLink
+                      to={{
+                        pathname: `/settings/${appName}/log`,
+                        state: {
+                          runner
+                        }
+                      }}
+                      className="link is-text is-link reportProblem"
+                    >
+                      {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                      {t(
+                        'report_problem',
+                        'Report a problem running this game'
+                      )}
+                    </NavLink>
                   </div>
 
                   <GameSubMenu

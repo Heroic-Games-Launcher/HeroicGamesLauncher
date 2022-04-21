@@ -25,6 +25,10 @@
                 "message": "Σφάλμα εγκατάστασης DXVK/VKD3D! Ελέγξτε την σύνδεση σας ή εαν έχετε τα zstd/libzstd1 εγκατεστημένα",
                 "title": "DXVK/VKD3D σφάλμα"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
             "no-offline-mode": {
                 "message": "Η έναρξη διακόπηκε! Το παιχνίδι απαιτεί σύνδεση στο διαδύκτιο για να τρέξει.",
@@ -234,6 +238,7 @@
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
         "defaultWinePrefix": "Καθορισμός Φακέλου για νέα Προθήματα Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
@@ -246,6 +251,8 @@
         "log": {
             "copy-to-clipboard": "Αντιγραφή αρχείου καταγραφής στο πρόχειρο",
             "current-log": "Τρέχων Αρχείο Καταγραφής",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Τελευταίο Αρχείο Καταγραφής",
             "no-file": "Δεν βρέθηκε αρχείο σύνδεσης",
             "show-in-folder": "Εμφάνιση αρχείου καταγραφής στον φάκελο"

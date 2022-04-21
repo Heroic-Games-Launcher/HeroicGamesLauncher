@@ -130,7 +130,6 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({
-      filterText: '',
       epicLibrary,
       gogLibrary,
       gameUpdates: updates,
