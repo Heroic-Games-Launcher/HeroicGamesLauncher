@@ -238,6 +238,7 @@
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",
         "defaultWinePrefix": "Aseta kansio uusille Winen Prefixeille",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
         "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",

@@ -238,6 +238,7 @@
         "darktray": "Usar icona escura na bandexa do sistema",
         "default-install-path": "Ruta de instalación predeterminada",
         "defaultWinePrefix": "Estabelecer cartafol para os prefixos de Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Activar a presencia enriquecida de Discord",
         "egs-sync": "Sincronizar cos xogos instalados de Epic",
         "enableFSRHack": "Activar o hack de FSR (A versión de Wine debe soportalo)",

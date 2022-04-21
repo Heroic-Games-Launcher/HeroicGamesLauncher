@@ -172,6 +172,11 @@ function Settings() {
     toggle: toggleUnrealMarket,
     setOn: setShowUnrealMarket
   } = useToggle(false)
+  const {
+    on: disableController,
+    toggle: toggleDisableController,
+    setOn: setDisableController
+  } = useToggle(false)
 
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
@@ -234,6 +239,8 @@ function Settings() {
       setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
       setUseSteamRuntime(config.useSteamRuntime || false)
+      setDisableController(config.disableController || false)
+
       if (!isDefault) {
         const {
           title: gameTitle,
@@ -267,6 +274,7 @@ function Settings() {
     darkTrayIcon,
     defaultInstallPath,
     defaultWinePrefix,
+    disableController,
     discordRPC,
     egsLinkedPath,
     enableEsync,
@@ -377,6 +385,8 @@ function Settings() {
               showUnrealMarket={showUnrealMarket}
               minimizeOnLaunch={minimizeOnLaunch}
               toggleMinimizeOnLaunch={toggleMinimizeOnLaunch}
+              disableController={disableController}
+              toggleDisableController={toggleDisableController}
             />
           )}
           {isWineSettings && (
