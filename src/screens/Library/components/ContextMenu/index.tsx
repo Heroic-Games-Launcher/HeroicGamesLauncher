@@ -54,9 +54,11 @@ export default function ContextMenu({ children, items }: Props) {
         }
       >
         {items.map(
-          ({ label, onclick, show }) =>
+          ({ label, onclick, show }, i) =>
             show && (
-              <MenuItem onClick={() => handleClick(onclick)}>{label}</MenuItem>
+              <MenuItem key={i} onClick={() => handleClick(onclick)}>
+                {label}
+              </MenuItem>
             )
         )}
       </Menu>
