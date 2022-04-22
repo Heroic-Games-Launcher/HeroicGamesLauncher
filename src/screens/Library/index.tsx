@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const Library = ({ library, showRecentsOnly }: Props) => {
-  const { layout, gameUpdates, refreshing, category, filter } =
+  const { layout, libraryStatus, gameUpdates, refreshing, category, filter } =
     useContext(ContextProvider)
   const [showModal, setShowModal] = useState({
     game: '',
@@ -73,6 +73,25 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     )
   }
 
+  let list = library
+
+  // installed games listed first
+  if (!showRecentsOnly) {
+    const installing = libraryStatus
+      .filter((st) => st.status === 'installing')
+      .map((st) => st.appName)
+
+    list = library.sort((g1, g2) => {
+      if (g1.is_installed) return -1
+
+      if (g2.is_installed) return 1
+
+      if (installing.includes(g1.app_name)) return -1
+
+      return 1
+    })
+  }
+
   return (
     <>
       {showModal.show && (
@@ -95,7 +114,7 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
         })}
       >
         {!!library.length &&
-          library.map(
+          list.map(
             ({
               title,
               art_square,

@@ -238,6 +238,7 @@
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
         "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Bật tính năng Discord Rich Presence",
         "egs-sync": "Đồng bộ với Game Epic đã cài",
         "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",

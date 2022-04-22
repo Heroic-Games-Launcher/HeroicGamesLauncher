@@ -1,7 +1,7 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SearchBar } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
@@ -18,22 +18,12 @@ export default function Header({ numberOfGames }: HeaderProps) {
   const {
     category,
     filter,
-    gameUpdates = [],
-    libraryStatus,
     handleFilter,
     filterPlatform,
     handlePlatformFilter,
     platform
   } = useContext(ContextProvider)
 
-  const hasDownloads = useMemo(
-    () =>
-      libraryStatus.filter(
-        (game) => game.status === 'installing' || game.status === 'updating'
-      ).length !== 0,
-    [libraryStatus]
-  )
-  const hasUpdates = gameUpdates.length !== 0
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
@@ -97,35 +87,6 @@ export default function Header({ numberOfGames }: HeaderProps) {
               )}
             </FormControl>
           )}
-          <FormControl select>
-            <select
-              id="games-filter"
-              className="FormControl__select"
-              onChange={(e) => handleFilter(e.target.value)}
-              value={filter}
-              data-testid="games-filter"
-            >
-              <option data-testid="all" value="all">
-                {t('filter.noFilter', 'No Filter')}
-              </option>
-              <option data-testid="installed" value="installed">
-                {t('Ready')}
-              </option>
-              <option data-testid="uninstalled" value="uninstalled">
-                {t('Not Ready')}
-              </option>
-              {hasDownloads && (
-                <option data-testid="downloading" value="downloading">
-                  {`${t('Downloading')} (${hasDownloads})`}
-                </option>
-              )}
-              {hasUpdates && (
-                <option data-testid="updates" value="updates">
-                  {`${t('Updates', 'Updates')} (${hasUpdates})`}
-                </option>
-              )}
-            </select>
-          </FormControl>
         </div>
       )}
       {category === 'unreal' && (

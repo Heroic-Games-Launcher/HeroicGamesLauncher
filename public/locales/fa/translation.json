@@ -238,6 +238,7 @@
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "فعالسازی Discord Rich Presence",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",

@@ -238,6 +238,7 @@
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
         "defaultWinePrefix": "Määrake uute Wine'i prefikside jaoks kaust",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Luba Discord Rich Presence",
         "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
