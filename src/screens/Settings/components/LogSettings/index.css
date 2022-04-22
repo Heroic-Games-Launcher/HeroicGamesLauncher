@@ -37,6 +37,8 @@
   margin-block: 0;
   min-height: 1em;
   height: max-content;
+  white-space: pre;
+  font-family: monospace;
 }
 
 .log-error {
