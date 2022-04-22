@@ -209,15 +209,20 @@ function setupEnvVars(gameSettings: GameSettings) {
 /**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
- * @returns A big string of environment variables, structured key=value
+ * @returns A Record that can be passed to execAsync/spawn
  */
 function setupWineEnvVars(gameSettings: GameSettings) {
-  let ret: Record<string, string> = {}
   const { wineVersion } = gameSettings
 
-  if (gameSettings.wineCrossoverBottle && wineVersion.type === 'crossover') {
-    ret.CX_BOTTLE = gameSettings.wineCrossoverBottle
+  // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
+  const ret: Record<string, string> = {
+    ...getWineEnvSetup(
+      wineVersion,
+      gameSettings.winePrefix,
+      gameSettings.wineCrossoverBottle
+    )
   }
+
   if (gameSettings.showFps) {
     ret.DXVK_HUD = 'fps'
   }
@@ -233,9 +238,6 @@ function setupWineEnvVars(gameSettings: GameSettings) {
   }
   if (gameSettings.enableResizableBar) {
     ret.VKD3D_CONFIG = 'upload_hvv'
-  }
-  if (wineVersion.type === 'proton') {
-    ret = { ...ret, ...getWineEnvSetup(wineVersion, gameSettings.winePrefix) }
   }
   if (gameSettings.otherOptions) {
     gameSettings.otherOptions.split(' ').forEach((envKeyAndVar) => {
@@ -276,7 +278,11 @@ function setupWrappers(
 async function verifyWinePrefix(
   game: LegendaryGame | GOGGame
 ): Promise<{ res: ExecResult; updated: boolean }> {
-  const { winePrefix } = await game.getSettings()
+  const { winePrefix, wineVersion } = await game.getSettings()
+
+  if (wineVersion.type === 'crossover') {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
 
   if (!existsSync(winePrefix)) {
     mkdirSync(winePrefix, { recursive: true })
@@ -299,22 +305,29 @@ async function verifyWinePrefix(
 }
 
 /**
- * Returns appropriate environment variables for running either a Wine or Proton command
- * @returns The required environment variables (WINEPREFIX=... or STEAM_COMPAT_DATA_PATH=...)
+ * Returns appropriate environment variables for running a Wine/Proton/CX command
+ * @returns The required environment variables
  */
 function getWineEnvSetup(
   wineVersion: WineInstallation,
-  winePrefix: string
+  winePrefix: string,
+  cx_bottle?: string
 ): Record<string, string> {
-  const baseEnv = process.env
-  if (wineVersion.type === 'proton') {
-    const steamInstallPath = join(flatPakHome, '.steam', 'steam')
-    baseEnv.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
-    baseEnv.STEAM_COMPAT_DATA_PATH = winePrefix
-  } else {
-    baseEnv.WINEPREFIX = winePrefix
+  const ret: Record<string, string> = {}
+  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+
+  switch (wineVersion.type) {
+    case 'wine':
+      ret.WINEPREFIX = winePrefix
+      break
+    case 'proton':
+      ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
+      ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      break
+    case 'crossover':
+      ret.CX_BOTTLE = cx_bottle
   }
-  return baseEnv
+  return ret
 }
 
 function launchCleanup(rpcClient: RpcClient) {
@@ -332,7 +345,10 @@ async function runWineCommand(
 ) {
   const { wineVersion, winePrefix } = gameSettings
 
-  const env_vars = getWineEnvSetup(wineVersion, winePrefix)
+  const env_vars = {
+    ...process.env,
+    ...getWineEnvSetup(wineVersion, winePrefix)
+  }
 
   let additional_command = ''
   let wineBin = wineVersion.bin
