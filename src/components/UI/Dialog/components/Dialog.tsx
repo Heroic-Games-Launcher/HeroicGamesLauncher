@@ -1,7 +1,14 @@
-import React, { SyntheticEvent, useCallback, useEffect, useRef } from 'react'
+import React, {
+  ReactNode,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useRef
+} from 'react'
 
 export interface DialogProps {
   className?: string
+  children: ReactNode
   onClose: () => void
 }
 

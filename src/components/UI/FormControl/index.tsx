@@ -5,6 +5,7 @@ import React, { ReactNode } from 'react'
 import './index.css'
 
 export interface FormControlProps {
+  children: ReactNode
   className?: string
   select?: boolean
   segmented?: boolean
