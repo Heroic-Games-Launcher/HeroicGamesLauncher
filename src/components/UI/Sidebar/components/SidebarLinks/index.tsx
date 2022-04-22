@@ -90,8 +90,6 @@ export default function SidebarLinks() {
     }
   }, [])
 
-  console.log({ cloudsave: state?.hasCloudSave, appName, type, location })
-
   return (
     <div className="SidebarLinks Sidebar__section">
       <NavLink
@@ -222,6 +220,9 @@ export default function SidebarLinks() {
                 pathname: `/settings/${appName}/wine`,
                 state: { ...state, runner: state?.runner }
               }}
+              className={cx('Sidebar__item SidebarLinks__subItem', {
+                ['active']: category === 'wine'
+              })}
             >
               Wine
             </NavLink>
