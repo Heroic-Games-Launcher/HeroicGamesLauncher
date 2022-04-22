@@ -238,6 +238,7 @@
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
         "defaultWinePrefix": "새로운 Wine 접두사를 위한 폴더 설정",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presence 활성화",
         "egs-sync": "설치된 Epic Games와 동기화",
         "enableFSRHack": "FSR 활성화 (지원하는 Wine 버전을 사용해야 합니다)",

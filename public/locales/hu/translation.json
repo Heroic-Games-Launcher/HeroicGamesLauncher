@@ -238,6 +238,7 @@
         "darktray": "Sötét tálcaikon használata",
         "default-install-path": "Alapértelmezett telepítési útvonal",
         "defaultWinePrefix": "Mappa beállítása új Wine prefixeknek",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presence engedélyezése",
         "egs-sync": "Szinkronizálás a telepített Epic Gamesszel",
         "enableFSRHack": "FSR hack engedélyezése (a Wine verziónak támogatnia kell)",

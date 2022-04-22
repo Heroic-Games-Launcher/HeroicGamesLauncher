@@ -22,6 +22,8 @@ const SCROLL_REPEAT_DELAY = 50
  * For more documentation, check here https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Gamepad-Navigation
  */
 
+let controllerIsDisabled = false
+
 export const initGamepad = () => {
   // store the current controllers
   let controllers: number[] = []
@@ -58,6 +60,8 @@ export const initGamepad = () => {
     pressed: boolean,
     controllerIndex: number
   ) {
+    if (controllerIsDisabled) return
+
     if (!heroicIsFocused) {
       // ignore gamepad events if heroic is not the focused app
       //
@@ -294,4 +298,12 @@ export const initGamepad = () => {
 
   window.addEventListener('gamepadconnected', connecthandler)
   window.addEventListener('gamepaddisconnected', disconnecthandler)
+}
+
+export const toggleControllerIsDisabled = (value: boolean | undefined) => {
+  if (value !== undefined) {
+    controllerIsDisabled = value
+  } else {
+    controllerIsDisabled = !controllerIsDisabled
+  }
 }

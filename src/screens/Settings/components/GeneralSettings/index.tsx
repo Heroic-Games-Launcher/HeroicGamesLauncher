@@ -11,6 +11,7 @@ import classNames from 'classnames'
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -21,6 +22,7 @@ const storage: Storage = window.localStorage
 interface Props {
   darkTrayIcon: boolean
   defaultInstallPath: string
+  disableController: boolean
   egsLinkedPath: string
   egsPath: string
   exitToTray: boolean
@@ -35,6 +37,7 @@ interface Props {
   setMaxWorkers: (value: number) => void
   startInTray: boolean
   toggleDarkTrayIcon: () => void
+  toggleDisableController: () => void
   toggleStartInTray: () => void
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
@@ -60,8 +63,10 @@ export default function GeneralSettings({
   setMaxWorkers,
   darkTrayIcon,
   toggleDarkTrayIcon,
+  minimizeOnLaunch,
   toggleMinimizeOnLaunch,
-  minimizeOnLaunch
+  disableController,
+  toggleDisableController
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
@@ -341,6 +346,27 @@ export default function GeneralSettings({
             title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           />
           <span>{t('setting.darktray', 'Use Dark Tray Icon')}</span>
+        </label>
+      </span>
+      <span className="setting">
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <ToggleSwitch
+            value={disableController}
+            handleChange={() => {
+              toggleDisableController()
+              toggleControllerIsDisabled(!disableController)
+            }}
+            title={t(
+              'setting.disable_controller',
+              'Disable Heroic navigation using controller'
+            )}
+          />
+          <span>
+            {t(
+              'setting.disable_controller',
+              'Disable Heroic navigation using controller'
+            )}
+          </span>
         </label>
       </span>
       <span className="setting">

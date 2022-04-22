@@ -238,6 +238,7 @@
         "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie pad",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "\"Discord Rich Presence\" inschakelen",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
         "enableFSRHack": "FSR Hack inschakelen (Wine versie moet dit ondersteunen)",

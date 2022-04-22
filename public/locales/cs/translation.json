@@ -238,6 +238,7 @@
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Povolit Discord Rich Presence",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",

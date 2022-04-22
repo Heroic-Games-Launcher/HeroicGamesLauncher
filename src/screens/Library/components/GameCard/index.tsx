@@ -13,12 +13,12 @@ import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
 import { getProgress, install, launch, sendKill } from 'src/helpers'
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
 import { SvgButton } from 'src/components/UI'
+import ContextMenu, { Item } from '../ContextMenu'
 
 const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
@@ -72,6 +72,7 @@ const GameCard = ({
         folder: ''
       } as InstallProgress)
   )
+
   const { t } = useTranslation('gamepage')
 
   const { libraryStatus, layout, handleGameStatus, platform } =
@@ -101,33 +102,6 @@ const GameCard = ({
     isWin || isMacNative || isLinuxNative
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
-
-  useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling) {
-        const progress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        setProgress(progress)
-      }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [isInstalling, appName])
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -219,9 +193,85 @@ const GameCard = ({
     return null
   }
 
+  useEffect(() => {
+    const progressInterval = setInterval(async () => {
+      if (isInstalling) {
+        const progress = await ipcRenderer.invoke(
+          'requestGameProgress',
+          appName,
+          runner
+        )
+
+        if (progress) {
+          if (previousProgress) {
+            const legendaryPercent = getProgress(progress)
+            const heroicPercent = getProgress(previousProgress)
+            const newPercent: number = Math.round(
+              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
+            )
+            progress.percent = `${newPercent}%`
+          }
+          return setProgress(progress)
+        }
+
+        setProgress(progress)
+      }
+    }, 1500)
+    return () => clearInterval(progressInterval)
+  }, [isInstalling, appName])
+
+  const items: Item[] = [
+    {
+      label: t('label.playing.start'),
+      onclick: () => handlePlay(runner),
+      show: isInstalled
+    },
+    {
+      label: t('submenu.settings'),
+      onclick: () =>
+        history.push({
+          pathname: path,
+          state: {
+            fromGameCard: true,
+            runner,
+            hasCloudSave,
+            isLinuxNative,
+            isMacNative
+          }
+        }),
+      show: isInstalled
+    },
+    {
+      label: t('button.update', 'Update'),
+      onclick: () => handleUpdate(),
+      show: hasUpdate
+    },
+    {
+      label: t('button.uninstall'),
+      onclick: () =>
+        uninstall({
+          appName,
+          handleGameStatus,
+          t,
+          runner
+        }),
+      show: isInstalled
+    },
+    {
+      label: t('button.install'),
+      onclick: () => (!hasDownloads ? buttonClick() : () => null),
+      show: !isInstalled && !isInstalling
+    },
+    {
+      label: t('button.cancel'),
+      onclick: () => handlePlay(runner),
+      show: isInstalling
+    }
+  ]
+
   return (
     <>
-      <ContextMenuTrigger id={appName} attributes={{ tabIndex: -1 }}>
+      <ContextMenu items={items}>
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
@@ -244,74 +294,34 @@ const GameCard = ({
           <span className="gameListInfo">{isInstalled ? size : '---'}</span>
           <span className="gameTitle">{title}</span>
           {
-            <span className="icons">
-              {renderIcon()}
-              {isInstalled && isGame && (
-                <SvgButton
-                  onClick={() =>
-                    history.push({
-                      pathname: path,
-                      state: {
-                        fromGameCard: true,
-                        runner,
-                        hasCloudSave,
-                        isLinuxNative,
-                        isMacNative
+            <>
+              <span className="icons">
+                {renderIcon()}
+                {isInstalled && isGame && (
+                  <>
+                    <SvgButton
+                      onClick={() =>
+                        history.push({
+                          pathname: path,
+                          state: {
+                            fromGameCard: true,
+                            runner,
+                            hasCloudSave,
+                            isLinuxNative,
+                            isMacNative
+                          }
+                        })
                       }
-                    })
-                  }
-                >
-                  <SettingsIcon fill={'var(--text-default)'} />
-                </SvgButton>
-              )}
-            </span>
+                    >
+                      <SettingsIcon fill={'var(--text-default)'} />
+                    </SvgButton>
+                  </>
+                )}
+              </span>
+            </>
           }
         </div>
-        <ContextMenu id={appName} className="contextMenu">
-          {isInstalled && (
-            <>
-              <MenuItem onClick={() => handlePlay(runner)}>
-                {t('label.playing.start')}
-              </MenuItem>
-              <MenuItem
-                onClick={() =>
-                  history.push({
-                    pathname: path,
-                    state: { fromGameCard: true, runner }
-                  })
-                }
-              >
-                {t('submenu.settings')}
-              </MenuItem>
-              {hasUpdate && (
-                <MenuItem onClick={() => handleUpdate()}>
-                  {t('button.update', 'Update')}
-                </MenuItem>
-              )}
-              <MenuItem
-                onClick={() =>
-                  uninstall({ appName, handleGameStatus, t, runner })
-                }
-              >
-                {t('button.uninstall')}
-              </MenuItem>
-            </>
-          )}
-          {!isInstalled && (
-            <MenuItem
-              className={hasDownloads ? 'menuItem disabled' : 'menuItem'}
-              onClick={() => (!hasDownloads ? buttonClick() : () => null)}
-            >
-              {t('button.install')}
-            </MenuItem>
-          )}
-          {isInstalling && (
-            <MenuItem onClick={() => handlePlay(runner)}>
-              {t('button.cancel')}
-            </MenuItem>
-          )}
-        </ContextMenu>
-      </ContextMenuTrigger>
+      </ContextMenu>
     </>
   )
 

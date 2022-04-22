@@ -238,6 +238,7 @@
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
         "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
