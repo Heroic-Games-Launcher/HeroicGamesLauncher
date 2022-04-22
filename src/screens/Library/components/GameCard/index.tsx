@@ -13,7 +13,8 @@ import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
 import { getProgress, install, launch, sendKill } from 'src/helpers'
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
@@ -221,97 +222,95 @@ const GameCard = ({
 
   return (
     <>
-      <ContextMenuTrigger id={appName} attributes={{ tabIndex: -1 }}>
-        <div className={wrapperClasses}>
-          {haveStatus && <span className="progress">{getStatus()}</span>}
-          <Link
-            to={{
-              pathname: `/gameconfig/${appName}`
-            }}
-            style={
-              { '--installing-effect': installingGrayscale } as CSSProperties
-            }
-          >
-            <img src={imageSrc} className={imgClasses} alt="cover" />
-            {logo && (
-              <img
-                alt="logo"
-                src={`${logo}?h=400&resize=1&w=300`}
-                className={logoClasses}
-              />
-            )}
-          </Link>
-          <span className="gameListInfo">{isInstalled ? size : '---'}</span>
-          <span className="gameTitle">{title}</span>
-          {
-            <span className="icons">
-              {renderIcon()}
-              {isInstalled && isGame && (
-                <SvgButton
-                  onClick={() =>
-                    history.push({
-                      pathname: path,
-                      state: {
-                        fromGameCard: true,
-                        runner,
-                        hasCloudSave,
-                        isLinuxNative,
-                        isMacNative
-                      }
-                    })
-                  }
-                >
-                  <SettingsIcon fill={'var(--text-default)'} />
-                </SvgButton>
-              )}
-            </span>
+      <div className={wrapperClasses}>
+        {haveStatus && <span className="progress">{getStatus()}</span>}
+        <Link
+          to={{
+            pathname: `/gameconfig/${appName}`
+          }}
+          style={
+            { '--installing-effect': installingGrayscale } as CSSProperties
           }
-        </div>
-        <ContextMenu id={appName} className="contextMenu">
-          {isInstalled && (
-            <>
-              <MenuItem onClick={() => handlePlay(runner)}>
-                {t('label.playing.start')}
-              </MenuItem>
-              <MenuItem
+        >
+          <img src={imageSrc} className={imgClasses} alt="cover" />
+          {logo && (
+            <img
+              alt="logo"
+              src={`${logo}?h=400&resize=1&w=300`}
+              className={logoClasses}
+            />
+          )}
+        </Link>
+        <span className="gameListInfo">{isInstalled ? size : '---'}</span>
+        <span className="gameTitle">{title}</span>
+        {
+          <span className="icons">
+            {renderIcon()}
+            {isInstalled && isGame && (
+              <SvgButton
                 onClick={() =>
                   history.push({
                     pathname: path,
-                    state: { fromGameCard: true, runner }
+                    state: {
+                      fromGameCard: true,
+                      runner,
+                      hasCloudSave,
+                      isLinuxNative,
+                      isMacNative
+                    }
                   })
                 }
               >
-                {t('submenu.settings')}
-              </MenuItem>
-              {hasUpdate && (
-                <MenuItem onClick={() => handleUpdate()}>
-                  {t('button.update', 'Update')}
-                </MenuItem>
-              )}
-              <MenuItem
-                onClick={() =>
-                  uninstall({ appName, handleGameStatus, t, runner })
-                }
-              >
-                {t('button.uninstall')}
-              </MenuItem>
-            </>
-          )}
-          {!isInstalled && (
-            <MenuItem
-              className={hasDownloads ? 'menuItem disabled' : 'menuItem'}
-              onClick={() => (!hasDownloads ? buttonClick() : () => null)}
-            >
-              {t('button.install')}
-            </MenuItem>
-          )}
-          {isInstalling && (
+                <SettingsIcon fill={'var(--text-default)'} />
+              </SvgButton>
+            )}
+          </span>
+        }
+      </div>
+      <Menu open id={appName} className="contextMenu">
+        {isInstalled && (
+          <>
             <MenuItem onClick={() => handlePlay(runner)}>
-              {t('button.cancel')}
+              {t('label.playing.start')}
             </MenuItem>
-          )}
-        </ContextMenu>
-      </ContextMenuTrigger>
+            <MenuItem
+              onClick={() =>
+                history.push({
+                  pathname: path,
+                  state: { fromGameCard: true, runner }
+                })
+              }
+            >
+              {t('submenu.settings')}
+            </MenuItem>
+            {hasUpdate && (
+              <MenuItem onClick={() => handleUpdate()}>
+                {t('button.update', 'Update')}
+              </MenuItem>
+            )}
+            <MenuItem
+              onClick={() =>
+                uninstall({ appName, handleGameStatus, t, runner })
+              }
+            >
+              {t('button.uninstall')}
+            </MenuItem>
+          </>
+        )}
+        {!isInstalled && (
+          <MenuItem
+            className={hasDownloads ? 'menuItem disabled' : 'menuItem'}
+            onClick={() => (!hasDownloads ? buttonClick() : () => null)}
+          >
+            {t('button.install')}
+          </MenuItem>
+        )}
+        {isInstalling && (
+          <MenuItem onClick={() => handlePlay(runner)}>
+            {t('button.cancel')}
+          </MenuItem>
+        )}
+      </Menu>
     </>
   )
 
