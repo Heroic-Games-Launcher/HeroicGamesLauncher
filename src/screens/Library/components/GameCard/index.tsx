@@ -13,13 +13,12 @@ import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
 import { getProgress, install, launch, sendKill } from 'src/helpers'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
 import { SvgButton } from 'src/components/UI'
+import ContextMenu, { Item } from '../ContextMenu'
 
 const { ipcRenderer } = window.require('electron')
 const storage: Storage = window.localStorage
@@ -73,6 +72,7 @@ const GameCard = ({
         folder: ''
       } as InstallProgress)
   )
+
   const { t } = useTranslation('gamepage')
 
   const { libraryStatus, layout, handleGameStatus, platform } =
@@ -102,33 +102,6 @@ const GameCard = ({
     isWin || isMacNative || isLinuxNative
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
-
-  useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling) {
-        const progress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        setProgress(progress)
-      }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [isInstalling, appName])
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -220,97 +193,135 @@ const GameCard = ({
     return null
   }
 
+  useEffect(() => {
+    const progressInterval = setInterval(async () => {
+      if (isInstalling) {
+        const progress = await ipcRenderer.invoke(
+          'requestGameProgress',
+          appName,
+          runner
+        )
+
+        if (progress) {
+          if (previousProgress) {
+            const legendaryPercent = getProgress(progress)
+            const heroicPercent = getProgress(previousProgress)
+            const newPercent: number = Math.round(
+              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
+            )
+            progress.percent = `${newPercent}%`
+          }
+          return setProgress(progress)
+        }
+
+        setProgress(progress)
+      }
+    }, 1500)
+    return () => clearInterval(progressInterval)
+  }, [isInstalling, appName])
+
+  const items: Item[] = [
+    {
+      label: t('label.playing.start'),
+      onclick: () => handlePlay(runner),
+      show: isInstalled
+    },
+    {
+      label: t('submenu.settings'),
+      onclick: () =>
+        history.push({
+          pathname: path,
+          state: {
+            fromGameCard: true,
+            runner,
+            hasCloudSave,
+            isLinuxNative,
+            isMacNative
+          }
+        }),
+      show: isInstalled
+    },
+    {
+      label: t('button.update', 'Update'),
+      onclick: () => handleUpdate(),
+      show: hasUpdate
+    },
+    {
+      label: t('button.uninstall'),
+      onclick: () =>
+        uninstall({
+          appName,
+          handleGameStatus,
+          t,
+          runner
+        }),
+      show: isInstalled
+    },
+    {
+      label: t('button.install'),
+      onclick: () => (!hasDownloads ? buttonClick() : () => null),
+      show: !isInstalled && !isInstalling
+    },
+    {
+      label: t('button.cancel'),
+      onclick: () => handlePlay(runner),
+      show: isInstalling
+    }
+  ]
+
   return (
     <>
-      <div className={wrapperClasses}>
-        {haveStatus && <span className="progress">{getStatus()}</span>}
-        <Link
-          to={{
-            pathname: `/gameconfig/${appName}`
-          }}
-          style={
-            { '--installing-effect': installingGrayscale } as CSSProperties
-          }
-        >
-          <img src={imageSrc} className={imgClasses} alt="cover" />
-          {logo && (
-            <img
-              alt="logo"
-              src={`${logo}?h=400&resize=1&w=300`}
-              className={logoClasses}
-            />
-          )}
-        </Link>
-        <span className="gameListInfo">{isInstalled ? size : '---'}</span>
-        <span className="gameTitle">{title}</span>
-        {
-          <span className="icons">
-            {renderIcon()}
-            {isInstalled && isGame && (
-              <SvgButton
-                onClick={() =>
-                  history.push({
-                    pathname: path,
-                    state: {
-                      fromGameCard: true,
-                      runner,
-                      hasCloudSave,
-                      isLinuxNative,
-                      isMacNative
-                    }
-                  })
-                }
-              >
-                <SettingsIcon fill={'var(--text-default)'} />
-              </SvgButton>
-            )}
-          </span>
-        }
-      </div>
-      <Menu open id={appName} className="contextMenu">
-        {isInstalled && (
-          <>
-            <MenuItem onClick={() => handlePlay(runner)}>
-              {t('label.playing.start')}
-            </MenuItem>
-            <MenuItem
-              onClick={() =>
-                history.push({
-                  pathname: path,
-                  state: { fromGameCard: true, runner }
-                })
-              }
-            >
-              {t('submenu.settings')}
-            </MenuItem>
-            {hasUpdate && (
-              <MenuItem onClick={() => handleUpdate()}>
-                {t('button.update', 'Update')}
-              </MenuItem>
-            )}
-            <MenuItem
-              onClick={() =>
-                uninstall({ appName, handleGameStatus, t, runner })
-              }
-            >
-              {t('button.uninstall')}
-            </MenuItem>
-          </>
-        )}
-        {!isInstalled && (
-          <MenuItem
-            className={hasDownloads ? 'menuItem disabled' : 'menuItem'}
-            onClick={() => (!hasDownloads ? buttonClick() : () => null)}
+      <ContextMenu items={items}>
+        <div className={wrapperClasses}>
+          {haveStatus && <span className="progress">{getStatus()}</span>}
+          <Link
+            to={{
+              pathname: `/gameconfig/${appName}`
+            }}
+            style={
+              { '--installing-effect': installingGrayscale } as CSSProperties
+            }
           >
-            {t('button.install')}
-          </MenuItem>
-        )}
-        {isInstalling && (
-          <MenuItem onClick={() => handlePlay(runner)}>
-            {t('button.cancel')}
-          </MenuItem>
-        )}
-      </Menu>
+            <img src={imageSrc} className={imgClasses} alt="cover" />
+            {logo && (
+              <img
+                alt="logo"
+                src={`${logo}?h=400&resize=1&w=300`}
+                className={logoClasses}
+              />
+            )}
+          </Link>
+          <span className="gameListInfo">{isInstalled ? size : '---'}</span>
+          <span className="gameTitle">{title}</span>
+          {
+            <>
+              <span className="icons">
+                {renderIcon()}
+                {isInstalled && isGame && (
+                  <>
+                    <SvgButton
+                      onClick={() =>
+                        history.push({
+                          pathname: path,
+                          state: {
+                            fromGameCard: true,
+                            runner,
+                            hasCloudSave,
+                            isLinuxNative,
+                            isMacNative
+                          }
+                        })
+                      }
+                    >
+                      <SettingsIcon fill={'var(--text-default)'} />
+                    </SvgButton>
+                  </>
+                )}
+              </span>
+            </>
+          }
+        </div>
+      </ContextMenu>
     </>
   )
 
