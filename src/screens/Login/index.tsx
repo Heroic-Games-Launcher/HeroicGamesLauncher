@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
 import EpicLogo from '../../assets/epic-logo.svg'
 import Runner from './components/Runner'
-import ElectronStore from 'electron-store'
 import { useTranslation } from 'react-i18next'
 import cx from 'classnames'
 import { useHistory } from 'react-router'
@@ -12,9 +11,9 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { LanguageSelector, UpdateComponent } from 'src/components/UI'
 import { FlagPosition } from 'src/components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
+import { configStore, gogConfigStore } from 'src/helpers/electron_stores'
 
 const { ipcRenderer } = window.require('electron')
-const Store = window.require('electron-store')
 
 const storage: Storage = window.localStorage
 export default function NewLogin() {
@@ -32,16 +31,10 @@ export default function NewLogin() {
   const [showSidLogin, setShowSidLogin] = useState(false)
 
   function refreshUserInfo() {
-    const configStore: ElectronStore = new Store({
-      cwd: 'store'
-    })
-    const gogStore: ElectronStore = new Store({
-      cwd: 'gog_store'
-    })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setEpicLogin(configStore.get('userInfo') as any)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setGOGLogin(gogStore.get('userData') as any)
+    setGOGLogin(gogConfigStore.get('userData') as any)
   }
 
   function eventHandler() {
@@ -98,7 +91,7 @@ export default function NewLogin() {
           <Runner
             class="epic"
             loginUrl="/login/legendary"
-            icon={() => <img src={EpicLogo} />}
+            icon={() => <img src={EpicLogo} alt="Epic" />}
             isLoggedIn={Boolean(epicLogin)}
             user={epicLogin}
             refresh={refreshUserInfo}
@@ -113,7 +106,7 @@ export default function NewLogin() {
           />
           <Runner
             class="gog"
-            icon={() => <img src={GOGLogo} />}
+            icon={() => <img src={GOGLogo} alt="GOG" />}
             loginUrl="/login/gog"
             isLoggedIn={Boolean(gogLogin)}
             user={gogLogin}

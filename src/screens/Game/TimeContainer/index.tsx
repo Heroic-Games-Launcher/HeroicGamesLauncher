@@ -1,17 +1,11 @@
 import * as React from 'react'
 
 import { useTranslation } from 'react-i18next'
-import ElectronStore from 'electron-store'
 
 import { SmallInfo } from 'src/components/UI'
+import { timestampStore } from 'src/helpers/electron_stores'
 
 import './index.css'
-
-const Store = window.require('electron-store')
-const store: ElectronStore = new Store({
-  cwd: 'store',
-  name: 'timestamp'
-})
 
 type Props = {
   game: string
@@ -25,7 +19,7 @@ type TimeStamp = {
 
 function TimeContainer({ game }: Props) {
   const { t } = useTranslation('gamepage')
-  const hasPlayed = store.has(game)
+  const hasPlayed = timestampStore.has(game)
 
   if (!hasPlayed) {
     return (
@@ -36,7 +30,7 @@ function TimeContainer({ game }: Props) {
     )
   }
 
-  const tsInfo = store.get(game) as TimeStamp
+  const tsInfo = timestampStore.get(game) as TimeStamp
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'numeric',

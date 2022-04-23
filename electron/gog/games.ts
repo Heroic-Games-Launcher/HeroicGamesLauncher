@@ -27,6 +27,7 @@ import {
   isMac,
   isLinux
 } from '../constants'
+import { configStore, installedGamesStore } from '../gog/electron_stores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { execAsync } from '../utils'
 import { GOGUser } from './user'
@@ -34,15 +35,6 @@ import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { getGogdlCommand, runGogdlCommand } from './library'
-
-const configStore = new Store({
-  cwd: 'gog_store'
-})
-
-const installedGamesStore = new Store({
-  cwd: 'gog_store',
-  name: 'installed'
-})
 
 class GOGGame extends Game {
   public appName: string

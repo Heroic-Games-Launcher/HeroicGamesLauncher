@@ -7,12 +7,12 @@ import {
 } from '@mui/icons-material'
 import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
-import ElectronStore from 'electron-store'
 import { useTranslation } from 'react-i18next'
 import React, { useContext, useEffect, useState } from 'react'
 import { SvgButton } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import { AppSettings, Path } from 'src/types'
+import { configStore } from 'src/helpers/electron_stores'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -28,11 +28,6 @@ interface Props {
   setAltGogdlBin: (value: string) => void
   settingsToSave: AppSettings
 }
-
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
 
 export const AdvancedSettings = ({
   altLegendaryBin,

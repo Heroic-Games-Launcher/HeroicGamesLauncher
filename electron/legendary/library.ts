@@ -38,20 +38,10 @@ import {
   LogPrefix,
   logWarning
 } from '../logger/logger'
-import Store from 'electron-store'
 import { GlobalConfig } from '../config'
 import { join } from 'path'
 import { spawn } from 'child_process'
-
-const libraryStore = new Store({
-  cwd: 'lib-cache',
-  name: 'library'
-})
-
-const installStore = new Store({
-  cwd: 'lib-cache',
-  name: 'installInfo'
-})
+import { installStore, libraryStore } from './electron_stores'
 
 /**
  * Legendary LegendaryLibrary.

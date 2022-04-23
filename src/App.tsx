@@ -4,12 +4,11 @@ import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { Library } from 'src/screens/Library'
 import ContextProvider from 'src/state/ContextProvider'
-import ElectronStore from 'electron-store'
 import Sidebar from 'src/components/UI/Sidebar'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
 
-const Store = window.require('electron-store')
+import { configStore, gogConfigStore } from './helpers/electron_stores'
 
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
@@ -17,16 +16,10 @@ const Header = lazy(() => import('./components/UI/Header'))
 const WineManager = lazy(() => import('./screens/WineManager'))
 
 function App() {
-  const context = useContext(ContextProvider)
-  const configStore: ElectronStore = new Store({
-    cwd: 'store'
-  })
-  const gogStore: ElectronStore = new Store({
-    cwd: 'gog_store'
-  })
+  const { epicLibrary, gogLibrary, recentGames, category } =
+    useContext(ContextProvider)
 
-  const user = configStore.has('userInfo') || gogStore.has('credentials')
-  const { epicLibrary, gogLibrary, recentGames, category } = context
+  const user = configStore.has('userInfo') || gogConfigStore.has('credentials')
 
   const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
   const numberOfGames =

@@ -5,8 +5,9 @@
  *        error equals console.error
  */
 import { openSync, readdirSync, unlinkSync, appendFileSync } from 'graceful-fs'
-import Store from 'electron-store'
+
 import {
+  configStore,
   currentLogFile,
   heroicGamesConfigPath,
   lastLogFile
@@ -28,9 +29,6 @@ export enum LogPrefix {
 }
 
 let longestPrefix = 0
-const configStore = new Store({
-  cwd: 'store'
-})
 
 // helper to convert string to string[]
 function convertToStringArray(param: string | string[]): string[] {

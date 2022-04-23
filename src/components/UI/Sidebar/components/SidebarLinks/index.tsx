@@ -7,22 +7,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
-import ElectronStore from 'electron-store'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useHistory, useLocation } from 'react-router-dom'
 import { getAppSettings } from 'src/helpers'
+import { configStore, gogConfigStore } from 'src/helpers/electron_stores'
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner } from 'src/types'
 import './index.css'
-
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
-const gogStore: ElectronStore = new Store({
-  cwd: 'gog_store'
-})
 
 interface LocationState {
   fromGameCard: boolean
@@ -62,7 +54,7 @@ export default function SidebarLinks() {
   const shouldRenderWineSettings = !isWin && !isMacGame && !isLinuxGame
 
   const isEpicLoggedIn = Boolean(configStore.get('userInfo'))
-  const isGOGLoggedIn = Boolean(gogStore.get('credentials'))
+  const isGOGLoggedIn = Boolean(gogConfigStore.get('credentials'))
   const showLibrarySubmenu =
     ((isEpicLoggedIn && isGOGLoggedIn) ||
       (isEpicLoggedIn && showUnrealMarket)) &&

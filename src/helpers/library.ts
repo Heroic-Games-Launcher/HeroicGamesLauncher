@@ -8,7 +8,7 @@ import {
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
-import ElectronStore from 'electron-store'
+import { configStore } from './electron_stores'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -299,10 +299,6 @@ type RecentGame = {
 
 function getRecentGames(library: GameInfo[]) {
   return library.filter((game) => {
-    const Store = window.require('electron-store')
-    const configStore: ElectronStore = new Store({
-      cwd: 'store'
-    })
     const recentGames: Array<RecentGame> =
       (configStore.get('games.recent') as Array<RecentGame>) || []
     const recentGamesList = recentGames.map((a) => a.appName) as string[]
