@@ -7,7 +7,7 @@ export function checkGameCube(
   checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
 ) {
   const A = buttons[0],
-    // X = buttons[1],
+    X = buttons[1],
     Y = buttons[2],
     B = buttons[3],
     // LT = buttons[4],
@@ -38,6 +38,7 @@ export function checkGameCube(
   checkAction('mainAction', A.pressed, controllerIndex)
   checkAction('back', B.pressed, controllerIndex)
   checkAction('altAction', Y.pressed, controllerIndex)
+  checkAction('rightClick', X.pressed, controllerIndex)
 }
 
 // Generic USB Joystick (Vendor: 0079 Product: 0006)
@@ -54,7 +55,7 @@ export function checkN64Clone1(
     // L = buttons[4],
     // R = buttons[5],
     A = buttons[6],
-    // Z = buttons[7],
+    Z = buttons[7],
     B = buttons[8],
     // Start = buttons[9],
     axisX = axes[0],
@@ -89,4 +90,5 @@ export function checkN64Clone1(
   checkAction('mainAction', A.pressed, controllerIndex)
   checkAction('back', B.pressed, controllerIndex)
   checkAction('altAction', CDown.pressed, controllerIndex)
+  checkAction('rightClick', Z.pressed, controllerIndex)
 }
