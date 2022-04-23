@@ -105,20 +105,17 @@
         "syncing": "同期しています",
         "unsync": "非同期"
     },
-    "Downloading": "ダウンロードしています",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "全体設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -170,7 +167,6 @@
         "unsync": "非同期が完了しました"
     },
     "nogames": "ゲームが見つかりません",
-    "Not Ready": "準備ができていません",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -221,7 +217,6 @@
     },
     "Plugins": "プラグイン",
     "Projects": "プロジェクト",
-    "Ready": "準備",
     "Recent": "最近のゲーム",
     "search": "ここにゲーム名を入力してください...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "表示する"
     },
     "Unreal Marketplace": "Unreal マーケットプレイス",
-    "Updates": "更新",
     "userselector": {
         "discord": "Discord",
         "logout": "ログアウト",

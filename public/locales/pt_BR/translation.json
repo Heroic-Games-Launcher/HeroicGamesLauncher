@@ -105,20 +105,17 @@
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
     },
-    "Downloading": "Baixando",
     "epic": {
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Sem Filtro"
-    },
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
-        "platform": "Plataforma"
+        "platform": "Plataforma",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -170,7 +167,6 @@
         "unsync": "Dessincronização Completa"
     },
     "nogames": "Nenhum Jogo Encontrado",
-    "Not Ready": "Não Instalados",
     "notify": {
         "error": {
             "move": "Error ao mover o jogo",
@@ -221,7 +217,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projetos",
-    "Ready": "Instalados",
     "Recent": "Jogados Recentemente",
     "search": "Insira o nome do jogo aqui…",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "Todos os Jogos",
         "allUnreal": "Unreal - Tudo",
-        "downloading": "Baixando",
-        "installedGames": "Jogos Instalados",
-        "notInstalledGames": "Não instalados",
         "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projetos",
-        "updates": "Atualizações pendentes"
+        "unrealProjects": "Unreal - Projetos"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "Mostrar"
     },
     "Unreal Marketplace": "Loja Unreal",
-    "Updates": "Atualizações",
     "userselector": {
         "discord": "Discord",
         "logout": "Sair",

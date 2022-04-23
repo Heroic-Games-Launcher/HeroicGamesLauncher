@@ -105,20 +105,17 @@
         "syncing": "싱크중",
         "unsync": "싱크 해제"
     },
-    "Downloading": "다운로드 중",
     "epic": {
         "offline-notification-body": "Epic Games 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "글로벌 설정",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "플랫폼"
+        "platform": "플랫폼",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Epic Games Launcher가 다른 곳에 설치되어 있고 게임을 가져와서 다시 다운로드하지 않으려면 Epic Games Launcher와 동기화 하십시오.",
@@ -170,7 +167,6 @@
         "unsync": "동기화 해제 완료"
     },
     "nogames": "게임이 발견되지 않았습니다",
-    "Not Ready": "준비되지 않음",
     "notify": {
         "error": {
             "move": "게임 이동 중 오류 발생",
@@ -221,7 +217,6 @@
     },
     "Plugins": "플러그인",
     "Projects": "프로젝트",
-    "Ready": "준비됨",
     "Recent": "최근 플레이한 게임",
     "search": "여기에 게임 이름을 입력 ...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "모든 게임",
         "allUnreal": "Unreal - Everything",
-        "downloading": "다운로드 중",
-        "installedGames": "설치된 게임",
-        "notInstalledGames": "설치되지 않음",
         "unrealAssets": "Unreal - 에셋",
         "unrealPlugins": "Unreal - 플러그인",
-        "unrealProjects": "Unreal - 프로젝트",
-        "updates": "보류 중인 업데이트"
+        "unrealProjects": "Unreal - 프로젝트"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "표시"
     },
     "Unreal Marketplace": "Unreal 마켓플레이스",
-    "Updates": "업데이트",
     "userselector": {
         "discord": "Discord",
         "logout": "로그아웃",

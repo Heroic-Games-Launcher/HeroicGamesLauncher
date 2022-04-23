@@ -105,20 +105,17 @@
         "syncing": "Menyinkronkan",
         "unsync": "Batalkan sinkronisasi"
     },
-    "Downloading": "Mengunduh",
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Tidak Ada Filter"
-    },
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "Platform"
+        "platform": "Platform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
@@ -170,7 +167,6 @@
         "unsync": "Pembatalan Sinkronisasi Selesai"
     },
     "nogames": "Tidak Ada Gim yang Ditemukan",
-    "Not Ready": "Belum Siap",
     "notify": {
         "error": {
             "move": "Galat dalam Memindahkan Gim",
@@ -221,7 +217,6 @@
     },
     "Plugins": "Plugin",
     "Projects": "Proyek",
-    "Ready": "Siap",
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Masukkan nama gim di sini...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "Semua Gim",
         "allUnreal": "Unreal - Semuanya",
-        "downloading": "Mengunduh",
-        "installedGames": "Gim Terpasang",
-        "notInstalledGames": "Tidak Terpasang",
         "unrealAssets": "Unreal - Aset",
         "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Proyek",
-        "updates": "Pembaruan Tertunda"
+        "unrealProjects": "Unreal - Proyek"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "Tampilkan"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Pembaruan",
     "userselector": {
         "discord": "Discord",
         "logout": "Log keluar",

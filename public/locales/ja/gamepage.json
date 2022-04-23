@@ -38,8 +38,10 @@
     "button": {
         "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
+        "hide_game": "Hide Game",
         "import": "インポート",
         "install": "インストール",
+        "unhide_game": "Unhide Game",
         "uninstall": "アンインストール",
         "update": "アップデート"
     },

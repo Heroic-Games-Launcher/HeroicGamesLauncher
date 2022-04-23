@@ -105,20 +105,17 @@
         "syncing": "正在同步",
         "unsync": "不同步"
     },
-    "Downloading": "正在下載",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "全域設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
@@ -170,7 +167,6 @@
         "unsync": "取消同步完成"
     },
     "nogames": "未找到遊戲",
-    "Not Ready": "尚未就緒",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -221,7 +217,6 @@
     },
     "Plugins": "外掛插件",
     "Projects": "專案",
-    "Ready": "準備就緒",
     "Recent": "最近的遊戲",
     "search": "在此處輸入遊戲名稱...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "顯示"
     },
     "Unreal Marketplace": "虛幻商城",
-    "Updates": "更新",
     "userselector": {
         "discord": "Discord",
         "logout": "登出",

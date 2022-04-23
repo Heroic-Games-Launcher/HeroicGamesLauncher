@@ -105,20 +105,17 @@
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás"
     },
-    "Downloading": "Letöltés",
     "epic": {
         "offline-notification-body": "Az online szolgáltatások lehet, hogy nem működnek teljesen, mert az Epic Games szerverek offline vannak!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Nincs szűrő"
-    },
     "globalSettings": "Globális beállítások",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "Platform"
+        "platform": "Platform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
@@ -170,7 +167,6 @@
         "unsync": "Deszinkronizálás befejezve"
     },
     "nogames": "Nem található játék",
-    "Not Ready": "Nincs kész",
     "notify": {
         "error": {
             "move": "Hiba a játék áthelyezésekor",
@@ -221,7 +217,6 @@
     },
     "Plugins": "Beépülők",
     "Projects": "Projektek",
-    "Ready": "Kész",
     "Recent": "Nemrég játszott",
     "search": "Add meg itt a játék nevét...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "Összes játék",
         "allUnreal": "Unreal - Minden",
-        "downloading": "Letöltés",
-        "installedGames": "Telepített játékok",
-        "notInstalledGames": "Nincs telepítve",
         "unrealAssets": "Unreal - Eszközök",
         "unrealPlugins": "Unreal - Bővítmények",
-        "unrealProjects": "Unreal - Projektek",
-        "updates": "Függőben lévő frissítések"
+        "unrealProjects": "Unreal - Projektek"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "Megjelenítés"
     },
     "Unreal Marketplace": "Unreal piactér",
-    "Updates": "Frissítések",
     "userselector": {
         "discord": "Discord",
         "logout": "Kijelentkezés",

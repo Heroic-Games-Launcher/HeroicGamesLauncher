@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
+        "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Cài đặt",
+        "unhide_game": "Unhide Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
     },

@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Pauzeren/Annuleren",
         "continue": "Doorgaan met Download",
+        "hide_game": "Hide Game",
         "import": "Importeren",
         "install": "Installeren",
+        "unhide_game": "Unhide Game",
         "uninstall": "Verwijderen",
         "update": "Update"
     },

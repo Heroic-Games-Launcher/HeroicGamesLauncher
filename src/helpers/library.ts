@@ -297,17 +297,17 @@ type RecentGame = {
   title: string
 }
 
+const Store = window.require('electron-store')
+const configStore: ElectronStore = new Store({
+  cwd: 'store'
+})
+
 function getRecentGames(library: GameInfo[]) {
-  return library.filter((game) => {
-    const Store = window.require('electron-store')
-    const configStore: ElectronStore = new Store({
-      cwd: 'store'
-    })
-    const recentGames: Array<RecentGame> =
-      (configStore.get('games.recent') as Array<RecentGame>) || []
-    const recentGamesList = recentGames.map((a) => a.appName) as string[]
-    return recentGamesList.includes(game.app_name)
-  })
+  const recentGames =
+    (configStore.get('games.recent') as Array<RecentGame>) || []
+  const recentGamesList = recentGames.map((a) => a.appName) as string[]
+
+  return library.filter((game) => recentGamesList.includes(game.app_name))
 }
 
 export {

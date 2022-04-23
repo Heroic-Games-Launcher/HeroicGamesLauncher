@@ -105,20 +105,17 @@
         "syncing": "Sincronizando",
         "unsync": "Desincronizar"
     },
-    "Downloading": "Descargando",
     "epic": {
         "offline-notification-body": "Os servizos en liña podería non funcionar correctamente xa que os servidores de Epic Games están sen conexión!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Non hai filtro"
-    },
     "globalSettings": "Preferencias globais",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "Plataforma"
+        "platform": "Plataforma",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sincronizar con EGS no caso que teña unha instalación funcional de Epic Games Launcher noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
@@ -170,7 +167,6 @@
         "unsync": "Desincronización completa"
     },
     "nogames": "Non se atoparon xogos",
-    "Not Ready": "Non está listo",
     "notify": {
         "error": {
             "move": "Erro ao mover o xogo",
@@ -221,7 +217,6 @@
     },
     "Plugins": "Engadidos",
     "Projects": "Proxectos",
-    "Ready": "Listo",
     "Recent": "Xogado recentemente",
     "search": "Escribe o nome do xogo aquí...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "Todos os xogos",
         "allUnreal": "Unreal - Todo",
-        "downloading": "Descargando",
-        "installedGames": "Xogos instalados",
-        "notInstalledGames": "Non instalados",
         "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Recursos - Engadidos",
-        "unrealProjects": "Unreal - Proxectos",
-        "updates": "Actualizacións pendentes"
+        "unrealProjects": "Unreal - Proxectos"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "Mostrar"
     },
     "Unreal Marketplace": "Tenda de Unreal",
-    "Updates": "Actualizacións",
     "userselector": {
         "discord": "Discord",
         "logout": "Pechar sesión",

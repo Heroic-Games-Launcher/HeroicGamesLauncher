@@ -105,20 +105,17 @@
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی"
     },
-    "Downloading": "در حال دانلود",
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
     "header": {
-        "platform": "پلتفرم"
+        "platform": "پلتفرم",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
@@ -170,7 +167,6 @@
         "unsync": "عدم همگامسازی کامل شد"
     },
     "nogames": "بازی یافت نشد",
-    "Not Ready": "آماده نمیباشد",
     "notify": {
         "error": {
             "move": "خطا در جابهجا کردن بازی",
@@ -221,7 +217,6 @@
     },
     "Plugins": "افزونهها",
     "Projects": "پروژهها",
-    "Ready": "آماده",
     "Recent": "اخیرا بازی شده",
     "search": "نام بازی را اینجا وارد کنید...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "همه بازیها",
         "allUnreal": "Unreal - همهچیز",
-        "downloading": "در حال دانلود",
-        "installedGames": "بازیهای نصب شده",
-        "notInstalledGames": "نصب نشده",
         "unrealAssets": "Unreal - مهرهها",
         "unrealPlugins": "Unreal - افزونهها",
-        "unrealProjects": "Unreal - پروژهها",
-        "updates": "آپدیتهای در حال انتظار"
+        "unrealProjects": "Unreal - پروژهها"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "نمایش"
     },
     "Unreal Marketplace": "بازار Unreal",
-    "Updates": "بهروزرسانیها",
     "userselector": {
         "discord": "Discord",
         "logout": "خروج از حساب",

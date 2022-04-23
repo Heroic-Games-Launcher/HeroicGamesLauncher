@@ -105,20 +105,17 @@
         "syncing": "",
         "unsync": ""
     },
-    "Downloading": "",
     "epic": {
         "offline-notification-body": "Heroic will maybe not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "",
@@ -170,7 +167,6 @@
         "unsync": ""
     },
     "nogames": "",
-    "Not Ready": "",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -221,7 +217,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projects",
-    "Ready": "",
     "Recent": "Played Recently",
     "search": "",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": ""
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Updates",
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",

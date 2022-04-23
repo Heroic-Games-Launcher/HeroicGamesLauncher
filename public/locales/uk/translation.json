@@ -105,20 +105,17 @@
         "syncing": "Синхронізую",
         "unsync": "Десинхронізувати"
     },
-    "Downloading": "Завантажую",
     "epic": {
         "offline-notification-body": "Heroic ймовірно не працюватиме!",
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Без фільтра"
-    },
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
     "header": {
-        "platform": ""
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
@@ -170,7 +167,6 @@
         "unsync": "Десинхронізація завершена"
     },
     "nogames": "Не знайдено ігор",
-    "Not Ready": "Неготові",
     "notify": {
         "error": {
             "move": "Помилка під час переміщення гри",
@@ -221,7 +217,6 @@
     },
     "Plugins": "Плаґіни",
     "Projects": "Проєкти",
-    "Ready": "Готові",
     "Recent": "Нещодавно зіграні",
     "search": "Вкажіть тут назву гри...",
     "setting": {
@@ -314,13 +309,9 @@
     "title": {
         "allGames": "Всі ігри",
         "allUnreal": "Unreal - Все",
-        "downloading": "Завантажую",
-        "installedGames": "Встановлені ігри",
-        "notInstalledGames": "Невстановлені",
         "unrealAssets": "Unreal - Ассети",
         "unrealPlugins": "Unreal - плаґіни",
-        "unrealProjects": "Unreal - проєкти",
-        "updates": "Очікувані оновлення"
+        "unrealProjects": "Unreal - проєкти"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +331,6 @@
         "show": "Показати"
     },
     "Unreal Marketplace": "Торговий майданчик Unreal",
-    "Updates": "Оновлення",
     "userselector": {
         "discord": "Діскорд",
         "logout": "Вийти",

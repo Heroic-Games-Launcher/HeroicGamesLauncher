@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { SearchBar } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
+import ToggleSwitch from '../ToggleSwitch'
 import { UE_VERSIONS } from './constants'
 import './index.css'
 
@@ -21,11 +22,17 @@ export default function Header({ numberOfGames }: HeaderProps) {
     handleFilter,
     filterPlatform,
     handlePlatformFilter,
-    platform
+    platform,
+    showHidden,
+    setShowHidden
   } = useContext(ContextProvider)
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+
+  const toggleShowHidden = () => {
+    setShowHidden(!showHidden)
+  }
 
   return (
     <div className="Header">
@@ -137,6 +144,14 @@ export default function Header({ numberOfGames }: HeaderProps) {
           ? `${t('Total Games')}: ${numberOfGames}`
           : `${t('nogames')}`}
       </div>
+      <label className="Header__toggleHidden">
+        {t('header.show_hidden', 'Show Hidden')}
+        <ToggleSwitch
+          title={t('header.show_hidden', 'Show Hidden')}
+          handleChange={toggleShowHidden}
+          value={showHidden}
+        />
+      </label>
     </div>
   )
 }
