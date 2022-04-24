@@ -105,20 +105,18 @@
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren"
     },
-    "Downloading": "Am Herunterladen",
     "epic": {
         "offline-notification-body": "Online-Dienste funktionieren möglicherweise nicht vollständig, da die Server von Epic Games offline sind!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Kein Filter"
-    },
     "globalSettings": "Globale Einstellungen",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "Plattform"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Plattform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Synchronisiere mit EGL, falls du woanders eine funktionierende Installation des Epic Games Launcher hast und deine Spiele importieren möchtest, um ein erneutes Herunterladen zu vermeiden.",
@@ -170,7 +168,6 @@
         "unsync": "Synchronisation erfolgreich aufgehoben"
     },
     "nogames": "Keine Spiele gefunden",
-    "Not Ready": "Nicht installiert",
     "notify": {
         "error": {
             "move": "Fehler beim Verschieben des Spiels",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projekte",
-    "Ready": "Installiert",
     "Recent": "Zuletzt gespielte Spiele",
     "search": "Gebe hier den Namen des Spiels ein...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Alle Spiele",
         "allUnreal": "Unreal - Alles",
-        "downloading": "wird heruntergeladen",
-        "installedGames": "Installierte Spiele",
-        "notInstalledGames": "Nicht installiert",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projekte",
-        "updates": "Ausstehende Aktualisierungen"
+        "unrealProjects": "Unreal - Projekte"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Anzeigen"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Aktualisierungen",
     "userselector": {
         "discord": "Discord",
         "logout": "Abmelden",

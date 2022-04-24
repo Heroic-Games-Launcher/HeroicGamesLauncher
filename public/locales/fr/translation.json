@@ -105,20 +105,18 @@
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser"
     },
-    "Downloading": "Téléchargement en cours",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "Paramètres généraux",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
@@ -170,7 +168,6 @@
         "unsync": "Désynchronisation Complète"
     },
     "nogames": "Aucun jeu trouvé",
-    "Not Ready": "Non installé",
     "notify": {
         "error": {
             "move": "Erreur lors du déplacement des fichiers du jeu",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projets",
-    "Ready": "Prêt",
     "Recent": "Joué récemment",
     "search": "Insérez le nom du jeu ici...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Tous les jeux",
         "allUnreal": "Unreal - Tout",
-        "downloading": "Téléchargement en cours",
-        "installedGames": "Jeux installés",
-        "notInstalledGames": "Non installés",
         "unrealAssets": "Unreal - Ressources",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projets",
-        "updates": "Mises à jour en attente"
+        "unrealProjects": "Unreal - Projets"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Montrer"
     },
     "Unreal Marketplace": "Marché Unreal",
-    "Updates": "Mises à jour",
     "userselector": {
         "discord": "Discord",
         "logout": "Déconnexion",

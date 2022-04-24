@@ -10,7 +10,7 @@ export function checkXbox(
 ) {
   const A = buttons[0],
     B = buttons[1],
-    // X = buttons[2],
+    X = buttons[2],
     Y = buttons[3],
     // LB = buttons[4],
     // RB = buttons[5],
@@ -47,4 +47,5 @@ export function checkXbox(
   checkAction('padDown', down?.pressed, controllerIndex)
   checkAction('padLeft', left?.pressed, controllerIndex)
   checkAction('padRight', right?.pressed, controllerIndex)
+  checkAction('rightClick', X?.pressed, controllerIndex)
 }

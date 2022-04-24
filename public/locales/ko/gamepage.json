@@ -38,8 +38,10 @@
     "button": {
         "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
+        "hide_game": "Hide Game",
         "import": "게임 들여오기",
         "install": "설치",
+        "unhide_game": "Unhide Game",
         "uninstall": "설치 제거",
         "update": "업데이트"
     },

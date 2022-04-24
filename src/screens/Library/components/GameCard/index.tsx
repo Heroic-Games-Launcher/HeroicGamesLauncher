@@ -75,7 +75,7 @@ const GameCard = ({
 
   const { t } = useTranslation('gamepage')
 
-  const { libraryStatus, layout, handleGameStatus, platform } =
+  const { libraryStatus, layout, handleGameStatus, platform, hiddenGames } =
     useContext(ContextProvider)
   const history = useHistory()
   const isWin = platform === 'win32'
@@ -220,6 +220,16 @@ const GameCard = ({
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 
+  const [isHiddenGame, setIsHiddenGame] = useState(false)
+
+  useEffect(() => {
+    const found = !!hiddenGames.list.find(
+      (hiddenGame) => hiddenGame.appName === appName
+    )
+
+    setIsHiddenGame(found)
+  }, [hiddenGames, appName])
+
   const items: Item[] = [
     {
       label: t('label.playing.start'),
@@ -266,6 +276,16 @@ const GameCard = ({
       label: t('button.cancel'),
       onclick: () => handlePlay(runner),
       show: isInstalling
+    },
+    {
+      label: t('button.hide_game', 'Hide Game'),
+      onclick: () => hiddenGames.add(appName, title),
+      show: !isHiddenGame
+    },
+    {
+      label: t('button.unhide_game', 'Unhide Game'),
+      onclick: () => hiddenGames.remove(appName),
+      show: isHiddenGame
     }
   ]
 

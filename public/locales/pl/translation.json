@@ -105,20 +105,18 @@
         "syncing": "Synchronizacja",
         "unsync": "Desynchronizacja"
     },
-    "Downloading": "Pobieranie",
     "epic": {
         "offline-notification-body": "Serwisy Online mogą nie działać w pełni, ponieważ serwery Epic Games są offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "Ustawienia Globalne",
     "GOG": "GOG",
     "gog-store": "Sklep GOG",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Synchronizuj z EGS, gdy Epic Games Launcher jest zainstalowane w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
@@ -170,7 +168,6 @@
         "unsync": "Desynchronizacja zakończona"
     },
     "nogames": "Nie znaleziono żadnej gry",
-    "Not Ready": "Dostępne",
     "notify": {
         "error": {
             "move": "Błąd podczas Przenoszenia Gry",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Rozszerzenia",
     "Projects": "Projekty",
-    "Ready": "Zainstalowane",
     "Recent": "Ostatnio Grane",
     "search": "Wpisz nazwę gry...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Wszystkie Gry",
         "allUnreal": "Unreal - Wszystko",
-        "downloading": "Pobieranie",
-        "installedGames": "Zainstalowane Gry",
-        "notInstalledGames": "Nie Zainstalowane",
         "unrealAssets": "Unreal - Assety",
         "unrealPlugins": "Unreal - Pluginy",
-        "unrealProjects": "Unreal - Projekty",
-        "updates": "Oczekujące Aktualizacje"
+        "unrealProjects": "Unreal - Projekty"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Pokaż"
     },
     "Unreal Marketplace": "Sklep Assetów dla Unreal",
-    "Updates": "Aktualizacje",
     "userselector": {
         "discord": "Discord",
         "logout": "Wyloguj",

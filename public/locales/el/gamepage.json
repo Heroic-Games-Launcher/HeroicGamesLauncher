@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Παύση/Ακύρωση",
         "continue": "Συνέχιση λήψης",
+        "hide_game": "Hide Game",
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
+        "unhide_game": "Unhide Game",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση"
     },

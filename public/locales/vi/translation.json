@@ -105,20 +105,18 @@
         "syncing": "Đang đồng bộ",
         "unsync": "Hủy đồng bộ"
     },
-    "Downloading": "Đang tải",
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Game",
-    "filter": {
-        "noFilter": "Không lọc"
-    },
     "globalSettings": "Cài đặt chung",
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
     "header": {
-        "platform": "Nền tảng"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Nền tảng",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Đồng bộ với EGL nếu bạn đang cài Epic Games Launcher trên máy và muốn import game của mình để không phải tải lại.",
@@ -170,7 +168,6 @@
         "unsync": "Hoàn tất quá trình hủy đồng bộ"
     },
     "nogames": "Không tìm thấy game nào",
-    "Not Ready": "Chưa sẵn sàng",
     "notify": {
         "error": {
             "move": "Gặp lỗi khi di chuyển game",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugin",
     "Projects": "Project",
-    "Ready": "Sẵn sàng",
     "Recent": "Chơi gần đây",
     "search": "Nhập tên game ở đây...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Tất cả game",
         "allUnreal": "Unreal - Tất cả",
-        "downloading": "Đang tải",
-        "installedGames": "Game đã cài",
-        "notInstalledGames": "Chưa cài",
         "unrealAssets": "Unreal - Asset",
         "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Project",
-        "updates": "Đang chờ cập nhật"
+        "unrealProjects": "Unreal - Project"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Hiển thị"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Cập nhật",
     "userselector": {
         "discord": "Discord",
         "logout": "Đăng xuất",

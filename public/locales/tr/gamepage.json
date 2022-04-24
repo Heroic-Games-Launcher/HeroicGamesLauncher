@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
+        "hide_game": "Hide Game",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
+        "unhide_game": "Unhide Game",
         "uninstall": "Kaldır",
         "update": "Güncelle"
     },

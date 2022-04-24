@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
+        "hide_game": "Hide Game",
         "import": "Játék importálása",
         "install": "Telepítés",
+        "unhide_game": "Unhide Game",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
     },

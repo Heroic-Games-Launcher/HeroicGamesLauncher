@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Pysäytä/Peruuta",
         "continue": "Jatka lataamista",
+        "hide_game": "Hide Game",
         "import": "Tuo peli",
         "install": "Asenna",
+        "unhide_game": "Unhide Game",
         "uninstall": "Poista",
         "update": "Päivitä"
     },

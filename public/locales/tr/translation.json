@@ -105,20 +105,18 @@
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır"
     },
-    "Downloading": "İndiriliyor",
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
         "offline-notification-title": "çevrim dışı"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Filtre Yok"
-    },
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
     "header": {
-        "platform": "Platform"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Platform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
@@ -170,7 +168,6 @@
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
     },
     "nogames": "Oyun Bulunamadı",
-    "Not Ready": "Hazır Değil",
     "notify": {
         "error": {
             "move": "Oyunu Taşıma Hatası",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Eklentiler",
     "Projects": "Projeler",
-    "Ready": "Hazır",
     "Recent": "Son Oynanan",
     "search": "Buraya oyun adı girin...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Tüm Oyunlar",
         "allUnreal": "Unreal - Her şey",
-        "downloading": "İndiriliyor",
-        "installedGames": "Yüklü Oyunlar",
-        "notInstalledGames": "Yüklü değil",
         "unrealAssets": "Unreal - Varlıklar",
         "unrealPlugins": "Unreal - Eklentiler",
-        "unrealProjects": "Unreal - Projeler",
-        "updates": "Bekleyen Güncellemeler"
+        "unrealProjects": "Unreal - Projeler"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Göster"
     },
     "Unreal Marketplace": "Unreal Mağazası",
-    "Updates": "Güncellemeler",
     "userselector": {
         "discord": "Discord",
         "logout": "Oturumu kapat",

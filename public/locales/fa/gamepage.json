@@ -38,8 +38,10 @@
     "button": {
         "cancel": "توقف/انصراف",
         "continue": "ادامه بارگیری",
+        "hide_game": "Hide Game",
         "import": "وارد کردن بازی",
         "install": "نصب",
+        "unhide_game": "Unhide Game",
         "uninstall": "حذف",
         "update": "بهروزرسانی"
     },

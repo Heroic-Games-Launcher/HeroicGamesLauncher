@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Призупинити/Скасувати",
         "continue": "Продовжити завантаження",
+        "hide_game": "Hide Game",
         "import": "Імпортувати гру",
         "install": "Встановити",
+        "unhide_game": "Unhide Game",
         "uninstall": "Видалити",
         "update": "Оновити"
     },

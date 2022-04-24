@@ -51,7 +51,8 @@ export const initGamepad = () => {
     rightStickRight: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
     mainAction: { triggeredAt: {}, repeatDelay: false },
     back: { triggeredAt: {}, repeatDelay: false },
-    altAction: { triggeredAt: {}, repeatDelay: false }
+    altAction: { triggeredAt: {}, repeatDelay: false },
+    rightClick: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
