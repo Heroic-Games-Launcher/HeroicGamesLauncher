@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
+        "hide_game": "Hide Game",
         "import": "Impor Gim",
         "install": "Pasang",
+        "unhide_game": "Unhide Game",
         "uninstall": "Copot",
         "update": "Perbarui"
     },

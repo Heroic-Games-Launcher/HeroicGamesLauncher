@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Peata/Tühista",
         "continue": "Jätka allalaadimist",
+        "hide_game": "Hide Game",
         "import": "Impordi mäng",
         "install": "Paigalda",
+        "unhide_game": "Unhide Game",
         "uninstall": "Eemalda",
         "update": "Uuenda"
     },

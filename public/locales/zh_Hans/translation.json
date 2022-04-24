@@ -105,20 +105,18 @@
         "syncing": "正在同步",
         "unsync": "不同步"
     },
-    "Downloading": "正在下载",
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
         "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
-    "filter": {
-        "noFilter": "全部"
-    },
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
-        "platform": "平台"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "平台",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
@@ -170,7 +168,6 @@
         "unsync": "取消同步完成"
     },
     "nogames": "未找到游戏",
-    "Not Ready": "尚未就绪",
     "notify": {
         "error": {
             "move": "移动游戏时出错",
@@ -221,7 +218,6 @@
     },
     "Plugins": "插件",
     "Projects": "项目",
-    "Ready": "准备就绪",
     "Recent": "最近玩过",
     "search": "在此处输入游戏名称…",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "所有游戏",
         "allUnreal": "虚幻 - 所有",
-        "downloading": "下载中",
-        "installedGames": "已安装的游戏",
-        "notInstalledGames": "未安装",
         "unrealAssets": "虚幻 - 素材",
         "unrealPlugins": "虚幻 - 插件",
-        "unrealProjects": "虚幻 - 项目",
-        "updates": "待更新"
+        "unrealProjects": "虚幻 - 项目"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "显示"
     },
     "Unreal Marketplace": "虚幻商城",
-    "Updates": "更新",
     "userselector": {
         "discord": "Discord",
         "logout": "退出登录",

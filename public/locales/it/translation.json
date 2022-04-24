@@ -105,20 +105,18 @@
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione"
     },
-    "Downloading": "Download in corso",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "Impostazioni globali",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sincronizza con EGS nel caso tu abbia già un'installazione funzionante con l'Epic Games Store, in modo da importare i giochi senza dover riscaricarli di nuovo.",
@@ -170,7 +168,6 @@
         "unsync": "Annullamento sincronizzazione completato"
     },
     "nogames": "Nessun gioco trovato",
-    "Not Ready": "Non ancora pronto",
     "notify": {
         "error": {
             "move": "Errore nello spostamento del gioco",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Progetti",
-    "Ready": "Pronto",
     "Recent": "Giocato di recente",
     "search": "Inserisci qui il nome del gioco...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Tutti i giochi",
         "allUnreal": "Unreal - Tutto",
-        "downloading": "Download in corso",
-        "installedGames": "Giochi installati",
-        "notInstalledGames": "Non installato",
         "unrealAssets": "Unreal - Risorse",
         "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Progetti",
-        "updates": "Aggiornamenti in sospeso"
+        "unrealProjects": "Unreal - Progetti"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Mostra"
     },
     "Unreal Marketplace": "Mercato Unreal",
-    "Updates": "Aggiornamenti",
     "userselector": {
         "discord": "Discord",
         "logout": "Disconnetti",

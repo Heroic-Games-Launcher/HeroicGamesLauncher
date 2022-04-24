@@ -105,20 +105,18 @@
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране"
     },
-    "Downloading": "Сваляне",
     "epic": {
         "offline-notification-body": "Услугите, зависещи от Интернет, може да не работят изцяло, тъй като сървърите на Epic Games не са достъпни!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "Глобални настройки",
     "GOG": "GOG",
     "gog-store": "Магазин на GOG",
     "header": {
-        "platform": "Платформа"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Платформа",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
@@ -170,7 +168,6 @@
         "unsync": "Десинхронизацията е завършена"
     },
     "nogames": "Няма намерени игри",
-    "Not Ready": "Не е готово",
     "notify": {
         "error": {
             "move": "Грешка при преместването на играта",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Добавки",
     "Projects": "Проекти",
-    "Ready": "Готово",
     "Recent": "Играно наскоро",
     "search": "Въведете името на играта...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Всички игри",
         "allUnreal": "Unreal – Всичко",
-        "downloading": "Сваляне",
-        "installedGames": "Инсталирани игри",
-        "notInstalledGames": "Не инсталирани",
         "unrealAssets": "Unreal – Ресурси",
         "unrealPlugins": "Unreal – Добавки",
-        "unrealProjects": "Unreal – Проекти",
-        "updates": "Изчакващи обновления"
+        "unrealProjects": "Unreal – Проекти"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Показване"
     },
     "Unreal Marketplace": "Пазар на Unreal",
-    "Updates": "Обновления",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Излизане",

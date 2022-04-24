@@ -105,20 +105,18 @@
         "syncing": "Sincronizando",
         "unsync": "Desincronizar"
     },
-    "Downloading": "Descargando",
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Sin filtrar"
-    },
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
     "header": {
-        "platform": "Plataforma"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Plataforma",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -170,7 +168,6 @@
         "unsync": "Desincronizacion completa"
     },
     "nogames": "No se han encontrado juegos",
-    "Not Ready": "No está listo",
     "notify": {
         "error": {
             "move": "Error al mover el juego",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Proyectos",
-    "Ready": "Listo",
     "Recent": "Jugado recientemente",
     "search": "Ingrese el nombre del juego aquí…",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Todos los juegos",
         "allUnreal": "Unreal - Todo",
-        "downloading": "Descargando",
-        "installedGames": "Juegos instalados",
-        "notInstalledGames": "No instalado",
         "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Unreal - Plug-ins",
-        "unrealProjects": "Unreal - Proyectos",
-        "updates": "Actualizaciones pendientes"
+        "unrealProjects": "Unreal - Proyectos"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Mostrar"
     },
     "Unreal Marketplace": "Tienda de Unreal",
-    "Updates": "Actualizaciones",
     "userselector": {
         "discord": "Discord",
         "logout": "Cerrar sesión",

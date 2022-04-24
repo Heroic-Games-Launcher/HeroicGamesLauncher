@@ -4,29 +4,38 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
-  constants,
   writeFileSync
 } from 'graceful-fs'
+import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
-import { GameInfo } from '../types'
-import { execAsync } from '../utils'
+import { GameInfo, InstalledInfo } from '../types'
+import { execAsync, isOnline } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows, steamCompatFolder } from '../constants'
 import ini from 'ini'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
- * For Galaxy games only (Mac and Windows for now)
+ * For Galaxy games only (Windows)
+ * This relies on root file system mounted at Z: in prefixes (We need better approach to access game path from prefix)
  * @param appName
+ * @param installInfo Allows passing install instructions directly
  */
-async function setup(appName: string): Promise<void> {
+async function setup(
+  appName: string,
+  installInfo?: InstalledInfo
+): Promise<void> {
   const gameInfo = GOGLibrary.get().getGameInfo(appName)
+  if (installInfo && gameInfo) {
+    gameInfo.install = installInfo
+  }
   if (!gameInfo || gameInfo.install.platform == 'linux') {
     return
   }
   const instructions = await obtainSetupInstructions(gameInfo)
   if (!instructions) {
+    logInfo('Setup: No instructions', LogPrefix.Gog)
     return
   }
   logWarning(
@@ -42,7 +51,7 @@ async function setup(appName: string): Promise<void> {
     isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
   const isProton = gameSettings.wineVersion.type === 'proton'
   const prefix = isProton
-    ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamCompatFolder} STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
+    ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${steamCompatFolder}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
         .replaceAll("'", '')
         .replace('~', userHome)}'`
     : `WINEPREFIX="${gameSettings.winePrefix
@@ -51,31 +60,76 @@ async function setup(appName: string): Promise<void> {
 
   const commandPrefix = isWindows
     ? ''
-    : `${isCrossover ? crossoverEnv : prefix} ${gameSettings.wineVersion.bin}`
+    : `${isCrossover ? crossoverEnv : prefix} ${gameSettings.wineVersion.bin} ${
+        isProton ? 'runinprefix' : ''
+      }`
+  // Make sure Proton initialized prefix correctly
+  if (isProton) {
+    await execAsync(
+      `${prefix} ${gameSettings.wineVersion.bin} run reg /?` // This is a help command for reg, it's enough to initialize a prefix
+    ).catch()
+  }
   // Funny part begins here
-
   // Deterimine if it's basicly from .script file or from manifest
   if (instructions[0]?.install) {
     // It's from .script file
     // Parse actions
+    const supportDir = path.join(
+      gameInfo.install.install_path,
+      'support',
+      appName
+    )
+
+    // In the future we need to find more path cases
+    const pathsValues = new Map<string, string>([
+      ['productid', appName],
+      ['app', `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`],
+      ['support', supportDir],
+      ['supportdir', supportDir]
+    ])
+
     for (const action of instructions) {
       const actionArguments = action.install?.arguments
       switch (action.install.action) {
         case 'setRegistry': {
           const registryPath =
-            actionArguments.root + '\\' + actionArguments.subkey
-          // If deleteSubkeys is true remove path first
-          if (actionArguments.deleteSubkeys) {
-            const command = `${commandPrefix} reg delete "${registryPath}" /f`
-            logInfo(
-              ['Setup: Deleting a registry key', registryPath],
-              LogPrefix.Gog
-            )
-            await execAsync(command)
+            actionArguments.root +
+            '\\' +
+            handlePathVars(actionArguments.subkey, pathsValues)
+
+          let valueData = handlePathVars(
+            actionArguments?.valueData,
+            pathsValues
+          )
+          const valueName = actionArguments?.valueName
+          const valueType = actionArguments?.valueType
+
+          let keyCommand = ''
+          if (valueData && valueName) {
+            const regType = getRegDataType(valueType)
+            if (!regType) {
+              logError(
+                `Setup: Unsupported registry type ${valueType}, skipping this key`
+              )
+              break
+            }
+            if (valueType === 'binary') {
+              valueData = Buffer.from(valueData, 'base64').toString('hex')
+            }
+            valueData = valueData.replaceAll('\\', '/')
+            keyCommand = `/d "${valueData}" /v "${valueName}" /t ${regType}`
           }
           // Now create a key
-          const command = `${commandPrefix} reg add "${registryPath}" /f`
-          logInfo(['Setup: Adding a registry key', registryPath], LogPrefix.Gog)
+          const command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f /reg:32`
+          logInfo(
+            [
+              'Setup: Adding a registry key',
+              registryPath,
+              valueName,
+              valueData
+            ],
+            LogPrefix.Gog
+          )
           await execAsync(command)
           break
         }
@@ -101,15 +155,15 @@ async function setup(appName: string): Promise<void> {
           } /versionName="${
             gameInfo.install.version
           }" /nodesktopshorctut /nodesktopshortcut`
-          const workingDir = actionArguments?.workingDir?.replace(
-            '%SUPPORT%',
-            `"${path.join(gameInfo.install.install_path, 'support', appName)}"`
+
+          const workingDir = handlePathVars(
+            actionArguments.workingDir,
+            pathsValues
           )
+
           const executablePath = path.join(
             gameInfo.install.install_path,
-            'support',
-            appName,
-            executableName
+            handlePathVars(executableName, pathsValues)
           )
           if (!existsSync(executablePath)) {
             logError(
@@ -118,36 +172,57 @@ async function setup(appName: string): Promise<void> {
             )
             break
           }
-          let command = `${
-            workingDir ? 'cd ' + workingDir + ' &&' : ''
-          } ${commandPrefix} "${executablePath}" ${exeArguments}`
+          let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
           if (isWindows) {
-            command = `${
-              workingDir ? 'cd ' + workingDir + ' &&' : ''
-            } Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
+            command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
           }
           logInfo(['Setup: Executing', command], LogPrefix.Gog)
-          await execAsync(command)
+          await execAsync(command, { cwd: workingDir })
           break
         }
         case 'supportData': {
-          const targetPath = actionArguments.target.replace(
-            '{app}',
-            gameInfo.install.install_path
+          const targetPath = handlePathVars(
+            actionArguments.target.replace(
+              '{app}',
+              gameInfo.install.install_path
+            ),
+            pathsValues
           )
           const type = actionArguments.type
+          const sourcePath = handlePathVars(
+            actionArguments?.source?.replace(
+              '{app}',
+              gameInfo.install.install_path
+            ),
+            pathsValues
+          )
           if (type == 'folder') {
-            mkdirSync(targetPath, { recursive: true })
-          } else if (type == 'file') {
-            const sourcePath = actionArguments.source
-              .replace(
-                '{supportDir}',
-                path.join(gameInfo.install.install_path, 'support', appName)
+            if (!actionArguments?.source) {
+              logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
+              mkdirSync(targetPath, { recursive: true })
+            } else {
+              logInfo(
+                ['Setup: Copying directory', sourcePath, 'to', targetPath],
+                LogPrefix.Gog
               )
-              .replace('{app}', gameInfo.install.install_path)
-            if (existsSync(sourcePath)) {
-              copyFileSync(sourcePath, targetPath, constants.COPYFILE_FICLONE)
+              copySync(sourcePath, targetPath, {
+                overwrite: actionArguments?.overwrite,
+                recursive: true
+              })
+            }
+          } else if (type == 'file') {
+            if (sourcePath && existsSync(sourcePath)) {
+              logInfo(
+                ['Setup: Copying file', sourcePath, 'to', targetPath],
+                LogPrefix.Gog
+              )
+              copyFileSync(sourcePath, targetPath)
+            } else {
+              logWarning(
+                ['Setup: sourcePath:', sourcePath, 'does not exist.'],
+                LogPrefix.Gog
+              )
             }
           } else {
             logError(
@@ -158,9 +233,9 @@ async function setup(appName: string): Promise<void> {
           break
         }
         case 'setIni': {
-          const filePath = actionArguments?.filename.replace(
-            '{app}',
-            gameInfo.install.install_path
+          const filePath = handlePathVars(
+            actionArguments?.filename,
+            pathsValues
           )
           if (!filePath || !existsSync(filePath)) {
             logError("Setup: setIni file doesn't exists", LogPrefix.Gog)
@@ -181,9 +256,9 @@ async function setup(appName: string): Promise<void> {
             break
           }
 
-          config[section][keyName] = actionArguments.keyValue.replace(
-            '{app}',
-            isWindows ? '' : 'Z:' + gameInfo.install.install_path
+          config[section][keyName] = handlePathVars(
+            actionArguments.keyValue,
+            pathsValues
           )
           writeFileSync(filePath, ini.stringify(config), { encoding })
           break
@@ -217,6 +292,7 @@ async function setup(appName: string): Promise<void> {
             }
         ],
     */
+    //TODO
   }
   logInfo('Setup: Finished', LogPrefix.Gog)
 }
@@ -230,7 +306,13 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
     return JSON.parse(data).actions
   }
   // No .script is present, check for support_commands in repository.json of V1 games
-
+  if (!isOnline()) {
+    logWarning(
+      "Setup: App is offline, couldn't check if there are any support_commands in manifest",
+      LogPrefix.Gog
+    )
+    return null
+  }
   const buildResponse = await axios.get(
     `https://content-system.gog.com/products/${appName}/os/windows/builds`
   )
@@ -242,11 +324,45 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
   // Get data only if it's V1 depot game
   if (buildItem?.generation == 1) {
     const metaResponse = await axios.get(buildItem.link)
-    metaResponse.data.support_commands
+    return metaResponse.data?.support_commands
   }
 
   // TODO: find if there are V2 games with something like support_commands in manifest
   return null
+}
+
+const registryDataTypes = new Map([
+  ['string', 'REG_SZ'],
+  ['dword', 'REG_DWORD'],
+  ['binary', 'REG_BINARY']
+  // If needed please add those values REG_NONE REG_EXPAND_SZ REG_MULTI_SZ
+])
+const getRegDataType = (dataType: string): string =>
+  registryDataTypes.get(dataType.toLowerCase())
+
+/**
+ * Handles getting a path variable from possibleValues Map
+ * Every key is lower cased to avoid edge cases
+ * @returns
+ */
+const handlePathVars = (
+  path: string,
+  possibleValues: Map<string, string>
+): string => {
+  if (!path) {
+    return path
+  }
+  const variables = path.match(/{[a-zA-Z]+}|%[a-zA-Z]+%/g)
+  if (!variables) {
+    return path
+  }
+  for (const value of variables) {
+    const trimmedValue = value.slice(1, -1)
+
+    return path.replace(value, possibleValues.get(trimmedValue.toLowerCase()))
+  }
+
+  return ''
 }
 
 export default setup

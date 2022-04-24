@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Пауза/Отказ",
         "continue": "Продължаване на свалянето",
+        "hide_game": "Hide Game",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
+        "unhide_game": "Unhide Game",
         "uninstall": "Деинсталиране",
         "update": "Обновяване"
     },

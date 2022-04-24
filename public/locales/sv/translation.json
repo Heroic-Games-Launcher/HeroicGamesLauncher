@@ -105,20 +105,18 @@
         "syncing": "Synkroniserar",
         "unsync": "Avbryt synkronisering"
     },
-    "Downloading": "Laddar ner",
     "epic": {
         "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
         "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Inga filter"
-    },
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "gog-store": "GOG Butik",
     "header": {
-        "platform": "Plattform"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Plattform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
@@ -170,7 +168,6 @@
         "unsync": "Avbryt synkronisering slutfört"
     },
     "nogames": "Inga spel hittades",
-    "Not Ready": "Ej redo att spelas",
     "notify": {
         "error": {
             "move": "Problem vid flytt av spel",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projekt",
-    "Ready": "Redo",
     "Recent": "Nyligen spelat",
     "search": "Ange spelets titel här...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Alla spel",
         "allUnreal": "Unreal - allt",
-        "downloading": "Laddar ner",
-        "installedGames": "Installerade spel",
-        "notInstalledGames": "Ej installerade",
         "unrealAssets": "Unreal - Tillgångar",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projekt",
-        "updates": "Tillgängliga uppdateringar"
+        "unrealProjects": "Unreal - Projekt"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Visa"
     },
     "Unreal Marketplace": "Unreal marknadsplats",
-    "Updates": "Uppdateringar",
     "userselector": {
         "discord": "Discord",
         "logout": "Logga ut",

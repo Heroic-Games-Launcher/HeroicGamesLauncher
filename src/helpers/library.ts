@@ -298,12 +298,11 @@ type RecentGame = {
 }
 
 function getRecentGames(library: GameInfo[]) {
-  return library.filter((game) => {
-    const recentGames: Array<RecentGame> =
-      (configStore.get('games.recent') as Array<RecentGame>) || []
-    const recentGamesList = recentGames.map((a) => a.appName) as string[]
-    return recentGamesList.includes(game.app_name)
-  })
+  const recentGames =
+    (configStore.get('games.recent') as Array<RecentGame>) || []
+  const recentGamesList = recentGames.map((a) => a.appName) as string[]
+
+  return library.filter((game) => recentGamesList.includes(game.app_name))
 }
 
 export {

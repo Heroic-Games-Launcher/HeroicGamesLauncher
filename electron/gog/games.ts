@@ -178,7 +178,11 @@ class GOGGame extends Game {
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
     if (isWindows) {
-      await setup(this.appName)
+      logInfo(
+        'Windows os, running setup instructions on install',
+        LogPrefix.Gog
+      )
+      await setup(this.appName, installedData)
     }
     return { status: 'done' }
   }

@@ -105,20 +105,18 @@
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
     },
-    "Downloading": "Baixando",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
     "globalSettings": "Configurações Globais",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Caso você tenha a Epic Games Store instalada em um Prefix Wine, você pode usar a sincronização para importar e exportar jogos entre ela e o Heroic.",
@@ -170,7 +168,6 @@
         "unsync": "Unsync Concluído"
     },
     "nogames": "Nenhum Jogo Encontrado",
-    "Not Ready": "Não Baixados",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projetos",
-    "Ready": "Baixados",
     "Recent": "Played Recently",
     "search": "Digite o nome do jogo...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Mostrar"
     },
     "Unreal Marketplace": "Loja Unreal",
-    "Updates": "Atualizações",
     "userselector": {
         "discord": "Discord",
         "logout": "Sair",

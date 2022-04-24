@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
+        "hide_game": "Hide Game",
         "import": "Importera spel",
         "install": "Installera",
+        "unhide_game": "Unhide Game",
         "uninstall": "Avinstallera",
         "update": "Update"
     },
