@@ -25,6 +25,10 @@
                 "message": "安装 DXVK/VKD3D 出错！检查你的互联网连接或者是否已安装 zstd/libzstd1",
                 "title": "DXVK/VKD3D 错误"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "启动游戏时出现错误，请检查日志！",
             "no-offline-mode": {
                 "message": "启动失败！游戏需要网络连接才能运行。",
@@ -234,6 +238,7 @@
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
@@ -246,6 +251,8 @@
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "上一日志",
             "no-file": "未找到日志文件",
             "show-in-folder": "显示文件夹中的日志文件"

@@ -25,6 +25,10 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
@@ -234,6 +238,7 @@
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
         "egs-sync": "與已安裝的Epic Games同步",
         "enableFSRHack": "啟用FSR（需要支持的WINE版本）",
@@ -246,6 +251,8 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"

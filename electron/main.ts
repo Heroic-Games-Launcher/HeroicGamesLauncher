@@ -1108,10 +1108,10 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
 })
 
 ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = join(heroicGamesConfigPath, appName + '.log')
-  // eslint-disable-next-line no-debugger
-  debugger
-  if (!existsSync(logPath)) {
+  const logPath = `"${join(heroicGamesConfigPath, appName + '.log')}"`
+
+  // existsync doesnt work when the path has quotes in it
+  if (!existsSync(logPath.replaceAll('"', ''))) {
     return {}
   }
 
@@ -1138,14 +1138,14 @@ ipcMain.handle('requestGameProgress', async (event, appName) => {
   let eta = ''
   let bytes = ''
   if (isWindows) {
-    percent = progress_result.split(' ')[4]
-    eta = progress_result.split(' ')[10]
+    percent = progress_result.split(' ')[4] || ''
+    eta = progress_result.split(' ')[10] || ''
     bytes = downloaded_result.split(' ')[5] + 'MiB'
   }
 
   if (!isWindows) {
-    percent = progress_result.split(' ')[0]
-    eta = progress_result.split(' ')[1]
+    percent = progress_result.split(' ')[0] || ''
+    eta = progress_result.split(' ')[1] || ''
     bytes = downloaded_result.trim() + 'MiB'
   }
 

@@ -44,14 +44,6 @@ const installedGamesStore = new Store({
   name: 'installed'
 })
 
-function verifyProgress(stderr: string): boolean {
-  let index = stderr.lastIndexOf('\n')
-  index = stderr.lastIndexOf('\n', index - 1)
-  const status = stderr.substring(index)
-  const match = status.match(/Progress: ([0-9.]+) ([0-9]+)\/([0-9]+)/)
-  return match !== null && 100 === Number(match[1]) && match[2] === match[3]
-}
-
 class GOGGame extends Game {
   public appName: string
   public window = BrowserWindow.getAllWindows()[0]
@@ -145,7 +137,8 @@ class GOGGame extends Game {
       '--platform',
       installPlatform,
       `--path=${path}`,
-      `--token=${credentials.access_token}`,
+      `--token`,
+      `${credentials.access_token}`,
       withDlcs,
       `--lang=${installLanguage}`,
       workers
@@ -159,19 +152,6 @@ class GOGGame extends Game {
     if (res.error) {
       logError(
         ['Failed to install', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
-      return { status: 'error' }
-    }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to install',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
         LogPrefix.Gog
       )
       return { status: 'error' }
@@ -283,18 +263,6 @@ class GOGGame extends Game {
     if (res.error) {
       logError(
         ['Failed to repair', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
-    }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to update',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
         LogPrefix.Gog
       )
     }
@@ -415,21 +383,6 @@ class GOGGame extends Game {
       )
       return { status: 'error' }
     }
-
-    const success = verifyProgress(res.stderr)
-    if (!success) {
-      logError(
-        [
-          'Failed to update',
-          `${this.appName}:`,
-          'Command aborted unexpectedly'
-        ],
-        LogPrefix.Gog
-      )
-      return { status: 'error' }
-    }
-
-    // Update was successful
 
     const installedArray = installedGamesStore.get(
       'installed'

@@ -104,6 +104,13 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
 
   return (
     <>
+      <h2>{t('setting.log.instructions_title', 'How to report a problem?')}</h2>
+      <p className="report-problem-instructions">
+        {t(
+          'setting.log.instructions',
+          'Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.'
+        )}
+      </p>
       {isDefault && (
         <span className="setting log-buttongroup toggleWrapper">
           <a

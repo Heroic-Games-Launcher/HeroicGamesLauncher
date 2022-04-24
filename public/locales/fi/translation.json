@@ -25,6 +25,10 @@
                 "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys tai onko zstd/libzstd1 asennettu",
                 "title": "DXVK/VKD3D-virhe"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
             "no-offline-mode": {
                 "message": "Käynnistys keskeytetty! Peli vaatii Internet-yhteyden toimiakseen.",
@@ -234,6 +238,7 @@
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",
         "defaultWinePrefix": "Aseta kansio uusille Winen Prefixeille",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
         "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",
@@ -246,6 +251,8 @@
         "log": {
             "copy-to-clipboard": "Kopioi lokin sisältö leikepöydälle",
             "current-log": "Nykyinen loki",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Viimeisin loki",
             "no-file": "Lokitiedostoja ei löytynyt",
             "show-in-folder": "Näytä lokitiedosto kansiossa"

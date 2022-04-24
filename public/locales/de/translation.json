@@ -25,6 +25,10 @@
                 "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfe deine Verbindung oder ob du zstd/libzstd1 installiert hast",
                 "title": "DXVK/VKD3D Fehler"
             },
+            "generic": {
+                "message": "",
+                "title": ""
+            },
             "launch": "Fehler beim Starten des Spiels, prüfe die Logs!",
             "no-offline-mode": {
                 "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
@@ -234,6 +238,7 @@
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
@@ -246,6 +251,8 @@
         "log": {
             "copy-to-clipboard": "Log-Inhalt in Zwischenablage kopieren",
             "current-log": "Aktueller Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Letzter Log",
             "no-file": "Keine Log-Datei gefunden",
             "show-in-folder": "Log-Datei in Ordner anzeigen"

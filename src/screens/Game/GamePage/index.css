@@ -245,6 +245,20 @@
   padding: 2px;
 }
 
+.reportProblem {
+  align-self: flex-start;
+  margin-top: 1.2em;
+  color: var(--accent);
+}
+
+.reportProblem:hover {
+  color: var(--text-hover);
+}
+
+.reportProblem svg {
+  margin-right: 0.4em;
+}
+
 @keyframes animate-stripes {
   100% {
     background-position: -100px 0px;

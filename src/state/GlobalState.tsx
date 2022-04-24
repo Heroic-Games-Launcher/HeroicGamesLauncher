@@ -130,7 +130,6 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({
-      filterText: '',
       epicLibrary,
       gogLibrary,
       gameUpdates: updates,
@@ -199,29 +198,6 @@ export class GlobalState extends PureComponent<Props> {
       })
     } else {
       switch (filter) {
-        case 'installed':
-          return library.filter((game) => game.is_installed && game.is_game)
-        case 'uninstalled':
-          return library.filter((game) => !game.is_installed && game.is_game)
-        case 'downloading':
-          return library.filter((game) => {
-            const currentApp = this.state.libraryStatus.filter(
-              (app) => app.appName === game.app_name
-            )[0]
-            if (!currentApp || !game.is_game) {
-              return false
-            }
-            return (
-              currentApp.status === 'installing' ||
-              currentApp.status === 'repairing' ||
-              currentApp.status === 'updating' ||
-              currentApp.status === 'moving'
-            )
-          })
-        case 'updates':
-          return library.filter((game) =>
-            this.state.gameUpdates.includes(game.app_name)
-          )
         case 'unreal':
           return library.filter(
             (game) =>
