@@ -60,10 +60,6 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     setShowModal({ game: appName, show: true, runner })
   }
 
-  if (refreshing && !showRecentsOnly) {
-    return <UpdateComponent inline />
-  }
-
   function titleWithIcons() {
     return (
       <div className="titleWithIcons">
@@ -106,57 +102,61 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
       <h3 className="libraryHeader">
         {showRecentsOnly ? t('Recent', 'Played Recently') : titleWithIcons()}
       </h3>
-      <div
-        style={!library.length ? { backgroundColor: 'transparent' } : {}}
-        className={cx({
-          gameList: showRecentsOnly || layout === 'grid',
-          gameListLayout: layout !== 'grid' && !showRecentsOnly
-        })}
-      >
-        {!!library.length &&
-          list.map(
-            ({
-              title,
-              art_square,
-              art_cover,
-              art_logo,
-              app_name,
-              is_installed,
-              is_mac_native,
-              is_linux_native,
-              runner,
-              cloud_save_enabled,
-              is_game,
-              install: { version, install_size, is_dlc }
-            }: GameInfo) => {
-              if (is_dlc) {
-                return null
+      {refreshing && !showRecentsOnly ? (
+        <UpdateComponent inline />
+      ) : (
+        <div
+          style={!library.length ? { backgroundColor: 'transparent' } : {}}
+          className={cx({
+            gameList: showRecentsOnly || layout === 'grid',
+            gameListLayout: layout !== 'grid' && !showRecentsOnly
+          })}
+        >
+          {!!library.length &&
+            list.map(
+              ({
+                title,
+                art_square,
+                art_cover,
+                art_logo,
+                app_name,
+                is_installed,
+                is_mac_native,
+                is_linux_native,
+                runner,
+                cloud_save_enabled,
+                is_game,
+                install: { version, install_size, is_dlc }
+              }: GameInfo) => {
+                if (is_dlc) {
+                  return null
+                }
+                const hasUpdate = gameUpdates?.includes(app_name)
+                return (
+                  <GameCard
+                    key={app_name}
+                    runner={runner}
+                    cover={art_square}
+                    coverList={art_cover}
+                    logo={art_logo}
+                    hasCloudSave={cloud_save_enabled}
+                    title={title}
+                    appName={app_name}
+                    isInstalled={is_installed}
+                    isGame={is_game}
+                    version={`${version}`}
+                    size={`${install_size}`}
+                    hasUpdate={hasUpdate}
+                    buttonClick={() => handleModal(app_name, runner)}
+                    forceCard={showRecentsOnly}
+                    isMacNative={is_mac_native}
+                    isLinuxNative={is_linux_native}
+                  />
+                )
               }
-              const hasUpdate = gameUpdates?.includes(app_name)
-              return (
-                <GameCard
-                  key={app_name}
-                  runner={runner}
-                  cover={art_square}
-                  coverList={art_cover}
-                  logo={art_logo}
-                  hasCloudSave={cloud_save_enabled}
-                  title={title}
-                  appName={app_name}
-                  isInstalled={is_installed}
-                  isGame={is_game}
-                  version={`${version}`}
-                  size={`${install_size}`}
-                  hasUpdate={hasUpdate}
-                  buttonClick={() => handleModal(app_name, runner)}
-                  forceCard={showRecentsOnly}
-                  isMacNative={is_mac_native}
-                  isLinuxNative={is_linux_native}
-                />
-              )
-            }
-          )}
-      </div>
+            )}
+        </div>
+      )}
       {!showRecentsOnly && (
         <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
           <ArrowDropUp className="material-icons" />
