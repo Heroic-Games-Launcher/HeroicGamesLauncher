@@ -23,11 +23,11 @@ import {
   gameInfoStore,
   installStore,
   libraryStore
-} from './legendary/electron_stores'
+} from './legendary/electronStores'
 import {
   apiInfoCache as GOGapiInfoCache,
   libraryStore as GOGlibraryStore
-} from './gog/electron_stores'
+} from './gog/electronStores'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)

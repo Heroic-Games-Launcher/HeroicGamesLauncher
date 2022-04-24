@@ -27,7 +27,7 @@ import {
   isMac,
   isLinux
 } from '../constants'
-import { configStore, installedGamesStore } from '../gog/electron_stores'
+import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { execAsync } from '../utils'
 import { GOGUser } from './user'

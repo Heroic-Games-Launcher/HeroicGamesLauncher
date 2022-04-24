@@ -41,7 +41,7 @@ import {
 import { GlobalConfig } from '../config'
 import { join } from 'path'
 import { spawn } from 'child_process'
-import { installStore, libraryStore } from './electron_stores'
+import { installStore, libraryStore } from './electronStores'
 
 /**
  * Legendary LegendaryLibrary.

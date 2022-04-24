@@ -29,7 +29,7 @@ import {
   apiInfoCache,
   libraryStore,
   installedGamesStore
-} from './electron_stores'
+} from './electronStores'
 import { spawn } from 'child_process'
 
 export class GOGLibrary {

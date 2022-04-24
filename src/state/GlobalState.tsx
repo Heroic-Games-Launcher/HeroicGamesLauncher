@@ -22,7 +22,7 @@ import {
   gogLibraryStore,
   libraryStore,
   wineDownloaderInfoStore
-} from '../helpers/electron_stores'
+} from '../helpers/electronStores'
 
 const storage: Storage = window.localStorage
 const { ipcRenderer } = window.require('electron')

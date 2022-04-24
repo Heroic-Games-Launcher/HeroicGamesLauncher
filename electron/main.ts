@@ -87,7 +87,7 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { gameInfoStore } from './legendary/electron_stores'
+import { gameInfoStore } from './legendary/electronStores'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'

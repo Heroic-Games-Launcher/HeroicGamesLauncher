@@ -8,7 +8,7 @@ import {
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
-import { configStore } from './electron_stores'
+import { configStore } from './electronStores'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer

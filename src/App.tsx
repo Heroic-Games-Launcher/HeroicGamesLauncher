@@ -8,7 +8,7 @@ import Sidebar from 'src/components/UI/Sidebar'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
 
-import { configStore, gogConfigStore } from './helpers/electron_stores'
+import { configStore, gogConfigStore } from './helpers/electronStores'
 
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))

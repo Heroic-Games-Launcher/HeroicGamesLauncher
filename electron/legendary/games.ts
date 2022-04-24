@@ -21,7 +21,7 @@ import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
-import { gameInfoStore } from './electron_stores'
+import { gameInfoStore } from './electronStores'
 
 class LegendaryGame extends Game {
   public appName: string

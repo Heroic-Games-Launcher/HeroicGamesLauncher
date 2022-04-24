@@ -12,7 +12,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { SvgButton } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import { AppSettings, Path } from 'src/types'
-import { configStore } from 'src/helpers/electron_stores'
+import { configStore } from 'src/helpers/electronStores'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer

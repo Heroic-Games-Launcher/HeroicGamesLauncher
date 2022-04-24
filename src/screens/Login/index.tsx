@@ -11,7 +11,7 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { LanguageSelector, UpdateComponent } from 'src/components/UI'
 import { FlagPosition } from 'src/components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
-import { configStore, gogConfigStore } from 'src/helpers/electron_stores'
+import { configStore, gogConfigStore } from 'src/helpers/electronStores'
 
 const { ipcRenderer } = window.require('electron')
 

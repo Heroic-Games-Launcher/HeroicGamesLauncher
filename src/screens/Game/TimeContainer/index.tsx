@@ -3,7 +3,7 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { SmallInfo } from 'src/components/UI'
-import { timestampStore } from 'src/helpers/electron_stores'
+import { timestampStore } from 'src/helpers/electronStores'
 
 import './index.css'
 
