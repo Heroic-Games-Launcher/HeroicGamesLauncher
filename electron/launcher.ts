@@ -27,7 +27,7 @@ import { Runner } from './types'
 import { GOGLibrary } from './gog/library'
 import { LegendaryLibrary } from './legendary/library'
 import setup from './gog/setup'
-import { dirname, join } from 'path'
+import { join } from 'path'
 
 function getGameInfo(appName: string, runner: Runner) {
   switch (runner) {
@@ -249,7 +249,6 @@ async function launch(
   const isProton = wineVersion.type === 'proton'
   const isCrossover = wineVersion.type === 'crossover'
   prefix = isProton || isCrossover ? '' : prefix
-  const winePath = dirname(wineVersion.bin)
   const options = {
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
     crossoverBottle:
@@ -287,7 +286,13 @@ async function launch(
     )
   }
 
-  await createNewPrefix(isProton, fixedWinePrefix, winePath, appName)
+  await createNewPrefix(
+    isProton,
+    fixedWinePrefix,
+    wineVersion.wineboot,
+    wineVersion.wineserver,
+    appName
+  )
 
   // Install DXVK for non Proton/CrossOver Prefixes
   if (!isProton && !isCrossover && autoInstallDxvk) {
@@ -367,7 +372,8 @@ async function launch(
 async function createNewPrefix(
   isProton: boolean,
   fixedWinePrefix: string,
-  winePath: string,
+  wineBoot: string,
+  wineServer: string,
   appName: string
 ) {
   if (isMac) {
@@ -381,7 +387,7 @@ async function createNewPrefix(
 
   if (!existsSync(fixedWinePrefix)) {
     mkdirSync(fixedWinePrefix, { recursive: true })
-    const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' '${winePath}/wineboot' -i &&  '${winePath}/wineserver' --wait`
+    const initPrefixCommand = `WINEPREFIX='${fixedWinePrefix}' ${wineBoot} -i && ${wineServer} --wait`
     logInfo(['creating new prefix', fixedWinePrefix], LogPrefix.Backend)
     return execAsync(initPrefixCommand)
       .then(async () => {
