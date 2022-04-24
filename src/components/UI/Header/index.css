@@ -15,10 +15,10 @@
 
 @media screen and (max-width: 1000px) {
   .Header {
-    grid-template-columns: min-content 1fr min-content;
+    grid-template-columns: 1fr min-content min-content;
     grid-template-areas:
       'search search search'
-      'hidden filters summary';
+      'filters summary hidden';
   }
 }
 
