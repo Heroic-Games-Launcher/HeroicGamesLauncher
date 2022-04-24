@@ -3,8 +3,8 @@
   top: 0;
   z-index: 7;
   display: grid;
-  grid-template-columns: min-content 1fr 4fr 2fr;
-  grid-template-areas: 'hidden filters search summary';
+  grid-template-columns: 1fr 4fr 1fr min-content;
+  grid-template-areas: 'filters search summary hidden';
   grid-gap: 8px;
   align-items: center;
   margin: 0 32px;
@@ -31,12 +31,6 @@
 
 .Header__filters .FormControl {
   margin-right: 8px;
-}
-
-.Header__toggleHidden {
-  grid-area: hidden;
-  margin-right: 8px;
-  white-space: nowrap;
 }
 
 .Header__search {

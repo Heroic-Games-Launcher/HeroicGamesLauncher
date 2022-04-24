@@ -114,6 +114,7 @@
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
     "header": {
+        "ignore_hidden": "Ignore Hidden",
         "platform": "Nền tảng",
         "show_hidden": "Show Hidden"
     },

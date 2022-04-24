@@ -114,6 +114,7 @@
     "GOG": "GOG",
     "gog-store": "Κατάστημα GOG",
     "header": {
+        "ignore_hidden": "Ignore Hidden",
         "platform": "Πλατφόρμα",
         "show_hidden": "Show Hidden"
     },

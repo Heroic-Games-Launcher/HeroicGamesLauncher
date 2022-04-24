@@ -114,6 +114,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Pood",
     "header": {
+        "ignore_hidden": "Ignore Hidden",
         "platform": "Platvorm",
         "show_hidden": "Show Hidden"
     },

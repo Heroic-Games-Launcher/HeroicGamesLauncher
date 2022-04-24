@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { SearchBar } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
-import ToggleSwitch from '../ToggleSwitch'
 import { UE_VERSIONS } from './constants'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './index.css'
 
 export interface HeaderProps {
@@ -33,6 +33,10 @@ export default function Header({ numberOfGames }: HeaderProps) {
   const toggleShowHidden = () => {
     setShowHidden(!showHidden)
   }
+
+  const showHiddenTitle = showHidden
+    ? t('header.ignore_hidden', 'Ignore Hidden')
+    : t('header.show_hidden', 'Show Hidden')
 
   return (
     <div className="Header">
@@ -144,14 +148,15 @@ export default function Header({ numberOfGames }: HeaderProps) {
           ? `${t('Total Games')}: ${numberOfGames}`
           : `${t('nogames')}`}
       </div>
-      <label className="Header__toggleHidden">
-        {t('header.show_hidden', 'Show Hidden')}
-        <ToggleSwitch
-          title={t('header.show_hidden', 'Show Hidden')}
-          handleChange={toggleShowHidden}
-          value={showHidden}
-        />
-      </label>
+      <FormControl segmented>
+        <button
+          className="FormControl__button"
+          title={showHiddenTitle}
+          onClick={toggleShowHidden}
+        >
+          {showHidden ? <Visibility /> : <VisibilityOff />}
+        </button>
+      </FormControl>
     </div>
   )
 }

@@ -114,6 +114,7 @@
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
     "header": {
+        "ignore_hidden": "Ignore Hidden",
         "platform": "پلتفرم",
         "show_hidden": "Show Hidden"
     },

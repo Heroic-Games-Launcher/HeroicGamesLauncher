@@ -114,6 +114,7 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
+        "ignore_hidden": "Ignore Hidden",
         "platform": "Plattform",
         "show_hidden": "Show Hidden"
     },

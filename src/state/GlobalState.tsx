@@ -105,8 +105,8 @@ export class GlobalState extends PureComponent<Props> {
     libraryStatus: [],
     platform: '',
     refreshing: false,
-    hiddenGames: [],
-    showHidden: true
+    hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
+    showHidden: false
   }
 
   setShowHidden = (value: boolean) => {
@@ -161,15 +161,11 @@ export class GlobalState extends PureComponent<Props> {
       ipcRenderer.send('logError', error)
     }
 
-    const hiddenGames =
-      (configStore.get('games.hidden') as Array<HiddenGame>) || []
-
     this.setState({
       epicLibrary,
       gogLibrary,
       gameUpdates: updates,
-      refreshing: false,
-      hiddenGames
+      refreshing: false
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -435,6 +431,7 @@ export class GlobalState extends PureComponent<Props> {
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
+    const showHidden = JSON.parse(storage.getItem('show_hidden') || 'false')
 
     if (!legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
@@ -446,7 +443,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     i18n.changeLanguage(language)
-    this.setState({ category, filter, language, layout, platform })
+    this.setState({ category, filter, language, layout, platform, showHidden })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -458,12 +455,14 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { filter, gameUpdates, libraryStatus, layout, category } = this.state
+    const { filter, gameUpdates, libraryStatus, layout, category, showHidden } =
+      this.state
 
     storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
+    storage.setItem('show_hidden', JSON.stringify(showHidden))
 
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing'
