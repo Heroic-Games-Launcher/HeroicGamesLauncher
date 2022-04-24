@@ -112,11 +112,13 @@ export default function Library(): JSX.Element {
       <div className="listing">
         <span id="top" />
         {showRecentGames && (
-          <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
-        )}
-
-        {showRecentGames && (
-          <GamesList library={recentGames} handleGameCardClick={handleModal} />
+          <>
+            <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
+            <GamesList
+              library={recentGames}
+              handleGameCardClick={handleModal}
+            />
+          </>
         )}
 
         <h3 className="libraryHeader">{titleWithIcons()}</h3>
