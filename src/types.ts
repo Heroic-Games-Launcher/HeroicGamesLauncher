@@ -72,6 +72,13 @@ export interface ContextType {
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
+  hiddenGames: {
+    list: HiddenGame[]
+    add: (appNameToHide: string, appTitle: string) => void
+    remove: (appNameToUnhide: string) => void
+  }
+  showHidden: boolean
+  setShowHidden: (value: boolean) => void
 }
 
 interface ExtraInfo {
@@ -103,6 +110,11 @@ export interface GameInfo {
   save_folder: string
   title: string
   canRunOffline: boolean
+}
+
+export interface HiddenGame {
+  appName: string
+  title: string
 }
 
 export interface GameSettings {

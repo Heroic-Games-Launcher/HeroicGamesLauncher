@@ -105,20 +105,18 @@
         "syncing": "Συγχρονισμός",
         "unsync": "Αποσυγχρονισμός"
     },
-    "Downloading": "Λήψη",
     "epic": {
         "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
         "offline-notification-title": "Εκτός Σύνδεσης"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Χωρίς Φίλτρο"
-    },
     "globalSettings": "Καθολικές Ρυθμίσεις",
     "GOG": "GOG",
     "gog-store": "Κατάστημα GOG",
     "header": {
-        "platform": "Πλατφόρμα"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Πλατφόρμα",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Συγχρονίστε με EGL εάν έχετε μια λειτουργική εγκατάσταση Epic Games Launcher κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
@@ -170,7 +168,6 @@
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
     },
     "nogames": "Δεν βρέθηκαν παιχνίδια",
-    "Not Ready": "Δεν είναι έτοιμο",
     "notify": {
         "error": {
             "move": "Σφάλμα μετακίνησης του Παιχνιδιού",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Πρότζεκτ",
-    "Ready": "Έτοιμο",
     "Recent": "Παίχτηκε Πρόσφατα",
     "search": "Εισαγάγετε το όνομα παιχνιδιού εδώ...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Όλα τα παιχνίδια",
         "allUnreal": "Unreal - Όλα",
-        "downloading": "Γίνεται λήψη",
-        "installedGames": "Εγκατεστημένα Παιχνίδια",
-        "notInstalledGames": "Μη Εγκατεστημένο",
         "unrealAssets": "Unreal - Στοιχεία",
         "unrealPlugins": "Unreal - Πρόσθετα",
-        "unrealProjects": "Unreal - Πρότζεκτ",
-        "updates": "Εκκρεμής Ενημερώσεις"
+        "unrealProjects": "Unreal - Πρότζεκτ"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Εμφάνιση"
     },
     "Unreal Marketplace": "Κατάστημα Unreal",
-    "Updates": "Ενημερώσεις",
     "userselector": {
         "discord": "Discord",
         "logout": "Αποσύνδεση",

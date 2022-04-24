@@ -38,8 +38,10 @@
     "button": {
         "cancel": "取消",
         "continue": "繼續下載",
+        "hide_game": "Hide Game",
         "import": "導入",
         "install": "安裝",
+        "unhide_game": "Unhide Game",
         "uninstall": "解除安裝",
         "update": "更新"
     },

@@ -105,20 +105,18 @@
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine"
     },
-    "Downloading": "Allalaadimine",
     "epic": {
         "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Filtreerimata"
-    },
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
     "gog-store": "GOG Pood",
     "header": {
-        "platform": "Platvorm"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Platvorm",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -170,7 +168,6 @@
         "unsync": "Mittesünkroniseerimine lõpetatud"
     },
     "nogames": "Mänge ei leitud",
-    "Not Ready": "Pole valmis",
     "notify": {
         "error": {
             "move": "Viga mängu liigutamisel",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Pluginad",
     "Projects": "Projektid",
-    "Ready": "Valmis",
     "Recent": "Hiljuti mängitud",
     "search": "Sisestage mängu nimi siia...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Kõik mängud",
         "allUnreal": "Unreal - Kõik",
-        "downloading": "Allalaadimine",
-        "installedGames": "Paigaldatud mängud",
-        "notInstalledGames": "Pole installitud",
         "unrealAssets": "Unreal - varamu",
         "unrealPlugins": "Unreal - pluginad",
-        "unrealProjects": "Unreal - Projektid",
-        "updates": "Ootel olevad uuendused"
+        "unrealProjects": "Unreal - Projektid"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Näita"
     },
     "Unreal Marketplace": "Unreal'i Marketplace",
-    "Updates": "Uuendused",
     "userselector": {
         "discord": "Discord",
         "logout": "Logi välja",

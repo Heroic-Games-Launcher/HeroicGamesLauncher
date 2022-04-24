@@ -7,6 +7,7 @@ import { SearchBar } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import { UE_VERSIONS } from './constants'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './index.css'
 
 export interface HeaderProps {
@@ -21,11 +22,21 @@ export default function Header({ numberOfGames }: HeaderProps) {
     handleFilter,
     filterPlatform,
     handlePlatformFilter,
-    platform
+    platform,
+    showHidden,
+    setShowHidden
   } = useContext(ContextProvider)
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+
+  const toggleShowHidden = () => {
+    setShowHidden(!showHidden)
+  }
+
+  const showHiddenTitle = showHidden
+    ? t('header.ignore_hidden', 'Ignore Hidden')
+    : t('header.show_hidden', 'Show Hidden')
 
   return (
     <div className="Header">
@@ -137,6 +148,15 @@ export default function Header({ numberOfGames }: HeaderProps) {
           ? `${t('Total Games')}: ${numberOfGames}`
           : `${t('nogames')}`}
       </div>
+      <FormControl segmented>
+        <button
+          className="FormControl__button"
+          title={showHiddenTitle}
+          onClick={toggleShowHidden}
+        >
+          {showHidden ? <Visibility /> : <VisibilityOff />}
+        </button>
+      </FormControl>
     </div>
   )
 }

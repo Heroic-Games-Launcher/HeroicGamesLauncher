@@ -105,20 +105,18 @@
         "syncing": "S'està sincronitzant",
         "unsync": "Dessincronitza"
     },
-    "Downloading": "S'està baixant",
     "epic": {
         "offline-notification-body": "L'Heroic probablement no funcionarà.",
         "offline-notification-title": "fora de línia"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Cap filtre"
-    },
     "globalSettings": "Configuració global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
@@ -170,7 +168,6 @@
         "unsync": "S'ha completat la dessincronització"
     },
     "nogames": "No s'ha trobat cap joc",
-    "Not Ready": "No preparats",
     "notify": {
         "error": {
             "move": "Error en desplaçar el joc",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Extensions",
     "Projects": "Projectes",
-    "Ready": "Preparats",
     "Recent": "Jugats fa poc",
     "search": "Introdueix el nom del joc...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Tots els jocs",
         "allUnreal": "Unreal - Tot",
-        "downloading": "S'està baixant",
-        "installedGames": "Jocs instal·lats",
-        "notInstalledGames": "No instal·lats",
         "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Unreal - Extensions",
-        "unrealProjects": "Unreal - Projectes",
-        "updates": "Actualitzacions pendents"
+        "unrealProjects": "Unreal - Projectes"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Mostra"
     },
     "Unreal Marketplace": "Llibreria d'Unreal",
-    "Updates": "Actualitzacions",
     "userselector": {
         "discord": "Discord",
         "logout": "Tanca la sessió",

@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import {
   GameInfo,
   GameStatus,
+  HiddenGame,
   InstalledInfo,
   RefreshOptions,
   WineVersionInfo
@@ -63,6 +64,8 @@ interface StateProps {
   libraryStatus: GameStatus[]
   platform: string
   refreshing: boolean
+  hiddenGames: HiddenGame[]
+  showHidden: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -101,7 +104,36 @@ export class GlobalState extends PureComponent<Props> {
     layout: 'grid',
     libraryStatus: [],
     platform: '',
-    refreshing: false
+    refreshing: false,
+    hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
+    showHidden: false
+  }
+
+  setShowHidden = (value: boolean) => {
+    this.setState({ showHidden: value })
+  }
+
+  hideGame = (appNameToHide: string, appTitle: string) => {
+    const newHiddenGames = [
+      ...this.state.hiddenGames,
+      { appName: appNameToHide, title: appTitle }
+    ]
+
+    this.setState({
+      hiddenGames: newHiddenGames
+    })
+    configStore.set('games.hidden', newHiddenGames)
+  }
+
+  unhideGame = (appNameToUnhide: string) => {
+    const newHiddenGames = this.state.hiddenGames.filter(
+      ({ appName }) => appName !== appNameToUnhide
+    )
+
+    this.setState({
+      hiddenGames: newHiddenGames
+    })
+    configStore.set('games.hidden', newHiddenGames)
   }
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
@@ -399,6 +431,7 @@ export class GlobalState extends PureComponent<Props> {
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
+    const showHidden = JSON.parse(storage.getItem('show_hidden') || 'false')
 
     if (!legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
@@ -410,7 +443,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     i18n.changeLanguage(language)
-    this.setState({ category, filter, language, layout, platform })
+    this.setState({ category, filter, language, layout, platform, showHidden })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -422,12 +455,14 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { filter, gameUpdates, libraryStatus, layout, category } = this.state
+    const { filter, gameUpdates, libraryStatus, layout, category, showHidden } =
+      this.state
 
     storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
+    storage.setItem('show_hidden', JSON.stringify(showHidden))
 
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing'
@@ -480,6 +515,19 @@ export class GlobalState extends PureComponent<Props> {
       recentGames = [...recentGames, ...getRecentGames(gogLibrary)]
     }
 
+    const hiddenGamesAppNames = this.state.hiddenGames.map(
+      (hidden) => hidden.appName
+    )
+
+    if (!this.state.showHidden) {
+      filteredEpicLibrary = filteredEpicLibrary.filter(
+        (game) => !hiddenGamesAppNames.includes(game.app_name)
+      )
+      filteredGOGLibrary = filteredGOGLibrary.filter(
+        (game) => !hiddenGamesAppNames.includes(game.app_name)
+      )
+    }
+
     return (
       <ContextProvider.Provider
         value={{
@@ -498,7 +546,13 @@ export class GlobalState extends PureComponent<Props> {
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,
-          recentGames
+          recentGames,
+          hiddenGames: {
+            list: this.state.hiddenGames,
+            add: this.hideGame,
+            remove: this.unhideGame
+          },
+          setShowHidden: this.setShowHidden
         }}
       >
         {children}

@@ -26,7 +26,14 @@ const initialContext: ContextType = {
   refreshLibrary: () => Promise.resolve(),
   refreshWineVersionInfo: () => Promise.resolve(),
   refreshing: false,
-  isRTL: false
+  isRTL: false,
+  hiddenGames: {
+    list: [],
+    add: () => null,
+    remove: () => null
+  },
+  showHidden: false,
+  setShowHidden: () => null
 }
 
 export default React.createContext(initialContext)

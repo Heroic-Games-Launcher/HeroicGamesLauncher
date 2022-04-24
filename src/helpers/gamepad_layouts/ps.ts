@@ -8,7 +8,7 @@ export function checkPS3(
 ) {
   const X = buttons[0],
     Circle = buttons[1],
-    // Square = buttons[2],
+    Square = buttons[2],
     Triangle = buttons[3],
     // LB = buttons[4],
     // RB = buttons[5],
@@ -43,6 +43,7 @@ export function checkPS3(
   checkAction('mainAction', X.pressed, controllerIndex)
   checkAction('back', Circle.pressed, controllerIndex)
   checkAction('altAction', Triangle.pressed, controllerIndex)
+  checkAction('rightClick', Square.pressed, controllerIndex)
 }
 
 export function checkPS5(
@@ -54,7 +55,7 @@ export function checkPS5(
   const Circle = buttons[0],
     Triangle = buttons[1],
     X = buttons[2],
-    // Square = buttons[3],
+    Square = buttons[3],
     // LB = buttons[4],
     // RB = buttons[5],
     rightAxisX = buttons[6],
@@ -83,6 +84,7 @@ export function checkPS5(
   checkAction('mainAction', X.pressed, controllerIndex)
   checkAction('back', Circle.pressed, controllerIndex)
   checkAction('altAction', Triangle.pressed, controllerIndex)
+  checkAction('rightClick', Square.pressed, controllerIndex)
 }
 
 // Vendor: 2563, Product: 0523
@@ -95,7 +97,7 @@ export function checkPS3Clone1(
   const Triangle = buttons[0],
     Circle = buttons[1],
     X = buttons[2],
-    // Square = buttons[3],
+    Square = buttons[3],
     // LB = buttons[4],
     // RB = buttons[5],
     // LT = buttons[6],
@@ -124,4 +126,5 @@ export function checkPS3Clone1(
   checkAction('mainAction', X.pressed, controllerIndex)
   checkAction('back', Circle.pressed, controllerIndex)
   checkAction('altAction', Triangle.pressed, controllerIndex)
+  checkAction('rightClick', Square.pressed, controllerIndex)
 }

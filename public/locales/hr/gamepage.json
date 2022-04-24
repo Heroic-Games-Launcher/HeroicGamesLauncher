@@ -38,8 +38,10 @@
     "button": {
         "cancel": "Otkaži/Prekini",
         "continue": "Nastavi preuzimanje",
+        "hide_game": "Hide Game",
         "import": "Uvezi igru",
         "install": "Instaliraj",
+        "unhide_game": "Unhide Game",
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"
     },

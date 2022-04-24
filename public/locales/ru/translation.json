@@ -105,20 +105,18 @@
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
     },
-    "Downloading": "Скачивается",
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Без фильтра"
-    },
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
     "header": {
-        "platform": "Платформа"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Платформа",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
@@ -170,7 +168,6 @@
         "unsync": "Рассинхронизация завершена"
     },
     "nogames": "Игры не найдены",
-    "Not Ready": "Не готово",
     "notify": {
         "error": {
             "move": "Ошибка при перемещении игры",
@@ -221,7 +218,6 @@
     },
     "Plugins": "Плагины",
     "Projects": "Проекты",
-    "Ready": "Готово",
     "Recent": "Запускались недавно",
     "search": "Введите здесь название игры...",
     "setting": {
@@ -314,13 +310,9 @@
     "title": {
         "allGames": "Все игры",
         "allUnreal": "Unreal - Все",
-        "downloading": "Скачивание",
-        "installedGames": "Установленные игры",
-        "notInstalledGames": "Не установлено",
         "unrealAssets": "Unreal - Ресурсы",
         "unrealPlugins": "Unreal - Плагины",
-        "unrealProjects": "Unreal - Проекты",
-        "updates": "Ожидаемые обновления"
+        "unrealProjects": "Unreal - Проекты"
     },
     "toolbox": {
         "settings": {
@@ -340,7 +332,6 @@
         "show": "Показать"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Обновления",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
