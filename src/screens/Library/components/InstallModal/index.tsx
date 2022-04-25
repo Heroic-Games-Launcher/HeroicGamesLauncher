@@ -159,6 +159,8 @@ export default function InstallModal({
   }
 
   async function handleInstall(path?: string) {
+    // If path provided by user is empty, use default path (as shown in placeholder; $HOME/Games/Heroic)
+    if (!path || path == '') path = defaultPath
     backdropClick()
 
     // Write Default game config with prefix on linux
@@ -542,7 +544,7 @@ export default function InstallModal({
                 {t('button.import')}
               </button>
               <button
-                onClick={() => handleInstall()}
+                onClick={() => handleInstall(installPath)}
                 className={`button is-secondary`}
               >
                 {previousProgress.folder === installPath
