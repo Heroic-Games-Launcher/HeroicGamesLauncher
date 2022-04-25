@@ -22,6 +22,7 @@ import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
 import { AdvancedSettings } from './components/AdvancedSettings'
+import FooterInfo from './components/FooterInfo'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -479,11 +480,10 @@ function Settings() {
               settingsToSave={settingsToSave}
             />
           )}
-          <span className="save">{t('info.settings')}</span>
           {isLogSettings && (
             <LogSettings isDefault={isDefault} appName={appName} />
           )}
-          {!isDefault && <span className="appName">AppName: {appName}</span>}
+          <FooterInfo appName={appName} />
         </div>
       </div>
     </>
