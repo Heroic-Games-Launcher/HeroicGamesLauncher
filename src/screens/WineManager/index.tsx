@@ -17,7 +17,7 @@ export default function WineManager(): JSX.Element | null {
     useContext(ContextProvider)
 
   useEffect(() => {
-    return refreshWineVersionInfo(true)
+    refreshWineVersionInfo(true)
   }, [])
 
   if (refreshing) {
