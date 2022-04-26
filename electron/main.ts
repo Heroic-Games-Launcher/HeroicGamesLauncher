@@ -710,8 +710,10 @@ if (existsSync(installed)) {
 }
 
 ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
-  await GOGLibrary.get().sync()
-  return await LegendaryLibrary.get().getGames('info', fullRefresh)
+  await Promise.allSettled([
+    GOGLibrary.get().sync(),
+    LegendaryLibrary.get().getGames('info', fullRefresh)
+  ])
 })
 
 ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))

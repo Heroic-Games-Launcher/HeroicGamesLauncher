@@ -99,7 +99,7 @@
         "yes": "예"
     },
     "button": {
-        "continue": "계속",
+        "go_to_library": "Go to Library",
         "login": "로그인",
         "sync": "싱크",
         "syncing": "싱크중",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "설정은 자동으로 저장됩니다"
     },
     "infobox": {

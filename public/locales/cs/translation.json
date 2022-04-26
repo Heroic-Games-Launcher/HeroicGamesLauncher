@@ -99,7 +99,7 @@
         "yes": "ANO"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Login",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Nastavení se ukládají automaticky"
     },
     "infobox": {

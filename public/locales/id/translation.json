@@ -99,7 +99,7 @@
         "yes": "YA"
     },
     "button": {
-        "continue": "Lanjutkan",
+        "go_to_library": "Go to Library",
         "login": "Log Masuk",
         "sync": "Sinkronkan",
         "syncing": "Menyinkronkan",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Pengaturan disimpan secara otomatis"
     },
     "infobox": {

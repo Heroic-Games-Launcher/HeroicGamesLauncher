@@ -99,7 +99,7 @@
         "yes": "ശരി"
     },
     "button": {
-        "continue": "തുടരുക",
+        "go_to_library": "Go to Library",
         "login": "അകത്ത് കയറുക",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു"
     },
     "infobox": {

@@ -99,7 +99,7 @@
         "yes": "IGEN"
     },
     "button": {
-        "continue": "Letöltés folytatása",
+        "go_to_library": "Go to Library",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "A beállítások automatikusan mentődnek"
     },
     "infobox": {

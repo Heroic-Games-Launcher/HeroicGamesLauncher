@@ -99,7 +99,7 @@
         "yes": "ΝΑΙ"
     },
     "button": {
-        "continue": "Συνέχεια",
+        "go_to_library": "Go to Library",
         "login": "Σύνδεση",
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως"
     },
     "infobox": {

@@ -99,7 +99,7 @@
         "yes": "KYLLÄ"
     },
     "button": {
-        "continue": "Jatka",
+        "go_to_library": "Go to Library",
         "login": "Kirjaudu sisään",
         "sync": "Synkronoi",
         "syncing": "Synkronoidaan",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Asetukset tallennetaan automaattisesti"
     },
     "infobox": {
