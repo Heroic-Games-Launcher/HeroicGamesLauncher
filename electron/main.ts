@@ -548,6 +548,7 @@ ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
+ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
 

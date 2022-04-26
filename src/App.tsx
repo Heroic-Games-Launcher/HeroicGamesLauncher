@@ -1,32 +1,21 @@
-import React, { lazy, useContext } from 'react'
+import React, { lazy } from 'react'
 
 import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Library } from 'src/screens/Library'
-import ContextProvider from 'src/state/ContextProvider'
 import Sidebar from 'src/components/UI/Sidebar'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
 
 import { configStore, gogConfigStore } from './helpers/electronStores'
 
+const Library = lazy(() => import('./screens/Library'))
 const Settings = lazy(() => import('./screens/Settings'))
 const GamePage = lazy(() => import('./screens/Game/GamePage'))
-const Header = lazy(() => import('./components/UI/Header'))
 const WineManager = lazy(() => import('./screens/WineManager'))
 
 function App() {
-  const { epicLibrary, gogLibrary, recentGames, category } =
-    useContext(ContextProvider)
-
   const user = configStore.has('userInfo') || gogConfigStore.has('credentials')
 
-  const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
-  const numberOfGames =
-    category == 'epic'
-      ? epicLibrary.length - dlcCount.length
-      : gogLibrary.length
-  const showRecentGames = !!recentGames.length && category !== 'unreal'
   return (
     <div className="App">
       <HashRouter>
@@ -34,20 +23,7 @@ function App() {
         <main className="content">
           <Switch>
             <Route exact path="/">
-              {user && (
-                <>
-                  <Header numberOfGames={numberOfGames} />
-                  <div className="listing">
-                    <span id="top" />
-                    {showRecentGames && (
-                      <Library showRecentsOnly library={recentGames} />
-                    )}
-                    <Library
-                      library={category === 'epic' ? epicLibrary : gogLibrary}
-                    />
-                  </div>
-                </>
-              )}
+              {user && <Library />}
             </Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/epicstore" component={WebView} />

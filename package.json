@@ -140,6 +140,7 @@
     "discord-rich-presence-typescript": "^0.0.8",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
+    "fs-extra": "^10.1.0",
     "graceful-fs": "^4.2.10",
     "heroic-wine-downloader": "^1.2.3",
     "i18next": "^21.6.16",

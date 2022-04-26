@@ -236,6 +236,12 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   filterPlatform = (library: GameInfo[], filter: string) => {
+    const { category, platform } = this.state
+
+    if (category === 'epic' && platform === 'linux') {
+      return library.filter((game) => game.is_game)
+    }
+
     switch (filter) {
       case 'win':
         return library.filter((game) =>
