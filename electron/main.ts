@@ -63,6 +63,7 @@ import {
   showErrorBoxModal
 } from './utils'
 import {
+  configStore,
   currentLogFile,
   discordLink,
   execOptions,
@@ -79,30 +80,19 @@ import {
   patreonPage,
   sidInfoUrl,
   supportURL,
+  tsStore,
   weblateUrl,
   wikiLink,
   heroicToolsPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import Store from 'electron-store'
+import { gameInfoStore } from './legendary/electronStores'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow = null
-const store = new Store({
-  cwd: 'store'
-})
-
-const gameInfoStore = new Store({
-  cwd: 'lib-cache',
-  name: 'gameinfo'
-})
-const tsStore = new Store({
-  cwd: 'store',
-  name: 'timestamp'
-})
 
 async function createWindow(): Promise<BrowserWindow> {
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
@@ -114,8 +104,8 @@ async function createWindow(): Promise<BrowserWindow> {
     y: 0
   }
 
-  if (store.has('window-props')) {
-    const tmpWindowProps = store.get('window-props') as Electron.Rectangle
+  if (configStore.has('window-props')) {
+    const tmpWindowProps = configStore.get('window-props') as Electron.Rectangle
     if (
       tmpWindowProps &&
       tmpWindowProps.width &&
@@ -159,7 +149,7 @@ async function createWindow(): Promise<BrowserWindow> {
     e.preventDefault()
 
     // store windows properties
-    store.set('window-props', mainWindow.getBounds())
+    configStore.set('window-props', mainWindow.getBounds())
 
     const { exitToTray } = GlobalConfig.get().config
 
@@ -199,7 +189,7 @@ const gotTheLock = app.requestSingleInstanceLock()
 
 const contextMenu = () => {
   const recentGames: Array<RecentGame> =
-    (store.get('games.recent') as Array<RecentGame>) || []
+    (configStore.get('games.recent') as Array<RecentGame>) || []
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
@@ -287,7 +277,7 @@ if (!gotTheLock) {
 
     if (!isLoggedIn) {
       logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
-      store.delete('userinfo')
+      configStore.delete('userinfo')
     }
 
     // Update user details
@@ -739,7 +729,8 @@ ipcMain.handle(
       runner,
       status: 'playing'
     })
-    const recentGames = (store.get('games.recent') as Array<RecentGame>) || []
+    const recentGames =
+      (configStore.get('games.recent') as Array<RecentGame>) || []
     const game = appName.split(' ')[0]
     const gameData = await Game.get(game, runner).getGameInfo()
     const { title } = gameData
@@ -767,9 +758,9 @@ ipcMain.handle(
         updatedRecentGames.pop()
       }
       updatedRecentGames.unshift({ appName: game, title })
-      store.set('games.recent', updatedRecentGames)
+      configStore.set('games.recent', updatedRecentGames)
     } else {
-      store.set('games.recent', [{ game, title: title }])
+      configStore.set('games.recent', [{ game, title: title }])
     }
 
     if (minimizeOnLaunch) {
