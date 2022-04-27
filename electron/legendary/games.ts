@@ -17,16 +17,12 @@ import {
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
-import Store from 'electron-store'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
+import { gameInfoStore } from './electronStores'
 
-const store = new Store({
-  cwd: 'lib-cache',
-  name: 'gameinfo'
-})
 class LegendaryGame extends Game {
   public appName: string
   public window = BrowserWindow.getAllWindows()[0]
@@ -101,8 +97,8 @@ class LegendaryGame extends Game {
    * @returns
    */
   public async getExtraInfo(namespace: string | null): Promise<ExtraInfo> {
-    if (store.has(namespace)) {
-      return store.get(namespace) as ExtraInfo
+    if (gameInfoStore.has(namespace)) {
+      return gameInfoStore.get(namespace) as ExtraInfo
     }
     if (!(await isOnline())) {
       return {
@@ -142,7 +138,7 @@ class LegendaryGame extends Game {
         (e: { type: string }) => e.type === 'productHome'
       )
 
-      store.set(namespace, {
+      gameInfoStore.set(namespace, {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details
       })
@@ -153,7 +149,7 @@ class LegendaryGame extends Game {
     } catch (error) {
       logError('Error Getting Info from Epic API', LogPrefix.Legendary)
 
-      store.set(namespace, { about: {}, reqs: [] })
+      gameInfoStore.set(namespace, { about: {}, reqs: [] })
       return {
         about: {},
         reqs: []

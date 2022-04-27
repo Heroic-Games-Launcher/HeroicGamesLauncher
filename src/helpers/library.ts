@@ -8,7 +8,7 @@ import {
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
-import ElectronStore from 'electron-store'
+import { configStore } from './electronStores'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -296,11 +296,6 @@ type RecentGame = {
   appName: string
   title: string
 }
-
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
 
 function getRecentGames(library: GameInfo[]) {
   const recentGames =

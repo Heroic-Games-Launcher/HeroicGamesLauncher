@@ -6,30 +6,22 @@ import {
   faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ElectronStore from 'electron-store'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useHistory } from 'react-router-dom'
 import { openDiscordLink } from 'src/helpers'
+import { configStore, gogConfigStore } from 'src/helpers/electronStores'
 import ContextProvider from 'src/state/ContextProvider'
 import QuitButton from '../QuitButton'
 import './index.css'
 
 const { ipcRenderer } = window.require('electron')
-const Store = window.require('electron-store')
-
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
-const gogStore = new Store({
-  cwd: 'gog_store'
-})
 
 export default function SidebarUtils() {
   const { t } = useTranslation()
   const history = useHistory()
-  const user = configStore.get('userInfo') || gogStore.get('userData')
   const { platform } = React.useContext(ContextProvider)
+  const user = configStore.get('userInfo') || gogConfigStore.get('userData')
   const isLinux = platform === 'linux'
 
   return (
