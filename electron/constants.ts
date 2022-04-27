@@ -12,6 +12,11 @@ const configStore = new Store({
   cwd: 'store'
 })
 
+const tsStore = new Store({
+  cwd: 'store',
+  name: 'timestamp'
+})
+
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() == 'linux'
@@ -146,5 +151,6 @@ export {
   userInfo,
   weblateUrl,
   wikiLink,
-  steamCompatFolder
+  steamCompatFolder,
+  tsStore
 }

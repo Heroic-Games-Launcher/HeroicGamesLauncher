@@ -6,7 +6,6 @@ import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
-import Store from 'electron-store'
 
 import {
   configStore,
@@ -20,6 +19,15 @@ import { logError, logInfo, LogPrefix } from './logger/logger'
 import { basename, dirname, join } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
+import {
+  gameInfoStore,
+  installStore,
+  libraryStore
+} from './legendary/electronStores'
+import {
+  apiInfoCache as GOGapiInfoCache,
+  libraryStore as GOGlibraryStore
+} from './gog/electronStores'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -297,28 +305,11 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 }
 
 function clearCache() {
-  const installCache = new Store({
-    cwd: 'lib-cache',
-    name: 'installInfo'
-  })
-  const libraryCache = new Store({
-    cwd: 'lib-cache',
-    name: 'library'
-  })
-  const gameInfoCache = new Store({
-    cwd: 'lib-cache',
-    name: 'gameinfo'
-  })
-  const GOGapiInfoCache = new Store({
-    cwd: 'gog_store',
-    name: 'api_info_cache'
-  })
-  const GOGlibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
   GOGapiInfoCache.clear()
   GOGlibraryStore.clear()
-  installCache.clear()
-  libraryCache.clear()
-  gameInfoCache.clear()
+  installStore.clear()
+  libraryStore.clear()
+  gameInfoStore.clear()
 }
 
 function resetHeroic() {

@@ -13,32 +13,20 @@ import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
 import { i18n } from 'i18next'
 
 import ContextProvider from './ContextProvider'
-import ElectronStore from 'electron-store'
 import { getRecentGames } from 'src/helpers/library'
+
+import {
+  configStore,
+  gogConfigStore,
+  gogInstalledGamesStore,
+  gogLibraryStore,
+  libraryStore,
+  wineDownloaderInfoStore
+} from '../helpers/electronStores'
 
 const storage: Storage = window.localStorage
 const { ipcRenderer } = window.require('electron')
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
-const libraryStore: ElectronStore = new Store({
-  cwd: 'lib-cache',
-  name: 'library'
-})
-const wineDownloaderInfoStore: ElectronStore = new Store({
-  cwd: 'store',
-  name: 'wine-downloader-info'
-})
 
-const gogLibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
-const gogInstalledGamesStore = new Store({
-  cwd: 'gog_store',
-  name: 'installed'
-})
-const gogConfigStore = new Store({
-  cwd: 'gog_store'
-})
 const RTL_LANGUAGES = ['fa']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
@@ -248,6 +236,12 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   filterPlatform = (library: GameInfo[], filter: string) => {
+    const { category, platform } = this.state
+
+    if (category === 'epic' && platform === 'linux') {
+      return library.filter((game) => game.is_game)
+    }
+
     switch (filter) {
       case 'win':
         return library.filter((game) =>

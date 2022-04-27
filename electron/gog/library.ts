@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import Store from 'electron-store'
 import { GOGUser } from './user'
 import {
   GOGGameInfo,
@@ -26,14 +25,12 @@ import {
 } from '../logger/logger'
 import { getGOGdlBin } from '../utils'
 import { fallBackImage, isMac } from '../constants'
+import {
+  apiInfoCache,
+  libraryStore,
+  installedGamesStore
+} from './electronStores'
 import { spawn } from 'child_process'
-
-const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
-const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
-const installedGamesStore = new Store({
-  cwd: 'gog_store',
-  name: 'installed'
-})
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary = null
