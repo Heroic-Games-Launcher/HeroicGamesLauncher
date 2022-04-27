@@ -33,7 +33,6 @@ export default function WineManager(): JSX.Element | null {
             style={
               !wineVersions.length ? { backgroundColor: 'transparent' } : {}
             }
-            className="gameListLayout"
           >
             {!!wineVersions.length &&
               wineVersions.map((release: WineVersionInfo, key) => (
