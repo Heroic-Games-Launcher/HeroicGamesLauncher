@@ -99,7 +99,7 @@
         "yes": "Có"
     },
     "button": {
-        "continue": "Tiếp tục",
+        "go_to_library": "Go to Library",
         "login": "Đăng nhập",
         "sync": "Đồng bộ",
         "syncing": "Đang đồng bộ",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Cài đặt được tự đông lưu"
     },
     "infobox": {

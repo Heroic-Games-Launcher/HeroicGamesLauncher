@@ -18,7 +18,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { handleFilter, handleCategory } = useContext(ContextProvider)
+  const { handleFilter, handleCategory, refreshLibrary } =
+    useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -66,6 +67,17 @@ export default function WebView() {
     }
   }
 
+  const handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
+    handleFilter('all')
+    handleCategory(runner)
+    refreshLibrary({
+      fullRefresh: true,
+      runInBackground: false
+    })
+    setLoading({ ...loading, refresh: false })
+    history.push('/login')
+  }
+
   useLayoutEffect(() => {
     const webview = webviewRef.current
     if (webview) {
@@ -84,12 +96,7 @@ export default function WebView() {
               message: t('status.logging', 'Logging In...')
             })
             ipcRenderer.invoke('authGOG', code).then(() => {
-              setLoading({
-                refresh: false,
-                message: t('status.logging', 'Logging In...')
-              })
-              handleCategory('gog')
-              history.push('/login')
+              handleSuccessfulLogin('gog')
             })
           }
         }
@@ -109,12 +116,8 @@ export default function WebView() {
                     refresh: true,
                     message: t('status.logging', 'Logging In...')
                   })
-                  await ipcRenderer.invoke('login', sid).then(() => {
-                    handleFilter('all')
-                    handleCategory('epic')
-                    setLoading({ ...loading, refresh: false })
-                    history.push('/login')
-                  })
+                  await ipcRenderer.invoke('login', sid)
+                  handleSuccessfulLogin('epic')
                 } catch (error) {
                   console.error(error)
                   ipcRenderer.send('logError', error)

@@ -99,7 +99,7 @@
         "yes": "بله"
     },
     "button": {
-        "continue": "ادامه",
+        "go_to_library": "Go to Library",
         "login": "ورود",
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند"
     },
     "infobox": {

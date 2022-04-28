@@ -34,7 +34,7 @@
   flex-wrap: wrap;
 }
 
-.continueLogin {
+.goToLibrary {
   position: relative;
   font-family: var(--font-primary-bold);
   top: 10%;
@@ -50,11 +50,11 @@
   backdrop-filter: blur(var(--blur-light));
 }
 
-.continueLogin:hover {
+.goToLibrary:hover {
   color: var(--text-hover);
 }
 
-.continueLogin.disabled {
+.goToLibrary.disabled {
   cursor: default;
   color: var(--text-default);
   display: none;

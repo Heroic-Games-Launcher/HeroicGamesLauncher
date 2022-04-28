@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
 import EpicLogo from '../../assets/epic-logo.svg'
 import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
-import cx from 'classnames'
 import { useHistory } from 'react-router'
 
-import ContextProvider from 'src/state/ContextProvider'
 import GOGLogo from 'src/assets/gog-logo.svg'
 import { LanguageSelector, UpdateComponent } from 'src/components/UI'
 import { FlagPosition } from 'src/components/UI/LanguageSelector'
@@ -24,7 +22,6 @@ export default function NewLogin() {
     i18n.changeLanguage(language)
   }
   const history = useHistory()
-  const { refreshLibrary, handleCategory } = useContext(ContextProvider)
   const [epicLogin, setEpicLogin] = useState({})
   const [gogLogin, setGOGLogin] = useState({})
   const [loading, setLoading] = useState(true)
@@ -50,17 +47,7 @@ export default function NewLogin() {
       ipcRenderer.removeListener('updateLoginState', () => eventHandler)
     }
   }, [])
-  async function continueLogin() {
-    setLoading(true)
-    await refreshLibrary({
-      fullRefresh: true,
-      runInBackground: false
-    })
-    //Make sure we cannot get to library that we can't see
-    handleCategory(epicLogin ? 'epic' : 'gog')
-    setLoading(false)
-    history.push('/')
-  }
+
   return (
     <div className="loginPage">
       {loading && (
@@ -117,14 +104,11 @@ export default function NewLogin() {
             }}
           />
         </div>
-        <button
-          onClick={continueLogin}
-          className={cx('continueLogin', {
-            ['disabled']: !epicLogin && !gogLogin
-          })}
-        >
-          {t('button.continue', 'Continue')}
-        </button>
+        {(epicLogin || gogLogin) && (
+          <button onClick={() => history.push('/')} className="goToLibrary">
+            {t('button.go_to_library', 'Go to Library')}
+          </button>
+        )}
       </div>
     </div>
   )

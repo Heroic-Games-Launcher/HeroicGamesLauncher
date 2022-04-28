@@ -99,7 +99,7 @@
         "yes": "JAH"
     },
     "button": {
-        "continue": "Jätka",
+        "go_to_library": "Go to Library",
         "login": "Logi sisse",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Seaded salvestatakse automaatselt"
     },
     "infobox": {

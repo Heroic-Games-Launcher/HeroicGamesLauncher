@@ -99,7 +99,7 @@
         "yes": "JA"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Login",
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Instellingen worden automatisch opgeslagen"
     },
     "infobox": {

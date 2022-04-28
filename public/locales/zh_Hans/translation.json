@@ -99,7 +99,7 @@
         "yes": "是"
     },
     "button": {
-        "continue": "继续",
+        "go_to_library": "Go to Library",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "设置会自动保存"
     },
     "infobox": {

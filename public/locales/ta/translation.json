@@ -99,7 +99,7 @@
         "yes": "ஆம்"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Login",
         "sync": "ஒத்திசைவு செய்",
         "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்"
     },
     "infobox": {
