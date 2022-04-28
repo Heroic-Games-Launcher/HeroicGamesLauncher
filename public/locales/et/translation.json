@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Ruudustikvaade",
         "listView": "Loendivaade",
-        "refresh": "Värskenda"
+        "refresh": "Värskenda",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Varamu",
     "loading": {

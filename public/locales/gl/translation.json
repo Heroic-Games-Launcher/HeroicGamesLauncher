@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Vista de cadrícula",
         "listView": "Vista de lista",
-        "refresh": "Actualizar"
+        "refresh": "Actualizar",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Biblioteca",
     "loading": {

@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Hiển thị dạng ô",
         "listView": "Hiển thị dạng danh sánh",
-        "refresh": "Tải lại"
+        "refresh": "Tải lại",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Thư viện",
     "loading": {

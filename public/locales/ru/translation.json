@@ -156,7 +156,9 @@
     "library": {
         "gridView": "В виде сетки",
         "listView": "В виде списка",
-        "refresh": "Обновить"
+        "refresh": "Обновить",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Библиотека",
     "loading": {

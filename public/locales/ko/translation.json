@@ -156,7 +156,9 @@
     "library": {
         "gridView": "그리드 보기",
         "listView": "목록 보기",
-        "refresh": "새로고침"
+        "refresh": "새로고침",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "라이브러리",
     "loading": {

@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Rács nézet",
         "listView": "Lista nézet",
-        "refresh": "Frissítés"
+        "refresh": "Frissítés",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Könyvtár",
     "loading": {

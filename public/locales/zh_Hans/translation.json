@@ -156,7 +156,9 @@
     "library": {
         "gridView": "网格视图",
         "listView": "列表视图",
-        "refresh": "刷新"
+        "refresh": "刷新",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "仓库",
     "loading": {

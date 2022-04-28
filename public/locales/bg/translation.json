@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Изглед във вид на решетка",
         "listView": "Изглед във вид на списък",
-        "refresh": "Опресняване"
+        "refresh": "Опресняване",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Библиотека",
     "loading": {

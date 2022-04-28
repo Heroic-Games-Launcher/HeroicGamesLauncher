@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Izgara görünümü",
         "listView": "Liste görünümü",
-        "refresh": "Yenile"
+        "refresh": "Yenile",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Kütüphane",
     "loading": {

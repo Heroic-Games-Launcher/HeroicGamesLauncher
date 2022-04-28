@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Προβολή Πλέγματος",
         "listView": "Προβολή Λίστας",
-        "refresh": "Ανανέωση"
+        "refresh": "Ανανέωση",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Βιβλιοθήκη",
     "loading": {

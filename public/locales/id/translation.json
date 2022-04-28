@@ -156,7 +156,9 @@
     "library": {
         "gridView": "Tampilan bergaris",
         "listView": "Tampilan daftar",
-        "refresh": "Segarkan"
+        "refresh": "Segarkan",
+        "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title"
     },
     "Library": "Perpustakaan",
     "loading": {
