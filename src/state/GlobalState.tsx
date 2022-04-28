@@ -266,114 +266,59 @@ export class GlobalState extends PureComponent<Props> {
     runner
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
-    const currentApp =
-      libraryStatus.filter((game) => game.appName === appName)[0] || {}
+    const currentApp = libraryStatus.filter(
+      (game) => game.appName === appName
+    )[0]
 
-    if (currentApp && currentApp.status === status) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
+    // add app to libraryStatus if it was not present
+    if (!currentApp) {
       return this.setState({
-        libraryStatus: [...updatedLibraryStatus, { ...currentApp }]
+        libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
       })
     }
 
-    if (
-      currentApp &&
-      currentApp.status === 'installing' &&
-      status === 'error'
-    ) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-
-      this.setState({
-        libraryStatus: updatedLibraryStatus
-      })
-      return this.refreshLibrary({})
-    }
-
-    if (currentApp && currentApp.status === 'installing' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-
-      this.setState({
-        libraryStatus: updatedLibraryStatus
-      })
-
-      // This waits for backend to synchronize installed games (GOG)
-      setTimeout(() => {
-        this.refreshLibrary({})
-      }, 500)
+    // if the app's status didn't change, do nothing
+    if (currentApp.status === status) {
       return
     }
 
-    if (currentApp && currentApp.status === 'updating' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      const updatedGamesUpdates = gameUpdates.filter((game) => game !== appName)
-      this.setState({
-        filter: 'installed',
-        gameUpdates: updatedGamesUpdates,
-        libraryStatus: updatedLibraryStatus
-      })
+    const newLibraryStatus = libraryStatus.filter(
+      (game) => game.appName !== appName
+    )
 
-      // This avoids calling legendary again before the previous process is killed when canceling
-      setTimeout(() => {
-        return this.refreshLibrary({ checkForUpdates: true })
-      }, 2000)
+    // if the app was installing and errored, remove it
+    if (currentApp.status === 'installing' && status === 'error') {
+      await this.refresh()
+      return this.setState({ libraryStatus: newLibraryStatus })
     }
 
-    if (currentApp && currentApp.status === 'repairing' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({
-        filter: 'installed',
-        libraryStatus: updatedLibraryStatus
-      })
-
-      return this.refresh()
-    }
-
-    if (
-      currentApp &&
-      currentApp.status === 'uninstalling' &&
-      status === 'done'
-    ) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({ libraryStatus: updatedLibraryStatus })
-      ipcRenderer.send('removeShortcut', appName, runner)
-
-      return this.refreshLibrary({})
-    }
-
-    if (currentApp && currentApp.status === 'moving' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({
-        filter: 'installed',
-        libraryStatus: updatedLibraryStatus
-      })
-
-      return this.refresh()
-    }
-
+    // if the app is done installing
     if (status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      return this.setState({ libraryStatus: updatedLibraryStatus })
-    }
+      // if the app was updating, remove from the available game updates
+      if (currentApp.status === 'updating') {
+        const updatedGamesUpdates = gameUpdates.filter(
+          (game) => game !== appName
+        )
+        // This avoids calling legendary again before the previous process is killed when canceling
+        await this.refreshLibrary({
+          checkForUpdates: true,
+          runInBackground: true
+        })
 
-    return this.setState({
-      libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
-    })
+        return this.setState({
+          gameUpdates: updatedGamesUpdates,
+          libraryStatus: newLibraryStatus
+        })
+      }
+
+      // if the app was uninstalling, remove shortcuts
+      if (currentApp.status === 'uninstalling') {
+        ipcRenderer.send('removeShortcut', appName, runner)
+      }
+
+      await this.refreshLibrary({ runInBackground: true })
+      return this.setState({ libraryStatus: newLibraryStatus })
+    }
   }
 
   async componentDidMount() {
