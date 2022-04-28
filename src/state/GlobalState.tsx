@@ -262,8 +262,7 @@ export class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
-    progress,
-    runner
+    progress
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
     const currentApp = libraryStatus.filter(
@@ -303,11 +302,6 @@ export class GlobalState extends PureComponent<Props> {
           gameUpdates: updatedGamesUpdates,
           libraryStatus: newLibraryStatus
         })
-      }
-
-      // if the app was uninstalling, remove shortcuts
-      if (currentApp.status === 'uninstalling') {
-        ipcRenderer.send('removeShortcut', appName, runner)
       }
 
       await this.setState({ libraryStatus: newLibraryStatus })
