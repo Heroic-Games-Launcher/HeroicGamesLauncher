@@ -24,7 +24,7 @@
 
 .wineManagerListItem {
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr min-content;
   grid-template-areas: 'name date size action';
   height: 8vh;
   margin: 1em 3em;
@@ -32,7 +32,6 @@
   justify-items: baseline;
   position: relative;
   cursor: default;
-  width: 95%;
   place-self: center;
   border-bottom: 1px solid gray;
 }
@@ -54,11 +53,10 @@
 .wineManagerListItem > .icons {
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: space-around;
-  width: 120px;
+  align-items: flex-end;
   height: 100%;
-  padding: 0 6px;
+  padding: 0 1rem;
 }
 
 .wineManagerListItem > .progress {
