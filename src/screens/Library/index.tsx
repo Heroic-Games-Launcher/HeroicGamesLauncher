@@ -34,6 +34,7 @@ export default function Library(): JSX.Element {
     runner: 'legendary' as Runner
   })
   const [sortAscending, setSortAscending] = useState(true)
+  const [sortInstalled, setSortInstalled] = useState(true)
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
@@ -71,7 +72,9 @@ export default function Library(): JSX.Element {
         {getLibraryTitle(category, filter, t)}
         <ActionIcons
           sortAscending={sortAscending}
-          handleClick={() => setSortAscending(!sortAscending)}
+          setSortAscending={() => setSortAscending(!sortAscending)}
+          sortInstalled={sortInstalled}
+          setSortinstalled={() => setSortInstalled(!sortInstalled)}
         />
       </div>
     )
@@ -98,13 +101,20 @@ export default function Library(): JSX.Element {
       return sortAscending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
     })
     .sort((g1, g2) => {
-      if (g1.is_installed) return -1
+      if (sortInstalled) {
+        if (g1.is_installed) return -1
+        if (g2.is_installed) return 1
 
-      if (g2.is_installed) return 1
+        if (installing.includes(g1.app_name)) return -1
+
+        return 1
+      }
+      if (g1.is_installed) return 1
+      if (g2.is_installed) return -1
 
       if (installing.includes(g1.app_name)) return -1
 
-      return 1
+      return -1
     })
 
   const showRecentGames = !!recentGames.length && category !== 'unreal'
