@@ -293,7 +293,7 @@ export class GlobalState extends PureComponent<Props> {
           (game) => game !== appName
         )
         // This avoids calling legendary again before the previous process is killed when canceling
-        await this.refreshLibrary({
+        this.refreshLibrary({
           checkForUpdates: true,
           runInBackground: true
         })
@@ -304,8 +304,8 @@ export class GlobalState extends PureComponent<Props> {
         })
       }
 
-      await this.setState({ libraryStatus: newLibraryStatus })
-      await this.refreshLibrary({ runInBackground: true })
+      this.refreshLibrary({ runInBackground: true })
+      this.setState({ libraryStatus: newLibraryStatus })
     }
   }
 
