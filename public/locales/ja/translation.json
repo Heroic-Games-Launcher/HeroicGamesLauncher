@@ -99,7 +99,7 @@
         "yes": "はい"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Login",
         "sync": "同期",
         "syncing": "同期しています",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "設定は自動的に保存されます"
     },
     "infobox": {

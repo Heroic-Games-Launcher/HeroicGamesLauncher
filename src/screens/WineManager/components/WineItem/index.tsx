@@ -118,40 +118,46 @@ const WineItem = ({
     return status
   }
 
+  // using one element for the different states so it doesn't
+  // lose focus from the button when using a game controller
+  const handleMainActionClick = () => {
+    if (isInstalled) {
+      remove()
+    } else if (isDownloading || unZipping) {
+      ipcRenderer.send('abortWineInstallation', version)
+    } else {
+      install()
+    }
+  }
+
+  const mainActionIcon = () => {
+    if (isInstalled || isDownloading || unZipping) {
+      return <StopIcon />
+    } else {
+      return <DownIcon className="downIcon" />
+    }
+  }
+
   return (
-    <>
-      <div className="wineManagerListItem">
-        <span className="wineManagerTitleList">{version}</span>
-        <div className="wineManagerListDate">{date}</div>
-        <div className="wineManagerListSize">{renderStatus()}</div>
-        <span className="icons">
-          {!isInstalled && !isDownloading && !unZipping && (
-            <DownIcon className="downIcon" onClick={() => install()} />
-          )}
-          {(isDownloading || unZipping) && (
-            <StopIcon
-              onClick={() => ipcRenderer.send('abortWineInstallation', version)}
-            />
-          )}
-          {isInstalled && (
-            <>
-              <SvgButton
-                className="material-icons settings folder"
-                onClick={() => openInstallDir()}
-              >
-                <FolderOpen data-testid="setinstallpathbutton" />
-              </SvgButton>
-              <SvgButton
-                className="material-icons settings folder"
-                onClick={() => openInstallDir()}
-              >
-                <StopIcon onClick={() => remove()} />
-              </SvgButton>
-            </>
-          )}
-        </span>
-      </div>
-    </>
+    <div className="wineManagerListItem">
+      <span className="wineManagerTitleList">{version}</span>
+      <div className="wineManagerListDate">{date}</div>
+      <div className="wineManagerListSize">{renderStatus()}</div>
+      <span className="icons">
+        {isInstalled && (
+          <SvgButton
+            className="material-icons settings folder"
+            onClick={() => openInstallDir()}
+          >
+            <FolderOpen data-testid="setinstallpathbutton" />
+          </SvgButton>
+        )}
+
+        <SvgButton onClick={handleMainActionClick}>
+          {mainActionIcon()}
+        </SvgButton>
+      </span>
+    </div>
   )
 }
 

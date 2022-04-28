@@ -99,7 +99,7 @@
         "yes": "ТАК"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Увійти",
         "sync": "Синхронізувати",
         "syncing": "Синхронізую",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Налаштування збережені автоматично"
     },
     "infobox": {

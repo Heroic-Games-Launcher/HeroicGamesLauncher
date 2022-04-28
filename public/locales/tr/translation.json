@@ -99,7 +99,7 @@
         "yes": "EVET"
     },
     "button": {
-        "continue": "Devam et",
+        "go_to_library": "Go to Library",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
@@ -141,6 +141,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Ayarlar otomatik kaydedilir"
     },
     "infobox": {

@@ -700,8 +700,10 @@ if (existsSync(installed)) {
 }
 
 ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
-  await GOGLibrary.get().sync()
-  return await LegendaryLibrary.get().getGames('info', fullRefresh)
+  await Promise.allSettled([
+    GOGLibrary.get().sync(),
+    LegendaryLibrary.get().getGames('info', fullRefresh)
+  ])
 })
 
 ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
@@ -744,7 +746,9 @@ ipcMain.handle(
     logInfo([`launching`, title, game], LogPrefix.Backend)
 
     if (recentGames.length) {
-      let updatedRecentGames = recentGames.filter((a) => a.appName !== game)
+      let updatedRecentGames = recentGames.filter(
+        (a) => a.appName && a.appName !== game
+      )
       if (updatedRecentGames.length > MAX_RECENT_GAMES) {
         const newArr = []
         for (let i = 0; i <= MAX_RECENT_GAMES; i++) {
@@ -758,7 +762,7 @@ ipcMain.handle(
       updatedRecentGames.unshift({ appName: game, title })
       configStore.set('games.recent', updatedRecentGames)
     } else {
-      configStore.set('games.recent', [{ game, title: title }])
+      configStore.set('games.recent', [{ appName: game, title }])
     }
 
     if (minimizeOnLaunch) {
