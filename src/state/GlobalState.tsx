@@ -286,14 +286,8 @@ export class GlobalState extends PureComponent<Props> {
       (game) => game.appName !== appName
     )
 
-    // if the app was installing and errored, remove it
-    if (currentApp.status === 'installing' && status === 'error') {
-      await this.refresh()
-      return this.setState({ libraryStatus: newLibraryStatus })
-    }
-
-    // if the app is done installing
-    if (status === 'done') {
+    // if the app is done installing or errored
+    if (['error', 'done'].includes(status)) {
       // if the app was updating, remove from the available game updates
       if (currentApp.status === 'updating') {
         const updatedGamesUpdates = gameUpdates.filter(
@@ -316,8 +310,8 @@ export class GlobalState extends PureComponent<Props> {
         ipcRenderer.send('removeShortcut', appName, runner)
       }
 
+      await this.setState({ libraryStatus: newLibraryStatus })
       await this.refreshLibrary({ runInBackground: true })
-      return this.setState({ libraryStatus: newLibraryStatus })
     }
   }
 
