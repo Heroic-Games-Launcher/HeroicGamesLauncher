@@ -33,6 +33,7 @@ export default function Library(): JSX.Element {
     show: false,
     runner: 'legendary' as Runner
   })
+  const [sortAscending, setSortAscending] = useState(true)
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
@@ -68,7 +69,10 @@ export default function Library(): JSX.Element {
     return (
       <div className="titleWithIcons">
         {getLibraryTitle(category, filter, t)}
-        <ActionIcons />
+        <ActionIcons
+          sortAscending={sortAscending}
+          handleClick={() => setSortAscending(!sortAscending)}
+        />
       </div>
     )
   }
@@ -87,15 +91,21 @@ export default function Library(): JSX.Element {
   // select library and sort
   let libraryToShow = category === 'epic' ? epicLibrary : gogLibrary
 
-  libraryToShow = libraryToShow.sort((g1, g2) => {
-    if (g1.is_installed) return -1
+  libraryToShow = libraryToShow
+    .sort((a: { title: string }, b: { title: string }) => {
+      const gameA = a.title.toUpperCase().replace('THE ', '')
+      const gameB = b.title.toUpperCase().replace('THE ', '')
+      return sortAscending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
+    })
+    .sort((g1, g2) => {
+      if (g1.is_installed) return -1
 
-    if (g2.is_installed) return 1
+      if (g2.is_installed) return 1
 
-    if (installing.includes(g1.app_name)) return -1
+      if (installing.includes(g1.app_name)) return -1
 
-    return 1
-  })
+      return 1
+    })
 
   const showRecentGames = !!recentGames.length && category !== 'unreal'
 

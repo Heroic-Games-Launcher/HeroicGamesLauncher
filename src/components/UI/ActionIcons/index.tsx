@@ -1,7 +1,9 @@
 import {
   faBorderAll,
   faList,
-  faSyncAlt
+  faSyncAlt,
+  faArrowDownAZ,
+  faArrowDownZA
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +14,12 @@ import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
 
-export default function ActionIcons() {
+interface Props {
+  sortAscending: boolean
+  handleClick: () => void
+}
+
+export default function ActionIcons({ sortAscending, handleClick }: Props) {
   const { t } = useTranslation()
   const { refreshLibrary, handleLayout, layout } = useContext(ContextProvider)
   return (
@@ -36,6 +43,16 @@ export default function ActionIcons() {
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={faList}
+          />
+        </button>
+        <button
+          className={cx('FormControl__button', 'active')}
+          title={t('library.listView')}
+          onClick={() => handleClick()}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={sortAscending ? faArrowDownAZ : faArrowDownZA}
           />
         </button>
         <button
