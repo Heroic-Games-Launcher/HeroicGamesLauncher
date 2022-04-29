@@ -6,10 +6,10 @@ import Sidebar from 'src/components/UI/Sidebar'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
 
-const Library = lazy(() => import('./screens/Library'))
-const Settings = lazy(() => import('./screens/Settings'))
-const GamePage = lazy(() => import('./screens/Game/GamePage'))
-const WineManager = lazy(() => import('./screens/WineManager'))
+const Library = lazy(async () => import('./screens/Library'))
+const Settings = lazy(async () => import('./screens/Settings'))
+const GamePage = lazy(async () => import('./screens/Game/GamePage'))
+const WineManager = lazy(async () => import('./screens/WineManager'))
 
 function App() {
   return (

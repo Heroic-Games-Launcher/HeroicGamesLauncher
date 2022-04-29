@@ -180,7 +180,7 @@ export const DXVK = {
 }
 
 export const Winetricks = {
-  download: () => {
+  download: async () => {
     const url =
       'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
     const path = `${heroicToolsPath}/winetricks`

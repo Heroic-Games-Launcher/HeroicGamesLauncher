@@ -41,7 +41,7 @@ export default function ActionIcons() {
         <button
           className="FormControl__button"
           title={t('library.refresh')}
-          onClick={() =>
+          onClick={async () =>
             refreshLibrary({
               checkForUpdates: true,
               fullRefresh: true,

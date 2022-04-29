@@ -13,7 +13,7 @@ import { GamesList } from './components/GamesList'
 import { Runner } from 'src/types'
 
 const InstallModal = lazy(
-  () => import('src/screens/Library/components/InstallModal')
+  async () => import('src/screens/Library/components/InstallModal')
 )
 
 export default function Library(): JSX.Element {

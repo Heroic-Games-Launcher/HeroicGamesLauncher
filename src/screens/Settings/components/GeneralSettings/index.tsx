@@ -91,7 +91,7 @@ export default function GeneralSettings({
   async function handleSync() {
     setIsSyncing(true)
     if (isLinked) {
-      return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
+      return ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await ipcRenderer.invoke('openMessageBox', {
           message: t('message.unsync'),
           title: 'EGS Sync'
@@ -103,7 +103,7 @@ export default function GeneralSettings({
       })
     }
 
-    return await ipcRenderer
+    return ipcRenderer
       .invoke('egsSync', egsPath)
       .then(async (res: string) => {
         if (res === 'Error') {
@@ -181,7 +181,7 @@ export default function GeneralSettings({
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
           <SvgButton
-            onClick={() =>
+            onClick={async () =>
               ipcRenderer
                 .invoke('openDialog', {
                   buttonLabel: t('box.choose'),
@@ -240,7 +240,7 @@ export default function GeneralSettings({
             )}
             <button
               data-testid="syncButton"
-              onClick={() => handleSync()}
+              onClick={async () => handleSync()}
               disabled={isSyncing || !egsPath.length}
               className={`button is-small ${
                 isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'

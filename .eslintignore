@@ -2,3 +2,4 @@ public/start-react.js
 i18next-parser.config.js
 flatpak/build/
 flatpak/.flatpak-builder/
+**/__tests__/**

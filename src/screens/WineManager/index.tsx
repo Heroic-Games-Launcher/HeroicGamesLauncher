@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { UpdateComponent } from 'src/components/UI'
 
 const WineItem = lazy(
-  () => import('src/screens/WineManager/components/WineItem')
+  async () => import('src/screens/WineManager/components/WineItem')
 )
 
 export default function WineManager(): JSX.Element | null {

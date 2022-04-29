@@ -76,7 +76,7 @@ export default function SyncSaves({
       Upload: '--skip-download'
     }
 
-    await syncSaves(savesPath, appName, command[syncType]).then((res: string) =>
+    await syncSaves(savesPath, appName, command[syncType]).then(async (res: string) =>
       ipcRenderer.invoke('openMessageBox', {
         message: res,
         title: 'Saves Sync'
@@ -104,7 +104,7 @@ export default function SyncSaves({
           {!isLinked ? (
             <SvgButton
               className="material-icons settings folder"
-              onClick={() =>
+              onClick={async () =>
                 ipcRenderer
                   .invoke('openDialog', {
                     buttonLabel: t('box.sync.button'),
@@ -156,7 +156,7 @@ export default function SyncSaves({
           </select>
           <button
             data-testid="setSync"
-            onClick={() => handleSync()}
+            onClick={async () => handleSync()}
             disabled={isSyncing || !savesPath.length}
             className={`button is-small ${
               isSyncing ? 'is-primary' : 'settings'

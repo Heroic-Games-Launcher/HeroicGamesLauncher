@@ -321,7 +321,7 @@ export class GlobalState extends PureComponent<Props> {
       })
 
       // This avoids calling legendary again before the previous process is killed when canceling
-      setTimeout(() => {
+      setTimeout(async () => {
         return this.refreshLibrary({ checkForUpdates: true })
       }, 2000)
     }

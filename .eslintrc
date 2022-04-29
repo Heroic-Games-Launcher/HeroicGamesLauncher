@@ -17,18 +17,31 @@
       "jsx": true
     },
     "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["./tsconfig.json", "./electron/tsconfig.json"]
   },
   "plugins": ["react", "@typescript-eslint"],
   "settings": {
     "react": {
-      "version": "17.0"
+      "version": "detect"
     }
   },
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "error",
+    "no-return-await": "off",
+    "@typescript-eslint/return-await": "warn",
+    "@typescript-eslint/promise-function-async": [
+      "error",
+      {
+        "allowedPromiseNames": ["Thenable"],
+        "checkArrowFunctions": true,
+        "checkFunctionDeclarations": true,
+        "checkFunctionExpressions": true,
+        "checkMethodDeclarations": true
+      }
+    ],
     "complexity": "off",
     "quotes": [
       "error",

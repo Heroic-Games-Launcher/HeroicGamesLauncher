@@ -280,7 +280,7 @@ export class LegendaryLibrary {
       await Promise.allSettled(
         (await this.listUpdateableGames())
           .map(LegendaryGame.get)
-          .map((game) => game.update())
+          .map(async (game) => game.update())
       )
     ).map((res) => {
       if (res.status === 'fulfilled') {

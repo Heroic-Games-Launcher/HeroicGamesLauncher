@@ -145,7 +145,7 @@ const GameCard = ({
     }
     if (hasUpdate) {
       return (
-        <SvgButton onClick={() => handleUpdate()}>
+        <SvgButton onClick={async () => handleUpdate()}>
           <FontAwesomeIcon size={'2x'} icon={faRepeat} />
         </SvgButton>
       )
@@ -157,21 +157,21 @@ const GameCard = ({
   const renderIcon = () => {
     if (isPlaying) {
       return (
-        <SvgButton onClick={() => handlePlay(runner)}>
+        <SvgButton onClick={async () => handlePlay(runner)}>
           <StopIconAlt className="cancelIcon" />
         </SvgButton>
       )
     }
     if (isInstalling) {
       return (
-        <SvgButton onClick={() => handlePlay(runner)}>
+        <SvgButton onClick={async () => handlePlay(runner)}>
           <StopIcon />
         </SvgButton>
       )
     }
     if (isInstalled && isGame) {
       return (
-        <SvgButton className="playButton" onClick={() => handlePlay(runner)}>
+        <SvgButton className="playButton" onClick={async () => handlePlay(runner)}>
           <PlayIcon className="playIcon" />
         </SvgButton>
       )
@@ -233,7 +233,7 @@ const GameCard = ({
   const items: Item[] = [
     {
       label: t('label.playing.start'),
-      onclick: () => handlePlay(runner),
+      onclick: async () => handlePlay(runner),
       show: isInstalled
     },
     {
@@ -253,12 +253,12 @@ const GameCard = ({
     },
     {
       label: t('button.update', 'Update'),
-      onclick: () => handleUpdate(),
+      onclick: async () => handleUpdate(),
       show: hasUpdate
     },
     {
       label: t('button.uninstall'),
-      onclick: () =>
+      onclick: async () =>
         uninstall({
           appName,
           handleGameStatus,
@@ -274,7 +274,7 @@ const GameCard = ({
     },
     {
       label: t('button.cancel'),
-      onclick: () => handlePlay(runner),
+      onclick: async () => handlePlay(runner),
       show: isInstalling
     },
     {
@@ -347,7 +347,7 @@ const GameCard = ({
 
   async function handlePlay(runner: Runner) {
     if (!isInstalled) {
-      return await install({
+      return install({
         appName,
         handleGameStatus,
         installPath: folder || 'default',
@@ -363,7 +363,7 @@ const GameCard = ({
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return await launch({ appName, t, runner })
+      return launch({ appName, t, runner })
     }
     return
   }
