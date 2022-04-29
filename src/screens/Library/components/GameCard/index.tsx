@@ -108,12 +108,7 @@ const GameCard = ({
     ? `${125 - getProgress(progress)}%`
     : '100%'
 
-  const instClass = isInstalled ? 'installed' : ''
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
   const imageSrc = getImageFormatting()
-
-  const wrapperClasses = `${grid ? 'gameCard' : 'gameListItem'}  ${instClass}`
 
   async function handleUpdate() {
     await handleGameStatus({ appName, runner, status: 'updating' })
@@ -288,6 +283,15 @@ const GameCard = ({
       show: isHiddenGame
     }
   ]
+
+  const instClass = isInstalled ? 'installed' : ''
+  const hiddenClass = isHiddenGame ? 'hidden' : ''
+  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
+  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
+
+  const wrapperClasses = `${
+    grid ? 'gameCard' : 'gameListItem'
+  }  ${instClass} ${hiddenClass}`
 
   return (
     <>
