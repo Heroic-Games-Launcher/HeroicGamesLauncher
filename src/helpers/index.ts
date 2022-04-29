@@ -12,8 +12,7 @@ const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
 
-const readFile = async (file: string) =>
-  ipcRenderer.invoke('readConfig', file)
+const readFile = async (file: string) => ipcRenderer.invoke('readConfig', file)
 
 const writeConfig = async (
   data: [appName: string, x: unknown]
@@ -41,8 +40,7 @@ let progress: string
 const sendKill = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('kill', appName, runner)
 
-const isLoggedIn = async (): Promise<void> =>
-  ipcRenderer.invoke('isLoggedIn')
+const isLoggedIn = async (): Promise<void> => ipcRenderer.invoke('isLoggedIn')
 
 const syncSaves = async (
   savesPath: string,

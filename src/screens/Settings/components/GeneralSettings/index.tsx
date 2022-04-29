@@ -103,28 +103,26 @@ export default function GeneralSettings({
       })
     }
 
-    return ipcRenderer
-      .invoke('egsSync', egsPath)
-      .then(async (res: string) => {
-        if (res === 'Error') {
-          setIsSyncing(false)
-          ipcRenderer.invoke('showErrorBox', [
-            t('box.error.title', 'Error'),
-            t('box.sync.error')
-          ])
-          setEgsLinkedPath('')
-          setEgsPath('')
-          return
-        }
-        await ipcRenderer.invoke('openMessageBox', {
-          message: t('message.sync'),
-          title: 'EGS Sync'
-        })
-
+    return ipcRenderer.invoke('egsSync', egsPath).then(async (res: string) => {
+      if (res === 'Error') {
         setIsSyncing(false)
-        setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
+        ipcRenderer.invoke('showErrorBox', [
+          t('box.error.title', 'Error'),
+          t('box.sync.error')
+        ])
+        setEgsLinkedPath('')
+        setEgsPath('')
+        return
+      }
+      await ipcRenderer.invoke('openMessageBox', {
+        message: t('message.sync'),
+        title: 'EGS Sync'
       })
+
+      setIsSyncing(false)
+      setEgsLinkedPath(isWindows ? 'windows' : egsPath)
+      refreshLibrary({ fullRefresh: true, runInBackground: false })
+    })
   }
 
   function handleEgsFolder() {

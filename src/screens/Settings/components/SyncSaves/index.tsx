@@ -76,11 +76,12 @@ export default function SyncSaves({
       Upload: '--skip-download'
     }
 
-    await syncSaves(savesPath, appName, command[syncType]).then(async (res: string) =>
-      ipcRenderer.invoke('openMessageBox', {
-        message: res,
-        title: 'Saves Sync'
-      })
+    await syncSaves(savesPath, appName, command[syncType]).then(
+      async (res: string) =>
+        ipcRenderer.invoke('openMessageBox', {
+          message: res,
+          title: 'Saves Sync'
+        })
     )
     setIsSyncing(false)
   }

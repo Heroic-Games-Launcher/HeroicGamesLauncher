@@ -171,7 +171,10 @@ const GameCard = ({
     }
     if (isInstalled && isGame) {
       return (
-        <SvgButton className="playButton" onClick={async () => handlePlay(runner)}>
+        <SvgButton
+          className="playButton"
+          onClick={async () => handlePlay(runner)}
+        >
           <PlayIcon className="playIcon" />
         </SvgButton>
       )
