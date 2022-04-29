@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Path } from 'src/types'
+import { LibraryTopSectionOptions, Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, SvgButton } from 'src/components/UI'
@@ -70,7 +70,13 @@ export default function GeneralSettings({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const { platform, refreshLibrary, isRTL } = useContext(ContextProvider)
+  const {
+    platform,
+    refreshLibrary,
+    isRTL,
+    libraryTopSection,
+    handleLibraryTopSection
+  } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
@@ -386,6 +392,29 @@ export default function GeneralSettings({
           </select>
           <span>{t('setting.maxworkers')}</span>
         </label>
+      </span>
+
+      <span className="setting" data-testid="generalSettings">
+        <label
+          className={classNames('settingText', { isRTL: isRTL })}
+          htmlFor="library_top_section_selector"
+        >
+          {t('setting.library_top_section', 'Library Top Section')}
+        </label>
+        <select
+          id="library_top_section_selector"
+          onChange={(event) =>
+            handleLibraryTopSection(
+              event.target.value as LibraryTopSectionOptions
+            )
+          }
+          value={libraryTopSection}
+          className="settingSelect is-drop-down"
+        >
+          <option value="disabled">Disabled</option>
+          <option value="recently_played">Recently Played Games</option>
+          <option value="favourites">Favourite Games</option>
+        </select>
       </span>
     </>
   )

@@ -67,6 +67,8 @@ export interface ContextType {
   handleSearch: (input: string) => void
   layout: string
   libraryStatus: GameStatus[]
+  libraryTopSection: string
+  handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
@@ -77,9 +79,19 @@ export interface ContextType {
     add: (appNameToHide: string, appTitle: string) => void
     remove: (appNameToUnhide: string) => void
   }
+  favouriteGames: {
+    list: HiddenGame[]
+    add: (appNameToAdd: string, appTitle: string) => void
+    remove: (appNameToRemove: string) => void
+  }
   showHidden: boolean
   setShowHidden: (value: boolean) => void
 }
+
+export type LibraryTopSectionOptions =
+  | 'disabled'
+  | 'recently_played'
+  | 'favourites'
 
 interface ExtraInfo {
   about: About
@@ -116,6 +128,8 @@ export interface HiddenGame {
   appName: string
   title: string
 }
+
+export type FavouriteGame = HiddenGame
 
 export interface GameSettings {
   audioFix: boolean

@@ -75,8 +75,14 @@ const GameCard = ({
 
   const { t } = useTranslation('gamepage')
 
-  const { libraryStatus, layout, handleGameStatus, platform, hiddenGames } =
-    useContext(ContextProvider)
+  const {
+    libraryStatus,
+    layout,
+    handleGameStatus,
+    platform,
+    hiddenGames,
+    favouriteGames
+  } = useContext(ContextProvider)
   const history = useHistory()
   const isWin = platform === 'win32'
 
@@ -221,6 +227,7 @@ const GameCard = ({
   }, [isInstalling, appName])
 
   const [isHiddenGame, setIsHiddenGame] = useState(false)
+  const [isFavouriteGame, setIsFavouriteGame] = useState(false)
 
   useEffect(() => {
     const found = !!hiddenGames.list.find(
@@ -229,6 +236,14 @@ const GameCard = ({
 
     setIsHiddenGame(found)
   }, [hiddenGames, appName])
+
+  useEffect(() => {
+    const found = !!favouriteGames.list.find(
+      (favouriteGame) => favouriteGame.appName === appName
+    )
+
+    setIsFavouriteGame(found)
+  }, [favouriteGames, appName])
 
   const items: Item[] = [
     {
@@ -286,6 +301,16 @@ const GameCard = ({
       label: t('button.unhide_game', 'Unhide Game'),
       onclick: () => hiddenGames.remove(appName),
       show: isHiddenGame
+    },
+    {
+      label: t('button.add_to_favourites', 'Add To Favourites'),
+      onclick: () => favouriteGames.add(appName, title),
+      show: !isFavouriteGame
+    },
+    {
+      label: t('button.remove_from_favourites', 'Remove From Favourites'),
+      onclick: () => favouriteGames.remove(appName),
+      show: isFavouriteGame
     }
   ]
 
